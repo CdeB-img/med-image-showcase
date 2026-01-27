@@ -121,6 +121,7 @@ const ProjectDetail = () => {
               <SliceViewer
                 nativeSlices={project.nativeSlices}
                 processedSlices={project.processedSlices}
+                useSliderOverlay={project.useSliderOverlay}
                 className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-4"
               />
             </div>

@@ -1,18 +1,22 @@
 import { useState, useCallback, useEffect } from "react";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Columns2, Layers, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface SliceViewerProps {
   nativeSlices: string[];
   processedSlices: string[];
+  useSliderOverlay?: boolean;
   className?: string;
 }
 
-const SliceViewer = ({ nativeSlices, processedSlices, className = "" }: SliceViewerProps) => {
+const SliceViewer = ({ 
+  nativeSlices, 
+  processedSlices, 
+  useSliderOverlay = false,
+  className = "" 
+}: SliceViewerProps) => {
   const [currentSlice, setCurrentSlice] = useState(0);
-  const [viewMode, setViewMode] = useState<"side-by-side" | "overlay">("side-by-side");
   const [overlayPosition, setOverlayPosition] = useState(50);
   const sliceCount = nativeSlices.length;
 
@@ -49,60 +53,19 @@ const SliceViewer = ({ nativeSlices, processedSlices, className = "" }: SliceVie
 
   return (
     <div className={`space-y-4 ${className}`}>
-      {/* View mode toggle */}
-      <div className="flex justify-center">
-        <Tabs value={viewMode} onValueChange={(v) => setViewMode(v as typeof viewMode)}>
-          <TabsList className="bg-secondary/50">
-            <TabsTrigger value="side-by-side" className="gap-2">
-              <Columns2 className="w-4 h-4" />
-              Côte à côte
-            </TabsTrigger>
-            <TabsTrigger value="overlay" className="gap-2">
-              <Layers className="w-4 h-4" />
-              Superposition
-            </TabsTrigger>
-          </TabsList>
-        </Tabs>
-      </div>
-
       {/* Image viewer */}
       <div className="relative bg-surface rounded-lg overflow-hidden border border-border">
-        {viewMode === "side-by-side" ? (
-          <div className="grid grid-cols-2 gap-px bg-border">
-            {/* Native image */}
-            <div className="relative bg-surface aspect-square">
-              <div className="absolute top-2 left-2 px-2 py-1 text-xs font-mono bg-background/80 backdrop-blur-sm rounded z-10">
-                Image native
-              </div>
-              <img
-                src={nativeSlices[currentSlice]}
-                alt={`Native slice ${currentSlice + 1}`}
-                className="w-full h-full object-contain"
-              />
-            </div>
-            
-            {/* Processed image */}
-            <div className="relative bg-surface aspect-square">
-              <div className="absolute top-2 right-2 px-2 py-1 text-xs font-mono bg-primary/20 text-primary backdrop-blur-sm rounded z-10">
-                Production
-              </div>
-              <img
-                src={processedSlices[currentSlice]}
-                alt={`Processed slice ${currentSlice + 1}`}
-                className="w-full h-full object-contain"
-              />
-            </div>
-          </div>
-        ) : (
-          <div className="relative aspect-video md:aspect-[4/3]">
-            {/* Base layer (processed) */}
+        {useSliderOverlay ? (
+          // Slider overlay mode for registration projects
+          <div className="relative aspect-square">
+            {/* Base layer (processed/CT) */}
             <img
               src={processedSlices[currentSlice]}
               alt={`Processed slice ${currentSlice + 1}`}
-              className="absolute inset-0 w-full h-full object-contain"
+              className="absolute inset-0 w-full h-full object-contain bg-black"
             />
             
-            {/* Overlay layer (native) with clip */}
+            {/* Overlay layer (native/IRM) with clip */}
             <div
               className="absolute inset-0 overflow-hidden"
               style={{ clipPath: `inset(0 ${100 - overlayPosition}% 0 0)` }}
@@ -110,7 +73,7 @@ const SliceViewer = ({ nativeSlices, processedSlices, className = "" }: SliceVie
               <img
                 src={nativeSlices[currentSlice]}
                 alt={`Native slice ${currentSlice + 1}`}
-                className="w-full h-full object-contain"
+                className="w-full h-full object-contain bg-black"
               />
             </div>
 
@@ -127,18 +90,55 @@ const SliceViewer = ({ nativeSlices, processedSlices, className = "" }: SliceVie
 
             {/* Labels */}
             <div className="absolute top-2 left-2 px-2 py-1 text-xs font-mono bg-background/80 backdrop-blur-sm rounded">
-              Native
+              IRM Diffusion
             </div>
             <div className="absolute top-2 right-2 px-2 py-1 text-xs font-mono bg-primary/20 text-primary backdrop-blur-sm rounded">
-              Production
+              Scanner
+            </div>
+          </div>
+        ) : (
+          // Side by side mode with mask overlay on native
+          <div className="grid grid-cols-2 gap-px bg-border">
+            {/* Native image */}
+            <div className="relative bg-black aspect-square">
+              <div className="absolute top-2 left-2 px-2 py-1 text-xs font-mono bg-background/80 backdrop-blur-sm rounded z-10">
+                Image native
+              </div>
+              <img
+                src={nativeSlices[currentSlice]}
+                alt={`Native slice ${currentSlice + 1}`}
+                className="w-full h-full object-contain"
+              />
+            </div>
+            
+            {/* Native + Mask overlay */}
+            <div className="relative bg-black aspect-square">
+              <div className="absolute top-2 right-2 px-2 py-1 text-xs font-mono bg-primary/20 text-primary backdrop-blur-sm rounded z-10">
+                Masque
+              </div>
+              {/* Native as base */}
+              <img
+                src={nativeSlices[currentSlice]}
+                alt={`Native slice ${currentSlice + 1}`}
+                className="absolute inset-0 w-full h-full object-contain"
+              />
+              {/* Mask overlay with color blend */}
+              <img
+                src={processedSlices[currentSlice]}
+                alt={`Mask slice ${currentSlice + 1}`}
+                className="absolute inset-0 w-full h-full object-contain mix-blend-screen opacity-80"
+              />
             </div>
           </div>
         )}
       </div>
 
-      {/* Overlay slider (only in overlay mode) */}
-      {viewMode === "overlay" && (
+      {/* Overlay slider (only in slider overlay mode) */}
+      {useSliderOverlay && (
         <div className="px-4">
+          <div className="text-xs text-muted-foreground text-center mb-2">
+            Déplacez le curseur pour comparer le recalage
+          </div>
           <Slider
             value={[overlayPosition]}
             onValueChange={handleOverlayChange}

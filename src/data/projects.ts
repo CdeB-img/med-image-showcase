@@ -7,10 +7,11 @@ export interface Project {
   technologies: string[];
   thumbnailUrl: string;
   sliceCount: number;
-  // In a real app, these would be arrays of image URLs
-  // For demo, we'll generate placeholder paths
   nativeSlices: string[];
   processedSlices: string[];
+  // If true, use slider overlay mode (for registration projects)
+  // If false, show mask overlaid on native image
+  useSliderOverlay?: boolean;
 }
 
 // Real projects with actual medical imaging data
@@ -48,6 +49,7 @@ export const projects: Project[] = [
     technologies: ["Python", "ANTsPy", "Elastix", "SimpleITK", "ITK"],
     thumbnailUrl: "/images/recalage_irm_ct/Diff_coreg_CT/slice_008.png",
     sliceCount: 16,
+    useSliderOverlay: true,
     nativeSlices: Array.from({ length: 16 }, (_, i) => `/images/recalage_irm_ct/Diff_coreg_CT/slice_${String(i).padStart(3, '0')}.png`),
     processedSlices: Array.from({ length: 16 }, (_, i) => `/images/recalage_irm_ct/MaxIP_(ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_MaxIP_(ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_1027000001/slice_${String(i).padStart(3, '0')}.png`),
   },
