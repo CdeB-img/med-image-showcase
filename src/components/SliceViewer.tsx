@@ -10,6 +10,20 @@ interface SliceViewerProps {
   className?: string;
 }
 
+// Fallback: if images are not present in this project's public/ folder yet,
+// load them directly from the GitHub repo raw URLs.
+const GITHUB_RAW_PUBLIC_BASE =
+  "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public";
+
+const resolvePublicImageSrc = (src?: string) => {
+  if (!src) return "";
+  // Already absolute (http/https)
+  if (/^https?:\/\//i.test(src)) return src;
+  // Our app uses public assets like /images/...
+  if (src.startsWith("/images/")) return `${GITHUB_RAW_PUBLIC_BASE}${src}`;
+  return src;
+};
+
 const SliceViewer = ({ 
   nativeSlices, 
   processedSlices, 
@@ -31,7 +45,7 @@ const SliceViewer = ({
 
     preloadImages.forEach((src) => {
       const img = new Image();
-      img.src = src;
+      img.src = resolvePublicImageSrc(src);
     });
   }, [currentSlice, nativeSlices, processedSlices]);
 
@@ -60,7 +74,7 @@ const SliceViewer = ({
           <div className="relative aspect-square">
             {/* Base layer (processed/CT) */}
             <img
-              src={processedSlices[currentSlice]}
+                src={resolvePublicImageSrc(processedSlices[currentSlice])}
               alt={`Processed slice ${currentSlice + 1}`}
               className="absolute inset-0 w-full h-full object-contain bg-black"
             />
@@ -71,7 +85,7 @@ const SliceViewer = ({
               style={{ clipPath: `inset(0 ${100 - overlayPosition}% 0 0)` }}
             >
               <img
-                src={nativeSlices[currentSlice]}
+                  src={resolvePublicImageSrc(nativeSlices[currentSlice])}
                 alt={`Native slice ${currentSlice + 1}`}
                 className="w-full h-full object-contain bg-black"
               />
@@ -105,7 +119,7 @@ const SliceViewer = ({
                 Image native
               </div>
               <img
-                src={nativeSlices[currentSlice]}
+                src={resolvePublicImageSrc(nativeSlices[currentSlice])}
                 alt={`Native slice ${currentSlice + 1}`}
                 className="w-full h-full object-contain"
               />
@@ -118,13 +132,13 @@ const SliceViewer = ({
               </div>
               {/* Native as base */}
               <img
-                src={nativeSlices[currentSlice]}
+                src={resolvePublicImageSrc(nativeSlices[currentSlice])}
                 alt={`Native slice ${currentSlice + 1}`}
                 className="absolute inset-0 w-full h-full object-contain"
               />
               {/* Mask overlay with color blend */}
               <img
-                src={processedSlices[currentSlice]}
+                src={resolvePublicImageSrc(processedSlices[currentSlice])}
                 alt={`Mask slice ${currentSlice + 1}`}
                 className="absolute inset-0 w-full h-full object-contain mix-blend-screen opacity-80"
               />
