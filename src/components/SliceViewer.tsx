@@ -10,19 +10,36 @@ interface SliceViewerProps {
   className?: string;
 }
 
-// Fallback: if images are not present in this project's public/ folder yet,
-// load them directly from the GitHub repo raw URLs.
+// Fallback to GitHub raw if local image fails
 const GITHUB_RAW_PUBLIC_BASE =
   "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public";
 
-const resolvePublicImageSrc = (src?: string) => {
-  if (!src) return "";
-  // Already absolute (http/https)
-  if (/^https?:\/\//i.test(src)) return src;
-  // Our app uses public assets like /images/...
-  if (src.startsWith("/images/")) return `${GITHUB_RAW_PUBLIC_BASE}${src}`;
-  return src;
-};
+const resolveGithubFallback = (src: string) =>
+  `${GITHUB_RAW_PUBLIC_BASE}${src}`;
+
+// Image component with automatic GitHub fallback
+const ImageWithFallback = ({ 
+  src, 
+  alt, 
+  className 
+}: { 
+  src: string; 
+  alt: string; 
+  className?: string;
+}) => (
+  <img
+    src={src}
+    alt={alt}
+    className={className}
+    onError={(e) => {
+      const img = e.currentTarget;
+      if (!img.dataset.fallback) {
+        img.dataset.fallback = "true";
+        img.src = resolveGithubFallback(src);
+      }
+    }}
+  />
+);
 
 const SliceViewer = ({ 
   nativeSlices, 
@@ -34,8 +51,16 @@ const SliceViewer = ({
   const [overlayPosition, setOverlayPosition] = useState(50);
   const sliceCount = nativeSlices.length;
 
-  // Preload adjacent images
+  // Preload adjacent images with fallback
   useEffect(() => {
+    const preload = (src: string) => {
+      const img = new Image();
+      img.onerror = () => {
+        img.src = resolveGithubFallback(src);
+      };
+      img.src = src;
+    };
+
     const preloadImages = [
       nativeSlices[currentSlice - 1],
       nativeSlices[currentSlice + 1],
@@ -43,10 +68,7 @@ const SliceViewer = ({
       processedSlices[currentSlice + 1],
     ].filter(Boolean);
 
-    preloadImages.forEach((src) => {
-      const img = new Image();
-      img.src = resolvePublicImageSrc(src);
-    });
+    preloadImages.forEach(preload);
   }, [currentSlice, nativeSlices, processedSlices]);
 
   const handleSliceChange = useCallback((value: number[]) => {
@@ -73,8 +95,8 @@ const SliceViewer = ({
           // Slider overlay mode for registration projects
           <div className="relative aspect-square">
             {/* Base layer (processed/CT) */}
-            <img
-                src={resolvePublicImageSrc(processedSlices[currentSlice])}
+            <ImageWithFallback
+              src={processedSlices[currentSlice]}
               alt={`Processed slice ${currentSlice + 1}`}
               className="absolute inset-0 w-full h-full object-contain bg-black"
             />
@@ -84,8 +106,8 @@ const SliceViewer = ({
               className="absolute inset-0 overflow-hidden"
               style={{ clipPath: `inset(0 ${100 - overlayPosition}% 0 0)` }}
             >
-              <img
-                  src={resolvePublicImageSrc(nativeSlices[currentSlice])}
+              <ImageWithFallback
+                src={nativeSlices[currentSlice]}
                 alt={`Native slice ${currentSlice + 1}`}
                 className="w-full h-full object-contain bg-black"
               />
@@ -118,8 +140,8 @@ const SliceViewer = ({
               <div className="absolute top-2 left-2 px-2 py-1 text-xs font-mono bg-background/80 backdrop-blur-sm rounded z-10">
                 Image native
               </div>
-              <img
-                src={resolvePublicImageSrc(nativeSlices[currentSlice])}
+              <ImageWithFallback
+                src={nativeSlices[currentSlice]}
                 alt={`Native slice ${currentSlice + 1}`}
                 className="w-full h-full object-contain"
               />
@@ -131,14 +153,14 @@ const SliceViewer = ({
                 Masque
               </div>
               {/* Native as base */}
-              <img
-                src={resolvePublicImageSrc(nativeSlices[currentSlice])}
+              <ImageWithFallback
+                src={nativeSlices[currentSlice]}
                 alt={`Native slice ${currentSlice + 1}`}
                 className="absolute inset-0 w-full h-full object-contain"
               />
               {/* Mask overlay with color blend */}
-              <img
-                src={resolvePublicImageSrc(processedSlices[currentSlice])}
+              <ImageWithFallback
+                src={processedSlices[currentSlice]}
                 alt={`Mask slice ${currentSlice + 1}`}
                 className="absolute inset-0 w-full h-full object-contain mix-blend-screen opacity-80"
               />
