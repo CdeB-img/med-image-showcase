@@ -70,9 +70,10 @@ const SliceViewer = React.forwardRef<HTMLDivElement, Props>(
               className={cn(
                 "absolute inset-0 w-full h-full",
                 ROTATION_CLASS,
-                "opacity-60",
-                "mix-blend-screen",
-                "filter saturate-[200%] brightness-125"
+                "opacity-50",
+                "pointer-events-none",
+                // Colorisation du masque
+                "filter invert sepia saturate-[500%] hue-rotate-[340deg] brightness-110"
               )}
             />
           </div>
