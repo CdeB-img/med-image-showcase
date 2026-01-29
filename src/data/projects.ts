@@ -16,19 +16,28 @@ export interface Project {
 
 /**
  * Base RAW GitHub du dépôt contenant les images
+ * (CdeB-img / expert-imagerie)
  */
 const RAW_BASE =
   "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
 
 /**
- * Génère slice_000.png → slice_015.png
+ * Génère une plage explicite de slices :
+ * ex: slice_006.png → slice_010.png
  */
-const slices = (relativePath: string, count = 16): string[] =>
-  Array.from({ length: count }, (_, i) =>
-    `${RAW_BASE}/${relativePath}/slice_${String(i).padStart(3, "0")}.png`
+const slicesRange = (
+  relativePath: string,
+  start: number,
+  end: number
+): string[] =>
+  Array.from({ length: end - start + 1 }, (_, i) =>
+    `${RAW_BASE}/${relativePath}/slice_${String(start + i).padStart(3, "0")}.png`
   );
 
 export const projects: Project[] = [
+  // ============================================================
+  // DIFFUSION
+  // ============================================================
   {
     id: "diffusion",
     title: "Diffusion IRM",
@@ -37,11 +46,27 @@ export const projects: Project[] = [
     modality: "IRM / CT",
     analysisType: "Segmentation",
     technologies: ["Python", "ANTsPy", "NiBabel", "NumPy", "SimpleITK"],
+
     thumbnailUrl: `${RAW_BASE}/diffusion/native/slice_008.png`,
-    sliceCount: 16,
-    nativeSlices: slices("diffusion/native"),
-    processedSlices: slices("diffusion/mask"),
+
+    sliceCount: 5,
+
+    nativeSlices: slicesRange(
+      "diffusion/native",
+      6,
+      10
+    ),
+
+    processedSlices: slicesRange(
+      "diffusion/mask",
+      6,
+      10
+    ),
   },
+
+  // ============================================================
+  // PERFUSION
+  // ============================================================
   {
     id: "perfusion",
     title: "Perfusion CT – OEF",
@@ -50,11 +75,27 @@ export const projects: Project[] = [
     modality: "CT Perfusion",
     analysisType: "Quantification",
     technologies: ["Python", "Cercare", "NumPy"],
+
     thumbnailUrl: `${RAW_BASE}/perfusion/exemple/oef/slice_008.png`,
-    sliceCount: 16,
-    nativeSlices: slices("perfusion/exemple/oef"),
-    processedSlices: slices("perfusion/exemple/MASK_TMAX6"),
+
+    sliceCount: 5,
+
+    nativeSlices: slicesRange(
+      "perfusion/exemple/oef",
+      6,
+      10
+    ),
+
+    processedSlices: slicesRange(
+      "perfusion/exemple/MASK_TMAX6",
+      6,
+      10
+    ),
   },
+
+  // ============================================================
+  // RECALAGE
+  // ============================================================
   {
     id: "recalage",
     title: "Recalage IRM / CT",
@@ -63,17 +104,36 @@ export const projects: Project[] = [
     modality: "IRM / CT",
     analysisType: "Registration",
     technologies: ["Python", "ANTsPy", "Elastix"],
+
     thumbnailUrl: `${RAW_BASE}/recalage/ct/slice_008.png`,
-    sliceCount: 16,
-    nativeSlices: slices("recalage/ct"),
-    processedSlices: slices("recalage/maxip"),
+
+    sliceCount: 5,
+
+    nativeSlices: slicesRange(
+      "recalage/ct",
+      6,
+      10
+    ),
+
+    processedSlices: slicesRange(
+      "recalage/maxip",
+      6,
+      10
+    ),
+
     useSliderOverlay: true,
   },
 ];
 
+/**
+ * Accès direct à un projet par son id
+ */
 export const getProjectById = (id: string): Project | undefined =>
   projects.find((p) => p.id === id);
 
+/**
+ * Navigation précédent / suivant
+ */
 export const getAdjacentProjects = (id: string) => {
   const idx = projects.findIndex((p) => p.id === id);
   return {
