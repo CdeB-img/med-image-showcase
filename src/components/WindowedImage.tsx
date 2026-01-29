@@ -61,8 +61,19 @@ export default function WindowedImage({ src, className }: Props) {
         let nv = (v - vmin) / range;
         nv = Math.max(0, Math.min(1, nv));
 
-        // Gamma < 1 = boost des basses/moyennes intensités
-        nv = Math.pow(nv, 0.9);
+        // ===============================
+        // Compression des hypers
+        // ===============================
+        const knee = 0.75;   // seuil à partir duquel on calme l’hyper
+        const strength = 0.6; // 0.5 = fort, 0.7 = doux
+
+        if (nv > knee) {
+        const t = (nv - knee) / (1 - knee); // 0 → 1
+        nv = knee + Math.pow(t, strength) * (1 - knee);
+        }
+
+        // Légère correction perceptuelle globale
+        nv = Math.pow(nv, 1.05);
 
         const out = Math.round(nv * 255);
 
