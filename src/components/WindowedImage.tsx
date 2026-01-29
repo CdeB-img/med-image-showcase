@@ -60,7 +60,7 @@ export default function WindowedImage({ src, className }: Props) {
 
       // Fenêtrage volontairement large
       const vmin = percentile(10);
-      const vmax = percentile(98);
+      const vmax = percentile(90);
       const range = vmax - vmin || 1;
 
       // ================================
