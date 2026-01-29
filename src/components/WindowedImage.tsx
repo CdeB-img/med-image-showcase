@@ -65,7 +65,7 @@ export default function WindowedImage({ src, className }: Props) {
         // Compression des hypers
         // ===============================
         const knee = 0.9;   // seuil à partir duquel on calme l’hyper
-        const strength = 0.3; // 0.5 = fort, 0.7 = doux
+        const strength = 0.1; // 0.5 = fort, 0.7 = doux
 
         if (nv > knee) {
         const t = (nv - knee) / (1 - knee); // 0 → 1
