@@ -1,5 +1,8 @@
+// src/components/SliceViewer.tsx
+
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import WindowedImage from "@/components/WindowedImage";
 
 interface Props {
   nativeSlices: string[];
@@ -8,13 +11,15 @@ interface Props {
   className?: string;
 }
 
+const ROTATION = -90;
+
 const SliceViewer = React.forwardRef<HTMLDivElement, Props>(
   ({ nativeSlices, processedSlices, className }, ref) => {
     const [sliceIndex, setSliceIndex] = React.useState(0);
 
     const maxSlices = Math.min(
-      nativeSlices.length,
-      processedSlices.length
+      nativeSlices?.length ?? 0,
+      processedSlices?.length ?? 0
     );
 
     if (maxSlices === 0) {
@@ -27,26 +32,18 @@ const SliceViewer = React.forwardRef<HTMLDivElement, Props>(
 
     return (
       <div ref={ref} className={cn("space-y-6", className)}>
-        {/* Images */}
+        {/* IMAGES */}
         <div className="grid grid-cols-2 gap-6">
-          {/* Native */}
+          {/* Native (fenêtrée) */}
           <div className="aspect-square bg-black rounded overflow-hidden flex items-center justify-center">
-            <img
+            <WindowedImage
               src={nativeSlices[sliceIndex]}
-              alt={`native slice ${sliceIndex}`}
-              className="
-                w-full 
-                border 
-                rounded 
-                bg-black
-                transform -rotate-90 scale-[1.42]
-                brightness-90
-                contrast-90
-            "
+              rotationDeg={ROTATION}
+              className="w-full h-full"
             />
           </div>
 
-          {/* Processed */}
+          {/* Masque / image traitée (brute) */}
           <div className="aspect-square bg-black rounded overflow-hidden flex items-center justify-center">
             <img
               src={processedSlices[sliceIndex]}
@@ -56,7 +53,7 @@ const SliceViewer = React.forwardRef<HTMLDivElement, Props>(
           </div>
         </div>
 
-        {/* Slider */}
+        {/* SLIDER */}
         <div className="flex items-center gap-4">
           <input
             type="range"
