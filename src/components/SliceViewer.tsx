@@ -11,7 +11,12 @@ interface Props {
   className?: string;
 }
 
-const ROTATION = -90;
+/**
+ * Rotation unique appliquée AUX DEUX images
+ * (axial IRM → affichage web)
+ */
+const ROTATION_DEG = -90;
+const SCALE = 1.42;
 
 const SliceViewer = React.forwardRef<HTMLDivElement, Props>(
   ({ nativeSlices, processedSlices, className }, ref) => {
@@ -32,28 +37,37 @@ const SliceViewer = React.forwardRef<HTMLDivElement, Props>(
 
     return (
       <div ref={ref} className={cn("space-y-6", className)}>
-        {/* IMAGES */}
+        {/* ================= IMAGES ================= */}
         <div className="grid grid-cols-2 gap-6">
-          {/* Native (fenêtrée) */}
+          {/* ===== Native (fenêtrée) ===== */}
           <div className="aspect-square bg-black rounded overflow-hidden flex items-center justify-center">
-            <WindowedImage
-              src={nativeSlices[sliceIndex]}
-              rotationDeg={ROTATION}
+            <div
               className="w-full h-full"
-            />
+              style={{
+                transform: `rotate(${ROTATION_DEG}deg) scale(${SCALE})`,
+              }}
+            >
+              <WindowedImage
+                src={nativeSlices[sliceIndex]}
+                className="w-full h-full"
+              />
+            </div>
           </div>
 
-          {/* Masque / image traitée (brute) */}
+          {/* ===== Masque / image traitée (brute) ===== */}
           <div className="aspect-square bg-black rounded overflow-hidden flex items-center justify-center">
             <img
               src={processedSlices[sliceIndex]}
               alt={`processed slice ${sliceIndex}`}
-              className="w-full h-full object-contain transform -rotate-90 scale-[1.42]"
+              className="w-full h-full object-contain"
+              style={{
+                transform: `rotate(${ROTATION_DEG}deg) scale(${SCALE})`,
+              }}
             />
           </div>
         </div>
 
-        {/* SLIDER */}
+        {/* ================= SLIDER ================= */}
         <div className="flex items-center gap-4">
           <input
             type="range"
