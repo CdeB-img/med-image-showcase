@@ -51,8 +51,8 @@ export default function WindowedImage({ src, className }: Props) {
       const p = (q: number) =>
         values[Math.floor((q / 100) * (values.length - 1))];
 
-      const vmin = p(50);
-      const vmax = p(80);
+      const vmin = p(20);
+      const vmax = p(90);
       const range = vmax - vmin || 1;
 
       // ===== Fenêtrage =====
@@ -62,7 +62,7 @@ export default function WindowedImage({ src, className }: Props) {
         nv = Math.max(0, Math.min(1, nv));
 
         // Gamma < 1 = boost des basses/moyennes intensités
-        nv = Math.pow(nv, 0.3);
+        nv = Math.pow(nv, 0.6);
 
         const out = Math.round(nv * 255);
 
