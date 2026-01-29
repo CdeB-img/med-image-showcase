@@ -34,7 +34,15 @@ const SliceViewer = React.forwardRef<HTMLDivElement, Props>(
             <img
               src={nativeSlices[sliceIndex]}
               alt={`native slice ${sliceIndex}`}
-              className="w-full h-full object-contain transform -rotate-90 scale-[1.42]"
+              className="
+                w-full 
+                border 
+                rounded 
+                bg-black
+                transform -rotate-90 scale-[1.42]
+                brightness-90
+                contrast-90
+            "
             />
           </div>
 
