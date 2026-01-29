@@ -15,15 +15,13 @@ export interface Project {
 }
 
 /**
- * Base RAW GitHub du dépôt contenant les images médicales
- * (dépôt : CdeB-img / expert-imagerie)
+ * Base RAW GitHub du dépôt contenant les images
  */
 const RAW_BASE =
   "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
 
 /**
- * Génère une liste de slices PNG :
- * slice_000.png → slice_015.png
+ * Génère slice_000.png → slice_015.png
  */
 const slices = (relativePath: string, count = 16): string[] =>
   Array.from({ length: count }, (_, i) =>
@@ -38,24 +36,17 @@ export const projects: Project[] = [
       "Segmentation des lésions ischémiques sur IRM de diffusion.",
     modality: "IRM / CT",
     analysisType: "Segmentation",
-    technologies: [
-      "Python",
-      "ANTsPy",
-      "NiBabel",
-      "NumPy",
-      "SimpleITK",
-    ],
+    technologies: ["Python", "ANTsPy", "NiBabel", "NumPy", "SimpleITK"],
     thumbnailUrl: `${RAW_BASE}/diffusion/native/slice_008.png`,
     sliceCount: 16,
     nativeSlices: slices("diffusion/native"),
     processedSlices: slices("diffusion/mask"),
   },
-
   {
     id: "perfusion",
     title: "Perfusion CT – OEF",
     description:
-      "Analyse multiparamétrique de la perfusion cérébrale (OEF, Tmax, rCBF).",
+      "Analyse multiparamétrique de la perfusion cérébrale.",
     modality: "CT Perfusion",
     analysisType: "Quantification",
     technologies: ["Python", "Cercare", "NumPy"],
@@ -64,12 +55,11 @@ export const projects: Project[] = [
     nativeSlices: slices("perfusion/exemple/oef"),
     processedSlices: slices("perfusion/exemple/MASK_TMAX6"),
   },
-
   {
     id: "recalage",
     title: "Recalage IRM / CT",
     description:
-      "Recalage multimodal IRM–CT pour fusion anatomique et fonctionnelle.",
+      "Recalage multimodal IRM–CT.",
     modality: "IRM / CT",
     analysisType: "Registration",
     technologies: ["Python", "ANTsPy", "Elastix"],
@@ -81,8 +71,13 @@ export const projects: Project[] = [
   },
 ];
 
-/**
- * Accès direct à un projet par son id
- */
 export const getProjectById = (id: string): Project | undefined =>
   projects.find((p) => p.id === id);
+
+export const getAdjacentProjects = (id: string) => {
+  const idx = projects.findIndex((p) => p.id === id);
+  return {
+    prev: idx > 0 ? projects[idx - 1] : null,
+    next: idx < projects.length - 1 ? projects[idx + 1] : null,
+  };
+};
