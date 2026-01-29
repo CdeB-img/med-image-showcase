@@ -51,7 +51,7 @@ export default function WindowedImage({ src, className }: Props) {
       const p = (q: number) =>
         values[Math.floor((q / 100) * (values.length - 1))];
 
-      const vmin = p(20);
+      const vmin = p(50);
       const vmax = p(80);
       const range = vmax - vmin || 1;
 
