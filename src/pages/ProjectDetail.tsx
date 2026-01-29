@@ -1,6 +1,7 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { getProjectById, getAdjacentProjects } from "@/data/projects";
 import SliceViewer from "@/components/SliceViewer";
 
@@ -59,16 +60,46 @@ const ProjectDetail = () => {
 
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           <div className="space-y-6 animate-fade-in">
-            <h1 className="text-3xl md:text-4xl font-bold">{project.title}</h1>
+            <div className="space-y-4">
+              <h1 className="text-3xl md:text-4xl font-bold">{project.title}</h1>
 
-            <div className="grid grid-cols-2 gap-4">
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="outline" className="border-primary/50 text-primary">
+                  {project.modality}
+                </Badge>
+                <Badge variant="secondary">
+                  {project.analysisType}
+                </Badge>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <h2 className="text-lg font-semibold text-muted-foreground">Description</h2>
+              <p className="text-foreground leading-relaxed">{project.description}</p>
+            </div>
+
+            <div className="space-y-3">
+              <h2 className="text-lg font-semibold text-muted-foreground">Technologies</h2>
+              <div className="flex flex-wrap gap-2">
+                {project.technologies.map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-3 py-1.5 text-sm font-mono bg-secondary/50 border border-border rounded-md text-foreground"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 pt-4">
               <div className="p-4 bg-surface rounded-lg border border-border">
-                <div className="text-2xl font-bold text-primary">{project.nativeSlices.length}</div>
+                <div className="text-2xl font-bold text-primary">{project.sliceCount}</div>
                 <div className="text-sm text-muted-foreground">Slices</div>
               </div>
               <div className="p-4 bg-surface rounded-lg border border-border">
-                <div className="text-2xl font-bold text-primary">{project.useSliderOverlay ? "Overlay" : "Side by side"}</div>
-                <div className="text-sm text-muted-foreground">Mode</div>
+                <div className="text-2xl font-bold text-primary">{project.technologies.length}</div>
+                <div className="text-sm text-muted-foreground">Technologies</div>
               </div>
             </div>
           </div>
