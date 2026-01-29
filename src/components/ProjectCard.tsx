@@ -5,21 +5,27 @@ import type { Project } from "@/data/projects";
 
 interface ProjectCardProps {
   project: Project;
+  sliceCount: number;
 }
 
-const ProjectCard = ({ project }: ProjectCardProps) => {
+const RAW_BASE =
+  "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
+
+const ProjectCard = ({ project, sliceCount }: ProjectCardProps) => {
   return (
     <Link to={`/projet/${project.id}`}>
       <Card className="group overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:bg-card">
         <div className="relative aspect-video overflow-hidden bg-surface">
           <img
-            src={project.thumbnailUrl}
+            src={`${RAW_BASE}/${project.thumbnailPath}`}
             alt={project.title}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
+
           <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent opacity-60" />
+
           <div className="absolute bottom-2 right-2 px-2 py-1 text-xs font-mono bg-background/80 backdrop-blur-sm rounded border border-border">
-            {project.sliceCount} slices
+            {sliceCount} slices
           </div>
         </div>
 
