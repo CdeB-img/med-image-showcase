@@ -32,12 +32,12 @@ const SliceViewer = React.forwardRef<HTMLDivElement, Props>(
           <img
             src={nativeSlices[sliceIndex]}
             alt={`native slice ${sliceIndex}`}
-            className="w-full border rounded bg-black transform -rotate-45 scale-[1.42]"
+            className="w-full border rounded bg-black transform -rotate-90 scale-[1.42]"
           />
           <img
             src={processedSlices[sliceIndex]}
             alt={`processed slice ${sliceIndex}`}
-            className="w-full border rounded bg-black transform -rotate-45 scale-[1.42]"
+            className="w-full border rounded bg-black transform -rotate-90 scale-[1.42]"
           />
         </div>
 
