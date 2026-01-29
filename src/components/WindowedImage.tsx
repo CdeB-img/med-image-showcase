@@ -62,7 +62,7 @@ export default function WindowedImage({ src, className }: Props) {
         nv = Math.max(0, Math.min(1, nv));
 
         // Gamma < 1 = boost des basses/moyennes intensités
-        nv = Math.pow(nv, 0.1);
+        nv = Math.pow(nv, 0.3);
 
         const out = Math.round(nv * 255);
 
