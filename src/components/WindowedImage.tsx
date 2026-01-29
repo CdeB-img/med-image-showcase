@@ -59,8 +59,8 @@ export default function WindowedImage({ src, className }: Props) {
         values[Math.floor((q / 100) * (values.length - 1))];
 
       // Fenêtrage volontairement large
-      const vmin = percentile(10);
-      const vmax = percentile(90);
+      const vmin = percentile(20);
+      const vmax = percentile(85);
       const range = vmax - vmin || 1;
 
       // ================================
