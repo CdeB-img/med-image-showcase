@@ -26,19 +26,26 @@ const SliceViewer = React.forwardRef<HTMLDivElement, Props>(
     }
 
     return (
-      <div ref={ref} className={cn("space-y-4", className)}>
+      <div ref={ref} className={cn("space-y-6", className)}>
         {/* Images */}
-        <div className="grid grid-cols-2 gap-4">
-          <img
-            src={nativeSlices[sliceIndex]}
-            alt={`native slice ${sliceIndex}`}
-            className="w-full border rounded bg-black transform -rotate-90 scale-[1.42]"
-          />
-          <img
-            src={processedSlices[sliceIndex]}
-            alt={`processed slice ${sliceIndex}`}
-            className="w-full border rounded bg-black transform -rotate-90 scale-[1.42]"
-          />
+        <div className="grid grid-cols-2 gap-6">
+          {/* Native */}
+          <div className="aspect-square bg-black rounded overflow-hidden flex items-center justify-center">
+            <img
+              src={nativeSlices[sliceIndex]}
+              alt={`native slice ${sliceIndex}`}
+              className="w-full h-full object-contain transform -rotate-90 scale-[1.42]"
+            />
+          </div>
+
+          {/* Processed */}
+          <div className="aspect-square bg-black rounded overflow-hidden flex items-center justify-center">
+            <img
+              src={processedSlices[sliceIndex]}
+              alt={`processed slice ${sliceIndex}`}
+              className="w-full h-full object-contain transform -rotate-90 scale-[1.42]"
+            />
+          </div>
         </div>
 
         {/* Slider */}
