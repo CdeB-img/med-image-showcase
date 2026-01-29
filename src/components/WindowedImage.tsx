@@ -51,8 +51,8 @@ export default function WindowedImage({ src, className }: Props) {
       const p = (q: number) =>
         values[Math.floor((q / 100) * (values.length - 1))];
 
-      const vmin = p(20);
-      const vmax = p(90);
+      const vmin = p(15);
+      const vmax = p(95);
       const range = vmax - vmin || 1;
 
       // ===== Fenêtrage =====
@@ -64,7 +64,7 @@ export default function WindowedImage({ src, className }: Props) {
         // ===============================
         // Compression des hypers
         // ===============================
-        const knee = 0.8;   // seuil à partir duquel on calme l’hyper
+        const knee = 0.7;   // seuil à partir duquel on calme l’hyper
         const strength = 0.6; // 0.5 = fort, 0.7 = doux
 
         if (nv > knee) {
