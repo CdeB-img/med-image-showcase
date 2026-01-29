@@ -1,6 +1,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import WindowedImage from "@/components/WindowedImage";
+import MaskOverlay from "@/components/MaskOverlay";
 
 interface Props {
   nativeSlices: string[];
@@ -63,20 +64,20 @@ const SliceViewer = React.forwardRef<HTMLDivElement, Props>(
               />
             </div>
 
-            {/* Masque rouge superposé */}
-            <img
-              src={processedSlices[sliceIndex]}
-              alt={`mask slice ${sliceIndex}`}
+            {/* Masque rouge propre */}
+            <div
               className={cn(
-                "absolute inset-0 w-full h-full",
+                "absolute inset-0",
                 ROTATION_CLASS,
-                "opacity-50",
-                "pointer-events-none",
-                // Colorisation du masque
-                "filter invert sepia saturate-[500%] hue-rotate-[340deg] brightness-110"
+                "pointer-events-none"
               )}
-            />
-          </div>
+            >
+              <MaskOverlay
+                src={processedSlices[sliceIndex]}
+                opacity={0.45}
+                className="w-full h-full"
+              />
+            </div>
         </div>
 
         {/* =========================
