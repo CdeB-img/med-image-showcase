@@ -12,7 +12,24 @@ export interface Project {
   // If true, use slider overlay mode (for registration projects)
   // If false, show mask overlaid on native image
   useSliderOverlay?: boolean;
+  // Available masks for perfusion projects
+  availableMasks?: string[];
 }
+
+// Perfusion masks available for selection
+export const PERFUSION_MASKS = [
+  { id: "oef", label: "OEF" },
+  { id: "MASK_CBF30_SEEDED", label: "CBF < 30%" },
+  { id: "MASK_CBF60_SEEDED", label: "CBF < 60%" },
+  { id: "MASK_CMRO2_30", label: "CMRO2 < 30%" },
+  { id: "MASK_TMAX6", label: "Tmax > 6s" },
+];
+
+// Helper to generate slice arrays
+const generateSlices = (basePath: string, count: number = 16): string[] =>
+  Array.from({ length: count }, (_, i) =>
+    `${basePath}/slice_${String(i).padStart(3, "0")}.png`
+  );
 
 // Real projects with actual medical imaging data
 export const projects: Project[] = [
@@ -23,10 +40,10 @@ export const projects: Project[] = [
     modality: "IRM / Scanner",
     analysisType: "Segmentation",
     technologies: ["Python", "ANTsPy", "NiBabel", "NumPy", "SimpleITK"],
-    thumbnailUrl: "/images/diffusion/Diff_coreg_CT/slice_008.png",
+    thumbnailUrl: "/images/diffusion/native/slice_008.png",
     sliceCount: 16,
-    nativeSlices: Array.from({ length: 16 }, (_, i) => `/images/diffusion/Diff_coreg_CT/slice_${String(i).padStart(3, '0')}.png`),
-    processedSlices: Array.from({ length: 16 }, (_, i) => `/images/diffusion/mask_diff/slice_${String(i).padStart(3, '0')}.png`),
+    nativeSlices: generateSlices("/images/diffusion/native"),
+    processedSlices: generateSlices("/images/diffusion/mask"),
   },
   {
     id: "perfusion-stroke",
@@ -35,10 +52,11 @@ export const projects: Project[] = [
     modality: "Scanner Perfusion",
     analysisType: "Quantification",
     technologies: ["Python", "Cercare", "NumPy", "Matplotlib", "NiBabel"],
-    thumbnailUrl: "/images/perfusion/exemple/Tmax_Basic_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_Tmax_Basic_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_1025000001/slice_008.png",
+    thumbnailUrl: "/images/perfusion/exemple/oef/slice_008.png",
     sliceCount: 16,
-    nativeSlices: Array.from({ length: 16 }, (_, i) => `/images/perfusion/exemple/Tmax_Basic_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_Tmax_Basic_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_1025000001/slice_${String(i).padStart(3, '0')}.png`),
-    processedSlices: Array.from({ length: 16 }, (_, i) => `/images/perfusion/exemple/MASK_TMAX6/slice_${String(i).padStart(3, '0')}.png`),
+    nativeSlices: generateSlices("/images/perfusion/exemple/oef"),
+    processedSlices: generateSlices("/images/perfusion/exemple/MASK_TMAX6"),
+    availableMasks: ["oef", "MASK_CBF30_SEEDED", "MASK_CBF60_SEEDED", "MASK_CMRO2_30", "MASK_TMAX6"],
   },
   {
     id: "recalage-irm-ct",
@@ -47,11 +65,11 @@ export const projects: Project[] = [
     modality: "IRM / Scanner",
     analysisType: "Recalage",
     technologies: ["Python", "ANTsPy", "Elastix", "SimpleITK", "ITK"],
-    thumbnailUrl: "/images/recalage_irm_ct/Diff_coreg_CT/slice_008.png",
+    thumbnailUrl: "/images/recalage/ct/slice_008.png",
     sliceCount: 16,
     useSliderOverlay: true,
-    nativeSlices: Array.from({ length: 16 }, (_, i) => `/images/recalage_irm_ct/Diff_coreg_CT/slice_${String(i).padStart(3, '0')}.png`),
-    processedSlices: Array.from({ length: 16 }, (_, i) => `/images/recalage_irm_ct/MaxIP_(ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_MaxIP_(ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_1027000001/slice_${String(i).padStart(3, '0')}.png`),
+    nativeSlices: generateSlices("/images/recalage/ct"),
+    processedSlices: generateSlices("/images/recalage/maxip"),
   },
   {
     id: "perfusion-metabolique",
@@ -60,10 +78,11 @@ export const projects: Project[] = [
     modality: "Scanner Perfusion",
     analysisType: "Quantification",
     technologies: ["Python", "Cercare", "SciPy", "NumPy", "Matplotlib"],
-    thumbnailUrl: "/images/perfusion/exemple/OEF_Model_Based_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clini..._OEF_Model_Based_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clini..._1039000001/slice_008.png",
+    thumbnailUrl: "/images/perfusion/exemple/oef/slice_008.png",
     sliceCount: 16,
-    nativeSlices: Array.from({ length: 16 }, (_, i) => `/images/perfusion/exemple/OEF_Model_Based_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clini..._OEF_Model_Based_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clini..._1039000001/slice_${String(i).padStart(3, '0')}.png`),
-    processedSlices: Array.from({ length: 16 }, (_, i) => `/images/perfusion/exemple/MASK_OEF/slice_${String(i).padStart(3, '0')}.png`),
+    nativeSlices: generateSlices("/images/perfusion/exemple/oef"),
+    processedSlices: generateSlices("/images/perfusion/exemple/MASK_CMRO2_30"),
+    availableMasks: ["oef", "MASK_CBF30_SEEDED", "MASK_CBF60_SEEDED", "MASK_CMRO2_30", "MASK_TMAX6"],
   },
   {
     id: "cbf-analysis",
@@ -72,10 +91,11 @@ export const projects: Project[] = [
     modality: "Scanner Perfusion",
     analysisType: "Quantification",
     technologies: ["Python", "NumPy", "scikit-image", "NiBabel", "Matplotlib"],
-    thumbnailUrl: "/images/perfusion/exemple/rCBF_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_rCBF_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_1034000001/slice_008.png",
+    thumbnailUrl: "/images/perfusion/exemple/oef/slice_008.png",
     sliceCount: 16,
-    nativeSlices: Array.from({ length: 16 }, (_, i) => `/images/perfusion/exemple/rCBF_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_rCBF_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_1034000001/slice_${String(i).padStart(3, '0')}.png`),
-    processedSlices: Array.from({ length: 16 }, (_, i) => `/images/perfusion/exemple/MASK_CBF60_SEEDED/slice_${String(i).padStart(3, '0')}.png`),
+    nativeSlices: generateSlices("/images/perfusion/exemple/oef"),
+    processedSlices: generateSlices("/images/perfusion/exemple/MASK_CBF60_SEEDED"),
+    availableMasks: ["oef", "MASK_CBF30_SEEDED", "MASK_CBF60_SEEDED", "MASK_CMRO2_30", "MASK_TMAX6"],
   },
 ];
 
@@ -90,3 +110,7 @@ export const getAdjacentProjects = (currentId: string): { prev: Project | null; 
     next: currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null,
   };
 };
+
+// Helper to build mask slices for perfusion projects
+export const buildPerfusionMaskSlices = (maskId: string): string[] =>
+  generateSlices(`/images/perfusion/exemple/${maskId}`);
