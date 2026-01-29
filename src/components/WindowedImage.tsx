@@ -52,7 +52,7 @@ export default function WindowedImage({ src, className }: Props) {
         values[Math.floor((q / 100) * (values.length - 1))];
 
       const vmin = p(30);
-      const vmax = p(70);
+      const vmax = p(95);
       const range = vmax - vmin || 1;
 
       // ===== Fenêtrage =====
