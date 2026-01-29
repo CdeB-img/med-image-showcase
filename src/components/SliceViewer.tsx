@@ -1,5 +1,3 @@
-// src/components/SliceViewer.tsx
-
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import WindowedImage from "@/components/WindowedImage";
@@ -11,12 +9,7 @@ interface Props {
   className?: string;
 }
 
-/**
- * Rotation unique appliquée AUX DEUX images
- * (axial IRM → affichage web)
- */
-const ROTATION_DEG = -90;
-const SCALE = 1.42;
+const ROTATION_CLASS = "-rotate-90 scale-[1.42]";
 
 const SliceViewer = React.forwardRef<HTMLDivElement, Props>(
   ({ nativeSlices, processedSlices, className }, ref) => {
@@ -37,16 +30,16 @@ const SliceViewer = React.forwardRef<HTMLDivElement, Props>(
 
     return (
       <div ref={ref} className={cn("space-y-6", className)}>
-        {/* ================= IMAGES ================= */}
+        {/* =========================
+            IMAGES
+        ========================= */}
         <div className="grid grid-cols-2 gap-6">
-          {/* ===== Native (fenêtrée) ===== */}
+
+          {/* =========================
+              GAUCHE — Native seule
+          ========================= */}
           <div className="aspect-square bg-black rounded overflow-hidden flex items-center justify-center">
-            <div
-              className="w-full h-full"
-              style={{
-                transform: `rotate(${ROTATION_DEG}deg) scale(${SCALE})`,
-              }}
-            >
+            <div className={cn("w-full h-full", ROTATION_CLASS)}>
               <WindowedImage
                 src={nativeSlices[sliceIndex]}
                 className="w-full h-full"
@@ -54,20 +47,40 @@ const SliceViewer = React.forwardRef<HTMLDivElement, Props>(
             </div>
           </div>
 
-          {/* ===== Masque / image traitée (brute) ===== */}
-          <div className="aspect-square bg-black rounded overflow-hidden flex items-center justify-center">
+          {/* =========================
+              DROITE — Native + masque
+          ========================= */}
+          <div className="aspect-square bg-black rounded overflow-hidden relative">
+
+            {/* Fond : image native */}
+            <div className={cn(
+              "absolute inset-0 flex items-center justify-center",
+              ROTATION_CLASS
+            )}>
+              <WindowedImage
+                src={nativeSlices[sliceIndex]}
+                className="w-full h-full"
+              />
+            </div>
+
+            {/* Masque rouge superposé */}
             <img
               src={processedSlices[sliceIndex]}
-              alt={`processed slice ${sliceIndex}`}
-              className="w-full h-full object-contain"
-              style={{
-                transform: `rotate(${ROTATION_DEG}deg) scale(${SCALE})`,
-              }}
+              alt={`mask slice ${sliceIndex}`}
+              className={cn(
+                "absolute inset-0 w-full h-full",
+                ROTATION_CLASS,
+                "opacity-60",
+                "mix-blend-screen",
+                "filter saturate-[200%] brightness-125"
+              )}
             />
           </div>
         </div>
 
-        {/* ================= SLIDER ================= */}
+        {/* =========================
+            SLIDER
+        ========================= */}
         <div className="flex items-center gap-4">
           <input
             type="range"
