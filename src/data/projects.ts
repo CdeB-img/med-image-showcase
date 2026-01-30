@@ -41,7 +41,6 @@ const slicesRange = (
 
 /**
  * OEF – images natives (MODEL-BASED)
- * Dossier réel GitHub, URL-encodé
  */
 const OEF_NATIVE_PATH =
   "perfusion/exemple/OEF_Model_Based_%28aaif%2Cctp%2Cdn%2Cmoco%2Cmono%2Cncu%2Cpp%29_%23Not_for_clini..._OEF_Model_Based_%28aaif%2Cctp%2Cdn%2Cmoco%2Cmono%2Cncu%2Cpp%29_%23Not_for_clini..._1039000001";
@@ -100,14 +99,12 @@ export const projects: Project[] = [
     thumbnailUrl: `${RAW_BASE}/${OEF_NATIVE_PATH}/slice_008.png`,
     sliceCount: 5,
 
-    // Images natives OEF
     nativeSlices: slicesRange(
       OEF_NATIVE_PATH,
       6,
       10
     ),
 
-    // Masque OEF
     processedSlices: slicesRange(
       OEF_MASK_PATH,
       6,
@@ -115,26 +112,34 @@ export const projects: Project[] = [
     ),
   },
 
+  // ============================================================
+  // RECALAGE (CAS SPÉCIAL — PAS DE SliceViewer)
+  // ============================================================
+  {
+    id: "recalage",
+    title: "Recalage IRM / CT",
+    description:
+      "Recalage multimodal CT / IRM et recalage monomodal IRM inter-temps.",
+    modality: "IRM / CT",
+    analysisType: "Registration",
+    technologies: ["Python", "ANTsPy", "Elastix"],
 
->>>>>>> 268535aadd8f596411fd2bcb3a09cd157ceab246
+    thumbnailUrl:
+      `${RAW_BASE}/recalage/ct/slice_001.png`,
 
-<<<<<<< HEAD
+    sliceCount: 0,
+    nativeSlices: [],
+    processedSlices: [],
+  },
+];
 
-=======
 // ============================================================
 // HELPERS
 // ============================================================
 
->>>>>>> 268535aadd8f596411fd2bcb3a09cd157ceab246
-/**
- * Accès direct à un projet par son id
- */
 export const getProjectById = (id: string): Project | undefined =>
   projects.find((p) => p.id === id);
 
-/**
- * Navigation précédent / suivant
- */
 export const getAdjacentProjects = (id: string) => {
   const idx = projects.findIndex((p) => p.id === id);
 
