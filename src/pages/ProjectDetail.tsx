@@ -62,6 +62,16 @@ const qcPairs = [
     native: slices("rCMRO2_seq"),
     mask: slices("MASK_CMRO2"),
   },
+  {
+    label: "DIFF",
+    native: Array.from({ length: 16 }, (_, i) =>
+      `${RAW_BASE}/diffusion/native/slice_${String(i).padStart(3, "0")}.png`
+    ),
+    mask: Array.from({ length: 16 }, (_, i) =>
+      `${RAW_BASE}/diffusion/mask/slice_${String(i).padStart(3, "0")}.png`
+    ),
+  },
+];
 ];
 
 // ============================================================
