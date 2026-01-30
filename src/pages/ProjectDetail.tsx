@@ -39,38 +39,28 @@ const slices = (relativePath: string, start = 0, end = 15): string[] =>
 const qcPairs = [
   {
     label: "TMAX",
-    native: slices(
-      "Tmax_Basic_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_1025000001"
-    ),
-    mask: slices("MASK_TMAX6"),
+    native: slices("perfusion/exemple/Tmax_seq"),
+    mask: slices("perfusion/exemple/MASK_TMAX6"),
   },
   {
     label: "CBF30",
-    native: slices(
-      "rCBF_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_rCBF_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_1034000001"
-    ),
-    mask: slices("MASK_CBF30_SEEDED"),
+    native: slices("perfusion/exemple/rCBF_seq"),
+    mask: slices("perfusion/exemple/MASK_CBF30"),
   },
   {
     label: "CBF60",
-    native: slices(
-      "rCBF_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_rCBF_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_1034000001"
-    ),
-    mask: slices("MASK_CBF60_SEEDED"),
+    native: slices("perfusion/exemple/rCBF_seq"),
+    mask: slices("perfusion/exemple/MASK_CBF60"),
   },
   {
     label: "OEF",
-    native: slices(
-      "OEF_Model_Based_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clini..._1039000001"
-    ),
-    mask: slices("oef"),
+    native: slices("perfusion/exemple/OEF_seq"),
+    mask: slices("perfusion/exemple/MASK_OEF"),
   },
   {
     label: "CMRO2",
-    native: slices(
-      "rCMRO2_Model_Based_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_cl..._1040000001"
-    ),
-    mask: slices("MASK_CMRO2_30"),
+    native: slices("perfusion/exemple/rCMRO2_seq"),
+    mask: slices("perfusion/exemple/MASK_CMRO2"),
   },
 ];
 
