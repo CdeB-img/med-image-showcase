@@ -2,13 +2,12 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
-import WindowedImage from "@/components/WindowedImage";
 import MaskOverlay from "@/components/MaskOverlay";
 
 interface ImagePair {
   label: string;
-  native: string[]; // urls slice_000.png, slice_001.png, ...
-  mask: string[];   // urls slice_000.png, slice_001.png, ...
+  native: string[];
+  mask: string[];
 }
 
 interface Props {
@@ -19,11 +18,6 @@ interface Props {
 
 const ROTATION_CLASS = "-rotate-90 scale-[1.42]";
 
-/**
- * Viewer de contrôle qualité
- * Grille 3×4 (6 paires → 12 tuiles)
- * Clavier : ↑/↓ ±1, PageUp/PageDown ±5
- */
 export default function QCViewer({
   pairs,
   patientName = "Patient",
@@ -31,40 +25,28 @@ export default function QCViewer({
 }: Props) {
   const maxSlices = pairs?.[0]?.native?.length ?? 0;
 
-  const [sliceIndex, setSliceIndex] = React.useState(() =>
+  const [sliceIndex, setSliceIndex] = React.useState(
     maxSlices > 0 ? Math.floor(maxSlices / 2) : 0
   );
 
-  // Keep sliceIndex valid if data changes
   React.useEffect(() => {
-    setSliceIndex((prev) => {
-      if (maxSlices <= 0) return 0;
-      return Math.min(maxSlices - 1, Math.max(0, prev));
-    });
+    setSliceIndex((prev) =>
+      maxSlices > 0 ? Math.min(maxSlices - 1, Math.max(0, prev)) : 0
+    );
   }, [maxSlices]);
 
-  // Keyboard navigation
   React.useEffect(() => {
     if (maxSlices <= 0) return;
 
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowUp") {
-        e.preventDefault();
-        setSliceIndex((prev) => Math.min(maxSlices - 1, prev + 1));
-      } else if (e.key === "ArrowDown") {
-        e.preventDefault();
-        setSliceIndex((prev) => Math.max(0, prev - 1));
-      } else if (e.key === "PageUp") {
-        e.preventDefault();
-        setSliceIndex((prev) => Math.min(maxSlices - 1, prev + 5));
-      } else if (e.key === "PageDown") {
-        e.preventDefault();
-        setSliceIndex((prev) => Math.max(0, prev - 5));
-      }
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowUp") setSliceIndex((s) => Math.min(maxSlices - 1, s + 1));
+      if (e.key === "ArrowDown") setSliceIndex((s) => Math.max(0, s - 1));
+      if (e.key === "PageUp") setSliceIndex((s) => Math.min(maxSlices - 1, s + 5));
+      if (e.key === "PageDown") setSliceIndex((s) => Math.max(0, s - 5));
     };
 
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, [maxSlices]);
 
   if (maxSlices === 0) {
@@ -79,56 +61,41 @@ export default function QCViewer({
     <div className={cn("space-y-6", className)}>
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold text-foreground">{patientName}</h2>
-
-        <div className="flex items-center gap-4">
-          <span className="text-sm font-mono text-muted-foreground">
-            Slice {sliceIndex + 1}/{maxSlices}
-          </span>
-          <div className="text-xs text-muted-foreground font-mono bg-secondary/50 px-3 py-1.5 rounded">
-            ↑/↓ ±1 • PgUp/PgDn ±5
-          </div>
-        </div>
+        <h2 className="text-xl font-bold">{patientName}</h2>
+        <span className="text-sm font-mono text-muted-foreground">
+          Slice {sliceIndex + 1}/{maxSlices}
+        </span>
       </div>
 
-      {/* Grid 3×4: for each pair -> 2 tiles (native, native+mask) */}
+      {/* Grid */}
       <div className="grid grid-cols-4 gap-3">
         {pairs.map((pair) => (
           <React.Fragment key={pair.label}>
             {/* Native */}
-            <div className="aspect-square bg-black rounded-lg overflow-hidden relative">
-              <div
+            <div className="aspect-square bg-black rounded overflow-hidden relative">
+              <img
+                src={pair.native[sliceIndex]}
                 className={cn(
-                  "absolute inset-0 flex items-center justify-center",
+                  "absolute inset-0 w-full h-full object-contain",
                   ROTATION_CLASS
                 )}
-              >
-                <WindowedImage
-                  src={pair.native[sliceIndex]}
-                  className="w-full h-full object-contain"
-                />
-              </div>
-
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2">
-                <span className="text-xs font-mono text-white/90">
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-black/70 p-2">
+                <span className="text-xs font-mono text-white">
                   {pair.label}
                 </span>
               </div>
             </div>
 
             {/* Native + Mask */}
-            <div className="aspect-square bg-black rounded-lg overflow-hidden relative">
-              <div
+            <div className="aspect-square bg-black rounded overflow-hidden relative">
+              <img
+                src={pair.native[sliceIndex]}
                 className={cn(
-                  "absolute inset-0 flex items-center justify-center",
+                  "absolute inset-0 w-full h-full object-contain",
                   ROTATION_CLASS
                 )}
-              >
-                <WindowedImage
-                  src={pair.native[sliceIndex]}
-                  className="w-full h-full object-contain"
-                />
-              </div>
+              />
 
               <div
                 className={cn(
@@ -143,8 +110,8 @@ export default function QCViewer({
                 />
               </div>
 
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2">
-                <span className="text-xs font-mono text-white/90">
+              <div className="absolute bottom-0 left-0 right-0 bg-black/70 p-2">
+                <span className="text-xs font-mono text-white">
                   {pair.label} + mask
                 </span>
               </div>
@@ -153,21 +120,15 @@ export default function QCViewer({
         ))}
       </div>
 
-      {/* Slice slider */}
-      <div className="flex items-center gap-4">
-        <span className="text-sm text-muted-foreground w-16">Slice</span>
-        <input
-          type="range"
-          min={0}
-          max={maxSlices - 1}
-          value={sliceIndex}
-          onChange={(e) => setSliceIndex(Number(e.target.value))}
-          className="flex-1 accent-primary"
-        />
-        <span className="text-sm font-mono text-foreground w-20 text-right">
-          {sliceIndex + 1}/{maxSlices}
-        </span>
-      </div>
+      {/* Slider */}
+      <input
+        type="range"
+        min={0}
+        max={maxSlices - 1}
+        value={sliceIndex}
+        onChange={(e) => setSliceIndex(+e.target.value)}
+        className="w-full accent-primary"
+      />
     </div>
   );
 }
