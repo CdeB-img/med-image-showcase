@@ -105,6 +105,7 @@ export default function QCViewer({
                 )}
               >
                 <MaskOverlay
+                  key={`${pair.label}-${sliceIndex}`}
                   src={pair.mask[sliceIndex]}
                   opacity={0.4}
                   className="w-full h-full"
