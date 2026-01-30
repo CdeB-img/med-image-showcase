@@ -21,16 +21,54 @@ import { getProjectById, getAdjacentProjects } from "@/data/projects";
 const RAW_BASE =
   "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
 
-const PERF_BASE = "perfusion/exemple";
-
 // ============================================================
 // HELPERS
 // ============================================================
 
-const slices = (relativePath: string, start = 0, end = 15): string[] =>
-  Array.from({ length: end - start + 1 }, (_, i) =>
-    `${RAW_BASE}/${relativePath}/slice_${String(start + i).padStart(3, "0")}.png`
+const slices = (basePath: string, count = 3): string[] =>
+  Array.from({ length: count }, (_, i) =>
+    `${RAW_BASE}/${basePath}/slice_${String(i).padStart(3, "0")}.png`
   );
+
+// ============================================================
+// RECALAGE DATA (SOURCE UNIQUE)
+// ============================================================
+
+const multimodalPairs = [
+  {
+    reference: `${RAW_BASE}/recalage/maxip/slice_000.png`,
+    registered: `${RAW_BASE}/recalage/ct/slice_000.png`,
+    label: "Axial 1",
+  },
+  {
+    reference: `${RAW_BASE}/recalage/maxip/slice_001.png`,
+    registered: `${RAW_BASE}/recalage/ct/slice_001.png`,
+    label: "Axial 2",
+  },
+  {
+    reference: `${RAW_BASE}/recalage/maxip/slice_002.png`,
+    registered: `${RAW_BASE}/recalage/ct/slice_002.png`,
+    label: "Axial 3",
+  },
+];
+
+const monomodalPairs = [
+  {
+    reference: `${RAW_BASE}/recalage/mdiff/slice_000.png`,
+    registered: `${RAW_BASE}/recalage/mflair/slice_000.png`,
+    label: "Axial 1",
+  },
+  {
+    reference: `${RAW_BASE}/recalage/mdiff/slice_001.png`,
+    registered: `${RAW_BASE}/recalage/mflair/slice_001.png`,
+    label: "Axial 2",
+  },
+  {
+    reference: `${RAW_BASE}/recalage/mdiff/slice_002.png`,
+    registered: `${RAW_BASE}/recalage/mflair/slice_002.png`,
+    label: "Axial 3",
+  },
+];
 
 // ============================================================
 // QC DATA
@@ -39,73 +77,33 @@ const slices = (relativePath: string, start = 0, end = 15): string[] =>
 const qcPairs = [
   {
     label: "TMAX",
-    native: slices(`${PERF_BASE}/Tmax_seq`),
-    mask: slices(`${PERF_BASE}/MASK_TMAX6`),
+    native: slices("perfusion/exemple/Tmax_seq", 16),
+    mask: slices("perfusion/exemple/MASK_TMAX6", 16),
   },
   {
     label: "CBF30",
-    native: slices(`${PERF_BASE}/rCBF_seq`),
-    mask: slices(`${PERF_BASE}/MASK_CBF30`),
+    native: slices("perfusion/exemple/rCBF_seq", 16),
+    mask: slices("perfusion/exemple/MASK_CBF30", 16),
   },
   {
     label: "CBF60",
-    native: slices(`${PERF_BASE}/rCBF_seq`),
-    mask: slices(`${PERF_BASE}/MASK_CBF60`),
+    native: slices("perfusion/exemple/rCBF_seq", 16),
+    mask: slices("perfusion/exemple/MASK_CBF60", 16),
   },
   {
     label: "OEF",
-    native: slices(`${PERF_BASE}/OEF_seq`),
-    mask: slices(`${PERF_BASE}/MASK_OEF`),
+    native: slices("perfusion/exemple/OEF_seq", 16),
+    mask: slices("perfusion/exemple/MASK_OEF", 16),
   },
   {
     label: "CMRO2",
-    native: slices(`${PERF_BASE}/rCMRO2_seq`),
-    mask: slices(`${PERF_BASE}/MASK_CMRO2`),
+    native: slices("perfusion/exemple/rCMRO2_seq", 16),
+    mask: slices("perfusion/exemple/MASK_CMRO2", 16),
   },
   {
     label: "DIFF",
-    native: slices("diffusion/native"),
-    mask: slices("diffusion/mask"),
-  },
-];
-
-// ============================================================
-// RECALAGE DATA
-// ============================================================
-
-const multimodalPairs = [
-  {
-    label: "CT → IRM",
-    reference: `${RAW_BASE}/recalage/ct/slice_008.png`,
-    registered: `${RAW_BASE}/recalage/ct_to_mri/slice_008.png`,
-  },
-  {
-    label: "CT → IRM (affine)",
-    reference: `${RAW_BASE}/recalage/ct/slice_008.png`,
-    registered: `${RAW_BASE}/recalage/ct_to_mri_affine/slice_008.png`,
-  },
-  {
-    label: "CT → IRM (non-linéaire)",
-    reference: `${RAW_BASE}/recalage/ct/slice_008.png`,
-    registered: `${RAW_BASE}/recalage/ct_to_mri_nl/slice_008.png`,
-  },
-];
-
-const monomodalPairs = [
-  {
-    label: "DWI → FLAIR",
-    reference: `${RAW_BASE}/recalage/dwi/slice_008.png`,
-    registered: `${RAW_BASE}/recalage/dwi_to_flair/slice_008.png`,
-  },
-  {
-    label: "DWI → FLAIR (affine)",
-    reference: `${RAW_BASE}/recalage/dwi/slice_008.png`,
-    registered: `${RAW_BASE}/recalage/dwi_to_flair_affine/slice_008.png`,
-  },
-  {
-    label: "DWI → FLAIR (non-linéaire)",
-    reference: `${RAW_BASE}/recalage/dwi/slice_008.png`,
-    registered: `${RAW_BASE}/recalage/dwi_to_flair_nl/slice_008.png`,
+    native: slices("diffusion/native", 16),
+    mask: slices("diffusion/mask", 16),
   },
 ];
 
@@ -180,10 +178,19 @@ const ProjectDetail = () => {
           />
         )}
 
-        {/* ================= AUTRES PROJETS ================= */}
-        {project.id !== "qc" && (
-          <div className="grid lg:grid-cols-2 gap-8">
+        {/* ================= RECALAGE ================= */}
+        {project.id === "recalage" && (
+          <RegistrationViewer
+            multimodalPairs={multimodalPairs}
+            monomodalPairs={monomodalPairs}
+            initialOpacity={0.5}
+            className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-4"
+          />
+        )}
 
+        {/* ================= AUTRES PROJETS ================= */}
+        {project.id !== "qc" && project.id !== "recalage" && (
+          <div className="grid lg:grid-cols-2 gap-8">
             <section className="space-y-6">
               <h1 className="text-3xl font-bold">{project.title}</h1>
 
@@ -196,20 +203,12 @@ const ProjectDetail = () => {
             </section>
 
             <section className="sticky top-8">
-              {project.id === "recalage" ? (
-                <RegistrationViewer
-                  multimodalPairs={multimodalPairs}
-                  monomodalPairs={monomodalPairs}
-                />
-              ) : (
-                <SliceViewer
-                  nativeSlices={project.nativeSlices}
-                  processedSlices={project.processedSlices}
-                  useSliderOverlay={project.useSliderOverlay}
-                />
-              )}
+              <SliceViewer
+                nativeSlices={project.nativeSlices}
+                processedSlices={project.processedSlices}
+                useSliderOverlay={project.useSliderOverlay}
+              />
             </section>
-
           </div>
         )}
       </div>
