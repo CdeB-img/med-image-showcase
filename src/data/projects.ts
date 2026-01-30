@@ -17,42 +17,21 @@ export interface Project {
 }
 
 /**
- * Base RAW GitHub du dépôt contenant les images
+ * Base RAW GitHub URL for images
  */
 const RAW_BASE =
   "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
 
 /**
- * Génère une plage explicite de slices :
- * slice_006.png → slice_010.png
+ * Generate slice range: slice_000.png to slice_015.png
  */
-const slicesRange = (
-  relativePath: string,
-  start: number,
-  end: number
-): string[] =>
-  Array.from({ length: end - start + 1 }, (_, i) =>
-    `${RAW_BASE}/${relativePath}/slice_${String(start + i).padStart(3, "0")}.png`
+const slices = (basePath: string, count = 16): string[] =>
+  Array.from({ length: count }, (_, i) =>
+    `${RAW_BASE}/${basePath}/slice_${String(i).padStart(3, "0")}.png`
   );
 
 // ============================================================
-// CONSTANTES DE CHEMINS (ENCODÉS)
-// ============================================================
-
-/**
- * OEF – images natives (MODEL-BASED)
- */
-const OEF_NATIVE_PATH =
-  "perfusion/exemple/OEF_Model_Based_%28aaif%2Cctp%2Cdn%2Cmoco%2Cmono%2Cncu%2Cpp%29_%23Not_for_clini..._OEF_Model_Based_%28aaif%2Cctp%2Cdn%2Cmoco%2Cmono%2Cncu%2Cpp%29_%23Not_for_clini..._1039000001";
-
-/**
- * OEF – masque dérivé
- */
-const OEF_MASK_PATH =
-  "perfusion/exemple/oef";
-
-// ============================================================
-// PROJETS
+// PROJECTS
 // ============================================================
 
 export const projects: Project[] = [
@@ -61,74 +40,67 @@ export const projects: Project[] = [
   // ============================================================
   {
     id: "diffusion",
-    title: "Diffusion IRM",
+    title: "Diffusion MRI",
     description:
-      "Segmentation des lésions ischémiques sur IRM de diffusion.",
-    modality: "IRM / CT",
+      "Ischemic lesion segmentation on diffusion-weighted MRI sequences.",
+    modality: "MRI / CT",
     analysisType: "Segmentation",
     technologies: ["Python", "ANTsPy", "NiBabel", "NumPy", "SimpleITK"],
-
     thumbnailUrl: `${RAW_BASE}/diffusion/native/slice_008.png`,
-    sliceCount: 5,
-
-    nativeSlices: slicesRange(
-      "diffusion/native",
-      6,
-      10
-    ),
-
-    processedSlices: slicesRange(
-      "diffusion/mask",
-      6,
-      10
-    ),
+    sliceCount: 16,
+    nativeSlices: slices("diffusion/native"),
+    processedSlices: slices("diffusion/mask"),
   },
 
   // ============================================================
-  // PERFUSION — OEF (MODEL-BASED)
+  // PERFUSION — OEF
   // ============================================================
   {
     id: "perfusion",
     title: "Perfusion CT – OEF",
     description:
-      "Carte OEF model-based avec superposition du masque OEF dérivé.",
+      "Model-based OEF map with derived mask overlay for perfusion analysis.",
     modality: "CT Perfusion",
     analysisType: "Quantification",
     technologies: ["Python", "Cercare", "NumPy"],
-
-    thumbnailUrl: `${RAW_BASE}/${OEF_NATIVE_PATH}/slice_008.png`,
-    sliceCount: 5,
-
-    nativeSlices: slicesRange(
-      OEF_NATIVE_PATH,
-      6,
-      10
-    ),
-
-    processedSlices: slicesRange(
-      OEF_MASK_PATH,
-      6,
-      10
-    ),
+    thumbnailUrl: `${RAW_BASE}/perfusion/exemple/oef/slice_008.png`,
+    sliceCount: 16,
+    nativeSlices: slices("perfusion/exemple/oef"),
+    processedSlices: slices("perfusion/exemple/MASK_TMAX6"),
   },
 
   // ============================================================
-  // RECALAGE
+  // RECALAGE (Registration)
   // ============================================================
   {
     id: "recalage",
-    title: "Recalage IRM / CT",
+    title: "MRI / CT Registration",
     description:
-      "Rigid and affine registration pipelines for multimodal (CT/MRI) and monomodal (MRI longitudinal) image alignment. Includes quality control with overlay visualization.",
-    modality: "IRM / CT",
+      "Rigid and affine registration pipelines for multimodal (CT/MRI) and monomodal (MRI longitudinal) image alignment with overlay visualization.",
+    modality: "MRI / CT",
     analysisType: "Registration",
     technologies: ["Python", "ANTsPy", "Elastix", "SimpleITK", "NiBabel"],
-
     thumbnailUrl: `${RAW_BASE}/recalage/ct/slice_001.png`,
-
     sliceCount: 0,
     nativeSlices: [],
     processedSlices: [],
+  },
+
+  // ============================================================
+  // QUALITY CONTROL (QC)
+  // ============================================================
+  {
+    id: "qc",
+    title: "Quality Control Viewer",
+    description:
+      "Multi-parametric perfusion QC viewer with 6 map types (DIFF, Tmax, CBF30, CBF60, OEF, CMRO2) and corresponding masks. Keyboard navigation for slice browsing.",
+    modality: "CT Perfusion / MRI",
+    analysisType: "Quality Control",
+    technologies: ["Python", "NiBabel", "NumPy", "Matplotlib", "React"],
+    thumbnailUrl: `${RAW_BASE}/perfusion/exemple/oef/slice_008.png`,
+    sliceCount: 16,
+    nativeSlices: slices("perfusion/exemple/oef"),
+    processedSlices: slices("perfusion/exemple/MASK_TMAX6"),
   },
 ];
 

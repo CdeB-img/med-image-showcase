@@ -7,11 +7,20 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import SliceViewer from "@/components/SliceViewer";
 import RegistrationViewer from "@/components/RegistrationViewer";
+import QCViewer from "@/components/QCViewer";
 
 import { getProjectById, getAdjacentProjects } from "@/data/projects";
 
 const RAW_BASE =
   "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
+
+/**
+ * Generate slice URLs for a given path
+ */
+const slices = (path: string, count = 16): string[] =>
+  Array.from({ length: count }, (_, i) =>
+    `${RAW_BASE}/${path}/slice_${String(i).padStart(3, "0")}.png`
+  );
 
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -75,6 +84,40 @@ const ProjectDetail = () => {
     },
   ];
 
+  // QC Viewer data: 6 image pairs (3 rows × 4 columns)
+  const qcPairs = [
+    {
+      label: "DIFF",
+      native: slices("perfusion/exemple/oef"),
+      mask: slices("perfusion/exemple/MASK_TMAX6"),
+    },
+    {
+      label: "Tmax",
+      native: slices("perfusion/exemple/oef"),
+      mask: slices("perfusion/exemple/MASK_TMAX6"),
+    },
+    {
+      label: "CBF30",
+      native: slices("perfusion/exemple/oef"),
+      mask: slices("perfusion/exemple/MASK_TMAX6"),
+    },
+    {
+      label: "CBF60",
+      native: slices("perfusion/exemple/oef"),
+      mask: slices("perfusion/exemple/MASK_TMAX6"),
+    },
+    {
+      label: "OEF",
+      native: slices("perfusion/exemple/oef"),
+      mask: slices("perfusion/exemple/MASK_TMAX6"),
+    },
+    {
+      label: "CMRO2",
+      native: slices("perfusion/exemple/oef"),
+      mask: slices("perfusion/exemple/MASK_TMAX6"),
+    },
+  ];
+
   return (
     <main className="min-h-screen py-8">
       <div className="container px-4 md:px-6">
@@ -108,35 +151,24 @@ const ProjectDetail = () => {
           </div>
         </div>
 
-        {/* Main content */}
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-          {/* Project info */}
-          <section className="space-y-6 animate-fade-in">
-            <header className="space-y-4">
+        {/* QC Project: Full-width viewer */}
+        {project.id === "qc" && (
+          <div className="space-y-8 animate-fade-in">
+            {/* Project info header */}
+            <header className="space-y-4 max-w-3xl">
               <h1 className="text-3xl md:text-4xl font-bold">{project.title}</h1>
 
               <div className="flex flex-wrap gap-2">
-                <Badge
-                  variant="outline"
-                  className="border-primary/50 text-primary"
-                >
+                <Badge variant="outline" className="border-primary/50 text-primary">
                   {project.modality}
                 </Badge>
                 <Badge variant="secondary">{project.analysisType}</Badge>
               </div>
-            </header>
 
-            <div className="space-y-2">
-              <h2 className="text-lg font-semibold text-muted-foreground">
-                Description
-              </h2>
-              <p className="leading-relaxed">{project.description}</p>
-            </div>
+              <p className="text-muted-foreground leading-relaxed">
+                {project.description}
+              </p>
 
-            <div className="space-y-3">
-              <h2 className="text-lg font-semibold text-muted-foreground">
-                Technologies
-              </h2>
               <div className="flex flex-wrap gap-2">
                 {project.technologies.map((tech) => (
                   <span
@@ -147,41 +179,93 @@ const ProjectDetail = () => {
                   </span>
                 ))}
               </div>
-            </div>
-          </section>
+            </header>
 
-          {/* Viewer */}
-          <section
-            className="animate-fade-in"
-            style={{ animationDelay: "100ms" }}
-          >
-            <div className="sticky top-8">
-              <h2 className="text-lg font-semibold text-muted-foreground mb-4">
-                Visualization
-              </h2>
+            {/* Full-width QC Viewer */}
+            <QCViewer
+              pairs={qcPairs}
+              patientName="Example Patient"
+              className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6"
+            />
+          </div>
+        )}
 
-              {/* Standard viewer */}
-              {project.id !== "recalage" && (
-                <SliceViewer
-                  nativeSlices={project.nativeSlices}
-                  processedSlices={project.processedSlices}
-                  useSliderOverlay={project.useSliderOverlay}
-                  className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-4"
-                />
-              )}
+        {/* Standard projects: Two-column layout */}
+        {project.id !== "qc" && (
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
+            {/* Project info */}
+            <section className="space-y-6 animate-fade-in">
+              <header className="space-y-4">
+                <h1 className="text-3xl md:text-4xl font-bold">{project.title}</h1>
 
-              {/* Registration viewer */}
-              {project.id === "recalage" && (
-                <RegistrationViewer
-                  multimodalPairs={multimodalPairs}
-                  monomodalPairs={monomodalPairs}
-                  initialOpacity={0.5}
-                  className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-4"
-                />
-              )}
-            </div>
-          </section>
-        </div>
+                <div className="flex flex-wrap gap-2">
+                  <Badge
+                    variant="outline"
+                    className="border-primary/50 text-primary"
+                  >
+                    {project.modality}
+                  </Badge>
+                  <Badge variant="secondary">{project.analysisType}</Badge>
+                </div>
+              </header>
+
+              <div className="space-y-2">
+                <h2 className="text-lg font-semibold text-muted-foreground">
+                  Description
+                </h2>
+                <p className="leading-relaxed">{project.description}</p>
+              </div>
+
+              <div className="space-y-3">
+                <h2 className="text-lg font-semibold text-muted-foreground">
+                  Technologies
+                </h2>
+                <div className="flex flex-wrap gap-2">
+                  {project.technologies.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-3 py-1.5 text-sm font-mono bg-secondary/50 border border-border rounded-md"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* Viewer */}
+            <section
+              className="animate-fade-in"
+              style={{ animationDelay: "100ms" }}
+            >
+              <div className="sticky top-8">
+                <h2 className="text-lg font-semibold text-muted-foreground mb-4">
+                  Visualization
+                </h2>
+
+                {/* Standard viewer */}
+                {project.id !== "recalage" && (
+                  <SliceViewer
+                    nativeSlices={project.nativeSlices}
+                    processedSlices={project.processedSlices}
+                    useSliderOverlay={project.useSliderOverlay}
+                    className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-4"
+                  />
+                )}
+
+                {/* Registration viewer */}
+                {project.id === "recalage" && (
+                  <RegistrationViewer
+                    multimodalPairs={multimodalPairs}
+                    monomodalPairs={monomodalPairs}
+                    initialOpacity={0.5}
+                    className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-4"
+                  />
+                )}
+              </div>
+            </section>
+          </div>
+        )}
 
         {/* Bottom navigation */}
         <footer className="mt-12 pt-8 border-t border-border">
