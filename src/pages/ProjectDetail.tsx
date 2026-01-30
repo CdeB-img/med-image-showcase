@@ -23,15 +23,56 @@ const RAW_BASE =
 
 const PERF_BASE = "perfusion/exemple";
 
-
 // ============================================================
 // HELPERS
 // ============================================================
 
-const slices = (path: string, start = 0, end = 15): string[] =>
+const slices = (relativePath: string, start = 0, end = 15): string[] =>
   Array.from({ length: end - start + 1 }, (_, i) =>
-    `${RAW_BASE}/${PERF_BASE}/${path}/slice_${String(start + i).padStart(3, "0")}.png`
+    `${RAW_BASE}/${PERF_BASE}/${relativePath}/slice_${String(start + i).padStart(3, "0")}.png`
   );
+
+// ============================================================
+// QC DATA (CAS SPÉCIAL, ASSUMÉ)
+// ============================================================
+
+const qcPairs = [
+  {
+    label: "TMAX",
+    native: slices(
+      "Tmax_Basic_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_1025000001"
+    ),
+    mask: slices("MASK_TMAX6"),
+  },
+  {
+    label: "CBF30",
+    native: slices(
+      "rCBF_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_rCBF_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_1034000001"
+    ),
+    mask: slices("MASK_CBF30_SEEDED"),
+  },
+  {
+    label: "CBF60",
+    native: slices(
+      "rCBF_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_rCBF_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_1034000001"
+    ),
+    mask: slices("MASK_CBF60_SEEDED"),
+  },
+  {
+    label: "OEF",
+    native: slices(
+      "OEF_Model_Based_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clini..._1039000001"
+    ),
+    mask: slices("oef"),
+  },
+  {
+    label: "CMRO2",
+    native: slices(
+      "rCMRO2_Model_Based_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_cl..._1040000001"
+    ),
+    mask: slices("MASK_CMRO2_30"),
+  },
+];
 
 // ============================================================
 // COMPONENT
@@ -62,78 +103,11 @@ const ProjectDetail = () => {
     );
   }
 
-  // ============================================================
-  // RECALAGE — DONNÉES
-  // ============================================================
-
-  const qcPairs = [
-  {
-    label: "TMAX",
-    native: slices("perfusion/exemple/Tmax_Basic_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_1025000001"),
-    mask: slices("perfusion/exemple/MASK_TMAX6"),
-  },
-  {
-    label: "CBF30",
-    native: slices("perfusion/exemple/rCBF_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_rCBF_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_1034000001"),
-    mask: slices("perfusion/exemple/MASK_CBF30_SEEDED"),
-  },
-  {
-    label: "CBF60",
-    native: slices("perfusion/exemple/rCBF_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_rCBF_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_1034000001"),
-    mask: slices("perfusion/exemple/MASK_CBF60_SEEDED"),
-  },
-  {
-    label: "OEF",
-    native: slices("perfusion/exemple/OEF_Model_Based_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clini..._1039000001"),
-    mask: slices("perfusion/exemple/oef"),
-  },
-  {
-    label: "CMRO2",
-    native: slices("perfusion/exemple/rCMRO2_Model_Based_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_cl..._1040000001"),
-    mask: slices("perfusion/exemple/MASK_CMRO2_30"),
-  },
-];
-  // ============================================================
-  // QC — DONNÉES (FIDÈLES AU VIEWER PYTHON)
-  // ============================================================
-
-  const qcPairs = [
-    {
-      label: "TMAX",
-      native: slices(PATHS.TMAX_NATIVE),
-      mask: slices(PATHS.MASK_TMAX),
-    },
-    {
-      label: "CBF30",
-      native: slices(PATHS.CBF_NATIVE),
-      mask: slices(PATHS.MASK_CBF30),
-    },
-    {
-      label: "CBF60",
-      native: slices(PATHS.CBF_NATIVE),
-      mask: slices(PATHS.MASK_CBF60),
-    },
-    {
-      label: "OEF",
-      native: slices(PATHS.OEF_NATIVE),
-      mask: slices(PATHS.MASK_OEF),
-    },
-    {
-      label: "CMRO2",
-      native: slices(PATHS.CMRO2_NATIVE),
-      mask: slices(PATHS.MASK_CMRO2),
-    },
-  ];
-
-  // ============================================================
-  // RENDER
-  // ============================================================
-
   return (
     <main className="min-h-screen py-8">
       <div className="container px-4 md:px-6">
 
-        {/* Navigation haute */}
+        {/* Navigation */}
         <div className="flex items-center justify-between mb-8">
           <Link to="/">
             <Button variant="ghost" className="gap-2">
@@ -151,7 +125,6 @@ const ProjectDetail = () => {
             >
               <ChevronLeft className="w-4 h-4" />
             </Button>
-
             <Button
               variant="outline"
               size="icon"
@@ -163,156 +136,45 @@ const ProjectDetail = () => {
           </div>
         </div>
 
-        {/* ================= QC PROJECT ================= */}
+        {/* ================= QC ================= */}
         {project.id === "qc" && (
-          <div className="space-y-8 animate-fade-in">
-
-            <header className="space-y-4 max-w-3xl">
-              <h1 className="text-3xl md:text-4xl font-bold">
-                {project.title}
-              </h1>
-
-              <div className="flex flex-wrap gap-2">
-                <Badge variant="outline" className="border-primary/50 text-primary">
-                  {project.modality}
-                </Badge>
-                <Badge variant="secondary">
-                  {project.analysisType}
-                </Badge>
-              </div>
-
-              <p className="text-muted-foreground leading-relaxed">
-                {project.description}
-              </p>
-
-              <div className="flex flex-wrap gap-2">
-                {project.technologies.map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-3 py-1.5 text-sm font-mono bg-secondary/50 border border-border rounded-md"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </header>
-
-            <QCViewer
-              pairs={qcPairs}
-              patientName="Example patient"
-              className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6"
-            />
-          </div>
+          <QCViewer
+            pairs={qcPairs}
+            patientName="Example patient"
+            className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6"
+          />
         )}
 
         {/* ================= AUTRES PROJETS ================= */}
         {project.id !== "qc" && (
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
+          <div className="grid lg:grid-cols-2 gap-8">
 
-            <section className="space-y-6 animate-fade-in">
-              <header className="space-y-4">
-                <h1 className="text-3xl md:text-4xl font-bold">
-                  {project.title}
-                </h1>
+            <section className="space-y-6">
+              <h1 className="text-3xl font-bold">{project.title}</h1>
 
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline" className="border-primary/50 text-primary">
-                    {project.modality}
-                  </Badge>
-                  <Badge variant="secondary">
-                    {project.analysisType}
-                  </Badge>
-                </div>
-              </header>
-
-              <div className="space-y-2">
-                <h2 className="text-lg font-semibold text-muted-foreground">
-                  Description
-                </h2>
-                <p className="leading-relaxed">
-                  {project.description}
-                </p>
+              <div className="flex gap-2">
+                <Badge variant="outline">{project.modality}</Badge>
+                <Badge variant="secondary">{project.analysisType}</Badge>
               </div>
 
-              <div className="space-y-3">
-                <h2 className="text-lg font-semibold text-muted-foreground">
-                  Technologies
-                </h2>
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-3 py-1.5 text-sm font-mono bg-secondary/50 border border-border rounded-md"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              <p>{project.description}</p>
             </section>
 
-            <section
-              className="animate-fade-in"
-              style={{ animationDelay: "100ms" }}
-            >
-              <div className="sticky top-8">
-                <h2 className="text-lg font-semibold text-muted-foreground mb-4">
-                  Visualization
-                </h2>
+            <section className="sticky top-8">
+              {project.id !== "recalage" && (
+                <SliceViewer
+                  nativeSlices={project.nativeSlices}
+                  processedSlices={project.processedSlices}
+                  useSliderOverlay={project.useSliderOverlay}
+                />
+              )}
 
-                {project.id !== "recalage" && (
-                  <SliceViewer
-                    nativeSlices={project.nativeSlices}
-                    processedSlices={project.processedSlices}
-                    useSliderOverlay={project.useSliderOverlay}
-                    className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-4"
-                  />
-                )}
-
-                {project.id === "recalage" && (
-                  <RegistrationViewer
-                    multimodalPairs={multimodalPairs}
-                    monomodalPairs={monomodalPairs}
-                    initialOpacity={0.5}
-                    className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-4"
-                  />
-                )}
-              </div>
+              {project.id === "recalage" && (
+                <RegistrationViewer />
+              )}
             </section>
           </div>
         )}
-
-        {/* Navigation basse */}
-        <footer className="mt-12 pt-8 border-t border-border">
-          <div className="flex justify-between items-center">
-            {prev ? (
-              <Link to={`/projet/${prev.id}`} className="group">
-                <div className="text-sm text-muted-foreground mb-1">
-                  Previous project
-                </div>
-                <div className="font-medium flex items-center gap-2 group-hover:text-primary">
-                  <ChevronLeft className="w-4 h-4" />
-                  {prev.title}
-                </div>
-              </Link>
-            ) : (
-              <div />
-            )}
-
-            {next && (
-              <Link to={`/projet/${next.id}`} className="group text-right">
-                <div className="text-sm text-muted-foreground mb-1">
-                  Next project
-                </div>
-                <div className="font-medium flex items-center gap-2 justify-end group-hover:text-primary">
-                  {next.title}
-                  <ChevronRight className="w-4 h-4" />
-                </div>
-              </Link>
-            )}
-          </div>
-        </footer>
-
       </div>
     </main>
   );
