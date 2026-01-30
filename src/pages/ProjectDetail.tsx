@@ -6,7 +6,7 @@ import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import SliceViewer from "@/components/SliceViewer";
-import RegistrationOverlayGrid from "@/components/RegistrationOverlayGrid";
+import RegistrationCompareGrid from "@/components/RegistrationCompareGrid";
 
 import {
   getProjectById,
@@ -140,42 +140,46 @@ const ProjectDetail = () => {
 
               {/* ===== CAS RECALAGE ===== */}
               {project.id === "recalage" && (
-                <div className="space-y-10">
+                <div className="space-y-12">
 
-                  <RegistrationOverlayGrid
-                    title="Recalage multimodal CT / IRM (J1)"
-                    columns={2}
+                  {/* Multimodal: CT (reference) vs IRM Diffusion (registered) */}
+                  <RegistrationCompareGrid
+                    title="Recalage multimodal CT / IRM (J+1)"
+                    referenceLabel="CT (MaxIP)"
+                    registeredLabel="CT + IRM Diffusion"
                     pairs={[
                       {
-                        background: `${RAW_BASE}/recalage/ct/slice_000.png`,
-                        overlay: `${RAW_BASE}/recalage/maxip/slice_000.png`,
+                        reference: `${RAW_BASE}/recalage/maxip/slice_000.png`,
+                        registered: `${RAW_BASE}/recalage/ct/slice_000.png`,
                       },
                       {
-                        background: `${RAW_BASE}/recalage/ct/slice_001.png`,
-                        overlay: `${RAW_BASE}/recalage/maxip/slice_001.png`,
+                        reference: `${RAW_BASE}/recalage/maxip/slice_001.png`,
+                        registered: `${RAW_BASE}/recalage/ct/slice_001.png`,
                       },
                       {
-                        background: `${RAW_BASE}/recalage/ct/slice_002.png`,
-                        overlay: `${RAW_BASE}/recalage/maxip/slice_002.png`,
+                        reference: `${RAW_BASE}/recalage/maxip/slice_002.png`,
+                        registered: `${RAW_BASE}/recalage/ct/slice_002.png`,
                       },
                     ]}
                   />
 
-                  <RegistrationOverlayGrid
-                    title="Recalage monomodal IRM (Diff J0 → Flair J1)"
-                    columns={4}
+                  {/* Monomodal: Diff J0 (reference) vs Flair J+1 (registered) */}
+                  <RegistrationCompareGrid
+                    title="Recalage monomodal IRM (Diff J0 → Flair J+1)"
+                    referenceLabel="Diffusion (J0)"
+                    registeredLabel="Diff + Flair (J+1)"
                     pairs={[
                       {
-                        background: `${RAW_BASE}/recalage/mdiff/slice_000.png`,
-                        overlay: `${RAW_BASE}/recalage/mflair/slice_000.png`,
+                        reference: `${RAW_BASE}/recalage/mdiff/slice_000.png`,
+                        registered: `${RAW_BASE}/recalage/mflair/slice_000.png`,
                       },
                       {
-                        background: `${RAW_BASE}/recalage/mdiff/slice_001.png`,
-                        overlay: `${RAW_BASE}/recalage/mflair/slice_001.png`,
+                        reference: `${RAW_BASE}/recalage/mdiff/slice_001.png`,
+                        registered: `${RAW_BASE}/recalage/mflair/slice_001.png`,
                       },
                       {
-                        background: `${RAW_BASE}/recalage/mdiff/slice_002.png`,
-                        overlay: `${RAW_BASE}/recalage/mflair/slice_002.png`,
+                        reference: `${RAW_BASE}/recalage/mdiff/slice_002.png`,
+                        registered: `${RAW_BASE}/recalage/mflair/slice_002.png`,
                       },
                     ]}
                   />
