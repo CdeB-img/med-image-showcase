@@ -115,41 +115,17 @@ export const projects: Project[] = [
     ),
   },
 
-  // ============================================================
-  // RECALAGE
-  // ============================================================
-  {
-    id: "recalage",
-    title: "Recalage IRM / CT",
-    description:
-      "Recalage multimodal IRM–CT avec visualisation comparative.",
-    modality: "IRM / CT",
-    analysisType: "Registration",
-    technologies: ["Python", "ANTsPy", "Elastix"],
 
-    thumbnailUrl: `${RAW_BASE}/recalage/ct/slice_008.png`,
-    sliceCount: 5,
+>>>>>>> 268535aadd8f596411fd2bcb3a09cd157ceab246
 
-    nativeSlices: slicesRange(
-      "recalage/ct",
-      6,
-      10
-    ),
+<<<<<<< HEAD
 
-    processedSlices: slicesRange(
-      "recalage/maxip",
-      6,
-      10
-    ),
-
-    useSliderOverlay: true,
-  },
-];
-
+=======
 // ============================================================
 // HELPERS
 // ============================================================
 
+>>>>>>> 268535aadd8f596411fd2bcb3a09cd157ceab246
 /**
  * Accès direct à un projet par son id
  */

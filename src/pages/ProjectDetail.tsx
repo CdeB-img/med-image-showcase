@@ -6,11 +6,15 @@ import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import SliceViewer from "@/components/SliceViewer";
+import RegistrationOverlayGrid from "@/components/RegistrationOverlayGrid";
 
 import {
   getProjectById,
   getAdjacentProjects,
 } from "@/data/projects";
+
+const RAW_BASE =
+  "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
 
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -115,44 +119,68 @@ const ProjectDetail = () => {
                 ))}
               </div>
             </div>
-
-            <div className="grid grid-cols-2 gap-4 pt-4">
-              <div className="p-4 rounded-lg border bg-surface">
-                <div className="text-2xl font-bold text-primary">
-                  {project.sliceCount}
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  Slices
-                </div>
-              </div>
-
-              <div className="p-4 rounded-lg border bg-surface">
-                <div className="text-2xl font-bold text-primary">
-                  {project.technologies.length}
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  Technologies
-                </div>
-              </div>
-            </div>
           </section>
 
           {/* Viewer */}
-          <section
-            className="animate-fade-in"
-            style={{ animationDelay: "100ms" }}
-          >
+          <section className="animate-fade-in" style={{ animationDelay: "100ms" }}>
             <div className="sticky top-8">
               <h2 className="text-lg font-semibold text-muted-foreground mb-4">
-                Visualiseur de coupes
+                Visualisation
               </h2>
 
-              <SliceViewer
-                nativeSlices={project.nativeSlices}
-                processedSlices={project.processedSlices}
-                useSliderOverlay={project.useSliderOverlay}
-                className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-4"
-              />
+              {/* ===== CAS GÉNÉRAL ===== */}
+              {project.id !== "recalage" && (
+                <SliceViewer
+                  nativeSlices={project.nativeSlices}
+                  processedSlices={project.processedSlices}
+                  useSliderOverlay={project.useSliderOverlay}
+                  className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-4"
+                />
+              )}
+
+              {/* ===== CAS RECALAGE ===== */}
+              {project.id === "recalage" && (
+                <div className="space-y-10">
+
+                  <RegistrationOverlayGrid
+                    title="Recalage multimodal CT / IRM (J1)"
+                    columns={2}
+                    pairs={[
+                      {
+                        background: `${RAW_BASE}/recalage/ct/slice_000.png`,
+                        overlay: `${RAW_BASE}/recalage/maxip/slice_000.png`,
+                      },
+                      {
+                        background: `${RAW_BASE}/recalage/ct/slice_001.png`,
+                        overlay: `${RAW_BASE}/recalage/maxip/slice_001.png`,
+                      },
+                      {
+                        background: `${RAW_BASE}/recalage/ct/slice_002.png`,
+                        overlay: `${RAW_BASE}/recalage/maxip/slice_002.png`,
+                      },
+                    ]}
+                  />
+
+                  <RegistrationOverlayGrid
+                    title="Recalage monomodal IRM (Diff J0 → Flair J1)"
+                    columns={4}
+                    pairs={[
+                      {
+                        background: `${RAW_BASE}/recalage/mdiff/slice_000.png`,
+                        overlay: `${RAW_BASE}/recalage/mflair/slice_000.png`,
+                      },
+                      {
+                        background: `${RAW_BASE}/recalage/mdiff/slice_001.png`,
+                        overlay: `${RAW_BASE}/recalage/mflair/slice_001.png`,
+                      },
+                      {
+                        background: `${RAW_BASE}/recalage/mdiff/slice_002.png`,
+                        overlay: `${RAW_BASE}/recalage/mflair/slice_002.png`,
+                      },
+                    ]}
+                  />
+                </div>
+              )}
             </div>
           </section>
         </div>
