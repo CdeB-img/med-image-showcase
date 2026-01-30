@@ -113,17 +113,19 @@ export default function QCViewer({
               <div
                 className="
                   absolute bottom-0 left-0 right-0
+                  h-[14px] md:h-[24px]
                   bg-black/70
-                  px-2 py-1
-                  md:px-2 md:py-2
+                  flex items-center
+                  px-1 md:px-2
                 "
               >
                 <span
                   className="
-                    text-[10px] md:text-xs
+                    text-[9px] md:text-xs
                     font-mono text-white/90
-                    leading-tight
+                    leading-none
                     truncate
+                    w-full
                   "
                 >
                   {pair.label} + mask
