@@ -86,42 +86,33 @@ const ProjectDetail = () => {
   // RECALAGE — DONNÉES
   // ============================================================
 
-  const multimodalPairs = [
-    {
-      reference: `${RAW_BASE}/recalage/maxip/slice_000.png`,
-      registered: `${RAW_BASE}/recalage/ct/slice_000.png`,
-      label: "Axial 1",
-    },
-    {
-      reference: `${RAW_BASE}/recalage/maxip/slice_001.png`,
-      registered: `${RAW_BASE}/recalage/ct/slice_001.png`,
-      label: "Axial 2",
-    },
-    {
-      reference: `${RAW_BASE}/recalage/maxip/slice_002.png`,
-      registered: `${RAW_BASE}/recalage/ct/slice_002.png`,
-      label: "Axial 3",
-    },
-  ];
-
-  const monomodalPairs = [
-    {
-      reference: `${RAW_BASE}/recalage/mdiff/slice_000.png`,
-      registered: `${RAW_BASE}/recalage/mflair/slice_000.png`,
-      label: "Axial 1",
-    },
-    {
-      reference: `${RAW_BASE}/recalage/mdiff/slice_001.png`,
-      registered: `${RAW_BASE}/recalage/mflair/slice_001.png`,
-      label: "Axial 2",
-    },
-    {
-      reference: `${RAW_BASE}/recalage/mdiff/slice_002.png`,
-      registered: `${RAW_BASE}/recalage/mflair/slice_002.png`,
-      label: "Axial 3",
-    },
-  ];
-
+  const qcPairs = [
+  {
+    label: "TMAX",
+    native: slices("perfusion/exemple/Tmax_Basic_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_1025000001"),
+    mask: slices("perfusion/exemple/MASK_TMAX6"),
+  },
+  {
+    label: "CBF30",
+    native: slices("perfusion/exemple/rCBF_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_rCBF_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_1034000001"),
+    mask: slices("perfusion/exemple/MASK_CBF30_SEEDED"),
+  },
+  {
+    label: "CBF60",
+    native: slices("perfusion/exemple/rCBF_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_rCBF_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clinical_use#_1034000001"),
+    mask: slices("perfusion/exemple/MASK_CBF60_SEEDED"),
+  },
+  {
+    label: "OEF",
+    native: slices("perfusion/exemple/OEF_Model_Based_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_clini..._1039000001"),
+    mask: slices("perfusion/exemple/oef"),
+  },
+  {
+    label: "CMRO2",
+    native: slices("perfusion/exemple/rCMRO2_Model_Based_(aaif,ctp,dn,moco,mono,ncu,pp)_#Not_for_cl..._1040000001"),
+    mask: slices("perfusion/exemple/MASK_CMRO2_30"),
+  },
+];
   // ============================================================
   // QC — DONNÉES (FIDÈLES AU VIEWER PYTHON)
   // ============================================================
