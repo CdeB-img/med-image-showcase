@@ -113,19 +113,18 @@ export const projects: Project[] = [
   },
 
   // ============================================================
-  // RECALAGE (CAS SPÉCIAL — PAS DE SliceViewer)
+  // RECALAGE
   // ============================================================
   {
     id: "recalage",
     title: "Recalage IRM / CT",
     description:
-      "Recalage multimodal CT / IRM et recalage monomodal IRM inter-temps.",
+      "Rigid and affine registration pipelines for multimodal (CT/MRI) and monomodal (MRI longitudinal) image alignment. Includes quality control with overlay visualization.",
     modality: "IRM / CT",
     analysisType: "Registration",
-    technologies: ["Python", "ANTsPy", "Elastix"],
+    technologies: ["Python", "ANTsPy", "Elastix", "SimpleITK", "NiBabel"],
 
-    thumbnailUrl:
-      `${RAW_BASE}/recalage/ct/slice_001.png`,
+    thumbnailUrl: `${RAW_BASE}/recalage/ct/slice_001.png`,
 
     sliceCount: 0,
     nativeSlices: [],

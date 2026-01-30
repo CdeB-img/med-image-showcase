@@ -6,12 +6,9 @@ import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import SliceViewer from "@/components/SliceViewer";
-import RegistrationCompareGrid from "@/components/RegistrationCompareGrid";
+import RegistrationViewer from "@/components/RegistrationViewer";
 
-import {
-  getProjectById,
-  getAdjacentProjects,
-} from "@/data/projects";
+import { getProjectById, getAdjacentProjects } from "@/data/projects";
 
 const RAW_BASE =
   "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
@@ -29,11 +26,11 @@ const ProjectDetail = () => {
     return (
       <main className="min-h-screen flex items-center justify-center">
         <div className="text-center space-y-4">
-          <h1 className="text-2xl font-bold">Projet introuvable</h1>
+          <h1 className="text-2xl font-bold">Project not found</h1>
           <Link to="/">
             <Button variant="outline">
               <ArrowLeft className="w-4 h-4 mr-2" />
-              Retour
+              Back
             </Button>
           </Link>
         </div>
@@ -41,16 +38,52 @@ const ProjectDetail = () => {
     );
   }
 
+  // Registration pairs for recalage project
+  const multimodalPairs = [
+    {
+      reference: `${RAW_BASE}/recalage/maxip/slice_000.png`,
+      registered: `${RAW_BASE}/recalage/ct/slice_000.png`,
+      label: "Axial 1",
+    },
+    {
+      reference: `${RAW_BASE}/recalage/maxip/slice_001.png`,
+      registered: `${RAW_BASE}/recalage/ct/slice_001.png`,
+      label: "Axial 2",
+    },
+    {
+      reference: `${RAW_BASE}/recalage/maxip/slice_002.png`,
+      registered: `${RAW_BASE}/recalage/ct/slice_002.png`,
+      label: "Axial 3",
+    },
+  ];
+
+  const monomodalPairs = [
+    {
+      reference: `${RAW_BASE}/recalage/mdiff/slice_000.png`,
+      registered: `${RAW_BASE}/recalage/mflair/slice_000.png`,
+      label: "Axial 1",
+    },
+    {
+      reference: `${RAW_BASE}/recalage/mdiff/slice_001.png`,
+      registered: `${RAW_BASE}/recalage/mflair/slice_001.png`,
+      label: "Axial 2",
+    },
+    {
+      reference: `${RAW_BASE}/recalage/mdiff/slice_002.png`,
+      registered: `${RAW_BASE}/recalage/mflair/slice_002.png`,
+      label: "Axial 3",
+    },
+  ];
+
   return (
     <main className="min-h-screen py-8">
       <div className="container px-4 md:px-6">
-
-        {/* Navigation haute */}
+        {/* Top navigation */}
         <div className="flex items-center justify-between mb-8">
           <Link to="/">
             <Button variant="ghost" className="gap-2">
               <ArrowLeft className="w-4 h-4" />
-              Retour
+              Back
             </Button>
           </Link>
 
@@ -75,23 +108,21 @@ const ProjectDetail = () => {
           </div>
         </div>
 
-        {/* Contenu principal */}
+        {/* Main content */}
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-
-          {/* Infos projet */}
+          {/* Project info */}
           <section className="space-y-6 animate-fade-in">
             <header className="space-y-4">
-              <h1 className="text-3xl md:text-4xl font-bold">
-                {project.title}
-              </h1>
+              <h1 className="text-3xl md:text-4xl font-bold">{project.title}</h1>
 
               <div className="flex flex-wrap gap-2">
-                <Badge variant="outline" className="border-primary/50 text-primary">
+                <Badge
+                  variant="outline"
+                  className="border-primary/50 text-primary"
+                >
                   {project.modality}
                 </Badge>
-                <Badge variant="secondary">
-                  {project.analysisType}
-                </Badge>
+                <Badge variant="secondary">{project.analysisType}</Badge>
               </div>
             </header>
 
@@ -99,9 +130,7 @@ const ProjectDetail = () => {
               <h2 className="text-lg font-semibold text-muted-foreground">
                 Description
               </h2>
-              <p className="leading-relaxed">
-                {project.description}
-              </p>
+              <p className="leading-relaxed">{project.description}</p>
             </div>
 
             <div className="space-y-3">
@@ -122,13 +151,16 @@ const ProjectDetail = () => {
           </section>
 
           {/* Viewer */}
-          <section className="animate-fade-in" style={{ animationDelay: "100ms" }}>
+          <section
+            className="animate-fade-in"
+            style={{ animationDelay: "100ms" }}
+          >
             <div className="sticky top-8">
               <h2 className="text-lg font-semibold text-muted-foreground mb-4">
-                Visualisation
+                Visualization
               </h2>
 
-              {/* ===== CAS GÉNÉRAL ===== */}
+              {/* Standard viewer */}
               {project.id !== "recalage" && (
                 <SliceViewer
                   nativeSlices={project.nativeSlices}
@@ -138,64 +170,26 @@ const ProjectDetail = () => {
                 />
               )}
 
-              {/* ===== CAS RECALAGE ===== */}
+              {/* Registration viewer */}
               {project.id === "recalage" && (
-                <div className="space-y-12">
-
-                  {/* Multimodal: CT (reference) vs IRM Diffusion (registered) */}
-                  <RegistrationCompareGrid
-                    title="Recalage multimodal CT / IRM (J+1)"
-                    referenceLabel="CT (MaxIP)"
-                    registeredLabel="CT + IRM Diffusion"
-                    pairs={[
-                      {
-                        reference: `${RAW_BASE}/recalage/maxip/slice_000.png`,
-                        registered: `${RAW_BASE}/recalage/ct/slice_000.png`,
-                      },
-                      {
-                        reference: `${RAW_BASE}/recalage/maxip/slice_001.png`,
-                        registered: `${RAW_BASE}/recalage/ct/slice_001.png`,
-                      },
-                      {
-                        reference: `${RAW_BASE}/recalage/maxip/slice_002.png`,
-                        registered: `${RAW_BASE}/recalage/ct/slice_002.png`,
-                      },
-                    ]}
-                  />
-
-                  {/* Monomodal: Diff J0 (reference) vs Flair J+1 (registered) */}
-                  <RegistrationCompareGrid
-                    title="Recalage monomodal IRM (Diff J0 → Flair J+1)"
-                    referenceLabel="Diffusion (J0)"
-                    registeredLabel="Diff + Flair (J+1)"
-                    pairs={[
-                      {
-                        reference: `${RAW_BASE}/recalage/mdiff/slice_000.png`,
-                        registered: `${RAW_BASE}/recalage/mflair/slice_000.png`,
-                      },
-                      {
-                        reference: `${RAW_BASE}/recalage/mdiff/slice_001.png`,
-                        registered: `${RAW_BASE}/recalage/mflair/slice_001.png`,
-                      },
-                      {
-                        reference: `${RAW_BASE}/recalage/mdiff/slice_002.png`,
-                        registered: `${RAW_BASE}/recalage/mflair/slice_002.png`,
-                      },
-                    ]}
-                  />
-                </div>
+                <RegistrationViewer
+                  multimodalPairs={multimodalPairs}
+                  monomodalPairs={monomodalPairs}
+                  initialOpacity={0.5}
+                  className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-4"
+                />
               )}
             </div>
           </section>
         </div>
 
-        {/* Navigation basse */}
+        {/* Bottom navigation */}
         <footer className="mt-12 pt-8 border-t border-border">
           <div className="flex justify-between items-center">
             {prev ? (
               <Link to={`/projet/${prev.id}`} className="group">
                 <div className="text-sm text-muted-foreground mb-1">
-                  Projet précédent
+                  Previous project
                 </div>
                 <div className="font-medium flex items-center gap-2 group-hover:text-primary">
                   <ChevronLeft className="w-4 h-4" />
@@ -209,7 +203,7 @@ const ProjectDetail = () => {
             {next && (
               <Link to={`/projet/${next.id}`} className="group text-right">
                 <div className="text-sm text-muted-foreground mb-1">
-                  Projet suivant
+                  Next project
                 </div>
                 <div className="font-medium flex items-center gap-2 justify-end group-hover:text-primary">
                   {next.title}
@@ -219,7 +213,6 @@ const ProjectDetail = () => {
             )}
           </div>
         </footer>
-
       </div>
     </main>
   );
