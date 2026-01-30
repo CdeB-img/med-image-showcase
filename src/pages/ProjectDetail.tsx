@@ -29,47 +29,83 @@ const PERF_BASE = "perfusion/exemple";
 
 const slices = (relativePath: string, start = 0, end = 15): string[] =>
   Array.from({ length: end - start + 1 }, (_, i) =>
-    `${RAW_BASE}/${PERF_BASE}/${relativePath}/slice_${String(start + i).padStart(3, "0")}.png`
+    `${RAW_BASE}/${relativePath}/slice_${String(start + i).padStart(3, "0")}.png`
   );
 
 // ============================================================
-// QC DATA (CAS SPÉCIAL, ASSUMÉ)
+// QC DATA
 // ============================================================
 
 const qcPairs = [
   {
     label: "TMAX",
-    native: slices("Tmax_seq"),
-    mask: slices("MASK_TMAX6"),
+    native: slices(`${PERF_BASE}/Tmax_seq`),
+    mask: slices(`${PERF_BASE}/MASK_TMAX6`),
   },
   {
     label: "CBF30",
-    native: slices("rCBF_seq"),
-    mask: slices("MASK_CBF30"),
+    native: slices(`${PERF_BASE}/rCBF_seq`),
+    mask: slices(`${PERF_BASE}/MASK_CBF30`),
   },
   {
     label: "CBF60",
-    native: slices("rCBF_seq"),
-    mask: slices("MASK_CBF60"),
+    native: slices(`${PERF_BASE}/rCBF_seq`),
+    mask: slices(`${PERF_BASE}/MASK_CBF60`),
   },
   {
     label: "OEF",
-    native: slices("OEF_seq"),
-    mask: slices("MASK_OEF"),
+    native: slices(`${PERF_BASE}/OEF_seq`),
+    mask: slices(`${PERF_BASE}/MASK_OEF`),
   },
   {
     label: "CMRO2",
-    native: slices("rCMRO2_seq"),
-    mask: slices("MASK_CMRO2"),
+    native: slices(`${PERF_BASE}/rCMRO2_seq`),
+    mask: slices(`${PERF_BASE}/MASK_CMRO2`),
   },
   {
     label: "DIFF",
-    native: Array.from({ length: 16 }, (_, i) =>
-      `${RAW_BASE}/diffusion/native/slice_${String(i).padStart(3, "0")}.png`
-    ),
-    mask: Array.from({ length: 16 }, (_, i) =>
-      `${RAW_BASE}/diffusion/mask/slice_${String(i).padStart(3, "0")}.png`
-    ),
+    native: slices("diffusion/native"),
+    mask: slices("diffusion/mask"),
+  },
+];
+
+// ============================================================
+// RECALAGE DATA
+// ============================================================
+
+const multimodalPairs = [
+  {
+    label: "CT → IRM",
+    reference: `${RAW_BASE}/recalage/ct/slice_008.png`,
+    registered: `${RAW_BASE}/recalage/ct_to_mri/slice_008.png`,
+  },
+  {
+    label: "CT → IRM (affine)",
+    reference: `${RAW_BASE}/recalage/ct/slice_008.png`,
+    registered: `${RAW_BASE}/recalage/ct_to_mri_affine/slice_008.png`,
+  },
+  {
+    label: "CT → IRM (non-linéaire)",
+    reference: `${RAW_BASE}/recalage/ct/slice_008.png`,
+    registered: `${RAW_BASE}/recalage/ct_to_mri_nl/slice_008.png`,
+  },
+];
+
+const monomodalPairs = [
+  {
+    label: "DWI → FLAIR",
+    reference: `${RAW_BASE}/recalage/dwi/slice_008.png`,
+    registered: `${RAW_BASE}/recalage/dwi_to_flair/slice_008.png`,
+  },
+  {
+    label: "DWI → FLAIR (affine)",
+    reference: `${RAW_BASE}/recalage/dwi/slice_008.png`,
+    registered: `${RAW_BASE}/recalage/dwi_to_flair_affine/slice_008.png`,
+  },
+  {
+    label: "DWI → FLAIR (non-linéaire)",
+    reference: `${RAW_BASE}/recalage/dwi/slice_008.png`,
+    registered: `${RAW_BASE}/recalage/dwi_to_flair_nl/slice_008.png`,
   },
 ];
 
@@ -160,18 +196,20 @@ const ProjectDetail = () => {
             </section>
 
             <section className="sticky top-8">
-              {project.id !== "recalage" && (
+              {project.id === "recalage" ? (
+                <RegistrationViewer
+                  multimodalPairs={multimodalPairs}
+                  monomodalPairs={monomodalPairs}
+                />
+              ) : (
                 <SliceViewer
                   nativeSlices={project.nativeSlices}
                   processedSlices={project.processedSlices}
                   useSliderOverlay={project.useSliderOverlay}
                 />
               )}
-
-              {project.id === "recalage" && (
-                <RegistrationViewer />
-              )}
             </section>
+
           </div>
         )}
       </div>
