@@ -74,6 +74,7 @@ export default function QCViewer({
           <React.Fragment key={pair.label}>
             {/* Native */}
             <div className="aspect-square bg-black rounded overflow-hidden relative">
+
               <img
                 src={pair.native[sliceIndex]}
                 className={cn(
