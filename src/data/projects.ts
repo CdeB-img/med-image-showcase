@@ -18,7 +18,6 @@ export interface Project {
 
 /**
  * Base RAW GitHub du dépôt contenant les images
- * (CdeB-img / expert-imagerie)
  */
 const RAW_BASE =
   "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
@@ -70,30 +69,35 @@ export const projects: Project[] = [
   },
 
   // ============================================================
-  // PERFUSION — OEF
+  // PERFUSION — OEF (MODEL-BASED)
   // ============================================================
   {
     id: "perfusion",
     title: "Perfusion CT – OEF",
     description:
-      "Analyse de l’Oxygen Extraction Fraction (OEF) avec superposition du masque dérivé de l’OEF.",
+      "Carte OEF issue d’un modèle physiologique avec superposition du masque OEF.",
     modality: "CT Perfusion",
     analysisType: "Quantification",
     technologies: ["Python", "Cercare", "NumPy"],
 
-    thumbnailUrl: `${RAW_BASE}/perfusion/exemple/oef/slice_008.png`,
+    // vignette = image native (pas le masque)
+    thumbnailUrl: `${RAW_BASE}/perfusion/exemple/OEF_Model_based/slice_008.png`,
     sliceCount: 5,
 
-    // Carte OEF native
+    // =========================
+    // IMAGES NATIVES OEF
+    // =========================
     nativeSlices: slicesRange(
-      "perfusion/exemple/oef",
+      "perfusion/exemple/OEF_Model_based",
       6,
       10
     ),
 
-    // Masque dérivé de l’OEF (ET PAS Tmax)
+    // =========================
+    // MASQUE OEF
+    // =========================
     processedSlices: slicesRange(
-      "perfusion/exemple/MASK_OEF",
+      "perfusion/exemple/oef",
       6,
       10
     ),
