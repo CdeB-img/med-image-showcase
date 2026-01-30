@@ -1,3 +1,5 @@
+// src/components/SliceViewer.tsx
+
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import WindowedImage from "@/components/WindowedImage";
@@ -54,10 +56,12 @@ const SliceViewer = React.forwardRef<HTMLDivElement, Props>(
           <div className="aspect-square bg-black rounded overflow-hidden relative">
 
             {/* Fond : image native */}
-            <div className={cn(
-              "absolute inset-0 flex items-center justify-center",
-              ROTATION_CLASS
-            )}>
+            <div
+              className={cn(
+                "absolute inset-0 flex items-center justify-center",
+                ROTATION_CLASS
+              )}
+            >
               <WindowedImage
                 src={nativeSlices[sliceIndex]}
                 className="w-full h-full"
@@ -78,7 +82,10 @@ const SliceViewer = React.forwardRef<HTMLDivElement, Props>(
                 className="w-full h-full"
               />
             </div>
-        </div>
+
+          </div> {/* ✅ FIN COLONNE DROITE */}
+
+        </div> {/* ✅ FIN GRID */}
 
         {/* =========================
             SLIDER
