@@ -77,9 +77,10 @@ export default function QCViewer({
               <img
                 src={pair.native[sliceIndex]}
                 className={cn(
-                  "absolute inset-0 w-full h-full object-contain",
+                  "absolute inset-0 w-full h-full object-contain z-10",
                   ROTATION_CLASS
                 )}
+              />
               />
               <div className="absolute bottom-0 left-0 right-0 bg-black/70 p-2">
                 <span className="text-xs font-mono text-white">
