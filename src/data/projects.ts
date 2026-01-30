@@ -24,7 +24,7 @@ const RAW_BASE =
 
 /**
  * Génère une plage explicite de slices :
- * ex: slice_006.png → slice_010.png
+ * slice_006.png → slice_010.png
  */
 const slicesRange = (
   relativePath: string,
@@ -34,6 +34,23 @@ const slicesRange = (
   Array.from({ length: end - start + 1 }, (_, i) =>
     `${RAW_BASE}/${relativePath}/slice_${String(start + i).padStart(3, "0")}.png`
   );
+
+// ============================================================
+// CONSTANTES DE CHEMINS (ENCODÉS)
+// ============================================================
+
+/**
+ * OEF – images natives (MODEL-BASED)
+ * Dossier réel GitHub, URL-encodé
+ */
+const OEF_NATIVE_PATH =
+  "perfusion/exemple/OEF_Model_Based_%28aaif%2Cctp%2Cdn%2Cmoco%2Cmono%2Cncu%2Cpp%29_%23Not_for_clini..._OEF_Model_Based_%28aaif%2Cctp%2Cdn%2Cmoco%2Cmono%2Cncu%2Cpp%29_%23Not_for_clini..._1039000001";
+
+/**
+ * OEF – masque dérivé
+ */
+const OEF_MASK_PATH =
+  "perfusion/exemple/oef";
 
 // ============================================================
 // PROJETS
@@ -75,29 +92,24 @@ export const projects: Project[] = [
     id: "perfusion",
     title: "Perfusion CT – OEF",
     description:
-      "Carte OEF issue d’un modèle physiologique avec superposition du masque OEF.",
+      "Carte OEF model-based avec superposition du masque OEF dérivé.",
     modality: "CT Perfusion",
     analysisType: "Quantification",
     technologies: ["Python", "Cercare", "NumPy"],
 
-    // vignette = image native (pas le masque)
-    thumbnailUrl: `${RAW_BASE}/perfusion/exemple/OEF_Model_based/slice_008.png`,
+    thumbnailUrl: `${RAW_BASE}/${OEF_NATIVE_PATH}/slice_008.png`,
     sliceCount: 5,
 
-    // =========================
-    // IMAGES NATIVES OEF
-    // =========================
+    // Images natives OEF
     nativeSlices: slicesRange(
-      "perfusion/exemple/OEF_Model_based",
+      OEF_NATIVE_PATH,
       6,
       10
     ),
 
-    // =========================
-    // MASQUE OEF
-    // =========================
+    // Masque OEF
     processedSlices: slicesRange(
-      "perfusion/exemple/oef",
+      OEF_MASK_PATH,
       6,
       10
     ),
