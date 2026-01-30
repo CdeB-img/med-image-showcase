@@ -1,4 +1,6 @@
+// ============================================================
 // src/data/projects.ts
+// ============================================================
 
 export interface Project {
   id: string;
@@ -34,6 +36,10 @@ const slicesRange = (
     `${RAW_BASE}/${relativePath}/slice_${String(start + i).padStart(3, "0")}.png`
   );
 
+// ============================================================
+// PROJETS
+// ============================================================
+
 export const projects: Project[] = [
   // ============================================================
   // DIFFUSION
@@ -48,7 +54,6 @@ export const projects: Project[] = [
     technologies: ["Python", "ANTsPy", "NiBabel", "NumPy", "SimpleITK"],
 
     thumbnailUrl: `${RAW_BASE}/diffusion/native/slice_008.png`,
-
     sliceCount: 5,
 
     nativeSlices: slicesRange(
@@ -65,29 +70,30 @@ export const projects: Project[] = [
   },
 
   // ============================================================
-  // PERFUSION
+  // PERFUSION — OEF
   // ============================================================
   {
     id: "perfusion",
     title: "Perfusion CT – OEF",
     description:
-      "Analyse multiparamétrique de la perfusion cérébrale.",
+      "Analyse de l’Oxygen Extraction Fraction (OEF) avec superposition du masque dérivé de l’OEF.",
     modality: "CT Perfusion",
     analysisType: "Quantification",
     technologies: ["Python", "Cercare", "NumPy"],
 
     thumbnailUrl: `${RAW_BASE}/perfusion/exemple/oef/slice_008.png`,
-
     sliceCount: 5,
 
+    // Carte OEF native
     nativeSlices: slicesRange(
       "perfusion/exemple/oef",
       6,
       10
     ),
 
+    // Masque dérivé de l’OEF (ET PAS Tmax)
     processedSlices: slicesRange(
-      "perfusion/exemple/MASK_TMAX6",
+      "perfusion/exemple/MASK_OEF",
       6,
       10
     ),
@@ -100,13 +106,12 @@ export const projects: Project[] = [
     id: "recalage",
     title: "Recalage IRM / CT",
     description:
-      "Recalage multimodal IRM–CT.",
+      "Recalage multimodal IRM–CT avec visualisation comparative.",
     modality: "IRM / CT",
     analysisType: "Registration",
     technologies: ["Python", "ANTsPy", "Elastix"],
 
     thumbnailUrl: `${RAW_BASE}/recalage/ct/slice_008.png`,
-
     sliceCount: 5,
 
     nativeSlices: slicesRange(
@@ -125,6 +130,10 @@ export const projects: Project[] = [
   },
 ];
 
+// ============================================================
+// HELPERS
+// ============================================================
+
 /**
  * Accès direct à un projet par son id
  */
@@ -136,6 +145,7 @@ export const getProjectById = (id: string): Project | undefined =>
  */
 export const getAdjacentProjects = (id: string) => {
   const idx = projects.findIndex((p) => p.id === id);
+
   return {
     prev: idx > 0 ? projects[idx - 1] : null,
     next: idx < projects.length - 1 ? projects[idx + 1] : null,
