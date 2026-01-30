@@ -74,14 +74,12 @@ export default function QCViewer({
           <React.Fragment key={pair.label}>
             {/* Native */}
             <div className="aspect-square bg-black rounded overflow-hidden relative">
-
               <img
                 src={pair.native[sliceIndex]}
                 className={cn(
-                  "absolute inset-0 w-full h-full object-contain z-10",
+                  "absolute inset-0 w-full h-full object-contain",
                   ROTATION_CLASS
                 )}
-              />
               />
               <div className="absolute bottom-0 left-0 right-0 bg-black/70 p-2">
                 <span className="text-xs font-mono text-white">
@@ -107,7 +105,6 @@ export default function QCViewer({
                 )}
               >
                 <MaskOverlay
-                  key={`${pair.label}-${sliceIndex}`}
                   src={pair.mask[sliceIndex]}
                   opacity={0.4}
                   className="w-full h-full"
