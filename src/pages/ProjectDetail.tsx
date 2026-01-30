@@ -1,26 +1,61 @@
+// ============================================================
 // src/pages/ProjectDetail.tsx
+// ============================================================
 
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+
 import SliceViewer from "@/components/SliceViewer";
 import RegistrationViewer from "@/components/RegistrationViewer";
 import QCViewer from "@/components/QCViewer";
 
 import { getProjectById, getAdjacentProjects } from "@/data/projects";
 
+// ============================================================
+// CONSTANTES
+// ============================================================
+
 const RAW_BASE =
   "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
 
-/**
- * Generate slice URLs for a given path
- */
-const slices = (path: string, count = 16): string[] =>
-  Array.from({ length: count }, (_, i) =>
-    `${RAW_BASE}/${path}/slice_${String(i).padStart(3, "0")}.png`
+const PERF_BASE = "perfusion/exemple";
+
+// Chemins URL-encodés (fidèles à l’arborescence Git)
+const PATHS = {
+  TMAX_NATIVE:
+    "Tmax_Basic_(aaif,ctp,dn,moco,mono,ncu,pp)_%23Not_for_clinical_use%23_1025000001",
+
+  CBF_NATIVE:
+    "rCBF_(aaif,ctp,dn,moco,mono,ncu,pp)_%23Not_for_clinical_use%23_1034000001",
+
+  OEF_NATIVE:
+    "OEF_Model_Based_(aaif,ctp,dn,moco,mono,ncu,pp)_%23Not_for_clini..._1039000001",
+
+  CMRO2_NATIVE:
+    "rCMRO2_Model_Based_(aaif,ctp,dn,moco,mono,ncu,pp)_%23Not_for_cl..._1040000001",
+
+  MASK_TMAX: "MASK_TMAX6",
+  MASK_CBF30: "MASK_CBF30_SEEDED",
+  MASK_CBF60: "MASK_CBF60_SEEDED",
+  MASK_OEF: "oef",
+  MASK_CMRO2: "MASK_CMRO2_30",
+};
+
+// ============================================================
+// HELPERS
+// ============================================================
+
+const slices = (path: string, start = 0, end = 15): string[] =>
+  Array.from({ length: end - start + 1 }, (_, i) =>
+    `${RAW_BASE}/${PERF_BASE}/${path}/slice_${String(start + i).padStart(3, "0")}.png`
   );
+
+// ============================================================
+// COMPONENT
+// ============================================================
 
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -47,7 +82,10 @@ const ProjectDetail = () => {
     );
   }
 
-  // Registration pairs for recalage project
+  // ============================================================
+  // RECALAGE — DONNÉES
+  // ============================================================
+
   const multimodalPairs = [
     {
       reference: `${RAW_BASE}/recalage/maxip/slice_000.png`,
@@ -84,44 +122,47 @@ const ProjectDetail = () => {
     },
   ];
 
-  // QC Viewer data: 6 image pairs (3 rows × 4 columns)
+  // ============================================================
+  // QC — DONNÉES (FIDÈLES AU VIEWER PYTHON)
+  // ============================================================
+
   const qcPairs = [
     {
-      label: "DIFF",
-      native: slices("perfusion/exemple/oef"),
-      mask: slices("perfusion/exemple/MASK_TMAX6"),
-    },
-    {
-      label: "Tmax",
-      native: slices("perfusion/exemple/oef"),
-      mask: slices("perfusion/exemple/MASK_TMAX6"),
+      label: "TMAX",
+      native: slices(PATHS.TMAX_NATIVE),
+      mask: slices(PATHS.MASK_TMAX),
     },
     {
       label: "CBF30",
-      native: slices("perfusion/exemple/oef"),
-      mask: slices("perfusion/exemple/MASK_TMAX6"),
+      native: slices(PATHS.CBF_NATIVE),
+      mask: slices(PATHS.MASK_CBF30),
     },
     {
       label: "CBF60",
-      native: slices("perfusion/exemple/oef"),
-      mask: slices("perfusion/exemple/MASK_TMAX6"),
+      native: slices(PATHS.CBF_NATIVE),
+      mask: slices(PATHS.MASK_CBF60),
     },
     {
       label: "OEF",
-      native: slices("perfusion/exemple/oef"),
-      mask: slices("perfusion/exemple/MASK_TMAX6"),
+      native: slices(PATHS.OEF_NATIVE),
+      mask: slices(PATHS.MASK_OEF),
     },
     {
       label: "CMRO2",
-      native: slices("perfusion/exemple/oef"),
-      mask: slices("perfusion/exemple/MASK_TMAX6"),
+      native: slices(PATHS.CMRO2_NATIVE),
+      mask: slices(PATHS.MASK_CMRO2),
     },
   ];
+
+  // ============================================================
+  // RENDER
+  // ============================================================
 
   return (
     <main className="min-h-screen py-8">
       <div className="container px-4 md:px-6">
-        {/* Top navigation */}
+
+        {/* Navigation haute */}
         <div className="flex items-center justify-between mb-8">
           <Link to="/">
             <Button variant="ghost" className="gap-2">
@@ -151,18 +192,22 @@ const ProjectDetail = () => {
           </div>
         </div>
 
-        {/* QC Project: Full-width viewer */}
+        {/* ================= QC PROJECT ================= */}
         {project.id === "qc" && (
           <div className="space-y-8 animate-fade-in">
-            {/* Project info header */}
+
             <header className="space-y-4 max-w-3xl">
-              <h1 className="text-3xl md:text-4xl font-bold">{project.title}</h1>
+              <h1 className="text-3xl md:text-4xl font-bold">
+                {project.title}
+              </h1>
 
               <div className="flex flex-wrap gap-2">
                 <Badge variant="outline" className="border-primary/50 text-primary">
                   {project.modality}
                 </Badge>
-                <Badge variant="secondary">{project.analysisType}</Badge>
+                <Badge variant="secondary">
+                  {project.analysisType}
+                </Badge>
               </div>
 
               <p className="text-muted-foreground leading-relaxed">
@@ -181,31 +226,31 @@ const ProjectDetail = () => {
               </div>
             </header>
 
-            {/* Full-width QC Viewer */}
             <QCViewer
               pairs={qcPairs}
-              patientName="Example Patient"
+              patientName="Example patient"
               className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6"
             />
           </div>
         )}
 
-        {/* Standard projects: Two-column layout */}
+        {/* ================= AUTRES PROJETS ================= */}
         {project.id !== "qc" && (
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-            {/* Project info */}
+
             <section className="space-y-6 animate-fade-in">
               <header className="space-y-4">
-                <h1 className="text-3xl md:text-4xl font-bold">{project.title}</h1>
+                <h1 className="text-3xl md:text-4xl font-bold">
+                  {project.title}
+                </h1>
 
                 <div className="flex flex-wrap gap-2">
-                  <Badge
-                    variant="outline"
-                    className="border-primary/50 text-primary"
-                  >
+                  <Badge variant="outline" className="border-primary/50 text-primary">
                     {project.modality}
                   </Badge>
-                  <Badge variant="secondary">{project.analysisType}</Badge>
+                  <Badge variant="secondary">
+                    {project.analysisType}
+                  </Badge>
                 </div>
               </header>
 
@@ -213,7 +258,9 @@ const ProjectDetail = () => {
                 <h2 className="text-lg font-semibold text-muted-foreground">
                   Description
                 </h2>
-                <p className="leading-relaxed">{project.description}</p>
+                <p className="leading-relaxed">
+                  {project.description}
+                </p>
               </div>
 
               <div className="space-y-3">
@@ -233,7 +280,6 @@ const ProjectDetail = () => {
               </div>
             </section>
 
-            {/* Viewer */}
             <section
               className="animate-fade-in"
               style={{ animationDelay: "100ms" }}
@@ -243,7 +289,6 @@ const ProjectDetail = () => {
                   Visualization
                 </h2>
 
-                {/* Standard viewer */}
                 {project.id !== "recalage" && (
                   <SliceViewer
                     nativeSlices={project.nativeSlices}
@@ -253,7 +298,6 @@ const ProjectDetail = () => {
                   />
                 )}
 
-                {/* Registration viewer */}
                 {project.id === "recalage" && (
                   <RegistrationViewer
                     multimodalPairs={multimodalPairs}
@@ -267,7 +311,7 @@ const ProjectDetail = () => {
           </div>
         )}
 
-        {/* Bottom navigation */}
+        {/* Navigation basse */}
         <footer className="mt-12 pt-8 border-t border-border">
           <div className="flex justify-between items-center">
             {prev ? (
@@ -297,6 +341,7 @@ const ProjectDetail = () => {
             )}
           </div>
         </footer>
+
       </div>
     </main>
   );
