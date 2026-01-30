@@ -39,29 +39,30 @@ const slices = (relativePath: string, start = 0, end = 15): string[] =>
 const qcPairs = [
   {
     label: "TMAX",
-    native: slices("perfusion/exemple/Tmax_seq"),
-    mask: slices("perfusion/exemple/MASK_TMAX6"),
+    native: slices("Tmax_seq"),
+    mask: slices("MASK_TMAX6"),
   },
   {
     label: "CBF30",
-    native: slices("perfusion/exemple/rCBF_seq"),
-    mask: slices("perfusion/exemple/MASK_CBF30"),
+    native: slices("rCBF_seq"),
+    mask: slices("MASK_CBF30"),
   },
   {
     label: "CBF60",
-    native: slices("perfusion/exemple/rCBF_seq"),
-    mask: slices("perfusion/exemple/MASK_CBF60"),
+    native: slices("rCBF_seq"),
+    mask: slices("MASK_CBF60"),
   },
   {
     label: "OEF",
-    native: slices("perfusion/exemple/OEF_seq"),
-    mask: slices("perfusion/exemple/MASK_OEF"),
+    native: slices("OEF_seq"),
+    mask: slices("MASK_OEF"),
   },
   {
     label: "CMRO2",
-    native: slices("perfusion/exemple/rCMRO2_seq"),
-    mask: slices("perfusion/exemple/MASK_CMRO2"),
+    native: slices("rCMRO2_seq"),
+    mask: slices("MASK_CMRO2"),
   },
+
 ];
 
 // ============================================================
