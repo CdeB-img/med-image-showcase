@@ -148,4 +148,4 @@ export default function RegistrationCompareGrid({
       </div>
     </section>
   );
-}
+} 
