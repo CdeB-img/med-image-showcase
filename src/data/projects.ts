@@ -16,7 +16,6 @@ export interface Project {
   useSliderOverlay?: boolean;
 }
 
-
 /**
  * Base RAW GitHub URL for images
  */

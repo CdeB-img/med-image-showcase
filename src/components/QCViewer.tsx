@@ -1,4 +1,3 @@
-
 // src/components/QCViewer.tsx
 
 import * as React from "react";
