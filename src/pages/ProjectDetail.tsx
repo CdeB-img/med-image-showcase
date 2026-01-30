@@ -23,26 +23,6 @@ const RAW_BASE =
 
 const PERF_BASE = "perfusion/exemple";
 
-// Chemins URL-encodés (fidèles à l’arborescence Git)
-const PATHS = {
-  TMAX_NATIVE:
-    "Tmax_Basic_(aaif,ctp,dn,moco,mono,ncu,pp)_%23Not_for_clinical_use%23_1025000001",
-
-  CBF_NATIVE:
-    "rCBF_(aaif,ctp,dn,moco,mono,ncu,pp)_%23Not_for_clinical_use%23_1034000001",
-
-  OEF_NATIVE:
-    "OEF_Model_Based_(aaif,ctp,dn,moco,mono,ncu,pp)_%23Not_for_clini..._1039000001",
-
-  CMRO2_NATIVE:
-    "rCMRO2_Model_Based_(aaif,ctp,dn,moco,mono,ncu,pp)_%23Not_for_cl..._1040000001",
-
-  MASK_TMAX: "MASK_TMAX6",
-  MASK_CBF30: "MASK_CBF30_SEEDED",
-  MASK_CBF60: "MASK_CBF60_SEEDED",
-  MASK_OEF: "oef",
-  MASK_CMRO2: "MASK_CMRO2_30",
-};
 
 // ============================================================
 // HELPERS
