@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 
 import SliceViewer from "@/components/SliceViewer";
 import RegistrationViewer from "@/components/RegistrationViewer";
-import QCViewer from "@/components/QCViewer";
+import PerfusionSegmentationViewer from "@/components/PerfusionSegmentationViewer";
 import CardiacViewer from "@/components/CardiacViewer";
 import CTScanViewer from "@/components/CTScanViewer";
 
@@ -171,13 +171,9 @@ const ProjectDetail = () => {
           </div>
         </div>
 
-        {/* ================= QC ================= */}
-        {project.id === "qc" && (
-          <QCViewer
-            pairs={qcPairs}
-            patientName="Example patient"
-            className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6"
-          />
+        {/* ================= PERFUSION SEGMENTATION ================= */}
+        {project.id === "perfusion-segmentation" && (
+          <PerfusionSegmentationViewer pairs={qcPairs} />
         )}
 
         {/* ================= RECALAGE ================= */}
@@ -205,7 +201,7 @@ const ProjectDetail = () => {
         )}
 
         {/* ================= AUTRES PROJETS ================= */}
-        {project.id !== "qc" &&
+        {project.id !== "perfusion-segmentation" &&
          project.id !== "recalage" &&
          project.id !== "cardiac" &&
          project.id !== "ct-scan" && (
