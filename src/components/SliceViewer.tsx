@@ -23,6 +23,9 @@ const SliceViewer = React.forwardRef<HTMLDivElement, Props>(
       processedSlices?.length ?? 0
     );
 
+    if (maxSlices === 0) {
+      return null;
+    }
 
     return (
       <div ref={ref} className={cn("space-y-6", className)}>
