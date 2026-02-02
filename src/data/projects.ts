@@ -36,6 +36,23 @@ const slices = (basePath: string, count = 16): string[] =>
 
 export const projects: Project[] = [
   // ============================================================
+  // PERFUSION SEGMENTATION (ex-QC)
+  // ============================================================
+  {
+    id: "perfusion-segmentation",
+    title: "Segmentation experte — Perfusion CT/IRM",
+    description:
+      "Segmentation automatique des lésions de perfusion cérébrale basée sur des seuils paramétrables et une validation physiopathologique rigoureuse.",
+    modality: "CT Perfusion / MRI",
+    analysisType: "Segmentation",
+    technologies: ["Python", "NiBabel", "NumPy", "Matplotlib", "React"],
+    thumbnailUrl: `${RAW_BASE}/perfusion/exemple/Tmax_seq/slice_008.png`,
+    sliceCount: 0,
+    nativeSlices: [],
+    processedSlices: [],
+  },
+
+  // ============================================================
   // DIFFUSION
   // ============================================================
   {
@@ -53,23 +70,6 @@ export const projects: Project[] = [
   },
 
   // ============================================================
-  // PERFUSION — OEF
-  // ============================================================
-  {
-    id: "perfusion",
-    title: "Perfusion CT – OEF",
-    description:
-      "Model-based OEF map with derived mask overlay for perfusion analysis.",
-    modality: "CT Perfusion",
-    analysisType: "Quantification",
-    technologies: ["Python", "Cercare", "NumPy"],
-    thumbnailUrl: `${RAW_BASE}/perfusion/exemple/oef/slice_008.png`,
-    sliceCount: 16,
-    nativeSlices: slices("perfusion/exemple/oef"),
-    processedSlices: slices("perfusion/exemple/MASK_TMAX6"),
-  },
-
-  // ============================================================
   // RECALAGE (Registration)
   // ============================================================
   {
@@ -81,23 +81,6 @@ export const projects: Project[] = [
     analysisType: "Registration",
     technologies: ["Python", "ANTsPy", "Elastix", "SimpleITK", "NiBabel"],
     thumbnailUrl: `${RAW_BASE}/recalage/ct/slice_001.png`,
-    sliceCount: 0,
-    nativeSlices: [],
-    processedSlices: [],
-  },
-
-  // ============================================================
-  // QUALITY CONTROL (QC)
-  // ============================================================
-  {
-    id: "qc",
-    title: "Quality Control Viewer",
-    description:
-      "Multi-parametric perfusion QC viewer with synchronized slice navigation across Tmax, CBF30, CBF60, OEF and CMRO2 maps.",
-    modality: "CT Perfusion / MRI",
-    analysisType: "Quality Control",
-    technologies: ["Python", "NiBabel", "NumPy", "Matplotlib", "React"],
-    thumbnailUrl: `${RAW_BASE}/perfusion/exemple/Tmax_seq/slice_008.png`,
     sliceCount: 0,
     nativeSlices: [],
     processedSlices: [],
