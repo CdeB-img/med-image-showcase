@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import SliceViewer from "@/components/SliceViewer";
 import RegistrationViewer from "@/components/RegistrationViewer";
 import QCViewer from "@/components/QCViewer";
+import CardiacViewer from "@/components/CardiacViewer";
 
 import { getProjectById, getAdjacentProjects } from "@/data/projects";
 
@@ -185,6 +186,13 @@ const ProjectDetail = () => {
             monomodalPairs={monomodalPairs}
             initialOpacity={0.5}
             className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-4"
+          />
+        )}
+
+        {/* ================= CARDIAC ================= */}
+        {project.id === "cardiac" && (
+          <CardiacViewer
+            className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6"
           />
         )}
 

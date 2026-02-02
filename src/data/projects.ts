@@ -97,11 +97,25 @@ export const projects: Project[] = [
     modality: "CT Perfusion / MRI",
     analysisType: "Quality Control",
     technologies: ["Python", "NiBabel", "NumPy", "Matplotlib", "React"],
-
-    // IMPORTANT : le QCViewer gère tout
     thumbnailUrl: `${RAW_BASE}/perfusion/exemple/Tmax_seq/slice_008.png`,
     sliceCount: 0,
+    nativeSlices: [],
+    processedSlices: [],
+  },
 
+  // ============================================================
+  // CARDIAC MRI
+  // ============================================================
+  {
+    id: "cardiac",
+    title: "Cardiac MRI",
+    description:
+      "Cardiac function assessment (cine diastole/systole) and late gadolinium enhancement for myocardial scar quantification.",
+    modality: "MRI Cardiac",
+    analysisType: "Quantification",
+    technologies: ["Python", "SimpleITK", "NumPy", "Matplotlib"],
+    thumbnailUrl: `${RAW_BASE}/cardio/diastole.png`,
+    sliceCount: 5,
     nativeSlices: [],
     processedSlices: [],
   },
