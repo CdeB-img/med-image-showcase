@@ -119,6 +119,23 @@ export const projects: Project[] = [
     nativeSlices: [],
     processedSlices: [],
   },
+
+  // ============================================================
+  // CT SCAN
+  // ============================================================
+  {
+    id: "ct-scan",
+    title: "CT Scan Expertise",
+    description:
+      "Advanced CT imaging expertise covering morphological analysis, data preparation and anatomical quantification for cardiovascular and thoracic structures.",
+    modality: "CT Scan",
+    analysisType: "Quantification",
+    technologies: ["Python", "SimpleITK", "DICOM", "NumPy"],
+    thumbnailUrl: `${RAW_BASE}/cardio/ct-coeur.png`,
+    sliceCount: 0,
+    nativeSlices: [],
+    processedSlices: [],
+  },
 ];
 
 // ============================================================
