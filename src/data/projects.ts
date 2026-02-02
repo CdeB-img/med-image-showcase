@@ -115,7 +115,7 @@ export const projects: Project[] = [
     analysisType: "Quantification",
     technologies: ["Python", "SimpleITK", "NumPy", "Matplotlib"],
     thumbnailUrl: `${RAW_BASE}/cardio/diastole.png`,
-    sliceCount: 5,
+    sliceCount: 0,
     nativeSlices: [],
     processedSlices: [],
   },
