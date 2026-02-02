@@ -197,7 +197,9 @@ const ProjectDetail = () => {
         )}
 
         {/* ================= AUTRES PROJETS ================= */}
-        {project.id !== "qc" && project.id !== "recalage" && (
+        {project.id !== "qc" &&
+         project.id !== "recalage" &&
+         project.id !== "cardiac" && (
           <div className="grid lg:grid-cols-2 gap-8">
             <section className="space-y-6">
               <h1 className="text-3xl font-bold">{project.title}</h1>

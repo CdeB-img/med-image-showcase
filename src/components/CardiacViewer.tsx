@@ -115,7 +115,7 @@ const CardiacViewer = ({ className }: Props) => {
 
           {/* Mid */}
           <div className="space-y-3">
-            <div className="aspect-square bg-black rounded-lg overflow overflow-hidden border border-border">
+            <div className="aspect-square bg-black rounded-lg overflow-hidden border border-border">
               <img
                 src={`${RAW_BASE}/cardio/mid.png`}
                 alt="Mid-Ventricular Level"
