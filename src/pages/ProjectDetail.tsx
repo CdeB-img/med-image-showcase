@@ -14,6 +14,7 @@ import PerfusionSegmentationViewer from "@/components/PerfusionSegmentationViewe
 import CardiacViewer from "@/components/CardiacViewer";
 import CTScanViewer from "@/components/CTScanViewer";
 import NeuroOncoViewer from "@/components/NeuroOncoViewer";
+import OutilsViewer from "@/components/OutilsViewer";
 
 import { getProjectById, getAdjacentProjects } from "@/data/projects";
 
@@ -208,12 +209,20 @@ const ProjectDetail = () => {
           />
         )}
 
+        {/* ================= OUTILS SUR MESURE ================= */}
+        {project.id === "outils" && (
+          <OutilsViewer
+            className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6"
+          />
+        )}
+
         {/* ================= AUTRES PROJETS ================= */}
         {project.id !== "perfusion-segmentation" &&
          project.id !== "recalage" &&
          project.id !== "cardiac" &&
          project.id !== "ct-scan" &&
-         project.id !== "neuro-onco" && (
+         project.id !== "neuro-onco" &&
+         project.id !== "outils" && (
           <div className="grid lg:grid-cols-2 gap-8">
             <section className="space-y-6">
               <h1 className="text-3xl font-bold">{project.title}</h1>

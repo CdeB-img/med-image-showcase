@@ -11,16 +11,13 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
   return (
     <Link to={`/projet/${project.id}`}>
       <Card className="group overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:bg-card">
-        <div className="relative aspect-video overflow-hidden bg-surface">
+        <div className="relative aspect-square overflow-hidden bg-surface">
           <img
             src={project.thumbnailUrl}
             alt={project.title}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent opacity-60" />
-          <div className="absolute bottom-2 right-2 px-2 py-1 text-xs font-mono bg-background/80 backdrop-blur-sm rounded border border-border">
-            {project.sliceCount} slices
-          </div>
         </div>
 
         <CardContent className="p-4 space-y-3">
