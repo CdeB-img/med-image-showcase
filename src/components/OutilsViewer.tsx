@@ -97,14 +97,15 @@ const OutilsViewer: React.FC<OutilsViewerProps> = ({ className }) => {
               </div>
             </div>
           </div>
+        </div>
 
-          <div className="relative aspect-square overflow-hidden rounded-xl border border-border bg-surface">
-            <img
-              src={`${RAW_BASE}/outils/pneumo.png`}
-              alt="Module Pneumologie CT"
-              className="w-full h-full object-cover"
-            />
-          </div>
+        {/* Image pleine largeur */}
+        <div className="w-full overflow-hidden rounded-xl border border-border bg-surface">
+          <img
+            src={`${RAW_BASE}/outils/pneumo.png`}
+            alt="Module Pneumologie CT"
+            className="w-full h-auto object-contain"
+          />
         </div>
       </section>
 
@@ -120,15 +121,7 @@ const OutilsViewer: React.FC<OutilsViewerProps> = ({ className }) => {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8 items-start">
-          <div className="relative aspect-square overflow-hidden rounded-xl border border-border bg-surface order-2 lg:order-1">
-            <img
-              src={`${RAW_BASE}/outils/spectral.png`}
-              alt="Module CT Spectral"
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          <div className="space-y-4 order-1 lg:order-2">
+          <div className="space-y-4">
             <p className="text-muted-foreground leading-relaxed">
               Ce module présente un travail exploratoire autour du CT spectral et des 
               reconstructions dérivées, dans une logique de validation méthodologique et 
@@ -159,6 +152,15 @@ const OutilsViewer: React.FC<OutilsViewerProps> = ({ className }) => {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Image pleine largeur */}
+        <div className="w-full overflow-hidden rounded-xl border border-border bg-surface">
+          <img
+            src={`${RAW_BASE}/outils/spectral.png`}
+            alt="Module CT Spectral"
+            className="w-full h-auto object-contain"
+          />
         </div>
       </section>
 
