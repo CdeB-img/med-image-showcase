@@ -36,17 +36,17 @@ const slices = (basePath: string, count = 16): string[] =>
 
 export const projects: Project[] = [
   // ============================================================
-  // PERFUSION SEGMENTATION (ex-QC)
+  // PERFUSION SEGMENTATION
   // ============================================================
   {
     id: "perfusion-segmentation",
     title: "Segmentation experte — Perfusion CT/IRM",
     description:
-      "Segmentation automatique des lésions de perfusion cérébrale basée sur des seuils paramétrables et une validation physiopathologique rigoureuse.",
+      "Segmentation automatique des lesions de perfusion cerebrale basee sur des seuils parametrables et une validation physiopathologique rigoureuse.",
     modality: "CT Perfusion / MRI",
     analysisType: "Segmentation",
     technologies: ["Python", "NiBabel", "NumPy", "Matplotlib", "React"],
-    thumbnailUrl: `${RAW_BASE}/perfusion/exemple/Tmax_seq/slice_008.png`,
+    thumbnailUrl: `${RAW_BASE}/projets/perfusion.png`,
     sliceCount: 0,
     nativeSlices: [],
     processedSlices: [],
@@ -59,31 +59,14 @@ export const projects: Project[] = [
     id: "neuro-onco",
     title: "Segmentation experte — Neuro-Oncologie IRM",
     description:
-      "Segmentation automatique des lésions tumorales cérébrales avec distinction multi-composants : cœur nécrotique, anneau tumoral et régions périphériques.",
+      "Segmentation automatique des lesions tumorales cerebrales avec distinction multi-composants : coeur necrotique, anneau tumoral et regions peripheriques.",
     modality: "MRI",
     analysisType: "Segmentation",
     technologies: ["Python", "NiBabel", "NumPy", "SimpleITK"],
-    thumbnailUrl: `${RAW_BASE}/neuro-onco/overlays/slice_002.png`,
+    thumbnailUrl: `${RAW_BASE}/projets/neuro-onco.png`,
     sliceCount: 5,
     nativeSlices: slices("neuro-onco/natives", 5),
     processedSlices: slices("neuro-onco/overlays", 5),
-  },
-
-  // ============================================================
-  // DIFFUSION
-  // ============================================================
-  {
-    id: "diffusion",
-    title: "Diffusion MRI",
-    description:
-      "Ischemic lesion segmentation on diffusion-weighted MRI sequences.",
-    modality: "MRI / CT",
-    analysisType: "Segmentation",
-    technologies: ["Python", "ANTsPy", "NiBabel", "NumPy", "SimpleITK"],
-    thumbnailUrl: `${RAW_BASE}/diffusion/native/slice_008.png`,
-    sliceCount: 16,
-    nativeSlices: slices("diffusion/native"),
-    processedSlices: slices("diffusion/mask"),
   },
 
   // ============================================================
@@ -97,7 +80,7 @@ export const projects: Project[] = [
     modality: "MRI / CT",
     analysisType: "Registration",
     technologies: ["Python", "ANTsPy", "Elastix", "SimpleITK", "NiBabel"],
-    thumbnailUrl: `${RAW_BASE}/recalage/ct/slice_001.png`,
+    thumbnailUrl: `${RAW_BASE}/projets/registration.png`,
     sliceCount: 0,
     nativeSlices: [],
     processedSlices: [],
@@ -114,7 +97,7 @@ export const projects: Project[] = [
     modality: "MRI Cardiac",
     analysisType: "Quantification",
     technologies: ["Python", "SimpleITK", "NumPy", "Matplotlib"],
-    thumbnailUrl: `${RAW_BASE}/cardio/diastole.png`,
+    thumbnailUrl: `${RAW_BASE}/projets/cardio.png`,
     sliceCount: 0,
     nativeSlices: [],
     processedSlices: [],
@@ -131,7 +114,24 @@ export const projects: Project[] = [
     modality: "CT Scan",
     analysisType: "Quantification",
     technologies: ["Python", "SimpleITK", "DICOM", "NumPy"],
-    thumbnailUrl: `${RAW_BASE}/cardio/ct-coeur.png`,
+    thumbnailUrl: `${RAW_BASE}/projets/ct.png`,
+    sliceCount: 0,
+    nativeSlices: [],
+    processedSlices: [],
+  },
+
+  // ============================================================
+  // OUTILS SUR MESURE
+  // ============================================================
+  {
+    id: "outils",
+    title: "Outils sur mesure — Analyse CT avancee",
+    description:
+      "Developpement d'outils dedies a l'analyse, la quantification et l'exploration avancee des donnees d'imagerie medicale (pneumologie CT, CT spectral).",
+    modality: "CT Scan",
+    analysisType: "Prototypage",
+    technologies: ["Python", "DICOM", "NumPy", "Matplotlib"],
+    thumbnailUrl: `${RAW_BASE}/projets/outils.png`,
     sliceCount: 0,
     nativeSlices: [],
     processedSlices: [],
