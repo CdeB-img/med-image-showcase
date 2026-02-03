@@ -53,6 +53,23 @@ export const projects: Project[] = [
   },
 
   // ============================================================
+  // NEURO-ONCOLOGIE
+  // ============================================================
+  {
+    id: "neuro-onco",
+    title: "Segmentation experte — Neuro-Oncologie IRM",
+    description:
+      "Segmentation automatique des lésions tumorales cérébrales avec distinction multi-composants : cœur nécrotique, anneau tumoral et régions périphériques.",
+    modality: "MRI",
+    analysisType: "Segmentation",
+    technologies: ["Python", "NiBabel", "NumPy", "SimpleITK"],
+    thumbnailUrl: `${RAW_BASE}/neuro-onco/overlays/slice_002.png`,
+    sliceCount: 5,
+    nativeSlices: slices("neuro-onco/natives", 5),
+    processedSlices: slices("neuro-onco/overlays", 5),
+  },
+
+  // ============================================================
   // DIFFUSION
   // ============================================================
   {
