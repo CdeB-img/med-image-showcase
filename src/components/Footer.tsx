@@ -1,9 +1,7 @@
 import { Link } from "react-router-dom";
 import { Brain, Mail, FileText, Home } from "lucide-react";
-
 const Footer = () => {
-  return (
-    <footer className="border-t border-border bg-background/50 backdrop-blur-sm">
+  return <footer className="border-t border-border bg-background/50 backdrop-blur-sm">
       <div className="container px-4 md:px-6 py-12">
         <div className="grid md:grid-cols-3 gap-8">
           {/* Brand */}
@@ -12,13 +10,11 @@ const Footer = () => {
               <Brain className="w-6 h-6 text-primary" />
               <span className="font-semibold">Expert Imagerie Médicale</span>
             </div>
-            <p className="text-sm text-muted-foreground">
-              Analyse et quantification d'images médicales pour la recherche clinique et translationnelle.
-            </p>
+            <p className="text-sm text-muted-foreground">Analyse et quantification d'images médicales pour la recherche clinique</p>
           </div>
 
           {/* Navigation */}
-          <div className="space-y-4">
+          <div className="space-y-4 my-0 py-0 px-0 border-0">
             <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">
               Navigation
             </h4>
@@ -57,8 +53,6 @@ const Footer = () => {
           </p>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;

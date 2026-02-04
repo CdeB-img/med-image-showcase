@@ -1,10 +1,8 @@
 import { ArrowRight, Brain, Activity, Scan } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-
 const HeroSection = () => {
-  return (
-    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+  return <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
       {/* Background gradient effect */}
       <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
@@ -26,10 +24,7 @@ const HeroSection = () => {
           </h1>
 
           {/* Subtitle */}
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
-            Prestataire indépendant spécialisé dans le traitement et l'analyse d'images médicales. 
-            Segmentation, reconstruction 3D, quantification et solutions sur mesure pour la recherche clinique.
-          </p>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">Prestataire indépendant spécialisé dans le traitement et l'analyse d'images médicales. Segmentation, quantification et solutions sur mesure pour la recherche clinique.</p>
 
           {/* CTA Button */}
           <Link to="/projets">
@@ -40,38 +35,16 @@ const HeroSection = () => {
           </Link>
 
           {/* Engineer subtitle */}
-          <p className="text-sm md:text-base text-muted-foreground max-w-xl italic">
-            Ingénieur en imagerie médicale, spécialisé dans le développement d'outils d'analyse 
-            et de quantification pour la recherche clinique et translationnelle.
-          </p>
+          <p className="text-sm md:text-base text-muted-foreground max-w-xl italic">Ingénieur en imagerie médicale, spécialisé dans le développement d'outils d'analyse et de quantification pour la recherche.</p>
 
           {/* Tech badges */}
           <div className="flex flex-wrap justify-center gap-3 pt-4">
-            {[
-              "Python",
-              "NumPy",
-              "SciPy",
-              "NiBabel",
-              "SimpleITK",
-              "ANTsPy",
-              "pydicom",
-              "PyTorch",
-              "MONAI",
-              "3D Slicer",
-              "OsiriX",
-            ].map((tech) => (
-              <span
-                key={tech}
-                className="px-3 py-1 text-sm font-mono bg-secondary/50 border border-border rounded-full text-muted-foreground"
-              >
+            {["Python", "NumPy", "SciPy", "NiBabel", "SimpleITK", "ANTsPy", "pydicom", "PyTorch", "MONAI", "3D Slicer", "OsiriX"].map(tech => <span key={tech} className="px-3 py-1 text-sm font-mono bg-secondary/50 border border-border rounded-full text-muted-foreground">
                 {tech}
-              </span>
-            ))}
+              </span>)}
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default HeroSection;
