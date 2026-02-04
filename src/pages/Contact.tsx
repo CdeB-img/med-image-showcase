@@ -11,44 +11,50 @@ import { z } from "zod";
 
 // Validation schema
 const contactSchema = z.object({
-  name: z
-    .string()
-    .trim()
-    .min(1, { message: "Le nom est requis" })
-    .max(100, { message: "Le nom doit contenir moins de 100 caractères" }),
-  email: z
-    .string()
-    .trim()
-    .email({ message: "Adresse email invalide" })
-    .max(255, { message: "L'email doit contenir moins de 255 caractères" }),
-  message: z
-    .string()
-    .trim()
-    .min(10, { message: "Le message doit contenir au moins 10 caractères" })
-    .max(2000, { message: "Le message doit contenir moins de 2000 caractères" }),
+  name: z.string().trim().min(1, {
+    message: "Le nom est requis"
+  }).max(100, {
+    message: "Le nom doit contenir moins de 100 caractères"
+  }),
+  email: z.string().trim().email({
+    message: "Adresse email invalide"
+  }).max(255, {
+    message: "L'email doit contenir moins de 255 caractères"
+  }),
+  message: z.string().trim().min(10, {
+    message: "Le message doit contenir au moins 10 caractères"
+  }).max(2000, {
+    message: "Le message doit contenir moins de 2000 caractères"
+  })
 });
-
 const Contact = () => {
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    message: "",
+    message: ""
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const {
+      name,
+      value
+    } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
     // Clear error when user starts typing
     if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }));
+      setErrors(prev => ({
+        ...prev,
+        [name]: ""
+      }));
     }
   };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrors({});
@@ -57,7 +63,7 @@ const Contact = () => {
     const result = contactSchema.safeParse(formData);
     if (!result.success) {
       const fieldErrors: Record<string, string> = {};
-      result.error.errors.forEach((err) => {
+      result.error.errors.forEach(err => {
         if (err.path[0]) {
           fieldErrors[err.path[0] as string] = err.message;
         }
@@ -65,44 +71,38 @@ const Contact = () => {
       setErrors(fieldErrors);
       return;
     }
-
     setIsSubmitting(true);
-
     try {
       // Create mailto link with encoded parameters
-      const subject = encodeURIComponent(
-        `Contact depuis le site - ${formData.name}`
-      );
-      const body = encodeURIComponent(
-        `Nom: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-      );
+      const subject = encodeURIComponent(`Contact depuis le site - ${formData.name}`);
+      const body = encodeURIComponent(`Nom: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
 
       // Open mailto link
       window.location.href = `mailto:debourguignoncharles@gmail.com?subject=${subject}&body=${body}`;
-
       toast({
         title: "Redirection vers votre client mail",
-        description:
-          "Votre client de messagerie s'ouvre avec le message pré-rempli.",
+        description: "Votre client de messagerie s'ouvre avec le message pré-rempli."
       });
 
       // Reset form after short delay
       setTimeout(() => {
-        setFormData({ name: "", email: "", message: "" });
+        setFormData({
+          name: "",
+          email: "",
+          message: ""
+        });
         setIsSubmitting(false);
       }, 1000);
     } catch (error) {
       toast({
         title: "Erreur",
         description: "Une erreur est survenue. Veuillez réessayer.",
-        variant: "destructive",
+        variant: "destructive"
       });
       setIsSubmitting(false);
     }
   };
-
-  return (
-    <div className="min-h-screen flex flex-col">
+  return <div className="min-h-screen flex flex-col">
       <main className="flex-1 py-8">
         <div className="container px-4 md:px-6">
           {/* Header */}
@@ -119,10 +119,7 @@ const Contact = () => {
             {/* Title */}
             <div className="text-center space-y-4">
               <h1 className="text-3xl md:text-4xl font-bold">Contact</h1>
-              <p className="text-muted-foreground max-w-lg mx-auto">
-                Pour toute demande de collaboration, de développement d'outils sur mesure 
-                ou de conseil en imagerie médicale, n'hésitez pas à me contacter.
-              </p>
+              <p className="text-muted-foreground max-w-lg mx-auto">Pour toute demande de collaboration, n'hésitez pas à me contacter.</p>
             </div>
 
             {/* Contact Form */}
@@ -133,18 +130,8 @@ const Contact = () => {
                   <User className="w-4 h-4 text-muted-foreground" />
                   Nom
                 </Label>
-                <Input
-                  id="name"
-                  name="name"
-                  type="text"
-                  placeholder="Votre nom"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className={errors.name ? "border-destructive" : ""}
-                />
-                {errors.name && (
-                  <p className="text-sm text-destructive">{errors.name}</p>
-                )}
+                <Input id="name" name="name" type="text" placeholder="Votre nom" value={formData.name} onChange={handleChange} className={errors.name ? "border-destructive" : ""} />
+                {errors.name && <p className="text-sm text-destructive">{errors.name}</p>}
               </div>
 
               {/* Email */}
@@ -153,18 +140,8 @@ const Contact = () => {
                   <Mail className="w-4 h-4 text-muted-foreground" />
                   Email
                 </Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="votre@email.com"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className={errors.email ? "border-destructive" : ""}
-                />
-                {errors.email && (
-                  <p className="text-sm text-destructive">{errors.email}</p>
-                )}
+                <Input id="email" name="email" type="email" placeholder="votre@email.com" value={formData.email} onChange={handleChange} className={errors.email ? "border-destructive" : ""} />
+                {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
               </div>
 
               {/* Message */}
@@ -173,51 +150,30 @@ const Contact = () => {
                   <MessageSquare className="w-4 h-4 text-muted-foreground" />
                   Message
                 </Label>
-                <Textarea
-                  id="message"
-                  name="message"
-                  placeholder="Décrivez votre projet ou votre demande..."
-                  rows={6}
-                  value={formData.message}
-                  onChange={handleChange}
-                  className={errors.message ? "border-destructive" : ""}
-                />
-                {errors.message && (
-                  <p className="text-sm text-destructive">{errors.message}</p>
-                )}
+                <Textarea id="message" name="message" placeholder="Décrivez votre projet ou votre demande..." rows={6} value={formData.message} onChange={handleChange} className={errors.message ? "border-destructive" : ""} />
+                {errors.message && <p className="text-sm text-destructive">{errors.message}</p>}
               </div>
 
               {/* Submit */}
-              <Button
-                type="submit"
-                size="lg"
-                className="w-full group"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? (
-                  "Envoi en cours..."
-                ) : (
-                  <>
+              <Button type="submit" size="lg" className="w-full group" disabled={isSubmitting}>
+                {isSubmitting ? "Envoi en cours..." : <>
                     Envoyer le message
                     <Send className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-                  </>
-                )}
+                  </>}
               </Button>
             </form>
 
             {/* Additional info */}
             <div className="text-center p-6 rounded-xl bg-secondary/30 border border-border">
-              <p className="text-sm text-muted-foreground">
-                Je réponds généralement sous 24 à 48 heures. 
-                Pour les projets urgents, merci de le préciser dans votre message.
-              </p>
+              <p className="text-sm text-muted-foreground">Je réponds généralement sous 24 à 48 heures. 
+"Envoyer le message" ouvrira votre client de messagerie avec le message pré-rempli.    
+Les informations transmises via ce formulaire seront utilisées uniquement pour répondre à votre demande. 
+            </p>
             </div>
           </div>
         </div>
       </main>
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default Contact;
