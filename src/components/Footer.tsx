@@ -8,9 +8,11 @@ const Footer = () => {
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <Brain className="w-6 h-6 text-primary" />
-              <span className="font-semibold">Expert Imagerie Médicale</span>
+              <span className="font-semibold">NOXIA</span>
             </div>
-            <p className="text-sm text-muted-foreground">Analyse et quantification d'images médicales pour la recherche clinique</p>
+            <p className="text-sm text-muted-foreground">Numerical Observation × Imaging Analysis
+
+Analyse et quantification d’images médicales pour la recherche clinique</p>
           </div>
 
           {/* Navigation */}

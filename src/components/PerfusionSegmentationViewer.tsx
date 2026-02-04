@@ -2,74 +2,52 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
-import { 
-  Crosshair, 
-  SlidersHorizontal, 
-  Layers, 
-  CheckCircle,
-  Brain,
-  FlaskConical,
-  Database,
-  Microscope
-} from "lucide-react";
+import { Crosshair, SlidersHorizontal, Layers, CheckCircle, Brain, FlaskConical, Database, Microscope } from "lucide-react";
 import QCViewer from "@/components/QCViewer";
-
 interface ImagePair {
   label: string;
   native: string[];
   mask: string[];
 }
-
 interface Props {
   pairs: ImagePair[];
   className?: string;
 }
-
-const keyFeatures = [
-  {
-    icon: Crosshair,
-    title: "Segmentation automatique des lésions de perfusion",
-    items: [
-      "Pénombre, cœur ischémique, territoires à risque",
-      "Approche mono- ou multi-seuil selon les paramètres étudiés"
-    ]
-  },
-  {
-    icon: SlidersHorizontal,
-    title: "Paramétrabilité complète des seuils",
-    items: [
-      "Ajustement fin des critères de segmentation",
-      "Exploration de plusieurs scénarios sans recalcul lourd du pipeline"
-    ]
-  },
-  {
-    icon: Layers,
-    title: "Visualisation multi-cartes synchronisée",
-    items: [
-      "Lecture conjointe des cartes de perfusion et des masques générés",
-      "Détection immédiate des incohérences spatiales ou physiologiques"
-    ]
-  },
-  {
-    icon: CheckCircle,
-    title: "Validation experte intégrée",
-    items: [
-      "Inspection slice-by-slice",
-      "Vérification de la cohérence anatomique et fonctionnelle avant quantification"
-    ]
-  }
-];
-
-const useCases = [
-  { icon: Brain, text: "Études de perfusion cérébrale (CT ou IRM)" },
-  { icon: FlaskConical, text: "Comparaison de stratégies de seuillage" },
-  { icon: Microscope, text: "Validation de méthodologies de segmentation" },
-  { icon: Database, text: "Préparation de données pour analyses quantitatives ou modèles d'apprentissage" }
-];
-
-export default function PerfusionSegmentationViewer({ pairs, className }: Props) {
-  return (
-    <div className={cn("space-y-12", className)}>
+const keyFeatures = [{
+  icon: Crosshair,
+  title: "Segmentation automatique des lésions de perfusion",
+  items: ["Pénombre, cœur ischémique, territoires à risque", "Approche mono- ou multi-seuil selon les paramètres étudiés"]
+}, {
+  icon: SlidersHorizontal,
+  title: "Paramétrabilité complète des seuils",
+  items: ["Ajustement fin des critères de segmentation", "Exploration de plusieurs scénarios sans recalcul lourd du pipeline"]
+}, {
+  icon: Layers,
+  title: "Visualisation multi-cartes synchronisée",
+  items: ["Lecture conjointe des cartes de perfusion et des masques générés", "Détection immédiate des incohérences spatiales ou physiologiques"]
+}, {
+  icon: CheckCircle,
+  title: "Validation experte intégrée",
+  items: ["Inspection slice-by-slice", "Vérification de la cohérence anatomique et fonctionnelle avant quantification"]
+}];
+const useCases = [{
+  icon: Brain,
+  text: "Études de perfusion cérébrale (CT ou IRM)"
+}, {
+  icon: FlaskConical,
+  text: "Comparaison de stratégies de seuillage"
+}, {
+  icon: Microscope,
+  text: "Validation de méthodologies de segmentation"
+}, {
+  icon: Database,
+  text: "Préparation de données pour analyses quantitatives ou modèles d'apprentissage"
+}];
+export default function PerfusionSegmentationViewer({
+  pairs,
+  className
+}: Props) {
+  return <div className={cn("space-y-12", className)}>
       {/* Header */}
       <header className="space-y-6 text-center max-w-4xl mx-auto">
         <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
@@ -112,24 +90,15 @@ export default function PerfusionSegmentationViewer({ pairs, className }: Props)
       <section className="space-y-4">
         <h2 className="text-xl font-semibold text-center">Visualisation interactive</h2>
         <p className="text-sm text-muted-foreground text-center">
-          Navigation clavier : ↑↓ (±1 slice) | PageUp/Down (±5 slices)
-        </p>
-        <QCViewer
-          pairs={pairs}
-          patientName="Démonstration — Cartes de perfusion"
-          className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6"
-        />
+      </p>
+        <QCViewer pairs={pairs} patientName="Démonstration — Cartes de perfusion" className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6" />
       </section>
 
       {/* Fonctionnalités clés */}
       <section className="space-y-6">
         <h2 className="text-xl font-semibold text-center">Fonctionnalités clés</h2>
         <div className="grid md:grid-cols-2 gap-6">
-          {keyFeatures.map((feature) => (
-            <div
-              key={feature.title}
-              className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-5 space-y-3"
-            >
+          {keyFeatures.map(feature => <div key={feature.title} className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-5 space-y-3">
               <div className="flex items-center gap-3">
                 <div className="p-2 rounded-lg bg-primary/10">
                   <feature.icon className="w-5 h-5 text-primary" />
@@ -137,15 +106,12 @@ export default function PerfusionSegmentationViewer({ pairs, className }: Props)
                 <h3 className="font-medium">{feature.title}</h3>
               </div>
               <ul className="space-y-1 text-sm text-muted-foreground pl-12">
-                {feature.items.map((item, i) => (
-                  <li key={i} className="flex items-start gap-2">
+                {feature.items.map((item, i) => <li key={i} className="flex items-start gap-2">
                     <span className="text-primary/60">–</span>
                     <span>{item}</span>
-                  </li>
-                ))}
+                  </li>)}
               </ul>
-            </div>
-          ))}
+            </div>)}
         </div>
       </section>
 
@@ -153,26 +119,17 @@ export default function PerfusionSegmentationViewer({ pairs, className }: Props)
       <section className="space-y-6">
         <h2 className="text-xl font-semibold text-center">Cas d'usage</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {useCases.map((useCase) => (
-            <div
-              key={useCase.text}
-              className="flex items-center gap-3 bg-card/30 border border-border/50 rounded-lg p-4"
-            >
+          {useCases.map(useCase => <div key={useCase.text} className="flex items-center gap-3 bg-card/30 border border-border/50 rounded-lg p-4">
               <useCase.icon className="w-5 h-5 text-primary shrink-0" />
               <span className="text-sm text-muted-foreground">{useCase.text}</span>
-            </div>
-          ))}
+            </div>)}
         </div>
       </section>
 
       {/* Positionnement */}
       <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4">
-        <h2 className="text-xl font-semibold">Positionnement</h2>
-        <p className="text-muted-foreground">
-          Ce module ne se limite pas à une démonstration technique : il reflète une expertise 
-          complète de la chaîne de segmentation des lésions de perfusion, depuis le signal brut 
-          jusqu'au masque exploitable.
-        </p>
+        <h2 className="text-xl font-semibold">Cadre méthodologique</h2>
+        <p className="text-muted-foreground">Ce module présente une expertise de la chaîne de segmentation des lésions de perfusion, depuis le signal brut jusqu'au masque exploitables.</p>
         <p className="text-muted-foreground">L'approche est :</p>
         <ul className="space-y-2 text-muted-foreground">
           <li className="flex items-start gap-2">
@@ -199,6 +156,5 @@ export default function PerfusionSegmentationViewer({ pairs, className }: Props)
           Chaque masque est le résultat de choix explicites, justifiés et contrôlés.
         </p>
       </section>
-    </div>
-  );
+    </div>;
 }
