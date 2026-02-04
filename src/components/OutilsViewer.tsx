@@ -37,26 +37,49 @@ function SecureZoomImage({
   alt: string;
 }) {
   const [open, setOpen] = React.useState(false);
-  const scrollY = React.useRef(0);
+  const [scale, setScale] = React.useState(1);
+  const [pos, setPos] = React.useState({ x: 0, y: 0 });
+  const start = React.useRef<{ x: number; y: number } | null>(null);
 
+  // Reset à l’ouverture
   React.useEffect(() => {
     if (open) {
-      scrollY.current = window.scrollY;
-      document.body.style.position = "fixed";
-      document.body.style.top = `-${scrollY.current}px`;
-      document.body.style.left = "0";
-      document.body.style.right = "0";
+      setScale(1);
+      setPos({ x: 0, y: 0 });
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.position = "";
-      document.body.style.top = "";
-      window.scrollTo(0, scrollY.current);
+      document.body.style.overflow = "";
     }
-
-    return () => {
-      document.body.style.position = "";
-      document.body.style.top = "";
-    };
   }, [open]);
+
+  function onPointerDown(e: React.PointerEvent) {
+    if (scale === 1) return;
+    start.current = {
+      x: e.clientX - pos.x,
+      y: e.clientY - pos.y,
+    };
+  }
+
+  function onPointerMove(e: React.PointerEvent) {
+    if (!start.current) return;
+    setPos({
+      x: e.clientX - start.current.x,
+      y: e.clientY - start.current.y,
+    });
+  }
+
+  function onPointerUp() {
+    start.current = null;
+  }
+
+  function toggleZoom() {
+    if (scale === 1) {
+      setScale(2);
+    } else {
+      setScale(1);
+      setPos({ x: 0, y: 0 });
+    }
+  }
 
   return (
     <>
@@ -65,53 +88,48 @@ function SecureZoomImage({
         src={src}
         alt={alt}
         loading="lazy"
+        className="w-full h-auto object-contain cursor-zoom-in"
         draggable={false}
-        className="w-full h-auto object-contain cursor-zoom-in select-none"
         onClick={() => setOpen(true)}
         onContextMenu={(e) => e.preventDefault()}
-        onDragStart={(e) => e.preventDefault()}
       />
 
       {open && (
         <div
-          className="fixed inset-0 z-50 bg-black"
+          className="fixed inset-0 z-50 bg-black flex items-center justify-center"
           onClick={() => setOpen(false)}
         >
-          {/* Surface scrollable indépendante */}
           <div
-            className="absolute inset-0 overflow-auto"
+            className="relative w-full h-full flex items-center justify-center overflow-hidden"
             onClick={(e) => e.stopPropagation()}
-            onContextMenu={(e) => e.preventDefault()}
-            style={{
-              WebkitOverflowScrolling: "touch",
-            }}
           >
-            {/* Centre l’image au chargement */}
-            <div className="min-h-full min-w-full flex items-center justify-center">
-              <img
-                src={src}
-                alt={alt}
-                draggable={false}
-                className="block max-w-none select-none"
-                style={{
-                  touchAction: "pan-x pan-y pinch-zoom",
-                  WebkitUserSelect: "none",
-                  userSelect: "none",
-                }}
-                onContextMenu={(e) => e.preventDefault()}
-                onDragStart={(e) => e.preventDefault()}
-                onMouseDown={(e) => e.preventDefault()}
-              />
-            </div>
-          </div>
+            <img
+              src={src}
+              alt={alt}
+              draggable={false}
+              onDoubleClick={toggleZoom}
+              onPointerDown={onPointerDown}
+              onPointerMove={onPointerMove}
+              onPointerUp={onPointerUp}
+              onPointerLeave={onPointerUp}
+              style={{
+                transform: `translate(${pos.x}px, ${pos.y}px) scale(${scale})`,
+                transition: start.current ? "none" : "transform 0.2s ease",
+                cursor: scale > 1 ? "grab" : "zoom-in",
+                maxWidth: "90vw",
+                maxHeight: "90vh",
+              }}
+              className="select-none"
+              onContextMenu={(e) => e.preventDefault()}
+            />
 
-          <button
-            className="fixed top-4 right-4 z-50 text-white text-3xl"
-            onClick={() => setOpen(false)}
-            aria-label="Fermer"
-          >
-            ×
-          </button>
+            <button
+              className="absolute top-4 right-4 text-white text-3xl"
+              onClick={() => setOpen(false)}
+            >
+              ×
+            </button>
+          </div>
         </div>
       )}
     </>
