@@ -37,18 +37,30 @@ function SecureZoomImage({
   alt: string;
 }) {
   const [open, setOpen] = React.useState(false);
+  const scrollY = React.useRef(0);
 
-  // Bloque le scroll de la page quand le zoom est actif
   React.useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
+    if (open) {
+      scrollY.current = window.scrollY;
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY.current}px`;
+      document.body.style.left = "0";
+      document.body.style.right = "0";
+    } else {
+      document.body.style.position = "";
+      document.body.style.top = "";
+      window.scrollTo(0, scrollY.current);
+    }
+
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.top = "";
     };
   }, [open]);
 
   return (
     <>
-      {/* Image inline (SEO OK) */}
+      {/* Image inline */}
       <img
         src={src}
         alt={alt}
@@ -60,31 +72,37 @@ function SecureZoomImage({
         onDragStart={(e) => e.preventDefault()}
       />
 
-      {/* Overlay fullscreen */}
       {open && (
         <div
           className="fixed inset-0 z-50 bg-black"
           onClick={() => setOpen(false)}
         >
+          {/* Surface scrollable indépendante */}
           <div
-            className="w-full h-full overflow-auto flex items-center justify-center"
+            className="absolute inset-0 overflow-auto"
             onClick={(e) => e.stopPropagation()}
             onContextMenu={(e) => e.preventDefault()}
+            style={{
+              WebkitOverflowScrolling: "touch",
+            }}
           >
-            <img
-              src={src}
-              alt={alt}
-              draggable={false}
-              className="block min-w-full min-h-full object-contain select-none"
-              style={{
-                touchAction: "pan-x pan-y pinch-zoom",
-                WebkitUserSelect: "none",
-                userSelect: "none",
-              }}
-              onContextMenu={(e) => e.preventDefault()}
-              onDragStart={(e) => e.preventDefault()}
-              onMouseDown={(e) => e.preventDefault()}
-            />
+            {/* Centre l’image au chargement */}
+            <div className="min-h-full min-w-full flex items-center justify-center">
+              <img
+                src={src}
+                alt={alt}
+                draggable={false}
+                className="block max-w-none select-none"
+                style={{
+                  touchAction: "pan-x pan-y pinch-zoom",
+                  WebkitUserSelect: "none",
+                  userSelect: "none",
+                }}
+                onContextMenu={(e) => e.preventDefault()}
+                onDragStart={(e) => e.preventDefault()}
+                onMouseDown={(e) => e.preventDefault()}
+              />
+            </div>
           </div>
 
           <button
