@@ -1,6 +1,6 @@
 // ============================================================
 // src/components/OutilsViewer.tsx
-// Développement d'outils – Viewer avec zoom sécurisé mobile
+// Développement d'outils – Version simple sans zoom
 // ============================================================
 
 import React from "react";
@@ -25,99 +25,17 @@ interface OutilsViewerProps {
   className?: string;
 }
 
-/* ============================================================
-   Composant Image Zoomable Sécurisé
-============================================================ */
-function SecureZoomImage({
-  src,
-  alt,
-}: {
-  src: string;
-  alt: string;
-}) {
-  const [open, setOpen] = React.useState(false);
-  const [zoom, setZoom] = React.useState(1);
-
-  React.useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [open]);
-
-  return (
-    <>
-      {/* Image inline */}
-      <img
-        src={src}
-        alt={alt}
-        className="w-full h-auto object-contain cursor-zoom-in"
-        draggable={false}
-        onClick={() => {
-          setZoom(1);
-          setOpen(true);
-        }}
-        onContextMenu={(e) => e.preventDefault()}
-      />
-
-      {open && (
-        <div className="fixed inset-0 z-50 bg-black">
-          {/* Header controls */}
-          <div className="absolute top-4 right-4 z-50 flex gap-3">
-            <button
-              className="text-white text-xl"
-              onClick={() => setZoom((z) => Math.max(1, z - 0.5))}
-            >
-              −
-            </button>
-            <button
-              className="text-white text-xl"
-              onClick={() => setZoom((z) => Math.min(4, z + 0.5))}
-            >
-              +
-            </button>
-            <button
-              className="text-white text-2xl ml-2"
-              onClick={() => setOpen(false)}
-            >
-              ×
-            </button>
-          </div>
-
-          {/* Viewer */}
-          <div
-            className="w-full h-full flex items-center justify-center overflow-auto"
-            onContextMenu={(e) => e.preventDefault()}
-          >
-            <img
-              src={src}
-              alt={alt}
-              draggable={false}
-              className="select-none"
-              style={{
-                transform: `scale(${zoom})`,
-                transformOrigin: "center center",
-                transition: "transform 0.2s ease",
-                maxWidth: "90vw",
-                maxHeight: "90vh",
-              }}
-              onContextMenu={(e) => e.preventDefault()}
-            />
-          </div>
-        </div>
-      )}
-    </>
-  );
-}
-
-/* ============================================================
-   Page principale
-============================================================ */
-
 const OutilsViewer: React.FC<OutilsViewerProps> = ({ className }) => {
+  // 🔒 Garantit l’ouverture de la page en haut
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, []);
+
   return (
     <div className={cn("space-y-12", className)}>
-      {/* Header */}
+      {/* ======================================================
+          Header
+      ====================================================== */}
       <header className="text-center space-y-4">
         <h1 className="text-3xl md:text-4xl font-bold">
           Développement d’outils sur mesure
@@ -127,7 +45,9 @@ const OutilsViewer: React.FC<OutilsViewerProps> = ({ className }) => {
         </p>
       </header>
 
-      {/* Introduction */}
+      {/* ======================================================
+          Introduction
+      ====================================================== */}
       <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4">
         <p className="text-muted-foreground leading-relaxed">
           Développement d’outils dédiés à l’analyse, à la quantification et à
@@ -135,13 +55,15 @@ const OutilsViewer: React.FC<OutilsViewerProps> = ({ className }) => {
           approche <em>signal-driven</em>, explicite et orientée usages réels.
         </p>
         <p className="text-muted-foreground leading-relaxed">
-          L’objectif n’est pas de produire un logiciel générique, mais une{" "}
-          <strong>capacité de conception d’outils sur mesure</strong>, adaptés à
+          L’objectif n’est pas de proposer un logiciel figé, mais une{" "}
+          <strong>capacité de conception d’outils sur mesure</strong>, adaptée à
           des données hétérogènes et à des contraintes méthodologiques précises.
         </p>
       </section>
 
-      {/* Module Pneumologie */}
+      {/* ======================================================
+          Module Pneumologie CT
+      ====================================================== */}
       <section className="space-y-6">
         <ModuleTitle
           icon={<Stethoscope />}
@@ -149,10 +71,7 @@ const OutilsViewer: React.FC<OutilsViewerProps> = ({ className }) => {
         />
 
         <ModuleText>
-          <Feature
-            icon={<Layers />}
-            title="Segmentation régionale contrôlée"
-          >
+          <Feature icon={<Layers />} title="Segmentation régionale contrôlée">
             Logique angulaire et radiale pour une analyse spatiale fine du
             parenchyme
           </Feature>
@@ -169,14 +88,20 @@ const OutilsViewer: React.FC<OutilsViewerProps> = ({ className }) => {
         </ModuleText>
 
         <ImageBlock>
-          <SecureZoomImage
+          <img
             src={`${RAW_BASE}/outils/pneumo.png`}
             alt="Analyse quantitative du parenchyme pulmonaire en scanner thoracique"
+            className="w-full h-auto object-contain"
+            loading="lazy"
+            draggable={false}
+            onContextMenu={(e) => e.preventDefault()}
           />
         </ImageBlock>
       </section>
 
-      {/* Module CT Spectral */}
+      {/* ======================================================
+          Module CT Spectral
+      ====================================================== */}
       <section className="space-y-6">
         <ModuleTitle
           icon={<Atom />}
@@ -196,21 +121,27 @@ const OutilsViewer: React.FC<OutilsViewerProps> = ({ className }) => {
         </ModuleText>
 
         <ImageBlock>
-          <SecureZoomImage
+          <img
             src={`${RAW_BASE}/outils/spectral.png`}
             alt="Cartographies matériaux et imagerie CT spectrale"
+            className="w-full h-auto object-contain"
+            loading="lazy"
+            draggable={false}
+            onContextMenu={(e) => e.preventDefault()}
           />
         </ImageBlock>
       </section>
 
-      {/* Positionnement */}
+      {/* ======================================================
+          Positionnement général
+      ====================================================== */}
       <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-6">
         <h2 className="text-xl font-semibold">Positionnement général</h2>
 
         <p className="text-muted-foreground leading-relaxed">
           Approche fondée sur la compréhension fine du signal, des métadonnées
-          DICOM, de la géométrie et des unités physiques, avec séparation claire
-          entre visualisation, segmentation et quantification.
+          DICOM, de la géométrie et des unités physiques, avec une séparation
+          claire entre visualisation, segmentation et quantification.
         </p>
 
         <div className="grid sm:grid-cols-2 gap-4">
