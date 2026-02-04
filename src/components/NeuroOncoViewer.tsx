@@ -4,40 +4,31 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Slider } from "@/components/ui/slider";
 import { Brain, Target, Layers, FileSearch, Microscope, Database } from "lucide-react";
-
-const RAW_BASE =
-  "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
-
+const RAW_BASE = "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
 const SLICE_COUNT = 5;
-
-const nativeSlices = Array.from({ length: SLICE_COUNT }, (_, i) =>
-  `${RAW_BASE}/neuro-onco/natives/slice_${String(i).padStart(3, "0")}.png`
-);
-
-const overlaySlices = Array.from({ length: SLICE_COUNT }, (_, i) =>
-  `${RAW_BASE}/neuro-onco/overlays/slice_${String(i).padStart(3, "0")}.png`
-);
-
+const nativeSlices = Array.from({
+  length: SLICE_COUNT
+}, (_, i) => `${RAW_BASE}/neuro-onco/natives/slice_${String(i).padStart(3, "0")}.png`);
+const overlaySlices = Array.from({
+  length: SLICE_COUNT
+}, (_, i) => `${RAW_BASE}/neuro-onco/overlays/slice_${String(i).padStart(3, "0")}.png`);
 interface Props {
   className?: string;
 }
-
-export default function NeuroOncoViewer({ className }: Props) {
+export default function NeuroOncoViewer({
+  className
+}: Props) {
   const [sliceIndex, setSliceIndex] = React.useState(0);
-
-  return (
-    <div className={cn("space-y-12", className)}>
+  return <div className={cn("space-y-12", className)}>
       {/* ============================================================
           HEADER
-      ============================================================ */}
+       ============================================================ */}
       <header className="text-center space-y-4 max-w-4xl mx-auto">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium">
           <Brain className="w-4 h-4" />
           Neuro-Oncologie IRM
         </div>
-        <h1 className="text-3xl md:text-4xl font-bold">
-          Segmentation experte des lésions oncologiques cérébrales
-        </h1>
+        <h1 className="text-3xl md:text-4xl font-bold">Segmentation des lésions oncologiques cérébrales</h1>
         <p className="text-muted-foreground text-lg leading-relaxed">
           Approche signal-driven de la segmentation automatique des lésions tumorales cérébrales,
           avec focus sur les lésions hétérogènes à cœur nécrotique et leurs régions périphériques.
@@ -46,7 +37,7 @@ export default function NeuroOncoViewer({ className }: Props) {
 
       {/* ============================================================
           VIEWER — Native | Overlay synchronisés
-      ============================================================ */}
+       ============================================================ */}
       <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-6">
         <h2 className="text-xl font-semibold text-center">Démonstration visuelle</h2>
         
@@ -57,11 +48,7 @@ export default function NeuroOncoViewer({ className }: Props) {
               IRM native (T1)
             </p>
             <div className="aspect-square bg-black rounded-lg overflow-hidden">
-              <img
-                src={nativeSlices[sliceIndex]}
-                alt={`Native slice ${sliceIndex + 1}`}
-                className="w-full h-full object-contain"
-              />
+              <img src={nativeSlices[sliceIndex]} alt={`Native slice ${sliceIndex + 1}`} className="w-full h-full object-contain" />
             </div>
           </div>
 
@@ -71,11 +58,7 @@ export default function NeuroOncoViewer({ className }: Props) {
               Segmentation superposée
             </p>
             <div className="aspect-square bg-black rounded-lg overflow-hidden">
-              <img
-                src={overlaySlices[sliceIndex]}
-                alt={`Overlay slice ${sliceIndex + 1}`}
-                className="w-full h-full object-contain"
-              />
+              <img src={overlaySlices[sliceIndex]} alt={`Overlay slice ${sliceIndex + 1}`} className="w-full h-full object-contain" />
             </div>
           </div>
         </div>
@@ -83,14 +66,7 @@ export default function NeuroOncoViewer({ className }: Props) {
         {/* Slider */}
         <div className="flex items-center gap-4 max-w-xl mx-auto">
           <span className="text-sm text-muted-foreground w-12">Slice</span>
-          <Slider
-            value={[sliceIndex]}
-            onValueChange={([v]) => setSliceIndex(v)}
-            min={0}
-            max={SLICE_COUNT - 1}
-            step={1}
-            className="flex-1"
-          />
+          <Slider value={[sliceIndex]} onValueChange={([v]) => setSliceIndex(v)} min={0} max={SLICE_COUNT - 1} step={1} className="flex-1" />
           <span className="text-sm font-mono w-12 text-right">
             {sliceIndex + 1}/{SLICE_COUNT}
           </span>
@@ -104,7 +80,7 @@ export default function NeuroOncoViewer({ className }: Props) {
 
       {/* ============================================================
           PRINCIPE
-      ============================================================ */}
+       ============================================================ */}
       <section className="space-y-6 max-w-4xl mx-auto">
         <h2 className="text-2xl font-bold text-center">Principe de l'approche</h2>
         
@@ -141,18 +117,15 @@ export default function NeuroOncoViewer({ className }: Props) {
         </div>
 
         <div className="bg-muted/30 border border-border rounded-lg p-6 text-center">
-          <p className="text-muted-foreground italic">
-            Chaque masque produit est le résultat de choix explicites, traçables et interprétables —
-            et non d'une optimisation opaque.
-          </p>
+          <p className="text-muted-foreground italic">Chaque masque produit est le résultat de choix explicites, traçables et interprétables; non une optimisation opaque.</p>
         </div>
       </section>
 
       {/* ============================================================
           POSITIONNEMENT
-      ============================================================ */}
+       ============================================================ */}
       <section className="space-y-6 max-w-4xl mx-auto">
-        <h2 className="text-2xl font-bold text-center">Positionnement</h2>
+        <h2 className="text-2xl font-bold text-center">Cadre méthodologique</h2>
 
         <div className="grid md:grid-cols-2 gap-6">
           <div className="bg-card/50 border border-border rounded-lg p-5 space-y-3">
@@ -186,6 +159,5 @@ export default function NeuroOncoViewer({ className }: Props) {
           </p>
         </div>
       </section>
-    </div>
-  );
+    </div>;
 }
