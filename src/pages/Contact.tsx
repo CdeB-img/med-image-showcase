@@ -168,10 +168,10 @@ const Contact = () => {
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Je réponds généralement sous 24 à 48 heures.
                 <br /><br />
-                Le bouton <strong>« Envoyer le message »</strong> ouvrira votre client de messagerie
+                Le bouton <strong>« Envoyer le message »</strong> ouvrira votre client de messagerie.
                 <br /><br />
                 Les informations transmises via ce formulaire sont utilisées uniquement
-                pour vous répondre
+                pour vous répondre.
               </p>
             </div>
           </div>
