@@ -1,12 +1,18 @@
 import HeroSection from "@/components/HeroSection";
+import AboutSection from "@/components/AboutSection";
 import ProjectGallery from "@/components/ProjectGallery";
+import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
-    <main className="min-h-screen">
-      <HeroSection />
-      <ProjectGallery />
-    </main>
+    <div className="min-h-screen flex flex-col">
+      <main className="flex-1">
+        <HeroSection />
+        <ProjectGallery />
+        <AboutSection />
+      </main>
+      <Footer />
+    </div>
   );
 };
 
