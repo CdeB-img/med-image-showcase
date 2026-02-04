@@ -1,6 +1,6 @@
 // ============================================================
 // src/components/OutilsViewer.tsx
-// Custom Tools Development Module Viewer
+// Développement d'outils – Viewer avec zoom sécurisé mobile
 // ============================================================
 
 import React from "react";
@@ -25,14 +25,89 @@ interface OutilsViewerProps {
   className?: string;
 }
 
-const OutilsViewer: React.FC<OutilsViewerProps> = ({ className }) => {
-  const [zoomSrc, setZoomSrc] = React.useState<string | null>(null);
+/* ============================================================
+   Composant Image Zoomable Sécurisé
+============================================================ */
+
+function SecureZoomImage({
+  src,
+  alt,
+}: {
+  src: string;
+  alt: string;
+}) {
+  const [open, setOpen] = React.useState(false);
+
+  // Bloque le scroll de la page quand le zoom est actif
+  React.useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
 
   return (
+    <>
+      {/* Image inline (SEO OK) */}
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        draggable={false}
+        className="w-full h-auto object-contain cursor-zoom-in select-none"
+        onClick={() => setOpen(true)}
+        onContextMenu={(e) => e.preventDefault()}
+        onDragStart={(e) => e.preventDefault()}
+      />
+
+      {/* Overlay fullscreen */}
+      {open && (
+        <div
+          className="fixed inset-0 z-50 bg-black"
+          onClick={() => setOpen(false)}
+        >
+          <div
+            className="w-full h-full overflow-auto flex items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+            onContextMenu={(e) => e.preventDefault()}
+          >
+            <img
+              src={src}
+              alt={alt}
+              draggable={false}
+              className="block min-w-full min-h-full object-contain select-none"
+              style={{
+                touchAction: "pan-x pan-y pinch-zoom",
+                WebkitUserSelect: "none",
+                userSelect: "none",
+              }}
+              onContextMenu={(e) => e.preventDefault()}
+              onDragStart={(e) => e.preventDefault()}
+              onMouseDown={(e) => e.preventDefault()}
+            />
+          </div>
+
+          <button
+            className="fixed top-4 right-4 z-50 text-white text-3xl"
+            onClick={() => setOpen(false)}
+            aria-label="Fermer"
+          >
+            ×
+          </button>
+        </div>
+      )}
+    </>
+  );
+}
+
+/* ============================================================
+   Page principale
+============================================================ */
+
+const OutilsViewer: React.FC<OutilsViewerProps> = ({ className }) => {
+  return (
     <div className={cn("space-y-12", className)}>
-      {/* ======================================================
-          Header
-      ====================================================== */}
+      {/* Header */}
       <header className="text-center space-y-4">
         <h1 className="text-3xl md:text-4xl font-bold">
           Développement d’outils sur mesure
@@ -42,208 +117,112 @@ const OutilsViewer: React.FC<OutilsViewerProps> = ({ className }) => {
         </p>
       </header>
 
-      {/* ======================================================
-          Introduction
-      ====================================================== */}
+      {/* Introduction */}
       <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4">
         <p className="text-muted-foreground leading-relaxed">
-          Ce travail regroupe le développement d’outils dédiés à l’analyse, à la
-          quantification et à l’exploration avancée des données d’imagerie
-          médicale, avec une approche résolument <em>signal-driven</em>,
-          transparente et orientée usages réels, en recherche comme en clinique.
+          Développement d’outils dédiés à l’analyse, à la quantification et à
+          l’exploration avancée des données d’imagerie médicale, selon une
+          approche <em>signal-driven</em>, explicite et orientée usages réels.
         </p>
         <p className="text-muted-foreground leading-relaxed">
-          L’objectif n’est pas de proposer un logiciel figé, mais une{" "}
+          L’objectif n’est pas de produire un logiciel générique, mais une{" "}
           <strong>capacité de conception d’outils sur mesure</strong>, adaptés à
-          des problématiques spécifiques, à des données hétérogènes et à des
-          contraintes méthodologiques précises.
+          des données hétérogènes et à des contraintes méthodologiques précises.
         </p>
       </section>
 
-      {/* ======================================================
-          Module Pneumologie CT
-      ====================================================== */}
+      {/* Module Pneumologie */}
       <section className="space-y-6">
-        <div className="flex items-center gap-3">
-          <div className="p-2 rounded-lg bg-primary/10">
-            <Stethoscope className="w-6 h-6 text-primary" />
-          </div>
-          <h2 className="text-2xl font-semibold">
-            Module Pneumologie CT — Analyse et quantification expertes
-          </h2>
-        </div>
+        <ModuleTitle
+          icon={<Stethoscope />}
+          title="Module Pneumologie CT — Analyse et quantification expertes"
+        />
 
-        <div className="grid lg:grid-cols-2 gap-8 items-start">
-          <div className="space-y-4">
-            <p className="text-muted-foreground leading-relaxed">
-              Ce module illustre une approche structurée de l’analyse du
-              parenchyme pulmonaire en scanner thoracique. Il combine une
-              méthodologie rigoureuse avec une interface d’exploration
-              interactive.
-            </p>
+        <ModuleText>
+          <Feature
+            icon={<Layers />}
+            title="Segmentation régionale contrôlée"
+          >
+            Logique angulaire et radiale pour une analyse spatiale fine du
+            parenchyme
+          </Feature>
+          <Feature
+            icon={<FileSpreadsheet />}
+            title="Scores quantitatifs explicites"
+          >
+            Fibrose, emphysème et atteintes mixtes avec résultats traçables
+          </Feature>
+          <Feature icon={<Eye />} title="Lecture experte assistée">
+            Structuration de l’information sans substitution au raisonnement
+            clinique
+          </Feature>
+        </ModuleText>
 
-            <div className="space-y-3">
-              <div className="flex items-start gap-3">
-                <Layers className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-                <p className="text-sm text-muted-foreground">
-                  <strong>Segmentation régionale contrôlée</strong> — Logique
-                  angulaire et radiale pour une analyse spatiale fine du
-                  parenchyme
-                </p>
-              </div>
-              <div className="flex items-start gap-3">
-                <FileSpreadsheet className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-                <p className="text-sm text-muted-foreground">
-                  <strong>Scores quantitatifs explicites</strong> — Fibrose,
-                  emphysème et atteintes mixtes avec résultats traçables (exports
-                  CSV / images)
-                </p>
-              </div>
-              <div className="flex items-start gap-3">
-                <Eye className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-                <p className="text-sm text-muted-foreground">
-                  <strong>Lecture experte assistée</strong> — L’algorithme
-                  structure l’information sans se substituer au raisonnement
-                  clinique
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="w-full overflow-hidden rounded-xl border border-border bg-surface">
-          <img
+        <ImageBlock>
+          <SecureZoomImage
             src={`${RAW_BASE}/outils/pneumo.png`}
-            alt="Module Pneumologie CT"
-            className="w-full h-auto object-contain cursor-zoom-in"
-            onClick={() =>
-              setZoomSrc(`${RAW_BASE}/outils/pneumo.png`)
-            }
+            alt="Analyse quantitative du parenchyme pulmonaire en scanner thoracique"
           />
-        </div>
+        </ImageBlock>
       </section>
 
-      {/* ======================================================
-          Module CT Spectral
-      ====================================================== */}
+      {/* Module CT Spectral */}
       <section className="space-y-6">
-        <div className="flex items-center gap-3">
-          <div className="p-2 rounded-lg bg-primary/10">
-            <Atom className="w-6 h-6 text-primary" />
-          </div>
-          <h2 className="text-2xl font-semibold">
-            Module CT Spectral — Exploration multi-énergie et cartographies
-            matériaux
-          </h2>
-        </div>
+        <ModuleTitle
+          icon={<Atom />}
+          title="Module CT Spectral — Exploration multi-énergie"
+        />
 
-        <div className="grid lg:grid-cols-2 gap-8 items-start">
-          <div className="space-y-4">
-            <p className="text-muted-foreground leading-relaxed">
-              Ce module présente un travail exploratoire autour du CT spectral et
-              des reconstructions dérivées, dans une logique de validation
-              méthodologique et de préparation de données pour des analyses
-              avancées.
-            </p>
+        <ModuleText>
+          <Feature icon={<Microscope />} title="Images mono-énergie">
+            Reconstructions à différents niveaux d’énergie
+          </Feature>
+          <Feature icon={<Blend />} title="Cartographies matériaux">
+            Zeff, iode et premières briques de décomposition
+          </Feature>
+          <Feature icon={<Layers />} title="Fusion multicanal">
+            Superposition contrôlée sur l’anatomie
+          </Feature>
+        </ModuleText>
 
-            <div className="space-y-3">
-              <div className="flex items-start gap-3">
-                <Microscope className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-                <p className="text-sm text-muted-foreground">
-                  <strong>Images mono-énergie</strong> — Reconstructions à
-                  différents niveaux d’énergie pour optimiser le contraste
-                  tissulaire
-                </p>
-              </div>
-              <div className="flex items-start gap-3">
-                <Blend className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-                <p className="text-sm text-muted-foreground">
-                  <strong>Cartographies Zeff et iode</strong> — Premières briques
-                  de décomposition matériau et K-edge
-                </p>
-              </div>
-              <div className="flex items-start gap-3">
-                <Layers className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-                <p className="text-sm text-muted-foreground">
-                  <strong>Fusion multicanal contrôlée</strong> — Superposition
-                  sur l’anatomie à partir de modèles physiques explicites
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="w-full overflow-hidden rounded-xl border border-border bg-surface">
-          <img
+        <ImageBlock>
+          <SecureZoomImage
             src={`${RAW_BASE}/outils/spectral.png`}
-            alt="Module CT Spectral"
-            className="w-full h-auto object-contain cursor-zoom-in"
-            onClick={() =>
-              setZoomSrc(`${RAW_BASE}/outils/spectral.png`)
-            }
+            alt="Cartographies matériaux et imagerie CT spectrale"
           />
-        </div>
+        </ImageBlock>
       </section>
 
-      {/* ======================================================
-          Positionnement général
-      ====================================================== */}
+      {/* Positionnement */}
       <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-6">
         <h2 className="text-xl font-semibold">Positionnement général</h2>
 
         <p className="text-muted-foreground leading-relaxed">
-          Ces outils traduisent une approche fondée sur la compréhension fine du
-          signal et des métadonnées DICOM, la maîtrise de la géométrie, des unités
-          physiques et des résolutions spatiales, avec une séparation claire
+          Approche fondée sur la compréhension fine du signal, des métadonnées
+          DICOM, de la géométrie et des unités physiques, avec séparation claire
           entre visualisation, segmentation et quantification.
         </p>
 
         <div className="grid sm:grid-cols-2 gap-4">
           <Feature icon={<Settings />} title="Développement sur mesure">
-            Conception d’outils spécifiques adaptés à vos besoins
+            Outils spécifiques adaptés à vos besoins
           </Feature>
           <Feature icon={<Database />} title="Audit de pipelines">
-            Adaptation ou validation de chaînes de traitement existantes
+            Validation ou adaptation de chaînes existantes
           </Feature>
           <Feature icon={<Ruler />} title="Préparation de données">
-            Données robustes pour études quantitatives ou développements ultérieurs
+            Données robustes pour analyses quantitatives
           </Feature>
           <Feature icon={<Eye />} title="Transparence méthodologique">
             Indépendance vis-à-vis des solutions propriétaires
           </Feature>
         </div>
 
-        <div className="pt-4 border-t border-border">
-          <p className="text-center text-sm italic text-muted-foreground">
-            Chaque outil est conçu comme un objet méthodologique explicite,
-            interprétable et reproductible — jamais comme une boîte noire.
-          </p>
-        </div>
+        <p className="text-center text-sm italic text-muted-foreground pt-4 border-t border-border">
+          Chaque outil est conçu comme un objet méthodologique interprétable —
+          jamais comme une boîte noire.
+        </p>
       </section>
-
-      {/* ======================================================
-          Lightbox fullscreen
-      ====================================================== */}
-      {zoomSrc && (
-        <div
-          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
-          onClick={() => setZoomSrc(null)}
-        >
-          <img
-            src={zoomSrc}
-            alt="Zoom"
-            className="max-w-full max-h-full object-contain"
-            onClick={(e) => e.stopPropagation()}
-          />
-          <button
-            className="absolute top-4 right-4 text-white text-3xl"
-            onClick={() => setZoomSrc(null)}
-            aria-label="Fermer"
-          >
-            ×
-          </button>
-        </div>
-      )}
     </div>
   );
 };
@@ -251,8 +230,35 @@ const OutilsViewer: React.FC<OutilsViewerProps> = ({ className }) => {
 export default OutilsViewer;
 
 /* ============================================================
-   Subcomponent
+   Sous-composants UI
 ============================================================ */
+
+function ModuleTitle({
+  icon,
+  title,
+}: {
+  icon: React.ReactNode;
+  title: string;
+}) {
+  return (
+    <div className="flex items-center gap-3">
+      <div className="p-2 rounded-lg bg-primary/10 text-primary">{icon}</div>
+      <h2 className="text-2xl font-semibold">{title}</h2>
+    </div>
+  );
+}
+
+function ModuleText({ children }: { children: React.ReactNode }) {
+  return <div className="space-y-3 max-w-3xl">{children}</div>;
+}
+
+function ImageBlock({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="w-full overflow-hidden rounded-xl border border-border bg-surface">
+      {children}
+    </div>
+  );
+}
 
 function Feature({
   icon,
@@ -264,12 +270,11 @@ function Feature({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex items-start gap-3 p-4 bg-background/50 rounded-lg">
+    <div className="flex items-start gap-3">
       <div className="text-primary mt-0.5 shrink-0">{icon}</div>
-      <div>
-        <p className="font-medium text-sm">{title}</p>
-        <p className="text-xs text-muted-foreground">{children}</p>
-      </div>
+      <p className="text-sm text-muted-foreground">
+        <strong>{title}</strong> — {children}
+      </p>
     </div>
   );
 }
