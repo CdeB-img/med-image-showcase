@@ -2,17 +2,14 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
-
-const RAW_BASE =
-  "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
-
+const RAW_BASE = "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
 interface Props {
   className?: string;
 }
-
-const CardiacViewer = ({ className }: Props) => {
-  return (
-    <div className={cn("space-y-12", className)}>
+const CardiacViewer = ({
+  className
+}: Props) => {
+  return <div className={cn("space-y-12", className)}>
       {/* Header */}
       <div className="space-y-6">
         <h1 className="text-3xl font-bold">
@@ -79,11 +76,7 @@ const CardiacViewer = ({ className }: Props) => {
           {/* Diastole */}
           <div className="space-y-3">
             <div className="aspect-square bg-black rounded-lg overflow-hidden border border-border">
-              <img
-                src={`${RAW_BASE}/cardio/diastole.png`}
-                alt="Télédiastole"
-                className="w-full h-full object-contain"
-              />
+              <img src={`${RAW_BASE}/cardio/diastole.png`} alt="Télédiastole" className="w-full h-full object-contain" />
             </div>
             <div className="text-center">
               <span className="text-sm font-medium">Télédiastole</span>
@@ -94,11 +87,7 @@ const CardiacViewer = ({ className }: Props) => {
           {/* Systole */}
           <div className="space-y-3">
             <div className="aspect-square bg-black rounded-lg overflow-hidden border border-border">
-              <img
-                src={`${RAW_BASE}/cardio/systole.png`}
-                alt="Télésystole"
-                className="w-full h-full object-contain"
-              />
+              <img src={`${RAW_BASE}/cardio/systole.png`} alt="Télésystole" className="w-full h-full object-contain" />
             </div>
             <div className="text-center">
               <span className="text-sm font-medium">Télésystole</span>
@@ -119,22 +108,14 @@ const CardiacViewer = ({ className }: Props) => {
             pathologies inflammatoires, infiltratives ou ischémiques. Le module intègre notamment 
             l'analyse du rehaussement tardif (LGE) pour la détection de fibrose, cicatrice ou nécrose.
           </p>
-          <p className="text-sm text-muted-foreground max-w-3xl">
-            L'évaluation distingue les atteintes sous-endocardiques, transmurales ou diffuses, 
-            ainsi que les zones de no-reflow et de myocarde à risque. La lecture segmentaire 
-            standardisée couvre les étages basal, médio-ventriculaire et apical.
-          </p>
+          <p className="text-sm text-muted-foreground max-w-3xl">L'évaluation distingue les atteintes sous-endocardiques, sous-épicardiques, transmurales, focales ou diffuses, ainsi que les zones de no-reflow.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Base */}
           <div className="space-y-3">
             <div className="aspect-square bg-black rounded-lg overflow-hidden border border-border">
-              <img
-                src={`${RAW_BASE}/cardio/base.png`}
-                alt="Étage basal"
-                className="w-full h-full object-contain"
-              />
+              <img src={`${RAW_BASE}/cardio/base.png`} alt="Étage basal" className="w-full h-full object-contain" />
             </div>
             <div className="text-center">
               <span className="text-sm font-medium">Basal</span>
@@ -145,11 +126,7 @@ const CardiacViewer = ({ className }: Props) => {
           {/* Mid */}
           <div className="space-y-3">
             <div className="aspect-square bg-black rounded-lg overflow-hidden border border-border">
-              <img
-                src={`${RAW_BASE}/cardio/mid.png`}
-                alt="Étage médio-ventriculaire"
-                className="w-full h-full object-contain"
-              />
+              <img src={`${RAW_BASE}/cardio/mid.png`} alt="Étage médio-ventriculaire" className="w-full h-full object-contain" />
             </div>
             <div className="text-center">
               <span className="text-sm font-medium">Médio-ventriculaire</span>
@@ -160,11 +137,7 @@ const CardiacViewer = ({ className }: Props) => {
           {/* Apex */}
           <div className="space-y-3">
             <div className="aspect-square bg-black rounded-lg overflow-hidden border border-border">
-              <img
-                src={`${RAW_BASE}/cardio/apex.png`}
-                alt="Étage apical"
-                className="w-full h-full object-contain"
-              />
+              <img src={`${RAW_BASE}/cardio/apex.png`} alt="Étage apical" className="w-full h-full object-contain" />
             </div>
             <div className="text-center">
               <span className="text-sm font-medium">Apical</span>
@@ -180,19 +153,14 @@ const CardiacViewer = ({ className }: Props) => {
           <h2 className="text-xl font-semibold text-primary">
             Approches quantitatives et paramétriques
           </h2>
-          <p className="text-sm text-muted-foreground max-w-3xl">
-            Au-delà du rehaussement tardif, l'IRM cardiaque repose de plus en plus sur des mesures 
-            quantitatives. Ce module s'inscrit dans cette dynamique avec l'exploitation de cartes 
-            paramétriques (T1, T2, T2*), l'analyse des distributions de valeurs plutôt que de seuils 
-            arbitraires, et la comparaison intra-sujet dans des cadres longitudinaux.
-          </p>
+          <p className="text-sm text-muted-foreground max-w-3xl">Au-delà du rehaussement tardif, l'IRM cardiaque repose sur des mesures paramétriques quantitatives. Ce module s'inscrit dans cette dynamique avec l'exploitation de cartes (T1, T2, T2*), l'analyse des distributions de valeurs plutôt que de seuils arbitraires, et la comparaison intra-sujet dans des cadres longitudinaux.</p>
           <div className="grid md:grid-cols-2 gap-4 pt-4">
             <div className="p-4 rounded-lg bg-secondary/30 border border-border">
               <h4 className="font-medium text-sm mb-2">Pathologies explorées</h4>
               <ul className="text-xs text-muted-foreground space-y-1">
                 <li>• Myocardites aiguës et chroniques</li>
                 <li>• Maladies infiltratives (surcharge, fibrose diffuse)</li>
-                <li>• Cardiomyopathies inflammatoires ou métaboliques</li>
+                <li>• IDM</li>
                 <li>• Modèles expérimentaux et précliniques</li>
               </ul>
             </div>
@@ -247,20 +215,14 @@ const CardiacViewer = ({ className }: Props) => {
 
       {/* Conclusion */}
       <section className="p-6 rounded-xl bg-primary/5 border border-primary/20 space-y-4">
-        <h3 className="text-lg font-semibold">Positionnement</h3>
-        <p className="text-muted-foreground leading-relaxed">
-          Cette approche reflète une pratique de l'IRM cardiaque orientée compréhension du signal, 
-          ancrée dans la physiopathologie, indépendante des solutions propriétaires, et conçue 
-          pour la recherche exigeante autant que pour l'exploration clinique.
-        </p>
+        <h3 className="text-lg font-semibold">Cadre méthodologique</h3>
+        <p className="text-muted-foreground leading-relaxed">Cette approche reflète une pratique de l'IRM cardiaque orientée compréhension du signal et de son acquisition, ancrée dans la physiopathologie, indépendante des solutions propriétaires, et conçue pour la recherche exigeante autant que pour l'exploration clinique.</p>
         <p className="text-sm italic text-muted-foreground pt-4 border-t border-primary/20">
           L'IRM cardiaque n'est pas un simple outil d'imagerie. C'est un instrument de mesure 
           physiologique, dont la valeur dépend de la rigueur de l'analyse plus que de la 
           sophistication des algorithmes.
         </p>
       </section>
-    </div>
-  );
+    </div>;
 };
-
 export default CardiacViewer;
