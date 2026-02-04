@@ -165,10 +165,15 @@ const Contact = () => {
 
             {/* Additional info */}
             <div className="text-center p-6 rounded-xl bg-secondary/30 border border-border">
-              <p className="text-sm text-muted-foreground">Je réponds généralement sous 24 à 48 heures. 
-"Envoyer le message" ouvrira votre client de messagerie avec le message pré-rempli.    
-Les informations transmises via ce formulaire seront utilisées uniquement pour répondre à votre demande. 
-            </p>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Je réponds généralement sous 24 à 48 heures.
+                <br /><br />
+                Le bouton <strong>« Envoyer le message »</strong> ouvrira votre client de messagerie
+                avec le message pré-rempli.
+                <br /><br />
+                Les informations transmises via ce formulaire sont utilisées uniquement
+                pour répondre à votre demande.
+              </p>
             </div>
           </div>
         </div>
