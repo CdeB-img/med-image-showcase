@@ -15,6 +15,7 @@ import CardiacViewer from "@/components/CardiacViewer";
 import CTScanViewer from "@/components/CTScanViewer";
 import NeuroOncoViewer from "@/components/NeuroOncoViewer";
 import OutilsViewer from "@/components/OutilsViewer";
+import Footer from "@/components/Footer";
 
 import { getProjectById, getAdjacentProjects } from "@/data/projects";
 
@@ -141,111 +142,114 @@ const ProjectDetail = () => {
   }
 
   return (
-    <main className="min-h-screen py-8">
-      <div className="container px-4 md:px-6">
+    <div className="min-h-screen flex flex-col">
+      <main className="flex-1 py-8">
+        <div className="container px-4 md:px-6">
 
-        {/* Navigation */}
-        <div className="flex items-center justify-between mb-8">
-          <Link to="/">
-            <Button variant="ghost" className="gap-2">
-              <ArrowLeft className="w-4 h-4" />
-              Back
-            </Button>
-          </Link>
+          {/* Navigation */}
+          <div className="flex items-center justify-between mb-8">
+            <Link to="/">
+              <Button variant="ghost" className="gap-2">
+                <ArrowLeft className="w-4 h-4" />
+                Accueil
+              </Button>
+            </Link>
 
-          <div className="flex gap-2">
-            <Button
-              variant="outline"
-              size="icon"
-              disabled={!prev}
-              onClick={() => prev && navigate(`/projet/${prev.id}`)}
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </Button>
-            <Button
-              variant="outline"
-              size="icon"
-              disabled={!next}
-              onClick={() => next && navigate(`/projet/${next.id}`)}
-            >
-              <ChevronRight className="w-4 h-4" />
-            </Button>
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                size="icon"
+                disabled={!prev}
+                onClick={() => prev && navigate(`/projet/${prev.id}`)}
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                disabled={!next}
+                onClick={() => next && navigate(`/projet/${next.id}`)}
+              >
+                <ChevronRight className="w-4 h-4" />
+              </Button>
+            </div>
           </div>
+
+          {/* ================= PERFUSION SEGMENTATION ================= */}
+          {project.id === "perfusion-segmentation" && (
+            <PerfusionSegmentationViewer pairs={qcPairs} />
+          )}
+
+          {/* ================= RECALAGE ================= */}
+          {project.id === "recalage" && (
+            <RegistrationViewer
+              multimodalPairs={multimodalPairs}
+              monomodalPairs={monomodalPairs}
+              initialOpacity={0.5}
+              className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-4"
+            />
+          )}
+
+          {/* ================= CARDIAC ================= */}
+          {project.id === "cardiac" && (
+            <CardiacViewer
+              className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6"
+            />
+          )}
+
+          {/* ================= CT SCAN ================= */}
+          {project.id === "ct-scan" && (
+            <CTScanViewer
+              className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6"
+            />
+          )}
+
+          {/* ================= NEURO-ONCO ================= */}
+          {project.id === "neuro-onco" && (
+            <NeuroOncoViewer
+              className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6"
+            />
+          )}
+
+          {/* ================= OUTILS SUR MESURE ================= */}
+          {project.id === "outils" && (
+            <OutilsViewer
+              className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6"
+            />
+          )}
+
+          {/* ================= AUTRES PROJETS ================= */}
+          {project.id !== "perfusion-segmentation" &&
+           project.id !== "recalage" &&
+           project.id !== "cardiac" &&
+           project.id !== "ct-scan" &&
+           project.id !== "neuro-onco" &&
+           project.id !== "outils" && (
+            <div className="grid lg:grid-cols-2 gap-8">
+              <section className="space-y-6">
+                <h1 className="text-3xl font-bold">{project.title}</h1>
+
+                <div className="flex gap-2">
+                  <Badge variant="outline">{project.modality}</Badge>
+                  <Badge variant="secondary">{project.analysisType}</Badge>
+                </div>
+
+                <p>{project.description}</p>
+              </section>
+
+              <section className="sticky top-8">
+                <SliceViewer
+                  nativeSlices={project.nativeSlices}
+                  processedSlices={project.processedSlices}
+                  useSliderOverlay={project.useSliderOverlay}
+                />
+              </section>
+            </div>
+          )}
         </div>
-
-        {/* ================= PERFUSION SEGMENTATION ================= */}
-        {project.id === "perfusion-segmentation" && (
-          <PerfusionSegmentationViewer pairs={qcPairs} />
-        )}
-
-        {/* ================= RECALAGE ================= */}
-        {project.id === "recalage" && (
-          <RegistrationViewer
-            multimodalPairs={multimodalPairs}
-            monomodalPairs={monomodalPairs}
-            initialOpacity={0.5}
-            className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-4"
-          />
-        )}
-
-        {/* ================= CARDIAC ================= */}
-        {project.id === "cardiac" && (
-          <CardiacViewer
-            className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6"
-          />
-        )}
-
-        {/* ================= CT SCAN ================= */}
-        {project.id === "ct-scan" && (
-          <CTScanViewer
-            className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6"
-          />
-        )}
-
-        {/* ================= NEURO-ONCO ================= */}
-        {project.id === "neuro-onco" && (
-          <NeuroOncoViewer
-            className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6"
-          />
-        )}
-
-        {/* ================= OUTILS SUR MESURE ================= */}
-        {project.id === "outils" && (
-          <OutilsViewer
-            className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6"
-          />
-        )}
-
-        {/* ================= AUTRES PROJETS ================= */}
-        {project.id !== "perfusion-segmentation" &&
-         project.id !== "recalage" &&
-         project.id !== "cardiac" &&
-         project.id !== "ct-scan" &&
-         project.id !== "neuro-onco" &&
-         project.id !== "outils" && (
-          <div className="grid lg:grid-cols-2 gap-8">
-            <section className="space-y-6">
-              <h1 className="text-3xl font-bold">{project.title}</h1>
-
-              <div className="flex gap-2">
-                <Badge variant="outline">{project.modality}</Badge>
-                <Badge variant="secondary">{project.analysisType}</Badge>
-              </div>
-
-              <p>{project.description}</p>
-            </section>
-
-            <section className="sticky top-8">
-              <SliceViewer
-                nativeSlices={project.nativeSlices}
-                processedSlices={project.processedSlices}
-                useSliderOverlay={project.useSliderOverlay}
-              />
-            </section>
-          </div>
-        )}
-      </div>
-    </main>
+      </main>
+      <Footer />
+    </div>
   );
 };
 

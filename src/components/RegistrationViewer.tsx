@@ -27,10 +27,62 @@ export default function RegistrationViewer({
 }: Props) {
   const [opacity, setOpacity] = React.useState(initialOpacity);
 
-  const allPairs = [...multimodalPairs, ...monomodalPairs];
-
   return (
-    <div className={cn("space-y-6", className)}>
+    <div className={cn("space-y-12", className)}>
+      {/* Header */}
+      <div className="space-y-6">
+        <h1 className="text-3xl font-bold">
+          Recalage multimodal CT / IRM
+        </h1>
+        <p className="text-muted-foreground max-w-4xl leading-relaxed">
+          Ce module illustre une approche rigoureuse du recalage multimodal entre images CT et IRM, 
+          conçue pour permettre une évaluation qualitative et méthodologique directe de l'alignement 
+          spatial entre différentes modalités et séquences.
+        </p>
+        <p className="text-muted-foreground max-w-4xl leading-relaxed">
+          L'objectif n'est pas de produire une transformation opaque, mais de rendre lisible, 
+          contrôlable et vérifiable la qualité du recalage, au plus près du signal et de l'anatomie.
+        </p>
+        <div className="flex flex-wrap gap-2">
+          <span className="px-3 py-1 text-xs font-medium rounded-md border border-primary/50 text-primary">
+            CT / IRM
+          </span>
+          <span className="px-3 py-1 text-xs font-medium rounded-md bg-secondary text-secondary-foreground">
+            Recalage
+          </span>
+          <span className="px-3 py-1 text-xs font-medium rounded-md bg-muted text-muted-foreground">
+            ANTsPy
+          </span>
+          <span className="px-3 py-1 text-xs font-medium rounded-md bg-muted text-muted-foreground">
+            SimpleITK
+          </span>
+          <span className="px-3 py-1 text-xs font-medium rounded-md bg-muted text-muted-foreground">
+            NiBabel
+          </span>
+          <span className="px-3 py-1 text-xs font-medium rounded-md bg-muted text-muted-foreground">
+            Python
+          </span>
+        </div>
+      </div>
+
+      {/* Principe de visualisation */}
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold text-primary">
+          Principe de visualisation
+        </h2>
+        <p className="text-sm text-muted-foreground max-w-3xl">
+          L'interface repose sur une comparaison interactive coupe par coupe. Les images CT et IRM 
+          (ou IRM-IRM) sont affichées sur des coupes homologues. Le curseur permet de faire varier 
+          dynamiquement la contribution relative de chaque modalité.
+        </p>
+        <p className="text-sm text-muted-foreground max-w-3xl">
+          Cette transition continue met en évidence les concordances et les écarts spatiaux, 
+          sans artifice visuel. Elle permet d'apprécier immédiatement la cohérence des structures 
+          corticales et sous-corticales, l'alignement des ventricules, sillons et contours anatomiques, 
+          ainsi que les éventuelles distorsions résiduelles.
+        </p>
+      </section>
+
       {/* Grid: 3 multimodal + 3 monomodal = 6 images in 2 rows of 3 */}
       <div className="space-y-4">
         {/* Row labels */}
@@ -91,7 +143,7 @@ export default function RegistrationViewer({
         {/* Monomodal label */}
         <div className="grid grid-cols-3 gap-3 pt-2">
           <div className="text-center text-sm font-medium text-muted-foreground col-span-3">
-            Monomodal IRM (Diff → Flair)
+            Monomodal IRM (Diffusion → Flair)
           </div>
         </div>
 
@@ -147,7 +199,7 @@ export default function RegistrationViewer({
       {/* Single opacity slider */}
       <div className="flex items-center gap-4 pt-4 border-t border-border/50">
         <span className="text-sm text-muted-foreground whitespace-nowrap">
-          Overlay
+          Superposition
         </span>
         <Slider
           min={0}
@@ -161,6 +213,47 @@ export default function RegistrationViewer({
           {Math.round(opacity * 100)}%
         </span>
       </div>
+
+      {/* Cas d'usage */}
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold text-primary">Cas d'usage</h2>
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="p-4 rounded-lg bg-secondary/30 border border-border">
+            <p className="text-sm text-muted-foreground">
+              Validation méthodologique de chaînes de recalage
+            </p>
+          </div>
+          <div className="p-4 rounded-lg bg-secondary/30 border border-border">
+            <p className="text-sm text-muted-foreground">
+              Évaluation comparative de stratégies d'alignement
+            </p>
+          </div>
+          <div className="p-4 rounded-lg bg-secondary/30 border border-border">
+            <p className="text-sm text-muted-foreground">
+              Préparation de données pour analyses multimodales
+            </p>
+          </div>
+          <div className="p-4 rounded-lg bg-secondary/30 border border-border">
+            <p className="text-sm text-muted-foreground">
+              Revue experte avant quantification clinique
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Positionnement */}
+      <section className="p-6 rounded-xl bg-primary/5 border border-primary/20 space-y-4">
+        <h3 className="text-lg font-semibold">Positionnement méthodologique</h3>
+        <p className="text-muted-foreground leading-relaxed">
+          Cette approche privilégie une lecture experte directe, sans sur-interprétation algorithmique, 
+          une séparation claire entre alignement géométrique et analyse du signal, et une indépendance 
+          vis-à-vis des solutions propriétaires.
+        </p>
+        <p className="text-sm italic text-muted-foreground pt-4 border-t border-primary/20">
+          Le recalage n'est pas une étape intermédiaire invisible. C'est un objet d'analyse à part 
+          entière, qui conditionne la validité de toute analyse multimodale ultérieure.
+        </p>
+      </section>
     </div>
   );
 }
