@@ -3,32 +3,26 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Slider } from "@/components/ui/slider";
-
 interface RegistrationPair {
   reference: string;
   registered: string;
   label: string;
 }
-
 interface Props {
   multimodalPairs: RegistrationPair[];
   monomodalPairs: RegistrationPair[];
   initialOpacity?: number;
   className?: string;
 }
-
 const ROTATION_CLASS = "-rotate-90 scale-[1.42]";
-
 export default function RegistrationViewer({
   multimodalPairs,
   monomodalPairs,
   initialOpacity = 0.5,
-  className,
+  className
 }: Props) {
   const [opacity, setOpacity] = React.useState(initialOpacity);
-
-  return (
-    <div className={cn("space-y-12", className)}>
+  return <div className={cn("space-y-12", className)}>
       {/* Header */}
       <div className="space-y-6">
         <h1 className="text-3xl font-bold">
@@ -75,59 +69,29 @@ export default function RegistrationViewer({
           (ou IRM-IRM) sont affichées sur des coupes homologues. Le curseur permet de faire varier 
           dynamiquement la contribution relative de chaque modalité.
         </p>
-        <p className="text-sm text-muted-foreground max-w-3xl">
-          Cette transition continue met en évidence les concordances et les écarts spatiaux, 
-          sans artifice visuel. Elle permet d'apprécier immédiatement la cohérence des structures 
-          corticales et sous-corticales, l'alignement des ventricules, sillons et contours anatomiques, 
-          ainsi que les éventuelles distorsions résiduelles.
-        </p>
+        <p className="text-sm text-muted-foreground max-w-3xl">Cette transition continue met en évidence les concordances et les écarts spatiaux, sans artifice visuel. Elle permet d'apprécier la cohérence des structures corticales et sous-corticales, l'alignement des ventricules, sillons et contours anatomiques, ainsi que les éventuelles distorsions résiduelles.</p>
       </section>
 
       {/* Grid: 3 multimodal + 3 monomodal = 6 images in 2 rows of 3 */}
       <div className="space-y-4">
         {/* Row labels */}
         <div className="grid grid-cols-3 gap-3">
-          <div className="text-center text-sm font-medium text-muted-foreground col-span-3">
-            Multimodal CT / IRM
-          </div>
+          <div className="text-center text-sm font-medium text-muted-foreground col-span-3">Multimodal  CT / IRM</div>
         </div>
 
         {/* Multimodal row */}
         <div className="grid grid-cols-3 gap-3">
-          {multimodalPairs.map((pair, idx) => (
-            <div
-              key={`multi-${idx}`}
-              className="aspect-square bg-black rounded-lg overflow-hidden relative border border-border/50"
-            >
+          {multimodalPairs.map((pair, idx) => <div key={`multi-${idx}`} className="aspect-square bg-black rounded-lg overflow-hidden relative border border-border/50">
               {/* Background: Reference */}
-              <div
-                className={cn(
-                  "absolute inset-0 flex items-center justify-center",
-                  ROTATION_CLASS
-                )}
-              >
-                <img
-                  src={pair.reference}
-                  alt={`Reference ${idx + 1}`}
-                  className="w-full h-full object-contain"
-                  crossOrigin="anonymous"
-                />
+              <div className={cn("absolute inset-0 flex items-center justify-center", ROTATION_CLASS)}>
+                <img src={pair.reference} alt={`Reference ${idx + 1}`} className="w-full h-full object-contain" crossOrigin="anonymous" />
               </div>
 
               {/* Overlay: Registered with opacity */}
-              <div
-                className={cn(
-                  "absolute inset-0 flex items-center justify-center pointer-events-none",
-                  ROTATION_CLASS
-                )}
-                style={{ opacity }}
-              >
-                <img
-                  src={pair.registered}
-                  alt={`Registered ${idx + 1}`}
-                  className="w-full h-full object-contain mix-blend-screen"
-                  crossOrigin="anonymous"
-                />
+              <div className={cn("absolute inset-0 flex items-center justify-center pointer-events-none", ROTATION_CLASS)} style={{
+            opacity
+          }}>
+                <img src={pair.registered} alt={`Registered ${idx + 1}`} className="w-full h-full object-contain mix-blend-screen" crossOrigin="anonymous" />
               </div>
 
               {/* Label */}
@@ -136,8 +100,7 @@ export default function RegistrationViewer({
                   {pair.label}
                 </span>
               </div>
-            </div>
-          ))}
+            </div>)}
         </div>
 
         {/* Monomodal label */}
@@ -149,40 +112,17 @@ export default function RegistrationViewer({
 
         {/* Monomodal row */}
         <div className="grid grid-cols-3 gap-3">
-          {monomodalPairs.map((pair, idx) => (
-            <div
-              key={`mono-${idx}`}
-              className="aspect-square bg-black rounded-lg overflow-hidden relative border border-border/50"
-            >
+          {monomodalPairs.map((pair, idx) => <div key={`mono-${idx}`} className="aspect-square bg-black rounded-lg overflow-hidden relative border border-border/50">
               {/* Background: Reference */}
-              <div
-                className={cn(
-                  "absolute inset-0 flex items-center justify-center",
-                  ROTATION_CLASS
-                )}
-              >
-                <img
-                  src={pair.reference}
-                  alt={`Reference ${idx + 1}`}
-                  className="w-full h-full object-contain"
-                  crossOrigin="anonymous"
-                />
+              <div className={cn("absolute inset-0 flex items-center justify-center", ROTATION_CLASS)}>
+                <img src={pair.reference} alt={`Reference ${idx + 1}`} className="w-full h-full object-contain" crossOrigin="anonymous" />
               </div>
 
               {/* Overlay: Registered with opacity */}
-              <div
-                className={cn(
-                  "absolute inset-0 flex items-center justify-center pointer-events-none",
-                  ROTATION_CLASS
-                )}
-                style={{ opacity }}
-              >
-                <img
-                  src={pair.registered}
-                  alt={`Registered ${idx + 1}`}
-                  className="w-full h-full object-contain mix-blend-screen"
-                  crossOrigin="anonymous"
-                />
+              <div className={cn("absolute inset-0 flex items-center justify-center pointer-events-none", ROTATION_CLASS)} style={{
+            opacity
+          }}>
+                <img src={pair.registered} alt={`Registered ${idx + 1}`} className="w-full h-full object-contain mix-blend-screen" crossOrigin="anonymous" />
               </div>
 
               {/* Label */}
@@ -191,8 +131,7 @@ export default function RegistrationViewer({
                   {pair.label}
                 </span>
               </div>
-            </div>
-          ))}
+            </div>)}
         </div>
       </div>
 
@@ -201,14 +140,7 @@ export default function RegistrationViewer({
         <span className="text-sm text-muted-foreground whitespace-nowrap">
           Superposition
         </span>
-        <Slider
-          min={0}
-          max={100}
-          step={1}
-          value={[Math.round(opacity * 100)]}
-          onValueChange={([val]) => setOpacity(val / 100)}
-          className="flex-1"
-        />
+        <Slider min={0} max={100} step={1} value={[Math.round(opacity * 100)]} onValueChange={([val]) => setOpacity(val / 100)} className="flex-1" />
         <span className="text-sm font-mono w-12 text-right text-muted-foreground">
           {Math.round(opacity * 100)}%
         </span>
@@ -243,7 +175,7 @@ export default function RegistrationViewer({
 
       {/* Positionnement */}
       <section className="p-6 rounded-xl bg-primary/5 border border-primary/20 space-y-4">
-        <h3 className="text-lg font-semibold">Positionnement méthodologique</h3>
+        <h3 className="text-lg font-semibold">Cadre méthodologique</h3>
         <p className="text-muted-foreground leading-relaxed">
           Cette approche privilégie une lecture experte directe, sans sur-interprétation algorithmique, 
           une séparation claire entre alignement géométrique et analyse du signal, et une indépendance 
@@ -254,6 +186,5 @@ export default function RegistrationViewer({
           entière, qui conditionne la validité de toute analyse multimodale ultérieure.
         </p>
       </section>
-    </div>
-  );
+    </div>;
 }
