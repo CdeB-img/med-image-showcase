@@ -28,7 +28,6 @@ interface OutilsViewerProps {
 /* ============================================================
    Composant Image Zoomable Sécurisé
 ============================================================ */
-
 function SecureZoomImage({
   src,
   alt,
@@ -37,49 +36,14 @@ function SecureZoomImage({
   alt: string;
 }) {
   const [open, setOpen] = React.useState(false);
-  const [scale, setScale] = React.useState(1);
-  const [pos, setPos] = React.useState({ x: 0, y: 0 });
-  const start = React.useRef<{ x: number; y: number } | null>(null);
+  const [zoom, setZoom] = React.useState(1);
 
-  // Reset à l’ouverture
   React.useEffect(() => {
-    if (open) {
-      setScale(1);
-      setPos({ x: 0, y: 0 });
-      document.body.style.overflow = "hidden";
-    } else {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
       document.body.style.overflow = "";
-    }
-  }, [open]);
-
-  function onPointerDown(e: React.PointerEvent) {
-    if (scale === 1) return;
-    start.current = {
-      x: e.clientX - pos.x,
-      y: e.clientY - pos.y,
     };
-  }
-
-  function onPointerMove(e: React.PointerEvent) {
-    if (!start.current) return;
-    setPos({
-      x: e.clientX - start.current.x,
-      y: e.clientY - start.current.y,
-    });
-  }
-
-  function onPointerUp() {
-    start.current = null;
-  }
-
-  function toggleZoom() {
-    if (scale === 1) {
-      setScale(2);
-    } else {
-      setScale(1);
-      setPos({ x: 0, y: 0 });
-    }
-  }
+  }, [open]);
 
   return (
     <>
@@ -87,48 +51,58 @@ function SecureZoomImage({
       <img
         src={src}
         alt={alt}
-        loading="lazy"
         className="w-full h-auto object-contain cursor-zoom-in"
         draggable={false}
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          setZoom(1);
+          setOpen(true);
+        }}
         onContextMenu={(e) => e.preventDefault()}
       />
 
       {open && (
-        <div
-          className="fixed inset-0 z-50 bg-black flex items-center justify-center"
-          onClick={() => setOpen(false)}
-        >
+        <div className="fixed inset-0 z-50 bg-black">
+          {/* Header controls */}
+          <div className="absolute top-4 right-4 z-50 flex gap-3">
+            <button
+              className="text-white text-xl"
+              onClick={() => setZoom((z) => Math.max(1, z - 0.5))}
+            >
+              −
+            </button>
+            <button
+              className="text-white text-xl"
+              onClick={() => setZoom((z) => Math.min(4, z + 0.5))}
+            >
+              +
+            </button>
+            <button
+              className="text-white text-2xl ml-2"
+              onClick={() => setOpen(false)}
+            >
+              ×
+            </button>
+          </div>
+
+          {/* Viewer */}
           <div
-            className="relative w-full h-full flex items-center justify-center overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
+            className="w-full h-full flex items-center justify-center overflow-auto"
+            onContextMenu={(e) => e.preventDefault()}
           >
             <img
               src={src}
               alt={alt}
               draggable={false}
-              onDoubleClick={toggleZoom}
-              onPointerDown={onPointerDown}
-              onPointerMove={onPointerMove}
-              onPointerUp={onPointerUp}
-              onPointerLeave={onPointerUp}
+              className="select-none"
               style={{
-                transform: `translate(${pos.x}px, ${pos.y}px) scale(${scale})`,
-                transition: start.current ? "none" : "transform 0.2s ease",
-                cursor: scale > 1 ? "grab" : "zoom-in",
+                transform: `scale(${zoom})`,
+                transformOrigin: "center center",
+                transition: "transform 0.2s ease",
                 maxWidth: "90vw",
                 maxHeight: "90vh",
               }}
-              className="select-none"
               onContextMenu={(e) => e.preventDefault()}
             />
-
-            <button
-              className="absolute top-4 right-4 text-white text-3xl"
-              onClick={() => setOpen(false)}
-            >
-              ×
-            </button>
           </div>
         </div>
       )}
