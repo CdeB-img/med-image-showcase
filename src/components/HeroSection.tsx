@@ -1,6 +1,7 @@
 import { ArrowRight, Brain, Activity, Scan } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+
 const HeroSection = () => {
   return <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
       {/* Background gradient effect */}
@@ -18,6 +19,13 @@ const HeroSection = () => {
           </div>
 
           {/* Main heading */}
+          <div className="flex items-center gap-3">
+            <Brain className="w-10 h-10 md:w-12 md:h-12 text-primary" />
+            <span className="text-3xl md:text-4xl font-bold tracking-tight text-primary text-glow">
+              NOXIA
+            </span>
+          </div>
+
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight max-w-4xl">
             Expert en{" "}
             <span className="text-primary text-glow">Imagerie Médicale</span>
@@ -35,7 +43,7 @@ const HeroSection = () => {
           </Link>
 
           {/* Engineer subtitle */}
-          <p className="text-sm md:text-base text-muted-foreground max-w-xl italic">Ingénieur en imagerie médicale, spécialisé dans le développement d'outils d'analyse et de quantification pour la recherche.</p>
+          <p className="text-sm md:text-base text-muted-foreground max-w-xl italic">Ingénieur en imagerie médicale, spécialisé dans le développement d'outils d'analyse et de quantification pour la recherche clinique et translationnelle.</p>
 
           {/* Tech badges */}
           <div className="flex flex-wrap justify-center gap-3 pt-4">

@@ -13,7 +13,7 @@ const CardiacViewer = ({
       {/* Header */}
       <div className="space-y-6">
         <h1 className="text-3xl font-bold">
-          IRM Cardiaque — Analyse fonctionnelle, tissulaire et physiopathologique
+          IRM Cardiaque | Analyse fonctionnelle, tissulaire et physiopathologique
         </h1>
         <p className="text-muted-foreground max-w-4xl leading-relaxed">
           Ce module présente une expertise approfondie en IRM cardiaque, couvrant l'analyse 

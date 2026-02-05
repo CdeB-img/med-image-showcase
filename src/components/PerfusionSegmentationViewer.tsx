@@ -91,7 +91,7 @@ export default function PerfusionSegmentationViewer({
         <h2 className="text-xl font-semibold text-center">Visualisation interactive</h2>
         <p className="text-sm text-muted-foreground text-center">
       </p>
-        <QCViewer pairs={pairs} patientName="Démonstration — Cartes de perfusion" className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6" />
+        <QCViewer pairs={pairs} patientName="Démonstration | Cartes de perfusion" className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6" />
       </section>
 
       {/* Fonctionnalités clés */}
