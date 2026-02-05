@@ -51,14 +51,14 @@ const HeroSection = () => {
           </p>
 
           {/* Icon cluster — déplacé plus bas */}
-          <div className="flex items-center gap-4 text-primary pt-10">
+          <div className="flex items-center gap-4 text-primary pt-!">
             <Brain className="w-8 h-8 md:w-10 md:h-10" />
             <Database className="w-7 h-7 md:w-9 md:h-9" />
             <Heart className="w-8 h-8 md:w-10 md:h-10" />
           </div>
 
           {/* Tech badges */}
-          <div className="flex flex-wrap justify-center gap-3 pt-2">
+          <div className="flex flex-wrap justify-center gap-3 pt-8">
             {[
               "Python",
               "NumPy",
