@@ -1,4 +1,4 @@
-import { ArrowRight, Brain, Activity, Scan, Database } from "lucide-react";
+import { ArrowRight, Brain, Activity, Database, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 const HeroSection = () => {
@@ -13,13 +13,13 @@ const HeroSection = () => {
           {/* Icon cluster */}
           <div className="flex items-center gap-4 text-primary">
             <Database className="w-8 h-8 md:w-10 md:h-10" />
-            <Brain className="w-6 h-6 md:w-8 md:h-8" />
-            <Scan className="w-8 h-8 md:w-10 md:h-10" />
+            <Activity className="w-6 h-6 md:w-8 md:h-8" />
+            <Heart className="w-8 h-8 md:w-10 md:h-10" />
           </div>
 
           {/* Main heading */}
           <div className="flex items-center gap-3">
-            <Activity className="w-10 h-10 text-primary md:w-[55px] md:h-[55px]" />
+            <Brain className="w-10 h-10 text-primary md:w-[55px] md:h-[55px]" />
             <span className="text-3xl font-bold tracking-tight text-primary text-glow md:text-5xl">
               NOXIA
             </span>
