@@ -78,7 +78,7 @@ const Contact = () => {
       const body = encodeURIComponent(`Nom: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
 
       // Open mailto link
-      window.location.href = `mailto:debourguignoncharles@gmail.com?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:azerty@gmail.com?subject=${subject}&body=${body}`;
       toast({
         title: "Redirection vers votre client mail",
         description: "Votre client de messagerie s'ouvre avec le message pré-rempli."
