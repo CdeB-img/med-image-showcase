@@ -17,7 +17,7 @@ const HeroSection = () => {
           <div className="flex items-center gap-3">
             <Activity className="w-10 h-10 text-primary md:w-[55px] md:h-[55px]" />
             <span className="text-3xl font-bold tracking-tight text-primary text-glow md:text-5xl">
-              NOXIA
+              NOXIAaa
             </span>
             <Activity className="w-10 h-10 text-primary md:w-[55px] md:h-[55px]" />
           </div>
