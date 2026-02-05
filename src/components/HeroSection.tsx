@@ -48,7 +48,7 @@ const HeroSection = () => {
           <p className="text-sm md:text-base text-muted-foreground max-w-xl italic">Ingénieur en imagerie médicale, avec une maîtrise de la chaîne d'analyse, du signal brut aux biomarqueurs exploitables, pour des résultats interprétables, traçables et reproductibles.</p>
 
           {/* Tech badges */}
-          <div className="flex flex-wrap justify-center gap-3 pt-4">
+          <div className="flex flex-wrap justify-center gap-3 pt-2">
             {["Python", "NumPy", "SciPy", "NiBabel", "SimpleITK", "ANTsPy", "pydicom", "PyTorch", "MONAI", "3D Slicer", "OsiriX"].map(tech => <span key={tech} className="px-3 py-1 text-sm font-mono bg-secondary/50 border border-border rounded-full text-muted-foreground">
                 {tech}
               </span>)}
