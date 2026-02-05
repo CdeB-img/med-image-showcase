@@ -40,7 +40,7 @@ export const projects: Project[] = [
   // ============================================================
   {
     id: "perfusion-segmentation",
-    title: "Segmentation experte — Perfusion CT/IRM",
+    title: "Segmentation experte | Perfusion CT/IRM",
     description:
       "Segmentation automatique des lesions de perfusion cerebrale basee sur des seuils parametrables et une validation physiopathologique rigoureuse.",
     modality: "CT Perfusion / MRI",
@@ -57,7 +57,7 @@ export const projects: Project[] = [
   // ============================================================
   {
     id: "neuro-onco",
-    title: "Segmentation experte — Neuro-Oncologie IRM",
+    title: "Segmentation experte | Neuro-Oncologie IRM",
     description:
       "Segmentation automatique des lesions tumorales cerebrales avec distinction multi-composants : coeur necrotique, anneau tumoral et regions peripheriques.",
     modality: "MRI",
@@ -125,7 +125,7 @@ export const projects: Project[] = [
   // ============================================================
   {
     id: "outils",
-    title: "Outils sur mesure — Analyse CT avancee",
+    title: "Outils sur mesure",
     description:
       "Developpement d'outils dedies a l'analyse, la quantification et l'exploration avancee des donnees d'imagerie medicale (pneumologie CT, CT spectral).",
     modality: "CT Scan",

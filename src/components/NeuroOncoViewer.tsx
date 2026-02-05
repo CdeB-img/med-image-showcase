@@ -117,7 +117,7 @@ export default function NeuroOncoViewer({
         </div>
 
         <div className="bg-muted/30 border border-border rounded-lg p-6 text-center">
-          <p className="text-muted-foreground italic">Chaque masque produit est le résultat de choix explicites, traçables et interprétables; non une optimisation opaque.</p>
+          <p className="text-muted-foreground italic">Chaque masque produit est le résultat de choix explicites, traçables et interprétables, non une optimisation opaque.</p>
         </div>
       </section>
 

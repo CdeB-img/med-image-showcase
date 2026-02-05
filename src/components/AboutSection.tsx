@@ -1,6 +1,8 @@
 import { User, Lightbulb, Target, Stethoscope, FlaskConical, Database, Brain, Heart, Scan, Wrench } from "lucide-react";
+
 const AboutSection = () => {
-  return <section className="py-20 bg-secondary/20">
+  return (
+    <section className="py-20 bg-secondary/20">
       <div className="container px-4 md:px-6">
         <div className="max-w-4xl mx-auto space-y-16">
           {/* Header */}
@@ -16,9 +18,10 @@ const AboutSection = () => {
               l'analyse et la quantification d'images issues de données cliniques réelles, 
               principalement en IRM et en scanner (CT).
             </p>
-            <p className="text-lg text-muted-foreground leading-relaxed">Mon travail s'inscrit dans une approche signal-driven, rigoureuse et transparente, où chaque outil, chaque masque et chaque métrique repose sur des choix explicites, traçables et interprétables.<em className="text-foreground">signal-driven</em>, 
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              Mon travail s'inscrit dans une approche <em className="text-foreground">signal-driven</em>, 
               rigoureuse et transparente, où chaque outil, chaque masque et chaque métrique repose 
-              sur des choix explicites, traçables et interprétables — jamais sur une boîte noire.
+              sur des choix explicites, traçables et interprétables, jamais sur une boîte noire.
             </p>
           </div>
 
@@ -28,7 +31,11 @@ const AboutSection = () => {
               <User className="w-6 h-6 text-primary" />
               <h3 className="text-xl font-semibold">Origine de l'approche</h3>
             </div>
-            <p className="text-muted-foreground leading-relaxed">Mon expertise s'est construite sur plus de dix ans de pratique en recherche hospitalo-universitaire, au contact direct des données cliniques hétérogènes, des contraintes méthodologiques réelles, des exigences de reproductibilité et de validation scientifique.</p>
+            <p className="text-muted-foreground leading-relaxed">
+              Mon expertise s'est construite sur plus de dix ans de pratique en recherche hospitalo-universitaire, 
+              au contact direct des données cliniques hétérogènes, des contraintes méthodologiques réelles, 
+              des exigences de reproductibilité et de validation scientifique.
+            </p>
             <p className="text-muted-foreground leading-relaxed">
               Cet environnement a profondément structuré ma manière de travailler : concevoir des outils robustes, 
               compréhensibles et adaptés aux données, plutôt que des solutions génériques déconnectées du terrain.
@@ -117,22 +124,24 @@ const AboutSection = () => {
             </div>
           </div>
 
-          {/* Pour qui */}
+          {/* Pour quoi */}
           <div className="space-y-6">
             <div className="flex items-center gap-3">
               <Stethoscope className="w-6 h-6 text-primary" />
-              <h3 className="text-xl font-semibold">Pour qui</h3>
+              <h3 className="text-xl font-semibold">Pour quoi</h3>
             </div>
             <div className="flex flex-wrap gap-3">
-              {["Recherche académique", "Études multicentriques", "Validation méthodologique", "Préparation de données", "Études translationnelles", "Développement d'algorithmes"].map(item => <span key={item} className="px-4 py-2 text-sm rounded-full bg-primary/10 text-primary border border-primary/20">
+              {["Recherche académique", "Études multicentriques", "Validation méthodologique", "Préparation de données", "Études translationnelles", "Développement d'algorithmes"].map(item => (
+                <span key={item} className="px-4 py-2 text-sm rounded-full bg-primary/10 text-primary border border-primary/20">
                   {item}
-                </span>)}
+                </span>
+              ))}
             </div>
           </div>
 
           {/* Positionnement */}
           <div className="p-6 rounded-xl bg-primary/5 border border-primary/20 space-y-4">
-            <h3 className="text-xl font-semibold">Positionnement</h3>
+            <h3 className="text-xl font-semibold">Cadre méthodologique</h3>
             <p className="text-muted-foreground leading-relaxed">
               Je travaille de manière indépendante, sans dépendance à des solutions propriétaires, 
               avec pour objectif de produire des résultats <strong className="text-foreground">fiables</strong>, 
@@ -140,10 +149,14 @@ const AboutSection = () => {
               <strong className="text-foreground"> directement exploitables</strong> pour l'analyse scientifique, 
               la validation d'algorithmes ou la recherche clinique.
             </p>
-            <p className="text-sm italic text-muted-foreground pt-2 border-t border-primary/20">Chaque outil est conçu comme un objet méthodologique explicite, au service de la compréhension des données; jamais comme une simple démonstration technologique.</p>
+            <p className="text-sm italic text-muted-foreground pt-2 border-t border-primary/20">
+              Chaque outil est conçu comme un objet méthodologique explicite, au service de la compréhension des données, jamais comme une simple démonstration technologique.
+            </p>
           </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default AboutSection;

@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { Brain, Mail, FileText, Home } from "lucide-react";
+
 const Footer = () => {
-  return <footer className="border-t border-border bg-background/50 backdrop-blur-sm">
+  return (
+    <footer className="border-t border-border bg-background/50 backdrop-blur-sm">
       <div className="container px-4 md:px-6 py-12">
         <div className="grid md:grid-cols-3 gap-8">
           {/* Brand */}
@@ -10,17 +12,19 @@ const Footer = () => {
               <Brain className="w-6 h-6 text-primary" />
               <span className="font-semibold">NOXIA</span>
             </div>
-            <p className="text-sm text-muted-foreground">Numerical Observation × Imaging Analysis
-
-Analyse et quantification d’images médicales pour la recherche clinique</p>
+            <p className="text-sm text-muted-foreground">
+              Numerical Observation × Imaging Analysis
+              <br />
+              Analyse et quantification d'images médicales pour la recherche clinique
+            </p>
           </div>
 
           {/* Navigation */}
-          <div className="space-y-4 my-0 py-0 px-0 border-0">
+          <div className="space-y-4 text-center">
             <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">
               Navigation
             </h4>
-            <nav className="flex flex-col gap-2">
+            <nav className="flex flex-col items-center gap-2">
               <Link to="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2">
                 <Home className="w-4 h-4" />
                 Accueil
@@ -55,6 +59,8 @@ Analyse et quantification d’images médicales pour la recherche clinique</p>
           </p>
         </div>
       </div>
-    </footer>;
+    </footer>
+  );
 };
+
 export default Footer;
