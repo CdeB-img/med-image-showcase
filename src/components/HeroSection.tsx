@@ -8,14 +8,7 @@ const HeroSection = () => {
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
       <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-primary/5 rounded-full blur-2xl" />
 
-      <div className="container relative z-10 px-4 md:px-6">
-        <div className="flex flex-col items-center text-center space-y-8 animate-fade-in">
-          {/* Icon cluster */}
-          <div className="flex items-center gap-4 text-primary">
-            <Brain className="w-8 h-8 md:w-10 md:h-10" />
-            <Database className="w-6 h-6 md:w-8 md:h-8" />
-            <Heart className="w-8 h-8 md:w-10 md:h-10" />
-          </div>
+   
 
           {/* Main heading */}
           <div className="flex items-center gap-3">
@@ -46,7 +39,14 @@ const HeroSection = () => {
 
           {/* Engineer subtitle */}
           <p className="text-sm md:text-base text-muted-foreground max-w-xl italic">Ingénieur en imagerie médicale, avec une maîtrise de la chaîne d'analyse, du signal brut aux biomarqueurs exploitables, pour des résultats interprétables, traçables et reproductibles.</p>
-
+          <div className="container relative z-10 px-4 md:px-6">
+                <div className="flex flex-col items-center text-center space-y-8 animate-fade-in">
+                  {/* Icon cluster */}
+                  <div className="flex items-center gap-4 text-primary">
+                    <Brain className="w-8 h-8 md:w-10 md:h-10" />
+                    <Database className="w-6 h-6 md:w-8 md:h-8" />
+                    <Heart className="w-8 h-8 md:w-10 md:h-10" />
+                  </div>
           {/* Tech badges */}
           <div className="flex flex-wrap justify-center gap-3 pt-2">
             {["Python", "NumPy", "SciPy", "NiBabel", "SimpleITK", "ANTsPy", "pydicom", "PyTorch", "MONAI", "3D Slicer", "OsiriX"].map(tech => <span key={tech} className="px-3 py-1 text-sm font-mono bg-secondary/50 border border-border rounded-full text-muted-foreground">
