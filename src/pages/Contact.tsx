@@ -74,7 +74,7 @@ const Contact = () => {
     setIsSubmitting(true);
     try {
       // Create mailto link with encoded parameters
-      const subject = encodeURIComponent(`Contact depuis le site - ${formData.name}`);
+      const subject = encodeURIComponent(`Contact NOXIA - ${formData.name}`);
       const body = encodeURIComponent(`Nom: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
 
       // Open mailto link
