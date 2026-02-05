@@ -30,7 +30,7 @@ const HeroSection = () => {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight max-w-4xl">
             Expert en{" "}
             <span className="text-primary text-glow">Imagerie Médicale</span>
-            Pour la Recherche{" "}
+             pour la Recherche{" "}
           </h1>
 
           {/* Subtitle */}
