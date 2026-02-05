@@ -1,7 +1,6 @@
-import { ArrowRight, Brain, Activity, Scan } from "lucide-react";
+import { ArrowRight, Brain, Activity, Scan, Database } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-
 const HeroSection = () => {
   return <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
       {/* Background gradient effect */}
@@ -13,15 +12,15 @@ const HeroSection = () => {
         <div className="flex flex-col items-center text-center space-y-8 animate-fade-in">
           {/* Icon cluster */}
           <div className="flex items-center gap-4 text-primary">
-            <Brain className="w-8 h-8 md:w-10 md:h-10" />
+            <Database className="w-8 h-8 md:w-10 md:h-10" />
             <Activity className="w-6 h-6 md:w-8 md:h-8" />
             <Scan className="w-8 h-8 md:w-10 md:h-10" />
           </div>
 
           {/* Main heading */}
           <div className="flex items-center gap-3">
-            <Brain className="w-10 h-10 md:w-12 md:h-12 text-primary" />
-            <span className="text-3xl md:text-4xl font-bold tracking-tight text-primary text-glow">
+            <Brain className="w-10 h-10 text-primary md:w-[55px] md:h-[55px]" />
+            <span className="text-3xl font-bold tracking-tight text-primary text-glow md:text-5xl">
               NOXIA
             </span>
           </div>
