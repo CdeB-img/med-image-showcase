@@ -61,7 +61,8 @@ export default function QCViewer({
   }
 
   return (
-    <div className={cn("space-y-6 max-w-5xl mx-auto", className)}>
+
+    <div className={cn("space-y-6 max-w-4xl mx-auto", className)}>
       {/* ===================== INTRO TEXTE ===================== */}
       <section className="max-w-4xl mx-auto text-center space-y-4">
         <h2 className="text-2xl font-bold">
