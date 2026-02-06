@@ -24,7 +24,7 @@ export default function RegistrationViewer({
   const [opacity, setOpacity] = React.useState(initialOpacity);
   return <div className={cn("space-y-12", className)}>
       {/* Header */}
-      <div className="space-y-6">
+      <div className="space-y-6 text-center mx-auto max-w-4xl">
         <h1 className="text-3xl font-bold">
           Recalage multimodal CT / IRM
         </h1>
@@ -37,7 +37,7 @@ export default function RegistrationViewer({
           L'objectif n'est pas de produire une transformation opaque, mais de rendre lisible, 
           contrôlable et vérifiable la qualité du recalage, au plus près du signal et de l'anatomie.
         </p>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap justify-center gap-2">
           <span className="px-3 py-1 text-xs font-medium rounded-md border border-primary/50 text-primary">
             CT / IRM
           </span>
@@ -60,7 +60,7 @@ export default function RegistrationViewer({
       </div>
 
       {/* Principe de visualisation */}
-      <section className="space-y-4">
+      <section className="space-y-4 text-center mx-auto max-w-3xl">
         <h2 className="text-xl font-semibold text-primary">
           Principe de visualisation
         </h2>

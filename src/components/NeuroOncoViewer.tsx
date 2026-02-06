@@ -32,8 +32,8 @@ export default function NeuroOncoViewer({
         </div>
         <h1 className="text-3xl md:text-4xl font-bold">Segmentation des lésions oncologiques cérébrales</h1>
         <p className="text-muted-foreground text-lg leading-relaxed">
-          Approche signal-driven de la segmentation automatique des lésions tumorales cérébrales,
-          avec focus sur les lésions hétérogènes à cœur nécrotique et leurs régions périphériques.
+          Approche guidée par le signal de la segmentation automatique des lésions tumorales cérébrales,
+          avec focus sur les lésions hétérogènes à cœur nécrotique et leurs anneaux.
         </p>
       </header>
 
@@ -44,10 +44,10 @@ export default function NeuroOncoViewer({
         <h2 className="text-xl font-semibold">Analyse et segmentation en neuro-oncologie</h2>
         <div className="space-y-3 text-muted-foreground leading-relaxed">
           <p>
-            <strong>Objectif du module</strong> | Illustrer une approche de segmentation appliquée à des images IRM cérébrales en contexte neuro-oncologique, avec un contrôle fin des régions d'intérêt.
+            <strong>Objectif du module</strong> : Illustrer une approche de segmentation appliquée à des images IRM cérébrales en contexte neuro-oncologique, avec un contrôle fin des régions d'intérêt.
           </p>
           <p>
-            <strong>Ce que montre le viewer</strong> | Comparaison entre l'image native et les masques de segmentation, permettant d'évaluer la cohérence spatiale, la localisation et l'impact clinique potentiel des régions segmentées.
+            <strong>Ce que montre le viewer</strong> : Comparaison entre l'image native et les masques de segmentation, permettant d'évaluer la cohérence spatiale, la localisation et l'impact clinique potentiel des régions segmentées.
           </p>
           <p className="text-sm italic border-l-2 border-primary/50 pl-4">
             Ce module ne repose pas sur une segmentation automatique générique, mais sur une approche adaptée à la physiopathologie et aux contraintes réelles des données.
@@ -121,7 +121,7 @@ export default function NeuroOncoViewer({
             </div>
             <h3 className="font-semibold">Logique multi-composants</h3>
             <p className="text-sm text-muted-foreground">
-              Distinction fine entre cœur nécrotique, anneau tumoral actif et régions périphériques altérées.
+              Distinction entre cœur nécrotique et anneau tumoral actif.
             </p>
           </div>
 
