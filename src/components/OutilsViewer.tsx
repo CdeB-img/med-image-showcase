@@ -1,12 +1,24 @@
 // ============================================================
 // src/components/OutilsViewer.tsx
-// Développement d'outils – Version avec zoom
+// Développement d'outils sur mesure – version recentrée
 // ============================================================
 
 import React from "react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
-import { Stethoscope, Layers, FileSpreadsheet, Microscope, Atom, Blend, Settings, Database, Ruler, Eye, MessageSquare } from "lucide-react";
+import {
+  Stethoscope,
+  Layers,
+  FileSpreadsheet,
+  Microscope,
+  Atom,
+  Blend,
+  Settings,
+  Database,
+  Ruler,
+  Eye,
+  MessageSquare,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -14,13 +26,14 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-const RAW_BASE = "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
+const RAW_BASE =
+  "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
 
 interface OutilsViewerProps {
   className?: string;
 }
 
-// Composant image zoomable
+/* ===================== Image zoomable ===================== */
 function ZoomableImage({ src, alt }: { src: string; alt: string }) {
   return (
     <Dialog>
@@ -32,7 +45,7 @@ function ZoomableImage({ src, alt }: { src: string; alt: string }) {
             className="w-full h-auto object-contain"
             loading="lazy"
             draggable={false}
-            onContextMenu={e => e.preventDefault()}
+            onContextMenu={(e) => e.preventDefault()}
           />
         </div>
       </DialogTrigger>
@@ -42,7 +55,7 @@ function ZoomableImage({ src, alt }: { src: string; alt: string }) {
           alt={alt}
           className="w-full h-auto object-contain"
           draggable={false}
-          onContextMenu={e => e.preventDefault()}
+          onContextMenu={(e) => e.preventDefault()}
         />
       </DialogContent>
     </Dialog>
@@ -51,123 +64,142 @@ function ZoomableImage({ src, alt }: { src: string; alt: string }) {
 
 const OutilsViewer: React.FC<OutilsViewerProps> = ({ className }) => {
   return (
-    <div className={cn("space-y-12", className)}>
-      {/* Header */}
-      <header className="text-center space-y-4">
+    <div className={cn("space-y-20", className)}>
+      {/* ===================== HEADER ===================== */}
+      <header className="text-center space-y-6 mx-auto max-w-4xl">
         <h1 className="text-3xl md:text-4xl font-bold">
-          Outils sur mesure
+          Développement d’outils sur mesure
         </h1>
-        <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+        <p className="text-lg text-muted-foreground">
           Quantification robuste et prototypage méthodologique
         </p>
       </header>
 
-      {/* Introduction */}
-      <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4">
-        <h2 className="text-xl font-semibold">Développement d'outils d'analyse sur mesure</h2>
-        <div className="space-y-3 text-muted-foreground leading-relaxed">
+      {/* ===================== POSITIONNEMENT ===================== */}
+      <section className="mx-auto max-w-4xl bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 text-center">
+        <h2 className="text-xl font-semibold">
+          Conception d’outils d’analyse adaptés aux contraintes réelles
+        </h2>
+
+        <div className="space-y-3 text-muted-foreground leading-relaxed md:text-justify">
           <p>
-            <strong>Objectif du module</strong> | Montrer la capacité à concevoir des outils spécifiques répondant à des besoins méthodologiques précis en recherche clinique.
+            Cette section illustre une capacité à concevoir des outils
+            d’analyse, de quantification et de visualisation spécifiquement
+            adaptés à des problématiques méthodologiques en imagerie médicale.
+            L’approche est orientée usage réel, compréhension du signal et
+            maîtrise des données.
           </p>
-          <p>
-            <strong>Ce que montrent les exemples</strong> | Interfaces et modules développés pour faciliter l'analyse, la visualisation et le contrôle qualité des données d'imagerie.
-          </p>
-          <p className="text-sm italic border-l-2 border-primary/50 pl-4">
-            Ces outils ne sont pas des produits standardisés, mais des solutions construites en fonction des contraintes du projet et des données.
+          <p className="text-sm italic border-l-2 border-primary/50 pl-4 text-left md:text-justify">
+            Il ne s’agit pas de proposer des logiciels standardisés, mais de
+            développer des outils ciblés, construits à partir des contraintes
+            scientifiques, techniques et réglementaires propres à chaque projet.
           </p>
         </div>
       </section>
 
-      {/* Présentation générale */}
-      <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4">
-        <p className="text-muted-foreground leading-relaxed">
-          Développement d'outils dédiés à l'analyse, à la quantification et à l'exploration avancée des données d'imagerie médicale. Approche <em>signal-driven</em>, explicite et orientée usages réels.
-        </p>
-        <p className="text-muted-foreground leading-relaxed">
-          L'objectif n'est pas de proposer un logiciel figé, mais une{" "}
-          <strong>capacité de conception d'outils sur mesure</strong>, adaptée à
-          des données hétérogènes et à des contraintes méthodologiques précises.
-        </p>
-      </section>
-
-      {/* Module Pneumologie CT */}
-      <section className="space-y-6">
-        <ModuleTitle icon={<Stethoscope />} title="Module Pneumologie CT | Analyse et quantification expertes" />
+      {/* ===================== MODULE PNEUMO ===================== */}
+      <section className="space-y-8 mx-auto max-w-5xl">
+        <ModuleTitle
+          icon={<Stethoscope />}
+          title="Analyse CT thoracique — exploration pneumologique"
+        />
 
         <ModuleText>
-          <Feature icon={<Layers />} title="Segmentation régionale contrôlée">
-            Logique angulaire et radiale pour une analyse spatiale fine du parenchyme
+          <Feature icon={<Layers />} title="Analyse régionale structurée">
+            Découpage angulaire et radial permettant une lecture spatiale fine
+            du parenchyme pulmonaire.
           </Feature>
-          <Feature icon={<FileSpreadsheet />} title="Scores quantitatifs explicites">
-            Fibrose, emphysème et atteintes mixtes avec résultats traçables
+          <Feature icon={<FileSpreadsheet />} title="Quantification explicite">
+            Scores de fibrose, emphysème et atteintes mixtes avec métriques
+            traçables et interprétables.
           </Feature>
-          <Feature icon={<Eye />} title="Lecture experte assistée">
-            Structuration de l'information sans substitution au raisonnement clinique
+          <Feature icon={<Eye />} title="Aide à la lecture experte">
+            Structuration de l’information sans substitution au raisonnement
+            clinique ou physiopathologique.
           </Feature>
         </ModuleText>
 
         <ImageBlock>
-          <ZoomableImage src={`${RAW_BASE}/outils/pneumo.png`} alt="Analyse quantitative du parenchyme pulmonaire en scanner thoracique" />
+          <ZoomableImage
+            src={`${RAW_BASE}/outils/pneumo.png`}
+            alt="Analyse quantitative du parenchyme pulmonaire en scanner thoracique"
+          />
         </ImageBlock>
       </section>
 
-      {/* Module CT Spectral */}
-      <section className="space-y-6">
-        <ModuleTitle icon={<Atom />} title="Module CT Spectral | Exploration multi-énergie" />
+      {/* ===================== MODULE SPECTRAL ===================== */}
+      <section className="space-y-8 mx-auto max-w-5xl">
+        <ModuleTitle
+          icon={<Atom />}
+          title="CT spectral — exploration multi-énergie"
+        />
 
         <ModuleText>
-          <Feature icon={<Microscope />} title="Images mono-énergie">
-            Reconstructions à différents niveaux d'énergie
+          <Feature icon={<Microscope />} title="Reconstructions mono-énergie">
+            Visualisation à différents niveaux d’énergie pour améliorer le
+            contraste et la lisibilité anatomique.
           </Feature>
           <Feature icon={<Blend />} title="Cartographies matériaux">
-            Zeff, iode et premières briques de décomposition
+            Premières briques de décomposition (iode, Zeff), pensées comme des
+            mesures physiques interprétables.
           </Feature>
-          <Feature icon={<Layers />} title="Fusion multicanal">
-            Superposition contrôlée sur l'anatomie
+          <Feature icon={<Layers />} title="Fusion contrôlée">
+            Superposition multicanal maîtrisée, ancrée dans la géométrie CT
+            native.
           </Feature>
         </ModuleText>
 
         <ImageBlock>
-          <ZoomableImage src={`${RAW_BASE}/outils/spectral.png`} alt="Cartographies matériaux et imagerie CT spectrale" />
+          <ZoomableImage
+            src={`${RAW_BASE}/outils/spectral.png`}
+            alt="Cartographies matériaux et imagerie CT spectrale"
+          />
         </ImageBlock>
       </section>
 
-      {/* Cadre méthodologique */}
-      <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-6">
+      {/* ===================== CADRE MÉTHODOLOGIQUE ===================== */}
+      <section className="mx-auto max-w-4xl bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-6 text-center">
         <h2 className="text-xl font-semibold">Cadre méthodologique</h2>
 
-        <p className="text-muted-foreground leading-relaxed">
-          Approche fondée sur la compréhension fine du signal, des métadonnées DICOM, de la géométrie et des unités physiques, avec une séparation claire entre visualisation et quantification.
+        <p className="text-muted-foreground leading-relaxed md:text-justify">
+          Le développement d’outils repose sur une compréhension fine du signal,
+          des métadonnées DICOM, de la géométrie et des unités physiques, avec une
+          séparation stricte entre visualisation, quantification et
+          interprétation.
         </p>
 
-        <div className="grid sm:grid-cols-2 gap-4">
+        <div className="grid sm:grid-cols-2 gap-4 text-left">
           <Feature icon={<Settings />} title="Développement sur mesure">
-            Outils spécifiques adaptés à vos besoins
+            Outils construits spécifiquement pour une problématique donnée.
           </Feature>
-          <Feature icon={<Database />} title="Audit de pipelines">
-            Validation ou adaptation de chaînes existantes
+          <Feature icon={<Database />} title="Audit de pipelines existants">
+            Relecture, validation ou adaptation de chaînes déjà en place.
           </Feature>
           <Feature icon={<Ruler />} title="Préparation de données">
-            Données robustes pour analyses quantitatives
+            Données robustes, comparables et exploitables quantitativement.
           </Feature>
           <Feature icon={<Eye />} title="Transparence méthodologique">
-            Indépendance vis-à-vis des solutions propriétaires
+            Indépendance vis-à-vis des solutions propriétaires et boîtes noires.
           </Feature>
         </div>
 
-        <p className="text-center text-sm italic text-muted-foreground pt-4 border-t border-border">
-          Chaque outil est conçu comme un objet méthodologique interprétable, jamais comme une boîte noire.
+        <p className="text-sm italic text-muted-foreground pt-4 border-t border-border">
+          Chaque outil est conçu comme un objet méthodologique interprétable,
+          jamais comme une solution opaque.
         </p>
       </section>
 
-      {/* CTA Contact */}
+      {/* ===================== CTA ===================== */}
       <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 max-w-2xl mx-auto text-center">
-        <h3 className="text-lg font-semibold">Discuter d'un besoin spécifique</h3>
+        <h3 className="text-lg font-semibold">
+          Discuter d’un besoin méthodologique
+        </h3>
         <p className="text-sm text-muted-foreground">
-          Ces exemples illustrent des cas réels rencontrés en recherche clinique.
-          Pour discuter d'un projet, d'un jeu de données ou d'une problématique méthodologique, vous pouvez me contacter.
+          Ces exemples illustrent des situations réelles rencontrées en recherche
+          clinique et translationnelle. Pour discuter d’un outil, d’un jeu de
+          données ou d’une problématique spécifique, vous pouvez me contacter.
         </p>
-        <Button variant="outline" asChild className="mt-2">
+        <Button variant="outline" asChild>
           <Link to="/contact" className="inline-flex items-center gap-2">
             <MessageSquare className="w-4 h-4" />
             Initier une discussion
@@ -180,11 +212,15 @@ const OutilsViewer: React.FC<OutilsViewerProps> = ({ className }) => {
 
 export default OutilsViewer;
 
-/* ============================================================
-   Sous-composants UI
-============================================================ */
+/* ===================== Sous-composants UI ===================== */
 
-function ModuleTitle({ icon, title }: { icon: React.ReactNode; title: string }) {
+function ModuleTitle({
+  icon,
+  title,
+}: {
+  icon: React.ReactNode;
+  title: string;
+}) {
   return (
     <div className="flex items-center gap-3">
       <div className="p-2 rounded-lg bg-primary/10 text-primary">{icon}</div>
@@ -205,12 +241,20 @@ function ImageBlock({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Feature({ icon, title, children }: { icon: React.ReactNode; title: string; children: React.ReactNode }) {
+function Feature({
+  icon,
+  title,
+  children,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  children: React.ReactNode;
+}) {
   return (
     <div className="flex items-start gap-3">
       <div className="text-primary mt-0.5 shrink-0">{icon}</div>
       <p className="text-sm text-muted-foreground">
-        <strong>{title}</strong> | {children}
+        <strong>{title}</strong> — {children}
       </p>
     </div>
   );
