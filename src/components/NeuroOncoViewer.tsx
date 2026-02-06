@@ -1,200 +1,249 @@
+// ============================================================
 // src/components/NeuroOncoViewer.tsx
+// Neuro-oncologie IRM – Segmentation guidée par le signal
+// ============================================================
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
-import { Brain, Target, Layers, FileSearch, Microscope, Database, MessageSquare } from "lucide-react";
-const RAW_BASE = "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
+import {
+  Brain,
+  Target,
+  Layers,
+  FileSearch,
+  Microscope,
+  Database,
+  MessageSquare,
+} from "lucide-react";
+
+const RAW_BASE =
+  "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
+
 const SLICE_COUNT = 5;
-const nativeSlices = Array.from({
-  length: SLICE_COUNT
-}, (_, i) => `${RAW_BASE}/neuro-onco/natives/slice_${String(i).padStart(3, "0")}.png`);
-const overlaySlices = Array.from({
-  length: SLICE_COUNT
-}, (_, i) => `${RAW_BASE}/neuro-onco/overlays/slice_${String(i).padStart(3, "0")}.png`);
+
+const nativeSlices = Array.from({ length: SLICE_COUNT }, (_, i) =>
+  `${RAW_BASE}/neuro-onco/natives/slice_${String(i).padStart(3, "0")}.png`
+);
+
+const overlaySlices = Array.from({ length: SLICE_COUNT }, (_, i) =>
+  `${RAW_BASE}/neuro-onco/overlays/slice_${String(i).padStart(3, "0")}.png`
+);
+
 interface Props {
   className?: string;
 }
-export default function NeuroOncoViewer({
-  className
-}: Props) {
+
+export default function NeuroOncoViewer({ className }: Props) {
   const [sliceIndex, setSliceIndex] = React.useState(0);
-  return <div className={cn("space-y-12", className)}>
-      {/* ============================================================
-          HEADER
-       ============================================================ */}
-      <header className="text-center space-y-4 max-w-4xl mx-auto">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium">
+
+  return (
+    <div className={cn("space-y-16", className)}>
+      {/* ===================== HEADER ===================== */}
+      <header className="max-w-4xl mx-auto text-center space-y-6">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mx-auto">
           <Brain className="w-4 h-4" />
-          Neuro-Oncologie IRM
+          Neuro-oncologie IRM
         </div>
-        <h1 className="text-3xl md:text-4xl font-bold">Segmentation des lésions oncologiques cérébrales</h1>
-        <p className="text-muted-foreground text-lg leading-relaxed">
-          Approche guidée par le signal de la segmentation automatique des lésions tumorales cérébrales,
-          avec focus sur les lésions hétérogènes à cœur nécrotique et leurs anneaux.
+
+        <h1 className="text-3xl md:text-4xl font-bold">
+          Segmentation des lésions oncologiques cérébrales
+        </h1>
+
+        <p className="text-lg text-muted-foreground leading-relaxed">
+          Approche de segmentation guidée par le signal appliquée aux lésions
+          tumorales cérébrales en IRM, avec un focus particulier sur les lésions
+          hétérogènes à cœur nécrotique et leurs structures périphériques.
         </p>
       </header>
 
-      {/* ============================================================
-          INTRO VIEWER
-       ============================================================ */}
-      <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 max-w-4xl mx-auto">
-        <h2 className="text-xl font-semibold">Analyse et segmentation en neuro-oncologie</h2>
-        <div className="space-y-3 text-muted-foreground leading-relaxed">
+      {/* ===================== INTRO ===================== */}
+      <section className="max-w-4xl mx-auto bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 text-center">
+        <h2 className="text-xl font-semibold">
+          Analyse et structuration des lésions en neuro-oncologie
+        </h2>
+
+        <div className="space-y-3 text-muted-foreground leading-relaxed md:text-justify">
           <p>
-            <strong>Objectif du module</strong> : Illustrer une approche de segmentation appliquée à des images IRM cérébrales en contexte neuro-oncologique, avec un contrôle fin des régions d'intérêt.
+            <strong>Objectif du module</strong> — Illustrer une approche de
+            segmentation appliquée à des images IRM cérébrales en contexte
+            neuro-oncologique, avec un contrôle explicite des régions d’intérêt.
           </p>
+
           <p>
-            <strong>Ce que montre le viewer</strong> : Comparaison entre l'image native et les masques de segmentation, permettant d'évaluer la cohérence spatiale, la localisation et l'impact clinique potentiel des régions segmentées.
+            <strong>Ce que montre l’exemple</strong> — Comparaison entre l’image
+            native et des masques de segmentation permettant d’évaluer la
+            cohérence spatiale, l’architecture interne des lésions et leur
+            interprétation physiopathologique.
           </p>
-          <p className="text-sm italic border-l-2 border-primary/50 pl-4">
-            Ce module ne repose pas sur une segmentation automatique générique, mais sur une approche adaptée à la physiopathologie et aux contraintes réelles des données.
+
+          <p className="text-sm italic border-l-2 border-primary/50 pl-4 text-left">
+            Cette approche ne repose pas sur une segmentation générique
+            automatisée, mais sur des choix méthodologiques adaptés aux
+            contraintes réelles des données.
           </p>
         </div>
       </section>
 
-      {/* ============================================================
-          VIEWER — Native | Overlay synchronisés
-       ============================================================ */}
-      <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-6">
-        <h2 className="text-xl font-semibold text-center">Démonstration visuelle</h2>
-        
+      {/* ===================== VISUALISATION ===================== */}
+      <section className="max-w-5xl mx-auto bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-8">
+        <h2 className="text-xl font-semibold text-center">
+          Illustration visuelle
+        </h2>
+
         <div className="grid md:grid-cols-2 gap-6">
-          {/* Native */}
-          <div className="space-y-2">
-            <p className="text-sm text-muted-foreground text-center font-medium">
+          <div className="space-y-2 text-center">
+            <p className="text-sm font-medium text-muted-foreground">
               IRM native (T1)
             </p>
             <div className="aspect-square bg-black rounded-lg overflow-hidden">
-              <img src={nativeSlices[sliceIndex]} alt={`Native slice ${sliceIndex + 1}`} className="w-full h-full object-contain" />
+              <img
+                src={nativeSlices[sliceIndex]}
+                alt={`Native slice ${sliceIndex + 1}`}
+                className="w-full h-full object-contain"
+              />
             </div>
           </div>
 
-          {/* Overlay */}
-          <div className="space-y-2">
-            <p className="text-sm text-muted-foreground text-center font-medium">
+          <div className="space-y-2 text-center">
+            <p className="text-sm font-medium text-muted-foreground">
               Segmentation superposée
             </p>
             <div className="aspect-square bg-black rounded-lg overflow-hidden">
-              <img src={overlaySlices[sliceIndex]} alt={`Overlay slice ${sliceIndex + 1}`} className="w-full h-full object-contain" />
+              <img
+                src={overlaySlices[sliceIndex]}
+                alt={`Overlay slice ${sliceIndex + 1}`}
+                className="w-full h-full object-contain"
+              />
             </div>
           </div>
         </div>
 
-        {/* Slider */}
         <div className="flex items-center gap-4 max-w-xl mx-auto">
           <span className="text-sm text-muted-foreground w-12">Slice</span>
-          <Slider value={[sliceIndex]} onValueChange={([v]) => setSliceIndex(v)} min={0} max={SLICE_COUNT - 1} step={1} className="flex-1" />
+          <Slider
+            value={[sliceIndex]}
+            onValueChange={([v]) => setSliceIndex(v)}
+            min={0}
+            max={SLICE_COUNT - 1}
+            step={1}
+            className="flex-1"
+          />
           <span className="text-sm font-mono w-12 text-right">
             {sliceIndex + 1}/{SLICE_COUNT}
           </span>
         </div>
 
         <p className="text-sm text-muted-foreground text-center max-w-2xl mx-auto">
-          Le défilement slice-par-slice met en évidence des lésions de tailles variées,
-          des atteintes multiples et des architectures internes complexes incluant des cœurs nécrotiques.
+          Le défilement slice par slice met en évidence la variabilité
+          morphologique des lésions, leur hétérogénéité interne et la présence
+          de structures nécrotiques ou périphériques complexes.
         </p>
       </section>
 
-      {/* ============================================================
-          PRINCIPE
-       ============================================================ */}
-      <section className="space-y-6 max-w-4xl mx-auto">
-        <h2 className="text-2xl font-bold text-center">Principe de l'approche</h2>
-        
+      {/* ===================== PRINCIPE ===================== */}
+      <section className="max-w-5xl mx-auto space-y-8">
+        <h2 className="text-2xl font-bold text-center">
+          Principe méthodologique
+        </h2>
+
         <div className="grid md:grid-cols-3 gap-6">
-          <div className="bg-card/50 border border-border rounded-lg p-5 space-y-3">
-            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-              <Layers className="w-5 h-5 text-primary" />
-            </div>
-            <h3 className="font-semibold">Contrastes IRM</h3>
-            <p className="text-sm text-muted-foreground">
-              Exploitation conjointe des séquences T1 pré et post-contraste pour une caractérisation optimale.
-            </p>
-          </div>
-
-          <div className="bg-card/50 border border-border rounded-lg p-5 space-y-3">
-            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-              <Target className="w-5 h-5 text-primary" />
-            </div>
-            <h3 className="font-semibold">Logique multi-composants</h3>
-            <p className="text-sm text-muted-foreground">
-              Distinction entre cœur nécrotique et anneau tumoral actif.
-            </p>
-          </div>
-
-          <div className="bg-card/50 border border-border rounded-lg p-5 space-y-3">
-            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-              <FileSearch className="w-5 h-5 text-primary" />
-            </div>
-            <h3 className="font-semibold">Critères adaptatifs</h3>
-            <p className="text-sm text-muted-foreground">
-              Paramètres contrôlés préservant la réalité anatomique, évitant sur-segmentation et lissage excessif.
-            </p>
-          </div>
+          <Principle
+            icon={<Layers />}
+            title="Exploitation des contrastes IRM"
+            text="Analyse conjointe des séquences T1 pré et post-contraste pour une caractérisation robuste des régions tumorales."
+          />
+          <Principle
+            icon={<Target />}
+            title="Logique multi-composants"
+            text="Distinction entre cœur nécrotique, anneau tumoral actif et tissus adjacents."
+          />
+          <Principle
+            icon={<FileSearch />}
+            title="Critères contrôlés"
+            text="Paramètres explicites limitant la sur-segmentation et préservant la réalité anatomique."
+          />
         </div>
 
-        <div className="bg-muted/30 border border-border rounded-lg p-6 text-center">
-          <p className="text-muted-foreground italic">Chaque masque produit est le résultat de choix explicites, traçables et interprétables, non une optimisation opaque.</p>
+        <div className="bg-muted/30 border border-border rounded-xl p-6 text-center">
+          <p className="italic text-muted-foreground">
+            Chaque masque est le résultat de choix explicites, traçables et
+            interprétables, jamais d’une optimisation opaque.
+          </p>
         </div>
       </section>
 
-      {/* ============================================================
-          POSITIONNEMENT
-       ============================================================ */}
-      <section className="space-y-6 max-w-4xl mx-auto">
-        <h2 className="text-2xl font-bold text-center">Cadre méthodologique</h2>
+      {/* ===================== CADRE ===================== */}
+      <section className="max-w-5xl mx-auto space-y-8">
+        <h2 className="text-2xl font-bold text-center">
+          Cadre méthodologique
+        </h2>
 
         <div className="grid md:grid-cols-2 gap-6">
-          <div className="bg-card/50 border border-border rounded-lg p-5 space-y-3">
-            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-              <Microscope className="w-5 h-5 text-primary" />
-            </div>
-            <h3 className="font-semibold">Compréhension du signal</h3>
-            <p className="text-sm text-muted-foreground">
-              Expertise orientée physiopathologie et robustesse méthodologique, y compris sur des cas complexes.
-            </p>
-          </div>
-
-          <div className="bg-card/50 border border-border rounded-lg p-5 space-y-3">
-            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-              <Database className="w-5 h-5 text-primary" />
-            </div>
-            <h3 className="font-semibold">Données exploitables</h3>
-            <p className="text-sm text-muted-foreground">
-              Préparation de données fiables pour analyses quantitatives, études longitudinales ou apprentissage.
-            </p>
-          </div>
+          <Principle
+            icon={<Microscope />}
+            title="Compréhension du signal"
+            text="Approche orientée physiopathologie et cohérence clinique, y compris sur des cas complexes."
+          />
+          <Principle
+            icon={<Database />}
+            title="Données exploitables"
+            text="Préparation de données fiables pour analyses quantitatives, études longitudinales ou validation méthodologique."
+          />
         </div>
 
-        <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 text-center space-y-2">
+        <div className="bg-primary/5 border border-primary/20 rounded-xl p-6 text-center space-y-2">
           <p className="font-medium text-primary">
-            La segmentation n'est pas une boîte noire.
+            La segmentation n’est pas une boîte noire.
           </p>
           <p className="text-sm text-muted-foreground">
-            Chaque région identifiée correspond à une hypothèse physiopathologique contrôlée,
-            indépendante des solutions propriétaires.
+            Chaque région identifiée correspond à une hypothèse
+            physiopathologique contrôlée, indépendante des solutions
+            propriétaires.
           </p>
         </div>
       </section>
 
-      {/* ============================================================
-          CTA CONTACT
-       ============================================================ */}
-      <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 max-w-2xl mx-auto text-center">
-        <h3 className="text-lg font-semibold">Discuter d'un besoin spécifique</h3>
+      {/* ===================== CTA ===================== */}
+      <section className="max-w-2xl mx-auto bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 text-center">
+        <h3 className="text-lg font-semibold">
+          Discuter d’un besoin spécifique
+        </h3>
         <p className="text-sm text-muted-foreground">
           Ces exemples illustrent des cas réels rencontrés en recherche clinique.
-          Pour discuter d'un projet, d'un jeu de données ou d'une problématique méthodologique, vous pouvez me contacter.
+          Pour discuter d’un projet, d’un jeu de données ou d’une problématique
+          méthodologique, vous pouvez me contacter.
         </p>
-        <Button variant="outline" asChild className="mt-2">
+        <Button variant="outline" asChild>
           <Link to="/contact" className="inline-flex items-center gap-2">
             <MessageSquare className="w-4 h-4" />
             Initier une discussion
           </Link>
         </Button>
       </section>
-    </div>;
+    </div>
+  );
+}
+
+/* ===================== SUB COMPONENT ===================== */
+
+function Principle({
+  icon,
+  title,
+  text,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  text: string;
+}) {
+  return (
+    <div className="bg-card/50 border border-border rounded-xl p-6 space-y-3 text-center">
+      <div className="w-10 h-10 mx-auto rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+        {icon}
+      </div>
+      <h3 className="font-semibold">{title}</h3>
+      <p className="text-sm text-muted-foreground leading-relaxed">{text}</p>
+    </div>
+  );
 }
