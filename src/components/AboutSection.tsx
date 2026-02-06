@@ -104,7 +104,7 @@ const AboutSection = () => {
                 <FlaskConical className="w-5 h-5 text-primary mt-0.5" />
                 <div>
                   <p className="font-medium text-sm">CT spectral</p>
-                  <p className="text-xs text-muted-foreground">Reconstruction mono-énergies, Coroscan</p>
+                  <p className="text-xs text-muted-foreground">Reconstruction mono-énergétique, Coroscan</p>
                 </div>
               </div>
               <div className="flex items-start gap-3 p-4 rounded-lg bg-background border border-border">
