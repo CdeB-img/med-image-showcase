@@ -48,7 +48,7 @@ const Footer = () => {
 
               <Link
                 to="/contact"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.6 leading-none"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5 leading-none"
               >
                 <span className="inline-block w-[0px]" />
                 <Mail className="w-4 h-4 shrink-0" />
