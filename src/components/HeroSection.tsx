@@ -1,6 +1,50 @@
-import { ArrowRight, Brain, Activity, Database, Heart } from "lucide-react";
+import {
+  ArrowRight,
+  Brain,
+  Activity,
+  Database,
+  Heart,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
+/* ============================================================
+   Descriptions des technologies (orientées usage réel)
+============================================================ */
+
+const TECH_DESCRIPTIONS: Record<string, string> = {
+  Python:
+    "Développement d’outils d’analyse, scripts DICOM/NIfTI, pipelines reproductibles et contrôle qualité.",
+  NumPy:
+    "Calcul scientifique, manipulation de volumes et statistiques appliquées à l’imagerie médicale.",
+  SciPy:
+    "Traitement du signal, filtrage, morphologie et opérations numériques avancées.",
+  NiBabel:
+    "Manipulation experte de volumes NIfTI, gestion de la géométrie, des orientations et compatibilité DICOM.",
+  SimpleITK:
+    "Traitement d’images médicales, filtrage, transformations géométriques et opérations voxel-wise.",
+  ANTsPy:
+    "Recalage non linéaire et transformations explicites, avec contrôle qualitatif des champs de déformation.",
+  pydicom:
+    "Lecture, structuration et exploitation fine des métadonnées DICOM.",
+  PyTorch:
+    "Utilisé comme brique technique pour le prototypage, jamais comme boîte noire décisionnelle.",
+  MONAI:
+    "Framework IA médical exploité de manière encadrée pour des usages spécifiques.",
+  "3D Slicer":
+    "Visualisation experte, relecture et validation qualitative des données et segmentations.",
+  OsiriX:
+    "Lecture clinique, inspection DICOM et contrôle visuel expert des résultats.",
+};
+
+/* ============================================================
+   Hero Section
+============================================================ */
 
 const HeroSection = () => {
   return (
@@ -58,27 +102,22 @@ const HeroSection = () => {
             <Heart className="w-8 h-8 md:w-10 md:h-10" />
           </div>
 
-          {/* Tech stack */}
+          {/* Tech stack avec popovers */}
           <div className="flex flex-wrap justify-center gap-3 pt-8">
-            {[
-              "Python",
-              "NumPy",
-              "SciPy",
-              "NiBabel",
-              "SimpleITK",
-              "ANTsPy",
-              "pydicom",
-              "PyTorch",
-              "MONAI",
-              "3D Slicer",
-              "OsiriX",
-            ].map((tech) => (
-              <span
-                key={tech}
-                className="px-3 py-1 text-sm font-mono bg-secondary/50 border border-border rounded-full text-muted-foreground"
-              >
-                {tech}
-              </span>
+            {Object.keys(TECH_DESCRIPTIONS).map((tech) => (
+              <Popover key={tech}>
+                <PopoverTrigger asChild>
+                  <button
+                    type="button"
+                    className="px-3 py-1 text-sm font-mono bg-secondary/50 border border-border rounded-full text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors"
+                  >
+                    {tech}
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent className="max-w-xs text-sm text-muted-foreground leading-relaxed">
+                  {TECH_DESCRIPTIONS[tech]}
+                </PopoverContent>
+              </Popover>
             ))}
           </div>
 
