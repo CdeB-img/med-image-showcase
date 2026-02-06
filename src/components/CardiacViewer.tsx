@@ -92,7 +92,7 @@ const CardiacViewer = ({ className }: Props) => {
           {/* Pathologies */}
           <div className="p-6 rounded-xl bg-secondary/30 border border-border text-center">
             <h3 className="font-semibold mb-3">Pathologies explorées</h3>
-            <ul className="text-sm text-muted-foreground space-y-1 text-left mx-auto max-w-xs pl-8">
+            <ul className="text-sm text-muted-foreground space-y-1 text-left mx-auto max-w-xs pl-14">
               <li>• Myocardites aiguës et chroniques</li>
               <li>• Maladies infiltratives (surcharge, fibrose diffuse)</li>
               <li>• IDM</li>
