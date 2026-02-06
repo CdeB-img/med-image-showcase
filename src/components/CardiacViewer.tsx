@@ -92,7 +92,7 @@ const CardiacViewer = ({ className }: Props) => {
           {/* Pathologies */}
           <div className="p-6 rounded-xl bg-secondary/30 border border-border text-center">
             <h3 className="font-semibold mb-3">Pathologies explorées</h3>
-            <ul className="text-sm text-muted-foreground space-y-1 text-left mx-auto max-w-xs pl-4">
+            <ul className="text-sm text-muted-foreground space-y-1 text-left mx-auto max-w-xs pl-8">
               <li>• Myocardites aiguës et chroniques</li>
               <li>• Maladies infiltratives (surcharge, fibrose diffuse)</li>
               <li>• IDM</li>
@@ -103,7 +103,7 @@ const CardiacViewer = ({ className }: Props) => {
           {/* Contextes */}
           <div className="p-6 rounded-xl bg-secondary/30 border border-border text-center">
             <h3 className="font-semibold mb-3">Contextes d’application</h3>
-            <ul className="text-sm text-muted-foreground space-y-1 text-left mx-auto maax-w-xs pl-4">
+            <ul className="text-sm text-muted-foreground space-y-1 text-left mx-auto maax-w-xs pl-10">
               <li>• Cohortes cliniques complexes</li>
               <li>• Études translationnelles</li>
               <li>• Modèles animaux (petits et grands)</li>
