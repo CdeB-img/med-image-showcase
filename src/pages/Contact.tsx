@@ -85,8 +85,11 @@ const Contact = () => {
         }
       });
 
-      if (!response.ok) {
-        throw new Error("Formspree error");
+      const data = await response.json();
+
+      // ✅ Formspree SUCCESS condition
+      if (data.ok !== true && data.success !== true) {
+        throw new Error("Formspree rejected submission");
       }
 
       toast({
@@ -94,13 +97,11 @@ const Contact = () => {
         description: "Votre message a bien été transmis."
       });
 
-      setFormData({
-        name: "",
-        email: "",
-        message: ""
-      });
+      setFormData({ name: "", email: "", message: "" });
 
     } catch (error) {
+      console.error("Formspree error:", error);
+
       toast({
         title: "Erreur",
         description: "Impossible d’envoyer le message. Merci de réessayer plus tard.",
