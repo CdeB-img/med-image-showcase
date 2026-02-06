@@ -68,12 +68,12 @@ const CardiacViewer = ({ className }: Props) => {
 
         <div className="space-y-3 text-muted-foreground leading-relaxed md:text-justify">
           <p>
-            <strong>Objectif du module</strong> — Présenter une approche de
+            <strong>Objectif du module</strong> : Présenter une approche de
             segmentation et d’analyse appliquée à l’imagerie cardiaque, dans un
             cadre de recherche clinique.
           </p>
           <p>
-            <strong>Ce que montre le viewer</strong> — Visualisation des
+            <strong>Ce que montre le viewer</strong> : Visualisation des
             structures cardiaques segmentées et superposées à l’image native,
             permettant une évaluation qualitative et quantitative des régions
             d’intérêt.
@@ -89,8 +89,15 @@ const CardiacViewer = ({ className }: Props) => {
       <section className="mx-auto max-w-5xl space-y-6 text-center">
         <div className="grid md:grid-cols-2 gap-6">
           <div className="p-6 rounded-xl bg-secondary/30 border border-border">
+          <div className="p-6 rounded-xl bg-secondary/30 border border-border text-center">
             <h3 className="font-semibold mb-3">Pathologies explorées</h3>
-            <ul className="text-sm text-muted-foreground space-y-1">
+            <ul className="text-sm text-muted-foreground space-y-1 text-left mx-auto max-w-xs">
+              <li>• Myocardites aiguës et chroniques</li>
+              <li>• Maladies infiltratives (surcharge, fibrose diffuse)</li>
+              <li>• IDM</li>
+              <li>• Modèles expérimentaux et précliniques</li>
+            </ul>
+          </div>
               <li>• Myocardites aiguës et chroniques</li>
               <li>• Maladies infiltratives (surcharge, fibrose diffuse)</li>
               <li>• IDM</li>
@@ -100,7 +107,7 @@ const CardiacViewer = ({ className }: Props) => {
 
           <div className="p-6 rounded-xl bg-secondary/30 border border-border">
             <h3 className="font-semibold mb-3">Contextes d’application</h3>
-            <ul className="text-sm text-muted-foreground space-y-1">
+            <ul className="text-sm text-muted-foreground space-y-1 text-left mx-auto max-w-xs">
               <li>• Cohortes cliniques complexes</li>
               <li>• Études translationnelles</li>
               <li>• Modèles animaux (petits et grands)</li>
