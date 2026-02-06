@@ -16,7 +16,7 @@ const AboutSection = () => {
             <p className="text-lg text-muted-foreground leading-relaxed">
               Je suis expert indépendant en imagerie médicale, spécialisé dans le traitement, 
               l'analyse et la quantification d'images issues de données cliniques réelles, 
-              principalement en IRM et en scanner (CT).
+              avec une forte expérience en IRM et en scanner (CT).
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
               Mon travail s'inscrit dans une approche <em className="text-foreground">signal-driven</em>, 
@@ -104,7 +104,7 @@ const AboutSection = () => {
                 <FlaskConical className="w-5 h-5 text-primary mt-0.5" />
                 <div>
                   <p className="font-medium text-sm">CT spectral</p>
-                  <p className="text-xs text-muted-foreground">Reconstruction multi-énergies, Coroscan</p>
+                  <p className="text-xs text-muted-foreground">Reconstruction mono-énergies, Coroscan</p>
                 </div>
               </div>
               <div className="flex items-start gap-3 p-4 rounded-lg bg-background border border-border">
@@ -130,7 +130,7 @@ const AboutSection = () => {
               <Stethoscope className="w-6 h-6 text-primary" />
               <h3 className="text-xl font-semibold">Pour quoi</h3>
             </div>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap justify-center gap-3">
               {["Recherche académique et clinique", "Études multicentriques et longitudinales", "Validation méthodologique et reproductibilité", "Préparation et structuration de données", "Conception d’approches algorithmiques sur mesure"].map(item => (
                 <span key={item} className="px-4 py-2 text-sm rounded-full bg-primary/10 text-primary border border-primary/20">
                   {item}
