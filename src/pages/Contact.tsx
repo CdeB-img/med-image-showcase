@@ -13,7 +13,6 @@ import { z } from "zod";
    CONFIG
 ============================================================ */
 
-//  URL fournie par Formspree
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/mnjbalye";
 
 /* ============================================================
@@ -80,14 +79,16 @@ const Contact = () => {
       const response = await fetch(FORMSPREE_ENDPOINT, {
         method: "POST",
         body: form,
+        mode: "cors",
+        redirect: "manual",
         headers: {
           Accept: "application/json"
         }
       });
 
-      // ✅ Formspree SUCCESS = HTTP 2xx
-      if (!response.ok) {
-        throw new Error(`HTTP error ${response.status}`);
+      // Formspree SUCCESS = 200 ou 204
+      if (response.status !== 200 && response.status !== 204) {
+        throw new Error(`Formspree error ${response.status}`);
       }
 
       toast({
@@ -113,14 +114,11 @@ const Contact = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <main className="flex-1">
-
-        {/* ================= HERO ================= */}
         <section className="relative py-20 md:py-28 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
 
           <div className="container relative z-10 px-4 md:px-6">
 
-            {/* Back */}
             <div className="mb-12">
               <Link to="/">
                 <Button variant="ghost" className="gap-2">
@@ -132,7 +130,6 @@ const Contact = () => {
 
             <div className="max-w-3xl mx-auto">
 
-              {/* Header */}
               <div className="text-center space-y-6 mb-16">
                 <div className="flex items-center justify-center gap-3">
                   <Activity className="w-8 h-8 text-primary" />
@@ -155,11 +152,9 @@ const Contact = () => {
                 </p>
               </div>
 
-              {/* ================= FORM ================= */}
               <div className="bg-card border border-border rounded-2xl p-8 md:p-12 shadow-lg">
                 <form onSubmit={handleSubmit} className="space-y-8">
 
-                  {/* Name */}
                   <div className="space-y-3">
                     <Label htmlFor="name" className="flex items-center gap-2">
                       <User className="w-5 h-5 text-primary" />
@@ -177,7 +172,6 @@ const Contact = () => {
                     )}
                   </div>
 
-                  {/* Email */}
                   <div className="space-y-3">
                     <Label htmlFor="email" className="flex items-center gap-2">
                       <Mail className="w-5 h-5 text-primary" />
@@ -196,7 +190,6 @@ const Contact = () => {
                     )}
                   </div>
 
-                  {/* Message */}
                   <div className="space-y-3">
                     <Label htmlFor="message" className="flex items-center gap-2">
                       <MessageSquare className="w-5 h-5 text-primary" />
@@ -215,7 +208,6 @@ const Contact = () => {
                     )}
                   </div>
 
-                  {/* Submit */}
                   <Button
                     type="submit"
                     size="lg"
@@ -233,9 +225,8 @@ const Contact = () => {
                 </form>
               </div>
 
-              {/* ================= FOOT NOTE ================= */}
               <div className="mt-8 text-center p-6 rounded-xl bg-secondary/30 border border-border">
-                <p className="text-sm text-muted-foreground leading-relaxed">
+                <p className="text-sm text-muted-foreground">
                   Les informations transmises via ce formulaire sont utilisées
                   exclusivement pour répondre à votre demande.
                 </p>
