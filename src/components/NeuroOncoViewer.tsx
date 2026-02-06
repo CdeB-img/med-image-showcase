@@ -53,8 +53,8 @@ export default function NeuroOncoViewer({ className }: Props) {
 
         <p className="text-lg text-muted-foreground leading-relaxed">
           Approche de segmentation guidée par le signal appliquée aux lésions
-          tumorales cérébrales en IRM, avec un focus particulier sur les lésions
-          hétérogènes à cœur nécrotique et leurs structures périphériques.
+          tumorales cérébrales en IRM, avec  focus  sur les lésions
+          hétérogènes à cœur nécrotique et leurs anneaux.
         </p>
       </header>
 
@@ -66,20 +66,20 @@ export default function NeuroOncoViewer({ className }: Props) {
 
         <div className="space-y-3 text-muted-foreground leading-relaxed md:text-justify">
           <p>
-            <strong>Objectif du module</strong> — Illustrer une approche de
+            <strong>Objectif du module</strong> : Illustrer une approche de
             segmentation appliquée à des images IRM cérébrales en contexte
             neuro-oncologique, avec un contrôle explicite des régions d’intérêt.
           </p>
 
           <p>
-            <strong>Ce que montre l’exemple</strong> — Comparaison entre l’image
+            <strong>Ce que montre l’exemple</strong> : Comparaison entre l’image
             native et des masques de segmentation permettant d’évaluer la
-            cohérence spatiale, l’architecture interne des lésions et leur
+            cohérence spatiale, l’architecture des lésions et leur
             interprétation physiopathologique.
           </p>
 
           <p className="text-sm italic border-l-2 border-primary/50 pl-4 text-left">
-            Cette approche ne repose pas sur une segmentation générique
+            Ce module ne repose pas sur une segmentation générique
             automatisée, mais sur des choix méthodologiques adaptés aux
             contraintes réelles des données.
           </p>
@@ -136,9 +136,7 @@ export default function NeuroOncoViewer({ className }: Props) {
         </div>
 
         <p className="text-sm text-muted-foreground text-center max-w-2xl mx-auto">
-          Le défilement slice par slice met en évidence la variabilité
-          morphologique des lésions, leur hétérogénéité interne et la présence
-          de structures nécrotiques ou périphériques complexes.
+          Le défilement slice-par-slice met en évidence des lésions de tailles variées, des atteintes multiples et des architectures internes complexes incluant des cœurs nécrotiques.
         </p>
       </section>
 
