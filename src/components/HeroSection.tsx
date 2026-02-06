@@ -25,7 +25,7 @@ const TECH_DESCRIPTIONS: Record<string, string> = {
   SciPy:
     "Traitement du signal, filtrage, morphologie et opérations numériques avancées.",
   NiBabel:
-    "Manipulation experte de volumes NIfTI, gestion de la géométrie, des orientations et compatibilité DICOM.",
+    "Manipulation de volumes NIfTI, gestion de la géométrie, des orientations et compatibilité DICOM.",
   SimpleITK:
     "Traitement d’images médicales, filtrage, transformations géométriques et opérations voxel-wise.",
   ANTsPy:
@@ -33,13 +33,13 @@ const TECH_DESCRIPTIONS: Record<string, string> = {
   pydicom:
     "Lecture, structuration et exploitation fine des métadonnées DICOM.",
   PyTorch:
-    "Utilisé comme brique technique pour le prototypage, jamais comme boîte noire décisionnelle.",
+    "Brique technique pour le prototypage et l’expérimentation algorithmique.",
   MONAI:
-    "Framework IA médical exploité de manière encadrée pour des usages spécifiques.",
+    "Framework IA médical exploité de manière encadrée pour des usages spécifiques en recherche.",
   "3D Slicer":
-    "Visualisation experte, relecture et validation qualitative des données et segmentations.",
+    "Visualisation, relecture et validation qualitative des données et segmentations.",
   OsiriX:
-    "Lecture clinique, inspection DICOM et contrôle visuel expert des résultats.",
+    "Lecture clinique, inspection DICOM, contrôle visuel expert et constitution de bases de données.",
 };
 
 /* ============================================================
