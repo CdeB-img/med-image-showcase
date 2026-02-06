@@ -6,70 +6,107 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { MessageSquare } from "lucide-react";
 
-const RAW_BASE = "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
+const RAW_BASE =
+  "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
+
 interface Props {
   className?: string;
 }
-const CardiacViewer = ({
-  className
-}: Props) => {
-  return <div className={cn("space-y-12", className)}>
-      {/* Header */}
-      <div className="space-y-6">
-        <h1 className="text-3xl font-bold">
-          IRM Cardiaque | Analyse fonctionnelle, tissulaire et physiopathologique
-        </h1>
-        <p className="text-muted-foreground max-w-4xl leading-relaxed">
-          Ce module présente une expertise approfondie en IRM cardiaque, couvrant l'analyse 
-          fonctionnelle, la caractérisation tissulaire et l'exploration physiopathologique du myocarde, 
-          dans des contextes cliniques, translationnels et de recherche.
-        </p>
-        <p className="text-muted-foreground max-w-4xl leading-relaxed">
-          L'approche ne se limite pas à la visualisation d'images ou à des métriques standardisées, 
-          mais vise une compréhension fine du signal IRM, de ses déterminants physiques et de sa 
-          traduction physiologique.
-        </p>
-        <div className="flex flex-wrap gap-2">
-          <span className="px-3 py-1 text-xs font-medium rounded-md border border-primary/50 text-primary">
-            IRM Cardiaque
-          </span>
-          <span className="px-3 py-1 text-xs font-medium rounded-md bg-secondary text-secondary-foreground">
-            Quantification
-          </span>
-          <span className="px-3 py-1 text-xs font-medium rounded-md bg-muted text-muted-foreground">
-            Python
-          </span>
-          <span className="px-3 py-1 text-xs font-medium rounded-md bg-muted text-muted-foreground">
-            SimpleITK
-          </span>
-          <span className="px-3 py-1 text-xs font-medium rounded-md bg-muted text-muted-foreground">
-            NumPy
-          </span>
-          <span className="px-3 py-1 text-xs font-medium rounded-md bg-muted text-muted-foreground">
-            NiBabel
-          </span>
-          <span className="px-3 py-1 text-xs font-medium rounded-md bg-muted text-muted-foreground">
-            3D Slicer
-          </span>
-          <span className="px-3 py-1 text-xs font-medium rounded-md bg-muted text-muted-foreground">
-            OsiriX
-          </span>
-        </div>
-      </div>
 
-      {/* Intro Viewer */}
-      <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 max-w-4xl">
-        <h2 className="text-xl font-semibold">Analyse d'images cardiaques et segmentation fonctionnelle</h2>
-        <div className="space-y-3 text-muted-foreground leading-relaxed">
+const CardiacViewer = ({ className }: Props) => {
+  return (
+    <div className={cn("space-y-16", className)}>
+
+      {/* ===================== HEADER ===================== */}
+      <header className="space-y-6 text-center mx-auto max-w-4xl">
+        <h1 className="text-3xl md:text-4xl font-bold">
+          IRM Cardiaque
+          <span className="block text-lg md:text-xl font-normal text-muted-foreground mt-2">
+            Analyse fonctionnelle, tissulaire et physiopathologique
+          </span>
+        </h1>
+
+        <p className="text-muted-foreground leading-relaxed md:text-justify">
+          Ce module présente une expertise approfondie en IRM cardiaque, couvrant
+          l’analyse fonctionnelle, la caractérisation tissulaire et
+          l’exploration physiopathologique du myocarde, dans des contextes
+          cliniques, translationnels et de recherche.
+        </p>
+
+        <p className="text-muted-foreground leading-relaxed md:text-justify">
+          L’approche ne se limite pas à la visualisation d’images ou à des
+          métriques standardisées, mais vise une compréhension fine du signal
+          IRM, de ses déterminants physiques et de sa traduction physiologique.
+        </p>
+
+        <div className="flex flex-wrap justify-center gap-2 pt-4">
+          {[
+            "IRM Cardiaque",
+            "Quantification",
+            "Python",
+            "SimpleITK",
+            "NumPy",
+            "NiBabel",
+            "3D Slicer",
+            "OsiriX",
+          ].map((tag) => (
+            <span
+              key={tag}
+              className="px-3 py-1 text-xs font-medium rounded-md bg-muted text-muted-foreground"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </header>
+
+      {/* ===================== INTRO VIEWER ===================== */}
+      <section className="mx-auto max-w-4xl bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 text-center">
+        <h2 className="text-xl font-semibold">
+          Analyse d’images cardiaques et segmentation fonctionnelle
+        </h2>
+
+        <div className="space-y-3 text-muted-foreground leading-relaxed md:text-justify">
           <p>
-            <strong>Objectif du module</strong> | Présenter une approche de segmentation et d'analyse appliquée à l'imagerie cardiaque, dans un cadre de recherche clinique.
+            <strong>Objectif du module</strong> — Présenter une approche de
+            segmentation et d’analyse appliquée à l’imagerie cardiaque, dans un
+            cadre de recherche clinique.
           </p>
           <p>
-            <strong>Ce que montre le viewer</strong> | Visualisation des structures cardiaques segmentées et superposées à l'image native, permettant une évaluation qualitative et quantitative des régions d'intérêt.
+            <strong>Ce que montre le viewer</strong> — Visualisation des
+            structures cardiaques segmentées et superposées à l’image native,
+            permettant une évaluation qualitative et quantitative des régions
+            d’intérêt.
           </p>
-          <p className="text-sm italic border-l-2 border-primary/50 pl-4">
-            Il ne s'agit pas d'un outil de diagnostic automatique, mais d'un support d'analyse contrôlée destiné à la recherche.
+          <p className="text-sm italic border-l-2 border-primary/50 pl-4 text-left md:text-justify">
+            Il ne s’agit pas d’un outil de diagnostic automatique, mais d’un
+            support d’analyse contrôlée destiné à la recherche.
           </p>
+        </div>
+      </section>
+
+      {/* ===================== PATHOLOGIES / CONTEXTES ===================== */}
+      <section className="mx-auto max-w-5xl space-y-6 text-center">
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="p-6 rounded-xl bg-secondary/30 border border-border">
+            <h3 className="font-semibold mb-3">Pathologies explorées</h3>
+            <ul className="text-sm text-muted-foreground space-y-1">
+              <li>• Myocardites aiguës et chroniques</li>
+              <li>• Maladies infiltratives (surcharge, fibrose diffuse)</li>
+              <li>• IDM</li>
+              <li>• Modèles expérimentaux et précliniques</li>
+            </ul>
+          </div>
+
+          <div className="p-6 rounded-xl bg-secondary/30 border border-border">
+            <h3 className="font-semibold mb-3">Contextes d’application</h3>
+            <ul className="text-sm text-muted-foreground space-y-1">
+              <li>• Cohortes cliniques complexes</li>
+              <li>• Études translationnelles</li>
+              <li>• Modèles animaux (petits et grands)</li>
+              <li>• Protocoles multicentriques</li>
+            </ul>
+          </div>
         </div>
       </section>
 
@@ -233,31 +270,41 @@ const CardiacViewer = ({
         </div>
       </section>
 
-      {/* Conclusion */}
-      <section className="p-6 rounded-xl bg-primary/5 border border-primary/20 space-y-4">
+      {/* ===================== CONCLUSION ===================== */}
+      <section className="mx-auto max-w-4xl p-6 rounded-xl bg-primary/5 border border-primary/20 space-y-4 text-center">
         <h3 className="text-lg font-semibold">Cadre méthodologique</h3>
-        <p className="text-muted-foreground leading-relaxed">Cette approche reflète une pratique de l'IRM cardiaque orientée compréhension du signal et de son acquisition, ancrée dans la physiopathologie, indépendante des solutions propriétaires, et conçue pour la recherche exigeante autant que pour l'exploration clinique.</p>
-        <p className="text-sm italic text-muted-foreground pt-4 border-t border-primary/20">
-          L'IRM cardiaque n'est pas un simple outil d'imagerie. C'est un instrument de mesure 
-          physiologique, dont la valeur dépend de la rigueur de l'analyse plus que de la 
-          sophistication des algorithmes.
+        <p className="text-muted-foreground leading-relaxed md:text-justify">
+          Cette approche reflète une pratique de l’IRM cardiaque orientée
+          compréhension du signal et de son acquisition, ancrée dans la
+          physiopathologie, indépendante des solutions propriétaires, et
+          conçue pour la recherche exigeante autant que pour l’exploration
+          clinique.
+        </p>
+        <p className="text-sm italic text-muted-foreground pt-4 border-t border-primary/20 md:text-justify">
+          L’IRM cardiaque n’est pas un simple outil d’imagerie. C’est un
+          instrument de mesure physiologique, dont la valeur dépend de la
+          rigueur de l’analyse plus que de la sophistication des algorithmes.
         </p>
       </section>
 
-      {/* CTA Contact */}
+      {/* ===================== CTA ===================== */}
       <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 max-w-2xl mx-auto text-center">
-        <h3 className="text-lg font-semibold">Discuter d'un besoin spécifique</h3>
+        <h3 className="text-lg font-semibold">Discuter d’un besoin spécifique</h3>
         <p className="text-sm text-muted-foreground">
           Ces exemples illustrent des cas réels rencontrés en recherche clinique.
-          Pour discuter d'un projet, d'un jeu de données ou d'une problématique méthodologique, vous pouvez me contacter.
+          Pour discuter d’un projet, d’un jeu de données ou d’une problématique
+          méthodologique, vous pouvez me contacter.
         </p>
-        <Button variant="outline" asChild className="mt-2">
+        <Button variant="outline" asChild>
           <Link to="/contact" className="inline-flex items-center gap-2">
             <MessageSquare className="w-4 h-4" />
             Initier une discussion
           </Link>
         </Button>
       </section>
-    </div>;
+
+    </div>
+  );
 };
+
 export default CardiacViewer;
