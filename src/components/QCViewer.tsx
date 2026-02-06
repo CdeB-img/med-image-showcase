@@ -1,4 +1,7 @@
+// ============================================================
 // src/components/QCViewer.tsx
+// Contrôle qualité – Inspection slice-par-slice
+// ============================================================
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
@@ -58,17 +61,35 @@ export default function QCViewer({
   }
 
   return (
-    <div className={cn("space-y-6", className)}>
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold">{patientName}</h2>
+    <div className={cn("space-y-12", className)}>
+      {/* ===================== INTRO TEXTE ===================== */}
+      <section className="max-w-4xl mx-auto text-center space-y-4">
+        <h2 className="text-2xl font-bold">
+          Contrôle qualité et inspection des segmentations
+        </h2>
+        <p className="text-muted-foreground leading-relaxed md:text-justify">
+          Ce module est dédié au contrôle qualité visuel des résultats de
+          segmentation. Il permet une inspection slice par slice des images
+          natives et des masques associés, afin de vérifier la cohérence
+          anatomique, la localisation des régions segmentées et l’absence
+          d’artefacts évidents.
+        </p>
+        <p className="text-sm italic text-muted-foreground border-l-2 border-primary/50 pl-4 text-left">
+          L’objectif n’est pas l’automatisation, mais la validation experte des
+          résultats avant toute quantification ou analyse statistique.
+        </p>
+      </section>
+
+      {/* ===================== HEADER VIEWER ===================== */}
+      <div className="flex items-center justify-between max-w-6xl mx-auto">
+        <h3 className="text-xl font-semibold">{patientName}</h3>
         <span className="text-sm font-mono text-muted-foreground">
           Slice {sliceIndex + 1}/{maxSlices}
         </span>
       </div>
 
-      {/* Grid */}
-      <div className="grid grid-cols-4 gap-3">
+      {/* ===================== GRID ===================== */}
+      <div className="grid grid-cols-4 gap-3 max-w-6xl mx-auto">
         {pairs.map((pair) => (
           <React.Fragment key={pair.label}>
             {/* Native */}
@@ -80,24 +101,8 @@ export default function QCViewer({
                   ROTATION_CLASS
                 )}
               />
-              <div
-                className="
-                  absolute bottom-0 left-0 right-0
-                  h-[14px] md:h-[24px]
-                  bg-black/70
-                  flex items-center
-                  px-1 md:px-2
-                "
-              >
-                <span
-                  className="
-                    text-[9px] md:text-xs
-                    font-mono text-white/90
-                    leading-none
-                    truncate
-                    w-full
-                  "
-                >
+              <div className="absolute bottom-0 left-0 right-0 h-[14px] md:h-[24px] bg-black/70 flex items-center px-1 md:px-2">
+                <span className="text-[9px] md:text-xs font-mono text-white/90 truncate w-full">
                   {pair.label}
                 </span>
               </div>
@@ -126,24 +131,8 @@ export default function QCViewer({
                 />
               </div>
 
-              <div
-                className="
-                  absolute bottom-0 left-0 right-0
-                  h-[14px] md:h-[24px]
-                  bg-black/70
-                  flex items-center
-                  px-1 md:px-2
-                "
-              >
-                <span
-                  className="
-                    text-[9px] md:text-xs
-                    font-mono text-white/90
-                    leading-none
-                    truncate
-                    w-full
-                  "
-                >
+              <div className="absolute bottom-0 left-0 right-0 h-[14px] md:h-[24px] bg-black/70 flex items-center px-1 md:px-2">
+                <span className="text-[9px] md:text-xs font-mono text-white/90 truncate w-full">
                   {pair.label} + mask
                 </span>
               </div>
@@ -152,15 +141,17 @@ export default function QCViewer({
         ))}
       </div>
 
-      {/* Slider */}
-      <input
-        type="range"
-        min={0}
-        max={maxSlices - 1}
-        value={sliceIndex}
-        onChange={(e) => setSliceIndex(+e.target.value)}
-        className="w-full accent-primary"
-      />
+      {/* ===================== SLIDER ===================== */}
+      <div className="max-w-4xl mx-auto">
+        <input
+          type="range"
+          min={0}
+          max={maxSlices - 1}
+          value={sliceIndex}
+          onChange={(e) => setSliceIndex(+e.target.value)}
+          className="w-full accent-primary"
+        />
+      </div>
     </div>
   );
 }
