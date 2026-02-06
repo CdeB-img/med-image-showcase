@@ -72,21 +72,20 @@ const Contact = () => {
     try {
       const response = await fetch(FORMSPREE_ENDPOINT, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json"
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
+        const form = new FormData();
+        form.append("name", formData.name);
+        form.append("email", formData.email);
+        form.append("message", formData.message);
+        form.append("_subject", `Contact noxia-imagerie.fr – ${formData.name}`);
+        form.append("_gotcha", "");
 
-          // Sujet de l’email reçu
-          _subject: `Contact noxia-imagerie.fr – ${formData.name}`,
-
-          // Honeypot anti-spam (champ invisible)
-          _gotcha: ""
-        })
+        const response = await fetch(FORMSPREE_ENDPOINT, {
+          method: "POST",
+          body: form,
+          headers: {
+            Accept: "application/json"
+          }
+        });
       });
 
       if (!response.ok) {
