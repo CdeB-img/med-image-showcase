@@ -94,7 +94,7 @@ const CardiacViewer = ({ className }: Props) => {
             <h3 className="font-semibold mb-3">Pathologies explorées</h3>
             <ul className="text-sm text-muted-foreground space-y-1 text-left mx-auto max-w-xs pl-14">
               <li>• Myocardites aiguës et chroniques</li>
-              <li>• Maladies infiltratives (surcharge, fibrose diffuse)</li>
+              <li>• Maladies infiltratives (fibrose)</li>
               <li>• IDM</li>
               <li>• Modèles expérimentaux et précliniques</li>
             </ul>
