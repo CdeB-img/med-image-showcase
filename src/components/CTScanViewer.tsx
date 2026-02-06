@@ -36,72 +36,93 @@ const skills = [
 
 const CTScanViewer = ({ className }: Props) => {
   return (
-    <div className={cn("space-y-12", className)}>
-      {/* Header */}
-      <div className="space-y-6">
-        <h1 className="text-3xl font-bold px-0 font-sans">
-          CT Scan | Expertise en analyse et quantification
-        </h1>
-        <p className="text-muted-foreground max-w-4xl text-lg leading-relaxed">
-          Expertise en imagerie CT couvrant l'analyse morphologique, la
-          préparation de données et la quantification anatomique dans des
-          contextes cliniques et de recherche, avec un focus particulier sur les
-          structures thoraciques et cardiovasculaires.
-        </p>
-        <div className="flex flex-wrap gap-2">
-          <span className="px-3 py-1 text-xs font-medium rounded-md border border-primary/50 text-primary">
-            CT Scan
-          </span>
-          <span className="px-3 py-1 text-xs font-medium rounded-md bg-secondary text-secondary-foreground">
-            Quantification
-          </span>
-          <span className="px-3 py-1 text-xs font-medium rounded-md bg-muted text-muted-foreground">
-            DICOM
-          </span>
-          <span className="px-3 py-1 text-xs font-medium rounded-md bg-muted text-muted-foreground">
-            Python
-          </span>
-          <span className="px-3 py-1 text-xs font-medium rounded-md bg-muted text-muted-foreground">
-            SimpleITK
-          </span>
-        </div>
-      </div>
+    <div className={cn("space-y-16", className)}>
 
-      {/* Intro Viewer */}
-      <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 max-w-4xl">
-        <h2 className="text-xl font-semibold">Analyse et visualisation d'images CT</h2>
-        <div className="space-y-3 text-muted-foreground leading-relaxed">
+      {/* ===================== HEADER ===================== */}
+      <header className="space-y-6 text-center mx-auto max-w-4xl">
+        <h1 className="text-3xl md:text-4xl font-bold">
+          CT Scan
+          <span className="block text-lg md:text-xl font-normal text-muted-foreground mt-2">
+            Expertise en analyse et quantification
+          </span>
+        </h1>
+
+        <p className="text-muted-foreground leading-relaxed md:text-justify">
+          Cette section présente une expertise en imagerie CT couvrant l’analyse
+          morphologique, la préparation de données et la quantification
+          anatomique, dans des contextes cliniques et de recherche. L’accent est
+          mis sur les structures thoraciques et cardiovasculaires, avec une
+          attention particulière portée à la traçabilité et à la robustesse des
+          mesures.
+        </p>
+
+        <div className="flex flex-wrap justify-center gap-2 pt-4">
+          {["CT Scan", "Quantification", "DICOM", "Python", "SimpleITK"].map(
+            (tag) => (
+              <span
+                key={tag}
+                className="px-3 py-1 text-xs font-medium rounded-md bg-muted text-muted-foreground"
+              >
+                {tag}
+              </span>
+            )
+          )}
+        </div>
+      </header>
+
+      {/* ===================== CADRE DU VIEWER ===================== */}
+      <section className="mx-auto max-w-4xl bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 text-center">
+        <h2 className="text-xl font-semibold">
+          Analyse et visualisation d’images CT
+        </h2>
+
+        <div className="space-y-3 text-muted-foreground leading-relaxed md:text-justify">
           <p>
-            <strong>Objectif du module</strong> | Illustrer une chaîne d'analyse appliquée à des données CT, depuis l'image brute jusqu'à la visualisation des structures ou régions segmentées.
+            <strong>Objectif du module</strong> — Illustrer une chaîne d’analyse
+            appliquée à des données CT, depuis l’image brute jusqu’à la
+            visualisation de structures ou de régions segmentées.
           </p>
           <p>
-            <strong>Ce que montre le viewer</strong> | Navigation dans les coupes CT avec superposition des résultats de segmentation ou de traitement, permettant une inspection qualitative fine.
+            <strong>Ce que montre le viewer</strong> — Navigation interactive
+            dans les coupes CT avec superposition des résultats de segmentation
+            ou de traitement, permettant une inspection qualitative fine.
           </p>
-          <p className="text-sm italic border-l-2 border-primary/50 pl-4">
-            Le viewer ne vise pas l'automatisation complète, mais l'analyse contrôlée et interprétable des données.
+          <p className="text-sm italic border-l-2 border-primary/50 pl-4 text-left md:text-justify">
+            Le viewer ne vise pas l’automatisation complète, mais une analyse
+            contrôlée, interprétable et méthodologiquement explicite des données.
           </p>
         </div>
       </section>
 
-      {/* Hero Image */}
-      <section className="space-y-4">
+      {/* ===================== ILLUSTRATION ===================== */}
+      <section className="space-y-4 text-center">
         <div className="max-w-2xl mx-auto">
           <div className="aspect-square bg-black rounded-lg overflow-hidden border border-border">
-            <img src={`${RAW_BASE}/cardio/ct-coeur.png`} alt="CT Cardiaque" className="w-full h-full object-contain" />
+            <img
+              src={`${RAW_BASE}/cardio/ct-coeur.png`}
+              alt="CT Cardiaque"
+              className="w-full h-full object-contain"
+            />
           </div>
-          <p className="text-center text-sm text-muted-foreground mt-3">
-            Reconstruction CT cardiaque | Visualisation des structures cardiovasculaires
+          <p className="text-sm text-muted-foreground mt-3">
+            Reconstruction CT cardiaque — visualisation des structures
+            cardiovasculaires
           </p>
         </div>
       </section>
 
-      {/* Compétences clés */}
-      <section className="space-y-6">
-        <h2 className="text-xl font-semibold text-primary">Compétences clés</h2>
+      {/* ===================== COMPÉTENCES ===================== */}
+      <section className="space-y-6 mx-auto max-w-5xl">
+        <h2 className="text-xl font-semibold text-primary text-center">
+          Compétences clés
+        </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {skills.map((skill, index) => (
-            <div key={index} className="p-6 rounded-lg border border-border bg-card/50 space-y-3">
+            <div
+              key={index}
+              className="p-6 rounded-lg border border-border bg-card/50 space-y-3"
+            >
               <div className="flex items-center gap-3">
                 <div className="p-2 rounded-md bg-primary/10">
                   <skill.icon className="w-5 h-5 text-primary" />
@@ -118,26 +139,27 @@ const CTScanViewer = ({ className }: Props) => {
         </div>
       </section>
 
-      {/* Cadre méthodologique */}
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold text-primary">Cadre méthodologique</h2>
-        <div className="p-6 rounded-lg border border-primary/30 bg-primary/5">
-          <p className="text-muted-foreground leading-relaxed">
-            Approche centrée sur la fiabilité des données, l'expertise humaine
-            et la quantification rigoureuse, adaptée à des projets de recherche, de validation
-            méthodologique ou de préparation de données pour analyses avancées.
-          </p>
-        </div>
+      {/* ===================== CADRE MÉTHODO ===================== */}
+      <section className="mx-auto max-w-4xl p-6 rounded-xl bg-primary/5 border border-primary/20 space-y-4 text-center">
+        <h3 className="text-lg font-semibold">Cadre méthodologique</h3>
+        <p className="text-muted-foreground leading-relaxed md:text-justify">
+          L’approche repose sur une lecture experte des données CT, une
+          utilisation stricte des métadonnées DICOM pour toute quantification,
+          et une séparation claire entre visualisation, segmentation et calcul
+          des métriques. Elle est conçue pour des projets de recherche,
+          d’évaluation méthodologique ou de préparation de données.
+        </p>
       </section>
 
-      {/* CTA Contact */}
+      {/* ===================== CTA ===================== */}
       <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 max-w-2xl mx-auto text-center">
-        <h3 className="text-lg font-semibold">Discuter d'un besoin spécifique</h3>
+        <h3 className="text-lg font-semibold">Discuter d’un besoin spécifique</h3>
         <p className="text-sm text-muted-foreground">
           Ces exemples illustrent des cas réels rencontrés en recherche clinique.
-          Pour discuter d'un projet, d'un jeu de données ou d'une problématique méthodologique, vous pouvez me contacter.
+          Pour discuter d’un projet, d’un jeu de données ou d’une problématique
+          méthodologique, vous pouvez me contacter.
         </p>
-        <Button variant="outline" asChild className="mt-2">
+        <Button variant="outline" asChild>
           <Link to="/contact" className="inline-flex items-center gap-2">
             <MessageSquare className="w-4 h-4" />
             Initier une discussion
