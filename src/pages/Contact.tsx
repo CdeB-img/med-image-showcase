@@ -70,22 +70,19 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
+      const form = new FormData();
+      form.append("name", formData.name);
+      form.append("email", formData.email);
+      form.append("message", formData.message);
+      form.append("_subject", `Contact noxia-imagerie.fr – ${formData.name}`);
+      form.append("_gotcha", "");
+
       const response = await fetch(FORMSPREE_ENDPOINT, {
         method: "POST",
-        const form = new FormData();
-        form.append("name", formData.name);
-        form.append("email", formData.email);
-        form.append("message", formData.message);
-        form.append("_subject", `Contact noxia-imagerie.fr – ${formData.name}`);
-        form.append("_gotcha", "");
-
-        const response = await fetch(FORMSPREE_ENDPOINT, {
-          method: "POST",
-          body: form,
-          headers: {
-            Accept: "application/json"
-          }
-        });
+        body: form,
+        headers: {
+          Accept: "application/json"
+        }
       });
 
       if (!response.ok) {
@@ -97,8 +94,13 @@ const Contact = () => {
         description: "Votre message a bien été transmis."
       });
 
-      setFormData({ name: "", email: "", message: "" });
-    } catch {
+      setFormData({
+        name: "",
+        email: "",
+        message: ""
+      });
+
+    } catch (error) {
       toast({
         title: "Erreur",
         description: "Impossible d’envoyer le message. Merci de réessayer plus tard.",
