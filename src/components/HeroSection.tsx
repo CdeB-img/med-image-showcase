@@ -14,32 +14,34 @@ import {
 } from "@/components/ui/popover";
 
 /* ============================================================
-   Descriptions des technologies (orientées usage réel)
+   Technologies → projets (quand démontrables)
+============================================================ */
+
+const TECH_WITH_PROJECT: Record<string, string> = {
+  Python: "/projets",
+  SimpleITK: "/projets/segmentation-quantification",
+  ANTsPy: "/projets/recalage-multimodal",
+  NiBabel: "/projets/volumetrie-nifti",
+  pydicom: "/projets/quantification-dicom",
+};
+
+/* ============================================================
+   Descriptions (quand pas de lien projet)
 ============================================================ */
 
 const TECH_DESCRIPTIONS: Record<string, string> = {
-  Python:
-    "Développement d’outils d’analyse, scripts DICOM/NIfTI, pipelines reproductibles et contrôle qualité.",
   NumPy:
-    "Calcul scientifique, manipulation de volumes et statistiques appliquées à l’imagerie médicale.",
+    "Calcul scientifique et manipulation de volumes multidimensionnels pour l’analyse quantitative.",
   SciPy:
-    "Traitement du signal, filtrage, morphologie et opérations numériques avancées.",
-  NiBabel:
-    "Manipulation de volumes NIfTI, gestion de la géométrie, des orientations et compatibilité DICOM.",
-  SimpleITK:
-    "Traitement d’images médicales, filtrage, transformations géométriques et opérations voxel-wise.",
-  ANTsPy:
-    "Recalage non linéaire et transformations explicites, avec contrôle qualitatif des champs de déformation.",
-  pydicom:
-    "Lecture, structuration et exploitation fine des métadonnées DICOM.",
+    "Traitement du signal, filtrage, morphologie mathématique et opérations numériques avancées.",
   PyTorch:
-    "Brique technique pour le prototypage et l’expérimentation algorithmique.",
+    "Brique technique utilisée ponctuellement pour le prototypage et l’expérimentation algorithmique.",
   MONAI:
-    "Framework IA médical exploité de manière encadrée pour des usages spécifiques en recherche.",
+    "Framework IA médical utilisé de manière encadrée, sans dépendance à des modèles opaques.",
   "3D Slicer":
-    "Visualisation, relecture et validation qualitative des données et segmentations.",
+    "Visualisation avancée, relecture experte et validation qualitative des résultats.",
   OsiriX:
-    "Lecture clinique, inspection DICOM, contrôle visuel expert et constitution de bases de données.",
+    "Lecture clinique DICOM, inspection visuelle experte et constitution de bases de données.",
 };
 
 /* ============================================================
@@ -75,24 +77,24 @@ const HeroSection = () => {
 
           {/* Subtitle */}
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
-            Prestataire indépendant spécialisé dans le traitement et l’analyse
-            d’images médicales. Segmentation, quantification et solutions sur
-            mesure pour la recherche clinique.
+            Prestataire indépendant spécialisé dans le traitement, l’analyse et la
+            quantification d’images médicales. Approches méthodologiques,
+            quantitatives et contrôlées pour la recherche clinique.
           </p>
 
           {/* CTA */}
           <Link to="/projets">
             <Button size="lg" className="group glow-primary">
-              Découvrir mes projets
+              Découvrir les projets
               <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
             </Button>
           </Link>
 
           {/* Credibility line */}
           <p className="text-sm md:text-base text-muted-foreground max-w-xl italic">
-            Ingénieur en imagerie médicale, avec une maîtrise de la chaîne
-            d’analyse, du signal brut aux biomarqueurs exploitables, pour des
-            résultats interprétables, traçables et reproductibles.
+            Ingénieur en imagerie médicale, avec une maîtrise complète de la chaîne
+            d’analyse — du signal brut aux biomarqueurs exploitables — dans un cadre
+            traçable, interprétable et reproductible.
           </p>
 
           {/* Icon cluster */}
@@ -102,20 +104,49 @@ const HeroSection = () => {
             <Heart className="w-8 h-8 md:w-10 md:h-10" />
           </div>
 
-          {/* Tech stack avec popovers */}
+          {/* Tech stack */}
           <div className="flex flex-wrap justify-center gap-3 pt-8">
-            {Object.keys(TECH_DESCRIPTIONS).map((tech) => (
+
+            {/* Technologies avec projet */}
+            {Object.entries(TECH_WITH_PROJECT).map(([tech, path]) => (
+              <Link
+                key={tech}
+                to={path}
+                className="
+                  px-3 py-1 text-sm font-mono
+                  bg-primary/10 text-primary
+                  border border-primary/30
+                  rounded-full
+                  hover:bg-primary/20
+                  transition-colors
+                "
+              >
+                {tech}
+              </Link>
+            ))}
+
+            {/* Technologies descriptives */}
+            {Object.entries(TECH_DESCRIPTIONS).map(([tech, description]) => (
               <Popover key={tech}>
                 <PopoverTrigger asChild>
                   <button
                     type="button"
-                    className="px-3 py-1 text-sm font-mono bg-secondary/50 border border-border rounded-full text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors"
+                    className="
+                      px-3 py-1 text-sm font-mono
+                      bg-secondary/50
+                      border border-border
+                      rounded-full
+                      text-muted-foreground
+                      hover:text-foreground
+                      hover:border-primary/40
+                      transition-colors
+                    "
                   >
                     {tech}
                   </button>
                 </PopoverTrigger>
                 <PopoverContent className="max-w-xs text-sm text-muted-foreground leading-relaxed">
-                  {TECH_DESCRIPTIONS[tech]}
+                  {description}
                 </PopoverContent>
               </Popover>
             ))}
