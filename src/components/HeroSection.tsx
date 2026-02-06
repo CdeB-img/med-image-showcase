@@ -77,9 +77,9 @@ const HeroSection = () => {
 
           {/* Subtitle */}
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
-            Prestataire indépendant spécialisé dans le traitement, l’analyse et la
-            quantification d’images médicales. Approches méthodologiques,
-            quantitatives et contrôlées pour la recherche clinique.
+            Prestataire indépendant spécialisé dans le traitement et l’analyse
+            d’images médicales. Segmentation, quantification et solutions sur
+            mesure pour la recherche clinique.
           </p>
 
           {/* CTA */}
@@ -92,9 +92,9 @@ const HeroSection = () => {
 
           {/* Credibility line */}
           <p className="text-sm md:text-base text-muted-foreground max-w-xl italic">
-            Ingénieur en imagerie médicale, avec une maîtrise complète de la chaîne
-            d’analyse — du signal brut aux biomarqueurs exploitables — dans un cadre
-            traçable, interprétable et reproductible.
+            Ingénieur en imagerie médicale, avec une maîtrise de la chaîne
+            d’analyse, du signal brut aux biomarqueurs exploitables, pour des
+            résultats interprétables, traçables et reproductibles.
           </p>
 
           {/* Icon cluster */}
