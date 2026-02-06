@@ -150,12 +150,12 @@ export default function NeuroOncoViewer({ className }: Props) {
           <Principle
             icon={<Layers />}
             title="Exploitation des contrastes IRM"
-            text="Analyse conjointe des séquences T1 pré et post-contraste pour une caractérisation robuste des régions tumorales."
+            text="Analyse conjointe des séquences T1 pré et post-contraste pour une caractérisation optimale."
           />
           <Principle
             icon={<Target />}
             title="Logique multi-composants"
-            text="Distinction entre cœur nécrotique, anneau tumoral actif et tissus adjacents."
+            text="Distinction entre cœur nécrotique, anneau tumoral actif."
           />
           <Principle
             icon={<FileSearch />}
