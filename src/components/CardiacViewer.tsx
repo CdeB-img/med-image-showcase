@@ -2,6 +2,10 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { MessageSquare } from "lucide-react";
+
 const RAW_BASE = "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
 interface Props {
   className?: string;
@@ -52,6 +56,22 @@ const CardiacViewer = ({
           </span>
         </div>
       </div>
+
+      {/* Intro Viewer */}
+      <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 max-w-4xl">
+        <h2 className="text-xl font-semibold">Analyse d'images cardiaques et segmentation fonctionnelle</h2>
+        <div className="space-y-3 text-muted-foreground leading-relaxed">
+          <p>
+            <strong>Objectif du module</strong> | Présenter une approche de segmentation et d'analyse appliquée à l'imagerie cardiaque, dans un cadre de recherche clinique.
+          </p>
+          <p>
+            <strong>Ce que montre le viewer</strong> | Visualisation des structures cardiaques segmentées et superposées à l'image native, permettant une évaluation qualitative et quantitative des régions d'intérêt.
+          </p>
+          <p className="text-sm italic border-l-2 border-primary/50 pl-4">
+            Il ne s'agit pas d'un outil de diagnostic automatique, mais d'un support d'analyse contrôlée destiné à la recherche.
+          </p>
+        </div>
+      </section>
 
       {/* Section 1: Analyse fonctionnelle */}
       <section className="space-y-6">
@@ -222,6 +242,21 @@ const CardiacViewer = ({
           physiologique, dont la valeur dépend de la rigueur de l'analyse plus que de la 
           sophistication des algorithmes.
         </p>
+      </section>
+
+      {/* CTA Contact */}
+      <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 max-w-2xl mx-auto text-center">
+        <h3 className="text-lg font-semibold">Discuter d'un besoin spécifique</h3>
+        <p className="text-sm text-muted-foreground">
+          Ces exemples illustrent des cas réels rencontrés en recherche clinique.
+          Pour discuter d'un projet, d'un jeu de données ou d'une problématique méthodologique, vous pouvez me contacter.
+        </p>
+        <Button variant="outline" asChild className="mt-2">
+          <Link to="/contact" className="inline-flex items-center gap-2">
+            <MessageSquare className="w-4 h-4" />
+            Initier une discussion
+          </Link>
+        </Button>
       </section>
     </div>;
 };

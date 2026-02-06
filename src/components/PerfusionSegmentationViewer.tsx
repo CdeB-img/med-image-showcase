@@ -2,7 +2,9 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
-import { Crosshair, SlidersHorizontal, Layers, CheckCircle, Brain, FlaskConical, Database, Microscope } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Crosshair, SlidersHorizontal, Layers, CheckCircle, Brain, FlaskConical, Database, Microscope, MessageSquare } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import QCViewer from "@/components/QCViewer";
 interface ImagePair {
   label: string;
@@ -59,6 +61,22 @@ export default function PerfusionSegmentationViewer({
           physiopathologique rigoureuse.
         </p>
       </header>
+
+      {/* Intro Viewer */}
+      <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 max-w-4xl mx-auto">
+        <h2 className="text-xl font-semibold">Segmentation et quantification des lésions de perfusion</h2>
+        <div className="space-y-3 text-muted-foreground leading-relaxed">
+          <p>
+            <strong>Objectif du module</strong> | Identifier et quantifier des régions de perfusion pathologique à partir d'IRM multi-paramétriques, dans un cadre méthodologique reproductible.
+          </p>
+          <p>
+            <strong>Ce que montre le viewer</strong> | Segmentation des régions de perfusion (cœur de lésion, zones périphériques, régions de référence) et leur superposition sur les cartes paramétriques.
+          </p>
+          <p className="text-sm italic border-l-2 border-primary/50 pl-4">
+            Cette approche ne correspond pas à une classification binaire simpliste, mais à une segmentation guidée par le signal et la compréhension physiopathologique.
+          </p>
+        </div>
+      </section>
 
       {/* Principe */}
       <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4">
@@ -155,6 +173,21 @@ export default function PerfusionSegmentationViewer({
         <p className="text-muted-foreground">
           Chaque masque est le résultat de choix explicites, justifiés et contrôlés.
         </p>
+      </section>
+
+      {/* CTA Contact */}
+      <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 max-w-2xl mx-auto text-center">
+        <h3 className="text-lg font-semibold">Discuter d'un besoin spécifique</h3>
+        <p className="text-sm text-muted-foreground">
+          Ces exemples illustrent des cas réels rencontrés en recherche clinique.
+          Pour discuter d'un projet, d'un jeu de données ou d'une problématique méthodologique, vous pouvez me contacter.
+        </p>
+        <Button variant="outline" asChild className="mt-2">
+          <Link to="/contact" className="inline-flex items-center gap-2">
+            <MessageSquare className="w-4 h-4" />
+            Initier une discussion
+          </Link>
+        </Button>
       </section>
     </div>;
 }

@@ -2,8 +2,10 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
 import { Slider } from "@/components/ui/slider";
-import { Brain, Target, Layers, FileSearch, Microscope, Database } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Brain, Target, Layers, FileSearch, Microscope, Database, MessageSquare } from "lucide-react";
 const RAW_BASE = "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
 const SLICE_COUNT = 5;
 const nativeSlices = Array.from({
@@ -34,6 +36,24 @@ export default function NeuroOncoViewer({
           avec focus sur les lésions hétérogènes à cœur nécrotique et leurs régions périphériques.
         </p>
       </header>
+
+      {/* ============================================================
+          INTRO VIEWER
+       ============================================================ */}
+      <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 max-w-4xl mx-auto">
+        <h2 className="text-xl font-semibold">Analyse et segmentation en neuro-oncologie</h2>
+        <div className="space-y-3 text-muted-foreground leading-relaxed">
+          <p>
+            <strong>Objectif du module</strong> | Illustrer une approche de segmentation appliquée à des images IRM cérébrales en contexte neuro-oncologique, avec un contrôle fin des régions d'intérêt.
+          </p>
+          <p>
+            <strong>Ce que montre le viewer</strong> | Comparaison entre l'image native et les masques de segmentation, permettant d'évaluer la cohérence spatiale, la localisation et l'impact clinique potentiel des régions segmentées.
+          </p>
+          <p className="text-sm italic border-l-2 border-primary/50 pl-4">
+            Ce module ne repose pas sur une segmentation automatique générique, mais sur une approche adaptée à la physiopathologie et aux contraintes réelles des données.
+          </p>
+        </div>
+      </section>
 
       {/* ============================================================
           VIEWER — Native | Overlay synchronisés
@@ -158,6 +178,23 @@ export default function NeuroOncoViewer({
             indépendante des solutions propriétaires.
           </p>
         </div>
+      </section>
+
+      {/* ============================================================
+          CTA CONTACT
+       ============================================================ */}
+      <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 max-w-2xl mx-auto text-center">
+        <h3 className="text-lg font-semibold">Discuter d'un besoin spécifique</h3>
+        <p className="text-sm text-muted-foreground">
+          Ces exemples illustrent des cas réels rencontrés en recherche clinique.
+          Pour discuter d'un projet, d'un jeu de données ou d'une problématique méthodologique, vous pouvez me contacter.
+        </p>
+        <Button variant="outline" asChild className="mt-2">
+          <Link to="/contact" className="inline-flex items-center gap-2">
+            <MessageSquare className="w-4 h-4" />
+            Initier une discussion
+          </Link>
+        </Button>
       </section>
     </div>;
 }
