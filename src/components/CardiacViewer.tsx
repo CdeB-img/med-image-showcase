@@ -88,7 +88,8 @@ const CardiacViewer = ({ className }: Props) => {
       {/* ===================== PATHOLOGIES / CONTEXTES ===================== */}
       <section className="mx-auto max-w-5xl space-y-6 text-center">
         <div className="grid md:grid-cols-2 gap-6">
-          <div className="p-6 rounded-xl bg-secondary/30 border border-border">
+
+          {/* Pathologies */}
           <div className="p-6 rounded-xl bg-secondary/30 border border-border text-center">
             <h3 className="font-semibold mb-3">Pathologies explorées</h3>
             <ul className="text-sm text-muted-foreground space-y-1 text-left mx-auto max-w-xs">
@@ -98,14 +99,9 @@ const CardiacViewer = ({ className }: Props) => {
               <li>• Modèles expérimentaux et précliniques</li>
             </ul>
           </div>
-              <li>• Myocardites aiguës et chroniques</li>
-              <li>• Maladies infiltratives (surcharge, fibrose diffuse)</li>
-              <li>• IDM</li>
-              <li>• Modèles expérimentaux et précliniques</li>
-            </ul>
-          </div>
 
-          <div className="p-6 rounded-xl bg-secondary/30 border border-border">
+          {/* Contextes */}
+          <div className="p-6 rounded-xl bg-secondary/30 border border-border text-center">
             <h3 className="font-semibold mb-3">Contextes d’application</h3>
             <ul className="text-sm text-muted-foreground space-y-1 text-left mx-auto max-w-xs">
               <li>• Cohortes cliniques complexes</li>
@@ -114,6 +110,7 @@ const CardiacViewer = ({ className }: Props) => {
               <li>• Protocoles multicentriques</li>
             </ul>
           </div>
+
         </div>
       </section>
 
