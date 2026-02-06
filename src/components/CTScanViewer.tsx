@@ -2,10 +2,17 @@
 
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
-import { Heart, Database, CheckCircle, Calculator, MessageSquare } from "lucide-react";
+import {
+  Heart,
+  Database,
+  CheckCircle,
+  Calculator,
+  MessageSquare,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const RAW_BASE = "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
+const RAW_BASE =
+  "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
 
 interface Props {
   className?: string;
@@ -15,29 +22,32 @@ const skills = [
   {
     icon: Heart,
     title: "Évaluation CT cardiovasculaire et coronarienne",
-    description: "Analyse morphologique des structures cardiaques et coronaires, lecture experte des reconstructions CT et interprétation quantitative adaptée aux objectifs cliniques et de recherche."
+    description:
+      "Analyse morphologique des structures cardiaques et coronaires, lecture experte des reconstructions CT et interprétation quantitative adaptée aux objectifs cliniques et de recherche.",
   },
   {
     icon: Database,
     title: "Préparation et harmonisation de données CT multi-organes",
-    description: "Structuration de données hétérogènes issues de protocoles et de scanners différents, normalisation des volumes, gestion des résolutions spatiales et cohérence inter-examens."
+    description:
+      "Structuration de données hétérogènes issues de protocoles et de scanners différents, normalisation des volumes, gestion des résolutions spatiales et cohérence inter-examens.",
   },
   {
     icon: CheckCircle,
     title: "Validation et correction experte de segmentations anatomiques",
-    description: "Relecture critique, correction manuelle ciblée et contrôle qualité de segmentations anatomiques multi-organes, avec une approche orientée précision et reproductibilité."
+    description:
+      "Relecture critique, correction manuelle ciblée et contrôle qualité de segmentations existantes, avec une approche orientée précision anatomique, cohérence inter-sujets et reproductibilité.",
   },
   {
     icon: Calculator,
     title: "Quantification volumique basée sur les métadonnées DICOM",
-    description: "Calcul de volumes, masses et métriques dérivées en s'appuyant exclusivement sur les métadonnées DICOM (espacements, géométrie, orientation), garantissant la traçabilité et la robustesse des résultats."
-  }
+    description:
+      "Calcul de volumes, masses et métriques dérivées en s’appuyant exclusivement sur les métadonnées DICOM (géométrie, orientation, espacements), garantissant la traçabilité et la robustesse des résultats.",
+  },
 ];
 
 const CTScanViewer = ({ className }: Props) => {
   return (
     <div className={cn("space-y-16", className)}>
-
       {/* ===================== HEADER ===================== */}
       <header className="space-y-6 text-center mx-auto max-w-4xl">
         <h1 className="text-3xl md:text-4xl font-bold">
@@ -48,12 +58,11 @@ const CTScanViewer = ({ className }: Props) => {
         </h1>
 
         <p className="text-muted-foreground leading-relaxed md:text-justify">
-          Cette section présente une expertise en imagerie CT couvrant l’analyse
-          morphologique, la préparation de données et la quantification
-          anatomique, dans des contextes cliniques et de recherche. L’accent est
-          mis sur les structures thoraciques et cardiovasculaires, avec une
-          attention particulière portée à la traçabilité et à la robustesse des
-          mesures.
+          Cette page présente une expertise en imagerie CT orientée analyse
+          morphologique, structuration des données et quantification anatomique,
+          dans des contextes cliniques et de recherche. L’approche repose sur une
+          lecture rigoureuse des images et des métadonnées, avec un accent
+          particulier sur les structures thoraciques et cardiovasculaires.
         </p>
 
         <div className="flex flex-wrap justify-center gap-2 pt-4">
@@ -70,26 +79,26 @@ const CTScanViewer = ({ className }: Props) => {
         </div>
       </header>
 
-      {/* ===================== CADRE DU VIEWER ===================== */}
+      {/* ===================== POSITIONNEMENT ===================== */}
       <section className="mx-auto max-w-4xl bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 text-center">
         <h2 className="text-xl font-semibold">
-          Analyse et visualisation d’images CT
+          Analyse et interprétation d’images CT
         </h2>
 
         <div className="space-y-3 text-muted-foreground leading-relaxed md:text-justify">
           <p>
-            <strong>Objectif du module</strong> — Illustrer une chaîne d’analyse
-            appliquée à des données CT, depuis l’image brute jusqu’à la
-            visualisation de structures ou de régions segmentées.
+            Cette expertise couvre l’ensemble de la chaîne d’analyse CT, depuis
+            l’examen brut jusqu’à l’exploitation quantitative des structures
+            anatomiques. Elle s’inscrit dans des projets où la fiabilité des
+            mesures, la traçabilité des choix méthodologiques et la compréhension
+            anatomique priment sur l’automatisation.
           </p>
-          <p>
-            <strong>Ce que montre le viewer</strong> — Navigation interactive
-            dans les coupes CT avec superposition des résultats de segmentation
-            ou de traitement, permettant une inspection qualitative fine.
-          </p>
+
           <p className="text-sm italic border-l-2 border-primary/50 pl-4 text-left md:text-justify">
-            Le viewer ne vise pas l’automatisation complète, mais une analyse
-            contrôlée, interprétable et méthodologiquement explicite des données.
+            Il ne s’agit pas de proposer un outil logiciel ou une solution
+            automatisée, mais une lecture experte, contrôlée et reproductible des
+            données CT, adaptée aux contraintes de la recherche clinique et
+            méthodologique.
           </p>
         </div>
       </section>
@@ -105,8 +114,8 @@ const CTScanViewer = ({ className }: Props) => {
             />
           </div>
           <p className="text-sm text-muted-foreground mt-3">
-            Reconstruction CT cardiaque — visualisation des structures
-            cardiovasculaires
+            Exemple de reconstruction CT cardiaque — illustration de structures
+            cardiovasculaires à des fins méthodologiques
           </p>
         </div>
       </section>
@@ -139,25 +148,27 @@ const CTScanViewer = ({ className }: Props) => {
         </div>
       </section>
 
-      {/* ===================== CADRE MÉTHODO ===================== */}
+      {/* ===================== CADRE MÉTHODOLOGIQUE ===================== */}
       <section className="mx-auto max-w-4xl p-6 rounded-xl bg-primary/5 border border-primary/20 space-y-4 text-center">
         <h3 className="text-lg font-semibold">Cadre méthodologique</h3>
         <p className="text-muted-foreground leading-relaxed md:text-justify">
-          L’approche repose sur une lecture experte des données CT, une
-          utilisation stricte des métadonnées DICOM pour toute quantification,
-          et une séparation claire entre visualisation, segmentation et calcul
-          des métriques. Elle est conçue pour des projets de recherche,
-          d’évaluation méthodologique ou de préparation de données.
+          L’approche repose sur une expertise humaine assumée, une utilisation
+          stricte des métadonnées DICOM pour toute quantification, et une
+          séparation claire entre visualisation, segmentation et calcul des
+          métriques. Elle est conçue pour des projets de recherche, de validation
+          méthodologique ou de préparation de données, où la robustesse et la
+          reproductibilité priment sur la performance automatisée.
         </p>
       </section>
 
-      {/* ===================== CTA ===================== */}
+      {/* ===================== CTA CONTACT ===================== */}
       <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 max-w-2xl mx-auto text-center">
         <h3 className="text-lg font-semibold">Discuter d’un besoin spécifique</h3>
         <p className="text-sm text-muted-foreground">
-          Ces exemples illustrent des cas réels rencontrés en recherche clinique.
-          Pour discuter d’un projet, d’un jeu de données ou d’une problématique
-          méthodologique, vous pouvez me contacter.
+          Ces exemples illustrent des situations réelles rencontrées en recherche
+          clinique et méthodologique. Pour discuter d’un projet, d’un jeu de
+          données ou d’une problématique liée à l’imagerie CT, vous pouvez me
+          contacter.
         </p>
         <Button variant="outline" asChild>
           <Link to="/contact" className="inline-flex items-center gap-2">
