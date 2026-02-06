@@ -30,7 +30,7 @@ const CardiacViewer = ({ className }: Props) => {
           Ce module présente une expertise approfondie en IRM cardiaque, couvrant
           l’analyse fonctionnelle, la caractérisation tissulaire et
           l’exploration physiopathologique du myocarde, dans des contextes
-          cliniques, translationnels et de recherche.
+          cliniques et de recherche.
         </p>
 
         <p className="text-muted-foreground leading-relaxed md:text-justify">
@@ -85,34 +85,7 @@ const CardiacViewer = ({ className }: Props) => {
         </div>
       </section>
 
-      {/* ===================== PATHOLOGIES / CONTEXTES ===================== */}
-      <section className="mx-auto max-w-5xl space-y-6 text-center">
-        <div className="grid md:grid-cols-2 gap-6">
 
-          {/* Pathologies */}
-          <div className="p-6 rounded-xl bg-secondary/30 border border-border text-center">
-            <h3 className="font-semibold mb-3">Pathologies explorées</h3>
-            <ul className="text-sm text-muted-foreground space-y-1 text-left mx-auto max-w-xs pl-14">
-              <li>• Myocardites aiguës et chroniques</li>
-              <li>• Maladies infiltratives (fibrose)</li>
-              <li>• IDM</li>
-              <li>• Modèles expérimentaux et précliniques</li>
-            </ul>
-          </div>
-
-          {/* Contextes */}
-          <div className="p-6 rounded-xl bg-secondary/30 border border-border text-center">
-            <h3 className="font-semibold mb-3">Contextes d’application</h3>
-            <ul className="text-sm text-muted-foreground space-y-1 text-left mx-auto max-w-xs pl-14">
-              <li>• Cohortes cliniques complexes</li>
-              <li>• Études translationnelles</li>
-              <li>• Modèles animaux (petits et grands)</li>
-              <li>• Protocoles multicentriques</li>
-            </ul>
-          </div>
-
-        </div>
-      </section>
 
       {/* Section 1: Analyse fonctionnelle */}
       <section className="space-y-6">
