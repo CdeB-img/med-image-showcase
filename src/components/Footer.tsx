@@ -55,7 +55,7 @@ const Footer = () => {
 
         <div className="mt-8 pt-8 border-t border-border text-center">
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Expert Imagerie Médicale. Tous droits réservés.
+            © {new Date().getFullYear()} NOXIA. Tous droits réservés.
           </p>
         </div>
       </div>
