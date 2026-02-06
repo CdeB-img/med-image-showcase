@@ -19,7 +19,7 @@ const HeroSection = () => {
             <span className="text-3xl md:text-5xl font-bold tracking-tight text-primary text-glow">
               NOXIA
             </span>
-            <Activity className="w-10 h-10 md:w-[55px] md:h-[55px] text-primary" />
+            <Activity className="w-10 h-10 md:w-[55px] md:h-[55px] text-primary scale-x-[-1]" />
           </div>
 
           {/* Main heading */}
