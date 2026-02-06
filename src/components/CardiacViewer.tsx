@@ -211,7 +211,7 @@ const CardiacViewer = ({ className }: Props) => {
       {/* Section 3: Approches quantitatives */}
       {/* ===================== APPROCHES QUANTITATIVES ===================== */}
       <section className="space-y-8">
-        <div className="space-y-4 mx-auto max-w-4xl text-center">
+        <div className="space-y-4 mx-auto max-w-4xlr">
           <h2 className="text-xl font-semibold text-primary">
             Approches quantitatives et paramétriques
           </h2>
