@@ -85,11 +85,9 @@ const Contact = () => {
         }
       });
 
-      const data = await response.json();
-
-      // ✅ Formspree SUCCESS condition
-      if (data.ok !== true && data.success !== true) {
-        throw new Error("Formspree rejected submission");
+      // ✅ Formspree SUCCESS = HTTP 2xx
+      if (!response.ok) {
+        throw new Error(`HTTP error ${response.status}`);
       }
 
       toast({
