@@ -209,32 +209,46 @@ const CardiacViewer = ({ className }: Props) => {
       </section>
 
       {/* Section 3: Approches quantitatives */}
-      <section className="space-y-6">
-        <div className="space-y-3">
+      {/* ===================== APPROCHES QUANTITATIVES ===================== */}
+      <section className="space-y-8">
+        <div className="space-y-4 mx-auto max-w-4xl text-center">
           <h2 className="text-xl font-semibold text-primary">
             Approches quantitatives et paramétriques
           </h2>
-          <p className="text-sm text-muted-foreground max-w-3xl">Au-delà du rehaussement tardif, l'IRM cardiaque repose sur des mesures paramétriques quantitatives. Ce module s'inscrit dans cette dynamique avec l'exploitation de cartes (T1, T2, T2*), l'analyse des distributions de valeurs plutôt que de seuils arbitraires, et la comparaison intra-sujet dans des cadres longitudinaux.</p>
-          <div className="grid md:grid-cols-2 gap-4 pt-4">
-            <div className="p-4 rounded-lg bg-secondary/30 border border-border">
-              <h4 className="font-medium text-sm mb-2">Pathologies explorées</h4>
-              <ul className="text-xs text-muted-foreground space-y-1">
-                <li>• Myocardites aiguës et chroniques</li>
-                <li>• Maladies infiltratives (surcharge, fibrose diffuse)</li>
-                <li>• IDM</li>
-                <li>• Modèles expérimentaux et précliniques</li>
-              </ul>
-            </div>
-            <div className="p-4 rounded-lg bg-secondary/30 border border-border">
-              <h4 className="font-medium text-sm mb-2">Contextes d'application</h4>
-              <ul className="text-xs text-muted-foreground space-y-1">
-                <li>• Cohortes cliniques complexes</li>
-                <li>• Études translationnelles</li>
-                <li>• Modèles animaux (petits et grands)</li>
-                <li>• Protocoles multicentriques</li>
-              </ul>
-            </div>
+
+          <p className="text-sm text-muted-foreground leading-relaxed md:text-justify">
+            Au-delà du rehaussement tardif, l’IRM cardiaque repose sur des mesures
+            paramétriques quantitatives. Ce module s’inscrit dans cette dynamique
+            par l’exploitation de cartes (T1, T2, T2*), l’analyse des distributions
+            de valeurs plutôt que de seuils arbitraires, et la comparaison intra-sujet
+            dans des cadres longitudinaux.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+
+          {/* Pathologies */}
+          <div className="p-6 rounded-xl bg-secondary/30 border border-border text-center">
+            <h3 className="font-semibold mb-3">Pathologies explorées</h3>
+            <ul className="text-sm text-muted-foreground space-y-1 text-left mx-auto max-w-xs pl-14">
+              <li>• Myocardites aiguës et chroniques</li>
+              <li>• Maladies infiltratives (fibrose)</li>
+              <li>• IDM</li>
+              <li>• Modèles expérimentaux et précliniques</li>
+            </ul>
           </div>
+
+          {/* Contextes */}
+          <div className="p-6 rounded-xl bg-secondary/30 border border-border text-center">
+            <h3 className="font-semibold mb-3">Contextes d’application</h3>
+            <ul className="text-sm text-muted-foreground space-y-1 text-left mx-auto max-w-xs pl-14">
+              <li>• Cohortes cliniques complexes</li>
+              <li>• Études translationnelles</li>
+              <li>• Modèles animaux (petits et grands)</li>
+              <li>• Protocoles multicentriques</li>
+            </ul>
+          </div>
+
         </div>
       </section>
 
