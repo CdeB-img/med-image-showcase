@@ -69,25 +69,23 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      const form = new FormData();
-      form.append("name", formData.name);
-      form.append("email", formData.email);
-      form.append("message", formData.message);
-      form.append("_subject", `Contact noxia-imagerie.fr – ${formData.name}`);
-      form.append("_gotcha", "");
-
       const response = await fetch(FORMSPREE_ENDPOINT, {
         method: "POST",
-        body: form,
-        mode: "cors",
-        redirect: "manual",
         headers: {
+          "Content-Type": "application/json",
           Accept: "application/json"
-        }
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          _subject: `Contact noxia-imagerie.fr – ${formData.name}`
+        })
       });
 
-      // Formspree SUCCESS = 200 ou 204
-      if (response.status !== 200 && response.status !== 204) {
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        console.error("Formspree error:", errorData);
         throw new Error(`Formspree error ${response.status}`);
       }
 
