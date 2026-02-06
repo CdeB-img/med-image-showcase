@@ -66,11 +66,9 @@ export default function PerfusionSegmentationViewer({
       <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 max-w-4xl mx-auto">
         <h2 className="text-xl font-semibold">Segmentation et quantification des lésions de perfusion</h2>
         <div className="space-y-3 text-muted-foreground leading-relaxed">
-          <p>
-            <strong>Objectif du module</strong> | Identifier et quantifier des régions de perfusion pathologique à partir d'IRM multi-paramétriques, dans un cadre méthodologique reproductible.
+          <p>Objectif du module : Identifier et quantifier des régions de perfusion pathologique à partir d'IRM multi-paramétriques, dans un cadre méthodologique reproductible.<strong>Objectif du module</strong> | Identifier et quantifier des régions de perfusion pathologique à partir d'IRM multi-paramétriques, dans un cadre méthodologique reproductible.
           </p>
-          <p>
-            <strong>Ce que montre le viewer</strong> | Segmentation des régions de perfusion (cœur de lésion, zones périphériques, régions de référence) et leur superposition sur les cartes paramétriques.
+          <p>Ce que montre le viewer : Segmentation des régions de perfusio et leur superposition sur les cartes paramétriques.<strong>Ce que montre le viewer</strong> | Segmentation des régions de perfusion (cœur de lésion, zones périphériques, régions de référence) et leur superposition sur les cartes paramétriques.
           </p>
           <p className="text-sm italic border-l-2 border-primary/50 pl-4">
             Cette approche ne correspond pas à une classification binaire simpliste, mais à une segmentation guidée par le signal et la compréhension physiopathologique.
@@ -95,7 +93,7 @@ export default function PerfusionSegmentationViewer({
           </li>
           <li className="flex items-start gap-2">
             <span className="text-primary mt-1">•</span>
-            <span>Une logique strictement <em>signal-driven</em>, sans post-traitement arbitraire masquant la réalité physiologique</span>
+            <span>guidée par le signal<em>signal-driven</em>, sans post-traitement arbitraire masquant la réalité physiologique</span>
           </li>
         </ul>
         <p className="text-sm text-muted-foreground/80 italic border-l-2 border-primary/50 pl-4 mt-4">
