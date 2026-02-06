@@ -5,7 +5,9 @@
 
 import React from "react";
 import { cn } from "@/lib/utils";
-import { Stethoscope, Layers, FileSpreadsheet, Microscope, Atom, Blend, Settings, Database, Ruler, Eye } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Stethoscope, Layers, FileSpreadsheet, Microscope, Atom, Blend, Settings, Database, Ruler, Eye, MessageSquare } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -61,6 +63,22 @@ const OutilsViewer: React.FC<OutilsViewerProps> = ({ className }) => {
       </header>
 
       {/* Introduction */}
+      <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4">
+        <h2 className="text-xl font-semibold">Développement d'outils d'analyse sur mesure</h2>
+        <div className="space-y-3 text-muted-foreground leading-relaxed">
+          <p>
+            <strong>Objectif du module</strong> | Montrer la capacité à concevoir des outils spécifiques répondant à des besoins méthodologiques précis en recherche clinique.
+          </p>
+          <p>
+            <strong>Ce que montrent les exemples</strong> | Interfaces et modules développés pour faciliter l'analyse, la visualisation et le contrôle qualité des données d'imagerie.
+          </p>
+          <p className="text-sm italic border-l-2 border-primary/50 pl-4">
+            Ces outils ne sont pas des produits standardisés, mais des solutions construites en fonction des contraintes du projet et des données.
+          </p>
+        </div>
+      </section>
+
+      {/* Présentation générale */}
       <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4">
         <p className="text-muted-foreground leading-relaxed">
           Développement d'outils dédiés à l'analyse, à la quantification et à l'exploration avancée des données d'imagerie médicale. Approche <em>signal-driven</em>, explicite et orientée usages réels.
@@ -140,6 +158,21 @@ const OutilsViewer: React.FC<OutilsViewerProps> = ({ className }) => {
         <p className="text-center text-sm italic text-muted-foreground pt-4 border-t border-border">
           Chaque outil est conçu comme un objet méthodologique interprétable, jamais comme une boîte noire.
         </p>
+      </section>
+
+      {/* CTA Contact */}
+      <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 max-w-2xl mx-auto text-center">
+        <h3 className="text-lg font-semibold">Discuter d'un besoin spécifique</h3>
+        <p className="text-sm text-muted-foreground">
+          Ces exemples illustrent des cas réels rencontrés en recherche clinique.
+          Pour discuter d'un projet, d'un jeu de données ou d'une problématique méthodologique, vous pouvez me contacter.
+        </p>
+        <Button variant="outline" asChild className="mt-2">
+          <Link to="/contact" className="inline-flex items-center gap-2">
+            <MessageSquare className="w-4 h-4" />
+            Initier une discussion
+          </Link>
+        </Button>
       </section>
     </div>
   );

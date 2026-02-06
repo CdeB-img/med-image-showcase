@@ -1,7 +1,9 @@
 // src/components/CTScanViewer.tsx
 
 import { cn } from "@/lib/utils";
-import { Heart, Database, CheckCircle, Calculator } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Heart, Database, CheckCircle, Calculator, MessageSquare } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const RAW_BASE = "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
 
@@ -65,6 +67,22 @@ const CTScanViewer = ({ className }: Props) => {
         </div>
       </div>
 
+      {/* Intro Viewer */}
+      <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 max-w-4xl">
+        <h2 className="text-xl font-semibold">Analyse et visualisation d'images CT</h2>
+        <div className="space-y-3 text-muted-foreground leading-relaxed">
+          <p>
+            <strong>Objectif du module</strong> | Illustrer une chaîne d'analyse appliquée à des données CT, depuis l'image brute jusqu'à la visualisation des structures ou régions segmentées.
+          </p>
+          <p>
+            <strong>Ce que montre le viewer</strong> | Navigation dans les coupes CT avec superposition des résultats de segmentation ou de traitement, permettant une inspection qualitative fine.
+          </p>
+          <p className="text-sm italic border-l-2 border-primary/50 pl-4">
+            Le viewer ne vise pas l'automatisation complète, mais l'analyse contrôlée et interprétable des données.
+          </p>
+        </div>
+      </section>
+
       {/* Hero Image */}
       <section className="space-y-4">
         <div className="max-w-2xl mx-auto">
@@ -110,6 +128,21 @@ const CTScanViewer = ({ className }: Props) => {
             méthodologique ou de préparation de données pour analyses avancées.
           </p>
         </div>
+      </section>
+
+      {/* CTA Contact */}
+      <section className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 max-w-2xl mx-auto text-center">
+        <h3 className="text-lg font-semibold">Discuter d'un besoin spécifique</h3>
+        <p className="text-sm text-muted-foreground">
+          Ces exemples illustrent des cas réels rencontrés en recherche clinique.
+          Pour discuter d'un projet, d'un jeu de données ou d'une problématique méthodologique, vous pouvez me contacter.
+        </p>
+        <Button variant="outline" asChild className="mt-2">
+          <Link to="/contact" className="inline-flex items-center gap-2">
+            <MessageSquare className="w-4 h-4" />
+            Initier une discussion
+          </Link>
+        </Button>
       </section>
     </div>
   );
