@@ -19,10 +19,10 @@ import {
 
 const TECH_WITH_PROJECT: Record<string, string> = {
   Python: "/projets",
-  SimpleITK: "/projets/segmentation-quantification",
+  SimpleITK: "/projet/perfusion-segmentation",
   ANTsPy: "/projet/recalage",
-  NiBabel: "/projets/volumetrie-nifti",
-  pydicom: "/projets/quantification-dicom",
+  NiBabel: "/projet/neuro-onco",
+  pydicom: "/projet/outils",
 };
 
 /* ============================================================
