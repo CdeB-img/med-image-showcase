@@ -28,28 +28,34 @@ const Footer = () => {
             <nav className="flex flex-col items-center gap-2">
               <Link
                 to="/"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 leading-none"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors grid grid-cols-[16px_1fr] items-center gap-2"
               >
-                <Home className="w-4 h-4 shrink-0" />
+                <span className="flex items-center justify-center w-4 h-4">
+                  <Home className="w-4 h-4" />
+                </span>
                 <span>Accueil</span>
               </Link>
 
               <Link
                 to="/projets"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 leading-none"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors grid grid-cols-[16px_1fr] items-center gap-2"
               >
-                <FileText className="w-4 h-4 shrink-0" />
+                <span className="flex items-center justify-center w-4 h-4">
+                  <FileText className="w-4 h-4" />
+                </span>
                 <span>Projets</span>
               </Link>
 
               <Link
                 to="/contact"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 leading-none"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors grid grid-cols-[16px_1fr] items-center gap-2"
               >
-                <Mail className="w-4 h-4 shrink-0" />
+                <span className="flex items-center justify-center w-4 h-4">
+                  <Mail className="w-4 h-4" />
+                </span>
                 <span>Contact</span>
               </Link>
-            </nav>
+            </nav>  
 
 
           </div>
