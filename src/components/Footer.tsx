@@ -48,11 +48,10 @@ const Footer = () => {
 
               <Link
                 to="/contact"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors grid grid-cols-[16px_1fr] items-center gap-2"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 leading-none"
               >
-                <span className="flex items-center justify-center w-4 h-4">
-                  <Mail className="w-4 h-4" />
-                </span>
+                <span className="inline-block w-[4px]" />
+                <Mail className="w-4 h-4 shrink-0" />
                 <span>Contact</span>
               </Link>
             </nav>  
