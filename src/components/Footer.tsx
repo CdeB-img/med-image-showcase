@@ -24,20 +24,34 @@ const Footer = () => {
             <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">
               Navigation
             </h4>
+
             <nav className="flex flex-col items-center gap-2">
-              <Link to="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2">
-                <Home className="w-4 h-4" />
-                Accueil
+              <Link
+                to="/"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 leading-none"
+              >
+                <Home className="w-4 h-4 shrink-0" />
+                <span>Accueil</span>
               </Link>
-              <Link to="/projets" className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2">
-                <FileText className="w-4 h-4" />
-                Projets
+
+              <Link
+                to="/projets"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 leading-none"
+              >
+                <FileText className="w-4 h-4 shrink-0" />
+                <span>Projets</span>
               </Link>
-              <Link to="/contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2">
-                <Mail className="w-4 h-4" />
-                Contact
+
+              <Link
+                to="/contact"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 leading-none"
+              >
+                <Mail className="w-4 h-4 shrink-0" />
+                <span>Contact</span>
               </Link>
             </nav>
+
+
           </div>
 
           {/* Legal */}
