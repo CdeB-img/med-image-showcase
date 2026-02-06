@@ -20,7 +20,7 @@ import {
 const TECH_WITH_PROJECT: Record<string, string> = {
   Python: "/projets",
   SimpleITK: "/projets/segmentation-quantification",
-  ANTsPy: "/#/projet/recalage",
+  ANTsPy: "/projet/recalage",
   NiBabel: "/projets/volumetrie-nifti",
   pydicom: "/projets/quantification-dicom",
 };
