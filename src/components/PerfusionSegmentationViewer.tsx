@@ -124,9 +124,9 @@ export default function PerfusionSegmentationViewer({
         VIEWER — SECTION DOMINANTE
       ====================================================== */}
       <section className="w-full py-12">
-        <div className="max-w-7xl mx-auto space-y-6 px-4">
+        <div className="max-w-7xl mx-auto space-y-4 px-4">
 
-          {/* En-tête viewer */}
+          {/* En-tête viewer (EXTERNE, maîtrisé) */}
           <div className="text-center space-y-2">
             <Badge variant="outline" className="gap-1.5">
               <Layers className="w-3 h-3" />
@@ -142,28 +142,30 @@ export default function PerfusionSegmentationViewer({
             </p>
           </div>
 
-          {/* Conteneur ISOLÉ du viewer */}
+          {/* Wrapper STRICT du QCViewer */}
           <div
             className={cn(
-              "relative",                 // référentiel pour tous les absolute internes
+              "relative",
               "w-full",
-              "h-[75vh] min-h-[650px]",    // hauteur réelle de viewer
+              "h-[75vh] min-h-[650px]",
               "bg-card",
               "border border-border",
               "rounded-xl",
-              "overflow-hidden"            // empêche toute fuite visuelle
+              "overflow-hidden"
             )}
           >
-            <QCViewer
-              pairs={pairs}
-              patientName="Démonstration | Cartes de perfusion"
-              className="w-full h-full"
-            />
+            {/* Masquage visuel de la carte interne */}
+            <div className="absolute inset-0 [&>div:first-child]:hidden">
+              <QCViewer
+                pairs={pairs}
+                patientName="Démonstration | Cartes de perfusion"
+                className="w-full h-full"
+              />
+            </div>
           </div>
 
         </div>
       </section>
-
       {/* ======================================================
          INTRO MÉTHODOLOGIQUE
       ====================================================== */}
