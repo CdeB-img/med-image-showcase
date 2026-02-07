@@ -1,202 +1,259 @@
 // ============================================================
-// src/components/PerfusionSegmentationViewer.tsx
-// Segmentation de perfusion – Approche méthodologique contrôlée
+// src/pages/ProjectDetail.tsx
 // ============================================================
 
-import * as React from "react";
-import { cn } from "@/lib/utils";
-import { Link } from "react-router-dom";
-import {
-  Activity,
-  Layers,
-  Scan,
-  Eye,
-  Microscope,
-  MessageSquare,
-} from "lucide-react";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import QCViewer from "@/components/QCViewer";
 
-interface ImagePair {
-  label: string;
-  native: string[];
-  mask: string[];
-}
+import SliceViewer from "@/components/SliceViewer";
+import RegistrationViewer from "@/components/RegistrationViewer";
+import PerfusionSegmentationViewer from "@/components/PerfusionSegmentationViewer";
+import CardiacViewer from "@/components/CardiacViewer";
+import CTScanViewer from "@/components/CTScanViewer";
+import NeuroOncoViewer from "@/components/NeuroOncoViewer";
+import OutilsViewer from "@/components/OutilsViewer";
+import Footer from "@/components/Footer";
 
-interface Props {
-  pairs: ImagePair[];
-  className?: string;
-}
+import { getProjectById, getAdjacentProjects } from "@/data/projects";
 
-const PARAM_MAPS = ["Tmax", "CBF", "OEF", "CMRO₂", "Diffusion"];
+// ============================================================
+// CONSTANTES
+// ============================================================
 
-export default function PerfusionSegmentationViewer({
-  pairs,
-  className,
-}: Props) {
-  return (
-    <div className={cn("space-y-16", className)}>
-      {/* ===================== HEADER ===================== */}
-      <header className="max-w-4xl mx-auto text-center space-y-6">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-border text-sm text-muted-foreground mx-auto">
-          <Activity className="w-4 h-4" />
-          Perfusion cérébrale
-        </div>
+const RAW_BASE =
+  "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
 
-        <h1 className="text-3xl md:text-4xl font-semibold">
-          Segmentation et analyse des lésions de perfusion CT / IRM
-        </h1>
+// ============================================================
+// HELPERS
+// ============================================================
 
-        <p className="text-muted-foreground leading-relaxed md:text-justify">
-          Ce module illustre une approche de segmentation des lésions de perfusion
-          cérébrale reposant sur des seuils paramétrables et une lecture guidée par
-          le signal, dans un cadre méthodologique explicite et contrôlé.
-        </p>
-      </header>
+const slices = (basePath: string, count = 3): string[] =>
+  Array.from({ length: count }, (_, i) =>
+    `${RAW_BASE}/${basePath}/slice_${String(i).padStart(3, "0")}.png`
+  );
 
-      {/* ===================== INTRO ===================== */}
-      <section className="max-w-4xl mx-auto border border-border rounded-xl p-6 space-y-6 bg-background">
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="space-y-3">
-            <div className="flex items-center gap-2">
-              <Scan className="w-4 h-4 text-muted-foreground" />
-              <h3 className="text-sm font-medium uppercase tracking-wide">
-                Objectif
-              </h3>
-            </div>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Identifier et structurer des régions de perfusion pathologique à
-              partir de cartes paramétriques, dans une logique reproductible et
-              interprétable.
-            </p>
-          </div>
+// ============================================================
+// RECALAGE DATA (SOURCE UNIQUE)
+// ============================================================
 
-          <div className="space-y-3">
-            <div className="flex items-center gap-2">
-              <Eye className="w-4 h-4 text-muted-foreground" />
-              <h3 className="text-sm font-medium uppercase tracking-wide">
-                Ce que montre le viewer
-              </h3>
-            </div>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Superposition des masques de segmentation sur les cartes natives,
-              permettant une inspection spatiale et physiopathologique directe.
-            </p>
-          </div>
-        </div>
+const multimodalPairs = [
+  {
+    reference: `${RAW_BASE}/recalage/maxip/slice_000.png`,
+    registered: `${RAW_BASE}/recalage/ct/slice_000.png`,
+    label: "Axial 1",
+  },
+  {
+    reference: `${RAW_BASE}/recalage/maxip/slice_001.png`,
+    registered: `${RAW_BASE}/recalage/ct/slice_001.png`,
+    label: "Axial 2",
+  },
+  {
+    reference: `${RAW_BASE}/recalage/maxip/slice_002.png`,
+    registered: `${RAW_BASE}/recalage/ct/slice_002.png`,
+    label: "Axial 3",
+  },
+];
 
-        <p className="text-sm italic text-muted-foreground border-l-2 border-border pl-4">
-          Cette approche ne correspond pas à une classification automatique
-          binaire, mais à une segmentation guidée par le signal et validée par
-          relecture experte.
-        </p>
-      </section>
+const monomodalPairs = [
+  {
+    reference: `${RAW_BASE}/recalage/mdiff/slice_000.png`,
+    registered: `${RAW_BASE}/recalage/mflair/slice_000.png`,
+    label: "Axial 1",
+  },
+  {
+    reference: `${RAW_BASE}/recalage/mdiff/slice_001.png`,
+    registered: `${RAW_BASE}/recalage/mflair/slice_001.png`,
+    label: "Axial 2",
+  },
+  {
+    reference: `${RAW_BASE}/recalage/mdiff/slice_002.png`,
+    registered: `${RAW_BASE}/recalage/mflair/slice_002.png`,
+    label: "Axial 3",
+  },
+];
 
-      {/* ===================== PRINCIPE ===================== */}
-      <section className="max-w-5xl mx-auto border border-border rounded-xl p-6 space-y-6 bg-background">
-        <div className="flex items-center gap-2">
-          <Layers className="w-5 h-5 text-muted-foreground" />
-          <h2 className="text-xl font-semibold">Principe méthodologique</h2>
-        </div>
+// ============================================================
+// QC DATA
+// ============================================================
 
-        <p className="text-muted-foreground">
-          La segmentation repose sur l’exploitation conjointe de plusieurs cartes
-          fonctionnelles, avec des seuils définis en fonction des objectifs de
-          l’étude.
-        </p>
+const qcPairs = [
+  {
+    label: "TMAX",
+    native: slices("perfusion/exemple/Tmax_seq", 16),
+    mask: slices("perfusion/exemple/MASK_TMAX6", 16),
+  },
+  {
+    label: "CBF30",
+    native: slices("perfusion/exemple/rCBF_seq", 16),
+    mask: slices("perfusion/exemple/MASK_CBF30", 16),
+  },
+  {
+    label: "CBF60",
+    native: slices("perfusion/exemple/rCBF_seq", 16),
+    mask: slices("perfusion/exemple/MASK_CBF60", 16),
+  },
+  {
+    label: "OEF",
+    native: slices("perfusion/exemple/OEF_seq", 16),
+    mask: slices("perfusion/exemple/MASK_OEF", 16),
+  },
+  {
+    label: "CMRO2",
+    native: slices("perfusion/exemple/rCMRO2_seq", 16),
+    mask: slices("perfusion/exemple/MASK_CMRO2", 16),
+  },
+  {
+    label: "DIFF",
+    native: slices("diffusion/native", 16),
+    mask: slices("diffusion/mask", 16),
+  },
+];
 
-        <div className="flex flex-wrap gap-2">
-          {PARAM_MAPS.map((label) => (
-            <Badge
-              key={label}
-              variant="outline"
-              className="bg-muted/40 text-muted-foreground border-border"
-            >
-              {label}
-            </Badge>
-          ))}
-        </div>
+// ============================================================
+// COMPONENT
+// ============================================================
 
-        <ul className="space-y-3 text-sm text-muted-foreground">
-          <li className="flex items-start gap-3 bg-muted/30 rounded-lg p-3">
-            <span className="font-mono text-xs">1.</span>
-            <span>
-              Seuils paramétrables définis selon le contexte clinique,
-              méthodologique ou exploratoire.
-            </span>
-          </li>
-          <li className="flex items-start gap-3 bg-muted/30 rounded-lg p-3">
-            <span className="font-mono text-xs">2.</span>
-            <span>
-              Absence de post-traitement arbitraire masquant la réalité
-              physiopathologique.
-            </span>
-          </li>
-        </ul>
+const ProjectDetail = () => {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
 
-        <p className="text-sm italic text-muted-foreground border-l-2 border-border pl-4">
-          La visualisation synchronisée image / masque permet une évaluation
-          immédiate de l’impact des choix méthodologiques.
-        </p>
-      </section>
+  const project = id ? getProjectById(id) : undefined;
+  const { prev, next } = id
+    ? getAdjacentProjects(id)
+    : { prev: null, next: null };
 
-      {/* ===================== QC VIEWER ===================== */}
-      <section className="space-y-4">
-        <div className="text-center space-y-2">
-          <Badge variant="outline">Inspection interactive</Badge>
-          <h2 className="text-xl font-semibold">
-            Contrôle qualité slice par slice
-          </h2>
-          <p className="text-sm text-muted-foreground">
-            Navigation synchronisée et relecture experte
-          </p>
-        </div>
-
-        <QCViewer
-          pairs={pairs}
-          patientName="Démonstration – Cartes de perfusion"
-          className="border border-border rounded-xl p-6 bg-background"
-        />
-      </section>
-
-      {/* ===================== CADRE ===================== */}
-      <section className="max-w-4xl mx-auto border border-border rounded-xl p-6 space-y-4 bg-background">
-        <div className="flex items-center gap-2">
-          <Microscope className="w-5 h-5 text-muted-foreground" />
-          <h2 className="text-xl font-semibold">Cadre méthodologique</h2>
-        </div>
-
-        <p className="text-muted-foreground leading-relaxed">
-          Cette approche privilégie une lecture experte du signal, une traçabilité
-          complète des choix de segmentation et une indépendance vis-à-vis des
-          solutions propriétaires.
-        </p>
-
-        <p className="text-sm italic text-muted-foreground border-t border-border pt-4">
-          La segmentation est considérée comme un objet d’analyse à part entière,
-          conditionnant toute quantification ultérieure.
-        </p>
-      </section>
-
-      {/* ===================== CTA ===================== */}
-      <section className="max-w-2xl mx-auto border border-border rounded-xl p-6 space-y-4 text-center bg-background">
-        <h3 className="text-lg font-semibold">
-          Discuter d’un besoin méthodologique
-        </h3>
-        <p className="text-sm text-muted-foreground">
-          Ces exemples illustrent des cas réels rencontrés en recherche clinique.
-          Pour discuter d’un jeu de données ou d’une problématique spécifique,
-          vous pouvez me contacter.
-        </p>
-        <Button variant="outline" asChild>
-          <Link to="/contact" className="inline-flex items-center gap-2">
-            <MessageSquare className="w-4 h-4" />
-            Initier une discussion
+  if (!project) {
+    return (
+      <main className="min-h-screen flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <h1 className="text-2xl font-bold">Project not found</h1>
+          <Link to="/">
+            <Button variant="outline">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back
+            </Button>
           </Link>
-        </Button>
-      </section>
+        </div>
+      </main>
+    );
+  }
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <main className="flex-1 py-8">
+        <div className="container px-4 md:px-6">
+
+          {/* Navigation */}
+          <div className="flex items-center justify-between mb-8">
+            <Link to="/">
+              <Button variant="ghost" className="gap-2">
+                <ArrowLeft className="w-4 h-4" />
+                Accueil
+              </Button>
+            </Link>
+
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                size="icon"
+                disabled={!prev}
+                onClick={() => prev && navigate(`/projet/${prev.id}`)}
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                disabled={!next}
+                onClick={() => next && navigate(`/projet/${next.id}`)}
+              >
+                <ChevronRight className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
+
+          {/* ================= PERFUSION SEGMENTATION ================= */}
+          {project.id === "perfusion-segmentation" && (
+            <PerfusionSegmentationViewer
+              pairs={qcPairs}
+              className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6"
+            />
+          )}
+
+          {/* ================= RECALAGE ================= */}
+          {project.id === "recalage" && (
+            <RegistrationViewer
+              multimodalPairs={multimodalPairs}
+              monomodalPairs={monomodalPairs}
+              initialOpacity={0.5}
+              className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-4"
+            />
+          )}
+
+          {/* ================= CARDIAC ================= */}
+          {project.id === "cardiac" && (
+            <CardiacViewer
+              className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6"
+            />
+          )}
+
+          {/* ================= CT SCAN ================= */}
+          {project.id === "ct-scan" && (
+            <CTScanViewer
+              className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6"
+            />
+          )}
+
+          {/* ================= NEURO-ONCO ================= */}
+          {project.id === "neuro-onco" && (
+            <NeuroOncoViewer
+              className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6"
+            />
+          )}
+
+          {/* ================= OUTILS SUR MESURE ================= */}
+          {project.id === "outils" && (
+            <OutilsViewer
+              className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6"
+            />
+          )}
+
+          {/* ================= AUTRES PROJETS ================= */}
+          {project.id !== "perfusion-segmentation" &&
+           project.id !== "recalage" &&
+           project.id !== "cardiac" &&
+           project.id !== "ct-scan" &&
+           project.id !== "neuro-onco" &&
+           project.id !== "outils" && (
+            <div className="grid lg:grid-cols-2 gap-8">
+              <section className="space-y-6">
+                <h1 className="text-3xl font-bold">{project.title}</h1>
+
+                <div className="flex gap-2">
+                  <Badge variant="outline">{project.modality}</Badge>
+                  <Badge variant="secondary">{project.analysisType}</Badge>
+                </div>
+
+                <p>{project.description}</p>
+              </section>
+
+              <section className="sticky top-8">
+                <SliceViewer
+                  nativeSlices={project.nativeSlices}
+                  processedSlices={project.processedSlices}
+                  useSliderOverlay={project.useSliderOverlay}
+                />
+              </section>
+            </div>
+          )}
+        </div>
+      </main>
+      <Footer />
     </div>
   );
-}
+};
+
+export default ProjectDetail;
