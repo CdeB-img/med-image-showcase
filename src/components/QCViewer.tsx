@@ -120,7 +120,7 @@ export default function QCViewer({
           value={sliceIndex}
           onChange={(e) => setSliceIndex(+e.target.value)}
           className="w-full"
-          style={{ accentColor: "#9ca3af" }} // gray-400
+          style={{ accentColor: "currentColor" }}
         />
       </section>
     </div>
