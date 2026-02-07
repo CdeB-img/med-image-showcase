@@ -157,22 +157,11 @@ export default function PerfusionSegmentationViewer({
           </div>
 
           {/* Conteneur ISOLÉ du viewer */}
-          <div
-            className={cn(
-              "relative",
-              "w-full",
-              "bg-card",
-              "border border-border",
-              "rounded-xl",
-              "p-4"
-            )}
-          >
-            <QCViewer
-              pairs={pairs}
-              patientName="Démonstration | Cartes de perfusion"
-              className="w-full"
-            />
-          </div>
+          <QCViewer
+            pairs={pairs}
+            patientName="Démonstration | Cartes de perfusion"
+            className="w-full"
+          />
 
         </div>
       </section>
