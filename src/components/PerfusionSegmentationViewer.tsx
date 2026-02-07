@@ -120,7 +120,7 @@ export default function PerfusionSegmentationViewer({
 
       {/* ===================== VIEWER ===================== */}
       <section className="w-full">
-        <div className="max-w-7xl mx-auto space-y-6 px-4">
+        <div className="w-full space-y-6 px-4">
 
           <div className="text-center space-y-2">
             <Badge variant="outline" className="gap-1.5">
