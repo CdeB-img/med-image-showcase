@@ -63,21 +63,23 @@ export default function QCViewer({
 
   return (
     <div className={cn("space-y-16", className)}>
+
       {/* ===================== HEADER ===================== */}
-      <header className="space-y-6 text-center mx-auto max-w-4xl">
-        <h1 className="text-3xl md:text-4xl font-bold">
-          Contrôle qualité des segmentations
-          <span className="block text-lg md:text-xl font-normal text-muted-foreground mt-2">
-            Inspection slice-par-slice et validation experte
-          </span>
+      <header className="mx-auto max-w-4xl bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 text-center">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mx-auto">
+          <Brain className="w-4 h-4" />
+          Contrôle qualité
+        </div>
+
+        <h1 className="text-2xl md:text-3xl font-bold">
+          Inspection visuelle des segmentations
         </h1>
 
         <p className="text-muted-foreground leading-relaxed md:text-justify">
-          Ce module est dédié au contrôle qualité visuel des résultats de
-          segmentation. Il permet une inspection slice par slice des images
-          natives et des masques associés afin de vérifier la cohérence
-          anatomique, la localisation des régions segmentées et l’absence
-          d’artefacts évidents.
+          Ce module est dédié au contrôle qualité visuel des résultats de segmentation.
+          Il permet une inspection slice par slice des images natives et des masques
+          associés, afin de vérifier la cohérence anatomique, la localisation des
+          régions segmentées et l’absence d’artefacts évidents.
         </p>
 
         <p className="text-sm italic text-muted-foreground border-l-2 border-primary/50 pl-4 text-left md:text-justify">
@@ -88,9 +90,10 @@ export default function QCViewer({
 
       {/* ===================== VIEWER ===================== */}
       <section className="mx-auto max-w-6xl bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-6">
+
         {/* Header viewer */}
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold">{patientName}</h2>
+          <h3 className="text-xl font-semibold">{patientName}</h3>
           <span className="text-sm font-mono text-muted-foreground">
             Slice {sliceIndex + 1}/{maxSlices}
           </span>
@@ -125,7 +128,6 @@ export default function QCViewer({
                     ROTATION_CLASS
                   )}
                 />
-
                 <div
                   className={cn(
                     "absolute inset-0 pointer-events-none",
@@ -138,7 +140,6 @@ export default function QCViewer({
                     className="w-full h-full"
                   />
                 </div>
-
                 <div className="absolute bottom-0 left-0 right-0 h-[18px] md:h-[26px] bg-black/70 flex items-center px-2">
                   <span className="text-[10px] md:text-xs font-mono text-white/90 truncate w-full">
                     {pair.label} + mask
@@ -150,7 +151,7 @@ export default function QCViewer({
         </div>
 
         {/* Slider */}
-        <div className="max-w-4xl mx-auto pt-4">
+        <div className="pt-2">
           <input
             type="range"
             min={0}
