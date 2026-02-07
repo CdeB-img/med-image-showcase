@@ -119,7 +119,21 @@ export default function PerfusionSegmentationViewer({
           validée visuellement à chaque étape.
         </p>
       </header>
+      <section className="max-w-4xl mx-auto space-y-4 px-4 text-center">
+        <h2 className="text-2xl md:text-3xl font-semibold">
+          Inspection visuelle des segmentations
+        </h2>
 
+        <p className="text-muted-foreground leading-relaxed">
+          Module dédié à la validation visuelle des résultats de segmentation,
+          permettant une inspection slice par slice des images natives et des masques
+          afin d’évaluer la cohérence anatomique et la présence d’artefacts.
+        </p>
+
+        <p className="text-sm italic text-muted-foreground">
+          Relecture experte préalable à toute quantification ou analyse statistique.
+        </p>
+      </section>
       {/* ======================================================
         VIEWER — SECTION DOMINANTE
       ====================================================== */}
@@ -145,19 +159,18 @@ export default function PerfusionSegmentationViewer({
           {/* Conteneur ISOLÉ du viewer */}
           <div
             className={cn(
-              "relative",                 // référentiel pour tous les absolute internes
+              "relative",
               "w-full",
-              "h-[75vh] min-h-[650px]",    // hauteur réelle de viewer
               "bg-card",
               "border border-border",
               "rounded-xl",
-              "overflow-hidden"            // empêche toute fuite visuelle
+              "p-4"
             )}
           >
             <QCViewer
               pairs={pairs}
               patientName="Démonstration | Cartes de perfusion"
-              className="w-full h-full"
+              className="w-full"
             />
           </div>
 
