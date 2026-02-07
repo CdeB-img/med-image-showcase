@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 
 import SliceViewer from "@/components/SliceViewer";
 import RegistrationViewer from "@/components/RegistrationViewer";
+import PerfusionSegmentationViewer from "@/components/PerfusionSegmentationViewer";
 import CardiacViewer from "@/components/CardiacViewer";
 import CTScanViewer from "@/components/CTScanViewer";
 import NeuroOncoViewer from "@/components/NeuroOncoViewer";
@@ -175,7 +176,12 @@ const ProjectDetail = () => {
           </div>
 
           {/* ================= PERFUSION SEGMENTATION ================= */}
-
+          {project.id === "perfusion-segmentation" && (
+            <PerfusionSegmentationViewer
+              pairs={qcPairs}
+              className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6"
+            />
+          )}
 
           {/* ================= RECALAGE ================= */}
           {project.id === "recalage" && (
