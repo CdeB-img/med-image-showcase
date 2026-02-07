@@ -75,6 +75,10 @@ const paramMaps = [
 
 export default function PerfusionSegmentationViewer({ pairs, className }: Props) {
   return (
+  <div style={{ background: "red", color: "white", padding: 40 }}>
+    TEST PERFUSION VIEWER
+  </div>
+);
     <div className={cn("space-y-12", className)}>
       {/* Header */}
       <header className="space-y-6 text-center max-w-4xl mx-auto">
@@ -258,7 +262,7 @@ export default function PerfusionSegmentationViewer({ pairs, className }: Props)
           <div className="p-2 rounded-lg bg-primary/10">
             <Microscope className="w-5 h-5 text-primary" />
           </div>
-          <h2 className="text-xl font-semibold">Cadre méthodologiqueeeee</h2>
+          <h2 className="text-xl font-semibold">Cadre méthodologique</h2>
         </div>
         <p className="text-muted-foreground">
           Ce module présente une expertise de la chaîne de segmentation des lésions de perfusion, depuis le signal brut jusqu'aux masques exploitables.
