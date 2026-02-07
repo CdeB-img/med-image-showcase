@@ -62,10 +62,11 @@ export default function QCViewer({
 
   return (
 
-    <div className={cn("space-y-6 max-w-4xl mx-auto", className)}>
-      {/* ===================== INTRO TEXTE ===================== */}
-      <section className="max-w-4xl mx-auto text-center space-y-4">
-        <h2 className="text-2xl font-bold">
+    <div className={cn("space-y-16", className)}>
+      {/* ===================== HEADER ===================== */}
+      <header className="max-w-4xl mx-auto text-center space-y-6">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mx-auto">
+          <Brain className="w-4 h-4" />
           Contrôle qualité et inspection des segmentations
         </h2>
         <p className="text-muted-foreground leading-relaxed md:text-justify">
