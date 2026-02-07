@@ -75,21 +75,20 @@ export default function QCViewer({
       </div>
 
       {/* ===== Grille 4 colonnes fixes ===== */}
-      <div className="
-        absolute bottom-0 left-0 right-0
-        bg-black/70
-        px-[2px] py-[1px]
-        md:px-2 md:py-1
-      ">
-        <span
-          className="
-            block font-mono text-white/80 truncate
-            text-[8px] leading-none
-            md:text-[12px] md:leading-snug
-          "
-        >
-          {label}
-        </span>
+      <div className="grid grid-cols-4 gap-[2px]">
+        {pairs.map((pair) => (
+          <React.Fragment key={pair.label}>
+            <ImageCell
+              src={pair.native[sliceIndex]}
+              label={pair.label}
+            />
+            <ImageCell
+              src={pair.native[sliceIndex]}
+              mask={pair.mask[sliceIndex]}
+              label={`${pair.label}+mask`}
+            />
+          </React.Fragment>
+        ))}
       </div>
 
       {/* ===== Slider ===== */}
@@ -140,7 +139,7 @@ function ImageCell({
       <div className="absolute bottom-0 left-0 right-0 bg-black/70 px-[2px] py-[1px] md:px-1 md:py-0.5">
         <span className="block font-mono text-white/80 truncate
                         text-[8px] leading-none
-                        md:text-[10px] md:leading-tight">
+                        md:text-[13px] md:leading-tight">
           {label}
         </span>
       </div>
