@@ -6,6 +6,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import MaskOverlay from "@/components/MaskOverlay";
+import { Brain } from "lucide-react";
 
 interface ImagePair {
   label: string;
@@ -61,14 +62,14 @@ export default function QCViewer({
   }
 
   return (
-
     <div className={cn("space-y-16", className)}>
       {/* ===================== HEADER ===================== */}
       <header className="max-w-4xl mx-auto text-center space-y-6">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mx-auto">
           <Brain className="w-4 h-4" />
           Contrôle qualité et inspection des segmentations
-        </h2>
+        </div>
+
         <p className="text-muted-foreground leading-relaxed md:text-justify">
           Ce module est dédié au contrôle qualité visuel des résultats de
           segmentation. Il permet une inspection slice par slice des images
@@ -76,84 +77,88 @@ export default function QCViewer({
           anatomique, la localisation des régions segmentées et l’absence
           d’artefacts évidents.
         </p>
+
         <p className="text-sm italic text-muted-foreground border-l-2 border-primary/50 pl-4 text-left">
           L’objectif n’est pas l’automatisation, mais la validation experte des
           résultats avant toute quantification ou analyse statistique.
         </p>
-      </section>
+      </header>
 
-      {/* ===================== HEADER VIEWER ===================== */}
-      <div className="flex items-center justify-between max-w-6xl mx-auto">
-        <h3 className="text-xl font-semibold">{patientName}</h3>
-        <span className="text-sm font-mono text-muted-foreground">
-          Slice {sliceIndex + 1}/{maxSlices}
-        </span>
-      </div>
+      {/* ===================== VIEWER ===================== */}
+      <section className="max-w-5xl mx-auto bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-6">
+        {/* Header viewer */}
+        <div className="flex items-center justify-between">
+          <h3 className="text-xl font-semibold">{patientName}</h3>
+          <span className="text-sm font-mono text-muted-foreground">
+            Slice {sliceIndex + 1}/{maxSlices}
+          </span>
+        </div>
 
-      {/* ===================== GRID ===================== */}
-      <div className="grid grid-cols-4 gap-3 max-w-6xl mx-auto">
-        {pairs.map((pair) => (
-          <React.Fragment key={pair.label}>
-            {/* Native */}
-            <div className="aspect-square bg-black rounded overflow-hidden relative">
-              <img
-                src={pair.native[sliceIndex]}
-                className={cn(
-                  "absolute inset-0 w-full h-full object-contain",
-                  ROTATION_CLASS
-                )}
-              />
-              <div className="absolute bottom-0 left-0 right-0 h-[14px] md:h-[24px] bg-black/70 flex items-center px-1 md:px-2">
-                <span className="text-[9px] md:text-xs font-mono text-white/90 truncate w-full">
-                  {pair.label}
-                </span>
-              </div>
-            </div>
-
-            {/* Native + Mask */}
-            <div className="aspect-square bg-black rounded overflow-hidden relative">
-              <img
-                src={pair.native[sliceIndex]}
-                className={cn(
-                  "absolute inset-0 w-full h-full object-contain",
-                  ROTATION_CLASS
-                )}
-              />
-
-              <div
-                className={cn(
-                  "absolute inset-0 pointer-events-none",
-                  ROTATION_CLASS
-                )}
-              >
-                <MaskOverlay
-                  src={pair.mask[sliceIndex]}
-                  opacity={0.4}
-                  className="w-full h-full"
+        {/* Grid */}
+        <div className="grid grid-cols-4 gap-3">
+          {pairs.map((pair) => (
+            <React.Fragment key={pair.label}>
+              {/* Native */}
+              <div className="aspect-square bg-black rounded-lg overflow-hidden relative">
+                <img
+                  src={pair.native[sliceIndex]}
+                  className={cn(
+                    "absolute inset-0 w-full h-full object-contain",
+                    ROTATION_CLASS
+                  )}
                 />
+                <div className="absolute bottom-0 left-0 right-0 h-[14px] md:h-[24px] bg-black/70 flex items-center px-1 md:px-2">
+                  <span className="text-[9px] md:text-xs font-mono text-white/90 truncate w-full">
+                    {pair.label}
+                  </span>
+                </div>
               </div>
 
-              <div className="absolute bottom-0 left-0 right-0 h-[14px] md:h-[24px] bg-black/70 flex items-center px-1 md:px-2">
-                <span className="text-[9px] md:text-xs font-mono text-white/90 truncate w-full">
-                  {pair.label} + mask
-                </span>
-              </div>
-            </div>
-          </React.Fragment>
-        ))}
-      </div>
+              {/* Native + Mask */}
+              <div className="aspect-square bg-black rounded-lg overflow-hidden relative">
+                <img
+                  src={pair.native[sliceIndex]}
+                  className={cn(
+                    "absolute inset-0 w-full h-full object-contain",
+                    ROTATION_CLASS
+                  )}
+                />
 
-      {/* ===================== SLIDER ===================== */}
-      <div className="max-w-4xl mx-auto">
-        <input
-          type="range"
-          min={0}
-          max={maxSlices - 1}
-          value={sliceIndex}
-          onChange={(e) => setSliceIndex(+e.target.value)}
-          className="w-full accent-primary"
-        />
-      </div>
+                <div
+                  className={cn(
+                    "absolute inset-0 pointer-events-none",
+                    ROTATION_CLASS
+                  )}
+                >
+                  <MaskOverlay
+                    src={pair.mask[sliceIndex]}
+                    opacity={0.4}
+                    className="w-full h-full"
+                  />
+                </div>
+
+                <div className="absolute bottom-0 left-0 right-0 h-[14px] md:h-[24px] bg-black/70 flex items-center px-1 md:px-2">
+                  <span className="text-[9px] md:text-xs font-mono text-white/90 truncate w-full">
+                    {pair.label} + mask
+                  </span>
+                </div>
+              </div>
+            </React.Fragment>
+          ))}
+        </div>
+
+        {/* Slider */}
+        <div className="max-w-3xl mx-auto pt-4">
+          <input
+            type="range"
+            min={0}
+            max={maxSlices - 1}
+            value={sliceIndex}
+            onChange={(e) => setSliceIndex(+e.target.value)}
+            className="w-full accent-primary"
+          />
+        </div>
+      </section>
     </div>
   );
 }
