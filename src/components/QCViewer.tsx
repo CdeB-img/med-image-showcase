@@ -66,34 +66,35 @@ export default function QCViewer({
 
       {/* ===================== HEADER ===================== */}
       <header className="mx-auto max-w-4xl bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mx-auto">
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-muted text-muted-foreground text-sm mx-auto">
           <Brain className="w-4 h-4" />
           Contrôle qualité
         </div>
 
-        <h1 className="text-2xl md:text-3xl font-bold">
+        <h1 className="text-2xl md:text-3xl font-semibold">
           Inspection visuelle des segmentations
         </h1>
 
         <p className="text-muted-foreground leading-relaxed md:text-justify">
-          Ce module est dédié au contrôle qualité visuel des résultats de segmentation.
-          Il permet une inspection slice par slice des images natives et des masques
-          associés, afin de vérifier la cohérence anatomique, la localisation des
-          régions segmentées et l’absence d’artefacts évidents.
+          Ce module est dédié à la validation visuelle des résultats de
+          segmentation. Il permet une inspection slice par slice des images
+          natives et des masques associés afin d’évaluer la cohérence
+          anatomique, la localisation des régions segmentées et la présence
+          d’artefacts évidents.
         </p>
 
-        <p className="text-sm italic text-muted-foreground border-l-2 border-primary/50 pl-4 text-left md:text-justify">
-          L’objectif n’est pas l’automatisation, mais la validation experte des
-          résultats avant toute quantification ou analyse statistique.
+        <p className="text-sm italic text-muted-foreground border-l-2 border-border pl-4 text-left md:text-justify">
+          L’objectif n’est pas l’automatisation, mais une relecture experte
+          préalable à toute quantification ou analyse statistique.
         </p>
       </header>
 
       {/* ===================== VIEWER ===================== */}
       <section className="mx-auto max-w-6xl bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-6">
 
-        {/* Header viewer */}
+        {/* Viewer header */}
         <div className="flex items-center justify-between">
-          <h3 className="text-xl font-semibold">{patientName}</h3>
+          <h3 className="text-lg font-medium">{patientName}</h3>
           <span className="text-sm font-mono text-muted-foreground">
             Slice {sliceIndex + 1}/{maxSlices}
           </span>
@@ -112,8 +113,8 @@ export default function QCViewer({
                     ROTATION_CLASS
                   )}
                 />
-                <div className="absolute bottom-0 left-0 right-0 h-[18px] md:h-[26px] bg-black/70 flex items-center px-2">
-                  <span className="text-[10px] md:text-xs font-mono text-white/90 truncate w-full">
+                <div className="absolute bottom-0 left-0 right-0 h-[20px] bg-black/70 flex items-center px-2">
+                  <span className="text-[10px] font-mono text-white/80 truncate w-full">
                     {pair.label}
                   </span>
                 </div>
@@ -140,8 +141,8 @@ export default function QCViewer({
                     className="w-full h-full"
                   />
                 </div>
-                <div className="absolute bottom-0 left-0 right-0 h-[18px] md:h-[26px] bg-black/70 flex items-center px-2">
-                  <span className="text-[10px] md:text-xs font-mono text-white/90 truncate w-full">
+                <div className="absolute bottom-0 left-0 right-0 h-[20px] bg-black/70 flex items-center px-2">
+                  <span className="text-[10px] font-mono text-white/80 truncate w-full">
                     {pair.label} + mask
                   </span>
                 </div>
@@ -158,7 +159,7 @@ export default function QCViewer({
             max={maxSlices - 1}
             value={sliceIndex}
             onChange={(e) => setSliceIndex(+e.target.value)}
-            className="w-full accent-primary"
+            className="w-full accent-muted-foreground"
           />
         </div>
       </section>
