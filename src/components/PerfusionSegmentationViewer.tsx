@@ -137,8 +137,8 @@ export default function PerfusionSegmentationViewer({
       {/* ======================================================
         VIEWER — SECTION DOMINANTE
       ====================================================== */}
-      <section className="w-full py-12">
-        <div className="max-w-7xl mx-auto space-y-6 px-4">
+      <section className="w-full py-8 md:py-12">
+        <div className="w-full space-y-6 px-0 md:px-4 md:max-w-7xl md:mx-auto">
 
           {/* En-tête viewer */}
           <div className="text-center space-y-2">
