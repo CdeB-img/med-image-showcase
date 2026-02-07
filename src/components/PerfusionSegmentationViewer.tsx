@@ -75,10 +75,6 @@ const paramMaps = [
 
 export default function PerfusionSegmentationViewer({ pairs, className }: Props) {
   return (
-  <div style={{ background: "red", color: "white", padding: 40 }}>
-    TEST PERFUSION VIEWER
-  </div>
-);
     <div className={cn("space-y-12", className)}>
       {/* Header */}
       <header className="space-y-6 text-center max-w-4xl mx-auto">
@@ -89,7 +85,7 @@ export default function PerfusionSegmentationViewer({ pairs, className }: Props)
           </Badge>
         </div>
         <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
-          Segmentation et analyse des lésions de perfusion CT/IRM
+          Segmentation et analyse des lésions de perfusion CT/IRM test
         </h1>
         <p className="text-lg text-muted-foreground leading-relaxed">
           Approche experte de la <span className="text-foreground font-medium">segmentation automatique</span> des lésions de perfusion cérébrale 
@@ -175,7 +171,7 @@ export default function PerfusionSegmentationViewer({ pairs, className }: Props)
 
         <p className="text-sm text-muted-foreground/80 italic border-l-2 border-primary/50 pl-4 mt-4">
           L'outil permet une visualisation synchronisée image / masque, garantissant une lecture directe 
-          de l'impact des choix de seuils sur la segmentation finaleeeee.
+          de l'impact des choix de seuils sur la segmentation finale.
         </p>
       </section>
 
