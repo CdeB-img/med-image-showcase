@@ -66,11 +66,11 @@ const useCases = [
 ];
 
 const paramMaps = [
-  { label: "Tmax", color: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30" },
-  { label: "CBF", color: "bg-blue-500/20 text-blue-400 border-blue-500/30" },
-  { label: "OEF", color: "bg-purple-500/20 text-purple-400 border-purple-500/30" },
-  { label: "CMRO₂", color: "bg-pink-500/20 text-pink-400 border-pink-500/30" },
-  { label: "Diffusion", color: "bg-amber-500/20 text-amber-400 border-amber-500/30" }
+  { label: "Tmax", color: "bg-primary/20 text-primary border-primary/30" },
+  { label: "CBF", color: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30" },
+  { label: "OEF", color: "bg-primary/15 text-primary/80 border-primary/25" },
+  { label: "CMRO₂", color: "bg-cyan-600/20 text-cyan-300 border-cyan-500/30" },
+  { label: "Diffusion", color: "bg-primary/10 text-primary/70 border-primary/20" }
 ];
 
 export default function PerfusionSegmentationViewer({ pairs, className }: Props) {
@@ -129,10 +129,10 @@ export default function PerfusionSegmentationViewer({ pairs, className }: Props)
         </div>
 
         {/* Note importante */}
-        <div className="flex items-start gap-3 bg-amber-500/5 border border-amber-500/20 rounded-lg p-4">
-          <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+        <div className="flex items-start gap-3 bg-muted/30 border border-border rounded-lg p-4">
+          <AlertTriangle className="w-5 h-5 text-muted-foreground shrink-0 mt-0.5" />
           <p className="text-sm text-muted-foreground italic">
-            Cette approche ne correspond pas à une classification binaire simpliste, mais à une <span className="text-amber-400 font-medium">segmentation guidée par le signal</span> et la compréhension physiopathologique.
+            Cette approche ne correspond pas à une classification binaire simpliste, mais à une <span className="text-foreground font-medium">segmentation guidée par le signal</span> et la compréhension physiopathologique.
           </p>
         </div>
       </section>
