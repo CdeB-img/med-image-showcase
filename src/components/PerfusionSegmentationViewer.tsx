@@ -120,38 +120,51 @@ export default function PerfusionSegmentationViewer({
         </p>
       </header>
 
-      {/* ======================================================
-         VIEWER — SECTION DOMINANTE
-      ====================================================== */}
-      <section className="w-full border-y border-border py-10">
-        <div className="max-w-7xl mx-auto space-y-6 px-4">
+      {/* 
 
-          <div className="text-center space-y-2">
-            <Badge variant="outline" className="gap-1.5">
-              <Layers className="w-3 h-3" />
-              Visualisation interactive
-            </Badge>
-            <h2 className="text-xl font-semibold">
-              Exploration synchronisée cartes / masques
-            </h2>
-            <p className="text-sm text-muted-foreground">
-              Navigation clavier • Superposition ajustable • Lecture physiologique
-            </p>
-          </div>
+======================================================
+   VIEWER — SECTION DOMINANTE
+====================================================== */}
+<section className="w-full py-12">
+  <div className="max-w-7xl mx-auto space-y-6 px-4">
 
-          <QCViewer
-            pairs={pairs}
-            patientName="Démonstration | Cartes de perfusion"
-            className={cn(
-              "w-full",
-              "h-[75vh] min-h-[650px]",
-              "bg-card border border-border rounded-xl"
-            )}
-          />
-        </div>
-      </section>
+    {/* En-tête viewer */}
+    <div className="text-center space-y-2">
+      <Badge variant="outline" className="gap-1.5">
+        <Layers className="w-3 h-3" />
+        Visualisation interactive
+      </Badge>
 
-      {/* ======================================================
+      <h2 className="text-xl font-semibold">
+        Exploration synchronisée cartes / masques
+      </h2>
+
+      <p className="text-sm text-muted-foreground">
+        Navigation clavier • Superposition ajustable • Lecture physiopathologique
+      </p>
+    </div>
+
+    {/* Conteneur ISOLÉ du viewer */}
+    <div
+      className={cn(
+        "relative",                 // référentiel pour tous les absolute internes
+        "w-full",
+        "h-[75vh] min-h-[650px]",    // hauteur réelle de viewer
+        "bg-card",
+        "border border-border",
+        "rounded-xl",
+        "overflow-hidden"            // empêche toute fuite visuelle
+      )}
+    >
+      <QCViewer
+        pairs={pairs}
+        patientName="Démonstration | Cartes de perfusion"
+        className="w-full h-full"
+      />
+    </div>
+
+  </div>
+</section> ======================================================
          INTRO MÉTHODOLOGIQUE
       ====================================================== */}
       <section className="max-w-6xl mx-auto space-y-8 px-4">
