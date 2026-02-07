@@ -1,4 +1,4 @@
-/ src/components/PerfusionSegmentationViewer.tsx
+//src/components/PerfusionSegmentationViewer.tsx
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
