@@ -63,33 +63,34 @@ export default function QCViewer({
 
   return (
     <div className={cn("space-y-16", className)}>
-
       {/* ===================== HEADER ===================== */}
-      <header className="max-w-4xl mx-auto text-center space-y-6">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mx-auto">
-          <Brain className="w-4 h-4" />
-          Contrôle qualité et inspection des segmentations
-        </div>
+      <header className="space-y-6 text-center mx-auto max-w-4xl">
+        <h1 className="text-3xl md:text-4xl font-bold">
+          Contrôle qualité des segmentations
+          <span className="block text-lg md:text-xl font-normal text-muted-foreground mt-2">
+            Inspection slice-par-slice et validation experte
+          </span>
+        </h1>
 
         <p className="text-muted-foreground leading-relaxed md:text-justify">
-          Ce module est dédié au contrôle qualité visuel des résultats de segmentation.
-          Il permet une inspection slice-par-slice des images natives et des masques
-          associés afin de vérifier la cohérence anatomique, la localisation des
-          régions segmentées et l’absence d’artefacts évidents.
+          Ce module est dédié au contrôle qualité visuel des résultats de
+          segmentation. Il permet une inspection slice par slice des images
+          natives et des masques associés afin de vérifier la cohérence
+          anatomique, la localisation des régions segmentées et l’absence
+          d’artefacts évidents.
         </p>
 
-        <p className="text-sm italic text-muted-foreground border-l-2 border-primary/50 pl-4 text-left">
+        <p className="text-sm italic text-muted-foreground border-l-2 border-primary/50 pl-4 text-left md:text-justify">
           L’objectif n’est pas l’automatisation, mais la validation experte des
           résultats avant toute quantification ou analyse statistique.
         </p>
       </header>
 
-      {/* ===================== VISUALISATION ===================== */}
-      <section className="max-w-5xl mx-auto bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-6">
-
+      {/* ===================== VIEWER ===================== */}
+      <section className="mx-auto max-w-6xl bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-6">
         {/* Header viewer */}
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold">{patientName}</h3>
+          <h2 className="text-xl font-semibold">{patientName}</h2>
           <span className="text-sm font-mono text-muted-foreground">
             Slice {sliceIndex + 1}/{maxSlices}
           </span>
@@ -100,7 +101,7 @@ export default function QCViewer({
           {pairs.map((pair) => (
             <React.Fragment key={pair.label}>
               {/* Native */}
-              <div className="aspect-square bg-black rounded overflow-hidden relative">
+              <div className="aspect-square bg-black rounded-lg overflow-hidden relative border border-border">
                 <img
                   src={pair.native[sliceIndex]}
                   className={cn(
@@ -108,15 +109,15 @@ export default function QCViewer({
                     ROTATION_CLASS
                   )}
                 />
-                <div className="absolute bottom-0 left-0 right-0 h-[14px] md:h-[24px] bg-black/70 flex items-center px-1 md:px-2">
-                  <span className="text-[9px] md:text-xs font-mono text-white/90 truncate w-full">
+                <div className="absolute bottom-0 left-0 right-0 h-[18px] md:h-[26px] bg-black/70 flex items-center px-2">
+                  <span className="text-[10px] md:text-xs font-mono text-white/90 truncate w-full">
                     {pair.label}
                   </span>
                 </div>
               </div>
 
               {/* Native + Mask */}
-              <div className="aspect-square bg-black rounded overflow-hidden relative">
+              <div className="aspect-square bg-black rounded-lg overflow-hidden relative border border-border">
                 <img
                   src={pair.native[sliceIndex]}
                   className={cn(
@@ -124,6 +125,7 @@ export default function QCViewer({
                     ROTATION_CLASS
                   )}
                 />
+
                 <div
                   className={cn(
                     "absolute inset-0 pointer-events-none",
@@ -136,8 +138,9 @@ export default function QCViewer({
                     className="w-full h-full"
                   />
                 </div>
-                <div className="absolute bottom-0 left-0 right-0 h-[14px] md:h-[24px] bg-black/70 flex items-center px-1 md:px-2">
-                  <span className="text-[9px] md:text-xs font-mono text-white/90 truncate w-full">
+
+                <div className="absolute bottom-0 left-0 right-0 h-[18px] md:h-[26px] bg-black/70 flex items-center px-2">
+                  <span className="text-[10px] md:text-xs font-mono text-white/90 truncate w-full">
                     {pair.label} + mask
                   </span>
                 </div>
@@ -147,7 +150,7 @@ export default function QCViewer({
         </div>
 
         {/* Slider */}
-        <div className="pt-2">
+        <div className="max-w-4xl mx-auto pt-4">
           <input
             type="range"
             min={0}
