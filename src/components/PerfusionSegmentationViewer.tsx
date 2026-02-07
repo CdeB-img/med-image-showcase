@@ -155,7 +155,7 @@ export default function PerfusionSegmentationViewer({
             )}
           >
             {/* Masquage visuel de la carte interne */}
-            <div className="absolute inset-0 [&>div:first-child]:hidden">
+            <div className="absolute inset-0">
               <QCViewer
                 pairs={pairs}
                 patientName="Démonstration | Cartes de perfusion"
