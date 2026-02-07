@@ -40,7 +40,9 @@ const App = () => (
           <Route path="/projets" element={<Projects />} />
           <Route path="/projet/:id" element={<ProjectDetail />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="*" element={<NotFound />} />
+
+          {/* Fallback robuste pour preview / mobile / tokens */}
+          <Route path="*" element={<Index />} />
         </Routes>
 
       </HashRouter>
