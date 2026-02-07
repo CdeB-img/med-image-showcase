@@ -1,6 +1,7 @@
 // ============================================================
 // src/components/QCViewer.tsx
 // Contrôle qualité – Inspection slice-par-slice
+// 4 colonnes fixes, sans scroll horizontal
 // ============================================================
 
 import * as React from "react";
@@ -54,51 +55,43 @@ export default function QCViewer({
 
   if (maxSlices === 0) {
     return (
-      <div className="text-destructive text-center py-8">
+      <div className="text-destructive text-center py-6">
         Aucune image disponible
       </div>
     );
   }
 
   return (
-    <div className={cn("w-full space-y-3", className)}>
+    <div className={cn("w-full space-y-2", className)}>
 
-      {/* ===== Header compact ===== */}
+      {/* ===== Header ultra-compact ===== */}
       <div className="flex items-center justify-between px-1">
-        <h3 className="text-xs font-medium text-muted-foreground truncate">
+        <span className="text-[11px] text-muted-foreground truncate">
           {patientName}
-        </h3>
+        </span>
         <span className="text-[11px] font-mono text-muted-foreground">
-          Slice {sliceIndex + 1}/{maxSlices}
+          {sliceIndex + 1}/{maxSlices}
         </span>
       </div>
 
-      {/* ===== Viewer : full width, scroll horizontal ===== */}
-      <div className="w-full overflow-x-auto">
-        <div
-          className="
-            grid grid-cols-4
-            gap-1 sm:gap-2
-            min-w-[820px]
-          "
-        >
-          {pairs.map((pair) => (
-            <React.Fragment key={pair.label}>
-              <ImageCell
-                src={pair.native[sliceIndex]}
-                label={pair.label}
-              />
-              <ImageCell
-                src={pair.native[sliceIndex]}
-                mask={pair.mask[sliceIndex]}
-                label={`${pair.label} + mask`}
-              />
-            </React.Fragment>
-          ))}
-        </div>
+      {/* ===== Grille 4 colonnes fixes ===== */}
+      <div className="grid grid-cols-4 gap-[2px]">
+        {pairs.map((pair) => (
+          <React.Fragment key={pair.label}>
+            <ImageCell
+              src={pair.native[sliceIndex]}
+              label={pair.label}
+            />
+            <ImageCell
+              src={pair.native[sliceIndex]}
+              mask={pair.mask[sliceIndex]}
+              label={`${pair.label}+mask`}
+            />
+          </React.Fragment>
+        ))}
       </div>
 
-      {/* ===== Slider toujours visible ===== */}
+      {/* ===== Slider ===== */}
       <input
         type="range"
         min={0}
@@ -113,7 +106,7 @@ export default function QCViewer({
 }
 
 /* ============================================================
-   CELLULE IMAGE
+   CELLULE IMAGE – OPTIMISÉE MOBILE
 ============================================================ */
 
 function ImageCell({
@@ -126,7 +119,7 @@ function ImageCell({
   label: string;
 }) {
   return (
-    <div className="aspect-square bg-black rounded-md overflow-hidden relative border border-border">
+    <div className="relative aspect-square bg-black overflow-hidden">
       <img
         src={src}
         alt={label}
@@ -138,12 +131,13 @@ function ImageCell({
 
       {mask && (
         <div className={cn("absolute inset-0 pointer-events-none", ROTATION_CLASS)}>
-          <MaskOverlay src={mask} opacity={0.4} className="w-full h-full" />
+          <MaskOverlay src={mask} opacity={0.45} className="w-full h-full" />
         </div>
       )}
 
-      <div className="absolute bottom-0 left-0 right-0 h-[18px] bg-black/70 flex items-center px-1">
-        <span className="text-[9px] font-mono text-white/80 truncate w-full">
+      {/* Label minimal */}
+      <div className="absolute bottom-0 left-0 right-0 bg-black/70 px-[2px] py-[1px]">
+        <span className="block text-[8px] leading-none font-mono text-white/80 truncate">
           {label}
         </span>
       </div>
