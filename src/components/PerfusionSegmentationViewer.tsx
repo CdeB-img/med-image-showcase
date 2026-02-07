@@ -1,276 +1,202 @@
 // ============================================================
 // src/components/PerfusionSegmentationViewer.tsx
+// Segmentation de perfusion – Approche méthodologique contrôlée
 // ============================================================
 
-import { useState, useCallback, useEffect } from "react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import * as React from "react";
+import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
-import { 
-  Scan, 
-  Activity, 
-  Target, 
-  Zap,
-  ArrowRight,
-  ChevronLeft,
-  ChevronRight,
+import {
+  Activity,
   Layers,
-  Brain,
-  AlertCircle
+  Scan,
+  Eye,
+  Microscope,
+  MessageSquare,
 } from "lucide-react";
-import MaskOverlay from "./MaskOverlay";
 
-// ============================================================
-// TYPES
-// ============================================================
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import QCViewer from "@/components/QCViewer";
 
-interface QCPair {
+interface ImagePair {
   label: string;
   native: string[];
   mask: string[];
 }
 
 interface Props {
-  pairs: QCPair[];
+  pairs: ImagePair[];
   className?: string;
 }
 
-// ============================================================
-// PARAMETRIC MAPS CONFIG
-// ============================================================
+const PARAM_MAPS = ["Tmax", "CBF", "OEF", "CMRO₂", "Diffusion"];
 
-const paramMaps = [
-  { label: "Tmax", color: "bg-primary/20 text-primary border-primary/30" },
-  { label: "CBF", color: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30" },
-  { label: "OEF", color: "bg-primary/20 text-primary border-primary/30" },
-  { label: "CMRO₂", color: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30" },
-  { label: "Diffusion", color: "bg-primary/20 text-primary border-primary/30" },
-];
-
-// ============================================================
-// COMPONENT
-// ============================================================
-
-const PerfusionSegmentationViewer = ({ pairs, className = "" }: Props) => {
-  const [currentSlice, setCurrentSlice] = useState(0);
-  const maxSlices = pairs[0]?.native.length ?? 0;
-
-  const prev = useCallback(() => {
-    setCurrentSlice((s) => Math.max(0, s - 1));
-  }, []);
-
-  const next = useCallback(() => {
-    setCurrentSlice((s) => Math.min(maxSlices - 1, s + 1));
-  }, [maxSlices]);
-
-  const jump = useCallback(
-    (delta: number) => {
-      setCurrentSlice((s) => Math.max(0, Math.min(maxSlices - 1, s + delta)));
-    },
-    [maxSlices]
-  );
-
-  // Keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft") prev();
-      else if (e.key === "ArrowRight") next();
-      else if (e.key === "PageUp") jump(-5);
-      else if (e.key === "PageDown") jump(5);
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [prev, next, jump]);
-
+export default function PerfusionSegmentationViewer({
+  pairs,
+  className,
+}: Props) {
   return (
-    <div className={className}>
-      {/* Header */}
-      <div className="mb-8">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 rounded-lg bg-primary/10">
-            <Scan className="w-6 h-6 text-primary" />
-          </div>
-          <h1 className="text-3xl font-bold">Perfusion CT/IRM</h1>
-        </div>
-        
-        <div className="flex flex-wrap gap-2 mb-4">
-          <Badge variant="outline">CT Perfusion / MRI</Badge>
-          <Badge variant="secondary">Segmentation</Badge>
-        </div>
-      </div>
-
-      {/* Content Grid */}
-      <div className="grid lg:grid-cols-2 gap-8 mb-8">
-        {/* Left: Description */}
-        <div className="space-y-6">
-          {/* Objectif */}
-          <div className="p-4 rounded-lg bg-muted/30 border border-border">
-            <div className="flex items-center gap-2 mb-3">
-              <Target className="w-5 h-5 text-primary" />
-              <h3 className="font-semibold">Objectif</h3>
-            </div>
-            <p className="text-muted-foreground leading-relaxed">
-              Segmentation automatique des lésions de perfusion cérébrale basée sur des 
-              seuils paramétrables et une validation physiopathologique rigoureuse.
-            </p>
-          </div>
-
-          {/* Principe */}
-          <div className="p-4 rounded-lg bg-muted/30 border border-border">
-            <div className="flex items-center gap-2 mb-3">
-              <Activity className="w-5 h-5 text-primary" />
-              <h3 className="font-semibold">Principe</h3>
-            </div>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              Approche signal-driven pour l'identification de la pénombre ischémique 
-              et du cœur nécrotique via des seuils ajustables sur les cartes fonctionnelles :
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {paramMaps.map((map) => (
-                <Badge 
-                  key={map.label} 
-                  className={`${map.color} border`}
-                >
-                  {map.label}
-                </Badge>
-              ))}
-            </div>
-          </div>
-
-          {/* Cas d'usage */}
-          <div className="p-4 rounded-lg bg-muted/30 border border-border">
-            <div className="flex items-center gap-2 mb-3">
-              <Brain className="w-5 h-5 text-primary" />
-              <h3 className="font-semibold">Cas d'usage</h3>
-            </div>
-            <ul className="space-y-2 text-muted-foreground">
-              <li className="flex items-start gap-2">
-                <Zap className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                <span>AVC aigu : quantification pénombre/core</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <Zap className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                <span>Suivi longitudinal post-traitement</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <Zap className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                <span>Recherche : extraction de biomarqueurs</span>
-              </li>
-            </ul>
-          </div>
-
-          {/* Note */}
-          <div className="p-4 rounded-lg bg-muted/30 border border-border">
-            <div className="flex items-start gap-2">
-              <AlertCircle className="w-5 h-5 text-muted-foreground mt-0.5 shrink-0" />
-              <p className="text-sm text-muted-foreground">
-                <strong>Note :</strong> Les seuils sont configurables selon les recommandations 
-                cliniques et peuvent être adaptés aux protocoles spécifiques de chaque centre.
-              </p>
-            </div>
-          </div>
+    <div className={cn("space-y-16", className)}>
+      {/* ===================== HEADER ===================== */}
+      <header className="max-w-4xl mx-auto text-center space-y-6">
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-border text-sm text-muted-foreground mx-auto">
+          <Activity className="w-4 h-4" />
+          Perfusion cérébrale
         </div>
 
-        {/* Right: Viewer */}
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
+        <h1 className="text-3xl md:text-4xl font-semibold">
+          Segmentation et analyse des lésions de perfusion CT / IRM
+        </h1>
+
+        <p className="text-muted-foreground leading-relaxed md:text-justify">
+          Ce module illustre une approche de segmentation des lésions de perfusion
+          cérébrale reposant sur des seuils paramétrables et une lecture guidée par
+          le signal, dans un cadre méthodologique explicite et contrôlé.
+        </p>
+      </header>
+
+      {/* ===================== INTRO ===================== */}
+      <section className="max-w-4xl mx-auto border border-border rounded-xl p-6 space-y-6 bg-background">
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="space-y-3">
             <div className="flex items-center gap-2">
-              <Layers className="w-5 h-5 text-primary" />
-              <span className="font-medium">Visualisation des cartes</span>
+              <Scan className="w-4 h-4 text-muted-foreground" />
+              <h3 className="text-sm font-medium uppercase tracking-wide">
+                Objectif
+              </h3>
             </div>
-            <span className="text-sm text-muted-foreground">
-              Coupe {currentSlice + 1} / {maxSlices}
-            </span>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Identifier et structurer des régions de perfusion pathologique à
+              partir de cartes paramétriques, dans une logique reproductible et
+              interprétable.
+            </p>
           </div>
 
-          {/* Image Grid */}
-          <div className="grid grid-cols-3 gap-2">
-            {pairs.map((pair) => (
-              <div key={pair.label} className="space-y-1">
-                <span className="text-xs text-muted-foreground block text-center">
-                  {pair.label}
-                </span>
-                <div className="grid grid-cols-2 gap-1">
-                  {/* Native */}
-                  <div className="aspect-square bg-black rounded overflow-hidden">
-                    <img
-                      src={pair.native[currentSlice]}
-                      alt={`${pair.label} native`}
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-                  {/* Overlay: native + mask */}
-                  <div className="aspect-square bg-black rounded overflow-hidden relative">
-                    <img
-                      src={pair.native[currentSlice]}
-                      alt={`${pair.label} native`}
-                      className="w-full h-full object-contain absolute inset-0"
-                    />
-                    <MaskOverlay
-                      src={pair.mask[currentSlice]}
-                      opacity={0.6}
-                      className="w-full h-full object-contain absolute inset-0"
-                    />
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Navigation */}
-          <div className="flex items-center justify-center gap-4 pt-4">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => jump(-5)}
-              disabled={currentSlice === 0}
-            >
-              <ChevronLeft className="w-4 h-4" />
-              <ChevronLeft className="w-4 h-4 -ml-2" />
-            </Button>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={prev}
-              disabled={currentSlice === 0}
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </Button>
-            <span className="text-sm text-muted-foreground px-4">
-              ← → : ±1 | PgUp/PgDn : ±5
-            </span>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={next}
-              disabled={currentSlice === maxSlices - 1}
-            >
-              <ChevronRight className="w-4 h-4" />
-            </Button>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => jump(5)}
-              disabled={currentSlice === maxSlices - 1}
-            >
-              <ChevronRight className="w-4 h-4 -mr-2" />
-              <ChevronRight className="w-4 h-4" />
-            </Button>
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <Eye className="w-4 h-4 text-muted-foreground" />
+              <h3 className="text-sm font-medium uppercase tracking-wide">
+                Ce que montre le viewer
+              </h3>
+            </div>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Superposition des masques de segmentation sur les cartes natives,
+              permettant une inspection spatiale et physiopathologique directe.
+            </p>
           </div>
         </div>
-      </div>
 
-      {/* CTA */}
-      <div className="flex justify-center pt-4 border-t border-border">
-        <Link to="/contact">
-          <Button className="gap-2">
-            Discuter de votre projet
-            <ArrowRight className="w-4 h-4" />
-          </Button>
-        </Link>
-      </div>
+        <p className="text-sm italic text-muted-foreground border-l-2 border-border pl-4">
+          Cette approche ne correspond pas à une classification automatique
+          binaire, mais à une segmentation guidée par le signal et validée par
+          relecture experte.
+        </p>
+      </section>
+
+      {/* ===================== PRINCIPE ===================== */}
+      <section className="max-w-5xl mx-auto border border-border rounded-xl p-6 space-y-6 bg-background">
+        <div className="flex items-center gap-2">
+          <Layers className="w-5 h-5 text-muted-foreground" />
+          <h2 className="text-xl font-semibold">Principe méthodologique</h2>
+        </div>
+
+        <p className="text-muted-foreground">
+          La segmentation repose sur l’exploitation conjointe de plusieurs cartes
+          fonctionnelles, avec des seuils définis en fonction des objectifs de
+          l’étude.
+        </p>
+
+        <div className="flex flex-wrap gap-2">
+          {PARAM_MAPS.map((label) => (
+            <Badge
+              key={label}
+              variant="outline"
+              className="bg-muted/40 text-muted-foreground border-border"
+            >
+              {label}
+            </Badge>
+          ))}
+        </div>
+
+        <ul className="space-y-3 text-sm text-muted-foreground">
+          <li className="flex items-start gap-3 bg-muted/30 rounded-lg p-3">
+            <span className="font-mono text-xs">1.</span>
+            <span>
+              Seuils paramétrables définis selon le contexte clinique,
+              méthodologique ou exploratoire.
+            </span>
+          </li>
+          <li className="flex items-start gap-3 bg-muted/30 rounded-lg p-3">
+            <span className="font-mono text-xs">2.</span>
+            <span>
+              Absence de post-traitement arbitraire masquant la réalité
+              physiopathologique.
+            </span>
+          </li>
+        </ul>
+
+        <p className="text-sm italic text-muted-foreground border-l-2 border-border pl-4">
+          La visualisation synchronisée image / masque permet une évaluation
+          immédiate de l’impact des choix méthodologiques.
+        </p>
+      </section>
+
+      {/* ===================== QC VIEWER ===================== */}
+      <section className="space-y-4">
+        <div className="text-center space-y-2">
+          <Badge variant="outline">Inspection interactive</Badge>
+          <h2 className="text-xl font-semibold">
+            Contrôle qualité slice par slice
+          </h2>
+          <p className="text-sm text-muted-foreground">
+            Navigation synchronisée et relecture experte
+          </p>
+        </div>
+
+        <QCViewer
+          pairs={pairs}
+          patientName="Démonstration – Cartes de perfusion"
+          className="border border-border rounded-xl p-6 bg-background"
+        />
+      </section>
+
+      {/* ===================== CADRE ===================== */}
+      <section className="max-w-4xl mx-auto border border-border rounded-xl p-6 space-y-4 bg-background">
+        <div className="flex items-center gap-2">
+          <Microscope className="w-5 h-5 text-muted-foreground" />
+          <h2 className="text-xl font-semibold">Cadre méthodologique</h2>
+        </div>
+
+        <p className="text-muted-foreground leading-relaxed">
+          Cette approche privilégie une lecture experte du signal, une traçabilité
+          complète des choix de segmentation et une indépendance vis-à-vis des
+          solutions propriétaires.
+        </p>
+
+        <p className="text-sm italic text-muted-foreground border-t border-border pt-4">
+          La segmentation est considérée comme un objet d’analyse à part entière,
+          conditionnant toute quantification ultérieure.
+        </p>
+      </section>
+
+      {/* ===================== CTA ===================== */}
+      <section className="max-w-2xl mx-auto border border-border rounded-xl p-6 space-y-4 text-center bg-background">
+        <h3 className="text-lg font-semibold">
+          Discuter d’un besoin méthodologique
+        </h3>
+        <p className="text-sm text-muted-foreground">
+          Ces exemples illustrent des cas réels rencontrés en recherche clinique.
+          Pour discuter d’un jeu de données ou d’une problématique spécifique,
+          vous pouvez me contacter.
+        </p>
+        <Button variant="outline" asChild>
+          <Link to="/contact" className="inline-flex items-center gap-2">
+            <MessageSquare className="w-4 h-4" />
+            Initier une discussion
+          </Link>
+        </Button>
+      </section>
     </div>
   );
-};
-
-export default PerfusionSegmentationViewer;
+}
