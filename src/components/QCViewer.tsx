@@ -75,7 +75,8 @@ export default function QCViewer({
       </div>
 
       {/* ===== Viewer images ===== */}
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 md:gap-3">
+      <div className="overflow-x-auto">
+        <div className="grid grid-cols-4 gap-3 min-w-[900px]">
         {pairs.map((pair) => (
           <React.Fragment key={pair.label}>
             <ImageCell
@@ -102,6 +103,7 @@ export default function QCViewer({
         style={{ accentColor: "currentColor" }}
       />
     </div>
+  </div>
   );
 }
 
