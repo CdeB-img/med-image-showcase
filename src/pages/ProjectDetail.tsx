@@ -177,7 +177,10 @@ const ProjectDetail = () => {
 
           {/* ================= PERFUSION SEGMENTATION ================= */}
           {project.id === "perfusion-segmentation" && (
-            <PerfusionSegmentationViewer pairs={qcPairs} />
+            <PerfusionSegmentationViewer
+              pairs={qcPairs}
+              className="bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6"
+            />
           )}
 
           {/* ================= RECALAGE ================= */}
