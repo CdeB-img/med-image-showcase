@@ -175,7 +175,7 @@ export default function PerfusionSegmentationViewer({ pairs, className }: Props)
 
         <p className="text-sm text-muted-foreground/80 italic border-l-2 border-primary/50 pl-4 mt-4">
           L'outil permet une visualisation synchronisée image / masque, garantissant une lecture directe 
-          de l'impact des choix de seuils sur la segmentation finale.
+          de l'impact des choix de seuils sur la segmentation finaleeeee.
         </p>
       </section>
 
