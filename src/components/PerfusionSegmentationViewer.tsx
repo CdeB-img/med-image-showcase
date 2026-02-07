@@ -1,4 +1,3 @@
-je parle de cette page 
 // src/components/PerfusionSegmentationViewer.tsx
 
 import * as React from "react";
