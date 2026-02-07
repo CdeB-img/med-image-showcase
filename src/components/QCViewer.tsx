@@ -64,7 +64,7 @@ export default function QCViewer({
   return (
     <div className={cn("space-y-16", className)}>
       {/* ===================== HEADER ===================== */}
-      <header className="mx-auto max-w-4xl border border-border rounded-xl p-6 space-y-4 text-center bg-background">
+      <header className="w-full border border-border rounded-xl p-6 space-y-4 text-center bg-background">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-border text-sm text-muted-foreground mx-auto">
           <Brain className="w-4 h-4" />
           Contrôle qualité
@@ -89,7 +89,7 @@ export default function QCViewer({
       </header>
 
       {/* ===================== VIEWER ===================== */}
-      <section className="mx-auto max-w-6xl border border-border rounded-xl p-6 space-y-6 bg-background">
+      <section className="w-full border border-border rounded-xl p-6 space-y-6 bg-background">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-medium">{patientName}</h3>
           <span className="text-sm font-mono text-muted-foreground">
