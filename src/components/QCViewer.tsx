@@ -63,10 +63,9 @@ export default function QCViewer({
 
   return (
     <div className={cn("space-y-16", className)}>
-
       {/* ===================== HEADER ===================== */}
-      <header className="mx-auto max-w-4xl bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 text-center">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-muted text-muted-foreground text-sm mx-auto">
+      <header className="mx-auto max-w-4xl border border-border rounded-xl p-6 space-y-4 text-center bg-background">
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-border text-sm text-muted-foreground mx-auto">
           <Brain className="w-4 h-4" />
           Contrôle qualité
         </div>
@@ -90,9 +89,7 @@ export default function QCViewer({
       </header>
 
       {/* ===================== VIEWER ===================== */}
-      <section className="mx-auto max-w-6xl bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-6">
-
-        {/* Viewer header */}
+      <section className="mx-auto max-w-6xl border border-border rounded-xl p-6 space-y-6 bg-background">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-medium">{patientName}</h3>
           <span className="text-sm font-mono text-muted-foreground">
@@ -100,69 +97,68 @@ export default function QCViewer({
           </span>
         </div>
 
-        {/* Grid */}
         <div className="grid grid-cols-4 gap-3">
           {pairs.map((pair) => (
             <React.Fragment key={pair.label}>
-              {/* Native */}
-              <div className="aspect-square bg-black rounded-lg overflow-hidden relative border border-border">
-                <img
-                  src={pair.native[sliceIndex]}
-                  className={cn(
-                    "absolute inset-0 w-full h-full object-contain",
-                    ROTATION_CLASS
-                  )}
-                />
-                <div className="absolute bottom-0 left-0 right-0 h-[20px] bg-black/70 flex items-center px-2">
-                  <span className="text-[10px] font-mono text-white/80 truncate w-full">
-                    {pair.label}
-                  </span>
-                </div>
-              </div>
-
-              {/* Native + Mask */}
-              <div className="aspect-square bg-black rounded-lg overflow-hidden relative border border-border">
-                <img
-                  src={pair.native[sliceIndex]}
-                  className={cn(
-                    "absolute inset-0 w-full h-full object-contain",
-                    ROTATION_CLASS
-                  )}
-                />
-                <div
-                  className={cn(
-                    "absolute inset-0 pointer-events-none",
-                    ROTATION_CLASS
-                  )}
-                >
-                  <MaskOverlay
-                    src={pair.mask[sliceIndex]}
-                    opacity={0.4}
-                    className="w-full h-full"
-                  />
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 h-[20px] bg-black/70 flex items-center px-2">
-                  <span className="text-[10px] font-mono text-white/80 truncate w-full">
-                    {pair.label} + mask
-                  </span>
-                </div>
-              </div>
+              <ImageCell
+                src={pair.native[sliceIndex]}
+                label={pair.label}
+              />
+              <ImageCell
+                src={pair.native[sliceIndex]}
+                mask={pair.mask[sliceIndex]}
+                label={`${pair.label} + mask`}
+              />
             </React.Fragment>
           ))}
         </div>
 
-        {/* Slider */}
-        <div className="pt-2">
-          <input
-            type="range"
-            min={0}
-            max={maxSlices - 1}
-            value={sliceIndex}
-            onChange={(e) => setSliceIndex(+e.target.value)}
-            className="w-full accent-muted-foreground"
-          />
-        </div>
+        <input
+          type="range"
+          min={0}
+          max={maxSlices - 1}
+          value={sliceIndex}
+          onChange={(e) => setSliceIndex(+e.target.value)}
+          className="w-full"
+          style={{ accentColor: "currentColor" }}
+        />
       </section>
+    </div>
+  );
+}
+
+/* ===================== SUB ===================== */
+
+function ImageCell({
+  src,
+  mask,
+  label,
+}: {
+  src: string;
+  mask?: string;
+  label: string;
+}) {
+  return (
+    <div className="aspect-square bg-black rounded-lg overflow-hidden relative border border-border">
+      <img
+        src={src}
+        className={cn(
+          "absolute inset-0 w-full h-full object-contain",
+          ROTATION_CLASS
+        )}
+      />
+
+      {mask && (
+        <div className={cn("absolute inset-0 pointer-events-none", ROTATION_CLASS)}>
+          <MaskOverlay src={mask} opacity={0.4} className="w-full h-full" />
+        </div>
+      )}
+
+      <div className="absolute bottom-0 left-0 right-0 h-[20px] bg-black/70 flex items-center px-2">
+        <span className="text-[10px] font-mono text-white/80 truncate w-full">
+          {label}
+        </span>
+      </div>
     </div>
   );
 }
