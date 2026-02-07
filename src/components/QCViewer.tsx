@@ -62,67 +62,45 @@ export default function QCViewer({
   }
 
   return (
-    <div className={cn("space-y-16", className)}>
-      {/* ===================== HEADER ===================== */}
-      <header className="w-full border border-border rounded-xl p-6 space-y-4 text-center bg-background">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-border text-sm text-muted-foreground mx-auto">
-          <Brain className="w-4 h-4" />
-          Contrôle qualité
-        </div>
+    <div className={cn("w-full space-y-4", className)}>
 
-        <h1 className="text-2xl md:text-3xl font-semibold">
-          Inspection visuelle des segmentations
-        </h1>
+      {/* ===== Ligne titre / slice ===== */}
+      <div className="flex items-center justify-between">
+        <h3 className="text-sm font-medium text-muted-foreground">
+          {patientName}
+        </h3>
+        <span className="text-xs font-mono text-muted-foreground">
+          Slice {sliceIndex + 1}/{maxSlices}
+        </span>
+      </div>
 
-        <p className="text-muted-foreground leading-relaxed md:text-justify">
-          Ce module est dédié à la validation visuelle des résultats de
-          segmentation. Il permet une inspection slice par slice des images
-          natives et des masques associés afin d’évaluer la cohérence
-          anatomique, la localisation des régions segmentées et la présence
-          d’artefacts évidents.
-        </p>
+      {/* ===== Viewer images ===== */}
+      <div className="grid grid-cols-4 gap-3">
+        {pairs.map((pair) => (
+          <React.Fragment key={pair.label}>
+            <ImageCell
+              src={pair.native[sliceIndex]}
+              label={pair.label}
+            />
+            <ImageCell
+              src={pair.native[sliceIndex]}
+              mask={pair.mask[sliceIndex]}
+              label={`${pair.label} + mask`}
+            />
+          </React.Fragment>
+        ))}
+      </div>
 
-        <p className="text-sm italic text-muted-foreground border-l-2 border-border pl-4 text-left md:text-justify">
-          L’objectif n’est pas l’automatisation, mais une relecture experte
-          préalable à toute quantification ou analyse statistique.
-        </p>
-      </header>
-
-      {/* ===================== VIEWER ===================== */}
-      <section className="w-full border border-border rounded-xl p-6 space-y-6 bg-background">
-        <div className="flex items-center justify-between">
-          <h3 className="text-lg font-medium">{patientName}</h3>
-          <span className="text-sm font-mono text-muted-foreground">
-            Slice {sliceIndex + 1}/{maxSlices}
-          </span>
-        </div>
-
-        <div className="grid grid-cols-4 gap-3">
-          {pairs.map((pair) => (
-            <React.Fragment key={pair.label}>
-              <ImageCell
-                src={pair.native[sliceIndex]}
-                label={pair.label}
-              />
-              <ImageCell
-                src={pair.native[sliceIndex]}
-                mask={pair.mask[sliceIndex]}
-                label={`${pair.label} + mask`}
-              />
-            </React.Fragment>
-          ))}
-        </div>
-
-        <input
-          type="range"
-          min={0}
-          max={maxSlices - 1}
-          value={sliceIndex}
-          onChange={(e) => setSliceIndex(+e.target.value)}
-          className="w-full"
-          style={{ accentColor: "currentColor" }}
-        />
-      </section>
+      {/* ===== Slider ===== */}
+      <input
+        type="range"
+        min={0}
+        max={maxSlices - 1}
+        value={sliceIndex}
+        onChange={(e) => setSliceIndex(+e.target.value)}
+        className="w-full"
+        style={{ accentColor: "currentColor" }}
+      />
     </div>
   );
 }
