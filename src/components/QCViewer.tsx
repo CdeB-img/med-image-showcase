@@ -136,8 +136,10 @@ function ImageCell({
       )}
 
       {/* Label minimal */}
-      <div className="absolute bottom-0 left-0 right-0 bg-black/70 px-[2px] py-[1px]">
-        <span className="block text-[8px] leading-none font-mono text-white/80 truncate">
+      <div className="absolute bottom-0 left-0 right-0 bg-black/70 px-[2px] py-[1px] md:px-1 md:py-0.5">
+        <span className="block font-mono text-white/80 truncate
+                        text-[8px] leading-none
+                        md:text-[10px] md:leading-tight">
           {label}
         </span>
       </div>
