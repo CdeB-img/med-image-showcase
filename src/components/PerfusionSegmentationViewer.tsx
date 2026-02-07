@@ -85,7 +85,7 @@ export default function PerfusionSegmentationViewer({ pairs, className }: Props)
           </Badge>
         </div>
         <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
-          Segmentation et analyse des lésions de perfusion CT/IRM test
+           et analyse des lésions de perfusion CT/IRM
         </h1>
         <p className="text-lg text-muted-foreground leading-relaxed">
           Approche experte de la <span className="text-foreground font-medium">segmentation automatique</span> des lésions de perfusion cérébrale 
