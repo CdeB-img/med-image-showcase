@@ -5,12 +5,13 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HashRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
+import Header from "@/components/Header"; // ⬅️ AJOUT
+
 import Index from "./pages/Index";
 import Projects from "./pages/Projects";
 import ProjectDetail from "./pages/ProjectDetail";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
-import Header from "@/components/Header";
 
 const queryClient = new QueryClient();
 
@@ -36,13 +37,16 @@ const App = () => (
       <HashRouter>
         <ScrollToTop />
 
+        {/* 🔹 NAVBAR GLOBALE */}
+        <Header />
+
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/projets" element={<Projects />} />
           <Route path="/projet/:id" element={<ProjectDetail />} />
           <Route path="/contact" element={<Contact />} />
 
-          {/* Fallback robuste pour preview / mobile / tokens */}
+          {/* Fallback robuste */}
           <Route path="*" element={<Index />} />
         </Routes>
 
