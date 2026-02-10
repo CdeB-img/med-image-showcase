@@ -5,7 +5,6 @@ import Footer from "@/components/Footer";
 /* ============================================================
    SECTION
 ============================================================ */
-
 function Section({
   title,
   filter,
@@ -14,7 +13,6 @@ function Section({
   filter: (p: typeof projects[number]) => boolean;
 }) {
   const items = projects.filter(filter);
-
   if (!items.length) return null;
 
   return (
@@ -24,11 +22,8 @@ function Section({
       <div
         className="
           grid gap-6
-          grid-cols-1
-          sm:grid-cols-2
-          lg:grid-cols-3
-          place-content-start
           justify-items-center
+          [grid-template-columns:repeat(auto-fit,minmax(280px,1fr))]
         "
       >
         {items.map((project) => (
