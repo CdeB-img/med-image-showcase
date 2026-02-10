@@ -1,11 +1,27 @@
 import { Link, NavLink, useMatch } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { projects } from "@/data/projects";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export default function Header() {
   const isProjectDetail = useMatch("/projet/:id");
+
   const [open, setOpen] = useState(false);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const openMenu = () => {
+    if (closeTimer.current) {
+      clearTimeout(closeTimer.current);
+      closeTimer.current = null;
+    }
+    setOpen(true);
+  };
+
+  const closeMenuWithDelay = () => {
+    closeTimer.current = setTimeout(() => {
+      setOpen(false);
+    }, 300); // ← délai volontaire (300 ms)
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/90 backdrop-blur">
@@ -22,7 +38,6 @@ export default function Header() {
         {/* Navigation */}
         <nav className="flex items-center gap-6 text-sm">
 
-          {/* Accueil */}
           <NavLink
             to="/"
             className={({ isActive }) =>
@@ -35,11 +50,11 @@ export default function Header() {
             Accueil
           </NavLink>
 
-          {/* Projets */}
+          {/* PROJETS — ZONE ENGLOBANTE */}
           <div
             className="relative"
-            onMouseEnter={() => setOpen(true)}
-            onMouseLeave={() => setOpen(false)}
+            onMouseEnter={openMenu}
+            onMouseLeave={closeMenuWithDelay}
           >
             <NavLink
               to="/projets"
@@ -55,7 +70,7 @@ export default function Header() {
             </NavLink>
 
             {open && (
-              <div className="absolute left-0 mt-2 min-w-[240px] rounded-md border border-border bg-background shadow-lg">
+              <div className="absolute left-0 mt-2 min-w-[260px] rounded-md border border-border bg-background shadow-lg">
                 <ul className="py-2">
                   {projects.map((project) => (
                     <li key={project.id}>
@@ -73,7 +88,6 @@ export default function Header() {
             )}
           </div>
 
-          {/* Contact */}
           <NavLink
             to="/contact"
             className={({ isActive }) =>
@@ -90,4 +104,4 @@ export default function Header() {
       </div>
     </header>
   );
-}
+}d
