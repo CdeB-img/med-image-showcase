@@ -54,7 +54,6 @@ function ProjectSection({
             gap-24
           "
         >
-        >
           {items.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
