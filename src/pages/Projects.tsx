@@ -10,7 +10,7 @@ interface CollapsibleSectionProps {
   id: string;
   title: string;
   subtitle: string;
-  imageUrl?: string; // optionnel
+  imageUrl?: string;
   isOpen: boolean;
   onToggle: (id: string) => void;
   filter: (p: typeof projects[number]) => boolean;
@@ -29,7 +29,7 @@ function CollapsibleSection({
 
   return (
     <section className="w-full border-b border-border/40">
-      {/* ================= HEADER CLIQUABLE ================= */}
+      {/* ================= HEADER ================= */}
       <button
         type="button"
         onClick={() => onToggle(id)}
@@ -60,12 +60,12 @@ function CollapsibleSection({
             </p>
           </div>
 
-          {/* Chevron TOUJOURS visible */}
+          {/* Chevron toujours visible */}
           <span
             aria-hidden
             className={`
               text-2xl mt-1
-              transition-all duration-300
+              transition-transform duration-300
               ${isOpen
                 ? "rotate-90 text-primary"
                 : "text-muted-foreground group-hover:text-primary"}
@@ -75,24 +75,24 @@ function CollapsibleSection({
           </span>
         </div>
 
-        {/* ================= IMAGE / TEASER ================= */}
+        {/* ================= IMAGE TEASER ================= */}
         <div className="mt-4 pointer-events-none">
           {imageUrl ? (
             <img
               src={imageUrl}
               alt=""
+              loading="lazy"
               className="
                 w-full h-32 sm:h-40
                 object-cover rounded-md
-                opacity-80
+                opacity-80 grayscale
                 transition-all duration-300
                 group-hover:opacity-100
+                group-hover:grayscale-0
                 group-hover:scale-[1.01]
               "
-              loading="lazy"
               onError={(e) => {
-                // fallback si image absente
-                (e.currentTarget as HTMLImageElement).style.display = "none";
+                e.currentTarget.style.display = "none";
               }}
             />
           ) : (
@@ -180,12 +180,7 @@ const Projects = () => {
               Ces exemples servent de point de départ.
               <a
                 href="#/contact"
-                className="
-                  text-primary
-                  hover:underline
-                  underline-offset-4
-                  transition-colors
-                "
+                className="text-primary hover:underline underline-offset-4"
               >
                 {" "}Un échange permet d’évaluer rapidement la faisabilité.
               </a>
@@ -194,7 +189,6 @@ const Projects = () => {
 
           {/* ================= AXES ================= */}
           <div className="space-y-8">
-
             <CollapsibleSection
               id="segmentation"
               title="Segmentation & analyse lésionnelle"
