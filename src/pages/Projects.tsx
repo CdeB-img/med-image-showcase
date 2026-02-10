@@ -53,9 +53,19 @@ const Projects = () => {
       <main className="flex-1 py-16">
         <div className="container px-4 md:px-6">
 
-          {/* === COLONNE CENTRALE === */}
-          <div className="mx-auto max-w-6xl space-y-20">
-
+          {/* ======= CADRE CENTRAL ======= */}
+          <div
+            className="
+              mx-auto
+              max-w-6xl
+              space-y-20
+              rounded-2xl
+              border border-border/60
+              bg-card/30
+              backdrop-blur
+              p-10
+            "
+          >
             {/* ================= HEADER ================= */}
             <section className="space-y-4">
               <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
@@ -93,7 +103,6 @@ const Projects = () => {
                 p.analysisType === "Prototypage"
               }
             />
-
           </div>
         </div>
       </main>
