@@ -41,7 +41,7 @@ function ProjectSection({
           className="
             mx-auto
             w-full
-            max-w-6xl
+            max-w-4xl
             rounded-2xl
             border border-border/60
             bg-card/30
