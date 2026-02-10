@@ -22,6 +22,7 @@ function ProjectSection({
 
   return (
     <section className="space-y-6">
+      {/* ---- Header de section ---- */}
       <div className="space-y-2">
         <h2 className="text-xl font-semibold tracking-tight">
           {title}
@@ -34,10 +35,21 @@ function ProjectSection({
         )}
       </div>
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {items.map((project) => (
-          <ProjectCard key={project.id} project={project} />
-        ))}
+      {/* ---- Grille centrée en bloc ---- */}
+      <div className="flex justify-center">
+        <div
+          className="
+            grid gap-6
+            grid-cols-1
+            sm:grid-cols-2
+            lg:grid-cols-3
+            w-full
+          "
+        >
+          {items.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
+        </div>
       </div>
     </section>
   );
