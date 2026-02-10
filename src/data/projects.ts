@@ -143,9 +143,13 @@ export const projects: Project[] = [
   },
 ];
 
-/* ============================================================
-   HELPERS
-============================================================ */
+// ============================================================
+// HELPERS
+// ============================================================
+
+export const getProjectById = (id: string) => {
+  return projects.find((p) => p.id === id);
+};
 
 export const getAdjacentProjects = (id: string) => {
   const index = projects.findIndex((p) => p.id === id);
