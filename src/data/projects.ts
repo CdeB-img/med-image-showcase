@@ -2,12 +2,20 @@
 // src/data/projects.ts
 // ============================================================
 
+/* ============================================================
+   TYPES
+============================================================ */
+
 export interface Project {
   id: string;
   title: string;
   description: string;
   modality: string;
-  analysisType: string;
+  analysisType:
+    | "Segmentation"
+    | "Registration"
+    | "Quantification"
+    | "Prototypage";
   technologies: string[];
   thumbnailUrl: string;
   sliceCount: number;
@@ -16,132 +24,118 @@ export interface Project {
   useSliderOverlay?: boolean;
 }
 
-/**
- * Base RAW GitHub URL for images
- */
+/* ============================================================
+   CONSTANTS
+============================================================ */
+
 const RAW_BASE =
   "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
 
 /**
- * Generate slice range: slice_000.png to slice_015.png
+ * Génère slice_000.png → slice_XXX.png
  */
-const slices = (basePath: string, count = 16): string[] =>
+const slices = (basePath: string, count: number): string[] =>
   Array.from({ length: count }, (_, i) =>
     `${RAW_BASE}/${basePath}/slice_${String(i).padStart(3, "0")}.png`
   );
-// ============================================================
-// EDITORIAL – PAGE PROJETS
-// ============================================================
+
+/* ============================================================
+   EDITORIAL — PAGE PROJETS
+============================================================ */
 
 export const projectsEditorial = {
   intro: [
-    "Les projets présentés sur cette page constituent des exemples représentatifs de problématiques rencontrées en imagerie médicale (CT, IRM, multimodal).",
-    "Ils ne doivent pas être interprétés comme des solutions figées ou des produits standardisés.",
-    "Chaque projet débute par une phase d’échange afin de définir une approche méthodologique adaptée : segmentation, recalage, quantification ou développement d’outils sur mesure.",
-    "Les aspects pratiques, y compris le cadre tarifaire, sont abordés de manière transparente et proportionnée selon la nature et les contraintes du projet."
+    "Les projets présentés sur cette page sont des exemples représentatifs de problématiques rencontrées en imagerie médicale (CT, IRM, multimodal) et des approches méthodologiques mises en œuvre pour y répondre.",
+    "Ils ne constituent pas des solutions figées ni des produits standardisés. Chaque étude, chaque jeu de données et chaque contexte clinique ou de recherche possède ses propres contraintes.",
+    "La démarche repose avant tout sur l’échange et la compréhension du besoin réel afin de définir une approche adaptée : segmentation, recalage, quantification, développement d’outils sur mesure ou accompagnement méthodologique.",
+    "Les aspects pratiques — périmètre, délais et cadre tarifaire — sont abordés de manière simple, transparente et proportionnée, en fonction du projet et de ses objectifs."
   ],
 };
-// ============================================================
-// PROJECTS
-// ============================================================
+
+/* ============================================================
+   PROJECTS
+============================================================ */
 
 export const projects: Project[] = [
-  // ============================================================
-  // PERFUSION SEGMENTATION
-  // ============================================================
   {
     id: "perfusion-segmentation",
-    title: "Perfusion CT/IRM",
+    title: "Perfusion CT / IRM",
     description:
-      "Segmentation automatique des lesions de perfusion cerebrale basee sur des seuils parametrables et une validation physiopathologique rigoureuse.",
+      "Segmentation automatique des lésions de perfusion cérébrale basée sur des seuils paramétrables et une validation physiopathologique.",
     modality: "CT Perfusion / MRI",
     analysisType: "Segmentation",
-    technologies: ["Python", "NiBabel", "NumPy", "Matplotlib", "React"],
+    technologies: ["Python", "NiBabel", "NumPy", "Matplotlib"],
     thumbnailUrl: `${RAW_BASE}/projets/perfusion.png`,
     sliceCount: 0,
     nativeSlices: [],
     processedSlices: [],
   },
 
-  // ============================================================
-  // NEURO-ONCOLOGIE
-  // ============================================================
   {
     id: "neuro-onco",
-    title: "Neuro-Oncologie IRM",
+    title: "Neuro-oncologie IRM",
     description:
-      "Segmentation automatique des lesions tumorales cerebrales avec distinction multi-composants : coeur necrotique, anneau tumoral et regions peripheriques.",
+      "Segmentation multi-composants des lésions tumorales cérébrales (cœur nécrotique, anneau tumoral, régions périphériques).",
     modality: "MRI",
     analysisType: "Segmentation",
-    technologies: ["Python", "NiBabel", "NumPy", "SimpleITK"],
+    technologies: ["Python", "NiBabel", "SimpleITK"],
     thumbnailUrl: `${RAW_BASE}/projets/neuro-onco.png`,
     sliceCount: 5,
     nativeSlices: slices("neuro-onco/natives", 5),
     processedSlices: slices("neuro-onco/overlays", 5),
+    useSliderOverlay: true,
   },
 
-  // ============================================================
-  // RECALAGE (Registration)
-  // ============================================================
   {
     id: "recalage",
-    title: "MRI / CT Registration",
+    title: "Recalage CT / IRM",
     description:
-      "Rigid and affine registration pipelines for multimodal (CT/MRI) and monomodal (MRI longitudinal) image alignment with overlay visualization.",
+      "Pipelines de recalage rigide et affine pour données multimodales (CT/IRM) et suivis longitudinaux.",
     modality: "MRI / CT",
     analysisType: "Registration",
-    technologies: ["Python", "ANTsPy", "Elastix", "SimpleITK", "NiBabel"],
+    technologies: ["ANTsPy", "Elastix", "SimpleITK"],
     thumbnailUrl: `${RAW_BASE}/projets/registration.png`,
     sliceCount: 0,
     nativeSlices: [],
     processedSlices: [],
   },
 
-  // ============================================================
-  // CARDIAC MRI
-  // ============================================================
   {
     id: "cardiac",
-    title: "Cardiac MRI",
+    title: "IRM cardiaque",
     description:
-      "Cardiac function assessment (cine diastole/systole) and late gadolinium enhancement for myocardial scar quantification.",
+      "Quantification fonctionnelle cardiaque (ciné IRM) et analyse du rehaussement tardif myocardique.",
     modality: "MRI Cardiac",
     analysisType: "Quantification",
-    technologies: ["Python", "SimpleITK", "NumPy", "Matplotlib"],
+    technologies: ["Python", "SimpleITK"],
     thumbnailUrl: `${RAW_BASE}/projets/cardio.png`,
     sliceCount: 0,
     nativeSlices: [],
     processedSlices: [],
   },
 
-  // ============================================================
-  // CT SCAN
-  // ============================================================
   {
     id: "ct-scan",
-    title: "CT Scan Expertise",
+    title: "Expertise CT",
     description:
-      "Advanced CT imaging expertise covering morphological analysis, data preparation and anatomical quantification for cardiovascular and thoracic structures.",
+      "Analyse morphologique et quantification anatomique en imagerie CT, à visée clinique ou de recherche.",
     modality: "CT Scan",
     analysisType: "Quantification",
-    technologies: ["Python", "SimpleITK", "DICOM", "NumPy"],
+    technologies: ["DICOM", "NumPy"],
     thumbnailUrl: `${RAW_BASE}/projets/ct.png`,
     sliceCount: 0,
     nativeSlices: [],
     processedSlices: [],
   },
 
-  // ============================================================
-  // OUTILS SUR MESURE
-  // ============================================================
   {
     id: "outils",
     title: "Outils sur mesure",
     description:
-      "Developpement d'outils dedies a l'analyse, la quantification et l'exploration avancee des donnees d'imagerie medicale (pneumologie CT, CT spectral).",
-    modality: "CT Scan",
+      "Développement d’outils dédiés à l’analyse, la quantification et l’exploration avancée de données d’imagerie médicale.",
+    modality: "CT / MRI",
     analysisType: "Prototypage",
-    technologies: ["Python", "DICOM", "NumPy", "Matplotlib"],
+    technologies: ["Python", "DICOM"],
     thumbnailUrl: `${RAW_BASE}/projets/outils.png`,
     sliceCount: 0,
     nativeSlices: [],
@@ -149,18 +143,17 @@ export const projects: Project[] = [
   },
 ];
 
-// ============================================================
-// HELPERS
-// ============================================================
+/* ============================================================
+   HELPERS
+============================================================ */
 
 export const getProjectById = (id: string): Project | undefined =>
   projects.find((p) => p.id === id);
 
 export const getAdjacentProjects = (id: string) => {
-  const idx = projects.findIndex((p) => p.id === id);
+  const index = projects.findIndex((p) => p.id === id);
 
   return {
-    prev: idx > 0 ? projects[idx - 1] : null,
-    next: idx < projects.length - 1 ? projects[idx + 1] : null,
+    prev: index > 0 ? projects[index - 1] : null,
+    next: index < projects.length - 1 ? projects[index + 1] : null,
   };
-};
