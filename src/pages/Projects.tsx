@@ -20,25 +20,31 @@ function Section({
       {/* Titre centré */}
       <h2 className="text-xl font-medium text-center">{title}</h2>
 
+      {/* Le conteneur de la grille doit être mx-auto et justify-center */}
       <div className="w-full flex justify-center">
         <div
           className="
             grid
-            gap-6
+            gap-8
             grid-cols-1
             sm:grid-cols-2
             lg:grid-cols-3
-            justify-items-center
+            justify-center    /* Centre les colonnes elles-mêmes */
+            justify-items-center /* Centre les cartes dans les colonnes */
+            w-fit             /* Important : la grille ne prend que la place nécessaire */
           "
         >
           {items.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+            <div key={project.id} className="flex justify-center w-full">
+              <ProjectCard project={project} />
+            </div>
           ))}
         </div>
       </div>
     </section>
   );
 }
+
 
 /* ============================================================
    PAGE - Centrage du layout global
