@@ -19,15 +19,16 @@ function CollapsibleSection({
   id,
   title,
   subtitle,
+  imageUrl,
   isOpen,
   onToggle,
   filter,
-}: CollapsibleSectionProps) {
+}: CollapsibleSectionProps & { imageUrl: string }) {
   const items = projects.filter(filter);
 
   return (
     <section className="w-full border-b border-border/40">
-      {/* Header cliquable */}
+      {/* ===== HEADER CLIQUABLE ===== */}
       <button
         type="button"
         onClick={() => onToggle(id)}
@@ -58,11 +59,11 @@ function CollapsibleSection({
             </p>
           </div>
 
-          {/* Chevron TOUJOURS visible */}
+          {/* Chevron toujours visible */}
           <span
             className={`
               text-2xl mt-1
-              transition-all duration-300
+              transition-transform duration-300
               ${isOpen
                 ? "rotate-90 text-primary"
                 : "text-muted-foreground group-hover:text-primary"}
@@ -73,13 +74,31 @@ function CollapsibleSection({
           </span>
         </div>
 
+        {/* ===== IMAGE TEASER ===== */}
+        <div className="mt-4">
+          <img
+            src={imageUrl}
+            alt=""
+            className="
+              w-full
+              h-32 sm:h-40
+              object-cover
+              rounded-md
+              opacity-80
+              transition-all duration-300
+              group-hover:opacity-100
+              group-hover:scale-[1.01]
+            "
+          />
+        </div>
+
         {/* Indication mobile */}
         <span className="block sm:hidden text-xs mt-2 text-muted-foreground/70">
           Appuyer pour afficher les projets
         </span>
       </button>
 
-      {/* Contenu déroulant */}
+      {/* ===== CONTENU DÉROULÉ ===== */}
       <div
         className={`
           overflow-hidden transition-all duration-500 ease-in-out
@@ -164,6 +183,7 @@ const Projects = () => {
               id="segmentation"
               title="Segmentation & analyse lésionnelle"
               subtitle="Approches guidées par le signal, validées sur données cliniques réelles."
+              imageUrl="/images/axes/segmentation.jpg"
               isOpen={active === "segmentation"}
               onToggle={toggleSection}
               filter={(p) => p.analysisType === "Segmentation"}
@@ -173,6 +193,7 @@ const Projects = () => {
               id="quantification"
               title="Quantification et analyse fonctionnelle"
               subtitle="Extraction de biomarqueurs quantitatifs avec contrôle méthodologique."
+              imageUrl="/images/axes/quantification.jpg"
               isOpen={active === "quantification"}
               onToggle={toggleSection}
               filter={(p) => p.analysisType === "Quantification"}
@@ -182,6 +203,7 @@ const Projects = () => {
               id="methodo"
               title="Méthodologie & outils transverses"
               subtitle="Recalage multimodal, prototypage et outils indépendants des solutions propriétaires."
+              imageUrl="/images/axes/methodo.jpg"
               isOpen={active === "methodo"}
               onToggle={toggleSection}
               filter={(p) =>
