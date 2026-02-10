@@ -19,14 +19,14 @@ function Section({
     <section className="space-y-6">
       <h2 className="text-xl font-medium">{title}</h2>
 
-      <div className="flex justify-center">
+      <div className="mx-auto">
         <div
           className="
-            grid gap-6
+            inline-grid
+            gap-6
             grid-cols-1
             sm:grid-cols-2
             lg:grid-cols-3
-            w-fit
           "
         >
           {items.map((project) => (
