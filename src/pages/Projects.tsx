@@ -28,20 +28,29 @@ function CollapsibleSection({
       {/* Header cliquable */}
       <button
         onClick={() => onToggle(id)}
-        className="w-full text-left space-y-2 group"
+        className={`
+          w-full text-left space-y-2 group
+          rounded-lg px-4 py-3
+          transition-colors duration-200
+          hover:bg-muted/30
+          ${isOpen ? "bg-muted/40" : ""}
+        `}
       >
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-semibold tracking-tight">
-            {title}
-          </h2>
+        <h2 className="
+          text-2xl font-semibold tracking-tight
+          group-hover:text-primary transition-colors
+        ">
+          {title}
+        </h2>
 
-          <span
+          <<span
             className={`
-              text-muted-foreground transition-transform duration-300
-              ${isOpen ? "rotate-90" : ""}
+              text-muted-foreground text-lg
+              transition-transform duration-300
             `}
           >
-            ▸
+            {isOpen ? "▾" : "▸"}
           </span>
         </div>
 
