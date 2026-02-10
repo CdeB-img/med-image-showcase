@@ -18,17 +18,20 @@ function Section({
   return (
     <section className="space-y-8 w-full">
       <h2 className="text-2xl font-medium text-center">{title}</h2>
-
-      {/* CHANGEMENT ICI :
-         On remplace 'grid' par 'flex'.
-         - flex-wrap : permet de passer à la ligne
-         - justify-center : centre les éléments horizontalement (la clé du succès !)
-         - gap-8 : garde l'espacement
-      */}
-      <div className="flex flex-wrap justify-center gap-8 mx-auto">
-        {items.map((project) => (
-          <ProjectCard key={project.id} project={project} />
-        ))}
+      <div className="flex justify-center">
+        <div
+          className="
+            inline-grid
+            grid-cols-1
+            sm:grid-cols-2
+            lg:grid-cols-3
+            gap-8
+          "
+        >
+          {items.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
+        </div>
       </div>
     </section>
   );
