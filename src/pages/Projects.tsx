@@ -3,40 +3,45 @@ import ProjectCard from "@/components/ProjectCard";
 import Footer from "@/components/Footer";
 
 /* ============================================================
-   SECTION
+   TYPES
 ============================================================ */
 
-function Section({
+type ProjectType = (typeof projects)[number];
+
+/* ============================================================
+   SECTION COMPONENT
+============================================================ */
+
+function ProjectSection({
   title,
+  description,
   filter,
 }: {
   title: string;
-  filter: (p: typeof projects[number]) => boolean;
+  description?: string;
+  filter: (p: ProjectType) => boolean;
 }) {
   const items = projects.filter(filter);
 
   if (!items.length) return null;
 
   return (
-    <section className="w-full max-w-6xl space-y-6">
-      <h2 className="text-xl font-medium text-center">
-        {title}
-      </h2>
+    <section className="space-y-6">
+      <div className="space-y-2">
+        <h2 className="text-xl font-semibold tracking-tight">
+          {title}
+        </h2>
 
-      <div
-        className="
-          grid gap-6
-          grid-cols-1
-          sm:grid-cols-2
-          lg:grid-cols-3
-          place-content-start
-          justify-items-center
-        "
-      >
+        {description && (
+          <p className="text-sm text-muted-foreground max-w-2xl">
+            {description}
+          </p>
+        )}
+      </div>
+
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {items.map((project) => (
-          <div key={project.id} className="w-full max-w-sm">
-            <ProjectCard project={project} />
-          </div>
+          <ProjectCard key={project.id} project={project} />
         ))}
       </div>
     </section>
@@ -50,42 +55,47 @@ function Section({
 const Projects = () => {
   return (
     <div className="min-h-screen flex flex-col">
-      <main className="flex-1 py-12">
-        <div className="container px-4 md:px-6 space-y-12 flex flex-col items-center">
+      <main className="flex-1 py-16">
+        <div className="container px-4 md:px-6 space-y-20">
 
-          {/* Header */}
+          {/* ================= HEADER ================= */}
           <section className="max-w-3xl space-y-4">
-            <h1 className="text-3xl font-semibold tracking-tight">
+            <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
               Projets & expertises en imagerie médicale
             </h1>
+
             <p className="text-muted-foreground leading-relaxed">
-              Vue structurée des projets et outils développés autour de l’imagerie
-              CT et IRM. Chaque projet illustre une problématique méthodologique
-              précise : segmentation, recalage, quantification ou prototypage.
+              Cette page présente une vue structurée des projets et outils
+              développés autour de l’imagerie CT et IRM.
+              Chaque projet illustre une problématique méthodologique précise :
+              segmentation, recalage, quantification ou prototypage d’outils
+              dédiés à la recherche clinique et translationnelle.
             </p>
           </section>
 
-          <Section
+          {/* ================= SEGMENTATION ================= */}
+          <ProjectSection
             title="Segmentation & analyse lésionnelle"
+            description="Méthodes de segmentation guidées par le signal, avec validation experte et contrôle physiopathologique."
             filter={(p) => p.analysisType === "Segmentation"}
           />
 
-
-          <Section
+          {/* ================= QUANTIFICATION ================= */}
+          <ProjectSection
             title="Quantification et analyse fonctionnelle"
+            description="Extraction de biomarqueurs quantitatifs à partir de données CT et IRM, avec contrôle méthodologique et reproductibilité."
             filter={(p) => p.analysisType === "Quantification"}
           />
 
-
-          <Section
+          {/* ================= OUTILS & MÉTHODOLOGIE ================= */}
+          <ProjectSection
             title="Méthodologie & outils transverses"
+            description="Outils de recalage, d’alignement multimodal et de prototypage méthodologique, indépendants des solutions propriétaires."
             filter={(p) =>
               p.analysisType === "Registration" ||
               p.analysisType === "Prototypage"
             }
           />
-
-
 
         </div>
       </main>
