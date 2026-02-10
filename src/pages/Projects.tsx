@@ -44,7 +44,7 @@ function ProjectSection({
             max-w-4xl
             rounded-2xl
             border border-border/60
-            bg-card/30
+            bg-card/10
             backdrop-blur
             px-10
             py-12
