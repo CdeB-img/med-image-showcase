@@ -66,16 +66,17 @@ function CollapsibleSection({
             <img
               src={iconImage}
               alt=""
+              loading="lazy"
               className="
-                w-12 h-12
-                rounded-md
+                w-16 h-16 sm:w-20 sm:h-20
+                rounded-lg
                 object-cover
                 border border-border/40
-                opacity-80
-                transition-all
+                opacity-85
+                transition-all duration-200
                 group-hover:opacity-100
+                group-hover:scale-[1.03]
               "
-              loading="lazy"
             />
 
             <span
