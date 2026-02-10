@@ -18,7 +18,7 @@ function Section({
   return (
     <section className="space-y-8 w-full">
       <h2 className="text-2xl font-medium text-center">{title}</h2>
-      <div className="flex justify-center">
+      <div className="flex center">
         <div
           className="
             inline-grid
