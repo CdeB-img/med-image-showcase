@@ -2,6 +2,49 @@ import { projects } from "@/data/projects";
 import ProjectCard from "@/components/ProjectCard";
 import Footer from "@/components/Footer";
 
+/* ============================================================
+   SECTION
+============================================================ */
+
+function Section({
+  title,
+  filter,
+}: {
+  title: string;
+  filter: (p: typeof projects[number]) => boolean;
+}) {
+  const items = projects.filter(filter);
+
+  if (!items.length) return null;
+
+  return (
+    <section className="space-y-6">
+      <h2 className="text-xl font-medium">{title}</h2>
+
+      <div
+        className="
+          grid gap-6
+          grid-cols-1
+          sm:grid-cols-2
+          lg:grid-cols-3
+          place-content-start
+          justify-items-center
+        "
+      >
+        {items.map((project) => (
+          <div key={project.id} className="w-full max-w-sm">
+            <ProjectCard project={project} />
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================
+   PAGE
+============================================================ */
+
 const Projects = () => {
   return (
     <div className="min-h-screen flex flex-col">
@@ -14,72 +57,31 @@ const Projects = () => {
               Projets & expertises en imagerie médicale
             </h1>
             <p className="text-muted-foreground leading-relaxed">
-              Cette page présente une vue structurée des projets et outils développés
-              autour de l’imagerie CT et IRM.  
-              Chaque projet illustre une problématique méthodologique précise :
-              segmentation, recalage, quantification ou prototypage d’outils dédiés.
+              Vue structurée des projets et outils développés autour de l’imagerie
+              CT et IRM. Chaque projet illustre une problématique méthodologique
+              précise : segmentation, recalage, quantification ou prototypage.
             </p>
           </section>
 
-          {/* Segmentation */}
-          <section className="space-y-6">
-            <h2 className="text-xl font-medium">
-              Segmentation & analyse lésionnelle
-            </h2>
+          <Section
+            title="Segmentation & analyse lésionnelle"
+            filter={(p) => p.analysisType === "Segmentation"}
+          />
 
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {projects
-                .filter(p => p.analysisType === "Segmentation")
-                .map(project => (
-                  <ProjectCard key={project.id} project={project} />
-                ))}
-            </div>
-          </section>
+          <Section
+            title="Recalage et alignement multimodal"
+            filter={(p) => p.analysisType === "Registration"}
+          />
 
-          {/* Registration */}
-          <section className="space-y-6">
-            <h2 className="text-xl font-medium">
-              Recalage et alignement multimodal
-            </h2>
+          <Section
+            title="Quantification et analyse fonctionnelle"
+            filter={(p) => p.analysisType === "Quantification"}
+          />
 
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {projects
-                .filter(p => p.analysisType === "Registration")
-                .map(project => (
-                  <ProjectCard key={project.id} project={project} />
-                ))}
-            </div>
-          </section>
-
-          {/* Quantification */}
-          <section className="space-y-6">
-            <h2 className="text-xl font-medium">
-              Quantification et analyse fonctionnelle
-            </h2>
-
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {projects
-                .filter(p => p.analysisType === "Quantification")
-                .map(project => (
-                  <ProjectCard key={project.id} project={project} />
-                ))}
-            </div>
-          </section>
-
-          {/* Outils */}
-          <section className="space-y-6">
-            <h2 className="text-xl font-medium">
-              Outils sur mesure & prototypage
-            </h2>
-
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {projects
-                .filter(p => p.analysisType === "Prototypage")
-                .map(project => (
-                  <ProjectCard key={project.id} project={project} />
-                ))}
-            </div>
-          </section>
+          <Section
+            title="Outils sur mesure & prototypage"
+            filter={(p) => p.analysisType === "Prototypage"}
+          />
 
         </div>
       </main>
