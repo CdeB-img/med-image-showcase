@@ -26,38 +26,49 @@ function CollapsibleSection({
   const items = projects.filter(filter);
 
   return (
-    <section className="w-full border-b border-border/40 pb-8">
+    <section className="w-full border-b border-border/40">
       {/* Header cliquable */}
       <button
         type="button"
         onClick={() => onToggle(id)}
         className={`
-          w-full text-left space-y-2 group
-          rounded-lg px-4 py-3
-          transition-colors duration-200
+          w-full text-left
+          rounded-lg px-4 py-4
+          transition-colors
           hover:bg-muted/30
           ${isOpen ? "bg-muted/40" : ""}
         `}
+        aria-expanded={isOpen}
       >
-        <div className="flex items-center justify-between">
-          <h2
-            className="
-              text-2xl font-semibold tracking-tight
-              transition-colors
-              group-hover:text-primary
-            "
-          >
-            {title}
-          </h2>
+        <div className="flex items-start justify-between gap-4">
+          <div className="space-y-1">
+            <h2 className="text-2xl font-semibold tracking-tight">
+              {title}
+            </h2>
 
-          <span className="text-muted-foreground text-lg transition-colors">
-            {isOpen ? "▾" : "▸"}
+            <p className="text-muted-foreground max-w-3xl">
+              {subtitle}
+            </p>
+          </div>
+
+          {/* Chevron */}
+          <span
+            className={`
+              text-2xl mt-1
+              text-muted-foreground
+              transition-transform duration-300
+              ${isOpen ? "rotate-90 text-primary" : ""}
+            `}
+            aria-hidden
+          >
+            ▸
           </span>
         </div>
 
-        <p className="text-muted-foreground max-w-3xl">
-          {subtitle}
-        </p>
+        {/* Indication mobile */}
+        <span className="block sm:hidden text-xs mt-2 text-muted-foreground/70">
+          Appuyer pour afficher les projets
+        </span>
       </button>
 
       {/* Contenu déroulant */}
@@ -67,7 +78,7 @@ function CollapsibleSection({
           ${isOpen ? "max-h-[2000px] opacity-100 mt-8" : "max-h-0 opacity-0"}
         `}
       >
-        <div className="flex flex-wrap justify-center gap-8">
+        <div className="flex flex-wrap justify-center gap-8 pb-8">
           {items.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
@@ -99,20 +110,18 @@ const Projects = () => {
             </h1>
 
             <p className="text-xl text-muted-foreground leading-relaxed">
-              Exemples de problématiques et d’approches méthodologiques en
-              imagerie CT et IRM, en contexte clinique et de recherche.
+              Exemples de problématiques et d’approches méthodologiques
+              en imagerie CT et IRM, en contexte clinique et de recherche.
             </p>
           </section>
 
           {/* ================= CONTEXTE ================= */}
-          <section
-            className="
-              max-w-4xl mx-auto
-              rounded-xl border border-border/50
-              bg-muted/20 px-8 py-6
-              text-muted-foreground leading-relaxed space-y-4
-            "
-          >
+          <section className="
+            max-w-4xl mx-auto
+            rounded-xl border border-border/50
+            bg-muted/20 px-8 py-6
+            text-muted-foreground leading-relaxed space-y-4
+          ">
             <p>
               Les projets présentés ci-dessous sont des exemples représentatifs.
               Ils ne constituent pas des solutions standardisées.
@@ -120,8 +129,8 @@ const Projects = () => {
 
             <p>
               Chaque collaboration débute par un échange afin de définir une
-              approche adaptée&nbsp;: segmentation, recalage, quantification ou
-              développement d’outils sur mesure.
+              approche adaptée&nbsp;: segmentation, recalage, quantification
+              ou développement d’outils sur mesure.
             </p>
 
             <p className="font-medium text-foreground pt-4 border-t border-border/40">
@@ -133,7 +142,8 @@ const Projects = () => {
           </section>
 
           {/* ================= AXES ================= */}
-          <div className="space-y-12">
+          <div className="space-y-8">
+
             <CollapsibleSection
               id="segmentation"
               title="Segmentation & analyse lésionnelle"
