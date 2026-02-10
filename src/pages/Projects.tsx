@@ -10,6 +10,7 @@ interface CollapsibleSectionProps {
   id: string;
   title: string;
   subtitle: string;
+  imageUrl?: string; // optionnel
   isOpen: boolean;
   onToggle: (id: string) => void;
   filter: (p: typeof projects[number]) => boolean;
@@ -23,24 +24,24 @@ function CollapsibleSection({
   isOpen,
   onToggle,
   filter,
-}: CollapsibleSectionProps & { imageUrl: string }) {
+}: CollapsibleSectionProps) {
   const items = projects.filter(filter);
 
   return (
     <section className="w-full border-b border-border/40">
-      {/* ===== HEADER CLIQUABLE ===== */}
+      {/* ================= HEADER CLIQUABLE ================= */}
       <button
         type="button"
         onClick={() => onToggle(id)}
+        aria-expanded={isOpen}
         className={`
           w-full text-left
-          rounded-lg px-4 py-4
+          rounded-xl px-5 py-5
           transition-all duration-200
           group
           hover:bg-muted/40
           ${isOpen ? "bg-muted/50" : ""}
         `}
-        aria-expanded={isOpen}
       >
         <div className="flex items-start justify-between gap-6">
           <div className="space-y-1">
@@ -59,53 +60,66 @@ function CollapsibleSection({
             </p>
           </div>
 
-          {/* Chevron toujours visible */}
+          {/* Chevron TOUJOURS visible */}
           <span
+            aria-hidden
             className={`
               text-2xl mt-1
-              transition-transform duration-300
+              transition-all duration-300
               ${isOpen
                 ? "rotate-90 text-primary"
                 : "text-muted-foreground group-hover:text-primary"}
             `}
-            aria-hidden
           >
             ▸
           </span>
         </div>
 
-        {/* ===== IMAGE TEASER ===== */}
-        <div className="mt-4">
-          <img
-            src={imageUrl}
-            alt=""
-            className="
-              w-full
-              h-32 sm:h-40
-              object-cover
-              rounded-md
-              opacity-80
-              transition-all duration-300
-              group-hover:opacity-100
-              group-hover:scale-[1.01]
-            "
-          />
+        {/* ================= IMAGE / TEASER ================= */}
+        <div className="mt-4 pointer-events-none">
+          {imageUrl ? (
+            <img
+              src={imageUrl}
+              alt=""
+              className="
+                w-full h-32 sm:h-40
+                object-cover rounded-md
+                opacity-80
+                transition-all duration-300
+                group-hover:opacity-100
+                group-hover:scale-[1.01]
+              "
+              loading="lazy"
+              onError={(e) => {
+                // fallback si image absente
+                (e.currentTarget as HTMLImageElement).style.display = "none";
+              }}
+            />
+          ) : (
+            <div
+              className="
+                w-full h-32 sm:h-40 rounded-md
+                bg-gradient-to-br from-muted/40 to-muted/10
+                border border-border/40
+              "
+            />
+          )}
         </div>
 
         {/* Indication mobile */}
-        <span className="block sm:hidden text-xs mt-2 text-muted-foreground/70">
+        <span className="block sm:hidden text-xs mt-3 text-muted-foreground/70">
           Appuyer pour afficher les projets
         </span>
       </button>
 
-      {/* ===== CONTENU DÉROULÉ ===== */}
+      {/* ================= CONTENU DÉROULÉ ================= */}
       <div
         className={`
           overflow-hidden transition-all duration-500 ease-in-out
           ${isOpen ? "max-h-[2000px] opacity-100 mt-8" : "max-h-0 opacity-0"}
         `}
       >
-        <div className="flex flex-wrap justify-center gap-8 pb-8">
+        <div className="flex flex-wrap justify-center gap-8 pb-10">
           {items.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
@@ -143,12 +157,14 @@ const Projects = () => {
           </section>
 
           {/* ================= CONTEXTE ================= */}
-          <section className="
-            max-w-4xl mx-auto
-            rounded-xl border border-border/50
-            bg-muted/20 px-8 py-6
-            text-muted-foreground leading-relaxed space-y-4
-          ">
+          <section
+            className="
+              max-w-4xl mx-auto
+              rounded-xl border border-border/50
+              bg-muted/20 px-8 py-6
+              text-muted-foreground leading-relaxed space-y-4
+            "
+          >
             <p>
               Les projets présentés ci-dessous sont des exemples représentatifs.
               Ils ne constituent pas des solutions standardisées.
