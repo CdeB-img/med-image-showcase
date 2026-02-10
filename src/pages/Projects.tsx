@@ -1,4 +1,4 @@
-import { projects, projectsEditorial } from "@/data/projects";
+import { projects } from "@/data/projects";
 import ProjectCard from "@/components/ProjectCard";
 import Footer from "@/components/Footer";
 
@@ -38,11 +38,19 @@ const Projects = () => {
             </h1>
           </section>
 
-          {/* EDITORIAL */}
           <section className="max-w-4xl mx-auto space-y-4 text-muted-foreground leading-relaxed">
-            {projectsEditorial.intro.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
+            <p>
+              Les projets présentés sur cette page sont des exemples représentatifs de
+              problématiques rencontrées en imagerie médicale (CT, IRM, multimodal).
+            </p>
+            <p>
+              Ils ne constituent pas des solutions figées ni des produits standardisés.
+              Chaque projet fait l’objet d’une analyse spécifique et d’un échange préalable.
+            </p>
+            <p>
+              Les aspects pratiques, y compris le cadre tarifaire, sont abordés de manière
+              simple, transparente et proportionnée selon le projet.
+            </p>
           </section>
 
           {/* SECTIONS */}
