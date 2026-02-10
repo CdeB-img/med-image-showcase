@@ -69,18 +69,16 @@ const Projects = () => {
           />
 
           <Section
-            title="Recalage et alignement multimodal"
-            filter={(p) => p.analysisType === "Registration"}
+            title="Méthodologie & outils transverses"
+            filter={(p) =>
+              p.analysisType === "Registration" ||
+              p.analysisType === "Prototypage"
+            }
           />
 
           <Section
             title="Quantification et analyse fonctionnelle"
             filter={(p) => p.analysisType === "Quantification"}
-          />
-
-          <Section
-            title="Outils sur mesure & prototypage"
-            filter={(p) => p.analysisType === "Prototypage"}
           />
 
         </div>
