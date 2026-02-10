@@ -10,7 +10,7 @@ interface CollapsibleSectionProps {
   id: string;
   title: string;
   subtitle: string;
-  imageUrl?: string;
+  iconImage: string;
   isOpen: boolean;
   onToggle: (id: string) => void;
   filter: (p: typeof projects[number]) => boolean;
@@ -20,7 +20,7 @@ function CollapsibleSection({
   id,
   title,
   subtitle,
-  imageUrl,
+  iconImage,
   isOpen,
   onToggle,
   filter,
@@ -43,7 +43,8 @@ function CollapsibleSection({
           ${isOpen ? "bg-muted/50" : ""}
         `}
       >
-        <div className="flex items-start justify-between gap-6">
+        <div className="flex items-start justify-between gap-4">
+          {/* Texte */}
           <div className="space-y-1">
             <h2
               className="
@@ -60,50 +61,36 @@ function CollapsibleSection({
             </p>
           </div>
 
-          {/* Chevron toujours visible */}
-          <span
-            aria-hidden
-            className={`
-              text-2xl mt-1
-              transition-transform duration-300
-              ${isOpen
-                ? "rotate-90 text-primary"
-                : "text-muted-foreground group-hover:text-primary"}
-            `}
-          >
-            ▸
-          </span>
-        </div>
-
-        {/* ================= IMAGE TEASER ================= */}
-        <div className="mt-4 pointer-events-none">
-          {imageUrl ? (
+          {/* Icône + chevron */}
+          <div className="flex items-center gap-3 shrink-0">
             <img
-              src={imageUrl}
+              src={iconImage}
               alt=""
-              loading="lazy"
               className="
-                w-full h-32 sm:h-40
-                object-cover rounded-md
-                opacity-80 grayscale
-                transition-all duration-300
-                group-hover:opacity-100
-                group-hover:grayscale-0
-                group-hover:scale-[1.01]
-              "
-              onError={(e) => {
-                e.currentTarget.style.display = "none";
-              }}
-            />
-          ) : (
-            <div
-              className="
-                w-full h-32 sm:h-40 rounded-md
-                bg-gradient-to-br from-muted/40 to-muted/10
+                w-12 h-12
+                rounded-md
+                object-cover
                 border border-border/40
+                opacity-80
+                transition-all
+                group-hover:opacity-100
               "
+              loading="lazy"
             />
-          )}
+
+            <span
+              aria-hidden
+              className={`
+                text-2xl
+                transition-transform duration-300
+                ${isOpen
+                  ? "rotate-90 text-primary"
+                  : "text-muted-foreground group-hover:text-primary"}
+              `}
+            >
+              ▸
+            </span>
+          </div>
         </div>
 
         {/* Indication mobile */}
@@ -188,32 +175,36 @@ const Projects = () => {
           </section>
 
           {/* ================= AXES ================= */}
-          <div className="space-y-8">
+          <div className="space-y-6">
+
+            {/* SEGMENTATION → neuro-onco */}
             <CollapsibleSection
               id="segmentation"
               title="Segmentation & analyse lésionnelle"
               subtitle="Approches guidées par le signal, validées sur données cliniques réelles."
-              imageUrl="/images/axes/segmentation.jpg"
+              iconImage="https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images/projets/neuro-onco.png"
               isOpen={active === "segmentation"}
               onToggle={toggleSection}
               filter={(p) => p.analysisType === "Segmentation"}
             />
 
+            {/* QUANTIFICATION → CT scan expertise */}
             <CollapsibleSection
               id="quantification"
               title="Quantification et analyse fonctionnelle"
               subtitle="Extraction de biomarqueurs quantitatifs avec contrôle méthodologique."
-              imageUrl="/images/axes/quantification.jpg"
+              iconImage="https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images/projets/ct.png"
               isOpen={active === "quantification"}
               onToggle={toggleSection}
               filter={(p) => p.analysisType === "Quantification"}
             />
 
+            {/* MÉTHODO → coregistration */}
             <CollapsibleSection
               id="methodo"
               title="Méthodologie & outils transverses"
               subtitle="Recalage multimodal, prototypage et outils indépendants des solutions propriétaires."
-              imageUrl="/images/axes/methodo.jpg"
+              iconImage="https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images/projets/registration.png"
               isOpen={active === "methodo"}
               onToggle={toggleSection}
               filter={(p) =>
