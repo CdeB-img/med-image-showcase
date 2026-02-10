@@ -6,6 +6,15 @@ import Footer from "@/components/Footer";
 /* ============================================================
    COLLAPSIBLE SECTION
 ============================================================ */
+interface CollapsibleSectionProps {
+  id: string;
+  title: string;
+  subtitle: string;
+  isOpen: boolean;
+  onToggle: (id: string) => void;
+  filter: (p: typeof projects[number]) => boolean;
+}
+
 function CollapsibleSection({
   id,
   title,
@@ -13,20 +22,14 @@ function CollapsibleSection({
   isOpen,
   onToggle,
   filter,
-}: {
-  id: string;
-  title: string;
-  subtitle: string;
-  isOpen: boolean;
-  onToggle: (id: string) => void;
-  filter: (p: typeof projects[number]) => boolean;
-}) {
+}: CollapsibleSectionProps) {
   const items = projects.filter(filter);
 
   return (
     <section className="w-full border-b border-border/40 pb-8">
       {/* Header cliquable */}
       <button
+        type="button"
         onClick={() => onToggle(id)}
         className={`
           w-full text-left space-y-2 group
@@ -37,19 +40,17 @@ function CollapsibleSection({
         `}
       >
         <div className="flex items-center justify-between">
-        <h2 className="
-          text-2xl font-semibold tracking-tight
-          group-hover:text-primary transition-colors
-        ">
-          {title}
-        </h2>
-
-          <<span
-            className={`
-              text-muted-foreground text-lg
-              transition-transform duration-300
-            `}
+          <h2
+            className="
+              text-2xl font-semibold tracking-tight
+              transition-colors
+              group-hover:text-primary
+            "
           >
+            {title}
+          </h2>
+
+          <span className="text-muted-foreground text-lg transition-colors">
             {isOpen ? "▾" : "▸"}
           </span>
         </div>
@@ -104,7 +105,14 @@ const Projects = () => {
           </section>
 
           {/* ================= CONTEXTE ================= */}
-          <section className="max-w-4xl mx-auto rounded-xl border border-border/50 bg-muted/20 px-8 py-6 text-muted-foreground leading-relaxed space-y-4">
+          <section
+            className="
+              max-w-4xl mx-auto
+              rounded-xl border border-border/50
+              bg-muted/20 px-8 py-6
+              text-muted-foreground leading-relaxed space-y-4
+            "
+          >
             <p>
               Les projets présentés ci-dessous sont des exemples représentatifs.
               Ils ne constituent pas des solutions standardisées.
@@ -126,7 +134,6 @@ const Projects = () => {
 
           {/* ================= AXES ================= */}
           <div className="space-y-12">
-
             <CollapsibleSection
               id="segmentation"
               title="Segmentation & analyse lésionnelle"
