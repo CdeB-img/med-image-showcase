@@ -39,14 +39,21 @@ function ProjectSection({
       <div className="flex justify-center">
         <div
           className="
-            grid
-            grid-cols-1
-            gap-6
-            sm:grid-cols-2
-            lg:grid-cols-3
+            mx-auto
             w-full
-            max-w-5xl
+            max-w-6xl
+            rounded-2xl
+            border border-border/60
+            bg-card/30
+            backdrop-blur
+            px-10
+            py-12
+            flex
+            flex-col
+            items-center
+            gap-24
           "
+        >
         >
           {items.map((project) => (
             <ProjectCard key={project.id} project={project} />
