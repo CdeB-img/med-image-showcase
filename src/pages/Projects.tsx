@@ -74,7 +74,9 @@ const Projects = () => {
             filter={(p) => p.analysisType === "Quantification"}
           />
 
-          
+          {/* Séparation forte avant la couche méthodologique */}
+          <div className="pt-12 border-t border-border/60" />
+
           <Section
             title="Méthodologie & outils transverses"
             filter={(p) =>
