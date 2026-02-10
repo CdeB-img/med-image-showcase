@@ -21,14 +21,14 @@ function ProjectSection({
   if (!items.length) return null;
 
   return (
-    <section className="space-y-8">
-      <div className="space-y-2 text-center">
+    <section className="space-y-6">
+      <div className="space-y-2">
         <h2 className="text-xl font-semibold tracking-tight">
           {title}
         </h2>
 
         {description && (
-          <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-sm text-muted-foreground max-w-2xl">
             {description}
           </p>
         )}
@@ -53,16 +53,16 @@ const Projects = () => {
       <main className="flex-1 py-16">
         <div className="container px-4 md:px-6">
 
-          {/* === COLONNE CENTRALE VISUELLE === */}
-          <div className="mx-auto max-w-5xl space-y-24">
+          {/* === COLONNE CENTRALE === */}
+          <div className="mx-auto max-w-6xl space-y-20">
 
             {/* ================= HEADER ================= */}
-            <section className="text-center space-y-4">
+            <section className="space-y-4">
               <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
                 Projets & expertises en imagerie médicale
               </h1>
 
-              <p className="text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+              <p className="text-muted-foreground leading-relaxed max-w-3xl">
                 Vue structurée des projets et outils développés autour de
                 l’imagerie CT et IRM. Chaque projet illustre une problématique
                 méthodologique précise : segmentation, recalage, quantification
