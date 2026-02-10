@@ -29,7 +29,18 @@ const slices = (basePath: string, count = 16): string[] =>
   Array.from({ length: count }, (_, i) =>
     `${RAW_BASE}/${basePath}/slice_${String(i).padStart(3, "0")}.png`
   );
+// ============================================================
+// EDITORIAL – PAGE PROJETS
+// ============================================================
 
+export const projectsEditorial = {
+  intro: [
+    "Les projets présentés sur cette page constituent des exemples représentatifs de problématiques rencontrées en imagerie médicale (CT, IRM, multimodal).",
+    "Ils ne doivent pas être interprétés comme des solutions figées ou des produits standardisés.",
+    "Chaque projet débute par une phase d’échange afin de définir une approche méthodologique adaptée : segmentation, recalage, quantification ou développement d’outils sur mesure.",
+    "Les aspects pratiques, y compris le cadre tarifaire, sont abordés de manière transparente et proportionnée selon la nature et les contraintes du projet."
+  ],
+};
 // ============================================================
 // PROJECTS
 // ============================================================
