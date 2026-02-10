@@ -19,17 +19,13 @@ function Section({
     <section className="space-y-8 w-full">
       <h2 className="text-2xl font-medium text-center">{title}</h2>
 
-      <div
-        className="
-          grid
-          gap-8
-          grid-cols-1
-          sm:grid-cols-2
-          lg:grid-cols-3
-          place-items-center /* Centre horizontalement et verticalement dans la cellule */
-          mx-auto
-        "
-      >
+      {/* CHANGEMENT ICI :
+         On remplace 'grid' par 'flex'.
+         - flex-wrap : permet de passer à la ligne
+         - justify-center : centre les éléments horizontalement (la clé du succès !)
+         - gap-8 : garde l'espacement
+      */}
+      <div className="flex flex-wrap justify-center gap-8 mx-auto">
         {items.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}
