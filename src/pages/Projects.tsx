@@ -2,10 +2,6 @@ import { projects } from "@/data/projects";
 import ProjectCard from "@/components/ProjectCard";
 import Footer from "@/components/Footer";
 
-/* ============================================================
-   TYPES
-============================================================ */
-
 type ProjectType = (typeof projects)[number];
 
 /* ============================================================
@@ -25,7 +21,7 @@ function ProjectSection({
   if (!items.length) return null;
 
   return (
-    <section className="space-y-6">
+    <section className="space-y-8">
       <div className="space-y-2 text-center">
         <h2 className="text-xl font-semibold tracking-tight">
           {title}
@@ -55,23 +51,22 @@ const Projects = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <main className="flex-1 py-16">
-        {/* container plein écran */}
         <div className="container px-4 md:px-6">
-          
-          {/* colonne centrale */}
-          <div className="mx-auto max-w-6xl space-y-20">
+
+          {/* === COLONNE CENTRALE VISUELLE === */}
+          <div className="mx-auto max-w-5xl space-y-24">
 
             {/* ================= HEADER ================= */}
-            <section className="max-w-3xl mx-auto space-y-4 text-center">
+            <section className="text-center space-y-4">
               <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
                 Projets & expertises en imagerie médicale
               </h1>
 
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed max-w-3xl mx-auto">
                 Vue structurée des projets et outils développés autour de
-                l’imagerie CT et IRM.  
-                Chaque projet illustre une problématique méthodologique précise :
-                segmentation, recalage, quantification ou prototypage.
+                l’imagerie CT et IRM. Chaque projet illustre une problématique
+                méthodologique précise : segmentation, recalage, quantification
+                ou prototypage.
               </p>
             </section>
 
