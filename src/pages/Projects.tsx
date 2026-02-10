@@ -22,7 +22,7 @@ function ProjectSection({
 
   return (
     <section className="space-y-8">
-      {/* ----- Titre & description (alignés à gauche) ----- */}
+      {/* ----- Titre & description ----- */}
       <div className="space-y-2">
         <h2 className="text-xl font-semibold tracking-tight">
           {title}
@@ -35,23 +35,17 @@ function ProjectSection({
         )}
       </div>
 
-      {/* ----- Grille centrée en bloc ----- */}
+      {/* ----- Grille centrée dans le cadre ----- */}
       <div className="flex justify-center">
         <div
           className="
-            mx-auto
+            grid
+            grid-cols-1
+            sm:grid-cols-2
+            lg:grid-cols-3
+            gap-6
             w-full
-            max-w-4xl
-            rounded-2xl
-            border border-border/60
-            bg-card/10
-            backdrop-blur
-            px-10
-            py-12
-            flex
-            flex-col
-            items-center
-            gap-24
+            max-w-5xl
           "
         >
           {items.map((project) => (
@@ -62,7 +56,6 @@ function ProjectSection({
     </section>
   );
 }
-
 /* ============================================================
    PAGE
 ============================================================ */
