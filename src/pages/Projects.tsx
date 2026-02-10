@@ -68,6 +68,13 @@ const Projects = () => {
             filter={(p) => p.analysisType === "Segmentation"}
           />
 
+
+          <Section
+            title="Quantification et analyse fonctionnelle"
+            filter={(p) => p.analysisType === "Quantification"}
+          />
+
+          
           <Section
             title="Méthodologie & outils transverses"
             filter={(p) =>
@@ -76,10 +83,7 @@ const Projects = () => {
             }
           />
 
-          <Section
-            title="Quantification et analyse fonctionnelle"
-            filter={(p) => p.analysisType === "Quantification"}
-          />
+
 
         </div>
       </main>
