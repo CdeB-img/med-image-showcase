@@ -3,7 +3,7 @@ import ProjectCard from "@/components/ProjectCard";
 import Footer from "@/components/Footer";
 
 /* ============================================================
-   SECTION - Centrage de la grille et des titres
+   SECTION - Nettoyée pour le centrage
 ============================================================ */
 function Section({
   title,
@@ -16,60 +16,51 @@ function Section({
   if (!items.length) return null;
 
   return (
-    <section className="space-y-6 flex flex-col items-center">
-      {/* Titre centré */}
-      <h2 className="text-xl font-medium text-center">{title}</h2>
+    <section className="space-y-8 w-full">
+      <h2 className="text-2xl font-medium text-center">{title}</h2>
 
-      {/* Le conteneur de la grille doit être mx-auto et justify-center */}
-      <div className="w-full flex justify-center">
-        <div
-          className="
-            grid
-            gap-8
-            grid-cols-1
-            sm:grid-cols-2
-            lg:grid-cols-3
-            justify-center    /* Centre les colonnes elles-mêmes */
-            justify-items-center /* Centre les cartes dans les colonnes */
-            w-fit             /* Important : la grille ne prend que la place nécessaire */
-          "
-        >
-          {items.map((project) => (
-            <div key={project.id} className="flex justify-center w-full">
-              <ProjectCard project={project} />
-            </div>
-          ))}
-        </div>
+      <div
+        className="
+          grid
+          gap-8
+          grid-cols-1
+          sm:grid-cols-2
+          lg:grid-cols-3
+          place-items-center /* Centre horizontalement et verticalement dans la cellule */
+          mx-auto
+        "
+      >
+        {items.map((project) => (
+          <ProjectCard key={project.id} project={project} />
+        ))}
       </div>
     </section>
   );
 }
 
-
 /* ============================================================
-   PAGE - Centrage du layout global
+   PAGE - Structure simplifiée
 ============================================================ */
 const Projects = () => {
   return (
-    <div className="min-h-screen flex flex-col">
-      <main className="flex-1 py-12">
-        {/* Ajout de mx-auto pour centrer le container */}
-        <div className="container mx-auto px-4 md:px-6 space-y-16">
+    <div className="min-h-screen flex flex-col bg-background">
+      <main className="flex-1 py-16 px-4">
+        {/* On remplace container par un max-width explicite */}
+        <div className="max-w-7xl mx-auto w-full space-y-20">
 
-          {/* Header - Ajout de mx-auto et text-center */}
-          <section className="max-w-3xl mx-auto space-y-4 text-center">
-            <h1 className="text-3xl font-semibold tracking-tight">
+          {/* Header */}
+          <section className="max-w-3xl mx-auto space-y-6 text-center">
+            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
               Projets & expertises en imagerie médicale
             </h1>
-            <p className="text-muted-foreground leading-relaxed">
+            <p className="text-xl text-muted-foreground leading-relaxed">
               Vue structurée des projets et outils développés autour de l’imagerie
               CT et IRM. Chaque projet illustre une problématique méthodologique
-              précise : segmentation, recalage, quantification ou prototypage.
+              précise.
             </p>
           </section>
 
-          {/* Wrapper pour l'espacement des sections */}
-          <div className="space-y-16">
+          <div className="space-y-24">
             <Section
               title="Segmentation & analyse lésionnelle"
               filter={(p) => p.analysisType === "Segmentation"}
@@ -95,5 +86,4 @@ const Projects = () => {
     </div>
   );
 };
-
 export default Projects;
