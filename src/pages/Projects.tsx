@@ -3,7 +3,7 @@ import ProjectCard from "@/components/ProjectCard";
 import Footer from "@/components/Footer";
 
 /* ============================================================
-   SECTION
+   SECTION — LISTE DE PROJETS
 ============================================================ */
 function Section({
   title,
@@ -16,7 +16,7 @@ function Section({
   if (!items.length) return null;
 
   return (
-    <section className="space-y-8 w-full">
+    <section className="space-y-10 w-full">
       <h2 className="text-2xl font-semibold tracking-tight text-center">
         {title}
       </h2>
@@ -31,73 +31,80 @@ function Section({
 }
 
 /* ============================================================
-   PAGE
+   PAGE — PROJETS
 ============================================================ */
 const Projects = () => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <main className="flex-1 py-16 px-4">
-        <div className="max-w-7xl mx-auto w-full space-y-24">
+      <main className="flex-1 py-20 px-4">
+        <div className="max-w-7xl mx-auto w-full space-y-28">
 
-          {/* ================= HEADER ================= */}
+          {/* ================= TITRE ================= */}
           <section className="max-w-3xl mx-auto space-y-6 text-center">
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
+            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
               Projets & expertises en imagerie médicale
             </h1>
 
             <p className="text-xl text-muted-foreground leading-relaxed">
-              Vue structurée de projets et d’outils développés autour de
-              l’imagerie CT et IRM, en contexte clinique et de recherche.
+              Exemples de projets et d’outils développés en imagerie CT et IRM,
+              en contexte clinique et de recherche.
             </p>
           </section>
 
-          {/* ================= CONTEXTE ÉDITORIAL ================= */}
-          <section className="
-            max-w-4xl mx-auto
-            space-y-5
-            rounded-xl
-            border border-border/50
-            bg-muted/20
-            px-8 py-6
-            text-muted-foreground
-            leading-relaxed
-            text-left
-          ">
-            <p>
-              Les projets présentés sur cette page constituent des exemples
-              représentatifs de problématiques rencontrées en imagerie médicale
-              (CT, IRM, multimodal).
-            </p>
+          {/* ================= POSITIONNEMENT ================= */}
+          <section className="max-w-4xl mx-auto space-y-6">
+            <div className="
+              rounded-2xl
+              border border-border/50
+              bg-muted/20
+              px-8 py-8
+              text-muted-foreground
+              leading-relaxed
+            ">
+              <p>
+                <span className="font-medium text-foreground">
+                  Des exemples concrets, pas des solutions génériques.
+                </span>{" "}
+                Les projets présentés ici illustrent des problématiques
+                fréquemment rencontrées en imagerie médicale
+                (CT, IRM, multimodal).
+              </p>
 
-            <p>
-              Ils ne correspondent pas à des solutions figées ni à des produits
-              standardisés. Chaque étude, chaque jeu de données et chaque
-              contexte clinique ou de recherche présente des contraintes
-              spécifiques.
-            </p>
+              <p>
+                Ils ne constituent ni des produits standardisés ni des réponses
+                figées. Chaque étude, chaque jeu de données et chaque contexte
+                clinique ou de recherche impose des contraintes spécifiques.
+              </p>
 
-            <p>
-              La démarche repose avant tout sur l’échange et la compréhension du
-              besoin réel afin de définir une approche adaptée&nbsp;:
-              segmentation, recalage, quantification, développement d’outils sur
-              mesure ou accompagnement méthodologique.
-            </p>
+              <p>
+                La démarche repose avant tout sur l’échange et la compréhension
+                du besoin réel afin de définir une approche adaptée&nbsp;:
+                segmentation, recalage, quantification, développement d’outils
+                sur mesure ou accompagnement méthodologique.
+              </p>
 
-            <p>
-              Les aspects pratiques — périmètre, délais et cadre tarifaire — sont
-              abordés de manière simple, transparente et proportionnée, en
-              fonction du projet et de ses objectifs.
-            </p>
+              <p>
+                Les aspects pratiques — périmètre, délais et cadre tarifaire —
+                sont abordés de manière simple, transparente et proportionnée,
+                en fonction du projet et de ses objectifs.
+              </p>
 
-            <p className="font-medium text-foreground pt-4 border-t border-border/40">
-              Ces exemples servent de point de départ.  
-              <span className="text-primary">
-                Un échange permet d’évaluer rapidement la faisabilité et les options possibles.
-              </span>
-            </p>
+              <p className="pt-6 mt-6 border-t border-border/40 font-medium text-foreground">
+                Ces exemples servent de point de départ.{" "}
+                <span className="text-primary">
+                  Un échange permet d’évaluer rapidement la faisabilité et les
+                  options possibles.
+                </span>
+              </p>
+            </div>
           </section>
 
-          {/* ================= SECTIONS ================= */}
+          {/* ================= SÉPARATEUR ================= */}
+          <div className="flex justify-center">
+            <div className="h-px w-24 bg-border/60" />
+          </div>
+
+          {/* ================= PROJETS ================= */}
           <Section
             title="Segmentation & analyse lésionnelle"
             filter={(p) => p.analysisType === "Segmentation"}
