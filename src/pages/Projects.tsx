@@ -17,7 +17,7 @@ function Section({
 
   return (
     <section className="space-y-8 w-full">
-      <h2 className="text-2xl font-medium text-center">
+      <h2 className="text-2xl font-semibold tracking-tight text-center">
         {title}
       </h2>
 
@@ -52,7 +52,17 @@ const Projects = () => {
           </section>
 
           {/* ================= CONTEXTE ÉDITORIAL ================= */}
-          <section className="max-w-4xl mx-auto space-y-4 text-muted-foreground leading-relaxed text-center">
+          <section className="
+            max-w-4xl mx-auto
+            space-y-5
+            rounded-xl
+            border border-border/50
+            bg-muted/20
+            px-8 py-6
+            text-muted-foreground
+            leading-relaxed
+            text-left
+          ">
             <p>
               Les projets présentés sur cette page constituent des exemples
               représentatifs de problématiques rencontrées en imagerie médicale
@@ -79,9 +89,11 @@ const Projects = () => {
               fonction du projet et de ses objectifs.
             </p>
 
-            <p className="font-medium text-foreground">
-              Ces exemples servent de point de départ&nbsp;: un échange permet
-              d’évaluer rapidement la faisabilité et les options possibles.
+            <p className="font-medium text-foreground pt-4 border-t border-border/40">
+              Ces exemples servent de point de départ.  
+              <span className="text-primary">
+                Un échange permet d’évaluer rapidement la faisabilité et les options possibles.
+              </span>
             </p>
           </section>
 
