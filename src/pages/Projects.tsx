@@ -21,30 +21,31 @@ function ProjectSection({
   if (!items.length) return null;
 
   return (
-    <section className="space-y-6">
-      {/* ---- Header de section ---- */}
+    <section className="space-y-8">
+      {/* ----- Titre & description (alignés à gauche) ----- */}
       <div className="space-y-2">
         <h2 className="text-xl font-semibold tracking-tight">
           {title}
         </h2>
 
         {description && (
-          <p className="text-sm text-muted-foreground max-w-2xl">
+          <p className="text-sm text-muted-foreground max-w-3xl">
             {description}
           </p>
         )}
       </div>
 
-      {/* ---- Grille centrée en bloc ---- */}
+      {/* ----- Grille centrée en bloc ----- */}
       <div className="flex justify-center">
         <div
           className="
-            grid gap-6
+            grid
             grid-cols-1
+            gap-6
             sm:grid-cols-2
             lg:grid-cols-3
-            max-w-5xl
             w-full
+            max-w-5xl
           "
         >
           {items.map((project) => (
@@ -63,20 +64,22 @@ function ProjectSection({
 const Projects = () => {
   return (
     <div className="min-h-screen flex flex-col">
-      <main className="flex-1 py-16">
-        <div className="container px-4 md:px-6">
-
-          {/* ======= CADRE CENTRAL ======= */}
+      <main className="flex-1 py-20">
+        {/* ====================================================
+            CONTENEUR CENTRAL UNIQUE
+           ==================================================== */}
+        <div className="flex justify-center px-4">
           <div
             className="
-              mx-auto
+              w-full
               max-w-6xl
-              space-y-20
+              space-y-24
               rounded-2xl
               border border-border/60
               bg-card/30
               backdrop-blur
-              p-10
+              px-10
+              py-12
             "
           >
             {/* ================= HEADER ================= */}
@@ -85,7 +88,7 @@ const Projects = () => {
                 Projets & expertises en imagerie médicale
               </h1>
 
-              <p className="text-muted-foreground leading-relaxed max-w-3xl">
+              <p className="text-muted-foreground leading-relaxed max-w-4xl">
                 Vue structurée des projets et outils développés autour de
                 l’imagerie CT et IRM. Chaque projet illustre une problématique
                 méthodologique précise : segmentation, recalage, quantification
