@@ -1,127 +1,153 @@
+import { useState } from "react";
 import { projects } from "@/data/projects";
 import ProjectCard from "@/components/ProjectCard";
 import Footer from "@/components/Footer";
 
 /* ============================================================
-   SECTION — LISTE DE PROJETS
+   COLLAPSIBLE SECTION
 ============================================================ */
-function Section({
+function CollapsibleSection({
+  id,
   title,
+  subtitle,
+  isOpen,
+  onToggle,
   filter,
 }: {
+  id: string;
   title: string;
+  subtitle: string;
+  isOpen: boolean;
+  onToggle: (id: string) => void;
   filter: (p: typeof projects[number]) => boolean;
 }) {
   const items = projects.filter(filter);
-  if (!items.length) return null;
 
   return (
-    <section className="space-y-10 w-full">
-      <h2 className="text-2xl font-semibold tracking-tight text-center">
-        {title}
-      </h2>
+    <section className="w-full border-b border-border/40 pb-8">
+      {/* Header cliquable */}
+      <button
+        onClick={() => onToggle(id)}
+        className="w-full text-left space-y-2 group"
+      >
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-semibold tracking-tight">
+            {title}
+          </h2>
 
-      <div className="flex flex-wrap justify-center gap-8">
-        {items.map((project) => (
-          <ProjectCard key={project.id} project={project} />
-        ))}
+          <span
+            className={`
+              text-muted-foreground transition-transform duration-300
+              ${isOpen ? "rotate-90" : ""}
+            `}
+          >
+            ▸
+          </span>
+        </div>
+
+        <p className="text-muted-foreground max-w-3xl">
+          {subtitle}
+        </p>
+      </button>
+
+      {/* Contenu déroulant */}
+      <div
+        className={`
+          overflow-hidden transition-all duration-500 ease-in-out
+          ${isOpen ? "max-h-[2000px] opacity-100 mt-8" : "max-h-0 opacity-0"}
+        `}
+      >
+        <div className="flex flex-wrap justify-center gap-8">
+          {items.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
+        </div>
       </div>
     </section>
   );
 }
 
 /* ============================================================
-   PAGE — PROJETS
+   PAGE
 ============================================================ */
 const Projects = () => {
+  const [active, setActive] = useState<string | null>(null);
+
+  const toggleSection = (id: string) => {
+    setActive((prev) => (prev === id ? null : id));
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <main className="flex-1 py-20 px-4">
-        <div className="max-w-7xl mx-auto w-full space-y-28">
+        <div className="max-w-6xl mx-auto space-y-24">
 
-          {/* ================= TITRE ================= */}
-          <section className="max-w-3xl mx-auto space-y-6 text-center">
+          {/* ================= HEADER ================= */}
+          <section className="max-w-3xl mx-auto text-center space-y-6">
             <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
               Projets & expertises en imagerie médicale
             </h1>
 
             <p className="text-xl text-muted-foreground leading-relaxed">
-              Exemples de projets et d’outils développés en imagerie CT et IRM,
-              en contexte clinique et de recherche.
+              Exemples de problématiques et d’approches méthodologiques en
+              imagerie CT et IRM, en contexte clinique et de recherche.
             </p>
           </section>
 
-          {/* ================= POSITIONNEMENT ================= */}
-          <section className="max-w-4xl mx-auto space-y-6">
-            <div className="
-              rounded-2xl
-              border border-border/50
-              bg-muted/20
-              px-8 py-8
-              text-muted-foreground
-              leading-relaxed
-            ">
-              <p>
-                <span className="font-medium text-foreground">
-                  Des exemples concrets, pas des solutions génériques.
-                </span>{" "}
-                Les projets présentés ici illustrent des problématiques
-                fréquemment rencontrées en imagerie médicale
-                (CT, IRM, multimodal).
-              </p>
+          {/* ================= CONTEXTE ================= */}
+          <section className="max-w-4xl mx-auto rounded-xl border border-border/50 bg-muted/20 px-8 py-6 text-muted-foreground leading-relaxed space-y-4">
+            <p>
+              Les projets présentés ci-dessous sont des exemples représentatifs.
+              Ils ne constituent pas des solutions standardisées.
+            </p>
 
-              <p>
-                Ils ne constituent ni des produits standardisés ni des réponses
-                figées. Chaque étude, chaque jeu de données et chaque contexte
-                clinique ou de recherche impose des contraintes spécifiques.
-              </p>
+            <p>
+              Chaque collaboration débute par un échange afin de définir une
+              approche adaptée&nbsp;: segmentation, recalage, quantification ou
+              développement d’outils sur mesure.
+            </p>
 
-              <p>
-                La démarche repose avant tout sur l’échange et la compréhension
-                du besoin réel afin de définir une approche adaptée&nbsp;:
-                segmentation, recalage, quantification, développement d’outils
-                sur mesure ou accompagnement méthodologique.
-              </p>
-
-              <p>
-                Les aspects pratiques — périmètre, délais et cadre tarifaire —
-                sont abordés de manière simple, transparente et proportionnée,
-                en fonction du projet et de ses objectifs.
-              </p>
-
-              <p className="pt-6 mt-6 border-t border-border/40 font-medium text-foreground">
-                Ces exemples servent de point de départ.{" "}
-                <span className="text-primary">
-                  Un échange permet d’évaluer rapidement la faisabilité et les
-                  options possibles.
-                </span>
-              </p>
-            </div>
+            <p className="font-medium text-foreground pt-4 border-t border-border/40">
+              Ces exemples servent de point de départ.
+              <span className="text-primary">
+                {" "}Un échange permet d’évaluer rapidement la faisabilité.
+              </span>
+            </p>
           </section>
 
-          {/* ================= SÉPARATEUR ================= */}
-          <div className="flex justify-center">
-            <div className="h-px w-24 bg-border/60" />
+          {/* ================= AXES ================= */}
+          <div className="space-y-12">
+
+            <CollapsibleSection
+              id="segmentation"
+              title="Segmentation & analyse lésionnelle"
+              subtitle="Approches guidées par le signal, validées sur données cliniques réelles."
+              isOpen={active === "segmentation"}
+              onToggle={toggleSection}
+              filter={(p) => p.analysisType === "Segmentation"}
+            />
+
+            <CollapsibleSection
+              id="quantification"
+              title="Quantification et analyse fonctionnelle"
+              subtitle="Extraction de biomarqueurs quantitatifs avec contrôle méthodologique."
+              isOpen={active === "quantification"}
+              onToggle={toggleSection}
+              filter={(p) => p.analysisType === "Quantification"}
+            />
+
+            <CollapsibleSection
+              id="methodo"
+              title="Méthodologie & outils transverses"
+              subtitle="Recalage multimodal, prototypage et outils indépendants des solutions propriétaires."
+              isOpen={active === "methodo"}
+              onToggle={toggleSection}
+              filter={(p) =>
+                p.analysisType === "Registration" ||
+                p.analysisType === "Prototypage"
+              }
+            />
           </div>
-
-          {/* ================= PROJETS ================= */}
-          <Section
-            title="Segmentation & analyse lésionnelle"
-            filter={(p) => p.analysisType === "Segmentation"}
-          />
-
-          <Section
-            title="Quantification et analyse fonctionnelle"
-            filter={(p) => p.analysisType === "Quantification"}
-          />
-
-          <Section
-            title="Méthodologie & outils transverses"
-            filter={(p) =>
-              p.analysisType === "Registration" ||
-              p.analysisType === "Prototypage"
-            }
-          />
         </div>
       </main>
 
