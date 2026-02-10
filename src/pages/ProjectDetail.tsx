@@ -18,7 +18,7 @@ import OutilsViewer from "@/components/OutilsViewer";
 import Footer from "@/components/Footer";
 
 import { getProjectById, getAdjacentProjects } from "@/data/projects";
-
+import { getProjectById, getAdjacentProjects } from "@/data/projects";
 // ============================================================
 // CONSTANTES
 // ============================================================
