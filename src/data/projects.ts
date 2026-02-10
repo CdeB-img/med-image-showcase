@@ -147,9 +147,6 @@ export const projects: Project[] = [
    HELPERS
 ============================================================ */
 
-export const getProjectById = (id: string): Project | undefined =>
-  projects.find((p) => p.id === id);
-
 export const getAdjacentProjects = (id: string) => {
   const index = projects.findIndex((p) => p.id === id);
 
@@ -157,3 +154,4 @@ export const getAdjacentProjects = (id: string) => {
     prev: index > 0 ? projects[index - 1] : null,
     next: index < projects.length - 1 ? projects[index + 1] : null,
   };
+};
