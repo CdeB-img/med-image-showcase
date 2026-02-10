@@ -34,15 +34,22 @@ function CollapsibleSection({
         className={`
           w-full text-left
           rounded-lg px-4 py-4
-          transition-colors
-          hover:bg-muted/30
-          ${isOpen ? "bg-muted/40" : ""}
+          transition-all duration-200
+          group
+          hover:bg-muted/40
+          ${isOpen ? "bg-muted/50" : ""}
         `}
         aria-expanded={isOpen}
       >
-        <div className="flex items-start justify-between gap-4">
+        <div className="flex items-start justify-between gap-6">
           <div className="space-y-1">
-            <h2 className="text-2xl font-semibold tracking-tight">
+            <h2
+              className="
+                text-2xl font-semibold tracking-tight
+                transition-colors
+                group-hover:text-primary
+              "
+            >
               {title}
             </h2>
 
@@ -51,13 +58,14 @@ function CollapsibleSection({
             </p>
           </div>
 
-          {/* Chevron */}
+          {/* Chevron TOUJOURS visible */}
           <span
             className={`
               text-2xl mt-1
-              text-muted-foreground
-              transition-transform duration-300
-              ${isOpen ? "rotate-90 text-primary" : ""}
+              transition-all duration-300
+              ${isOpen
+                ? "rotate-90 text-primary"
+                : "text-muted-foreground group-hover:text-primary"}
             `}
             aria-hidden
           >
