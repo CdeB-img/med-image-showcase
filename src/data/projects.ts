@@ -39,18 +39,12 @@ const slices = (basePath: string, count: number): string[] =>
     `${RAW_BASE}/${basePath}/slice_${String(i).padStart(3, "0")}.png`
   );
 
-/* ============================================================
-   EDITORIAL — PAGE PROJETS
-============================================================ */
+<<<<<<< HEAD
+// ============================================================
+// PROJECTS
+// ============================================================
+=======
 
-export const projectsEditorial = {
-  intro: [
-    "Les projets présentés sur cette page sont des exemples représentatifs de problématiques rencontrées en imagerie médicale (CT, IRM, multimodal) et des approches méthodologiques mises en œuvre pour y répondre.",
-    "Ils ne constituent pas des solutions figées ni des produits standardisés. Chaque étude, chaque jeu de données et chaque contexte clinique ou de recherche possède ses propres contraintes.",
-    "La démarche repose avant tout sur l’échange et la compréhension du besoin réel afin de définir une approche adaptée : segmentation, recalage, quantification, développement d’outils sur mesure ou accompagnement méthodologique.",
-    "Les aspects pratiques — périmètre, délais et cadre tarifaire — sont abordés de manière simple, transparente et proportionnée, en fonction du projet et de ses objectifs."
-  ],
-};
 
 /* ============================================================
    PROJECTS

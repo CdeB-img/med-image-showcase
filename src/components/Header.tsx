@@ -1,126 +1,107 @@
-// ============================================================
-// src/data/projects.ts
-// ============================================================
+import { Link, NavLink, useMatch } from "react-router-dom";
+import { cn } from "@/lib/utils";
+import { projects } from "@/data/projects";
+import { useRef, useState } from "react";
 
-export interface Project {
-  id: string;
-  title: string;
-  description: string;
-  modality: string;
-  analysisType: string;
-  technologies: string[];
-  thumbnailUrl: string;
-  sliceCount: number;
-  nativeSlices: string[];
-  processedSlices: string[];
-  useSliderOverlay?: boolean;
-}
+export default function Header() {
+  const isProjectDetail = useMatch("/projet/:id");
 
-/**
- * Base RAW GitHub URL for images
- */
-const RAW_BASE =
-  "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
+  const [open, setOpen] = useState(false);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-const slices = (basePath: string, count = 16): string[] =>
-  Array.from({ length: count }, (_, i) =>
-    `${RAW_BASE}/${basePath}/slice_${String(i).padStart(3, "0")}.png`
+  const openMenu = () => {
+    if (closeTimer.current) {
+      clearTimeout(closeTimer.current);
+      closeTimer.current = null;
+    }
+    setOpen(true);
+  };
+
+  const closeMenuWithDelay = () => {
+    closeTimer.current = setTimeout(() => {
+      setOpen(false);
+    }, 300); // ← délai volontaire (300 ms)
+  };
+
+  return (
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/90 backdrop-blur">
+      <div className="container flex h-14 items-center justify-between px-4 md:px-6">
+
+        {/* Logo */}
+        <Link
+          to="/"
+          className="text-lg font-semibold tracking-tight hover:opacity-90 transition"
+        >
+          NOXIA
+        </Link>
+
+        {/* Navigation */}
+        <nav className="flex items-center gap-6 text-sm">
+
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              cn(
+                "text-muted-foreground hover:text-foreground transition",
+                isActive && "text-foreground font-medium"
+              )
+            }
+          >
+            Accueil
+          </NavLink>
+
+          {/* PROJETS — ZONE ENGLOBANTE */}
+          <div
+            className="relative"
+            onMouseEnter={openMenu}
+            onMouseLeave={closeMenuWithDelay}
+          >
+            <NavLink
+              to="/projets"
+              className={({ isActive }) =>
+                cn(
+                  "text-muted-foreground hover:text-foreground transition",
+                  (isActive || isProjectDetail) &&
+                    "text-foreground font-medium"
+                )
+              }
+            >
+              Projets
+            </NavLink>
+
+            {open && (
+              <div className="absolute left-0 mt-2 min-w-[260px] rounded-md border border-border bg-background shadow-lg">
+                <ul className="py-2">
+                  {projects.map((project) => (
+                    <li key={project.id}>
+                      <Link
+                        to={`/projet/${project.id}`}
+                        className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition"
+                        onClick={() => setOpen(false)}
+                      >
+                        {project.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+
+          <NavLink
+            to="/contact"
+            className={({ isActive }) =>
+              cn(
+                "text-muted-foreground hover:text-foreground transition",
+                isActive && "text-foreground font-medium"
+              )
+            }
+          >
+            Contact
+          </NavLink>
+
+        </nav>
+      </div>
+    </header>
   );
-
-// ============================================================
-// EDITORIAL (PAGE PROJETS)
-// ============================================================
-
-export const projectsEditorial = {
-  intro: [
-    "Les projets présentés ici sont des exemples représentatifs de problématiques rencontrées en imagerie médicale (CT, IRM, multimodal) et des approches méthodologiques mises en œuvre pour y répondre.",
-    "Ils ne constituent pas des solutions figées ni des produits standardisés. Chaque étude, chaque jeu de données et chaque contexte clinique ou de recherche possède ses propres contraintes.",
-    "La démarche repose avant tout sur l’échange et la compréhension du besoin réel afin de définir une approche adaptée : segmentation, recalage, quantification, développement d’outils sur mesure ou accompagnement méthodologique.",
-    "Les aspects pratiques — périmètre, délais et cadre tarifaire — sont abordés de manière simple et proportionnée, en fonction du projet et de ses objectifs."
-  ],
-};
-
-// ============================================================
-// PROJECTS
-// ============================================================
-
-export const projects: Project[] = [
-  {
-    id: "perfusion-segmentation",
-    title: "Perfusion CT / IRM",
-    description:
-      "Segmentation automatique des lésions de perfusion cérébrale basée sur des seuils paramétrables et une validation physiopathologique.",
-    modality: "CT Perfusion / MRI",
-    analysisType: "Segmentation",
-    technologies: ["Python", "NiBabel", "NumPy", "Matplotlib"],
-    thumbnailUrl: `${RAW_BASE}/projets/perfusion.png`,
-    sliceCount: 0,
-    nativeSlices: [],
-    processedSlices: [],
-  },
-  {
-    id: "neuro-onco",
-    title: "Neuro-oncologie IRM",
-    description:
-      "Segmentation multi-composants des lésions tumorales cérébrales (cœur nécrotique, anneau, régions périphériques).",
-    modality: "MRI",
-    analysisType: "Segmentation",
-    technologies: ["Python", "NiBabel", "SimpleITK"],
-    thumbnailUrl: `${RAW_BASE}/projets/neuro-onco.png`,
-    sliceCount: 5,
-    nativeSlices: slices("neuro-onco/natives", 5),
-    processedSlices: slices("neuro-onco/overlays", 5),
-  },
-  {
-    id: "recalage",
-    title: "Recalage CT / IRM",
-    description:
-      "Pipelines de recalage rigide et affine pour données multimodales et longitudinales.",
-    modality: "MRI / CT",
-    analysisType: "Registration",
-    technologies: ["ANTsPy", "Elastix", "SimpleITK"],
-    thumbnailUrl: `${RAW_BASE}/projets/registration.png`,
-    sliceCount: 0,
-    nativeSlices: [],
-    processedSlices: [],
-  },
-  {
-    id: "cardiac",
-    title: "IRM cardiaque",
-    description:
-      "Quantification fonctionnelle cardiaque et analyse du rehaussement tardif.",
-    modality: "MRI Cardiac",
-    analysisType: "Quantification",
-    technologies: ["Python", "SimpleITK"],
-    thumbnailUrl: `${RAW_BASE}/projets/cardio.png`,
-    sliceCount: 0,
-    nativeSlices: [],
-    processedSlices: [],
-  },
-  {
-    id: "ct-scan",
-    title: "Expertise CT",
-    description:
-      "Analyse morphologique et quantification anatomique en imagerie CT.",
-    modality: "CT Scan",
-    analysisType: "Quantification",
-    technologies: ["DICOM", "NumPy"],
-    thumbnailUrl: `${RAW_BASE}/projets/ct.png`,
-    sliceCount: 0,
-    nativeSlices: [],
-    processedSlices: [],
-  },
-  {
-    id: "outils",
-    title: "Outils sur mesure",
-    description:
-      "Développement d’outils dédiés à l’analyse et à l’exploration avancée de données d’imagerie médicale.",
-    modality: "CT / MRI",
-    analysisType: "Prototypage",
-    technologies: ["Python", "DICOM"],
-    thumbnailUrl: `${RAW_BASE}/projets/outils.png`,
-    sliceCount: 0,
-    nativeSlices: [],
-    processedSlices: [],
-  },
-];
+}
