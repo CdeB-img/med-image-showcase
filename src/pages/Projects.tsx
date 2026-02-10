@@ -9,7 +9,7 @@ import Footer from "@/components/Footer";
 type ProjectType = (typeof projects)[number];
 
 /* ============================================================
-   SECTION COMPONENT
+   SECTION
 ============================================================ */
 
 function ProjectSection({
@@ -22,18 +22,17 @@ function ProjectSection({
   filter: (p: ProjectType) => boolean;
 }) {
   const items = projects.filter(filter);
-
   if (!items.length) return null;
 
   return (
     <section className="space-y-6">
-      <div className="space-y-2">
+      <div className="space-y-2 text-center">
         <h2 className="text-xl font-semibold tracking-tight">
           {title}
         </h2>
 
         {description && (
-          <p className="text-sm text-muted-foreground max-w-2xl">
+          <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
             {description}
           </p>
         )}
@@ -56,47 +55,51 @@ const Projects = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <main className="flex-1 py-16">
-        <div className="container px-4 md:px-6 space-y-20">
+        {/* container plein écran */}
+        <div className="container px-4 md:px-6">
+          
+          {/* colonne centrale */}
+          <div className="mx-auto max-w-6xl space-y-20">
 
-          {/* ================= HEADER ================= */}
-          <section className="max-w-3xl space-y-4">
-            <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
-              Projets & expertises en imagerie médicale
-            </h1>
+            {/* ================= HEADER ================= */}
+            <section className="max-w-3xl mx-auto space-y-4 text-center">
+              <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
+                Projets & expertises en imagerie médicale
+              </h1>
 
-            <p className="text-muted-foreground leading-relaxed">
-              Cette page présente une vue structurée des projets et outils
-              développés autour de l’imagerie CT et IRM.
-              Chaque projet illustre une problématique méthodologique précise :
-              segmentation, recalage, quantification ou prototypage d’outils
-              dédiés à la recherche clinique et translationnelle.
-            </p>
-          </section>
+              <p className="text-muted-foreground leading-relaxed">
+                Vue structurée des projets et outils développés autour de
+                l’imagerie CT et IRM.  
+                Chaque projet illustre une problématique méthodologique précise :
+                segmentation, recalage, quantification ou prototypage.
+              </p>
+            </section>
 
-          {/* ================= SEGMENTATION ================= */}
-          <ProjectSection
-            title="Segmentation & analyse lésionnelle"
-            description="Méthodes de segmentation guidées par le signal, avec validation experte et contrôle physiopathologique."
-            filter={(p) => p.analysisType === "Segmentation"}
-          />
+            {/* ================= SEGMENTATION ================= */}
+            <ProjectSection
+              title="Segmentation & analyse lésionnelle"
+              description="Méthodes de segmentation guidées par le signal, avec validation experte et contrôle physiopathologique."
+              filter={(p) => p.analysisType === "Segmentation"}
+            />
 
-          {/* ================= QUANTIFICATION ================= */}
-          <ProjectSection
-            title="Quantification et analyse fonctionnelle"
-            description="Extraction de biomarqueurs quantitatifs à partir de données CT et IRM, avec contrôle méthodologique et reproductibilité."
-            filter={(p) => p.analysisType === "Quantification"}
-          />
+            {/* ================= QUANTIFICATION ================= */}
+            <ProjectSection
+              title="Quantification et analyse fonctionnelle"
+              description="Extraction de biomarqueurs quantitatifs à partir de données CT et IRM, avec contrôle méthodologique et reproductibilité."
+              filter={(p) => p.analysisType === "Quantification"}
+            />
 
-          {/* ================= OUTILS & MÉTHODOLOGIE ================= */}
-          <ProjectSection
-            title="Méthodologie & outils transverses"
-            description="Outils de recalage, d’alignement multimodal et de prototypage méthodologique, indépendants des solutions propriétaires."
-            filter={(p) =>
-              p.analysisType === "Registration" ||
-              p.analysisType === "Prototypage"
-            }
-          />
+            {/* ================= OUTILS ================= */}
+            <ProjectSection
+              title="Méthodologie & outils transverses"
+              description="Recalage multimodal, outils transverses et prototypage méthodologique indépendants des solutions propriétaires."
+              filter={(p) =>
+                p.analysisType === "Registration" ||
+                p.analysisType === "Prototypage"
+              }
+            />
 
+          </div>
         </div>
       </main>
 
