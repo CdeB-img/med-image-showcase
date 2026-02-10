@@ -19,18 +19,20 @@ function Section({
     <section className="space-y-6">
       <h2 className="text-xl font-medium">{title}</h2>
 
-      <div
-        className="
-          grid gap-6
-          justify-items-center
-          [grid-template-columns:repeat(auto-fit,minmax(280px,1fr))]
-        "
-      >
-        {items.map((project) => (
-          <div key={project.id} className="w-full max-w-sm">
-            <ProjectCard project={project} />
-          </div>
-        ))}
+      <div className="flex justify-center">
+        <div
+          className="
+            grid gap-6
+            grid-cols-1
+            sm:grid-cols-2
+            lg:grid-cols-3
+            w-fit
+          "
+        >
+          {items.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
+        </div>
       </div>
     </section>
   );
