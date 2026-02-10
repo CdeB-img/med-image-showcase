@@ -18,8 +18,10 @@ function Section({
   if (!items.length) return null;
 
   return (
-    <section className="space-y-6">
-      <h2 className="text-xl font-medium">{title}</h2>
+    <section className="w-full max-w-6xl space-y-6">
+      <h2 className="text-xl font-medium text-center">
+        {title}
+      </h2>
 
       <div
         className="
@@ -49,7 +51,7 @@ const Projects = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <main className="flex-1 py-12">
-        <div className="container px-4 md:px-6 space-y-12">
+        <div className="container px-4 md:px-6 space-y-12 flex flex-col items-center">
 
           {/* Header */}
           <section className="max-w-3xl space-y-4">
