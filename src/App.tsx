@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { HashRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
 import Header from "@/components/Header"; // ⬅️ AJOUT
@@ -34,7 +34,7 @@ const App = () => (
       <Toaster />
       <Sonner />
 
-      <HashRouter>
+      <BrowserRouter>
         <ScrollToTop />
 
         {/* 🔹 NAVBAR GLOBALE */}
@@ -46,11 +46,11 @@ const App = () => (
           <Route path="/projet/:id" element={<ProjectDetail />} />
           <Route path="/contact" element={<Contact />} />
 
-          {/* Fallback robuste */}
-          <Route path="*" element={<Index />} />
+          {/* Fallback */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
 
-      </HashRouter>
+      </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
 );
