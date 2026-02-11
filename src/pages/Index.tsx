@@ -16,70 +16,44 @@ const META_IMAGE =
 ============================================================ */
 
 const Index = () => {
+
   return (
     <>
       <Helmet>
-        {/* TITLE */}
         <title>
-          Expert en imagerie médicale quantitative | Segmentation IRM & Analyse CT | NOXIA
+          Expert en imagerie médicale quantitative | NOXIA
         </title>
 
-        {/* META DESCRIPTION */}
         <meta
           name="description"
-          content="Expert indépendant en imagerie médicale quantitative. Segmentation IRM cérébrale et cardiaque, analyse CT, recalage multimodal longitudinal, extraction de biomarqueurs et traitement DICOM pour la recherche clinique."
+          content="Expert indépendant en imagerie médicale quantitative. Segmentation IRM, analyse CT, quantification de biomarqueurs, traitement DICOM et méthodologie signal-driven pour la recherche clinique."
         />
 
-        {/* ROBOTS */}
-        <meta name="robots" content="index, follow" />
-
-        {/* CANONICAL */}
         <link
           rel="canonical"
           href="https://noxia-imagerie.fr/"
         />
 
-        {/* OPEN GRAPH */}
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="NOXIA Imagerie" />
-        <meta
-          property="og:title"
-          content="Expert en imagerie médicale quantitative | NOXIA"
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ProfessionalService",
+              name: "NOXIA Imagerie",
+              url: "https://noxia-imagerie.fr",
+              description:
+                "Expertise indépendante en imagerie médicale quantitative pour la recherche clinique.",
+              serviceType: "MedicalImagingAnalysis",
+              areaServed: "Europe"
+            })
+          }}
         />
-        <meta
-          property="og:description"
-          content="Segmentation IRM, quantification CT, recalage multimodal et extraction de biomarqueurs pour la recherche clinique."
-        />
-        <meta
-          property="og:url"
-          content="https://noxia-imagerie.fr/"
-        />
-        <meta
-          property="og:image"
-          content="https://noxia-imagerie.fr/og-image-2026.png"
-        />
-
-        {/* STRUCTURED DATA */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ProfessionalService",
-            name: "NOXIA Imagerie",
-            url: "https://noxia-imagerie.fr",
-            description:
-              "Expertise indépendante en imagerie médicale quantitative pour la recherche clinique.",
-            serviceType: "Medical Imaging Analysis",
-            areaServed: "Europe",
-            founder: {
-              "@type": "Person",
-              name: "Charles"
-            }
-          })}
-        </script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
         <main className="flex-1">
+
 
           <HeroSection />
             <section className="max-w-4xl mx-auto py-16 px-4">
