@@ -2,6 +2,7 @@ import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 /* ============================================================
    CONFIG
@@ -16,105 +17,117 @@ const META_IMAGE =
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <main className="flex-1">
+    <>
+      <Helmet>
+        <title>
+          Expert en imagerie médicale quantitative | NOXIA
+        </title>
 
-        {/* ================= HERO ================= */}
-        <HeroSection />
+        <meta
+          name="description"
+          content="Expert indépendant en imagerie médicale quantitative. Segmentation IRM, analyse CT, quantification de biomarqueurs, traitement DICOM et méthodologie signal-driven pour la recherche clinique."
+        />
 
-        {/* ================= PROJETS / TEASER ================= */}
-        <section className="py-24 px-4">
-          <div className="max-w-6xl mx-auto space-y-12">
+        <link
+          rel="canonical"
+          href="https://noxia-imagerie.fr/"
+        />
 
-            {/* ---- Carte image cliquable ---- */}
-            <Link
-              to="/projets"
-              className="
-                block group
-                rounded-2xl overflow-hidden
-                border border-border/40
-                bg-black
-                transition
-                hover:border-primary/40
-                hover:shadow-xl
-              "
-            >
-              {/* Image (pas de texte dessus) */}
-              <div className="aspect-[21/9] overflow-hidden">
-                <img
-                  src={META_IMAGE}
-                  alt="Projets et expertises en imagerie médicale"
-                  className="
-                    w-full h-full
-                    object-cover
-                    transition-transform duration-700
-                    group-hover:scale-[1.03]
-                  "
-                />
-              </div>
+        {/* Données structurées */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ProfessionalService",
+            name: "NOXIA Imagerie",
+            url: "https://noxia-imagerie.fr",
+            description:
+              "Expertise indépendante en imagerie médicale quantitative pour la recherche clinique.",
+            serviceType: "Medical Imaging Analysis",
+            areaServed: "Europe"
+          })}
+        </script>
+      </Helmet>
 
-              {/* Texte sous l’image */}
-              <div className="bg-background p-8 sm:p-10">
-                <h2 className="text-3xl font-semibold tracking-tight">
-                  Projets & expertises en imagerie médicale
-                </h2>
+      <div className="min-h-screen flex flex-col bg-background">
+        <main className="flex-1">
 
-                <p className="mt-4 text-lg text-muted-foreground max-w-4xl">
-                  Exemples concrets de segmentation lésionnelle, quantification
-                  fonctionnelle, recalage multimodal et outils méthodologiques
-                  appliqués à l’imagerie CT et IRM.
-                </p>
+          <HeroSection />
 
-                <div className="mt-6 text-primary font-medium">
-                  Voir les projets →
+          <section className="py-24 px-4">
+            <div className="max-w-6xl mx-auto space-y-12">
+
+              <Link
+                to="/projets"
+                className="block group rounded-2xl overflow-hidden border border-border/40 bg-black transition hover:border-primary/40 hover:shadow-xl"
+              >
+                <div className="aspect-[21/9] overflow-hidden">
+                  <img
+                    src={META_IMAGE}
+                    alt="Segmentation et quantification en imagerie médicale CT et IRM"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                  />
                 </div>
+
+                <div className="bg-background p-8 sm:p-10">
+                  <h2 className="text-3xl font-semibold tracking-tight">
+                    Projets & expertises en imagerie médicale
+                  </h2>
+
+                  <p className="mt-4 text-lg text-muted-foreground max-w-4xl">
+                    Segmentation lésionnelle IRM, quantification CT,
+                    recalage multimodal et développement d’outils
+                    méthodologiques pour la recherche clinique.
+                  </p>
+
+                  <div className="mt-6 text-primary font-medium">
+                    Voir les projets →
+                  </div>
+                </div>
+              </Link>
+
+              <div className="grid gap-8 md:grid-cols-3 pt-6">
+
+                <div className="rounded-xl border border-border/50 bg-muted/20 p-6">
+                  <h3 className="font-semibold text-lg mb-2">
+                    Segmentation IRM
+                  </h3>
+                  <p className="text-muted-foreground">
+                    Approches signal-driven pour la segmentation
+                    lésionnelle cérébrale et tumorale.
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-border/50 bg-muted/20 p-6">
+                  <h3 className="font-semibold text-lg mb-2">
+                    Quantification CT
+                  </h3>
+                  <p className="text-muted-foreground">
+                    Extraction robuste de biomarqueurs
+                    morphologiques et fonctionnels.
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-border/50 bg-muted/20 p-6">
+                  <h3 className="font-semibold text-lg mb-2">
+                    Recalage multimodal
+                  </h3>
+                  <p className="text-muted-foreground">
+                    Alignement CT / IRM longitudinal
+                    pour analyse quantitative fiable.
+                  </p>
+                </div>
+
               </div>
-            </Link>
-
-            {/* ---- Axes (texte uniquement, sobre) ---- */}
-            <div className="grid gap-8 md:grid-cols-3 pt-6">
-
-              <div className="rounded-xl border border-border/50 bg-muted/20 p-6">
-                <h3 className="font-semibold text-lg mb-2">
-                  Segmentation lésionnelle
-                </h3>
-                <p className="text-muted-foreground">
-                  Segmentation guidée par le signal, relecture experte et
-                  validation sur données cliniques réelles.
-                </p>
-              </div>
-
-              <div className="rounded-xl border border-border/50 bg-muted/20 p-6">
-                <h3 className="font-semibold text-lg mb-2">
-                  Quantification fonctionnelle
-                </h3>
-                <p className="text-muted-foreground">
-                  Extraction de biomarqueurs quantitatifs robustes à partir
-                  d’images CT et IRM multimodales.
-                </p>
-              </div>
-
-              <div className="rounded-xl border border-border/50 bg-muted/20 p-6">
-                <h3 className="font-semibold text-lg mb-2">
-                  Méthodologie & recalage
-                </h3>
-                <p className="text-muted-foreground">
-                  Recalage multimodal, prototypage et outils indépendants
-                  des solutions propriétaires.
-                </p>
-              </div>
-
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* ================= ABOUT ================= */}
-        <AboutSection />
+          <AboutSection />
 
-      </main>
+        </main>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </>
   );
 };
 
