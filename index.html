@@ -11,35 +11,31 @@
       content="Expertise indépendante en analyse et quantification d’images médicales, approches méthodologiques et quantitatives pour la recherche clinique."
     />
 
-    <meta name="author" content="NOXIA : Expert en imagerie médicale" />
-
-    <!-- Open Graph -->
     <meta property="og:title" content="NOXIA : Expert en imagerie médicale pour la recherche" />
-    <meta
-      property="og:description"
-      content="Expertise indépendante en analyse et quantification d’images médicales, approches méthodologiques et quantitatives pour la recherche clinique."
-    />
+    <meta property="og:description"
+      content="Expertise indépendante en analyse et quantification d’images médicales, approches méthodologiques et quantitatives pour la recherche clinique." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://noxia-imagerie.fr/" />
     <meta property="og:image" content="https://noxia-imagerie.fr/og-image-2026.png" />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
 
-    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="NOXIA : Expert en imagerie médicale" />
-    <meta
-      name="twitter:description"
-      content="Approches méthodologiques et quantitatives pour la recherche clinique en imagerie médicale."
-    />
+    <meta name="twitter:description"
+      content="Approches méthodologiques et quantitatives pour la recherche clinique en imagerie médicale." />
     <meta name="twitter:image" content="https://noxia-imagerie.fr/og-image-2026.png" />
 
-    <!-- Canonical -->
-    <link rel="canonical" href="https://noxia-imagerie.fr/" />
-
-    <!-- Favicon -->
     <link rel="icon" href="/favicon.ico" />
+
+    <!-- SPA RESTORE AFTER 404 REDIRECT -->
+    <script>
+      (function () {
+        var path = sessionStorage.getItem("spa-redirect");
+        if (path) {
+          sessionStorage.removeItem("spa-redirect");
+          history.replaceState(null, null, path);
+        }
+      })();
+    </script>
   </head>
 
   <body>
