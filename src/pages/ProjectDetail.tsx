@@ -8,13 +8,13 @@ import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
-//import SliceViewer from "@/components/SliceViewer";
-//import RegistrationViewer from "@/components/RegistrationViewer";
-//import PerfusionSegmentationViewer from "@/components/PerfusionSegmentationViewer";
-//import CardiacViewer from "@/components/CardiacViewer";
-//import CTScanViewer from "@/components/CTScanViewer";
-//import NeuroOncoViewer from "@/components/NeuroOncoViewer";
-//import OutilsViewer from "@/components/OutilsViewer";
+import RegistrationViewer from "@/components/RegistrationViewer";
+import PerfusionSegmentationViewer from "@/components/PerfusionSegmentationViewer";
+import CardiacViewer from "@/components/CardiacViewer";
+import CTScanViewer from "@/components/CTScanViewer";
+import NeuroOncoViewer from "@/components/NeuroOncoViewer";
+import OutilsViewer from "@/components/OutilsViewer";
+
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { getProjectById, getAdjacentProjects } from "@/data/projects";
@@ -24,7 +24,7 @@ import { getProjectById, getAdjacentProjects } from "@/data/projects";
 // ============================================================
 
 const RAW_BASE =
-  "https://raw.githubusercontent.com/CdeB-img/NOXIA/main/public/images/";
+  "https://raw.githubusercontent.com/CdeB-img/NOXIA/main/public/images";
 
 // ============================================================
 // HELPERS
@@ -36,7 +36,7 @@ const slices = (basePath: string, count = 3): string[] =>
   );
 
 // ============================================================
-// RECALAGE DATA (SOURCE UNIQUE)
+// RECALAGE DATA
 // ============================================================
 
 const multimodalPairs = [
@@ -76,7 +76,7 @@ const monomodalPairs = [
 ];
 
 // ============================================================
-// QC DATA
+// PERFUSION QC DATA
 // ============================================================
 
 const qcPairs = [
@@ -135,70 +135,36 @@ const ProjectDetail = () => {
 
   return (
     <>
-    <Helmet>
-      <title>
-        {project.title} | Imagerie médicale quantitative | NOXIA
-      </title>
+      <Helmet>
+        <title>{project.title} | NOXIA</title>
 
-      <meta
-        name="description"
-        content={project.description}
-      />
+        <meta name="description" content={project.description} />
+        <meta name="robots" content="index, follow" />
 
-      <meta name="robots" content="index, follow" />
-
-      <link
-        rel="canonical"
-        href={`https://noxia-imagerie.fr/projet/${project.id}`}
-      />
-
-      {/* Open Graph */}
-      <meta property="og:type" content="article" />
-      <meta property="og:site_name" content="NOXIA Imagerie" />
-      <meta
-        property="og:title"
-        content={`${project.title} | NOXIA`}
-      />
-      <meta
-        property="og:description"
-        content={project.description}
-      />
-      <meta
-        property="og:url"
-        content={`https://noxia-imagerie.fr/projet/${project.id}`}
-      />
-
-      {/* ⚠️ Sécurisé contre undefined */}
-      {project.thumbnailUrl && (
-        <meta
-          property="og:image"
-          content={project.thumbnailUrl}
+        <link
+          rel="canonical"
+          href={`https://noxia-imagerie.fr/projet/${project.id}`}
         />
-      )}
 
-      {/* JSON-LD sécurisé */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "MedicalWebPage",
-            name: project.title,
-            description: project.description,
-            url: `https://noxia-imagerie.fr/projet/${project.id}`,
-            author: {
-              "@type": "Organization",
-              name: "NOXIA Imagerie"
-            }
-          })
-        }}
-      />
-    </Helmet>
+        <meta property="og:type" content="article" />
+        <meta property="og:site_name" content="NOXIA Imagerie" />
+        <meta property="og:title" content={`${project.title} | NOXIA`} />
+        <meta property="og:description" content={project.description} />
+        <meta
+          property="og:url"
+          content={`https://noxia-imagerie.fr/projet/${project.id}`}
+        />
+
+        {project.thumbnailUrl && (
+          <meta property="og:image" content={project.thumbnailUrl} />
+        )}
+      </Helmet>
 
       <div className="min-h-screen flex flex-col">
         <main className="flex-1 py-8">
           <div className="container px-4 md:px-6">
 
+            {/* NAVIGATION */}
             <div className="flex items-center justify-between mb-8">
               <Link to="/">
                 <Button variant="ghost" className="gap-2">
@@ -216,6 +182,7 @@ const ProjectDetail = () => {
                 >
                   <ChevronLeft className="w-4 h-4" />
                 </Button>
+
                 <Button
                   variant="outline"
                   size="icon"
@@ -227,18 +194,15 @@ const ProjectDetail = () => {
               </div>
             </div>
 
+            {/* HEADER */}
             <section className="mb-12">
               <h1 className="text-3xl font-bold mb-4">
                 {project.title}
               </h1>
 
               <div className="flex gap-2 mb-4">
-                <Badge variant="outline">
-                  {project.modality}
-                </Badge>
-                <Badge variant="secondary">
-                  {project.analysisType}
-                </Badge>
+                <Badge variant="outline">{project.modality}</Badge>
+                <Badge variant="secondary">{project.analysisType}</Badge>
               </div>
 
               <p className="max-w-3xl text-muted-foreground">
@@ -246,7 +210,25 @@ const ProjectDetail = () => {
               </p>
             </section>
 
-            {/* Vos viewers existants restent ici inchangés */}
+            {/* ============================= */}
+            {/* DYNAMIC VIEWERS */}
+            {/* ============================= */}
+
+            {project.id === "perfusion-segmentation" && (
+              <PerfusionSegmentationViewer qcPairs={qcPairs} />
+            )}
+
+            {project.id === "recalage" && (
+              <RegistrationViewer
+                multimodalPairs={multimodalPairs}
+                monomodalPairs={monomodalPairs}
+              />
+            )}
+
+            {project.id === "neuro-onco" && <NeuroOncoViewer />}
+            {project.id === "cardiac" && <CardiacViewer />}
+            {project.id === "ct-scan" && <CTScanViewer />}
+            {project.id === "outils" && <OutilsViewer />}
 
           </div>
         </main>
