@@ -34,7 +34,7 @@ const App = () => (
       <Toaster />
       <Sonner />
 
-      <BrowserRouter>
+      <BrowserRouter basename="/">
         <ScrollToTop />
 
         {/* 🔹 NAVBAR GLOBALE */}

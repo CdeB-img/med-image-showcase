@@ -2,6 +2,7 @@ import { useState } from "react";
 import { projects } from "@/data/projects";
 import ProjectCard from "@/components/ProjectCard";
 import Footer from "@/components/Footer";
+import { Link } from "react-router-dom";
 
 /* ============================================================
    COLLAPSIBLE SECTION
@@ -166,12 +167,12 @@ const Projects = () => {
 
             <p className="font-medium text-foreground pt-4 border-t border-border/40">
               Ces exemples servent de point de départ.
-              <a
-                href="#/contact"
+              <Link
+                to="/contact"
                 className="text-primary hover:underline underline-offset-4"
               >
                 {" "}Un échange permet d’évaluer rapidement la faisabilité.
-              </a>
+              </Link>
             </p>
           </section>
 
