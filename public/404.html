@@ -3,8 +3,11 @@
   <head>
     <meta charset="utf-8">
     <script>
-      var path = window.location.pathname;
-      window.location.replace("/?redirect=" + path);
+      sessionStorage.setItem(
+        "spa-redirect",
+        location.pathname + location.search + location.hash
+      );
+      location.replace("/");
     </script>
   </head>
   <body></body>
