@@ -25,26 +25,12 @@
     <meta name="twitter:image" content="https://noxia-imagerie.fr/og-image-2026.png" />
 
     <link rel="icon" href="/favicon.ico" />
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="/assets/index-C1kfbpAL.css" />
-
-    <!-- RESTORE ROUTE AFTER GITHUB 404 -->
-    <script>
-      (function () {
-        var path = sessionStorage.getItem("spa-redirect");
-        if (path) {
-          sessionStorage.removeItem("spa-redirect");
-          history.replaceState(null, null, path);
-        }
-      })();
-    </script>
   </head>
 
   <body>
     <div id="root"></div>
 
-    <!-- JS -->
-    <script type="module" src="/assets/index-DM7Mx7bU.js"></script>
+    <!-- Vite entry point (IMPORTANT) -->
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
