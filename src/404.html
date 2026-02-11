@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <script>
-      var path = window.location.pathname;
-      var search = window.location.search;
-      var hash = window.location.hash;
-      window.location.replace(
-        "/?redirect=" +
-          encodeURIComponent(path + search + hash)
-      );
+      var path = location.pathname + location.search + location.hash;
+      sessionStorage.setItem("spa-redirect", path);
+      location.replace("/");
     </script>
   </head>
   <body></body>
