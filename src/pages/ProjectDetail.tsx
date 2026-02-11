@@ -210,6 +210,10 @@ const ProjectDetail = () => {
               </p>
             </section>
 
+            
+            {project.id === "perfusion-segmentation" && (
+              <div style={{ color: "red" }}>DEBUG PERFUSION OK</div>
+            )}
             {/* ============================= */}
             {/* DYNAMIC VIEWERS */}
             {/* ============================= */}
