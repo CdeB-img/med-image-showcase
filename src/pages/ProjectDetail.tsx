@@ -215,7 +215,7 @@ const ProjectDetail = () => {
             {/* ============================= */}
 
             {project.id === "perfusion-segmentation" && (
-              <PerfusionSegmentationViewer qcPairs={qcPairs} />
+              <PerfusionSegmentationViewer pairs={qcPairs} />
             )}
 
             {project.id === "recalage" && (
