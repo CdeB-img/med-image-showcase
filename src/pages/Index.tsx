@@ -19,21 +19,47 @@ const Index = () => {
   return (
     <>
       <Helmet>
+        {/* TITLE */}
         <title>
-          Expert en imagerie médicale quantitative | NOXIA
+          Expert en imagerie médicale quantitative | Segmentation IRM & Analyse CT | NOXIA
         </title>
 
+        {/* META DESCRIPTION */}
         <meta
           name="description"
-          content="Expert indépendant en imagerie médicale quantitative. Segmentation IRM, analyse CT, quantification de biomarqueurs, traitement DICOM et méthodologie signal-driven pour la recherche clinique."
+          content="Expert indépendant en imagerie médicale quantitative. Segmentation IRM cérébrale et cardiaque, analyse CT, recalage multimodal longitudinal, extraction de biomarqueurs et traitement DICOM pour la recherche clinique."
         />
 
+        {/* ROBOTS */}
+        <meta name="robots" content="index, follow" />
+
+        {/* CANONICAL */}
         <link
           rel="canonical"
           href="https://noxia-imagerie.fr/"
         />
 
-        {/* Données structurées */}
+        {/* OPEN GRAPH */}
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="NOXIA Imagerie" />
+        <meta
+          property="og:title"
+          content="Expert en imagerie médicale quantitative | NOXIA"
+        />
+        <meta
+          property="og:description"
+          content="Segmentation IRM, quantification CT, recalage multimodal et extraction de biomarqueurs pour la recherche clinique."
+        />
+        <meta
+          property="og:url"
+          content="https://noxia-imagerie.fr/"
+        />
+        <meta
+          property="og:image"
+          content="https://noxia-imagerie.fr/og-image-2026.png"
+        />
+
+        {/* STRUCTURED DATA */}
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -43,7 +69,11 @@ const Index = () => {
             description:
               "Expertise indépendante en imagerie médicale quantitative pour la recherche clinique.",
             serviceType: "Medical Imaging Analysis",
-            areaServed: "Europe"
+            areaServed: "Europe",
+            founder: {
+              "@type": "Person",
+              name: "Charles"
+            }
           })}
         </script>
       </Helmet>
@@ -52,7 +82,18 @@ const Index = () => {
         <main className="flex-1">
 
           <HeroSection />
+            <section className="max-w-4xl mx-auto py-16 px-4">
+              <h2 className="text-2xl font-semibold mb-6">
+                Expertise indépendante en imagerie médicale quantitative
+              </h2>
 
+              <p className="text-muted-foreground leading-relaxed">
+                Expertise en segmentation IRM cérébrale et cardiaque, quantification CT,
+                recalage monomodale et multimodal longitudinal et extraction de biomarqueurs quantitatifs.
+                Approches signal-driven, validation physiopathologique et méthodologies
+                reproductibles appliquées à la recherche clinique translationnelle.
+              </p>
+            </section>
           <section className="py-24 px-4">
             <div className="max-w-6xl mx-auto space-y-12">
 

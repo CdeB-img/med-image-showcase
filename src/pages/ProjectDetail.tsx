@@ -136,24 +136,37 @@ const ProjectDetail = () => {
   return (
     <>
       <Helmet>
+        {/* TITLE */}
         <title>
           {project.title} | Imagerie médicale quantitative | NOXIA
         </title>
 
+        {/* META DESCRIPTION */}
         <meta
           name="description"
           content={project.description}
         />
 
+        {/* ROBOTS */}
+        <meta name="robots" content="index, follow" />
+
+        {/* CANONICAL */}
         <link
           rel="canonical"
           href={`https://noxia-imagerie.fr/projet/${project.id}`}
         />
 
-        {/* Open Graph */}
-        <meta property="og:title" content={`${project.title} | NOXIA`} />
-        <meta property="og:description" content={project.description} />
+        {/* OPEN GRAPH */}
         <meta property="og:type" content="article" />
+        <meta property="og:site_name" content="NOXIA Imagerie" />
+        <meta
+          property="og:title"
+          content={`${project.title} | NOXIA`}
+        />
+        <meta
+          property="og:description"
+          content={project.description}
+        />
         <meta
           property="og:url"
           content={`https://noxia-imagerie.fr/projet/${project.id}`}
@@ -163,20 +176,24 @@ const ProjectDetail = () => {
           content={project.thumbnailUrl}
         />
 
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:title"
-          content={`${project.title} | NOXIA`}
-        />
-        <meta
-          name="twitter:description"
-          content={project.description}
-        />
-        <meta
-          name="twitter:image"
-          content={project.thumbnailUrl}
-        />
+        {/* STRUCTURED DATA */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "MedicalWebPage",
+            name: project.title,
+            description: project.description,
+            url: `https://noxia-imagerie.fr/projet/${project.id}`,
+            about: {
+              "@type": "MedicalEntity",
+              name: project.modality
+            },
+            author: {
+              "@type": "Organization",
+              name: "NOXIA Imagerie"
+            }
+          })}
+        </script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col">
