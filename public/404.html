@@ -4,11 +4,9 @@
     <meta charset="utf-8" />
     <title>Redirecting…</title>
     <script>
-      sessionStorage.setItem(
-        "spa-redirect",
-        location.pathname + location.search + location.hash
-      );
-      location.replace("/");
+      var l = location;
+      var redirect = l.pathname + l.search + l.hash;
+      l.replace("/?redirect=" + encodeURIComponent(redirect));
     </script>
   </head>
   <body></body>
