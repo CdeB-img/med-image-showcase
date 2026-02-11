@@ -40,15 +40,15 @@ const Index = () => {
               "
             >
               {/* Image (pas de texte dessus) */}
-              <div className="aspect-[21/9] bg-black flex items-center justify-center">
+              <div className="aspect-[21/9] overflow-hidden">
                 <img
                   src={META_IMAGE}
                   alt="Projets et expertises en imagerie médicale"
                   className="
                     w-full h-full
-                    object-contain
-                    transition-transform duration-500
-                    group-hover:scale-[1.01]
+                    object-cover
+                    transition-transform duration-700
+                    group-hover:scale-[1.03]
                   "
                 />
               </div>
