@@ -135,66 +135,65 @@ const ProjectDetail = () => {
 
   return (
     <>
-      <Helmet>
-        {/* TITLE */}
-        <title>
-          {project.title} | Imagerie médicale quantitative | NOXIA
-        </title>
+    <Helmet>
+      <title>
+        {project.title} | Imagerie médicale quantitative | NOXIA
+      </title>
 
-        {/* META DESCRIPTION */}
-        <meta
-          name="description"
-          content={project.description}
-        />
+      <meta
+        name="description"
+        content={project.description}
+      />
 
-        {/* ROBOTS */}
-        <meta name="robots" content="index, follow" />
+      <meta name="robots" content="index, follow" />
 
-        {/* CANONICAL */}
-        <link
-          rel="canonical"
-          href={`https://noxia-imagerie.fr/projet/${project.id}`}
-        />
+      <link
+        rel="canonical"
+        href={`https://noxia-imagerie.fr/projet/${project.id}`}
+      />
 
-        {/* OPEN GRAPH */}
-        <meta property="og:type" content="article" />
-        <meta property="og:site_name" content="NOXIA Imagerie" />
-        <meta
-          property="og:title"
-          content={`${project.title} | NOXIA`}
-        />
-        <meta
-          property="og:description"
-          content={project.description}
-        />
-        <meta
-          property="og:url"
-          content={`https://noxia-imagerie.fr/projet/${project.id}`}
-        />
+      {/* Open Graph */}
+      <meta property="og:type" content="article" />
+      <meta property="og:site_name" content="NOXIA Imagerie" />
+      <meta
+        property="og:title"
+        content={`${project.title} | NOXIA`}
+      />
+      <meta
+        property="og:description"
+        content={project.description}
+      />
+      <meta
+        property="og:url"
+        content={`https://noxia-imagerie.fr/projet/${project.id}`}
+      />
+
+      {/* ⚠️ Sécurisé contre undefined */}
+      {project.thumbnailUrl && (
         <meta
           property="og:image"
           content={project.thumbnailUrl}
         />
+      )}
 
-        {/* STRUCTURED DATA */}
-        <script type="application/ld+json">
-          {JSON.stringify({
+      {/* JSON-LD sécurisé */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "MedicalWebPage",
             name: project.title,
             description: project.description,
             url: `https://noxia-imagerie.fr/projet/${project.id}`,
-            about: {
-              "@type": "MedicalEntity",
-              name: project.modality
-            },
             author: {
               "@type": "Organization",
               name: "NOXIA Imagerie"
             }
-          })}
-        </script>
-      </Helmet>
+          })
+        }}
+      />
+    </Helmet>
 
       <div className="min-h-screen flex flex-col">
         <main className="flex-1 py-8">
