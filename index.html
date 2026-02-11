@@ -23,10 +23,10 @@
     <!-- RESTORE ROUTE AFTER 404 REDIRECT -->
     <script>
       (function () {
-        var path = sessionStorage.getItem("spa-redirect");
-        if (path) {
+        var redirect = sessionStorage.getItem("spa-redirect");
+        if (redirect) {
           sessionStorage.removeItem("spa-redirect");
-          history.replaceState(null, null, path);
+          history.replaceState(null, null, redirect);
         }
       })();
     </script>
