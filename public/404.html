@@ -1,16 +1,12 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Redirecting…</title>
+    <title>Redirecting...</title>
     <script>
       var path = window.location.pathname;
-      var query = window.location.search;
-      var hash = window.location.hash;
-
-      window.location.replace(
-        "/?redirect=" + encodeURIComponent(path + query + hash)
-      );
+      var redirect = window.location.origin + "/?redirect=" + path;
+      window.location.replace(redirect);
     </script>
   </head>
   <body></body>
