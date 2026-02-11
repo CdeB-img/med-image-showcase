@@ -132,7 +132,7 @@ const ProjectDetail = () => {
       </main>
     );
   }
-
+  const hasRichViewer = ["perfusion-segmentation", "recalage"].includes(project.id);
   return (
     <>
       <Helmet>
@@ -194,21 +194,23 @@ const ProjectDetail = () => {
               </div>
             </div>
 
-            {/* HEADER */}
-            <section className="mb-12">
-              <h1 className="text-3xl font-bold mb-4">
-                {project.title}
-              </h1>
+            {/* HEADER (affiché seulement si pas de viewer riche) */}
+            {!hasRichViewer && (
+              <section className="mb-12">
+                <h1 className="text-3xl font-bold mb-4">
+                  {project.title}
+                </h1>
 
-              <div className="flex gap-2 mb-4">
-                <Badge variant="outline">{project.modality}</Badge>
-                <Badge variant="secondary">{project.analysisType}</Badge>
-              </div>
+                <div className="flex gap-2 mb-4">
+                  <Badge variant="outline">{project.modality}</Badge>
+                  <Badge variant="secondary">{project.analysisType}</Badge>
+                </div>
 
-              <p className="max-w-3xl text-muted-foreground">
-                {project.description}
-              </p>
-            </section>
+                <p className="max-w-3xl text-muted-foreground">
+                  {project.description}
+                </p>
+              </section>
+            )}
 
             {/* ============================= */}
             {/* DYNAMIC VIEWERS */}
