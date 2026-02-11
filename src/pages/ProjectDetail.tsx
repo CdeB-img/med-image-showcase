@@ -8,13 +8,13 @@ import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
-import SliceViewer from "@/components/SliceViewer";
-import RegistrationViewer from "@/components/RegistrationViewer";
-import PerfusionSegmentationViewer from "@/components/PerfusionSegmentationViewer";
-import CardiacViewer from "@/components/CardiacViewer";
-import CTScanViewer from "@/components/CTScanViewer";
-import NeuroOncoViewer from "@/components/NeuroOncoViewer";
-import OutilsViewer from "@/components/OutilsViewer";
+//import SliceViewer from "@/components/SliceViewer";
+//import RegistrationViewer from "@/components/RegistrationViewer";
+//import PerfusionSegmentationViewer from "@/components/PerfusionSegmentationViewer";
+//import CardiacViewer from "@/components/CardiacViewer";
+//import CTScanViewer from "@/components/CTScanViewer";
+//import NeuroOncoViewer from "@/components/NeuroOncoViewer";
+//import OutilsViewer from "@/components/OutilsViewer";
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { getProjectById, getAdjacentProjects } from "@/data/projects";
@@ -24,7 +24,7 @@ import { getProjectById, getAdjacentProjects } from "@/data/projects";
 // ============================================================
 
 const RAW_BASE =
-  "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
+  "https://raw.githubusercontent.com/CdeB-img/NOXIA/main/public/images/";
 
 // ============================================================
 // HELPERS
