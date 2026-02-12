@@ -4,7 +4,8 @@ import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
-const META_IMAGE = "https://noxia-imagerie.fr/og-image-2026.png";
+const OG_IMAGE = "https://noxia-imagerie.fr/og-home.png";
+const PROJECTS_BANNER_IMAGE = "https://noxia-imagerie.fr/og-projets.png";
 
 const Index = () => {
   return (
@@ -21,20 +22,23 @@ const Index = () => {
 
         <link rel="canonical" href="https://noxia-imagerie.fr/" />
 
-        {/* Open Graph */}
         <meta property="og:title" content="Consultant en imagerie médicale quantitative | NOXIA" />
-        <meta property="og:description" content="Segmentation IRM, analyse DICOM, quantification CT et structuration de bases multicentriques pour la recherche clinique." />
+        <meta
+          property="og:description"
+          content="Segmentation IRM, analyse DICOM, quantification CT et structuration de bases multicentriques pour la recherche clinique."
+        />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://noxia-imagerie.fr/" />
-        <meta property="og:image" content={META_IMAGE} />
+        <meta property="og:image" content={OG_IMAGE} />
 
-        {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Consultant en imagerie médicale quantitative | NOXIA" />
-        <meta name="twitter:description" content="Segmentation IRM, analyse DICOM et quantification CT pour projets hospitaliers et études multicentriques." />
-        <meta name="twitter:image" content={META_IMAGE} />
+        <meta
+          name="twitter:description"
+          content="Segmentation IRM, analyse DICOM et quantification CT pour projets hospitaliers et études multicentriques."
+        />
+        <meta name="twitter:image" content={OG_IMAGE} />
 
-        {/* Schema.org */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -50,20 +54,17 @@ const Index = () => {
                 "Segmentation IRM",
                 "Analyse DICOM",
                 "Quantification CT",
-                "Imagerie de perfusion"
-              ]
-            })
+                "Imagerie de perfusion",
+              ],
+            }),
           }}
         />
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
         <main className="flex-1">
-
-          {/* HERO (contient le H1 stratégique) */}
           <HeroSection />
 
-          {/* SECTION STRATÉGIQUE SEO */}
           <section className="max-w-4xl mx-auto py-16 px-4">
             <h2 className="text-2xl font-semibold mb-6">
               Consultant indépendant en imagerie médicale quantitative
@@ -84,18 +85,16 @@ const Index = () => {
             </p>
           </section>
 
-          {/* PROJETS */}
           <section className="py-24 px-4">
             <div className="max-w-6xl mx-auto space-y-12">
-
               <Link
                 to="/projets"
                 className="block group rounded-2xl overflow-hidden border border-border/40 bg-black transition hover:border-primary/40 hover:shadow-xl"
               >
                 <div className="aspect-[21/9] overflow-hidden">
                   <img
-                    src={META_IMAGE}
-                    alt="Segmentation IRM, analyse DICOM et quantification CT en recherche clinique"
+                    src={PROJECTS_BANNER_IMAGE}
+                    alt="Projets : segmentation IRM, quantification CT et recalage en recherche clinique"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                   />
                 </div>
@@ -117,46 +116,32 @@ const Index = () => {
                 </div>
               </Link>
 
-              {/* DOMAINES */}
               <div className="grid gap-8 md:grid-cols-3 pt-6">
-
                 <div className="rounded-xl border border-border/50 bg-muted/20 p-6">
-                  <h3 className="font-semibold text-lg mb-2">
-                    Segmentation IRM experte
-                  </h3>
+                  <h3 className="font-semibold text-lg mb-2">Segmentation IRM experte</h3>
                   <p className="text-muted-foreground">
-                    Segmentation cérébrale et cardiaque,
-                    extraction quantitative et validation scientifique.
+                    Segmentation cérébrale et cardiaque, extraction quantitative et validation scientifique.
                   </p>
                 </div>
 
                 <div className="rounded-xl border border-border/50 bg-muted/20 p-6">
-                  <h3 className="font-semibold text-lg mb-2">
-                    Analyse DICOM & Structuration
-                  </h3>
+                  <h3 className="font-semibold text-lg mb-2">Analyse DICOM & Structuration</h3>
                   <p className="text-muted-foreground">
-                    Harmonisation multicentrique,
-                    normalisation et préparation de bases d’images cliniques.
+                    Harmonisation multicentrique, normalisation et préparation de bases d’images cliniques.
                   </p>
                 </div>
 
                 <div className="rounded-xl border border-border/50 bg-muted/20 p-6">
-                  <h3 className="font-semibold text-lg mb-2">
-                    Quantification CT & Perfusion
-                  </h3>
+                  <h3 className="font-semibold text-lg mb-2">Quantification CT & Perfusion</h3>
                   <p className="text-muted-foreground">
-                    Extraction de biomarqueurs fonctionnels
-                    et analyse quantitative robuste.
+                    Extraction de biomarqueurs fonctionnels et analyse quantitative robuste.
                   </p>
                 </div>
-
               </div>
-
             </div>
           </section>
 
           <AboutSection />
-
         </main>
 
         <Footer />
