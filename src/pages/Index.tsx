@@ -9,30 +9,26 @@ import { Helmet } from "react-helmet-async";
 ============================================================ */
 
 const META_IMAGE =
-  "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images/projets/meta.png";
+  "https://noxia-imagerie.fr/og-image-2026.png";
 
 /* ============================================================
    PAGE
 ============================================================ */
 
 const Index = () => {
-
   return (
     <>
       <Helmet>
         <title>
-          Expert en imagerie médicale quantitative | NOXIA
+          Consultant en imagerie médicale quantitative | Segmentation IRM & Analyse DICOM | NOXIA
         </title>
 
         <meta
           name="description"
-          content="Expert indépendant en imagerie médicale quantitative. Segmentation IRM, analyse CT, quantification de biomarqueurs, traitement DICOM et méthodologie signal-driven pour la recherche clinique."
+          content="Consultant indépendant en imagerie médicale quantitative : segmentation IRM, analyse DICOM, quantification perfusion CT et développement de pipelines reproductibles pour la recherche clinique."
         />
 
-        <link
-          rel="canonical"
-          href="https://noxia-imagerie.fr/"
-        />
+        <link rel="canonical" href="https://noxia-imagerie.fr/" />
 
         <script
           type="application/ld+json"
@@ -43,7 +39,7 @@ const Index = () => {
               name: "NOXIA Imagerie",
               url: "https://noxia-imagerie.fr",
               description:
-                "Expertise indépendante en imagerie médicale quantitative pour la recherche clinique.",
+                "Consultant indépendant en imagerie médicale quantitative pour la recherche clinique.",
               serviceType: "MedicalImagingAnalysis",
               areaServed: "Europe"
             })
@@ -54,20 +50,42 @@ const Index = () => {
       <div className="min-h-screen flex flex-col bg-background">
         <main className="flex-1">
 
-
+          {/* HERO (doit contenir le H1 principal) */}
           <HeroSection />
-            <section className="max-w-4xl mx-auto py-16 px-4">
-              <h2 className="text-2xl font-semibold mb-6">
-                Expertise indépendante en imagerie médicale quantitative
-              </h2>
 
-              <p className="text-muted-foreground leading-relaxed">
-                Expertise en segmentation IRM cérébrale et cardiaque, quantification CT,
-                recalage monomodale et multimodal longitudinal et extraction de biomarqueurs quantitatifs.
-                Approches signal-driven, validation physiopathologique et méthodologies
-                reproductibles appliquées à la recherche clinique translationnelle.
-              </p>
-            </section>
+          {/* SECTION INTRODUCTION */}
+          <section className="max-w-4xl mx-auto py-16 px-4">
+            <h2 className="text-2xl font-semibold mb-6">
+              Consultant en imagerie médicale quantitative
+            </h2>
+
+            <p className="text-muted-foreground leading-relaxed">
+              NOXIA intervient comme consultant indépendant spécialisé en
+              segmentation IRM, analyse DICOM, quantification de perfusion CT
+              et structuration de pipelines méthodologiques reproductibles
+              appliqués à la recherche clinique.
+            </p>
+
+            <p className="text-muted-foreground leading-relaxed mt-4">
+              Expertise en extraction de biomarqueurs, validation physiopathologique,
+              recalage multimodal longitudinal et harmonisation de bases de données
+              DICOM pour études translationnelles multicentriques.
+            </p>
+          </section>
+
+          {/* BLOC SEO DISCRET */}
+          <section className="sr-only">
+            <h2>
+              Analyse DICOM, segmentation IRM et quantification CT en recherche clinique
+            </h2>
+            <p>
+              Consultant en analyse DICOM, structuration de bases d’images médicales,
+              normalisation de pipelines IRM et CT, segmentation lésionnelle,
+              quantification perfusion et validation méthodologique en recherche clinique.
+            </p>
+          </section>
+
+          {/* SECTION PROJETS */}
           <section className="py-24 px-4">
             <div className="max-w-6xl mx-auto space-y-12">
 
@@ -78,7 +96,7 @@ const Index = () => {
                 <div className="aspect-[21/9] overflow-hidden">
                   <img
                     src={META_IMAGE}
-                    alt="Segmentation et quantification en imagerie médicale CT et IRM"
+                    alt="Segmentation IRM, quantification CT et analyse DICOM en recherche clinique"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                   />
                 </div>
@@ -89,9 +107,9 @@ const Index = () => {
                   </h2>
 
                   <p className="mt-4 text-lg text-muted-foreground max-w-4xl">
-                    Segmentation lésionnelle IRM, quantification CT,
-                    recalage multimodal et développement d’outils
-                    méthodologiques pour la recherche clinique.
+                    Segmentation IRM cérébrale et cardiaque, quantification CT,
+                    recalage multimodal longitudinal et développement d’outils
+                    méthodologiques robustes pour la recherche clinique.
                   </p>
 
                   <div className="mt-6 text-primary font-medium">
@@ -100,6 +118,7 @@ const Index = () => {
                 </div>
               </Link>
 
+              {/* DOMAINES D'EXPERTISE */}
               <div className="grid gap-8 md:grid-cols-3 pt-6">
 
                 <div className="rounded-xl border border-border/50 bg-muted/20 p-6">
@@ -107,32 +126,33 @@ const Index = () => {
                     Segmentation IRM
                   </h3>
                   <p className="text-muted-foreground">
-                    Approches signal-driven pour la segmentation
-                    lésionnelle cérébrale et tumorale.
+                    Segmentation lésionnelle cérébrale et tumorale,
+                    extraction quantitative et validation méthodologique.
                   </p>
                 </div>
 
                 <div className="rounded-xl border border-border/50 bg-muted/20 p-6">
                   <h3 className="font-semibold text-lg mb-2">
-                    Quantification CT
+                    Analyse DICOM & Structuration
                   </h3>
                   <p className="text-muted-foreground">
-                    Extraction robuste de biomarqueurs
-                    morphologiques et fonctionnels.
+                    Normalisation, harmonisation multicentrique et
+                    structuration de bases d’images cliniques.
                   </p>
                 </div>
 
                 <div className="rounded-xl border border-border/50 bg-muted/20 p-6">
                   <h3 className="font-semibold text-lg mb-2">
-                    Recalage multimodal
+                    Quantification CT & Perfusion
                   </h3>
                   <p className="text-muted-foreground">
-                    Alignement CT / IRM longitudinal
-                    pour analyse quantitative fiable.
+                    Extraction de biomarqueurs fonctionnels et
+                    quantification robuste en imagerie de perfusion.
                   </p>
                 </div>
 
               </div>
+
             </div>
           </section>
 
