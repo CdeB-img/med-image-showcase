@@ -4,6 +4,11 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import SegmentationIRM from "@/pages/SegmentationIRM";
+import AnalyseDICOM from "@/pages/AnalyseDICOM";
+import QuantificationCT from "@/pages/QuantificationCT";
+import RecalageMultimodal from "@/pages/RecalageMultimodal";
+import BasesMulticentriques from "@/pages/BasesMulticentriques";
 
 import Header from "@/components/Header"; // ⬅️ AJOUT
 
@@ -45,7 +50,11 @@ const App = () => (
           <Route path="/projets" element={<Projects />} />
           <Route path="/projet/:id" element={<ProjectDetail />} />
           <Route path="/contact" element={<Contact />} />
-
+          <Route path="/segmentation-irm" element={<SegmentationIRM />} />
+          <Route path="/analyse-dicom" element={<AnalyseDICOM />} />
+          <Route path="/quantification-ct" element={<QuantificationCT />} />
+          <Route path="/recalage-multimodal" element={<RecalageMultimodal />} />
+          <Route path="/bases-multicentriques" element={<BasesMulticentriques />} />
           {/* Fallback */}
           <Route path="*" element={<NotFound />} />
         </Routes>
