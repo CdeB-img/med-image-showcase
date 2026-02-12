@@ -4,36 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>NOXIA : Expert en imagerie médicale pour la recherche</title>
+    <!-- Titre neutre (Helmet prendra le relais) -->
+    <title>NOXIA</title>
 
-    <meta
-      name="description"
-      content="Expertise indépendante en analyse et quantification d’images médicales, approches méthodologiques et quantitatives pour la recherche clinique."
-    />
-
-    <meta property="og:title" content="NOXIA : Expert en imagerie médicale pour la recherche" />
-    <meta property="og:description"
-      content="Expertise indépendante en analyse et quantification d’images médicales, approches méthodologiques et quantitatives pour la recherche clinique." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://noxia-imagerie.fr/" />
-    <meta property="og:image" content="https://noxia-imagerie.fr/og-image-2026.png" />
+    <!-- Description minimale neutre -->
+    <meta name="description" content="NOXIA – Imagerie médicale quantitative pour la recherche clinique." />
 
     <link rel="icon" href="/favicon.ico" />
-
-    <!-- RESTORE ROUTE AFTER 404 REDIRECT -->
-    <script>
-      (function () {
-        var params = new URLSearchParams(window.location.search);
-        var redirect = params.get("redirect");
-        if (redirect) {
-          window.history.replaceState(null, null, redirect);
-        }
-      })();
-    </script>
   </head>
+
   <body>
     <div id="root"></div>
-
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
