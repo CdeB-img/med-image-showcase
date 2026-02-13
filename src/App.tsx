@@ -9,6 +9,7 @@ import AnalyseDICOM from "@/pages/AnalyseDICOM";
 import QuantificationCT from "@/pages/QuantificationCT";
 import RecalageMultimodal from "@/pages/RecalageMultimodal";
 import BasesMulticentriques from "@/pages/BasesMulticentriques";
+import CorelabEC from "@/pages/CorelabEC";
 
 import Header from "@/components/Header"; // ⬅️ AJOUT
 
@@ -55,6 +56,7 @@ const App = () => (
           <Route path="/quantification-ct" element={<QuantificationCT />} />
           <Route path="/recalage-multimodal" element={<RecalageMultimodal />} />
           <Route path="/bases-multicentriques" element={<BasesMulticentriques />} />
+          <Route path="/corelab-essais-cliniques" element={<CorelabEC />} />
           {/* Fallback */}
           <Route path="*" element={<NotFound />} />
         </Routes>
