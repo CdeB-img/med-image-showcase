@@ -12,7 +12,7 @@ import BasesMulticentriques from "@/pages/BasesMulticentriques";
 import BiomarqueursIRMCardiaqueEssais from "@/pages/BiomarqueursIRMCardiaqueEssais";
 import ECVMappingCardiaque from "@/pages/ECVMappingCardiaque";
 
-import perfusion-metabolique-neuro-imagerie from "@/pages/perfusion-metabolique-neuro-imagerie";
+import PerfusionMetaboliqueNeuro from "@/pages/PerfusionMetaboliqueNeuro";
 import CorelabEC from "@/pages/CorelabEC";
 
 import Header from "@/components/Header";
