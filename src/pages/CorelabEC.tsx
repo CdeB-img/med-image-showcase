@@ -15,8 +15,8 @@ const CANONICAL = "https://noxia-imagerie.fr/corelab-essais-cliniques";
 const CorelabEC = () => {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Service",
-    name: "Core Lab IRM pour essais cliniques",
+    "@type": "ProfessionalService",
+    name: "Core Lab IRM cardiovasculaire pour essais cliniques",
     provider: {
       "@type": "Organization",
       name: "NOXIA Imagerie",
@@ -24,30 +24,42 @@ const CorelabEC = () => {
     },
     areaServed: "Europe",
     serviceType: [
-      "Core Lab IRM",
-      "Lecture centralisée multicentrique",
-      "Validation biomarqueurs",
-      "Quantification IRM",
+      "Cardiovascular MRI Core Lab",
+      "Imaging surrogate endpoints",
+      "Multicenter imaging harmonization",
+      "ECV validation",
+      "Microvascular Obstruction quantification",
+      "Left Ventricular remodeling assessment",
+      "Randomized controlled trial imaging analysis"
     ],
     description:
-      "Core Lab IRM pour essais cliniques multicentriques : définition d’endpoints, harmonisation inter-centre, validation translationnelle et quantification reproductible.",
+      "Core Lab IRM cardiovasculaire pour essais randomisés multicentriques : définition d’endpoints quantitatifs robustes (MVO, remodelage VG, ECV), harmonisation inter-centre, validation histologique et extraction de biomarqueurs reproductibles.",
     url: CANONICAL,
+    keywords: [
+      "Cardiovascular MRI Core Lab",
+      "ECV validation biopsy correlation",
+      "Microvascular Obstruction",
+      "Left Ventricular Remodeling",
+      "Randomized Clinical Trial imaging endpoint",
+      "Late Gadolinium Enhancement",
+      "Multicenter MRI harmonization"
+    ],
   };
 
   return (
     <>
       <Helmet>
-        <title>Core Lab IRM & Essais Cliniques | NOXIA</title>
+        <title>Core Lab IRM Cardiovasculaire & Endpoints d’Essais | NOXIA</title>
         <meta
           name="description"
-          content="Core Lab IRM pour essais cliniques multicentriques. Définition d’endpoints, validation translationnelle, harmonisation inter-centre et quantification reproductible."
+          content="Core Lab IRM cardiovasculaire pour essais multicentriques. Définition et validation d’endpoints IRM (MVO, remodelage VG, ECV), harmonisation inter-centre et biomarqueurs reproductibles."
         />
         <link rel="canonical" href={CANONICAL} />
 
-        <meta property="og:title" content="Core Lab IRM & Essais Cliniques | NOXIA" />
+        <meta property="og:title" content="Core Lab IRM Cardiovasculaire | NOXIA" />
         <meta
           property="og:description"
-          content="Pilotage et quantification IRM comme endpoint d’essais thérapeutiques multicentriques."
+          content="IRM comme surrogate endpoint robuste en essais thérapeutiques randomisés multicentriques."
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={CANONICAL} />
@@ -64,59 +76,59 @@ const CorelabEC = () => {
             {/* HERO */}
             <section className="space-y-6 text-center">
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                Core Lab IRM & Essais Cliniques Multicentriques
+                Core Lab IRM Cardiovasculaire
               </h1>
 
               <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-                Pilotage, harmonisation et quantification de biomarqueurs IRM
-                utilisés comme endpoints d’essais thérapeutiques randomisés
-                et cohortes prospectives de grande ampleur.
+                L’IRM comme <strong>surrogate endpoint quantitatif</strong> dans
+                les essais thérapeutiques randomisés et cohortes multicentriques.
+                Harmonisation, validation translationnelle et biomarqueurs défendables.
               </p>
             </section>
 
-            {/* ROLE CORE LAB */}
+            {/* POSITIONNEMENT */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                Rôle en tant que Core Lab imagerie
+                L’imagerie comme endpoint thérapeutique robuste
               </h2>
 
               <p>
-                Dans plusieurs essais multicentriques randomisés et cohortes
-                longitudinales, l’IRM a été utilisée comme endpoint quantitatif
-                principal ou secondaire. Le rôle du Core Lab consiste à garantir
-                l’homogénéité méthodologique, la traçabilité et la robustesse des mesures.
+                Dans plusieurs essais multicentriques post-infarctus,
+                études médicament vs placebo et cohortes longitudinales,
+                l’IRM cardiovasculaire a été utilisée comme critère
+                principal ou secondaire d’efficacité.
               </p>
 
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Définition d’endpoints IRM reproductibles</li>
-                <li>Lecture centralisée et harmonisation inter-centre</li>
-                <li>Contrôle qualité systématique des acquisitions</li>
-                <li>Quantification de nécrose, MVO, remodelage ventriculaire</li>
-                <li>Extraction de biomarqueurs tissulaires (LGE, T1, T2, ECV)</li>
-              </ul>
+              <p>
+                L’objectif du Core Lab est de transformer une acquisition
+                IRM hétérogène en un <strong>biomarqueur quantitatif
+                reproductible</strong> : nécrose, Microvascular Obstruction (MVO),
+                remodelage ventriculaire gauche, Late Gadolinium Enhancement (LGE),
+                T1, T2, Extracellular Volume (ECV).
+              </p>
             </section>
 
             {/* VALIDATION TRANSLATIONNELLE */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                Validation translationnelle des biomarqueurs
+                Validation histologique et ECV
               </h2>
 
               <p>
-                Certaines études ont intégré une validation histologique directe,
-                permettant de corréler les biomarqueurs IRM à des analyses tissulaires.
+                Participation à une étude translationnelle intégrant
+                biopsies septales chez patients hypertrophiques avec IRM pré-biopsie.
               </p>
 
               <ul className="list-disc pl-6 space-y-2">
-                <li>IRM pré-biopsie avec quantification sectorielle AHA</li>
-                <li>Mesure précise de l’hématocrite juste avant injection</li>
-                <li>Contrôle des biais liés à l’hydratation et à la décantation</li>
+                <li>Prélèvement d’hématocrite immédiat pré-injection</li>
+                <li>Centrifugation et contrôle des biais liés à l’hydratation</li>
+                <li>Quantification sectorielle AHA</li>
                 <li>Corrélation ECV ↔ analyse histologique</li>
               </ul>
 
               <p>
-                Ces travaux ont permis de renforcer la validité physiopathologique
-                de l’ECV comme marqueur de l’espace extracellulaire et de la fibrose diffuse.
+                Ces travaux ont renforcé la validité physiopathologique de l’ECV
+                comme marqueur quantitatif de l’espace extracellulaire et de la fibrose diffuse.
               </p>
 
               <p>
@@ -124,124 +136,88 @@ const CorelabEC = () => {
               </p>
 
               <ul className="list-disc pl-6 space-y-2">
-                <li>T1 → marqueur inflammatoire et fibrose diffuse</li>
-                <li>T2 → marqueur d’œdème (distinction importante en pratique clinique)</li>
+                <li>T1 : inflammation et fibrose diffuse</li>
+                <li>T2 : œdème (distinction critique en pratique)</li>
               </ul>
             </section>
 
-            {/* COHORTES */}
+            {/* GRANDES COHORTES */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                Gestion de cohortes multicentriques à grande échelle
+                Essais randomisés et cohortes longitudinales
               </h2>
 
               <p>
-                Expérience sur essais thérapeutiques post-IDM, études médicament vs placebo,
-                cohortes longitudinales de grande ampleur et relectures institutionnelles massives.
+                Expérience sur essais post-IDM multicentriques,
+                études thérapeutiques (colchicine vs placebo),
+                évaluation du remodelage ventriculaire gauche
+                sur cohortes &gt;2000 patients, et analyses
+                institutionnelles à grande échelle.
               </p>
 
               <ul className="list-disc pl-6 space-y-2">
-                <li>Centralisation et audit complet des DICOM</li>
-                <li>Anonymisation harmonisée et structurée</li>
+                <li>Lecture centralisée multicentrique</li>
+                <li>Définition d’endpoints IRM standardisés</li>
+                <li>Quantification MVO et nécrose</li>
+                <li>Analyse du remodelage ventriculaire gauche</li>
+                <li>Gestion de cohortes maladies rares (ex. Fabry)</li>
+              </ul>
+            </section>
+
+            {/* STRUCTURATION MULTICENTRIQUE */}
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Harmonisation multicentrique et contrôle qualité
+              </h2>
+
+              <p>
+                Un endpoint IRM robuste nécessite une harmonisation stricte :
+              </p>
+
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Audit complet des DICOM</li>
+                <li>Contrôle géométrique et métadonnées</li>
+                <li>Anonymisation harmonisée</li>
                 <li>Détection des doublons et examens incomplets</li>
-                <li>Structuration patient / temps / séquence</li>
                 <li>Extraction volumétrique standardisée</li>
               </ul>
 
               <p>
-                L’objectif est de transformer des données hétérogènes
-                en une base exploitable, statistiquement robuste et défendable.
-              </p>
-            </section>
-
-            {/* MÉTHODES ET LOGICIELS */}
-            <section className="space-y-6 text-muted-foreground leading-relaxed">
-              <h2 className="text-2xl font-semibold text-foreground">
-                Comparaison d’algorithmes et validation inter-logiciels
-              </h2>
-
-              <p>
-                Les méthodes de segmentation et de quantification doivent être
-                comparées et validées. L’utilisation d’un outil ne garantit
-                pas en soi la validité scientifique du biomarqueur produit.
-              </p>
-
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Comparaison tagging vs speckle tracking (strain)</li>
-                <li>Validation inter-logiciels (solutions cliniques vs recherche)</li>
-                <li>Analyse de concordance et dispersion statistique</li>
-                <li>Évaluation de séquences avancées (T1 rho, mapping…)</li>
-              </ul>
-
-              <p>
-                L’objectif est d’identifier la méthode la plus robuste,
-                reproductible et scientifiquement défendable.
-              </p>
-            </section>
-            {/* RÉFÉRENCES INSTITUTIONNELLES */}
-            <section className="space-y-6 text-muted-foreground leading-relaxed">
-              <h2 className="text-2xl font-semibold text-foreground">
-                Références institutionnelles et structuration d’unités Core Lab
-              </h2>
-
-              <p>
-                Expérience acquise au sein de centres hospitalo-universitaires
-                reconnus en imagerie cardiovasculaire, dans un contexte
-                d’essais multicentriques et de recherche clinique certifiée.
-              </p>
-
-              <ul className="list-disc pl-6 space-y-2">
-                <li>
-                  Core Lab IRM cardiaque pour équipes hospitalo-universitaires
-                  expertes en imagerie cardiovasculaire
-                </li>
-                <li>
-                  Gestion complète de l’imagerie au sein d’un Centre d’Investigation
-                  Clinique certifié ISO 9001 (IRM comme endpoint thérapeutique)
-                </li>
-                <li>
-                  Lecture centralisée multicentrique pour essais randomisés
-                  post-infarctus et pathologies myocardiques
-                </li>
-                <li>
-                  Recrutement au sein d’une cellule recherche imagerie
-                  hospitalière transversale pour structuration d’une unité
-                  de relecture cardiothoracique
-                </li>
-              </ul>
-
-              <p>
-                Cette expérience combine exigence scientifique,
-                structuration organisationnelle et maîtrise des contraintes
-                réglementaires et multicentriques.
-              </p>
-            </section>
-            {/* VALEUR AJOUTÉE */}
-
-            <section className="space-y-6 text-muted-foreground leading-relaxed">
-              <h2 className="text-2xl font-semibold text-foreground">
-                Ce que cela apporte à votre étude
-              </h2>
-
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Endpoints IRM définis et reproductibles</li>
-                <li>Réduction du bruit méthodologique</li>
-                <li>Harmonisation multicentrique documentée</li>
-                <li>Biomarqueurs exploitables statistiquement</li>
-                <li>Support publication et validation réglementaire</li>
-              </ul>
-
-              <p>
                 L’imagerie devient un outil décisionnel quantitatif,
-                et non un simple examen illustratif.
+                non un simple support illustratif.
               </p>
+            </section>
+
+            {/* LIENS INTERNES */}
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold">
+                Approfondir
+              </h2>
+
+              <div className="flex flex-wrap gap-3">
+                <Link to="/segmentation-irm" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Segmentation IRM
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <Link to="/bases-multicentriques" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Bases multicentriques
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <Link to="/analyse-dicom" className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Analyse DICOM
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
             </section>
 
             {/* CTA */}
             <section className="text-center space-y-4">
               <p className="text-muted-foreground">
-                Besoin d’un Core Lab IRM pour un essai multicentrique ?
+                Besoin d’un Core Lab IRM pour un essai thérapeutique multicentrique ?
               </p>
+
               <Link
                 to="/contact"
                 className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-5 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
