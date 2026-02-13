@@ -12,15 +12,16 @@ const BiomarqueursIRMCardiaqueEssais = () => {
     "@type": "MedicalWebPage",
     name: "Biomarqueurs IRM cardiaque en essais cliniques multicentriques",
     description:
-      "Définition, validation et harmonisation de biomarqueurs IRM cardiaque utilisés comme endpoints d’essais thérapeutiques multicentriques : LGE, MVO, ECV, T1, T2.",
+      "Définition, validation méthodologique et harmonisation multicentrique de biomarqueurs IRM cardiaque utilisés comme endpoints primaires ou secondaires d’essais thérapeutiques randomisés.",
     about: [
       "Cardiac MRI",
+      "Clinical trial imaging endpoints",
       "Late Gadolinium Enhancement",
       "Microvascular Obstruction",
-      "Extracellular Volume",
+      "Extracellular Volume Fraction",
       "T1 mapping",
       "T2 mapping",
-      "Clinical trial imaging endpoints",
+      "Left ventricular remodeling",
       "Multicenter imaging harmonization"
     ],
     medicalAudience: {
@@ -32,6 +33,35 @@ const BiomarqueursIRMCardiaqueEssais = () => {
       name: "NOXIA Imagerie",
       url: "https://noxia-imagerie.fr"
     },
+    mainEntity: {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Pourquoi l’IRM cardiaque est-elle utilisée comme endpoint d’essai clinique ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "L’IRM cardiaque permet une quantification directe de la nécrose, de l’obstruction microvasculaire, du remodelage ventriculaire et des altérations tissulaires diffuses. Elle constitue un surrogate endpoint robuste lorsqu’elle est méthodologiquement standardisée."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quelle est la différence entre T1 et T2 en pratique clinique ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Le T1 natif est principalement associé à l’inflammation et à la fibrose diffuse, tandis que le T2 mapping reflète l’œdème actif. Leur confusion peut conduire à des interprétations physiopathologiques erronées."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Pourquoi l’harmonisation multicentrique est-elle critique ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "La variabilité inter-constructeurs et inter-centres peut dépasser l’effet thérapeutique étudié. Une harmonisation documentée est nécessaire pour garantir la validité statistique et scientifique des biomarqueurs."
+          }
+        }
+      ]
+    },
     url: CANONICAL
   };
 
@@ -39,23 +69,23 @@ const BiomarqueursIRMCardiaqueEssais = () => {
     <>
       <Helmet>
         <title>
-          Biomarqueurs IRM cardiaque & Essais cliniques multicentriques | NOXIA
+          Biomarqueurs IRM cardiaque & Endpoints d’essais cliniques | NOXIA
         </title>
 
         <meta
           name="description"
-          content="IRM cardiaque comme endpoint d’essais thérapeutiques : définition méthodologique des biomarqueurs LGE, MVO, ECV, T1 et T2, harmonisation multicentrique et validation translationnelle."
+          content="IRM cardiaque comme endpoint d’essais thérapeutiques multicentriques : LGE, MVO, ECV, T1, T2. Validation translationnelle, harmonisation inter-centre et reproductibilité scientifique."
         />
 
         <link rel="canonical" href={CANONICAL} />
 
         <meta
           property="og:title"
-          content="Biomarqueurs IRM cardiaque en essais multicentriques | NOXIA"
+          content="Biomarqueurs IRM cardiaque en essais multicentriques"
         />
         <meta
           property="og:description"
-          content="Structuration, harmonisation et validation de biomarqueurs IRM cardiaque utilisés comme endpoints d’essais randomisés."
+          content="Structuration, validation et harmonisation de biomarqueurs IRM cardiaque utilisés comme endpoints randomisés."
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={CANONICAL} />
@@ -67,7 +97,7 @@ const BiomarqueursIRMCardiaqueEssais = () => {
 
       <div className="min-h-screen flex flex-col bg-background">
         <main className="flex-1 py-20 px-4">
-          <div className="max-w-5xl mx-auto space-y-20">
+          <div className="max-w-5xl mx-auto space-y-24">
 
             {/* HERO */}
             <section className="text-center space-y-6">
@@ -76,41 +106,42 @@ const BiomarqueursIRMCardiaqueEssais = () => {
               </h1>
 
               <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-                Définition, validation méthodologique et harmonisation
-                multicentrique de biomarqueurs IRM cardiaque utilisés
-                comme endpoints primaires ou secondaires d’essais thérapeutiques.
+                Structuration méthodologique, validation translationnelle
+                et harmonisation multicentrique de biomarqueurs IRM
+                utilisés comme endpoints primaires ou secondaires
+                d’essais thérapeutiques randomisés.
               </p>
             </section>
 
-            {/* POSITIONNEMENT */}
+            {/* POSITION STRATÉGIQUE */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                L’IRM cardiaque comme outil décisionnel quantitatif
+                De l’image descriptive au surrogate endpoint
               </h2>
 
               <p>
-                Dans les essais cardiovasculaires modernes, l’IRM cardiaque
-                dépasse le rôle descriptif. Elle devient un surrogate endpoint
-                capable de mesurer la nécrose myocardique, l’obstruction
-                microvasculaire, le remodelage ventriculaire gauche ou
-                les altérations tissulaires diffuses.
+                L’IRM cardiaque moderne ne se limite plus à la visualisation.
+                Elle permet une quantification directe des lésions myocardiques,
+                du remodelage ventriculaire gauche et des altérations
+                tissulaires diffuses. Dans un essai thérapeutique,
+                ces mesures deviennent des endpoints décisionnels.
               </p>
 
               <p>
-                La validité scientifique d’un biomarqueur dépend cependant
-                de sa définition méthodologique : règles de segmentation,
-                choix des seuils, contrôle des biais centre-dépendants
-                et reproductibilité inter-observateur.
+                Toutefois, un biomarqueur IRM n’a de valeur scientifique
+                que si sa définition est explicite : règles de segmentation,
+                choix des seuils, séparation inférence / quantification,
+                contrôle des biais inter-centre et reproductibilité.
               </p>
 
               <p>
-                Cette structuration s’intègre dans une logique de{" "}
+                Cette démarche s’intègre dans une logique globale de{" "}
                 <Link to="/corelab-essais-cliniques" className="text-primary hover:underline">
                   Core Lab IRM multicentrique
                 </Link>{" "}
                 et d’{" "}
                 <Link to="/bases-multicentriques" className="text-primary hover:underline">
-                  harmonisation de bases de données hétérogènes
+                  harmonisation méthodologique des bases d’imagerie
                 </Link>.
               </p>
             </section>
@@ -118,105 +149,125 @@ const BiomarqueursIRMCardiaqueEssais = () => {
             {/* BIOMARQUEURS */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                Biomarqueurs IRM utilisés en essais randomisés
+                Biomarqueurs cardiaques structurants
               </h2>
 
               <ul className="list-disc pl-6 space-y-2">
-                <li>Nécrose myocardique en rehaussement tardif (LGE)</li>
+                <li>Nécrose myocardique (Late Gadolinium Enhancement)</li>
                 <li>Obstruction microvasculaire (MVO)</li>
-                <li>Volumes et fraction d’éjection ventriculaire</li>
-                <li>Remodelage ventriculaire gauche longitudinal</li>
-                <li>ECV (Extracellular Volume Fraction)</li>
-                <li>T1 natif : inflammation et fibrose diffuse</li>
-                <li>T2 mapping : marqueur d’œdème actif</li>
+                <li>Volumes ventriculaires & fraction d’éjection</li>
+                <li>Remodelage ventriculaire longitudinal</li>
+                <li>ECV – quantification de l’espace extracellulaire</li>
+                <li>T1 natif – inflammation / fibrose diffuse</li>
+                <li>T2 mapping – œdème actif</li>
               </ul>
 
               <p>
-                La distinction entre T1 (inflammation / fibrose diffuse)
-                et T2 (œdème) est fondamentale, car elle influence directement
-                l’interprétation physiopathologique et les conclusions
-                cliniques d’un essai.
+                La distinction entre T1 et T2 est essentielle :
+                le T1 reflète principalement l’inflammation ou la fibrose diffuse,
+                tandis que le T2 est un marqueur d’œdème actif.
+                Une confusion méthodologique altère directement
+                l’interprétation physiopathologique.
               </p>
             </section>
 
-            {/* VALIDATION ECV */}
+            {/* VALIDATION TRANSLATIONNELLE */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
                 Validation translationnelle : ECV et corrélation histologique
               </h2>
 
               <p>
-                Dans des protocoles hypertrophiques avec biopsies septales,
-                l’ECV a été évalué en conditions contrôlées :
+                Dans des protocoles hypertrophiques intégrant biopsies septales,
+                l’ECV a été évalué dans des conditions strictement contrôlées :
               </p>
 
               <ul className="list-disc pl-6 space-y-2">
                 <li>Prélèvement sanguin immédiat avant injection</li>
-                <li>Mesure précise de l’hématocrite</li>
-                <li>Contrôle des biais liés à l’hydratation et à la position</li>
-                <li>Sectorisation myocardique selon le modèle AHA</li>
-                <li>Corrélation IRM ↔ analyse histologique</li>
+                <li>Mesure précise de l’hématocrite (contrôle décantation)</li>
+                <li>Sectorisation myocardique AHA</li>
+                <li>Corrélation IRM ↔ histologie quantitative</li>
               </ul>
 
               <p>
-                Cette rigueur méthodologique renforce la légitimité
-                de l’ECV comme reflet quantitatif de l’espace extracellulaire.
-                Voir également la page dédiée{" "}
+                Cette approche renforce la validité physiopathologique
+                du biomarqueur. Voir également la page dédiée{" "}
                 <Link to="/ecv-mapping-t1-t2-irm-cardiaque" className="text-primary hover:underline">
                   ECV & Mapping T1/T2
                 </Link>.
               </p>
             </section>
 
-            {/* MÉTHODOLOGIE */}
+            {/* VARIABILITÉ MULTICENTRIQUE */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                Comparaison des méthodes de segmentation
-              </h2>
-
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Méthodes SD vs FWHM selon la séquence</li>
-                <li>Approches bullseye avec biais homogène contrôlé</li>
-                <li>Analyse des biais systématiques</li>
-                <li>Reproductibilité intra et inter-observateur</li>
-                <li>Validation inter-logiciels</li>
-              </ul>
-
-              <p>
-                Ces éléments s’inscrivent dans une logique globale de{" "}
-                <Link to="/segmentation-irm" className="text-primary hover:underline">
-                  segmentation IRM reproductible
-                </Link>{" "}
-                et de traçabilité complète des paramètres.
-              </p>
-            </section>
-
-            {/* IMPACT PROMOTEUR */}
-            <section className="space-y-6 text-muted-foreground leading-relaxed">
-              <h2 className="text-2xl font-semibold text-foreground">
-                Impact sur la puissance statistique d’un essai
+                Variabilité inter-centre et puissance statistique
               </h2>
 
               <p>
-                Une variabilité méthodologique excessive peut dépasser
-                l’effet thérapeutique étudié. Structurer précisément
-                les biomarqueurs IRM permet :
+                Dans un essai multicentrique, la variabilité technique
+                (constructeur, champ 1.5T/3T, implémentation séquence,
+                post-traitement logiciel) peut dépasser l’effet
+                thérapeutique étudié.
+              </p>
+
+              <p>
+                Une harmonisation structurée permet :
               </p>
 
               <ul className="list-disc pl-6 space-y-2">
-                <li>Réduction du bruit inter-centre</li>
-                <li>Amélioration de la cohérence des endpoints</li>
-                <li>Optimisation de la puissance statistique</li>
-                <li>Robustesse des analyses secondaires</li>
-                <li>Crédibilité scientifique des publications</li>
+                <li>Réduction du bruit centre-dépendant</li>
+                <li>Stabilisation des distributions statistiques</li>
+                <li>Amélioration de la puissance analytique</li>
+                <li>Robustesse des conclusions publiables</li>
               </ul>
+
+              <p>
+                Cette étape est détaillée dans{" "}
+                <Link to="/bases-multicentriques" className="text-primary hover:underline">
+                  Bases multicentriques & Harmonisation IRM/CT
+                </Link>.
+              </p>
             </section>
 
-            {/* CTA */}
+            {/* LIENS TRANSVERSAUX */}
+            <section className="space-y-6 text-center">
+              <h2 className="text-xl font-semibold">
+                Approches complémentaires
+              </h2>
+
+              <div className="flex flex-wrap justify-center gap-3">
+                <Link
+                  to="/segmentation-irm"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  Segmentation IRM
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <Link
+                  to="/corelab-essais-cliniques"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  Core Lab IRM
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <Link
+                  to="/bases-multicentriques"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  Harmonisation multicentrique
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </section>
+
+            {/* CTA FINAL */}
             <section className="text-center space-y-4">
               <p className="text-muted-foreground">
-                Besoin de structurer ou valider des biomarqueurs IRM
-                dans un essai multicentrique ?
+                Structurer un endpoint IRM robuste est un travail
+                méthodologique avant d’être un travail logiciel.
               </p>
 
               <Link
