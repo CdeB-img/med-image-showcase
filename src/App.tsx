@@ -63,7 +63,7 @@ const App = () => (
           <Route path="/corelab-essais-cliniques" element={<CorelabEC />} />
           <Route path="/biomarqueurs-irm-cardiaque-essais-cliniques" element={<BiomarqueursIRMCardiaqueEssais />} />
           <Route path="/ecv-mapping-t1-t2-irm-cardiaque" element={<ECVMappingCardiaque />} />
-          <Route path="/perfusion-metabolique-neuro-imagerie" element={<perfusion-metabolique-neuro-imagerie />} />
+          <Route path="/perfusion-metabolique-neuro-imagerie" element={<PerfusionMetaboliqueNeuro />} />
 
           {/* Fallback */}
           <Route path="*" element={<NotFound />} />
