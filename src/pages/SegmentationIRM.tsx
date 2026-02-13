@@ -204,46 +204,145 @@ const SegmentationIRM = () => {
               </div>
             </section>
 
-            {/* APPROCHE */}
+            {/* APPROCHE MÉTHODOLOGIQUE */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
-              <h2 className="text-2xl font-semibold text-foreground">Approche méthodologique</h2>
+              <h2 className="text-2xl font-semibold text-foreground">
+                Approche méthodologique
+              </h2>
 
               <p>
-                L’objectif n’est pas de “faire tourner un modèle” mais de produire une
-                segmentation exploitable, contrôlée et défendable. Les choix sont explicites :
-                pré-traitement, normalisation, règles morphologiques, critères d’exclusion, et
-                contrôle géométrique.
+                Une segmentation IRM exploitable en recherche clinique repose sur une
+                chaîne méthodologique explicite. L’objectif n’est pas d’obtenir un masque
+                visuellement convaincant, mais de produire un biomarqueur quantifiable,
+                reproductible et scientifiquement défendable.
               </p>
 
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="rounded-xl border border-border/50 bg-muted/20 p-6 space-y-3">
-                  <div className="flex items-center gap-2 text-foreground font-semibold">
-                    <CheckCircle2 className="w-5 h-5 text-primary" />
-                    Contrôles systématiques
-                  </div>
-                  <ul className="list-disc pl-5 space-y-1">
-                    <li>Géométrie, orientation, spacing, cohérence DICOM ↔ NIfTI</li>
-                    <li>Harmonisation inter-centre (si nécessaire, et documentée)</li>
-                    <li>Validation intra/inter-observateur quand applicable</li>
-                    <li>QC visuel + QC quantitatif (statistiques / distributions)</li>
-                  </ul>
-                </div>
+              <p>
+                Chaque projet débute par un audit des données : géométrie, orientation,
+                cohérence DICOM ↔ NIfTI, intégrité des métadonnées et stabilité inter-centre.
+                Le pré-traitement est adapté à la séquence (IRM 3D, PSIR, DWI, FLAIR…)
+                et peut inclure normalisation du signal, séparation hémisphérique,
+                léger resampling contrôlé ou harmonisation multicentrique documentée.
+              </p>
 
-                <div className="rounded-xl border border-border/50 bg-muted/20 p-6 space-y-3">
-                  <div className="flex items-center gap-2 text-foreground font-semibold">
-                    <Workflow className="w-5 h-5 text-primary" />
-                    IA : oui, mais cadrée
-                  </div>
-                  <ul className="list-disc pl-5 space-y-1">
-                    <li>Découpage clair : inférence ≠ vérité terrain</li>
-                    <li>Post-traitements contrôlés (morpho, topologie)</li>
-                    <li>Validation par cohérence physiopathologique</li>
-                    <li>Traçabilité des versions / paramètres</li>
-                  </ul>
-                </div>
-              </div>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Contrôle du spacing, orientation et cohérence géométrique</li>
+                <li>Normalisation du signal lorsque nécessaire</li>
+                <li>Pré-traitement spécifique à la séquence</li>
+                <li>Harmonisation inter-centre traçable</li>
+                <li>QC visuel et QC quantitatif systématique</li>
+              </ul>
+
+              <p>
+                Lorsque des approches IA sont utilisées, elles s’inscrivent dans ce cadre :
+                séparation claire entre inférence, post-traitement morphologique et
+                extraction quantitative, avec traçabilité des paramètres et des versions.
+              </p>
             </section>
 
+            {/* VALIDATION DES MÉTHODES */}
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Validation et comparaison des méthodes de segmentation
+              </h2>
+
+              <p>
+                Les stratégies semi-automatiques ou automatiques doivent être évaluées
+                face à une segmentation experte de référence. Le choix de la méthode dépend
+                fortement de la séquence étudiée et du contexte physiopathologique.
+              </p>
+
+              <ul className="list-disc pl-6 space-y-2">
+                <li>PSIR cardiaque : approches basées sur écart-type (SD)</li>
+                <li>IRM 3D : méthodes FWHM adaptées au signal tissulaire</li>
+                <li>Approche bullseye segmentaire avec biais homogène contrôlé</li>
+                <li>Analyse des biais systématiques (surestimation, dispersion)</li>
+                <li>Reproductibilité intra et inter-observateur</li>
+              </ul>
+
+              <p>
+                L’objectif est d’identifier la méthode la plus robuste et la plus
+                scientifiquement défendable dans le cadre de l’étude, en évaluant
+                l’impact des choix de seuil sur les biomarqueurs finaux.
+              </p>
+            </section>
+
+            {/* ÉVALUATION DE NOUVELLES SÉQUENCES */}
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Évaluation de nouvelles séquences et biomarqueurs
+              </h2>
+
+              <p>
+                L’introduction d’une nouvelle séquence nécessite une validation indépendante,
+                comparée aux méthodes historiques et aux standards cliniques existants.
+              </p>
+
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Validation du strain (speckle tracking) vs tagging historique</li>
+                <li>Comparaison inter-logiciels (ex. CMR42 vs solutions alternatives)</li>
+                <li>Évaluation de séquences avancées (T1 rho, mapping quantitatif…)</li>
+                <li>Analyse de concordance et limites méthodologiques</li>
+                <li>Impact sur les biomarqueurs cliniques dérivés</li>
+              </ul>
+
+              <p>
+                Cette démarche permet de transformer une innovation technique en
+                outil scientifiquement exploitable pour publication ou validation clinique.
+              </p>
+            </section>
+
+            {/* VALIDATION INTER-LOGICIELS */}
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Validation inter-logiciels et cohérence des mesures
+              </h2>
+
+              <p>
+                Les solutions cliniques validées (ex. outils FDA) et les plugins de recherche
+                peuvent produire des métriques divergentes. Une validation croisée
+                permet d’objectiver la concordance réelle.
+              </p>
+
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Transfert et harmonisation des ROI entre environnements</li>
+                <li>Comparaison quantitative des valeurs produites</li>
+                <li>Analyse de concordance et dispersion statistique</li>
+                <li>Identification d’écarts méthodologiques implicites</li>
+              </ul>
+
+              <p>
+                Cette analyse permet d’évaluer la fiabilité d’un outil de recherche
+                face à une solution clinique de référence.
+              </p>
+            </section>
+
+            {/* STRUCTURATION MULTICENTRIQUE */}
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Structuration et fiabilisation de bases multicentriques
+              </h2>
+
+              <p>
+                Dans de nombreuses études multicentriques, les données sont centralisées
+                progressivement, avec hétérogénéité des protocoles, anonymisation incomplète
+                ou organisation non standardisée.
+              </p>
+
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Audit complet des données DICOM</li>
+                <li>Anonymisation harmonisée et conforme</li>
+                <li>Détection des doublons et examens incomplets</li>
+                <li>Structuration patient / temps / séquence</li>
+                <li>Création d’une base exploitable pour analyse statistique</li>
+              </ul>
+
+              <p>
+                L’objectif est de transformer un ensemble de données hétérogènes en
+                base multicentrique propre, traçable et directement exploitable
+                pour analyses quantitatives ou publications.
+              </p>
+            </section>
             {/* LIVRABLES */}
             <section className="space-y-6">
               <h2 className="text-2xl font-semibold">Livrables typiques</h2>
