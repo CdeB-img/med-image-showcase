@@ -44,6 +44,13 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <!-- CORE LAB IRM -->
+  <url>
+    <loc>https://noxia-imagerie.fr/corelab-essais-cliniques</loc>
+    <lastmod>2026-02-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
 
   <!-- PROJETS -->
   <url>
