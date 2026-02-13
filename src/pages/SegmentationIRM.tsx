@@ -118,8 +118,8 @@ const SegmentationIRM = () => {
                     Ce qui est non-négociable
                   </div>
                   <p className="text-muted-foreground leading-relaxed">
-                    Cohérence physiopathologique, séparation segmentation/visualisation/quantification,
-                    et reproductibilité inter-centre.
+                    Cohérence physiopathologique, segmentation/visualisation/quantification,
+                    et reproductibilité.
                   </p>
                 </div>
 
