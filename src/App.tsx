@@ -11,7 +11,7 @@ import RecalageMultimodal from "@/pages/RecalageMultimodal";
 import BasesMulticentriques from "@/pages/BasesMulticentriques";
 import BiomarqueursIRMCardiaqueEssais from "@/pages/BiomarqueursIRMCardiaqueEssais";
 import ECVMappingCardiaque from "@/pages/ECVMappingCardiaque";
-
+import IngenierieImagerieQuantitative from "@/pages/ingenierie-imagerie-quantitative;
 import PerfusionMetaboliqueNeuro from "@/pages/PerfusionMetaboliqueNeuro";
 import CorelabEC from "@/pages/CorelabEC";
 
@@ -64,7 +64,7 @@ const App = () => (
           <Route path="/biomarqueurs-irm-cardiaque-essais-cliniques" element={<BiomarqueursIRMCardiaqueEssais />} />
           <Route path="/ecv-mapping-t1-t2-irm-cardiaque" element={<ECVMappingCardiaque />} />
           <Route path="/perfusion-metabolique-neuro-imagerie" element={<PerfusionMetaboliqueNeuro />} />
-
+          <Route path="/ingenierie-imagerie-quantitative" element={<IngenierieImagerieQuantitative />} />
           {/* Fallback */}
           <Route path="*" element={<NotFound />} />
         </Routes>

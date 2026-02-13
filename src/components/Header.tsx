@@ -176,6 +176,17 @@ export default function Header() {
                       Perfusion métabolique en neuro-imagerie
                     </Link>
                   </li>
+                  <li>
+                    <Link
+                      to="/ingenierie-imagerie-quantitative"
+                      className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition"
+                      onClick={() => setExpertiseOpen(false)}
+                    >
+                      Perfusion métabolique en neuro-imagerie
+                    </Link>
+                  </li>
+
+
 
                 </ul>
               </div>
