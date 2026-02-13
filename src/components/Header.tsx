@@ -167,7 +167,15 @@ export default function Header() {
                       ECV Mapping
                     </Link>
                   </li>
-
+                  <li>
+                    <Link
+                      to="/perfusion-metabolique-neuro-imagerie"
+                      className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition"
+                      onClick={() => setExpertiseOpen(false)}
+                    >
+                      Perfusion métabolique en neuro-imagerie
+                    </Link>
+                  </li>
 
                 </ul>
               </div>

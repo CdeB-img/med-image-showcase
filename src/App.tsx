@@ -12,6 +12,7 @@ import BasesMulticentriques from "@/pages/BasesMulticentriques";
 import BiomarqueursIRMCardiaqueEssais from "@/pages/BiomarqueursIRMCardiaqueEssais";
 import ECVMappingCardiaque from "@/pages/ECVMappingCardiaque";
 
+import perfusion-metabolique-neuro-imagerie from "@/pages/perfusion-metabolique-neuro-imagerie";
 import CorelabEC from "@/pages/CorelabEC";
 
 import Header from "@/components/Header";
@@ -62,6 +63,7 @@ const App = () => (
           <Route path="/corelab-essais-cliniques" element={<CorelabEC />} />
           <Route path="/biomarqueurs-irm-cardiaque-essais-cliniques" element={<BiomarqueursIRMCardiaqueEssais />} />
           <Route path="/ecv-mapping-t1-t2-irm-cardiaque" element={<ECVMappingCardiaque />} />
+          <Route path="/perfusion-metabolique-neuro-imagerie" element={<perfusion-metabolique-neuro-imagerie />} />
 
           {/* Fallback */}
           <Route path="*" element={<NotFound />} />
