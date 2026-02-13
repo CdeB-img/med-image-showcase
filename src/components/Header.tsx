@@ -160,7 +160,7 @@ export default function Header() {
 
                   <li>
                     <Link
-                      to="/ECVMappingCardiaque"
+                      to="/ecv-mapping-t1-t2-irm-cardiaque"
                       className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition"
                       onClick={() => setExpertiseOpen(false)}
                     >
