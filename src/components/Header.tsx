@@ -148,6 +148,16 @@ export default function Header() {
                     </Link>
                   </li>
 
+                  <li>
+                    <Link
+                      to="/BiomarqueursIRMCardiaqueEssais"
+                      className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition"
+                      onClick={() => setExpertiseOpen(false)}
+                    >
+                      Biomarqueurs IRM Cardiaque en Essais Randomisés
+                    </Link>
+                  </li>
+
 
                 </ul>
               </div>
