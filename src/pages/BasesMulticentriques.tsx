@@ -1,226 +1,165 @@
-import { useState } from "react";
-import { projects } from "@/data/projects";
-import ProjectCard from "@/components/ProjectCard";
 import Footer from "@/components/Footer";
-import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
-/* ============================================================
-   COLLAPSIBLE SECTION
-============================================================ */
-interface CollapsibleSectionProps {
-  id: string;
-  title: string;
-  subtitle: string;
-  iconImage: string;
-  isOpen: boolean;
-  onToggle: (id: string) => void;
-  filter: (p: typeof projects[number]) => boolean;
-}
-
-function CollapsibleSection({
-  id,
-  title,
-  subtitle,
-  iconImage,
-  isOpen,
-  onToggle,
-  filter,
-}: CollapsibleSectionProps) {
-  const items = projects.filter(filter);
-
+const BasesMulticentriques = () => {
   return (
-    <section className="w-full border-b border-border/40">
-      {/* ================= HEADER ================= */}
-      <button
-        type="button"
-        onClick={() => onToggle(id)}
-        aria-expanded={isOpen}
-        className={`
-          w-full text-left
-          rounded-xl px-5 py-5
-          transition-all duration-200
-          group
-          hover:bg-muted/40
-          ${isOpen ? "bg-muted/50" : ""}
-        `}
-      >
-        <div className="flex items-start justify-between gap-4">
-          {/* Texte */}
-          <div className="space-y-1">
-            <h2
-              className="
-                text-2xl font-semibold tracking-tight
-                transition-colors
-                group-hover:text-primary
-              "
-            >
-              {title}
-            </h2>
+    <>
+      <Helmet>
+        <title>
+          Bases de données multicentriques en imagerie médicale | NOXIA
+        </title>
 
-            <p className="text-muted-foreground max-w-3xl">
-              {subtitle}
-            </p>
+        <meta
+          name="description"
+          content="Structuration et harmonisation de bases de données multicentriques en IRM et CT. Contrôle méthodologique, normalisation DICOM et préparation pour la recherche clinique."
+        />
+
+        <link
+          rel="canonical"
+          href="https://noxia-imagerie.fr/bases-multicentriques"
+        />
+      </Helmet>
+
+      <div className="min-h-screen flex flex-col bg-background">
+        <main className="flex-1 py-20 px-4">
+
+          <div className="max-w-4xl mx-auto space-y-16">
+
+            {/* ================= HEADER ================= */}
+            <section className="text-center space-y-6">
+              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
+                Bases de données multicentriques en imagerie médicale
+              </h1>
+
+              <p className="text-xl text-muted-foreground leading-relaxed">
+                Harmonisation méthodologique de données IRM et CT
+                issues de centres multiples pour études cliniques
+                et projets translationnels.
+              </p>
+            </section>
+
+            {/* ================= CONTEXTE ================= */}
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <p>
+                Les études multicentriques introduisent une variabilité
+                inhérente : constructeurs différents, protocoles
+                d’acquisition hétérogènes, paramètres de reconstruction
+                non uniformes et encodages DICOM variables.
+              </p>
+
+              <p>
+                Sans harmonisation rigoureuse, cette variabilité peut
+                introduire des biais majeurs dans la segmentation,
+                la quantification ou l’entraînement d’algorithmes.
+              </p>
+            </section>
+
+            {/* ================= PROBLÉMATIQUES ================= */}
+            <section className="space-y-6">
+              <h2 className="text-2xl font-semibold">
+                Problématiques fréquentes
+              </h2>
+
+              <div className="grid md:grid-cols-2 gap-6 text-muted-foreground leading-relaxed">
+
+                <div className="p-6 rounded-xl border border-border/50 bg-muted/20">
+                  <h3 className="font-semibold text-foreground mb-2">
+                    Variabilité inter-constructeurs
+                  </h3>
+                  <p>
+                    Différences GE / Siemens / Philips,
+                    gestion des kernels CT, reconstructions
+                    spectrales ou séquences IRM spécifiques.
+                  </p>
+                </div>
+
+                <div className="p-6 rounded-xl border border-border/50 bg-muted/20">
+                  <h3 className="font-semibold text-foreground mb-2">
+                    Incohérences géométriques
+                  </h3>
+                  <p>
+                    Spacing voxel non homogène,
+                    orientations divergentes,
+                    séries incomplètes ou mal identifiées.
+                  </p>
+                </div>
+
+                <div className="p-6 rounded-xl border border-border/50 bg-muted/20">
+                  <h3 className="font-semibold text-foreground mb-2">
+                    Métadonnées incomplètes
+                  </h3>
+                  <p>
+                    Tags DICOM manquants,
+                    erreurs d’encodage,
+                    normalisation insuffisante des unités.
+                  </p>
+                </div>
+
+                <div className="p-6 rounded-xl border border-border/50 bg-muted/20">
+                  <h3 className="font-semibold text-foreground mb-2">
+                    Cohérence longitudinale
+                  </h3>
+                  <p>
+                    Suivi patient multi-temps,
+                    recalage et comparabilité inter-visites.
+                  </p>
+                </div>
+
+              </div>
+            </section>
+
+            {/* ================= MÉTHODOLOGIE ================= */}
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Approche méthodologique
+              </h2>
+
+              <p>
+                L’objectif n’est pas de forcer une homogénéité artificielle,
+                mais de contrôler, documenter et intégrer la variabilité.
+              </p>
+
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Audit systématique des métadonnées DICOM</li>
+                <li>Normalisation géométrique contrôlée</li>
+                <li>Stratification par centre si nécessaire</li>
+                <li>Documentation des transformations appliquées</li>
+                <li>Validation physiopathologique des métriques extraites</li>
+              </ul>
+
+              <p>
+                Chaque étape est conçue pour préserver la traçabilité
+                et garantir la reproductibilité scientifique.
+              </p>
+            </section>
+
+            {/* ================= CAS D’USAGE ================= */}
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Cas d’usage typiques
+              </h2>
+
+              <p>
+                • Cohortes AVC multicentriques  
+                • IRM cardiaque multi-sites  
+                • Études CT de perfusion  
+                • Validation d’algorithmes IA sur données hétérogènes  
+              </p>
+
+              <p className="font-medium text-foreground">
+                La robustesse d’un biomarqueur dépend
+                de la qualité de la base qui le produit.
+              </p>
+            </section>
+
           </div>
 
-          {/* Icône + chevron */}
-          <div className="flex items-center gap-3 shrink-0">
-            <img
-              src={iconImage}
-              alt=""
-              loading="lazy"
-              className="
-                w-16 h-16 sm:w-20 sm:h-20
-                rounded-lg
-                object-cover
-                border border-border/40
-                opacity-85
-                transition-all duration-200
-                group-hover:opacity-100
-                group-hover:scale-[1.03]
-              "
-            />
+        </main>
 
-            <span
-              aria-hidden
-              className={`
-                text-2xl
-                transition-transform duration-300
-                ${isOpen
-                  ? "rotate-90 text-primary"
-                  : "text-muted-foreground group-hover:text-primary"}
-              `}
-            >
-              ▸
-            </span>
-          </div>
-        </div>
-
-        {/* Indication mobile */}
-        <span className="block sm:hidden text-xs mt-3 text-muted-foreground/70">
-          Appuyer pour afficher les projets
-        </span>
-      </button>
-
-      {/* ================= CONTENU DÉROULÉ ================= */}
-      <div
-        className={`
-          overflow-hidden transition-all duration-500 ease-in-out
-          ${isOpen ? "max-h-[2000px] opacity-100 mt-8" : "max-h-0 opacity-0"}
-        `}
-      >
-        <div className="flex flex-wrap justify-center gap-8 pb-10">
-          {items.map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
-        </div>
+        <Footer />
       </div>
-    </section>
-  );
-}
-
-/* ============================================================
-   PAGE
-============================================================ */
-const Projects = () => {
-  const [active, setActive] = useState<string | null>(null);
-
-  const toggleSection = (id: string) => {
-    setActive((prev) => (prev === id ? null : id));
-  };
-
-  return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <main className="flex-1 py-20 px-4">
-        <div className="max-w-6xl mx-auto space-y-24">
-
-          {/* ================= HEADER ================= */}
-          <section className="max-w-3xl mx-auto text-center space-y-6">
-            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
-              Projets & expertises en imagerie médicale
-            </h1>
-
-            <p className="text-xl text-muted-foreground leading-relaxed">
-              Exemples de problématiques et d’approches méthodologiques
-              en imagerie CT et IRM, en contexte clinique et de recherche.
-            </p>
-          </section>
-
-          {/* ================= CONTEXTE ================= */}
-          <section
-            className="
-              max-w-4xl mx-auto
-              rounded-xl border border-border/50
-              bg-muted/20 px-8 py-6
-              text-muted-foreground leading-relaxed space-y-4
-            "
-          >
-            <p>
-              Les projets présentés ci-dessous sont des exemples représentatifs.
-              Ils ne constituent pas des solutions standardisées.
-            </p>
-
-            <p>
-              Chaque collaboration débute par un échange afin de définir une
-              approche adaptée&nbsp;: segmentation, recalage, quantification
-              ou développement d’outils sur mesure.
-            </p>
-
-            <p className="font-medium text-foreground pt-4 border-t border-border/40">
-              Ces exemples servent de point de départ.
-              <Link
-                to="/contact"
-                className="text-primary hover:underline underline-offset-4"
-              >
-                {" "}Un échange permet d’évaluer rapidement la faisabilité.
-              </Link>
-            </p>
-          </section>
-
-          {/* ================= AXES ================= */}
-          <div className="space-y-6">
-
-            {/* SEGMENTATION → neuro-onco */}
-            <CollapsibleSection
-              id="segmentation"
-              title="Segmentation & analyse lésionnelle"
-              subtitle="Approches guidées par le signal, validées sur données cliniques réelles."
-              iconImage="https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images/projets/neuro-onco.png"
-              isOpen={active === "segmentation"}
-              onToggle={toggleSection}
-              filter={(p) => p.analysisType === "Segmentation"}
-            />
-
-            {/* QUANTIFICATION → CT scan expertise */}
-            <CollapsibleSection
-              id="quantification"
-              title="Quantification et analyse fonctionnelle"
-              subtitle="Extraction de biomarqueurs quantitatifs avec contrôle méthodologique."
-              iconImage="https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images/projets/ct.png"
-              isOpen={active === "quantification"}
-              onToggle={toggleSection}
-              filter={(p) => p.analysisType === "Quantification"}
-            />
-
-            {/* MÉTHODO → coregistration */}
-            <CollapsibleSection
-              id="methodo"
-              title="Méthodologie & outils transverses"
-              subtitle="Recalage multimodal, prototypage et outils indépendants des solutions propriétaires."
-              iconImage="https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images/projets/registration.png"
-              isOpen={active === "methodo"}
-              onToggle={toggleSection}
-              filter={(p) =>
-                p.analysisType === "Registration" ||
-                p.analysisType === "Prototypage"
-              }
-            />
-          </div>
-        </div>
-      </main>
-
-      <Footer />
-    </div>
+    </>
   );
 };
 
-export default Projects;
+export default BasesMulticentriques;

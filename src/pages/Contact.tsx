@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Send, Mail, User, MessageSquare, Activity } from "lucide-react";
+import { ArrowLeft, Send, Mail, User, MessageSquare, Activity, Building } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import Footer from "@/components/Footer";
+import { Helmet } from "react-helmet-async";
 import { z } from "zod";
 
 /* ============================================================
@@ -20,9 +21,11 @@ const FORMSPREE_ENDPOINT = "https://formspree.io/f/mnjbalye";
 ============================================================ */
 
 const contactSchema = z.object({
-  name: z.string().trim().min(1, "Le nom est requis").max(100),
-  email: z.string().trim().email("Adresse email invalide").max(255),
-  message: z.string().trim().min(10, "Le message doit contenir au moins 10 caractères").max(2000)
+  name: z.string().trim().min(1).max(100),
+  email: z.string().trim().email().max(255),
+  organization: z.string().trim().max(255).optional(),
+  message: z.string().trim().min(10).max(2000),
+  website: z.string().max(0).optional() // honeypot
 });
 
 /* ============================================================
@@ -35,7 +38,9 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    message: ""
+    organization: "",
+    message: "",
+    website: "" // honeypot
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -46,10 +51,6 @@ const Contact = () => {
   ) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-
-    if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: "" }));
-    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -58,13 +59,16 @@ const Contact = () => {
 
     const validation = contactSchema.safeParse(formData);
     if (!validation.success) {
-      const fieldErrors: Record<string, string> = {};
-      validation.error.errors.forEach(err => {
-        fieldErrors[err.path[0] as string] = err.message;
+      toast({
+        title: "Formulaire incomplet",
+        description: "Merci de vérifier les champs saisis.",
+        variant: "destructive"
       });
-      setErrors(fieldErrors);
       return;
     }
+
+    // honeypot anti-spam
+    if (formData.website) return;
 
     setIsSubmitting(true);
 
@@ -78,30 +82,31 @@ const Contact = () => {
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
+          organization: formData.organization,
           message: formData.message,
           _subject: `Contact noxia-imagerie.fr – ${formData.name}`
         })
       });
 
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        console.error("Formspree error:", errorData);
-        throw new Error(`Formspree error ${response.status}`);
-      }
+      if (!response.ok) throw new Error();
 
       toast({
         title: "Message envoyé",
         description: "Votre message a bien été transmis."
       });
 
-      setFormData({ name: "", email: "", message: "" });
+      setFormData({
+        name: "",
+        email: "",
+        organization: "",
+        message: "",
+        website: ""
+      });
 
-    } catch (error) {
-      console.error("Formspree error:", error);
-
+    } catch {
       toast({
         title: "Erreur",
-        description: "Impossible d’envoyer le message. Merci de réessayer plus tard.",
+        description: "Impossible d’envoyer le message.",
         variant: "destructive"
       });
     } finally {
@@ -110,52 +115,61 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <main className="flex-1">
-        <section className="relative py-20 md:py-28 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
+    <>
+      <Helmet>
+        <title>Contact professionnel | NOXIA Imagerie</title>
+        <meta
+          name="description"
+          content="Contact professionnel pour collaboration en imagerie médicale quantitative : segmentation IRM, analyse DICOM, quantification CT."
+        />
+        <meta property="og:title" content="Contact professionnel | NOXIA Imagerie" />
+        <meta property="og:type" content="website" />
+        <link rel="canonical" href="https://noxia-imagerie.fr/contact" />
+        
+      </Helmet>
 
-          <div className="container relative z-10 px-4 md:px-6">
+      <div className="min-h-screen flex flex-col">
+        <main className="flex-1">
 
-            <div className="mb-12">
-              <Link to="/">
-                <Button variant="ghost" className="gap-2">
-                  <ArrowLeft className="w-4 h-4" />
-                  Accueil
-                </Button>
-              </Link>
-            </div>
+          <section className="relative py-20 md:py-28">
+            <div className="container px-4 md:px-6">
 
-            <div className="max-w-3xl mx-auto">
+              <div className="mb-12">
+                <Link to="/">
+                  <Button variant="ghost" className="gap-2">
+                    <ArrowLeft className="w-4 h-4" />
+                    Accueil
+                  </Button>
+                </Link>
+              </div>
 
-              <div className="text-center space-y-6 mb-16">
-                <div className="flex items-center justify-center gap-3">
-                  <Activity className="w-8 h-8 text-primary" />
-                  <span className="text-2xl font-bold text-primary">
-                    NOXIA Imagerie
-                  </span>
-                </div>
-
+              <div className="max-w-3xl mx-auto text-center space-y-6 mb-16">
+                <Activity className="w-8 h-8 text-primary mx-auto" />
                 <h1 className="text-4xl md:text-5xl font-bold">
                   Contact professionnel
                 </h1>
-
-                <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-                  Pour toute question, collaboration ou échange autour d’un projet
-                  en imagerie médicale.
+                <p className="text-muted-foreground">
+                  Collaboration CHU, CRO, industrie ou projet académique.
                 </p>
 
-                <p className="text-sm text-muted-foreground">
-                  contact@noxia-imagerie.fr
+                <p className="text-sm text-muted-foreground mt-2">
+                  Contact direct :{" "}
+                  <a
+                    href={"mailto:" + "contact" + "@noxia-imagerie.fr"}
+                    className="text-primary hover:underline underline-offset-4"
+                  >
+                    contact@noxia-imagerie.fr
+                  </a>
                 </p>
               </div>
 
-              <div className="bg-card border border-border rounded-2xl p-8 md:p-12 shadow-lg">
+              <div className="bg-card border border-border rounded-2xl p-8 md:p-12 shadow-lg max-w-3xl mx-auto">
                 <form onSubmit={handleSubmit} className="space-y-8">
 
+                  {/* NOM */}
                   <div className="space-y-3">
-                    <Label htmlFor="name" className="flex items-center gap-2">
-                      <User className="w-5 h-5 text-primary" />
+                    <Label htmlFor="name">
+                      <User className="w-4 h-4 inline mr-2" />
                       Nom
                     </Label>
                     <Input
@@ -163,16 +177,13 @@ const Contact = () => {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className={errors.name ? "border-destructive" : ""}
                     />
-                    {errors.name && (
-                      <p className="text-sm text-destructive">{errors.name}</p>
-                    )}
                   </div>
 
+                  {/* EMAIL */}
                   <div className="space-y-3">
-                    <Label htmlFor="email" className="flex items-center gap-2">
-                      <Mail className="w-5 h-5 text-primary" />
+                    <Label htmlFor="email">
+                      <Mail className="w-4 h-4 inline mr-2" />
                       Email
                     </Label>
                     <Input
@@ -181,16 +192,27 @@ const Contact = () => {
                       type="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className={errors.email ? "border-destructive" : ""}
                     />
-                    {errors.email && (
-                      <p className="text-sm text-destructive">{errors.email}</p>
-                    )}
                   </div>
 
+                  {/* ORGANISATION */}
                   <div className="space-y-3">
-                    <Label htmlFor="message" className="flex items-center gap-2">
-                      <MessageSquare className="w-5 h-5 text-primary" />
+                    <Label htmlFor="organization">
+                      <Building className="w-4 h-4 inline mr-2" />
+                      Organisation (CHU, entreprise, laboratoire)
+                    </Label>
+                    <Input
+                      id="organization"
+                      name="organization"
+                      value={formData.organization}
+                      onChange={handleChange}
+                    />
+                  </div>
+
+                  {/* MESSAGE */}
+                  <div className="space-y-3">
+                    <Label htmlFor="message">
+                      <MessageSquare className="w-4 h-4 inline mr-2" />
                       Message
                     </Label>
                     <Textarea
@@ -199,23 +221,31 @@ const Contact = () => {
                       rows={8}
                       value={formData.message}
                       onChange={handleChange}
-                      className={errors.message ? "border-destructive" : ""}
                     />
-                    {errors.message && (
-                      <p className="text-sm text-destructive">{errors.message}</p>
-                    )}
+                  </div>
+
+                  {/* Honeypot invisible */}
+                  <div style={{ display: "none" }}>
+                    <label>Ne pas remplir</label>
+                    <input
+                      type="text"
+                      name="website"
+                      value={formData.website}
+                      onChange={handleChange}
+                      autoComplete="off"
+                    />
                   </div>
 
                   <Button
                     type="submit"
                     size="lg"
-                    className="w-full h-14 text-lg font-semibold"
+                    className="w-full h-14"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? "Envoi en cours…" : (
                       <>
-                        Envoyer le message
-                        <Send className="w-5 h-5 ml-2" />
+                        Envoyer
+                        <Send className="w-4 h-4 ml-2" />
                       </>
                     )}
                   </Button>
@@ -223,20 +253,14 @@ const Contact = () => {
                 </form>
               </div>
 
-              <div className="mt-8 text-center p-6 rounded-xl bg-secondary/30 border border-border">
-                <p className="text-sm text-muted-foreground">
-                  Les informations transmises via ce formulaire sont utilisées
-                  exclusivement pour répondre à votre demande.
-                </p>
-              </div>
-
             </div>
-          </div>
-        </section>
-      </main>
+          </section>
 
-      <Footer />
-    </div>
+        </main>
+
+        <Footer />
+      </div>
+    </>
   );
 };
 
