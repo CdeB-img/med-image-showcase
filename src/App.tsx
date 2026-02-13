@@ -11,7 +11,7 @@ import RecalageMultimodal from "@/pages/RecalageMultimodal";
 import BasesMulticentriques from "@/pages/BasesMulticentriques";
 import BiomarqueursIRMCardiaqueEssais from "@/pages/BiomarqueursIRMCardiaqueEssais";
 import ECVMappingCardiaque from "@/pages/ECVMappingCardiaque";
-import IngenierieImagerieQuantitative from "@/pages/ingenierie-imagerie-quantitative;
+import IngenierieImagerieQuantitative from "@/pages/IngenierieImagerieQuantitative";
 import PerfusionMetaboliqueNeuro from "@/pages/PerfusionMetaboliqueNeuro";
 import CorelabEC from "@/pages/CorelabEC";
 
