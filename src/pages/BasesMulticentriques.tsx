@@ -1,63 +1,100 @@
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
+
+const CANONICAL = "https://noxia-imagerie.fr/bases-multicentriques";
 
 const BasesMulticentriques = () => {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    name: "Harmonisation de bases multicentriques en imagerie médicale",
+    description:
+      "Structuration, harmonisation inter-constructeurs et contrôle méthodologique de bases multicentriques IRM et CT pour essais cliniques et projets translationnels.",
+    about: [
+      "Multicenter imaging studies",
+      "DICOM harmonization",
+      "MRI inter-scanner variability",
+      "CT reconstruction kernels",
+      "Imaging endpoints validation"
+    ],
+    provider: {
+      "@type": "Organization",
+      name: "NOXIA Imagerie",
+      url: "https://noxia-imagerie.fr"
+    },
+    url: CANONICAL
+  };
+
   return (
     <>
       <Helmet>
-        <title>
-          Bases de données multicentriques en imagerie médicale | NOXIA
-        </title>
+        <title>Bases multicentriques & Harmonisation IRM/CT | NOXIA</title>
 
         <meta
           name="description"
-          content="Structuration et harmonisation de bases de données multicentriques en IRM et CT. Contrôle méthodologique, normalisation DICOM et préparation pour la recherche clinique."
+          content="Harmonisation inter-constructeurs (Siemens, GE, Philips), contrôle des séquences 1.5T/3T, normalisation DICOM et structuration multicentrique pour biomarqueurs reproductibles."
         />
 
-        <link
-          rel="canonical"
-          href="https://noxia-imagerie.fr/bases-multicentriques"
+        <link rel="canonical" href={CANONICAL} />
+
+        <meta property="og:title" content="Harmonisation multicentrique IRM & CT | NOXIA" />
+        <meta
+          property="og:description"
+          content="Maîtrise de la variabilité inter-centre et inter-constructeurs pour essais cliniques et biomarqueurs quantitatifs."
         />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={CANONICAL} />
+
+        <script type="application/ld+json">
+          {JSON.stringify(jsonLd)}
+        </script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
         <main className="flex-1 py-20 px-4">
+          <div className="max-w-5xl mx-auto space-y-16">
 
-          <div className="max-w-4xl mx-auto space-y-16">
-
-            {/* ================= HEADER ================= */}
+            {/* HERO */}
             <section className="text-center space-y-6">
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                Bases de données multicentriques en imagerie médicale
+                Harmonisation de bases multicentriques en imagerie médicale
               </h1>
 
-              <p className="text-xl text-muted-foreground leading-relaxed">
-                Harmonisation méthodologique de données IRM et CT
-                issues de centres multiples pour études cliniques
-                et projets translationnels.
+              <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+                Contrôle de la variabilité inter-constructeurs,
+                normalisation DICOM et structuration méthodologique
+                pour produire des biomarqueurs réellement reproductibles.
               </p>
             </section>
 
-            {/* ================= CONTEXTE ================= */}
+            {/* PROBLÈME FONDAMENTAL */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Le vrai problème des études multicentriques
+              </h2>
+
               <p>
-                Les études multicentriques introduisent une variabilité
-                inhérente : constructeurs différents, protocoles
-                d’acquisition hétérogènes, paramètres de reconstruction
-                non uniformes et encodages DICOM variables.
+                Une base multicentrique n’est jamais homogène.
+                Elle combine différents constructeurs (Siemens, GE, Philips),
+                différentes générations de logiciels,
+                différents champs magnétiques (1.5T, 3T),
+                différents kernels CT et paramètres de reconstruction.
               </p>
 
               <p>
-                Sans harmonisation rigoureuse, cette variabilité peut
-                introduire des biais majeurs dans la segmentation,
-                la quantification ou l’entraînement d’algorithmes.
+                Sans contrôle méthodologique, la variabilité technique
+                peut dépasser l’effet biologique étudié.
+                Un biomarqueur devient alors dépendant du centre,
+                et non de la physiopathologie.
               </p>
             </section>
 
-            {/* ================= PROBLÉMATIQUES ================= */}
+            {/* VARIABILITÉ TECHNIQUE */}
             <section className="space-y-6">
               <h2 className="text-2xl font-semibold">
-                Problématiques fréquentes
+                Sources majeures de variabilité
               </h2>
 
               <div className="grid md:grid-cols-2 gap-6 text-muted-foreground leading-relaxed">
@@ -67,93 +104,122 @@ const BasesMulticentriques = () => {
                     Variabilité inter-constructeurs
                   </h3>
                   <p>
-                    Différences GE / Siemens / Philips,
-                    gestion des kernels CT, reconstructions
-                    spectrales ou séquences IRM spécifiques.
+                    Implémentations différentes des séquences IRM,
+                    mapping T1/T2 dépendant du champ et du constructeur,
+                    kernels CT influençant directement la quantification.
                   </p>
                 </div>
 
                 <div className="p-6 rounded-xl border border-border/50 bg-muted/20">
                   <h3 className="font-semibold text-foreground mb-2">
-                    Incohérences géométriques
+                    Différences 1.5T vs 3T
                   </h3>
                   <p>
-                    Spacing voxel non homogène,
-                    orientations divergentes,
-                    séries incomplètes ou mal identifiées.
+                    Décalage systématique des valeurs T1 natif,
+                    sensibilité accrue aux artefacts,
+                    dispersion accrue si non stratifiée.
                   </p>
                 </div>
 
                 <div className="p-6 rounded-xl border border-border/50 bg-muted/20">
                   <h3 className="font-semibold text-foreground mb-2">
-                    Métadonnées incomplètes
+                    Reconstruction & kernels CT
                   </h3>
                   <p>
-                    Tags DICOM manquants,
-                    erreurs d’encodage,
-                    normalisation insuffisante des unités.
+                    Impact direct sur la densité, le bruit
+                    et la reproductibilité des mesures quantitatives.
                   </p>
                 </div>
 
                 <div className="p-6 rounded-xl border border-border/50 bg-muted/20">
                   <h3 className="font-semibold text-foreground mb-2">
-                    Cohérence longitudinale
+                    Métadonnées DICOM
                   </h3>
                   <p>
-                    Suivi patient multi-temps,
-                    recalage et comparabilité inter-visites.
+                    Tags manquants, encodages variables,
+                    incohérences d’orientation ou de spacing voxel.
                   </p>
                 </div>
 
               </div>
             </section>
 
-            {/* ================= MÉTHODOLOGIE ================= */}
+            {/* MÉTHODOLOGIE */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                Approche méthodologique
+                Approche méthodologique structurée
               </h2>
 
               <p>
-                L’objectif n’est pas de forcer une homogénéité artificielle,
-                mais de contrôler, documenter et intégrer la variabilité.
+                L’objectif n’est pas d’effacer la variabilité,
+                mais de la maîtriser, la documenter
+                et l’intégrer dans le modèle analytique.
               </p>
 
               <ul className="list-disc pl-6 space-y-2">
-                <li>Audit systématique des métadonnées DICOM</li>
-                <li>Normalisation géométrique contrôlée</li>
+                <li>Audit exhaustif des métadonnées DICOM</li>
                 <li>Stratification par centre si nécessaire</li>
-                <li>Documentation des transformations appliquées</li>
+                <li>Normalisation géométrique contrôlée</li>
+                <li>Documentation complète des transformations</li>
+                <li>Analyse des biais centre-dépendants</li>
                 <li>Validation physiopathologique des métriques extraites</li>
               </ul>
 
               <p>
-                Chaque étape est conçue pour préserver la traçabilité
-                et garantir la reproductibilité scientifique.
+                Chaque transformation est tracée.
+                La reproductibilité prime sur la simplification.
               </p>
             </section>
 
-            {/* ================= CAS D’USAGE ================= */}
-            <section className="space-y-6 text-muted-foreground leading-relaxed">
-              <h2 className="text-2xl font-semibold text-foreground">
-                Cas d’usage typiques
+            {/* LIENS STRATÉGIQUES */}
+            <section className="space-y-6 text-center">
+              <h2 className="text-xl font-semibold">
+                Voir également
               </h2>
 
-              <p>
-                • Cohortes AVC multicentriques  
-                • IRM cardiaque multi-sites  
-                • Études CT de perfusion  
-                • Validation d’algorithmes IA sur données hétérogènes  
+              <div className="flex flex-wrap justify-center gap-3">
+                <Link
+                  to="/corelab-essais-cliniques"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  Core Lab IRM
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <Link
+                  to="/ecv-mapping-t1-t2-irm-cardiaque"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  ECV & Mapping
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <Link
+                  to="/segmentation-irm"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  Segmentation IRM
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </section>
+
+            {/* CTA */}
+            <section className="text-center space-y-4">
+              <p className="text-muted-foreground">
+                Besoin d’harmoniser une base multicentrique avant analyse ?
               </p>
 
-              <p className="font-medium text-foreground">
-                La robustesse d’un biomarqueur dépend
-                de la qualité de la base qui le produit.
-              </p>
+              <Link
+                to="/contact"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-5 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
+              >
+                Discuter du projet
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </section>
 
           </div>
-
         </main>
 
         <Footer />
