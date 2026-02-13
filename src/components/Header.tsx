@@ -140,7 +140,7 @@ export default function Header() {
 
                   <li>
                     <Link
-                      to="/Corelab-essais-cliniques"
+                      to="/corelab-essais-cliniques"
                       className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition"
                       onClick={() => setExpertiseOpen(false)}
                     >
@@ -150,7 +150,7 @@ export default function Header() {
 
                   <li>
                     <Link
-                      to="/BiomarqueursIRMCardiaqueEssais"
+                      to="/biomarqueurs-irm-cardiaque-essais-cliniques"
                       className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition"
                       onClick={() => setExpertiseOpen(false)}
                     >

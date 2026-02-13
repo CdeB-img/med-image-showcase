@@ -10,7 +10,7 @@ import QuantificationCT from "@/pages/QuantificationCT";
 import RecalageMultimodal from "@/pages/RecalageMultimodal";
 import BasesMulticentriques from "@/pages/BasesMulticentriques";
 import BiomarqueursIRMCardiaqueEssais from "@/pages/BiomarqueursIRMCardiaqueEssais";
-import ECVMappingCardiaque from "@/pages/ecv-mapping-t1-t2-irm-cardiaque";
+import ECVMappingCardiaque from "@/pages/ECVMappingCardiaque";
 
 import CorelabEC from "@/pages/CorelabEC";
 
@@ -61,7 +61,7 @@ const App = () => (
           <Route path="/bases-multicentriques" element={<BasesMulticentriques />} />
           <Route path="/corelab-essais-cliniques" element={<CorelabEC />} />
           <Route path="/biomarqueurs-irm-cardiaque-essais-cliniques" element={<BiomarqueursIRMCardiaqueEssais />} />
-          <Route path="/ecv-mapping-cardiaque" element={<ecv-mapping-t1-t2-irm-cardiaque />} />
+          <Route path="/ecv-mapping-t1-t2-irm-cardiaque" element={<ECVMappingCardiaque />} />
 
           {/* Fallback */}
           <Route path="*" element={<NotFound />} />
