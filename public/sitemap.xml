@@ -1,76 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- PAGE ACCUEIL -->
+  <!-- ACCUEIL -->
   <url>
     <loc>https://noxia-imagerie.fr/</loc>
-    <lastmod>2026-02-11</lastmod>
+    <lastmod>2026-02-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+  </url>
+
+  <!-- PAGES EXPERTISE (STRATÉGIQUES SEO) -->
+  <url>
+    <loc>https://noxia-imagerie.fr/segmentation-irm</loc>
+    <lastmod>2026-02-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://noxia-imagerie.fr/analyse-dicom</loc>
+    <lastmod>2026-02-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://noxia-imagerie.fr/quantification-ct</loc>
+    <lastmod>2026-02-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://noxia-imagerie.fr/recalage-multimodal</loc>
+    <lastmod>2026-02-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://noxia-imagerie.fr/bases-multicentriques</loc>
+    <lastmod>2026-02-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <!-- PROJETS -->
   <url>
     <loc>https://noxia-imagerie.fr/projets</loc>
-    <lastmod>2026-02-11</lastmod>
+    <lastmod>2026-02-13</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
 
-  <!-- PROJET : PERFUSION -->
+  <!-- PROJETS INDIVIDUELS -->
   <url>
     <loc>https://noxia-imagerie.fr/projet/perfusion-segmentation</loc>
-    <lastmod>2026-02-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-02-13</lastmod>
+    <priority>0.7</priority>
   </url>
 
-  <!-- PROJET : NEURO-ONCO -->
   <url>
     <loc>https://noxia-imagerie.fr/projet/neuro-onco</loc>
-    <lastmod>2026-02-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-02-13</lastmod>
+    <priority>0.7</priority>
   </url>
 
-  <!-- PROJET : RECALAGE -->
   <url>
     <loc>https://noxia-imagerie.fr/projet/recalage</loc>
-    <lastmod>2026-02-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-02-13</lastmod>
+    <priority>0.7</priority>
   </url>
 
-  <!-- PROJET : CARDIAC -->
   <url>
     <loc>https://noxia-imagerie.fr/projet/cardiac</loc>
-    <lastmod>2026-02-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-02-13</lastmod>
+    <priority>0.6</priority>
   </url>
 
-  <!-- PROJET : CT SCAN -->
   <url>
     <loc>https://noxia-imagerie.fr/projet/ct-scan</loc>
-    <lastmod>2026-02-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-02-13</lastmod>
+    <priority>0.6</priority>
   </url>
 
-  <!-- PROJET : OUTILS -->
   <url>
     <loc>https://noxia-imagerie.fr/projet/outils</loc>
-    <lastmod>2026-02-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-02-13</lastmod>
+    <priority>0.6</priority>
   </url>
 
   <!-- CONTACT -->
   <url>
     <loc>https://noxia-imagerie.fr/contact</loc>
-    <lastmod>2026-02-11</lastmod>
+    <lastmod>2026-02-13</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.5</priority>
   </url>
 
 </urlset>
