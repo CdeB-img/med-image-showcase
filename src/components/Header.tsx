@@ -138,6 +138,17 @@ export default function Header() {
                     </Link>
                   </li>
 
+                  <li>
+                    <Link
+                      to="/corelab-essais-cliniques"
+                      className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition"
+                      onClick={() => setExpertiseOpen(false)}
+                    >
+                      corelab-essais-cliniques
+                    </Link>
+                  </li>
+
+
                 </ul>
               </div>
             )}
