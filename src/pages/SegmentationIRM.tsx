@@ -203,7 +203,82 @@ const SegmentationIRM = () => {
                 </div>
               </div>
             </section>
+            {/* EXPERTISE IRM CARDIAQUE – ESSAIS CLINIQUES */}
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">
+                IRM cardiaque translationnelle et essais thérapeutiques
+              </h2>
 
+              <p>
+                L’activité en IRM cardiaque s’inscrit dans un contexte d’essais cliniques
+                randomisés, d’études multicentriques et de corrélations histologiques.
+                L’approche dépasse la segmentation volumique pour intégrer validation
+                physiopathologique et interprétation biomarqueur.
+              </p>
+
+              <h3 className="text-lg font-semibold text-foreground pt-2">
+                Quantification de l’ECV et corrélations histologiques
+              </h3>
+
+              <p>
+                Contribution à la validation de l’Extracellular Volume (ECV) comme estimateur
+                quantitatif de l’espace extracellulaire dans les cardiomyopathies hypertrophiques,
+                avec corrélation directe aux biopsies septales.
+              </p>
+
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Prélèvement sanguin immédiatement avant injection (hématocrite réel en décubitus)</li>
+                <li>Contrôle pré-analytique (centrifugation, hydratation, variabilité biologique)</li>
+                <li>Quantification segmentaire AHA</li>
+                <li>Corrélation ECV ↔ fibrose histologique</li>
+              </ul>
+
+              <p>
+                Participation à une cohorte de volontaires sains stratifiés par tranche d’âge
+                afin d’établir les valeurs normales d’ECV et leur évolution physiologique.
+              </p>
+
+              <h3 className="text-lg font-semibold text-foreground pt-4">
+                Biomarqueurs tissulaires : T1 / T2
+              </h3>
+
+              <ul className="list-disc pl-6 space-y-2">
+                <li>T1 mapping : marqueur d’inflammation et expansion interstitielle</li>
+                <li>T2 mapping : marqueur d’œdème (distinction critique avec artefacts de séquence)</li>
+                <li>Analyse critique des confusions méthodologiques fréquentes</li>
+              </ul>
+
+              <h3 className="text-lg font-semibold text-foreground pt-4">
+                Activité core-lab – IRM cardiaque multicentrique
+              </h3>
+
+              <ul className="list-disc pl-6 space-y-2">
+                <li>
+                  IDM – stratégies de reperfusion immédiate vs différée (évaluation nécrose et MVO)
+                </li>
+                <li>
+                  Cohorte 2000 patients avec IRM à deux temps : remodelage ventriculaire gauche
+                </li>
+                <li>
+                  Essais randomisés colchicine vs placebo dans l’IDM (évaluation lésion finale IRM)
+                </li>
+                <li>
+                  Essai colchicine dans la myocardite (inclusion multicentrique)
+                </li>
+                <li>
+                  Étude rétrospective maladie de Fabry (~100 sujets)
+                </li>
+                <li>
+                  Cohortes institutionnelles : ~500 IRM cardiaques relues intégralement
+                </li>
+              </ul>
+
+              <p>
+                Ces travaux impliquent lecture centralisée, harmonisation multicentrique,
+                contrôle qualité, segmentation, quantification et structuration
+                des bases pour analyse statistique.
+              </p>
+            </section>
             {/* APPROCHE MÉTHODOLOGIQUE */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
