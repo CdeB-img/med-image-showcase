@@ -12,6 +12,7 @@ import BasesMulticentriques from "@/pages/BasesMulticentriques";
 import BiomarqueursIRMCardiaqueEssais from "@/pages/BiomarqueursIRMCardiaqueEssais";
 import ECVMappingCardiaque from "@/pages/ECVMappingCardiaque";
 import IngenierieImagerieQuantitative from "@/pages/IngenierieImagerieQuantitative";
+import CTQuantitatifAvance from "@/pages/CTQuantitatifAvance";
 import PerfusionMetaboliqueNeuro from "@/pages/PerfusionMetaboliqueNeuro";
 import CorelabEC from "@/pages/CorelabEC";
 
@@ -65,6 +66,7 @@ const App = () => (
           <Route path="/ecv-mapping-t1-t2-irm-cardiaque" element={<ECVMappingCardiaque />} />
           <Route path="/perfusion-metabolique-neuro-imagerie" element={<PerfusionMetaboliqueNeuro />} />
           <Route path="/ingenierie-imagerie-quantitative" element={<IngenierieImagerieQuantitative />} />
+          <Route path="/ct-quantitatif-avance-imagerie-spectrale" element={<CTQuantitatifAvance />} />
           {/* Fallback */}
           <Route path="*" element={<NotFound />} />
         </Routes>
