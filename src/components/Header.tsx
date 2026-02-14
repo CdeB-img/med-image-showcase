@@ -46,7 +46,7 @@ const NAV_CONFIG = [
   },
   {
     label: "Prestations",
-    path: "/prestations",
+    path: "/prestations-imagerie-medicale",
     children: [
       { label: "CoreLab externalisé", path: "/prestations#corelab" },
       { label: "Reprise d’études", path: "/prestations#reprise" },
