@@ -266,10 +266,8 @@ const MobileChildRow: React.FC<{
           to={toProp}
           onClick={() => closeMobileMenu()}
           className={cn(
-            "block px-3 py-2.5 text-base font-semibold rounded-md transition-colors",
-            childActive
-              ? "text-primary bg-primary/10"
-              : "text-foreground/90 bg-muted/10 hover:bg-muted/20"
+            "block px-3 py-2 text-sm rounded-md",
+            childActive ? "text-primary bg-primary/5" : "text-foreground hover:bg-muted/10"
           )}
         >
           {child.label}
