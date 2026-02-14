@@ -1,10 +1,29 @@
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const CANONICAL = "https://noxia-imagerie.fr/prestations-imagerie-medicale";
 
 const Prestations = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!location.hash) return;
+
+    const id = location.hash.replace("#", "");
+
+    // petit délai pour s'assurer que le DOM est bien monté
+    const timeout = setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 100);
+
+    return () => clearTimeout(timeout);
+  }, [location.hash]);
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
