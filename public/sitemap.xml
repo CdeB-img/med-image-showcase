@@ -59,33 +59,45 @@
     <priority>0.9</priority>
   </url>
 
-    <url>
+  <url>
     <loc>https://noxia-imagerie.fr/ecv-mapping-t1-t2-irm-cardiaque</loc>
     <lastmod>2026-02-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
-    <url>
+  <url>
     <loc>https://noxia-imagerie.fr/perfusion-metabolique-neuro-imagerie</loc>
     <lastmod>2026-02-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-    <url>
+  <url>
     <loc>https://noxia-imagerie.fr/ingenierie-imagerie-quantitative</loc>
     <lastmod>2026-02-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-    <url>
+  <url>
     <loc>https://noxia-imagerie.fr/ct-quantitatif-avance-imagerie-spectrale</loc>
     <lastmod>2026-02-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-    <url>
+  <url>
     <loc>https://noxia-imagerie.fr/ct-perfusion-quantitative-avc</loc>
+    <lastmod>2026-02-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://noxia-imagerie.fr/ct-imagerie-quantitative</loc>
+    <lastmod>2026-02-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>    
+  <url>
+    <loc>https://noxia-imagerie.fr/irm-imagerie-quantitative</loc>
     <lastmod>2026-02-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>

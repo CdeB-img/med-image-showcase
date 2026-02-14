@@ -16,7 +16,8 @@ import CTQuantitatifAvance from "@/pages/CTQuantitatifAvance";
 import PerfusionMetaboliqueNeuro from "@/pages/PerfusionMetaboliqueNeuro";
 import CTPerfusionQuantitative from "@/pages/CTPerfusionQuantitative";
 import CorelabEC from "@/pages/CorelabEC";
-
+import IRMImagerieQuantitative from "@/pages/IRMImagerieQuantitative";
+import CTImagerieQuantitative from "@/pages/CTImagerieQuantitative";
 import Header from "@/components/Header";
 
 import Index from "./pages/Index";
@@ -69,6 +70,10 @@ const App = () => (
           <Route path="/ingenierie-imagerie-quantitative" element={<IngenierieImagerieQuantitative />} />
           <Route path="/ct-quantitatif-avance-imagerie-spectrale" element={<CTQuantitatifAvance />} />
           <Route path="/ct-perfusion-quantitative-avc" element={<CTPerfusionQuantitative />} />
+          <Route path="/irm-imagerie-quantitative" element={<IRMImagerieQuantitative />} />
+          <Route path="/ct-imagerie-quantitative" element={<CTImagerieQuantitative />} />
+
+
           {/* Fallback */}
           <Route path="*" element={<NotFound />} />
         </Routes>
