@@ -5,9 +5,7 @@ import { ChevronDown, Menu, X } from "lucide-react";
 import { projects as _projects } from "@/data/projects";
 
 /* =========================
-   CONFIGURATION NAV
-   - "Expertise" regroupe IRM / CT / Méthodologie
-   - Prestations utilise des ancres (#corelab, ...)
+   NAV CONFIG
    ========================= */
 const projects = Array.isArray(_projects) ? _projects : [];
 
@@ -84,9 +82,9 @@ const parsePathWithHash = (p: string) => {
 };
 
 /* =========================
-   NavItem (gère 2 niveaux : children et grandchildren)
-   - desktop: hover + bridge pour éviter fermetures intempestives
-   - mobile: collapsible, label navigue, chevron toggle
+   NavItem component
+   - Desktop: hover + bridge + hoveredChild
+   - Mobile: collapsible, label navigue, chevron toggle
    ========================= */
 type Child = { label: string; path: string; children?: Child[] };
 type NavItemType = { label: string; path: string; children: Child[] };
@@ -97,17 +95,18 @@ const NavItem: React.FC<{
   closeMobileMenu?: () => void;
 }> = ({ item, mobileMode, closeMobileMenu }) => {
   const location = useLocation();
-  const [openRoot, setOpenRoot] = useState(false); // top-level dropdown open
+  const [openRoot, setOpenRoot] = useState(false);
+  const [hoveredChild, setHoveredChild] = useState<string | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const BRIDGE_DELAY = 300; // ms
-  const BRIDGE_HEIGHT = 20; // px
+  const BRIDGE_DELAY = 300;
+  const BRIDGE_HEIGHT = 20;
   const idRoot = `submenu-${slugify(item.label)}`;
-
   const currentFull = `${location.pathname}${location.hash || ""}`;
 
   useEffect(() => {
-    // fermer quand on navigue
+    // fermer le dropdown et reset hoveredChild au changement de route
     setOpenRoot(false);
+    setHoveredChild(null);
   }, [location.pathname, location.hash]);
 
   const openNow = () => {
@@ -121,11 +120,12 @@ const NavItem: React.FC<{
     if (timerRef.current) clearTimeout(timerRef.current);
     timerRef.current = setTimeout(() => {
       setOpenRoot(false);
+      setHoveredChild(null);
       timerRef.current = null;
     }, BRIDGE_DELAY);
   };
 
-  // détection d'activité (pour style actif du parent)
+  // parent actif si un descendant correspond à la route courante
   const parentActive = (item.children || []).some((c) => {
     const p = parsePathWithHash(c.path);
     if (`${p.pathname}${p.hash || ""}` === currentFull) return true;
@@ -138,89 +138,43 @@ const NavItem: React.FC<{
     return false;
   });
 
-  /* Render d'un child (peut avoir grandchildren) */
-  const ChildRow: React.FC<{ child: Child }> = ({ child }) => {
-    const parsed = parsePathWithHash(child.path);
-    const childFull = `${parsed.pathname}${parsed.hash || ""}`;
-    const childActive =
-      childFull === currentFull ||
-      (child.children || []).some((g) => {
-        const pg = parsePathWithHash(g.path);
-        return `${pg.pathname}${pg.hash || ""}` === currentFull;
-      });
-
-    const [openSecond, setOpenSecond] = useState(false);
-    useEffect(() => setOpenSecond(false), [location.pathname, location.hash]);
-
-    return (
-      <div className="w-full">
-        <div className="flex items-center justify-between">
-          <Link
-            to={parsed.hash ? { pathname: parsed.pathname, hash: parsed.hash } : parsed.pathname}
-            onClick={() => mobileMode && closeMobileMenu && closeMobileMenu()}
-            className={cn(
-              "px-3 py-2 text-sm w-full text-left rounded-md",
-              childActive ? "text-primary bg-primary/5 font-medium" : "text-muted-foreground hover:bg-muted/10"
-            )}
-          >
-            {child.label}
-          </Link>
-
-          {child.children && child.children.length > 0 && (
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setOpenSecond((s) => !s);
-              }}
-              aria-expanded={openSecond}
-              aria-controls={`sub2-${slugify(child.label)}`}
-              className="h-8 w-8 inline-flex items-center justify-center rounded-md hover:bg-accent/10"
-            >
-              <ChevronDown className={cn("h-4 w-4 transition-transform", openSecond && "rotate-180")} />
-            </button>
-          )}
-        </div>
-
-        {/* grandchildren (mobile collapsible) */}
-        {mobileMode && child.children && child.children.length > 0 && (
-          <div
-            id={`sub2-${slugify(child.label)}`}
-            className={cn(
-              "pl-4 overflow-hidden transition-[max-height,opacity] duration-200 ease-in-out",
-              openSecond ? "max-h-[30rem] opacity-100" : "max-h-0 opacity-0"
-            )}
-          >
-            <ul className="flex flex-col">
-              {child.children.map((g) => {
-                const pg = parsePathWithHash(g.path);
-                const toProp = pg.hash ? { pathname: pg.pathname, hash: pg.hash } : pg.pathname;
-                return (
-                  <li key={g.path}>
-                    <NavLink
-                      to={toProp}
-                      onClick={() => closeMobileMenu && closeMobileMenu()}
-                      className={({ isActive }) =>
-                        cn(
-                          "block px-4 py-2 text-sm rounded-md",
-                          isActive ? "text-primary font-medium bg-primary/5" : "text-muted-foreground hover:bg-muted/10"
-                        )
-                      }
-                    >
-                      {g.label}
-                    </NavLink>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        )}
-      </div>
-    );
+  const onChildEnter = (childLabel: string) => {
+    if (mobileMode) return;
+    setHoveredChild(slugify(childLabel));
   };
+  const onChildLeave = () => {
+    if (mobileMode) return;
+    setHoveredChild(null);
+  };
+
+  // compute active child to display in right column:
+  // priority: hoveredChild > routeActiveChild > first child
+  const computeActiveChild = (): Child | undefined => {
+    if (!item.children || item.children.length === 0) return undefined;
+    if (hoveredChild) {
+      return item.children.find((c) => slugify(c.label) === hoveredChild) || undefined;
+    }
+    // route active child
+    const routeChild =
+      item.children.find((c) => {
+        const p = parsePathWithHash(c.path);
+        if (`${p.pathname}${p.hash || ""}` === currentFull) return true;
+        if (c.children) {
+          return c.children.some((g) => {
+            const pg = parsePathWithHash(g.path);
+            return `${pg.pathname}${pg.hash || ""}` === currentFull;
+          });
+        }
+        return false;
+      }) || undefined;
+    if (routeChild) return routeChild;
+    return item.children[0];
+  };
+
+  const activeChild = computeActiveChild();
 
   return (
     <div className="relative flex items-center h-full">
-      {/* Parent label + chevron */}
       <div
         className="flex items-center gap-2"
         onMouseEnter={() => !mobileMode && openNow()}
@@ -254,7 +208,7 @@ const NavItem: React.FC<{
         )}
       </div>
 
-      {/* Bridge invisible (desktop only) */}
+      {/* Bridge invisible */}
       {!mobileMode && item.children && item.children.length > 0 && (
         <div
           onMouseEnter={() => openNow()}
@@ -271,7 +225,7 @@ const NavItem: React.FC<{
         />
       )}
 
-      {/* Desktop dropdown panel */}
+      {/* Desktop dropdown panel with two columns */}
       {!mobileMode && item.children && item.children.length > 0 && (
         <div
           className={cn(
@@ -287,66 +241,84 @@ const NavItem: React.FC<{
           }}
           onMouseLeave={() => closeWithDelay()}
         >
-          <div className="overflow-hidden rounded-lg border border-border/50 bg-background/95 shadow-xl backdrop-blur-md ring-1 ring-black/5 p-3 w-80">
-            <div className="grid grid-cols-1 gap-2">
-              {item.children.map((child) => (
-                <div key={child.label} className="group">
-                  <div className="flex items-start justify-between">
-                    <Link
-                      to={parsePathWithHash(child.path).hash ? { pathname: parsePathWithHash(child.path).pathname, hash: parsePathWithHash(child.path).hash } : child.path}
-                      className="px-3 py-2 text-sm font-medium rounded-md hover:bg-muted/10"
-                    >
-                      {child.label}
-                    </Link>
+          <div className="overflow-hidden rounded-lg border border-border/50 bg-background/95 shadow-xl backdrop-blur-md ring-1 ring-black/5 p-3 w-[720px]">
+            <div className="flex gap-4">
+              {/* left column: children (IRM, CT, Méthodologie) */}
+              <div className="w-1/2">
+                <ul className="flex flex-col gap-1">
+                  {item.children.map((child) => {
+                    const parsed = parsePathWithHash(child.path);
+                    const toProp = parsed.hash ? { pathname: parsed.pathname, hash: parsed.hash } : parsed.pathname;
+                    const childSlug = slugify(child.label);
+                    const childFull = `${parsed.pathname}${parsed.hash || ""}`;
+                    const isActiveChild =
+                      childFull === currentFull ||
+                      (child.children || []).some((g) => {
+                        const pg = parsePathWithHash(g.path);
+                        return `${pg.pathname}${pg.hash || ""}` === currentFull;
+                      });
 
-                    {child.children && child.children.length > 0 && (
-                      <div className="hidden group-hover:flex flex-col ml-2">
-                        <div className="bg-muted/5 rounded-md p-2">
-                          {child.children.map((g) => (
-                            <NavLink
-                              key={g.path}
-                              to={parsePathWithHash(g.path).hash ? { pathname: parsePathWithHash(g.path).pathname, hash: parsePathWithHash(g.path).hash } : g.path}
-                              className={({ isActive }) =>
-                                cn(
-                                  "block px-3 py-1 text-sm rounded-md",
-                                  isActive ? "text-primary font-medium bg-primary/5" : "text-muted-foreground hover:text-foreground"
-                                )
-                              }
-                            >
-                              {g.label}
-                            </NavLink>
-                          ))}
-                        </div>
-                      </div>
-                    )}
+                    return (
+                      <li
+                        key={child.label}
+                        onMouseEnter={() => onChildEnter(child.label)}
+                        onMouseLeave={() => onChildLeave()}
+                        className="rounded-md"
+                      >
+                        <Link
+                          to={toProp}
+                          className={cn(
+                            "block px-3 py-2 text-sm rounded-md",
+                            isActiveChild ? "text-primary font-medium bg-primary/5" : "text-muted-foreground hover:bg-muted/10"
+                          )}
+                        >
+                          {child.label}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+
+              {/* right column: grandchildren of activeChild */}
+              <div className="w-1/2 border-l border-border/10 pl-4">
+                {activeChild ? (
+                  <div>
+                    <h4 className="text-sm font-semibold mb-2">{activeChild.label}</h4>
+                    <ul className="flex flex-col gap-1">
+                      {activeChild.children && activeChild.children.length > 0 ? (
+                        activeChild.children.map((g) => {
+                          const pg = parsePathWithHash(g.path);
+                          const toProp = pg.hash ? { pathname: pg.pathname, hash: pg.hash } : pg.pathname;
+                          return (
+                            <li key={g.path}>
+                              <NavLink
+                                to={toProp}
+                                className={({ isActive }) =>
+                                  cn(
+                                    "block px-3 py-2 text-sm rounded-md",
+                                    isActive ? "text-primary font-medium bg-primary/5" : "text-muted-foreground hover:bg-muted/10"
+                                  )
+                                }
+                              >
+                                {g.label}
+                              </NavLink>
+                            </li>
+                          );
+                        })
+                      ) : (
+                        <li className="text-sm text-muted-foreground">Aucun sous-élément</li>
+                      )}
+                    </ul>
                   </div>
-                </div>
-              ))}
+                ) : null}
+              </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* Mobile collapsible panel */}
-      {mobileMode && item.children && item.children.length > 0 && (
-        <div className="w-full">
-          <div
-            id={idRoot}
-            className={cn(
-              "overflow-hidden transition-[max-height,opacity] duration-200 ease-in-out",
-              openRoot ? "max-h-[60rem] opacity-100" : "max-h-0 opacity-0"
-            )}
-          >
-            <ul className="flex flex-col pl-2">
-              {item.children.map((child) => (
-                <li key={child.label} className="w-full border-b border-border/10">
-                  <ChildRow child={child} />
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      )}
+      {/* Mobile collapsible handled in Header mobile panel */}
     </div>
   );
 };
@@ -436,9 +408,10 @@ export default function Header(): JSX.Element {
               Accueil
             </NavLink>
 
+            {/* Mobile rendering of NAV_CONFIG with collapsible children */}
             {NAV_CONFIG.map((item) => (
               <div key={item.label} className="w-full">
-                <NavItem item={item as NavItemType} mobileMode={true} closeMobileMenu={() => setMobileOpen(false)} />
+                <MobileNavItem item={item as NavItemType} closeMobileMenu={() => setMobileOpen(false)} />
               </div>
             ))}
 
@@ -460,3 +433,86 @@ export default function Header(): JSX.Element {
     </header>
   );
 }
+
+/* =========================
+   MobileNavItem component
+   ========================= */
+const MobileNavItem: React.FC<{ item: NavItemType; closeMobileMenu: () => void }> = ({ item, closeMobileMenu }) => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="w-full">
+      <div className="flex items-center justify-between">
+        <Link
+          to={item.path}
+          onClick={() => closeMobileMenu()}
+          className="px-3 py-2 text-sm font-medium rounded-md text-muted-foreground hover:bg-muted/10"
+        >
+          {item.label}
+        </Link>
+        {item.children && item.children.length > 0 && (
+          <button
+            onClick={() => setOpen((s) => !s)}
+            aria-expanded={open}
+            aria-controls={`mobile-${slugify(item.label)}`}
+            className="h-8 w-8 inline-flex items-center justify-center rounded-md hover:bg-accent/10"
+          >
+            <ChevronDown className={cn("h-4 w-4 transition-transform", open && "rotate-180")} />
+          </button>
+        )}
+      </div>
+
+      {item.children && item.children.length > 0 && (
+        <div
+          id={`mobile-${slugify(item.label)}`}
+          className={cn(
+            "overflow-hidden transition-[max-height,opacity] duration-200 ease-in-out pl-4",
+            open ? "max-h-[60rem] opacity-100" : "max-h-0 opacity-0"
+          )}
+        >
+          <ul className="flex flex-col">
+            {item.children.map((child) => (
+              <li key={child.label} className="border-b border-border/10">
+                <div className="flex items-center justify-between">
+                  <Link
+                    to={parsePathWithHash(child.path).hash ? { pathname: parsePathWithHash(child.path).pathname, hash: parsePathWithHash(child.path).hash } : child.path}
+                    onClick={() => closeMobileMenu()}
+                    className="block px-3 py-2 text-sm rounded-md text-muted-foreground hover:bg-muted/10"
+                  >
+                    {child.label}
+                  </Link>
+
+                  {child.children && child.children.length > 0 && (
+                    <div className="pl-2">
+                      <details className="group">
+                        <summary className="cursor-pointer list-none px-2 py-2 text-sm rounded-md hover:bg-muted/10">Voir</summary>
+                        <ul className="pl-4">
+                          {child.children.map((g) => (
+                            <li key={g.path}>
+                              <NavLink
+                                to={parsePathWithHash(g.path).hash ? { pathname: parsePathWithHash(g.path).pathname, hash: parsePathWithHash(g.path).hash } : g.path}
+                                onClick={() => closeMobileMenu()}
+                                className={({ isActive }) =>
+                                  cn(
+                                    "block px-3 py-2 text-sm rounded-md",
+                                    isActive ? "text-primary font-medium bg-primary/5" : "text-muted-foreground hover:bg-muted/10"
+                                  )
+                                }
+                              >
+                                {g.label}
+                              </NavLink>
+                            </li>
+                          ))}
+                        </ul>
+                      </details>
+                    </div>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+};
