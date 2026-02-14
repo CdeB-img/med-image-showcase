@@ -350,8 +350,8 @@ const MobileNavItem: React.FC<{
           to={item.path}
           onClick={() => closeMobileMenu()}
           className={cn(
-            "px-3 py-2 text-lg font-bold tracking-tight rounded-md transition-colors",
-            parentActive ? "text-primary bg-primary/6" : "text-foreground hover:bg-muted/6"
+            "px-3 py-2 text-sm rounded-md",
+            parentActive ? "text-primary font-semibold bg-primary/5" : "text-muted-foreground font-semibold"
           )}
         >
           {item.label}
@@ -476,8 +476,10 @@ export default function Header(): JSX.Element {
               onClick={() => setMobileOpen(false)}
               className={({ isActive }) =>
                 cn(
-                  "px-3 py-2 text-sm font-medium rounded-md",
-                  isActive ? "text-foreground bg-accent/50" : "text-muted-foreground hover:bg-muted/10"
+                  "px-3 py-6 text-lg font-bold tracking-tight rounded-md transition-colors",
+                  isActive
+                    ? "text-primary bg-primary/6"
+                    : "text-foreground hover:bg-muted/6"
                 )
               }
             >
@@ -502,8 +504,10 @@ export default function Header(): JSX.Element {
               onClick={() => setMobileOpen(false)}
               className={({ isActive }) =>
                 cn(
-                  "px-3 py-2 text-sm font-medium rounded-md",
-                  isActive ? "text-foreground bg-accent/50" : "text-muted-foreground hover:bg-muted/10"
+                  "px-3 py-2 text-lg font-bold tracking-tight rounded-md transition-colors",
+                  isActive
+                    ? "text-primary bg-primary/6"
+                    : "text-foreground hover:bg-muted/6"
                 )
               }
             >
