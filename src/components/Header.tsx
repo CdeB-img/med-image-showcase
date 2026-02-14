@@ -130,13 +130,22 @@ export default function Header() {
             onMouseEnter={methodo.openMenu}
             onMouseLeave={methodo.closeMenu}
           >
-            <span className="cursor-pointer text-muted-foreground hover:text-foreground transition">
+            <NavLink
+              to="/methodologie-imagerie-quantitative"
+              className={({ isActive }) =>
+                cn(
+                  "cursor-pointer text-muted-foreground hover:text-foreground transition",
+                  isActive && "text-foreground font-medium"
+                )
+              }
+            >
               Méthodologie
-            </span>
+            </NavLink>
 
             {methodo.open && (
               <div className="absolute left-0 mt-2 min-w-[260px] rounded-md border border-border bg-background shadow-lg">
                 <ul className="py-2">
+                  <li><Link to="/methodologie-imagerie-quantitative" className={menuItem}>Méthodologie – Vue d’ensemble</Link></li>
                   <li><Link to="/ingenierie-imagerie-quantitative" className={menuItem}>Ingénierie quantitative</Link></li>
                   <li><Link to="/bases-multicentriques" className={menuItem}>Bases multicentriques</Link></li>
                   <li><Link to="/analyse-dicom" className={menuItem}>Analyse DICOM</Link></li>

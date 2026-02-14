@@ -18,6 +18,8 @@ import CTPerfusionQuantitative from "@/pages/CTPerfusionQuantitative";
 import CorelabEC from "@/pages/CorelabEC";
 import IRMImagerieQuantitative from "@/pages/IRMImagerieQuantitative";
 import CTImagerieQuantitative from "@/pages/CTImagerieQuantitative";
+import MethodologieImagerieQuantitativefrom "@/pages/MethodologieImagerieQuantitative";
+
 import Header from "@/components/Header";
 
 import Index from "./pages/Index";
@@ -72,6 +74,7 @@ const App = () => (
           <Route path="/ct-perfusion-quantitative-avc" element={<CTPerfusionQuantitative />} />
           <Route path="/irm-imagerie-quantitative" element={<IRMImagerieQuantitative />} />
           <Route path="/ct-imagerie-quantitative" element={<CTImagerieQuantitative />} />
+          <Route path="/methodologie-imagerie-quantitative" element={<MethodologieImagerieQuantitative />} />
 
 
           {/* Fallback */}
