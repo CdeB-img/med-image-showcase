@@ -38,7 +38,7 @@ const NAV_CONFIG = [
         label: "Méthodologie",
         path: "/methodologie-imagerie-quantitative",
         children: [
-          { label: "Ingénierie quantitative", path: "/ingenierie-imagerie-quantitative" },
+          { label: "Ingénierie quantitative", path: "/ingenierie-imagerie-imagerie-quantitative" },
           { label: "Bases multicentriques", path: "/bases-multicentriques" },
           { label: "Analyse DICOM", path: "/analyse-dicom" },
           { label: "Recalage multimodal", path: "/recalage-multimodal" },
@@ -82,10 +82,9 @@ const parsePathWithHash = (p: string) => {
 };
 
 /* =========================
-   NavItem component
-   - gère 2 niveaux
-   - desktop: hover + bridge + hoveredChild pour afficher grandchildren
-   - mobile: collapsible, label navigue, chevron toggle
+   NavItem component (desktop + mobile)
+   - Desktop: hover + bridge + hoveredChild + clickedChild
+   - Mobile: collapsible, label navigue, chevron toggle
    ========================= */
 type Child = { label: string; path: string; children?: Child[] };
 type NavItemType = { label: string; path: string; children: Child[] };
@@ -98,6 +97,7 @@ const NavItem: React.FC<{
   const location = useLocation();
   const [openRoot, setOpenRoot] = useState(false);
   const [hoveredChild, setHoveredChild] = useState<string | null>(null);
+  const [clickedChild, setClickedChild] = useState<string | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const BRIDGE_DELAY = 300;
   const BRIDGE_HEIGHT = 20;
@@ -105,8 +105,12 @@ const NavItem: React.FC<{
   const currentFull = `${location.pathname}${location.hash || ""}`;
 
   useEffect(() => {
+    // fermer dropdown et reset hoveredChild au changement de route
     setOpenRoot(false);
     setHoveredChild(null);
+    // keep clickedChild (soit on veut qu'il persiste après navigation)
+    // si tu préfères le reset, décommenter la ligne suivante :
+    // setClickedChild(null);
   }, [location.pathname, location.hash]);
 
   const openNow = () => {
@@ -125,6 +129,7 @@ const NavItem: React.FC<{
     }, BRIDGE_DELAY);
   };
 
+  // parent actif si un descendant correspond à la route courante
   const parentActive = (item.children || []).some((c) => {
     const p = parsePathWithHash(c.path);
     if (`${p.pathname}${p.hash || ""}` === currentFull) return true;
@@ -137,6 +142,7 @@ const NavItem: React.FC<{
     return false;
   });
 
+  // handlers desktop
   const onChildEnter = (childLabel: string) => {
     if (mobileMode) return;
     setHoveredChild(slugify(childLabel));
@@ -145,6 +151,41 @@ const NavItem: React.FC<{
     if (mobileMode) return;
     setHoveredChild(null);
   };
+
+  // when user clicks a child (desktop), remember it so it becomes the active column
+  const onChildClick = (childLabel: string) => {
+    setClickedChild(slugify(childLabel));
+    // do not close dropdown here; navigation will occur and Header effect will close mobile if needed
+  };
+
+  // compute which child to show in right column:
+  // priority: hoveredChild > clickedChild > routeActiveChild > first child
+  const computeActiveChild = (): Child | undefined => {
+    if (!item.children || item.children.length === 0) return undefined;
+    if (hoveredChild) {
+      return item.children.find((c) => slugify(c.label) === hoveredChild) || undefined;
+    }
+    if (clickedChild) {
+      return item.children.find((c) => slugify(c.label) === clickedChild) || undefined;
+    }
+    // route active child
+    const routeChild =
+      item.children.find((c) => {
+        const p = parsePathWithHash(c.path);
+        if (`${p.pathname}${p.hash || ""}` === currentFull) return true;
+        if (c.children) {
+          return c.children.some((g) => {
+            const pg = parsePathWithHash(g.path);
+            return `${pg.pathname}${pg.hash || ""}` === currentFull;
+          });
+        }
+        return false;
+      }) || undefined;
+    if (routeChild) return routeChild;
+    return item.children[0];
+  };
+
+  const activeChild = computeActiveChild();
 
   return (
     <div className="relative flex items-center h-full">
@@ -181,7 +222,7 @@ const NavItem: React.FC<{
         )}
       </div>
 
-      {/* Bridge invisible */}
+      {/* Bridge invisible (desktop only) */}
       {!mobileMode && item.children && item.children.length > 0 && (
         <div
           onMouseEnter={() => openNow()}
@@ -216,6 +257,7 @@ const NavItem: React.FC<{
         >
           <div className="overflow-hidden rounded-lg border border-border/50 bg-background/95 shadow-xl backdrop-blur-md ring-1 ring-black/5 p-3 w-[720px]">
             <div className="flex gap-4">
+              {/* left column: children (IRM, CT, Méthodologie) */}
               <div className="w-1/2">
                 <ul className="flex flex-col gap-1">
                   {item.children.map((child) => {
@@ -239,6 +281,7 @@ const NavItem: React.FC<{
                       >
                         <Link
                           to={toProp}
+                          onClick={() => onChildClick(child.label)}
                           className={cn(
                             "block px-3 py-2 text-sm rounded-md",
                             isActiveChild ? "text-primary font-medium bg-primary/5" : "text-muted-foreground hover:bg-muted/10"
@@ -252,57 +295,38 @@ const NavItem: React.FC<{
                 </ul>
               </div>
 
+              {/* right column: grandchildren of activeChild */}
               <div className="w-1/2 border-l border-border/10 pl-4">
-                {(() => {
-                  const activeChild =
-                    hoveredChild
-                      ? item.children.find((c) => slugify(c.label) === hoveredChild)
-                      : item.children.find((c) => {
-                          const p = parsePathWithHash(c.path);
-                          if (`${p.pathname}${p.hash || ""}` === currentFull) return true;
-                          if (c.children) {
-                            return c.children.some((g) => {
-                              const pg = parsePathWithHash(g.path);
-                              return `${pg.pathname}${pg.hash || ""}` === currentFull;
-                            });
-                          }
-                          return false;
-                        }) || item.children[0];
-
-                  if (!activeChild) return null;
-                  const grandchildren = activeChild.children || [];
-
-                  return (
-                    <div>
-                      <h4 className="text-sm font-semibold mb-2">{activeChild.label}</h4>
-                      <ul className="flex flex-col gap-1">
-                        {grandchildren.length === 0 ? (
-                          <li className="text-sm text-muted-foreground">Aucun sous-élément</li>
-                        ) : (
-                          grandchildren.map((g) => {
-                            const pg = parsePathWithHash(g.path);
-                            const toProp = pg.hash ? { pathname: pg.pathname, hash: pg.hash } : pg.pathname;
-                            return (
-                              <li key={g.path}>
-                                <NavLink
-                                  to={toProp}
-                                  className={({ isActive }) =>
-                                    cn(
-                                      "block px-3 py-2 text-sm rounded-md",
-                                      isActive ? "text-primary font-medium bg-primary/5" : "text-muted-foreground hover:bg-muted/10"
-                                    )
-                                  }
-                                >
-                                  {g.label}
-                                </NavLink>
-                              </li>
-                            );
-                          })
-                        )}
-                      </ul>
-                    </div>
-                  );
-                })()}
+                {activeChild ? (
+                  <div>
+                    <h4 className="text-sm font-semibold mb-2">{activeChild.label}</h4>
+                    <ul className="flex flex-col gap-1">
+                      {activeChild.children && activeChild.children.length > 0 ? (
+                        activeChild.children.map((g) => {
+                          const pg = parsePathWithHash(g.path);
+                          const toProp = pg.hash ? { pathname: pg.pathname, hash: pg.hash } : pg.pathname;
+                          return (
+                            <li key={g.path}>
+                              <NavLink
+                                to={toProp}
+                                className={({ isActive }) =>
+                                  cn(
+                                    "block px-3 py-2 text-sm rounded-md",
+                                    isActive ? "text-primary font-medium bg-primary/5" : "text-muted-foreground hover:bg-muted/10"
+                                  )
+                                }
+                              >
+                                {g.label}
+                              </NavLink>
+                            </li>
+                          );
+                        })
+                      ) : (
+                        <li className="text-sm text-muted-foreground">Aucun sous-élément</li>
+                      )}
+                    </ul>
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>
@@ -399,7 +423,6 @@ export default function Header(): JSX.Element {
               Accueil
             </NavLink>
 
-            {/* Mobile rendering of NAV_CONFIG with collapsible children */}
             {NAV_CONFIG.map((item) => (
               <div key={item.label} className="w-full">
                 <MobileNavItem item={item as NavItemType} closeMobileMenu={() => setMobileOpen(false)} />
@@ -427,14 +450,9 @@ export default function Header(): JSX.Element {
 
 /* =========================
    MobileNavItem component
-   - version simplifiée et accessible pour le panneau mobile
    ========================= */
 const MobileNavItem: React.FC<{ item: NavItemType; closeMobileMenu: () => void }> = ({ item, closeMobileMenu }) => {
   const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    // fermer si route change handled by Header effect
-  }, []);
 
   return (
     <div className="w-full">
