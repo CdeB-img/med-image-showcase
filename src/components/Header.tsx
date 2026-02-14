@@ -201,7 +201,7 @@ export default function Header() {
                       className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition"
                       onClick={() => setExpertiseOpen(false)}
                     >
-                      CT Spectral imagerie quantitative
+                      CT Perfusion quantitative dans l'AVC
                     </Link>
                   </li>
 
