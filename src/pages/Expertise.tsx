@@ -5,7 +5,7 @@ import { ChevronDown, Menu, X } from "lucide-react";
 import { projects as _projects } from "@/data/projects";
 
 /* =========================
-   NAV CONFIG
+   CONFIG NAV
    ========================= */
 const projects = Array.isArray(_projects) ? _projects : [];
 
@@ -38,7 +38,7 @@ const NAV_CONFIG = [
         label: "Méthodologie",
         path: "/methodologie-imagerie-quantitative",
         children: [
-          { label: "Ingénierie quantitative", path: "/ingenierie-imagerie-quantitative" },
+          { label: "Ingénierie quantitative", path: "/ingenierie-imagerie-imagerie-quantitative" },
           { label: "Bases multicentriques", path: "/bases-multicentriques" },
           { label: "Analyse DICOM", path: "/analyse-dicom" },
           { label: "Recalage multimodal", path: "/recalage-multimodal" },
@@ -82,8 +82,8 @@ const parsePathWithHash = (p: string) => {
 };
 
 /* =========================
-   NavItem component
-   - Desktop: hover + bridge + hoveredChild
+   NavItem component (desktop + mobile)
+   - Desktop: hover + bridge + hoveredChild + clickedChild
    - Mobile: collapsible, label navigue, chevron toggle
    ========================= */
 type Child = { label: string; path: string; children?: Child[] };
@@ -97,6 +97,7 @@ const NavItem: React.FC<{
   const location = useLocation();
   const [openRoot, setOpenRoot] = useState(false);
   const [hoveredChild, setHoveredChild] = useState<string | null>(null);
+  const [clickedChild, setClickedChild] = useState<string | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const BRIDGE_DELAY = 300;
   const BRIDGE_HEIGHT = 20;
@@ -104,9 +105,12 @@ const NavItem: React.FC<{
   const currentFull = `${location.pathname}${location.hash || ""}`;
 
   useEffect(() => {
-    // fermer le dropdown et reset hoveredChild au changement de route
+    // fermer dropdown et reset hoveredChild au changement de route
     setOpenRoot(false);
     setHoveredChild(null);
+    // keep clickedChild (soit on veut qu'il persiste après navigation)
+    // si tu préfères le reset, décommenter la ligne suivante :
+    // setClickedChild(null);
   }, [location.pathname, location.hash]);
 
   const openNow = () => {
@@ -138,6 +142,7 @@ const NavItem: React.FC<{
     return false;
   });
 
+  // handlers desktop
   const onChildEnter = (childLabel: string) => {
     if (mobileMode) return;
     setHoveredChild(slugify(childLabel));
@@ -147,12 +152,21 @@ const NavItem: React.FC<{
     setHoveredChild(null);
   };
 
-  // compute active child to display in right column:
-  // priority: hoveredChild > routeActiveChild > first child
+  // when user clicks a child (desktop), remember it so it becomes the active column
+  const onChildClick = (childLabel: string) => {
+    setClickedChild(slugify(childLabel));
+    // do not close dropdown here; navigation will occur and Header effect will close mobile if needed
+  };
+
+  // compute which child to show in right column:
+  // priority: hoveredChild > clickedChild > routeActiveChild > first child
   const computeActiveChild = (): Child | undefined => {
     if (!item.children || item.children.length === 0) return undefined;
     if (hoveredChild) {
       return item.children.find((c) => slugify(c.label) === hoveredChild) || undefined;
+    }
+    if (clickedChild) {
+      return item.children.find((c) => slugify(c.label) === clickedChild) || undefined;
     }
     // route active child
     const routeChild =
@@ -208,7 +222,7 @@ const NavItem: React.FC<{
         )}
       </div>
 
-      {/* Bridge invisible */}
+      {/* Bridge invisible (desktop only) */}
       {!mobileMode && item.children && item.children.length > 0 && (
         <div
           onMouseEnter={() => openNow()}
@@ -267,6 +281,7 @@ const NavItem: React.FC<{
                       >
                         <Link
                           to={toProp}
+                          onClick={() => onChildClick(child.label)}
                           className={cn(
                             "block px-3 py-2 text-sm rounded-md",
                             isActiveChild ? "text-primary font-medium bg-primary/5" : "text-muted-foreground hover:bg-muted/10"
@@ -408,7 +423,6 @@ export default function Header(): JSX.Element {
               Accueil
             </NavLink>
 
-            {/* Mobile rendering of NAV_CONFIG with collapsible children */}
             {NAV_CONFIG.map((item) => (
               <div key={item.label} className="w-full">
                 <MobileNavItem item={item as NavItemType} closeMobileMenu={() => setMobileOpen(false)} />
