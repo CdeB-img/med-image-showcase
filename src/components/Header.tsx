@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { ChevronDown, Menu, X, ArrowRight } from "lucide-react"; 
+import { ChevronDown, Menu, X, LayoutGrid } from "lucide-react"; 
 import { projects } from "@/data/projects";
 
 const NAV_CONFIG = [
@@ -43,7 +43,7 @@ const NAV_CONFIG = [
 ];
 
 /* ============================================================
-   MOBILE NAV ITEM (SPLIT & GRID BLOCK)
+   MOBILE ITEM - VERSION DEPLOYÉE (ESPACE MAXIMUM)
 ============================================================ */
 const MobileNavItem = ({ item, onClose }: { item: any; onClose: () => void }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -51,65 +51,66 @@ const MobileNavItem = ({ item, onClose }: { item: any; onClose: () => void }) =>
   const isActive = location.pathname.startsWith(item.path);
 
   return (
-    <div className="flex flex-col border-b border-border/40 overflow-hidden">
-      {/* LIGNE PRINCIPALE : Séparation Lien / Toggle */}
-      <div className="flex items-stretch h-14">
-        {/* Partie Gauche : Le lien direct vers la page parente */}
+    <div className="flex flex-col border-b border-border/40">
+      {/* HEADER DE SECTION */}
+      <div className="flex items-center justify-between h-16 px-4">
         <Link 
           to={item.path} 
           onClick={onClose}
           className={cn(
-            "flex-1 flex items-center px-4 text-base font-semibold transition-colors",
-            isActive ? "text-primary bg-primary/5" : "text-foreground/90"
+            "text-lg font-bold tracking-tight transition-colors",
+            isActive ? "text-primary" : "text-foreground"
           )}
         >
           {item.label}
         </Link>
 
-        {/* Partie Droite : Le bouton pour déplier le bloc */}
         <button 
           onClick={() => setIsExpanded(!isExpanded)}
           className={cn(
-            "w-14 flex items-center justify-center border-l border-border/20 transition-colors",
-            isExpanded ? "bg-accent text-primary" : "text-muted-foreground"
+            "flex items-center gap-2 px-3 py-2 rounded-full transition-all",
+            isExpanded ? "bg-primary text-white" : "bg-muted text-muted-foreground"
           )}
         >
-          <ChevronDown className={cn("h-5 w-5 transition-transform duration-300", isExpanded && "rotate-180")} />
+          <span className="text-xs font-medium">{isExpanded ? "Fermer" : "Explorer"}</span>
+          <ChevronDown className={cn("h-4 w-4 transition-transform duration-300", isExpanded && "rotate-180")} />
         </button>
       </div>
 
-      {/* BLOC DE SOUS-MENU : Apparition en Grille (Grid) */}
+      {/* ZONE DE DÉPLOIEMENT (GRID) */}
       <div 
         className={cn(
-          "grid transition-all duration-300 ease-in-out bg-muted/30",
-          isExpanded ? "grid-rows-[1fr] opacity-100 py-3" : "grid-rows-[0fr] opacity-0"
+          "overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]",
+          isExpanded ? "max-h-[800px] opacity-100 translate-y-0" : "max-h-0 opacity-0 -translate-y-4"
         )}
       >
-        <div className="overflow-hidden">
-          <div className="grid grid-cols-2 gap-2 px-3">
+        <div className="p-4 pt-0">
+          <div className="grid grid-cols-2 gap-3">
             {item.children.map((child: any) => (
               <Link
                 key={child.path}
                 to={child.path}
                 onClick={onClose}
                 className={cn(
-                  "flex items-center gap-2 p-3 text-[13px] rounded-lg border border-border/40 bg-background/50 transition-all active:scale-95",
-                  location.pathname === child.path ? "text-primary border-primary/30 bg-primary/5 font-medium" : "text-muted-foreground"
+                  "flex flex-col gap-1 p-4 rounded-2xl border transition-all active:scale-95",
+                  location.pathname === child.path 
+                    ? "bg-primary/10 border-primary/30 text-primary" 
+                    : "bg-muted/30 border-transparent text-muted-foreground"
                 )}
               >
-                <div className="w-1 h-1 rounded-full bg-primary/40 shrink-0" />
-                <span className="truncate">{child.label}</span>
+                <LayoutGrid className="h-4 w-4 opacity-40" />
+                <span className="text-[13px] font-medium leading-snug">{child.label}</span>
               </Link>
             ))}
-            {/* Petit lien pour voir toute la section */}
-            <Link 
-              to={item.path} 
-              onClick={onClose}
-              className="col-span-2 flex items-center justify-center gap-2 p-2 text-xs text-primary/70 font-medium"
-            >
-              Voir toute la section <ArrowRight className="h-3 w-3" />
-            </Link>
           </div>
+          
+          <Link 
+            to={item.path} 
+            onClick={onClose}
+            className="mt-4 w-full py-3 flex items-center justify-center gap-2 text-sm font-semibold text-primary bg-primary/5 rounded-xl border border-primary/10"
+          >
+            Voir la page {item.label}
+          </Link>
         </div>
       </div>
     </div>
@@ -117,48 +118,52 @@ const MobileNavItem = ({ item, onClose }: { item: any; onClose: () => void }) =>
 };
 
 /* ============================================================
-   COMPOSANT PRINCIPAL (HEADER COMPLET)
+   HEADER PRINCIPAL
 ============================================================ */
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // Verrouillage du scroll
   useEffect(() => {
-    if (isMobileMenuOpen) document.body.style.overflow = 'hidden';
-    else document.body.style.overflow = 'unset';
+    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : 'unset';
   }, [isMobileMenuOpen]);
 
   return (
-    <header className="sticky top-0 z-[100] w-full border-b border-border/40 bg-background/80 backdrop-blur-md">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
+    <header className="sticky top-0 z-[100] w-full border-b border-border/40 bg-background/80 backdrop-blur-xl">
+      <div className="container mx-auto flex h-20 items-center justify-between px-6">
         
         {/* LOGO */}
-        <Link to="/" className="z-[110] flex items-center">
-          <span className="text-xl font-bold tracking-tighter bg-gradient-to-br from-foreground to-foreground/60 bg-clip-text text-transparent">
-            NOXIA
-          </span>
+        <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="z-[110]">
+          <span className="text-2xl font-black tracking-tighter uppercase">Noxia</span>
         </Link>
 
-        {/* --- DESKTOP (Inchangé car il fonctionne bien) --- */}
-        <nav className="hidden md:flex items-center gap-2">
-            {/* ... Tes Navlinks Desktop (Accueil, NavItem, Contact) ... */}
-            <NavLink to="/" className={({isActive}) => cn("px-3 py-2 text-sm", isActive ? "text-primary" : "text-muted-foreground")}>Accueil</NavLink>
-            {NAV_CONFIG.map(item => <DesktopNavItem key={item.label} item={item} />)}
-            <NavLink to="/contact" className={({isActive}) => cn("px-3 py-2 text-sm", isActive ? "text-primary" : "text-muted-foreground")}>Contact</NavLink>
+        {/* --- DESKTOP NAV --- */}
+        <nav className="hidden md:flex items-center gap-1">
+          <NavLink to="/" className={({isActive}) => cn("px-4 py-2 text-sm font-medium rounded-full transition-colors", isActive ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground")}>Accueil</NavLink>
+          {NAV_CONFIG.map(item => <DesktopNavItem key={item.label} item={item} />)}
+          <NavLink to="/contact" className={({isActive}) => cn("px-4 py-2 text-sm font-medium rounded-full transition-colors", isActive ? "bg-primary/10 text-primary" : "text-muted-foreground hover:text-foreground")}>Contact</NavLink>
         </nav>
 
         {/* --- MOBILE TOGGLE --- */}
-        <button className="md:hidden z-[110] p-2" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-          {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        <button 
+          className="md:hidden z-[110] w-12 h-12 flex items-center justify-center rounded-full bg-foreground text-background" 
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
 
-        {/* --- MOBILE MENU OVERLAY --- */}
+        {/* --- FULLSCREEN MOBILE OVERLAY --- */}
         <div className={cn(
-          "fixed inset-0 z-[105] bg-background md:hidden transition-all duration-300 flex flex-col pt-20",
-          isMobileMenuOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
+          "fixed inset-0 z-[105] bg-background md:hidden transition-all duration-500 ease-in-out flex flex-col pt-24",
+          isMobileMenuOpen ? "translate-y-0" : "translate-y-[-100%]"
         )}>
-          <div className="flex-1 overflow-y-auto px-4 pb-10">
-            <nav className="flex flex-col border-t border-border/40">
-              <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="h-14 flex items-center px-4 font-semibold border-b border-border/40">
+          <div className="flex-1 overflow-y-auto pb-20">
+            <div className="flex flex-col">
+              <Link 
+                to="/" 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="h-20 flex items-center px-6 text-2xl font-bold border-b border-border/40"
+              >
                 Accueil
               </Link>
               
@@ -166,10 +171,14 @@ export default function Header() {
                 <MobileNavItem key={item.label} item={item} onClose={() => setIsMobileMenuOpen(false)} />
               ))}
 
-              <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)} className="h-14 flex items-center px-4 font-semibold">
+              <Link 
+                to="/contact" 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="h-20 flex items-center px-6 text-2xl font-bold"
+              >
                 Contact
               </Link>
-            </nav>
+            </div>
           </div>
         </div>
       </div>
@@ -177,28 +186,42 @@ export default function Header() {
   );
 }
 
-/* On garde le DesktopNavItem tel quel, il était déjà propre */
+/* --- DESKTOP NAV ITEM --- */
 const DesktopNavItem = ({ item }: { item: any }) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const location = useLocation();
-    const isActive = location.pathname.startsWith(item.path);
+  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+  const isActive = location.pathname.startsWith(item.path);
 
-    return (
-        <div className="relative h-full flex items-center" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
-            <Link to={item.path} className={cn("px-3 py-2 text-sm font-medium transition-colors rounded-md flex items-center gap-1", isActive ? "text-primary bg-primary/10" : "text-muted-foreground hover:text-foreground")}>
-                {item.label} <ChevronDown className={cn("h-4 w-4 transition-transform", isOpen && "rotate-180")} />
-            </Link>
-            {isOpen && (
-                <div className="absolute top-full left-0 w-64 pt-2">
-                    <div className="bg-background border border-border shadow-xl rounded-xl overflow-hidden p-2 backdrop-blur-xl">
-                        {item.children.map((child: any) => (
-                            <Link key={child.path} to={child.path} className="block px-4 py-2 text-sm text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-lg">
-                                {child.label}
-                            </Link>
-                        ))}
-                    </div>
-                </div>
-            )}
+  return (
+    <div className="relative h-20 flex items-center" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
+      <Link 
+        to={item.path} 
+        className={cn(
+          "px-4 py-2 text-sm font-medium rounded-full flex items-center gap-1 transition-all",
+          isActive ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-muted"
+        )}
+      >
+        {item.label} <ChevronDown className={cn("h-4 w-4 transition-transform", isOpen && "rotate-180")} />
+      </Link>
+      
+      <div className={cn(
+        "absolute top-[80%] left-0 w-72 pt-4 transition-all duration-200",
+        isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none"
+      )}>
+        <div className="bg-background border border-border/50 shadow-2xl rounded-2xl overflow-hidden p-3 backdrop-blur-xl">
+          <div className="grid grid-cols-1 gap-1">
+            {item.children.map((child: any) => (
+              <Link 
+                key={child.path} 
+                to={child.path} 
+                className="flex items-center px-4 py-3 text-sm text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-colors"
+              >
+                {child.label}
+              </Link>
+            ))}
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
