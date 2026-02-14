@@ -67,7 +67,7 @@ const NavItem: React.FC<{ item: NavItemType; mobileMode: boolean; closeMobileMen
     setIsOpen(false);
   }, [location.pathname]);
 
-  // Desktop hover handlers (ignored on mobile)
+  // Desktop hover handlers (ignorés sur mobile)
   const handleMouseEnter = () => {
     if (mobileMode) return;
     if (timerRef.current) clearTimeout(timerRef.current);
@@ -78,30 +78,18 @@ const NavItem: React.FC<{ item: NavItemType; mobileMode: boolean; closeMobileMen
     timerRef.current = setTimeout(() => setIsOpen(false), 150);
   };
 
-  // Mobile toggle (accessible)
-  const toggleMobile = (e?: React.MouseEvent) => {
-    e?.stopPropagation();
-    setIsOpen((s) => !s);
-  };
-
   return (
     <div
       className="relative flex items-center h-full"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Parent: sur desktop c'est un Link normal; sur mobile on empêche la navigation si il y a des enfants */}
-      <div className={cn("flex items-center gap-2")}>
+      {/* Parent : label navigue toujours; la flèche ouvre le sous-menu */}
+      <div className="flex items-center gap-2">
         <Link
           to={item.path}
-          onClick={(e: React.MouseEvent) => {
-            // Si on est en mobile et qu'il y a des enfants, on empêche la navigation
-            if (mobileMode && item.children.length > 0) {
-              e.preventDefault();
-              setIsOpen((s) => !s); // toggle le sous-menu via le label aussi (optionnel)
-              return;
-            }
-            // sinon on ferme le menu mobile si demandé
+          onClick={() => {
+            // si on est en mobile, on ferme le panneau mobile après navigation
             if (mobileMode && closeMobileMenu) closeMobileMenu();
           }}
           className={cn(
@@ -113,30 +101,28 @@ const NavItem: React.FC<{ item: NavItemType; mobileMode: boolean; closeMobileMen
           {item.label}
         </Link>
 
-        {/* Chevron visible sur mobile et desktop ; sur mobile il sert à ouvrir/fermer */}
+        {/* Chevron visible sur mobile et desktop ; il toggle le sous-menu sans naviguer */}
         {item.children.length > 0 && (
           <button
             aria-expanded={isOpen}
             aria-controls={`submenu-${item.label}`}
             onClick={(e) => {
-              e.stopPropagation();
+              e.stopPropagation(); // empêche la propagation vers le Link parent
               setIsOpen((s) => !s);
             }}
             className={cn(
-              "inline-flex md:inline-flex h-8 w-8 items-center justify-center rounded-md transition-transform",
-              "group-hover:bg-accent/10",
+              "inline-flex h-8 w-8 items-center justify-center rounded-md transition-transform",
+              "hover:bg-accent/10",
               isOpen && "rotate-180"
             )}
-            title={mobileMode ? (isOpen ? "Fermer sous-menu" : "Ouvrir sous-menu") : undefined}
+            title={isOpen ? "Fermer sous-menu" : "Ouvrir sous-menu"}
           >
             <ChevronDown className={cn("h-4 w-4 opacity-60", isOpen && "rotate-180")} />
           </button>
         )}
       </div>
 
-
-      {/* DROPDOWN */}
-      {/* Desktop absolute dropdown */}
+      {/* DROPDOWN (desktop absolute) */}
       {!mobileMode && item.children.length > 0 && (
         <div
           className={cn(
@@ -171,6 +157,42 @@ const NavItem: React.FC<{ item: NavItemType; mobileMode: boolean; closeMobileMen
           </div>
         </div>
       )}
+
+      {/* Mobile inline collapsible list */}
+      {mobileMode && item.children.length > 0 && (
+        <div className="w-full">
+          <div
+            id={`submenu-${item.label}`}
+            className={cn(
+              "overflow-hidden transition-[max-height,opacity] duration-200 ease-in-out",
+              isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+            )}
+          >
+            <ul className="flex flex-col pl-4">
+              {item.children.map((child) => (
+                <li key={child.path}>
+                  <NavLink
+                    to={child.path}
+                    onClick={() => closeMobileMenu && closeMobileMenu()}
+                    className={({ isActive }) =>
+                      cn(
+                        "block px-4 py-2 text-sm transition-colors rounded-md",
+                        isActive ? "text-primary font-medium bg-primary/5" : "text-muted-foreground hover:bg-muted/10"
+                      )
+                    }
+                  >
+                    {child.label}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
 
       {/* Mobile inline collapsible list */}
       {mobileMode && item.children.length > 0 && (
