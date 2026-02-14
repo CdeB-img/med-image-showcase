@@ -1,13 +1,13 @@
-import { Link, NavLink, useMatch } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { projects } from "@/data/projects";
 import { useRef, useState } from "react";
 
 export default function Header() {
-  const isProjectDetail = useMatch("/projet/:id");
+  const location = useLocation();
 
   /* ===============================
-     GENERIC DROPDOWN HANDLER
+     DROPDOWN HOOK
   =============================== */
   const useDropdown = () => {
     const [open, setOpen] = useState(false);
@@ -31,44 +31,73 @@ export default function Header() {
   const projets = useDropdown();
 
   /* ===============================
-     STYLE
+     ACTIVE DETECTION
   =============================== */
 
-  const topLink = ({ isActive }: { isActive: boolean }) =>
+  const isIRM = location.pathname.startsWith("/irm") ||
+                location.pathname.includes("segmentation-irm") ||
+                location.pathname.includes("cardiaque") ||
+                location.pathname.includes("perfusion-metabolique");
+
+  const isCT = location.pathname.startsWith("/ct") ||
+               location.pathname.includes("quantification-ct");
+
+  const isMethodo =
+    location.pathname.includes("ingenierie") ||
+    location.pathname.includes("bases-multicentriques") ||
+    location.pathname.includes("analyse-dicom") ||
+    location.pathname.includes("recalage");
+
+  const isProjets =
+    location.pathname.startsWith("/projet") ||
+    location.pathname.startsWith("/projets");
+
+  /* ===============================
+     STYLES
+  =============================== */
+
+  const topItem = (active: boolean) =>
     cn(
-      "px-2 py-1 rounded-md transition",
+      "relative px-3 py-2 font-medium tracking-wide transition duration-200",
       "text-muted-foreground hover:text-foreground",
-      isActive && "text-foreground bg-white/10"
+      active && "text-foreground"
     );
 
-  const subLink = ({ isActive }: { isActive: boolean }) =>
+  const underline = (active: boolean) =>
     cn(
-      "block px-4 py-2 text-sm rounded-md transition",
-      "text-muted-foreground hover:bg-muted hover:text-foreground",
-      isActive && "bg-white/10 text-foreground"
+      "absolute left-0 -bottom-[2px] h-[2px] w-full bg-white transition-opacity duration-200",
+      active ? "opacity-100" : "opacity-0"
     );
+
+  const subItem =
+    "block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition rounded-md";
 
   /* ===============================
      COMPONENT
   =============================== */
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/90 backdrop-blur">
-      <div className="container flex h-14 items-center justify-between px-4 md:px-6">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/75">
+      <div className="container mx-auto flex h-16 items-center justify-between px-6">
 
         {/* LOGO */}
         <Link
           to="/"
-          className="text-lg font-semibold tracking-tight hover:opacity-90 transition"
+          className="text-lg font-semibold tracking-[0.15em] hover:opacity-90 transition"
         >
           NOXIA
         </Link>
 
-        <nav className="flex items-center gap-6 text-sm">
+        <nav className="flex items-center gap-10 text-sm">
 
           {/* ACCUEIL */}
-          <NavLink to="/" className={topLink}>
-            Accueil
+          <NavLink to="/" className={({ isActive }) => topItem(isActive)}>
+            {({ isActive }) => (
+              <span className="relative">
+                Accueil
+                <span className={underline(isActive)} />
+              </span>
+            )}
           </NavLink>
 
           {/* ================= IRM ================= */}
@@ -77,21 +106,21 @@ export default function Header() {
             onMouseEnter={irm.openMenu}
             onMouseLeave={irm.closeMenu}
           >
-            <NavLink
-              to="/irm-imagerie-quantitative"
-              className={topLink}
-            >
-              IRM
-            </NavLink>
+            <Link to="/irm-imagerie-quantitative" className={topItem(isIRM)}>
+              <span className="relative">
+                IRM
+                <span className={underline(isIRM)} />
+              </span>
+            </Link>
 
             {irm.open && (
-              <div className="absolute left-0 mt-2 w-64 rounded-md border border-border bg-background shadow-lg">
-                <ul className="py-2">
-                  <li><NavLink to="/segmentation-irm" className={subLink}>Segmentation IRM</NavLink></li>
-                  <li><NavLink to="/biomarqueurs-irm-cardiaque-essais-cliniques" className={subLink}>Biomarqueurs cardiaques</NavLink></li>
-                  <li><NavLink to="/ecv-mapping-t1-t2-irm-cardiaque" className={subLink}>ECV & Mapping</NavLink></li>
-                  <li><NavLink to="/perfusion-metabolique-neuro-imagerie" className={subLink}>Perfusion métabolique neuro</NavLink></li>
-                  <li><NavLink to="/corelab-essais-cliniques" className={subLink}>Corelab IRM</NavLink></li>
+              <div className="absolute left-0 mt-4 w-72 rounded-lg border border-border bg-background shadow-xl p-3">
+                <ul className="space-y-1">
+                  <li><Link to="/segmentation-irm" className={subItem}>Segmentation IRM</Link></li>
+                  <li><Link to="/biomarqueurs-irm-cardiaque-essais-cliniques" className={subItem}>Biomarqueurs cardiaques</Link></li>
+                  <li><Link to="/ecv-mapping-t1-t2-irm-cardiaque" className={subItem}>ECV & Mapping</Link></li>
+                  <li><Link to="/perfusion-metabolique-neuro-imagerie" className={subItem}>Perfusion métabolique neuro</Link></li>
+                  <li><Link to="/corelab-essais-cliniques" className={subItem}>Corelab IRM</Link></li>
                 </ul>
               </div>
             )}
@@ -103,19 +132,19 @@ export default function Header() {
             onMouseEnter={ct.openMenu}
             onMouseLeave={ct.closeMenu}
           >
-            <NavLink
-              to="/ct-imagerie-quantitative"
-              className={topLink}
-            >
-              CT
-            </NavLink>
+            <Link to="/ct-imagerie-quantitative" className={topItem(isCT)}>
+              <span className="relative">
+                CT
+                <span className={underline(isCT)} />
+              </span>
+            </Link>
 
             {ct.open && (
-              <div className="absolute left-0 mt-2 w-64 rounded-md border border-border bg-background shadow-lg">
-                <ul className="py-2">
-                  <li><NavLink to="/quantification-ct" className={subLink}>Quantification CT</NavLink></li>
-                  <li><NavLink to="/ct-quantitatif-avance-imagerie-spectrale" className={subLink}>CT spectral avancé</NavLink></li>
-                  <li><NavLink to="/ct-perfusion-quantitative-avc" className={subLink}>CT perfusion AVC</NavLink></li>
+              <div className="absolute left-0 mt-4 w-72 rounded-lg border border-border bg-background shadow-xl p-3">
+                <ul className="space-y-1">
+                  <li><Link to="/quantification-ct" className={subItem}>Quantification CT</Link></li>
+                  <li><Link to="/ct-quantitatif-avance-imagerie-spectrale" className={subItem}>CT spectral avancé</Link></li>
+                  <li><Link to="/ct-perfusion-quantitative-avc" className={subItem}>CT perfusion AVC</Link></li>
                 </ul>
               </div>
             )}
@@ -127,20 +156,20 @@ export default function Header() {
             onMouseEnter={methodo.openMenu}
             onMouseLeave={methodo.closeMenu}
           >
-            <NavLink
-              to="/methodologie-imagerie-quantitative"
-              className={topLink}
-            >
-              Méthodologie
-            </NavLink>
+            <Link to="/methodologie-imagerie-quantitative" className={topItem(isMethodo)}>
+              <span className="relative">
+                Méthodologie
+                <span className={underline(isMethodo)} />
+              </span>
+            </Link>
 
             {methodo.open && (
-              <div className="absolute left-0 mt-2 w-64 rounded-md border border-border bg-background shadow-lg">
-                <ul className="py-2">
-                  <li><NavLink to="/ingenierie-imagerie-quantitative" className={subLink}>Ingénierie quantitative</NavLink></li>
-                  <li><NavLink to="/bases-multicentriques" className={subLink}>Bases multicentriques</NavLink></li>
-                  <li><NavLink to="/analyse-dicom" className={subLink}>Analyse DICOM</NavLink></li>
-                  <li><NavLink to="/recalage-multimodal" className={subLink}>Recalage multimodal</NavLink></li>
+              <div className="absolute left-0 mt-4 w-72 rounded-lg border border-border bg-background shadow-xl p-3">
+                <ul className="space-y-1">
+                  <li><Link to="/ingenierie-imagerie-quantitative" className={subItem}>Ingénierie quantitative</Link></li>
+                  <li><Link to="/bases-multicentriques" className={subItem}>Bases multicentriques</Link></li>
+                  <li><Link to="/analyse-dicom" className={subItem}>Analyse DICOM</Link></li>
+                  <li><Link to="/recalage-multimodal" className={subItem}>Recalage multimodal</Link></li>
                 </ul>
               </div>
             )}
@@ -152,21 +181,24 @@ export default function Header() {
             onMouseEnter={projets.openMenu}
             onMouseLeave={projets.closeMenu}
           >
-            <NavLink to="/projets" className={topLink}>
-              Projets
-            </NavLink>
+            <Link to="/projets" className={topItem(isProjets)}>
+              <span className="relative">
+                Projets
+                <span className={underline(isProjets)} />
+              </span>
+            </Link>
 
             {projets.open && (
-              <div className="absolute left-0 mt-2 w-64 rounded-md border border-border bg-background shadow-lg">
-                <ul className="py-2">
+              <div className="absolute left-0 mt-4 w-72 rounded-lg border border-border bg-background shadow-xl p-3">
+                <ul className="space-y-1 max-h-80 overflow-y-auto">
                   {projects.map((project) => (
                     <li key={project.id}>
-                      <NavLink
+                      <Link
                         to={`/projet/${project.id}`}
-                        className={subLink}
+                        className={subItem}
                       >
                         {project.title}
-                      </NavLink>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -175,8 +207,13 @@ export default function Header() {
           </div>
 
           {/* CONTACT */}
-          <NavLink to="/contact" className={topLink}>
-            Contact
+          <NavLink to="/contact" className={({ isActive }) => topItem(isActive)}>
+            {({ isActive }) => (
+              <span className="relative">
+                Contact
+                <span className={underline(isActive)} />
+              </span>
+            )}
           </NavLink>
 
         </nav>
