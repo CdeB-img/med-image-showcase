@@ -90,11 +90,18 @@ const NavItem: React.FC<{ item: NavItemType; mobileMode: boolean; closeMobileMen
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Parent: sur desktop c'est un Link normal; sur mobile on affiche label + chevron bouton */}
+      {/* Parent: sur desktop c'est un Link normal; sur mobile on empêche la navigation si il y a des enfants */}
       <div className={cn("flex items-center gap-2")}>
         <Link
           to={item.path}
-          onClick={() => {
+          onClick={(e: React.MouseEvent) => {
+            // Si on est en mobile et qu'il y a des enfants, on empêche la navigation
+            if (mobileMode && item.children.length > 0) {
+              e.preventDefault();
+              setIsOpen((s) => !s); // toggle le sous-menu via le label aussi (optionnel)
+              return;
+            }
+            // sinon on ferme le menu mobile si demandé
             if (mobileMode && closeMobileMenu) closeMobileMenu();
           }}
           className={cn(
@@ -106,14 +113,17 @@ const NavItem: React.FC<{ item: NavItemType; mobileMode: boolean; closeMobileMen
           {item.label}
         </Link>
 
-        {/* Chevron: sur desktop la flèche s'anime au hover, sur mobile c'est un bouton qui toggle */}
+        {/* Chevron visible sur mobile et desktop ; sur mobile il sert à ouvrir/fermer */}
         {item.children.length > 0 && (
           <button
             aria-expanded={isOpen}
             aria-controls={`submenu-${item.label}`}
-            onClick={mobileMode ? toggleMobile : (e) => { e.preventDefault(); setIsOpen((s) => !s); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsOpen((s) => !s);
+            }}
             className={cn(
-              "hidden md:inline-flex h-8 w-8 items-center justify-center rounded-md transition-transform",
+              "inline-flex md:inline-flex h-8 w-8 items-center justify-center rounded-md transition-transform",
               "group-hover:bg-accent/10",
               isOpen && "rotate-180"
             )}
@@ -123,6 +133,7 @@ const NavItem: React.FC<{ item: NavItemType; mobileMode: boolean; closeMobileMen
           </button>
         )}
       </div>
+
 
       {/* DROPDOWN */}
       {/* Desktop absolute dropdown */}
