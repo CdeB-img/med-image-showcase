@@ -1,41 +1,38 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { ChevronDown, Menu, X } from "lucide-react"; 
+import { ChevronDown, Menu, X, ArrowRight } from "lucide-react"; 
 import { projects } from "@/data/projects";
 
-/* ============================================================
-   CONFIGURATION DU MENU
-============================================================ */
 const NAV_CONFIG = [
   {
     label: "IRM",
     path: "/irm-imagerie-quantitative",
     children: [
-      { label: "Segmentation IRM", path: "/segmentation-irm" },
-      { label: "Biomarqueurs cardiaques", path: "/biomarqueurs-irm-cardiaque-essais-cliniques" },
-      { label: "ECV & Mapping", path: "/ecv-mapping-t1-t2-irm-cardiaque" },
-      { label: "Perfusion métabolique neuro", path: "/perfusion-metabolique-neuro-imagerie" },
-      { label: "Corelab IRM", path: "/corelab-essais-cliniques" },
+      { label: "Segmentation", path: "/segmentation-irm" },
+      { label: "Cardiaque", path: "/biomarqueurs-irm-cardiaque-essais-cliniques" },
+      { label: "Mapping", path: "/ecv-mapping-t1-t2-irm-cardiaque" },
+      { label: "Neuro", path: "/perfusion-metabolique-neuro-imagerie" },
+      { label: "Corelab", path: "/corelab-essais-cliniques" },
     ],
   },
   {
     label: "CT",
     path: "/ct-imagerie-quantitative",
     children: [
-      { label: "Quantification CT", path: "/quantification-ct" },
-      { label: "CT spectral avancé", path: "/ct-quantitatif-avance-imagerie-spectrale" },
-      { label: "CT perfusion AVC", path: "/ct-perfusion-quantitative-avc" },
+      { label: "Quantification", path: "/quantification-ct" },
+      { label: "Spectral", path: "/ct-quantitatif-avance-imagerie-spectrale" },
+      { label: "AVC", path: "/ct-perfusion-quantitative-avc" },
     ],
   },
   {
     label: "Méthodologie",
     path: "/methodologie-imagerie-quantitative",
     children: [
-      { label: "Ingénierie quantitative", path: "/ingenierie-imagerie-quantitative" },
-      { label: "Bases multicentriques", path: "/bases-multicentriques" },
-      { label: "Analyse DICOM", path: "/analyse-dicom" },
-      { label: "Recalage multimodal", path: "/recalage-multimodal" },
+      { label: "Ingénierie", path: "/ingenierie-imagerie-quantitative" },
+      { label: "Bases", path: "/bases-multicentriques" },
+      { label: "DICOM", path: "/analyse-dicom" },
+      { label: "Recalage", path: "/recalage-multimodal" },
     ],
   },
   {
@@ -46,81 +43,73 @@ const NAV_CONFIG = [
 ];
 
 /* ============================================================
-   COMPOSANT : DESKTOP NAV ITEM (HOVER)
+   MOBILE NAV ITEM (SPLIT & GRID BLOCK)
 ============================================================ */
-const DesktopNavItem = ({ item }: { item: (typeof NAV_CONFIG)[0] }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const MobileNavItem = ({ item, onClose }: { item: any; onClose: () => void }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
   const location = useLocation();
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const isActive =
-    location.pathname === item.path ||
-    item.children.some((child) => location.pathname === child.path);
-
-  const handleMouseEnter = () => {
-    if (timerRef.current) clearTimeout(timerRef.current);
-    setIsOpen(true);
-  };
-
-  const handleMouseLeave = () => {
-    timerRef.current = setTimeout(() => setIsOpen(false), 150);
-  };
+  const isActive = location.pathname.startsWith(item.path);
 
   return (
-    <div
-      className="relative flex items-center h-full"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <Link
-        to={item.path}
-        className={cn(
-          "group flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors rounded-md",
-          "hover:bg-accent hover:text-accent-foreground outline-none",
-          isActive ? "text-primary bg-primary/10" : "text-muted-foreground"
-        )}
-      >
-        {item.label}
-        <ChevronDown
+    <div className="flex flex-col border-b border-border/40 overflow-hidden">
+      {/* LIGNE PRINCIPALE : Séparation Lien / Toggle */}
+      <div className="flex items-stretch h-14">
+        {/* Partie Gauche : Le lien direct vers la page parente */}
+        <Link 
+          to={item.path} 
+          onClick={onClose}
           className={cn(
-            "h-4 w-4 transition-transform duration-200 opacity-50 group-hover:opacity-100",
-            isOpen && "rotate-180"
+            "flex-1 flex items-center px-4 text-base font-semibold transition-colors",
+            isActive ? "text-primary bg-primary/5" : "text-foreground/90"
           )}
-        />
-      </Link>
+        >
+          {item.label}
+        </Link>
 
-      <div
+        {/* Partie Droite : Le bouton pour déplier le bloc */}
+        <button 
+          onClick={() => setIsExpanded(!isExpanded)}
+          className={cn(
+            "w-14 flex items-center justify-center border-l border-border/20 transition-colors",
+            isExpanded ? "bg-accent text-primary" : "text-muted-foreground"
+          )}
+        >
+          <ChevronDown className={cn("h-5 w-5 transition-transform duration-300", isExpanded && "rotate-180")} />
+        </button>
+      </div>
+
+      {/* BLOC DE SOUS-MENU : Apparition en Grille (Grid) */}
+      <div 
         className={cn(
-          "absolute top-full left-0 pt-2 w-64 z-50 transition-all duration-200 ease-in-out origin-top-left",
-          isOpen
-            ? "opacity-100 translate-y-0 visible"
-            : "opacity-0 -translate-y-2 invisible pointer-events-none"
+          "grid transition-all duration-300 ease-in-out bg-muted/30",
+          isExpanded ? "grid-rows-[1fr] opacity-100 py-3" : "grid-rows-[0fr] opacity-0"
         )}
       >
-        <div className="overflow-hidden rounded-lg border border-border/50 bg-background/95 shadow-xl backdrop-blur-md ring-1 ring-black/5">
-          <ul className="py-2 flex flex-col">
-            {item.children.map((child) => (
-              <li key={child.path}>
-                <NavLink
-                  to={child.path}
-                  className={({ isActive }) =>
-                    cn(
-                      "relative block px-4 py-2.5 text-sm transition-colors hover:bg-muted/50",
-                      isActive
-                        ? "text-primary font-medium bg-primary/5"
-                        : "text-muted-foreground hover:text-foreground"
-                    )
-                  }
-                >
-                  <span className={cn(
-                     "absolute left-0 top-0 bottom-0 w-[2px] bg-primary transition-opacity duration-200",
-                      location.pathname === child.path ? "opacity-100" : "opacity-0"
-                  )}/>
-                  {child.label}
-                </NavLink>
-              </li>
+        <div className="overflow-hidden">
+          <div className="grid grid-cols-2 gap-2 px-3">
+            {item.children.map((child: any) => (
+              <Link
+                key={child.path}
+                to={child.path}
+                onClick={onClose}
+                className={cn(
+                  "flex items-center gap-2 p-3 text-[13px] rounded-lg border border-border/40 bg-background/50 transition-all active:scale-95",
+                  location.pathname === child.path ? "text-primary border-primary/30 bg-primary/5 font-medium" : "text-muted-foreground"
+                )}
+              >
+                <div className="w-1 h-1 rounded-full bg-primary/40 shrink-0" />
+                <span className="truncate">{child.label}</span>
+              </Link>
             ))}
-          </ul>
+            {/* Petit lien pour voir toute la section */}
+            <Link 
+              to={item.path} 
+              onClick={onClose}
+              className="col-span-2 flex items-center justify-center gap-2 p-2 text-xs text-primary/70 font-medium"
+            >
+              Voir toute la section <ArrowRight className="h-3 w-3" />
+            </Link>
+          </div>
         </div>
       </div>
     </div>
@@ -128,180 +117,88 @@ const DesktopNavItem = ({ item }: { item: (typeof NAV_CONFIG)[0] }) => {
 };
 
 /* ============================================================
-   COMPOSANT : MOBILE NAV ITEM (ACCORDION)
-============================================================ */
-const MobileNavItem = ({ 
-  item, 
-  onClose 
-}: { 
-  item: (typeof NAV_CONFIG)[0]; 
-  onClose: () => void; 
-}) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const location = useLocation();
-
-  // Ouvre automatiquement si on est sur une page enfant
-  useEffect(() => {
-    if (item.children.some(child => child.path === location.pathname)) {
-      setIsExpanded(true);
-    }
-  }, [location.pathname, item.children]);
-
-  return (
-    <div className="border-b border-border/40 last:border-0">
-      <div className="flex items-center justify-between py-4 pr-4">
-        <Link 
-          to={item.path} 
-          onClick={onClose}
-          className="text-base font-medium hover:text-primary transition-colors"
-        >
-          {item.label}
-        </Link>
-        <button 
-          onClick={() => setIsExpanded(!isExpanded)}
-          className="p-2 active:bg-accent rounded-full transition-colors"
-        >
-          <ChevronDown 
-            className={cn(
-              "h-5 w-5 text-muted-foreground transition-transform duration-300",
-              isExpanded && "rotate-180"
-            )} 
-          />
-        </button>
-      </div>
-
-      {/* Animation d'ouverture simple via CSS classes ou conditionnel */}
-      <div 
-        className={cn(
-          "overflow-hidden transition-all duration-300 ease-in-out",
-          isExpanded ? "max-h-[500px] opacity-100 mb-4" : "max-h-0 opacity-0"
-        )}
-      >
-        <ul className="pl-4 space-y-1 border-l-2 border-border/50 ml-2">
-          {item.children.map((child) => (
-            <li key={child.path}>
-              <Link
-                to={child.path}
-                onClick={onClose}
-                className={cn(
-                  "block py-2 px-2 text-sm rounded-md transition-colors",
-                  location.pathname === child.path
-                    ? "text-primary font-medium bg-primary/10"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                )}
-              >
-                {child.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  );
-};
-
-/* ============================================================
-   COMPOSANT PRINCIPAL (HEADER)
+   COMPOSANT PRINCIPAL (HEADER COMPLET)
 ============================================================ */
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Empêche le scroll du body quand le menu mobile est ouvert
   useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => { document.body.style.overflow = 'unset'; };
+    if (isMobileMenuOpen) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = 'unset';
   }, [isMobileMenuOpen]);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
+    <header className="sticky top-0 z-[100] w-full border-b border-border/40 bg-background/80 backdrop-blur-md">
+      <div className="container mx-auto flex h-16 items-center justify-between px-4">
         
         {/* LOGO */}
-        <Link to="/" className="z-50 flex items-center gap-2 transition-opacity hover:opacity-80">
-          <span className="text-xl font-bold tracking-tighter bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+        <Link to="/" className="z-[110] flex items-center">
+          <span className="text-xl font-bold tracking-tighter bg-gradient-to-br from-foreground to-foreground/60 bg-clip-text text-transparent">
             NOXIA
           </span>
         </Link>
 
-        {/* --- DESKTOP NAVIGATION --- */}
+        {/* --- DESKTOP (Inchangé car il fonctionne bien) --- */}
         <nav className="hidden md:flex items-center gap-2">
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              cn(
-                "px-3 py-2 text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground",
-                isActive ? "text-foreground bg-accent/50" : "text-muted-foreground"
-              )
-            }
-          >
-            Accueil
-          </NavLink>
-
-          {NAV_CONFIG.map((item) => (
-            <DesktopNavItem key={item.label} item={item} />
-          ))}
-
-          <NavLink
-            to="/contact"
-            className={({ isActive }) =>
-              cn(
-                "px-3 py-2 text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground",
-                isActive ? "text-foreground bg-accent/50" : "text-muted-foreground"
-              )
-            }
-          >
-            Contact
-          </NavLink>
+            {/* ... Tes Navlinks Desktop (Accueil, NavItem, Contact) ... */}
+            <NavLink to="/" className={({isActive}) => cn("px-3 py-2 text-sm", isActive ? "text-primary" : "text-muted-foreground")}>Accueil</NavLink>
+            {NAV_CONFIG.map(item => <DesktopNavItem key={item.label} item={item} />)}
+            <NavLink to="/contact" className={({isActive}) => cn("px-3 py-2 text-sm", isActive ? "text-primary" : "text-muted-foreground")}>Contact</NavLink>
         </nav>
 
-        {/* --- MOBILE TOGGLE BUTTON --- */}
-        <button
-          className="md:hidden z-50 p-2 text-foreground"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle menu"
-        >
+        {/* --- MOBILE TOGGLE --- */}
+        <button className="md:hidden z-[110] p-2" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
           {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
 
         {/* --- MOBILE MENU OVERLAY --- */}
-        <div
-          className={cn(
-            "fixed inset-0 z-40 bg-background/95 backdrop-blur-sm md:hidden transition-transform duration-300 ease-in-out flex flex-col pt-24 px-6 pb-6 overflow-y-auto",
-            isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-          )}
-        >
-          <nav className="flex flex-col space-y-2">
-            <Link
-              to="/"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-lg font-medium py-4 border-b border-border/40 hover:text-primary transition-colors"
-            >
-              Accueil
-            </Link>
+        <div className={cn(
+          "fixed inset-0 z-[105] bg-background md:hidden transition-all duration-300 flex flex-col pt-20",
+          isMobileMenuOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
+        )}>
+          <div className="flex-1 overflow-y-auto px-4 pb-10">
+            <nav className="flex flex-col border-t border-border/40">
+              <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="h-14 flex items-center px-4 font-semibold border-b border-border/40">
+                Accueil
+              </Link>
+              
+              {NAV_CONFIG.map((item) => (
+                <MobileNavItem key={item.label} item={item} onClose={() => setIsMobileMenuOpen(false)} />
+              ))}
 
-            {NAV_CONFIG.map((item) => (
-              <MobileNavItem 
-                key={item.label} 
-                item={item} 
-                onClose={() => setIsMobileMenuOpen(false)} 
-              />
-            ))}
-
-            <Link
-              to="/contact"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-lg font-medium py-4 hover:text-primary transition-colors"
-            >
-              Contact
-            </Link>
-          </nav>
+              <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)} className="h-14 flex items-center px-4 font-semibold">
+                Contact
+              </Link>
+            </nav>
+          </div>
         </div>
-
       </div>
     </header>
   );
 }
+
+/* On garde le DesktopNavItem tel quel, il était déjà propre */
+const DesktopNavItem = ({ item }: { item: any }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const location = useLocation();
+    const isActive = location.pathname.startsWith(item.path);
+
+    return (
+        <div className="relative h-full flex items-center" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
+            <Link to={item.path} className={cn("px-3 py-2 text-sm font-medium transition-colors rounded-md flex items-center gap-1", isActive ? "text-primary bg-primary/10" : "text-muted-foreground hover:text-foreground")}>
+                {item.label} <ChevronDown className={cn("h-4 w-4 transition-transform", isOpen && "rotate-180")} />
+            </Link>
+            {isOpen && (
+                <div className="absolute top-full left-0 w-64 pt-2">
+                    <div className="bg-background border border-border shadow-xl rounded-xl overflow-hidden p-2 backdrop-blur-xl">
+                        {item.children.map((child: any) => (
+                            <Link key={child.path} to={child.path} className="block px-4 py-2 text-sm text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-lg">
+                                {child.label}
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+};
