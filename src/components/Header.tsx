@@ -1,19 +1,22 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { ChevronDown, Menu, X, ChevronRight, LayoutGrid } from "lucide-react";
+import { ChevronDown, Menu, X, ChevronRight } from "lucide-react";
 import { projects as _projects } from "@/data/projects";
 
-/* ============================================================
-   CONFIGURATION & DATA
-============================================================ */
+/* =========================
+   CONFIG & TYPES (description ajouté)
+   ========================= */
 const projects = Array.isArray(_projects) ? _projects : [];
 
-const NAV_CONFIG = [
+type Child = { label: string; path: string; children?: Child[] };
+type Category = { label: string; path: string; description?: string; children?: Child[] };
+type NavItemType = { label: string; path: string; children?: Category[] };
+
+const NAV_CONFIG: NavItemType[] = [
   {
     label: "Expertise",
     path: "/expertise",
-    // Ce type de structure (Enfants -> Petits-enfants) déclenchera la "Split View"
     children: [
       {
         label: "IRM",
@@ -52,262 +55,377 @@ const NAV_CONFIG = [
   },
   {
     label: "Prestations",
-    path: "/prestations",
-    // Structure simple (juste une liste) déclenchera un menu simple
+    path: "/prestations-imagerie-medicale",
     children: [
-      { label: "CoreLab externalisé", path: "/prestations#corelab" },
-      { label: "Reprise d’études", path: "/prestations#reprise" },
-      { label: "Audit méthodologique", path: "/prestations#audit" },
-      { label: "Développement sur mesure", path: "/prestations#ingenierie" },
+      { label: "CoreLab externalisé", path: "/prestations-imagerie-medicale#corelab" },
+      { label: "Reprise d’études", path: "/prestations-imagerie-medicale#reprise" },
+      { label: "Audit méthodologique", path: "/prestations-imagerie-medicale#audit" },
+      { label: "Développement sur mesure", path: "/prestations-imagerie-medicale#ingenierie" },
     ],
   },
   {
     label: "Projets",
     path: "/projets",
-    children: projects.map((p) => ({ label: p.title, path: `/projet/${p.id}` })),
+    children: projects.map((p: any) => ({ label: p.title, path: `/projet/${p.id}` })),
   },
 ];
 
-/* ============================================================
-   DESKTOP COMPONENT: SPLIT VIEW MENU
-   Gère le cas complexe (Expertise) avec une vue latérale stable
-============================================================ */
-const DesktopNavItem = ({ item }: { item: typeof NAV_CONFIG[0] }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [activeSubCategory, setActiveSubCategory] = useState<any>(item.children?.[0]);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+/* =========================
+   Helpers
+   ========================= */
+const slugify = (s: string) =>
+  s
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)+/g, "");
+
+const parsePathWithHash = (p: string) => {
+  const [pathnamePart, hashPart] = p.split("#");
+  return {
+    pathname: pathnamePart || "/",
+    hash: hashPart ? `#${hashPart}` : "",
+    original: p,
+  };
+};
+
+const isBranchActive = (item: NavItemType | Category | Child | undefined, pathname: string, hash: string | undefined) => {
+  if (!item || !("path" in item) || !item.path) return false;
+  const parsed = parsePathWithHash((item as any).path);
+  if (parsed.pathname === pathname && (parsed.hash || "") === (hash || "")) return true;
+  if ((item as any).children) {
+    return (item as any).children.some((c: any) => {
+      const pc = parsePathWithHash(c.path);
+      if (pc.pathname === pathname && (pc.hash || "") === (hash || "")) return true;
+      if (c.children) {
+        return c.children.some((g: any) => {
+          const pg = parsePathWithHash(g.path);
+          return pg.pathname === pathname && (pg.hash || "") === (hash || "");
+        });
+      }
+      return false;
+    });
+  }
+  return false;
+};
+
+/* =========================
+   DesktopNavItem
+   - affiche description sous le titre de la colonne droite
+   - fond adouci (bg-muted/10)
+   ========================= */
+const DesktopNavItem: React.FC<{ item: NavItemType }> = ({ item }) => {
   const location = useLocation();
+  const [open, setOpen] = useState(false);
+  const [hoveredCat, setHoveredCat] = useState<Category | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isMega = item.label === "Expertise";
 
-  // Détecte si c'est un "Mega Menu" (contient des sous-sous-menus)
-  const isMegaMenu = item.children?.some(c => c.children && c.children.length > 0);
-
-  const handleMouseEnter = () => {
-    if (timerRef.current) clearTimeout(timerRef.current);
-    setIsOpen(true);
-  };
-
-  const handleMouseLeave = () => {
-    timerRef.current = setTimeout(() => setIsOpen(false), 200);
-  };
-
-  // Reset la sous-catégorie active quand on ouvre le menu
   useEffect(() => {
-    if (isOpen && item.children) {
-        // On remet le premier par défaut, ou celui qui matche l'URL
-        const currentMatch = item.children.find(c => location.pathname.includes(c.path));
-        if (currentMatch) setActiveSubCategory(currentMatch);
-        else setActiveSubCategory(item.children[0]);
-    }
-  }, [isOpen, item.children, location.pathname]);
+    if (!open) setHoveredCat(null);
+  }, [open, location.pathname, location.hash]);
 
-  const isActive = location.pathname.startsWith(item.path);
+  const openMenu = () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    setOpen(true);
+  };
+  const closeMenu = () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      setOpen(false);
+      setHoveredCat(null);
+    }, 220);
+  };
+
+  useEffect(() => {
+    if (!open || !isMega) return;
+    const match = item.children?.find((c: any) => isBranchActive(c, location.pathname, location.hash));
+    setHoveredCat((match as Category) || (item.children?.[0] as Category) || null);
+  }, [open, isMega, item.children, location.pathname, location.hash]);
+
+  const parentActive = isBranchActive(item, location.pathname, location.hash);
 
   return (
-    <div
-      className="relative flex items-center h-full"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
+    <div className="relative h-full flex items-center" onMouseEnter={openMenu} onMouseLeave={closeMenu}>
       <Link
         to={item.path}
+        onClick={() => window.scrollTo({ top: 0, left: 0, behavior: "auto" })}
         className={cn(
-          "flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-md transition-colors",
-          "hover:bg-accent hover:text-accent-foreground",
-          isActive || isOpen ? "text-primary bg-primary/10" : "text-muted-foreground"
+          "px-4 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-1",
+          parentActive || open ? "text-primary bg-muted/10" : "text-muted-foreground hover:bg-accent"
         )}
       >
         {item.label}
-        {item.children && (
-          <ChevronDown
-            className={cn("h-4 w-4 transition-transform duration-200", isOpen && "rotate-180")}
-          />
-        )}
+        {item.children?.length ? <ChevronDown className={cn("h-4 w-4 transition-transform", open && "rotate-180")} /> : null}
       </Link>
 
-      {/* DROPDOWN LOGIC */}
-      {isOpen && item.children && (
+      {open && item.children?.length ? (
         <div className="absolute top-full left-0 pt-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-          
-          {/* CAS 1 : MEGA MENU (Expertise - IRM/CT/Methodo) */}
-          {isMegaMenu ? (
-            <div className="w-[600px] bg-background border border-border rounded-xl shadow-2xl overflow-hidden flex min-h-[320px]">
-              
-              {/* Colonne GAUCHE : Les Catégories (IRM, CT...) */}
-              <div className="w-1/3 bg-muted/30 border-r border-border p-2 flex flex-col gap-1">
-                {item.children.map((child) => (
-                  <div
-                    key={child.path}
-                    onMouseEnter={() => setActiveSubCategory(child)}
-                    className={cn(
-                      "cursor-pointer px-3 py-3 rounded-lg text-sm font-medium flex items-center justify-between transition-all",
-                      activeSubCategory?.label === child.label
-                        ? "bg-white shadow-sm text-primary"
-                        : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
-                    )}
-                  >
-                    {child.label}
-                    {activeSubCategory?.label === child.label && <ChevronRight className="h-4 w-4" />}
-                  </div>
-                ))}
+          {isMega ? (
+            <div className="w-[680px] bg-background/80 border border-border rounded-xl shadow-2xl flex min-h-[320px] overflow-hidden backdrop-blur-sm">
+              {/* colonne gauche */}
+              <div className="w-[220px] bg-muted/5 border-r border-border p-2 flex flex-col gap-1">
+                {item.children!.map((cat: any) => {
+                  const active = isBranchActive(cat, location.pathname, location.hash) || hoveredCat?.label === cat.label;
+                  return (
+                    <Link
+                      key={cat.path}
+                      to={cat.path}
+                      onMouseEnter={() => setHoveredCat(cat)}
+                      onClick={() => setOpen(false)}
+                      className={cn(
+                        "px-3 py-3 rounded-lg text-sm font-medium flex items-center justify-between transition-all",
+                        active ? "bg-muted/20 text-primary" : "text-muted-foreground hover:bg-muted"
+                      )}
+                    >
+                      {cat.label}
+                      <ChevronRight className={cn("h-4 w-4", active ? "opacity-80" : "opacity-40")} />
+                    </Link>
+                  );
+                })}
               </div>
 
-              {/* Colonne DROITE : Les liens de la catégorie active */}
-              <div className="w-2/3 p-4 bg-background">
-                {activeSubCategory && (
-                  <div className="space-y-4 animate-in fade-in slide-in-from-left-2 duration-300 key={activeSubCategory.label}">
-                    <div>
-                        <h4 className="text-lg font-semibold flex items-center gap-2">
-                            {activeSubCategory.label}
-                            <Link to={activeSubCategory.path} className="text-xs font-normal text-muted-foreground hover:text-primary underline decoration-dotted">
-                                (Voir la page)
-                            </Link>
-                        </h4>
-                        <p className="text-xs text-muted-foreground mt-1">{activeSubCategory.description}</p>
-                    </div>
-                    
-                    <div className="grid grid-cols-1 gap-2">
-                      {activeSubCategory.children?.map((sub: any) => (
-                        <Link
-                          key={sub.path}
-                          to={sub.path}
-                          onClick={() => setIsOpen(false)}
-                          className={cn(
-                            "flex items-center gap-3 p-2 rounded-md hover:bg-muted transition-colors text-sm",
-                             location.pathname === sub.path ? "bg-primary/5 text-primary font-medium" : "text-foreground/80"
-                          )}
-                        >
-                          <div className="h-1.5 w-1.5 rounded-full bg-primary/40" />
-                          {sub.label}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                )}
+              {/* colonne droite */}
+              <div className="flex-1 p-5 bg-background/90">
+                <div className="border-b border-border/50 pb-3 mb-4">
+                  <h4 className="text-lg font-semibold">{hoveredCat?.label}</h4>
+                  {hoveredCat?.description && <p className="text-xs text-muted-foreground mt-1">{hoveredCat.description}</p>}
+                </div>
+
+                <div className="grid grid-cols-1 gap-1">
+                  {hoveredCat?.children?.map((sub: any) => (
+                    <Link
+                      key={sub.path}
+                      to={sub.path}
+                      onClick={() => setOpen(false)}
+                      className={cn(
+                        "flex items-center gap-3 px-3 py-2 rounded-md text-sm",
+                        isBranchActive(sub, location.pathname, location.hash)
+                          ? "text-primary font-semibold bg-primary/5"
+                          : "text-foreground/80 hover:bg-muted"
+                      )}
+                    >
+                      <div className={cn("h-1.5 w-1.5 rounded-full", isBranchActive(sub, location.pathname, location.hash) ? "bg-primary" : "bg-muted-foreground/40")} />
+                      {sub.label}
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
           ) : (
-            
-            /* CAS 2 : MENU SIMPLE (Prestations, Projets) */
-            <div className="w-64 bg-background border border-border rounded-xl shadow-xl overflow-hidden p-2">
-                {item.children.map((child) => (
-                    <Link
-                        key={child.path}
-                        to={child.path}
-                        onClick={() => setIsOpen(false)}
-                        className={cn(
-                            "block px-4 py-2 text-sm rounded-md transition-colors",
-                            location.pathname === child.path || location.hash === child.path.split('#')[1]
-                            ? "bg-primary/5 text-primary font-medium" 
-                            : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                        )}
-                    >
-                        {child.label}
-                    </Link>
-                ))}
+            <div className="w-72 bg-background border border-border rounded-xl shadow-xl p-2 flex flex-col gap-1">
+              {item.children!.map((child: any) => {
+                const parsed = parsePathWithHash(child.path);
+                const isHashTarget = parsed.pathname === location.pathname && parsed.hash === (location.hash || "");
+                return (
+                  <Link
+                    key={child.path}
+                    to={parsed.hash ? { pathname: parsed.pathname, hash: parsed.hash } : child.path}
+                    onClick={() => setOpen(false)}
+                    className={cn(
+                      "px-4 py-2 text-sm rounded-md",
+                      isHashTarget || isBranchActive(child, location.pathname, location.hash)
+                        ? "bg-muted/10 text-primary font-semibold"
+                        : "text-muted-foreground hover:bg-muted"
+                    )}
+                  >
+                    {child.label}
+                  </Link>
+                );
+              })}
             </div>
           )}
+        </div>
+      ) : null}
+    </div>
+  );
+};
+
+/* =========================
+   Mobile: un seul top-level ouvert, un seul sous-level ouvert
+   - titres principaux en gras (toujours) pour lisibilité
+   - highlight cascade
+   ========================= */
+const MobileChildRow: React.FC<{
+  child: Child;
+  closeMobileMenu: () => void;
+  pathname: string;
+  hash?: string;
+  openChildKey: string | null;
+  setOpenChildKey: (k: string | null) => void;
+}> = ({ child, closeMobileMenu, pathname, hash, openChildKey, setOpenChildKey }) => {
+  const parsed = parsePathWithHash(child.path);
+  const toProp = parsed.hash ? { pathname: parsed.pathname, hash: parsed.hash } : parsed.pathname;
+  const childActive = isBranchActive(child, pathname, hash);
+  const key = slugify(child.label);
+  const open = openChildKey === key;
+
+  return (
+    <div className="w-full">
+      <div className="flex items-center justify-between">
+        <Link
+          to={toProp}
+          onClick={() => closeMobileMenu()}
+          className={cn(
+            "block px-3 py-2 text-sm rounded-md",
+            childActive ? "text-primary font-semibold bg-primary/5" : "text-muted-foreground hover:bg-muted/10"
+          )}
+        >
+          {child.label}
+        </Link>
+
+        {child.children && child.children.length > 0 && (
+          <button
+            onClick={() => setOpenChildKey(open ? null : key)}
+            aria-expanded={open}
+            aria-controls={`mobile-sub-${key}`}
+            className="h-8 w-8 inline-flex items-center justify-center rounded-md hover:bg-accent/10"
+          >
+            <ChevronDown className={cn("h-4 w-4 transition-transform", open && "rotate-180")} />
+          </button>
+        )}
+      </div>
+
+      {child.children && child.children.length > 0 && (
+        <div
+          id={`mobile-sub-${key}`}
+          className={cn(
+            "overflow-hidden transition-[max-height,opacity] duration-200 ease-in-out pl-4",
+            open ? "max-h-[40rem] opacity-100" : "max-h-0 opacity-0"
+          )}
+        >
+          <ul className="flex flex-col">
+            {child.children.map((g) => {
+              const pg = parsePathWithHash(g.path);
+              const to = pg.hash ? { pathname: pg.pathname, hash: pg.hash } : pg.pathname;
+              const active = isBranchActive(g, pathname, hash);
+              return (
+                <li key={g.path}>
+                  <NavLink
+                    to={to}
+                    onClick={() => closeMobileMenu()}
+                    className={({ isActive }) =>
+                      cn(
+                        "block px-3 py-2 text-sm rounded-md",
+                        active || isActive ? "text-primary font-medium bg-primary/5" : "text-muted-foreground hover:bg-muted/10"
+                      )
+                    }
+                  >
+                    {g.label}
+                  </NavLink>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       )}
     </div>
   );
 };
 
-/* ============================================================
-   MOBILE COMPONENT: ACCORDION
-   Simple et efficace pour le mobile
-============================================================ */
-const MobileNavItem = ({ item, onClose }: { item: any, onClose: () => void }) => {
-    const [isExpanded, setIsExpanded] = useState(false);
-    const location = useLocation();
+const MobileNavItem: React.FC<{
+  item: NavItemType;
+  closeMobileMenu: () => void;
+  pathname: string;
+  hash?: string;
+  openTopKey: string | null;
+  setOpenTopKey: (k: string | null) => void;
+}> = ({ item, closeMobileMenu, pathname, hash, openTopKey, setOpenTopKey }) => {
+  const parentActive = isBranchActive(item, pathname, hash);
+  const topKey = slugify(item.label);
+  const open = openTopKey === topKey;
 
-    // Auto-expand si on est dans la section
-    useEffect(() => {
-        if (location.pathname.startsWith(item.path)) setIsExpanded(true);
-    }, [location.pathname, item.path]);
+  // un seul sous-répertoire ouvert à la fois dans ce top-level
+  const [openChildKey, setOpenChildKey] = useState<string | null>(null);
 
-    return (
-        <div className="border-b border-border/40">
-            <div className="flex items-center justify-between py-4 pr-2">
-                <Link to={item.path} onClick={onClose} className="font-semibold text-lg hover:text-primary">
-                    {item.label}
-                </Link>
-                {item.children && (
-                    <button onClick={() => setIsExpanded(!isExpanded)} className="p-2">
-                        <ChevronDown className={cn("h-5 w-5 transition-transform", isExpanded && "rotate-180")} />
-                    </button>
-                )}
-            </div>
-
-            <div className={cn("overflow-hidden transition-all duration-300", isExpanded ? "max-h-[1000px] opacity-100 pb-4" : "max-h-0 opacity-0")}>
-                <div className="pl-4 space-y-4 border-l-2 border-border/50 ml-1">
-                    {item.children?.map((child: any) => (
-                        <div key={child.path}>
-                            {/* Si l'enfant a lui-même des enfants (ex: IRM -> Segmentation) */}
-                            {child.children ? (
-                                <div className="space-y-2">
-                                    <Link to={child.path} onClick={onClose} className="block font-medium text-foreground/90 text-sm mb-2">
-                                        {child.label}
-                                    </Link>
-                                    <div className="pl-3 space-y-2">
-                                        {child.children.map((sub: any) => (
-                                            <Link 
-                                                key={sub.path} 
-                                                to={sub.path} 
-                                                onClick={onClose}
-                                                className={cn("block text-sm py-1", location.pathname === sub.path ? "text-primary font-medium" : "text-muted-foreground")}
-                                            >
-                                                {sub.label}
-                                            </Link>
-                                        ))}
-                                    </div>
-                                </div>
-                            ) : (
-                                <Link 
-                                    to={child.path} 
-                                    onClick={onClose}
-                                    className={cn("block text-sm", location.pathname === child.path ? "text-primary font-medium" : "text-muted-foreground")}
-                                >
-                                    {child.label}
-                                </Link>
-                            )}
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
-    )
-}
-
-/* ============================================================
-   MAIN HEADER
-============================================================ */
-export default function Header() {
-  const [mobileOpen, setMobileOpen] = useState(false);
-
-  // Lock body scroll on mobile
   useEffect(() => {
-    document.body.style.overflow = mobileOpen ? 'hidden' : 'unset';
-  }, [mobileOpen]);
+    if (!open) setOpenChildKey(null);
+  }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md">
+    <div className="w-full">
+      <div className="flex items-center justify-between">
+        <Link
+          to={item.path}
+          onClick={() => closeMobileMenu()}
+          className={cn(
+            // TITRE PRINCIPAL EN GRAS POUR LISIBILITÉ
+            "px-3 py-2 text-sm rounded-md",
+            parentActive ? "text-primary font-semibold bg-primary/5" : "text-muted-foreground font-semibold"
+          )}
+        >
+          {item.label}
+        </Link>
+
+        {item.children && item.children.length > 0 && (
+          <button
+            onClick={() => setOpenTopKey(open ? null : topKey)}
+            aria-expanded={open}
+            aria-controls={`mobile-${topKey}`}
+            className="h-8 w-8 inline-flex items-center justify-center rounded-md hover:bg-accent/10"
+          >
+            <ChevronDown className={cn("h-4 w-4 transition-transform", open && "rotate-180")} />
+          </button>
+        )}
+      </div>
+
+      {item.children && item.children.length > 0 && (
+        <div
+          id={`mobile-${topKey}`}
+          className={cn(
+            "overflow-hidden transition-[max-height,opacity] duration-200 ease-in-out pl-4",
+            open ? "max-h-[60rem] opacity-100" : "max-h-0 opacity-0"
+          )}
+        >
+          <ul className="flex flex-col">
+            {item.children.map((child) => (
+              <li key={child.label} className="border-b border-border/10">
+                <MobileChildRow
+                  child={child}
+                  closeMobileMenu={closeMobileMenu}
+                  pathname={pathname}
+                  hash={hash}
+                  openChildKey={openChildKey}
+                  setOpenChildKey={setOpenChildKey}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+};
+
+/* =========================
+   Header principal
+   ========================= */
+export default function Header(): JSX.Element {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [openTopKey, setOpenTopKey] = useState<string | null>(null); // un seul top-level ouvert
+  const location = useLocation();
+
+  useEffect(() => {
+    setMobileOpen(false);
+    setOpenTopKey(null);
+  }, [location.pathname, location.hash]);
+
+  return (
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
-        
-        {/* LOGO */}
-        <Link to="/" className="flex items-center space-x-2 transition-opacity hover:opacity-80">
+        <Link to="/" className="mr-4 flex items-center space-x-2 transition-opacity hover:opacity-80">
           <span className="text-xl font-bold tracking-tighter bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
             NOXIA
           </span>
         </Link>
 
-        {/* DESKTOP NAV */}
-        <nav className="hidden md:flex items-center gap-1">
+        {/* Desktop */}
+        <nav className="hidden md:flex items-center gap-2">
           <NavLink
             to="/"
             className={({ isActive }) =>
               cn(
-                "px-4 py-2 text-sm font-medium rounded-md transition-colors hover:bg-accent",
-                isActive ? "text-primary bg-primary/10" : "text-muted-foreground"
+                "px-3 py-2 text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground",
+                isActive ? "text-foreground bg-accent/50" : "text-muted-foreground"
               )
             }
           >
@@ -322,8 +440,8 @@ export default function Header() {
             to="/contact"
             className={({ isActive }) =>
               cn(
-                "px-4 py-2 text-sm font-medium rounded-md transition-colors hover:bg-accent",
-                isActive ? "text-primary bg-primary/10" : "text-muted-foreground"
+                "px-3 py-2 text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground",
+                isActive ? "text-foreground bg-accent/50" : "text-muted-foreground"
               )
             }
           >
@@ -331,30 +449,66 @@ export default function Header() {
           </NavLink>
         </nav>
 
-        {/* MOBILE TOGGLE */}
-        <button
-          className="md:hidden p-2 text-foreground"
-          onClick={() => setMobileOpen(!mobileOpen)}
-        >
-          {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+        {/* Mobile hamburger */}
+        <div className="flex items-center gap-2 md:hidden">
+          <button
+            aria-label={mobileOpen ? "Fermer le menu" : "Ouvrir le menu"}
+            onClick={() => setMobileOpen((s) => !s)}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-md hover:bg-accent/10"
+          >
+            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
+      </div>
 
-        {/* MOBILE MENU FULLSCREEN */}
-        <div className={cn(
-            "fixed inset-0 top-16 z-40 bg-background md:hidden transition-all duration-300 flex flex-col px-6 overflow-y-auto pb-20",
-            mobileOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0 pointer-events-none"
-        )}>
-            <nav className="flex flex-col pt-4">
-                <Link to="/" onClick={() => setMobileOpen(false)} className="py-4 text-lg font-semibold border-b border-border/40">
-                    Accueil
-                </Link>
-                {NAV_CONFIG.map(item => (
-                    <MobileNavItem key={item.label} item={item} onClose={() => setMobileOpen(false)} />
-                ))}
-                <Link to="/contact" onClick={() => setMobileOpen(false)} className="py-4 text-lg font-semibold border-b border-border/40">
-                    Contact
-                </Link>
-            </nav>
+      {/* Mobile panel */}
+      <div
+        className={cn(
+          "md:hidden border-t border-border/30 bg-background/95 transition-[max-height,opacity] duration-200 ease-in-out overflow-hidden",
+          mobileOpen ? "max-h-[80vh] opacity-100" : "max-h-0 opacity-0"
+        )}
+      >
+        <div className="container mx-auto px-4 py-4">
+          <nav className="flex flex-col gap-1">
+            <NavLink
+              to="/"
+              onClick={() => setMobileOpen(false)}
+              className={({ isActive }) =>
+                cn(
+                  "px-3 py-2 text-sm font-medium rounded-md",
+                  isActive ? "text-foreground bg-accent/50" : "text-muted-foreground hover:bg-muted/10"
+                )
+              }
+            >
+              Accueil
+            </NavLink>
+
+            {NAV_CONFIG.map((item) => (
+              <div key={item.label} className="w-full">
+                <MobileNavItem
+                  item={item}
+                  closeMobileMenu={() => setMobileOpen(false)}
+                  pathname={location.pathname}
+                  hash={location.hash}
+                  openTopKey={openTopKey}
+                  setOpenTopKey={setOpenTopKey}
+                />
+              </div>
+            ))}
+
+            <NavLink
+              to="/contact"
+              onClick={() => setMobileOpen(false)}
+              className={({ isActive }) =>
+                cn(
+                  "px-3 py-2 text-sm font-medium rounded-md",
+                  isActive ? "text-foreground bg-accent/50" : "text-muted-foreground hover:bg-muted/10"
+                )
+              }
+            >
+              Contact
+            </NavLink>
+          </nav>
         </div>
       </div>
     </header>
