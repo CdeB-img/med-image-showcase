@@ -68,9 +68,17 @@ export default function Header() {
             onMouseEnter={irm.openMenu}
             onMouseLeave={irm.closeMenu}
           >
-            <span className="cursor-pointer text-muted-foreground hover:text-foreground transition">
+            <NavLink
+              to="/irm-imagerie-quantitative"
+              className={({ isActive }) =>
+                cn(
+                  "cursor-pointer text-muted-foreground hover:text-foreground transition",
+                  isActive && "text-foreground font-medium"
+                )
+              }
+            >
               IRM
-            </span>
+            </NavLink>
 
             {irm.open && (
               <div className="absolute left-0 mt-2 min-w-[260px] rounded-md border border-border bg-background shadow-lg">
@@ -92,9 +100,17 @@ export default function Header() {
             onMouseEnter={ct.openMenu}
             onMouseLeave={ct.closeMenu}
           >
-            <span className="cursor-pointer text-muted-foreground hover:text-foreground transition">
+            <NavLink
+              to="/ct-imagerie-quantitative"
+              className={({ isActive }) =>
+                cn(
+                  "cursor-pointer text-muted-foreground hover:text-foreground transition",
+                  isActive && "text-foreground font-medium"
+                )
+              }
+            >
               CT
-            </span>
+            </NavLink>
 
             {ct.open && (
               <div className="absolute left-0 mt-2 min-w-[260px] rounded-md border border-border bg-background shadow-lg">
