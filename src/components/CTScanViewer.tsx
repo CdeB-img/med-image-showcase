@@ -11,8 +11,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const RAW_BASE =
-  "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
+const RAW_BASE = "/images";
 
 interface Props {
   className?: string;
@@ -108,7 +107,7 @@ const CTScanViewer = ({ className }: Props) => {
         <div className="max-w-2xl mx-auto">
           <div className="aspect-square bg-black rounded-lg overflow-hidden border border-border">
             <img
-              src={`${RAW_BASE}/cardio/ct-coeur.png`}
+              src={`${RAW_BASE}/cardio/ct-coeur.webp`}
               alt="CT Cardiaque"
               className="w-full h-full object-contain"
             />

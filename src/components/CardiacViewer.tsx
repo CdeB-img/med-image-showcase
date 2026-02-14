@@ -6,8 +6,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { MessageSquare } from "lucide-react";
 
-const RAW_BASE =
-  "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
+const RAW_BASE = "/images";
 
 interface Props {
   className?: string;
@@ -110,7 +109,7 @@ const CardiacViewer = ({ className }: Props) => {
           {/* Diastole */}
           <div className="space-y-3">
             <div className="aspect-square bg-black rounded-lg overflow-hidden border border-border">
-              <img src={`${RAW_BASE}/cardio/diastole.png`} alt="Télédiastole" className="w-full h-full object-contain" />
+              <img src={`${RAW_BASE}/cardio/diastole.webp`} alt="Télédiastole" className="w-full h-full object-contain" />
             </div>
             <div className="text-center">
               <span className="text-sm font-medium">Télédiastole</span>
@@ -121,7 +120,7 @@ const CardiacViewer = ({ className }: Props) => {
           {/* Systole */}
           <div className="space-y-3">
             <div className="aspect-square bg-black rounded-lg overflow-hidden border border-border">
-              <img src={`${RAW_BASE}/cardio/systole.png`} alt="Télésystole" className="w-full h-full object-contain" />
+              <img src={`${RAW_BASE}/cardio/systole.webp`} alt="Télésystole" className="w-full h-full object-contain" />
             </div>
             <div className="text-center">
               <span className="text-sm font-medium">Télésystole</span>
@@ -149,7 +148,7 @@ const CardiacViewer = ({ className }: Props) => {
           {/* Base */}
           <div className="space-y-3">
             <div className="aspect-square bg-black rounded-lg overflow-hidden border border-border">
-              <img src={`${RAW_BASE}/cardio/base.png`} alt="Étage basal" className="w-full h-full object-contain" />
+              <img src={`${RAW_BASE}/cardio/base.webp`} alt="Étage basal" className="w-full h-full object-contain" />
             </div>
             <div className="text-center">
               <span className="text-sm font-medium">Basal</span>
@@ -160,7 +159,7 @@ const CardiacViewer = ({ className }: Props) => {
           {/* Mid */}
           <div className="space-y-3">
             <div className="aspect-square bg-black rounded-lg overflow-hidden border border-border">
-              <img src={`${RAW_BASE}/cardio/mid.png`} alt="Étage médio-ventriculaire" className="w-full h-full object-contain" />
+              <img src={`${RAW_BASE}/cardio/mid.webp`} alt="Étage médio-ventriculaire" className="w-full h-full object-contain" />
             </div>
             <div className="text-center">
               <span className="text-sm font-medium">Médio-ventriculaire</span>
@@ -171,7 +170,7 @@ const CardiacViewer = ({ className }: Props) => {
           {/* Apex */}
           <div className="space-y-3">
             <div className="aspect-square bg-black rounded-lg overflow-hidden border border-border">
-              <img src={`${RAW_BASE}/cardio/apex.png`} alt="Étage apical" className="w-full h-full object-contain" />
+              <img src={`${RAW_BASE}/cardio/apex.webp`} alt="Étage apical" className="w-full h-full object-contain" />
             </div>
             <div className="text-center">
               <span className="text-sm font-medium">Apical</span>
