@@ -4,7 +4,9 @@ import { cn } from "@/lib/utils";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { projects } from "@/data/projects";
 
-/* NAV CONFIG */
+/* =========================
+   CONFIG NAV
+   ========================= */
 const NAV_CONFIG = [
   {
     label: "IRM",
@@ -43,31 +45,44 @@ const NAV_CONFIG = [
   },
 ];
 
-/* NAV ITEM (desktop hover + mobile toggle) */
-type NavItemType = {
-  label: string;
-  path: string;
-  children: { label: string; path: string }[];
-};
+/* =========================
+   UTIL: slugify pour id unique
+   ========================= */
+const slugify = (s: string) =>
+  s
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)+/g, "");
 
-const NavItem: React.FC<{ item: NavItemType; mobileMode: boolean; closeMobileMenu?: () => void }> = ({
-  item,
-  mobileMode,
-  closeMobileMenu,
-}) => {
+/* =========================
+   NavItem : gère desktop hover + mobile toggle
+   Props:
+     - item : structure nav
+     - mobileMode : true si rendu dans panneau mobile
+     - closeMobileMenu : callback pour fermer le panneau mobile après navigation
+   ========================= */
+type Child = { label: string; path: string };
+type NavItemType = { label: string; path: string; children: Child[] };
+
+const NavItem: React.FC<{
+  item: NavItemType;
+  mobileMode: boolean;
+  closeMobileMenu?: () => void;
+}> = ({ item, mobileMode, closeMobileMenu }) => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const submenuId = `submenu-${slugify(item.label)}`;
 
   const isActive =
-    location.pathname === item.path || item.children.some((child) => location.pathname === child.path);
+    location.pathname === item.path || item.children.some((c) => location.pathname === c.path);
 
   useEffect(() => {
-    // fermer le dropdown quand on change de route
+    // fermer le sous-menu quand on change de route
     setIsOpen(false);
   }, [location.pathname]);
 
-  // Desktop hover handlers (ignorés sur mobile)
+  // Desktop hover (ignoré en mobile)
   const handleMouseEnter = () => {
     if (mobileMode) return;
     if (timerRef.current) clearTimeout(timerRef.current);
@@ -75,7 +90,7 @@ const NavItem: React.FC<{ item: NavItemType; mobileMode: boolean; closeMobileMen
   };
   const handleMouseLeave = () => {
     if (mobileMode) return;
-    timerRef.current = setTimeout(() => setIsOpen(false), 150);
+    timerRef.current = setTimeout(() => setIsOpen(false), 120);
   };
 
   return (
@@ -84,12 +99,11 @@ const NavItem: React.FC<{ item: NavItemType; mobileMode: boolean; closeMobileMen
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Parent : label navigue toujours; la flèche ouvre le sous-menu */}
       <div className="flex items-center gap-2">
+        {/* Label parent : toujours navigable */}
         <Link
           to={item.path}
           onClick={() => {
-            // si on est en mobile, on ferme le panneau mobile après navigation
             if (mobileMode && closeMobileMenu) closeMobileMenu();
           }}
           className={cn(
@@ -101,13 +115,13 @@ const NavItem: React.FC<{ item: NavItemType; mobileMode: boolean; closeMobileMen
           {item.label}
         </Link>
 
-        {/* Chevron visible sur mobile et desktop ; il toggle le sous-menu sans naviguer */}
+        {/* Chevron visible sur mobile et desktop ; toggle le sous-menu sans naviguer */}
         {item.children.length > 0 && (
           <button
             aria-expanded={isOpen}
-            aria-controls={`submenu-${item.label}`}
+            aria-controls={submenuId}
             onClick={(e) => {
-              e.stopPropagation(); // empêche la propagation vers le Link parent
+              e.stopPropagation();
               setIsOpen((s) => !s);
             }}
             className={cn(
@@ -117,16 +131,16 @@ const NavItem: React.FC<{ item: NavItemType; mobileMode: boolean; closeMobileMen
             )}
             title={isOpen ? "Fermer sous-menu" : "Ouvrir sous-menu"}
           >
-            <ChevronDown className={cn("h-4 w-4 opacity-60", isOpen && "rotate-180")} />
+            <ChevronDown className={cn("h-4 w-4 opacity-70", isOpen && "rotate-180")} />
           </button>
         )}
       </div>
 
-      {/* DROPDOWN (desktop absolute) */}
+      {/* Desktop absolute dropdown */}
       {!mobileMode && item.children.length > 0 && (
         <div
           className={cn(
-            "absolute top-full left-0 pt-2 w-64 z-50 transition-all duration-200 ease-in-out origin-top-left",
+            "absolute top-full left-0 pt-2 w-64 z-50 transition-all duration-180 ease-in-out origin-top-left",
             isOpen ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-2 invisible pointer-events-none"
           )}
         >
@@ -162,10 +176,10 @@ const NavItem: React.FC<{ item: NavItemType; mobileMode: boolean; closeMobileMen
       {mobileMode && item.children.length > 0 && (
         <div className="w-full">
           <div
-            id={`submenu-${item.label}`}
+            id={submenuId}
             className={cn(
               "overflow-hidden transition-[max-height,opacity] duration-200 ease-in-out",
-              isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+              isOpen ? "max-h-[40rem] opacity-100" : "max-h-0 opacity-0"
             )}
           >
             <ul className="flex flex-col pl-4">
@@ -193,43 +207,9 @@ const NavItem: React.FC<{ item: NavItemType; mobileMode: boolean; closeMobileMen
   );
 };
 
-
-      {/* Mobile inline collapsible list */}
-      {mobileMode && item.children.length > 0 && (
-        <div className="w-full">
-          <div
-            id={`submenu-${item.label}`}
-            className={cn(
-              "overflow-hidden transition-[max-height,opacity] duration-200 ease-in-out",
-              isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-            )}
-          >
-            <ul className="flex flex-col pl-4">
-              {item.children.map((child) => (
-                <li key={child.path}>
-                  <NavLink
-                    to={child.path}
-                    onClick={() => closeMobileMenu && closeMobileMenu()}
-                    className={({ isActive }) =>
-                      cn(
-                        "block px-4 py-2 text-sm transition-colors rounded-md",
-                        isActive ? "text-primary font-medium bg-primary/5" : "text-muted-foreground hover:bg-muted/10"
-                      )
-                    }
-                  >
-                    {child.label}
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
-
-/* HEADER PRINCIPAL */
+/* =========================
+   Header principal
+   ========================= */
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
@@ -249,7 +229,7 @@ export default function Header() {
           </span>
         </Link>
 
-        {/* Desktop nav */}
+        {/* NAV Desktop */}
         <nav className="hidden md:flex items-center gap-2">
           <NavLink
             to="/"
@@ -280,7 +260,7 @@ export default function Header() {
           </NavLink>
         </nav>
 
-        {/* Mobile controls */}
+        {/* Mobile hamburger */}
         <div className="flex items-center gap-2 md:hidden">
           <button
             aria-label={mobileOpen ? "Fermer le menu" : "Ouvrir le menu"}
@@ -292,7 +272,7 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile menu panel */}
+      {/* Mobile panel */}
       <div
         className={cn(
           "md:hidden border-t border-border/30 bg-background/95 transition-[max-height,opacity] duration-200 ease-in-out overflow-hidden",
