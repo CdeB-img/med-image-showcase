@@ -20,6 +20,9 @@ import IRMImagerieQuantitative from "@/pages/IRMImagerieQuantitative";
 import CTImagerieQuantitative from "@/pages/CTImagerieQuantitative";
 import MethodologieImagerieQuantitative from "@/pages/MethodologieImagerieQuantitative";
 
+import APropos from "@/pages/APropos";
+
+
 import Header from "@/components/Header";
 
 import Index from "./pages/Index";
@@ -78,6 +81,7 @@ const App = () => (
           <Route path="/irm-imagerie-quantitative" element={<IRMImagerieQuantitative />} />
           <Route path="/ct-imagerie-quantitative" element={<CTImagerieQuantitative />} />
           <Route path="/methodologie-imagerie-quantitative" element={<MethodologieImagerieQuantitative />} />
+          <Route path="/a-propos" element={<APropos />} />
 
 
           {/* Fallback */}
