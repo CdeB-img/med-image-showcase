@@ -362,6 +362,9 @@ const MobileNavItem = ({ item, closeMenu }: { item: NavItemType; closeMenu: () =
 ============================================================ */
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "auto";
+  }, [mobileOpen]);
   const location = useLocation();
 
   useEffect(() => setMobileOpen(false), [location.pathname, location.hash]);
@@ -404,13 +407,50 @@ export default function Header() {
         </button>
       </div>
 
-      {/* MOBILE PANEL */}
-      <div
-        className={cn(
-          "fixed inset-0 top-16 z-40 bg-background md:hidden transition-all duration-300 overflow-y-auto px-4 pb-20",
-          mobileOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0 pointer-events-none"
-        )}
-      >
+        {/* MOBILE OVERLAY */}
+        {mobileOpen && (
+          <div className="fixed inset-0 z-50 md:hidden bg-background">
+            
+            {/* Top bar */}
+            <div className="flex items-center justify-between h-16 px-4 border-b border-border">
+              <span className="text-xl font-bold">NOXIA</span>
+              <button onClick={() => setMobileOpen(false)}>
+                <X className="h-6 w-6" />
+              </button>
+            </div>
+
+            {/* Navigation */}
+            <div className="overflow-y-auto h-[calc(100vh-64px)] px-4 py-6">
+              <nav className="flex flex-col gap-4">
+
+                <Link
+                  to="/"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-lg font-semibold"
+                >
+                  Accueil
+                </Link>
+
+                {NAV_CONFIG.map((item) => (
+                  <MobileNavItem
+                    key={item.label}
+                    item={item}
+                    closeMenu={() => setMobileOpen(false)}
+                  />
+                ))}
+
+                <Link
+                  to="/contact"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-lg font-semibold"
+                >
+                  Contact
+                </Link>
+
+              </nav>
+            </div>
+          </div>
+        )}  
         <nav className="flex flex-col pt-4">
           <Link to="/" onClick={() => setMobileOpen(false)} className="px-3 py-4 text-lg font-semibold border-b border-border/10">
             Accueil
