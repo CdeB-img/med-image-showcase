@@ -83,7 +83,7 @@ const App = () => (
           <Route path="/ct-imagerie-quantitative" element={<CTImagerieQuantitative />} />
           <Route path="/methodologie-imagerie-quantitative" element={<MethodologieImagerieQuantitative />} />
           <Route path="/a-propos" element={<APropos />} />
-          <Route path="/prestations" element={<Prestations />} />
+          <Route path="/prestations-imagerie-medicale" element={<Prestations />} />
 
 
           {/* Fallback */}
