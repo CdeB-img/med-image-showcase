@@ -86,7 +86,7 @@ const MobileNavItem = ({ item, onClose }: { item: any; onClose: () => void }) =>
         )}
       >
         <div className="overflow-hidden">
-        <div className="flex flex-col gap-2 px-2">
+        <div className="flex flex-col gap-3">
           {item.children.map((child: any) => (
             <Link
               key={child.path}
@@ -153,36 +153,34 @@ export default function Header() {
           {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
 
-        {/* --- MOBILE MENU OVERLAY (SIDE PANEL) --- */}
-        <div
-          className={cn(
-            "fixed inset-0 z-[105] md:hidden transition-all duration-300",
-            isMobileMenuOpen ? "pointer-events-auto" : "pointer-events-none"
-          )}
-        >
-          {/* Backdrop */}
-          <div
-            onClick={() => setIsMobileMenuOpen(false)}
-            className={cn(
-              "absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300",
-              isMobileMenuOpen ? "opacity-100" : "opacity-0"
-            )}
-          />
+        {/* --- MOBILE MENU OVERLAY --- */}
+        {isMobileMenuOpen && (
+          <div className="fixed inset-0 z-[200] md:hidden">
+            
+            {/* Backdrop */}
+            <div
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            />
 
-          {/* Sliding panel */}
-          <div
-            className={cn(
-              "absolute top-0 right-0 h-full w-[85%] max-w-sm bg-background shadow-2xl transition-transform duration-300 flex flex-col",
-              isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-            )}
-          >
-            <div className="flex-1 overflow-y-auto pt-20 px-6 pb-10">
-              <nav className="flex flex-col gap-4">
+            {/* Drawer */}
+            <div className="absolute right-0 top-0 h-full w-[88%] max-w-[420px] bg-background shadow-2xl flex flex-col">
+
+              {/* Header mobile */}
+              <div className="h-16 flex items-center justify-between px-6 border-b border-border">
+                <span className="text-lg font-semibold">Menu</span>
+                <button onClick={() => setIsMobileMenuOpen(false)}>
+                  <X className="h-6 w-6" />
+                </button>
+              </div>
+
+              {/* Contenu scrollable */}
+              <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6">
 
                 <Link
                   to="/"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-lg font-semibold py-3 border-b border-border/40"
+                  className="block text-lg font-semibold"
                 >
                   Accueil
                 </Link>
@@ -198,19 +196,15 @@ export default function Header() {
                 <Link
                   to="/contact"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-lg font-semibold py-3 border-t border-border/40"
+                  className="block text-lg font-semibold pt-4 border-t border-border"
                 >
                   Contact
                 </Link>
 
-              </nav>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </header>
-  );
-}
+        )}
 
 /* On garde le DesktopNavItem tel quel, il était déjà propre */
 const DesktopNavItem = ({ item }: { item: any }) => {
