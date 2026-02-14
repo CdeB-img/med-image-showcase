@@ -23,8 +23,7 @@ import { getProjectById, getAdjacentProjects } from "@/data/projects";
 // CONSTANTES
 // ============================================================
 
-const RAW_BASE =
-  "https://raw.githubusercontent.com/CdeB-img/NOXIA/main/public/images";
+const RAW_BASE = "/images";
 
 // ============================================================
 // HELPERS
@@ -32,7 +31,7 @@ const RAW_BASE =
 
 const slices = (basePath: string, count = 3): string[] =>
   Array.from({ length: count }, (_, i) =>
-    `${RAW_BASE}/${basePath}/slice_${String(i).padStart(3, "0")}.png`
+    `${RAW_BASE}/${basePath}/slice_${String(i).padStart(3, "0")}.webp`
   );
 
 // ============================================================
@@ -41,36 +40,36 @@ const slices = (basePath: string, count = 3): string[] =>
 
 const multimodalPairs = [
   {
-    reference: `${RAW_BASE}/recalage/maxip/slice_000.png`,
-    registered: `${RAW_BASE}/recalage/ct/slice_000.png`,
+    reference: `${RAW_BASE}/recalage/maxip/slice_000.webp`,
+    registered: `${RAW_BASE}/recalage/ct/slice_000.webp`,
     label: "Axial 1",
   },
   {
-    reference: `${RAW_BASE}/recalage/maxip/slice_001.png`,
-    registered: `${RAW_BASE}/recalage/ct/slice_001.png`,
+    reference: `${RAW_BASE}/recalage/maxip/slice_001.webp`,
+    registered: `${RAW_BASE}/recalage/ct/slice_001.webp`,
     label: "Axial 2",
   },
   {
-    reference: `${RAW_BASE}/recalage/maxip/slice_002.png`,
-    registered: `${RAW_BASE}/recalage/ct/slice_002.png`,
+    reference: `${RAW_BASE}/recalage/maxip/slice_002.webp`,
+    registered: `${RAW_BASE}/recalage/ct/slice_002.webp`,
     label: "Axial 3",
   },
 ];
 
 const monomodalPairs = [
   {
-    reference: `${RAW_BASE}/recalage/mdiff/slice_000.png`,
-    registered: `${RAW_BASE}/recalage/mflair/slice_000.png`,
+    reference: `${RAW_BASE}/recalage/mdiff/slice_000.webp`,
+    registered: `${RAW_BASE}/recalage/mflair/slice_000.webp`,
     label: "Axial 1",
   },
   {
-    reference: `${RAW_BASE}/recalage/mdiff/slice_001.png`,
-    registered: `${RAW_BASE}/recalage/mflair/slice_001.png`,
+    reference: `${RAW_BASE}/recalage/mdiff/slice_001.webp`,
+    registered: `${RAW_BASE}/recalage/mflair/slice_001.webp`,
     label: "Axial 2",
   },
   {
-    reference: `${RAW_BASE}/recalage/mdiff/slice_002.png`,
-    registered: `${RAW_BASE}/recalage/mflair/slice_002.png`,
+    reference: `${RAW_BASE}/recalage/mdiff/slice_002.webp`,
+    registered: `${RAW_BASE}/recalage/mflair/slice_002.webp`,
     label: "Axial 3",
   },
 ];
