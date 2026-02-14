@@ -64,7 +64,7 @@ const APropos = () => {
               </p>
 
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  Interface clinique – Recherche – Ingénierie – Innovation
+                  CoreLab – IRM & CT – Multicentrique
                 </p>
 
                 <p className="text-muted-foreground leading-relaxed">
