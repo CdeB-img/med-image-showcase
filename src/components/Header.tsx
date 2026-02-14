@@ -52,7 +52,7 @@ const NAV_CONFIG = [
   },
   {
     label: "Prestations",
-    path: "/prestations-imagerie-medicale,
+    path: "/prestations-imagerie-medicale",
     // Structure simple (juste une liste) déclenchera un menu simple
     children: [
       { label: "CoreLab externalisé", path: "/prestations-imagerie-medicale#corelab" },
