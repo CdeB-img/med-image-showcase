@@ -3,12 +3,9 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { projects as _projects } from "@/data/projects";
-import { T } from "vitest/dist/chunks/reporters.d.BFLkQcL6.js";
 
 /* =========================
-   CONFIGURATION NAV
-   - "Expertise" regroupe IRM / CT / Méthodologie
-   - Prestations utilise des ancres (#corelab, ...)
+   CONFIG NAV
    ========================= */
 const projects = Array.isArray(_projects) ? _projects : [];
 
@@ -85,28 +82,22 @@ const parsePathWithHash = (p: string) => {
 };
 
 /* =========================
-   NavItem (gère 2 niveaux : children et grandchildren)
-   - desktop: hover + bridge pour éviter fermetures intempestives
+   NavItem component
+   - gère 2 niveaux
+   - desktop: hover + bridge + hoveredChild pour afficher grandchildren
    - mobile: collapsible, label navigue, chevron toggle
    ========================= */
-
 type Child = { label: string; path: string; children?: Child[] };
 type NavItemType = { label: string; path: string; children: Child[] };
 
-const slugify = (s: string) =>
-  s
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)+/g, "");
-
-export const NavItem: React.FC<{
+const NavItem: React.FC<{
   item: NavItemType;
   mobileMode: boolean;
   closeMobileMenu?: () => void;
 }> = ({ item, mobileMode, closeMobileMenu }) => {
   const location = useLocation();
   const [openRoot, setOpenRoot] = useState(false);
-  const [hoveredChild, setHoveredChild] = useState<string | null>(null); // slug du child survolé (desktop)
+  const [hoveredChild, setHoveredChild] = useState<string | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const BRIDGE_DELAY = 300;
   const BRIDGE_HEIGHT = 20;
@@ -134,35 +125,29 @@ export const NavItem: React.FC<{
     }, BRIDGE_DELAY);
   };
 
-  // parent actif si un descendant correspond à la route courante
   const parentActive = (item.children || []).some((c) => {
-    const p = c.path.split("#");
-    const childFull = `${p[0]}${p[1] ? `#${p[1]}` : ""}`;
-    if (childFull === currentFull) return true;
+    const p = parsePathWithHash(c.path);
+    if (`${p.pathname}${p.hash || ""}` === currentFull) return true;
     if (c.children) {
       return c.children.some((g) => {
-        const pg = g.path.split("#");
-        return `${pg[0]}${pg[1] ? `#${pg[1]}` : ""}` === currentFull;
+        const pg = parsePathWithHash(g.path);
+        return `${pg.pathname}${pg.hash || ""}` === currentFull;
       });
     }
     return false;
   });
 
-  /* --- Desktop child hover handler: set hoveredChild to show grandchildren column --- */
   const onChildEnter = (childLabel: string) => {
     if (mobileMode) return;
     setHoveredChild(slugify(childLabel));
   };
   const onChildLeave = () => {
     if (mobileMode) return;
-    // on ne clear pas immédiatement : on laisse hoveredChild pour fluidité,
-    // mais on lance la fermeture différée si on sort du panneau (handled elsewhere)
     setHoveredChild(null);
   };
 
   return (
     <div className="relative flex items-center h-full">
-      {/* Parent label + chevron */}
       <div
         className="flex items-center gap-2"
         onMouseEnter={() => !mobileMode && openNow()}
@@ -196,7 +181,7 @@ export const NavItem: React.FC<{
         )}
       </div>
 
-      {/* Bridge invisible (desktop only) */}
+      {/* Bridge invisible */}
       {!mobileMode && item.children && item.children.length > 0 && (
         <div
           onMouseEnter={() => openNow()}
@@ -213,10 +198,7 @@ export const NavItem: React.FC<{
         />
       )}
 
-      {/* Dropdown panel (desktop) : contient 2 colonnes côte à côte
-          - colonne gauche : liste des children (IRM, CT, Méthodologie)
-          - colonne droite : grandchildren du child survolé (ou du premier child actif)
-      */}
+      {/* Desktop dropdown panel with two columns */}
       {!mobileMode && item.children && item.children.length > 0 && (
         <div
           className={cn(
@@ -234,18 +216,19 @@ export const NavItem: React.FC<{
         >
           <div className="overflow-hidden rounded-lg border border-border/50 bg-background/95 shadow-xl backdrop-blur-md ring-1 ring-black/5 p-3 w-[720px]">
             <div className="flex gap-4">
-              {/* Colonne gauche : children */}
               <div className="w-1/2">
                 <ul className="flex flex-col gap-1">
                   {item.children.map((child) => {
-                    const parsed = child.path.split("#");
-                    const toPath = parsed[0];
+                    const parsed = parsePathWithHash(child.path);
+                    const toProp = parsed.hash ? { pathname: parsed.pathname, hash: parsed.hash } : parsed.pathname;
                     const childSlug = slugify(child.label);
-                    const childFull = `${parsed[0]}${parsed[1] ? `#${parsed[1]}` : ""}`;
-                    const isActiveChild = childFull === currentFull || (child.children || []).some((g) => {
-                      const pg = g.path.split("#");
-                      return `${pg[0]}${pg[1] ? `#${pg[1]}` : ""}` === currentFull;
-                    });
+                    const childFull = `${parsed.pathname}${parsed.hash || ""}`;
+                    const isActiveChild =
+                      childFull === currentFull ||
+                      (child.children || []).some((g) => {
+                        const pg = parsePathWithHash(g.path);
+                        return `${pg.pathname}${pg.hash || ""}` === currentFull;
+                      });
 
                     return (
                       <li
@@ -255,7 +238,7 @@ export const NavItem: React.FC<{
                         className="rounded-md"
                       >
                         <Link
-                          to={child.path.includes("#") ? { pathname: toPath, hash: `#${child.path.split("#")[1]}` } : toPath}
+                          to={toProp}
                           className={cn(
                             "block px-3 py-2 text-sm rounded-md",
                             isActiveChild ? "text-primary font-medium bg-primary/5" : "text-muted-foreground hover:bg-muted/10"
@@ -269,17 +252,22 @@ export const NavItem: React.FC<{
                 </ul>
               </div>
 
-              {/* Colonne droite : grandchildren du child survolé (ou du premier child actif) */}
               <div className="w-1/2 border-l border-border/10 pl-4">
                 {(() => {
-                  // priorité : hoveredChild, sinon premier child actif, sinon premier child
                   const activeChild =
                     hoveredChild
                       ? item.children.find((c) => slugify(c.label) === hoveredChild)
-                      : item.children.find((c) =>
-                          (c.path.split("#")[0] === location.pathname) ||
-                          (c.children || []).some((g) => g.path.split("#")[0] === location.pathname)
-                        ) || item.children[0];
+                      : item.children.find((c) => {
+                          const p = parsePathWithHash(c.path);
+                          if (`${p.pathname}${p.hash || ""}` === currentFull) return true;
+                          if (c.children) {
+                            return c.children.some((g) => {
+                              const pg = parsePathWithHash(g.path);
+                              return `${pg.pathname}${pg.hash || ""}` === currentFull;
+                            });
+                          }
+                          return false;
+                        }) || item.children[0];
 
                   if (!activeChild) return null;
                   const grandchildren = activeChild.children || [];
@@ -292,8 +280,8 @@ export const NavItem: React.FC<{
                           <li className="text-sm text-muted-foreground">Aucun sous-élément</li>
                         ) : (
                           grandchildren.map((g) => {
-                            const pg = g.path.split("#");
-                            const toProp = pg[1] ? { pathname: pg[0], hash: `#${pg[1]}` } : pg[0];
+                            const pg = parsePathWithHash(g.path);
+                            const toProp = pg.hash ? { pathname: pg.pathname, hash: pg.hash } : pg.pathname;
                             return (
                               <li key={g.path}>
                                 <NavLink
@@ -321,32 +309,7 @@ export const NavItem: React.FC<{
         </div>
       )}
 
-
-
-
-
-
-
-      {/* Mobile collapsible panel */}
-      {mobileMode && item.children && item.children.length > 0 && (
-        <div className="w-full">
-          <div
-            id={idRoot}
-            className={cn(
-              "overflow-hidden transition-[max-height,opacity] duration-200 ease-in-out",
-              openRoot ? "max-h-[60rem] opacity-100" : "max-h-0 opacity-0"
-            )}
-          >
-            <ul className="flex flex-col pl-2">
-              {item.children.map((child) => (
-                <li key={child.label} className="w-full border-b border-border/10">
-                  <ChildRow child={child} />
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      )}
+      {/* Mobile collapsible handled in Header mobile panel */}
     </div>
   );
 };
@@ -436,9 +399,10 @@ export default function Header(): JSX.Element {
               Accueil
             </NavLink>
 
+            {/* Mobile rendering of NAV_CONFIG with collapsible children */}
             {NAV_CONFIG.map((item) => (
               <div key={item.label} className="w-full">
-                <NavItem item={item as NavItemType} mobileMode={true} closeMobileMenu={() => setMobileOpen(false)} />
+                <MobileNavItem item={item as NavItemType} closeMobileMenu={() => setMobileOpen(false)} />
               </div>
             ))}
 
@@ -460,3 +424,91 @@ export default function Header(): JSX.Element {
     </header>
   );
 }
+
+/* =========================
+   MobileNavItem component
+   - version simplifiée et accessible pour le panneau mobile
+   ========================= */
+const MobileNavItem: React.FC<{ item: NavItemType; closeMobileMenu: () => void }> = ({ item, closeMobileMenu }) => {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    // fermer si route change handled by Header effect
+  }, []);
+
+  return (
+    <div className="w-full">
+      <div className="flex items-center justify-between">
+        <Link
+          to={item.path}
+          onClick={() => closeMobileMenu()}
+          className="px-3 py-2 text-sm font-medium rounded-md text-muted-foreground hover:bg-muted/10"
+        >
+          {item.label}
+        </Link>
+        {item.children && item.children.length > 0 && (
+          <button
+            onClick={() => setOpen((s) => !s)}
+            aria-expanded={open}
+            aria-controls={`mobile-${slugify(item.label)}`}
+            className="h-8 w-8 inline-flex items-center justify-center rounded-md hover:bg-accent/10"
+          >
+            <ChevronDown className={cn("h-4 w-4 transition-transform", open && "rotate-180")} />
+          </button>
+        )}
+      </div>
+
+      {item.children && item.children.length > 0 && (
+        <div
+          id={`mobile-${slugify(item.label)}`}
+          className={cn(
+            "overflow-hidden transition-[max-height,opacity] duration-200 ease-in-out pl-4",
+            open ? "max-h-[60rem] opacity-100" : "max-h-0 opacity-0"
+          )}
+        >
+          <ul className="flex flex-col">
+            {item.children.map((child) => (
+              <li key={child.label} className="border-b border-border/10">
+                <div className="flex items-center justify-between">
+                  <Link
+                    to={parsePathWithHash(child.path).hash ? { pathname: parsePathWithHash(child.path).pathname, hash: parsePathWithHash(child.path).hash } : child.path}
+                    onClick={() => closeMobileMenu()}
+                    className="block px-3 py-2 text-sm rounded-md text-muted-foreground hover:bg-muted/10"
+                  >
+                    {child.label}
+                  </Link>
+
+                  {child.children && child.children.length > 0 && (
+                    <div className="pl-2">
+                      <details className="group">
+                        <summary className="cursor-pointer list-none px-2 py-2 text-sm rounded-md hover:bg-muted/10">Voir</summary>
+                        <ul className="pl-4">
+                          {child.children.map((g) => (
+                            <li key={g.path}>
+                              <NavLink
+                                to={parsePathWithHash(g.path).hash ? { pathname: parsePathWithHash(g.path).pathname, hash: parsePathWithHash(g.path).hash } : g.path}
+                                onClick={() => closeMobileMenu()}
+                                className={({ isActive }) =>
+                                  cn(
+                                    "block px-3 py-2 text-sm rounded-md",
+                                    isActive ? "text-primary font-medium bg-primary/5" : "text-muted-foreground hover:bg-muted/10"
+                                  )
+                                }
+                              >
+                                {g.label}
+                              </NavLink>
+                            </li>
+                          ))}
+                        </ul>
+                      </details>
+                    </div>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+};
