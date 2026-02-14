@@ -79,17 +79,30 @@ const MobileNavItem = ({ item, onClose }: { item: any; onClose: () => void }) =>
       </div>
 
       {/* BLOC DE SOUS-MENU : Apparition en Grille (Grid) */}
-      <div 
+      <div
         className={cn(
-          "grid transition-all duration-300 ease-in-out bg-muted/30",
-          isExpanded ? "grid-rows-[1fr] opacity-100 py-3" : "grid-rows-[0fr] opacity-0"
+          "transition-all duration-300 ease-in-out overflow-hidden bg-muted/30",
+          isExpanded ? "max-h-96 opacity-100 py-3" : "max-h-0 opacity-0"
         )}
       >
         <div className="overflow-hidden">
-          <div className="flex flex-col gap-2 px-2">
-            {item.children.map((child: any) => (
-a
-            ))}
+        <div className="flex flex-col gap-2 px-2">
+          {item.children.map((child: any) => (
+            <Link
+              key={child.path}z
+              to={child.path}
+              onClick={onClose}
+              className={cn(
+                "flex items-center gap-3 px-4 py-3 text-sm rounded-lg transition-all",
+                location.pathname === child.path
+                  ? "bg-primary/10 text-primary font-medium"
+                  : "text-muted-foreground hover:bg-muted/50"
+              )}
+            >
+              <div className="w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
+              {child.label}
+            </Link>
+          ))}
             {/* Petit lien pour voir toute la section */}
             <Link 
               to={item.path} 
