@@ -1,12 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { ChevronDown } from "lucide-react"; // Assure-toi d'avoir lucide-react
+import { ChevronDown, Menu, X } from "lucide-react"; 
 import { projects } from "@/data/projects";
 
 /* ============================================================
    CONFIGURATION DU MENU
-   (Centralise la structure ici pour ne pas polluer le JSX)
 ============================================================ */
 const NAV_CONFIG = [
   {
@@ -42,21 +41,18 @@ const NAV_CONFIG = [
   {
     label: "Projets",
     path: "/projets",
-    // On mappe tes projets dynamiques ici
     children: projects.map((p) => ({ label: p.title, path: `/projet/${p.id}` })),
   },
 ];
 
 /* ============================================================
-   SOUS-COMPOSANT : NAV ITEM AVEC DROPDOWN
+   COMPOSANT : DESKTOP NAV ITEM (HOVER)
 ============================================================ */
-const NavItem = ({ item }: { item: (typeof NAV_CONFIG)[0] }) => {
+const DesktopNavItem = ({ item }: { item: (typeof NAV_CONFIG)[0] }) => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Vérifie si l'utilisateur est sur le lien parent OU un des enfants
-  // Cela permet de garder le parent "allumé" quand on navigue dans le sous-menu
   const isActive =
     location.pathname === item.path ||
     item.children.some((child) => location.pathname === child.path);
@@ -67,9 +63,7 @@ const NavItem = ({ item }: { item: (typeof NAV_CONFIG)[0] }) => {
   };
 
   const handleMouseLeave = () => {
-    timerRef.current = setTimeout(() => {
-      setIsOpen(false);
-    }, 150); // Petit délai pour éviter les fermetures frustrantes
+    timerRef.current = setTimeout(() => setIsOpen(false), 150);
   };
 
   return (
@@ -82,22 +76,19 @@ const NavItem = ({ item }: { item: (typeof NAV_CONFIG)[0] }) => {
         to={item.path}
         className={cn(
           "group flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors rounded-md",
-          "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground outline-none",
+          "hover:bg-accent hover:text-accent-foreground outline-none",
           isActive ? "text-primary bg-primary/10" : "text-muted-foreground"
         )}
       >
         {item.label}
-        {/* Petite flèche animée */}
         <ChevronDown
           className={cn(
             "h-4 w-4 transition-transform duration-200 opacity-50 group-hover:opacity-100",
-            isOpen && "rotate-180" // La flèche se retourne quand ouvert
+            isOpen && "rotate-180"
           )}
         />
       </Link>
 
-      {/* DROPDOWN AREA */}
-      {/* Astuce : Un padding invisible (pt-4) sert de pont pour la souris */}
       <div
         className={cn(
           "absolute top-full left-0 pt-2 w-64 z-50 transition-all duration-200 ease-in-out origin-top-left",
@@ -116,12 +107,11 @@ const NavItem = ({ item }: { item: (typeof NAV_CONFIG)[0] }) => {
                     cn(
                       "relative block px-4 py-2.5 text-sm transition-colors hover:bg-muted/50",
                       isActive
-                        ? "text-primary font-medium bg-primary/5" // Style page active
+                        ? "text-primary font-medium bg-primary/5"
                         : "text-muted-foreground hover:text-foreground"
                     )
                   }
                 >
-                  {/* Petit indicateur visuel sur le survol ou actif */}
                   <span className={cn(
                      "absolute left-0 top-0 bottom-0 w-[2px] bg-primary transition-opacity duration-200",
                       location.pathname === child.path ? "opacity-100" : "opacity-0"
@@ -138,27 +128,107 @@ const NavItem = ({ item }: { item: (typeof NAV_CONFIG)[0] }) => {
 };
 
 /* ============================================================
-   COMPOSANT PRINCIPAL
+   COMPOSANT : MOBILE NAV ITEM (ACCORDION)
+============================================================ */
+const MobileNavItem = ({ 
+  item, 
+  onClose 
+}: { 
+  item: (typeof NAV_CONFIG)[0]; 
+  onClose: () => void; 
+}) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const location = useLocation();
+
+  // Ouvre automatiquement si on est sur une page enfant
+  useEffect(() => {
+    if (item.children.some(child => child.path === location.pathname)) {
+      setIsExpanded(true);
+    }
+  }, [location.pathname, item.children]);
+
+  return (
+    <div className="border-b border-border/40 last:border-0">
+      <div className="flex items-center justify-between py-4 pr-4">
+        <Link 
+          to={item.path} 
+          onClick={onClose}
+          className="text-base font-medium hover:text-primary transition-colors"
+        >
+          {item.label}
+        </Link>
+        <button 
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="p-2 active:bg-accent rounded-full transition-colors"
+        >
+          <ChevronDown 
+            className={cn(
+              "h-5 w-5 text-muted-foreground transition-transform duration-300",
+              isExpanded && "rotate-180"
+            )} 
+          />
+        </button>
+      </div>
+
+      {/* Animation d'ouverture simple via CSS classes ou conditionnel */}
+      <div 
+        className={cn(
+          "overflow-hidden transition-all duration-300 ease-in-out",
+          isExpanded ? "max-h-[500px] opacity-100 mb-4" : "max-h-0 opacity-0"
+        )}
+      >
+        <ul className="pl-4 space-y-1 border-l-2 border-border/50 ml-2">
+          {item.children.map((child) => (
+            <li key={child.path}>
+              <Link
+                to={child.path}
+                onClick={onClose}
+                className={cn(
+                  "block py-2 px-2 text-sm rounded-md transition-colors",
+                  location.pathname === child.path
+                    ? "text-primary font-medium bg-primary/10"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                )}
+              >
+                {child.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+/* ============================================================
+   COMPOSANT PRINCIPAL (HEADER)
 ============================================================ */
 export default function Header() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Empêche le scroll du body quand le menu mobile est ouvert
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => { document.body.style.overflow = 'unset'; };
+  }, [isMobileMenuOpen]);
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto flex h-16 items-center px-4 md:px-6">
+      <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
         
         {/* LOGO */}
-        <Link
-          to="/"
-          className="flex items-center transition-opacity hover:opacity-80"
-        >
+        <Link to="/" className="z-50 flex items-center gap-2 transition-opacity hover:opacity-80">
           <span className="text-xl font-bold tracking-tighter bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
             NOXIA
           </span>
         </Link>
 
-        {/* NAVIGATION DESKTOP */}
-        <nav className="hidden md:flex items-center gap-2 ml-auto">
-          
-          {/* ACCUEIL */}
+        {/* --- DESKTOP NAVIGATION --- */}
+        <nav className="hidden md:flex items-center gap-2">
           <NavLink
             to="/"
             className={({ isActive }) =>
@@ -171,12 +241,10 @@ export default function Header() {
             Accueil
           </NavLink>
 
-          {/* DROPDOWNS */}
           {NAV_CONFIG.map((item) => (
-            <NavItem key={item.label} item={item} />
+            <DesktopNavItem key={item.label} item={item} />
           ))}
 
-          {/* CONTACT */}
           <NavLink
             to="/contact"
             className={({ isActive }) =>
@@ -189,6 +257,49 @@ export default function Header() {
             Contact
           </NavLink>
         </nav>
+
+        {/* --- MOBILE TOGGLE BUTTON --- */}
+        <button
+          className="md:hidden z-50 p-2 text-foreground"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        </button>
+
+        {/* --- MOBILE MENU OVERLAY --- */}
+        <div
+          className={cn(
+            "fixed inset-0 z-40 bg-background/95 backdrop-blur-sm md:hidden transition-transform duration-300 ease-in-out flex flex-col pt-24 px-6 pb-6 overflow-y-auto",
+            isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+          )}
+        >
+          <nav className="flex flex-col space-y-2">
+            <Link
+              to="/"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-lg font-medium py-4 border-b border-border/40 hover:text-primary transition-colors"
+            >
+              Accueil
+            </Link>
+
+            {NAV_CONFIG.map((item) => (
+              <MobileNavItem 
+                key={item.label} 
+                item={item} 
+                onClose={() => setIsMobileMenuOpen(false)} 
+              />
+            ))}
+
+            <Link
+              to="/contact"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-lg font-medium py-4 hover:text-primary transition-colors"
+            >
+              Contact
+            </Link>
+          </nav>
+        </div>
 
       </div>
     </header>
