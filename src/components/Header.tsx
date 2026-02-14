@@ -7,44 +7,33 @@ export default function Header() {
   const isProjectDetail = useMatch("/projet/:id");
 
   /* ===============================
-     PROJETS MENU STATE
+     GENERIC DROPDOWN HANDLER
   =============================== */
-  const [projectsOpen, setProjectsOpen] = useState(false);
-  const projectsTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const useDropdown = () => {
+    const [open, setOpen] = useState(false);
+    const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const openProjects = () => {
-    if (projectsTimer.current) {
-      clearTimeout(projectsTimer.current);
-      projectsTimer.current = null;
-    }
-    setProjectsOpen(true);
+    const openMenu = () => {
+      if (timer.current) clearTimeout(timer.current);
+      setOpen(true);
+    };
+
+    const closeMenu = () => {
+      timer.current = setTimeout(() => {
+        setOpen(false);
+      }, 250);
+    };
+
+    return { open, openMenu, closeMenu, setOpen };
   };
 
-  const closeProjectsWithDelay = () => {
-    projectsTimer.current = setTimeout(() => {
-      setProjectsOpen(false);
-    }, 300);
-  };
+  const irm = useDropdown();
+  const ct = useDropdown();
+  const methodo = useDropdown();
+  const projets = useDropdown();
 
-  /* ===============================
-     EXPERTISE MENU STATE
-  =============================== */
-  const [expertiseOpen, setExpertiseOpen] = useState(false);
-  const expertiseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const openExpertise = () => {
-    if (expertiseTimer.current) {
-      clearTimeout(expertiseTimer.current);
-      expertiseTimer.current = null;
-    }
-    setExpertiseOpen(true);
-  };
-
-  const closeExpertiseWithDelay = () => {
-    expertiseTimer.current = setTimeout(() => {
-      setExpertiseOpen(false);
-    }, 300);
-  };
+  const menuItem =
+    "block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition";
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/90 backdrop-blur">
@@ -58,7 +47,6 @@ export default function Header() {
           NOXIA
         </Link>
 
-        {/* NAVIGATION */}
         <nav className="flex items-center gap-6 text-sm">
 
           {/* ACCUEIL */}
@@ -74,140 +62,69 @@ export default function Header() {
             Accueil
           </NavLink>
 
-          {/* ================= EXPERTISES ================= */}
+          {/* ================= IRM ================= */}
           <div
             className="relative"
-            onMouseEnter={openExpertise}
-            onMouseLeave={closeExpertiseWithDelay}
+            onMouseEnter={irm.openMenu}
+            onMouseLeave={irm.closeMenu}
           >
-            <span className="text-muted-foreground hover:text-foreground transition cursor-pointer">
-              Expertises
+            <span className="cursor-pointer text-muted-foreground hover:text-foreground transition">
+              IRM
             </span>
 
-            {expertiseOpen && (
+            {irm.open && (
               <div className="absolute left-0 mt-2 min-w-[260px] rounded-md border border-border bg-background shadow-lg">
                 <ul className="py-2">
+                  <li><Link to="/irm-imagerie-quantitative" className={menuItem}>IRM – Vue d’ensemble</Link></li>
+                  <li><Link to="/segmentation-irm" className={menuItem}>Segmentation IRM</Link></li>
+                  <li><Link to="/biomarqueurs-irm-cardiaque-essais-cliniques" className={menuItem}>Biomarqueurs cardiaques</Link></li>
+                  <li><Link to="/ecv-mapping-t1-t2-irm-cardiaque" className={menuItem}>ECV & Mapping</Link></li>
+                  <li><Link to="/perfusion-metabolique-neuro-imagerie" className={menuItem}>Perfusion métabolique neuro</Link></li>
+                  <li><Link to="/corelab-essais-cliniques" className={menuItem}>Corelab IRM</Link></li>
+                </ul>
+              </div>
+            )}
+          </div>
 
-                  <li>
-                    <Link
-                      to="/segmentation-irm"
-                      className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition"
-                      onClick={() => setExpertiseOpen(false)}
-                    >
-                      Segmentation IRM
-                    </Link>
-                  </li>
+          {/* ================= CT ================= */}
+          <div
+            className="relative"
+            onMouseEnter={ct.openMenu}
+            onMouseLeave={ct.closeMenu}
+          >
+            <span className="cursor-pointer text-muted-foreground hover:text-foreground transition">
+              CT
+            </span>
 
-                  <li>
-                    <Link
-                      to="/analyse-dicom"
-                      className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition"
-                      onClick={() => setExpertiseOpen(false)}
-                    >
-                      Analyse DICOM
-                    </Link>
-                  </li>
+            {ct.open && (
+              <div className="absolute left-0 mt-2 min-w-[260px] rounded-md border border-border bg-background shadow-lg">
+                <ul className="py-2">
+                  <li><Link to="/ct-imagerie-quantitative" className={menuItem}>CT – Vue d’ensemble</Link></li>
+                  <li><Link to="/quantification-ct" className={menuItem}>Quantification CT</Link></li>
+                  <li><Link to="/ct-quantitatif-avance-imagerie-spectrale" className={menuItem}>CT spectral avancé</Link></li>
+                  <li><Link to="/ct-perfusion-quantitative-avc" className={menuItem}>CT perfusion AVC</Link></li>
+                </ul>
+              </div>
+            )}
+          </div>
 
-                  <li>
-                    <Link
-                      to="/quantification-ct"
-                      className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition"
-                      onClick={() => setExpertiseOpen(false)}
-                    >
-                      Quantification CT
-                    </Link>
-                  </li>
+          {/* ================= MÉTHODOLOGIE ================= */}
+          <div
+            className="relative"
+            onMouseEnter={methodo.openMenu}
+            onMouseLeave={methodo.closeMenu}
+          >
+            <span className="cursor-pointer text-muted-foreground hover:text-foreground transition">
+              Méthodologie
+            </span>
 
-                  <li>
-                    <Link
-                      to="/recalage-multimodal"
-                      className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition"
-                      onClick={() => setExpertiseOpen(false)}
-                    >
-                      Recalage multimodal
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link
-                      to="/bases-multicentriques"
-                      className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition"
-                      onClick={() => setExpertiseOpen(false)}
-                    >
-                      Bases multicentriques
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link
-                      to="/corelab-essais-cliniques"
-                      className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition"
-                      onClick={() => setExpertiseOpen(false)}
-                    >
-                      Corelab & Essais Cliniques
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link
-                      to="/biomarqueurs-irm-cardiaque-essais-cliniques"
-                      className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition"
-                      onClick={() => setExpertiseOpen(false)}
-                    >
-                      Biomarqueurs IRM Cardiaque en Essais Randomisés
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link
-                      to="/ecv-mapping-t1-t2-irm-cardiaque"
-                      className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition"
-                      onClick={() => setExpertiseOpen(false)}
-                    >
-                      ECV Mapping
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/perfusion-metabolique-neuro-imagerie"
-                      className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition"
-                      onClick={() => setExpertiseOpen(false)}
-                    >
-                      Perfusion métabolique en neuro-imagerie
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/ingenierie-imagerie-quantitative"
-                      className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition"
-                      onClick={() => setExpertiseOpen(false)}
-                    >
-                      Ingénierie en imagerie quantitative
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link
-                      to="/ct-quantitatif-avance-imagerie-spectrale"
-                      className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition"
-                      onClick={() => setExpertiseOpen(false)}
-                    >
-                      CT Spectral imagerie quantitative
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/ct-perfusion-quantitative-avc"
-                      className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition"
-                      onClick={() => setExpertiseOpen(false)}
-                    >
-                      CT Perfusion quantitative dans l'AVC
-                    </Link>
-                  </li>
-
-
-
-
+            {methodo.open && (
+              <div className="absolute left-0 mt-2 min-w-[260px] rounded-md border border-border bg-background shadow-lg">
+                <ul className="py-2">
+                  <li><Link to="/ingenierie-imagerie-quantitative" className={menuItem}>Ingénierie quantitative</Link></li>
+                  <li><Link to="/bases-multicentriques" className={menuItem}>Bases multicentriques</Link></li>
+                  <li><Link to="/analyse-dicom" className={menuItem}>Analyse DICOM</Link></li>
+                  <li><Link to="/recalage-multimodal" className={menuItem}>Recalage multimodal</Link></li>
                 </ul>
               </div>
             )}
@@ -216,31 +133,30 @@ export default function Header() {
           {/* ================= PROJETS ================= */}
           <div
             className="relative"
-            onMouseEnter={openProjects}
-            onMouseLeave={closeProjectsWithDelay}
+            onMouseEnter={projets.openMenu}
+            onMouseLeave={projets.closeMenu}
           >
             <NavLink
               to="/projets"
               className={({ isActive }) =>
                 cn(
                   "text-muted-foreground hover:text-foreground transition",
-                  (isActive || isProjectDetail) &&
-                    "text-foreground font-medium"
+                  (isActive || isProjectDetail) && "text-foreground font-medium"
                 )
               }
             >
               Projets
             </NavLink>
 
-            {projectsOpen && (
+            {projets.open && (
               <div className="absolute left-0 mt-2 min-w-[260px] rounded-md border border-border bg-background shadow-lg">
                 <ul className="py-2">
                   {projects.map((project) => (
                     <li key={project.id}>
                       <Link
                         to={`/projet/${project.id}`}
-                        className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition"
-                        onClick={() => setProjectsOpen(false)}
+                        className={menuItem}
+                        onClick={() => projets.setOpen(false)}
                       >
                         {project.title}
                       </Link>
