@@ -10,12 +10,10 @@ const Footer = () => {
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <Brain className="w-6 h-6 text-primary" />
-              <span className="font-semibold">NOXIA</span>
+              <span className="font-semibold tracking-tight">NOXIA</span>
             </div>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground tracking-wide">
               Numerical Observation × Imaging Analysis
-              <br />
-              Analyse et quantification d'images médicales pour la recherche clinique
             </p>
           </div>
 
@@ -66,7 +64,7 @@ const Footer = () => {
             </h4>
             <p className="text-xs text-muted-foreground leading-relaxed">
               Les images et données présentées sur ce site sont issues de jeux de données 
-              entièrement anonymisés, utilisés exclusivement à des fins de démonstration 
+              entièrement anonymisés ou simulés, utilisés exclusivement à des fins de démonstration 
               méthodologique et scientifique. Elles ne permettent en aucun cas l'identification de patients.
             </p>
           </div>

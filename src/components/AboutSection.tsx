@@ -14,14 +14,19 @@ const AboutSection = () => {
           {/* Introduction */}
           <div className="space-y-6">
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Je suis expert indépendant en imagerie médicale, spécialisé dans le traitement, 
-              l'analyse et la quantification d'images issues de données cliniques réelles, 
-              avec une forte expérience en IRM et en scanner (CT).
+              J’interviens comme expert indépendant en imagerie médicale quantitative,
+              avec une activité structurée autour du corelab IRM et CT, 
+              de la production de biomarqueurs d’imagerie et de l’ingénierie méthodologique
+              pour essais cliniques et projets multicentriques.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
               Mon travail s'inscrit dans une approche <em className="text-foreground">signal-driven</em>, 
               rigoureuse et transparente, où chaque outil, chaque masque et chaque métrique repose 
               sur des choix explicites, traçables et interprétables, jamais sur une boîte noire.
+              <p className="text-lg text-muted-foreground leading-relaxed">
+              Chaque métrique produite est pensée pour être statistiquement exploitable,
+              physiopathologiquement cohérente et reproductible inter-centre.
+              </p>
             </p>
           </div>
 
@@ -82,15 +87,19 @@ const AboutSection = () => {
               <div className="flex items-start gap-3 p-4 rounded-lg bg-background border border-border">
                 <Brain className="w-5 h-5 text-primary mt-0.5" />
                 <div>
-                  <p className="font-medium text-sm">Segmentation experte de lésions</p>
-                  <p className="text-xs text-muted-foreground">Neuro, Cardio</p>
+                  <p className="font-medium text-sm">Corelab neurovasculaire</p>
+                  <p className="text-xs text-muted-foreground">
+                  Perfusion CT, segmentation lésionnelle AVC
+                  </p>
                 </div>
               </div>
               <div className="flex items-start gap-3 p-4 rounded-lg bg-background border border-border">
                 <Heart className="w-5 h-5 text-primary mt-0.5" />
                 <div>
-                  <p className="font-medium text-sm">IRM cardiaque</p>
-                  <p className="text-xs text-muted-foreground">Quantification fonctionnelle et tissulaire</p>
+                  <p className="font-medium text-sm">Corelab IRM cardiaque</p>
+                  <p className="text-xs text-muted-foreground">
+                  Mapping T1/T2, ECV, biomarqueurs myocardiques
+                  </p>
                 </div>
               </div>
               <div className="flex items-start gap-3 p-4 rounded-lg bg-background border border-border">
@@ -102,16 +111,18 @@ const AboutSection = () => {
               </div>
               <div className="flex items-start gap-3 p-4 rounded-lg bg-background border border-border">
                 <FlaskConical className="w-5 h-5 text-primary mt-0.5" />
-                <div>
-                  <p className="font-medium text-sm">CT spectral</p>
-                  <p className="text-xs text-muted-foreground">Reconstruction mono-énergétique, Coroscan</p>
-                </div>
+                <p className="font-medium text-sm">Imagerie CT avancée</p>
+                <p className="text-xs text-muted-foreground">
+                Spectral, reconstruction mono-énergétique, modélisation physique
+                </p>
               </div>
               <div className="flex items-start gap-3 p-4 rounded-lg bg-background border border-border">
                 <Database className="w-5 h-5 text-primary mt-0.5" />
                 <div>
-                  <p className="font-medium text-sm">Bases de données multicentriques</p>
-                  <p className="text-xs text-muted-foreground">Préparation, structuration et harmonisation</p>
+                  <p className="font-medium text-sm">Structuration multicentrique</p>
+                  <p className="text-xs text-muted-foreground">
+                  Anonymisation, détection d’incohérences, harmonisation
+                  </p>
                 </div>
               </div>
               <div className="flex items-start gap-3 p-4 rounded-lg bg-background border border-border">
@@ -124,11 +135,11 @@ const AboutSection = () => {
             </div>
           </div>
 
-          {/* Pour quoi */}
+          {/* Applications */}
           <div className="space-y-6">
             <div className="flex items-center gap-3">
               <Stethoscope className="w-6 h-6 text-primary" />
-              <h3 className="text-xl font-semibold">Pour quoi</h3>
+              <h3 className="text-xl font-semibold">Applications</h3>
             </div>
             <div className="flex flex-wrap justify-center gap-3">
               {["Recherche académique et clinique", "Études multicentriques et longitudinales", "Validation méthodologique et reproductibilité", "Préparation et structuration de données", "Conception d’approches algorithmiques sur mesure"].map(item => (
