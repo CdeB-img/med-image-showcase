@@ -70,7 +70,10 @@ const Prestations = () => {
 
             {/* CORELAB */}
             
-            <section id="corelab"  className="space-y-6 text-muted-foreground leading-relaxed">
+            <section
+              id="corelab"
+              className="space-y-6 text-muted-foreground leading-relaxed scroll-mt-28"
+>
               <h2 className="text-2xl font-semibold text-foreground">
                 CoreLab IRM & CT externalisé
               </h2>
@@ -91,7 +94,10 @@ const Prestations = () => {
             </section>
 
             {/* REPRISE ETUDES */}
-            <section id="reprise" className="space-y-6 text-muted-foreground leading-relaxed">
+            <section
+              id="reprise"
+              className="space-y-6 text-muted-foreground leading-relaxed scroll-mt-28"
+            >
               <h2 className="text-2xl font-semibold text-foreground">
                 Reprise d’études déjà réalisées
               </h2>
@@ -117,7 +123,10 @@ const Prestations = () => {
             </section>
 
             {/* AUDIT */}
-            <section id="audit" className="space-y-6 text-muted-foreground leading-relaxed">
+            <section
+              id="audit"
+              className="space-y-6 text-muted-foreground leading-relaxed scroll-mt-28"
+            >
               <h2 className="text-2xl font-semibold text-foreground">
                 Audit méthodologique & harmonisation
               </h2>
@@ -132,7 +141,10 @@ const Prestations = () => {
             </section>
 
             {/* INGENIERIE */}
-            <section id="ingenierie" className="space-y-6 text-muted-foreground leading-relaxed">
+            <section
+              id="ingenierie"
+              className="space-y-6 text-muted-foreground leading-relaxed scroll-mt-28"
+            >
               <h2 className="text-2xl font-semibold text-foreground">
                 Développement & ingénierie sur mesure
               </h2>
