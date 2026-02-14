@@ -205,7 +205,10 @@ export default function Header() {
             </div>
           </div>
         )}
-
+      </div>
+    </header>
+  );
+}
 /* On garde le DesktopNavItem tel quel, il était déjà propre */
 const DesktopNavItem = ({ item }: { item: any }) => {
     const [isOpen, setIsOpen] = useState(false);
