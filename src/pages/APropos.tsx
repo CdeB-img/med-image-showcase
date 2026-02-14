@@ -55,9 +55,13 @@ const APropos = () => {
               </div>
 
               <div className="space-y-6">
-                <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                  À propos
-                </h1>
+              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
+                Charles de Bourguignon
+              </h1>
+
+              <p className="text-lg text-muted-foreground">
+                Expert en imagerie médicale de recherche
+              </p>
 
                 <p className="text-lg text-muted-foreground leading-relaxed">
                   Interface clinique – Recherche – Ingénierie – Innovation
