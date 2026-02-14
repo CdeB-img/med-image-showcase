@@ -84,26 +84,46 @@ const parsePathWithHash = (p: string) => {
   };
 };
 
-const isBranchActive = (item: NavItemType | Child, pathname: string, hash: string | undefined) => {
-  const parsed = parsePathWithHash(item.path || "");
+/**
+ * Retourne true si l'item (ou un descendant) correspond à la route courante.
+ * Compare pathname + hash pour gérer les ancres.
+ */
+const isBranchActive = (item: NavItemType | Child | undefined, pathname: string, hash: string | undefined) => {
+  if (!item || !item.path) return false;
+  const parsed = parsePathWithHash(item.path);
   if (parsed.pathname === pathname && (parsed.hash || "") === (hash || "")) return true;
   if ((item as any).children) {
     return (item as any).children.some((c: any) => {
       const pc = parsePathWithHash(c.path);
-      return pc.pathname === pathname && (pc.hash || "") === (hash || "");
+      if (pc.pathname === pathname && (pc.hash || "") === (hash || "")) return true;
+      if (c.children) {
+        return c.children.some((g: any) => {
+          const pg = parsePathWithHash(g.path);
+          return pg.pathname === pathname && (pg.hash || "") === (hash || "");
+        });
+      }
+      return false;
     });
   }
   return false;
 };
 
 /* =========================
-   DesktopNavItem (Expertise mega + others)
+   DesktopNavItem
+   - Expertise = mega menu 2 colonnes
+   - autres = simple dropdown
+   - highlight cascade : parent + child + grandchild
    ========================= */
 const DesktopNavItem: React.FC<{ item: NavItemType }> = ({ item }) => {
   const location = useLocation();
   const [open, setOpen] = useState(false);
+  const [hoveredChild, setHoveredChild] = useState<Child | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isMega = item.label === "Expertise";
+
+  useEffect(() => {
+    if (!open) setHoveredChild(null);
+  }, [open, location.pathname, location.hash]);
 
   const openMenu = () => {
     if (timerRef.current) clearTimeout(timerRef.current);
@@ -111,17 +131,14 @@ const DesktopNavItem: React.FC<{ item: NavItemType }> = ({ item }) => {
   };
   const closeMenu = () => {
     if (timerRef.current) clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => setOpen(false), 220);
+    timerRef.current = setTimeout(() => {
+      setOpen(false);
+      setHoveredChild(null);
+    }, 220);
   };
 
-  // active child for right column (priority: hovered -> route -> first)
-  const [hoveredChild, setHoveredChild] = useState<Child | null>(null);
+  // si on ouvre, synchroniser la colonne droite avec la route active si possible
   useEffect(() => {
-    if (!open) setHoveredChild(null);
-  }, [open, location.pathname, location.hash]);
-
-  useEffect(() => {
-    // sync initial active child when opening
     if (!open || !isMega) return;
     const match = item.children?.find((c: any) => isBranchActive(c, location.pathname, location.hash));
     setHoveredChild((match as Child) || (item.children?.[0] as Child) || null);
@@ -147,7 +164,7 @@ const DesktopNavItem: React.FC<{ item: NavItemType }> = ({ item }) => {
         <div className="absolute top-full left-0 pt-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
           {isMega ? (
             <div className="w-[680px] bg-background border border-border rounded-xl shadow-2xl flex min-h-[320px] overflow-hidden">
-              {/* left column */}
+              {/* colonne gauche : catégories */}
               <div className="w-[220px] bg-muted/5 border-r border-border p-2 flex flex-col gap-1">
                 {item.children!.map((child: any) => {
                   const active = isBranchActive(child, location.pathname, location.hash) || hoveredChild?.label === child.label;
@@ -169,28 +186,13 @@ const DesktopNavItem: React.FC<{ item: NavItemType }> = ({ item }) => {
                 })}
               </div>
 
-              {/* right column */}
+              {/* colonne droite : sous-pages du child actif */}
               <div className="flex-1 p-5 bg-background">
                 <div className="border-b border-border/50 pb-3 mb-4">
                   <h4 className="text-lg font-bold">{hoveredChild?.label}</h4>
-                  <p className="text-xs text-muted-foreground">Vue d’ensemble & modules spécialisés</p>
                 </div>
 
                 <div className="grid grid-cols-1 gap-1">
-                  {hoveredChild?.path && (
-                    <Link
-                      to={hoveredChild.path}
-                      onClick={() => setOpen(false)}
-                      className={cn(
-                        "flex items-center gap-3 px-3 py-2 rounded-md text-sm",
-                        location.pathname === hoveredChild.path ? "text-primary font-semibold bg-primary/5" : "text-foreground/80 hover:bg-muted"
-                      )}
-                    >
-                      <div className={cn("h-1.5 w-1.5 rounded-full", location.pathname === hoveredChild.path ? "bg-primary" : "bg-muted-foreground/40")} />
-                      {hoveredChild.label} – Vue d’ensemble
-                    </Link>
-                  )}
-
                   {hoveredChild?.children?.map((sub: any) => (
                     <Link
                       key={sub.path}
@@ -198,10 +200,12 @@ const DesktopNavItem: React.FC<{ item: NavItemType }> = ({ item }) => {
                       onClick={() => setOpen(false)}
                       className={cn(
                         "flex items-center gap-3 px-3 py-2 rounded-md text-sm",
-                        location.pathname === sub.path ? "text-primary font-semibold bg-primary/5" : "text-foreground/80 hover:bg-muted"
+                        isBranchActive(sub, location.pathname, location.hash)
+                          ? "text-primary font-semibold bg-primary/5"
+                          : "text-foreground/80 hover:bg-muted"
                       )}
                     >
-                      <div className={cn("h-1.5 w-1.5 rounded-full", location.pathname === sub.path ? "bg-primary" : "bg-muted-foreground/40")} />
+                      <div className={cn("h-1.5 w-1.5 rounded-full", isBranchActive(sub, location.pathname, location.hash) ? "bg-primary" : "bg-muted-foreground/40")} />
                       {sub.label}
                     </Link>
                   ))}
@@ -210,17 +214,6 @@ const DesktopNavItem: React.FC<{ item: NavItemType }> = ({ item }) => {
             </div>
           ) : (
             <div className="w-72 bg-background border border-border rounded-xl shadow-xl p-2 flex flex-col gap-1">
-              <Link
-                to={item.path}
-                onClick={() => setOpen(false)}
-                className={cn(
-                  "px-4 py-2 text-sm rounded-md",
-                  location.pathname === item.path ? "bg-primary/5 text-primary font-semibold" : "text-muted-foreground hover:bg-muted"
-                )}
-              >
-                {item.label} – Vue d’ensemble
-              </Link>
-
               {item.children!.map((child: any) => {
                 const parsed = parsePathWithHash(child.path);
                 const isHashTarget = parsed.pathname === location.pathname && parsed.hash === (location.hash || "");
@@ -249,67 +242,27 @@ const DesktopNavItem: React.FC<{ item: NavItemType }> = ({ item }) => {
 };
 
 /* =========================
-   Mobile components (improved)
-   - clear accordion behavior
-   - nested accordions for second level
-   - close on navigation
+   Mobile components (améliorés)
+   - accordéons imbriqués
+   - highlight cascade : parent + child + grandchild
    ========================= */
-const MobileNavItem: React.FC<{ item: NavItemType; closeMobileMenu: () => void }> = ({ item, closeMobileMenu }) => {
+const MobileChildRow: React.FC<{ child: Child; closeMobileMenu: () => void; pathname: string; hash?: string }> = ({ child, closeMobileMenu, pathname, hash }) => {
   const [open, setOpen] = useState(false);
+  const parsed = parsePathWithHash(child.path);
+  const toProp = parsed.hash ? { pathname: parsed.pathname, hash: parsed.hash } : parsed.pathname;
+  const childActive = isBranchActive(child, pathname, hash);
 
   return (
     <div className="w-full">
       <div className="flex items-center justify-between">
         <Link
-          to={item.path}
+          to={toProp}
           onClick={() => closeMobileMenu()}
-          className="px-3 py-2 text-sm font-medium rounded-md text-muted-foreground hover:bg-muted/10"
-        >
-          {item.label}
-        </Link>
-
-        {item.children && item.children.length > 0 && (
-          <button
-            onClick={() => setOpen((s) => !s)}
-            aria-expanded={open}
-            aria-controls={`mobile-${slugify(item.label)}`}
-            className="h-8 w-8 inline-flex items-center justify-center rounded-md hover:bg-accent/10"
-          >
-            <ChevronDown className={cn("h-4 w-4 transition-transform", open && "rotate-180")} />
-          </button>
-        )}
-      </div>
-
-      {item.children && item.children.length > 0 && (
-        <div
-          id={`mobile-${slugify(item.label)}`}
           className={cn(
-            "overflow-hidden transition-[max-height,opacity] duration-200 ease-in-out pl-4",
-            open ? "max-h-[60rem] opacity-100" : "max-h-0 opacity-0"
+            "block px-3 py-2 text-sm rounded-md",
+            childActive ? "text-primary font-semibold bg-primary/5" : "text-muted-foreground hover:bg-muted/10"
           )}
         >
-          <ul className="flex flex-col">
-            {item.children.map((child) => (
-              <li key={child.label} className="border-b border-border/10">
-                <MobileChildRow child={child} closeMobileMenu={closeMobileMenu} />
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </div>
-  );
-};
-
-const MobileChildRow: React.FC<{ child: Child; closeMobileMenu: () => void }> = ({ child, closeMobileMenu }) => {
-  const [open, setOpen] = useState(false);
-  const parsed = parsePathWithHash(child.path);
-  const toProp = parsed.hash ? { pathname: parsed.pathname, hash: parsed.hash } : parsed.pathname;
-
-  return (
-    <div className="w-full">
-      <div className="flex items-center justify-between">
-        <Link to={toProp} onClick={() => closeMobileMenu()} className="block px-3 py-2 text-sm rounded-md text-muted-foreground hover:bg-muted/10">
           {child.label}
         </Link>
 
@@ -337,6 +290,7 @@ const MobileChildRow: React.FC<{ child: Child; closeMobileMenu: () => void }> = 
             {child.children.map((g) => {
               const pg = parsePathWithHash(g.path);
               const to = pg.hash ? { pathname: pg.pathname, hash: pg.hash } : pg.pathname;
+              const active = isBranchActive(g, pathname, hash);
               return (
                 <li key={g.path}>
                   <NavLink
@@ -345,7 +299,7 @@ const MobileChildRow: React.FC<{ child: Child; closeMobileMenu: () => void }> = 
                     className={({ isActive }) =>
                       cn(
                         "block px-3 py-2 text-sm rounded-md",
-                        isActive ? "text-primary font-medium bg-primary/5" : "text-muted-foreground hover:bg-muted/10"
+                        active || isActive ? "text-primary font-medium bg-primary/5" : "text-muted-foreground hover:bg-muted/10"
                       )
                     }
                   >
@@ -361,6 +315,57 @@ const MobileChildRow: React.FC<{ child: Child; closeMobileMenu: () => void }> = 
   );
 };
 
+const MobileNavItem: React.FC<{ item: NavItemType; closeMobileMenu: () => void; pathname: string; hash?: string }> = ({ item, closeMobileMenu, pathname, hash }) => {
+  const [open, setOpen] = useState(false);
+  const parentActive = isBranchActive(item, pathname, hash);
+
+  return (
+    <div className="w-full">
+      <div className="flex items-center justify-between">
+        <Link
+          to={item.path}
+          onClick={() => closeMobileMenu()}
+          className={cn(
+            "px-3 py-2 text-sm font-medium rounded-md",
+            parentActive ? "text-primary font-semibold bg-primary/5" : "text-muted-foreground hover:bg-muted/10"
+          )}
+        >
+          {item.label}
+        </Link>
+
+        {item.children && item.children.length > 0 && (
+          <button
+            onClick={() => setOpen((s) => !s)}
+            aria-expanded={open}
+            aria-controls={`mobile-${slugify(item.label)}`}
+            className="h-8 w-8 inline-flex items-center justify-center rounded-md hover:bg-accent/10"
+          >
+            <ChevronDown className={cn("h-4 w-4 transition-transform", open && "rotate-180")} />
+          </button>
+        )}
+      </div>
+
+      {item.children && item.children.length > 0 && (
+        <div
+          id={`mobile-${slugify(item.label)}`}
+          className={cn(
+            "overflow-hidden transition-[max-height,opacity] duration-200 ease-in-out pl-4",
+            open ? "max-h-[60rem] opacity-100" : "max-h-0 opacity-0"
+          )}
+        >
+          <ul className="flex flex-col">
+            {item.children.map((child) => (
+              <li key={child.label} className="border-b border-border/10">
+                <MobileChildRow child={child} closeMobileMenu={closeMobileMenu} pathname={pathname} hash={hash} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+};
+
 /* =========================
    Header principal
    ========================= */
@@ -368,7 +373,6 @@ export default function Header(): JSX.Element {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
 
-  // fermer le menu mobile au changement de route
   useEffect(() => {
     setMobileOpen(false);
   }, [location.pathname, location.hash]);
@@ -449,7 +453,7 @@ export default function Header(): JSX.Element {
 
             {NAV_CONFIG.map((item) => (
               <div key={item.label} className="w-full">
-                <MobileNavItem item={item} closeMobileMenu={() => setMobileOpen(false)} />
+                <MobileNavItem item={item} closeMobileMenu={() => setMobileOpen(false)} pathname={location.pathname} hash={location.hash} />
               </div>
             ))}
 
