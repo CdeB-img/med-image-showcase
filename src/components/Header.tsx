@@ -5,11 +5,14 @@ import { ChevronDown, Menu, X, ChevronRight } from "lucide-react";
 import { projects as _projects } from "@/data/projects";
 
 /* =========================
-   NAV CONFIG
-========================= */
+   CONFIG & TYPES
+   ========================= */
 const projects = Array.isArray(_projects) ? _projects : [];
 
-const NAV_CONFIG = [
+type Child = { label: string; path: string; children?: Child[] };
+type NavItemType = { label: string; path: string; children?: Child[] };
+
+const NAV_CONFIG: NavItemType[] = [
   {
     label: "Expertise",
     path: "/expertise",
@@ -64,67 +67,141 @@ const NAV_CONFIG = [
 ];
 
 /* =========================
-   HELPERS
-========================= */
-const isBranchActive = (node: any, pathname: string, hash: string) => {
-  const currentFull = `${pathname}${hash || ""}`;
-  if (!node) return false;
-  if (node.path === currentFull || node.path === pathname) return true;
-  if (node.children?.length) {
-    return node.children.some((c: any) => isBranchActive(c, pathname, hash));
+   Helpers
+   ========================= */
+const slugify = (s: string) =>
+  s
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)+/g, "");
+
+const parsePathWithHash = (p: string) => {
+  const [pathnamePart, hashPart] = p.split("#");
+  return {
+    pathname: pathnamePart || "/",
+    hash: hashPart ? `#${hashPart}` : "",
+    original: p,
+  };
+};
+
+const isBranchActive = (item: NavItemType | Child, pathname: string, hash: string | undefined) => {
+  const parsed = parsePathWithHash(item.path || "");
+  if (parsed.pathname === pathname && (parsed.hash || "") === (hash || "")) return true;
+  if ((item as any).children) {
+    return (item as any).children.some((c: any) => {
+      const pc = parsePathWithHash(c.path);
+      return pc.pathname === pathname && (pc.hash || "") === (hash || "");
+    });
   }
   return false;
 };
 
-/* ============================================================
-   DESKTOP ITEM (MEGA MENU SPLIT VIEW)
-============================================================ */
-const DesktopNavItem = ({ item }: { item: any }) => {
+/* =========================
+   DesktopNavItem (Expertise mega + others)
+   ========================= */
+const DesktopNavItem: React.FC<{ item: NavItemType }> = ({ item }) => {
   const location = useLocation();
   const [open, setOpen] = useState(false);
-  const timerRef = useRef<any>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isMega = item.label === "Expertise";
-  const parentActive = isBranchActive(item, location.pathname, location.hash);
-  const [activeSub, setActiveSub] = useState(item.children?.[0]);
 
-  const openMenu = () => { if (timerRef.current) clearTimeout(timerRef.current); setOpen(true); };
-  const closeMenu = () => { timerRef.current = setTimeout(() => setOpen(false), 200); };
+  const openMenu = () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    setOpen(true);
+  };
+  const closeMenu = () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => setOpen(false), 220);
+  };
+
+  // active child for right column (priority: hovered -> route -> first)
+  const [hoveredChild, setHoveredChild] = useState<Child | null>(null);
+  useEffect(() => {
+    if (!open) setHoveredChild(null);
+  }, [open, location.pathname, location.hash]);
 
   useEffect(() => {
-    if (open && isMega) {
-      const match = item.children?.find((c: any) => isBranchActive(c, location.pathname, location.hash));
-      if (match) setActiveSub(match);
-    }
-  }, [open, location.pathname]);
+    // sync initial active child when opening
+    if (!open || !isMega) return;
+    const match = item.children?.find((c: any) => isBranchActive(c, location.pathname, location.hash));
+    setHoveredChild((match as Child) || (item.children?.[0] as Child) || null);
+  }, [open, isMega, item.children, location.pathname, location.hash]);
+
+  const parentActive = isBranchActive(item, location.pathname, location.hash);
 
   return (
     <div className="relative h-full flex items-center" onMouseEnter={openMenu} onMouseLeave={closeMenu}>
-      <Link to={item.path} onClick={() => window.scrollTo(0,0)}
-        className={cn("px-4 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-1",
-          parentActive || open ? "text-primary bg-primary/10" : "text-muted-foreground hover:bg-accent")}>
+      <Link
+        to={item.path}
+        onClick={() => window.scrollTo({ top: 0, left: 0, behavior: "auto" })}
+        className={cn(
+          "px-4 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-1",
+          parentActive || open ? "text-primary bg-primary/10" : "text-muted-foreground hover:bg-accent"
+        )}
+      >
         {item.label}
-        {item.children && <ChevronDown className={cn("h-4 w-4 transition-transform", open && "rotate-180")} />}
+        {item.children?.length ? <ChevronDown className={cn("h-4 w-4 transition-transform", open && "rotate-180")} /> : null}
       </Link>
 
-      {open && item.children && (
-        <div className="absolute top-full left-0 pt-2 z-[100] animate-in fade-in slide-in-from-top-2 duration-200">
+      {open && item.children?.length ? (
+        <div className="absolute top-full left-0 pt-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
           {isMega ? (
             <div className="w-[680px] bg-background border border-border rounded-xl shadow-2xl flex min-h-[320px] overflow-hidden">
-              <div className="w-[220px] bg-muted/20 border-r border-border p-2 flex flex-col gap-1">
-                {item.children.map((child: any) => (
-                  <Link key={child.path} to={child.path} onMouseEnter={() => setActiveSub(child)} onClick={() => setOpen(false)}
-                    className={cn("px-3 py-3 rounded-lg text-sm font-medium flex items-center justify-between transition-all",
-                      (isBranchActive(child, location.pathname, location.hash) || activeSub?.label === child.label) ? "bg-white shadow-sm text-primary" : "text-muted-foreground hover:bg-muted")}>
-                    {child.label} <ChevronRight className="h-4 w-4 opacity-40" />
-                  </Link>
-                ))}
+              {/* left column */}
+              <div className="w-[220px] bg-muted/5 border-r border-border p-2 flex flex-col gap-1">
+                {item.children!.map((child: any) => {
+                  const active = isBranchActive(child, location.pathname, location.hash) || hoveredChild?.label === child.label;
+                  return (
+                    <Link
+                      key={child.path}
+                      to={child.path}
+                      onMouseEnter={() => setHoveredChild(child)}
+                      onClick={() => setOpen(false)}
+                      className={cn(
+                        "px-3 py-3 rounded-lg text-sm font-medium flex items-center justify-between transition-all",
+                        active ? "bg-white shadow-sm text-primary" : "text-muted-foreground hover:bg-muted"
+                      )}
+                    >
+                      {child.label}
+                      <ChevronRight className={cn("h-4 w-4", active ? "opacity-80" : "opacity-40")} />
+                    </Link>
+                  );
+                })}
               </div>
+
+              {/* right column */}
               <div className="flex-1 p-5 bg-background">
-                <h4 className="text-lg font-bold border-b pb-2 mb-4">{activeSub?.label}</h4>
-                <div className="flex flex-col gap-1">
-                  {activeSub?.children?.map((sub: any) => (
-                    <Link key={sub.path} to={sub.path} onClick={() => setOpen(false)}
-                      className={cn("px-3 py-2 rounded-md text-sm", location.pathname === sub.path ? "text-primary font-bold bg-primary/5" : "text-foreground/80 hover:bg-muted")}>
+                <div className="border-b border-border/50 pb-3 mb-4">
+                  <h4 className="text-lg font-bold">{hoveredChild?.label}</h4>
+                  <p className="text-xs text-muted-foreground">Vue d’ensemble & modules spécialisés</p>
+                </div>
+
+                <div className="grid grid-cols-1 gap-1">
+                  {hoveredChild?.path && (
+                    <Link
+                      to={hoveredChild.path}
+                      onClick={() => setOpen(false)}
+                      className={cn(
+                        "flex items-center gap-3 px-3 py-2 rounded-md text-sm",
+                        location.pathname === hoveredChild.path ? "text-primary font-semibold bg-primary/5" : "text-foreground/80 hover:bg-muted"
+                      )}
+                    >
+                      <div className={cn("h-1.5 w-1.5 rounded-full", location.pathname === hoveredChild.path ? "bg-primary" : "bg-muted-foreground/40")} />
+                      {hoveredChild.label} – Vue d’ensemble
+                    </Link>
+                  )}
+
+                  {hoveredChild?.children?.map((sub: any) => (
+                    <Link
+                      key={sub.path}
+                      to={sub.path}
+                      onClick={() => setOpen(false)}
+                      className={cn(
+                        "flex items-center gap-3 px-3 py-2 rounded-md text-sm",
+                        location.pathname === sub.path ? "text-primary font-semibold bg-primary/5" : "text-foreground/80 hover:bg-muted"
+                      )}
+                    >
+                      <div className={cn("h-1.5 w-1.5 rounded-full", location.pathname === sub.path ? "bg-primary" : "bg-muted-foreground/40")} />
                       {sub.label}
                     </Link>
                   ))}
@@ -132,103 +209,265 @@ const DesktopNavItem = ({ item }: { item: any }) => {
               </div>
             </div>
           ) : (
-            <div className="w-64 bg-background border border-border rounded-xl shadow-xl p-2 flex flex-col gap-1">
-              {item.children.map((child: any) => (
-                <Link key={child.path} to={child.path} onClick={() => setOpen(false)}
-                  className={cn("px-4 py-2 text-sm rounded-md", isBranchActive(child, location.pathname, location.hash) ? "text-primary font-bold bg-primary/5" : "text-muted-foreground hover:bg-muted")}>
-                  {child.label}
-                </Link>
-              ))}
+            <div className="w-72 bg-background border border-border rounded-xl shadow-xl p-2 flex flex-col gap-1">
+              <Link
+                to={item.path}
+                onClick={() => setOpen(false)}
+                className={cn(
+                  "px-4 py-2 text-sm rounded-md",
+                  location.pathname === item.path ? "bg-primary/5 text-primary font-semibold" : "text-muted-foreground hover:bg-muted"
+                )}
+              >
+                {item.label} – Vue d’ensemble
+              </Link>
+
+              {item.children!.map((child: any) => {
+                const parsed = parsePathWithHash(child.path);
+                const isHashTarget = parsed.pathname === location.pathname && parsed.hash === (location.hash || "");
+                return (
+                  <Link
+                    key={child.path}
+                    to={parsed.hash ? { pathname: parsed.pathname, hash: parsed.hash } : child.path}
+                    onClick={() => setOpen(false)}
+                    className={cn(
+                      "px-4 py-2 text-sm rounded-md",
+                      isHashTarget || isBranchActive(child, location.pathname, location.hash)
+                        ? "bg-primary/5 text-primary font-semibold"
+                        : "text-muted-foreground hover:bg-muted"
+                    )}
+                  >
+                    {child.label}
+                  </Link>
+                );
+              })}
             </div>
           )}
         </div>
-      )}
+      ) : null}
     </div>
   );
 };
 
-/* ============================================================
-   MOBILE ITEM (TON CODE ORIGINAL QUI MARCHAIT)
-============================================================ */
-const MobileNavItem = ({ item, closeMenu }: { item: any, closeMenu: () => void }) => {
-  const location = useLocation();
-  const [openRoot, setOpenRoot] = useState(false);
-  const active = isBranchActive(item, location.pathname, location.hash);
+/* =========================
+   Mobile components (improved)
+   - clear accordion behavior
+   - nested accordions for second level
+   - close on navigation
+   ========================= */
+const MobileNavItem: React.FC<{ item: NavItemType; closeMobileMenu: () => void }> = ({ item, closeMobileMenu }) => {
+  const [open, setOpen] = useState(false);
 
   return (
-    <div className="w-full border-b border-border/10">
+    <div className="w-full">
       <div className="flex items-center justify-between">
-        <Link to={item.path} onClick={() => { closeMenu(); window.scrollTo(0,0); }} className={cn("flex-1 py-4 px-3 text-lg font-semibold", active ? "text-primary" : "text-foreground")}>
+        <Link
+          to={item.path}
+          onClick={() => closeMobileMenu()}
+          className="px-3 py-2 text-sm font-medium rounded-md text-muted-foreground hover:bg-muted/10"
+        >
           {item.label}
         </Link>
-        {item.children && (
-          <button onClick={() => setOpenRoot(!openRoot)} className="p-4 outline-none">
-            <ChevronDown className={cn("h-5 w-5 transition-transform", openRoot && "rotate-180")} />
+
+        {item.children && item.children.length > 0 && (
+          <button
+            onClick={() => setOpen((s) => !s)}
+            aria-expanded={open}
+            aria-controls={`mobile-${slugify(item.label)}`}
+            className="h-8 w-8 inline-flex items-center justify-center rounded-md hover:bg-accent/10"
+          >
+            <ChevronDown className={cn("h-4 w-4 transition-transform", open && "rotate-180")} />
           </button>
         )}
       </div>
 
-      {openRoot && item.children && (
-        <div className="pl-4 pb-4 flex flex-col gap-2">
-          {item.children.map((child: any) => (
-            <div key={child.label} className="flex flex-col">
-               <Link to={child.path} onClick={closeMenu} className={cn("py-2 text-sm font-medium", isBranchActive(child, location.pathname, location.hash) ? "text-primary" : "text-muted-foreground")}>
-                {child.label}
-              </Link>
-              {child.children && (
-                <div className="pl-4 border-l-2 border-border/50 flex flex-col gap-1 my-1">
-                  {child.children.map((sub: any) => (
-                    <Link key={sub.path} to={sub.path} onClick={closeMenu} className={cn("py-1.5 text-xs", location.pathname === sub.path ? "text-primary font-bold" : "text-muted-foreground")}>
-                      {sub.label}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
+      {item.children && item.children.length > 0 && (
+        <div
+          id={`mobile-${slugify(item.label)}`}
+          className={cn(
+            "overflow-hidden transition-[max-height,opacity] duration-200 ease-in-out pl-4",
+            open ? "max-h-[60rem] opacity-100" : "max-h-0 opacity-0"
+          )}
+        >
+          <ul className="flex flex-col">
+            {item.children.map((child) => (
+              <li key={child.label} className="border-b border-border/10">
+                <MobileChildRow child={child} closeMobileMenu={closeMobileMenu} />
+              </li>
+            ))}
+          </ul>
         </div>
       )}
     </div>
   );
 };
 
-/* ============================================================
-   HEADER
-============================================================ */
-export default function Header() {
+const MobileChildRow: React.FC<{ child: Child; closeMobileMenu: () => void }> = ({ child, closeMobileMenu }) => {
+  const [open, setOpen] = useState(false);
+  const parsed = parsePathWithHash(child.path);
+  const toProp = parsed.hash ? { pathname: parsed.pathname, hash: parsed.hash } : parsed.pathname;
+
+  return (
+    <div className="w-full">
+      <div className="flex items-center justify-between">
+        <Link to={toProp} onClick={() => closeMobileMenu()} className="block px-3 py-2 text-sm rounded-md text-muted-foreground hover:bg-muted/10">
+          {child.label}
+        </Link>
+
+        {child.children && child.children.length > 0 && (
+          <button
+            onClick={() => setOpen((s) => !s)}
+            aria-expanded={open}
+            aria-controls={`mobile-sub-${slugify(child.label)}`}
+            className="h-8 w-8 inline-flex items-center justify-center rounded-md hover:bg-accent/10"
+          >
+            <ChevronDown className={cn("h-4 w-4 transition-transform", open && "rotate-180")} />
+          </button>
+        )}
+      </div>
+
+      {child.children && child.children.length > 0 && (
+        <div
+          id={`mobile-sub-${slugify(child.label)}`}
+          className={cn(
+            "overflow-hidden transition-[max-height,opacity] duration-200 ease-in-out pl-4",
+            open ? "max-h-[40rem] opacity-100" : "max-h-0 opacity-0"
+          )}
+        >
+          <ul className="flex flex-col">
+            {child.children.map((g) => {
+              const pg = parsePathWithHash(g.path);
+              const to = pg.hash ? { pathname: pg.pathname, hash: pg.hash } : pg.pathname;
+              return (
+                <li key={g.path}>
+                  <NavLink
+                    to={to}
+                    onClick={() => closeMobileMenu()}
+                    className={({ isActive }) =>
+                      cn(
+                        "block px-3 py-2 text-sm rounded-md",
+                        isActive ? "text-primary font-medium bg-primary/5" : "text-muted-foreground hover:bg-muted/10"
+                      )
+                    }
+                  >
+                    {g.label}
+                  </NavLink>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+};
+
+/* =========================
+   Header principal
+   ========================= */
+export default function Header(): JSX.Element {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
 
-  useEffect(() => { setMobileOpen(false); }, [location.pathname]);
+  // fermer le menu mobile au changement de route
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [location.pathname, location.hash]);
 
   return (
-    <header className="sticky top-0 z-[100] w-full border-b border-border/40 bg-background/95 backdrop-blur-md">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
-        <Link to="/" onClick={() => window.scrollTo(0, 0)} className="text-xl font-bold tracking-tighter">NOXIA</Link>
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
+      <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
+        <Link to="/" className="mr-4 flex items-center space-x-2 transition-opacity hover:opacity-80">
+          <span className="text-xl font-bold tracking-tighter bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+            NOXIA
+          </span>
+        </Link>
 
-        {/* DESKTOP */}
-        <nav className="hidden md:flex items-center gap-1 h-full">
-          <NavLink to="/" className={({ isActive }) => cn("px-4 py-2 text-sm font-medium rounded-md", isActive ? "text-primary bg-primary/10" : "text-muted-foreground hover:bg-accent")}>Accueil</NavLink>
-          {NAV_CONFIG.map((item) => <DesktopNavItem key={item.label} item={item} />)}
-          <NavLink to="/contact" className={({ isActive }) => cn("px-4 py-2 text-sm font-medium rounded-md", isActive ? "text-primary bg-primary/10" : "text-muted-foreground hover:bg-accent")}>Contact</NavLink>
+        {/* Desktop */}
+        <nav className="hidden md:flex items-center gap-2">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              cn(
+                "px-3 py-2 text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground",
+                isActive ? "text-foreground bg-accent/50" : "text-muted-foreground"
+              )
+            }
+          >
+            Accueil
+          </NavLink>
+
+          {NAV_CONFIG.map((item) => (
+            <DesktopNavItem key={item.label} item={item} />
+          ))}
+
+          <NavLink
+            to="/contact"
+            className={({ isActive }) =>
+              cn(
+                "px-3 py-2 text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground",
+                isActive ? "text-foreground bg-accent/50" : "text-muted-foreground"
+              )
+            }
+          >
+            Contact
+          </NavLink>
         </nav>
 
-        {/* HAMBURGER MOBILE */}
-        <button className="md:hidden p-2 rounded-md hover:bg-muted" onClick={() => setMobileOpen(!mobileOpen)}>
-          {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+        {/* Mobile hamburger */}
+        <div className="flex items-center gap-2 md:hidden">
+          <button
+            aria-label={mobileOpen ? "Fermer le menu" : "Ouvrir le menu"}
+            onClick={() => setMobileOpen((s) => !s)}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-md hover:bg-accent/10"
+          >
+            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
-      {/* OVERLAY MOBILE - Affichage direct sans fioritures pour éviter les bugs */}
-      {mobileOpen && (
-        <div className="fixed inset-0 top-[64px] z-[99] bg-background md:hidden overflow-y-auto">
-          <nav className="flex flex-col p-4">
-            <Link to="/" onClick={() => setMobileOpen(false)} className="py-4 px-3 text-lg font-semibold border-b border-border/10">Accueil</Link>
-            {NAV_CONFIG.map((item) => <MobileNavItem key={item.label} item={item} closeMenu={() => setMobileOpen(false)} />)}
-            <Link to="/contact" onClick={() => setMobileOpen(false)} className="py-4 px-3 text-lg font-semibold border-b border-border/10">Contact</Link>
+      {/* Mobile panel */}
+      <div
+        className={cn(
+          "md:hidden border-t border-border/30 bg-background/95 transition-[max-height,opacity] duration-200 ease-in-out overflow-hidden",
+          mobileOpen ? "max-h-[80vh] opacity-100" : "max-h-0 opacity-0"
+        )}
+      >
+        <div className="container mx-auto px-4 py-4">
+          <nav className="flex flex-col gap-1">
+            <NavLink
+              to="/"
+              onClick={() => setMobileOpen(false)}
+              className={({ isActive }) =>
+                cn(
+                  "px-3 py-2 text-sm font-medium rounded-md",
+                  isActive ? "text-foreground bg-accent/50" : "text-muted-foreground hover:bg-muted/10"
+                )
+              }
+            >
+              Accueil
+            </NavLink>
+
+            {NAV_CONFIG.map((item) => (
+              <div key={item.label} className="w-full">
+                <MobileNavItem item={item} closeMobileMenu={() => setMobileOpen(false)} />
+              </div>
+            ))}
+
+            <NavLink
+              to="/contact"
+              onClick={() => setMobileOpen(false)}
+              className={({ isActive }) =>
+                cn(
+                  "px-3 py-2 text-sm font-medium rounded-md",
+                  isActive ? "text-foreground bg-accent/50" : "text-muted-foreground hover:bg-muted/10"
+                )
+              }
+            >
+              Contact
+            </NavLink>
           </nav>
         </div>
-      )}
+      </div>
     </header>
   );
 }
