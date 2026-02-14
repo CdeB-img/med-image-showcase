@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { ChevronDown, Menu, X, ChevronRight, LayoutGrid } from "lucide-react";
+import { ChevronDown, Menu, X, ChevronRight } from "lucide-react";
 import { projects as _projects } from "@/data/projects";
 
 /* ============================================================
-   CONFIGURATION & DATA
+   CONFIGURATION & DONNÉES
 ============================================================ */
 const projects = Array.isArray(_projects) ? _projects : [];
 
@@ -13,7 +13,7 @@ const NAV_CONFIG = [
   {
     label: "Expertise",
     path: "/expertise",
-    // Ce type de structure (Enfants -> Petits-enfants) déclenchera la "Split View"
+    // La présence de sous-sous-menus (children -> children) déclenche la "Vue Divisée" (Mega Menu)
     children: [
       {
         label: "IRM",
@@ -53,7 +53,7 @@ const NAV_CONFIG = [
   {
     label: "Prestations",
     path: "/prestations-imagerie-medicale",
-    // Structure simple (juste une liste) déclenchera un menu simple
+    // Menu simple (liste déroulante classique)
     children: [
       { label: "CoreLab externalisé", path: "/prestations-imagerie-medicale#corelab" },
       { label: "Reprise d’études", path: "/prestations-imagerie-medicale#reprise" },
@@ -69,16 +69,17 @@ const NAV_CONFIG = [
 ];
 
 /* ============================================================
-   DESKTOP COMPONENT: SPLIT VIEW MENU
-   Gère le cas complexe (Expertise) avec une vue latérale stable
+   COMPOSANT DESKTOP (Gère le Mega Menu Split & Dropdown Simple)
 ============================================================ */
 const DesktopNavItem = ({ item }: { item: typeof NAV_CONFIG[0] }) => {
   const [isOpen, setIsOpen] = useState(false);
+  // Par défaut, on affiche le premier élément, ou celui qui correspond à l'URL en cours
   const [activeSubCategory, setActiveSubCategory] = useState<any>(item.children?.[0]);
+  
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const location = useLocation();
 
-  // Détecte si c'est un "Mega Menu" (contient des sous-sous-menus)
+  // Détecte si c'est un "Mega Menu" complexe (Expertise) ou une liste simple (Prestations)
   const isMegaMenu = item.children?.some(c => c.children && c.children.length > 0);
 
   const handleMouseEnter = () => {
@@ -90,15 +91,14 @@ const DesktopNavItem = ({ item }: { item: typeof NAV_CONFIG[0] }) => {
     timerRef.current = setTimeout(() => setIsOpen(false), 200);
   };
 
-  // Reset la sous-catégorie active quand on ouvre le menu
+  // Mise à jour intelligente de la catégorie active à l'ouverture
   useEffect(() => {
-    if (isOpen && item.children) {
-        // On remet le premier par défaut, ou celui qui matche l'URL
+    if (isOpen && item.children && isMegaMenu) {
         const currentMatch = item.children.find(c => location.pathname.includes(c.path));
         if (currentMatch) setActiveSubCategory(currentMatch);
         else setActiveSubCategory(item.children[0]);
     }
-  }, [isOpen, item.children, location.pathname]);
+  }, [isOpen, item.children, location.pathname, isMegaMenu]);
 
   const isActive = location.pathname.startsWith(item.path);
 
@@ -112,7 +112,7 @@ const DesktopNavItem = ({ item }: { item: typeof NAV_CONFIG[0] }) => {
         to={item.path}
         className={cn(
           "flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-md transition-colors",
-          "hover:bg-accent hover:text-accent-foreground",
+          "hover:bg-accent hover:text-accent-foreground outline-none",
           isActive || isOpen ? "text-primary bg-primary/10" : "text-muted-foreground"
         )}
       >
@@ -124,59 +124,62 @@ const DesktopNavItem = ({ item }: { item: typeof NAV_CONFIG[0] }) => {
         )}
       </Link>
 
-      {/* DROPDOWN LOGIC */}
+      {/* ZONE DÉROULANTE */}
       {isOpen && item.children && (
         <div className="absolute top-full left-0 pt-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
           
-          {/* CAS 1 : MEGA MENU (Expertise - IRM/CT/Methodo) */}
+          {/* CAS 1 : MEGA MENU (Expertise - Vue Divisée) */}
           {isMegaMenu ? (
-            <div className="w-[600px] bg-background border border-border rounded-xl shadow-2xl overflow-hidden flex min-h-[320px]">
+            <div className="w-[650px] bg-background border border-border rounded-xl shadow-2xl overflow-hidden flex min-h-[320px]">
               
-              {/* Colonne GAUCHE : Les Catégories (IRM, CT...) */}
-              <div className="w-1/3 bg-muted/30 border-r border-border p-2 flex flex-col gap-1">
+              {/* Colonne GAUCHE : Les Catégories (CLIQUABLES) */}
+              <div className="w-[200px] bg-muted/30 border-r border-border p-2 flex flex-col gap-1">
                 {item.children.map((child) => (
-                  <div
+                  <Link
                     key={child.path}
-                    onMouseEnter={() => setActiveSubCategory(child)}
+                    to={child.path}
+                    onClick={() => setIsOpen(false)}
+                    onMouseEnter={() => setActiveSubCategory(child)} // Le survol change la droite
                     className={cn(
-                      "cursor-pointer px-3 py-3 rounded-lg text-sm font-medium flex items-center justify-between transition-all",
+                      "group px-3 py-3 rounded-lg text-sm font-medium flex items-center justify-between transition-all outline-none",
                       activeSubCategory?.label === child.label
                         ? "bg-white shadow-sm text-primary"
                         : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
                     )}
                   >
                     {child.label}
+                    {/* Petite flèche active */}
                     {activeSubCategory?.label === child.label && <ChevronRight className="h-4 w-4" />}
-                  </div>
+                  </Link>
                 ))}
               </div>
 
-              {/* Colonne DROITE : Les liens de la catégorie active */}
-              <div className="w-2/3 p-4 bg-background">
+              {/* Colonne DROITE : Les Sous-liens (Segmentation, etc.) */}
+              <div className="flex-1 p-5 bg-background">
                 {activeSubCategory && (
                   <div className="space-y-4 animate-in fade-in slide-in-from-left-2 duration-300 key={activeSubCategory.label}">
-                    <div>
-                        <h4 className="text-lg font-semibold flex items-center gap-2">
+                    <div className="border-b border-border/50 pb-2 mb-4">
+                        <h4 className="text-lg font-bold text-foreground">
                             {activeSubCategory.label}
-                            <Link to={activeSubCategory.path} className="text-xs font-normal text-muted-foreground hover:text-primary underline decoration-dotted">
-                                (Voir la page)
-                            </Link>
                         </h4>
                         <p className="text-xs text-muted-foreground mt-1">{activeSubCategory.description}</p>
                     </div>
                     
-                    <div className="grid grid-cols-1 gap-2">
+                    <div className="grid grid-cols-1 gap-1">
                       {activeSubCategory.children?.map((sub: any) => (
                         <Link
                           key={sub.path}
                           to={sub.path}
                           onClick={() => setIsOpen(false)}
                           className={cn(
-                            "flex items-center gap-3 p-2 rounded-md hover:bg-muted transition-colors text-sm",
+                            "flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted transition-colors text-sm",
                              location.pathname === sub.path ? "bg-primary/5 text-primary font-medium" : "text-foreground/80"
                           )}
                         >
-                          <div className="h-1.5 w-1.5 rounded-full bg-primary/40" />
+                          <div className={cn(
+                              "h-1.5 w-1.5 rounded-full",
+                              location.pathname === sub.path ? "bg-primary" : "bg-muted-foreground/30"
+                          )} />
                           {sub.label}
                         </Link>
                       ))}
@@ -195,8 +198,8 @@ const DesktopNavItem = ({ item }: { item: typeof NAV_CONFIG[0] }) => {
                         to={child.path}
                         onClick={() => setIsOpen(false)}
                         className={cn(
-                            "block px-4 py-2 text-sm rounded-md transition-colors",
-                            location.pathname === child.path || location.hash === child.path.split('#')[1]
+                            "block px-4 py-2.5 text-sm rounded-md transition-colors",
+                            location.pathname === child.path || (child.path.includes('#') && location.hash === '#' + child.path.split('#')[1])
                             ? "bg-primary/5 text-primary font-medium" 
                             : "text-muted-foreground hover:bg-muted hover:text-foreground"
                         )}
@@ -213,14 +216,13 @@ const DesktopNavItem = ({ item }: { item: typeof NAV_CONFIG[0] }) => {
 };
 
 /* ============================================================
-   MOBILE COMPONENT: ACCORDION
-   Simple et efficace pour le mobile
+   COMPOSANT MOBILE (Accordéons imbriqués)
 ============================================================ */
 const MobileNavItem = ({ item, onClose }: { item: any, onClose: () => void }) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const location = useLocation();
 
-    // Auto-expand si on est dans la section
+    // Ouvre automatiquement la section si on est sur une page enfant
     useEffect(() => {
         if (location.pathname.startsWith(item.path)) setIsExpanded(true);
     }, [location.pathname, item.path]);
@@ -228,33 +230,46 @@ const MobileNavItem = ({ item, onClose }: { item: any, onClose: () => void }) =>
     return (
         <div className="border-b border-border/40">
             <div className="flex items-center justify-between py-4 pr-2">
-                <Link to={item.path} onClick={onClose} className="font-semibold text-lg hover:text-primary">
+                <Link 
+                    to={item.path} 
+                    onClick={onClose} 
+                    className={cn(
+                        "font-semibold text-lg hover:text-primary transition-colors",
+                        location.pathname === item.path ? "text-primary" : "text-foreground"
+                    )}
+                >
                     {item.label}
                 </Link>
                 {item.children && (
-                    <button onClick={() => setIsExpanded(!isExpanded)} className="p-2">
-                        <ChevronDown className={cn("h-5 w-5 transition-transform", isExpanded && "rotate-180")} />
+                    <button 
+                        onClick={() => setIsExpanded(!isExpanded)} 
+                        className="p-3 active:bg-muted rounded-full"
+                    >
+                        <ChevronDown className={cn("h-5 w-5 transition-transform duration-300", isExpanded && "rotate-180")} />
                     </button>
                 )}
             </div>
 
-            <div className={cn("overflow-hidden transition-all duration-300", isExpanded ? "max-h-[1000px] opacity-100 pb-4" : "max-h-0 opacity-0")}>
+            <div className={cn("overflow-hidden transition-all duration-300 ease-in-out", isExpanded ? "max-h-[1000px] opacity-100 pb-4" : "max-h-0 opacity-0")}>
                 <div className="pl-4 space-y-4 border-l-2 border-border/50 ml-1">
                     {item.children?.map((child: any) => (
                         <div key={child.path}>
-                            {/* Si l'enfant a lui-même des enfants (ex: IRM -> Segmentation) */}
+                            {/* Cas Menu Complexe (Expertise -> IRM -> ...) */}
                             {child.children ? (
                                 <div className="space-y-2">
-                                    <Link to={child.path} onClick={onClose} className="block font-medium text-foreground/90 text-sm mb-2">
+                                    <Link to={child.path} onClick={onClose} className="block font-medium text-foreground/90 text-sm mb-2 hover:text-primary">
                                         {child.label}
                                     </Link>
-                                    <div className="pl-3 space-y-2">
+                                    <div className="pl-3 space-y-2 border-l border-border/30 ml-1">
                                         {child.children.map((sub: any) => (
                                             <Link 
                                                 key={sub.path} 
                                                 to={sub.path} 
                                                 onClick={onClose}
-                                                className={cn("block text-sm py-1", location.pathname === sub.path ? "text-primary font-medium" : "text-muted-foreground")}
+                                                className={cn(
+                                                    "block text-sm py-1 transition-colors", 
+                                                    location.pathname === sub.path ? "text-primary font-medium" : "text-muted-foreground"
+                                                )}
                                             >
                                                 {sub.label}
                                             </Link>
@@ -262,10 +277,16 @@ const MobileNavItem = ({ item, onClose }: { item: any, onClose: () => void }) =>
                                     </div>
                                 </div>
                             ) : (
+                                /* Cas Menu Simple (Prestations -> Audit) */
                                 <Link 
                                     to={child.path} 
                                     onClick={onClose}
-                                    className={cn("block text-sm", location.pathname === child.path ? "text-primary font-medium" : "text-muted-foreground")}
+                                    className={cn(
+                                        "block text-sm py-1 transition-colors", 
+                                        location.pathname === child.path || (child.path.includes('#') && location.hash === '#' + child.path.split('#')[1])
+                                            ? "text-primary font-medium" 
+                                            : "text-muted-foreground"
+                                    )}
                                 >
                                     {child.label}
                                 </Link>
@@ -279,12 +300,12 @@ const MobileNavItem = ({ item, onClose }: { item: any, onClose: () => void }) =>
 }
 
 /* ============================================================
-   MAIN HEADER
+   HEADER PRINCIPAL
 ============================================================ */
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // Lock body scroll on mobile
+  // Bloque le scroll du body quand le menu mobile est ouvert
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : 'unset';
   }, [mobileOpen]);
@@ -294,13 +315,13 @@ export default function Header() {
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
         
         {/* LOGO */}
-        <Link to="/" className="flex items-center space-x-2 transition-opacity hover:opacity-80">
+        <Link to="/" onClick={() => setMobileOpen(false)} className="flex items-center space-x-2 transition-opacity hover:opacity-80">
           <span className="text-xl font-bold tracking-tighter bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
             NOXIA
           </span>
         </Link>
 
-        {/* DESKTOP NAV */}
+        {/* --- DESKTOP NAVIGATION --- */}
         <nav className="hidden md:flex items-center gap-1">
           <NavLink
             to="/"
@@ -331,27 +352,30 @@ export default function Header() {
           </NavLink>
         </nav>
 
-        {/* MOBILE TOGGLE */}
+        {/* --- MOBILE TOGGLE --- */}
         <button
-          className="md:hidden p-2 text-foreground"
+          className="md:hidden p-2 text-foreground z-[60]"
           onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label="Menu"
         >
           {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
 
-        {/* MOBILE MENU FULLSCREEN */}
+        {/* --- MOBILE MENU FULLSCREEN OVERLAY --- */}
         <div className={cn(
-            "fixed inset-0 top-16 z-40 bg-background md:hidden transition-all duration-300 flex flex-col px-6 overflow-y-auto pb-20",
+            "fixed inset-0 top-16 z-50 bg-background md:hidden transition-all duration-300 flex flex-col px-6 overflow-y-auto pb-32",
             mobileOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0 pointer-events-none"
         )}>
-            <nav className="flex flex-col pt-4">
-                <Link to="/" onClick={() => setMobileOpen(false)} className="py-4 text-lg font-semibold border-b border-border/40">
+            <nav className="flex flex-col pt-4 pb-20">
+                <Link to="/" onClick={() => setMobileOpen(false)} className="py-4 text-lg font-semibold border-b border-border/40 hover:text-primary">
                     Accueil
                 </Link>
+                
                 {NAV_CONFIG.map(item => (
                     <MobileNavItem key={item.label} item={item} onClose={() => setMobileOpen(false)} />
                 ))}
-                <Link to="/contact" onClick={() => setMobileOpen(false)} className="py-4 text-lg font-semibold border-b border-border/40">
+                
+                <Link to="/contact" onClick={() => setMobileOpen(false)} className="py-4 text-lg font-semibold border-b border-border/40 hover:text-primary">
                     Contact
                 </Link>
             </nav>
