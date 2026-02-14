@@ -348,9 +348,10 @@ const MobileNavItem: React.FC<{
           to={item.path}
           onClick={() => closeMobileMenu()}
           className={cn(
-            // TITRE PRINCIPAL EN GRAS POUR LISIBILITÉ
-            "px-3 py-2 text-sm rounded-md",
-            parentActive ? "text-primary font-semibold bg-primary/5" : "text-muted-foreground font-semibold"
+            "px-3 py-3 text-base font-bold tracking-tight rounded-md transition-colors",
+            parentActive
+              ? "text-primary bg-primary/5"
+              : "text-foreground"
           )}
         >
           {item.label}
