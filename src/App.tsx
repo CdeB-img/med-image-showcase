@@ -20,6 +20,8 @@ import IRMImagerieQuantitative from "@/pages/IRMImagerieQuantitative";
 import CTImagerieQuantitative from "@/pages/CTImagerieQuantitative";
 import MethodologieImagerieQuantitative from "@/pages/MethodologieImagerieQuantitative";
 import Prestations from "@/pages/Prestations";
+import Expertise from "@/pages/Expertise";
+
 
 import APropos from "@/pages/APropos";
 
@@ -84,6 +86,7 @@ const App = () => (
           <Route path="/methodologie-imagerie-quantitative" element={<MethodologieImagerieQuantitative />} />
           <Route path="/a-propos" element={<APropos />} />
           <Route path="/prestations-imagerie-medicale" element={<Prestations />} />
+          <Route path="/expertise" element={<Expertise />} />
 
 
           {/* Fallback */}
