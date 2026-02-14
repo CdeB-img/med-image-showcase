@@ -113,6 +113,14 @@ const AboutSection = () => {
           </div>
 
         </div>
+          <div className="text-center pt-6">
+          <Link
+            to="/a-propos"
+            className="inline-block rounded-md border border-border px-6 py-2 text-sm text-muted-foreground hover:text-foreground hover:border-foreground transition"
+          >
+            En savoir plus
+          </Link>
+        </div>
       </div>
     </section>
   );
