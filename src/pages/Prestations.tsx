@@ -2,7 +2,7 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 
-const CANONICAL = "https://noxia-imagerie.fr/prestations";
+const CANONICAL = "https://noxia-imagerie.fr/prestations-imagerie-medicale";
 
 const Prestations = () => {
   const jsonLd = {
