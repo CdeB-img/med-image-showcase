@@ -1,222 +1,200 @@
+import React, { useState, useRef } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { ChevronDown } from "lucide-react"; // Assure-toi d'avoir lucide-react
 import { projects } from "@/data/projects";
-import { useRef, useState } from "react";
 
-export default function Header() {
+/* ============================================================
+   CONFIGURATION DU MENU
+   (Centralise la structure ici pour ne pas polluer le JSX)
+============================================================ */
+const NAV_CONFIG = [
+  {
+    label: "IRM",
+    path: "/irm-imagerie-quantitative",
+    children: [
+      { label: "Segmentation IRM", path: "/segmentation-irm" },
+      { label: "Biomarqueurs cardiaques", path: "/biomarqueurs-irm-cardiaque-essais-cliniques" },
+      { label: "ECV & Mapping", path: "/ecv-mapping-t1-t2-irm-cardiaque" },
+      { label: "Perfusion métabolique neuro", path: "/perfusion-metabolique-neuro-imagerie" },
+      { label: "Corelab IRM", path: "/corelab-essais-cliniques" },
+    ],
+  },
+  {
+    label: "CT",
+    path: "/ct-imagerie-quantitative",
+    children: [
+      { label: "Quantification CT", path: "/quantification-ct" },
+      { label: "CT spectral avancé", path: "/ct-quantitatif-avance-imagerie-spectrale" },
+      { label: "CT perfusion AVC", path: "/ct-perfusion-quantitative-avc" },
+    ],
+  },
+  {
+    label: "Méthodologie",
+    path: "/methodologie-imagerie-quantitative",
+    children: [
+      { label: "Ingénierie quantitative", path: "/ingenierie-imagerie-quantitative" },
+      { label: "Bases multicentriques", path: "/bases-multicentriques" },
+      { label: "Analyse DICOM", path: "/analyse-dicom" },
+      { label: "Recalage multimodal", path: "/recalage-multimodal" },
+    ],
+  },
+  {
+    label: "Projets",
+    path: "/projets",
+    // On mappe tes projets dynamiques ici
+    children: projects.map((p) => ({ label: p.title, path: `/projet/${p.id}` })),
+  },
+];
+
+/* ============================================================
+   SOUS-COMPOSANT : NAV ITEM AVEC DROPDOWN
+============================================================ */
+const NavItem = ({ item }: { item: (typeof NAV_CONFIG)[0] }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  /* ===============================
-     DROPDOWN HOOK
-  =============================== */
-  const useDropdown = () => {
-    const [open, setOpen] = useState(false);
-    const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Vérifie si l'utilisateur est sur le lien parent OU un des enfants
+  // Cela permet de garder le parent "allumé" quand on navigue dans le sous-menu
+  const isActive =
+    location.pathname === item.path ||
+    item.children.some((child) => location.pathname === child.path);
 
-    const openMenu = () => {
-      if (timer.current) clearTimeout(timer.current);
-      setOpen(true);
-    };
-
-    const closeMenu = () => {
-      timer.current = setTimeout(() => setOpen(false), 200);
-    };
-
-    return { open, openMenu, closeMenu, setOpen };
+  const handleMouseEnter = () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    setIsOpen(true);
   };
 
-  const irm = useDropdown();
-  const ct = useDropdown();
-  const methodo = useDropdown();
-  const projets = useDropdown();
-
-  /* ===============================
-     ACTIVE DETECTION
-  =============================== */
-
-  const isIRM = location.pathname.startsWith("/irm") ||
-                location.pathname.includes("segmentation-irm") ||
-                location.pathname.includes("cardiaque") ||
-                location.pathname.includes("perfusion-metabolique");
-
-  const isCT = location.pathname.startsWith("/ct") ||
-               location.pathname.includes("quantification-ct");
-
-  const isMethodo =
-    location.pathname.includes("ingenierie") ||
-    location.pathname.includes("bases-multicentriques") ||
-    location.pathname.includes("analyse-dicom") ||
-    location.pathname.includes("recalage");
-
-  const isProjets =
-    location.pathname.startsWith("/projet") ||
-    location.pathname.startsWith("/projets");
-
-  /* ===============================
-     STYLES
-  =============================== */
-
-  const topItem = (active: boolean) =>
-    cn(
-      "relative px-3 py-2 font-medium tracking-wide transition duration-200",
-      "text-muted-foreground hover:text-foreground",
-      active && "text-foreground"
-    );
-
-  const underline = (active: boolean) =>
-    cn(
-      "absolute left-0 -bottom-[2px] h-[2px] w-full bg-white transition-opacity duration-200",
-      active ? "opacity-100" : "opacity-0"
-    );
-
-  const subItem =
-    "block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition rounded-md";
-
-  /* ===============================
-     COMPONENT
-  =============================== */
+  const handleMouseLeave = () => {
+    timerRef.current = setTimeout(() => {
+      setIsOpen(false);
+    }, 150); // Petit délai pour éviter les fermetures frustrantes
+  };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/75">
-      <div className="container mx-auto flex h-16 items-center justify-between px-6">
+    <div
+      className="relative flex items-center h-full"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <Link
+        to={item.path}
+        className={cn(
+          "group flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors rounded-md",
+          "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground outline-none",
+          isActive ? "text-primary bg-primary/10" : "text-muted-foreground"
+        )}
+      >
+        {item.label}
+        {/* Petite flèche animée */}
+        <ChevronDown
+          className={cn(
+            "h-4 w-4 transition-transform duration-200 opacity-50 group-hover:opacity-100",
+            isOpen && "rotate-180" // La flèche se retourne quand ouvert
+          )}
+        />
+      </Link>
 
+      {/* DROPDOWN AREA */}
+      {/* Astuce : Un padding invisible (pt-4) sert de pont pour la souris */}
+      <div
+        className={cn(
+          "absolute top-full left-0 pt-2 w-64 z-50 transition-all duration-200 ease-in-out origin-top-left",
+          isOpen
+            ? "opacity-100 translate-y-0 visible"
+            : "opacity-0 -translate-y-2 invisible pointer-events-none"
+        )}
+      >
+        <div className="overflow-hidden rounded-lg border border-border/50 bg-background/95 shadow-xl backdrop-blur-md ring-1 ring-black/5">
+          <ul className="py-2 flex flex-col">
+            {item.children.map((child) => (
+              <li key={child.path}>
+                <NavLink
+                  to={child.path}
+                  className={({ isActive }) =>
+                    cn(
+                      "relative block px-4 py-2.5 text-sm transition-colors hover:bg-muted/50",
+                      isActive
+                        ? "text-primary font-medium bg-primary/5" // Style page active
+                        : "text-muted-foreground hover:text-foreground"
+                    )
+                  }
+                >
+                  {/* Petit indicateur visuel sur le survol ou actif */}
+                  <span className={cn(
+                     "absolute left-0 top-0 bottom-0 w-[2px] bg-primary transition-opacity duration-200",
+                      location.pathname === child.path ? "opacity-100" : "opacity-0"
+                  )}/>
+                  {child.label}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* ============================================================
+   COMPOSANT PRINCIPAL
+============================================================ */
+export default function Header() {
+  return (
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
+      <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
+        
         {/* LOGO */}
         <Link
           to="/"
-          className="text-lg font-semibold tracking-[0.15em] hover:opacity-90 transition"
+          className="mr-8 flex items-center space-x-2 transition-opacity hover:opacity-80"
         >
-          NOXIA
+          <span className="text-xl font-bold tracking-tighter bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+            NOXIA
+          </span>
         </Link>
 
-        <nav className="flex items-center gap-10 text-sm">
-
-          {/* ACCUEIL */}
-          <NavLink to="/" className={({ isActive }) => topItem(isActive)}>
-            {({ isActive }) => (
-              <span className="relative">
-                Accueil
-                <span className={underline(isActive)} />
-              </span>
-            )}
+        {/* NAVIGATION DESKTOP */}
+        <nav className="hidden md:flex items-center gap-2">
+          
+          {/* LIEN SIMPLE (ACCUEIL) */}
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              cn(
+                "px-3 py-2 text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground",
+                isActive ? "text-foreground bg-accent/50" : "text-muted-foreground"
+              )
+            }
+          >
+            Accueil
           </NavLink>
 
-          {/* ================= IRM ================= */}
-          <div
-            className="relative"
-            onMouseEnter={irm.openMenu}
-            onMouseLeave={irm.closeMenu}
+          {/* LIENS AVEC DROPDOWNS (Générés depuis la config) */}
+          {NAV_CONFIG.map((item) => (
+            <NavItem key={item.label} item={item} />
+          ))}
+
+          {/* LIEN SIMPLE (CONTACT) */}
+          <NavLink
+            to="/contact"
+            className={({ isActive }) =>
+              cn(
+                "px-3 py-2 text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground",
+                isActive ? "text-foreground bg-accent/50" : "text-muted-foreground"
+              )
+            }
           >
-            <Link to="/irm-imagerie-quantitative" className={topItem(isIRM)}>
-              <span className="relative">
-                IRM
-                <span className={underline(isIRM)} />
-              </span>
-            </Link>
-
-            {irm.open && (
-              <div className="absolute left-0 mt-4 w-72 rounded-lg border border-border bg-background shadow-xl p-3">
-                <ul className="space-y-1">
-                  <li><Link to="/segmentation-irm" className={subItem}>Segmentation IRM</Link></li>
-                  <li><Link to="/biomarqueurs-irm-cardiaque-essais-cliniques" className={subItem}>Biomarqueurs cardiaques</Link></li>
-                  <li><Link to="/ecv-mapping-t1-t2-irm-cardiaque" className={subItem}>ECV & Mapping</Link></li>
-                  <li><Link to="/perfusion-metabolique-neuro-imagerie" className={subItem}>Perfusion métabolique neuro</Link></li>
-                  <li><Link to="/corelab-essais-cliniques" className={subItem}>Corelab IRM</Link></li>
-                </ul>
-              </div>
-            )}
-          </div>
-
-          {/* ================= CT ================= */}
-          <div
-            className="relative"
-            onMouseEnter={ct.openMenu}
-            onMouseLeave={ct.closeMenu}
-          >
-            <Link to="/ct-imagerie-quantitative" className={topItem(isCT)}>
-              <span className="relative">
-                CT
-                <span className={underline(isCT)} />
-              </span>
-            </Link>
-
-            {ct.open && (
-              <div className="absolute left-0 mt-4 w-72 rounded-lg border border-border bg-background shadow-xl p-3">
-                <ul className="space-y-1">
-                  <li><Link to="/quantification-ct" className={subItem}>Quantification CT</Link></li>
-                  <li><Link to="/ct-quantitatif-avance-imagerie-spectrale" className={subItem}>CT spectral avancé</Link></li>
-                  <li><Link to="/ct-perfusion-quantitative-avc" className={subItem}>CT perfusion AVC</Link></li>
-                </ul>
-              </div>
-            )}
-          </div>
-
-          {/* ================= MÉTHODOLOGIE ================= */}
-          <div
-            className="relative"
-            onMouseEnter={methodo.openMenu}
-            onMouseLeave={methodo.closeMenu}
-          >
-            <Link to="/methodologie-imagerie-quantitative" className={topItem(isMethodo)}>
-              <span className="relative">
-                Méthodologie
-                <span className={underline(isMethodo)} />
-              </span>
-            </Link>
-
-            {methodo.open && (
-              <div className="absolute left-0 mt-4 w-72 rounded-lg border border-border bg-background shadow-xl p-3">
-                <ul className="space-y-1">
-                  <li><Link to="/ingenierie-imagerie-quantitative" className={subItem}>Ingénierie quantitative</Link></li>
-                  <li><Link to="/bases-multicentriques" className={subItem}>Bases multicentriques</Link></li>
-                  <li><Link to="/analyse-dicom" className={subItem}>Analyse DICOM</Link></li>
-                  <li><Link to="/recalage-multimodal" className={subItem}>Recalage multimodal</Link></li>
-                </ul>
-              </div>
-            )}
-          </div>
-
-          {/* ================= PROJETS ================= */}
-          <div
-            className="relative"
-            onMouseEnter={projets.openMenu}
-            onMouseLeave={projets.closeMenu}
-          >
-            <Link to="/projets" className={topItem(isProjets)}>
-              <span className="relative">
-                Projets
-                <span className={underline(isProjets)} />
-              </span>
-            </Link>
-
-            {projets.open && (
-              <div className="absolute left-0 mt-4 w-72 rounded-lg border border-border bg-background shadow-xl p-3">
-                <ul className="space-y-1 max-h-80 overflow-y-auto">
-                  {projects.map((project) => (
-                    <li key={project.id}>
-                      <Link
-                        to={`/projet/${project.id}`}
-                        className={subItem}
-                      >
-                        {project.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-
-          {/* CONTACT */}
-          <NavLink to="/contact" className={({ isActive }) => topItem(isActive)}>
-            {({ isActive }) => (
-              <span className="relative">
-                Contact
-                <span className={underline(isActive)} />
-              </span>
-            )}
+            Contact
           </NavLink>
-
         </nav>
+        
+        {/* Placeholder pour bouton mobile ou action (optionnel) */}
+        <div className="flex items-center gap-2">
+            {/* Tu pourras ajouter ton Menu Mobile (Hamburger) ici plus tard */}
+        </div>
+
       </div>
     </header>
   );
