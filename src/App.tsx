@@ -18,7 +18,7 @@ import CTPerfusionQuantitative from "@/pages/CTPerfusionQuantitative";
 import CorelabEC from "@/pages/CorelabEC";
 import IRMImagerieQuantitative from "@/pages/IRMImagerieQuantitative";
 import CTImagerieQuantitative from "@/pages/CTImagerieQuantitative";
-import MethodologieImagerieQuantitativefrom "@/pages/MethodologieImagerieQuantitative";
+import MethodologieImagerieQuantitative from "@/pages/MethodologieImagerieQuantitative";
 
 import Header from "@/components/Header";
 
