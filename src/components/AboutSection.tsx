@@ -1,125 +1,179 @@
-import {
-  Brain,
-  Heart,
-  Scan,
-  Database,
-  FlaskConical,
-  Wrench,
-  Lightbulb
-} from "lucide-react";
-
+import { User, Lightbulb, Target, Stethoscope, FlaskConical, Database, Brain, Heart, Scan, Wrench } from "lucide-react";
+import { Link } from "react-router-dom";
 const AboutSection = () => {
   return (
     <section className="py-20 bg-secondary/20">
       <div className="container px-4 md:px-6">
         <div className="max-w-4xl mx-auto space-y-16">
-
-          {/* HEADER */}
+          {/* Header */}
           <div className="text-center space-y-4">
-            <h2 className="text-3xl md:text-4xl font-bold">
-              Une expertise structurée au service du signal
-            </h2>
+            <h2 className="text-3xl md:text-4xl font-bold">À propos</h2>
             <div className="w-20 h-1 bg-primary mx-auto rounded-full" />
-            <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-              Ingénierie quantitative en IRM et CT pour la recherche clinique,
-              les essais multicentriques et la production de biomarqueurs reproductibles.
+          </div>
+
+          {/* Introduction */}
+          <div className="space-y-6">
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              J’interviens comme expert indépendant en imagerie médicale quantitative,
+              avec une activité structurée autour du corelab IRM et CT, 
+              de la production de biomarqueurs d’imagerie et de l’ingénierie méthodologique
+              pour essais cliniques et projets multicentriques.
+            </p>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              Mon travail s'inscrit dans une approche <em className="text-foreground">signal-driven</em>, 
+              rigoureuse et transparente, où chaque outil, chaque masque et chaque métrique repose 
+              sur des choix explicites, traçables et interprétables, jamais sur une boîte noire.
+            </p>
+
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              Chaque métrique produite est pensée pour être statistiquement exploitable,
+              physiopathologiquement cohérente et reproductible inter-centre.
             </p>
           </div>
 
-          {/* POSITIONNEMENT */}
-          <div className="space-y-6 text-muted-foreground leading-relaxed">
-            <p>
-              NOXIA intervient à l’interface entre clinique, recherche et ingénierie.
-              Chaque flux d’analyse est conçu comme une chaîne méthodologique explicite :
-              contrôle DICOM, cohérence géométrique, segmentation, normalisation,
-              quantification et traçabilité complète.
-            </p>
-
-            <p>
-              L’approche est <em className="text-foreground">signal-driven</em> :
-              aucune métrique n’est produite sans justification physiopathologique,
-              ni validation de robustesse inter-centre.
-            </p>
-          </div>
-
-          {/* DOMAINES */}
-          <div className="grid md:grid-cols-2 gap-6">
-
-            <div className="p-6 rounded-xl bg-background border border-border space-y-3">
-              <div className="flex items-center gap-3">
-                <Heart className="w-5 h-5 text-primary" />
-                <h3 className="font-semibold">IRM cardiaque avancée</h3>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                LGE, T1/T2 mapping, ECV, biomarqueurs myocardiques,
-                structuration CoreLab et essais randomisés.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-xl bg-background border border-border space-y-3">
-              <div className="flex items-center gap-3">
-                <Brain className="w-5 h-5 text-primary" />
-                <h3 className="font-semibold">Neuro-imagerie AVC</h3>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                Perfusion CT, segmentation lésionnelle,
-                pénombre, OEF/CMRO₂ et analyse longitudinale.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-xl bg-background border border-border space-y-3">
-              <div className="flex items-center gap-3">
-                <Scan className="w-5 h-5 text-primary" />
-                <h3 className="font-semibold">CT quantitatif</h3>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                Spectral, monoénergétique, décomposition matière,
-                calibration phantom et harmonisation inter-constructeurs.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-xl bg-background border border-border space-y-3">
-              <div className="flex items-center gap-3">
-                <Database className="w-5 h-5 text-primary" />
-                <h3 className="font-semibold">Multicentrique & data</h3>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                Anonymisation avancée, détection d’incohérences,
-                normalisation géométrique et structuration des bases.
-              </p>
-            </div>
-
-          </div>
-
-          {/* PHILOSOPHIE */}
-          <div className="p-8 rounded-xl bg-primary/5 border border-primary/20 space-y-4">
+          {/* Origine */}
+          <div className="space-y-6">
             <div className="flex items-center gap-3">
-              <Lightbulb className="w-5 h-5 text-primary" />
-              <h3 className="font-semibold text-lg">
-                Principe directeur
-              </h3>
+              <User className="w-6 h-6 text-primary" />
+              <h3 className="text-xl font-semibold">Origine de l'approche</h3>
             </div>
-
             <p className="text-muted-foreground leading-relaxed">
-              La robustesse méthodologique précède l’automatisation.
-              L’IA est évaluée, validée et intégrée dans des flux contrôlés,
-              jamais utilisée comme boîte noire autonome.
+              Mon expertise s'est construite sur plus de dix ans de pratique en recherche hospitalo-universitaire, 
+              au contact direct des données cliniques hétérogènes, des contraintes méthodologiques réelles, 
+              des exigences de reproductibilité et de validation scientifique.
             </p>
-
-            <p className="text-sm italic text-muted-foreground">
-              Chaque outil est conçu pour être interprétable,
-              reproductible et statistiquement exploitable.
+            <p className="text-muted-foreground leading-relaxed">
+              Cet environnement a profondément structuré ma manière de travailler : concevoir des outils robustes, 
+              compréhensibles et adaptés aux données, plutôt que des solutions génériques déconnectées du terrain.
             </p>
           </div>
 
-        </div>
-          <div className="text-center pt-6">
-          <Link
-            to="/a-propos"
-            className="inline-block rounded-md border border-border px-6 py-2 text-sm text-muted-foreground hover:text-foreground hover:border-foreground transition"
-          >
-            En savoir plus
-          </Link>
+          {/* Philosophie */}
+          <div className="space-y-6">
+            <div className="flex items-center gap-3">
+              <Lightbulb className="w-6 h-6 text-primary" />
+              <h3 className="text-xl font-semibold">Philosophie de travail</h3>
+            </div>
+            <p className="text-muted-foreground leading-relaxed">
+              Je ne propose pas des logiciels figés, mais des <strong className="text-foreground">outils méthodologiques sur mesure</strong>, 
+              pensés pour répondre à des problématiques précises, adaptés aux contraintes d'un projet, 
+              d'une étude ou d'un jeu de données donné.
+            </p>
+            <div className="grid md:grid-cols-3 gap-4 pt-4">
+              <div className="p-4 rounded-lg bg-background border border-border">
+                <p className="text-sm text-muted-foreground">
+                  Compréhension fine du signal et des métadonnées (DICOM/NIfTI, géométrie, unités)
+                </p>
+              </div>
+              <div className="p-4 rounded-lg bg-background border border-border">
+                <p className="text-sm text-muted-foreground">
+                  Séparation claire entre visualisation, segmentation et quantification
+                </p>
+              </div>
+              <div className="p-4 rounded-lg bg-background border border-border">
+                <p className="text-sm text-muted-foreground">
+                  Attention particulière à la cohérence physiopathologique des résultats
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Domaines */}
+          <div className="space-y-6">
+            <div className="flex items-center gap-3">
+              <Target className="w-6 h-6 text-primary" />
+              <h3 className="text-xl font-semibold">Domaines d'expertise</h3>
+            </div>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="flex items-start gap-3 p-4 rounded-lg bg-background border border-border">
+                <Brain className="w-5 h-5 text-primary mt-0.5" />
+                <div>
+                  <p className="font-medium text-sm">Corelab neurovasculaire</p>
+                  <p className="text-xs text-muted-foreground">
+                  Perfusion CT, segmentation lésionnelle AVC
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 p-4 rounded-lg bg-background border border-border">
+                <Heart className="w-5 h-5 text-primary mt-0.5" />
+                <div>
+                  <p className="font-medium text-sm">Corelab IRM cardiaque</p>
+                  <p className="text-xs text-muted-foreground">
+                  Mapping T1/T2, ECV, biomarqueurs myocardiques
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 p-4 rounded-lg bg-background border border-border">
+                <Scan className="w-5 h-5 text-primary mt-0.5" />
+                <div>
+                  <p className="font-medium text-sm">CT thoracique et cardiovasculaire</p>
+                  <p className="text-xs text-muted-foreground">Analyse morphologique et quantification</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 p-4 rounded-lg bg-background border border-border">
+                <FlaskConical className="w-5 h-5 text-primary mt-0.5" />
+                <p className="font-medium text-sm">Imagerie CT avancée</p>
+                <p className="text-xs text-muted-foreground">
+                Spectral, reconstruction mono-énergétique, modélisation physique
+                </p>
+              </div>
+              <div className="flex items-start gap-3 p-4 rounded-lg bg-background border border-border">
+                <Database className="w-5 h-5 text-primary mt-0.5" />
+                <div>
+                  <p className="font-medium text-sm">Structuration multicentrique</p>
+                  <p className="text-xs text-muted-foreground">
+                  Anonymisation, détection d’incohérences, harmonisation
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 p-4 rounded-lg bg-background border border-border">
+                <Wrench className="w-5 h-5 text-primary mt-0.5" />
+                <div>
+                  <p className="font-medium text-sm">Outils spécifiques</p>
+                  <p className="text-xs text-muted-foreground">Développement pour la recherche</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Applications */}
+          <div className="space-y-6">
+            <div className="flex items-center gap-3">
+              <Stethoscope className="w-6 h-6 text-primary" />
+              <h3 className="text-xl font-semibold">Applications</h3>
+            </div>
+            <div className="flex flex-wrap justify-center gap-3">
+              {["Recherche académique et clinique", "Études multicentriques et longitudinales", "Validation méthodologique et reproductibilité", "Préparation et structuration de données", "Conception d’approches algorithmiques sur mesure"].map(item => (
+                <span key={item} className="px-4 py-2 text-sm rounded-full bg-primary/10 text-primary border border-primary/20">
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Positionnement */}
+          <div className="p-6 rounded-xl bg-primary/5 border border-primary/20 space-y-4">
+            <h3 className="text-xl font-semibold">Cadre méthodologique</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              Je travaille de manière indépendante, sans dépendance à des solutions propriétaires, 
+              avec pour objectif de produire des résultats <strong className="text-foreground">fiables</strong>, 
+              <strong className="text-foreground"> interprétables</strong> et 
+              <strong className="text-foreground"> directement exploitables</strong> pour l'analyse scientifique, 
+              la validation d'algorithmes ou la recherche clinique.
+            </p>
+            <p className="text-sm italic text-muted-foreground pt-2 border-t border-primary/20">
+              Chaque outil est conçu comme un objet méthodologique explicite, au service de la compréhension des données, jamais comme une simple démonstration technologique.
+            </p>
+          </div>
+          {/* CTA vers page complète */}
+          <div className="text-center pt-8">
+            <Link
+              to="/a-propos"
+              className="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:opacity-80 transition"
+            >
+              Découvrir le parcours complet →
+            </Link>
+          </div>
         </div>
       </div>
     </section>
