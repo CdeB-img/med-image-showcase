@@ -27,6 +27,9 @@ import Projects from "./pages/Projects";
 import ProjectDetail from "./pages/ProjectDetail";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import { track } from "@vercel/analytics/react";
+
+
 
 const queryClient = new QueryClient();
 
@@ -43,6 +46,17 @@ function ScrollToTop() {
   return null;
 }
 
+function RouteTracker() {
+  const location = useLocation();
+
+  useEffect(() => {
+    track("pageview", {
+      path: location.pathname + location.search,
+    });
+  }, [location.pathname, location.search]);
+
+  return null;
+}
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -50,6 +64,7 @@ const App = () => (
       <Sonner />
 
       <BrowserRouter basename="/">
+        <RouteTracker />
         <ScrollToTop />
 
         {/* 🔹 NAVBAR GLOBALE */}
