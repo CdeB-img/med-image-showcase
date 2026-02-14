@@ -14,6 +14,7 @@ import ECVMappingCardiaque from "@/pages/ECVMappingCardiaque";
 import IngenierieImagerieQuantitative from "@/pages/IngenierieImagerieQuantitative";
 import CTQuantitatifAvance from "@/pages/CTQuantitatifAvance";
 import PerfusionMetaboliqueNeuro from "@/pages/PerfusionMetaboliqueNeuro";
+import CTPerfusionQuantitative from "@/pages/CTPerfusionQuantitative";
 import CorelabEC from "@/pages/CorelabEC";
 
 import Header from "@/components/Header";
@@ -67,6 +68,7 @@ const App = () => (
           <Route path="/perfusion-metabolique-neuro-imagerie" element={<PerfusionMetaboliqueNeuro />} />
           <Route path="/ingenierie-imagerie-quantitative" element={<IngenierieImagerieQuantitative />} />
           <Route path="/ct-quantitatif-avance-imagerie-spectrale" element={<CTQuantitatifAvance />} />
+          <Route path="/ct-perfusion-quantitative-avc" element={<CTPerfusionQuantitative />} />
           {/* Fallback */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -195,6 +195,17 @@ export default function Header() {
                       CT Spectral imagerie quantitative
                     </Link>
                   </li>
+                  <li>
+                    <Link
+                      to="/ct-perfusion-quantitative-avc"
+                      className="block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition"
+                      onClick={() => setExpertiseOpen(false)}
+                    >
+                      CT Spectral imagerie quantitative
+                    </Link>
+                  </li>
+
+
 
 
                 </ul>
