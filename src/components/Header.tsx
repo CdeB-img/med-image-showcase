@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { ChevronDown, Menu, X } from "lucide-react";
+import { ChevronDown } from "lucide-react";
+
 import { projects as _projects } from "@/data/projects";
 
 const projects = Array.isArray(_projects) ? _projects : [];
@@ -78,10 +80,6 @@ const parsePathWithHash = (p: string) => {
 };
 
 /* NavItem capable de gérer children qui ont eux-mêmes children (2 niveaux) */
-import React, { useEffect, useRef, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
-import { cn } from "@/lib/utils";
-import { ChevronDown } from "lucide-react";
 
 type Child = { label: string; path: string };
 type NavItemType = { label: string; path: string; children: Child[] };
@@ -249,13 +247,6 @@ const NavItem: React.FC<{
           </div>
         </div>
       )}
-
-      {/* Mobile rendering handled elsewhere; ici on ne touche pas au mobile */}
-    </div>
-  );
-};
-
-export default NavItem;
 
 
       {/* Mobile collapsible: affiche children, et chaque child peut dérouler ses grandchildren */}
