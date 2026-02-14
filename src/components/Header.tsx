@@ -48,10 +48,10 @@ const NAV_CONFIG = [
     label: "Prestations",
     path: "/prestations-imagerie-medicale",
     children: [
-      { label: "CoreLab externalisé", path: "/prestations#corelab" },
-      { label: "Reprise d’études", path: "/prestations#reprise" },
-      { label: "Audit méthodologique", path: "/prestations#audit" },
-      { label: "Développement sur mesure", path: "/prestations#ingenierie" },
+      { label: "CoreLab externalisé", path: "/prestations-imagerie-medicale#corelab" },
+      { label: "Reprise d’études", path: "/prestations-imagerie-medicale#reprise" },
+      { label: "Audit méthodologique", path: "/prestations-imagerie-medicale#audit" },
+      { label: "Développement sur mesure", path: "/prestations-imagerie-medicale#ingenierie" },
     ],
   },
   {
