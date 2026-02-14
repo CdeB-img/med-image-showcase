@@ -84,10 +84,6 @@ const parsePathWithHash = (p: string) => {
   };
 };
 
-/**
- * Retourne true si l'item (ou un descendant) correspond à la route courante.
- * Compare pathname + hash pour gérer les ancres.
- */
 const isBranchActive = (item: NavItemType | Child | undefined, pathname: string, hash: string | undefined) => {
   if (!item || !item.path) return false;
   const parsed = parsePathWithHash(item.path);
@@ -111,8 +107,7 @@ const isBranchActive = (item: NavItemType | Child | undefined, pathname: string,
 /* =========================
    DesktopNavItem
    - Expertise = mega menu 2 colonnes
-   - autres = simple dropdown
-   - highlight cascade : parent + child + grandchild
+   - highlight adouci (fond translucide)
    ========================= */
 const DesktopNavItem: React.FC<{ item: NavItemType }> = ({ item }) => {
   const location = useLocation();
@@ -137,7 +132,6 @@ const DesktopNavItem: React.FC<{ item: NavItemType }> = ({ item }) => {
     }, 220);
   };
 
-  // si on ouvre, synchroniser la colonne droite avec la route active si possible
   useEffect(() => {
     if (!open || !isMega) return;
     const match = item.children?.find((c: any) => isBranchActive(c, location.pathname, location.hash));
@@ -153,7 +147,7 @@ const DesktopNavItem: React.FC<{ item: NavItemType }> = ({ item }) => {
         onClick={() => window.scrollTo({ top: 0, left: 0, behavior: "auto" })}
         className={cn(
           "px-4 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-1",
-          parentActive || open ? "text-primary bg-primary/10" : "text-muted-foreground hover:bg-accent"
+          parentActive || open ? "text-primary bg-muted/10" : "text-muted-foreground hover:bg-accent"
         )}
       >
         {item.label}
@@ -163,8 +157,8 @@ const DesktopNavItem: React.FC<{ item: NavItemType }> = ({ item }) => {
       {open && item.children?.length ? (
         <div className="absolute top-full left-0 pt-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
           {isMega ? (
-            <div className="w-[680px] bg-background border border-border rounded-xl shadow-2xl flex min-h-[320px] overflow-hidden">
-              {/* colonne gauche : catégories */}
+            <div className="w-[680px] bg-background/80 border border-border rounded-xl shadow-2xl flex min-h-[320px] overflow-hidden backdrop-blur-sm">
+              {/* colonne gauche */}
               <div className="w-[220px] bg-muted/5 border-r border-border p-2 flex flex-col gap-1">
                 {item.children!.map((child: any) => {
                   const active = isBranchActive(child, location.pathname, location.hash) || hoveredChild?.label === child.label;
@@ -176,7 +170,7 @@ const DesktopNavItem: React.FC<{ item: NavItemType }> = ({ item }) => {
                       onClick={() => setOpen(false)}
                       className={cn(
                         "px-3 py-3 rounded-lg text-sm font-medium flex items-center justify-between transition-all",
-                        active ? "bg-white shadow-sm text-primary" : "text-muted-foreground hover:bg-muted"
+                        active ? "bg-muted/20 text-primary" : "text-muted-foreground hover:bg-muted"
                       )}
                     >
                       {child.label}
@@ -186,10 +180,10 @@ const DesktopNavItem: React.FC<{ item: NavItemType }> = ({ item }) => {
                 })}
               </div>
 
-              {/* colonne droite : sous-pages du child actif */}
-              <div className="flex-1 p-5 bg-background">
+              {/* colonne droite */}
+              <div className="flex-1 p-5 bg-background/90">
                 <div className="border-b border-border/50 pb-3 mb-4">
-                  <h4 className="text-lg font-bold">{hoveredChild?.label}</h4>
+                  <h4 className="text-lg font-semibold">{hoveredChild?.label}</h4>
                 </div>
 
                 <div className="grid grid-cols-1 gap-1">
@@ -225,7 +219,7 @@ const DesktopNavItem: React.FC<{ item: NavItemType }> = ({ item }) => {
                     className={cn(
                       "px-4 py-2 text-sm rounded-md",
                       isHashTarget || isBranchActive(child, location.pathname, location.hash)
-                        ? "bg-primary/5 text-primary font-semibold"
+                        ? "bg-muted/10 text-primary font-semibold"
                         : "text-muted-foreground hover:bg-muted"
                     )}
                   >
@@ -242,15 +236,23 @@ const DesktopNavItem: React.FC<{ item: NavItemType }> = ({ item }) => {
 };
 
 /* =========================
-   Mobile components (améliorés)
-   - accordéons imbriqués
-   - highlight cascade : parent + child + grandchild
+   Mobile: un seul top-level ouvert, un seul sous-level ouvert
+   - sections principales en gras
+   - highlight cascade
    ========================= */
-const MobileChildRow: React.FC<{ child: Child; closeMobileMenu: () => void; pathname: string; hash?: string }> = ({ child, closeMobileMenu, pathname, hash }) => {
-  const [open, setOpen] = useState(false);
+const MobileChildRow: React.FC<{ child: Child; closeMobileMenu: () => void; pathname: string; hash?: string; openChildKey: string | null; setOpenChildKey: (k: string | null) => void }> = ({
+  child,
+  closeMobileMenu,
+  pathname,
+  hash,
+  openChildKey,
+  setOpenChildKey,
+}) => {
   const parsed = parsePathWithHash(child.path);
   const toProp = parsed.hash ? { pathname: parsed.pathname, hash: parsed.hash } : parsed.pathname;
   const childActive = isBranchActive(child, pathname, hash);
+  const key = slugify(child.label);
+  const open = openChildKey === key;
 
   return (
     <div className="w-full">
@@ -268,9 +270,9 @@ const MobileChildRow: React.FC<{ child: Child; closeMobileMenu: () => void; path
 
         {child.children && child.children.length > 0 && (
           <button
-            onClick={() => setOpen((s) => !s)}
+            onClick={() => setOpenChildKey(open ? null : key)}
             aria-expanded={open}
-            aria-controls={`mobile-sub-${slugify(child.label)}`}
+            aria-controls={`mobile-sub-${key}`}
             className="h-8 w-8 inline-flex items-center justify-center rounded-md hover:bg-accent/10"
           >
             <ChevronDown className={cn("h-4 w-4 transition-transform", open && "rotate-180")} />
@@ -280,7 +282,7 @@ const MobileChildRow: React.FC<{ child: Child; closeMobileMenu: () => void; path
 
       {child.children && child.children.length > 0 && (
         <div
-          id={`mobile-sub-${slugify(child.label)}`}
+          id={`mobile-sub-${key}`}
           className={cn(
             "overflow-hidden transition-[max-height,opacity] duration-200 ease-in-out pl-4",
             open ? "max-h-[40rem] opacity-100" : "max-h-0 opacity-0"
@@ -315,9 +317,24 @@ const MobileChildRow: React.FC<{ child: Child; closeMobileMenu: () => void; path
   );
 };
 
-const MobileNavItem: React.FC<{ item: NavItemType; closeMobileMenu: () => void; pathname: string; hash?: string }> = ({ item, closeMobileMenu, pathname, hash }) => {
-  const [open, setOpen] = useState(false);
+const MobileNavItem: React.FC<{ item: NavItemType; closeMobileMenu: () => void; pathname: string; hash?: string; openTopKey: string | null; setOpenTopKey: (k: string | null) => void }> = ({
+  item,
+  closeMobileMenu,
+  pathname,
+  hash,
+  openTopKey,
+  setOpenTopKey,
+}) => {
   const parentActive = isBranchActive(item, pathname, hash);
+  const topKey = slugify(item.label);
+  const open = openTopKey === topKey;
+
+  // state to allow only one child open at a time inside this top-level
+  const [openChildKey, setOpenChildKey] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!open) setOpenChildKey(null);
+  }, [open]);
 
   return (
     <div className="w-full">
@@ -327,7 +344,7 @@ const MobileNavItem: React.FC<{ item: NavItemType; closeMobileMenu: () => void; 
           onClick={() => closeMobileMenu()}
           className={cn(
             "px-3 py-2 text-sm font-medium rounded-md",
-            parentActive ? "text-primary font-semibold bg-primary/5" : "text-muted-foreground hover:bg-muted/10"
+            parentActive ? "text-primary font-bold bg-primary/5" : "text-muted-foreground hover:bg-muted/10"
           )}
         >
           {item.label}
@@ -335,9 +352,9 @@ const MobileNavItem: React.FC<{ item: NavItemType; closeMobileMenu: () => void; 
 
         {item.children && item.children.length > 0 && (
           <button
-            onClick={() => setOpen((s) => !s)}
+            onClick={() => setOpenTopKey(open ? null : topKey)}
             aria-expanded={open}
-            aria-controls={`mobile-${slugify(item.label)}`}
+            aria-controls={`mobile-${topKey}`}
             className="h-8 w-8 inline-flex items-center justify-center rounded-md hover:bg-accent/10"
           >
             <ChevronDown className={cn("h-4 w-4 transition-transform", open && "rotate-180")} />
@@ -347,7 +364,7 @@ const MobileNavItem: React.FC<{ item: NavItemType; closeMobileMenu: () => void; 
 
       {item.children && item.children.length > 0 && (
         <div
-          id={`mobile-${slugify(item.label)}`}
+          id={`mobile-${topKey}`}
           className={cn(
             "overflow-hidden transition-[max-height,opacity] duration-200 ease-in-out pl-4",
             open ? "max-h-[60rem] opacity-100" : "max-h-0 opacity-0"
@@ -356,7 +373,14 @@ const MobileNavItem: React.FC<{ item: NavItemType; closeMobileMenu: () => void; 
           <ul className="flex flex-col">
             {item.children.map((child) => (
               <li key={child.label} className="border-b border-border/10">
-                <MobileChildRow child={child} closeMobileMenu={closeMobileMenu} pathname={pathname} hash={hash} />
+                <MobileChildRow
+                  child={child}
+                  closeMobileMenu={closeMobileMenu}
+                  pathname={pathname}
+                  hash={hash}
+                  openChildKey={openChildKey}
+                  setOpenChildKey={setOpenChildKey}
+                />
               </li>
             ))}
           </ul>
@@ -371,10 +395,12 @@ const MobileNavItem: React.FC<{ item: NavItemType; closeMobileMenu: () => void; 
    ========================= */
 export default function Header(): JSX.Element {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [openTopKey, setOpenTopKey] = useState<string | null>(null); // only one top-level open at a time
   const location = useLocation();
 
   useEffect(() => {
     setMobileOpen(false);
+    setOpenTopKey(null);
   }, [location.pathname, location.hash]);
 
   return (
@@ -453,7 +479,14 @@ export default function Header(): JSX.Element {
 
             {NAV_CONFIG.map((item) => (
               <div key={item.label} className="w-full">
-                <MobileNavItem item={item} closeMobileMenu={() => setMobileOpen(false)} pathname={location.pathname} hash={location.hash} />
+                <MobileNavItem
+                  item={item}
+                  closeMobileMenu={() => setMobileOpen(false)}
+                  pathname={location.pathname}
+                  hash={location.hash}
+                  openTopKey={openTopKey}
+                  setOpenTopKey={setOpenTopKey}
+                />
               </div>
             ))}
 
