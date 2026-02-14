@@ -89,7 +89,7 @@ const MobileNavItem = ({ item, onClose }: { item: any; onClose: () => void }) =>
         <div className="flex flex-col gap-2 px-2">
           {item.children.map((child: any) => (
             <Link
-              key={child.path}z
+              key={child.path}
               to={child.path}
               onClick={onClose}
               className={cn(
