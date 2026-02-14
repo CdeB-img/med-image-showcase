@@ -18,17 +18,16 @@ import {
   MessageSquare,
 } from "lucide-react";
 
-const RAW_BASE =
-  "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
+const RAW_BASE = "/images";
 
 const SLICE_COUNT = 5;
 
 const nativeSlices = Array.from({ length: SLICE_COUNT }, (_, i) =>
-  `${RAW_BASE}/neuro-onco/natives/slice_${String(i).padStart(3, "0")}.png`
+  `${RAW_BASE}/neuro-onco/natives/slice_${String(i).padStart(3, "0")}.webp`
 );
 
 const overlaySlices = Array.from({ length: SLICE_COUNT }, (_, i) =>
-  `${RAW_BASE}/neuro-onco/overlays/slice_${String(i).padStart(3, "0")}.png`
+  `${RAW_BASE}/neuro-onco/overlays/slice_${String(i).padStart(3, "0")}.webp`
 );
 
 interface Props {
@@ -102,6 +101,8 @@ export default function NeuroOncoViewer({ className }: Props) {
                 src={nativeSlices[sliceIndex]}
                 alt={`Native slice ${sliceIndex + 1}`}
                 className="w-full h-full object-contain"
+                loading="lazy"
+                decoding="async"
               />
             </div>
           </div>

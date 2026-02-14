@@ -4,8 +4,8 @@ import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
-const OG_IMAGE = "https://noxia-imagerie.fr/og-home.png";
-const PROJECTS_BANNER_IMAGE = "https://noxia-imagerie.fr/og-projets.png";
+const OG_IMAGE = "https://noxia-imagerie.fr/images/branding/og-home.webp";
+const PROJECTS_BANNER_IMAGE = "https://noxia-imagerie.fr/images/branding/og-projets.webp";
 
 const Index = () => {
   return (

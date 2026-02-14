@@ -26,8 +26,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-const RAW_BASE =
-  "https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images";
+const RAW_BASE = "/images";
 
 interface OutilsViewerProps {
   className?: string;
@@ -121,7 +120,7 @@ const OutilsViewer: React.FC<OutilsViewerProps> = ({ className }) => {
 
         <ImageBlock>
           <ZoomableImage
-            src={`${RAW_BASE}/outils/pneumo.png`}
+            src={`${RAW_BASE}/outils/pneumo.webp`}
             alt="Analyse quantitative du parenchyme pulmonaire en scanner thoracique"
           />
         </ImageBlock>
@@ -151,7 +150,7 @@ const OutilsViewer: React.FC<OutilsViewerProps> = ({ className }) => {
 
         <ImageBlock>
           <ZoomableImage
-            src={`${RAW_BASE}/outils/spectral.png`}
+            src={`${RAW_BASE}/outils/spectral.webp`}
             alt="Cartographies matériaux et imagerie CT spectrale"
           />
         </ImageBlock>

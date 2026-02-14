@@ -184,7 +184,7 @@ const Projects = () => {
               id="segmentation"
               title="Segmentation & analyse lésionnelle"
               subtitle="Approches guidées par le signal, validées sur données cliniques réelles."
-              iconImage="https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images/projets/neuro-onco.png"
+              iconImage="/images/projets/neuro-onco.webp"
               isOpen={active === "segmentation"}
               onToggle={toggleSection}
               filter={(p) => p.analysisType === "Segmentation"}
@@ -195,7 +195,7 @@ const Projects = () => {
               id="quantification"
               title="Quantification et analyse fonctionnelle"
               subtitle="Extraction de biomarqueurs quantitatifs avec contrôle méthodologique."
-              iconImage="https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images/projets/ct.png"
+              iconImage="/images/projets/ct.webp"
               isOpen={active === "quantification"}
               onToggle={toggleSection}
               filter={(p) => p.analysisType === "Quantification"}
@@ -206,7 +206,7 @@ const Projects = () => {
               id="methodo"
               title="Méthodologie & outils transverses"
               subtitle="Recalage multimodal, prototypage et outils indépendants des solutions propriétaires."
-              iconImage="https://raw.githubusercontent.com/CdeB-img/expert-imagerie/main/public/images/projets/registration.png"
+              iconImage="/images/projets/registration.webp"
               isOpen={active === "methodo"}
               onToggle={toggleSection}
               filter={(p) =>
