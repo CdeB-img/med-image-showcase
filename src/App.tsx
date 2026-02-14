@@ -19,6 +19,7 @@ import CorelabEC from "@/pages/CorelabEC";
 import IRMImagerieQuantitative from "@/pages/IRMImagerieQuantitative";
 import CTImagerieQuantitative from "@/pages/CTImagerieQuantitative";
 import MethodologieImagerieQuantitative from "@/pages/MethodologieImagerieQuantitative";
+import Prestations from "@/pages/Prestations";
 
 import APropos from "@/pages/APropos";
 
@@ -82,6 +83,7 @@ const App = () => (
           <Route path="/ct-imagerie-quantitative" element={<CTImagerieQuantitative />} />
           <Route path="/methodologie-imagerie-quantitative" element={<MethodologieImagerieQuantitative />} />
           <Route path="/a-propos" element={<APropos />} />
+          <Route path="/prestations" element={<Prestations />} />
 
 
           {/* Fallback */}

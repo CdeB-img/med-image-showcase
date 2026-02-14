@@ -2,7 +2,7 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 
-const CANONICAL = "https://noxia-imagerie.fr/prestations-imagerie-medicale";
+const CANONICAL = "https://noxia-imagerie.fr/prestations";
 
 const Prestations = () => {
   const jsonLd = {
@@ -69,7 +69,8 @@ const Prestations = () => {
             </section>
 
             {/* CORELAB */}
-            <section className="space-y-6 text-muted-foreground leading-relaxed">
+            
+            <section id="corelab"  className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
                 CoreLab IRM & CT externalisé
               </h2>
@@ -90,7 +91,7 @@ const Prestations = () => {
             </section>
 
             {/* REPRISE ETUDES */}
-            <section className="space-y-6 text-muted-foreground leading-relaxed">
+            <section id="reprise" className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
                 Reprise d’études déjà réalisées
               </h2>
@@ -116,7 +117,7 @@ const Prestations = () => {
             </section>
 
             {/* AUDIT */}
-            <section className="space-y-6 text-muted-foreground leading-relaxed">
+            <section id="audit" className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
                 Audit méthodologique & harmonisation
               </h2>
@@ -131,7 +132,7 @@ const Prestations = () => {
             </section>
 
             {/* INGENIERIE */}
-            <section className="space-y-6 text-muted-foreground leading-relaxed">
+            <section id="ingenierie" className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
                 Développement & ingénierie sur mesure
               </h2>
