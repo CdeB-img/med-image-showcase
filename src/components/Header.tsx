@@ -2,11 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { ChevronDown, Menu, X } from "lucide-react";
-import { projects } from "@/data/projects";
+import { projects as _projects } from "@/data/projects";
 
 /* =========================
-   CONFIG NAV
+   NAV CONFIG (sécurisé si projects undefined)
    ========================= */
+const projects = Array.isArray(_projects) ? _projects : [];
+
 const NAV_CONFIG = [
   {
     label: "IRM",
@@ -39,6 +41,16 @@ const NAV_CONFIG = [
     ],
   },
   {
+    label: "Prestations",
+    path: "/prestations",
+    children: [
+      { label: "CoreLab externalisé", path: "/prestations#corelab" },
+      { label: "Reprise d’études", path: "/prestations#reprise" },
+      { label: "Audit méthodologique", path: "/prestations#audit" },
+      { label: "Développement sur mesure", path: "/prestations#ingenierie" },
+    ],
+  },
+  {
     label: "Projets",
     path: "/projets",
     children: projects.map((p) => ({ label: p.title, path: `/projet/${p.id}` })),
@@ -46,7 +58,7 @@ const NAV_CONFIG = [
 ];
 
 /* =========================
-   UTIL: slugify pour id unique
+   Helpers
    ========================= */
 const slugify = (s: string) =>
   s
@@ -54,16 +66,26 @@ const slugify = (s: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)+/g, "");
 
-/* =========================
-   NavItem : gère desktop hover + mobile toggle
-   Props:
-     - item : structure nav
-     - mobileMode : true si rendu dans panneau mobile
-     - closeMobileMenu : callback pour fermer le panneau mobile après navigation
-   ========================= */
 type Child = { label: string; path: string };
 type NavItemType = { label: string; path: string; children: Child[] };
 
+/**
+ * Parse un chemin qui peut contenir un hash.
+ * Ex: "/prestations#corelab" => { pathname: "/prestations", hash: "#corelab" }
+ * Ex: "/segmentation-irm" => { pathname: "/segmentation-irm", hash: "" }
+ */
+const parsePathWithHash = (p: string) => {
+  const [pathnamePart, hashPart] = p.split("#");
+  return {
+    pathname: pathnamePart || "/",
+    hash: hashPart ? `#${hashPart}` : "",
+    original: p,
+  };
+};
+
+/* =========================
+   NavItem component
+   ========================= */
 const NavItem: React.FC<{
   item: NavItemType;
   mobileMode: boolean;
@@ -74,15 +96,24 @@ const NavItem: React.FC<{
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const submenuId = `submenu-${slugify(item.label)}`;
 
+  // Détermine si le parent est actif : on compare pathname et hash
+  const parentParsed = parsePathWithHash(item.path);
+  const currentFull = `${location.pathname}${location.hash || ""}`;
+  const parentFull = `${parentParsed.pathname}${parentParsed.hash || ""}`;
+
   const isActive =
-    location.pathname === item.path || item.children.some((c) => location.pathname === c.path);
+    currentFull === parentFull ||
+    item.children.some((c) => {
+      const parsed = parsePathWithHash(c.path);
+      return `${parsed.pathname}${parsed.hash || ""}` === currentFull;
+    });
 
   useEffect(() => {
-    // fermer le sous-menu quand on change de route
+    // fermer le sous-menu au changement de route
     setIsOpen(false);
-  }, [location.pathname]);
+  }, [location.pathname, location.hash]);
 
-  // Desktop hover (ignoré en mobile)
+  // Hover desktop
   const handleMouseEnter = () => {
     if (mobileMode) return;
     if (timerRef.current) clearTimeout(timerRef.current);
@@ -100,9 +131,9 @@ const NavItem: React.FC<{
       onMouseLeave={handleMouseLeave}
     >
       <div className="flex items-center gap-2">
-        {/* Label parent : toujours navigable */}
+        {/* Label parent : toujours navigable. Si hash présent, on navigue vers pathname (hash géré par children). */}
         <Link
-          to={item.path}
+          to={parentParsed.hash ? { pathname: parentParsed.pathname, hash: parentParsed.hash } : parentParsed.pathname}
           onClick={() => {
             if (mobileMode && closeMobileMenu) closeMobileMenu();
           }}
@@ -115,7 +146,7 @@ const NavItem: React.FC<{
           {item.label}
         </Link>
 
-        {/* Chevron visible sur mobile et desktop ; toggle le sous-menu sans naviguer */}
+        {/* Chevron visible partout ; toggle le sous-menu sans naviguer */}
         {item.children.length > 0 && (
           <button
             aria-expanded={isOpen}
@@ -146,27 +177,35 @@ const NavItem: React.FC<{
         >
           <div className="overflow-hidden rounded-lg border border-border/50 bg-background/95 shadow-xl backdrop-blur-md ring-1 ring-black/5">
             <ul className="py-2 flex flex-col">
-              {item.children.map((child) => (
-                <li key={child.path}>
-                  <NavLink
-                    to={child.path}
-                    className={({ isActive }) =>
-                      cn(
-                        "relative block px-4 py-2.5 text-sm transition-colors hover:bg-muted/50",
-                        isActive ? "text-primary font-medium bg-primary/5" : "text-muted-foreground hover:text-foreground"
-                      )
-                    }
-                  >
-                    <span
-                      className={cn(
-                        "absolute left-0 top-0 bottom-0 w-[2px] bg-primary transition-opacity duration-200",
-                        location.pathname === child.path ? "opacity-100" : "opacity-0"
-                      )}
-                    />
-                    {child.label}
-                  </NavLink>
-                </li>
-              ))}
+              {item.children.map((child) => {
+                const parsed = parsePathWithHash(child.path);
+                const childFull = `${parsed.pathname}${parsed.hash || ""}`;
+                const activeChild = childFull === currentFull;
+
+                return (
+                  <li key={child.path}>
+                    <NavLink
+                      to={parsed.hash ? { pathname: parsed.pathname, hash: parsed.hash } : parsed.pathname}
+                      className={({ isActive: navIsActive }) =>
+                        cn(
+                          "relative block px-4 py-2.5 text-sm transition-colors hover:bg-muted/50",
+                          activeChild || navIsActive
+                            ? "text-primary font-medium bg-primary/5"
+                            : "text-muted-foreground hover:text-foreground"
+                        )
+                      }
+                    >
+                      <span
+                        className={cn(
+                          "absolute left-0 top-0 bottom-0 w-[2px] bg-primary transition-opacity duration-200",
+                          activeChild ? "opacity-100" : "opacity-0"
+                        )}
+                      />
+                      {child.label}
+                    </NavLink>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
@@ -183,22 +222,27 @@ const NavItem: React.FC<{
             )}
           >
             <ul className="flex flex-col pl-4">
-              {item.children.map((child) => (
-                <li key={child.path}>
-                  <NavLink
-                    to={child.path}
-                    onClick={() => closeMobileMenu && closeMobileMenu()}
-                    className={({ isActive }) =>
-                      cn(
-                        "block px-4 py-2 text-sm transition-colors rounded-md",
-                        isActive ? "text-primary font-medium bg-primary/5" : "text-muted-foreground hover:bg-muted/10"
-                      )
-                    }
-                  >
-                    {child.label}
-                  </NavLink>
-                </li>
-              ))}
+              {item.children.map((child) => {
+                const parsed = parsePathWithHash(child.path);
+                const toProp = parsed.hash ? { pathname: parsed.pathname, hash: parsed.hash } : parsed.pathname;
+
+                return (
+                  <li key={child.path}>
+                    <NavLink
+                      to={toProp}
+                      onClick={() => closeMobileMenu && closeMobileMenu()}
+                      className={({ isActive: navIsActive }) =>
+                        cn(
+                          "block px-4 py-2 text-sm transition-colors rounded-md",
+                          navIsActive ? "text-primary font-medium bg-primary/5" : "text-muted-foreground hover:bg-muted/10"
+                        )
+                      }
+                    >
+                      {child.label}
+                    </NavLink>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
@@ -210,14 +254,14 @@ const NavItem: React.FC<{
 /* =========================
    Header principal
    ========================= */
-export default function Header() {
+export default function Header(): JSX.Element {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
 
   // fermer le menu mobile au changement de route
   useEffect(() => {
     setMobileOpen(false);
-  }, [location.pathname]);
+  }, [location.pathname, location.hash]);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
