@@ -153,18 +153,74 @@ const jsonLd = {
             />
 
             {/* HERO */}
-            <section className="text-center space-y-6">
+            <section className="text-center space-y-8">
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                IRM quantitative multicentrique : biomarqueurs reproductibles en cardiologie et neuro-imagerie
+                IRM quantitative multicentrique
+                <span className="block text-primary mt-2">
+                  Biomarkers reproductibles & défendables
+                </span>
               </h1>
 
               <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-                Transformation du signal IRM en biomarqueurs mesurables,
-                reproductibles et physiopathologiquement cohérents,
-                en cardiologie et neuro-imagerie.
+                Segmentation contrôlée, mapping <strong>T1/T2</strong>, 
+                <strong> LGE</strong>, <strong>ECV</strong>, perfusion cérébrale,
+                harmonisation multicentrique et structuration Core Lab.
               </p>
-            </section>
 
+              <div className="flex justify-center gap-4 flex-wrap">
+                <Link
+                  to="/segmentation-irm"
+                  className="inline-flex items-center gap-2 rounded-md border border-border px-5 py-3 text-sm hover:bg-muted/40 transition"
+                >
+                  Segmentation IRM
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <Link
+                  to="/ecv-mapping-t1-t2-irm-cardiaque"
+                  className="inline-flex items-center gap-2 rounded-md border border-border px-5 py-3 text-sm hover:bg-muted/40 transition"
+                >
+                  ECV & Mapping
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </section>
+            <section className="grid md:grid-cols-3 gap-6">
+
+              <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                <div className="flex items-center gap-2 font-semibold">
+                  <ShieldCheck className="w-5 h-5 text-primary" />
+                  Reproductibilité
+                </div>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  ICC > 0.9 pour volumes ventriculaires en conditions contrôlées.
+                  Variabilité LGE réduite vers 1–3% avec pipeline validé.
+                </p>
+              </div>
+
+              <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                <div className="flex items-center gap-2 font-semibold">
+                  <Workflow className="w-5 h-5 text-primary" />
+                  Architecture pipeline
+                </div>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  Audit DICOM, segmentation, quantification, traçabilité,
+                  versioning et QA systématique.
+                </p>
+              </div>
+
+              <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                <div className="flex items-center gap-2 font-semibold">
+                  <Database className="w-5 h-5 text-primary" />
+                  Multicentrique
+                </div>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  Harmonisation 1.5T / 3T, constructeur,
+                  gestion séquence MOLLI / SASHA, timing post-contraste.
+                </p>
+              </div>
+
+            </section>
             {/* POSITIONNEMENT CENTRAL */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
@@ -204,49 +260,98 @@ const jsonLd = {
               </p>
             </section>
             {/* IRM CARDIAQUE */}
-            <section className="space-y-6 text-muted-foreground leading-relaxed">
-              <h2 className="text-2xl font-semibold text-foreground">
+            <section className="space-y-10">
+              <h2 className="text-3xl font-semibold text-center">
                 IRM cardiaque quantitative
               </h2>
 
-              <p>
-                En cardiologie interventionnelle et essais randomisés,
-                l’IRM constitue un surrogate endpoint reconnu.
-              </p>
+              <div className="grid md:grid-cols-2 gap-8">
 
-              <ul className="list-disc pl-6 space-y-2">
-                <li>LGE (Late Gadolinium Enhancement) – quantification nécrose</li>
-                <li>MVO – Microvascular Obstruction</li>
-                <li>Volumes VG & fraction d’éjection</li>
-                <li>ECV (Extracellular Volume)</li>
-                <li>T1 mapping natif (fibrose diffuse)</li>
-                <li>T2 mapping (œdème actif)</li>
-              </ul>
+                <div className="rounded-xl border border-border bg-muted/20 p-6 space-y-4">
+                  <div className="flex items-center gap-2 font-semibold">
+                    <Heart className="w-5 h-5 text-primary" />
+                    Biomarqueurs majeurs
+                  </div>
 
-              <p>
-                Variabilité inter-observateur rapportée : 5–15% selon méthode.
-                Pipelines semi-automatisés validés : réduction vers 1–3%.
-              </p>
+                  <ul className="space-y-2 text-muted-foreground text-sm">
+                    <li><strong>LGE</strong> – quantification nécrose</li>
+                    <li><strong>MVO</strong> – Microvascular Obstruction</li>
+                    <li><strong>ECV</strong> – volume extracellulaire</li>
+                    <li><strong>T1 natif</strong> – fibrose diffuse</li>
+                    <li><strong>T2 mapping</strong> – œdème actif</li>
+                  </ul>
+                </div>
+
+                <div className="rounded-xl border border-border bg-muted/20 p-6 space-y-4">
+                  <div className="flex items-center gap-2 font-semibold">
+                    <BarChart3 className="w-5 h-5 text-primary" />
+                    Données de littérature
+                  </div>
+
+                  <ul className="space-y-2 text-muted-foreground text-sm">
+                    <li>Variabilité LGE : 5–15% selon méthode</li>
+                    <li>Réduction vers 1–3% avec semi-automatisation</li>
+                    <li>ECV : variations absolues 2–4% inter-centres</li>
+                    <li>ICC volumes ventriculaires souvent &gt; 0.9</li>
+                  </ul>
+                </div>
+
+              </div>
+
+              <div className="text-center">
+                <Link
+                  to="/biomarqueurs-irm-cardiaque-essais-cliniques"
+                  className="text-primary hover:underline"
+                >
+                  Voir biomarqueurs cardiaques détaillés →
+                </Link>
+              </div>
             </section>
-
             {/* NEURO */}
-            <section className="space-y-6 text-muted-foreground leading-relaxed">
-              <h2 className="text-2xl font-semibold text-foreground">
-                IRM cérébrale quantitative et perfusion
+            <section className="space-y-10">
+              <h2 className="text-3xl font-semibold text-center">
+                IRM cérébrale quantitative
               </h2>
 
-              <p>
-                En neuro-imagerie, la variabilité technique peut dépasser
-                l’effet physiopathologique si la structuration n’est pas explicite.
-              </p>
+              <div className="grid md:grid-cols-2 gap-8">
 
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Cartes CBF, Tmax, OEF, CMRO₂</li>
-                <li>Normalisation hémisphérique miroir</li>
-                <li>Définition explicite du core diffusion</li>
-                <li>Propagation volumique 3D contrôlée</li>
-                <li>Analyse multi-seuils pour robustesse statistique</li>
-              </ul>
+                <div className="rounded-xl border border-border bg-muted/20 p-6 space-y-4">
+                  <div className="flex items-center gap-2 font-semibold">
+                    <Brain className="w-5 h-5 text-primary" />
+                    Perfusion & métabolisme
+                  </div>
+
+                  <ul className="space-y-2 text-muted-foreground text-sm">
+                    <li>CBF / Tmax</li>
+                    <li>OEF / CMRO₂</li>
+                    <li>Normalisation hémisphérique miroir</li>
+                    <li>Propagation volumique 3D contrôlée</li>
+                  </ul>
+                </div>
+
+                <div className="rounded-xl border border-border bg-muted/20 p-6 space-y-4">
+                  <div className="flex items-center gap-2 font-semibold">
+                    <Layers className="w-5 h-5 text-primary" />
+                    Robustesse statistique
+                  </div>
+
+                  <ul className="space-y-2 text-muted-foreground text-sm">
+                    <li>Analyse multi-seuils</li>
+                    <li>Évaluation Dice automatisée</li>
+                    <li>Contrôle morphologique multi-échelle</li>
+                  </ul>
+                </div>
+
+              </div>
+
+              <div className="text-center">
+                <Link
+                  to="/perfusion-metabolique-neuro-imagerie"
+                  className="text-primary hover:underline"
+                >
+                  Voir perfusion cérébrale détaillée →
+                </Link>
+              </div>
             </section>
 
             {/* HARMONISATION */}
