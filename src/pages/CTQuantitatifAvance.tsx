@@ -154,9 +154,8 @@ const faqJsonLd = {
                 </Link>
               </div>
             </section>
-            <section className="space-y-6">
-
-              <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+            <section className="space-y-10">
+              <div className="rounded-2xl border border-border bg-card/60 p-8 space-y-4">
                 <div className="flex items-center gap-2 font-semibold">
                   <Atom className="w-5 h-5 text-primary" />
                   Décomposition physique
