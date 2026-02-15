@@ -364,7 +364,10 @@ const CTQuantitatifAvance = () => {
                     Principe central
                   </div>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    L’objectif final n'est pas le "Joli Masque" (segmentation), 
+                    L’objectif final n'est pas le{" "}
+                    <Link to="/segmentation-irm" className="text-primary hover:underline">
+                    masque de segmentation
+                    </Link>,
                     mais la valeur numérique extraite (quantification).
                   </p>
                   <div className="rounded-lg bg-muted/50 p-4 border border-border/50">
@@ -389,7 +392,10 @@ const CTQuantitatifAvance = () => {
                 <div className="space-y-6 text-muted-foreground">
                   <p className="leading-relaxed">
                     Ces méthodes s'appliquent dès lors qu'une mesure quantitative 
-                    est requise pour un endpoint d'essai clinique ou une étude physiopathologique.
+                    est requise pour un endpoint d'essai clinique ou une étude physiopathologique. dans une logique de{" "}
+                    <Link to="/quantification-ct" className="text-primary hover:underline">
+                    quantification CT clinique
+                    </Link>.
                   </p>
                   <ul className="space-y-3 pl-2">
                     <li className="flex items-start gap-3">
@@ -485,6 +491,17 @@ const CTQuantitatifAvance = () => {
                 </Link>
 
               </div>
+            </section>
+            <section className="rounded-2xl border border-primary/20 bg-primary/5 p-8 space-y-4">
+              <h2 className="text-xl font-semibold text-foreground">
+                En résumé
+              </h2>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>• La valeur HU brute n’est pas stable entre centres</li>
+                <li>• Le spectral améliore la physique, pas la validité automatique</li>
+                <li>• La calibration phantom est indispensable</li>
+                <li>• Un biomarqueur robuste doit survivre au changement de machine</li>
+              </ul>
             </section>
             {/* FAQ ROBUSTE (Grid 2x2) */}
             <section className="space-y-10">
