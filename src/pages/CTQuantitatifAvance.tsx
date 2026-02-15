@@ -194,7 +194,10 @@ const CTQuantitatifAvance = () => {
                   <p className="leading-relaxed">
                     Le dual-energy et le CT spectral permettent de s'affranchir partiellement 
                     des artefacts de durcissement de faisceau et d'accéder aux propriétés 
-                    intrinsèques de la matière.
+                    intrinsèques de la matière, notamment dans des approches de 
+                    <Link to="/quantification-ct" className="text-primary hover:underline">
+                    quantification CT clinique
+                    </Link>.
                   </p>
                   <ul className="space-y-3 pl-2">
                     <li className="flex items-start gap-3">
@@ -276,6 +279,11 @@ const CTQuantitatifAvance = () => {
                   <p className="leading-relaxed">
                     Pour dépasser l'analyse visuelle, toute quantification avancée doit être 
                     confrontée à une validation physique indépendante ("Ground Truth").
+                    Cette étape s’inscrit dans une logique d’
+                      <Link to="/harmonisation-multicentrique" className="text-primary hover:underline">
+                      harmonisation multicentrique
+                      </Link>
+                      indispensable en recherche clinique.
                   </p>
                   <ul className="space-y-3 pl-2">
                     <li className="flex items-start gap-3">
@@ -327,6 +335,11 @@ const CTQuantitatifAvance = () => {
                   <p className="leading-relaxed">
                     Un biomarqueur CT exploitable repose sur une séquence méthodologique 
                     explicite, documentée et versionnée.
+                    La robustesse dépend aussi d’une 
+                    <Link to="/ingenierie-imagerie-quantitative" className="text-primary hover:underline">
+                    ingénierie en imagerie quantitative
+                    </Link>
+                    structurée.
                   </p>
                   <ul className="space-y-3 pl-2">
                     <li className="flex items-start gap-3">
@@ -452,7 +465,27 @@ const CTQuantitatifAvance = () => {
                 </div>
               </div>
             </section>
+            <section className="rounded-2xl border border-border bg-card/40 p-8 space-y-6">
+              <h2 className="text-xl font-semibold">
+                Expertises associées
+              </h2>
 
+              <div className="grid md:grid-cols-3 gap-6 text-sm">
+
+                <Link to="/quantification-ct" className="hover:text-primary transition">
+                  Quantification CT clinique
+                </Link>
+
+                <Link to="/harmonisation-multicentrique" className="hover:text-primary transition">
+                  Harmonisation multicentrique
+                </Link>
+
+                <Link to="/ingenierie-imagerie-quantitative" className="hover:text-primary transition">
+                  Ingénierie en imagerie quantitative
+                </Link>
+
+              </div>
+            </section>
             {/* FAQ ROBUSTE (Grid 2x2) */}
             <section className="space-y-10">
               <h2 className="text-2xl font-semibold text-center text-foreground">
