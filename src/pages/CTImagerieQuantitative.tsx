@@ -80,7 +80,7 @@ const CTImagerieQuantitative = () => {
       }
     ]
   };
-
+ 
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -91,25 +91,34 @@ const CTImagerieQuantitative = () => {
         acceptedAnswer: {
           "@type": "Answer",
           text:
-            "Non. Les HU dépendent du kernel, de l’énergie effective, de la reconstruction itérative et de l’implémentation constructeur. Une harmonisation et une calibration phantom sont nécessaires."
+            "Non. Les HU dépendent du kernel, de l’énergie effective, de la reconstruction itérative et du constructeur. Une calibration phantom et une harmonisation sont nécessaires."
         }
       },
       {
         "@type": "Question",
-        name: "Le CT spectral est-il intrinsèquement quantitatif ?",
+        name: "Le CT spectral supprime-t-il la variabilité constructeur ?",
         acceptedAnswer: {
           "@type": "Answer",
           text:
-            "Le spectral améliore la séparation matérielle, mais la robustesse dépend du modèle de décomposition et de la calibration. Il nécessite validation indépendante."
+            "Non. Il améliore la séparation matérielle mais introduit une dépendance au modèle de décomposition et à la calibration énergétique."
         }
       },
       {
         "@type": "Question",
-        name: "Un algorithme IA suffit-il pour produire un biomarqueur CT publiable ?",
+        name: "Quelle est la variabilité inter-scanner des densités ?",
         acceptedAnswer: {
           "@type": "Answer",
           text:
-            "Non. L’IA doit s’intégrer dans une architecture incluant audit DICOM, validation physique, calibration et analyse de reproductibilité."
+            "Des écarts de ±5 à ±10 HU peuvent être observés selon reconstruction et énergie. Sans harmonisation, la variabilité technique peut dépasser l’effet biologique étudié."
+        }
+      },
+      {
+        "@type": "Question",
+        name: "L’intelligence artificielle suffit-elle pour stabiliser un biomarqueur CT ?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text:
+            "Non. L’IA doit s’intégrer dans une architecture comprenant calibration, audit DICOM, validation physique et analyse statistique de robustesse."
         }
       }
     ]
@@ -217,6 +226,43 @@ const CTImagerieQuantitative = () => {
                 stabilité énergétique et validation inter-constructeurs.
               </p>
 
+              <p>
+                Cette structuration s’inscrit dans une logique d’
+                <Link to="/analyse-dicom" className="text-primary hover:underline">
+                  audit DICOM complet
+                </Link>,
+                préalable à toute quantification exploitable.
+              </p>
+            </section>
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Architecture Core Lab CT quantitative
+              </h2>
+
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Audit initial DICOM multicentrique (kVp, mAs, kernel, IR)</li>
+                <li>Calibration phantom (eau ±3 HU tolérance cible)</li>
+                <li>Stabilité énergétique inter-kVp (80–140 kVp)</li>
+                <li>Validation reconstruction itérative</li>
+                <li>Versioning pipeline & traçabilité complète</li>
+                <li>Exports statistiques exploitables (CSV, NIfTI, logs)</li>
+              </ul>
+
+              <p>
+                L’objectif n’est pas d’extraire une densité,
+                mais de produire une densité opposable scientifiquement.
+              </p>
+
+
+
+              <p>
+                Cette organisation est indispensable en contexte
+                <Link to="/bases-multicentriques" className="text-primary hover:underline">
+                  multicentrique
+                </Link>
+                , notamment lorsque plusieurs constructeurs sont impliqués.
+              </p>
+
               <ul className="list-disc pl-6 space-y-2">
                 <li>Contrôle énergie effective & spectrale</li>
                 <li>Calibration phantom eau / matériaux</li>
@@ -224,8 +270,35 @@ const CTImagerieQuantitative = () => {
                 <li>Analyse de reproductibilité (CV, ICC)</li>
                 <li>Versioning pipeline & traçabilité</li>
               </ul>
-            </section>
 
+                <p>
+                  À la différence de l’
+                  <Link to="/irm-imagerie-quantitative" className="text-primary hover:underline">
+                    IRM quantitative
+                  </Link>,
+                  la quantification CT dépend directement de l’énergie effective
+                  et de la modélisation physique des interactions photon-matière.
+                </p>
+              
+            </section>
+            {/* INTÉGRITÉ DONNÉES */}
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Intégrité des données et conformité essais cliniques
+              </h2>
+
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Traçabilité complète des paramètres de reconstruction</li>
+                <li>Versioning pipeline horodaté</li>
+                <li>Logs reproductibles</li>
+                <li>Archivage structuré pour audit scientifique</li>
+              </ul>
+
+              <p>
+                Un biomarqueur exploitable doit être défendable lors d’un audit méthodologique
+                ou réglementaire.
+              </p>
+            </section>
             {/* SPECTRAL */}
             <section className="space-y-10">
               <h2 className="text-3xl font-semibold text-center">
@@ -261,8 +334,44 @@ const CTImagerieQuantitative = () => {
                 </div>
 
               </div>
+                    <p>
+                    L’intégration avec des pipelines de
+                    <Link to="/recalage-multimodal" className="text-primary hover:underline">
+                      recalage multimodal CT–IRM
+                    </Link>
+                    permet d’assurer cohérence anatomique et comparabilité longitudinale.
+                  </p>
             </section>
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Modélisation physique et décomposition énergétique
+              </h2>
 
+              <p>
+                Les reconstructions spectrales reposent sur la séparation
+                des interactions Compton et photoélectriques
+                (modèle de type Alvarez-Macovski).
+              </p>
+
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Stabilité des coefficients de décomposition</li>
+                <li>Sensibilité accrue sous 70 keV</li>
+                <li>Propagation d’erreur vers monoénergétique</li>
+                <li>Calibration multi-matériaux phantom</li>
+              </ul>
+
+              <p>
+                Une validation indépendante est indispensable avant utilisation
+                comme biomarqueur quantitatif.
+              </p>
+
+              <p>
+                Voir{" "}
+                <Link to="/ct-quantitatif-avance-imagerie-spectrale" className="text-primary hover:underline">
+                  CT spectral avancé
+                </Link>.
+              </p>
+            </section>
             {/* PERFUSION */}
             <section className="space-y-10">
               <h2 className="text-3xl font-semibold text-center">
@@ -282,6 +391,12 @@ const CTImagerieQuantitative = () => {
                     <li>CBF</li>
                     <li>CBV</li>
                     <li>Mismatch volumique</li>
+                    <li>
+                      Extraction volumique 3D contrôlée (voir
+                      <Link to="/segmentation-irm" className="text-primary hover:underline">
+                        segmentation contrôlée
+                      </Link>)
+                    </li>
                   </ul>
                 </div>
 
@@ -328,26 +443,145 @@ const CTImagerieQuantitative = () => {
                 <li>Implémentation constructeur</li>
               </ul>
             </section>
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Harmonisation inter-kVp et inter-constructeurs
+              </h2>
 
+              <p>
+                La densité apparente varie avec l’énergie effective.
+                Un biomarqueur CT doit rester stable
+                entre 80 kVp et 120/140 kVp.
+              </p>
+
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Normalisation énergétique</li>
+                <li>Correction densité massique</li>
+                <li>Gestion reconstruction itérative constructeur</li>
+                <li>Stabilité inter-plateformes GE / Siemens / Philips</li>
+              </ul>
+
+              <p>
+                Voir{" "}
+                <Link to="/bases-multicentriques" className="text-primary hover:underline">
+                  Harmonisation multicentrique
+                </Link>.
+              </p>
+              <p>
+                Les problématiques d’harmonisation sont comparables à celles décrites en
+                <Link to="/irm-imagerie-quantitative" className="text-primary hover:underline">
+                  IRM multicentrique
+                </Link>,
+                bien que la source de variabilité soit ici énergétique et non magnétique.
+              </p>
+            </section>
             {/* DONNÉES LITTÉRATURE */}
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-6">
               <h2 className="text-2xl font-semibold text-foreground">
                 Données issues de la littérature
               </h2>
 
-              <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
-                <li>Variabilité HU inter-scanner : ±5–10 HU selon kernel</li>
-                <li>ICC densité graisse / muscle : souvent &gt; 0.85 en conditions contrôlées</li>
-                <li>CT spectral : sensibilité accrue aux erreurs de calibration</li>
-                <li>Perfusion CT : divergences volumétriques inter-logiciels documentées</li>
-              </ul>
+                <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                  <li>Variabilité HU inter-scanner : ±5–10 HU selon kernel (ACR phantom studies)</li>
+                  <li>Reconstruction itérative : impact mesurable sur densité moyenne</li>
+                  <li>ICC densité musculaire &gt; 0.85 sous conditions harmonisées</li>
+                  <li>Spectral CT : sensibilité accrue aux erreurs de calibration</li>
+                  <li>Perfusion CT : divergences volumétriques inter-logiciels documentées</li>
+                </ul>
 
               <p className="text-muted-foreground">
                 La robustesse dépend d’abord de la structuration méthodologique,
                 non de l’algorithme seul.
               </p>
             </section>
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Erreur de mesure et puissance statistique
+              </h2>
 
+              <p>
+                Une variabilité technique de ±5–10 HU peut réduire significativement
+                la puissance statistique d’un essai clinique.
+              </p>
+
+              <p>
+                Stabiliser le biomarqueur permet souvent d’augmenter la sensibilité
+                sans augmenter la taille d’échantillon.
+              </p>
+
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Réduction de la variance inter-centre</li>
+                <li>Amélioration du signal-to-noise biologique</li>
+                <li>Optimisation du calcul de puissance</li>
+              </ul>
+            </section>
+
+            <section className="space-y-8">
+              <h2 className="text-2xl font-semibold text-center text-foreground">
+                Questions fréquentes – CT quantitatif
+              </h2>
+
+              <div className="space-y-6">
+
+                <div className="rounded-xl border border-border bg-card/50 p-6">
+                  <h3 className="font-semibold">
+                    Les unités Hounsfield sont-elles comparables entre centres ?
+                  </h3>
+                  <p className="text-muted-foreground mt-2">
+                    Non. Les HU dépendent du kernel, de l’énergie effective,
+                    de la reconstruction itérative et du constructeur.
+                    Une calibration phantom est indispensable.
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-border bg-card/50 p-6">
+                  <h3 className="font-semibold">
+                    Le CT spectral est-il intrinsèquement quantitatif ?
+                  </h3>
+                  <p className="text-muted-foreground mt-2">
+                    Il améliore la séparation matérielle mais nécessite
+                    une validation énergétique indépendante.
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-border bg-card/50 p-6">
+                  <h3 className="font-semibold">
+                    L’IA suffit-elle pour produire un biomarqueur CT publiable ?
+                  </h3>
+                  <p className="text-muted-foreground mt-2">
+                    Non. Elle doit s’intégrer dans une architecture incluant
+                    audit DICOM, calibration et validation statistique.
+                  </p>
+                </div>
+
+              </div>
+            </section>
+
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold">Pages associées</h2>
+
+              <div className="flex flex-wrap gap-3">
+                <Link to="/analyse-dicom" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Audit DICOM
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <Link to="/ct-quantitatif-avance-imagerie-spectrale" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  CT spectral avancé
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <Link to="/ct-perfusion-quantitative-avc" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Perfusion CT
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <Link to="/irm-imagerie-quantitative" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  IRM quantitative
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </section>
             {/* CTA FINAL */}
             <section className="text-center space-y-4">
               <p className="text-muted-foreground">
