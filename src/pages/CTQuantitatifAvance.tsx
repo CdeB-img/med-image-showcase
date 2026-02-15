@@ -167,93 +167,87 @@ const faqJsonLd = {
                 </p>
               </div>
             </section>
-              <section className="space-y-8">
-                <h2 className="text-2xl font-semibold text-foreground">
-                  Calibration indépendante & validation physique
-                </h2>
+            <section className="space-y-10">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Calibration indépendante & validation physique
+              </h2>
 
-                <div className="grid md:grid-cols-2 gap-8">
+              <div className="grid md:grid-cols-2 gap-12">
 
-                  <div className="space-y-4 text-muted-foreground">
-                    <p>
-                      Toute quantification avancée doit être confrontée
-                      à une validation physique indépendante.
-                    </p>
+                {/* Contenu principal */}
+                <div className="space-y-6 text-muted-foreground">
 
-                    <ul className="list-disc pl-6 space-y-2">
-                      <li>Calibration phantom eau / matériaux de référence</li>
-                      <li>Correction des dérives énergétiques</li>
-                      <li>Analyse biais systématiques inter-vendor</li>
-                      <li>Reproductibilité intra / inter-machine</li>
-                    </ul>
+                  <p>
+                    Toute quantification avancée doit être confrontée
+                    à une validation physique indépendante.
+                  </p>
+
+                  <ul className="space-y-3 list-disc pl-6">
+                    <li>Calibration phantom eau / matériaux de référence</li>
+                    <li>Correction des dérives énergétiques</li>
+                    <li>Analyse biais systématiques inter-vendor</li>
+                    <li>Reproductibilité intra / inter-machine</li>
+                  </ul>
+
+                </div>
+
+                {/* Encadré méthodologique */}
+                <div className="rounded-2xl border border-border bg-card/60 p-8 space-y-5">
+
+                  <div className="flex items-center gap-3 font-semibold text-foreground">
+                    <ShieldCheck className="w-5 h-5 text-primary shrink-0" />
+                    Impact méthodologique
                   </div>
 
-                  <div className="rounded-xl border border-border bg-card/50 p-6 space-y-4">
-                    <div className="flex items-center gap-2 font-semibold text-foreground">
-                      <ShieldCheck className="w-5 h-5 text-primary" />
-                      Impact méthodologique
-                    </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Une calibration indépendante transforme un outil technique
+                    en biomarqueur scientifiquement défendable.
+                  </p>
 
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      Cette étape transforme un outil technique
-                      en biomarqueur scientifiquement défendable,
-                      opposable en contexte multicentrique.
-                    </p>
-
-                    <div className="rounded-lg bg-muted/40 p-4 text-xs text-muted-foreground">
-                      Sans calibration indépendante, la variabilité technique
-                      peut dépasser la variation biologique étudiée.
-                    </div>
+                  <div className="rounded-lg bg-muted/40 p-4 text-xs text-muted-foreground">
+                    Sans calibration externe, la variabilité technique
+                    peut dépasser la variation biologique étudiée.
                   </div>
 
                 </div>
-              </section>
+
+              </div>
+            </section>
 
 
             {/* ARCHITECTURE PIPELINE */}
-            <section className="rounded-2xl border border-border/50 bg-muted/20 p-8 space-y-8">
+            <section className="space-y-10">
               <h2 className="text-2xl font-semibold text-foreground">
                 Architecture méthodologique d’un biomarqueur CT robuste
               </h2>
 
-              <div className="grid md:grid-cols-2 gap-8">
+              <div className="grid md:grid-cols-2 gap-12">
 
-                <div className="space-y-4 text-muted-foreground">
+                <div className="space-y-6 text-muted-foreground">
                   <p>
-                    Un biomarqueur CT exploitable repose sur une séquence méthodologique
-                    explicite et documentée.
+                    Un biomarqueur CT exploitable repose sur une séquence méthodologique explicite.
                   </p>
 
-                  <ul className="space-y-2 list-disc pl-6">
+                  <ul className="space-y-3 list-disc pl-6">
                     <li>Audit DICOM & paramètres énergétiques critiques</li>
                     <li>Calibration phantom indépendante</li>
-                    <li>Stratification inter-constructeurs si nécessaire</li>
+                    <li>Stratification inter-constructeurs</li>
                     <li>Extraction métrique versionnée</li>
-                    <li>Analyse de robustesse statistique (intra / inter-scanner)</li>
+                    <li>Analyse statistique intra / inter-scanner</li>
                   </ul>
                 </div>
 
-                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-4">
-                  
-                  <div className="flex items-center gap-2 font-semibold text-foreground">
-                    <ShieldCheck className="w-5 h-5 text-primary" />
-                    Principe méthodologique central
+                <div className="rounded-2xl border border-border bg-card/60 p-8 space-y-5">
+                  <div className="flex items-center gap-3 font-semibold text-foreground">
+                    <BarChart3 className="w-5 h-5 text-primary shrink-0" />
+                    Principe central
                   </div>
 
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    L’objectif n’est pas d’améliorer visuellement une reconstruction,
-                    mais de produire une <strong>valeur physiquement cohérente</strong>,
-                    statistiquement robuste et multicentriquement exploitable.
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    L’objectif n’est pas l’amélioration visuelle,
+                    mais la production d’une valeur physiquement cohérente
+                    et multicentriquement exploitable.
                   </p>
-
-                  <div className="rounded-lg bg-muted/40 p-4">
-                    <p className="text-xs text-muted-foreground">
-                      En contexte multicentrique, une calibration indépendante
-                      réduit significativement le risque de dérive centre-dépendante
-                      du biomarqueur.
-                    </p>
-                  </div>
-
                 </div>
 
               </div>
