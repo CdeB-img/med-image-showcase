@@ -59,11 +59,21 @@ const PerfusionMetaboliqueNeuro = () => {
         position: 4,
         name: "Perfusion & Métabolisme cérébral",
         item: CANONICAL
+        
       }
     ]
+    
   };
 
   const faqJsonLd = {
+    about: [
+        "Oxygen Extraction Fraction",
+        "CMRO2 MRI",
+        "CBF MRI",
+        "Tmax perfusion MRI",
+        "Ischemic stroke imaging",
+        "Diffusion perfusion mismatch"
+      ],
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: [
@@ -75,6 +85,7 @@ const PerfusionMetaboliqueNeuro = () => {
           text:
             "Les cartes métaboliques sont des distributions continues issues de modèles physiologiques complexes. Sans normalisation intra-sujet, segmentation cohérente et validation multicentrique, elles restent des visualisations et non des endpoints quantitatifs robustes."
         }
+        
       },
       {
         "@type": "Question",
@@ -140,7 +151,8 @@ const PerfusionMetaboliqueNeuro = () => {
             {/* HERO */}
             <section className="text-center space-y-6">
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                Perfusion & Métabolisme cérébral en IRM quantitative
+                Quantification de la perfusion et du métabolisme cérébral en IRM
+                (OEF, CMRO2, CBF, Tmax) dans l’AVC ischémique
               </h1>
 
               <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
@@ -274,7 +286,24 @@ const PerfusionMetaboliqueNeuro = () => {
 
               </div>
             </section>
+            {/* DONNÉES ISSUES DE LA LITTÉRATURE */}
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Données issues des essais cliniques
+              </h2>
 
+              <ul className="list-disc pl-6 space-y-2">
+                <li>DEFUSE 3 : sélection basée sur mismatch perfusion-diffusion</li>
+                <li>DAWN : extension fenêtre thrombectomie jusqu’à 24h</li>
+                <li>Tmax ≥ 6s : corrélé au volume hypoperfusé critique</li>
+                <li>Variabilité inter-centre documentée > 15% sans harmonisation</li>
+              </ul>
+
+              <p>
+                La robustesse volumétrique dépend directement de la normalisation,
+                du traitement du bruit et de la cohérence anatomique 3D.
+              </p>
+            </section>
             {/* RÉFÉRENCES */}
             <section className="rounded-2xl border border-border bg-muted/10 p-8">
               <h2 className="text-xl font-semibold">
