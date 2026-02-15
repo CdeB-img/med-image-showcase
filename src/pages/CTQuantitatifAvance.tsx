@@ -223,6 +223,14 @@ const faqJsonLd = {
                     L’objectif n’est pas d’améliorer visuellement une reconstruction,
                     mais de produire une <strong>valeur opposable scientifiquement</strong>.
                   </p>
+
+                  <br>
+                  <p className="text-muted-foreground text-sm">
+                    L’objectif n’est pas d’améliorer visuellement une reconstruction,
+                    mais de produire une <strong>valeur opposable scientifiquement</strong>.
+                  </p>                  
+                  
+                  </br>
                 </div>
 
               </div>
