@@ -154,7 +154,7 @@ const faqJsonLd = {
                 </Link>
               </div>
             </section>
-            <section className="grid md:grid-cols-3 gap-6">
+            <section className="space-y-6">
 
               <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
                 <div className="flex items-center gap-2 font-semibold">
@@ -282,53 +282,53 @@ const faqJsonLd = {
             </section>
 
             {/* IMAGERIE SPECTRALE */}
-            <section className="space-y-8">
+            <section className="space-y-10">
               <h2 className="text-2xl font-semibold text-foreground">
                 Imagerie spectrale & décomposition physique
               </h2>
 
-              <div className="grid md:grid-cols-2 gap-8 text-muted-foreground">
+              <div className="grid md:grid-cols-2 gap-10">
 
-                <div className="space-y-4">
+                {/* Colonne gauche */}
+                <div className="space-y-6 text-muted-foreground">
+
                   <p>
                     Le dual-energy et le CT spectral permettent d’accéder
                     aux composantes physiques du signal.
                   </p>
 
-                  <ul className="space-y-2 list-disc pl-6">
+                  <ul className="space-y-3 list-disc pl-6">
                     <li>Décomposition Compton / Photoélectrique</li>
                     <li>Reconstructions monoénergétiques synthétiques</li>
                     <li>Cartes matériaux spécifiques</li>
                     <li>Analyse comportement basse énergie (&lt;70 keV)</li>
                   </ul>
+
                 </div>
 
-                <div className="rounded-xl border border-border bg-card/50 p-8 space-y-4 shadow-sm">
-              
-                  <div className="flex items-center gap-2 font-semibold">
-                    <Atom className="w-5 h-5 text-primary" />
-                    Modèles physiques
+                {/* Colonne droite */}
+                <div className="rounded-2xl border border-border bg-card/50 p-8 space-y-6">
+
+                  <div className="flex items-center gap-3 font-semibold text-foreground">
+                    <Atom className="w-5 h-5 text-primary shrink-0" />
+                    Modèles physiques & validation
                   </div>
-                  <p className="text-sm text-muted-foreground">
-                    Implémentation et confrontation de modèles inspirés des équations
-                    de décomposition type Alvarez, avec comparaison directe
-                    aux reconstructions constructeur.
+
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Implémentation de modèles inspirés des équations de décomposition
+                    type Alvarez, avec confrontation systématique aux reconstructions
+                    constructeur et analyse des écarts métriques inter-systèmes.
                   </p>
-                </div>
-                <div className="flex items-center gap-2 font-semibold text-foreground">
-                  <Atom className="w-5 h-5 text-primary" />
-                  Modèles physiques & validation
+
+                  <div className="rounded-lg bg-muted/40 p-4">
+                    <p className="text-xs text-muted-foreground">
+                      Objectif : cohérence physique inter-vendor,
+                      pas reproduction visuelle.
+                    </p>
+                  </div>
+
                 </div>
 
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Implémentation de modèles inspirés des équations de décomposition type Alvarez,
-                  avec confrontation systématique aux reconstructions constructeur
-                  et analyse des écarts métriques inter-systèmes.
-                </p>
-
-                <div className="text-xs text-muted-foreground">
-                  Objectif : cohérence physique inter-vendor, pas reproduction visuelle.
-                </div>
               </div>
             </section>
 
