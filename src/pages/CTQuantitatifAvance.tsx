@@ -15,7 +15,7 @@ const CTQuantitatifAvance = () => {
       "Développement, calibration et validation de biomarqueurs CT robustes : imagerie spectrale, monoénergétique, décomposition matière, modèles physiques et harmonisation multicentrique.",
     medicalAudience: {
       "@type": "MedicalAudience",
-      audienceType": "Researchers"
+      audienceType: "Researchers"
     },
     provider: {
       "@type": "Organization",
@@ -24,6 +24,7 @@ const CTQuantitatifAvance = () => {
     },
     url: CANONICAL
   };
+
 
   return (
     <>
