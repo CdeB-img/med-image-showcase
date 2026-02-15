@@ -167,114 +167,7 @@ const faqJsonLd = {
                 </p>
               </div>
             </section>
-            <section className="space-y-10">
-              <h2 className="text-2xl font-semibold text-foreground">
-                Calibration indépendante & validation physique
-              </h2>
-
-              <div className="grid md:grid-cols-2 gap-12">
-
-                {/* Contenu principal */}
-                <div className="space-y-6 text-muted-foreground">
-
-                  <p>
-                    Toute quantification avancée doit être confrontée
-                    à une validation physique indépendante.
-                  </p>
-
-                  <ul className="space-y-3 list-disc pl-6">
-                    <li>Calibration phantom eau / matériaux de référence</li>
-                    <li>Correction des dérives énergétiques</li>
-                    <li>Analyse biais systématiques inter-vendor</li>
-                    <li>Reproductibilité intra / inter-machine</li>
-                  </ul>
-
-                </div>
-
-                {/* Encadré méthodologique */}
-                <div className="rounded-2xl border border-border bg-card/60 p-8 space-y-5">
-
-                  <div className="flex items-center gap-3 font-semibold text-foreground">
-                    <ShieldCheck className="w-5 h-5 text-primary shrink-0" />
-                    Impact méthodologique
-                  </div>
-
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Une calibration indépendante transforme un outil technique
-                    en biomarqueur scientifiquement défendable.
-                  </p>
-
-                  <div className="rounded-lg bg-muted/40 p-4 text-xs text-muted-foreground">
-                    Sans calibration externe, la variabilité technique
-                    peut dépasser la variation biologique étudiée.
-                  </div>
-
-                </div>
-
-              </div>
-            </section>
-
-
-            {/* ARCHITECTURE PIPELINE */}
-            <section className="space-y-10">
-              <h2 className="text-2xl font-semibold text-foreground">
-                Architecture méthodologique d’un biomarqueur CT robuste
-              </h2>
-
-              <div className="grid md:grid-cols-2 gap-12">
-
-                <div className="space-y-6 text-muted-foreground">
-                  <p>
-                    Un biomarqueur CT exploitable repose sur une séquence méthodologique explicite.
-                  </p>
-
-                  <ul className="space-y-3 list-disc pl-6">
-                    <li>Audit DICOM & paramètres énergétiques critiques</li>
-                    <li>Calibration phantom indépendante</li>
-                    <li>Stratification inter-constructeurs</li>
-                    <li>Extraction métrique versionnée</li>
-                    <li>Analyse statistique intra / inter-scanner</li>
-                  </ul>
-                </div>
-
-                <div className="rounded-2xl border border-border bg-card/60 p-8 space-y-5">
-                  <div className="flex items-center gap-3 font-semibold text-foreground">
-                    <BarChart3 className="w-5 h-5 text-primary shrink-0" />
-                    Principe central
-                  </div>
-
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    L’objectif n’est pas l’amélioration visuelle,
-                    mais la production d’une valeur physiquement cohérente
-                    et multicentriquement exploitable.
-                  </p>
-                </div>
-
-              </div>
-            </section>
-
-            {/* PROBLÈME FONDAMENTAL */}
-            <section className="rounded-2xl border border-border/50 bg-muted/20 p-8 space-y-6">
-              <h2 className="text-3xl font-semibold">
-                L’illusion de la stabilité des unités Hounsfield
-              </h2>
-
-              <p className="text-muted-foreground">
-                Une valeur HU n’est pas une constante universelle.
-                Elle dépend du kernel, de l’algorithme itératif,
-                de l’énergie effective et du constructeur.
-              </p>
-
-              <div className="rounded-lg border border-border bg-card p-6">
-                <p className="text-lg font-medium">
-                  Variabilité inter-vendor rapportée : <span className="text-primary">5 à 20 HU</span>
-                </p>
-                <p className="text-muted-foreground text-sm mt-2">
-                  Sans calibration indépendante, un biomarqueur CT devient centre-dépendant.
-                </p>
-              </div>
-            </section>
-
+ 
             {/* IMAGERIE SPECTRALE */}
             <section className="space-y-10">
               <h2 className="text-2xl font-semibold text-foreground">
@@ -325,6 +218,29 @@ const faqJsonLd = {
 
               </div>
             </section>
+            {/* PROBLÈME FONDAMENTAL */}
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-8 space-y-6">
+              <h2 className="text-3xl font-semibold">
+                L’illusion de la stabilité des unités Hounsfield
+              </h2>
+
+              <p className="text-muted-foreground">
+                Une valeur HU n’est pas une constante universelle.
+                Elle dépend du kernel, de l’algorithme itératif,
+                de l’énergie effective et du constructeur.
+              </p>
+
+              <div className="rounded-lg border border-border bg-card p-6">
+                <p className="text-lg font-medium">
+                  Variabilité inter-vendor rapportée : <span className="text-primary">5 à 20 HU</span>
+                </p>
+                <p className="text-muted-foreground text-sm mt-2">
+                  Sans calibration indépendante, un biomarqueur CT devient centre-dépendant.
+                </p>
+              </div>
+            </section>
+
+
 
           {/* CALIBRATION INDÉPENDANTE */}
           <section className="space-y-10">
@@ -375,6 +291,45 @@ const faqJsonLd = {
 
             </div>
           </section>
+            {/* ARCHITECTURE PIPELINE */}
+            <section className="space-y-10">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Architecture méthodologique d’un biomarqueur CT robuste
+              </h2>
+
+              <div className="grid md:grid-cols-2 gap-12">
+
+                <div className="space-y-6 text-muted-foreground">
+                  <p>
+                    Un biomarqueur CT exploitable repose sur une séquence méthodologique explicite.
+                  </p>
+
+                  <ul className="space-y-3 list-disc pl-6">
+                    <li>Audit DICOM & paramètres énergétiques critiques</li>
+                    <li>Calibration phantom indépendante</li>
+                    <li>Stratification inter-constructeurs</li>
+                    <li>Extraction métrique versionnée</li>
+                    <li>Analyse statistique intra / inter-scanner</li>
+                  </ul>
+                </div>
+
+                <div className="rounded-2xl border border-border bg-card/60 p-8 space-y-5">
+                  <div className="flex items-center gap-3 font-semibold text-foreground">
+                    <BarChart3 className="w-5 h-5 text-primary shrink-0" />
+                    Principe central
+                  </div>
+
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    L’objectif n’est pas l’amélioration visuelle,
+                    mais la production d’une valeur physiquement cohérente
+                    et multicentriquement exploitable.
+                  </p>
+                </div>
+
+              </div>
+            </section>
+
+
 
           {/* APPLICATIONS CLINIQUES */}
           <section className="space-y-10">
