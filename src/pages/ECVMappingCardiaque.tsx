@@ -1,6 +1,7 @@
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import Breadcrumb from "@/components/Breadcrumb";
 import {
   ArrowRight,
   ShieldCheck,
@@ -17,7 +18,9 @@ import {
 const CANONICAL = "https://noxia-imagerie.fr/ecv-mapping-t1-t2-irm-cardiaque";
 
 const ECVMappingCardiaque = () => {
+  
   const jsonLd = {
+    
     "@context": "https://schema.org",
     "@type": "MedicalWebPage",
     name: "ECV et Mapping T1/T2 en IRM cardiaque",
@@ -38,7 +41,71 @@ const ECVMappingCardiaque = () => {
     },
     url: CANONICAL
   };
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Accueil",
+      item: "https://noxia-imagerie.fr/"
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Expertise",
+      item: "https://noxia-imagerie.fr/expertise"
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: "IRM",
+      item: "https://noxia-imagerie.fr/irm-imagerie-quantitative"
+    },
+    {
+      "@type": "ListItem",
+      position: 4,
+      name: "ECV & Mapping T1/T2",
+      item: CANONICAL
+    }
 
+  ]
+  
+};
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Pourquoi l’ECV varie-t-il entre centres ?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text:
+          "Les différences de champ magnétique (1.5T vs 3T), de séquence (MOLLI, ShMOLLI, SASHA), de timing post-contraste et de gestion de l’hématocrite peuvent générer des écarts absolus supérieurs à 2–4%. Une harmonisation multicentrique documentée est indispensable."
+      }
+    },
+    {
+      "@type": "Question",
+      name: "Un T1 natif élevé signifie-t-il toujours fibrose ?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text:
+          "Non. Le T1 natif peut refléter inflammation, œdème ou fibrose diffuse selon le contexte clinique et la séquence utilisée. L’interprétation nécessite une cohérence avec les autres biomarqueurs et les conditions d’acquisition."
+      }
+    },
+    {
+      "@type": "Question",
+      name: "Le T2 mapping est-il spécifique de l’œdème myocardique ?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text:
+          "Le T2 mapping est sensible à l’œdème actif mais également aux artefacts de mouvement, au gating et aux paramètres d’acquisition. Un contrôle qualité strict et une standardisation inter-centre sont nécessaires."
+      }
+    }
+  ]
+};
   return (
     <>
       <Helmet>
@@ -60,12 +127,26 @@ const ECVMappingCardiaque = () => {
         <meta property="og:url" content={CANONICAL} />
 
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbJsonLd)}
+        </script>
+
+        <script type="application/ld+json">
+          {JSON.stringify(faqJsonLd)}
+        </script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
         <main className="flex-1 py-20 px-4">
           <div className="max-w-5xl mx-auto space-y-16">
-
+            <Breadcrumb
+              items={[
+                { label: "Accueil", path: "/" },
+                { label: "Expertise", path: "/expertise" },
+                { label: "IRM", path: "/irm-imagerie-quantitative" },
+                { label: "ECV & Mapping T1/T2" }
+              ]}
+            />
             {/* ================= HERO ================= */}
             <section className="text-center space-y-6">
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
@@ -294,7 +375,60 @@ const ECVMappingCardiaque = () => {
                 </Link>.
               </p>
             </section>
+            {/* POINTS MÉTHODOLOGIQUES CLÉS */}
+            <section className="space-y-6">
+              <h2 className="text-2xl font-semibold">
+                Points méthodologiques clés
+              </h2>
 
+              <div className="grid md:grid-cols-2 gap-6">
+
+                <div className="rounded-xl border border-border bg-muted/10 p-6 space-y-3">
+                  <div className="flex items-center gap-2 font-semibold text-foreground">
+                    <ShieldCheck className="w-5 h-5 text-primary" />
+                    Hématocrite mesuré et traçable
+                  </div>
+                  <p className="text-muted-foreground leading-relaxed">
+                    L’ECV est directement dépendant de l’hématocrite. Toute valeur non documentée
+                    introduit un biais systématique difficilement récupérable.
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-border bg-muted/10 p-6 space-y-3">
+                  <div className="flex items-center gap-2 font-semibold text-foreground">
+                    <Timer className="w-5 h-5 text-primary" />
+                    Timing post-contraste standardisé
+                  </div>
+                  <p className="text-muted-foreground leading-relaxed">
+                    La reproductibilité multicentrique impose une fenêtre temporelle
+                    définie et documentée après injection.
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-border bg-muted/10 p-6 space-y-3">
+                  <div className="flex items-center gap-2 font-semibold text-foreground">
+                    <Layers className="w-5 h-5 text-primary" />
+                    ROI anatomiquement cohérentes
+                  </div>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Exclusion sang, graisse, artefacts et trabéculations.
+                    Sectorisation AHA lorsque nécessaire.
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-border bg-muted/10 p-6 space-y-3">
+                  <div className="flex items-center gap-2 font-semibold text-foreground">
+                    <Database className="w-5 h-5 text-primary" />
+                    Stratification inter-centre
+                  </div>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Analyse séparée 1.5T / 3T et constructeur si besoin,
+                    afin d’éviter une dilution statistique des effets biologiques.
+                  </p>
+                </div>
+
+              </div>
+            </section>
             {/* ================= PAGES LIEES ================= */}
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
               <h2 className="text-xl font-semibold">Pages liées</h2>
@@ -333,7 +467,68 @@ const ECVMappingCardiaque = () => {
                 </Link>
               </div>
             </section>
+            {/* FAQ TECHNIQUE */}
+            <section className="space-y-8">
+              <h2 className="text-2xl font-semibold text-center">
+                Questions fréquentes (ECV / T1 / T2)
+              </h2>
 
+              <div className="space-y-6">
+
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">
+                    Pourquoi l’ECV varie-t-il entre centres ?
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Les différences de champ magnétique, séquence (MOLLI, ShMOLLI, SASHA),
+                    timing post-contraste et gestion de l’hématocrite
+                    peuvent générer des écarts supérieurs à 2–4% absolus.
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">
+                    T1 natif élevé = fibrose ?
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Pas systématiquement. Le T1 natif reflète plusieurs phénomènes
+                    (inflammation, œdème, fibrose diffuse).
+                    L’interprétation dépend du contexte clinique et des autres séquences.
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">
+                    Le T2 mapping est-il spécifique de l’œdème ?
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Il est sensible à l’œdème actif mais également aux artefacts
+                    de mouvement et aux paramètres d’acquisition.
+                    Un contrôle qualité strict est indispensable.
+                  </p>
+                </div>
+
+              </div>
+            </section>
+            {/* RÉFÉRENCES & CONSENSUS */}
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold">
+                Références & consensus internationaux
+              </h2>
+
+              <ul className="list-disc pl-6 text-muted-foreground space-y-2">
+                <li>SCMR Recommendations for T1 and T2 Mapping (standardization)</li>
+                <li>Consensus statements on ECV measurement reproducibility</li>
+                <li>AHA 17-segment myocardial model</li>
+                <li>Position papers on quantitative CMR in clinical trials</li>
+              </ul>
+
+              <p className="text-muted-foreground leading-relaxed">
+                Les pipelines sont alignés avec les recommandations
+                des sociétés savantes internationales et les exigences
+                de publication multicentrique.
+              </p>
+            </section>
             {/* ================= CTA FINAL ================= */}
             <section className="text-center space-y-4">
               <p className="text-muted-foreground">
