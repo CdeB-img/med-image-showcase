@@ -9,11 +9,24 @@ const Expertise = () => {
     <>
       <Helmet>
         <title>Expertise en imagerie médicale quantitative | NOXIA</title>
+
         <meta
           name="description"
-          content="Expertise intégrée en IRM, CT et méthodologie multicentrique. Production de biomarqueurs robustes, harmonisation inter-constructeurs et ingénierie quantitative."
+          content="Expertise intégrée en IRM, CT et méthodologie multicentrique. Production de biomarqueurs robustes, harmonisation inter-constructeurs et ingénierie quantitative en recherche clinique."
         />
+
         <link rel="canonical" href={CANONICAL} />
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Expertise en imagerie médicale quantitative",
+            description:
+              "IRM, CT et méthodologie multicentrique. Production de biomarqueurs robustes, harmonisation inter-constructeurs et ingénierie quantitative.",
+            url: CANONICAL
+          })}
+        </script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
@@ -23,18 +36,18 @@ const Expertise = () => {
             {/* ================= HERO ================= */}
             <section className="text-center space-y-8">
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                Une expertise structurée autour du signal
+                Expertise en imagerie médicale quantitative
               </h1>
 
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                IRM · CT · Méthodologie multicentrique
+                IRM · CT · Structuration multicentrique · Biomarkers
               </p>
 
               <p className="text-muted-foreground max-w-3xl mx-auto leading-relaxed">
                 L’imagerie quantitative n’est pas une accumulation d’outils.
-                C’est une architecture méthodologique cohérente,
+                Elle constitue une architecture méthodologique cohérente,
                 pensée pour transformer le signal en biomarqueur
-                reproductible et scientifiquement défendable.
+                reproductible, robuste et scientifiquement défendable.
               </p>
             </section>
 
@@ -45,23 +58,45 @@ const Expertise = () => {
               </h2>
 
               <p>
-                L’expertise NOXIA repose sur une approche intégrée :
-                compréhension fine des métadonnées DICOM,
-                cohérence géométrique,
-                séparation stricte entre visualisation, segmentation
-                et quantification.
+                L’approche repose sur une compréhension fine des métadonnées DICOM,
+                de la cohérence géométrique, et d’une séparation stricte entre
+                visualisation, segmentation et quantification.
               </p>
 
               <p>
                 Chaque flux est conçu pour être traçable,
                 inter-centre robuste,
-                et physiopathologiquement cohérent.
+                inter-constructeur cohérent,
+                et physiopathologiquement interprétable.
               </p>
             </section>
 
-            {/* ================= PYRAMIDE ================= */}
-            <section className="space-y-12">
+            {/* ================= DOMAINES D’APPLICATION ================= */}
+            <section className="text-center space-y-8">
+              <h2 className="text-2xl font-semibold">
+                Domaines d’application
+              </h2>
 
+              <div className="flex flex-wrap justify-center gap-3">
+                {[
+                  "IRM cardiaque avancée",
+                  "Neuro-imagerie AVC",
+                  "CT spectral & perfusion",
+                  "Essais multicentriques",
+                  "Validation IA clinique"
+                ].map((item) => (
+                  <span
+                    key={item}
+                    className="px-4 py-2 text-sm rounded-full bg-muted/10 border border-border text-muted-foreground"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </section>
+
+            {/* ================= PILIERS ================= */}
+            <section className="space-y-12">
               <h2 className="text-2xl font-semibold text-center">
                 Trois piliers complémentaires
               </h2>
@@ -69,11 +104,11 @@ const Expertise = () => {
               <div className="grid md:grid-cols-3 gap-10">
 
                 {/* IRM */}
-                <div className="p-8 rounded-xl border border-border bg-background space-y-5">
+                <div className="p-8 rounded-xl border border-border bg-muted/5 hover:bg-muted/10 transition-colors space-y-5">
                   <h3 className="text-xl font-semibold">IRM</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    IRM cardiaque avancée (LGE, T1/T2, ECV),
-                    neuro post-AVC (Tmax, ADC, OEF/CMRO₂),
+                    IRM cardiaque avancée (LGE, T1/T2 mapping, ECV),
+                    IRM neuro post-AVC (Tmax, ADC, OEF/CMRO₂),
                     biomarqueurs myocardiques et métaboliques.
                   </p>
 
@@ -86,12 +121,13 @@ const Expertise = () => {
                 </div>
 
                 {/* CT */}
-                <div className="p-8 rounded-xl border border-border bg-background space-y-5">
+                <div className="p-8 rounded-xl border border-border bg-muted/5 hover:bg-muted/10 transition-colors space-y-5">
                   <h3 className="text-xl font-semibold">CT</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     CT spectral, reconstruction mono-énergétique,
                     décomposition matière,
-                    perfusion AVC et harmonisation inter-constructeurs.
+                    perfusion AVC,
+                    harmonisation inter-constructeurs.
                   </p>
 
                   <Link
@@ -103,13 +139,14 @@ const Expertise = () => {
                 </div>
 
                 {/* MÉTHODOLOGIE */}
-                <div className="p-8 rounded-xl border border-border bg-background space-y-5">
+                <div className="p-8 rounded-xl border border-border bg-muted/5 hover:bg-muted/10 transition-colors space-y-5">
                   <h3 className="text-xl font-semibold">Méthodologie</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     Structuration multicentrique,
                     audit de flux,
                     anonymisation avancée,
-                    validation et intégration contrôlée d’IA.
+                    validation et intégration contrôlée d’IA
+                    dans des pipelines reproductibles.
                   </p>
 
                   <Link
@@ -126,20 +163,18 @@ const Expertise = () => {
             {/* ================= SOCLE ================= */}
             <section className="max-w-4xl mx-auto text-center space-y-8">
               <h2 className="text-2xl font-semibold">
-                Un socle méthodologique commun
+                Un socle méthodologique éprouvé
               </h2>
 
               <p className="text-muted-foreground leading-relaxed">
                 Plus de 5000 examens analysés en contexte clinique
-                et scientifique.
-                Structuration de CoreLab cœur–cerveau,
-                harmonisation inter-sites,
-                validation inter-constructeurs.
+                et scientifique. Structuration d’un CoreLab cœur–cerveau,
+                harmonisation inter-sites et validation inter-constructeurs.
               </p>
 
               <p className="text-muted-foreground leading-relaxed">
                 L’automatisation n’intervient qu’après validation.
-                L’IA est intégrée dans des flux contrôlés,
+                L’IA est évaluée et intégrée dans des flux contrôlés,
                 jamais utilisée comme boîte noire autonome.
               </p>
             </section>
