@@ -127,11 +127,11 @@ const QuantificationCT = () => {
 
               <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
                 Transformation des voxels <strong>Hounsfield Units (HU)</strong> 
-                en biomarqueurs reproductibles, intégrés dans une 
+                en biomarqueurs reproductibles, intégrés dans une {" "}
                 <Link to="/analyse-dicom" className="text-primary hover:underline">
                   architecture DICOM contrôlée et audit multicentrique
                 </Link>, 
-                structurés pour la 
+                structurés pour la {" "}
                 <Link to="/bases-multicentriques" className="text-primary hover:underline">
                   recherche multicentrique
                 </Link>.
