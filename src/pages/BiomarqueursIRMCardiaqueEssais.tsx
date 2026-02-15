@@ -1,7 +1,19 @@
 import Footer from "@/components/Footer";
-import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import {
+  ArrowRight,
+  BarChart3,
+  Database,
+  ShieldCheck,
+  Workflow,
+  Microscope,
+  HeartPulse,
+  Activity,
+  Layers,
+  Timer,
+  CheckCircle2
+} from "lucide-react";
 
 const CANONICAL =
   "https://noxia-imagerie.fr/biomarqueurs-irm-cardiaque-essais-cliniques";
@@ -33,48 +45,17 @@ const BiomarqueursIRMCardiaqueEssais = () => {
       name: "NOXIA Imagerie",
       url: "https://noxia-imagerie.fr"
     },
-    mainEntity: {
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Pourquoi l’IRM cardiaque est-elle utilisée comme endpoint d’essai clinique ?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "L’IRM cardiaque permet une quantification directe de la nécrose, de l’obstruction microvasculaire, du remodelage ventriculaire et des altérations tissulaires diffuses. Elle constitue un surrogate endpoint robuste lorsqu’elle est méthodologiquement standardisée."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Quelle est la différence entre T1 et T2 en pratique clinique ?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Le T1 natif est principalement associé à l’inflammation et à la fibrose diffuse, tandis que le T2 mapping reflète l’œdème actif. Leur confusion peut conduire à des interprétations physiopathologiques erronées."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Pourquoi l’harmonisation multicentrique est-elle critique ?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "La variabilité inter-constructeurs et inter-centres peut dépasser l’effet thérapeutique étudié. Une harmonisation documentée est nécessaire pour garantir la validité statistique et scientifique des biomarqueurs."
-          }
-        }
-      ]
-    },
     url: CANONICAL
   };
 
   return (
     <>
       <Helmet>
-        <title>
-          Biomarqueurs IRM cardiaque & Endpoints d’essais cliniques | NOXIA
-        </title>
+        <title>Biomarqueurs IRM cardiaque & Endpoints d’essais cliniques | NOXIA</title>
 
         <meta
           name="description"
-          content="IRM cardiaque comme endpoint d’essais thérapeutiques multicentriques : LGE, MVO, ECV, T1, T2. Validation translationnelle, harmonisation inter-centre et reproductibilité scientifique."
+          content="IRM cardiaque comme endpoint d’essais thérapeutiques multicentriques : LGE, MVO, ECV, T1, T2, remodelage VG. Validation translationnelle, harmonisation inter-centre et reproductibilité."
         />
 
         <link rel="canonical" href={CANONICAL} />
@@ -85,163 +66,316 @@ const BiomarqueursIRMCardiaqueEssais = () => {
         />
         <meta
           property="og:description"
-          content="Structuration, validation et harmonisation de biomarqueurs IRM cardiaque utilisés comme endpoints randomisés."
+          content="Structuration, validation et harmonisation de biomarqueurs IRM cardiaque utilisés comme endpoints d’essais randomisés."
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={CANONICAL} />
 
-        <script type="application/ld+json">
-          {JSON.stringify(jsonLd)}
-        </script>
+        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
         <main className="flex-1 py-20 px-4">
-          <div className="max-w-5xl mx-auto space-y-24">
+          <div className="max-w-5xl mx-auto space-y-16">
 
-            {/* HERO */}
+            {/* ================= HERO ================= */}
             <section className="text-center space-y-6">
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
                 Biomarqueurs IRM cardiaque comme endpoints d’essais cliniques
               </h1>
 
-              <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-                Structuration méthodologique, validation translationnelle
-                et harmonisation multicentrique de biomarqueurs IRM
-                utilisés comme endpoints primaires ou secondaires
-                d’essais thérapeutiques randomisés.
+              <p className="text-xl text-muted-foreground leading-relaxed max-w-4xl mx-auto">
+                Transformer une IRM hétérogène (centres, scanners, versions, logiciels)
+                en <strong>endpoints quantitatifs</strong> reproductibles :
+                définition explicite, validation physiopathologique,
+                harmonisation multicentrique et traçabilité.
               </p>
+
+              <div className="flex flex-wrap justify-center gap-3 pt-2">
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
+                >
+                  Discuter d’un endpoint
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <Link
+                  to="/corelab-essais-cliniques"
+                  className="inline-flex items-center justify-center gap-2 rounded-md border border-border px-6 py-3 font-medium hover:bg-muted/40 transition"
+                >
+                  Voir l’approche Core Lab
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
             </section>
 
-            {/* POSITION STRATÉGIQUE */}
+            {/* ================= TL;DR ================= */}
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8">
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 font-semibold">
+                    <BarChart3 className="w-5 h-5 text-primary" />
+                    Ce qui compte en essai
+                  </div>
+                  <p className="text-muted-foreground">
+                    Un endpoint IRM est un objet <strong>statistique</strong> :
+                    définition stable, distributions contrôlées, biais documentés.
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 font-semibold">
+                    <ShieldCheck className="w-5 h-5 text-primary" />
+                    Ce qui le rend défendable
+                  </div>
+                  <p className="text-muted-foreground">
+                    Méthodologie explicite : règles de segmentation, timing, QA,
+                    reproductibilité inter-centre / inter-lecteurs.
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 font-semibold">
+                    <Database className="w-5 h-5 text-primary" />
+                    Ce qui est livré
+                  </div>
+                  <p className="text-muted-foreground">
+                    Extractions versionnées, logs, mapping, exports analytiques
+                    et documentation directement réutilisable (SAP, protocole, publication).
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            {/* ================= POSITIONNEMENT ================= */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
                 De l’image descriptive au surrogate endpoint
               </h2>
 
               <p>
-                L’IRM cardiaque moderne ne se limite plus à la visualisation.
-                Elle permet une quantification directe des lésions myocardiques,
-                du remodelage ventriculaire gauche et des altérations
-                tissulaires diffuses. Dans un essai thérapeutique,
-                ces mesures deviennent des endpoints décisionnels.
+                Un biomarqueur IRM cardiaque devient un endpoint d’essai
+                uniquement lorsque sa définition est strictement contrôlée :
+                <strong>quoi</strong> est mesuré, <strong>où</strong>, <strong>quand</strong>,
+                <strong>comment</strong> (règles, seuils, exclusions), et <strong>avec quel niveau d’incertitude</strong>.
               </p>
 
               <p>
-                Toutefois, un biomarqueur IRM n’a de valeur scientifique
-                que si sa définition est explicite : règles de segmentation,
-                choix des seuils, séparation inférence / quantification,
-                contrôle des biais inter-centre et reproductibilité.
+                En multicentrique, la variabilité technique (constructeur, champ, implémentation de séquence,
+                logiciel de post-traitement, versions) peut dépasser l’effet thérapeutique.
+                La conséquence est immédiate : baisse de puissance, dilution de signal, et résultats difficiles à défendre.
               </p>
 
               <p>
-                Cette démarche s’intègre dans une logique globale de{" "}
-                <Link to="/corelab-essais-cliniques" className="text-primary hover:underline">
-                  Core Lab IRM multicentrique
+                L’approche NOXIA se place au niveau méthodologique : structurer l’endpoint
+                pour qu’il soit robuste à l’hétérogénéité réelle, pas uniquement “propre” sur un sous-groupe idéal.
+              </p>
+            </section>
+
+            {/* ================= BIOMARQUEURS ================= */}
+            <section className="space-y-6">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Biomarqueurs structurants en IRM cardiaque
+              </h2>
+
+              <div className="grid md:grid-cols-2 gap-6 text-muted-foreground leading-relaxed">
+                <div className="p-6 rounded-xl border border-border/50 bg-muted/20">
+                  <div className="flex items-start gap-3">
+                    <HeartPulse className="w-5 h-5 text-primary mt-1" />
+                    <div>
+                      <h3 className="font-semibold text-foreground mb-2">
+                        Nécrose / cicatrice (LGE)
+                      </h3>
+                      <p>
+                        Définition de règles de segmentation robustes (seuils, ROI de référence,
+                        exclusions artefacts, gestion des bords), extraction de volumes / masses,
+                        et stabilité inter-reconstruction.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-6 rounded-xl border border-border/50 bg-muted/20">
+                  <div className="flex items-start gap-3">
+                    <Activity className="w-5 h-5 text-primary mt-1" />
+                    <div>
+                      <h3 className="font-semibold text-foreground mb-2">
+                        Obstruction microvasculaire (MVO)
+                      </h3>
+                      <p>
+                        Quantification MVO comme endpoint sensible : dépendance au timing, au contraste,
+                        aux artefacts, et aux règles d’inclusion. Stabilisation via QA + protocole explicite.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-6 rounded-xl border border-border/50 bg-muted/20">
+                  <div className="flex items-start gap-3">
+                    <Layers className="w-5 h-5 text-primary mt-1" />
+                    <div>
+                      <h3 className="font-semibold text-foreground mb-2">
+                        Volumes / FE / remodelage VG
+                      </h3>
+                      <p>
+                        Standardisation de contours endo/épi, gestion des plans de base,
+                        cohérence temporelle (baseline, M6, etc.), et métriques longitudinales.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-6 rounded-xl border border-border/50 bg-muted/20">
+                  <div className="flex items-start gap-3">
+                    <Microscope className="w-5 h-5 text-primary mt-1" />
+                    <div>
+                      <h3 className="font-semibold text-foreground mb-2">
+                        T1 / T2 / ECV
+                      </h3>
+                      <p>
+                        Biomarqueurs diffus à forte sensibilité aux séquences et au champ.
+                        Nécessitent une séparation stricte acquisition ↔ segmentation ↔ quantification.
+                      </p>
+                      <p className="mt-3">
+                        Voir{" "}
+                        <Link to="/ecv-mapping-t1-t2-irm-cardiaque" className="text-primary hover:underline">
+                          ECV & Mapping T1/T2
+                        </Link>.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <p className="text-muted-foreground leading-relaxed">
+                L’enjeu n’est pas d’empiler des mesures, mais d’obtenir des variables
+                <strong>stables</strong>, <strong>comparables</strong> et <strong>publiables</strong>
+                avec une traçabilité complète.
+              </p>
+            </section>
+
+            {/* ================= PIPELINE ENDPOINT ================= */}
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Architecture méthodologique d’un endpoint IRM
+              </h2>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="p-6 rounded-xl border border-border/50 bg-muted/20 space-y-3">
+                  <div className="flex items-center gap-2 font-semibold text-foreground">
+                    <Workflow className="w-5 h-5 text-primary" />
+                    Chaîne “défendable”
+                  </div>
+                  <ul className="list-disc pl-6 space-y-2">
+                    <li>Audit DICOM : cohérence séries, champs, paramètres critiques</li>
+                    <li>Normalisation géométrique contrôlée (si nécessaire) + logs</li>
+                    <li>Règles de segmentation explicites (cas limites, exclusions)</li>
+                    <li>Extraction métrique versionnée (volumes, masses, ratios)</li>
+                    <li>QA systématique (visuel + checks automatiques)</li>
+                    <li>Exports analytiques : tableaux, distributions, flags</li>
+                  </ul>
+                </div>
+
+                <div className="p-6 rounded-xl border border-border/50 bg-muted/20 space-y-3">
+                  <div className="flex items-center gap-2 font-semibold text-foreground">
+                    <Timer className="w-5 h-5 text-primary" />
+                    Points sensibles en essai
+                  </div>
+                  <ul className="list-disc pl-6 space-y-2">
+                    <li>Timing post-contraste (LGE, MVO, ECV) et traçabilité</li>
+                    <li>1.5T vs 3T : distributions différentes → stratification ou harmonisation</li>
+                    <li>Logiciels multiples : mêmes “labels”, résultats différents</li>
+                    <li>Artefacts (arythmie, motion, inhomogénéités) : règles d’exclusion</li>
+                    <li>Multi-reconstructions / duplicates : détection obligatoire</li>
+                  </ul>
+                </div>
+              </div>
+
+              <p>
+                L’objectif est une chaîne qui résiste à l’hétérogénéité réelle,
+                et qui supporte une discussion méthodologique en comité, SAP ou publication.
+              </p>
+            </section>
+
+            {/* ================= VALIDATION TRANSLATIONNELLE ================= */}
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Validation translationnelle : quand “mesure” signifie “physiopathologie”
+              </h2>
+
+              <p>
+                Un endpoint gagne de la valeur lorsqu’il est relié à une réalité
+                physiopathologique indépendante (histologie, biologie, outcomes).
+                En particulier, l’ECV et certains marqueurs tissulaires exigent
+                une rigueur sur l’hématocrite, le timing et la sectorisation.
+              </p>
+
+              <div className="p-6 rounded-xl border border-border/50 bg-muted/20">
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-primary mt-1" />
+                  <div>
+                    <h3 className="font-semibold text-foreground mb-2">
+                      Ce que “validation” implique concrètement
+                    </h3>
+                    <ul className="list-disc pl-6 space-y-2">
+                      <li>Définition explicite du biomarqueur (et de ses variantes)</li>
+                      <li>Contrôle des biais systématiques (centre, champ, logiciel)</li>
+                      <li>Règles de ROI (AHA, exclusion zones, qualité)</li>
+                      <li>Traçabilité : valeurs sources, transformations, versions</li>
+                    </ul>
+                    <p className="mt-3">
+                      Détails méthodologiques :{" "}
+                      <Link to="/ecv-mapping-t1-t2-irm-cardiaque" className="text-primary hover:underline">
+                        ECV & Mapping T1/T2
+                      </Link>.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* ================= MULTICENTRIQUE ================= */}
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Variabilité inter-centre : l’ennemi silencieux de la puissance statistique
+              </h2>
+
+              <p>
+                Une harmonisation structurée n’a pas pour but “d’effacer” la variabilité,
+                mais de la <strong>maîtriser</strong>, la <strong>documenter</strong> et
+                l’intégrer dans le modèle analytique (stratification, covariables, exclusions).
+              </p>
+
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Analyse des distributions par centre / champ / constructeur</li>
+                <li>Détection d’examens incompatibles (protocol drift, paramètres manquants)</li>
+                <li>Stabilisation des règles de segmentation et des exports</li>
+                <li>Rapports QA exploitables (et non “screenshots” isolés)</li>
+              </ul>
+
+              <p>
+                Voir :{" "}
+                <Link to="/bases-multicentriques" className="text-primary hover:underline">
+                  Bases multicentriques & harmonisation
                 </Link>{" "}
-                et d’{" "}
-                <Link to="/bases-multicentriques" className="text-primary hover:underline">
-                  harmonisation méthodologique des bases d’imagerie
+                et{" "}
+                <Link to="/analyse-dicom" className="text-primary hover:underline">
+                  Analyse DICOM
                 </Link>.
               </p>
             </section>
 
-            {/* BIOMARQUEURS */}
-            <section className="space-y-6 text-muted-foreground leading-relaxed">
-              <h2 className="text-2xl font-semibold text-foreground">
-                Biomarqueurs cardiaques structurants
-              </h2>
+            {/* ================= PAGES LIEES ================= */}
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold">Pages liées</h2>
 
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Nécrose myocardique (Late Gadolinium Enhancement)</li>
-                <li>Obstruction microvasculaire (MVO)</li>
-                <li>Volumes ventriculaires & fraction d’éjection</li>
-                <li>Remodelage ventriculaire longitudinal</li>
-                <li>ECV – quantification de l’espace extracellulaire</li>
-                <li>T1 natif – inflammation / fibrose diffuse</li>
-                <li>T2 mapping – œdème actif</li>
-              </ul>
-
-              <p>
-                La distinction entre T1 et T2 est essentielle :
-                le T1 reflète principalement l’inflammation ou la fibrose diffuse,
-                tandis que le T2 est un marqueur d’œdème actif.
-                Une confusion méthodologique altère directement
-                l’interprétation physiopathologique.
-              </p>
-            </section>
-
-            {/* VALIDATION TRANSLATIONNELLE */}
-            <section className="space-y-6 text-muted-foreground leading-relaxed">
-              <h2 className="text-2xl font-semibold text-foreground">
-                Validation translationnelle : ECV et corrélation histologique
-              </h2>
-
-              <p>
-                Dans des protocoles hypertrophiques intégrant biopsies septales,
-                l’ECV a été évalué dans des conditions strictement contrôlées :
-              </p>
-
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Prélèvement sanguin immédiat avant injection</li>
-                <li>Mesure précise de l’hématocrite (contrôle décantation)</li>
-                <li>Sectorisation myocardique AHA</li>
-                <li>Corrélation IRM ↔ histologie quantitative</li>
-              </ul>
-
-              <p>
-                Cette approche renforce la validité physiopathologique
-                du biomarqueur. Voir également la page dédiée{" "}
-                <Link to="/ecv-mapping-t1-t2-irm-cardiaque" className="text-primary hover:underline">
-                  ECV & Mapping T1/T2
-                </Link>.
-              </p>
-            </section>
-
-            {/* VARIABILITÉ MULTICENTRIQUE */}
-            <section className="space-y-6 text-muted-foreground leading-relaxed">
-              <h2 className="text-2xl font-semibold text-foreground">
-                Variabilité inter-centre et puissance statistique
-              </h2>
-
-              <p>
-                Dans un essai multicentrique, la variabilité technique
-                (constructeur, champ 1.5T/3T, implémentation séquence,
-                post-traitement logiciel) peut dépasser l’effet
-                thérapeutique étudié.
-              </p>
-
-              <p>
-                Une harmonisation structurée permet :
-              </p>
-
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Réduction du bruit centre-dépendant</li>
-                <li>Stabilisation des distributions statistiques</li>
-                <li>Amélioration de la puissance analytique</li>
-                <li>Robustesse des conclusions publiables</li>
-              </ul>
-
-              <p>
-                Cette étape est détaillée dans{" "}
-                <Link to="/bases-multicentriques" className="text-primary hover:underline">
-                  Bases multicentriques & Harmonisation IRM/CT
-                </Link>.
-              </p>
-            </section>
-
-            {/* LIENS TRANSVERSAUX */}
-            <section className="space-y-6 text-center">
-              <h2 className="text-xl font-semibold">
-                Approches complémentaires
-              </h2>
-
-              <div className="flex flex-wrap justify-center gap-3">
+              <div className="flex flex-wrap gap-3">
                 <Link
-                  to="/segmentation-irm"
+                  to="/ecv-mapping-t1-t2-irm-cardiaque"
                   className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
                 >
-                  Segmentation IRM
+                  ECV & Mapping T1/T2
                   <ArrowRight className="w-4 h-4" />
                 </Link>
 
@@ -254,25 +388,40 @@ const BiomarqueursIRMCardiaqueEssais = () => {
                 </Link>
 
                 <Link
+                  to="/irm-imagerie-quantitative"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  IRM quantitative
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <Link
                   to="/bases-multicentriques"
                   className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
                 >
-                  Harmonisation multicentrique
+                  Bases multicentriques
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <Link
+                  to="/methodologie-imagerie-quantitative"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  Méthodologie quantitative
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </section>
 
-            {/* CTA FINAL */}
+            {/* ================= CTA FINAL ================= */}
             <section className="text-center space-y-4">
               <p className="text-muted-foreground">
-                Structurer un endpoint IRM robuste est un travail
-                méthodologique avant d’être un travail logiciel.
+                Un endpoint IRM robuste est un travail méthodologique avant d’être un travail logiciel.
               </p>
 
               <Link
                 to="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-5 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
               >
                 Discuter du projet
                 <ArrowRight className="w-4 h-4" />
