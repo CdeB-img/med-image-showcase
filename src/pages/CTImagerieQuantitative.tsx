@@ -227,7 +227,7 @@ const CTImagerieQuantitative = () => {
               </p>
 
               <p>
-                Cette structuration s’inscrit dans une logique d’ {" "}
+                Cette structuration s’inscrit dans une logique d’
                 <Link to="/analyse-dicom" className="text-primary hover:underline">
                   audit DICOM complet
                 </Link>,
@@ -272,7 +272,7 @@ const CTImagerieQuantitative = () => {
               </ul>
 
                 <p>
-                  À la différence de l’ {" "}
+                  À la différence de l’
                   <Link to="/irm-imagerie-quantitative" className="text-primary hover:underline">
                     IRM quantitative
                   </Link>,
