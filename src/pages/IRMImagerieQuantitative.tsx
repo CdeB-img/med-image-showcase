@@ -15,7 +15,7 @@ const IRMImagerieQuantitative = () => {
       "Développement, validation et harmonisation multicentrique de biomarqueurs IRM quantitatifs en cardiologie et neuro-imagerie. Segmentation contrôlée, mapping T1/T2, perfusion cérébrale et structuration Core Lab.",
     medicalAudience: {
       "@type": "MedicalAudience",
-      audienceType": "Researchers"
+      audienceType: "Researchers"
     },
     provider: {
       "@type": "Organization",
