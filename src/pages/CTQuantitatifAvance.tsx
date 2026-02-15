@@ -169,7 +169,7 @@ const CTQuantitatifAvance = () => {
             </section>
 
             {/* BANDEAU INTRO FULL-WIDTH (Ex-section orpheline) */}
-            <section className="rounded-2xl border border-border bg-card/50 p-10 space-y-4 shadow-sm">
+            <section className="rounded-2xl border border-border bg-card/50 p-8 space-y-4 shadow-sm">
               <div className="flex items-center gap-3 font-semibold text-foreground text-lg">
                 <Atom className="w-6 h-6 text-primary shrink-0" />
                 Décomposition physique du signal
@@ -217,7 +217,7 @@ const CTQuantitatifAvance = () => {
                 </div>
 
                 {/* Colonne Droite : Focus Technique */}
-                <div className="rounded-2xl border border-border bg-card/50 p-8 space-y-6 h-full">
+                <div className="rounded-2xl border border-border bg-card/50 p-8 space-y-6">
                   <div className="flex items-center gap-3 font-semibold text-foreground">
                     <Brain className="w-5 h-5 text-primary shrink-0" />
                     Modèles physiques & validation
@@ -294,7 +294,7 @@ const CTQuantitatifAvance = () => {
                 </div>
 
                 {/* Colonne Droite */}
-                <div className="rounded-2xl border border-border bg-card/50 p-8 space-y-6 h-full">
+                <div className="rounded-2xl border border-border bg-card/50 p-8 space-y-6">
                   <div className="flex items-center gap-3 font-semibold text-foreground">
                     <ShieldCheck className="w-5 h-5 text-primary shrink-0" />
                     Impact méthodologique
@@ -345,7 +345,7 @@ const CTQuantitatifAvance = () => {
                 </div>
 
                 {/* Colonne Droite */}
-                <div className="rounded-2xl border border-border bg-card/50 p-8 space-y-6 h-full">
+                <div className="rounded-2xl border border-border bg-card/50 p-8 space-y-6">
                   <div className="flex items-center gap-3 font-semibold text-foreground">
                     <BarChart3 className="w-5 h-5 text-primary shrink-0" />
                     Principe central
@@ -400,7 +400,7 @@ const CTQuantitatifAvance = () => {
                 </div>
 
                 {/* Colonne Droite */}
-                <div className="rounded-2xl border border-border bg-card/50 p-8 space-y-6 h-full">
+                <div className="rounded-2xl border border-border bg-card/50 p-8 space-y-6">
                   <div className="flex items-center gap-3 font-semibold text-foreground">
                     <FileText className="w-5 h-5 text-primary shrink-0" />
                     Positionnement
@@ -421,7 +421,7 @@ const CTQuantitatifAvance = () => {
             </section>
 
             {/* DATA & CONSENSUS (Full Width Grid) */}
-            <section className="rounded-2xl border border-border bg-muted/10 p-10 space-y-8">
+            <section className="rounded-2xl border border-border bg-muted/40 p-10 space-y-8">
               <h2 className="text-2xl font-semibold text-center">
                 Données de référence & Consensus
               </h2>
@@ -458,9 +458,9 @@ const CTQuantitatifAvance = () => {
               <h2 className="text-2xl font-semibold text-center text-foreground">
                 Questions fréquentes – CT quantitatif
               </h2>
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 gap-8">
                 
-                <div className="rounded-2xl border border-border bg-card/50 p-6 space-y-3 hover:border-primary/30 transition-colors">
+                <div className="rounded-2xl border border-border bg-card/50 p-8 space-y-3 hover:border-primary/30 transition-colors">
                   <h3 className="font-semibold text-foreground">
                     Les unités Hounsfield sont-elles comparables entre centres ?
                   </h3>
@@ -470,7 +470,7 @@ const CTQuantitatifAvance = () => {
                   </p>
                 </div>
 
-                <div className="rounded-2xl border border-border bg-card/50 p-6 space-y-3 hover:border-primary/30 transition-colors">
+                <div className="rounded-2xl border border-border bg-card/50 p-8 space-y-3 hover:border-primary/30 transition-colors">
                   <h3 className="font-semibold text-foreground">
                     Le CT spectral améliore-t-il la quantification ?
                   </h3>
@@ -480,7 +480,7 @@ const CTQuantitatifAvance = () => {
                   </p>
                 </div>
 
-                <div className="rounded-2xl border border-border bg-card/50 p-6 space-y-3 hover:border-primary/30 transition-colors">
+                <div className="rounded-2xl border border-border bg-card/50 p-8 space-y-3 hover:border-primary/30 transition-colors">
                   <h3 className="font-semibold text-foreground">
                     Pourquoi utiliser un fantôme de calibration ?
                   </h3>
@@ -490,7 +490,7 @@ const CTQuantitatifAvance = () => {
                   </p>
                 </div>
 
-                <div className="rounded-2xl border border-border bg-card/50 p-6 space-y-3 hover:border-primary/30 transition-colors">
+                <div className="rounded-2xl border border-border bg-card/50 p-8 space-y-3 hover:border-primary/30 transition-colors">
                   <h3 className="font-semibold text-foreground">
                     Est-ce applicable en routine clinique ?
                   </h3>
@@ -504,7 +504,7 @@ const CTQuantitatifAvance = () => {
             </section>        
 
             {/* CTA */}
-            <section className="text-center space-y-6 pt-8 pb-4">
+            <section className="rounded-2xl border border-border bg-card/30 p-10 text-center">
               <p className="text-muted-foreground max-w-2xl mx-auto">
                 Vous développez un protocole de recherche ou un outil industriel ? <br/>
                 Sécurisez vos données avec une validation physique explicite.
