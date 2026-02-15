@@ -194,7 +194,7 @@ const CTQuantitatifAvance = () => {
                   <p className="leading-relaxed">
                     Le dual-energy et le CT spectral permettent de s'affranchir partiellement 
                     des artefacts de durcissement de faisceau et d'accéder aux propriétés 
-                    intrinsèques de la matière, notamment dans des approches de 
+                    intrinsèques de la matière, notamment dans des approches de {" "}
                     <Link to="/quantification-ct" className="text-primary hover:underline">
                     quantification CT clinique
                     </Link>.
@@ -281,7 +281,7 @@ const CTQuantitatifAvance = () => {
                     confrontée à une validation physique indépendante ("Ground Truth").
                     Cette étape s’inscrit dans une logique d’
                       <Link to="/harmonisation-multicentrique" className="text-primary hover:underline">
-                      harmonisation multicentrique
+                      harmonisation multicentrique {" "}
                       </Link>
                       indispensable en recherche clinique.
                   </p>
@@ -471,27 +471,62 @@ const CTQuantitatifAvance = () => {
                 </div>
               </div>
             </section>
-            <section className="rounded-2xl border border-border bg-card/40 p-8 space-y-6">
-              <h2 className="text-xl font-semibold">
-                Expertises associées
-              </h2>
+           <section className="rounded-2xl border border-border bg-card/40 p-10 space-y-8 text-center">
+            <h2 className="text-xl font-semibold text-foreground">
+              Expertises associées
+            </h2>
 
-              <div className="grid md:grid-cols-3 gap-6 text-sm">
+            <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
+              Cette approche s’intègre dans une architecture plus large
+              d’ingénierie quantitative et d’harmonisation multicentrique.
+            </p>
 
-                <Link to="/quantification-ct" className="hover:text-primary transition">
-                  Quantification CT clinique
-                </Link>
+            <div className="grid md:grid-cols-3 gap-6">
 
-                <Link to="/harmonisation-multicentrique" className="hover:text-primary transition">
-                  Harmonisation multicentrique
-                </Link>
+              <Link
+                to="/quantification-ct"
+                className="rounded-xl border border-border bg-card/50 p-6 hover:border-primary/40 hover:bg-card/70 transition-all group"
+              >
+                <div className="space-y-2">
+                  <p className="font-medium group-hover:text-primary transition-colors">
+                    Quantification CT clinique
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    Extraction métrique robuste en contexte patient.
+                  </p>
+                </div>
+              </Link>
 
-                <Link to="/ingenierie-imagerie-quantitative" className="hover:text-primary transition">
-                  Ingénierie en imagerie quantitative
-                </Link>
+              <Link
+                to="/harmonisation-multicentrique"
+                className="rounded-xl border border-border bg-card/50 p-6 hover:border-primary/40 hover:bg-card/70 transition-all group"
+              >
+                <div className="space-y-2">
+                  <p className="font-medium group-hover:text-primary transition-colors">
+                    Harmonisation multicentrique
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    Réduction des biais inter-constructeurs.
+                  </p>
+                </div>
+              </Link>
 
-              </div>
-            </section>
+              <Link
+                to="/ingenierie-imagerie-quantitative"
+                className="rounded-xl border border-border bg-card/50 p-6 hover:border-primary/40 hover:bg-card/70 transition-all group"
+              >
+                <div className="space-y-2">
+                  <p className="font-medium group-hover:text-primary transition-colors">
+                    Ingénierie en imagerie quantitative
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    Architecture méthodologique complète.
+                  </p>
+                </div>
+              </Link>
+
+            </div>
+          </section>
             <section className="rounded-2xl border border-primary/20 bg-primary/5 p-8 space-y-4">
               <h2 className="text-xl font-semibold text-foreground">
                 En résumé
