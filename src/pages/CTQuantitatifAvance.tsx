@@ -194,32 +194,39 @@ const faqJsonLd = {
             </section>
 
 
-          <section className="grid md:grid-cols-2 gap-8 items-start">
+            {/* ARCHITECTURE PIPELINE */}
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-8 space-y-8">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Architecture méthodologique d’un biomarqueur CT robuste
+              </h2>
 
-              <div className="space-y-4">
-                <h2 className="text-2xl font-semibold">
-                  Architecture pipeline CT quantitative
-                </h2>
+              <div className="grid md:grid-cols-2 gap-8">
 
-                <p className="text-muted-foreground">
-                  Un biomarqueur CT robuste repose sur une séquence explicite :
-                </p>
+                <div className="space-y-4 text-muted-foreground">
+                  <p>
+                    Un biomarqueur CT exploitable repose sur une séquence méthodologique
+                    explicite et documentée.
+                  </p>
 
-                <ul className="list-disc pl-6 text-muted-foreground space-y-2">
-                  <li>Audit DICOM & métadonnées énergétiques</li>
-                  <li>Calibration phantom indépendante</li>
-                  <li>Stratification inter-constructeurs</li>
-                  <li>Extraction métrique versionnée</li>
-                  <li>Analyse de robustesse statistique</li>
-                </ul>
+                  <ul className="space-y-2 list-disc pl-6">
+                    <li>Audit DICOM & paramètres énergétiques critiques</li>
+                    <li>Calibration phantom indépendante</li>
+                    <li>Stratification inter-constructeurs si nécessaire</li>
+                    <li>Extraction métrique versionnée</li>
+                    <li>Analyse de robustesse statistique (intra / inter-scanner)</li>
+                  </ul>
+                </div>
+
+                <div className="rounded-xl border border-border bg-card/50 p-6 flex items-start gap-3">
+                  <ShieldCheck className="w-5 h-5 text-primary mt-1" />
+                  <p className="text-muted-foreground text-sm">
+                    L’objectif n’est pas d’améliorer visuellement une reconstruction,
+                    mais de produire une <strong>valeur opposable scientifiquement</strong>.
+                  </p>
+                </div>
+
               </div>
-
-              <div className="rounded-xl border border-border bg-muted/10 p-6">
-                <p className="text-sm text-muted-foreground">
-                  L’objectif n’est pas de produire une image améliorée,
-                  mais une valeur opposable scientifiquement.
-                </p>
-              </div>
+            </section>
 
             </section>
             {/* PROBLÈME FONDAMENTAL */}
@@ -245,33 +252,40 @@ const faqJsonLd = {
             </section>
 
             {/* IMAGERIE SPECTRALE */}
-            <section className="space-y-6 text-muted-foreground leading-relaxed">
+            <section className="space-y-8">
               <h2 className="text-2xl font-semibold text-foreground">
-                Imagerie spectrale & modèles physiques
+                Imagerie spectrale & décomposition physique
               </h2>
 
-              <p>
-                Le dual-energy et le CT spectral permettent d’accéder
-                aux composantes physiques sous-jacentes du signal :
-              </p>
+              <div className="grid md:grid-cols-2 gap-8 text-muted-foreground">
 
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Décomposition Compton / Photoélectrique</li>
-                <li>Reconstruction monoénergétique synthétique</li>
-                <li>Cartes matériaux spécifiques</li>
-                <li>Analyse des comportements basse énergie (&lt;70 keV)</li>
-              </ul>
+                <div className="space-y-4">
+                  <p>
+                    Le dual-energy et le CT spectral permettent d’accéder
+                    aux composantes physiques du signal.
+                  </p>
 
-              <p>
-                Implémentation et confrontation de modèles inspirés
-                des équations de décomposition type Alvarez,
-                avec comparaison directe aux reconstructions constructeur.
-              </p>
+                  <ul className="space-y-2 list-disc pl-6">
+                    <li>Décomposition Compton / Photoélectrique</li>
+                    <li>Reconstructions monoénergétiques synthétiques</li>
+                    <li>Cartes matériaux spécifiques</li>
+                    <li>Analyse comportement basse énergie (&lt;70 keV)</li>
+                  </ul>
+                </div>
 
-              <p>
-                L’enjeu n’est pas la reproduction visuelle,
-                mais la cohérence métrique inter-système.
-              </p>
+                <div className="rounded-xl border border-border bg-muted/10 p-6 space-y-3">
+                  <div className="flex items-center gap-2 font-semibold">
+                    <Atom className="w-5 h-5 text-primary" />
+                    Modèles physiques
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Implémentation et confrontation de modèles inspirés des équations
+                    de décomposition type Alvarez, avec comparaison directe
+                    aux reconstructions constructeur.
+                  </p>
+                </div>
+
+              </div>
             </section>
 
             {/* CALIBRATION PHYSIQUE */}
@@ -391,27 +405,27 @@ const faqJsonLd = {
 
           </div>
         </section>
-            <section className="rounded-2xl border border-border/50 bg-muted/20 p-8 space-y-6">
-              <h2 className="text-2xl font-semibold">
-                Positionnement scientifique
-              </h2>
+        {/* POSITIONNEMENT SCIENTIFIQUE */}
+        <section className="rounded-2xl border border-border/50 bg-muted/20 p-8 space-y-6">
+          <h2 className="text-2xl font-semibold text-foreground">
+            Positionnement scientifique
+          </h2>
 
-              <p className="text-muted-foreground">
-                L’expertise ne consiste pas à reproduire visuellement
-                une reconstruction constructeur.
-                Elle consiste à produire un paramètre physiquement cohérent,
-                statistiquement robuste et défendable.
-              </p>
+          <p className="text-muted-foreground">
+            L’expertise ne consiste pas à reproduire une reconstruction constructeur,
+            mais à produire un paramètre physiquement cohérent,
+            statistiquement robuste et défendable.
+          </p>
 
-              <div className="flex items-start gap-3">
-                <AlertTriangle className="w-5 h-5 text-primary mt-1" />
-                <p className="text-muted-foreground text-sm">
-                  La robustesse d’un biomarqueur CT dépend davantage
-                  de la calibration et de l’architecture méthodologique
-                  que de l’algorithme utilisé.
-                </p>
-              </div>
-            </section>
+          <div className="rounded-xl border border-border bg-card/50 p-6 flex items-start gap-3">
+            <BarChart3 className="w-5 h-5 text-primary mt-1" />
+            <p className="text-sm text-muted-foreground">
+              La robustesse d’un biomarqueur CT dépend avant tout
+              de la calibration indépendante et de l’architecture méthodologique,
+              davantage que de l’algorithme utilisé.
+            </p>
+          </div>
+        </section>
 
 
 
