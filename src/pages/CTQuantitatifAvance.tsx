@@ -280,7 +280,7 @@ const CTQuantitatifAvance = () => {
                     Pour dépasser l'analyse visuelle, toute quantification avancée doit être 
                     confrontée à une validation physique indépendante ("Ground Truth").
                     Cette étape s’inscrit dans une logique d’
-                      <Link to="/harmonisation-multicentrique" className="text-primary hover:underline">
+                      <Link to="/bases-multicentriques" className="text-primary hover:underline">
                       harmonisation multicentrique {" "}
                       </Link>
                       indispensable en recherche clinique.
