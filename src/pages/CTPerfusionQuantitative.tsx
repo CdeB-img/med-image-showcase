@@ -86,7 +86,15 @@ const CTPerfusionQuantitative = () => {
     areaServed: "Europe",
     url: CANONICAL,
     description:
-      "Lecture centralisée et quantification défendable des volumes de core/pénombre en CT perfusion : règles explicites, QC, stabilité des volumes, et exports prêts pour analyses statistiques ou essais multicentriques."
+      "Lecture centralisée et quantification défendable des volumes de core/pénombre en CT perfusion : règles explicites, QC, stabilité des volumes, et exports prêts pour analyses statistiques ou essais multicentriques.",
+
+    availableChannel: {
+      "@type": "ServiceChannel",
+      serviceLocation: {
+        "@type": "Place",
+        name: "Remote core-lab reading"
+      }
+    }
   };
 
   const breadcrumbJsonLd = {
@@ -141,7 +149,7 @@ const CTPerfusionQuantitative = () => {
   return (
     <>
       <Helmet>
-        <title>CT Perfusion AVC | Quantification core & pénombre | NOXIA</title>
+        <title>CT Perfusion quantitative en AVC aigu | Core & pénombre | NOXIA</title>
         <meta
           name="description"
           content="CT Perfusion quantitative en AVC aigu : quantification core (CBF/CBV) et pénombre (Tmax), contrôle AIF/VOF, stabilité multi-seuil, variabilité inter-logiciels, harmonisation multicentrique et livrables traçables."
@@ -239,6 +247,9 @@ const CTPerfusionQuantitative = () => {
                     Endpoints défendables : distributions stables, comparabilité inter-centre,
                     analyses statistiques et documentation méthodologique opposable.
                   </p>
+                  <p className="text-muted-foreground text-sm">
+                    Biomarker → Endpoint → Statistical robustness
+                  </p>
                 </div>
               </div>
             </section>
@@ -310,7 +321,80 @@ const CTPerfusionQuantitative = () => {
                 </div>
               </div>
             </section>
+            {/* SECTION — Données issues de la littérature */}
+            <section className="space-y-6">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Données issues de la littérature (ordre de grandeur)
+              </h2>
 
+              <div className="grid md:grid-cols-2 gap-6 text-muted-foreground leading-relaxed">
+
+                <div className="rounded-xl border border-border bg-muted/10 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">
+                    Corrélation core CBF &lt; 30% vs infarct final
+                  </h3>
+                  <p>
+                    Les études de validation rapportent des corrélations modérées à fortes
+                    (r ≈ 0.6–0.8) entre volume CBF &lt; 30% et volume d’infarct final,
+                    avec une surestimation possible en cas de bolus suboptimal.
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-border bg-muted/10 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">
+                    Reproductibilité intra-plateforme
+                  </h3>
+                  <p>
+                    Les coefficients ICC rapportés pour les volumes de core/pénombre
+                    sont généralement &gt; 0.80 en conditions optimales,
+                    mais chutent significativement lorsque la résolution temporelle
+                    ou l’AIF sont instables.
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-border bg-muted/10 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">
+                    Variabilité inter-logiciels
+                  </h3>
+                  <p>
+                    Des écarts volumétriques cliniquement significatifs sont rapportés
+                    entre solutions commerciales majeures,
+                    avec des différences pouvant modifier la classification mismatch
+                    dans une proportion non négligeable de patients.
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-border bg-muted/10 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">
+                    Impact clinique
+                  </h3>
+                  <p>
+                    Des analyses ont montré que la variabilité plateforme
+                    peut théoriquement modifier l’éligibilité thrombectomie
+                    lorsque le volume core approche les seuils décisionnels
+                    (ex : 50–70 mL selon protocole).
+                  </p>
+                </div>
+
+              </div>
+
+              <p className="text-xs text-muted-foreground italic">
+                Références principales : DEFUSE 3, EXTEND-IA, Cereda et al., Koopman et al., études comparatives inter-logiciels en CTP.
+              </p>
+            </section>
+            <section className="space-y-6">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Verrous techniques critiques en CT Perfusion
+              </h2>
+
+              <ul className="list-disc pl-6 text-muted-foreground space-y-2">
+                <li>Bolus truncation (fin d’acquisition avant retour veineux complet)</li>
+                <li>Mouvement pendant le pic artériel</li>
+                <li>Couverture cérébrale incomplète</li>
+                <li>AIF aberrante (calcifiée, partiellement voluménique)</li>
+                <li>Sténose carotidienne controlatérale créant une pénombre apparente</li>
+              </ul>
+            </section>
             {/* SECTION — Pipeline */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
