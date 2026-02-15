@@ -69,11 +69,40 @@ const SegmentationIRM = () => {
         }
       ]
     };
-
+      const breadcrumbJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Accueil",
+            item: "https://noxia-imagerie.fr/"
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Expertise",
+            item: "https://noxia-imagerie.fr/expertise"
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "IRM",
+            item: "https://noxia-imagerie.fr/irm-imagerie-quantitative"
+          },
+          {
+            "@type": "ListItem",
+            position: 4,
+            name: "Segmentation IRM",
+            item: CANONICAL
+          }
+        ]
+      };
   return (
     <>
       <Helmet>
-        <title>Segmentation IRM en recherche clinique | NOXIA</title>
+        <title>Segmentation IRM cérébrale & cardiaque en recherche clinique | NOXIA</title>
         <meta
           name="description"
           content="Segmentation IRM cérébrale et cardiaque en recherche clinique. Approche signal-driven, validation méthodologique, livrables traçables (DICOM/NIfTI) et extraction de biomarqueurs quantitatifs."
@@ -89,11 +118,20 @@ const SegmentationIRM = () => {
         <meta property="og:type" content="website" />
         <meta property="og:url" content={CANONICAL} />
 
-        {/* JSON-LD */}
+        {/* JSON-LD Service */}
+        <script type="application/ld+json">
+          {JSON.stringify(jsonLd)}
+        </script>
+
+        {/* JSON-LD FAQ */}
         <script type="application/ld+json">
           {JSON.stringify(faqJsonLd)}
         </script>
-      </Helmet>
+
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbJsonLd)}
+        </script>
+        </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
         <main className="flex-1 py-20 px-4">
@@ -109,7 +147,7 @@ const SegmentationIRM = () => {
             {/* HERO */}
             <section className="space-y-6 text-center">
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                Segmentation IRM en recherche clinique
+                  Segmentation IRM cérébrale & cardiaque en recherche clinique
               </h1>
 
               <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
@@ -222,11 +260,11 @@ const SegmentationIRM = () => {
                 <div className="rounded-xl border border-border/50 bg-card/50 p-6 space-y-3">
                   <div className="flex items-center gap-2 text-foreground font-semibold">
                     <Database className="w-5 h-5 text-primary" />
-                    Données réelles ≠ datasets propres
+                    Données cliniques réelles ≠ datasets expérimentaux contrôlés
                   </div>
                   <p>
-                    Séquences multiples, champs de vue, résolutions, paramètres d’acquisition,
-                    artefacts et variabilité inter-centre.
+                   Séquences multiples, champs variables, implémentations constructeur,
+                    paramètres incomplets, artefacts et dérive protocolaire multicentrique.
                   </p>
                 </div>
 
@@ -249,10 +287,9 @@ const SegmentationIRM = () => {
               </h2>
 
               <p>
-                L’activité en IRM cardiaque s’inscrit dans un contexte d’essais cliniques
-                randomisés, d’études multicentriques et de corrélations histologiques.
-                L’approche dépasse la segmentation volumique pour intégrer validation
-                physiopathologique et interprétation biomarqueur.
+                L’IRM cardiaque utilisée comme biomarqueur d’essai thérapeutique
+                nécessite une articulation stricte entre segmentation, quantification
+                et validation physiopathologique indépendante.
               </p>
 
               <h3 className="text-lg font-semibold text-foreground pt-2">
@@ -332,11 +369,9 @@ const SegmentationIRM = () => {
               </p>
 
               <p>
-                Chaque projet débute par un audit des données : géométrie, orientation,
-                cohérence DICOM ↔ NIfTI, intégrité des métadonnées et stabilité inter-centre.
-                Le pré-traitement est adapté à la séquence (IRM 3D, PSIR, DWI, FLAIR…)
-                et peut inclure normalisation du signal, séparation hémisphérique,
-                léger resampling contrôlé ou harmonisation multicentrique documentée.
+                Chaque projet débute par un audit structuré des données :
+                cohérence géométrique (spacing, orientation), intégrité des métadonnées,
+                stabilité inter-centre et compatibilité DICOM ↔ NIfTI.
               </p>
 
               <ul className="list-disc pl-6 space-y-2">
@@ -361,9 +396,9 @@ const SegmentationIRM = () => {
               </h2>
 
               <p>
-                Les stratégies semi-automatiques ou automatiques doivent être évaluées
-                face à une segmentation experte de référence. Le choix de la méthode dépend
-                fortement de la séquence étudiée et du contexte physiopathologique.
+                Toute stratégie semi-automatique ou automatique doit être évaluée
+                contre une référence experte indépendante, avec analyse des biais
+                systématiques et impact direct sur les métriques finales.
               </p>
 
               <ul className="list-disc pl-6 space-y-2">
@@ -645,9 +680,9 @@ const SegmentationIRM = () => {
             {/* CTA FINAL */}
             <section className="text-center space-y-4">
               <p className="text-muted-foreground">
-                Si vous avez un protocole multicentrique, un besoin de segmentation “niveau publication”,
-                ou une contrainte de reproductibilité, l’échange initial sert à cadrer rapidement
-                faisabilité, livrables et validation.
+                Si votre étude nécessite une segmentation robuste,
+                reproductible et compatible publication, un échange initial
+                permet de cadrer rapidement faisabilité méthodologique et livrables attendus.
               </p>
               <Link
                 to="/contact"

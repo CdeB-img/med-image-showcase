@@ -20,64 +20,140 @@ const CANONICAL =
   "https://noxia-imagerie.fr/biomarqueurs-irm-cardiaque-essais-cliniques";
 
 const BiomarqueursIRMCardiaqueEssais = () => {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "MedicalWebPage",
-    name: "Biomarqueurs IRM cardiaque en essais cliniques multicentriques",
-    description:
-      "Définition, validation méthodologique et harmonisation multicentrique de biomarqueurs IRM cardiaque utilisés comme endpoints primaires ou secondaires d’essais thérapeutiques randomisés.",
-    about: [
-      "Cardiac MRI",
-      "Clinical trial imaging endpoints",
-      "Late Gadolinium Enhancement",
-      "Microvascular Obstruction",
-      "Extracellular Volume Fraction",
-      "T1 mapping",
-      "T2 mapping",
-      "Left ventricular remodeling",
-      "Multicenter imaging harmonization"
-    ],
-    medicalAudience: {
-      "@type": "MedicalAudience",
-      audienceType: "Researchers"
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Accueil",
+      item: "https://noxia-imagerie.fr/"
     },
-    provider: {
-      "@type": "Organization",
-      name: "NOXIA Imagerie",
-      url: "https://noxia-imagerie.fr"
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Expertise",
+      item: "https://noxia-imagerie.fr/expertise"
     },
-    url: CANONICAL
-  };
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: "IRM",
+      item: "https://noxia-imagerie.fr/irm-imagerie-quantitative"
+    },
+    {
+      "@type": "ListItem",
+      position: 4,
+      name: "Biomarqueurs IRM cardiaque",
+      item: CANONICAL
+    }
+  ]
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "MedicalWebPage",
+  name: "Biomarqueurs IRM cardiaque en essais cliniques multicentriques",
+  description:
+    "Définition, validation méthodologique et harmonisation multicentrique de biomarqueurs IRM cardiaque utilisés comme endpoints primaires ou secondaires d’essais thérapeutiques randomisés.",
+  about: [
+    "Cardiac MRI",
+    "Clinical trial imaging endpoints",
+    "Late Gadolinium Enhancement",
+    "Microvascular Obstruction",
+    "Extracellular Volume Fraction",
+    "T1 mapping",
+    "T2 mapping",
+    "Left ventricular remodeling",
+    "Multicenter imaging harmonization"
+  ],
+  medicalAudience: {
+    "@type": "MedicalAudience",
+    audienceType: "Researchers"
+  },
+  provider: {
+    "@type": "Organization",
+    name: "NOXIA Imagerie",
+    url: "https://noxia-imagerie.fr"
+  },
+  url: CANONICAL
+};
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Quelle est la variabilité inter-centre en IRM cardiaque ?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Selon la littérature, la variabilité inter-centre peut atteindre 10 à 25 % pour certains biomarqueurs diffus comme le T1 natif ou le T2 mapping en l’absence d’harmonisation. Une structuration méthodologique et un contrôle de distribution permettent de réduire significativement cette variance."
+      }
+    },
+    {
+      "@type": "Question",
+      name: "Pourquoi un endpoint IRM peut-il diluer l’effet thérapeutique ?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Une variabilité technique non contrôlée augmente la variance résiduelle du modèle statistique et diminue la puissance de détection d’un effet thérapeutique réel. L’harmonisation multicentrique et la standardisation des règles de segmentation sont donc critiques."
+      }
+    },
+    {
+      "@type": "Question",
+      name: "Un biomarqueur IRM est-il automatiquement un surrogate endpoint ?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Non. Un surrogate endpoint exige une validation indépendante démontrant une corrélation robuste avec des outcomes cliniques ou des marqueurs physiopathologiques de référence."
+      }
+    }
+  ]
+};
+
 
   return (
     <>
-      <Helmet>
-        <title>Biomarqueurs IRM cardiaque & Endpoints d’essais cliniques | NOXIA</title>
+    <Helmet>
+      <title>Biomarqueurs IRM cardiaque & Endpoints d’essais cliniques | NOXIA</title>
 
-        <meta
-          name="description"
-          content="IRM cardiaque comme endpoint d’essais thérapeutiques multicentriques : LGE, MVO, ECV, T1, T2, remodelage VG. Validation translationnelle, harmonisation inter-centre et reproductibilité."
-        />
+      <meta
+        name="description"
+        content="IRM cardiaque comme endpoint d’essais thérapeutiques multicentriques : LGE, MVO, ECV, T1, T2, remodelage VG. Validation translationnelle, harmonisation inter-centre et reproductibilité."
+      />
 
-        <link rel="canonical" href={CANONICAL} />
+      <link rel="canonical" href={CANONICAL} />
 
-        <meta
-          property="og:title"
-          content="Biomarqueurs IRM cardiaque en essais multicentriques"
-        />
-        <meta
-          property="og:description"
-          content="Structuration, validation et harmonisation de biomarqueurs IRM cardiaque utilisés comme endpoints d’essais randomisés."
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={CANONICAL} />
+      <meta
+        property="og:title"
+        content="Biomarqueurs IRM cardiaque en essais multicentriques"
+      />
+      <meta
+        property="og:description"
+        content="Structuration, validation et harmonisation de biomarqueurs IRM cardiaque utilisés comme endpoints d’essais randomisés."
+      />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content={CANONICAL} />
 
-        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
-      </Helmet>
+      {/* JSON-LD MedicalWebPage */}
+      <script type="application/ld+json">
+        {JSON.stringify(jsonLd)}
+      </script>
+
+      {/* JSON-LD Breadcrumb */}
+      <script type="application/ld+json">
+        {JSON.stringify(breadcrumbJsonLd)}
+      </script>
+
+      {/* JSON-LD FAQ */}
+      <script type="application/ld+json">
+        {JSON.stringify(faqJsonLd)}
+      </script>
+    </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
         <main className="flex-1 py-20 px-4">
-          <div className="max-w-5xl mx-auto space-y-16">
+          <div className="max-w-5xl mx-auto space-y-20">
             <Breadcrumb
               items={[
                 { label: "Accueil", path: "/" },
@@ -177,8 +253,9 @@ const BiomarqueursIRMCardiaqueEssais = () => {
               </p>
 
               <p>
-                L’approche NOXIA se place au niveau méthodologique : structurer l’endpoint
-                pour qu’il soit robuste à l’hétérogénéité réelle, pas uniquement “propre” sur un sous-groupe idéal.
+                L’approche NOXIA se positionne au niveau méthodologique :
+                structurer l’endpoint pour qu’il résiste à l’hétérogénéité réelle,
+                et non uniquement à un sous-groupe idéalisé.
               </p>
             </section>
 
