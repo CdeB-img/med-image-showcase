@@ -217,20 +217,27 @@ const faqJsonLd = {
                   </ul>
                 </div>
 
-                <div className="rounded-xl border border-border bg-card/50 p-6 flex items-start gap-3">
-                  <ShieldCheck className="w-5 h-5 text-primary mt-1" />
-                  <p className="text-muted-foreground text-sm">
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-4">
+                  
+                  <div className="flex items-center gap-2 font-semibold text-foreground">
+                    <ShieldCheck className="w-5 h-5 text-primary" />
+                    Principe méthodologique central
+                  </div>
+
+                  <p className="text-muted-foreground text-sm leading-relaxed">
                     L’objectif n’est pas d’améliorer visuellement une reconstruction,
-                    mais de produire une <strong>valeur opposable scientifiquement</strong>.
+                    mais de produire une <strong>valeur physiquement cohérente</strong>,
+                    statistiquement robuste et multicentriquement exploitable.
                   </p>
 
-                  <br>
-                  <p className="text-muted-foreground text-sm">
-                    L’objectif n’est pas d’améliorer visuellement une reconstruction,
-                    mais de produire une <strong>valeur opposable scientifiquement</strong>.
-                  </p>                  
-                  
-                  </br>
+                  <div className="rounded-lg bg-muted/40 p-4">
+                    <p className="text-xs text-muted-foreground">
+                      En contexte multicentrique, une calibration indépendante
+                      réduit significativement le risque de dérive centre-dépendante
+                      du biomarqueur.
+                    </p>
+                  </div>
+
                 </div>
 
               </div>
