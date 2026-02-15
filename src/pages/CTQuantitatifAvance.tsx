@@ -228,7 +228,6 @@ const faqJsonLd = {
               </div>
             </section>
 
-            </section>
             {/* PROBLÈME FONDAMENTAL */}
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-8 space-y-6">
               <h2 className="text-3xl font-semibold">
