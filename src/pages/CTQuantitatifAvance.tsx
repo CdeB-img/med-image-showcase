@@ -326,56 +326,113 @@ const faqJsonLd = {
               </div>
             </section>
 
-            {/* CALIBRATION PHYSIQUE */}
-            <section className="space-y-6 text-muted-foreground leading-relaxed">
-              <h2 className="text-2xl font-semibold text-foreground">
-                Calibration indépendante & validation
-              </h2>
+          {/* CALIBRATION INDÉPENDANTE */}
+          <section className="space-y-10">
+            <h2 className="text-2xl font-semibold text-foreground">
+              Calibration indépendante & validation physique
+            </h2>
 
-              <p>
-                Toute quantification avancée doit être confrontée
-                à une validation physique indépendante.
-              </p>
+            <div className="grid md:grid-cols-2 gap-10">
 
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Calibration phantom eau / matériaux de référence</li>
-                <li>Correction des dérives énergétiques</li>
-                <li>Comparaison monoénergétique simulé vs constructeur</li>
-                <li>Analyse des biais systématiques inter-vendor</li>
-                <li>Reproductibilité intra / inter-machine</li>
-              </ul>
+              {/* Colonne gauche */}
+              <div className="space-y-6 text-muted-foreground">
 
-              <p>
-                Cette étape transforme un outil technique
-                en biomarqueur scientifiquement défendable.
-              </p>
-            </section>
+                <p>
+                  Toute quantification avancée doit être confrontée à une validation physique indépendante.
+                </p>
 
-            {/* APPLICATIONS */}
-            <section className="space-y-6 text-muted-foreground leading-relaxed">
-              <h2 className="text-2xl font-semibold text-foreground">
-                Applications cliniques et translationnelles
-              </h2>
+                <ul className="space-y-3 list-disc pl-6">
+                  <li>Calibration phantom eau / matériaux de référence</li>
+                  <li>Correction des dérives énergétiques</li>
+                  <li>Analyse des biais systématiques inter-vendor</li>
+                  <li>Reproductibilité intra / inter-machine</li>
+                </ul>
 
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Quantification fibrose / inflammation</li>
-                <li>Analyse calcium et matériaux spécifiques</li>
-                <li>Perfusion CT avancée</li>
-                <li>Comparaison reconstructions monoénergétiques</li>
-                <li>Validation de biomarqueurs industriels</li>
-              </ul>
+              </div>
 
-              <p>
-                Ces travaux s’intègrent dans une logique globale d’
-                <Link to="/ingenierie-imagerie-quantitative" className="text-primary hover:underline">
-                  ingénierie en imagerie quantitative
-                </Link>{" "}
-                et de{" "}
-                <Link to="/quantification-ct" className="text-primary hover:underline">
-                  quantification CT clinique
-                </Link>.
-              </p>
-            </section>
+              {/* Colonne droite */}
+              <div className="rounded-2xl border border-border bg-card/50 p-8 space-y-6">
+
+                <div className="flex items-center gap-3 font-semibold text-foreground">
+                  <ShieldCheck className="w-5 h-5 text-primary shrink-0" />
+                  Impact méthodologique
+                </div>
+
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Une calibration indépendante transforme un outil technique
+                  en biomarqueur scientifiquement défendable
+                  et multicentriquement exploitable.
+                </p>
+
+                <div className="rounded-lg bg-muted/40 p-4">
+                  <p className="text-xs text-muted-foreground">
+                    Sans calibration externe, la variabilité technique
+                    peut dépasser la variation biologique étudiée.
+                  </p>
+                </div>
+
+              </div>
+
+            </div>
+          </section>
+
+          {/* APPLICATIONS CLINIQUES */}
+          <section className="space-y-10">
+            <h2 className="text-2xl font-semibold text-foreground">
+              Applications cliniques et translationnelles
+            </h2>
+
+            <div className="grid md:grid-cols-2 gap-10">
+
+              {/* Colonne gauche */}
+              <div className="space-y-6 text-muted-foreground">
+
+                <ul className="space-y-3 list-disc pl-6">
+                  <li>Quantification fibrose / inflammation</li>
+                  <li>Analyse calcium et matériaux spécifiques</li>
+                  <li>Perfusion CT avancée</li>
+                  <li>Comparaison reconstructions monoénergétiques</li>
+                  <li>Validation de biomarqueurs industriels</li>
+                </ul>
+
+                <p>
+                  Ces travaux s’intègrent dans une logique globale d’
+                  <Link to="/ingenierie-imagerie-quantitative" className="text-primary hover:underline">
+                    ingénierie en imagerie quantitative
+                  </Link>{" "}
+                  et de{" "}
+                  <Link to="/quantification-ct" className="text-primary hover:underline">
+                    quantification CT clinique
+                  </Link>.
+                </p>
+
+              </div>
+
+              {/* Colonne droite */}
+              <div className="rounded-2xl border border-border bg-card/50 p-8 space-y-6">
+
+                <div className="flex items-center gap-3 font-semibold text-foreground">
+                  <BarChart3 className="w-5 h-5 text-primary shrink-0" />
+                  Position translationnelle
+                </div>
+
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  L’objectif est de produire des paramètres exploitables
+                  en contexte multicentrique, industriel ou réglementaire,
+                  et non des indicateurs dépendants d’un système unique.
+                </p>
+
+                <div className="rounded-lg bg-muted/40 p-4">
+                  <p className="text-xs text-muted-foreground">
+                    Un biomarqueur robuste doit conserver sa cohérence
+                    malgré la variabilité technique inter-système.
+                  </p>
+                </div>
+
+              </div>
+
+            </div>
+          </section>
 
             {/* POSITIONNEMENT FINAL */}
             <section className="text-center space-y-6 text-muted-foreground leading-relaxed">
@@ -443,26 +500,7 @@ const faqJsonLd = {
 
           </div>
         </section>
-        {/* POSITIONNEMENT SCIENTIFIQUE */}
-        <section className="rounded-2xl border border-border/50 bg-muted/20 p-8 space-y-6">
-          <h2 className="text-2xl font-semibold text-foreground">
-            Positionnement scientifique
-          </h2>
-
-          <p className="text-muted-foreground">
-            L’expertise ne consiste pas à reproduire une reconstruction constructeur,
-            mais à produire un paramètre physiquement cohérent,
-            statistiquement robuste et défendable.
-          </p>
-
-          <div className="rounded-xl border border-border bg-card/50 p-6 flex items-center gap-3">            <BarChart3 className="w-5 h-5 text-primary" />
-            <p className="text-sm text-muted-foreground">
-              La robustesse d’un biomarqueur CT dépend avant tout
-              de la calibration indépendante et de l’architecture méthodologique,
-              davantage que de l’algorithme utilisé.
-            </p>
-          </div>
-        </section>
+  
 
 
 
