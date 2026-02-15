@@ -193,7 +193,7 @@ const jsonLd = {
                   Reproductibilité
                 </div>
                 <p className="text-muted-foreground text-sm leading-relaxed">
-                  ICC > 0.9 pour volumes ventriculaires en conditions contrôlées.
+                  ICC supérieur à 0.9 pour volumes ventriculaires en conditions contrôlées.
                   Variabilité LGE réduite vers 1–3% avec pipeline validé.
                 </p>
               </div>
