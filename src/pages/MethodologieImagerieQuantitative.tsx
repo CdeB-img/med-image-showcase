@@ -12,7 +12,7 @@ const MethodologieImagerieQuantitative = () => {
     "@type": "MedicalWebPage",
     name: "Méthodologie en imagerie quantitative IRM & CT",
     description:
-      "Architecture méthodologique complète pour la transformation de données DICOM hétérogènes en biomarqueurs quantitatifs robustes, reproductibles et multicentriques en IRM et CT.",
+      "Architecture méthodologique complète pour transformer des données DICOM hétérogènes en biomarqueurs quantitatifs robustes, reproductibles et multicentriques en IRM et CT.",
     about: [
       "Medical image processing methodology",
       "Reproducible imaging biomarkers",
@@ -37,7 +37,7 @@ const MethodologieImagerieQuantitative = () => {
 
         <meta
           name="description"
-          content="Architecture méthodologique complète pour biomarqueurs IRM et CT : audit DICOM, normalisation, harmonisation multicentrique et reproductibilité statistique."
+          content="Architecture méthodologique complète pour biomarqueurs IRM et CT : audit DICOM, normalisation, harmonisation multicentrique, calibration physique et reproductibilité statistique."
         />
 
         <link rel="canonical" href={CANONICAL} />
@@ -66,52 +66,71 @@ const MethodologieImagerieQuantitative = () => {
               </h1>
 
               <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-                Transformer des données DICOM hétérogènes en biomarqueurs
-                robustes nécessite une architecture méthodologique explicite,
-                traçable et reproductible.
+                Une architecture explicite, traçable et reproductible
+                pour transformer des données DICOM hétérogènes
+                en biomarqueurs scientifiquement défendables.
               </p>
             </section>
 
-            {/* POSITIONNEMENT */}
+            {/* PHILOSOPHIE */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                Du signal brut au biomarqueur défendable
+                Du signal brut au biomarqueur exploitable
               </h2>
 
               <p>
-                Un biomarqueur d’imagerie n’est jamais une simple segmentation.
-                Il résulte d’une chaîne complète intégrant contrôle des métadonnées,
-                cohérence géométrique, normalisation du signal,
-                segmentation, post-traitement, extraction métrique et traçabilité.
+                Un biomarqueur d’imagerie ne se réduit pas à un masque
+                ou à une valeur volumique. Il est le produit d’une chaîne
+                méthodologique complète intégrant :
               </p>
 
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Contrôle des métadonnées et cohérence géométrique</li>
+                <li>Normalisation du signal et des unités physiques</li>
+                <li>Segmentation guidée par règles physiopathologiques</li>
+                <li>Extraction métrique versionnée</li>
+                <li>Analyse de robustesse inter-seuil et inter-centre</li>
+              </ul>
+
               <p>
-                L’objectif est de réduire les biais centre-dépendants,
-                stabiliser les distributions statistiques
-                et garantir la reproductibilité inter-opérateurs
-                et inter-logiciels.
+                L’objectif est de dissocier clairement visualisation,
+                segmentation et quantification,
+                afin de stabiliser les distributions statistiques
+                et réduire les biais centre-dépendants.
               </p>
             </section>
 
-            {/* CHAÎNE MÉTHODOLOGIQUE */}
+            {/* CHAÎNE STRUCTURÉE */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
                 Architecture méthodologique type
               </h2>
 
+              <p>
+                Une chaîne robuste repose sur des étapes distinctes,
+                documentées et auditables :
+              </p>
+
               <ul className="list-disc pl-6 space-y-2">
-                <li>Audit et validation des métadonnées DICOM</li>
+                <li>
+                  Audit exhaustif des{" "}
+                  <Link to="/analyse-dicom" className="text-primary hover:underline">
+                    métadonnées DICOM
+                  </Link>
+                </li>
+                <li>Détection des reconstructions multiples et incohérences</li>
                 <li>Conversion contrôlée DICOM → NIfTI si nécessaire</li>
-                <li>Resampling géométrique documenté</li>
-                <li>Normalisation intra-sujet ou populationnelle</li>
-                <li>Segmentation guidée (règles physiopathologiques explicites)</li>
-                <li>Nettoyage morphologique et filtrage volumique</li>
-                <li>Extraction multi-seuils pour analyse de robustesse</li>
-                <li>Logs, QA automatisé et versioning</li>
+                <li>Resampling géométrique explicite</li>
+                <li>Normalisation intra-sujet (ex. hémisphère contrôle) ou populationnelle</li>
+                <li>Segmentation contrôlée et reproductible</li>
+                <li>Nettoyage morphologique 2D puis filtrage 3D</li>
+                <li>Extraction multi-seuils pour analyse de stabilité</li>
+                <li>Logs complets, QA automatisé et versioning</li>
               </ul>
 
               <p>
-                Chaque étape est dissociée, documentée et audit-able.
+                Chaque transformation doit pouvoir être reproduite
+                indépendamment du logiciel utilisé.
               </p>
             </section>
 
@@ -123,57 +142,78 @@ const MethodologieImagerieQuantitative = () => {
 
               <p>
                 En contexte multicentrique, la variabilité technique
-                peut dépasser la variabilité biologique.
+                peut dépasser la variabilité biologique étudiée.
+                La méthodologie doit donc intégrer :
               </p>
 
               <ul className="list-disc pl-6 space-y-2">
-                <li>Analyse inter-constructeurs (IRM & CT)</li>
+                <li>Analyse inter-constructeurs IRM & CT</li>
                 <li>Contrôle des séquences et reconstructions</li>
-                <li>Normalisation intra-sujet (ex. hémisphère controlatéral)</li>
+                <li>Stratification centre-dépendante si nécessaire</li>
                 <li>Calibration phantom en CT</li>
-                <li>Documentation centre-dépendante</li>
+                <li>Documentation systématique des biais identifiés</li>
               </ul>
 
               <p>
                 Voir{" "}
                 <Link to="/bases-multicentriques" className="text-primary hover:underline">
-                  Bases multicentriques
+                  Bases multicentriques & harmonisation
                 </Link>.
               </p>
             </section>
 
-            {/* IRM & CT */}
+            {/* IRM */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                Applications en IRM et CT
+                Spécificités IRM
               </h2>
 
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Normalisation signal dépendante séquence</li>
+                <li>Distinction stricte T1 / T2 / perfusion / diffusion</li>
+                <li>Seeds physiopathologiques explicites</li>
+                <li>Propagation contrôlée (hystérésis 3D)</li>
+              </ul>
+
               <p>
-                La méthodologie s’adapte aux contraintes physiques propres à chaque modalité.
+                Applications détaillées :
+                {" "}
+                <Link to="/irm-imagerie-quantitative" className="text-primary hover:underline">
+                  IRM quantitative
+                </Link>{" "}
+                et{" "}
+                <Link to="/corelab-essais-cliniques" className="text-primary hover:underline">
+                  Core Lab IRM
+                </Link>.
               </p>
+            </section>
+
+            {/* CT */}
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Spécificités CT
+              </h2>
 
               <ul className="list-disc pl-6 space-y-2">
-                <li>
-                  En IRM : normalisation signal, hystérésis 3D, seeds physiopathologiques
-                </li>
-                <li>
-                  En CT : contrôle kernels, énergie effective, calibration matière
-                </li>
+                <li>Contrôle stabilité HU</li>
+                <li>Impact kernels et reconstructions itératives</li>
+                <li>Analyse énergétique et spectral CT</li>
+                <li>Calibration physique indépendante</li>
               </ul>
 
               <p>
                 Voir{" "}
-                <Link to="/irm-imagerie-quantitative" className="text-primary hover:underline">
-                  Imagerie quantitative IRM
+                <Link to="/ct-imagerie-quantitative" className="text-primary hover:underline">
+                  CT quantitatif
                 </Link>{" "}
                 et{" "}
-                <Link to="/ct-imagerie-quantitative" className="text-primary hover:underline">
-                  Imagerie quantitative CT
+                <Link to="/ct-quantitatif-avance-imagerie-spectrale" className="text-primary hover:underline">
+                  CT avancé & spectral
                 </Link>.
               </p>
             </section>
 
-            {/* POSITIONNEMENT FINAL */}
+            {/* PRINCIPES DIRECTEURS */}
             <section className="text-center space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
                 Reproductibilité avant automatisation
@@ -181,7 +221,7 @@ const MethodologieImagerieQuantitative = () => {
 
               <p>
                 L’automatisation n’a de valeur que si la méthodologie est stable.
-                L’ingénierie quantitative précède l’IA.
+                L’IA ne corrige pas une architecture fragile.
               </p>
 
               <p>
@@ -194,12 +234,12 @@ const MethodologieImagerieQuantitative = () => {
             {/* CTA */}
             <section className="text-center space-y-4">
               <p className="text-muted-foreground">
-                Besoin de structurer ou auditer une chaîne d’imagerie quantitative ?
+                Structurer ou auditer une chaîne d’imagerie quantitative ?
               </p>
 
               <Link
                 to="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-5 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
               >
                 Discuter du projet
                 <ArrowRight className="w-4 h-4" />
