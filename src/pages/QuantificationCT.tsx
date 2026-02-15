@@ -332,10 +332,13 @@ const QuantificationCT = () => {
             </section>
             <section className="space-y-6 text-center">
               <h2 className="text-2xl font-semibold text-foreground">
-                Structuration Core Lab CT. 
-                Approche cohérente avec la 
-                <Link to="/irm-imagerie-quantitative" className="text-primary hover:underline">
-                   structuration Core Lab IRM
+                Structuration Core Lab CT.{" "}
+                Approche cohérente avec la{" "}
+                <Link
+                  to="/irm-imagerie-quantitative"
+                  className="text-primary hover:underline"
+                >
+                  structuration Core Lab IRM
                 </Link>.
               </h2>
 
