@@ -1,6 +1,7 @@
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import Breadcrumb from "@/components/Breadcrumb";
 import {
   ArrowRight,
   BarChart3,
@@ -77,6 +78,14 @@ const BiomarqueursIRMCardiaqueEssais = () => {
       <div className="min-h-screen flex flex-col bg-background">
         <main className="flex-1 py-20 px-4">
           <div className="max-w-5xl mx-auto space-y-16">
+            <Breadcrumb
+              items={[
+                { label: "Accueil", path: "/" },
+                { label: "Expertise", path: "/expertise" },
+                { label: "IRM", path: "/irm-imagerie-quantitative" },
+                { label: "Biomarqueurs IRM cardiaque" }
+              ]}
+            />
 
             {/* ================= HERO ================= */}
             <section className="text-center space-y-6">
@@ -297,7 +306,59 @@ const BiomarqueursIRMCardiaqueEssais = () => {
                 et qui supporte une discussion méthodologique en comité, SAP ou publication.
               </p>
             </section>
+            <section className="space-y-6">
+              <h2 className="text-2xl font-semibold">
+                Points méthodologiques clés en essai multicentrique
+              </h2>
 
+              <div className="grid md:grid-cols-2 gap-6">
+
+                <div className="rounded-xl border border-border bg-muted/10 p-6 space-y-3">
+                  <div className="flex items-center gap-2 font-semibold text-foreground">
+                    <CheckCircle2 className="w-5 h-5 text-primary" />
+                    Définition unique de l’endpoint
+                  </div>
+                  <p className="text-muted-foreground">
+                    Un endpoint ne peut pas varier selon le centre ou le lecteur.
+                    Les règles sont fixées avant analyse et versionnées.
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-border bg-muted/10 p-6 space-y-3">
+                  <div className="flex items-center gap-2 font-semibold text-foreground">
+                    <CheckCircle2 className="w-5 h-5 text-primary" />
+                    Contrôle de la variance
+                  </div>
+                  <p className="text-muted-foreground">
+                    La variance inter-centre peut dépasser 10–20% selon la séquence.
+                    Elle doit être mesurée, pas ignorée.
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-border bg-muted/10 p-6 space-y-3">
+                  <div className="flex items-center gap-2 font-semibold text-foreground">
+                    <CheckCircle2 className="w-5 h-5 text-primary" />
+                    Robustesse aux logiciels
+                  </div>
+                  <p className="text-muted-foreground">
+                    Deux logiciels peuvent produire des valeurs différentes
+                    pour un même label. Une validation croisée est indispensable.
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-border bg-muted/10 p-6 space-y-3">
+                  <div className="flex items-center gap-2 font-semibold text-foreground">
+                    <CheckCircle2 className="w-5 h-5 text-primary" />
+                    Traçabilité SAP-compatible
+                  </div>
+                  <p className="text-muted-foreground">
+                    Les exports doivent être directement intégrables
+                    dans un Statistical Analysis Plan.
+                  </p>
+                </div>
+
+              </div>
+            </section>
             {/* ================= VALIDATION TRANSLATIONNELLE ================= */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
@@ -412,7 +473,65 @@ const BiomarqueursIRMCardiaqueEssais = () => {
                 </Link>
               </div>
             </section>
+            <section className="space-y-8">
+              <h2 className="text-2xl font-semibold text-center">
+                Questions méthodologiques fréquentes
+              </h2>
 
+              <div className="space-y-6">
+
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">
+                    Quelle est la variabilité inter-centre en IRM cardiaque ?
+                  </h3>
+                  <p className="text-muted-foreground">
+                    Selon la littérature, la variabilité peut atteindre 10–25% 
+                    pour certains biomarqueurs diffus (T1 natif, T2)
+                    si aucune harmonisation n’est appliquée.
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">
+                    Pourquoi l’endpoint IRM peut-il diluer l’effet thérapeutique ?
+                  </h3>
+                  <p className="text-muted-foreground">
+                    Une variabilité non contrôlée augmente la variance résiduelle
+                    et diminue la puissance statistique,
+                    pouvant masquer un effet réel.
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">
+                    Un biomarqueur IRM est-il automatiquement un surrogate endpoint ?
+                  </h3>
+                  <p className="text-muted-foreground">
+                    Non. Un surrogate endpoint exige validation
+                    physiopathologique et corrélation indépendante
+                    avec outcomes cliniques.
+                  </p>
+                </div>
+
+              </div>
+            </section>
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold">
+                Références & consensus internationaux
+              </h2>
+
+              <ul className="list-disc pl-6 text-muted-foreground space-y-2">
+                <li>SCMR consensus on LGE quantification</li>
+                <li>AHA 17-segment model</li>
+                <li>EACVI recommendations for mapping reproducibility</li>
+                <li>Guidelines on imaging biomarkers in clinical trials</li>
+              </ul>
+
+              <p className="text-muted-foreground">
+                L’architecture proposée s’aligne sur les standards
+                internationaux en imagerie cardiovasculaire.
+              </p>
+            </section>
             {/* ================= CTA FINAL ================= */}
             <section className="text-center space-y-4">
               <p className="text-muted-foreground">
