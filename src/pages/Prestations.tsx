@@ -1,8 +1,7 @@
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
 
 const CANONICAL = "https://noxia-imagerie.fr/prestations-imagerie-medicale";
 
@@ -13,8 +12,6 @@ const Prestations = () => {
     if (!location.hash) return;
 
     const id = location.hash.replace("#", "");
-
-    // petit délai pour s'assurer que le DOM est bien monté
     const timeout = setTimeout(() => {
       const el = document.getElementById(id);
       if (el) {
@@ -24,6 +21,7 @@ const Prestations = () => {
 
     return () => clearTimeout(timeout);
   }, [location.hash]);
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -45,7 +43,7 @@ const Prestations = () => {
         <title>Prestations | CoreLab & Imagerie Quantitative | NOXIA</title>
         <meta
           name="description"
-          content="Prestations en IRM et CT quantitatif : CoreLab externalisé, structuration multicentrique, audit méthodologique, reprise d’études existantes et développement d’outils sur mesure."
+          content="CoreLab IRM et CT externalisé, audit DICOM, harmonisation multicentrique, reprise d’études existantes et développement d’outils sur mesure en recherche clinique."
         />
         <link rel="canonical" href={CANONICAL} />
         <script type="application/ld+json">
@@ -54,164 +52,161 @@ const Prestations = () => {
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
-        <main className="flex-1 py-20 px-4">
-          <div className="max-w-5xl mx-auto space-y-24">
+        <main className="flex-1 py-24 px-4">
+          <div className="max-w-5xl mx-auto space-y-28">
 
             {/* HERO */}
-            <section className="text-center space-y-6">
+            <section className="text-center space-y-8">
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
                 Prestations en imagerie médicale quantitative
               </h1>
-              <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-                CoreLab IRM & CT, structuration multicentrique,
-                ingénierie méthodologique et reprise d’études existantes.
+
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                Structuration méthodologique, production de biomarqueurs robustes
+                et accompagnement multicentrique en IRM et CT.
               </p>
             </section>
 
             {/* POSITIONNEMENT */}
-            <section className="space-y-6 text-muted-foreground leading-relaxed">
+            <section className="max-w-4xl mx-auto text-muted-foreground leading-relaxed space-y-6">
               <h2 className="text-2xl font-semibold text-foreground">
-                Un partenaire méthodologique indépendant
+                Une expertise indépendante et architecturée
               </h2>
 
               <p>
-                NOXIA intervient comme structure indépendante,
-                spécialisée dans l’analyse avancée d’imagerie en contexte
-                hospitalo-universitaire et multicentrique.
+                NOXIA intervient comme partenaire méthodologique indépendant
+                auprès d’équipes hospitalo-universitaires,
+                promoteurs académiques et industriels.
               </p>
 
               <p>
-                L’objectif n’est pas uniquement de produire des résultats,
-                mais de construire un flux d’analyse robuste, traçable,
-                reproductible et scientifiquement défendable.
+                L’objectif n’est pas seulement d’extraire des résultats,
+                mais de sécuriser toute la chaîne d’analyse :
+                audit DICOM, harmonisation multicentrique,
+                segmentation contrôlée, extraction métrique traçable
+                et validation statistique.
               </p>
             </section>
 
             {/* CORELAB */}
-            
-            <section
-              id="corelab"
-              className="space-y-6 text-muted-foreground leading-relaxed scroll-mt-28"
->
+            <section id="corelab" className="space-y-8 scroll-mt-28">
               <h2 className="text-2xl font-semibold text-foreground">
                 CoreLab IRM & CT externalisé
               </h2>
 
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Structuration complète du circuit image</li>
+              <p className="text-muted-foreground leading-relaxed">
+                Mise en place et pilotage complet d’un circuit image multicentrique.
+              </p>
+
+              <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
                 <li>Définition protocolaire imagerie</li>
-                <li>Formation des centres investigateurs</li>
-                <li>Centralisation & contrôle qualité multicentrique</li>
-                <li>Relectures médicales et gestion des écarts</li>
-                <li>Production de biomarqueurs quantitatifs validés</li>
+                <li>Audit des séquences et reconstructions</li>
+                <li>Formation centres investigateurs</li>
+                <li>Centralisation sécurisée & contrôle qualité</li>
+                <li>Relectures expertes et gestion des écarts</li>
+                <li>Production d’endpoints quantitatifs validés</li>
               </ul>
 
-              <p>
-                Adapté aux RHU, PHRC, ANR, essais randomisés
-                et partenariats industriels.
+              <p className="text-muted-foreground">
+                Adapté aux RHU, PHRC, ANR, cohortes longitudinales
+                et essais randomisés industriels.
               </p>
             </section>
 
-            {/* REPRISE ETUDES */}
-            <section
-              id="reprise"
-              className="space-y-6 text-muted-foreground leading-relaxed scroll-mt-28"
-            >
+            {/* REPRISE */}
+            <section id="reprise" className="space-y-8 scroll-mt-28">
               <h2 className="text-2xl font-semibold text-foreground">
-                Reprise d’études déjà réalisées
+                Reprise et sécurisation d’études existantes
               </h2>
 
-              <p>
-                Intervention sur études existantes présentant :
+              <p className="text-muted-foreground leading-relaxed">
+                Intervention sur études présentant fragilités méthodologiques
+                ou difficultés de publication.
               </p>
 
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Anonymisation incomplète ou hétérogène</li>
-                <li>Problèmes de cohérence géométrique</li>
-                <li>Absence de traçabilité des traitements</li>
+              <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                <li>Anonymisation hétérogène</li>
+                <li>Spacing ou orientation incohérents</li>
+                <li>Reconstructions multiples non documentées</li>
                 <li>Pipelines non reproductibles</li>
-                <li>Résultats difficilement publiables</li>
+                <li>Absence de traçabilité des traitements</li>
               </ul>
 
-              <p>
-                Reprise complète possible :
-                reconstruction de base multicentrique,
-                détection des doublons, identification des examens incomplets,
-                harmonisation inter-centres et reconstruction d’un flux défendable.
+              <p className="text-muted-foreground">
+                Reconstruction complète possible :
+                hiérarchisation base multicentrique,
+                détection doublons, harmonisation inter-centres
+                et production d’un flux scientifiquement défendable.
               </p>
             </section>
 
             {/* AUDIT */}
-            <section
-              id="audit"
-              className="space-y-6 text-muted-foreground leading-relaxed scroll-mt-28"
-            >
+            <section id="audit" className="space-y-8 scroll-mt-28">
               <h2 className="text-2xl font-semibold text-foreground">
                 Audit méthodologique & harmonisation
               </h2>
 
-              <ul className="list-disc pl-6 space-y-2">
+              <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
                 <li>Analyse critique d’un pipeline existant</li>
-                <li>Évaluation de la reproductibilité</li>
-                <li>Harmonisation inter-constructeurs</li>
-                <li>Calibration phantom & validation technique</li>
-                <li>Évaluation et intégration contrôlée d’outils IA</li>
+                <li>Évaluation reproductibilité inter-centre</li>
+                <li>Harmonisation inter-constructeurs (IRM & CT)</li>
+                <li>Calibration phantom en CT</li>
+                <li>Évaluation et intégration contrôlée d’IA</li>
               </ul>
             </section>
 
-            {/* INGENIERIE */}
-            <section
-              id="ingenierie"
-              className="space-y-6 text-muted-foreground leading-relaxed scroll-mt-28"
-            >
+            {/* INGÉNIERIE */}
+            <section id="ingenierie" className="space-y-8 scroll-mt-28">
               <h2 className="text-2xl font-semibold text-foreground">
                 Développement & ingénierie sur mesure
               </h2>
 
-              <ul className="list-disc pl-6 space-y-2">
+              <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
                 <li>Développement Python scientifique dédié</li>
-                <li>Modules 3D Slicer spécifiques</li>
-                <li>Automatisation de flux DICOM / NIfTI</li>
-                <li>Structuration data & architecture serveur</li>
+                <li>Automatisation flux DICOM / NIfTI</li>
+                <li>Modules spécifiques 3D Slicer</li>
+                <li>Architecture data & structuration serveur</li>
               </ul>
 
-              <p>
+              <p className="text-muted-foreground">
                 Chaque outil est conçu comme un objet méthodologique explicite,
-                jamais comme une simple démonstration technique.
+                jamais comme une simple démonstration technique isolée.
               </p>
             </section>
 
-            {/* MODALITES */}
+            {/* MODALITÉS */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
                 Modalités d’intervention
               </h2>
 
               <ul className="list-disc pl-6 space-y-2">
-                <li>Mission ponctuelle ciblée</li>
-                <li>Accompagnement long terme d’étude</li>
-                <li>Support expert sur analyse complexe</li>
+                <li>Mission ciblée ponctuelle</li>
+                <li>Accompagnement complet d’étude</li>
+                <li>Support expert sur problématique complexe</li>
                 <li>Partenariat R&D industriel</li>
               </ul>
 
               <p>
-                Intervention possible en amont (conception),
-                pendant l’étude (structuration) ou en aval (reprise & consolidation).
+                Intervention possible en amont (conception protocolaire),
+                pendant l’étude (structuration & QA)
+                ou en aval (reprise, consolidation, publication).
               </p>
             </section>
 
             {/* CTA */}
             <section className="text-center space-y-6">
-              <p className="text-muted-foreground">
+              <p className="text-muted-foreground max-w-3xl mx-auto">
                 Toute collaboration débute par un échange exploratoire
-                permettant d’identifier les besoins méthodologiques réels.
+                permettant d’identifier les enjeux méthodologiques
+                et le niveau d’intervention nécessaire.
               </p>
 
               <Link
                 to="/contact"
-                className="inline-block rounded-md bg-primary px-6 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
+                className="inline-block rounded-md bg-primary px-8 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
               >
-                Discuter d’une collaboration
+                Initier une collaboration
               </Link>
             </section>
 
