@@ -47,29 +47,35 @@ const CTQuantitatifAvance = () => {
   };
 
   const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Accueil",
-        item: "https://noxia-imagerie.fr/"
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Expertise",
-        item: "https://noxia-imagerie.fr/expertise"
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: "CT quantitatif avancé",
-        item: CANONICAL
-      }
-    ]
-  };
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Accueil",
+      item: "https://noxia-imagerie.fr/"
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Expertise",
+      item: "https://noxia-imagerie.fr/expertise"
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: "CT",
+      item: "https://noxia-imagerie.fr/quantification-ct"
+    },
+    {
+      "@type": "ListItem",
+      position: 4,
+      name: "CT quantitatif avancé",
+      item: CANONICAL
+    }
+  ]
+};
 
   const faqJsonLd = {
     "@context": "https://schema.org",
@@ -132,6 +138,7 @@ const CTQuantitatifAvance = () => {
               items={[
                 { label: "Accueil", path: "/" },
                 { label: "Expertise", path: "/expertise" },
+                { label: "CT", path: "/quantification-ct" },
                 { label: "CT quantitatif avancé" }
               ]}
             />
