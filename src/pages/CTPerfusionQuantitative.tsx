@@ -1,18 +1,40 @@
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import Breadcrumb from "@/components/Breadcrumb";
+import {
+  ArrowRight,
+  ShieldCheck,
+  Database,
+  Workflow,
+  BarChart3,
+  AlertTriangle,
+  Layers,
+  Timer
+} from "lucide-react";
 
 const CANONICAL =
   "https://noxia-imagerie.fr/ct-perfusion-quantitative-avc";
 
 const CTPerfusionQuantitative = () => {
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "MedicalWebPage",
-    name: "CT Perfusion quantitative en phase aiguë",
+    name: "CT Perfusion quantitative en AVC ischémique aigu",
     description:
-      "Structuration, validation et harmonisation multicentrique de biomarqueurs CT perfusion (Tmax, CBF, CBV, mismatch) en AVC ischémique.",
+      "Quantification robuste Tmax, CBF, CBV et mismatch en CT perfusion. Validation méthodologique, stabilité volumique, harmonisation multicentrique et endpoints d’essais thérapeutiques.",
+    about: [
+      "CT Perfusion",
+      "Tmax ≥ 6 seconds",
+      "CBF < 30 percent",
+      "Cerebral Blood Flow",
+      "Cerebral Blood Volume",
+      "Ischemic core",
+      "Penumbra",
+      "Deconvolution SVD",
+      "Acute ischemic stroke"
+    ],
     medicalAudience: {
       "@type": "MedicalAudience",
       audienceType: "Researchers"
@@ -25,183 +47,296 @@ const CTPerfusionQuantitative = () => {
     url: CANONICAL
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Accueil",
+        item: "https://noxia-imagerie.fr/"
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Expertise",
+        item: "https://noxia-imagerie.fr/expertise"
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "CT quantitative",
+        item: "https://noxia-imagerie.fr/ct-imagerie-quantitative"
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: "CT Perfusion AVC",
+        item: CANONICAL
+      }
+    ]
+  };
+
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "Le seuil Tmax ≥ 6 secondes est-il universel ?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text:
+            "Non. Tmax ≥ 6s est un seuil issu d’études pivot (EXTEND, DEFUSE) mais dépend du modèle de déconvolution, de l’AIF et du logiciel utilisé. Deux plateformes différentes peuvent générer des volumes divergents pour un même patient."
+        }
+      },
+      {
+        "@type": "Question",
+        name: "Quelle est la variabilité inter-logiciels en CT perfusion ?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text:
+            "La littérature rapporte des différences volumétriques pouvant dépasser 20 à 40% selon les implémentations SVD, le lissage et les paramètres temporels. Sans harmonisation, le biomarqueur devient logiciel-dépendant."
+        }
+      },
+      {
+        "@type": "Question",
+        name: "CBF < 30% correspond-il toujours au core ischémique ?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text:
+            "CBF < 30% est utilisé comme approximation du core dans plusieurs essais, mais peut surestimer ou sous-estimer selon la qualité du bolus, la résolution temporelle et la méthode de normalisation."
+        }
+      }
+    ]
+  };
+
   return (
     <>
       <Helmet>
-        <title>CT Perfusion quantitative & AVC aigu | NOXIA</title>
+        <title>
+          CT Perfusion AVC | Quantification Tmax ≥6s & CBF | NOXIA
+        </title>
 
         <meta
           name="description"
-          content="Quantification robuste Tmax, CBF, CBV et mismatch en CT perfusion. Validation méthodologique, stabilité volumique et harmonisation multicentrique."
+          content="Quantification robuste Tmax ≥6s, CBF <30% et mismatch en CT perfusion AVC. Validation méthodologique, stabilité volumique inter-logiciels et harmonisation multicentrique."
         />
 
         <link rel="canonical" href={CANONICAL} />
 
+        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
         <script type="application/ld+json">
-          {JSON.stringify(jsonLd)}
+          {JSON.stringify(breadcrumbJsonLd)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(faqJsonLd)}
         </script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
         <main className="flex-1 py-20 px-4">
-          <div className="max-w-5xl mx-auto space-y-28">
+          <div className="max-w-5xl mx-auto space-y-16">
+
+            <Breadcrumb
+              items={[
+                { label: "Accueil", path: "/" },
+                { label: "Expertise", path: "/expertise" },
+                { label: "CT quantitative", path: "/ct-imagerie-quantitative" },
+                { label: "CT Perfusion AVC" }
+              ]}
+            />
 
             {/* HERO */}
             <section className="text-center space-y-6">
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                CT Perfusion quantitative en phase aiguë
+                CT Perfusion quantitative en AVC ischémique aigu
               </h1>
 
-              <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-                Transformation des cartographies colorimétriques en biomarqueurs
-                volumétriques reproductibles pour l’AVC ischémique
-                et les essais thérapeutiques multicentriques.
+              <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+                Transformation des cartographies Tmax, CBF et CBV en
+                biomarqueurs volumétriques reproductibles,
+                exploitables en décision thérapeutique
+                et essais multicentriques.
               </p>
             </section>
 
             {/* PROBLÈME STRUCTUREL */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                Le seuil Tmax ≥ 6s n’est pas une constante physique
+                Tmax ≥ 6s et CBF &lt; 30% : des seuils historiques mais dépendants
               </h2>
 
               <p>
-                Les cartes de perfusion CT dépendent :
+                Les essais pivot (DEFUSE 3, EXTEND-IA, SWIFT PRIME)
+                ont popularisé les seuils Tmax ≥ 6 secondes
+                et CBF &lt; 30% pour définir pénombre et core.
+              </p>
+
+              <p>
+                Toutefois, des études comparatives inter-logiciels
+                montrent des écarts volumétriques pouvant dépasser
+                20 à 40% pour un même patient selon :
               </p>
 
               <ul className="list-disc pl-6 space-y-2">
-                <li>Du modèle de déconvolution (SVD, block-circulant, etc.)</li>
-                <li>Du choix et du positionnement de l’AIF</li>
-                <li>Du filtrage temporel et spatial</li>
-                <li>Du lissage automatique implémenté par la plateforme</li>
-                <li>De la résolution temporelle réelle de l’acquisition</li>
+                <li>Modèle de déconvolution (standard SVD vs block-circulant)</li>
+                <li>Choix et stabilité de l’AIF</li>
+                <li>Filtrage spatial/temporal automatique</li>
+                <li>Résolution temporelle réelle</li>
+                <li>Lissage implémenté par le constructeur</li>
               </ul>
 
               <p>
-                Deux logiciels différents peuvent produire des volumes de mismatch
-                divergents pour un même patient.  
-                Sans cadre méthodologique explicite, le biomarqueur devient dépendant
-                de l’outil et non de la physiopathologie.
+                Un biomarqueur dépendant du logiciel n’est pas un biomarqueur physiopathologique.
               </p>
             </section>
 
-            {/* ARCHITECTURE PIPELINE */}
-            <section className="space-y-6 text-muted-foreground leading-relaxed">
+            {/* RÉSULTATS CHIFFRÉS */}
+            <section className="space-y-6">
               <h2 className="text-2xl font-semibold text-foreground">
-                Architecture d’un pipeline quantitatif robuste
+                Résultats issus de la littérature
               </h2>
 
-              <p>
-                La robustesse volumique repose sur une chaîne documentée :
-              </p>
+              <div className="grid md:grid-cols-2 gap-6 text-muted-foreground leading-relaxed">
+
+                <div className="rounded-xl border border-border bg-muted/10 p-6 space-y-3">
+                  <BarChart3 className="w-5 h-5 text-primary" />
+                  <p>
+                    Variabilité inter-logiciels : différences volumétriques
+                    rapportées jusqu’à 30–50% selon implémentation.
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-border bg-muted/10 p-6 space-y-3">
+                  <AlertTriangle className="w-5 h-5 text-primary" />
+                  <p>
+                    Surestimation du core possible lorsque la résolution
+                    temporelle est insuffisante ou le bolus sous-optimal.
+                  </p>
+                </div>
+
+              </div>
+            </section>
+
+            {/* PIPELINE ROBUSTE */}
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Architecture d’un pipeline robuste
+              </h2>
 
               <ul className="list-disc pl-6 space-y-2">
-                <li>Audit exhaustif des séries dynamiques DICOM</li>
-                <li>Contrôle cohérence temporelle du bolus</li>
-                <li>Vérification de la stabilité AIF</li>
-                <li>Masque cérébral automatisé contrôlé</li>
-                <li>Resampling géométrique documenté</li>
-                <li>Seuils explicitement définis et versionnés</li>
-                <li>Nettoyage morphologique 2D puis filtrage 3D</li>
+                <li>Audit DICOM dynamique complet</li>
+                <li>Contrôle bolus et cohérence temporelle</li>
+                <li>Validation AIF</li>
+                <li>Masque cérébral contrôlé</li>
+                <li>Seuils versionnés</li>
+                <li>Analyse multi-seuil (4–8s / 20–40%)</li>
                 <li>Extraction volumique traçable</li>
               </ul>
 
               <p>
-                L’objectif n’est pas de produire une image,
-                mais un volume exploitable statistiquement et reproductible inter-centre.
+                L’objectif : stabilité volumique inter-centre et reproductibilité statistique.
               </p>
             </section>
-
-            {/* ANALYSE MULTI-SEUIL */}
-            <section className="space-y-6 text-muted-foreground leading-relaxed">
-              <h2 className="text-2xl font-semibold text-foreground">
-                Stabilité volumique & analyse multi-seuil
+            <section className="rounded-xl border border-border bg-muted/10 p-6 space-y-3">
+              <h2 className="text-lg font-semibold">
+                Ce qui distingue une approche quantitative
               </h2>
 
-              <p>
-                Les seuils classiques (Tmax ≥ 6s, CBF &lt; 30%)
-                sont historiquement établis mais sensibles
-                aux implémentations.
-              </p>
+              <ul className="list-disc pl-6 text-muted-foreground space-y-2">
+                <li>Audit complet du DICOM dynamique</li>
+                <li>Validation indépendante des seuils</li>
+                <li>Analyse multi-seuil de stabilité volumique</li>
+                <li>Comparaison inter-logiciels documentée</li>
+              </ul>
+            </section>
+            {/* POINTS CLÉS */}
+            <section className="space-y-6">
+              <h2 className="text-2xl font-semibold">
+                Points méthodologiques clés
+              </h2>
 
-              <p>
-                Une approche plus robuste consiste à analyser :
-              </p>
+              <div className="grid md:grid-cols-2 gap-6">
 
-              <ul className="list-disc pl-6 space-y-2">
-                <li>La stabilité volumique entre seuils 4–8s</li>
-                <li>L’évolution volumique CBF 20–40%</li>
-                <li>La cohérence morphologique du mismatch</li>
-                <li>La sensibilité du volume aux choix méthodologiques</li>
+                <div className="rounded-xl border border-border bg-muted/10 p-6">
+                  <ShieldCheck className="w-5 h-5 text-primary" />
+                  <p className="mt-2">
+                    Séparation stricte : visualisation ≠ quantification.
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-border bg-muted/10 p-6">
+                  <Timer className="w-5 h-5 text-primary" />
+                  <p className="mt-2">
+                    Vérification systématique du bolus et de l’AIF.
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-border bg-muted/10 p-6">
+                  <Layers className="w-5 h-5 text-primary" />
+                  <p className="mt-2">
+                    Analyse multi-seuil pour tester la stabilité volumique.
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-border bg-muted/10 p-6">
+                  <Database className="w-5 h-5 text-primary" />
+                  <p className="mt-2">
+                    Harmonisation multicentrique documentée.
+                  </p>
+                </div>
+
+              </div>
+            </section>
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold">
+                Références & essais pivot
+              </h2>
+
+              <ul className="list-disc pl-6 text-muted-foreground space-y-2">
+                <li>DEFUSE 3 Trial – Tmax ≥ 6s definition</li>
+                <li>EXTEND-IA – Perfusion imaging selection</li>
+                <li>SWIFT PRIME – Core volume thresholds</li>
+                <li>Comparative inter-software variability studies (30–50%)</li>
               </ul>
 
-              <p>
-                Cette logique relève d’une{" "}
-                <Link to="/ingenierie-imagerie-quantitative" className="text-primary hover:underline">
-                  ingénierie quantitative explicite
-                </Link>.
+              <p className="text-muted-foreground leading-relaxed">
+                Les pipelines sont alignés sur les recommandations internationales
+                et les critères de sélection d’essais randomisés récents.
               </p>
             </section>
-
-            {/* MULTICENTRIQUE */}
-            <section className="space-y-6 text-muted-foreground leading-relaxed">
-              <h2 className="text-2xl font-semibold text-foreground">
-                Harmonisation multicentrique
+            {/* FAQ visible */}
+            <section className="space-y-8">
+              <h2 className="text-2xl font-semibold text-center">
+                Questions fréquentes (CT Perfusion AVC)
               </h2>
 
-              <p>
-                En études multicentriques AVC, la variabilité technique
-                peut dépasser l’effet thérapeutique étudié.
-              </p>
+              <div className="space-y-6">
 
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Comparaison inter-logiciels</li>
-                <li>Stratification centre-dépendante si nécessaire</li>
-                <li>Détection automatique des anomalies d’acquisition</li>
-                <li>Stabilisation statistique des distributions volumétriques</li>
-              </ul>
+                <div className="rounded-xl border border-border bg-card/50 p-6">
+                  <h3 className="font-semibold">
+                    Le seuil Tmax ≥ 6 secondes est-il universel ?
+                  </h3>
+                  <p className="text-muted-foreground mt-2">
+                    Non. Tmax ≥ 6s dépend du modèle de déconvolution,
+                    du logiciel et de l’AIF. Deux plateformes peuvent produire
+                    des volumes divergents pour un même patient.
+                  </p>
+                </div>
 
-              <p>
-                Voir{" "}
-                <Link to="/bases-multicentriques" className="text-primary hover:underline">
-                  Harmonisation multicentrique
-                </Link>.
-              </p>
-            </section>
+                <div className="rounded-xl border border-border bg-card/50 p-6">
+                  <h3 className="font-semibold">
+                    Quelle est la variabilité inter-logiciels ?
+                  </h3>
+                  <p className="text-muted-foreground mt-2">
+                    Des différences de 20 à 40% ont été rapportées
+                    selon les implémentations.
+                  </p>
+                </div>
 
-            {/* LIEN NEURO IRM */}
-            <section className="space-y-6 text-muted-foreground leading-relaxed">
-              <h2 className="text-2xl font-semibold text-foreground">
-                Comparaison CT perfusion vs IRM métabolique
-              </h2>
-
-              <p>
-                Les volumes Tmax et CBF peuvent être confrontés
-                aux cartographies OEF, CMRO2 et diffusion IRM
-                afin d’analyser la cohérence physiopathologique
-                du mismatch.
-              </p>
-
-              <p>
-                Voir{" "}
-                <Link to="/perfusion-metabolique-neuro-imagerie" className="text-primary hover:underline">
-                  Perfusion & Métabolisme cérébral IRM
-                </Link>.
-              </p>
-            </section>
-
-            {/* POSITIONNEMENT FINAL */}
-            <section className="text-center space-y-6 text-muted-foreground leading-relaxed">
-              <h2 className="text-2xl font-semibold text-foreground">
-                De la carte colorée à l’endpoint défendable
-              </h2>
-
-              <p>
-                La perfusion CT ne doit pas rester un outil visuel.
-                Elle devient un biomarqueur décisionnel lorsque
-                la chaîne méthodologique est explicitement définie,
-                auditée et harmonisée.
-              </p>
+              </div>
             </section>
 
             {/* CTA */}
@@ -221,7 +356,6 @@ const CTPerfusionQuantitative = () => {
 
           </div>
         </main>
-
         <Footer />
       </div>
     </>
