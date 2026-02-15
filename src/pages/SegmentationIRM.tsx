@@ -40,19 +40,35 @@ const SegmentationIRM = () => {
   };
 
   const faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "Quelle est la variabilité inter-observateur en segmentation IRM ?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "La variabilité peut atteindre 5–15% selon la séquence et la méthode utilisée."
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "Quelle est la variabilité inter-observateur en segmentation IRM ?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "La variabilité peut atteindre 5–15% selon la séquence et la méthode utilisée. L’automatisation encadrée permet de réduire cette variabilité à des niveaux proches de 1–3%."
+          }
+        },
+        {
+          "@type": "Question",
+          name: "Les seuils SD ou FWHM sont-ils interchangeables ?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Non. Les méthodes basées sur l’écart-type tendent à surestimer la taille lésionnelle. Les approches FWHM sont plus conservatrices. Le choix dépend de la séquence."
+          }
+        },
+        {
+          "@type": "Question",
+          name: "Une IA suffit-elle pour produire un biomarqueur publiable ?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Non. L’inférence doit être intégrée dans une architecture comprenant validation, contrôle morphologique et extraction métrique versionnée."
+          }
         }
-      }
-    ]
-  };
+      ]
+    };
 
   return (
     <>
@@ -86,6 +102,7 @@ const SegmentationIRM = () => {
               items={[
                 { label: "Accueil", path: "/" },
                 { label: "Expertise", path: "/expertise" },
+                { label: "IRM", path: "/irm-imagerie-quantitative" }, // Ajout du niveau intermédiaire
                 { label: "Segmentation IRM" }
               ]}
             />
@@ -537,7 +554,7 @@ const SegmentationIRM = () => {
                   <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link
-                  to="/recalibrage-multimodal"
+                  to="/recalage-multimodal"
                   className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
                 >
                   Recalage multimodal
