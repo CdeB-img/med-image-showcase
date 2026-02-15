@@ -12,7 +12,7 @@ const Expertise = () => {
 
         <meta
           name="description"
-          content="Expertise intégrée en IRM, CT et méthodologie multicentrique. Production de biomarqueurs robustes, harmonisation inter-constructeurs et ingénierie quantitative en recherche clinique."
+          content="Expertise intégrée en IRM, CT et méthodologie multicentrique. Développement de biomarqueurs reproductibles, harmonisation inter-constructeurs et ingénierie quantitative en recherche clinique."
         />
 
         <link rel="canonical" href={CANONICAL} />
@@ -23,7 +23,7 @@ const Expertise = () => {
             "@type": "WebPage",
             name: "Expertise en imagerie médicale quantitative",
             description:
-              "IRM, CT et méthodologie multicentrique. Production de biomarqueurs robustes, harmonisation inter-constructeurs et ingénierie quantitative.",
+              "IRM, CT et méthodologie multicentrique. Développement de biomarqueurs robustes et ingénierie quantitative en recherche clinique.",
             url: CANONICAL
           })}
         </script>
@@ -31,7 +31,7 @@ const Expertise = () => {
 
       <div className="min-h-screen flex flex-col bg-background">
         <main className="flex-1 py-24 px-4">
-          <div className="max-w-6xl mx-auto space-y-28">
+          <div className="max-w-6xl mx-auto space-y-32">
 
             {/* ================= HERO ================= */}
             <section className="text-center space-y-8">
@@ -39,119 +39,93 @@ const Expertise = () => {
                 Expertise en imagerie médicale quantitative
               </h1>
 
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                IRM · CT · Structuration multicentrique · Biomarkers
-              </p>
-
-              <p className="text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                L’imagerie quantitative n’est pas une accumulation d’outils.
-                Elle constitue une architecture méthodologique cohérente,
-                pensée pour transformer le signal en biomarqueur
-                reproductible, robuste et scientifiquement défendable.
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                Transformer des images cliniques hétérogènes en biomarqueurs
+                reproductibles, multicentriques et physiquement cohérents.
               </p>
             </section>
 
-            {/* ================= VISION ================= */}
-            <section className="max-w-4xl mx-auto space-y-6 text-muted-foreground leading-relaxed">
-              <h2 className="text-2xl font-semibold text-foreground text-center">
-                Vision transversale
+            {/* ================= POSITIONNEMENT ================= */}
+            <section className="max-w-4xl mx-auto space-y-8 text-muted-foreground leading-relaxed text-center">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Une approche architecturée, non opportuniste
               </h2>
 
               <p>
-                L’approche repose sur une compréhension fine des métadonnées DICOM,
-                de la cohérence géométrique, et d’une séparation stricte entre
-                visualisation, segmentation et quantification.
+                L’imagerie quantitative ne consiste pas à empiler des outils.
+                Elle repose sur une architecture méthodologique cohérente
+                intégrant audit DICOM, contrôle géométrique,
+                normalisation signal, segmentation contrôlée
+                et extraction métrique traçable.
               </p>
 
               <p>
-                Chaque flux est conçu pour être traçable,
-                inter-centre robuste,
-                inter-constructeur cohérent,
-                et physiopathologiquement interprétable.
+                Chaque pipeline est conçu pour être robuste inter-centre,
+                cohérent inter-constructeur et défendable en publication
+                ou en contexte réglementaire.
               </p>
             </section>
 
-            {/* ================= DOMAINES D’APPLICATION ================= */}
-            <section className="text-center space-y-8">
-              <h2 className="text-2xl font-semibold">
-                Domaines d’application
-              </h2>
-
-              <div className="flex flex-wrap justify-center gap-3">
-                {[
-                  "IRM cardiaque avancée",
-                  "Neuro-imagerie AVC",
-                  "CT spectral & perfusion",
-                  "Essais multicentriques",
-                  "Validation IA clinique"
-                ].map((item) => (
-                  <span
-                    key={item}
-                    className="px-4 py-2 text-sm rounded-full bg-muted/10 border border-border text-muted-foreground"
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </section>
-
-            {/* ================= PILIERS ================= */}
-            <section className="space-y-12">
+            {/* ================= DOMAINES ================= */}
+            <section className="space-y-10">
               <h2 className="text-2xl font-semibold text-center">
-                Trois piliers complémentaires
+                Champs d’intervention
               </h2>
 
-              <div className="grid md:grid-cols-3 gap-10">
+              <div className="grid md:grid-cols-3 gap-12">
 
                 {/* IRM */}
-                <div className="p-8 rounded-xl border border-border bg-muted/5 hover:bg-muted/10 transition-colors space-y-5">
-                  <h3 className="text-xl font-semibold">IRM</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    IRM cardiaque avancée (LGE, T1/T2 mapping, ECV),
-                    IRM neuro post-AVC (Tmax, ADC, OEF/CMRO₂),
-                    biomarqueurs myocardiques et métaboliques.
+                <div className="space-y-5">
+                  <h3 className="text-xl font-semibold">IRM quantitative</h3>
+
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    IRM cardiaque (LGE, T1/T2 mapping, ECV),
+                    neuro-imagerie post-AVC (perfusion, diffusion, métabolisme),
+                    structuration Core Lab et endpoints d’essais thérapeutiques.
                   </p>
 
                   <Link
                     to="/irm-imagerie-quantitative"
-                    className="inline-block text-sm font-medium text-primary hover:opacity-80"
+                    className="text-sm font-medium text-primary hover:opacity-80"
                   >
                     Explorer l’IRM →
                   </Link>
                 </div>
 
                 {/* CT */}
-                <div className="p-8 rounded-xl border border-border bg-muted/5 hover:bg-muted/10 transition-colors space-y-5">
-                  <h3 className="text-xl font-semibold">CT</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    CT spectral, reconstruction mono-énergétique,
-                    décomposition matière,
+                <div className="space-y-5">
+                  <h3 className="text-xl font-semibold">CT quantitatif</h3>
+
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    CT spectral, décomposition matière,
+                    stabilité des unités HU,
                     perfusion AVC,
-                    harmonisation inter-constructeurs.
+                    calibration phantom et harmonisation inter-constructeurs.
                   </p>
 
                   <Link
                     to="/ct-imagerie-quantitative"
-                    className="inline-block text-sm font-medium text-primary hover:opacity-80"
+                    className="text-sm font-medium text-primary hover:opacity-80"
                   >
                     Explorer le CT →
                   </Link>
                 </div>
 
                 {/* MÉTHODOLOGIE */}
-                <div className="p-8 rounded-xl border border-border bg-muted/5 hover:bg-muted/10 transition-colors space-y-5">
-                  <h3 className="text-xl font-semibold">Méthodologie</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Structuration multicentrique,
-                    audit de flux,
-                    anonymisation avancée,
-                    validation et intégration contrôlée d’IA
-                    dans des pipelines reproductibles.
+                <div className="space-y-5">
+                  <h3 className="text-xl font-semibold">
+                    Méthodologie & structuration multicentrique
+                  </h3>
+
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    Audit DICOM, hiérarchisation des bases,
+                    harmonisation inter-sites,
+                    intégration contrôlée d’IA dans des flux reproductibles.
                   </p>
 
                   <Link
                     to="/methodologie-imagerie-quantitative"
-                    className="inline-block text-sm font-medium text-primary hover:opacity-80"
+                    className="text-sm font-medium text-primary hover:opacity-80"
                   >
                     Explorer la méthodologie →
                   </Link>
@@ -160,30 +134,39 @@ const Expertise = () => {
               </div>
             </section>
 
-            {/* ================= SOCLE ================= */}
-            <section className="max-w-4xl mx-auto text-center space-y-8">
-              <h2 className="text-2xl font-semibold">
-                Un socle méthodologique éprouvé
+            {/* ================= DIFFÉRENCIATION ================= */}
+            <section className="max-w-4xl mx-auto text-center space-y-8 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Ce qui différencie l’approche
               </h2>
 
-              <p className="text-muted-foreground leading-relaxed">
-                Plus de 5000 examens analysés en contexte clinique
-                et scientifique. Structuration d’un CoreLab cœur–cerveau,
-                harmonisation inter-sites et validation inter-constructeurs.
+              <p>
+                • Séparation stricte visualisation / segmentation / quantification  
+                • Normalisation intra-sujet lorsque nécessaire  
+                • Analyse multi-seuil pour robustesse statistique  
+                • Calibration physique indépendante en CT  
+                • Validation translationnelle lorsque possible  
               </p>
 
-              <p className="text-muted-foreground leading-relaxed">
-                L’automatisation n’intervient qu’après validation.
-                L’IA est évaluée et intégrée dans des flux contrôlés,
-                jamais utilisée comme boîte noire autonome.
+              <p>
+                L’automatisation n’est intégrée qu’après validation méthodologique.
+                L’IA est évaluée, auditée et contrôlée.
+                Elle ne remplace jamais l’architecture scientifique.
               </p>
             </section>
 
-            {/* ================= CTA ================= */}
+            {/* ================= SOCLE ================= */}
             <section className="text-center space-y-6">
               <h2 className="text-xl font-semibold">
-                Une expertise indépendante, reproductible et traçable
+                Une expertise indépendante et reproductible
               </h2>
+
+              <p className="text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                Plusieurs milliers d’examens analysés en contexte clinique réel,
+                structuration de Core Labs cœur–cerveau,
+                harmonisation inter-constructeurs
+                et validation multicentrique.
+              </p>
 
               <Link
                 to="/prestations-imagerie-medicale"
