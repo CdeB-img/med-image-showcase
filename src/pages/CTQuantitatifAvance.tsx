@@ -498,7 +498,7 @@ const CTQuantitatifAvance = () => {
               </Link>
 
               <Link
-                to="/harmonisation-multicentrique"
+                to="/bases-multicentriques"
                 className="rounded-xl border border-border bg-card/50 p-6 hover:border-primary/40 hover:bg-card/70 transition-all group"
               >
                 <div className="space-y-2">
