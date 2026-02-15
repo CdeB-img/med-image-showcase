@@ -12,20 +12,7 @@ const PerfusionMetaboliqueNeuro = () => {
     "@type": "MedicalWebPage",
     name: "Quantification perfusion et métabolisme cérébral en IRM",
     description:
-      "Développement et validation de pipelines quantitatifs OEF, CMRO2, CBF et Tmax en neuro-imagerie multicentrique. Segmentation physiopathologique, hystérésis 3D et harmonisation inter-centre.",
-    about: [
-      "Oxygen Extraction Fraction MRI",
-      "CMRO2 MRI",
-      "Cerebral perfusion MRI",
-      "Tmax perfusion",
-      "Diffusion perfusion mismatch",
-      "Ischemic core segmentation",
-      "Neurovascular imaging"
-    ],
-    medicalAudience: {
-      "@type": "MedicalAudience",
-      audienceType: "Researchers"
-    },
+      "Développement, validation et harmonisation multicentrique de biomarqueurs OEF, CMRO2, CBF et Tmax en neuro-imagerie quantitative.",
     provider: {
       "@type": "Organization",
       name: "NOXIA Imagerie",
@@ -43,7 +30,7 @@ const PerfusionMetaboliqueNeuro = () => {
 
         <meta
           name="description"
-          content="Pipelines avancés de quantification OEF, CMRO2, CBF et Tmax en IRM cérébrale. Hystérésis 3D, normalisation hémisphérique et validation multicentrique."
+          content="Pipelines avancés OEF, CMRO2, CBF et Tmax en IRM cérébrale. Hystérésis 3D, normalisation hémisphérique, segmentation physiopathologique et harmonisation multicentrique."
         />
 
         <link rel="canonical" href={CANONICAL} />
@@ -60,109 +47,156 @@ const PerfusionMetaboliqueNeuro = () => {
             {/* HERO */}
             <section className="text-center space-y-6">
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                Quantification perfusion & métabolisme cérébral en IRM
+                Perfusion & Métabolisme cérébral en IRM quantitative
               </h1>
 
               <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-                Développement de pipelines avancés pour l’analyse
-                OEF, CMRO2, CBF et Tmax dans le contexte
-                d’AVC ischémique et d’études multicentriques.
+                Structuration algorithmique et validation multicentrique
+                de biomarqueurs OEF, CMRO₂, CBF et Tmax
+                dans l’AVC ischémique et les études neurovasculaires.
               </p>
             </section>
 
-            {/* POSITIONNEMENT */}
+            {/* ENJEU FONDAMENTAL */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                De la cartographie brute au biomarqueur défendable
+                De la cartographie physiologique au biomarqueur exploitable
               </h2>
 
               <p>
-                Les cartes métaboliques et perfusionnelles
-                (OEF, CMRO2, CBF, Tmax) ne sont pas directement
-                exploitables telles quelles.
-                Leur interprétation nécessite un cadre méthodologique
-                strict : normalisation, contrôle hémisphérique,
-                segmentation guidée par diffusion et validation volumétrique.
+                Les cartes OEF, CMRO₂, CBF et Tmax ne sont pas,
+                par nature, des biomarqueurs.
+                Elles représentent des distributions continues
+                issues de modèles physiologiques complexes,
+                fortement sensibles aux conditions d’acquisition,
+                aux paramètres de reconstruction et aux artefacts.
               </p>
 
               <p>
-                L’approche développée repose sur une logique
-                physiopathologique : comparaison hémisphère sain / pathologique,
-                modélisation du D_core, hystérésis 3D contrôlée
-                et filtrage morphologique multi-échelle.
+                La transformation d’une carte métabolique
+                en endpoint défendable nécessite :
               </p>
+
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Une normalisation intra-sujet robuste</li>
+                <li>Une séparation explicite diffusion / pénombre</li>
+                <li>Une segmentation volumique cohérente en 3D</li>
+                <li>Une validation inter-seuil et inter-patient</li>
+                <li>Une reproductibilité inter-centre documentée</li>
+              </ul>
             </section>
 
-            {/* PIPELINE */}
+            {/* ARCHITECTURE ALGORITHMIQUE */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
                 Architecture du pipeline quantitatif
               </h2>
 
+              <p>
+                L’approche développée repose sur une logique
+                physiopathologique avant d’être algorithmique.
+                La diffusion définit le noyau ischémique (D_core),
+                servant de point d’ancrage anatomique.
+              </p>
+
               <ul className="list-disc pl-6 space-y-2">
-                <li>Calcul D_core par miroir hémisphérique</li>
-                <li>Normalisation basée sur médiane + IQR controlatéral</li>
-                <li>Hystérésis 3D (seed diffusion → propagation métabolique)</li>
-                <li>Nettoyage morphologique 2D puis filtrage 3D volumique</li>
-                <li>Analyse multi-seuils (60–250% IQR)</li>
-                <li>Évaluation Dice automatique vs référence</li>
+                <li>Calcul miroir hémisphérique pour référence controlatérale</li>
+                <li>Normalisation basée sur médiane + IQR</li>
+                <li>Détection multi-seuil (60–250% IQR)</li>
+                <li>Hystérésis 3D : propagation contrôlée depuis le core</li>
+                <li>Filtrage morphologique multi-échelle</li>
+                <li>Nettoyage volumique et suppression des artéfacts isolés</li>
               </ul>
 
               <p>
-                Chaque seuil génère un masque indépendant
-                permettant d’évaluer robustesse et stabilité
-                inter-seuil et inter-patient.
+                Chaque seuil génère un masque indépendant,
+                permettant d’évaluer la stabilité volumétrique
+                et la sensibilité aux paramètres.
               </p>
             </section>
 
-            {/* BIOMARQUEURS */}
+            {/* BIOMARQUEURS DÉRIVÉS */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                Biomarqueurs dérivés
+                Biomarqueurs dérivés et métriques volumétriques
               </h2>
 
               <ul className="list-disc pl-6 space-y-2">
-                <li>Volume OEF pathologique</li>
-                <li>Volume CMRO2 altéré</li>
-                <li>Métabolisme mismatch diffusion/perfusion</li>
-                <li>Tmax ≥ 6s volumique</li>
-                <li>Cartographies combinées métabolique / hémodynamique</li>
+                <li>Volume OEF pathologique normalisé</li>
+                <li>Volume CMRO₂ altéré</li>
+                <li>Mismatch diffusion / métabolisme</li>
+                <li>Tmax ≥ 6 s volumique</li>
+                <li>Cartographie combinée hémodynamique + métabolique</li>
               </ul>
 
               <p>
-                L’objectif est de dépasser le simple seuil binaire
-                pour produire une analyse volumétrique robuste,
-                exploitable statistiquement.
+                L’objectif est d’éviter une approche binaire simpliste.
+                La distribution complète des valeurs,
+                la dispersion intra-lésionnelle
+                et la relation avec la diffusion
+                sont intégrées dans l’analyse.
               </p>
             </section>
 
-            {/* MULTICENTRIQUE */}
+            {/* VALIDATION & ROBUSTESSE */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                Adaptation multicentrique
+                Validation et robustesse multicentrique
               </h2>
 
               <p>
-                Les valeurs absolues OEF et CMRO2
-                varient selon séquence, implémentation
-                et constructeur.
+                Les valeurs absolues OEF et CMRO₂
+                varient selon constructeur,
+                implémentation séquence
+                et calibration physiologique.
               </p>
 
               <p>
-                L’utilisation d’une normalisation intra-sujet
-                (basée sur l’hémisphère sain)
-                permet une robustesse accrue face à la variabilité inter-centre.
+                La normalisation intra-sujet
+                par référence hémisphérique
+                permet de limiter l’effet
+                de la variabilité inter-centre.
               </p>
 
               <p>
-                Cette approche s’inscrit dans la logique globale
-                d’{" "}
+                Cette structuration s’inscrit dans la logique globale de{" "}
                 <Link to="/bases-multicentriques" className="text-primary hover:underline">
-                  harmonisation multicentrique
+                  bases multicentriques harmonisées
                 </Link>{" "}
-                et de{" "}
+                et d’{" "}
+                <Link to="/methodologie-imagerie-quantitative" className="text-primary hover:underline">
+                  ingénierie méthodologique explicite
+                </Link>.
+              </p>
+            </section>
+
+            {/* POSITIONNEMENT SCIENTIFIQUE */}
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Positionnement scientifique
+              </h2>
+
+              <p>
+                La segmentation métabolique ne doit pas être
+                une simple projection de seuil.
+                Elle doit rester cohérente avec :
+              </p>
+
+              <ul className="list-disc pl-6 space-y-2">
+                <li>La physiopathologie de la pénombre</li>
+                <li>L’évolution temporelle post-AVC</li>
+                <li>La cohérence diffusion / perfusion</li>
+                <li>La reproductibilité volumétrique</li>
+              </ul>
+
+              <p>
+                Cette approche complète la{" "}
                 <Link to="/segmentation-irm" className="text-primary hover:underline">
-                  segmentation contrôlée
+                  segmentation IRM contrôlée
+                </Link>{" "}
+                et peut s’intégrer dans une logique de{" "}
+                <Link to="/corelab-essais-cliniques" className="text-primary hover:underline">
+                  Core Lab neurovasculaire multicentrique
                 </Link>.
               </p>
             </section>
@@ -170,15 +204,16 @@ const PerfusionMetaboliqueNeuro = () => {
             {/* CTA */}
             <section className="text-center space-y-4">
               <p className="text-muted-foreground">
-                Développer un biomarqueur métabolique robuste
-                nécessite une architecture algorithmique explicite.
+                Structurer un biomarqueur métabolique robuste
+                exige une architecture explicite,
+                traçable et reproductible.
               </p>
 
               <Link
                 to="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-5 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
               >
-                Discuter d’un projet neuro
+                Discuter d’un projet neurovasculaire
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </section>

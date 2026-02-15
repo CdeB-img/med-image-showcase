@@ -12,17 +12,7 @@ const CTImagerieQuantitative = () => {
     "@type": "MedicalWebPage",
     name: "CT quantitatif en recherche clinique",
     description:
-      "Développement et validation de biomarqueurs CT quantitatifs : calibration physique, imagerie spectrale, perfusion, harmonisation multicentrique et robustesse inter-constructeurs.",
-    about: [
-      "Quantitative CT",
-      "Spectral CT",
-      "Dual Energy CT",
-      "CT Perfusion",
-      "Hounsfield Units stability",
-      "Material decomposition",
-      "Phantom calibration",
-      "Multicenter CT harmonization"
-    ],
+      "Développement, validation et harmonisation multicentrique de biomarqueurs CT : stabilité HU, calibration phantom, imagerie spectrale, perfusion et robustesse inter-constructeurs.",
     medicalAudience: {
       "@type": "MedicalAudience",
       audienceType: "Researchers"
@@ -38,24 +28,14 @@ const CTImagerieQuantitative = () => {
   return (
     <>
       <Helmet>
-        <title>
-          CT quantitatif & biomarqueurs physiques | NOXIA
-        </title>
+        <title>CT quantitatif & biomarqueurs physiques | NOXIA</title>
 
         <meta
           name="description"
-          content="CT quantitatif en recherche clinique : stabilité HU, calibration phantom, imagerie spectrale, perfusion CT et harmonisation multicentrique pour biomarqueurs robustes."
+          content="CT quantitatif en recherche clinique : maîtrise des unités Hounsfield, calibration phantom, imagerie spectrale, perfusion CT et harmonisation multicentrique pour biomarqueurs robustes."
         />
 
         <link rel="canonical" href={CANONICAL} />
-
-        <meta property="og:title" content="CT quantitatif en recherche clinique" />
-        <meta
-          property="og:description"
-          content="Physique maîtrisée, calibration et harmonisation multicentrique en CT quantitatif."
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={CANONICAL} />
 
         <script type="application/ld+json">
           {JSON.stringify(jsonLd)}
@@ -64,7 +44,7 @@ const CTImagerieQuantitative = () => {
 
       <div className="min-h-screen flex flex-col bg-background">
         <main className="flex-1 py-20 px-4">
-          <div className="max-w-5xl mx-auto space-y-24">
+          <div className="max-w-5xl mx-auto space-y-28">
 
             {/* HERO */}
             <section className="text-center space-y-6">
@@ -73,47 +53,59 @@ const CTImagerieQuantitative = () => {
               </h1>
 
               <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-                Transformation des données scanner en biomarqueurs
-                physiquement cohérents, multicentriques et statistiquement robustes.
+                Transformer le scanner en outil décisionnel quantitatif :
+                biomarqueurs physiquement cohérents, multicentriques
+                et statistiquement exploitables.
               </p>
             </section>
 
-            {/* POSITIONNEMENT */}
+            {/* PHYSIQUE FONDAMENTALE */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
                 La physique avant l’algorithme
               </h2>
 
               <p>
-                En CT, une unité Hounsfield n’est pas une constante universelle.
-                Elle dépend du kernel, de l’algorithme itératif, de l’énergie effective
-                et de l’implémentation constructeur.
+                En CT, une unité Hounsfield (HU) n’est pas une constante universelle.
+                Elle dépend du kernel de reconstruction, du filtre,
+                de l’algorithme itératif, de l’énergie effective,
+                du champ spectral et de l’implémentation constructeur.
               </p>
 
               <p>
-                Sans calibration ni harmonisation, la variabilité technique
-                peut dépasser l’effet biologique étudié.
-                Le CT quantitatif exige donc une maîtrise physique
+                Sans calibration ni contrôle méthodologique,
+                la variabilité technique peut dépasser la variation biologique étudiée.
+                Le CT quantitatif exige donc une compréhension physique explicite
                 avant toute interprétation statistique.
+              </p>
+
+              <p>
+                Cette approche s’inscrit dans une logique globale
+                d’
+                <Link to="/ingenierie-imagerie-quantitative" className="text-primary hover:underline">
+                  ingénierie en imagerie quantitative
+                </Link>.
               </p>
             </section>
 
             {/* STABILITÉ HU */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                Stabilité des valeurs HU
+                Stabilité des unités Hounsfield
               </h2>
 
               <ul className="list-disc pl-6 space-y-2">
                 <li>Impact des kernels de reconstruction</li>
                 <li>Influence des reconstructions itératives</li>
-                <li>Variabilité inter-constructeurs (GE / Siemens / Philips)</li>
                 <li>Dérives énergétiques effectives</li>
+                <li>Variabilité inter-constructeurs (GE, Siemens, Philips)</li>
+                <li>Effets des reconstructions haute fréquence</li>
               </ul>
 
               <p>
-                Une analyse comparative et une calibration phantom
-                permettent de documenter et corriger ces écarts.
+                La calibration phantom (eau, matériaux connus)
+                permet de documenter les dérives systématiques
+                et de stabiliser les métriques quantitatives.
               </p>
 
               <p>
@@ -124,7 +116,7 @@ const CTImagerieQuantitative = () => {
               </p>
             </section>
 
-            {/* IMAGERIE SPECTRALE */}
+            {/* SPECTRAL */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
                 Imagerie spectrale & décomposition matière
@@ -139,11 +131,16 @@ const CTImagerieQuantitative = () => {
                 <li>Décomposition Compton / Photoélectrique</li>
                 <li>Reconstruction monoénergétique synthétique</li>
                 <li>Analyse basse énergie (&lt;70 keV)</li>
-                <li>Comparaison modèles physiques vs reconstructions constructeur</li>
+                <li>Confrontation modèles physiques ↔ reconstructions constructeur</li>
               </ul>
 
               <p>
-                Ces approches s’inscrivent dans{" "}
+                L’enjeu est de produire un biomarqueur physiquement interprétable,
+                non simplement dépendant d’un post-traitement logiciel.
+              </p>
+
+              <p>
+                Voir{" "}
                 <Link to="/ct-quantitatif-avance-imagerie-spectrale" className="text-primary hover:underline">
                   CT quantitatif avancé & imagerie spectrale
                 </Link>.
@@ -157,21 +154,22 @@ const CTImagerieQuantitative = () => {
               </h2>
 
               <p>
-                En contexte neurovasculaire, la perfusion CT
-                nécessite une stabilisation méthodologique :
+                En neurovasculaire, la perfusion CT est un outil décisionnel majeur
+                (Tmax, CBF, CBV, mismatch).
               </p>
 
               <ul className="list-disc pl-6 space-y-2">
-                <li>Contrôle des algorithmes de déconvolution</li>
-                <li>Comparaison Tmax, CBF, CBV selon implémentation</li>
-                <li>Stabilité volumétrique des seuils cliniques</li>
+                <li>Contrôle des modèles de déconvolution</li>
+                <li>Comparaison inter-logiciels</li>
+                <li>Stabilité volumique multi-seuil</li>
+                <li>Nettoyage morphologique documenté</li>
                 <li>Robustesse multicentrique</li>
               </ul>
 
               <p>
                 Voir{" "}
                 <Link to="/ct-perfusion-quantitative-avc" className="text-primary hover:underline">
-                  CT perfusion quantitative dans l’AVC
+                  CT perfusion quantitative & AVC
                 </Link>.
               </p>
             </section>
@@ -183,57 +181,54 @@ const CTImagerieQuantitative = () => {
               </h2>
 
               <p>
-                La variabilité inter-centre peut altérer la puissance statistique.
-                Une structuration adaptée permet :
+                En études multicentriques, la variabilité technique
+                peut altérer la puissance statistique et biaiser les conclusions.
               </p>
 
               <ul className="list-disc pl-6 space-y-2">
                 <li>Audit systématique des métadonnées DICOM</li>
-                <li>Détection des reconstructions incompatibles</li>
+                <li>Détection reconstructions incompatibles</li>
                 <li>Stratification centre-dépendante si nécessaire</li>
                 <li>Stabilisation des distributions statistiques</li>
+                <li>Traçabilité complète des transformations</li>
               </ul>
 
               <p>
                 Voir{" "}
                 <Link to="/bases-multicentriques" className="text-primary hover:underline">
-                  Bases multicentriques
+                  Harmonisation multicentrique
                 </Link>.
               </p>
             </section>
 
-            {/* INGÉNIERIE */}
-            <section className="space-y-6 text-center text-muted-foreground leading-relaxed">
+            {/* POSITIONNEMENT FINAL */}
+            <section className="text-center space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                Ingénierie quantitative intégrée
+                Physique maîtrisée, biomarqueurs exploitables
               </h2>
 
               <p>
-                Le CT quantitatif s’intègre dans une architecture globale
-                d’ingénierie méthodologique :
-                contrôle DICOM, calibration, extraction métrique,
-                traçabilité et validation.
+                Le CT quantitatif ne consiste pas à mesurer davantage,
+                mais à mesurer correctement.
+                La robustesse méthodologique prime sur la complexité algorithmique.
               </p>
 
-              <Link
-                to="/ingenierie-imagerie-quantitative"
-                className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
-              >
-                Voir l’ingénierie quantitative
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+              <p>
+                L’objectif est de produire des paramètres interprétables,
+                reproductibles et défendables en contexte académique,
+                industriel ou réglementaire.
+              </p>
             </section>
 
             {/* CTA */}
             <section className="text-center space-y-4">
               <p className="text-muted-foreground">
-                Structurer un biomarqueur CT robuste
-                nécessite une maîtrise physique et méthodologique complète.
+                Structurer ou auditer un biomarqueur CT multicentrique ?
               </p>
 
               <Link
                 to="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-5 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
               >
                 Discuter d’un projet CT
                 <ArrowRight className="w-4 h-4" />

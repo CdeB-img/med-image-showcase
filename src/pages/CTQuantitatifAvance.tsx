@@ -12,16 +12,11 @@ const CTQuantitatifAvance = () => {
     "@type": "MedicalWebPage",
     name: "CT quantitatif avancé et imagerie spectrale",
     description:
-      "Développement et validation de biomarqueurs CT robustes : imagerie spectrale, monoénergétique, décomposition matière, calibration phantom et harmonisation multicentrique.",
-    about: [
-      "Spectral CT",
-      "Dual Energy CT",
-      "Material decomposition",
-      "Monoenergetic reconstruction",
-      "Quantitative CT biomarkers",
-      "Phantom calibration",
-      "Inter-vendor variability"
-    ],
+      "Développement, calibration et validation de biomarqueurs CT robustes : imagerie spectrale, monoénergétique, décomposition matière, modèles physiques et harmonisation multicentrique.",
+    medicalAudience: {
+      "@type": "MedicalAudience",
+      audienceType": "Researchers"
+    },
     provider: {
       "@type": "Organization",
       name: "NOXIA Imagerie",
@@ -33,27 +28,14 @@ const CTQuantitatifAvance = () => {
   return (
     <>
       <Helmet>
-        <title>
-          CT quantitatif avancé & Imagerie spectrale | NOXIA
-        </title>
+        <title>CT quantitatif avancé & imagerie spectrale | NOXIA</title>
 
         <meta
           name="description"
-          content="Imagerie spectrale, monoénergétique et décomposition matière en CT. Calibration physique, robustesse inter-constructeurs et biomarqueurs quantitatifs défendables."
+          content="Imagerie spectrale, reconstruction monoénergétique et décomposition matière en CT. Calibration phantom, validation physique et harmonisation inter-constructeurs."
         />
 
         <link rel="canonical" href={CANONICAL} />
-
-        <meta
-          property="og:title"
-          content="CT quantitatif avancé & Imagerie spectrale"
-        />
-        <meta
-          property="og:description"
-          content="Développement de biomarqueurs CT robustes : physique, calibration, harmonisation multicentrique."
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={CANONICAL} />
 
         <script type="application/ld+json">
           {JSON.stringify(jsonLd)}
@@ -62,7 +44,7 @@ const CTQuantitatifAvance = () => {
 
       <div className="min-h-screen flex flex-col bg-background">
         <main className="flex-1 py-20 px-4">
-          <div className="max-w-5xl mx-auto space-y-24">
+          <div className="max-w-5xl mx-auto space-y-28">
 
             {/* HERO */}
             <section className="text-center space-y-6">
@@ -71,77 +53,97 @@ const CTQuantitatifAvance = () => {
               </h1>
 
               <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-                Développement de biomarqueurs CT robustes basés sur la physique,
-                la décomposition matière et une harmonisation multicentrique
-                rigoureusement documentée.
+                Développement de biomarqueurs CT fondés sur la physique du signal,
+                la décomposition matière et une validation méthodologique
+                rigoureuse en contexte multicentrique.
               </p>
             </section>
 
             {/* PROBLÈME FONDAMENTAL */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                Le mythe de la stabilité des unités Hounsfield
+                L’illusion de la stabilité des HU
               </h2>
 
               <p>
-                En CT, une valeur HU n’est pas une constante universelle.
-                Elle dépend du kernel de reconstruction, de l’algorithme itératif,
-                de l’énergie effective, du constructeur et du protocole.
+                Une valeur Hounsfield n’est pas une constante universelle.
+                Elle dépend :
+              </p>
+
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Du kernel de reconstruction</li>
+                <li>De l’algorithme itératif</li>
+                <li>De l’énergie effective du faisceau</li>
+                <li>Du constructeur et de la version logicielle</li>
+                <li>Des paramètres d’injection et du timing</li>
+              </ul>
+
+              <p>
+                En étude multicentrique, la variabilité technique peut dépasser
+                la variation biologique étudiée. Sans calibration indépendante,
+                un biomarqueur CT devient centre-dépendant.
               </p>
 
               <p>
-                Dans un contexte multicentrique, la variabilité technique peut
-                dépasser la variation biologique étudiée. Sans calibration ni
-                contrôle méthodologique, un biomarqueur CT devient centre-dépendant.
+                Voir également{" "}
+                <Link to="/bases-multicentriques" className="text-primary hover:underline">
+                  Harmonisation multicentrique
+                </Link>.
               </p>
             </section>
 
             {/* IMAGERIE SPECTRALE */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                Imagerie spectrale & décomposition matière
+                Imagerie spectrale & modèles physiques
               </h2>
 
               <p>
-                L’imagerie dual-energy et spectrale permet de dépasser
-                l’analyse HU conventionnelle en accédant aux composantes
-                physiques du signal.
+                Le dual-energy et le CT spectral permettent d’accéder
+                aux composantes physiques sous-jacentes du signal :
               </p>
 
               <ul className="list-disc pl-6 space-y-2">
                 <li>Décomposition Compton / Photoélectrique</li>
                 <li>Reconstruction monoénergétique synthétique</li>
-                <li>Analyse des limites basse énergie (&lt;70 keV)</li>
-                <li>Évaluation des dérives inter-constructeurs</li>
+                <li>Cartes matériaux spécifiques</li>
+                <li>Analyse des comportements basse énergie (&lt;70 keV)</li>
               </ul>
 
               <p>
-                Implémentation et validation de modèles physiques inspirés
+                Implémentation et confrontation de modèles inspirés
                 des équations de décomposition type Alvarez,
-                avec confrontation aux reconstructions constructeur.
+                avec comparaison directe aux reconstructions constructeur.
+              </p>
+
+              <p>
+                L’enjeu n’est pas la reproduction visuelle,
+                mais la cohérence métrique inter-système.
               </p>
             </section>
 
-            {/* CALIBRATION */}
+            {/* CALIBRATION PHYSIQUE */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                Calibration physique & validation
+                Calibration indépendante & validation
               </h2>
 
               <p>
-                Toute quantification CT nécessite une validation physique indépendante.
+                Toute quantification avancée doit être confrontée
+                à une validation physique indépendante.
               </p>
 
               <ul className="list-disc pl-6 space-y-2">
-                <li>Calibration phantom eau et matériaux connus</li>
+                <li>Calibration phantom eau / matériaux de référence</li>
                 <li>Correction des dérives énergétiques</li>
-                <li>Analyse des kernels et reconstructions</li>
-                <li>Évaluation reproductibilité intra / inter-système</li>
+                <li>Comparaison monoénergétique simulé vs constructeur</li>
+                <li>Analyse des biais systématiques inter-vendor</li>
+                <li>Reproductibilité intra / inter-machine</li>
               </ul>
 
               <p>
-                L’objectif n’est pas seulement de reproduire une image,
-                mais de garantir la stabilité métrique du biomarqueur extrait.
+                Cette étape transforme un outil technique
+                en biomarqueur scientifiquement défendable.
               </p>
             </section>
 
@@ -152,20 +154,21 @@ const CTQuantitatifAvance = () => {
               </h2>
 
               <ul className="list-disc pl-6 space-y-2">
-                <li>Quantification tissulaire (fibrose, inflammation)</li>
-                <li>Perfusion CT et cartographies dérivées</li>
+                <li>Quantification fibrose / inflammation</li>
                 <li>Analyse calcium et matériaux spécifiques</li>
-                <li>Comparaison monoénergétique vs reconstructions standards</li>
+                <li>Perfusion CT avancée</li>
+                <li>Comparaison reconstructions monoénergétiques</li>
+                <li>Validation de biomarqueurs industriels</li>
               </ul>
 
               <p>
-                Ces approches s’intègrent dans une logique globale d’
+                Ces travaux s’intègrent dans une logique globale d’
                 <Link to="/ingenierie-imagerie-quantitative" className="text-primary hover:underline">
                   ingénierie en imagerie quantitative
                 </Link>{" "}
-                et d’
-                <Link to="/bases-multicentriques" className="text-primary hover:underline">
-                  harmonisation multicentrique
+                et de{" "}
+                <Link to="/quantification-ct" className="text-primary hover:underline">
+                  quantification CT clinique
                 </Link>.
               </p>
             </section>
@@ -173,28 +176,28 @@ const CTQuantitatifAvance = () => {
             {/* POSITIONNEMENT FINAL */}
             <section className="text-center space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                Physique maîtrisée, biomarqueurs exploitables
+                Physique maîtrisée, biomarqueur exploitable
               </h2>
 
               <p>
-                L’expertise ne se limite pas à la compréhension physique.
-                Elle consiste à transformer cette compréhension en biomarqueurs
-                reproductibles, statistiquement robustes et défendables
-                en contexte réglementaire ou industriel.
+                L’expertise ne se limite pas à la compréhension des équations.
+                Elle consiste à transformer cette compréhension
+                en paramètres reproductibles, statistiquement robustes
+                et exploitables en contexte clinique, réglementaire ou industriel.
               </p>
             </section>
 
             {/* CTA */}
             <section className="text-center space-y-4">
               <p className="text-muted-foreground">
-                Besoin d’un développement ou d’une validation en CT quantitatif ?
+                Un développement en CT quantitatif nécessite d’abord une validation physique explicite.
               </p>
 
               <Link
                 to="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-5 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
               >
-                Discuter du projet
+                Discuter d’un projet spectral
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </section>

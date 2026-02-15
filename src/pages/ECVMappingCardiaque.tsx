@@ -11,15 +11,7 @@ const ECVMappingCardiaque = () => {
     "@type": "MedicalWebPage",
     name: "ECV et Mapping T1/T2 en IRM cardiaque",
     description:
-      "Validation, quantification et interprétation des biomarqueurs ECV, T1 natif et T2 mapping en IRM cardiaque. Approche méthodologique rigoureuse et validation translationnelle.",
-    about: [
-      "Extracellular Volume",
-      "T1 mapping cardiac MRI",
-      "T2 mapping cardiac MRI",
-      "Diffuse fibrosis",
-      "Myocardial edema",
-      "Histological validation"
-    ],
+      "Validation histologique, harmonisation multicentrique et quantification rigoureuse des biomarqueurs ECV, T1 natif et T2 mapping en IRM cardiaque.",
     provider: {
       "@type": "Organization",
       name: "NOXIA Imagerie",
@@ -34,18 +26,9 @@ const ECVMappingCardiaque = () => {
         <title>ECV & Mapping T1/T2 en IRM cardiaque | NOXIA</title>
         <meta
           name="description"
-          content="ECV, T1 natif et T2 mapping en IRM cardiaque : validation histologique, précision de l’hématocrite, sectorisation AHA et contrôle des biais méthodologiques."
+          content="ECV, T1 natif et T2 mapping en IRM cardiaque : validation histologique, contrôle de l’hématocrite, harmonisation multicentrique et robustesse statistique."
         />
         <link rel="canonical" href={CANONICAL} />
-
-        <meta property="og:title" content="ECV & Mapping T1/T2 en IRM cardiaque | NOXIA" />
-        <meta
-          property="og:description"
-          content="Biomarqueurs tissulaires IRM cardiaque : validation translationnelle et rigueur méthodologique."
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={CANONICAL} />
-
         <script type="application/ld+json">
           {JSON.stringify(jsonLd)}
         </script>
@@ -53,164 +36,203 @@ const ECVMappingCardiaque = () => {
 
       <div className="min-h-screen flex flex-col bg-background">
         <main className="flex-1 py-20 px-4">
-          <div className="max-w-5xl mx-auto space-y-16">
+          <div className="max-w-5xl mx-auto space-y-20">
 
             {/* HERO */}
-            <section className="space-y-6 text-center">
+            <section className="text-center space-y-6">
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
                 ECV & Mapping T1/T2 en IRM cardiaque
               </h1>
 
               <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-                Quantification précise de l’espace extracellulaire,
-                de l’inflammation et de l’œdème myocardique
-                dans un cadre translationnel et multicentrique.
+                Biomarqueurs tissulaires avancés pour l’évaluation
+                de la fibrose diffuse, de l’inflammation et de l’œdème myocardique,
+                avec validation translationnelle et harmonisation multicentrique.
               </p>
             </section>
 
-            {/* CONTEXTE */}
+            {/* ENJEU FONDAMENTAL */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                Pourquoi ces biomarqueurs sont sensibles
+                Des biomarqueurs puissants, mais extrêmement sensibles
               </h2>
 
               <p>
-                L’ECV, le T1 natif et le T2 mapping sont devenus des biomarqueurs centraux
-                pour l’évaluation de la fibrose diffuse, de l’inflammation et de l’œdème.
-                Leur interprétation influence directement les décisions cliniques
-                et les conclusions des essais thérapeutiques.
+                L’Extracellular Volume (ECV), le T1 natif et le T2 mapping
+                sont devenus des piliers de l’IRM cardiaque moderne.
+                Ils permettent une quantification non invasive
+                de la fibrose interstitielle diffuse, de l’inflammation
+                et de l’œdème myocardique actif.
               </p>
 
               <p>
-                Cependant, ces paramètres sont extrêmement sensibles
-                aux conditions d’acquisition, aux paramètres séquence,
-                à l’hématocrite, à l’hydratation et aux méthodes de segmentation.
-              </p>
-            </section>
-
-            {/* ECV */}
-            <section className="space-y-6 text-muted-foreground leading-relaxed">
-              <h2 className="text-2xl font-semibold text-foreground">
-                ECV : validation histologique et précision méthodologique
-              </h2>
-
-              <p>
-                Dans un contexte hypertrophique avec biopsies septales,
-                la validation de l’ECV a reposé sur une approche rigoureuse :
+                Cependant, leur valeur dépend entièrement
+                de la rigueur méthodologique.
+                Ces paramètres sont sensibles :
               </p>
 
               <ul className="list-disc pl-6 space-y-2">
-                <li>Prélèvement sanguin immédiat avant injection de gadolinium</li>
-                <li>Mesure précise de l’hématocrite (centrifugation sur place)</li>
-                <li>Contrôle des biais liés à la décantation en position allongée</li>
+                <li>Aux paramètres d’acquisition et aux implémentations constructeur</li>
+                <li>Au champ magnétique (1.5T vs 3T)</li>
+                <li>Au timing post-contraste</li>
+                <li>À la précision de l’hématocrite</li>
+                <li>À la méthode de segmentation myocardique</li>
+              </ul>
+
+              <p>
+                Sans contrôle structuré, la variabilité technique
+                peut dépasser la variation physiopathologique recherchée.
+              </p>
+            </section>
+
+            {/* ECV VALIDATION */}
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">
+                ECV : validation histologique et contrôle des biais
+              </h2>
+
+              <p>
+                Dans des protocoles hypertrophiques intégrant biopsies septales,
+                la validation de l’ECV a été conduite dans un cadre strictement contrôlé.
+                L’objectif était de garantir une corrélation quantitative fiable
+                entre IRM et fibrose histologique réelle.
+              </p>
+
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Prélèvement sanguin immédiatement avant injection</li>
+                <li>Mesure précise de l’hématocrite (centrifugation sur site)</li>
+                <li>Contrôle des biais liés à la décantation en décubitus</li>
                 <li>Prise en compte de l’état d’hydratation</li>
-                <li>Sectorisation myocardique selon le modèle AHA</li>
+                <li>Sectorisation myocardique standardisée (modèle AHA)</li>
                 <li>Corrélation quantitative IRM ↔ histologie</li>
               </ul>
 
               <p>
-                Cette méthodologie permet d’éviter une dérive systématique
-                de l’ECV liée à une valeur d’hématocrite approximative,
-                source majeure d’erreur dans de nombreuses études.
+                L’erreur la plus fréquente dans la littérature
+                provient d’un hématocrite approximatif,
+                introduisant une dérive systématique de l’ECV.
+                Ce biais peut modifier artificiellement
+                l’interprétation de la fibrose diffuse.
               </p>
             </section>
 
-            {/* T1 T2 */}
+            {/* T1 T2 DISTINCTION */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                Distinction critique entre T1 et T2
+                Distinction physiopathologique entre T1 et T2
               </h2>
 
               <ul className="list-disc pl-6 space-y-2">
-                <li>T1 natif : inflammation diffuse et fibrose interstitielle</li>
-                <li>T2 mapping : œdème actif</li>
+                <li>
+                  <strong>T1 natif</strong> : expansion interstitielle,
+                  inflammation diffuse, fibrose
+                </li>
+                <li>
+                  <strong>T2 mapping</strong> : œdème actif,
+                  activité inflammatoire aiguë
+                </li>
               </ul>
 
               <p>
-                La confusion entre ces deux marqueurs est fréquente.
-                Leur signification physiopathologique diffère,
-                et leur évolution temporelle après un événement aigu
-                (IDM, myocardite) n’est pas superposable.
+                Leur signification biologique est différente.
+                Leur évolution temporelle après un IDM ou une myocardite
+                n’est pas superposable.
               </p>
 
               <p>
-                La validation nécessite une homogénéité stricte des séquences,
-                un contrôle du positionnement des ROI
-                et une reproductibilité inter-centre documentée.
+                Une confusion méthodologique entre ces marqueurs
+                conduit à des conclusions physiopathologiques erronées,
+                particulièrement dans les essais thérapeutiques.
               </p>
             </section>
 
-            {/* VARIABILITE */}
+            {/* VARIABILITÉ MULTICENTRIQUE */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                Sources majeures de variabilité
+                Variabilité inter-constructeurs et inter-centres
               </h2>
 
+              <p>
+                En contexte multicentrique, les variations suivantes doivent être maîtrisées :
+              </p>
+
               <ul className="list-disc pl-6 space-y-2">
-                <li>Champ magnétique (1.5T vs 3T)</li>
-                <li>Constructeur et version logicielle</li>
-                <li>Paramètres MOLLI / ShMOLLI</li>
-                <li>Timing post-contraste</li>
-                <li>Segmentation myocardique</li>
-                <li>Erreurs d’hématocrite</li>
+                <li>Implémentations MOLLI / ShMOLLI différentes</li>
+                <li>Décalages systématiques 1.5T vs 3T</li>
+                <li>Versions logicielles constructeur</li>
+                <li>Différences de reconstruction</li>
+                <li>Stratégies de segmentation myocardique</li>
               </ul>
 
               <p>
-                Sans harmonisation multicentrique,
-                la variabilité technique peut dépasser
-                la variation physiopathologique recherchée.
+                Cette étape relève directement de la{" "}
+                <Link to="/bases-multicentriques" className="text-primary hover:underline">
+                  structuration multicentrique
+                </Link>{" "}
+                et s’intègre dans une approche globale de{" "}
+                <Link to="/methodologie-imagerie-quantitative" className="text-primary hover:underline">
+                  méthodologie quantitative
+                </Link>.
               </p>
             </section>
 
-            {/* STRUCTURATION */}
+            {/* INTÉGRATION CORELAB */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                Structuration multicentrique
+                Intégration en Core Lab et essais thérapeutiques
               </h2>
 
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Audit des séquences et paramètres d’acquisition</li>
-                <li>Harmonisation des méthodes de segmentation</li>
-                <li>Contrôle qualité systématique</li>
-                <li>Analyse des biais inter-centre</li>
-                <li>Extraction standardisée des biomarqueurs</li>
-              </ul>
+              <p>
+                Lorsqu’un biomarqueur T1/T2/ECV devient endpoint
+                d’un essai randomisé, la robustesse méthodologique
+                conditionne directement la puissance statistique.
+              </p>
 
               <p>
-                L’objectif est de produire un biomarqueur exploitable
-                statistiquement, défendable scientifiquement
-                et robuste pour publication internationale.
+                Cette structuration s’inscrit dans une activité de{" "}
+                <Link to="/corelab-essais-cliniques" className="text-primary hover:underline">
+                  Core Lab IRM multicentrique
+                </Link>{" "}
+                et participe à la définition de{" "}
+                <Link to="/biomarqueurs-irm-cardiaque-essais-cliniques" className="text-primary hover:underline">
+                  biomarqueurs utilisés comme endpoints cliniques
+                </Link>.
+              </p>
+
+              <p>
+                La reproductibilité prime sur la sophistication algorithmique.
+                La traçabilité prime sur la simplification.
               </p>
             </section>
 
-            {/* LIENS INTERNES */}
+            {/* LIENS TRANSVERSAUX */}
             <section className="space-y-6 text-center">
               <h2 className="text-xl font-semibold">
-                Voir également
+                Approches complémentaires
               </h2>
 
               <div className="flex flex-wrap justify-center gap-3">
-                <Link
-                  to="/biomarqueurs-irm-cardiaque-essais"
-                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
-                >
-                  Biomarqueurs & Essais
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-
-                <Link
-                  to="/corelab-essais-cliniques"
-                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
-                >
-                  Core Lab IRM
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-
                 <Link
                   to="/segmentation-irm"
                   className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
                 >
                   Segmentation IRM
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <Link
+                  to="/analyse-dicom"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  Analyse DICOM
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <Link
+                  to="/bases-multicentriques"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  Harmonisation multicentrique
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -219,12 +241,13 @@ const ECVMappingCardiaque = () => {
             {/* CTA */}
             <section className="text-center space-y-4">
               <p className="text-muted-foreground">
-                Besoin d’une validation méthodologique ECV / T1 / T2 ?
+                Besoin d’une validation rigoureuse ECV / T1 / T2
+                dans un cadre multicentrique ou translationnel ?
               </p>
 
               <Link
                 to="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-5 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
               >
                 Discuter du projet
                 <ArrowRight className="w-4 h-4" />
