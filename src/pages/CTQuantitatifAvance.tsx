@@ -121,7 +121,7 @@ const faqJsonLd = {
 
       <div className="min-h-screen flex flex-col bg-background">
         <main className="flex-1 py-20 px-4">
-          <div className="max-w-5xl mx-auto space-y-28">
+          <div className="max-w-5xl mx-auto space-y-24">
       <Breadcrumb
         items={[
           { label: "Accueil", path: "/" },
@@ -166,32 +166,48 @@ const faqJsonLd = {
                   reconstruction monoénergétique et cohérence basse énergie.
                 </p>
               </div>
-
-              <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
-                <div className="flex items-center gap-2 font-semibold">
-                  <ShieldCheck className="w-5 h-5 text-primary" />
-                  Calibration indépendante
-                </div>
-  
-                <p className="text-muted-foreground text-sm">
-                  Phantom eau et matériaux référence,
-                  correction dérive énergétique,
-                  validation inter-scanner.
-                </p>
-              </div>
-
-              <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
-                <div className="flex items-center gap-2 font-semibold">
-                  <BarChart3 className="w-5 h-5 text-primary" />
-                  Robustesse multicentrique
-                </div>
-                <p className="text-muted-foreground text-sm">
-                  Analyse biais inter-vendor,
-                  reproductibilité intra / inter-machine.
-                </p>
-              </div>
-
             </section>
+              <section className="space-y-8">
+                <h2 className="text-2xl font-semibold text-foreground">
+                  Calibration indépendante & validation physique
+                </h2>
+
+                <div className="grid md:grid-cols-2 gap-8">
+
+                  <div className="space-y-4 text-muted-foreground">
+                    <p>
+                      Toute quantification avancée doit être confrontée
+                      à une validation physique indépendante.
+                    </p>
+
+                    <ul className="list-disc pl-6 space-y-2">
+                      <li>Calibration phantom eau / matériaux de référence</li>
+                      <li>Correction des dérives énergétiques</li>
+                      <li>Analyse biais systématiques inter-vendor</li>
+                      <li>Reproductibilité intra / inter-machine</li>
+                    </ul>
+                  </div>
+
+                  <div className="rounded-xl border border-border bg-card/50 p-6 space-y-4">
+                    <div className="flex items-center gap-2 font-semibold text-foreground">
+                      <ShieldCheck className="w-5 h-5 text-primary" />
+                      Impact méthodologique
+                    </div>
+
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Cette étape transforme un outil technique
+                      en biomarqueur scientifiquement défendable,
+                      opposable en contexte multicentrique.
+                    </p>
+
+                    <div className="rounded-lg bg-muted/40 p-4 text-xs text-muted-foreground">
+                      Sans calibration indépendante, la variabilité technique
+                      peut dépasser la variation biologique étudiée.
+                    </div>
+                  </div>
+
+                </div>
+              </section>
 
 
             {/* ARCHITECTURE PIPELINE */}
@@ -287,7 +303,8 @@ const faqJsonLd = {
                   </ul>
                 </div>
 
-                <div className="rounded-xl border border-border bg-muted/10 p-6 space-y-3">
+                <div className="rounded-xl border border-border bg-card/50 p-8 space-y-4 shadow-sm">
+              
                   <div className="flex items-center gap-2 font-semibold">
                     <Atom className="w-5 h-5 text-primary" />
                     Modèles physiques
@@ -298,7 +315,20 @@ const faqJsonLd = {
                     aux reconstructions constructeur.
                   </p>
                 </div>
+                <div className="flex items-center gap-2 font-semibold text-foreground">
+                  <Atom className="w-5 h-5 text-primary" />
+                  Modèles physiques & validation
+                </div>
 
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Implémentation de modèles inspirés des équations de décomposition type Alvarez,
+                  avec confrontation systématique aux reconstructions constructeur
+                  et analyse des écarts métriques inter-systèmes.
+                </p>
+
+                <div className="text-xs text-muted-foreground">
+                  Objectif : cohérence physique inter-vendor, pas reproduction visuelle.
+                </div>
               </div>
             </section>
 
@@ -431,8 +461,7 @@ const faqJsonLd = {
             statistiquement robuste et défendable.
           </p>
 
-          <div className="rounded-xl border border-border bg-card/50 p-6 flex items-start gap-3">
-            <BarChart3 className="w-5 h-5 text-primary mt-1" />
+          <div className="rounded-xl border border-border bg-card/50 p-6 flex items-center gap-3">            <BarChart3 className="w-5 h-5 text-primary" />
             <p className="text-sm text-muted-foreground">
               La robustesse d’un biomarqueur CT dépend avant tout
               de la calibration indépendante et de l’architecture méthodologique,
