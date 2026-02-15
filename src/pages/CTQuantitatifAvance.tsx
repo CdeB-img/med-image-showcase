@@ -335,7 +335,7 @@ const CTQuantitatifAvance = () => {
                   <p className="leading-relaxed">
                     Un biomarqueur CT exploitable repose sur une séquence méthodologique 
                     explicite, documentée et versionnée.
-                    La robustesse dépend aussi d’une 
+                    La robustesse dépend aussi d’une " "
                     <Link to="/ingenierie-imagerie-quantitative" className="text-primary hover:underline">
                     ingénierie en imagerie quantitative
                     </Link>
