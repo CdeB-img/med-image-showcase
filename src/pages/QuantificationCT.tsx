@@ -335,7 +335,7 @@ const QuantificationCT = () => {
                 Structuration Core Lab CT. 
                 Approche cohérente avec la 
                 <Link to="/irm-imagerie-quantitative" className="text-primary hover:underline">
-                  structuration Core Lab IRM
+                   structuration Core Lab IRM
                 </Link>.
               </h2>
 
