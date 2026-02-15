@@ -296,7 +296,7 @@ const PerfusionMetaboliqueNeuro = () => {
                 <li>DEFUSE 3 : sélection basée sur mismatch perfusion-diffusion</li>
                 <li>DAWN : extension fenêtre thrombectomie jusqu’à 24h</li>
                 <li>Tmax ≥ 6s : corrélé au volume hypoperfusé critique</li>
-                <li>Variabilité inter-centre documentée > 15% sans harmonisation</li>
+                <li>Variabilité inter-centre documentée supérieure 15% sans harmonisation</li>
               </ul>
 
               <p>
