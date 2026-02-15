@@ -227,7 +227,7 @@ const CTImagerieQuantitative = () => {
               </p>
 
               <p>
-                Cette structuration s’inscrit dans une logique d’
+                Cette structuration s’inscrit dans une logique d’ {" "}
                 <Link to="/analyse-dicom" className="text-primary hover:underline">
                   audit DICOM complet
                 </Link>,
@@ -256,7 +256,7 @@ const CTImagerieQuantitative = () => {
 
 
               <p>
-                Cette organisation est indispensable en contexte
+                Cette organisation est indispensable en contexte {" "}
                 <Link to="/bases-multicentriques" className="text-primary hover:underline">
                   multicentrique
                 </Link>
@@ -272,11 +272,11 @@ const CTImagerieQuantitative = () => {
               </ul>
 
                 <p>
-                  À la différence de l’
+                  À la différence de l’ {" "}
                   <Link to="/irm-imagerie-quantitative" className="text-primary hover:underline">
                     IRM quantitative
                   </Link>,
-                  la quantification CT dépend directement de l’énergie effective
+                  {" "} la quantification CT dépend directement de l’énergie effective
                   et de la modélisation physique des interactions photon-matière.
                 </p>
               
@@ -335,11 +335,11 @@ const CTImagerieQuantitative = () => {
 
               </div>
                     <p>
-                    L’intégration avec des pipelines de
+                    L’intégration avec des pipelines de {" "}
                     <Link to="/recalage-multimodal" className="text-primary hover:underline">
                       recalage multimodal CT–IRM
                     </Link>
-                    permet d’assurer cohérence anatomique et comparabilité longitudinale.
+                    {" "} permet d’assurer cohérence anatomique et comparabilité longitudinale.
                   </p>
             </section>
             <section className="space-y-6 text-muted-foreground leading-relaxed">
@@ -392,7 +392,7 @@ const CTImagerieQuantitative = () => {
                     <li>CBV</li>
                     <li>Mismatch volumique</li>
                     <li>
-                      Extraction volumique 3D contrôlée (voir
+                      Extraction volumique 3D contrôlée (voir {" "}
                       <Link to="/segmentation-irm" className="text-primary hover:underline">
                         segmentation contrôlée
                       </Link>)
@@ -468,7 +468,7 @@ const CTImagerieQuantitative = () => {
                 </Link>.
               </p>
               <p>
-                Les problématiques d’harmonisation sont comparables à celles décrites en
+                Les problématiques d’harmonisation sont comparables à celles décrites en {" "}
                 <Link to="/irm-imagerie-quantitative" className="text-primary hover:underline">
                   IRM multicentrique
                 </Link>,
