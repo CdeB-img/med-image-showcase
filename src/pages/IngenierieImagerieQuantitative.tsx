@@ -17,6 +17,34 @@ import {
 const CANONICAL = "https://noxia-imagerie.fr/ingenierie-imagerie-quantitative";
 
 const IngenierieImagerieQuantitative = () => {
+  const qualityChecklist = [
+    {
+      title: "Versioning du code",
+      detail: "Historique Git explicite pour relier chaque résultat à une version pipeline traçable.",
+      tag: "Fondation"
+    },
+    {
+      title: "Traçabilité des paramètres",
+      detail: "Journalisation systématique des paramètres de pré-traitement, segmentation et extraction.",
+      tag: "Audit"
+    },
+    {
+      title: "Séparation inférence / mesure",
+      detail: "Découplage des étapes IA et des calculs quantitatifs pour limiter les biais d’interprétation.",
+      tag: "Méthodo"
+    },
+    {
+      title: "Gestion des échecs",
+      detail: "Fallbacks contrôlés, motifs d’échec documentés, et reprise robuste des traitements.",
+      tag: "Résilience"
+    },
+    {
+      title: "Reproductibilité binaire",
+      detail: "Environnements conteneurisés pour reproduire exactement les sorties entre centres.",
+      tag: "Multicentre"
+    }
+  ];
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "MedicalWebPage",
@@ -293,18 +321,51 @@ const IngenierieImagerieQuantitative = () => {
   </ul>
 </div>
 
-                <div className="rounded-2xl border border-border bg-muted/10 p-8 space-y-6 h-full">
-                   <h3 className="font-semibold text-foreground flex items-center gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-primary"/>
-                    Checklist Qualité
-                   </h3>
-                   <ul className="space-y-3 pl-2 text-sm text-muted-foreground">
-                     <li className="flex items-center gap-2">✓ Versioning du code (Git)</li>
-                     <li className="flex items-center gap-2">✓ Traçabilité des paramètres</li>
-                     <li className="flex items-center gap-2">✓ Séparation Inférence / Mesure</li>
-                     <li className="flex items-center gap-2">✓ Gestion des échecs de traitement</li>
-                     <li className="flex items-center gap-2">✓ Reproductibilité binaire</li>
-                   </ul>
+                <div className="rounded-2xl border border-primary/20 bg-gradient-to-b from-card/80 to-primary/5 p-8 space-y-6 h-full shadow-sm">
+                  <div className="flex items-start justify-between gap-4">
+                    <h3 className="font-semibold text-foreground flex items-center gap-2">
+                      <CheckCircle2 className="w-5 h-5 text-primary" />
+                      Checklist Qualité
+                    </h3>
+                    <span className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+                      5 contrôles actifs
+                    </span>
+                  </div>
+
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Chaque pipeline livré inclut ces garde-fous pour garantir l’auditabilité scientifique,
+                    la robustesse opérationnelle et la comparabilité inter-centres.
+                  </p>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="rounded-xl border border-border/70 bg-card/70 p-4">
+                      <p className="text-xs uppercase tracking-wide text-muted-foreground">Couverture QA</p>
+                      <p className="text-lg font-semibold text-foreground">100%</p>
+                    </div>
+                    <div className="rounded-xl border border-border/70 bg-card/70 p-4">
+                      <p className="text-xs uppercase tracking-wide text-muted-foreground">Sortie</p>
+                      <p className="text-lg font-semibold text-foreground">Audit-ready</p>
+                    </div>
+                  </div>
+
+                  <ul className="space-y-3">
+                    {qualityChecklist.map((item) => (
+                      <li key={item.title} className="rounded-xl border border-border/70 bg-card/60 p-4">
+                        <div className="flex items-center justify-between gap-3">
+                          <div className="flex items-center gap-2 text-foreground">
+                            <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
+                            <span className="text-sm font-medium">{item.title}</span>
+                          </div>
+                          <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-medium text-primary">
+                            {item.tag}
+                          </span>
+                        </div>
+                        <p className="mt-2 pl-6 text-xs leading-relaxed text-muted-foreground">
+                          {item.detail}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
 
               </div>
