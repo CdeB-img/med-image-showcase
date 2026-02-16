@@ -221,17 +221,16 @@ const Index = () => {
                     />
                   </div>
                   <div className="bg-background p-8 md:p-10">
-                    <div className="rounded-xl border border-border/70 bg-card/70 p-5 md:p-6">
-                      <h2 className="text-3xl font-semibold tracking-tight">
-                        Projets & cas d'usage en imagerie quantitative
-                      </h2>
-                      <p className="mt-4 text-lg text-muted-foreground max-w-4xl">
-                        IRM cardiaque et neuro, CT avancé, perfusion AVC, recalage longitudinal
-                        et structuration méthodologique de bases multicentriques.
-                      </p>
-                      <div className="mt-6 inline-flex items-center gap-2 text-primary font-medium">
-                        Explorer les projets
-                        <ArrowRight className="w-4 h-4" />
+                    <h2 className="text-3xl font-semibold tracking-tight">
+                      Projets & cas d'usage en imagerie quantitative
+                    </h2>
+                    <p className="mt-4 text-lg text-muted-foreground max-w-4xl">
+                      IRM cardiaque et neuro, CT avancé, perfusion AVC, recalage longitudinal
+                      et structuration méthodologique de bases multicentriques.
+                    </p>
+                    <div className="mt-6 inline-flex items-center gap-2 text-primary font-medium">
+                      Explorer les projets
+                      <ArrowRight className="w-4 h-4" />
                       </div>
                     </div>
                   </div>
