@@ -3,10 +3,9 @@
 // ============================================================
 
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, Workflow } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 
 import RegistrationViewer from "@/components/RegistrationViewer";
 import PerfusionSegmentationViewer from "@/components/PerfusionSegmentationViewer";
@@ -19,6 +18,7 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { getProjectById, getAdjacentProjects } from "@/data/projects";
 import Breadcrumb from "@/components/Breadcrumb";
+import ExpertiseHero from "@/components/ExpertiseHero";
 
 // ============================================================
 // CONSTANTES
@@ -124,6 +124,7 @@ const ProjectDetail = () => {
   const { prev, next } = id
     ? getAdjacentProjects(id)
     : { prev: null, next: null };
+  const projectCanonical = `https://noxia-imagerie.fr/projet/${id ?? ""}`;
 
   if (!project) {
     return (
@@ -132,6 +133,33 @@ const ProjectDetail = () => {
       </main>
     );
   }
+
+  const projectJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: project.title,
+    description: project.description,
+    url: projectCanonical,
+    image: project.thumbnailUrl,
+    about: [project.modality, project.analysisType],
+    keywords: project.technologies.join(", "),
+    creator: {
+      "@type": "Organization",
+      name: "NOXIA Imagerie",
+      url: "https://noxia-imagerie.fr",
+    },
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Accueil", item: "https://noxia-imagerie.fr/" },
+      { "@type": "ListItem", position: 2, name: "Projets", item: "https://noxia-imagerie.fr/projets" },
+      { "@type": "ListItem", position: 3, name: project.title, item: projectCanonical },
+    ],
+  };
+
   return (
     <>
       <Helmet>
@@ -142,7 +170,7 @@ const ProjectDetail = () => {
 
         <link
           rel="canonical"
-          href={`https://noxia-imagerie.fr/projet/${project.id}`}
+          href={projectCanonical}
         />
 
         <meta property="og:type" content="article" />
@@ -151,17 +179,20 @@ const ProjectDetail = () => {
         <meta property="og:description" content={project.description} />
         <meta
           property="og:url"
-          content={`https://noxia-imagerie.fr/projet/${project.id}`}
+          content={projectCanonical}
         />
 
         {project.thumbnailUrl && (
           <meta property="og:image" content={project.thumbnailUrl} />
         )}
+
+        <script type="application/ld+json">{JSON.stringify(projectJsonLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
       </Helmet>
 
-      <div className="min-h-screen flex flex-col">
-        <main className="flex-1 py-8">
-          <div className="container px-4 md:px-6">
+      <div className="min-h-screen flex flex-col bg-background">
+        <main className="flex-1 py-20 px-4">
+          <div className="max-w-5xl mx-auto space-y-12">
             <Breadcrumb
               items={[
                 { label: "Accueil", path: "/" },
@@ -170,12 +201,28 @@ const ProjectDetail = () => {
               ]}
             />
 
+            <ExpertiseHero
+              badge="Projet démonstrateur"
+              badgeIcon={Workflow}
+              title={project.title}
+              description={project.description}
+              chips={[
+                project.modality,
+                project.analysisType,
+                ...project.technologies.slice(0, 2),
+              ]}
+              actions={[
+                { label: "Discuter de ce projet", to: "/contact", variant: "primary", icon: ArrowRight },
+                { label: "Voir tous les projets", to: "/projets", variant: "secondary", icon: ArrowLeft },
+              ]}
+            />
+
             {/* NAVIGATION */}
-            <div className="flex items-center justify-between mb-8">
-              <Link to="/">
+            <div className="flex items-center justify-between">
+              <Link to="/projets">
                 <Button variant="ghost" className="gap-2">
                   <ArrowLeft className="w-4 h-4" />
-                  Accueil
+                  Tous les projets
                 </Button>
               </Link>
 
@@ -207,20 +254,21 @@ const ProjectDetail = () => {
             {/* ============================= */}
 
             {project.id === "perfusion-segmentation" && (
-              <PerfusionSegmentationViewer pairs={qcPairs} />
+              <PerfusionSegmentationViewer pairs={qcPairs} hideHero />
             )}
 
             {project.id === "recalage" && (
               <RegistrationViewer
                 multimodalPairs={multimodalPairs}
                 monomodalPairs={monomodalPairs}
+                hideHero
               />
             )}
 
-            {project.id === "neuro-onco" && <NeuroOncoViewer />}
-            {project.id === "cardiac" && <CardiacViewer />}
-            {project.id === "ct-scan" && <CTScanViewer />}
-            {project.id === "outils" && <OutilsViewer />}
+            {project.id === "neuro-onco" && <NeuroOncoViewer hideHero />}
+            {project.id === "cardiac" && <CardiacViewer hideHero />}
+            {project.id === "ct-scan" && <CTScanViewer hideHero />}
+            {project.id === "outils" && <OutilsViewer hideHero />}
 
           </div>
         </main>

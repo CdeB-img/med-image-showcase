@@ -30,6 +30,7 @@ const RAW_BASE = "/images";
 
 interface OutilsViewerProps {
   className?: string;
+  hideHero?: boolean;
 }
 
 /* ===================== Image zoomable ===================== */
@@ -61,18 +62,20 @@ function ZoomableImage({ src, alt }: { src: string; alt: string }) {
   );
 }
 
-const OutilsViewer: React.FC<OutilsViewerProps> = ({ className }) => {
+const OutilsViewer: React.FC<OutilsViewerProps> = ({ className, hideHero = false }) => {
   return (
     <div className={cn("space-y-20", className)}>
       {/* ===================== HEADER ===================== */}
-      <header className="text-center space-y-6 mx-auto max-w-4xl">
-        <h1 className="text-3xl md:text-4xl font-bold">
-          Développement d’outils sur mesure
-        </h1>
-        <p className="text-lg text-muted-foreground">
-          Quantification robuste et prototypage méthodologique
-        </p>
-      </header>
+      {!hideHero && (
+        <header className="text-center space-y-6 mx-auto max-w-4xl">
+          <h1 className="text-3xl md:text-4xl font-bold">
+            Développement d’outils sur mesure
+          </h1>
+          <p className="text-lg text-muted-foreground">
+            Quantification robuste et prototypage méthodologique
+          </p>
+        </header>
+      )}
 
       {/* ===================== POSITIONNEMENT ===================== */}
       <section className="mx-auto max-w-4xl bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 text-center">

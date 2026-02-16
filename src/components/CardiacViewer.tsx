@@ -10,54 +10,57 @@ const RAW_BASE = "/images";
 
 interface Props {
   className?: string;
+  hideHero?: boolean;
 }
 
-const CardiacViewer = ({ className }: Props) => {
+const CardiacViewer = ({ className, hideHero = false }: Props) => {
   return (
     <div className={cn("space-y-16", className)}>
 
       {/* ===================== HEADER ===================== */}
-      <header className="space-y-6 text-center mx-auto max-w-4xl">
-        <h1 className="text-3xl md:text-4xl font-bold">
-          IRM Cardiaque
-          <span className="block text-lg md:text-xl font-normal text-muted-foreground mt-2">
-            Analyse fonctionnelle, tissulaire et physiopathologique
-          </span>
-        </h1>
-
-        <p className="text-muted-foreground leading-relaxed md:text-justify">
-          Ce module présente une expertise approfondie en IRM cardiaque, couvrant
-          l’analyse fonctionnelle, la caractérisation tissulaire et
-          l’exploration physiopathologique du myocarde, dans des contextes
-          cliniques et de recherche.
-        </p>
-
-        <p className="text-muted-foreground leading-relaxed md:text-justify">
-          L’approche ne se limite pas à la visualisation d’images ou à des
-          métriques standardisées, mais vise une compréhension fine du signal
-          IRM, de ses déterminants physiques et de sa traduction physiologique.
-        </p>
-
-        <div className="flex flex-wrap justify-center gap-2 pt-4">
-          {[
-            "IRM Cardiaque",
-            "Quantification",
-            "Python",
-            "SimpleITK",
-            "NumPy",
-            "NiBabel",
-            "3D Slicer",
-            "OsiriX",
-          ].map((tag) => (
-            <span
-              key={tag}
-              className="px-3 py-1 text-xs font-medium rounded-md bg-muted text-muted-foreground"
-            >
-              {tag}
+      {!hideHero && (
+        <header className="space-y-6 text-center mx-auto max-w-4xl">
+          <h1 className="text-3xl md:text-4xl font-bold">
+            IRM Cardiaque
+            <span className="block text-lg md:text-xl font-normal text-muted-foreground mt-2">
+              Analyse fonctionnelle, tissulaire et physiopathologique
             </span>
-          ))}
-        </div>
-      </header>
+          </h1>
+
+          <p className="text-muted-foreground leading-relaxed md:text-justify">
+            Ce module présente une expertise approfondie en IRM cardiaque, couvrant
+            l’analyse fonctionnelle, la caractérisation tissulaire et
+            l’exploration physiopathologique du myocarde, dans des contextes
+            cliniques et de recherche.
+          </p>
+
+          <p className="text-muted-foreground leading-relaxed md:text-justify">
+            L’approche ne se limite pas à la visualisation d’images ou à des
+            métriques standardisées, mais vise une compréhension fine du signal
+            IRM, de ses déterminants physiques et de sa traduction physiologique.
+          </p>
+
+          <div className="flex flex-wrap justify-center gap-2 pt-4">
+            {[
+              "IRM Cardiaque",
+              "Quantification",
+              "Python",
+              "SimpleITK",
+              "NumPy",
+              "NiBabel",
+              "3D Slicer",
+              "OsiriX",
+            ].map((tag) => (
+              <span
+                key={tag}
+                className="px-3 py-1 text-xs font-medium rounded-md bg-muted text-muted-foreground"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </header>
+      )}
 
       {/* ===================== INTRO VIEWER ===================== */}
       <section className="mx-auto max-w-4xl bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 text-center">

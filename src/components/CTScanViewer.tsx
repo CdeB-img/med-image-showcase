@@ -15,6 +15,7 @@ const RAW_BASE = "/images";
 
 interface Props {
   className?: string;
+  hideHero?: boolean;
 }
 
 const skills = [
@@ -44,39 +45,41 @@ const skills = [
   },
 ];
 
-const CTScanViewer = ({ className }: Props) => {
+const CTScanViewer = ({ className, hideHero = false }: Props) => {
   return (
     <div className={cn("space-y-16", className)}>
       {/* ===================== HEADER ===================== */}
-      <header className="space-y-6 text-center mx-auto max-w-4xl">
-        <h1 className="text-3xl md:text-4xl font-bold">
-          CT Scan
-          <span className="block text-lg md:text-xl font-normal text-muted-foreground mt-2">
-            Expertise en analyse et quantification
-          </span>
-        </h1>
+      {!hideHero && (
+        <header className="space-y-6 text-center mx-auto max-w-4xl">
+          <h1 className="text-3xl md:text-4xl font-bold">
+            CT Scan
+            <span className="block text-lg md:text-xl font-normal text-muted-foreground mt-2">
+              Expertise en analyse et quantification
+            </span>
+          </h1>
 
-        <p className="text-muted-foreground leading-relaxed md:text-justify">
-          Cette page présente une expertise en imagerie CT orientée analyse
-          morphologique, structuration des données et quantification anatomique,
-          dans des contextes cliniques et de recherche. L’approche repose sur une
-          lecture rigoureuse des images et des métadonnées, avec un accent
-          particulier sur les structures thoraciques et cardiovasculaires.
-        </p>
+          <p className="text-muted-foreground leading-relaxed md:text-justify">
+            Cette page présente une expertise en imagerie CT orientée analyse
+            morphologique, structuration des données et quantification anatomique,
+            dans des contextes cliniques et de recherche. L’approche repose sur une
+            lecture rigoureuse des images et des métadonnées, avec un accent
+            particulier sur les structures thoraciques et cardiovasculaires.
+          </p>
 
-        <div className="flex flex-wrap justify-center gap-2 pt-4">
-          {["CT Scan", "Quantification", "DICOM", "Python", "SimpleITK"].map(
-            (tag) => (
-              <span
-                key={tag}
-                className="px-3 py-1 text-xs font-medium rounded-md bg-muted text-muted-foreground"
-              >
-                {tag}
-              </span>
-            )
-          )}
-        </div>
-      </header>
+          <div className="flex flex-wrap justify-center gap-2 pt-4">
+            {["CT Scan", "Quantification", "DICOM", "Python", "SimpleITK"].map(
+              (tag) => (
+                <span
+                  key={tag}
+                  className="px-3 py-1 text-xs font-medium rounded-md bg-muted text-muted-foreground"
+                >
+                  {tag}
+                </span>
+              )
+            )}
+          </div>
+        </header>
+      )}
 
       {/* ===================== POSITIONNEMENT ===================== */}
       <section className="mx-auto max-w-4xl bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 text-center">

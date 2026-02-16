@@ -32,30 +32,33 @@ const overlaySlices = Array.from({ length: SLICE_COUNT }, (_, i) =>
 
 interface Props {
   className?: string;
+  hideHero?: boolean;
 }
 
-export default function NeuroOncoViewer({ className }: Props) {
+export default function NeuroOncoViewer({ className, hideHero = false }: Props) {
   const [sliceIndex, setSliceIndex] = React.useState(0);
 
   return (
     <div className={cn("space-y-16", className)}>
       {/* ===================== HEADER ===================== */}
-      <header className="max-w-4xl mx-auto text-center space-y-6">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mx-auto">
-          <Brain className="w-4 h-4" />
-          Neuro-oncologie IRM
-        </div>
+      {!hideHero && (
+        <header className="max-w-4xl mx-auto text-center space-y-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mx-auto">
+            <Brain className="w-4 h-4" />
+            Neuro-oncologie IRM
+          </div>
 
-        <h1 className="text-3xl md:text-4xl font-bold">
-          Segmentation des lésions oncologiques cérébrales
-        </h1>
+          <h1 className="text-3xl md:text-4xl font-bold">
+            Segmentation des lésions oncologiques cérébrales
+          </h1>
 
-        <p className="text-lg text-muted-foreground leading-relaxed">
-          Approche de segmentation guidée par le signal appliquée aux lésions
-          tumorales cérébrales en IRM, avec  focus  sur les lésions
-          hétérogènes à cœur nécrotique et leurs anneaux.
-        </p>
-      </header>
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            Approche de segmentation guidée par le signal appliquée aux lésions
+            tumorales cérébrales en IRM, avec  focus  sur les lésions
+            hétérogènes à cœur nécrotique et leurs anneaux.
+          </p>
+        </header>
+      )}
 
       {/* ===================== INTRO ===================== */}
       <section className="max-w-4xl mx-auto bg-card/50 backdrop-blur-sm border border-border rounded-xl p-6 space-y-4 text-center">

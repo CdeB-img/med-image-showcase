@@ -13,51 +13,55 @@ interface Props {
   monomodalPairs: RegistrationPair[];
   initialOpacity?: number;
   className?: string;
+  hideHero?: boolean;
 }
 const ROTATION_CLASS = "-rotate-90 scale-[1.42]";
 export default function RegistrationViewer({
   multimodalPairs,
   monomodalPairs,
   initialOpacity = 0.5,
-  className
+  className,
+  hideHero = false,
 }: Props) {
   const [opacity, setOpacity] = React.useState(initialOpacity);
   return <div className={cn("space-y-12", className)}>
       {/* Header */}
-      <div className="space-y-6 text-center mx-auto max-w-4xl">
-        <h1 className="text-3xl font-bold">
-          Recalage multimodal CT / IRM
-        </h1>
-        <p className="text-muted-foreground max-w-4xl leading-relaxed">
-          Ce module illustre une approche rigoureuse du recalage multimodal entre images CT et IRM, 
-          conçue pour permettre une évaluation qualitative et méthodologique directe de l'alignement 
-          spatial entre différentes modalités et séquences.
-        </p>
-        <p className="text-muted-foreground max-w-4xl leading-relaxed">
-          L'objectif n'est pas de produire une transformation opaque, mais de rendre lisible, 
-          contrôlable et vérifiable la qualité du recalage, au plus près du signal et de l'anatomie.
-        </p>
-        <div className="flex flex-wrap justify-center gap-2">
-          <span className="px-3 py-1 text-xs font-medium rounded-md border border-primary/50 text-primary">
-            CT / IRM
-          </span>
-          <span className="px-3 py-1 text-xs font-medium rounded-md bg-secondary text-secondary-foreground">
-            Recalage
-          </span>
-          <span className="px-3 py-1 text-xs font-medium rounded-md bg-muted text-muted-foreground">
-            ANTsPy
-          </span>
-          <span className="px-3 py-1 text-xs font-medium rounded-md bg-muted text-muted-foreground">
-            SimpleITK
-          </span>
-          <span className="px-3 py-1 text-xs font-medium rounded-md bg-muted text-muted-foreground">
-            NiBabel
-          </span>
-          <span className="px-3 py-1 text-xs font-medium rounded-md bg-muted text-muted-foreground">
-            Python
-          </span>
+      {!hideHero && (
+        <div className="space-y-6 text-center mx-auto max-w-4xl">
+          <h1 className="text-3xl font-bold">
+            Recalage multimodal CT / IRM
+          </h1>
+          <p className="text-muted-foreground max-w-4xl leading-relaxed">
+            Ce module illustre une approche rigoureuse du recalage multimodal entre images CT et IRM, 
+            conçue pour permettre une évaluation qualitative et méthodologique directe de l'alignement 
+            spatial entre différentes modalités et séquences.
+          </p>
+          <p className="text-muted-foreground max-w-4xl leading-relaxed">
+            L'objectif n'est pas de produire une transformation opaque, mais de rendre lisible, 
+            contrôlable et vérifiable la qualité du recalage, au plus près du signal et de l'anatomie.
+          </p>
+          <div className="flex flex-wrap justify-center gap-2">
+            <span className="px-3 py-1 text-xs font-medium rounded-md border border-primary/50 text-primary">
+              CT / IRM
+            </span>
+            <span className="px-3 py-1 text-xs font-medium rounded-md bg-secondary text-secondary-foreground">
+              Recalage
+            </span>
+            <span className="px-3 py-1 text-xs font-medium rounded-md bg-muted text-muted-foreground">
+              ANTsPy
+            </span>
+            <span className="px-3 py-1 text-xs font-medium rounded-md bg-muted text-muted-foreground">
+              SimpleITK
+            </span>
+            <span className="px-3 py-1 text-xs font-medium rounded-md bg-muted text-muted-foreground">
+              NiBabel
+            </span>
+            <span className="px-3 py-1 text-xs font-medium rounded-md bg-muted text-muted-foreground">
+              Python
+            </span>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Principe de visualisation */}
       <section className="space-y-4 text-center mx-auto max-w-3xl">

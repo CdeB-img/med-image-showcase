@@ -36,6 +36,7 @@ interface ImagePair {
 interface Props {
   pairs: ImagePair[];
   className?: string;
+  hideHero?: boolean;
 }
 
 /* ============================================================
@@ -92,7 +93,8 @@ const paramMaps = ["Tmax", "CBF", "OEF", "CMRO₂", "Diffusion"];
 
 export default function PerfusionSegmentationViewer({
   pairs,
-  className
+  className,
+  hideHero = false,
 }: Props) {
   return (
     <div className={cn("space-y-16", className)}>
@@ -100,25 +102,27 @@ export default function PerfusionSegmentationViewer({
       {/* ======================================================
          HEADER
       ====================================================== */}
-      <header className="max-w-5xl mx-auto text-center space-y-6 px-4">
-        <Badge
-          variant="outline"
-          className="gap-1.5 px-3 py-1 border-cyan-500/30 bg-cyan-500/5 text-cyan-400"
-        >
-          <Activity className="w-3.5 h-3.5" />
-          Perfusion
-        </Badge>
+      {!hideHero && (
+        <header className="max-w-5xl mx-auto text-center space-y-6 px-4">
+          <Badge
+            variant="outline"
+            className="gap-1.5 px-3 py-1 border-cyan-500/30 bg-cyan-500/5 text-cyan-400"
+          >
+            <Activity className="w-3.5 h-3.5" />
+            Perfusion
+          </Badge>
 
-        <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
-          Segmentation et analyse des lésions de perfusion CT / IRM
-        </h1>
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
+            Segmentation et analyse des lésions de perfusion CT / IRM
+          </h1>
 
-        <p className="text-lg text-muted-foreground leading-relaxed">
-          Segmentation <span className="text-foreground font-medium">guidée par le signal</span>,
-          basée sur des <span className="text-primary">seuils paramétrables</span> et
-          validée visuellement à chaque étape.
-        </p>
-      </header>
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            Segmentation <span className="text-foreground font-medium">guidée par le signal</span>,
+            basée sur des <span className="text-primary">seuils paramétrables</span> et
+            validée visuellement à chaque étape.
+          </p>
+        </header>
+      )}
       <section className="max-w-4xl mx-auto space-y-4 px-4 text-center">
         <h2 className="text-2xl md:text-3xl font-semibold">
           Inspection visuelle des segmentations

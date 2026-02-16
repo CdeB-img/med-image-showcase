@@ -4,6 +4,11 @@ import ProjectCard from "@/components/ProjectCard";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import Breadcrumb from "@/components/Breadcrumb";
+import ExpertiseHero from "@/components/ExpertiseHero";
+import { Helmet } from "react-helmet-async";
+import { ArrowRight, BarChart3, Workflow } from "lucide-react";
+
+const CANONICAL = "https://noxia-imagerie.fr/projets";
 
 /* ============================================================
    COLLAPSIBLE SECTION
@@ -125,108 +130,144 @@ function CollapsibleSection({
 const Projects = () => {
   const [active, setActive] = useState<string | null>(null);
 
+  const collectionJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Projets en imagerie médicale quantitative",
+    description:
+      "Exemples de projets en segmentation, quantification et méthodologie IRM/CT en recherche clinique.",
+    url: CANONICAL,
+    hasPart: projects.map((p) => ({
+      "@type": "CreativeWork",
+      name: p.title,
+      url: `https://noxia-imagerie.fr/projet/${p.id}`,
+    })),
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Accueil", item: "https://noxia-imagerie.fr/" },
+      { "@type": "ListItem", position: 2, name: "Projets", item: CANONICAL },
+    ],
+  };
+
   const toggleSection = (id: string) => {
     setActive((prev) => (prev === id ? null : id));
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <main className="flex-1 py-20 px-4">
-        <div className="max-w-6xl mx-auto space-y-24">
-          <Breadcrumb
-            items={[
-              { label: "Accueil", path: "/" },
-              { label: "Projets" }
-            ]}
-          />
+    <>
+      <Helmet>
+        <title>Projets en imagerie médicale quantitative | NOXIA</title>
+        <meta
+          name="description"
+          content="Exemples de projets en segmentation, quantification et méthodologie IRM/CT avec approche reproductible et multicentrique."
+        />
+        <link rel="canonical" href={CANONICAL} />
+        <script type="application/ld+json">{JSON.stringify(collectionJsonLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
+      </Helmet>
 
-          {/* ================= HEADER ================= */}
-          <section className="max-w-3xl mx-auto text-center space-y-6">
-            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
-              Projets & expertises en imagerie médicale
-            </h1>
+      <div className="min-h-screen flex flex-col bg-background">
+        <main className="flex-1 py-20 px-4">
+          <div className="max-w-5xl mx-auto space-y-24">
+            <Breadcrumb
+              items={[
+                { label: "Accueil", path: "/" },
+                { label: "Projets" }
+              ]}
+            />
 
-            <p className="text-xl text-muted-foreground leading-relaxed">
-              Exemples de problématiques et d’approches méthodologiques
-              en imagerie CT et IRM, en contexte clinique et de recherche.
-            </p>
-          </section>
+            <ExpertiseHero
+              badge="Démonstrateurs"
+              badgeIcon={Workflow}
+              title="Projets & expertises en imagerie médicale"
+              description="Exemples de problématiques et d’approches méthodologiques en imagerie CT et IRM, en contexte clinique et de recherche."
+              chips={["Segmentation", "Quantification", "Méthodologie"]}
+              actions={[
+                { label: "Discuter d'un projet", to: "/contact", variant: "primary", icon: ArrowRight },
+                { label: "Voir les expertises", to: "/expertise", variant: "secondary", icon: BarChart3 },
+              ]}
+            />
 
-          {/* ================= CONTEXTE ================= */}
-          <section
-            className="
+            {/* ================= CONTEXTE ================= */}
+            <section
+              className="
               max-w-4xl mx-auto
               rounded-xl border border-border/50
               bg-muted/20 px-8 py-6
               text-muted-foreground leading-relaxed space-y-4
             "
-          >
-            <p>
-              Les projets présentés ci-dessous sont des exemples représentatifs.
-              Ils ne constituent pas des solutions standardisées.
-            </p>
+            >
+              <p>
+                Les projets présentés ci-dessous sont des exemples représentatifs.
+                Ils ne constituent pas des solutions standardisées.
+              </p>
 
-            <p>
-              Chaque collaboration débute par un échange afin de définir une
-              approche adaptée&nbsp;: segmentation, recalage, quantification
-              ou développement d’outils sur mesure.
-            </p>
+              <p>
+                Chaque collaboration débute par un échange afin de définir une
+                approche adaptée&nbsp;: segmentation, recalage, quantification
+                ou développement d’outils sur mesure.
+              </p>
 
-            <p className="font-medium text-foreground pt-4 border-t border-border/40">
-              Ces exemples servent de point de départ.
-              <Link
-                to="/contact"
-                className="text-primary hover:underline underline-offset-4"
-              >
-                {" "}Un échange permet d’évaluer rapidement la faisabilité.
-              </Link>
-            </p>
-          </section>
+              <p className="font-medium text-foreground pt-4 border-t border-border/40">
+                Ces exemples servent de point de départ.
+                <Link
+                  to="/contact"
+                  className="text-primary hover:underline underline-offset-4"
+                >
+                  {" "}Un échange permet d’évaluer rapidement la faisabilité.
+                </Link>
+              </p>
+            </section>
 
-          {/* ================= AXES ================= */}
-          <div className="space-y-6">
+            {/* ================= AXES ================= */}
+            <div className="space-y-6">
 
-            {/* SEGMENTATION → neuro-onco */}
-            <CollapsibleSection
-              id="segmentation"
-              title="Segmentation & analyse lésionnelle"
-              subtitle="Approches guidées par le signal, validées sur données cliniques réelles."
-              iconImage="/images/projets/neuro-onco.webp"
-              isOpen={active === "segmentation"}
-              onToggle={toggleSection}
-              filter={(p) => p.analysisType === "Segmentation"}
-            />
+              {/* SEGMENTATION → neuro-onco */}
+              <CollapsibleSection
+                id="segmentation"
+                title="Segmentation & analyse lésionnelle"
+                subtitle="Approches guidées par le signal, validées sur données cliniques réelles."
+                iconImage="/images/projets/neuro-onco.webp"
+                isOpen={active === "segmentation"}
+                onToggle={toggleSection}
+                filter={(p) => p.analysisType === "Segmentation"}
+              />
 
-            {/* QUANTIFICATION → CT scan expertise */}
-            <CollapsibleSection
-              id="quantification"
-              title="Quantification et analyse fonctionnelle"
-              subtitle="Extraction de biomarqueurs quantitatifs avec contrôle méthodologique."
-              iconImage="/images/projets/ct.webp"
-              isOpen={active === "quantification"}
-              onToggle={toggleSection}
-              filter={(p) => p.analysisType === "Quantification"}
-            />
+              {/* QUANTIFICATION → CT scan expertise */}
+              <CollapsibleSection
+                id="quantification"
+                title="Quantification et analyse fonctionnelle"
+                subtitle="Extraction de biomarqueurs quantitatifs avec contrôle méthodologique."
+                iconImage="/images/projets/ct.webp"
+                isOpen={active === "quantification"}
+                onToggle={toggleSection}
+                filter={(p) => p.analysisType === "Quantification"}
+              />
 
-            {/* MÉTHODO → coregistration */}
-            <CollapsibleSection
-              id="methodo"
-              title="Méthodologie & outils transverses"
-              subtitle="Recalage multimodal, prototypage et outils indépendants des solutions propriétaires."
-              iconImage="/images/projets/registration.webp"
-              isOpen={active === "methodo"}
-              onToggle={toggleSection}
-              filter={(p) =>
-                p.analysisType === "Registration" ||
-                p.analysisType === "Prototypage"
-              }
-            />
+              {/* MÉTHODO → coregistration */}
+              <CollapsibleSection
+                id="methodo"
+                title="Méthodologie & outils transverses"
+                subtitle="Recalage multimodal, prototypage et outils indépendants des solutions propriétaires."
+                iconImage="/images/projets/registration.webp"
+                isOpen={active === "methodo"}
+                onToggle={toggleSection}
+                filter={(p) =>
+                  p.analysisType === "Registration" ||
+                  p.analysisType === "Prototypage"
+                }
+              />
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </>
   );
 };
 
