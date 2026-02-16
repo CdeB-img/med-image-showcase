@@ -9,7 +9,9 @@ import {
   FileCode, 
   CheckCircle2, 
   Settings2, 
-  Database 
+  Database,
+  BarChart3,
+  Layers
 } from "lucide-react";
 
 const CANONICAL = "https://noxia-imagerie.fr/ingenierie-imagerie-quantitative";
@@ -187,7 +189,57 @@ const IngenierieImagerieQuantitative = () => {
                 </Link>.
               </p>
             </section>
+            {/* MÉTHODOLOGIE */}
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-6">
+              <div className="flex items-center gap-2 text-foreground font-semibold">
+                <BarChart3 className="w-5 h-5 text-primary" />
+                Méthodologie : du DICOM brut au biomarqueur opposable
+              </div>
 
+              <p className="text-muted-foreground leading-relaxed">
+                La valeur d’un pipeline n’est pas d’« exécuter un script », mais de rendre chaque étape
+                explicite, testable et traçable : hypothèses, paramètres, qualité des entrées, contrôles
+                de sortie, et gestion des cas non conformes.
+              </p>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                  <div className="flex items-center gap-2 font-semibold text-foreground">
+                    <Layers className="w-5 h-5 text-primary" />
+                    Principes non négociables
+                  </div>
+                  <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                    <li>Audit DICOM systématique (géométrie, métadonnées, séries, cohérence temporelle)</li>
+                    <li>Séparation <strong className="text-foreground">inférence</strong> / <strong className="text-foreground">mesure</strong></li>
+                    <li>Versioning code + paramètres + dépendances (environnement figé)</li>
+                    <li>Contrôles QA entrée/sortie + critères d’exclusion documentés</li>
+                    <li>Livrables opposables (tables + masques + overlays + logs)</li>
+                  </ul>
+                </div>
+
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                  <div className="flex items-center gap-2 font-semibold text-foreground">
+                    <CheckCircle2 className="w-5 h-5 text-primary" />
+                    Gestion des cas difficiles
+                  </div>
+                  <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                    <li>DICOM incomplets / séries non conformes / anonymisation destructrice</li>
+                    <li>Incohérences spacing/orientation/FOV, obliques non attendues</li>
+                    <li>Défauts de recalage, artefacts, mouvement, truncation (perfusions)</li>
+                    <li>Dérive de calibration CT ou dérive d’intensité IRM</li>
+                    <li>Échecs IA : détection, fallback, et signalement systématique</li>
+                  </ul>
+                </div>
+              </div>
+
+              <p className="text-muted-foreground leading-relaxed">
+                Voir <Link to="/analyse-dicom" className="text-primary hover:underline">Analyse DICOM</Link>,
+                <span> </span>
+                <Link to="/bases-multicentriques" className="text-primary hover:underline">Bases multicentriques</Link>,
+                <span> </span>
+                et <Link to="/recalage-multimodal" className="text-primary hover:underline">Recalage multimodal</Link>.
+              </p>
+            </section>
             {/* LES ÉTAPES (Liste visuelle) */}
             <section className="space-y-10">
               <h2 className="text-2xl font-semibold text-foreground">
@@ -196,36 +248,50 @@ const IngenierieImagerieQuantitative = () => {
               
               <div className="grid md:grid-cols-2 gap-12 items-start">
                 
-                <div className="space-y-6 text-muted-foreground">
-                   <p className="leading-relaxed">
-                    Nous déployons des solutions conteneurisées pour garantir 
-                    que le traitement appliqué au patient A du centre 1 est 
-                    mathématiquement identique à celui du patient B du centre 10.
-                   </p>
-                   <ul className="space-y-4 pt-2">
-                     <li className="flex gap-4">
-                       <FileCode className="w-6 h-6 text-primary shrink-0"/>
-                       <div>
-                         <strong className="text-foreground block text-sm">Standardisation des données</strong>
-                         <span className="text-sm">Audit DICOM, anonymisation structurée, conversion NIfTI contrôlée.</span>
-                       </div>
-                     </li>
-                     <li className="flex gap-4">
-                       <Settings2 className="w-6 h-6 text-primary shrink-0"/>
-                       <div>
-                         <strong className="text-foreground block text-sm">Pré-traitement & Normalisation</strong>
-                         <span className="text-sm">Resampling géométrique, correction de biais, normalisation d'intensité.</span>
-                       </div>
-                     </li>
-                     <li className="flex gap-4">
-                       <Database className="w-6 h-6 text-primary shrink-0"/>
-                       <div>
-                         <strong className="text-foreground block text-sm">Extraction & QA</strong>
-                         <span className="text-sm">Calcul métriques, logs d'exécution, génération de rapports de qualité.</span>
-                       </div>
-                     </li>
-                   </ul>
-                </div>
+               <div className="rounded-2xl border border-border bg-card/50 p-8 space-y-6">
+  <h3 className="font-semibold text-foreground flex items-center gap-2">
+    <Workflow className="w-5 h-5 text-primary" />
+    Maillage du pipeline
+  </h3>
+
+  <p className="text-muted-foreground leading-relaxed">
+    Nous déployons des solutions conteneurisées afin que le traitement appliqué au patient A
+    du centre 1 soit mathématiquement identique à celui du patient B du centre 10.
+    L’objectif est de stabiliser l’algorithme <em>et</em> l’environnement.
+  </p>
+
+  <ul className="space-y-4 pt-2">
+    <li className="flex gap-4">
+      <FileCode className="w-6 h-6 text-primary shrink-0" />
+      <div>
+        <strong className="text-foreground block text-sm">Standardisation des données</strong>
+        <span className="text-sm text-muted-foreground">
+          Audit DICOM, anonymisation structurée, conversion NIfTI contrôlée, conventions de nommage.
+        </span>
+      </div>
+    </li>
+
+    <li className="flex gap-4">
+      <Settings2 className="w-6 h-6 text-primary shrink-0" />
+      <div>
+        <strong className="text-foreground block text-sm">Pré-traitement & normalisation</strong>
+        <span className="text-sm text-muted-foreground">
+          Resampling géométrique, correction de biais, normalisation d’intensité/énergie, masques/exclusions.
+        </span>
+      </div>
+    </li>
+
+    <li className="flex gap-4">
+      <Database className="w-6 h-6 text-primary shrink-0" />
+      <div>
+        <strong className="text-foreground block text-sm">Extraction, QA & livrables</strong>
+        <span className="text-sm text-muted-foreground">
+          Métriques, exports (CSV/Excel/NIfTI/DICOM), overlays QC, logs, et synthèse par patient/temps.
+        </span>
+      </div>
+    </li>
+  </ul>
+</div>
 
                 <div className="rounded-2xl border border-border bg-muted/10 p-8 space-y-6 h-full">
                    <h3 className="font-semibold text-foreground flex items-center gap-2">
@@ -293,6 +359,43 @@ const IngenierieImagerieQuantitative = () => {
               </div>
             </section>
 
+            {/* ORDRES DE GRANDEUR – LITTÉRATURE */}
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-6">
+              <div className="flex items-center gap-2 text-foreground font-semibold">
+                <BarChart3 className="w-5 h-5 text-primary" />
+                Ordres de grandeur rapportés : pourquoi l’ingénierie compte
+              </div>
+
+              <p className="text-muted-foreground leading-relaxed">
+                En imagerie quantitative, deux pipelines « plausibles » peuvent produire des biomarqueurs
+                suffisamment différents pour impacter des analyses multicentriques. L’amplitude dépend du protocole,
+                de la modalité, du constructeur et du post-traitement.
+              </p>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">IRM</h3>
+                  <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                    <li>Variations inter-centres dues aux séquences, champs, corrections et normalisation.</li>
+                    <li>Gains majeurs quand références, métriques robustes et QA sont explicités.</li>
+                    <li>Reproductibilité améliorée quand la mesure est dissociée de la visualisation.</li>
+                  </ul>
+                </div>
+
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">CT</h3>
+                  <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                    <li>Variations liées aux kernels, IR, énergie effective et implémentations constructeurs.</li>
+                    <li>La calibration phantom + traçabilité réduisent les biais systématiques.</li>
+                    <li>En spectral, sensibilité accrue aux erreurs de décomposition/calibration.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <p className="text-muted-foreground leading-relaxed">
+                Objectif : stabiliser la variance technique avant d’interpréter la variance biologique.
+              </p>
+            </section>
             <section className="space-y-8">
               <h2 className="text-2xl font-semibold text-center text-foreground">
                 Questions fréquentes – Ingénierie quantitative
@@ -330,7 +433,68 @@ const IngenierieImagerieQuantitative = () => {
                 </div>
               </div>
             </section>
+            {/* GLOSSAIRE */}
+            <section className="rounded-2xl border border-border bg-card/50 p-6 md:p-8 space-y-6">
+              <div className="flex items-center gap-2">
+                <FileCode className="w-5 h-5 text-primary" />
+                <h2 className="text-xl font-semibold text-foreground">Acronymes & livrables</h2>
+              </div>
 
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 text-muted-foreground">
+                <div className="space-y-1">
+                  <div className="font-semibold text-foreground">QA / QC</div>
+                  <p className="text-sm">Contrôle qualité : cohérences, alertes, exclusions et justification.</p>
+                </div>
+                <div className="space-y-1">
+                  <div className="font-semibold text-foreground">ICC / CV</div>
+                  <p className="text-sm">Reproductibilité : intraclass correlation / coefficient de variation.</p>
+                </div>
+                <div className="space-y-1">
+                  <div className="font-semibold text-foreground">DICOM / NIfTI</div>
+                  <p className="text-sm">Standard clinique vs format analytique ; conversion contrôlée et traçable.</p>
+                </div>
+                <div className="space-y-1">
+                  <div className="font-semibold text-foreground">Overlays</div>
+                  <p className="text-sm">Images QC : masques/contours superposés pour relecture.</p>
+                </div>
+              </div>
+
+              <p className="text-muted-foreground">
+                Livrables typiques : masques (NIfTI/DICOM selon besoin), tableaux patient/temps (CSV/Excel),
+                exports de métriques, logs, et un dossier QC structuré.
+              </p>
+            </section>
+
+            {/* PAGES ASSOCIÉES */}
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold">Pages associées</h2>
+
+              <div className="flex flex-wrap gap-3">
+                <Link to="/analyse-dicom" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Analyse DICOM <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <Link to="/bases-multicentriques" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Bases multicentriques <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <Link to="/recalage-multimodal" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Recalage multimodal <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <Link to="/irm-imagerie-quantitative" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  IRM quantitative <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <Link to="/ct-imagerie-quantitative" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  CT quantitatif <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <Link to="/segmentation-irm" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Segmentation <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </section>
             {/* CTA */}
             <section className="text-center space-y-6 pt-8">
               <p className="text-muted-foreground max-w-2xl mx-auto">
