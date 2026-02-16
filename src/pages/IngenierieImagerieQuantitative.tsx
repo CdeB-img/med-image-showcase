@@ -136,45 +136,32 @@ const IngenierieImagerieQuantitative = () => {
             />
 
             {/* HERO */}
-            <section className="relative overflow-hidden rounded-3xl border border-border/70 bg-gradient-to-br from-card via-card to-primary/10 p-8 md:p-12 space-y-8">
-              <div className="pointer-events-none absolute -top-20 -right-16 h-56 w-56 rounded-full bg-primary/10 blur-3xl" />
-              <div className="pointer-events-none absolute -bottom-24 -left-16 h-52 w-52 rounded-full bg-primary/10 blur-3xl" />
+            <section className="text-center space-y-6">
+              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
+                Ingénierie en imagerie quantitative
+              </h1>
 
-              <div className="relative space-y-6 text-center">
-                <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-medium text-primary">
-                  <Workflow className="h-3.5 w-3.5" />
-                  Pipelines IRM & CT auditables
-                </div>
+              <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+                Structurer des pipelines IRM et CT reproductibles pour transformer des données DICOM
+                hétérogènes en biomarqueurs défendables, traçables et exploitables en multicentrique.
+              </p>
 
-                <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
-                  Ingénierie en imagerie quantitative
-                </h1>
-                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-4xl mx-auto">
-                  Conception de pipelines méthodologiques robustes pour transformer des
-                  données DICOM hétérogènes en biomarqueurs scientifiquement défendables.
-                </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
+                >
+                  Auditer un pipeline
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
 
-                <div className="flex flex-wrap items-center justify-center gap-2 pt-1">
-                  <span className="rounded-full border border-border bg-card/70 px-3 py-1 text-xs text-foreground">Audit DICOM</span>
-                  <span className="rounded-full border border-border bg-card/70 px-3 py-1 text-xs text-foreground">Versioning complet</span>
-                  <span className="rounded-full border border-border bg-card/70 px-3 py-1 text-xs text-foreground">QA entrée/sortie</span>
-                  <span className="rounded-full border border-border bg-card/70 px-3 py-1 text-xs text-foreground">Reproductibilité multicentrique</span>
-                </div>
-              </div>
-
-              <div className="relative grid gap-4 md:grid-cols-3">
-                <div className="rounded-xl border border-border/70 bg-card/70 p-4 text-center space-y-1">
-                  <p className="text-xs uppercase tracking-wide text-muted-foreground">Chaîne contrôlée</p>
-                  <p className="text-base font-semibold text-foreground">DICOM to biomarqueur</p>
-                </div>
-                <div className="rounded-xl border border-border/70 bg-card/70 p-4 text-center space-y-1">
-                  <p className="text-xs uppercase tracking-wide text-muted-foreground">Principe clé</p>
-                  <p className="text-base font-semibold text-foreground">Inférence séparée de la mesure</p>
-                </div>
-                <div className="rounded-xl border border-border/70 bg-card/70 p-4 text-center space-y-1">
-                  <p className="text-xs uppercase tracking-wide text-muted-foreground">Objectif</p>
-                  <p className="text-base font-semibold text-foreground">Variance technique stabilisée</p>
-                </div>
+                <Link
+                  to="/methodologie-imagerie-quantitative"
+                  className="inline-flex items-center justify-center gap-2 rounded-md border border-border px-6 py-3 font-medium hover:bg-muted/40 transition"
+                >
+                  Voir la méthodologie
+                  <BarChart3 className="w-4 h-4" />
+                </Link>
               </div>
             </section>
 
