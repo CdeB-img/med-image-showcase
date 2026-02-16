@@ -274,9 +274,9 @@ const IngenierieImagerieQuantitative = () => {
                 Architecture type d’un pipeline
               </h2>
               
-              <div className="grid md:grid-cols-2 gap-12 items-start">
+              <div className="grid md:grid-cols-2 gap-12 items-stretch">
                 
-               <div className="rounded-2xl border border-border bg-card/50 p-8 space-y-6">
+               <div className="rounded-2xl border border-border bg-card/50 p-8 space-y-6 h-full">
   <h3 className="font-semibold text-foreground flex items-center gap-2">
     <Workflow className="w-5 h-5 text-primary" />
     Maillage du pipeline
