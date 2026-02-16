@@ -42,12 +42,12 @@ const corelabContributions = [
   {
     study: "RHU MARVELOUS (HCL / INSERM / CNRS / INSA / UCBL)",
     detail:
-      "Analyse CoreLab des volets cardio et neuro, avec environ 500 examens traités par volet. Contribution mentionnée dans les remerciements."
+      "Analyse complete CoreLab des volets cardio et neuro, avec environ 500 examens traites par volet. Contribution mentionnee dans les remerciements."
   },
   {
     study: "MIMI – étude minimal invasive (2013–2014)",
     detail:
-      "Analyse des IRM dédiées au no-reflow. Contribution technique d'analyse réalisée sans co-signature de l'étude principale.",
+      "Analyse IRM du no-reflow realisee en autonomie sur l'ensemble des cas, avec second relecteur ayant egalement analyse la cohorte. Contribution technique sans co-signature de l'etude principale.",
     citation:
       "Belle L et al. Circ Cardiovasc Interv. 2016;9(3):e003388.",
     doi: "10.1161/CIRCINTERVENTIONS.115.003388"

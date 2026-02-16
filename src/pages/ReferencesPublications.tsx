@@ -34,18 +34,18 @@ const signedPublications = [
     source: "PLoS ONE",
     date: "2021",
     doi: "10.1371/journal.pone.0245684",
-    role: "Co-auteur",
+    role: "Co-auteur (analyse imagerie complete realisee en autonomie)",
     context:
-      "Relations entre hemorrhagie intramyocardique, obstruction microvasculaire persistante et biomarqueurs inflammatoires.",
+      "Relations entre hemorrhagie intramyocardique, obstruction microvasculaire persistante et biomarqueurs inflammatoires, avec prise en charge complete du volet analyse imagerie (CoreLab).",
   },
   {
     title:
       "Serum Soluble Tumor Necrosis Factor Receptors 1 and 2 Are Early Prognosis Markers After ST-Segment Elevation Myocardial Infarction",
     source: "Frontiers in Pharmacology",
     date: "2021",
-    role: "Co-auteur",
+    role: "Co-auteur (analyse imagerie complete realisee en autonomie)",
     context:
-      "Evaluation de sTNFR1/sTNFR2 comme biomarqueurs pronostiques precoces apres STEMI.",
+      "Evaluation de sTNFR1/sTNFR2 comme biomarqueurs pronostiques precoces apres STEMI, avec analyse imagerie complete effectuee en autonomie.",
   },
   {
     title:
@@ -53,8 +53,9 @@ const signedPublications = [
     source: "Stroke",
     date: "Novembre 2024",
     doi: "10.1161/STROKEAHA.124.047311",
-    role: "Co-auteur",
-    context: "Imagerie OEF admission et recuperation lesionnelle apres thrombectomie.",
+    role: "Co-auteur (analyse imagerie complete realisee en autonomie)",
+    context:
+      "Imagerie OEF d'admission et recuperation lesionnelle apres thrombectomie, avec analyse imagerie complete realisee en autonomie.",
   },
   {
     title:
@@ -62,14 +63,15 @@ const signedPublications = [
     source: "Preprint",
     date: "Decembre 2024",
     doi: "10.1101/2024.12.12.24318960",
-    role: "Co-auteur",
-    context: "Lien entre collaterales et metabolisme oxygenique sur IRM d'admission.",
+    role: "Co-auteur (analyse imagerie complete realisee en autonomie)",
+    context:
+      "Lien entre collaterales et metabolisme oxygenique sur IRM d'admission, avec analyse imagerie complete realisee en autonomie.",
   },
   {
     title: "COVERT-MI",
     source: "Circulation",
     date: "2021",
-    role: "Responsable CoreLab IRM (analyse complete)",
+    role: "Contribution imagerie (CoreLab 100%)",
     context:
       "Centralisation, traitement de l'ensemble des cas et analyse IRM cardiaque realisee en autonomie (no-reflow, biomarqueurs post-infarctus).",
   },
@@ -85,15 +87,15 @@ const signedPublications = [
 const methodologicalContributions = [
   {
     study: "RHU MARVELOUS (HCL / Inserm / CNRS / INSA / UCBL)",
-    role: "Contribution methodologique, remerciements",
+    role: "Contribution CoreLab imagerie (remerciements)",
     context:
-      "Analyses CoreLab des volets cardio et neuro (environ 500 examens par volet).",
+      "Analyse complete des volets cardio et neuro (environ 500 examens par volet), realisee en autonomie dans le cadre CoreLab.",
   },
   {
     study: "MIMI (minimal invasive immediate mechanical intervention)",
     role: "Contribution methodologique, non co-signataire",
     context:
-      "Analyse IRM du no-reflow en appui methodologique de l'etude principale.",
+      "Analyse IRM du no-reflow realisee en autonomie sur l'ensemble des cas, avec second relecteur ayant egalement analyse la cohorte.",
     citation: "Belle L et al. Circ Cardiovasc Interv. 2016;9(3):e003388.",
     doi: "10.1161/CIRCINTERVENTIONS.115.003388",
   },
