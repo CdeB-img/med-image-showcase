@@ -211,7 +211,7 @@ const Index = () => {
               <section className="space-y-8">
                 <Link
                   to="/projets"
-                  className="block group rounded-2xl overflow-hidden border border-border/50 bg-black transition hover:border-primary/40 hover:shadow-xl"
+                  className="block group rounded-2xl overflow-hidden border border-border/70 transition hover:border-primary/40 hover:shadow-xl"
                 >
                   <div className="aspect-[21/9] overflow-hidden">
                     <img
@@ -220,7 +220,7 @@ const Index = () => {
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                     />
                   </div>
-                  <div className="bg-background p-8 md:p-10">
+                  <div className="border-t border-border/60 p-8 md:p-10">
                     <h2 className="text-3xl font-semibold tracking-tight">
                       Projets & cas d'usage en imagerie quantitative
                     </h2>
@@ -231,7 +231,6 @@ const Index = () => {
                     <div className="mt-6 inline-flex items-center gap-2 text-primary font-medium">
                       Explorer les projets
                       <ArrowRight className="w-4 h-4" />
-                      </div>
                     </div>
                   </div>
                 </Link>
