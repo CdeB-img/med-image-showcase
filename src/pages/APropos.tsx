@@ -248,6 +248,14 @@ const APropos = () => {
                 Publications et contributions
               </h2>
 
+              <p className="text-sm text-muted-foreground">
+                Version detaillee:{" "}
+                <Link to="/references-publications" className="text-primary hover:underline">
+                  References & publications
+                </Link>
+                .
+              </p>
+
               <div className="grid md:grid-cols-2 gap-8">
                 <div className="rounded-xl border border-border bg-card/50 p-6 space-y-5">
                   <h3 className="text-xl font-semibold">Publications signées (sélection)</h3>

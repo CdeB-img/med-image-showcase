@@ -21,12 +21,14 @@ import CTImagerieQuantitative from "@/pages/CTImagerieQuantitative";
 import MethodologieImagerieQuantitative from "@/pages/MethodologieImagerieQuantitative";
 import Prestations from "@/pages/Prestations";
 import Expertise from "@/pages/Expertise";
+import ReferencesPublications from "@/pages/ReferencesPublications";
 
 
 import APropos from "@/pages/APropos";
 
 
 import Header from "@/components/Header";
+import GlobalEntitySchema from "@/components/GlobalEntitySchema";
 
 import Index from "./pages/Index";
 import Projects from "./pages/Projects";
@@ -63,6 +65,7 @@ const App = () => (
 
         {/* 🔹 NAVBAR GLOBALE */}
         <Header />
+        <GlobalEntitySchema />
 
         <Routes>
           <Route path="/" element={<Index />} />
@@ -87,6 +90,7 @@ const App = () => (
           <Route path="/a-propos" element={<APropos />} />
           <Route path="/prestations-imagerie-medicale" element={<Prestations />} />
           <Route path="/expertise" element={<Expertise />} />
+          <Route path="/references-publications" element={<ReferencesPublications />} />
 
 
           {/* Fallback */}

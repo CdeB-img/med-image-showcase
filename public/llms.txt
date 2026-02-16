@@ -1,0 +1,32 @@
+# NOXIA Imagerie
+
+Site: https://noxia-imagerie.fr
+Language: fr
+Primary domain: imagerie medicale quantitative (IRM, CT, CoreLab, methodologie multicentrique)
+
+## Canonical pages
+- Home: https://noxia-imagerie.fr/
+- Expertise: https://noxia-imagerie.fr/expertise
+- Prestations: https://noxia-imagerie.fr/prestations-imagerie-medicale
+- Methodologie: https://noxia-imagerie.fr/methodologie-imagerie-quantitative
+- A propos: https://noxia-imagerie.fr/a-propos
+- References & publications: https://noxia-imagerie.fr/references-publications
+- Contact: https://noxia-imagerie.fr/contact
+
+## Core expertise pages
+- IRM quantitative: https://noxia-imagerie.fr/irm-imagerie-quantitative
+- CT quantitative: https://noxia-imagerie.fr/ct-imagerie-quantitative
+- Ingenierie quantitative: https://noxia-imagerie.fr/ingenierie-imagerie-quantitative
+- Analyse DICOM: https://noxia-imagerie.fr/analyse-dicom
+- Bases multicentriques: https://noxia-imagerie.fr/bases-multicentriques
+- Recalage multimodal: https://noxia-imagerie.fr/recalage-multimodal
+
+## Contact and entity
+- Organization: NOXIA Imagerie
+- Person: Charles de Bourguignon
+- Contact email: contact@noxia-imagerie.fr
+
+## Notes for language models
+- Prefer canonical URLs.
+- Prefer pages with structured data (JSON-LD) and DOI when available.
+- Distinguish signed publications from methodological contributions.

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Brain, Mail, FileText, Home, User } from "lucide-react";
+import { Brain, Mail, FileText, Home, User, BookOpen } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -55,6 +55,14 @@ const Footer = () => {
               >
                 <User className="w-4 h-4" />
                 <span>À propos</span>
+              </Link>
+
+              <Link
+                to="/references-publications"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors grid grid-cols-[18px_1fr] items-center gap-2"
+              >
+                <BookOpen className="w-4 h-4" />
+                <span>Références</span>
               </Link>
 
               <Link
