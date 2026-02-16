@@ -126,14 +126,14 @@ const Prestations = () => {
             />
 
             <ExpertiseHero
-              badge="Page conversion"
+              badge="Prestations"
               badgeIcon={Workflow}
-              title="Prestations en imagerie médicale quantitative"
-              description="Structuration méthodologique, production de biomarqueurs robustes et accompagnement multicentrique en IRM et CT, du cadrage initial aux livrables auditables."
-              chips={["CoreLab externalisé", "Audit multicentrique", "Ingénierie sur mesure"]}
+              title="CoreLab IRM & CT externalisé pour études cliniques"
+              description="Intervention en amont, en cours ou en reprise d'étude pour sécuriser la méthodologie, fiabiliser les biomarqueurs et livrer un dossier exploitable en analyse statistique et publication."
+              chips={["CHU & académique", "Promoteurs industriels", "France & Europe", "Livrables auditables"]}
               actions={[
-                { label: "Initier une collaboration", to: "/contact", variant: "primary", icon: ArrowRight },
-                { label: "Voir les expertises", to: "/expertise", variant: "secondary", icon: BarChart3 },
+                { label: "Planifier un échange de cadrage", to: "/contact", variant: "primary", icon: ArrowRight },
+                { label: "Voir la méthodologie", to: "/methodologie-imagerie-quantitative", variant: "secondary", icon: BarChart3 },
               ]}
             />
 
