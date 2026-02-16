@@ -202,7 +202,7 @@ const ProjectDetail = () => {
             />
 
             <ExpertiseHero
-              badge="Projet démonstrateur"
+              badge="Projet"
               badgeIcon={Workflow}
               title={project.title}
               description={project.description}

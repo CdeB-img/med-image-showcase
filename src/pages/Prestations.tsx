@@ -126,7 +126,7 @@ const Prestations = () => {
             />
 
             <ExpertiseHero
-              badge="Prestations"
+              badge="Services"
               badgeIcon={Workflow}
               title="CoreLab IRM & CT externalisé pour études cliniques"
               description="Intervention en amont, en cours ou en reprise d'étude pour structurer la méthodologie, documenter les traitements et organiser des livrables compatibles avec l'analyse statistique et la publication."

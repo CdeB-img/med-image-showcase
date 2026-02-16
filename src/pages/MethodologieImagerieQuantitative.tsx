@@ -143,7 +143,7 @@ const MethodologieImagerieQuantitative = () => {
             />
 
             <ExpertiseHero
-              badge="Page pilier méthodologique"
+              badge="Méthodologie"
               badgeIcon={Workflow}
               title="Méthodologie en imagerie quantitative"
               description="Construire une chaîne explicite, versionnée et reproductible pour transformer des données DICOM hétérogènes en biomarqueurs défendables en IRM et en CT."

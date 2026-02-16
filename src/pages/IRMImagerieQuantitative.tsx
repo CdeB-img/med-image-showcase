@@ -155,7 +155,7 @@ const jsonLd = {
 
             {/* HERO */}
             <ExpertiseHero
-              badge="Plateforme IRM"
+              badge="IRM quantitative"
               badgeIcon={Workflow}
               title="IRM quantitative multicentrique"
               description={

@@ -181,7 +181,7 @@ const Projects = () => {
             />
 
             <ExpertiseHero
-              badge="Démonstrateurs"
+              badge="Cas d'usage"
               badgeIcon={Workflow}
               title="Projets & expertises en imagerie médicale"
               description="Exemples de problématiques et d’approches méthodologiques en imagerie CT et IRM, en contexte clinique et de recherche."

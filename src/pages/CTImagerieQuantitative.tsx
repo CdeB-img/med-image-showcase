@@ -164,7 +164,7 @@ const CTImagerieQuantitative = () => {
 
             {/* HERO */}
             <ExpertiseHero
-              badge="Plateforme CT"
+              badge="CT quantitative"
               badgeIcon={Workflow}
               title="CT quantitatif multicentrique"
               description="Calibration phantom, stabilité HU, imagerie spectrale, perfusion quantitative et harmonisation inter-constructeurs."

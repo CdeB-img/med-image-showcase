@@ -96,7 +96,7 @@ const Expertise = () => {
             />
 
             <ExpertiseHero
-              badge="Page pivot"
+              badge="Vue d'ensemble"
               badgeIcon={Workflow}
               title="Expertise en imagerie médicale quantitative"
               description="Transformer des images cliniques hétérogènes en biomarqueurs reproductibles, multicentriques et physiquement cohérents."
