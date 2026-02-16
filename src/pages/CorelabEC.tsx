@@ -89,7 +89,7 @@ const CorelabEC = () => {
         acceptedAnswer: {
           "@type": "Answer",
           text:
-            "La littérature rapporte des variabilités inter-observateur de l'ordre de 5 a 15% pour certaines mesures comme le LGE. Une lecture centralisée et des règles formalisées permettent de réduire cette dispersion."
+            "La littérature rapporte des variabilités inter-observateur de l'ordre de 5 à 15% pour certaines mesures comme le LGE. Une lecture centralisée et des règles formalisées permettent de réduire cette dispersion."
         }
       },
       {
@@ -167,14 +167,14 @@ const CorelabEC = () => {
 
             {/* TLDR */}
             <section className="grid md:grid-cols-3 gap-6">
-              <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
                 <div className="flex items-center gap-2 font-semibold">
                   <ShieldCheck className="w-5 h-5 text-primary" />
-                  Reproductibilite
+                  Reproductibilité
                 </div>
                 <p className="text-muted-foreground text-sm leading-relaxed">
-                  Cadre de lecture harmonise, regles de segmentation formalisees et QA continue
-                  pour reduire la variabilite inter-observateur et inter-centre.
+                  Cadre de lecture harmonisé, règles de segmentation formalisées et QA continue
+                  pour réduire la variabilité inter-observateur et inter-centre.
                 </p>
               </div>
 
@@ -184,8 +184,8 @@ const CorelabEC = () => {
                   Architecture pipeline
                 </div>
                 <p className="text-muted-foreground text-sm leading-relaxed">
-                  Audit DICOM, controle geometrique, inference/mesure separees,
-                  livrables versionnes et auditables.
+                  Audit DICOM, contrôle géométrique, inférence/mesure séparées,
+                  livrables versionnés et auditables.
                 </p>
               </div>
 
@@ -208,23 +208,23 @@ const CorelabEC = () => {
               </h2>
 
               <p>
-                En essai therapeutique cardiovasculaire, l'effet traitement peut etre plus faible
-                que la variabilite technique de mesure. Sans standardisation stricte,
+                En essai thérapeutique cardiovasculaire, l'effet traitement peut être plus faible
+                que la variabilité technique de mesure. Sans standardisation stricte,
                 l'endpoint d'imagerie perd sa puissance statistique.
               </p>
 
               <ul className="list-disc pl-6 space-y-2">
-                <li>Definition explicite des endpoints primaires et secondaires</li>
-                <li>Regles de segmentation et de seuils formalisees (SD, FWHM, etc.)</li>
-                <li>Separation lecture, mesure, et interpretation clinique</li>
-                <li>Traçabilite complete (versioning code + parametres + exports)</li>
-                <li>Archivage QA structure pour audit scientifique</li>
+                <li>Définition explicite des endpoints primaires et secondaires</li>
+                <li>Règles de segmentation et de seuils formalisées (SD, FWHM, etc.)</li>
+                <li>Séparation lecture, mesure, et interprétation clinique</li>
+                <li>Traçabilité complète (versioning code + paramètres + exports)</li>
+                <li>Archivage QA structuré pour audit scientifique</li>
               </ul>
 
               <p>
                 Cette logique s'inscrit dans une architecture globale d'
                 <Link to="/ingenierie-imagerie-quantitative" className="text-primary hover:underline">
-                  ingenierie en imagerie quantitative
+                  ingénierie en imagerie quantitative
                 </Link>
                 .
               </p>
@@ -240,12 +240,12 @@ const CorelabEC = () => {
                 <div className="rounded-2xl border border-border bg-card/50 p-8 space-y-4 h-full">
                   <h3 className="font-semibold text-foreground flex items-center gap-2">
                     <Layers className="w-5 h-5 text-primary" />
-                    Workflow operationnel
+                    Workflow opérationnel
                   </h3>
 
                   <ul className="space-y-3 text-sm text-muted-foreground">
-                    <li>1. Qualification des donnees DICOM et des sequences par centre</li>
-                    <li>2. Standardisation des regles de lecture et des ROI</li>
+                    <li>1. Qualification des données DICOM et des séquences par centre</li>
+                    <li>2. Standardisation des règles de lecture et des ROI</li>
                     <li>3. Extraction LGE, MVO, ECV, volumes VG et remodelage</li>
                     <li>4. QA intra-centre et inter-centre sur les metriques critiques</li>
                     <li>5. Exports statistiquement exploitables (CSV/Excel + overlays QC)</li>
@@ -255,15 +255,15 @@ const CorelabEC = () => {
                 <div className="rounded-2xl border border-border bg-card/50 p-8 space-y-4 h-full">
                   <h3 className="font-semibold text-foreground flex items-center gap-2">
                     <ShieldCheck className="w-5 h-5 text-primary" />
-                    Checklist qualite
+                    Checklist qualité
                   </h3>
 
                   <ul className="space-y-3 text-sm text-muted-foreground">
-                    <li>Regles de segmentation documentees et versionnees</li>
+                    <li>Règles de segmentation documentées et versionnées</li>
                     <li>Double lecture ou adjudication pour cas litigieux</li>
-                    <li>Controle des exclusions (artefacts, mauvaise inversion, SNR insuffisant)</li>
-                    <li>Traçabilite des ajustements de seuils et des reruns</li>
-                    <li>Journal d'audit conservant decisions et versions de pipeline</li>
+                    <li>Contrôle des exclusions (artefacts, mauvaise inversion, SNR insuffisant)</li>
+                    <li>Traçabilité des ajustements de seuils et des reruns</li>
+                    <li>Journal d'audit conservant décisions et versions de pipeline</li>
                   </ul>
                 </div>
               </div>
@@ -295,11 +295,11 @@ const CorelabEC = () => {
                     Biomarqueurs principaux
                   </h3>
                   <ul className="list-disc pl-5 text-muted-foreground text-sm space-y-2">
-                    <li>LGE: quantification de necrose et heterogeneite cicatricielle</li>
-                    <li>MVO: caracterisation de l'obstruction microvasculaire</li>
+                    <li>LGE: quantification de nécrose et hétérogénéité cicatricielle</li>
+                    <li>MVO: caractérisation de l'obstruction microvasculaire</li>
                     <li>ECV: estimation de la fibrose diffuse</li>
                     <li>Volumes VG et FEVG: remodelage longitudinal</li>
-                    <li>T1/T2 mapping: caracterisation tissulaire complementaire</li>
+                    <li>T1/T2 mapping: caractérisation tissulaire complémentaire</li>
                   </ul>
                 </div>
 
@@ -309,10 +309,10 @@ const CorelabEC = () => {
                     Livrables Core Lab
                   </h3>
                   <ul className="list-disc pl-5 text-muted-foreground text-sm space-y-2">
-                    <li>Tables patient/temps pretes pour analyse biostatistique</li>
-                    <li>Masques et contours pour revue qualite independante</li>
+                    <li>Tables patient/temps prêtes pour analyse biostatistique</li>
+                    <li>Masques et contours pour revue qualité indépendante</li>
                     <li>Dossiers QA par centre et par endpoint</li>
-                    <li>Historique versionne des regles et des parametres</li>
+                    <li>Historique versionné des règles et des paramètres</li>
                     <li>Rapport de robustesse inter-centre (CV, ICC, outliers)</li>
                   </ul>
                 </div>
@@ -338,22 +338,22 @@ const CorelabEC = () => {
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
-                  <h3 className="font-semibold text-foreground">Variabilite et reproductibilite</h3>
+                  <h3 className="font-semibold text-foreground">Variabilité et reproductibilité</h3>
                   <ul className="list-disc pl-6 space-y-2 text-muted-foreground text-sm">
-                    <li>LGE: variabilite inter-observateur typiquement 5-15% sans harmonisation</li>
-                    <li>LGE: reduction possible vers 1-3% avec pipeline centralise valide</li>
-                    <li>ECV: ecarts absolus inter-centres souvent de l'ordre de 2-4%</li>
-                    <li>Volumes ventriculaires: ICC souvent superieur a 0.9 en conditions controlees</li>
+                    <li>LGE: variabilité inter-observateur typiquement 5-15% sans harmonisation</li>
+                    <li>LGE: réduction possible vers 1-3% avec pipeline centralisé validé</li>
+                    <li>ECV: écarts absolus inter-centres souvent de l'ordre de 2-4%</li>
+                    <li>Volumes ventriculaires: ICC souvent supérieur à 0.9 en conditions contrôlées</li>
                   </ul>
                 </div>
 
                 <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
-                  <h3 className="font-semibold text-foreground">Interpretation pratique</h3>
+                  <h3 className="font-semibold text-foreground">Interprétation pratique</h3>
                   <ul className="list-disc pl-6 space-y-2 text-muted-foreground text-sm">
-                    <li>Une derive technique peut masquer un effet traitement reel</li>
-                    <li>Le gain statistique vient d'abord de la reduction de variance</li>
-                    <li>Un endpoint exploitable necessite methode + QA + traçabilite</li>
-                    <li>Les seuils doivent rester lies a un protocole explicitement documente</li>
+                    <li>Une dérive technique peut masquer un effet traitement réel</li>
+                    <li>Le gain statistique vient d'abord de la réduction de variance</li>
+                    <li>Un endpoint exploitable nécessite méthode + QA + traçabilité</li>
+                    <li>Les seuils doivent rester liés à un protocole explicitement documenté</li>
                   </ul>
                 </div>
               </div>
@@ -363,15 +363,15 @@ const CorelabEC = () => {
             <section className="rounded-2xl border border-border bg-card/50 p-6 md:p-8 space-y-6">
               <div className="flex items-center gap-2 font-semibold text-foreground">
                 <AlertTriangle className="w-5 h-5 text-primary" />
-                Risques qui degradent un endpoint d'imagerie
+                Risques qui dégradent un endpoint d'imagerie
               </div>
 
               <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
-                <li>Regles de segmentation implicites ou changeantes en cours d'etude</li>
-                <li>Heterogeneite sequence/champ non prise en compte (1.5T vs 3T)</li>
-                <li>Corrections manuelles non tracees</li>
+                <li>Règles de segmentation implicites ou changeantes en cours d'étude</li>
+                <li>Hétérogénéité séquence/champ non prise en compte (1.5T vs 3T)</li>
+                <li>Corrections manuelles non tracées</li>
                 <li>Absence de politique de relecture des cas limites</li>
-                <li>Exports non versionnes ou non relies a un run identifiable</li>
+                <li>Exports non versionnés ou non reliés à un run identifiable</li>
               </ul>
             </section>
 
@@ -387,17 +387,36 @@ const CorelabEC = () => {
               </ul>
             </section>
 
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold">Pages associées</h2>
+
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  to="/irm-imagerie-quantitative"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  IRM quantitative <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  to="/ingenierie-imagerie-quantitative"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  Ingénierie quantitative <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </section>
+
             {/* FAQ */}
             <section className="space-y-8">
-              <h2 className="text-2xl font-semibold text-center text-foreground">
-                Questions frequentes - Core Lab IRM
+                <h2 className="text-2xl font-semibold text-center text-foreground">
+                Questions fréquentes - Core Lab IRM
               </h2>
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="rounded-xl border border-border bg-card/50 p-6">
                   <h3 className="font-semibold">Pourquoi centraliser la lecture ?</h3>
                   <p className="text-muted-foreground mt-2">
-                    Pour appliquer les memes regles de segmentation et de controle qualite a tous les centres,
+                    Pour appliquer les mêmes règles de segmentation et de contrôle qualité à tous les centres,
                     et limiter les biais locaux.
                   </p>
                 </div>
@@ -405,16 +424,16 @@ const CorelabEC = () => {
                 <div className="rounded-xl border border-border bg-card/50 p-6">
                   <h3 className="font-semibold">Quel est le role du QA statistique ?</h3>
                   <p className="text-muted-foreground mt-2">
-                    Detecter precocement les derives centre-dependantes et documenter la stabilite
-                    des metriques critiques de l'endpoint.
+                    Détecter précocement les dérives centre-dépendantes et documenter la stabilité
+                    des métriques critiques de l'endpoint.
                   </p>
                 </div>
 
                 <div className="rounded-xl border border-border bg-card/50 p-6 md:col-span-2">
-                  <h3 className="font-semibold">Un endpoint IRM peut-il etre audite ?</h3>
+                  <h3 className="font-semibold">Un endpoint IRM peut-il être audité ?</h3>
                   <p className="text-muted-foreground mt-2">
-                    Oui, si le pipeline est versionne, que les decisions de lecture sont tracees,
-                    et que les livrables permettent une verification independante.
+                    Oui, si le pipeline est versionné, que les décisions de lecture sont tracées,
+                    et que les livrables permettent une vérification indépendante.
                   </p>
                 </div>
               </div>
@@ -423,15 +442,15 @@ const CorelabEC = () => {
             {/* CTA */}
             <section className="text-center space-y-6 pt-4">
               <p className="text-muted-foreground">
-                Structurer un endpoint IRM multicentrique exige un cadre methodologique stable,
-                des regles explicites et un audit continu de la qualite.
+                Structurer un endpoint IRM multicentrique exige un cadre méthodologique stable,
+                des règles explicites et un audit continu de la qualité.
               </p>
 
               <Link
                 to="/contact"
                 className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
               >
-                Echanger sur votre essai clinique
+                Échanger sur votre essai clinique
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </section>
