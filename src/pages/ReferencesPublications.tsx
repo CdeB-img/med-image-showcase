@@ -10,6 +10,45 @@ const CANONICAL = "https://noxia-imagerie.fr/references-publications";
 const signedPublications = [
   {
     title:
+      "Shear-Wave Elastography Assessments of Quadriceps Stiffness Changes prior to, during and after Prolonged Exercise: A Longitudinal Study during an Extreme Mountain Ultra-Marathon",
+    source: "PLoS ONE",
+    date: "2016",
+    doi: "10.1371/journal.pone.0161855",
+    role: "Co-auteur",
+    context:
+      "Etude longitudinale des variations de rigidite musculaire quadriceps en contexte d'ultra-endurance.",
+  },
+  {
+    title:
+      "Correction: Shear-Wave Elastography Assessments of Quadriceps Stiffness Changes prior to, during and after Prolonged Exercise",
+    source: "PLoS ONE",
+    date: "2016",
+    doi: "10.1371/journal.pone.0167668",
+    role: "Co-auteur",
+    context:
+      "Publication de correction associee a l'article principal de 2016 sur l'elastographie musculaire.",
+  },
+  {
+    title:
+      "Association of myocardial hemorrhage and persistent microvascular obstruction with circulating inflammatory biomarkers in STEMI patients",
+    source: "PLoS ONE",
+    date: "2021",
+    doi: "10.1371/journal.pone.0245684",
+    role: "Co-auteur",
+    context:
+      "Relations entre hemorrhagie intramyocardique, obstruction microvasculaire persistante et biomarqueurs inflammatoires.",
+  },
+  {
+    title:
+      "Serum Soluble Tumor Necrosis Factor Receptors 1 and 2 Are Early Prognosis Markers After ST-Segment Elevation Myocardial Infarction",
+    source: "Frontiers in Pharmacology",
+    date: "2021",
+    role: "Co-auteur",
+    context:
+      "Evaluation de sTNFR1/sTNFR2 comme biomarqueurs pronostiques precoces apres STEMI.",
+  },
+  {
+    title:
       "Oxygen Extraction Fraction Mapping on Admission Magnetic Resonance Imaging May Predict Recovery of Hyperacute Ischemic Brain Lesions After Successful Thrombectomy: A Retrospective Observational Study",
     source: "Stroke",
     date: "Novembre 2024",
@@ -147,6 +186,9 @@ const ReferencesPublications = () => {
             <section className="grid md:grid-cols-2 gap-6">
               <div className="rounded-2xl border border-border bg-card/50 p-6 md:p-8 space-y-5">
                 <h2 className="text-xl font-semibold">Publications signees</h2>
+                <p className="text-xs text-muted-foreground">
+                  Cette section recense les articles principaux (peer-reviewed ou preprint). Les figures, datasets et depots techniques associes ne sont pas listes comme publications distinctes.
+                </p>
                 <ul className="space-y-5">
                   {signedPublications.map((item) => (
                     <li key={item.title} className="space-y-1">
