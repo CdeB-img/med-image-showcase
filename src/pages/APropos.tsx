@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import Breadcrumb from "@/components/Breadcrumb";
 
 const CANONICAL = "https://noxia-imagerie.fr/a-propos";
+const ORCID_URL = "https://orcid.org/0000-0003-1898-7686";
+const LINKEDIN_URL = "https://www.linkedin.com/in/charles-de-bourguignon-045106160/";
 
 const publicationsSelection = [
   {
@@ -60,8 +62,14 @@ const APropos = () => {
     jobTitle: "Expert en imagerie médicale quantitative",
     description:
       "Expert indépendant en IRM et CT quantitatif. CoreLab multicentrique, biomarqueurs cœur–cerveau, ingénierie d’analyse et harmonisation inter-centres.",
-    email: "debourguignoncharles@gmail.com",
+    email: "contact@noxia-imagerie.fr",
     url: CANONICAL,
+    identifier: {
+      "@type": "PropertyValue",
+      propertyID: "ORCID",
+      value: ORCID_URL,
+    },
+    sameAs: [ORCID_URL, LINKEDIN_URL],
     worksFor: {
       "@type": "Organization",
       name: "NOXIA Imagerie",

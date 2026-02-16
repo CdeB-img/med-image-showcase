@@ -1,6 +1,8 @@
 import { Helmet } from "react-helmet-async";
 
 const SITE_URL = "https://noxia-imagerie.fr";
+const ORCID_URL = "https://orcid.org/0000-0003-1898-7686";
+const LINKEDIN_URL = "https://www.linkedin.com/in/charles-de-bourguignon-045106160/";
 
 const GlobalEntitySchema = () => {
   const organizationJsonLd = {
@@ -32,6 +34,11 @@ const GlobalEntitySchema = () => {
     jobTitle: "Expert en imagerie medicale quantitative",
     url: `${SITE_URL}/a-propos`,
     email: "contact@noxia-imagerie.fr",
+    identifier: {
+      "@type": "PropertyValue",
+      propertyID: "ORCID",
+      value: ORCID_URL,
+    },
     worksFor: {
       "@id": `${SITE_URL}#organization`,
     },
@@ -45,7 +52,12 @@ const GlobalEntitySchema = () => {
       { "@type": "Organization", name: "CHU Saint-Etienne", url: "https://www.chu-st-etienne.fr" },
       { "@type": "Organization", name: "EZUS Lyon 1", url: "https://ezus-lyon1.fr" },
     ],
-    sameAs: [`${SITE_URL}/a-propos`, `${SITE_URL}/references-publications`],
+    sameAs: [
+      ORCID_URL,
+      LINKEDIN_URL,
+      `${SITE_URL}/a-propos`,
+      `${SITE_URL}/references-publications`,
+    ],
   };
 
   return (
