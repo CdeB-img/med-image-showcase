@@ -136,15 +136,46 @@ const IngenierieImagerieQuantitative = () => {
             />
 
             {/* HERO */}
-            <section className="text-center space-y-8">
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                Ingénierie en imagerie quantitative
-              </h1>
-              <p className="text-xl text-muted-foreground leading-relaxed max-w-4xl mx-auto">
-                Conception de pipelines méthodologiques robustes pour transformer
-                des données DICOM hétérogènes en biomarqueurs
-                scientifiquement défendables.
-              </p>
+            <section className="relative overflow-hidden rounded-3xl border border-border/70 bg-gradient-to-br from-card via-card to-primary/10 p-8 md:p-12 space-y-8">
+              <div className="pointer-events-none absolute -top-20 -right-16 h-56 w-56 rounded-full bg-primary/10 blur-3xl" />
+              <div className="pointer-events-none absolute -bottom-24 -left-16 h-52 w-52 rounded-full bg-primary/10 blur-3xl" />
+
+              <div className="relative space-y-6 text-center">
+                <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-medium text-primary">
+                  <Workflow className="h-3.5 w-3.5" />
+                  Pipelines IRM & CT auditables
+                </div>
+
+                <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
+                  Ingénierie en imagerie quantitative
+                </h1>
+                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-4xl mx-auto">
+                  Conception de pipelines méthodologiques robustes pour transformer des
+                  données DICOM hétérogènes en biomarqueurs scientifiquement défendables.
+                </p>
+
+                <div className="flex flex-wrap items-center justify-center gap-2 pt-1">
+                  <span className="rounded-full border border-border bg-card/70 px-3 py-1 text-xs text-foreground">Audit DICOM</span>
+                  <span className="rounded-full border border-border bg-card/70 px-3 py-1 text-xs text-foreground">Versioning complet</span>
+                  <span className="rounded-full border border-border bg-card/70 px-3 py-1 text-xs text-foreground">QA entrée/sortie</span>
+                  <span className="rounded-full border border-border bg-card/70 px-3 py-1 text-xs text-foreground">Reproductibilité multicentrique</span>
+                </div>
+              </div>
+
+              <div className="relative grid gap-4 md:grid-cols-3">
+                <div className="rounded-xl border border-border/70 bg-card/70 p-4 text-center space-y-1">
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground">Chaîne contrôlée</p>
+                  <p className="text-base font-semibold text-foreground">DICOM to biomarqueur</p>
+                </div>
+                <div className="rounded-xl border border-border/70 bg-card/70 p-4 text-center space-y-1">
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground">Principe clé</p>
+                  <p className="text-base font-semibold text-foreground">Inférence séparée de la mesure</p>
+                </div>
+                <div className="rounded-xl border border-border/70 bg-card/70 p-4 text-center space-y-1">
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground">Objectif</p>
+                  <p className="text-base font-semibold text-foreground">Variance technique stabilisée</p>
+                </div>
+              </div>
             </section>
 
             {/* CONCEPT CLÉ : PIPELINE */}
@@ -427,6 +458,65 @@ const IngenierieImagerieQuantitative = () => {
               <p className="text-muted-foreground leading-relaxed">
                 Objectif : stabiliser la variance technique avant d’interpréter la variance biologique.
               </p>
+            </section>
+
+            {/* CHIFFRES DE RÉFÉRENCE */}
+            <section className="rounded-2xl border border-primary/20 bg-gradient-to-b from-card/80 to-primary/5 p-6 md:p-8 space-y-6">
+              <div className="flex items-center gap-2 text-foreground font-semibold">
+                <BarChart3 className="w-5 h-5 text-primary" />
+                Repères chiffrés de référence (littérature)
+              </div>
+
+              <p className="text-muted-foreground leading-relaxed">
+                Ordres de grandeur indicatifs utilisés pour cadrer les attentes d’un pipeline.
+                Les valeurs exactes dépendent des séquences, constructeurs, reconstructions et populations.
+              </p>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="rounded-xl border border-border bg-card/60 p-6 space-y-4">
+                  <h3 className="font-semibold text-foreground">IRM</h3>
+                  <ul className="space-y-3 text-sm text-muted-foreground">
+                    <li className="flex gap-3">
+                      <span className="font-semibold text-foreground shrink-0">5-15%</span>
+                      <span>Variabilité inter-observateur LGE selon méthode et protocole.</span>
+                    </li>
+                    <li className="flex gap-3">
+                      <span className="font-semibold text-foreground shrink-0">1-3%</span>
+                      <span>Niveau visé après pipeline semi-automatisé validé.</span>
+                    </li>
+                    <li className="flex gap-3">
+                      <span className="font-semibold text-foreground shrink-0">2-6%</span>
+                      <span>Coefficient de variation inter-centre rapporté en T1/T2 mapping.</span>
+                    </li>
+                    <li className="flex gap-3">
+                      <span className="font-semibold text-foreground shrink-0">&gt; 0.9</span>
+                      <span>ICC des volumes ventriculaires en conditions contrôlées.</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="rounded-xl border border-border bg-card/60 p-6 space-y-4">
+                  <h3 className="font-semibold text-foreground">CT</h3>
+                  <ul className="space-y-3 text-sm text-muted-foreground">
+                    <li className="flex gap-3">
+                      <span className="font-semibold text-foreground shrink-0">+/-5 a +/-10 HU</span>
+                      <span>Variabilité HU inter-scanner selon kernel et reconstruction.</span>
+                    </li>
+                    <li className="flex gap-3">
+                      <span className="font-semibold text-foreground shrink-0">+/-3 HU</span>
+                      <span>Tolérance cible fréquemment utilisée pour la calibration eau phantom.</span>
+                    </li>
+                    <li className="flex gap-3">
+                      <span className="font-semibold text-foreground shrink-0">&gt; 0.85</span>
+                      <span>ICC densité musculaire dans des conditions harmonisées.</span>
+                    </li>
+                    <li className="flex gap-3">
+                      <span className="font-semibold text-foreground shrink-0">Fort impact</span>
+                      <span>En perfusion/spectral, sensibilité élevée aux écarts de calibration.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </section>
             <section className="space-y-8">
               <h2 className="text-2xl font-semibold text-center text-foreground">
