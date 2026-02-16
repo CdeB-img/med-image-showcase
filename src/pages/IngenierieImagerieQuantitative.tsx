@@ -199,7 +199,7 @@ const IngenierieImagerieQuantitative = () => {
               </ul>
 
               <p>
-                Cette approche complète les travaux en
+                Cette approche complète les travaux en {" "}
                 <Link to="/ct-imagerie-quantitative" className="text-primary hover:underline">
                   CT quantitatif
                 </Link>{" "}
