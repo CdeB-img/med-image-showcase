@@ -69,8 +69,9 @@ const signedPublications = [
     title: "COVERT-MI",
     source: "Circulation",
     date: "2021",
-    role: "Contribution imagerie",
-    context: "Biomarqueurs IRM cardiaques en contexte infarctus et no-reflow.",
+    role: "Responsable CoreLab IRM (analyse complete)",
+    context:
+      "Centralisation, traitement de l'ensemble des cas et analyse IRM cardiaque realisee en autonomie (no-reflow, biomarqueurs post-infarctus).",
   },
   {
     title: "Inflammation biomarkers & penumbra mismatch in acute ischemic stroke",
