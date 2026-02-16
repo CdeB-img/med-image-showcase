@@ -5,6 +5,53 @@ import Breadcrumb from "@/components/Breadcrumb";
 
 const CANONICAL = "https://noxia-imagerie.fr/a-propos";
 
+const publicationsSelection = [
+  {
+    title:
+      "Oxygen Extraction Fraction Mapping on Admission Magnetic Resonance Imaging May Predict Recovery of Hyperacute Ischemic Brain Lesions After Successful Thrombectomy: A Retrospective Observational Study",
+    support: "Stroke",
+    dateLabel: "Novembre 2024",
+    publishedAt: "2024-11",
+    doi: "10.1161/STROKEAHA.124.047311"
+  },
+  {
+    title:
+      "Collaterals influence oxygen metabolism on admission MRI in acute ischemic stroke",
+    support: "Preprint",
+    dateLabel: "Décembre 2024",
+    publishedAt: "2024-12",
+    doi: "10.1101/2024.12.12.24318960"
+  },
+  {
+    title: "COVERT-MI",
+    support: "Circulation",
+    dateLabel: "2021",
+    publishedAt: "2021"
+  },
+  {
+    title: "Inflammation biomarkers & penumbra mismatch in acute ischemic stroke",
+    support: "Neurology",
+    dateLabel: "2022",
+    publishedAt: "2022"
+  }
+];
+
+const corelabContributions = [
+  {
+    study: "RHU MARVELOUS (HCL / INSERM / CNRS / INSA / UCBL)",
+    detail:
+      "Analyse CoreLab des volets cardio et neuro, avec environ 500 examens traités par volet. Contribution mentionnée dans les remerciements."
+  },
+  {
+    study: "MIMI – étude minimal invasive (2013–2014)",
+    detail:
+      "Analyse des IRM dédiées au no-reflow. Contribution technique d'analyse réalisée sans co-signature de l'étude principale.",
+    citation:
+      "Belle L et al. Circ Cardiovasc Interv. 2016;9(3):e003388.",
+    doi: "10.1161/CIRCINTERVENTIONS.115.003388"
+  }
+];
+
 const APropos = () => {
   const jsonLd = {
     "@context": "https://schema.org",
@@ -20,6 +67,23 @@ const APropos = () => {
       name: "NOXIA Imagerie",
       url: "https://noxia-imagerie.fr"
     }
+  };
+
+  const publicationsJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Publications et contributions de Charles de Bourguignon",
+    itemListElement: publicationsSelection.map((publication, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "ScholarlyArticle",
+        name: publication.title,
+        isPartOf: publication.support,
+        datePublished: publication.publishedAt,
+        ...(publication.doi ? { identifier: `https://doi.org/${publication.doi}` } : {})
+      }
+    }))
   };
 
   return (
@@ -38,6 +102,9 @@ const APropos = () => {
 
         <script type="application/ld+json">
           {JSON.stringify(jsonLd)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(publicationsJsonLd)}
         </script>
       </Helmet>
 
@@ -120,6 +187,8 @@ const APropos = () => {
                 Après plus de dix années en environnement hospitalo-universitaire,
                 j’ai structuré et piloté un CoreLab imagerie cœur–cerveau
                 impliqué dans des projets RHU, ANR, PHRC et partenariats industriels.
+                Ces travaux ont notamment été menés en lien avec le CHU
+                Saint-Étienne et les Hospices Civils de Lyon.
               </p>
 
               <p className="text-muted-foreground leading-relaxed">
@@ -174,17 +243,78 @@ const APropos = () => {
             </section>
 
             {/* ================= PUBLICATIONS ================= */}
-            <section className="space-y-6 max-w-4xl">
+            <section className="space-y-8">
               <h2 className="text-3xl font-semibold">
-                Publications sélectionnées
+                Publications et contributions
               </h2>
 
-              <ul className="space-y-2 text-muted-foreground">
-                <li>• Circulation – COVERT-MI (2021)</li>
-                <li>• Neurology – Inflammation biomarkers & penumbra (2022)</li>
-                <li>• Stroke – OEF & recovery after thrombectomy (2024)</li>
-                <li>• Stroke – Perfusion biomarkers & collaterals (2024)</li>
-              </ul>
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-5">
+                  <h3 className="text-xl font-semibold">Publications signées (sélection)</h3>
+
+                  <ul className="space-y-4">
+                    {publicationsSelection.map((publication) => (
+                      <li key={publication.title} className="space-y-1">
+                        <p className="text-foreground font-medium leading-snug">
+                          {publication.title}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          {publication.support} • {publication.dateLabel}
+                        </p>
+                        {publication.doi && (
+                          <a
+                            href={`https://doi.org/${publication.doi}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm text-primary hover:underline"
+                          >
+                            DOI : {publication.doi}
+                          </a>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-5">
+                  <h3 className="text-xl font-semibold">
+                    Contributions CoreLab (remerciements / non co-signées)
+                  </h3>
+
+                  <ul className="space-y-4">
+                    {corelabContributions.map((contribution) => (
+                      <li key={contribution.study} className="space-y-1">
+                        <p className="text-foreground font-medium leading-snug">
+                          {contribution.study}
+                        </p>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {contribution.detail}
+                        </p>
+                        {contribution.citation && (
+                          <p className="text-sm text-muted-foreground">
+                            {contribution.citation}
+                          </p>
+                        )}
+                        {contribution.doi && (
+                          <a
+                            href={`https://doi.org/${contribution.doi}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm text-primary hover:underline"
+                          >
+                            DOI : {contribution.doi}
+                          </a>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <p className="text-xs text-muted-foreground">
+                    Cette section distingue volontairement les publications signées
+                    et les contributions méthodologiques réalisées en CoreLab.
+                  </p>
+                </div>
+              </div>
             </section>
 
             {/* ================= CADRE ================= */}
