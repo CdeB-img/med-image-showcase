@@ -217,56 +217,6 @@ const Expertise = () => {
               </div>
             </section>
 
-            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-6">
-              <div className="flex items-center gap-2 font-semibold text-foreground">
-                <BarChart3 className="w-5 h-5 text-primary" />
-                Repères chiffrés de référence
-              </div>
-
-              <p className="text-muted-foreground leading-relaxed">
-                Ordres de grandeur issus de la littérature pour cadrer la qualité attendue d’un pipeline
-                multicentrique. Les valeurs exactes dépendent des séquences, reconstructions et protocoles.
-              </p>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="rounded-xl border border-border bg-card/60 p-6 space-y-4">
-                  <h3 className="font-semibold text-foreground">IRM quantitative</h3>
-                  <ul className="space-y-3 text-sm text-muted-foreground">
-                    <li className="flex gap-3">
-                      <span className="font-semibold text-foreground shrink-0">5-15%</span>
-                      <span>Variabilité inter-observateur rapportée sans harmonisation stricte.</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="font-semibold text-foreground shrink-0">1-3%</span>
-                      <span>Niveau visé après standardisation des règles de mesure et QA.</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="font-semibold text-foreground shrink-0">&gt; 0.90</span>
-                      <span>ICC fréquemment visé pour des endpoints volumétriques robustes.</span>
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="rounded-xl border border-border bg-card/60 p-6 space-y-4">
-                  <h3 className="font-semibold text-foreground">CT quantitatif</h3>
-                  <ul className="space-y-3 text-sm text-muted-foreground">
-                    <li className="flex gap-3">
-                      <span className="font-semibold text-foreground shrink-0">+/-5 a +/-10 HU</span>
-                      <span>Variabilité inter-scanner selon kernel et reconstruction.</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="font-semibold text-foreground shrink-0">+/-3 HU</span>
-                      <span>Tolérance cible courante sur calibration eau phantom.</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="font-semibold text-foreground shrink-0">&gt; 0.85</span>
-                      <span>ICC visé sur mesures densitométriques harmonisées.</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </section>
-
             <section className="space-y-8">
               <h2 className="text-2xl font-semibold text-center text-foreground">Parcours recommandés</h2>
 
