@@ -138,7 +138,7 @@ const Prestations = () => {
             />
 
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-6">
-              <h2 className="text-2xl font-semibold text-foreground text-center">Choisir un point d'entrée</h2>
+              <h2 className="text-2xl font-semibold text-foreground text-center">Choisir un point d'entrée selon votre situation</h2>
 
               <div className="flex flex-wrap gap-3 justify-center">
                 <Link
@@ -175,28 +175,59 @@ const Prestations = () => {
                 <div className="rounded-xl border border-border bg-card/60 p-5 space-y-2">
                   <div className="flex items-center gap-2 font-semibold text-foreground">
                     <ShieldCheck className="w-5 h-5 text-primary" />
-                    Rigueur méthodologique
+                    Décision rapide
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    Cadrage explicite des hypothèses, paramètres et critères de qualité.
+                    Diagnostic du bon niveau d'intervention en fonction de vos contraintes d'étude.
                   </p>
                 </div>
                 <div className="rounded-xl border border-border bg-card/60 p-5 space-y-2">
                   <div className="flex items-center gap-2 font-semibold text-foreground">
                     <Database className="w-5 h-5 text-primary" />
-                    Multicentrique
+                    Intervention ciblée
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    Harmonisation inter-sites et inter-constructeurs pour analyses comparables.
+                    Entrée possible sur un bloc précis (audit, reprise, pipeline, endpoint).
                   </p>
                 </div>
                 <div className="rounded-xl border border-border bg-card/60 p-5 space-y-2">
                   <div className="flex items-center gap-2 font-semibold text-foreground">
                     <FileText className="w-5 h-5 text-primary" />
-                    Livrables opposables
+                    Exécution traçable
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    Exports structurés, logs, QA et documentation prête pour audit scientifique.
+                    Livrables structurés, QA, logs et documentation prête pour audit scientifique.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <section className="rounded-2xl border border-border bg-card/50 p-6 md:p-8 space-y-6">
+              <h2 className="text-2xl font-semibold text-foreground text-center">Ce que vous obtenez concrètement</h2>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="rounded-xl border border-border bg-background/70 p-5 space-y-3">
+                  <p className="font-semibold text-foreground">Plan d'action opérationnel</p>
+                  <p className="text-sm text-muted-foreground">
+                    Priorisation des risques méthodologiques, étapes de remédiation et calendrier de mise en oeuvre.
+                  </p>
+                </div>
+                <div className="rounded-xl border border-border bg-background/70 p-5 space-y-3">
+                  <p className="font-semibold text-foreground">Pipeline versionné et reproductible</p>
+                  <p className="text-sm text-muted-foreground">
+                    Paramètres figés, exécution contrôlée et séparation explicite entre inférence et mesure.
+                  </p>
+                </div>
+                <div className="rounded-xl border border-border bg-background/70 p-5 space-y-3">
+                  <p className="font-semibold text-foreground">Dossier QA et exclusions documentées</p>
+                  <p className="text-sm text-muted-foreground">
+                    Contrôles entrée/sortie, gestion des non-conformités et justification des décisions analytiques.
+                  </p>
+                </div>
+                <div className="rounded-xl border border-border bg-background/70 p-5 space-y-3">
+                  <p className="font-semibold text-foreground">Livrables prêts pour stats/publication</p>
+                  <p className="text-sm text-muted-foreground">
+                    Tables patient/temps, exports masques, overlays QC et notes méthodologiques réutilisables.
                   </p>
                 </div>
               </div>
