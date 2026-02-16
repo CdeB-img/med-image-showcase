@@ -246,6 +246,9 @@ const Prestations = () => {
                   <p className="text-muted-foreground text-sm leading-relaxed">
                     Mise en place et pilotage d'un circuit image complet pour essais cliniques, cohortes et projets translationnels.
                   </p>
+                  <p className="text-xs text-muted-foreground">
+                    Idéal si vous démarrez une étude multicentrique ou si vous voulez externaliser l'ensemble du flux image.
+                  </p>
 
                   <ul className="space-y-2 text-sm text-muted-foreground">
                     <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /><span>Définition protocolaire imagerie et critères QA</span></li>
@@ -267,6 +270,9 @@ const Prestations = () => {
 
                   <p className="text-muted-foreground text-sm leading-relaxed">
                     Intervention sur études en difficulté méthodologique pour reconstruire un flux défendable avant analyse finale.
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    Idéal si les données sont déjà acquises et que la robustesse des résultats est incertaine.
                   </p>
 
                   <ul className="space-y-2 text-sm text-muted-foreground">
@@ -290,6 +296,9 @@ const Prestations = () => {
                   <p className="text-muted-foreground text-sm leading-relaxed">
                     Analyse critique d'un pipeline existant et plan d'action concret pour gagner en robustesse statistique.
                   </p>
+                  <p className="text-xs text-muted-foreground">
+                    Idéal pour un avis externe indépendant avant verrouillage des analyses ou soumission.
+                  </p>
 
                   <ul className="space-y-2 text-sm text-muted-foreground">
                     <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /><span>Évaluation reproductibilité inter-centre</span></li>
@@ -312,6 +321,9 @@ const Prestations = () => {
                   <p className="text-muted-foreground text-sm leading-relaxed">
                     Développement d'outils et d'architectures data en support des objectifs scientifiques et opérationnels.
                   </p>
+                  <p className="text-xs text-muted-foreground">
+                    Idéal si vous avez un besoin technique spécifique non couvert par les outils standards.
+                  </p>
 
                   <ul className="space-y-2 text-sm text-muted-foreground">
                     <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /><span>Automatisation flux DICOM/NIfTI et QA</span></li>
@@ -327,24 +339,31 @@ const Prestations = () => {
               </div>
             </section>
 
-            <section className="grid md:grid-cols-3 gap-6">
-              <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
-                <h3 className="font-semibold text-foreground">Mission ponctuelle</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Résoudre un point de blocage ciblé : QA, segmentation, calibration ou reprise d'un lot de données.
-                </p>
-              </div>
-              <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
-                <h3 className="font-semibold text-foreground">Accompagnement complet</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Conception, exécution et suivi d'une chaîne complète avec reporting régulier et coordination multicentrique.
-                </p>
-              </div>
-              <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
-                <h3 className="font-semibold text-foreground">Partenariat R&D</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Co-développement d'outils et d'approches quantitatives pour programmes académiques et industriels.
-                </p>
+            <section className="space-y-6">
+              <h2 className="text-2xl font-semibold text-foreground text-center">Formats d'intervention</h2>
+
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">Audit flash</h3>
+                  <p className="text-xs text-primary font-medium uppercase tracking-wide">2 à 4 semaines</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Relecture méthodologique ciblée et plan d'actions priorisé pour sécuriser rapidement une étude.
+                  </p>
+                </div>
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">Mission structurée</h3>
+                  <p className="text-xs text-primary font-medium uppercase tracking-wide">4 à 12 semaines</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Intervention opérationnelle sur un périmètre défini : reprise, harmonisation multicentrique ou endpoint.
+                  </p>
+                </div>
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">CoreLab externalisé</h3>
+                  <p className="text-xs text-primary font-medium uppercase tracking-wide">Suivi longitudinal</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Pilotage global de la chaîne imagerie sur la durée de l'étude, avec gouvernance et reporting.
+                  </p>
+                </div>
               </div>
             </section>
 
@@ -371,6 +390,33 @@ const Prestations = () => {
                   <p className="text-xs font-semibold text-primary">04</p>
                   <p className="font-medium text-foreground">Transfert</p>
                   <p className="text-xs text-muted-foreground">Documentation, restitution et support publication.</p>
+                </div>
+              </div>
+            </section>
+
+            <section className="rounded-2xl border border-border bg-card/50 p-6 md:p-8 space-y-6">
+              <h2 className="text-2xl font-semibold text-foreground text-center">Préparer le premier échange (30 min)</h2>
+
+              <p className="text-muted-foreground text-center max-w-3xl mx-auto leading-relaxed">
+                Un échange court suffit pour qualifier la mission. Si vous avez ces éléments, le cadrage est plus rapide et plus précis.
+              </p>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="rounded-xl border border-border bg-background/70 p-4 text-sm text-muted-foreground">
+                  <p className="font-medium text-foreground">Contexte d'étude</p>
+                  <p>Indication clinique, objectif principal, endpoints visés.</p>
+                </div>
+                <div className="rounded-xl border border-border bg-background/70 p-4 text-sm text-muted-foreground">
+                  <p className="font-medium text-foreground">Périmètre data</p>
+                  <p>Modalité (IRM/CT), nombre de centres, volumes approximatifs.</p>
+                </div>
+                <div className="rounded-xl border border-border bg-background/70 p-4 text-sm text-muted-foreground">
+                  <p className="font-medium text-foreground">Niveau de maturité</p>
+                  <p>Étude en préparation, en cours, ou reprise d'un existant.</p>
+                </div>
+                <div className="rounded-xl border border-border bg-background/70 p-4 text-sm text-muted-foreground">
+                  <p className="font-medium text-foreground">Contraintes opérationnelles</p>
+                  <p>Échéances, exigences qualité, besoins statistiques/publication.</p>
                 </div>
               </div>
             </section>
@@ -403,26 +449,27 @@ const Prestations = () => {
             <section className="rounded-2xl border border-primary/20 bg-gradient-to-b from-card/80 to-primary/5 p-8 text-center space-y-6">
               <h2 className="text-2xl font-semibold text-foreground">Initier une collaboration</h2>
               <p className="text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                Un échange initial permet d'identifier les risques méthodologiques, de définir le niveau d'intervention
-                et de proposer un plan d'action réaliste pour votre étude.
+                Un échange initial permet d'identifier les risques méthodologiques,
+                de définir le niveau d'intervention et de proposer un plan d'action réaliste.
               </p>
 
-              <div className="flex flex-col sm:flex-row justify-center gap-3">
+              <div className="flex justify-center">
                 <Link
                   to="/contact"
                   className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-8 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
                 >
-                  Initier une collaboration
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link
-                  to="/methodologie-imagerie-quantitative"
-                  className="inline-flex items-center justify-center gap-2 rounded-md border border-border px-8 py-3 font-medium hover:bg-muted/40 transition"
-                >
-                  Voir la méthodologie
+                  Planifier un échange de cadrage
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
+
+              <p className="text-sm text-muted-foreground">
+                Besoin d'abord d'un cadre technique ?{" "}
+                <Link to="/methodologie-imagerie-quantitative" className="text-primary hover:underline">
+                  Voir la méthodologie
+                </Link>
+                .
+              </p>
             </section>
           </div>
         </main>
