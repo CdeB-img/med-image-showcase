@@ -41,7 +41,7 @@ const ExpertiseHero = ({
       {enhanced ? (
         <>
           <div className="pointer-events-none absolute -bottom-24 -left-16 h-56 w-56 rounded-full bg-primary/15 blur-3xl" />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-primary/5" />
+          <div className="pointer-events-none absolute top-1/3 left-1/4 h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
         </>
       ) : null}
 
