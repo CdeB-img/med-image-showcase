@@ -26,7 +26,7 @@ const ExpertiseHero = ({
   description,
   chips = [],
   actions = [],
-  enhanced = false,
+  enhanced = true,
 }: ExpertiseHeroProps) => {
   return (
     <section
