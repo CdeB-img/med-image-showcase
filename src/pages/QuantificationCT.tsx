@@ -53,7 +53,8 @@ const QuantificationCT = () => {
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Accueil", item: "https://noxia-imagerie.fr/" },
       { "@type": "ListItem", position: 2, name: "Expertise", item: "https://noxia-imagerie.fr/expertise" },
-      { "@type": "ListItem", position: 3, name: "Quantification CT", item: CANONICAL }
+      { "@type": "ListItem", position: 3, name: "CT", item: "https://noxia-imagerie.fr/ct-imagerie-quantitative" },
+      { "@type": "ListItem", position: 4, name: "Quantification CT", item: CANONICAL }
     ]
   };
 
@@ -113,6 +114,7 @@ const QuantificationCT = () => {
               items={[
                 { label: "Accueil", path: "/" },
                 { label: "Expertise", path: "/expertise" },
+                { label: "CT", path: "/ct-imagerie-quantitative" },
                 { label: "Quantification CT" }
               ]}
             />

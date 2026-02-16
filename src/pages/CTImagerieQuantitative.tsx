@@ -75,7 +75,7 @@ const CTImagerieQuantitative = () => {
       {
         "@type": "ListItem",
         position: 3,
-        name: "CT quantitatif",
+        name: "CT",
         item: CANONICAL
       }
     ]
@@ -157,7 +157,7 @@ const CTImagerieQuantitative = () => {
               items={[
                 { label: "Accueil", path: "/" },
                 { label: "Expertise", path: "/expertise" },
-                { label: "CT quantitatif" }
+                { label: "CT" }
               ]}
             />
 

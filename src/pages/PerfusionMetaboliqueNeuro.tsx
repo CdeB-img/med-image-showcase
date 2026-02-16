@@ -51,7 +51,7 @@ const PerfusionMetaboliqueNeuro = () => {
       {
         "@type": "ListItem",
         position: 3,
-        name: "Neuro-imagerie",
+        name: "IRM",
         item: "https://noxia-imagerie.fr/irm-imagerie-quantitative"
       },
       {
@@ -143,7 +143,7 @@ const PerfusionMetaboliqueNeuro = () => {
               items={[
                 { label: "Accueil", path: "/" },
                 { label: "Expertise", path: "/expertise" },
-                { label: "Neuro-imagerie", path: "/irm-imagerie-quantitative" },
+                { label: "IRM", path: "/irm-imagerie-quantitative" },
                 { label: "Perfusion & Métabolisme cérébral" }
               ]}
             />

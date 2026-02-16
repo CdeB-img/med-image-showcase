@@ -75,7 +75,7 @@ const jsonLd = {
       {
         "@type": "ListItem",
         position: 3,
-        name: "IRM quantitative",
+        name: "IRM",
         item: CANONICAL
       }
     ]
@@ -148,7 +148,7 @@ const jsonLd = {
               items={[
                 { label: "Accueil", path: "/" },
                 { label: "Expertise", path: "/expertise" },
-                { label: "IRM quantitative" }
+                { label: "IRM" }
               ]}
             />
 

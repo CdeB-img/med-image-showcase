@@ -65,7 +65,7 @@ const CorelabEC = () => {
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Accueil", item: "https://noxia-imagerie.fr/" },
       { "@type": "ListItem", position: 2, name: "Expertise", item: "https://noxia-imagerie.fr/expertise" },
-      { "@type": "ListItem", position: 3, name: "IRM quantitative", item: "https://noxia-imagerie.fr/irm-imagerie-quantitative" },
+      { "@type": "ListItem", position: 3, name: "IRM", item: "https://noxia-imagerie.fr/irm-imagerie-quantitative" },
       { "@type": "ListItem", position: 4, name: "Core Lab IRM essais cliniques", item: CANONICAL }
     ]
   };
@@ -127,7 +127,7 @@ const CorelabEC = () => {
               items={[
                 { label: "Accueil", path: "/" },
                 { label: "Expertise", path: "/expertise" },
-                { label: "IRM quantitative", path: "/irm-imagerie-quantitative" },
+                { label: "IRM", path: "/irm-imagerie-quantitative" },
                 { label: "Core Lab IRM essais cliniques" }
               ]}
             />
