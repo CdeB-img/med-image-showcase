@@ -101,6 +101,7 @@ const Expertise = () => {
               title="Expertise en imagerie médicale quantitative"
               description="Transformer des images cliniques hétérogènes en biomarqueurs reproductibles, multicentriques et physiquement cohérents."
               chips={["IRM", "CT", "Méthodologie"]}
+              enhanced
               actions={[
                 { label: "Parler d'un projet", to: "/contact", variant: "primary", icon: ArrowRight },
                 { label: "Voir la méthodologie", to: "/methodologie-imagerie-quantitative", variant: "secondary", icon: BarChart3 },
