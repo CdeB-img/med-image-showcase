@@ -2,6 +2,7 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Breadcrumb from "@/components/Breadcrumb";
+import ExpertiseHero from "@/components/ExpertiseHero";
 import {
   ArrowRight,
   Workflow,
@@ -141,48 +142,17 @@ const MethodologieImagerieQuantitative = () => {
               ]}
             />
 
-            <section className="relative overflow-hidden rounded-3xl border border-border/70 bg-gradient-to-br from-card to-muted/30 p-8 md:p-12 space-y-8">
-              <div className="pointer-events-none absolute -top-16 -right-16 h-44 w-44 rounded-full bg-primary/10 blur-3xl" />
-
-              <div className="relative text-center space-y-6">
-                <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-medium text-primary">
-                  <Workflow className="w-3.5 h-3.5" />
-                  Page pilier méthodologique
-                </div>
-
-                <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
-                  Méthodologie en imagerie quantitative
-                </h1>
-
-                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-4xl mx-auto">
-                  Construire une chaîne explicite, versionnée et reproductible pour transformer des
-                  données DICOM hétérogènes en biomarqueurs défendables en IRM et en CT.
-                </p>
-
-                <div className="flex flex-wrap items-center justify-center gap-2 pt-1">
-                  <span className="rounded-full border border-border bg-card/70 px-3 py-1 text-xs text-foreground">Audit-ready</span>
-                  <span className="rounded-full border border-border bg-card/70 px-3 py-1 text-xs text-foreground">Multicentrique</span>
-                  <span className="rounded-full border border-border bg-card/70 px-3 py-1 text-xs text-foreground">Reproductible</span>
-                </div>
-              </div>
-
-              <div className="relative flex flex-col sm:flex-row gap-3 justify-center pt-1">
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
-                >
-                  Structurer une méthodologie
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link
-                  to="/ingenierie-imagerie-quantitative"
-                  className="inline-flex items-center justify-center gap-2 rounded-md border border-border px-6 py-3 font-medium hover:bg-muted/40 transition"
-                >
-                  Voir l'ingénierie quantitative
-                  <BarChart3 className="w-4 h-4" />
-                </Link>
-              </div>
-            </section>
+            <ExpertiseHero
+              badge="Page pilier méthodologique"
+              badgeIcon={Workflow}
+              title="Méthodologie en imagerie quantitative"
+              description="Construire une chaîne explicite, versionnée et reproductible pour transformer des données DICOM hétérogènes en biomarqueurs défendables en IRM et en CT."
+              chips={["Audit-ready", "Multicentrique", "Reproductible"]}
+              actions={[
+                { label: "Structurer une méthodologie", to: "/contact", variant: "primary", icon: ArrowRight },
+                { label: "Voir l'ingénierie quantitative", to: "/ingenierie-imagerie-quantitative", variant: "secondary", icon: BarChart3 },
+              ]}
+            />
 
             <section className="grid md:grid-cols-3 gap-6">
               <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">

@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Breadcrumb from "@/components/Breadcrumb";
+import ExpertiseHero from "@/components/ExpertiseHero";
 import {
   ArrowRight,
   ShieldCheck,
@@ -183,35 +184,22 @@ const CTPerfusionQuantitative = () => {
             />
 
             {/* HERO */}
-            <section className="text-center space-y-6">
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                CT Perfusion quantitative en AVC ischémique aigu
-              </h1>
-
-              <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-                Transformer les cartographies Tmax / CBF / CBV en biomarqueurs volumétriques
-                <strong> reproductibles</strong>, exploitables en lecture centralisée,
-                décision thérapeutique et essais multicentriques.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
-                >
-                  Auditer un pipeline CTP
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-
-                <Link
-                  to="/bases-multicentriques"
-                  className="inline-flex items-center justify-center gap-2 rounded-md border border-border px-6 py-3 font-medium hover:bg-muted/40 transition"
-                >
-                  Harmonisation multicentrique
-                  <Database className="w-4 h-4" />
-                </Link>
-              </div>
-            </section>
+            <ExpertiseHero
+              badge="Urgences neurovasculaires"
+              badgeIcon={Timer}
+              title="CT Perfusion quantitative en AVC ischémique aigu"
+              description={
+                <>
+                  Transformer les cartographies Tmax / CBF / CBV en biomarqueurs volumétriques
+                  <strong> reproductibles</strong>, exploitables en lecture centralisée, décision thérapeutique et essais multicentriques.
+                </>
+              }
+              chips={["Core/Pénombre", "Stabilité multi-seuil", "Lecture centralisée"]}
+              actions={[
+                { label: "Auditer un pipeline CTP", to: "/contact", variant: "primary", icon: ArrowRight },
+                { label: "Harmonisation multicentrique", to: "/bases-multicentriques", variant: "secondary", icon: Database },
+              ]}
+            />
 
             {/* TL;DR */}
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8">

@@ -2,6 +2,7 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Breadcrumb from "@/components/Breadcrumb";
+import ExpertiseHero from "@/components/ExpertiseHero";
 import {
   ArrowRight,
   ShieldCheck,
@@ -153,38 +154,22 @@ const jsonLd = {
             />
 
             {/* HERO */}
-            <section className="text-center space-y-8">
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                IRM quantitative multicentrique
-                <span className="block text-primary mt-2">
-                  Biomarkers reproductibles & défendables
-                </span>
-              </h1>
-
-              <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-                Segmentation contrôlée, mapping <strong>T1/T2</strong>, 
-                <strong> LGE</strong>, <strong>ECV</strong>, perfusion cérébrale,
-                harmonisation multicentrique et structuration Core Lab.
-              </p>
-
-              <div className="flex justify-center gap-4 flex-wrap">
-                <Link
-                  to="/segmentation-irm"
-                  className="inline-flex items-center gap-2 rounded-md border border-border px-5 py-3 text-sm hover:bg-muted/40 transition"
-                >
-                  Segmentation IRM
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-
-                <Link
-                  to="/ecv-mapping-t1-t2-irm-cardiaque"
-                  className="inline-flex items-center gap-2 rounded-md border border-border px-5 py-3 text-sm hover:bg-muted/40 transition"
-                >
-                  ECV & Mapping
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </section>
+            <ExpertiseHero
+              badge="Plateforme IRM"
+              badgeIcon={Workflow}
+              title="IRM quantitative multicentrique"
+              description={
+                <>
+                  Segmentation contrôlée, mapping <strong>T1/T2</strong>, <strong>LGE</strong>, <strong>ECV</strong>,
+                  perfusion cérébrale, harmonisation multicentrique et structuration Core Lab.
+                </>
+              }
+              chips={["Cardiaque", "Neuro", "Reproductible"]}
+              actions={[
+                { label: "Segmentation IRM", to: "/segmentation-irm", variant: "secondary", icon: ArrowRight },
+                { label: "ECV & Mapping", to: "/ecv-mapping-t1-t2-irm-cardiaque", variant: "secondary", icon: ArrowRight },
+              ]}
+            />
             <section className="grid md:grid-cols-3 gap-6">
 
               <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">

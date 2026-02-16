@@ -2,6 +2,7 @@ import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Breadcrumb from "@/components/Breadcrumb";
+import ExpertiseHero from "@/components/ExpertiseHero";
 import {
   Brain,
   Heart,
@@ -145,35 +146,17 @@ const SegmentationIRM = () => {
               ]}
             />
             {/* HERO */}
-            <section className="space-y-6 text-center">
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                  Segmentation IRM cérébrale & cardiaque en recherche clinique
-              </h1>
-
-              <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-                Segmentation lésionnelle et tissulaire en IRM, orientée biomarqueurs :
-                traçabilité DICOM/NIfTI, validation physiopathologique et reproductibilité
-                pour études hospitalo-universitaires et projets multicentriques.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-5 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
-                >
-                  Discuter d’un besoin
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-
-                <Link
-                  to="/projets"
-                  className="inline-flex items-center justify-center gap-2 rounded-md border border-border px-5 py-3 font-medium text-foreground hover:bg-muted/40 transition"
-                >
-                  Voir des démonstrations
-                  <FileText className="w-4 h-4" />
-                </Link>
-              </div>
-            </section>
+            <ExpertiseHero
+              badge="Segmentation biomarqueurs"
+              badgeIcon={Workflow}
+              title="Segmentation IRM cérébrale & cardiaque en recherche clinique"
+              description="Segmentation lésionnelle et tissulaire en IRM, orientée biomarqueurs : traçabilité DICOM/NIfTI, validation physiopathologique et reproductibilité pour études hospitalo-universitaires et projets multicentriques."
+              chips={["Cérébral", "Cardiaque", "Validation QC"]}
+              actions={[
+                { label: "Discuter d’un besoin", to: "/contact", variant: "primary", icon: ArrowRight },
+                { label: "Voir des démonstrations", to: "/projets", variant: "secondary", icon: FileText },
+              ]}
+            />
 
             {/* TL;DR EXEC */}
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8">

@@ -2,6 +2,7 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Breadcrumb from "@/components/Breadcrumb";
+import ExpertiseHero from "@/components/ExpertiseHero";
 import {
   ArrowRight,
   Brain,
@@ -149,18 +150,17 @@ const PerfusionMetaboliqueNeuro = () => {
             />
 
             {/* HERO */}
-            <section className="text-center space-y-6">
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                Quantification de la perfusion et du métabolisme cérébral en IRM
-                (OEF, CMRO2, CBF, Tmax) dans l’AVC ischémique
-              </h1>
-
-              <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-                Structuration algorithmique et validation multicentrique
-                des biomarqueurs OEF, CMRO₂, CBF et Tmax
-                dans l’AVC ischémique et la recherche neurovasculaire.
-              </p>
-            </section>
+            <ExpertiseHero
+              badge="Neuro-imagerie quantitative"
+              badgeIcon={Brain}
+              title="Quantification de la perfusion et du métabolisme cérébral en IRM (OEF, CMRO2, CBF, Tmax) dans l’AVC ischémique"
+              description="Structuration algorithmique et validation multicentrique des biomarqueurs OEF, CMRO₂, CBF et Tmax dans l’AVC ischémique et la recherche neurovasculaire."
+              chips={["OEF/CMRO2", "AVC ischémique", "Multicentrique"]}
+              actions={[
+                { label: "Échanger sur un protocole", to: "/contact", variant: "primary", icon: ArrowRight },
+                { label: "Voir IRM quantitative", to: "/irm-imagerie-quantitative", variant: "secondary", icon: Database },
+              ]}
+            />
 
             {/* TL;DR */}
             <section className="rounded-2xl border border-border bg-muted/10 p-8">

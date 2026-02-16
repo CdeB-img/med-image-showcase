@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Breadcrumb from "@/components/Breadcrumb";
+import ExpertiseHero from "@/components/ExpertiseHero";
 import {
   ArrowRight,
   ShieldCheck,
@@ -144,36 +145,17 @@ const CTQuantitatifAvance = () => {
             />
 
             {/* HERO */}
-            <section className="text-center space-y-8">
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                CT quantitatif avancé
-                <span className="block text-primary mt-3">
-                  Imagerie spectrale & biomarqueurs physiquement opposables
-                </span>
-              </h1>
-
-              <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-                Transformer la physique du signal CT en paramètres
-                reproductibles, calibrés et multicentriques.
-              </p>
-
-              <div className="flex justify-center gap-4 flex-wrap pt-2">
-                <Link
-                  to="/quantification-ct"
-                  className="inline-flex items-center gap-2 rounded-md border border-border px-6 py-3 hover:bg-muted/40 transition font-medium"
-                >
-                  Quantification CT clinique
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-primary-foreground hover:opacity-90 transition font-medium"
-                >
-                  Étude de faisabilité
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </section>
+            <ExpertiseHero
+              badge="Imagerie spectrale"
+              badgeIcon={Atom}
+              title="CT quantitatif avancé"
+              description="Transformer la physique du signal CT en paramètres reproductibles, calibrés et multicentriques."
+              chips={["Dual-energy", "Décomposition matière", "Calibration phantom"]}
+              actions={[
+                { label: "Étude de faisabilité", to: "/contact", variant: "primary", icon: ArrowRight },
+                { label: "Quantification CT clinique", to: "/quantification-ct", variant: "secondary", icon: ArrowRight },
+              ]}
+            />
 
             {/* BANDEAU INTRO FULL-WIDTH (Ex-section orpheline) */}
             <section className="rounded-2xl border border-border bg-card/50 p-8 space-y-4 shadow-sm">

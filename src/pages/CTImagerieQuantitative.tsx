@@ -2,6 +2,7 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Breadcrumb from "@/components/Breadcrumb";
+import ExpertiseHero from "@/components/ExpertiseHero";
 import {
   ArrowRight,
   ShieldCheck,
@@ -162,19 +163,17 @@ const CTImagerieQuantitative = () => {
             />
 
             {/* HERO */}
-            <section className="text-center space-y-8">
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                CT quantitatif multicentrique
-                <span className="block text-primary mt-2">
-                  Biomarkers physiquement cohérents & reproductibles
-                </span>
-              </h1>
-
-              <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-                Calibration phantom, stabilité HU, imagerie spectrale,
-                perfusion quantitative et harmonisation inter-constructeurs.
-              </p>
-            </section>
+            <ExpertiseHero
+              badge="Plateforme CT"
+              badgeIcon={Workflow}
+              title="CT quantitatif multicentrique"
+              description="Calibration phantom, stabilité HU, imagerie spectrale, perfusion quantitative et harmonisation inter-constructeurs."
+              chips={["HU stables", "Spectral CT", "Inter-constructeurs"]}
+              actions={[
+                { label: "CT quantitatif avancé", to: "/ct-quantitatif-avance-imagerie-spectrale", variant: "secondary", icon: ArrowRight },
+                { label: "CT Perfusion AVC", to: "/ct-perfusion-quantitative-avc", variant: "secondary", icon: ArrowRight },
+              ]}
+            />
 
             {/* REPRODUCTIBILITÉ */}
             <section className="grid md:grid-cols-3 gap-6">

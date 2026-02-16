@@ -2,6 +2,7 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Breadcrumb from "@/components/Breadcrumb";
+import ExpertiseHero from "@/components/ExpertiseHero";
 import {
   ArrowRight,
   ShieldCheck,
@@ -120,25 +121,30 @@ const QuantificationCT = () => {
             />
 
             {/* HERO */}
-            <section className="text-center space-y-8">
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                Quantification CT multicentrique
-                <span className="block text-primary mt-2">
-                  Biomarqueurs fondés sur la physique, validés inter-constructeurs et opposables en recherche clinique                </span>
-              </h1>
-
-              <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-                Transformation des voxels <strong>Hounsfield Units (HU)</strong> 
-                en biomarqueurs reproductibles, intégrés dans une {" "}
-                <Link to="/analyse-dicom" className="text-primary hover:underline">
-                  architecture DICOM contrôlée et audit multicentrique
-                </Link>, 
-                structurés pour la {" "}
-                <Link to="/bases-multicentriques" className="text-primary hover:underline">
-                  recherche multicentrique
-                </Link>.
-              </p>
-            </section>
+            <ExpertiseHero
+              badge="Quantification clinique"
+              badgeIcon={Workflow}
+              title="Quantification CT multicentrique"
+              description={
+                <>
+                  Transformation des voxels <strong>Hounsfield Units (HU)</strong> en biomarqueurs reproductibles,
+                  intégrés dans une{" "}
+                  <Link to="/analyse-dicom" className="text-primary hover:underline">
+                    architecture DICOM contrôlée et audit multicentrique
+                  </Link>
+                  , structurés pour la{" "}
+                  <Link to="/bases-multicentriques" className="text-primary hover:underline">
+                    recherche multicentrique
+                  </Link>
+                  .
+                </>
+              }
+              chips={["HU", "Perfusion", "Harmonisation"]}
+              actions={[
+                { label: "Voir CT quantitatif avancé", to: "/ct-quantitatif-avance-imagerie-spectrale", variant: "secondary", icon: ArrowRight },
+                { label: "Discuter d'un protocole", to: "/contact", variant: "primary", icon: ArrowRight },
+              ]}
+            />
           
             {/* 3 BLOCS PREMIUM */}
             <section className="grid md:grid-cols-3 gap-6">

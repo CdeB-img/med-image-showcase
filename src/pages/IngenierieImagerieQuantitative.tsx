@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Breadcrumb from "@/components/Breadcrumb";
+import ExpertiseHero from "@/components/ExpertiseHero";
 import { 
   ArrowRight, 
   Workflow, 
@@ -136,34 +137,17 @@ const IngenierieImagerieQuantitative = () => {
             />
 
             {/* HERO */}
-            <section className="text-center space-y-6">
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                Ingénierie en imagerie quantitative
-              </h1>
-
-              <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-                Structurer des pipelines IRM et CT reproductibles pour transformer des données DICOM
-                hétérogènes en biomarqueurs défendables, traçables et exploitables en multicentrique.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
-                >
-                  Auditer un pipeline
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-
-                <Link
-                  to="/methodologie-imagerie-quantitative"
-                  className="inline-flex items-center justify-center gap-2 rounded-md border border-border px-6 py-3 font-medium hover:bg-muted/40 transition"
-                >
-                  Voir la méthodologie
-                  <BarChart3 className="w-4 h-4" />
-                </Link>
-              </div>
-            </section>
+            <ExpertiseHero
+              badge="Conception de pipelines"
+              badgeIcon={Workflow}
+              title="Ingénierie en imagerie quantitative"
+              description="Structurer des pipelines IRM et CT reproductibles pour transformer des données DICOM hétérogènes en biomarqueurs défendables, traçables et exploitables en multicentrique."
+              chips={["Pipelines robustes", "Traçabilité", "Reproductibilité"]}
+              actions={[
+                { label: "Auditer un pipeline", to: "/contact", variant: "primary", icon: ArrowRight },
+                { label: "Voir la méthodologie", to: "/methodologie-imagerie-quantitative", variant: "secondary", icon: BarChart3 },
+              ]}
+            />
 
             {/* CONCEPT CLÉ : PIPELINE */}
             <section className="rounded-2xl border border-border bg-card/50 p-10 space-y-6">

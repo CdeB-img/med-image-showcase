@@ -2,6 +2,7 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Breadcrumb from "@/components/Breadcrumb";
+import ExpertiseHero from "@/components/ExpertiseHero";
 import {
   ArrowRight,
   ShieldCheck,
@@ -133,37 +134,17 @@ const CorelabEC = () => {
             />
 
             {/* HERO */}
-            <section className="text-center space-y-8">
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                Core Lab IRM cardiovasculaire multicentrique
-                <span className="block text-primary mt-2">
-                  Endpoints reproductibles pour essais cliniques
-                </span>
-              </h1>
-
-              <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-                Structuration d'endpoints quantitatifs robustes (LGE, MVO, ECV, volumes ventriculaires,
-                remodelage VG), harmonisation inter-centres et traçabilité complète du pipeline.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
-                >
-                  Structurer un Core Lab
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-
-                <Link
-                  to="/irm-imagerie-quantitative"
-                  className="inline-flex items-center justify-center gap-2 rounded-md border border-border px-6 py-3 font-medium hover:bg-muted/40 transition"
-                >
-                  Voir IRM quantitative
-                  <Database className="w-4 h-4" />
-                </Link>
-              </div>
-            </section>
+            <ExpertiseHero
+              badge="Lecture centralisée IRM"
+              badgeIcon={Workflow}
+              title="Core Lab IRM cardiovasculaire multicentrique"
+              description="Structuration d'endpoints quantitatifs robustes (LGE, MVO, ECV, volumes ventriculaires, remodelage VG), harmonisation inter-centres et traçabilité complète du pipeline."
+              chips={["Essais cliniques", "Endpoints robustes", "Traçabilité"]}
+              actions={[
+                { label: "Structurer un Core Lab", to: "/contact", variant: "primary", icon: ArrowRight },
+                { label: "Voir IRM quantitative", to: "/irm-imagerie-quantitative", variant: "secondary", icon: Database },
+              ]}
+            />
 
             {/* TLDR */}
             <section className="grid md:grid-cols-3 gap-6">

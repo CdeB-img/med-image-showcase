@@ -2,6 +2,7 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Breadcrumb from "@/components/Breadcrumb";
+import ExpertiseHero from "@/components/ExpertiseHero";
 import {
   ArrowRight,
   ShieldCheck,
@@ -100,34 +101,17 @@ const RecalageMultimodal = () => {
               ]}
             />
 
-            <section className="text-center space-y-8">
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                Recalage multimodal IRM / CT
-                <span className="block text-primary mt-2">Alignement fiable avant biomarqueurs</span>
-              </h1>
-
-              <p className="text-xl text-muted-foreground leading-relaxed max-w-4xl mx-auto">
-                Alignement géométrique contrôlé pour analyses longitudinales, multimodales
-                et multicentriques. Un recalage robuste conditionne la validité quantitative.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
-                >
-                  Intégrer un recalage robuste
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link
-                  to="/ingenierie-imagerie-quantitative"
-                  className="inline-flex items-center justify-center gap-2 rounded-md border border-border px-6 py-3 font-medium hover:bg-muted/40 transition"
-                >
-                  Voir l'ingénierie quantitative
-                  <Database className="w-4 h-4" />
-                </Link>
-              </div>
-            </section>
+            <ExpertiseHero
+              badge="Contrôle géométrique"
+              badgeIcon={Workflow}
+              title="Recalage multimodal IRM / CT"
+              description="Alignement géométrique contrôlé pour analyses longitudinales, multimodales et multicentriques. Un recalage robuste conditionne la validité quantitative."
+              chips={["IRM/CT", "Longitudinal", "Validation QA"]}
+              actions={[
+                { label: "Intégrer un recalage robuste", to: "/contact", variant: "primary", icon: ArrowRight },
+                { label: "Voir l'ingénierie quantitative", to: "/ingenierie-imagerie-quantitative", variant: "secondary", icon: Database },
+              ]}
+            />
 
             <section className="grid md:grid-cols-3 gap-6">
               <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">

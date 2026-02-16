@@ -2,6 +2,7 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Breadcrumb from "@/components/Breadcrumb";
+import ExpertiseHero from "@/components/ExpertiseHero";
 import {
   ArrowRight,
   ShieldCheck,
@@ -148,36 +149,23 @@ const faqJsonLd = {
               ]}
             />
             {/* ================= HERO ================= */}
-            <section className="text-center space-y-6">
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                ECV & Mapping T1/T2 en IRM cardiaque
-              </h1>
-
-              <p className="text-xl text-muted-foreground leading-relaxed max-w-4xl mx-auto">
-                Quantifier l’espace extracellulaire (ECV) et interpréter T1/T2
-                n’est pas une question d’outil : c’est une question de
-                <strong>conditions de mesure</strong>, de <strong>timing</strong>,
-                de <strong>segmentation</strong> et de <strong>validation</strong>.
-              </p>
-
-              <div className="flex flex-wrap justify-center gap-3 pt-2">
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
-                >
-                  Discuter d’une validation
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-
-                <Link
-                  to="/biomarqueurs-irm-cardiaque-essais-cliniques"
-                  className="inline-flex items-center justify-center gap-2 rounded-md border border-border px-6 py-3 font-medium hover:bg-muted/40 transition"
-                >
-                  Endpoints en essai clinique
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </section>
+            <ExpertiseHero
+              badge="IRM cardiaque quantitative"
+              badgeIcon={Microscope}
+              title="ECV & Mapping T1/T2 en IRM cardiaque"
+              description={
+                <>
+                  Quantifier l’espace extracellulaire (ECV) et interpréter T1/T2 n’est pas une question d’outil :
+                  c’est une question de <strong>conditions de mesure</strong>, de <strong>timing</strong>, de{" "}
+                  <strong>segmentation</strong> et de <strong>validation</strong>.
+                </>
+              }
+              chips={["ECV", "T1/T2 mapping", "Validation multicentrique"]}
+              actions={[
+                { label: "Discuter d’une validation", to: "/contact", variant: "primary", icon: ArrowRight },
+                { label: "Endpoints en essai clinique", to: "/biomarqueurs-irm-cardiaque-essais-cliniques", variant: "secondary", icon: ArrowRight },
+              ]}
+            />
 
             {/* ================= TL;DR ================= */}
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8">

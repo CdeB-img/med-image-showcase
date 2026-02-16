@@ -2,6 +2,7 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Breadcrumb from "@/components/Breadcrumb";
+import ExpertiseHero from "@/components/ExpertiseHero";
 import {
   ArrowRight,
   ShieldCheck,
@@ -100,35 +101,17 @@ const BasesMulticentriques = () => {
               ]}
             />
 
-            <section className="text-center space-y-8">
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                Harmonisation de bases multicentriques IRM et CT
-                <span className="block text-primary mt-2">Données robustes avant biomarqueurs</span>
-              </h1>
-
-              <p className="text-xl text-muted-foreground leading-relaxed max-w-4xl mx-auto">
-                Maîtriser la variabilité inter-centres, inter-constructeurs et inter-protocoles
-                pour produire des analyses quantitatives comparables, auditables et publiables.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
-                >
-                  Structurer une base multicentrique
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-
-                <Link
-                  to="/analyse-dicom"
-                  className="inline-flex items-center justify-center gap-2 rounded-md border border-border px-6 py-3 font-medium hover:bg-muted/40 transition"
-                >
-                  Voir l'analyse DICOM
-                  <Database className="w-4 h-4" />
-                </Link>
-              </div>
-            </section>
+            <ExpertiseHero
+              badge="Standardisation multicentrique"
+              badgeIcon={Workflow}
+              title="Harmonisation de bases multicentriques IRM et CT"
+              description="Maîtriser la variabilité inter-centres, inter-constructeurs et inter-protocoles pour produire des analyses quantitatives comparables, auditables et publiables."
+              chips={["Inter-centres", "Inter-constructeurs", "Auditables"]}
+              actions={[
+                { label: "Structurer une base multicentrique", to: "/contact", variant: "primary", icon: ArrowRight },
+                { label: "Voir l'analyse DICOM", to: "/analyse-dicom", variant: "secondary", icon: Database },
+              ]}
+            />
 
             <section className="grid md:grid-cols-3 gap-6">
               <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
