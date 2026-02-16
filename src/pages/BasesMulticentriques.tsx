@@ -35,7 +35,8 @@ const BasesMulticentriques = () => {
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Accueil", item: "https://noxia-imagerie.fr/" },
       { "@type": "ListItem", position: 2, name: "Expertise", item: "https://noxia-imagerie.fr/expertise" },
-      { "@type": "ListItem", position: 3, name: "Bases multicentriques", item: CANONICAL },
+      { "@type": "ListItem", position: 3, name: "Méthodologie", item: "https://noxia-imagerie.fr/methodologie-imagerie-quantitative" },
+      { "@type": "ListItem", position: 4, name: "Bases multicentriques", item: CANONICAL },
     ],
   };
 
@@ -94,6 +95,7 @@ const BasesMulticentriques = () => {
               items={[
                 { label: "Accueil", path: "/" },
                 { label: "Expertise", path: "/expertise" },
+                { label: "Méthodologie", path: "/methodologie-imagerie-quantitative" },
                 { label: "Bases multicentriques" },
               ]}
             />

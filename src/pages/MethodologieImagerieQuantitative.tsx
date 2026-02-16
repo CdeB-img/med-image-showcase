@@ -1,6 +1,7 @@
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import Breadcrumb from "@/components/Breadcrumb";
 import { ArrowRight } from "lucide-react";
 
 const CANONICAL =
@@ -30,6 +31,16 @@ const MethodologieImagerieQuantitative = () => {
     url: CANONICAL
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Accueil", item: "https://noxia-imagerie.fr/" },
+      { "@type": "ListItem", position: 2, name: "Expertise", item: "https://noxia-imagerie.fr/expertise" },
+      { "@type": "ListItem", position: 3, name: "Méthodologie", item: CANONICAL }
+    ]
+  };
+
   return (
     <>
       <Helmet>
@@ -53,11 +64,21 @@ const MethodologieImagerieQuantitative = () => {
         <script type="application/ld+json">
           {JSON.stringify(jsonLd)}
         </script>
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbJsonLd)}
+        </script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
         <main className="flex-1 py-20 px-4">
           <div className="max-w-5xl mx-auto space-y-24">
+            <Breadcrumb
+              items={[
+                { label: "Accueil", path: "/" },
+                { label: "Expertise", path: "/expertise" },
+                { label: "Méthodologie" }
+              ]}
+            />
 
             {/* HERO */}
             <section className="text-center space-y-6">
