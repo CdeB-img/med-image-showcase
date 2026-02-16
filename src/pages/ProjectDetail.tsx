@@ -18,6 +18,7 @@ import OutilsViewer from "@/components/OutilsViewer";
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { getProjectById, getAdjacentProjects } from "@/data/projects";
+import Breadcrumb from "@/components/Breadcrumb";
 
 // ============================================================
 // CONSTANTES
@@ -161,6 +162,13 @@ const ProjectDetail = () => {
       <div className="min-h-screen flex flex-col">
         <main className="flex-1 py-8">
           <div className="container px-4 md:px-6">
+            <Breadcrumb
+              items={[
+                { label: "Accueil", path: "/" },
+                { label: "Projets", path: "/projets" },
+                { label: project.title }
+              ]}
+            />
 
             {/* NAVIGATION */}
             <div className="flex items-center justify-between mb-8">

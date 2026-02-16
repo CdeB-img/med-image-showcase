@@ -3,6 +3,7 @@ import { projects } from "@/data/projects";
 import ProjectCard from "@/components/ProjectCard";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
+import Breadcrumb from "@/components/Breadcrumb";
 
 /* ============================================================
    COLLAPSIBLE SECTION
@@ -132,6 +133,12 @@ const Projects = () => {
     <div className="min-h-screen flex flex-col bg-background">
       <main className="flex-1 py-20 px-4">
         <div className="max-w-6xl mx-auto space-y-24">
+          <Breadcrumb
+            items={[
+              { label: "Accueil", path: "/" },
+              { label: "Projets" }
+            ]}
+          />
 
           {/* ================= HEADER ================= */}
           <section className="max-w-3xl mx-auto text-center space-y-6">

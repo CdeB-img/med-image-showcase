@@ -1,6 +1,7 @@
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import Breadcrumb from "@/components/Breadcrumb";
 
 const CANONICAL = "https://noxia-imagerie.fr/expertise";
 
@@ -32,6 +33,12 @@ const Expertise = () => {
       <div className="min-h-screen flex flex-col bg-background">
         <main className="flex-1 py-24 px-4">
           <div className="max-w-6xl mx-auto space-y-32">
+            <Breadcrumb
+              items={[
+                { label: "Accueil", path: "/" },
+                { label: "Expertise" }
+              ]}
+            />
 
             {/* ================= HERO ================= */}
             <section className="text-center space-y-8">

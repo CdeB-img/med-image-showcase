@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import Breadcrumb from "@/components/Breadcrumb";
 import { useToast } from "@/hooks/use-toast";
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
@@ -133,6 +134,12 @@ const Contact = () => {
 
           <section className="relative py-20 md:py-28">
             <div className="container px-4 md:px-6">
+              <Breadcrumb
+                items={[
+                  { label: "Accueil", path: "/" },
+                  { label: "Contact" }
+                ]}
+              />
 
               <div className="mb-12">
                 <Link to="/">
