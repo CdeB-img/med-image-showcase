@@ -94,6 +94,15 @@ const APropos = () => {
     }))
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Accueil", item: "https://noxia-imagerie.fr/" },
+      { "@type": "ListItem", position: 2, name: "A propos", item: CANONICAL }
+    ]
+  };
+
   return (
     <>
       <Helmet>
@@ -113,6 +122,9 @@ const APropos = () => {
         </script>
         <script type="application/ld+json">
           {JSON.stringify(publicationsJsonLd)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbJsonLd)}
         </script>
       </Helmet>
 
