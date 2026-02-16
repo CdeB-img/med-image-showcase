@@ -3,6 +3,18 @@ import { Helmet } from "react-helmet-async";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
+import ExpertiseHero from "@/components/ExpertiseHero";
+import {
+  ArrowRight,
+  BarChart3,
+  CheckCircle2,
+  Database,
+  FileText,
+  Layers,
+  Settings2,
+  ShieldCheck,
+  Workflow,
+} from "lucide-react";
 
 const CANONICAL = "https://noxia-imagerie.fr/prestations-imagerie-medicale";
 
@@ -23,19 +35,69 @@ const Prestations = () => {
     return () => clearTimeout(timeout);
   }, [location.hash]);
 
-  const jsonLd = {
+  const serviceJsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
     name: "Prestations en imagerie médicale quantitative",
     description:
-      "CoreLab IRM & CT, structuration multicentrique, audit méthodologique, reprise d’études existantes et ingénierie quantitative en recherche clinique.",
+      "CoreLab IRM & CT, structuration multicentrique, audit méthodologique, reprise d'études existantes et ingénierie quantitative en recherche clinique.",
     provider: {
       "@type": "Organization",
       name: "NOXIA Imagerie",
-      url: "https://noxia-imagerie.fr"
+      url: "https://noxia-imagerie.fr",
     },
     areaServed: "France & Europe",
-    url: CANONICAL
+    serviceType: [
+      "CoreLab externalisé",
+      "Audit DICOM et harmonisation multicentrique",
+      "Reprise d'études et sécurisation méthodologique",
+      "Ingénierie quantitative sur mesure",
+    ],
+    url: CANONICAL,
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Accueil", item: "https://noxia-imagerie.fr/" },
+      { "@type": "ListItem", position: 2, name: "Expertise", item: "https://noxia-imagerie.fr/expertise" },
+      { "@type": "ListItem", position: 3, name: "Prestations", item: CANONICAL },
+    ],
+  };
+
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "À quel moment intervenir dans une étude ?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text:
+            "L'intervention est possible en amont pour cadrer protocole et critères, pendant l'étude pour structurer QA et pipeline, ou en aval pour reprendre et sécuriser des résultats avant publication.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Pouvez-vous reprendre une base déjà constituée ?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text:
+            "Oui. Nous auditons la qualité DICOM, les incohérences géométriques, la traçabilité des traitements et reconstruisons un flux reproductible avec exclusions documentées.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Les prestations couvrent-elles IRM et CT ?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text:
+            "Oui. Les pipelines sont adaptés à chaque modalité avec harmonisation multicentrique, calibration CT lorsque nécessaire et livrables compatibles analyses statistiques.",
+        },
+      },
+    ],
   };
 
   return (
@@ -44,180 +106,293 @@ const Prestations = () => {
         <title>Prestations | CoreLab & Imagerie Quantitative | NOXIA</title>
         <meta
           name="description"
-          content="CoreLab IRM et CT externalisé, audit DICOM, harmonisation multicentrique, reprise d’études existantes et développement d’outils sur mesure en recherche clinique."
+          content="CoreLab IRM et CT externalisé, audit DICOM, harmonisation multicentrique, reprise d'études existantes et développement d'outils sur mesure en recherche clinique."
         />
         <link rel="canonical" href={CANONICAL} />
-        <script type="application/ld+json">
-          {JSON.stringify(jsonLd)}
-        </script>
+        <script type="application/ld+json">{JSON.stringify(serviceJsonLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
-        <main className="flex-1 py-24 px-4">
-          <div className="max-w-5xl mx-auto space-y-28">
+        <main className="flex-1 py-20 px-4">
+          <div className="max-w-5xl mx-auto space-y-24">
             <Breadcrumb
               items={[
                 { label: "Accueil", path: "/" },
                 { label: "Expertise", path: "/expertise" },
-                { label: "Prestations" }
+                { label: "Prestations" },
               ]}
             />
 
-            {/* HERO */}
-            <section className="text-center space-y-8">
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                Prestations en imagerie médicale quantitative
-              </h1>
+            <ExpertiseHero
+              badge="Page conversion"
+              badgeIcon={Workflow}
+              title="Prestations en imagerie médicale quantitative"
+              description="Structuration méthodologique, production de biomarqueurs robustes et accompagnement multicentrique en IRM et CT, du cadrage initial aux livrables auditables."
+              chips={["CoreLab externalisé", "Audit multicentrique", "Ingénierie sur mesure"]}
+              actions={[
+                { label: "Initier une collaboration", to: "/contact", variant: "primary", icon: ArrowRight },
+                { label: "Voir les expertises", to: "/expertise", variant: "secondary", icon: BarChart3 },
+              ]}
+            />
 
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                Structuration méthodologique, production de biomarqueurs robustes
-                et accompagnement multicentrique en IRM et CT.
-              </p>
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-6">
+              <h2 className="text-2xl font-semibold text-foreground text-center">Choisir un point d'entrée</h2>
+
+              <div className="flex flex-wrap gap-3 justify-center">
+                <Link
+                  to="/prestations-imagerie-medicale#corelab"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  CoreLab IRM & CT
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  to="/prestations-imagerie-medicale#reprise"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  Reprise d'étude
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  to="/prestations-imagerie-medicale#audit"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  Audit & harmonisation
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  to="/prestations-imagerie-medicale#ingenierie"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  Ingénierie sur mesure
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="rounded-xl border border-border bg-card/60 p-5 space-y-2">
+                  <div className="flex items-center gap-2 font-semibold text-foreground">
+                    <ShieldCheck className="w-5 h-5 text-primary" />
+                    Rigueur méthodologique
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Cadrage explicite des hypothèses, paramètres et critères de qualité.
+                  </p>
+                </div>
+                <div className="rounded-xl border border-border bg-card/60 p-5 space-y-2">
+                  <div className="flex items-center gap-2 font-semibold text-foreground">
+                    <Database className="w-5 h-5 text-primary" />
+                    Multicentrique
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Harmonisation inter-sites et inter-constructeurs pour analyses comparables.
+                  </p>
+                </div>
+                <div className="rounded-xl border border-border bg-card/60 p-5 space-y-2">
+                  <div className="flex items-center gap-2 font-semibold text-foreground">
+                    <FileText className="w-5 h-5 text-primary" />
+                    Livrables opposables
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Exports structurés, logs, QA et documentation prête pour audit scientifique.
+                  </p>
+                </div>
+              </div>
             </section>
 
-            {/* POSITIONNEMENT */}
-            <section className="max-w-4xl mx-auto text-muted-foreground leading-relaxed space-y-6">
-              <h2 className="text-2xl font-semibold text-foreground">
-                Une expertise indépendante et architecturée
-              </h2>
+            <section className="space-y-10">
+              <h2 className="text-2xl font-semibold text-foreground text-center">Offres principales</h2>
 
-              <p>
-                NOXIA intervient comme partenaire méthodologique indépendant
-                auprès d’équipes hospitalo-universitaires,
-                promoteurs académiques et industriels.
-              </p>
+              <div className="grid md:grid-cols-2 gap-6">
+                <article id="corelab" className="scroll-mt-28 rounded-2xl border border-border bg-card/50 p-7 space-y-4">
+                  <div className="flex items-center gap-2 text-foreground font-semibold">
+                    <Layers className="w-5 h-5 text-primary" />
+                    CoreLab IRM & CT externalisé
+                  </div>
 
-              <p>
-                L’objectif n’est pas seulement d’extraire des résultats,
-                mais de sécuriser toute la chaîne d’analyse :
-                audit DICOM, harmonisation multicentrique,
-                segmentation contrôlée, extraction métrique traçable
-                et validation statistique.
-              </p>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    Mise en place et pilotage d'un circuit image complet pour essais cliniques, cohortes et projets translationnels.
+                  </p>
+
+                  <ul className="space-y-2 text-sm text-muted-foreground">
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /><span>Définition protocolaire imagerie et critères QA</span></li>
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /><span>Centralisation sécurisée et contrôle qualité continu</span></li>
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /><span>Production d'endpoints quantitatifs reproductibles</span></li>
+                  </ul>
+
+                  <Link to="/contact" className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline">
+                    Cadrer un CoreLab
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </article>
+
+                <article id="reprise" className="scroll-mt-28 rounded-2xl border border-border bg-card/50 p-7 space-y-4">
+                  <div className="flex items-center gap-2 text-foreground font-semibold">
+                    <ShieldCheck className="w-5 h-5 text-primary" />
+                    Reprise et sécurisation d'études
+                  </div>
+
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    Intervention sur études en difficulté méthodologique pour reconstruire un flux défendable avant analyse finale.
+                  </p>
+
+                  <ul className="space-y-2 text-sm text-muted-foreground">
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /><span>Audit des incohérences DICOM et géométriques</span></li>
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /><span>Détection doublons, séries non conformes, dérives</span></li>
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /><span>Reconstruction pipeline + traçabilité complète</span></li>
+                  </ul>
+
+                  <Link to="/contact" className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline">
+                    Évaluer une reprise
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </article>
+
+                <article id="audit" className="scroll-mt-28 rounded-2xl border border-border bg-card/50 p-7 space-y-4">
+                  <div className="flex items-center gap-2 text-foreground font-semibold">
+                    <BarChart3 className="w-5 h-5 text-primary" />
+                    Audit méthodologique & harmonisation
+                  </div>
+
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    Analyse critique d'un pipeline existant et plan d'action concret pour gagner en robustesse statistique.
+                  </p>
+
+                  <ul className="space-y-2 text-sm text-muted-foreground">
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /><span>Évaluation reproductibilité inter-centre</span></li>
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /><span>Harmonisation inter-constructeurs IRM/CT</span></li>
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /><span>Calibration phantom CT et contrôle des biais</span></li>
+                  </ul>
+
+                  <Link to="/contact" className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline">
+                    Demander un audit
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </article>
+
+                <article id="ingenierie" className="scroll-mt-28 rounded-2xl border border-border bg-card/50 p-7 space-y-4">
+                  <div className="flex items-center gap-2 text-foreground font-semibold">
+                    <Settings2 className="w-5 h-5 text-primary" />
+                    Développement & ingénierie sur mesure
+                  </div>
+
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    Développement d'outils et d'architectures data en support des objectifs scientifiques et opérationnels.
+                  </p>
+
+                  <ul className="space-y-2 text-sm text-muted-foreground">
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /><span>Automatisation flux DICOM/NIfTI et QA</span></li>
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /><span>Modules dédiés (Python, 3D Slicer, pipelines)</span></li>
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /><span>Architecture versionnée, audit-ready, maintenable</span></li>
+                  </ul>
+
+                  <Link to="/contact" className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline">
+                    Lancer un développement
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </article>
+              </div>
             </section>
 
-            {/* CORELAB */}
-            <section id="corelab" className="space-y-8 scroll-mt-28">
-              <h2 className="text-2xl font-semibold text-foreground">
-                CoreLab IRM & CT externalisé
-              </h2>
-
-              <p className="text-muted-foreground leading-relaxed">
-                Mise en place et pilotage complet d’un circuit image multicentrique.
-              </p>
-
-              <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
-                <li>Définition protocolaire imagerie</li>
-                <li>Audit des séquences et reconstructions</li>
-                <li>Formation centres investigateurs</li>
-                <li>Centralisation sécurisée & contrôle qualité</li>
-                <li>Relectures expertes et gestion des écarts</li>
-                <li>Production d’endpoints quantitatifs validés</li>
-              </ul>
-
-              <p className="text-muted-foreground">
-                Adapté aux RHU, PHRC, ANR, cohortes longitudinales
-                et essais randomisés industriels.
-              </p>
+            <section className="grid md:grid-cols-3 gap-6">
+              <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                <h3 className="font-semibold text-foreground">Mission ponctuelle</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Résoudre un point de blocage ciblé : QA, segmentation, calibration ou reprise d'un lot de données.
+                </p>
+              </div>
+              <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                <h3 className="font-semibold text-foreground">Accompagnement complet</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Conception, exécution et suivi d'une chaîne complète avec reporting régulier et coordination multicentrique.
+                </p>
+              </div>
+              <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                <h3 className="font-semibold text-foreground">Partenariat R&D</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Co-développement d'outils et d'approches quantitatives pour programmes académiques et industriels.
+                </p>
+              </div>
             </section>
 
-            {/* REPRISE */}
-            <section id="reprise" className="space-y-8 scroll-mt-28">
-              <h2 className="text-2xl font-semibold text-foreground">
-                Reprise et sécurisation d’études existantes
-              </h2>
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-6">
+              <h2 className="text-2xl font-semibold text-foreground text-center">Méthode de collaboration</h2>
 
-              <p className="text-muted-foreground leading-relaxed">
-                Intervention sur études présentant fragilités méthodologiques
-                ou difficultés de publication.
-              </p>
-
-              <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
-                <li>Anonymisation hétérogène</li>
-                <li>Spacing ou orientation incohérents</li>
-                <li>Reconstructions multiples non documentées</li>
-                <li>Pipelines non reproductibles</li>
-                <li>Absence de traçabilité des traitements</li>
-              </ul>
-
-              <p className="text-muted-foreground">
-                Reconstruction complète possible :
-                hiérarchisation base multicentrique,
-                détection doublons, harmonisation inter-centres
-                et production d’un flux scientifiquement défendable.
-              </p>
+              <div className="grid md:grid-cols-4 gap-4">
+                <div className="rounded-xl border border-border bg-card/70 p-4 space-y-2">
+                  <p className="text-xs font-semibold text-primary">01</p>
+                  <p className="font-medium text-foreground">Cadrage</p>
+                  <p className="text-xs text-muted-foreground">Objectifs, endpoints, contraintes data et calendrier.</p>
+                </div>
+                <div className="rounded-xl border border-border bg-card/70 p-4 space-y-2">
+                  <p className="text-xs font-semibold text-primary">02</p>
+                  <p className="font-medium text-foreground">Audit</p>
+                  <p className="text-xs text-muted-foreground">Qualité DICOM, géométrie, hétérogénéité multicentrique.</p>
+                </div>
+                <div className="rounded-xl border border-border bg-card/70 p-4 space-y-2">
+                  <p className="text-xs font-semibold text-primary">03</p>
+                  <p className="font-medium text-foreground">Production</p>
+                  <p className="text-xs text-muted-foreground">Pipeline validé, QA, livrables quantitatifs traçables.</p>
+                </div>
+                <div className="rounded-xl border border-border bg-card/70 p-4 space-y-2">
+                  <p className="text-xs font-semibold text-primary">04</p>
+                  <p className="font-medium text-foreground">Transfert</p>
+                  <p className="text-xs text-muted-foreground">Documentation, restitution et support publication.</p>
+                </div>
+              </div>
             </section>
 
-            {/* AUDIT */}
-            <section id="audit" className="space-y-8 scroll-mt-28">
-              <h2 className="text-2xl font-semibold text-foreground">
-                Audit méthodologique & harmonisation
-              </h2>
+            <section className="space-y-6">
+              <h2 className="text-2xl font-semibold text-foreground text-center">Questions fréquentes</h2>
 
-              <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
-                <li>Analyse critique d’un pipeline existant</li>
-                <li>Évaluation reproductibilité inter-centre</li>
-                <li>Harmonisation inter-constructeurs (IRM & CT)</li>
-                <li>Calibration phantom en CT</li>
-                <li>Évaluation et intégration contrôlée d’IA</li>
-              </ul>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-2">
+                  <h3 className="font-semibold text-foreground">Quand démarrer ?</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Idéalement avant inclusion du premier patient, mais une reprise en cours d'étude reste possible.
+                  </p>
+                </div>
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-2">
+                  <h3 className="font-semibold text-foreground">Quels livrables ?</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Tables métriques, masques, exports QA, logs d'exécution et dossier méthodologique structuré.
+                  </p>
+                </div>
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-2">
+                  <h3 className="font-semibold text-foreground">IRM et CT ensemble ?</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Oui, avec règles adaptées à chaque modalité et harmonisation pour analyses multicentriques.
+                  </p>
+                </div>
+              </div>
             </section>
 
-            {/* INGÉNIERIE */}
-            <section id="ingenierie" className="space-y-8 scroll-mt-28">
-              <h2 className="text-2xl font-semibold text-foreground">
-                Développement & ingénierie sur mesure
-              </h2>
-
-              <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
-                <li>Développement Python scientifique dédié</li>
-                <li>Automatisation flux DICOM / NIfTI</li>
-                <li>Modules spécifiques 3D Slicer</li>
-                <li>Architecture data & structuration serveur</li>
-              </ul>
-
-              <p className="text-muted-foreground">
-                Chaque outil est conçu comme un objet méthodologique explicite,
-                jamais comme une simple démonstration technique isolée.
-              </p>
-            </section>
-
-            {/* MODALITÉS */}
-            <section className="space-y-6 text-muted-foreground leading-relaxed">
-              <h2 className="text-2xl font-semibold text-foreground">
-                Modalités d’intervention
-              </h2>
-
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Mission ciblée ponctuelle</li>
-                <li>Accompagnement complet d’étude</li>
-                <li>Support expert sur problématique complexe</li>
-                <li>Partenariat R&D industriel</li>
-              </ul>
-
-              <p>
-                Intervention possible en amont (conception protocolaire),
-                pendant l’étude (structuration & QA)
-                ou en aval (reprise, consolidation, publication).
-              </p>
-            </section>
-
-            {/* CTA */}
-            <section className="text-center space-y-6">
-              <p className="text-muted-foreground max-w-3xl mx-auto">
-                Toute collaboration débute par un échange exploratoire
-                permettant d’identifier les enjeux méthodologiques
-                et le niveau d’intervention nécessaire.
+            <section className="rounded-2xl border border-primary/20 bg-gradient-to-b from-card/80 to-primary/5 p-8 text-center space-y-6">
+              <h2 className="text-2xl font-semibold text-foreground">Initier une collaboration</h2>
+              <p className="text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                Un échange initial permet d'identifier les risques méthodologiques, de définir le niveau d'intervention
+                et de proposer un plan d'action réaliste pour votre étude.
               </p>
 
-              <Link
-                to="/contact"
-                className="inline-block rounded-md bg-primary px-8 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
-              >
-                Initier une collaboration
-              </Link>
+              <div className="flex flex-col sm:flex-row justify-center gap-3">
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-8 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
+                >
+                  Initier une collaboration
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  to="/methodologie-imagerie-quantitative"
+                  className="inline-flex items-center justify-center gap-2 rounded-md border border-border px-8 py-3 font-medium hover:bg-muted/40 transition"
+                >
+                  Voir la méthodologie
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
             </section>
-
           </div>
         </main>
 
