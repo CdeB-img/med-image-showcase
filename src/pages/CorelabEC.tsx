@@ -267,6 +267,19 @@ const CorelabEC = () => {
                   </ul>
                 </div>
               </div>
+
+              <p className="text-muted-foreground leading-relaxed">
+                Cette architecture prolonge l'
+                <Link to="/analyse-dicom" className="text-primary hover:underline">
+                  audit DICOM
+                </Link>
+                {" "}et s'inscrit dans une logique de
+                {" "}
+                <Link to="/bases-multicentriques" className="text-primary hover:underline">
+                  bases multicentriques harmonisées
+                </Link>
+                .
+              </p>
             </section>
 
             {/* ENDPOINTS */}
@@ -304,6 +317,16 @@ const CorelabEC = () => {
                   </ul>
                 </div>
               </div>
+
+              <p className="text-center text-muted-foreground">
+                Pour le détail clinique et méthodologique des marqueurs myocardiques, voir{" "}
+                <Link
+                  to="/biomarqueurs-irm-cardiaque-essais-cliniques"
+                  className="text-primary hover:underline"
+                >
+                  biomarqueurs IRM cardiaques en essais cliniques
+                </Link>.
+              </p>
             </section>
 
             {/* CHIFFRES */}
