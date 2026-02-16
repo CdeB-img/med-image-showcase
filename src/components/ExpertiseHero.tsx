@@ -40,8 +40,9 @@ const ExpertiseHero = ({
       <div className="pointer-events-none absolute -top-16 -right-16 h-44 w-44 rounded-full bg-primary/10 blur-3xl" />
       {enhanced ? (
         <>
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-primary/10 to-transparent" />
           <div className="pointer-events-none absolute -bottom-24 -left-16 h-56 w-56 rounded-full bg-primary/15 blur-3xl" />
-          <div className="pointer-events-none absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_20%_25%,hsl(var(--primary)/0.2),transparent_45%),radial-gradient(circle_at_80%_75%,hsl(var(--primary)/0.15),transparent_42%)]" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5" />
         </>
       ) : null}
 
