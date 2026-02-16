@@ -71,12 +71,6 @@ const CTQuantitatifAvance = () => {
     {
       "@type": "ListItem",
       position: 4,
-      name: "Quantification CT",
-      item: "https://noxia-imagerie.fr/quantification-ct"
-    },
-    {
-      "@type": "ListItem",
-      position: 5,
       name: "CT quantitatif avancé",
       item: CANONICAL
     }
@@ -145,7 +139,6 @@ const CTQuantitatifAvance = () => {
                 { label: "Accueil", path: "/" },
                 { label: "Expertise", path: "/expertise" },
                 { label: "CT", path: "/ct-imagerie-quantitative" },
-                { label: "Quantification CT", path: "/quantification-ct" },
                 { label: "CT quantitatif avancé" }
               ]}
             />

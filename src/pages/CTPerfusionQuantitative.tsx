@@ -104,8 +104,7 @@ const CTPerfusionQuantitative = () => {
       { "@type": "ListItem", position: 1, name: "Accueil", item: "https://noxia-imagerie.fr/" },
       { "@type": "ListItem", position: 2, name: "Expertise", item: "https://noxia-imagerie.fr/expertise" },
       { "@type": "ListItem", position: 3, name: "CT", item: "https://noxia-imagerie.fr/ct-imagerie-quantitative" },
-      { "@type": "ListItem", position: 4, name: "Quantification CT", item: "https://noxia-imagerie.fr/quantification-ct" },
-      { "@type": "ListItem", position: 5, name: "CT Perfusion AVC", item: CANONICAL }
+      { "@type": "ListItem", position: 4, name: "CT Perfusion AVC", item: CANONICAL }
     ]
   };
 
@@ -179,7 +178,6 @@ const CTPerfusionQuantitative = () => {
                 { label: "Accueil", path: "/" },
                 { label: "Expertise", path: "/expertise" },
                 { label: "CT", path: "/ct-imagerie-quantitative" },
-                { label: "Quantification CT", path: "/quantification-ct" },
                 { label: "CT Perfusion AVC" }
               ]}
             />
