@@ -141,17 +141,32 @@ const MethodologieImagerieQuantitative = () => {
               ]}
             />
 
-            <section className="text-center space-y-6">
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-                Méthodologie en imagerie quantitative
-              </h1>
+            <section className="relative overflow-hidden rounded-3xl border border-border/70 bg-gradient-to-br from-card to-muted/30 p-8 md:p-12 space-y-8">
+              <div className="pointer-events-none absolute -top-16 -right-16 h-44 w-44 rounded-full bg-primary/10 blur-3xl" />
 
-              <p className="text-xl text-muted-foreground leading-relaxed max-w-4xl mx-auto">
-                Construire une chaîne explicite, versionnée et reproductible pour transformer des
-                données DICOM hétérogènes en biomarqueurs défendables en IRM et en CT.
-              </p>
+              <div className="relative text-center space-y-6">
+                <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-medium text-primary">
+                  <Workflow className="w-3.5 h-3.5" />
+                  Page pilier méthodologique
+                </div>
 
-              <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
+                <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
+                  Méthodologie en imagerie quantitative
+                </h1>
+
+                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-4xl mx-auto">
+                  Construire une chaîne explicite, versionnée et reproductible pour transformer des
+                  données DICOM hétérogènes en biomarqueurs défendables en IRM et en CT.
+                </p>
+
+                <div className="flex flex-wrap items-center justify-center gap-2 pt-1">
+                  <span className="rounded-full border border-border bg-card/70 px-3 py-1 text-xs text-foreground">Audit-ready</span>
+                  <span className="rounded-full border border-border bg-card/70 px-3 py-1 text-xs text-foreground">Multicentrique</span>
+                  <span className="rounded-full border border-border bg-card/70 px-3 py-1 text-xs text-foreground">Reproductible</span>
+                </div>
+              </div>
+
+              <div className="relative flex flex-col sm:flex-row gap-3 justify-center pt-1">
                 <Link
                   to="/contact"
                   className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
