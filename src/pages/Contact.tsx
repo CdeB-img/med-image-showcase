@@ -203,8 +203,8 @@ const Contact = () => {
               </div>
             </section>
 
-            <section className="grid lg:grid-cols-[0.9fr,1.1fr] gap-6 lg:gap-8 items-start">
-              <aside className="rounded-2xl border border-border bg-card/50 p-6 md:p-7 space-y-6">
+            <section className="grid lg:grid-cols-[0.9fr,1.1fr] gap-6 lg:gap-8 items-stretch">
+              <aside className="rounded-2xl border border-border bg-card/50 p-6 md:p-7 h-full flex flex-col space-y-6">
                 <div className="space-y-2">
                   <h2 className="text-xl font-semibold text-foreground">Informations utiles</h2>
                   <p className="text-sm text-muted-foreground">
@@ -232,6 +232,16 @@ const Contact = () => {
                 </ul>
 
                 <div className="rounded-xl border border-border bg-background/70 p-4 space-y-2">
+                  <p className="text-sm font-semibold text-foreground">Types de demandes fréquentes</p>
+                  <ul className="space-y-1 text-sm text-muted-foreground">
+                    <li>• Audit méthodologique d'un pipeline existant</li>
+                    <li>• Reprise d'une base hétérogène multicentrique</li>
+                    <li>• Structuration d'un CoreLab IRM/CT</li>
+                    <li>• Définition d'endpoints quantitatifs</li>
+                  </ul>
+                </div>
+
+                <div className="rounded-xl border border-border bg-background/70 p-4 space-y-2 mt-auto">
                   <p className="text-sm font-semibold text-foreground">Contact direct</p>
                   <a
                     href={"mailto:" + "contact" + "@noxia-imagerie.fr"}
@@ -245,8 +255,8 @@ const Contact = () => {
                 </div>
               </aside>
 
-              <div className="rounded-2xl border border-border bg-card p-6 md:p-8 shadow-sm">
-                <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="rounded-2xl border border-border bg-card p-6 md:p-8 shadow-sm h-full">
+                <form onSubmit={handleSubmit} className="h-full flex flex-col gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="name">
                       <User className="w-4 h-4 inline mr-2" />
@@ -336,19 +346,21 @@ const Contact = () => {
                     />
                   </div>
 
-                  <Button
-                    type="submit"
-                    size="lg"
-                    className="w-full h-12"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? "Envoi en cours…" : (
-                      <>
-                        Envoyer le message
-                        <Send className="w-4 h-4 ml-2" />
-                      </>
-                    )}
-                  </Button>
+                  <div className="mt-auto">
+                    <Button
+                      type="submit"
+                      size="lg"
+                      className="w-full h-12"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? "Envoi en cours…" : (
+                        <>
+                          Envoyer le message
+                          <Send className="w-4 h-4 ml-2" />
+                        </>
+                      )}
+                    </Button>
+                  </div>
                 </form>
               </div>
             </section>
