@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { ArrowLeft, Send, Mail, User, MessageSquare, Activity, Building } from "lucide-react";
+import { Send, Mail, User, MessageSquare, Activity, Building, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -16,6 +15,7 @@ import { z } from "zod";
 ============================================================ */
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/mnjbalye";
+const CANONICAL = "https://noxia-imagerie.fr/contact";
 
 /* ============================================================
    VALIDATION
@@ -47,6 +47,35 @@ const Contact = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const contactJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "Contact NOXIA Imagerie",
+    url: CANONICAL,
+    description:
+      "Prise de contact pour collaboration en imagerie quantitative IRM et CT.",
+    mainEntity: {
+      "@type": "Organization",
+      name: "NOXIA Imagerie",
+      url: "https://noxia-imagerie.fr",
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "business",
+        email: "contact@noxia-imagerie.fr",
+        availableLanguage: ["fr"],
+      },
+    },
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Accueil", item: "https://noxia-imagerie.fr/" },
+      { "@type": "ListItem", position: 2, name: "Contact", item: CANONICAL },
+    ],
+  };
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -60,6 +89,12 @@ const Contact = () => {
 
     const validation = contactSchema.safeParse(formData);
     if (!validation.success) {
+      const nextErrors = Object.fromEntries(
+        Object.entries(validation.error.flatten().fieldErrors)
+          .filter(([, value]) => value && value.length > 0)
+          .map(([key, value]) => [key, value?.[0] ?? "Champ invalide"])
+      );
+      setErrors(nextErrors);
       toast({
         title: "Formulaire incomplet",
         description: "Merci de vérifier les champs saisis.",
@@ -124,57 +159,95 @@ const Contact = () => {
           content="Contact professionnel pour collaboration en imagerie médicale quantitative : segmentation IRM, analyse DICOM, quantification CT."
         />
         <meta property="og:title" content="Contact professionnel | NOXIA Imagerie" />
+        <meta
+          property="og:description"
+          content="Échange initial pour collaboration en imagerie quantitative IRM et CT."
+        />
         <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://noxia-imagerie.fr/contact" />
-        
+        <link rel="canonical" href={CANONICAL} />
+        <script type="application/ld+json">{JSON.stringify(contactJsonLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
       </Helmet>
 
-      <div className="min-h-screen flex flex-col">
-        <main className="flex-1">
+      <div className="min-h-screen flex flex-col bg-background">
+        <main className="flex-1 py-20 px-4">
+          <div className="max-w-5xl mx-auto space-y-12">
+            <Breadcrumb
+              items={[
+                { label: "Accueil", path: "/" },
+                { label: "Contact" }
+              ]}
+            />
 
-          <section className="relative py-20 md:py-28">
-            <div className="container px-4 md:px-6">
-              <Breadcrumb
-                items={[
-                  { label: "Accueil", path: "/" },
-                  { label: "Contact" }
-                ]}
-              />
-
-              <div className="mb-12">
-                <Link to="/">
-                  <Button variant="ghost" className="gap-2">
-                    <ArrowLeft className="w-4 h-4" />
-                    Accueil
-                  </Button>
-                </Link>
-              </div>
-
-              <div className="max-w-3xl mx-auto text-center space-y-6 mb-16">
+            <section className="relative overflow-hidden rounded-3xl border border-border/70 bg-gradient-to-br from-card to-muted/30 p-8 md:p-12 space-y-6">
+              <div className="pointer-events-none absolute -top-16 -right-16 h-44 w-44 rounded-full bg-primary/10 blur-3xl" />
+              <div className="relative text-center space-y-4">
                 <Activity className="w-8 h-8 text-primary mx-auto" />
-                <h1 className="text-4xl md:text-5xl font-bold">
+                <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
                   Contact professionnel
                 </h1>
-                <p className="text-muted-foreground">
-                  Collaboration CHU, CRO, industrie ou projet académique.
+                <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                  Collaboration en imagerie quantitative IRM et CT pour projets académiques, hospitaliers et industriels.
                 </p>
+                <div className="flex flex-wrap justify-center gap-2 pt-1">
+                  <span className="rounded-full border border-border bg-card/70 px-3 py-1 text-xs text-foreground">
+                    CoreLab & méthodologie
+                  </span>
+                  <span className="rounded-full border border-border bg-card/70 px-3 py-1 text-xs text-foreground">
+                    Analyse DICOM & multicentrique
+                  </span>
+                  <span className="rounded-full border border-border bg-card/70 px-3 py-1 text-xs text-foreground">
+                    IRM & CT
+                  </span>
+                </div>
+              </div>
+            </section>
 
-                <p className="text-sm text-muted-foreground mt-2">
-                  Contact direct :{" "}
+            <section className="grid lg:grid-cols-[0.9fr,1.1fr] gap-6 lg:gap-8 items-start">
+              <aside className="rounded-2xl border border-border bg-card/50 p-6 md:p-7 space-y-6">
+                <div className="space-y-2">
+                  <h2 className="text-xl font-semibold text-foreground">Informations utiles</h2>
+                  <p className="text-sm text-muted-foreground">
+                    Vous pouvez décrire ces éléments pour faciliter le cadrage de la demande.
+                  </p>
+                </div>
+
+                <ul className="space-y-3 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                    <span>Contexte clinique ou scientifique du projet</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                    <span>Modalités concernées (IRM, CT ou les deux)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                    <span>Stade actuel (préparation, en cours, reprise)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                    <span>Type d'accompagnement recherché</span>
+                  </li>
+                </ul>
+
+                <div className="rounded-xl border border-border bg-background/70 p-4 space-y-2">
+                  <p className="text-sm font-semibold text-foreground">Contact direct</p>
                   <a
                     href={"mailto:" + "contact" + "@noxia-imagerie.fr"}
-                    className="text-primary hover:underline underline-offset-4"
+                    className="text-sm text-primary hover:underline underline-offset-4"
                   >
                     contact@noxia-imagerie.fr
                   </a>
-                </p>
-              </div>
+                  <p className="text-xs text-muted-foreground">
+                    Vos informations sont utilisées uniquement pour répondre à votre demande.
+                  </p>
+                </div>
+              </aside>
 
-              <div className="bg-card border border-border rounded-2xl p-8 md:p-12 shadow-lg max-w-3xl mx-auto">
-                <form onSubmit={handleSubmit} className="space-y-8">
-
-                  {/* NOM */}
-                  <div className="space-y-3">
+              <div className="rounded-2xl border border-border bg-card p-6 md:p-8 shadow-sm">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="space-y-2">
                     <Label htmlFor="name">
                       <User className="w-4 h-4 inline mr-2" />
                       Nom
@@ -184,11 +257,16 @@ const Contact = () => {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
+                      placeholder="Votre nom"
+                      autoComplete="name"
+                      required
+                      aria-invalid={Boolean(errors.name)}
+                      className={errors.name ? "border-destructive focus-visible:ring-destructive" : ""}
                     />
+                    {errors.name ? <p className="text-sm text-destructive">{errors.name}</p> : null}
                   </div>
 
-                  {/* EMAIL */}
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     <Label htmlFor="email">
                       <Mail className="w-4 h-4 inline mr-2" />
                       Email
@@ -199,25 +277,34 @@ const Contact = () => {
                       type="email"
                       value={formData.email}
                       onChange={handleChange}
+                      placeholder="vous@organisation.fr"
+                      autoComplete="email"
+                      required
+                      aria-invalid={Boolean(errors.email)}
+                      className={errors.email ? "border-destructive focus-visible:ring-destructive" : ""}
                     />
+                    {errors.email ? <p className="text-sm text-destructive">{errors.email}</p> : null}
                   </div>
 
-                  {/* ORGANISATION */}
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     <Label htmlFor="organization">
                       <Building className="w-4 h-4 inline mr-2" />
-                      Organisation (CHU, entreprise, laboratoire)
+                      Organisation (optionnel)
                     </Label>
                     <Input
                       id="organization"
                       name="organization"
                       value={formData.organization}
                       onChange={handleChange}
+                      placeholder="CHU, CRO, entreprise, laboratoire"
+                      autoComplete="organization"
+                      aria-invalid={Boolean(errors.organization)}
+                      className={errors.organization ? "border-destructive focus-visible:ring-destructive" : ""}
                     />
+                    {errors.organization ? <p className="text-sm text-destructive">{errors.organization}</p> : null}
                   </div>
 
-                  {/* MESSAGE */}
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     <Label htmlFor="message">
                       <MessageSquare className="w-4 h-4 inline mr-2" />
                       Message
@@ -228,41 +315,44 @@ const Contact = () => {
                       rows={8}
                       value={formData.message}
                       onChange={handleChange}
+                      placeholder="Contexte, modalités concernées et type d'accompagnement souhaité."
+                      required
+                      aria-invalid={Boolean(errors.message)}
+                      className={errors.message ? "border-destructive focus-visible:ring-destructive" : ""}
                     />
+                    {errors.message ? <p className="text-sm text-destructive">{errors.message}</p> : null}
                   </div>
 
-                  {/* Honeypot invisible */}
-                  <div style={{ display: "none" }}>
-                    <label>Ne pas remplir</label>
+                  <div className="hidden" aria-hidden="true">
+                    <label htmlFor="website">Ne pas remplir</label>
                     <input
+                      id="website"
                       type="text"
                       name="website"
                       value={formData.website}
                       onChange={handleChange}
                       autoComplete="off"
+                      tabIndex={-1}
                     />
                   </div>
 
                   <Button
                     type="submit"
                     size="lg"
-                    className="w-full h-14"
+                    className="w-full h-12"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? "Envoi en cours…" : (
                       <>
-                        Envoyer
+                        Envoyer le message
                         <Send className="w-4 h-4 ml-2" />
                       </>
                     )}
                   </Button>
-
                 </form>
               </div>
-
-            </div>
-          </section>
-
+            </section>
+          </div>
         </main>
 
         <Footer />
