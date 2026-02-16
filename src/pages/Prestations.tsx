@@ -76,7 +76,7 @@ const Prestations = () => {
         acceptedAnswer: {
           "@type": "Answer",
           text:
-            "L'intervention est possible en amont pour cadrer protocole et critères, pendant l'étude pour structurer QA et pipeline, ou en aval pour reprendre et sécuriser des résultats avant publication.",
+            "L'intervention est possible en amont pour cadrer protocole et critères, pendant l'étude pour structurer QA et pipeline, ou en aval pour clarifier la méthodologie avant analyse finale ou publication.",
         },
       },
       {
@@ -85,7 +85,7 @@ const Prestations = () => {
         acceptedAnswer: {
           "@type": "Answer",
           text:
-            "Oui. Nous auditons la qualité DICOM, les incohérences géométriques, la traçabilité des traitements et reconstruisons un flux reproductible avec exclusions documentées.",
+            "Oui. Nous auditons la qualité DICOM, les incohérences géométriques, la traçabilité des traitements et proposons un flux traçable avec exclusions documentées.",
         },
       },
       {
@@ -129,7 +129,7 @@ const Prestations = () => {
               badge="Prestations"
               badgeIcon={Workflow}
               title="CoreLab IRM & CT externalisé pour études cliniques"
-              description="Intervention en amont, en cours ou en reprise d'étude pour sécuriser la méthodologie, fiabiliser les biomarqueurs et livrer un dossier exploitable en analyse statistique et publication."
+              description="Intervention en amont, en cours ou en reprise d'étude pour structurer la méthodologie, documenter les traitements et organiser des livrables compatibles avec l'analyse statistique et la publication."
               chips={["CHU & académique", "Promoteurs industriels", "France & Europe", "Livrables auditables"]}
               actions={[
                 { label: "Planifier un échange de cadrage", to: "/contact", variant: "primary", icon: ArrowRight },
@@ -175,10 +175,10 @@ const Prestations = () => {
                 <div className="rounded-xl border border-border bg-card/60 p-5 space-y-2">
                   <div className="flex items-center gap-2 font-semibold text-foreground">
                     <ShieldCheck className="w-5 h-5 text-primary" />
-                    Décision rapide
+                    Décision cadrée
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    Diagnostic du bon niveau d'intervention en fonction de vos contraintes d'étude.
+                    Qualification du niveau d'intervention selon vos contraintes d'étude.
                   </p>
                 </div>
                 <div className="rounded-xl border border-border bg-card/60 p-5 space-y-2">
@@ -225,7 +225,7 @@ const Prestations = () => {
                   </p>
                 </div>
                 <div className="rounded-xl border border-border bg-background/70 p-5 space-y-3">
-                  <p className="font-semibold text-foreground">Livrables prêts pour stats/publication</p>
+                  <p className="font-semibold text-foreground">Livrables compatibles stats/publication</p>
                   <p className="text-sm text-muted-foreground">
                     Tables patient/temps, exports masques, overlays QC et notes méthodologiques réutilisables.
                   </p>
@@ -272,7 +272,7 @@ const Prestations = () => {
                     Intervention sur études en difficulté méthodologique pour reconstruire un flux défendable avant analyse finale.
                   </p>
                   <p className="text-xs text-muted-foreground">
-                    Idéal si les données sont déjà acquises et que la robustesse des résultats est incertaine.
+                    Idéal si les données sont déjà acquises et nécessitent une relecture méthodologique.
                   </p>
 
                   <ul className="space-y-2 text-sm text-muted-foreground">
@@ -294,7 +294,7 @@ const Prestations = () => {
                   </div>
 
                   <p className="text-muted-foreground text-sm leading-relaxed">
-                    Analyse critique d'un pipeline existant et plan d'action concret pour gagner en robustesse statistique.
+                    Analyse critique d'un pipeline existant et plan d'action concret pour clarifier hypothèses, risques et choix analytiques.
                   </p>
                   <p className="text-xs text-muted-foreground">
                     Idéal pour un avis externe indépendant avant verrouillage des analyses ou soumission.
@@ -344,24 +344,24 @@ const Prestations = () => {
 
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
-                  <h3 className="font-semibold text-foreground">Audit flash</h3>
-                  <p className="text-xs text-primary font-medium uppercase tracking-wide">2 à 4 semaines</p>
+                  <h3 className="font-semibold text-foreground">Audit ciblé</h3>
+                  <p className="text-xs text-primary font-medium uppercase tracking-wide">Périmètre défini</p>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Relecture méthodologique ciblée et plan d'actions priorisé pour sécuriser rapidement une étude.
+                    Relecture méthodologique ciblée et plan d'actions priorisé.
                   </p>
                 </div>
                 <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
                   <h3 className="font-semibold text-foreground">Mission structurée</h3>
-                  <p className="text-xs text-primary font-medium uppercase tracking-wide">4 à 12 semaines</p>
+                  <p className="text-xs text-primary font-medium uppercase tracking-wide">Objectifs définis</p>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     Intervention opérationnelle sur un périmètre défini : reprise, harmonisation multicentrique ou endpoint.
                   </p>
                 </div>
                 <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
-                  <h3 className="font-semibold text-foreground">CoreLab externalisé</h3>
-                  <p className="text-xs text-primary font-medium uppercase tracking-wide">Suivi longitudinal</p>
+                  <h3 className="font-semibold text-foreground">Accompagnement CoreLab</h3>
+                  <p className="text-xs text-primary font-medium uppercase tracking-wide">Gouvernance définie</p>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Pilotage global de la chaîne imagerie sur la durée de l'étude, avec gouvernance et reporting.
+                    Pilotage global de la chaîne imagerie avec gouvernance et reporting.
                   </p>
                 </div>
               </div>
@@ -395,10 +395,10 @@ const Prestations = () => {
             </section>
 
             <section className="rounded-2xl border border-border bg-card/50 p-6 md:p-8 space-y-6">
-              <h2 className="text-2xl font-semibold text-foreground text-center">Préparer le premier échange (30 min)</h2>
+              <h2 className="text-2xl font-semibold text-foreground text-center">Préparer le premier échange</h2>
 
               <p className="text-muted-foreground text-center max-w-3xl mx-auto leading-relaxed">
-                Un échange court suffit pour qualifier la mission. Si vous avez ces éléments, le cadrage est plus rapide et plus précis.
+                Un premier échange permet de qualifier la mission. Ces éléments facilitent un cadrage structuré.
               </p>
 
               <div className="grid md:grid-cols-2 gap-4">
@@ -408,7 +408,7 @@ const Prestations = () => {
                 </div>
                 <div className="rounded-xl border border-border bg-background/70 p-4 text-sm text-muted-foreground">
                   <p className="font-medium text-foreground">Périmètre data</p>
-                  <p>Modalité (IRM/CT), nombre de centres, volumes approximatifs.</p>
+                  <p>Modalité (IRM/CT), nombre de centres et organisation des données.</p>
                 </div>
                 <div className="rounded-xl border border-border bg-background/70 p-4 text-sm text-muted-foreground">
                   <p className="font-medium text-foreground">Niveau de maturité</p>
