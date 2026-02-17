@@ -22,10 +22,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
-# SEO tracker local files
-scripts/output/
-scripts/internal/.cache/
-scripts/internal/.mplconfig/
-scripts/internal/*.log
-scripts/internal/seo.env
