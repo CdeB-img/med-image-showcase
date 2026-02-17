@@ -23,8 +23,9 @@ dist-ssr
 *.sln
 *.sw?
 
-# Local analytics outputs
-data/seo/
-
-# Local SEO credentials
-.env.seo
+# SEO tracker local files
+scripts/output/
+scripts/internal/.cache/
+scripts/internal/.mplconfig/
+scripts/internal/*.log
+scripts/internal/seo.env
