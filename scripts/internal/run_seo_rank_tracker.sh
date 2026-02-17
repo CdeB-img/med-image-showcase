@@ -44,6 +44,7 @@ if [[ -n "${GOOGLE_API_KEY:-}" \
     --max-results 50
 else
   echo "Mode: No API key (best-effort HTML parsing)"
+  SEO_NOAPI_ENGINE="${SEO_NOAPI_ENGINE:-bing}"
   python3 "$INTERNAL_DIR/seo_rank_tracker_noapi.py" \
     --domain noxia-imagerie.fr \
     --queries-file "$INTERNAL_DIR/seo_queries.txt" \
@@ -53,5 +54,5 @@ else
     --hl fr \
     --gl fr \
     --max-results 50 \
-    --engine google
+    --engine "$SEO_NOAPI_ENGINE"
 fi

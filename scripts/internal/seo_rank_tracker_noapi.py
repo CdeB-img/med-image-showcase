@@ -26,6 +26,7 @@ from urllib.request import Request, urlopen
 
 GOOGLE_SEARCH_URL = "https://www.google.com/search"
 BING_SEARCH_URL = "https://www.bing.com/search"
+VALID_STATUSES = {"found", "not_found", "invalid_no_links", "error"}
 
 
 @dataclass(frozen=True)
@@ -36,10 +37,21 @@ class RankRow:
   found: bool
   matched_url: str
   scanned_results: int
+  status: str
   hl: str
   gl: str
   max_results: int
   engine: str
+
+
+def safe_int(value: object, default: int = 0) -> int:
+  try:
+    text = str(value).strip()
+    if not text:
+      return default
+    return int(text)
+  except (TypeError, ValueError):
+    return default
 
 
 class AnchorExtractor(HTMLParser):
@@ -264,6 +276,48 @@ def lookup_rank(
 def append_history(history_csv: Path, rows: Iterable[RankRow]) -> None:
   history_csv.parent.mkdir(parents=True, exist_ok=True)
   exists = history_csv.exists()
+
+  # Migrate legacy header (without status column) to v2 format.
+  if exists:
+    with history_csv.open("r", encoding="utf-8", newline="") as f:
+      first_line = f.readline().strip()
+    if first_line and "status" not in [part.strip() for part in first_line.split(",")]:
+      existing = read_history(history_csv)
+      with history_csv.open("w", encoding="utf-8", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(
+          [
+            "run_at_utc",
+            "query",
+            "rank",
+            "found",
+            "matched_url",
+            "scanned_results",
+            "hl",
+            "gl",
+            "max_results",
+            "engine",
+            "status",
+          ]
+        )
+        for item in existing:
+          writer.writerow(
+            [
+              item.run_at_utc,
+              item.query,
+              "" if item.rank is None else item.rank,
+              1 if item.found else 0,
+              item.matched_url,
+              item.scanned_results,
+              item.hl,
+              item.gl,
+              item.max_results,
+              item.engine,
+              item.status,
+            ]
+          )
+      exists = True
+
   with history_csv.open("a", encoding="utf-8", newline="") as f:
     writer = csv.writer(f)
     if not exists:
@@ -279,6 +333,7 @@ def append_history(history_csv: Path, rows: Iterable[RankRow]) -> None:
           "gl",
           "max_results",
           "engine",
+          "status",
         ]
       )
     for row in rows:
@@ -294,6 +349,7 @@ def append_history(history_csv: Path, rows: Iterable[RankRow]) -> None:
           row.gl,
           row.max_results,
           row.engine,
+          row.status,
         ]
       )
 
@@ -306,18 +362,60 @@ def read_history(history_csv: Path) -> list[RankRow]:
     reader = csv.DictReader(f)
     for row in reader:
       rank_raw = (row.get("rank") or "").strip()
+      scanned = safe_int(row.get("scanned_results", "0"), 0)
+      found = (row.get("found", "0") == "1")
+
+      raw_hl = str(row.get("hl", "") or "")
+      raw_gl = str(row.get("gl", "") or "")
+      raw_max = str(row.get("max_results", "") or "")
+      raw_engine = str(row.get("engine", "") or "")
+      extras = row.get(None) or []
+
+      # Compatibility mode for accidentally shifted CSV rows:
+      # hl=status, gl=hl, max_results=gl, engine=max_results, extra[0]=engine
+      shifted = (
+        raw_hl in VALID_STATUSES
+        and not raw_max.isdigit()
+        and raw_engine.isdigit()
+      )
+      if shifted:
+        status = raw_hl
+        hl = raw_gl
+        gl = raw_max
+        max_results = safe_int(raw_engine, 0)
+        engine = str(extras[0]) if extras else "google"
+      else:
+        hl = raw_hl
+        gl = raw_gl
+        max_results = safe_int(raw_max, 0)
+        engine = raw_engine if raw_engine else (str(extras[0]) if extras else "google")
+        status = str(row.get("status", "") or "")
+        if not status and extras:
+          extra_last = str(extras[-1])
+          if extra_last in VALID_STATUSES:
+            status = extra_last
+
+      if status not in VALID_STATUSES:
+        if found:
+          status = "found"
+        elif scanned == 0:
+          status = "invalid_no_links"
+        else:
+          status = "not_found"
+
       rows.append(
         RankRow(
           run_at_utc=row["run_at_utc"],
           query=row["query"],
-          rank=int(rank_raw) if rank_raw else None,
-          found=(row.get("found", "0") == "1"),
+          rank=safe_int(rank_raw, 0) if rank_raw else None,
+          found=found,
           matched_url=row.get("matched_url", ""),
-          scanned_results=int(row.get("scanned_results", "0")),
-          hl=row.get("hl", ""),
-          gl=row.get("gl", ""),
-          max_results=int(row.get("max_results", "0") or "0"),
-          engine=row.get("engine", "google"),
+          scanned_results=scanned,
+          status=status,
+          hl=hl,
+          gl=gl,
+          max_results=max_results,
+          engine=engine or "google",
         )
       )
   return rows
@@ -359,23 +457,26 @@ def build_markdown_report(
     f"- Domain: `{domain}`",
     f"- Engine: `{engine}`",
     f"- Not found policy: displayed as `>{max_results}`",
+    "- Valid run statuses: `found`, `not_found`",
+    "- Invalid statuses: `invalid_no_links`, `error`",
     "",
-    "| Query | Current rank | Previous rank | Trend | URL |",
-    "|---|---:|---:|---:|---|",
+    "| Query | Status | Current rank | Previous rank | Trend | URL |",
+    "|---|---|---:|---:|---:|---|",
   ]
+
+  invalid_count = 0
 
   for query in sorted(by_query):
     runs = by_query[query]
     current = runs[-1]
     previous = runs[-2] if len(runs) > 1 else None
 
-    current_value = rank_value_for_delta(current.rank, max_results)
-    previous_value = (
-      rank_value_for_delta(previous.rank, max_results) if previous else None
-    )
-    if previous_value is None:
-      trend = "n/a"
-    else:
+    current_valid = current.status in {"found", "not_found"}
+    previous_valid = previous is not None and previous.status in {"found", "not_found"}
+
+    if current_valid and previous_valid:
+      current_value = rank_value_for_delta(current.rank, max_results)
+      previous_value = rank_value_for_delta(previous.rank, max_results)
       delta = previous_value - current_value
       if delta > 0:
         trend = f"+{delta}"
@@ -383,14 +484,31 @@ def build_markdown_report(
         trend = str(delta)
       else:
         trend = "0"
+    else:
+      trend = "n/a"
 
-    current_rank = format_rank(current.rank, max_results)
-    previous_rank = format_rank(previous.rank, max_results) if previous else "n/a"
+    if current.status in {"invalid_no_links", "error"}:
+      invalid_count += 1
+
+    current_rank = (
+      format_rank(current.rank, max_results) if current_valid else "N/A"
+    )
+    previous_rank = (
+      format_rank(previous.rank, max_results)
+      if (previous and previous_valid)
+      else "n/a"
+    )
     url = current.matched_url if current.matched_url else "-"
-    lines.append(f"| {query} | {current_rank} | {previous_rank} | {trend} | {url} |")
+    lines.append(
+      f"| {query} | {current.status} | {current_rank} | {previous_rank} | {trend} | {url} |"
+    )
 
   lines.append("")
   lines.append("Trend meaning: positive value means better ranking (closer to 1).")
+  if invalid_count > 0:
+    lines.append(
+      f"Warning: {invalid_count} query(ies) are invalid for this run (no parsable results)."
+    )
   lines.append("")
   return "\n".join(lines)
 
@@ -427,9 +545,16 @@ def plot_trends(
 
   for query in sorted(by_query):
     series = by_query[query]
-    x_values = [datetime.fromisoformat(item.run_at_utc.replace("Z", "+00:00")) for item in series]
-    y_values = [item.rank if item.rank is not None else y_not_found for item in series]
+    valid_series = [item for item in series if item.status in {"found", "not_found"}]
+    if not valid_series:
+      continue
+    x_values = [datetime.fromisoformat(item.run_at_utc.replace("Z", "+00:00")) for item in valid_series]
+    y_values = [item.rank if item.rank is not None else y_not_found for item in valid_series]
     ax.plot(x_values, y_values, marker="o", linewidth=1.8, label=query)
+
+  if not ax.lines:
+    plt.close(fig)
+    return "skipped (no valid points)"
 
   ax.invert_yaxis()
   ax.set_title(f"Ranking trend ({engine})")
@@ -460,6 +585,7 @@ def main() -> int:
   )
 
   for index, query in enumerate(queries, start=1):
+    status = "not_found"
     try:
       rank, matched_url, scanned = lookup_rank(
         query=query,
@@ -472,8 +598,17 @@ def main() -> int:
     except Exception as exc:
       print(f"[{index}/{len(queries)}] {query} -> error: {exc}")
       rank, matched_url, scanned = None, "", 0
+      status = "error"
 
     found = rank is not None
+    if status != "error":
+      if found:
+        status = "found"
+      elif scanned == 0:
+        status = "invalid_no_links"
+      else:
+        status = "not_found"
+
     rows.append(
       RankRow(
         run_at_utc=run_at_utc,
@@ -482,14 +617,22 @@ def main() -> int:
         found=found,
         matched_url=matched_url,
         scanned_results=scanned,
+        status=status,
         hl=args.hl,
         gl=args.gl,
         max_results=args.max_results,
         engine=args.engine,
       )
     )
-    printable_rank = rank if rank is not None else f">{args.max_results}"
-    print(f"[{index}/{len(queries)}] {query} -> {printable_rank}")
+    if status == "found":
+      printable = str(rank)
+    elif status == "not_found":
+      printable = f">{args.max_results}"
+    elif status == "invalid_no_links":
+      printable = "N/A (invalid_no_links)"
+    else:
+      printable = f"N/A ({status})"
+    print(f"[{index}/{len(queries)}] {query} -> {printable}")
 
   history_csv = Path(args.history_csv)
   append_history(history_csv, rows)
