@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Send, Mail, User, MessageSquare, Activity, Building, CheckCircle2 } from "lucide-react";
+import { Send, Mail, User, MessageSquare, Activity, Building, CheckCircle2, Briefcase, ScanLine, GitBranch } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -17,6 +17,23 @@ import { z } from "zod";
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/mnjbalye";
 const CANONICAL = "https://noxia-imagerie.fr/contact";
 
+const PROJECT_TYPES = [
+  "Audit méthodologique",
+  "CoreLab externalisé",
+  "Reprise d'étude",
+  "Ingénierie pipeline",
+  "Autre besoin",
+];
+
+const MODALITIES = ["IRM", "CT", "IRM + CT"];
+
+const PROJECT_STAGES = [
+  "Exploration",
+  "Etude en préparation",
+  "Etude en cours",
+  "Reprise / correction",
+];
+
 /* ============================================================
    VALIDATION
 ============================================================ */
@@ -25,6 +42,9 @@ const contactSchema = z.object({
   name: z.string().trim().min(1).max(100),
   email: z.string().trim().email().max(255),
   organization: z.string().trim().max(255).optional(),
+  projectType: z.string().trim().min(1).max(100),
+  modality: z.string().trim().min(1).max(50),
+  projectStage: z.string().trim().min(1).max(100),
   message: z.string().trim().min(10).max(2000),
   website: z.string().max(0).optional() // honeypot
 });
@@ -40,6 +60,9 @@ const Contact = () => {
     name: "",
     email: "",
     organization: "",
+    projectType: "",
+    modality: "",
+    projectStage: "",
     message: "",
     website: "" // honeypot
   });
@@ -76,9 +99,7 @@ const Contact = () => {
     ],
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
@@ -119,8 +140,11 @@ const Contact = () => {
           name: formData.name,
           email: formData.email,
           organization: formData.organization,
+          projectType: formData.projectType,
+          modality: formData.modality,
+          projectStage: formData.projectStage,
           message: formData.message,
-          _subject: `Contact noxia-imagerie.fr – ${formData.name}`
+          _subject: `Contact noxia-imagerie.fr – ${formData.name} (${formData.projectType})`
         })
       });
 
@@ -135,6 +159,9 @@ const Contact = () => {
         name: "",
         email: "",
         organization: "",
+        projectType: "",
+        modality: "",
+        projectStage: "",
         message: "",
         website: ""
       });
@@ -200,6 +227,30 @@ const Contact = () => {
                     IRM & CT
                   </span>
                 </div>
+              </div>
+            </section>
+
+            <section className="space-y-5">
+              <h2 className="text-xl md:text-2xl font-semibold text-foreground">Offres cadrées</h2>
+              <div className="grid md:grid-cols-3 gap-4">
+                <article className="rounded-xl border border-border bg-card/50 p-5 space-y-2">
+                  <h3 className="font-semibold text-foreground">Audit méthodologique</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Revue d'un pipeline existant, points de fragilité, priorisation des corrections.
+                  </p>
+                </article>
+                <article className="rounded-xl border border-border bg-card/50 p-5 space-y-2">
+                  <h3 className="font-semibold text-foreground">CoreLab externalisé</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Structuration des lectures quantitatives IRM/CT pour étude mono ou multicentrique.
+                  </p>
+                </article>
+                <article className="rounded-xl border border-border bg-card/50 p-5 space-y-2">
+                  <h3 className="font-semibold text-foreground">Reprise d'étude</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Remise à plat technique d'une base hétérogène avec traçabilité et livrables exploitables.
+                  </p>
+                </article>
               </div>
             </section>
 
@@ -315,6 +366,80 @@ const Contact = () => {
                   </div>
 
                   <div className="space-y-2">
+                    <Label htmlFor="projectType">
+                      <Briefcase className="w-4 h-4 inline mr-2" />
+                      Type de besoin
+                    </Label>
+                    <select
+                      id="projectType"
+                      name="projectType"
+                      value={formData.projectType}
+                      onChange={handleChange}
+                      required
+                      aria-invalid={Boolean(errors.projectType)}
+                      className={`flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm ring-offset-background ${
+                        errors.projectType ? "border-destructive focus-visible:ring-destructive" : "border-input"
+                      }`}
+                    >
+                      <option value="">Sélectionner</option>
+                      {PROJECT_TYPES.map((item) => (
+                        <option key={item} value={item}>{item}</option>
+                      ))}
+                    </select>
+                    {errors.projectType ? <p className="text-sm text-destructive">{errors.projectType}</p> : null}
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="modality">
+                        <ScanLine className="w-4 h-4 inline mr-2" />
+                        Modalité
+                      </Label>
+                      <select
+                        id="modality"
+                        name="modality"
+                        value={formData.modality}
+                        onChange={handleChange}
+                        required
+                        aria-invalid={Boolean(errors.modality)}
+                        className={`flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm ring-offset-background ${
+                          errors.modality ? "border-destructive focus-visible:ring-destructive" : "border-input"
+                        }`}
+                      >
+                        <option value="">Sélectionner</option>
+                        {MODALITIES.map((item) => (
+                          <option key={item} value={item}>{item}</option>
+                        ))}
+                      </select>
+                      {errors.modality ? <p className="text-sm text-destructive">{errors.modality}</p> : null}
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="projectStage">
+                        <GitBranch className="w-4 h-4 inline mr-2" />
+                        Stade du projet
+                      </Label>
+                      <select
+                        id="projectStage"
+                        name="projectStage"
+                        value={formData.projectStage}
+                        onChange={handleChange}
+                        required
+                        aria-invalid={Boolean(errors.projectStage)}
+                        className={`flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm ring-offset-background ${
+                          errors.projectStage ? "border-destructive focus-visible:ring-destructive" : "border-input"
+                        }`}
+                      >
+                        <option value="">Sélectionner</option>
+                        {PROJECT_STAGES.map((item) => (
+                          <option key={item} value={item}>{item}</option>
+                        ))}
+                      </select>
+                      {errors.projectStage ? <p className="text-sm text-destructive">{errors.projectStage}</p> : null}
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
                     <Label htmlFor="message">
                       <MessageSquare className="w-4 h-4 inline mr-2" />
                       Message
@@ -325,7 +450,7 @@ const Contact = () => {
                       rows={8}
                       value={formData.message}
                       onChange={handleChange}
-                      placeholder="Contexte, modalités concernées et type d'accompagnement souhaité."
+                      placeholder="Objectif de l'étude, contraintes techniques, et livrable attendu."
                       required
                       aria-invalid={Boolean(errors.message)}
                       className={errors.message ? "border-destructive focus-visible:ring-destructive" : ""}

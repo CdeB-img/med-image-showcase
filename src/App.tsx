@@ -3,40 +3,34 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { useEffect } from "react";
-import SegmentationIRM from "@/pages/SegmentationIRM";
-import AnalyseDICOM from "@/pages/AnalyseDICOM";
-import QuantificationCT from "@/pages/QuantificationCT";
-import RecalageMultimodal from "@/pages/RecalageMultimodal";
-import BasesMulticentriques from "@/pages/BasesMulticentriques";
-import BiomarqueursIRMCardiaqueEssais from "@/pages/BiomarqueursIRMCardiaqueEssais";
-import ECVMappingCardiaque from "@/pages/ECVMappingCardiaque";
-import IngenierieImagerieQuantitative from "@/pages/IngenierieImagerieQuantitative";
-import CTQuantitatifAvance from "@/pages/CTQuantitatifAvance";
-import PerfusionMetaboliqueNeuro from "@/pages/PerfusionMetaboliqueNeuro";
-import CTPerfusionQuantitative from "@/pages/CTPerfusionQuantitative";
-import CorelabEC from "@/pages/CorelabEC";
-import IRMImagerieQuantitative from "@/pages/IRMImagerieQuantitative";
-import CTImagerieQuantitative from "@/pages/CTImagerieQuantitative";
-import MethodologieImagerieQuantitative from "@/pages/MethodologieImagerieQuantitative";
-import Prestations from "@/pages/Prestations";
-import Expertise from "@/pages/Expertise";
-import ReferencesPublications from "@/pages/ReferencesPublications";
-
-
-import APropos from "@/pages/APropos";
-
-
+import { useEffect, lazy, Suspense } from "react";
 import Header from "@/components/Header";
 import GlobalEntitySchema from "@/components/GlobalEntitySchema";
 
-import Index from "./pages/Index";
-import Projects from "./pages/Projects";
-import ProjectDetail from "./pages/ProjectDetail";
-import Contact from "./pages/Contact";
-import NotFound from "./pages/NotFound";
-
-
+const Index = lazy(() => import("./pages/Index"));
+const Projects = lazy(() => import("./pages/Projects"));
+const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
+const Contact = lazy(() => import("./pages/Contact"));
+const SegmentationIRM = lazy(() => import("@/pages/SegmentationIRM"));
+const AnalyseDICOM = lazy(() => import("@/pages/AnalyseDICOM"));
+const QuantificationCT = lazy(() => import("@/pages/QuantificationCT"));
+const RecalageMultimodal = lazy(() => import("@/pages/RecalageMultimodal"));
+const BasesMulticentriques = lazy(() => import("@/pages/BasesMulticentriques"));
+const CorelabEC = lazy(() => import("@/pages/CorelabEC"));
+const BiomarqueursIRMCardiaqueEssais = lazy(() => import("@/pages/BiomarqueursIRMCardiaqueEssais"));
+const ECVMappingCardiaque = lazy(() => import("@/pages/ECVMappingCardiaque"));
+const PerfusionMetaboliqueNeuro = lazy(() => import("@/pages/PerfusionMetaboliqueNeuro"));
+const IngenierieImagerieQuantitative = lazy(() => import("@/pages/IngenierieImagerieQuantitative"));
+const CTQuantitatifAvance = lazy(() => import("@/pages/CTQuantitatifAvance"));
+const CTPerfusionQuantitative = lazy(() => import("@/pages/CTPerfusionQuantitative"));
+const IRMImagerieQuantitative = lazy(() => import("@/pages/IRMImagerieQuantitative"));
+const CTImagerieQuantitative = lazy(() => import("@/pages/CTImagerieQuantitative"));
+const MethodologieImagerieQuantitative = lazy(() => import("@/pages/MethodologieImagerieQuantitative"));
+const APropos = lazy(() => import("@/pages/APropos"));
+const Prestations = lazy(() => import("@/pages/Prestations"));
+const Expertise = lazy(() => import("@/pages/Expertise"));
+const ReferencesPublications = lazy(() => import("@/pages/ReferencesPublications"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
 
@@ -53,6 +47,11 @@ function ScrollToTop() {
   return null;
 }
 
+const RouteFallback = () => (
+  <div className="px-4 py-24">
+    <div className="mx-auto max-w-5xl h-24 rounded-xl border border-border bg-card/40 animate-pulse" />
+  </div>
+);
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -67,35 +66,36 @@ const App = () => (
         <Header />
         <GlobalEntitySchema />
 
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/projets" element={<Projects />} />
-          <Route path="/projet/:id" element={<ProjectDetail />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/segmentation-irm" element={<SegmentationIRM />} />
-          <Route path="/analyse-dicom" element={<AnalyseDICOM />} />
-          <Route path="/quantification-ct" element={<QuantificationCT />} />
-          <Route path="/recalage-multimodal" element={<RecalageMultimodal />} />
-          <Route path="/bases-multicentriques" element={<BasesMulticentriques />} />
-          <Route path="/corelab-essais-cliniques" element={<CorelabEC />} />
-          <Route path="/biomarqueurs-irm-cardiaque-essais-cliniques" element={<BiomarqueursIRMCardiaqueEssais />} />
-          <Route path="/ecv-mapping-t1-t2-irm-cardiaque" element={<ECVMappingCardiaque />} />
-          <Route path="/perfusion-metabolique-neuro-imagerie" element={<PerfusionMetaboliqueNeuro />} />
-          <Route path="/ingenierie-imagerie-quantitative" element={<IngenierieImagerieQuantitative />} />
-          <Route path="/ct-quantitatif-avance-imagerie-spectrale" element={<CTQuantitatifAvance />} />
-          <Route path="/ct-perfusion-quantitative-avc" element={<CTPerfusionQuantitative />} />
-          <Route path="/irm-imagerie-quantitative" element={<IRMImagerieQuantitative />} />
-          <Route path="/ct-imagerie-quantitative" element={<CTImagerieQuantitative />} />
-          <Route path="/methodologie-imagerie-quantitative" element={<MethodologieImagerieQuantitative />} />
-          <Route path="/a-propos" element={<APropos />} />
-          <Route path="/prestations-imagerie-medicale" element={<Prestations />} />
-          <Route path="/expertise" element={<Expertise />} />
-          <Route path="/references-publications" element={<ReferencesPublications />} />
+        <Suspense fallback={<RouteFallback />}>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/projets" element={<Projects />} />
+            <Route path="/projet/:id" element={<ProjectDetail />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/segmentation-irm" element={<SegmentationIRM />} />
+            <Route path="/analyse-dicom" element={<AnalyseDICOM />} />
+            <Route path="/quantification-ct" element={<QuantificationCT />} />
+            <Route path="/recalage-multimodal" element={<RecalageMultimodal />} />
+            <Route path="/bases-multicentriques" element={<BasesMulticentriques />} />
+            <Route path="/corelab-essais-cliniques" element={<CorelabEC />} />
+            <Route path="/biomarqueurs-irm-cardiaque-essais-cliniques" element={<BiomarqueursIRMCardiaqueEssais />} />
+            <Route path="/ecv-mapping-t1-t2-irm-cardiaque" element={<ECVMappingCardiaque />} />
+            <Route path="/perfusion-metabolique-neuro-imagerie" element={<PerfusionMetaboliqueNeuro />} />
+            <Route path="/ingenierie-imagerie-quantitative" element={<IngenierieImagerieQuantitative />} />
+            <Route path="/ct-quantitatif-avance-imagerie-spectrale" element={<CTQuantitatifAvance />} />
+            <Route path="/ct-perfusion-quantitative-avc" element={<CTPerfusionQuantitative />} />
+            <Route path="/irm-imagerie-quantitative" element={<IRMImagerieQuantitative />} />
+            <Route path="/ct-imagerie-quantitative" element={<CTImagerieQuantitative />} />
+            <Route path="/methodologie-imagerie-quantitative" element={<MethodologieImagerieQuantitative />} />
+            <Route path="/a-propos" element={<APropos />} />
+            <Route path="/prestations-imagerie-medicale" element={<Prestations />} />
+            <Route path="/expertise" element={<Expertise />} />
+            <Route path="/references-publications" element={<ReferencesPublications />} />
 
-
-          {/* Fallback */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+            {/* Fallback */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
 
       </BrowserRouter>
     </TooltipProvider>
