@@ -2,6 +2,10 @@
 
 Ce script permet de suivre dans le temps la position de votre domaine sur une liste de requetes.
 
+Si vous voulez la version simple utilisateur, utilisez d'abord:
+
+- `SEO_START_HERE.md`
+
 ## 1) Prerequis
 
 - Python 3.9+
@@ -80,8 +84,8 @@ Cron installe:
 Pour generer un DMG avec un lanceur:
 
 ```bash
-chmod +x scripts/build_seo_dmg.sh
-./scripts/build_seo_dmg.sh
+chmod +x scripts/build_seo_dmg
+./scripts/build_seo_dmg
 ```
 
 DMG genere:

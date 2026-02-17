@@ -108,6 +108,11 @@ def parse_args() -> argparse.Namespace:
     choices=("google", "bing"),
     help="Search engine backend (default: google).",
   )
+  parser.add_argument(
+    "--no-chart",
+    action="store_true",
+    help="Disable PNG chart generation.",
+  )
   return parser.parse_args()
 
 
@@ -494,8 +499,10 @@ def main() -> int:
   report = build_markdown_report(history, args.max_results, args.domain, args.engine)
   write_text(report_md, report)
 
+  chart_status = "disabled (--no-chart)"
   chart_png = Path(args.chart_png)
-  chart_status = plot_trends(history, args.max_results, chart_png, args.engine)
+  if not args.no_chart:
+    chart_status = plot_trends(history, args.max_results, chart_png, args.engine)
 
   print("")
   print(f"History saved: {history_csv}")

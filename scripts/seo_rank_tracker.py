@@ -94,6 +94,11 @@ def parse_args() -> argparse.Namespace:
     choices=(10, 20, 30, 40, 50, 60, 70, 80, 90, 100),
     help="How many top results to scan per query (10..100 step 10).",
   )
+  parser.add_argument(
+    "--no-chart",
+    action="store_true",
+    help="Disable PNG chart generation.",
+  )
   return parser.parse_args()
 
 
@@ -406,8 +411,10 @@ def main() -> int:
   report = build_markdown_report(history, args.max_results, args.domain)
   write_text(report_md, report)
 
+  chart_status = "disabled (--no-chart)"
   chart_png = Path(args.chart_png)
-  chart_status = plot_trends(history, args.max_results, chart_png)
+  if not args.no_chart:
+    chart_status = plot_trends(history, args.max_results, chart_png)
 
   print("")
   print(f"History saved: {history_csv}")

@@ -19,6 +19,12 @@ fi
 
 mkdir -p data/seo
 
+# Ensure matplotlib/fontconfig can write cache in all environments.
+export MPLCONFIGDIR="${MPLCONFIGDIR:-$ROOT_DIR/data/seo/.mplconfig}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$ROOT_DIR/data/seo/.cache}"
+export MPLBACKEND="${MPLBACKEND:-Agg}"
+mkdir -p "$MPLCONFIGDIR" "$XDG_CACHE_HOME" "$XDG_CACHE_HOME/fontconfig"
+
 if [[ -n "${GOOGLE_API_KEY:-}" \
   && -n "${GOOGLE_CSE_ID:-}" \
   && "${GOOGLE_API_KEY:-}" != "replace_me" \
