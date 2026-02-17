@@ -1,13 +1,22 @@
-# Brand
+# Brand exact / marque
 noxia imagerie
-noxia imagerie quantitative
+"noxia imagerie"
+noxia-imagerie
+charles de bourguignon
 charles de bourguignon imagerie
 
-# Services
-corelab irm essais cliniques
+# Intention service (non brand, client reel)
+consultant imagerie medicale
+consultant imagerie médicale
+consultant imagerie medicale recherche
+consultant imagerie médicale de recherche
+prestation imagerie medicale de recherche
+prestation imagerie médicale de recherche
+prestation corelab irm
+service corelab imagerie
+analyse imagerie essai clinique
+sous-traitance analyse imagerie clinique
 analyse dicom multicentrique
 recalage multimodal irm ct
-bases multicentriques imagerie
+harmonisation multicentrique irm ct
 methodologie imagerie quantitative
-ct perfusion avc corelab
-irm quantitative biomarqueurs
