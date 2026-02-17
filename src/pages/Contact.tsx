@@ -25,7 +25,7 @@ const PROJECT_TYPES = [
   "Autre besoin",
 ];
 
-const MODALITIES = ["IRM", "CT", "IRM + CT", "Autre (ex: médecine nucléaire)"];
+const MODALITIES = ["IRM", "CT", "IRM + CT", "Autre"];
 
 const PROJECT_STAGES = [
   "Exploration",
