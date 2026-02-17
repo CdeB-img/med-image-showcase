@@ -25,7 +25,7 @@ const PROJECT_TYPES = [
   "Autre besoin",
 ];
 
-const MODALITIES = ["IRM", "CT", "IRM + CT"];
+const MODALITIES = ["IRM", "CT", "IRM + CT", "Autre (ex: médecine nucléaire)"];
 
 const PROJECT_STAGES = [
   "Exploration",
@@ -230,8 +230,8 @@ const Contact = () => {
               </div>
             </section>
 
-            <section className="space-y-5">
-              <h2 className="text-xl md:text-2xl font-semibold text-foreground">Offres cadrées</h2>
+            <section className="max-w-4xl mx-auto space-y-5">
+              <h2 className="text-xl md:text-2xl font-semibold text-foreground text-center">Offres cadrées</h2>
               <div className="grid md:grid-cols-3 gap-4">
                 <article className="rounded-xl border border-border bg-card/50 p-5 space-y-2">
                   <h3 className="font-semibold text-foreground">Audit méthodologique</h3>
