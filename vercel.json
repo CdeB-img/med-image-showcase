@@ -2,6 +2,18 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": null,
+  "redirects": [
+    {
+      "source": "/Corelab-essais-cliniques",
+      "destination": "/corelab-essais-cliniques",
+      "permanent": true
+    },
+    {
+      "source": "/Corelab-essais-cliniques/",
+      "destination": "/corelab-essais-cliniques",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",

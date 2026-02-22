@@ -128,9 +128,25 @@ const ProjectDetail = () => {
 
   if (!project) {
     return (
-      <main className="min-h-screen flex items-center justify-center">
-        <h1>Projet non trouvé</h1>
-      </main>
+      <>
+        <Helmet>
+          <title>Projet non trouvé | NOXIA</title>
+          <meta name="robots" content="noindex, nofollow" />
+          <link rel="canonical" href="https://noxia-imagerie.fr/projets" />
+        </Helmet>
+
+        <main className="min-h-screen flex items-center justify-center px-4">
+          <div className="text-center space-y-3">
+            <h1 className="text-2xl font-semibold">Projet non trouvé</h1>
+            <p className="text-muted-foreground">
+              Cette URL ne correspond a aucun projet public.
+            </p>
+            <Link to="/projets" className="text-primary underline hover:text-primary/90">
+              Retour a la page Projets
+            </Link>
+          </div>
+        </main>
+      </>
     );
   }
 
