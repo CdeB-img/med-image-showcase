@@ -31,7 +31,15 @@ const GlobalEntitySchema = () => {
     "@type": "Person",
     "@id": `${SITE_URL}/a-propos#person`,
     name: "Charles de Bourguignon",
-    jobTitle: "Expert en imagerie medicale quantitative",
+    jobTitle: "Consultant independant en imagerie medicale quantitative",
+    hasOccupation: {
+      "@type": "Occupation",
+      name: "Consultant independant en imagerie medicale quantitative",
+      occupationLocation: {
+        "@type": "Country",
+        name: "France",
+      },
+    },
     url: `${SITE_URL}/a-propos`,
     email: "contact@noxia-imagerie.fr",
     identifier: {

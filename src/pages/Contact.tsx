@@ -73,10 +73,10 @@ const Contact = () => {
   const contactJsonLd = {
     "@context": "https://schema.org",
     "@type": "ContactPage",
-    name: "Contact NOXIA Imagerie",
+    name: "Contact consultant en imagerie médicale - NOXIA",
     url: CANONICAL,
     description:
-      "Prise de contact pour collaboration en imagerie quantitative IRM et CT.",
+      "Prise de contact avec un consultant indépendant en imagerie quantitative IRM et CT.",
     mainEntity: {
       "@type": "Organization",
       name: "NOXIA Imagerie",
@@ -180,15 +180,15 @@ const Contact = () => {
   return (
     <>
       <Helmet>
-        <title>Contact professionnel | NOXIA Imagerie</title>
+        <title>Contact consultant indépendant en imagerie médicale | NOXIA</title>
         <meta
           name="description"
-          content="Contact professionnel pour collaboration en imagerie médicale quantitative : segmentation IRM, analyse DICOM, quantification CT."
+          content="Contact consultant indépendant en imagerie médicale quantitative : CoreLab IRM/CT, analyse DICOM, harmonisation multicentrique et ingénierie méthodologique."
         />
-        <meta property="og:title" content="Contact professionnel | NOXIA Imagerie" />
+        <meta property="og:title" content="Contact consultant indépendant en imagerie médicale | NOXIA" />
         <meta
           property="og:description"
-          content="Échange initial pour collaboration en imagerie quantitative IRM et CT."
+          content="Échange initial pour une mission de consulting en imagerie quantitative IRM et CT."
         />
         <meta property="og:type" content="website" />
         <link rel="canonical" href={CANONICAL} />
@@ -214,7 +214,7 @@ const Contact = () => {
                   Contact professionnel
                 </h1>
                 <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                  Collaboration en imagerie quantitative IRM et CT pour projets académiques, hospitaliers et industriels.
+                  Contact direct avec un consultant indépendant en imagerie quantitative IRM et CT pour projets académiques, hospitaliers et industriels.
                 </p>
                 <div className="flex flex-wrap justify-center gap-2 pt-1">
                   <span className="rounded-full border border-border bg-card/70 px-3 py-1 text-xs text-foreground">

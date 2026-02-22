@@ -38,9 +38,9 @@ const Prestations = () => {
   const serviceJsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
-    name: "Prestations en imagerie médicale quantitative",
+    name: "Prestations de consultant en imagerie médicale quantitative",
     description:
-      "CoreLab IRM & CT, structuration multicentrique, audit méthodologique, reprise d'études existantes et ingénierie quantitative en recherche clinique.",
+      "Consultant indépendant en CoreLab IRM & CT, structuration multicentrique, audit méthodologique, reprise d'études existantes et ingénierie quantitative en recherche clinique.",
     provider: {
       "@type": "Organization",
       name: "NOXIA Imagerie",
@@ -48,6 +48,7 @@ const Prestations = () => {
     },
     areaServed: "France & Europe",
     serviceType: [
+      "Consultant indépendant en imagerie médicale",
       "CoreLab externalisé",
       "Audit DICOM et harmonisation multicentrique",
       "Reprise d'études et sécurisation méthodologique",
@@ -97,16 +98,25 @@ const Prestations = () => {
             "Oui. Les pipelines sont adaptés à chaque modalité avec harmonisation multicentrique, calibration CT lorsque nécessaire et livrables compatibles analyses statistiques.",
         },
       },
+      {
+        "@type": "Question",
+        name: "Intervenez-vous comme consultant indépendant en imagerie médicale ?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text:
+            "Oui. L'intervention se fait comme consultant indépendant, en appui méthodologique ou opérationnel, sur un périmètre défini avec livrables traçables.",
+        },
+      },
     ],
   };
 
   return (
     <>
       <Helmet>
-        <title>Prestations | CoreLab & Imagerie Quantitative | NOXIA</title>
+        <title>Consultant indépendant CoreLab IRM & CT | Prestations NOXIA</title>
         <meta
           name="description"
-          content="CoreLab IRM et CT externalisé, audit DICOM, harmonisation multicentrique, reprise d'études existantes et développement d'outils sur mesure en recherche clinique."
+          content="Consultant indépendant en imagerie médicale quantitative : CoreLab IRM/CT, audit DICOM, harmonisation multicentrique, reprise d'études et ingénierie sur mesure."
         />
         <link rel="canonical" href={CANONICAL} />
         <script type="application/ld+json">{JSON.stringify(serviceJsonLd)}</script>
@@ -126,11 +136,11 @@ const Prestations = () => {
             />
 
             <ExpertiseHero
-              badge="Services"
+              badge="Consultant indépendant"
               badgeIcon={Workflow}
               title="CoreLab IRM & CT externalisé pour études cliniques"
               description="Intervention en amont, en cours ou en reprise d'étude pour structurer la méthodologie, documenter les traitements et organiser des livrables compatibles avec l'analyse statistique et la publication."
-              chips={["CHU & académique", "Promoteurs industriels", "France & Europe", "Livrables auditables"]}
+              chips={["CHU & académique", "Promoteurs industriels", "France & Europe", "Livrables auditables", "Consulting scientifique"]}
               actions={[
                 { label: "Planifier un échange de cadrage", to: "/contact", variant: "primary", icon: ArrowRight },
                 { label: "Voir la méthodologie", to: "/methodologie-imagerie-quantitative", variant: "secondary", icon: BarChart3 },
@@ -204,6 +214,11 @@ const Prestations = () => {
 
             <section className="rounded-2xl border border-border bg-card/50 p-6 md:p-8 space-y-6">
               <h2 className="text-2xl font-semibold text-foreground text-center">Ce que vous obtenez concrètement</h2>
+
+              <p className="text-muted-foreground text-center max-w-3xl mx-auto leading-relaxed">
+                Le cadre est celui d'un consultant indépendant en imagerie médicale quantitative :
+                mission définie, méthode explicite et livrables directement réutilisables par votre équipe.
+              </p>
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="rounded-xl border border-border bg-background/70 p-5 space-y-3">

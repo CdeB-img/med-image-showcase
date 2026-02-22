@@ -59,7 +59,7 @@ const APropos = () => {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Charles de Bourguignon",
-    jobTitle: "Expert en imagerie médicale quantitative",
+    jobTitle: "Consultant indépendant en imagerie médicale quantitative",
     description:
       "Expert indépendant en IRM et CT quantitatif. CoreLab multicentrique, biomarqueurs cœur–cerveau, ingénierie d’analyse et harmonisation inter-centres.",
     email: "contact@noxia-imagerie.fr",
@@ -107,7 +107,7 @@ const APropos = () => {
     <>
       <Helmet>
         <title>
-          Charles de Bourguignon | Expert Imagerie Médicale – NOXIA
+          Charles de Bourguignon | Consultant indépendant en imagerie médicale – NOXIA
         </title>
 
         <meta
