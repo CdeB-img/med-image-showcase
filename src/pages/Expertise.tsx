@@ -106,7 +106,7 @@ const Expertise = () => {
             />
 
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
-              <h2 className="text-xl font-semibold text-foreground">Réponse courte</h2>
+              <h2 className="text-xl font-semibold text-foreground">Définition de l’expertise NOXIA en imagerie quantitative</h2>
               <p className="text-muted-foreground leading-relaxed">
                 L'expertise NOXIA couvre l'IRM quantitative, le CT quantitatif et la méthodologie multicentrique pour produire des biomarqueurs défendables. La différence se fait sur l'architecture complète: audit DICOM, normalisation, règles de mesure explicites, contrôles QA et traçabilité. L'objectif n'est pas de générer des cartes visuelles, mais des endpoints robustes pour décision clinique et recherche.
               </p>

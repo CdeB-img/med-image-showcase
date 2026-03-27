@@ -3,19 +3,9 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
-import { HelmetProvider } from "react-helmet-async";
-import { useEffect, lazy, Suspense, Component, type ErrorInfo, type ReactNode } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import Header from "@/components/Header";
 import GlobalEntitySchema from "@/components/GlobalEntitySchema";
-
-const CorelabEC = lazy(() => import("@/pages/CorelabEC"));
-const BiomarqueursIRMCardiaqueEssais = lazy(() => import("@/pages/BiomarqueursIRMCardiaqueEssais"));
-const ECVMappingCardiaque = lazy(() => import("@/pages/ECVMappingCardiaque"));
-const PerfusionMetaboliqueNeuro = lazy(() => import("@/pages/PerfusionMetaboliqueNeuro"));
-const CMRO2Imagerie = lazy(() => import("@/pages/CMRO2Imagerie"));
-const OEFImagerie = lazy(() => import("@/pages/OEFImagerie"));
-const CTQuantitatifAvance = lazy(() => import("@/pages/CTQuantitatifAvance"));
-const CTPerfusionQuantitative = lazy(() => import("@/pages/CTPerfusionQuantitative"));
 
 const Index = lazy(() => import("./pages/Index"));
 const Projects = lazy(() => import("./pages/Projects"));
@@ -26,7 +16,15 @@ const AnalyseDICOM = lazy(() => import("@/pages/AnalyseDICOM"));
 const QuantificationCT = lazy(() => import("@/pages/QuantificationCT"));
 const RecalageMultimodal = lazy(() => import("@/pages/RecalageMultimodal"));
 const BasesMulticentriques = lazy(() => import("@/pages/BasesMulticentriques"));
+const CorelabEC = lazy(() => import("@/pages/CorelabEC"));
+const BiomarqueursIRMCardiaqueEssais = lazy(() => import("@/pages/BiomarqueursIRMCardiaqueEssais"));
+const ECVMappingCardiaque = lazy(() => import("@/pages/ECVMappingCardiaque"));
+const PerfusionMetaboliqueNeuro = lazy(() => import("@/pages/PerfusionMetaboliqueNeuro"));
+const CMRO2Imagerie = lazy(() => import("@/pages/CMRO2Imagerie"));
+const OEFImagerie = lazy(() => import("@/pages/OEFImagerie"));
 const IngenierieImagerieQuantitative = lazy(() => import("@/pages/IngenierieImagerieQuantitative"));
+const CTQuantitatifAvance = lazy(() => import("@/pages/CTQuantitatifAvance"));
+const CTPerfusionQuantitative = lazy(() => import("@/pages/CTPerfusionQuantitative"));
 const IRMImagerieQuantitative = lazy(() => import("@/pages/IRMImagerieQuantitative"));
 const CTImagerieQuantitative = lazy(() => import("@/pages/CTImagerieQuantitative"));
 const MethodologieImagerieQuantitative = lazy(() => import("@/pages/MethodologieImagerieQuantitative"));
@@ -38,9 +36,6 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
 
-/**
- * Scroll to top on route change
- */
 function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -57,66 +52,8 @@ const RouteFallback = () => (
   </div>
 );
 
-type RouteRenderBoundaryProps = {
-  children: ReactNode;
-};
-
-type RouteRenderBoundaryState = {
-  hasError: boolean;
-  message: string;
-};
-
-class RouteRenderBoundary extends Component<RouteRenderBoundaryProps, RouteRenderBoundaryState> {
-  state: RouteRenderBoundaryState = {
-    hasError: false,
-    message: "",
-  };
-
-  static getDerivedStateFromError(error: unknown): RouteRenderBoundaryState {
-    return {
-      hasError: true,
-      message: error instanceof Error ? error.message : "Erreur de rendu inconnue",
-    };
-  }
-
-  componentDidCatch(error: unknown, info: ErrorInfo) {
-    console.error("Route render error:", error, info);
-  }
-
-  render() {
-    if (!this.state.hasError) {
-      return this.props.children;
-    }
-
-    return (
-      <div className="px-4 py-16">
-        <div className="mx-auto max-w-3xl rounded-2xl border border-destructive/30 bg-card/70 p-6 space-y-4">
-          <h1 className="text-xl font-semibold text-foreground">Erreur de rendu de la page</h1>
-          <p className="text-sm text-muted-foreground">
-            Une erreur JavaScript empêche l’affichage de cette route. Recharge la page, puis ouvre la console navigateur si le problème persiste.
-          </p>
-          <div className="rounded-lg border border-border bg-muted/20 px-4 py-3 text-xs text-muted-foreground break-all">
-            {this.state.message || "Aucun message d’erreur disponible"}
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
-
-function RouteRenderBoundaryWithReset({ children }: { children: ReactNode }) {
-  const location = useLocation();
-
-  return (
-    <RouteRenderBoundary key={location.pathname}>
-      {children}
-    </RouteRenderBoundary>
-  );
-}
-
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <HelmetProvider>
     <TooltipProvider>
       <Toaster />
       <Sonner />
@@ -124,13 +61,11 @@ const App = () => (
       <BrowserRouter basename="/">
         <ScrollToTop />
 
-        {/* 🔹 NAVBAR GLOBALE */}
         <Header />
         <GlobalEntitySchema />
 
-        <RouteRenderBoundaryWithReset>
-          <Suspense fallback={<RouteFallback />}>
-            <Routes>
+        <Suspense fallback={<RouteFallback />}>
+          <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/projets" element={<Projects />} />
             <Route path="/projet/:id" element={<ProjectDetail />} />
@@ -141,18 +76,21 @@ const App = () => (
             <Route path="/recalage-multimodal" element={<RecalageMultimodal />} />
             <Route path="/bases-multicentriques" element={<BasesMulticentriques />} />
             <Route path="/corelab-essais-cliniques" element={<CorelabEC />} />
-            
-            {/* Redirections pour correspondre à tes termes exacts */}
-            <Route path="/corelabirm" element={<Navigate to="/corelab-essais-cliniques" replace />} />
-            <Route path="/cmro2" element={<Navigate to="/cmro2-imagerie-cerebrale" replace />} />
-            <Route path="/oef" element={<Navigate to="/oef-imagerie-cerebrale" replace />} />
-            
-            <Route path="/biomarqueurs-irm-cardiaque-essais-cliniques" element={<BiomarqueursIRMCardiaqueEssais />} />
+            <Route
+              path="/biomarqueurs-irm-cardiaque-essais-cliniques"
+              element={<BiomarqueursIRMCardiaqueEssais />}
+            />
             <Route path="/ecv-mapping-t1-t2-irm-cardiaque" element={<ECVMappingCardiaque />} />
             <Route path="/perfusion-metabolique-neuro-imagerie" element={<PerfusionMetaboliqueNeuro />} />
-            <Route path="/perfusion-metabolique-neuro-imagerie/CMRO2Imagerie" element={<Navigate to="/cmro2-imagerie-cerebrale" replace />} />
+            <Route
+              path="/perfusion-metabolique-neuro-imagerie/CMRO2Imagerie"
+              element={<Navigate to="/cmro2-imagerie-cerebrale" replace />}
+            />
             <Route path="/cmro2-imagerie-cerebrale" element={<CMRO2Imagerie />} />
-            <Route path="/perfusion-metabolique-neuro-imagerie/OEFImagerie" element={<Navigate to="/oef-imagerie-cerebrale" replace />} />
+            <Route
+              path="/perfusion-metabolique-neuro-imagerie/OEFImagerie"
+              element={<Navigate to="/oef-imagerie-cerebrale" replace />}
+            />
             <Route path="/oef-imagerie-cerebrale" element={<OEFImagerie />} />
             <Route path="/ingenierie-imagerie-quantitative" element={<IngenierieImagerieQuantitative />} />
             <Route path="/ct-quantitatif-avance-imagerie-spectrale" element={<CTQuantitatifAvance />} />
@@ -165,35 +103,16 @@ const App = () => (
             <Route path="/expertise" element={<Expertise />} />
             <Route path="/references-publications" element={<ReferencesPublications />} />
 
-            {/* Legacy/case variants -> canonical lowercase routes */}
-            <Route path="/Corelab-essais-cliniques" element={<Navigate to="/corelab-essais-cliniques" replace />} />
-            <Route path="/Corelab-essais-cliniques/" element={<Navigate to="/corelab-essais-cliniques" replace />} />
-            <Route path="/Biomarqueurs-irm-cardiaque-essais-cliniques" element={<Navigate to="/biomarqueurs-irm-cardiaque-essais-cliniques" replace />} />
-            <Route path="/Biomarqueurs-irm-cardiaque-essais-cliniques/" element={<Navigate to="/biomarqueurs-irm-cardiaque-essais-cliniques" replace />} />
-            <Route path="/Ct-quantitatif-avance-imagerie-spectrale" element={<Navigate to="/ct-quantitatif-avance-imagerie-spectrale" replace />} />
-            <Route path="/Ct-quantitatif-avance-imagerie-spectrale/" element={<Navigate to="/ct-quantitatif-avance-imagerie-spectrale" replace />} />
-            <Route path="/Ct-perfusion-quantitative-avc" element={<Navigate to="/ct-perfusion-quantitative-avc" replace />} />
-            <Route path="/Ct-perfusion-quantitative-avc/" element={<Navigate to="/ct-perfusion-quantitative-avc" replace />} />
-            <Route path="/Ecv-mapping-t1-t2-irm-cardiaque" element={<Navigate to="/ecv-mapping-t1-t2-irm-cardiaque" replace />} />
-            <Route path="/Ecv-mapping-t1-t2-irm-cardiaque/" element={<Navigate to="/ecv-mapping-t1-t2-irm-cardiaque" replace />} />
-            <Route path="/Perfusion-metabolique-neuro-imagerie" element={<Navigate to="/perfusion-metabolique-neuro-imagerie" replace />} />
-            <Route path="/Perfusion-metabolique-neuro-imagerie/" element={<Navigate to="/perfusion-metabolique-neuro-imagerie" replace />} />
-            <Route path="/Cmro2-imagerie-cerebrale" element={<Navigate to="/cmro2-imagerie-cerebrale" replace />} />
-            <Route path="/Cmro2-imagerie-cerebrale/" element={<Navigate to="/cmro2-imagerie-cerebrale" replace />} />
-            <Route path="/Oef-imagerie-cerebrale" element={<Navigate to="/oef-imagerie-cerebrale" replace />} />
-            <Route path="/Oef-imagerie-cerebrale/" element={<Navigate to="/oef-imagerie-cerebrale" replace />} />
+            <Route path="/corelabirm" element={<Navigate to="/corelab-essais-cliniques" replace />} />
+            <Route path="/cmro2" element={<Navigate to="/cmro2-imagerie-cerebrale" replace />} />
+            <Route path="/oef" element={<Navigate to="/oef-imagerie-cerebrale" replace />} />
 
-            {/* Fallback */}
             <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
-        </RouteRenderBoundaryWithReset>
-
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </TooltipProvider>
-    </HelmetProvider>
   </QueryClientProvider>
 );
-
 
 export default App;

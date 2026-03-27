@@ -166,7 +166,7 @@ const PerfusionMetaboliqueNeuro = () => {
 
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
               <h2 className="text-xl font-semibold text-foreground">
-                Réponse courte
+                Définition de la perfusion neuro IRM quantitative
               </h2>
               <p className="text-muted-foreground leading-relaxed">
                 La perfusion neuro IRM quantitative mesure le déséquilibre entre débit et métabolisme dans l’AVC, via des indicateurs comme OEF, CMRO2, CBF et Tmax. En pratique, ces cartes n’ont de valeur clinique que si le pipeline de normalisation, de segmentation et de QA est explicite. L’objectif est de produire des biomarqueurs comparables entre centres, et pas seulement des visualisations physiologiques.

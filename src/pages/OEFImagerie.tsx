@@ -155,7 +155,7 @@ const OEFImagerie = () => {
 
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
               <h2 className="text-xl font-semibold text-foreground">
-                Réponse courte
+                Définition de l’OEF en imagerie cérébrale
               </h2>
               <p className="text-muted-foreground leading-relaxed">
                 L’OEF correspond à la fraction d’oxygène extraite du sang par le tissu cérébral. En situation d’hypoperfusion, une OEF élevée peut traduire une compensation métabolique compatible avec une pénombre ischémique. L’OEF doit être interprétée avec le CMRO2, la perfusion et la diffusion.

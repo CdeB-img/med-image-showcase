@@ -155,7 +155,7 @@ const CMRO2Imagerie = () => {
 
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
               <h2 className="text-xl font-semibold text-foreground">
-                Réponse courte
+                Définition du CMRO2 en imagerie cérébrale
               </h2>
               <p className="text-muted-foreground leading-relaxed">
                 Le CMRO2 mesure la consommation cérébrale d’oxygène, et non uniquement la perfusion. En AVC, il aide à distinguer un tissu encore métaboliquement actif d’un tissu déjà en échec énergétique. L’interprétation du CMRO2 se fait avec l’OEF, le CBF et les données de diffusion.

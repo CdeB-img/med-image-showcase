@@ -173,7 +173,7 @@ const jsonLd = {
 
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
               <h2 className="text-xl font-semibold text-foreground">
-                Réponse courte
+                Définition de l’IRM quantitative multicentrique
               </h2>
               <p className="text-muted-foreground leading-relaxed">
                 L’IRM quantitative transforme le signal IRM en biomarqueurs mesurables comme le LGE, l’ECV, le T1 mapping et le T2 mapping. Ces mesures ne sont pas directement comparables sans contrôle des séquences, des règles de segmentation et du post-traitement. Une IRM quantitative défendable nécessite donc une méthodologie explicite et une harmonisation multicentrique.

@@ -176,7 +176,7 @@ const CTQuantitatifAvance = () => {
 
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
               <h2 className="text-xl font-semibold text-foreground">
-                Réponse courte
+                Définition du CT spectral en quantification avancée
               </h2>
               <p className="text-muted-foreground leading-relaxed">
                 Le CT spectral (scanner à double énergie) utilise plusieurs niveaux d’énergie pour différencier les matériaux et produire des reconstructions monoénergétiques. Son intérêt en quantification est d’améliorer l’interprétation physique des mesures, notamment pour l’iode et les tissus denses. Un CT spectral exploitable en multicentrique exige néanmoins calibration, contrôle de reconstruction et validation indépendante.

@@ -177,7 +177,7 @@ const CTImagerieQuantitative = () => {
 
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
               <h2 className="text-xl font-semibold text-foreground">
-                Réponse courte
+                Définition du CT quantitatif multicentrique
               </h2>
               <p className="text-muted-foreground leading-relaxed">
                 Le CT quantitatif consiste à produire des mesures CT comparables entre patients et entre centres, et pas seulement des images lisibles. En pratique, la valeur des unités Hounsfield dépend du constructeur, des reconstructions et du protocole d’acquisition. Un CT quantitatif robuste repose donc sur l’audit DICOM, la calibration phantom et l’harmonisation multicentrique.

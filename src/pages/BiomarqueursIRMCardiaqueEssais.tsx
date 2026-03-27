@@ -185,7 +185,7 @@ const faqJsonLd = {
 
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
               <h2 className="text-xl font-semibold text-foreground">
-                Réponse courte
+                Définition d’un biomarqueur IRM cardiaque d’essai clinique
               </h2>
               <p className="text-muted-foreground leading-relaxed">
                 Un biomarqueur IRM cardiaque utilisable en essai n’est pas qu’une mesure d’image: c’est un endpoint défini, reproductible et auditable. Il doit préciser la règle de mesure, le timing, les exclusions et la gestion de variabilité multicentrique. Sans cette architecture, la valeur clinique et statistique de l’endpoint reste fragile.
