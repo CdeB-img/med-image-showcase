@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useEffect, lazy, Suspense } from "react";
 import Header from "@/components/Header";
 import GlobalEntitySchema from "@/components/GlobalEntitySchema";
@@ -82,6 +82,7 @@ const App = () => (
             <Route path="/biomarqueurs-irm-cardiaque-essais-cliniques" element={<BiomarqueursIRMCardiaqueEssais />} />
             <Route path="/ecv-mapping-t1-t2-irm-cardiaque" element={<ECVMappingCardiaque />} />
             <Route path="/perfusion-metabolique-neuro-imagerie" element={<PerfusionMetaboliqueNeuro />} />
+            <Route path="/perfusion-metabolique-neuro-imagerie/CMRO2Imagerie" element={<Navigate to="/cmro2-imagerie-cerebrale" replace />} />
             <Route path="/cmro2-imagerie-cerebrale" element={<CMRO2Imagerie />} />
             <Route path="/ingenierie-imagerie-quantitative" element={<IngenierieImagerieQuantitative />} />
             <Route path="/ct-quantitatif-avance-imagerie-spectrale" element={<CTQuantitatifAvance />} />

@@ -159,6 +159,7 @@ const PerfusionMetaboliqueNeuro = () => {
               actions={[
                 { label: "Échanger sur un protocole", to: "/contact", variant: "primary", icon: ArrowRight },
                 { label: "Voir IRM quantitative", to: "/irm-imagerie-quantitative", variant: "secondary", icon: Database },
+                { label: "Voir focus CMRO2", to: "/cmro2-imagerie-cerebrale", variant: "secondary", icon: ArrowRight },
               ]}
             />
 
@@ -174,6 +175,13 @@ const PerfusionMetaboliqueNeuro = () => {
                     OEF pathologique, CMRO2 altéré, volumes Tmax,
                     mismatch diffusion / métabolisme.
                   </p>
+                  <Link
+                    to="/cmro2-imagerie-cerebrale"
+                    className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline mt-3"
+                  >
+                    Ouvrir le focus CMRO2
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
                 </div>
 
                 <div>

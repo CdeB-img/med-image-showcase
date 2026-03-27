@@ -12,6 +12,16 @@
       "source": "/Corelab-essais-cliniques/",
       "destination": "/corelab-essais-cliniques",
       "permanent": true
+    },
+    {
+      "source": "/perfusion-metabolique-neuro-imagerie/CMRO2Imagerie",
+      "destination": "/cmro2-imagerie-cerebrale",
+      "permanent": true
+    },
+    {
+      "source": "/perfusion-metabolique-neuro-imagerie/CMRO2Imagerie/",
+      "destination": "/cmro2-imagerie-cerebrale",
+      "permanent": true
     }
   ],
   "rewrites": [
