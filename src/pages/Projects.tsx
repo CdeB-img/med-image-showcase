@@ -160,10 +160,10 @@ const Projects = () => {
   return (
     <>
       <Helmet>
-        <title>Projets en imagerie médicale quantitative | NOXIA</title>
+        <title>Projets d’imagerie quantitative IRM/CT en recherche | NOXIA</title>
         <meta
           name="description"
-          content="Exemples de projets en segmentation, quantification et méthodologie IRM/CT avec approche reproductible et multicentrique."
+          content="Projets NOXIA en segmentation, quantification et méthodologie IRM/CT: cas multicentriques, validation technique et biomarqueurs pour recherche clinique."
         />
         <link rel="canonical" href={CANONICAL} />
         <script type="application/ld+json">{JSON.stringify(collectionJsonLd)}</script>
@@ -209,7 +209,19 @@ const Projects = () => {
               <p>
                 Chaque collaboration débute par un échange afin de définir une
                 approche adaptée&nbsp;: segmentation, recalage, quantification
-                ou développement d’outils sur mesure.
+                ou développement d’outils sur mesure. Les pages{" "}
+                <Link to="/segmentation-irm" className="text-primary hover:underline">
+                  segmentation IRM
+                </Link>
+                ,{" "}
+                <Link to="/quantification-ct" className="text-primary hover:underline">
+                  quantification CT
+                </Link>{" "}
+                et{" "}
+                <Link to="/recalage-multimodal" className="text-primary hover:underline">
+                  recalage multimodal
+                </Link>{" "}
+                détaillent les briques méthodologiques utilisées.
               </p>
 
               <p className="font-medium text-foreground pt-4 border-t border-border/40">
@@ -221,6 +233,38 @@ const Projects = () => {
                   {" "}Un échange permet d’évaluer rapidement la faisabilité.
                 </Link>
               </p>
+            </section>
+
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold">Compléter la lecture des cas</h2>
+              <p className="text-muted-foreground leading-relaxed">
+                Pour relier ces exemples opérationnels au cadre global, voir la{" "}
+                <Link to="/methodologie-imagerie-quantitative" className="text-primary hover:underline">
+                  méthodologie imagerie quantitative
+                </Link>
+                , la page{" "}
+                <Link to="/expertise" className="text-primary hover:underline">
+                  expertise
+                </Link>{" "}
+                et les{" "}
+                <Link to="/prestations-imagerie-medicale" className="text-primary hover:underline">
+                  formats d’accompagnement
+                </Link>.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Link to="/expertise" className="inline-flex items-center rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Architecture d’expertise
+                </Link>
+                <Link to="/methodologie-imagerie-quantitative" className="inline-flex items-center rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Pipeline méthodologique
+                </Link>
+                <Link to="/prestations-imagerie-medicale" className="inline-flex items-center rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Prestations de conseil
+                </Link>
+                <Link to="/contact" className="inline-flex items-center rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Cadrer un projet
+                </Link>
+              </div>
             </section>
 
             {/* ================= AXES ================= */}

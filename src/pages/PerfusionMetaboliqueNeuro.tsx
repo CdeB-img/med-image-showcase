@@ -25,6 +25,14 @@ const PerfusionMetaboliqueNeuro = () => {
     name: "Perfusion et métabolisme cérébral en IRM quantitative",
     description:
       "Quantification OEF, CMRO2, CBF et Tmax en IRM cérébrale. Pipeline physiopathologique, normalisation hémisphérique, hystérésis 3D et harmonisation multicentrique.",
+    about: [
+      "Oxygen Extraction Fraction",
+      "CMRO2 MRI",
+      "CBF MRI",
+      "Tmax perfusion MRI",
+      "Ischemic stroke imaging",
+      "Diffusion perfusion mismatch"
+    ],
     provider: {
       "@type": "Organization",
       name: "NOXIA Imagerie",
@@ -67,14 +75,6 @@ const PerfusionMetaboliqueNeuro = () => {
   };
 
   const faqJsonLd = {
-    about: [
-        "Oxygen Extraction Fraction",
-        "CMRO2 MRI",
-        "CBF MRI",
-        "Tmax perfusion MRI",
-        "Ischemic stroke imaging",
-        "Diffusion perfusion mismatch"
-      ],
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: [
@@ -113,12 +113,12 @@ const PerfusionMetaboliqueNeuro = () => {
     <>
       <Helmet>
         <title>
-          Perfusion & Métabolisme cérébral IRM (OEF, CMRO2, CBF, Tmax) | NOXIA
+          Perfusion neuro IRM: OEF, CMRO2 et biomarqueurs AVC | NOXIA
         </title>
 
         <meta
           name="description"
-          content="Quantification OEF, CMRO2, CBF et Tmax en IRM cérébrale. Pipeline physiopathologique, normalisation hémisphérique, hystérésis 3D et harmonisation multicentrique."
+          content="Perfusion neuro IRM quantitative en AVC: OEF, CMRO2, CBF, Tmax, harmonisation multicentrique et validation méthodologique des biomarqueurs cliniques."
         />
 
         <link rel="canonical" href={CANONICAL} />

@@ -108,10 +108,10 @@ const CorelabEC = () => {
   return (
     <>
       <Helmet>
-        <title>Core Lab IRM cardiovasculaire pour essais cliniques multicentriques | NOXIA</title>
+        <title>Core Lab IRM cardiaque: essais cliniques multicentriques | NOXIA</title>
         <meta
           name="description"
-          content="Core Lab IRM cardiovasculaire pour essais randomisés : structuration d'endpoints LGE, MVO, ECV et remodelage VG, harmonisation multicentrique et validation méthodologique publication-ready."
+          content="Core Lab IRM cardiaque pour essais cliniques: endpoints LGE, MVO, ECV, harmonisation multicentrique et validation des biomarqueurs d’étude robustes."
         />
         <link rel="canonical" href={CANONICAL} />
 

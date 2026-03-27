@@ -111,10 +111,10 @@ const IngenierieImagerieQuantitative = () => {
   return (
     <>
       <Helmet>
-        <title>Ingénierie en Imagerie Quantitative IRM & CT | NOXIA</title>
+        <title>Ingénierie imagerie quantitative IRM/CT: pipelines QA | NOXIA</title>
         <meta
           name="description"
-          content="Architecture de pipelines reproductibles en IRM et CT : conversion DICOM, normalisation du signal, segmentation multi-seuils, harmonisation multicentrique."
+          content="Ingénierie de pipelines IRM/CT quantitatifs: conversion DICOM, contrôles QA, harmonisation multicentrique et validation des biomarqueurs exploitables."
         />
         <link rel="canonical" href={CANONICAL} />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>

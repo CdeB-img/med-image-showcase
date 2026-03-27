@@ -15,9 +15,14 @@ Primary domain: imagerie medicale quantitative (IRM, CT, CoreLab, methodologie m
 
 ## Core expertise pages
 - IRM quantitative: https://noxia-imagerie.fr/irm-imagerie-quantitative
+- Perfusion metabolique neuro: https://noxia-imagerie.fr/perfusion-metabolique-neuro-imagerie
 - CMRO2 cerebral: https://noxia-imagerie.fr/cmro2-imagerie-cerebrale
 - OEF cerebral: https://noxia-imagerie.fr/oef-imagerie-cerebrale
 - CT quantitative: https://noxia-imagerie.fr/ct-imagerie-quantitative
+- CT spectral avance: https://noxia-imagerie.fr/ct-quantitatif-avance-imagerie-spectrale
+- CT perfusion AVC: https://noxia-imagerie.fr/ct-perfusion-quantitative-avc
+- Biomarqueurs IRM cardiaque essais: https://noxia-imagerie.fr/biomarqueurs-irm-cardiaque-essais-cliniques
+- ECV / T1-T2 cardiaque: https://noxia-imagerie.fr/ecv-mapping-t1-t2-irm-cardiaque
 - Ingenierie quantitative: https://noxia-imagerie.fr/ingenierie-imagerie-quantitative
 - Analyse DICOM: https://noxia-imagerie.fr/analyse-dicom
 - Bases multicentriques: https://noxia-imagerie.fr/bases-multicentriques

@@ -78,10 +78,10 @@ const BasesMulticentriques = () => {
   return (
     <>
       <Helmet>
-        <title>Bases multicentriques & Harmonisation IRM/CT | NOXIA</title>
+        <title>Bases multicentriques IRM/CT: harmonisation robuste | NOXIA</title>
         <meta
           name="description"
-          content="Harmonisation inter-constructeurs (Siemens, GE, Philips), contrôle des séquences 1.5T/3T, normalisation DICOM et structuration multicentrique pour biomarqueurs reproductibles."
+          content="Structuration de bases multicentriques IRM/CT: harmonisation inter-constructeurs, contrôle des protocoles et validation de biomarqueurs cohérents entre centres."
         />
         <link rel="canonical" href={CANONICAL} />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>

@@ -98,6 +98,24 @@ const App = () => (
             <Route path="/expertise" element={<Expertise />} />
             <Route path="/references-publications" element={<ReferencesPublications />} />
 
+            {/* Legacy/case variants -> canonical lowercase routes */}
+            <Route path="/Corelab-essais-cliniques" element={<Navigate to="/corelab-essais-cliniques" replace />} />
+            <Route path="/Corelab-essais-cliniques/" element={<Navigate to="/corelab-essais-cliniques" replace />} />
+            <Route path="/Biomarqueurs-irm-cardiaque-essais-cliniques" element={<Navigate to="/biomarqueurs-irm-cardiaque-essais-cliniques" replace />} />
+            <Route path="/Biomarqueurs-irm-cardiaque-essais-cliniques/" element={<Navigate to="/biomarqueurs-irm-cardiaque-essais-cliniques" replace />} />
+            <Route path="/Ct-quantitatif-avance-imagerie-spectrale" element={<Navigate to="/ct-quantitatif-avance-imagerie-spectrale" replace />} />
+            <Route path="/Ct-quantitatif-avance-imagerie-spectrale/" element={<Navigate to="/ct-quantitatif-avance-imagerie-spectrale" replace />} />
+            <Route path="/Ct-perfusion-quantitative-avc" element={<Navigate to="/ct-perfusion-quantitative-avc" replace />} />
+            <Route path="/Ct-perfusion-quantitative-avc/" element={<Navigate to="/ct-perfusion-quantitative-avc" replace />} />
+            <Route path="/Ecv-mapping-t1-t2-irm-cardiaque" element={<Navigate to="/ecv-mapping-t1-t2-irm-cardiaque" replace />} />
+            <Route path="/Ecv-mapping-t1-t2-irm-cardiaque/" element={<Navigate to="/ecv-mapping-t1-t2-irm-cardiaque" replace />} />
+            <Route path="/Perfusion-metabolique-neuro-imagerie" element={<Navigate to="/perfusion-metabolique-neuro-imagerie" replace />} />
+            <Route path="/Perfusion-metabolique-neuro-imagerie/" element={<Navigate to="/perfusion-metabolique-neuro-imagerie" replace />} />
+            <Route path="/Cmro2-imagerie-cerebrale" element={<Navigate to="/cmro2-imagerie-cerebrale" replace />} />
+            <Route path="/Cmro2-imagerie-cerebrale/" element={<Navigate to="/cmro2-imagerie-cerebrale" replace />} />
+            <Route path="/Oef-imagerie-cerebrale" element={<Navigate to="/oef-imagerie-cerebrale" replace />} />
+            <Route path="/Oef-imagerie-cerebrale/" element={<Navigate to="/oef-imagerie-cerebrale" replace />} />
+
             {/* Fallback */}
             <Route path="*" element={<NotFound />} />
           </Routes>

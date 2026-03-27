@@ -116,10 +116,10 @@ const OEFImagerie = () => {
   return (
     <>
       <Helmet>
-        <title>OEF en imagerie cerebrale & extraction d'oxygene | NOXIA</title>
+        <title>OEF en imagerie cérébrale: extraction d’oxygène validée | NOXIA</title>
         <meta
           name="description"
-          content="OEF : biomarqueur de l'extraction d'oxygene cerebral. Role en AVC, lien avec CMRO2 et interpretation en imagerie quantitative."
+          content="OEF en imagerie cérébrale: mesure de l’extraction d’oxygène, lecture physiopathologique en AVC et validation multicentrique de biomarqueurs métaboliques."
         />
         <link rel="canonical" href={CANONICAL} />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
@@ -152,6 +152,41 @@ const OEFImagerie = () => {
                 { label: "Voir le focus CMRO2", to: "/cmro2-imagerie-cerebrale", variant: "secondary", icon: ArrowRight }
               ]}
             />
+
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold text-foreground">
+                Réponse courte
+              </h2>
+              <p className="text-muted-foreground leading-relaxed">
+                L’OEF correspond à la fraction d’oxygène extraite du sang par le tissu cérébral. En situation d’hypoperfusion, une OEF élevée peut traduire une compensation métabolique compatible avec une pénombre ischémique. L’OEF doit être interprétée avec le CMRO2, la perfusion et la diffusion.
+              </p>
+            </section>
+
+            <section className="rounded-2xl border border-border bg-card/50 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold text-foreground">Acronymes / definitions rapides</h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4 text-sm text-muted-foreground">
+                <div>
+                  <div className="font-semibold text-foreground">OEF</div>
+                  <p>Fraction d'oxygene extraite par le tissu.</p>
+                </div>
+                <div>
+                  <div className="font-semibold text-foreground">CMRO2</div>
+                  <p>Consommation totale d'oxygene cerebrale.</p>
+                </div>
+                <div>
+                  <div className="font-semibold text-foreground">CBF</div>
+                  <p>Debit sanguin cerebral.</p>
+                </div>
+                <div>
+                  <div className="font-semibold text-foreground">Tmax</div>
+                  <p>Retard perfusionnel en imagerie dynamique.</p>
+                </div>
+                <div>
+                  <div className="font-semibold text-foreground">Penombre</div>
+                  <p>Tissu menace mais potentiellement recuperable.</p>
+                </div>
+              </div>
+            </section>
 
             <section className="grid md:grid-cols-3 gap-6">
               <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
@@ -281,6 +316,10 @@ const OEFImagerie = () => {
                 <Link to="/perfusion-metabolique-neuro-imagerie" className="text-primary hover:underline">
                   perfusion/metabolisme IRM
                 </Link>
+                {" "}dans le cadre plus large de l'
+                <Link to="/irm-imagerie-quantitative" className="text-primary hover:underline">
+                  IRM quantitative
+                </Link>
                 .
               </p>
             </section>
@@ -340,11 +379,20 @@ const OEFImagerie = () => {
                     Pas necessairement. Elle peut signer une compensation utile, mais son sens depend du contexte hemodynamique et temporel.
                   </p>
                 </div>
+
+                <div className="rounded-xl border border-border bg-card/50 p-6 md:col-span-2">
+                  <h3 className="font-semibold text-foreground">
+                    Pourquoi l'OEF est-elle importante en AVC ?
+                  </h3>
+                  <p className="text-muted-foreground mt-2">
+                    Parce qu'une OEF augmentee peut indiquer un tissu encore viable en situation d'hypoperfusion, compatible avec une zone de penombre ischemique potentiellement recuperable.
+                  </p>
+                </div>
               </div>
             </section>
 
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
-              <h2 className="text-xl font-semibold">Pages associees</h2>
+              <h2 className="text-xl font-semibold">Pages associées</h2>
 
               <div className="flex flex-wrap gap-3">
                 <Link to="/perfusion-metabolique-neuro-imagerie" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
@@ -355,6 +403,9 @@ const OEFImagerie = () => {
                 </Link>
                 <Link to="/ct-perfusion-quantitative-avc" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
                   CT Perfusion AVC <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link to="/irm-imagerie-quantitative" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  IRM quantitative <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </section>

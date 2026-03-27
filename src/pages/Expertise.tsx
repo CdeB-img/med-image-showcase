@@ -16,6 +16,24 @@ import {
 const CANONICAL = "https://noxia-imagerie.fr/expertise";
 
 const Expertise = () => {
+  const faqItems = [
+    {
+      question: "Quelle est la différence entre une analyse d'image et un biomarqueur exploitable ?",
+      answer:
+        "Un biomarqueur exploitable repose sur une chaîne complète : audit des données, normalisation, segmentation contrôlée, métriques traçables et validation de reproductibilité.",
+    },
+    {
+      question: "Pourquoi structurer les projets par modalité IRM et CT ?",
+      answer:
+        "Parce que les contraintes physiques diffèrent : en IRM la normalisation du signal est centrale, en CT la calibration et la stabilité des unités Hounsfield sont critiques.",
+    },
+    {
+      question: "Pourquoi une page méthodologie séparée est-elle importante ?",
+      answer:
+        "Elle explicite le cadre scientifique commun aux projets, améliore la cohérence des livrables et renforce l'auditabilité multicentrique.",
+    },
+  ];
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -37,45 +55,24 @@ const Expertise = () => {
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "Quelle est la différence entre une analyse d'image et un biomarqueur exploitable ?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            "Un biomarqueur exploitable repose sur une chaîne complète : audit des données, normalisation, segmentation contrôlée, métriques traçables et validation de reproductibilité.",
-        },
+    mainEntity: faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
       },
-      {
-        "@type": "Question",
-        name: "Pourquoi structurer les projets par modalité IRM et CT ?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            "Parce que les contraintes physiques diffèrent : en IRM la normalisation du signal est centrale, en CT la calibration et la stabilité des unités Hounsfield sont critiques.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Pourquoi une page méthodologie séparée est-elle importante ?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text:
-            "Elle explicite le cadre scientifique commun aux projets, améliore la cohérence des livrables et renforce l'auditabilité multicentrique.",
-        },
-      },
-    ],
+    })),
   };
 
   return (
     <>
       <Helmet>
-        <title>Expertise en imagerie médicale quantitative | NOXIA</title>
+        <title>Expertise imagerie quantitative: IRM, CT, biomarqueurs | NOXIA</title>
 
         <meta
           name="description"
-          content="Expertise intégrée en IRM, CT et méthodologie multicentrique. Développement de biomarqueurs reproductibles, harmonisation inter-constructeurs et ingénierie quantitative en recherche clinique."
+          content="Expertise en IRM et CT quantitatives: harmonisation multicentrique, validation méthodologique et biomarqueurs reproductibles pour projets cliniques."
         />
 
         <link rel="canonical" href={CANONICAL} />
@@ -107,6 +104,13 @@ const Expertise = () => {
                 { label: "Voir la méthodologie", to: "/methodologie-imagerie-quantitative", variant: "secondary", icon: BarChart3 },
               ]}
             />
+
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold text-foreground">Réponse courte</h2>
+              <p className="text-muted-foreground leading-relaxed">
+                L'expertise NOXIA couvre l'IRM quantitative, le CT quantitatif et la méthodologie multicentrique pour produire des biomarqueurs défendables. La différence se fait sur l'architecture complète: audit DICOM, normalisation, règles de mesure explicites, contrôles QA et traçabilité. L'objectif n'est pas de générer des cartes visuelles, mais des endpoints robustes pour décision clinique et recherche.
+              </p>
+            </section>
 
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-6">
               <h2 className="text-2xl font-semibold text-foreground text-center">
@@ -269,6 +273,66 @@ const Expertise = () => {
               </div>
             </section>
 
+            <section className="rounded-2xl border border-border bg-card/50 p-8 space-y-6">
+              <h2 className="text-2xl font-semibold text-foreground">Méthodologie transversale</h2>
+
+              <p className="text-muted-foreground leading-relaxed">
+                Les pages modalité ne sont pas des silos. Elles partagent une même base méthodologique:
+                qualification des données, règles de mesure explicites, validation de robustesse et livrables auditables.
+                Ce socle est détaillé sur la{" "}
+                <Link to="/methodologie-imagerie-quantitative" className="text-primary hover:underline">
+                  page Méthodologie
+                </Link>
+                {" "}et implémenté dans les pages{" "}
+                <Link to="/ingenierie-imagerie-quantitative" className="text-primary hover:underline">
+                  Ingénierie quantitative
+                </Link>
+                ,{" "}
+                <Link to="/analyse-dicom" className="text-primary hover:underline">
+                  Analyse DICOM
+                </Link>
+                {" "}et{" "}
+                <Link to="/bases-multicentriques" className="text-primary hover:underline">
+                  Bases multicentriques
+                </Link>
+                .
+              </p>
+
+              <ul className="list-disc pl-6 text-muted-foreground space-y-2">
+                <li>Audit d'entrée avant toute quantification (géométrie, métadonnées, cohérence temporelle)</li>
+                <li>Séparation stricte visualisation / inférence / mesure pour éviter les biais cachés</li>
+                <li>Contrôles QA entrée/sortie et critères d'exclusion documentés</li>
+                <li>Versioning code, dépendances, paramètres et exports statistiques</li>
+              </ul>
+            </section>
+
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-6">
+              <div className="flex items-center gap-2 text-foreground font-semibold">
+                <BarChart3 className="w-5 h-5 text-primary" />
+                Repères quantitatifs issus de la littérature
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="rounded-xl border border-border bg-card/60 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">IRM</h3>
+                  <ul className="list-disc pl-6 text-sm text-muted-foreground space-y-2">
+                    <li>Variabilités inter-lecteur souvent de l'ordre de 5-15% sans standardisation forte.</li>
+                    <li>T1/T2 mapping: variations inter-centre de quelques pourcents selon champ et séquence.</li>
+                    <li>Amélioration nette de la reproductibilité avec protocoles et QA harmonisés.</li>
+                  </ul>
+                </div>
+
+                <div className="rounded-xl border border-border bg-card/60 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">CT</h3>
+                  <ul className="list-disc pl-6 text-sm text-muted-foreground space-y-2">
+                    <li>Écarts HU inter-système de plusieurs unités, accentués par kernel et reconstruction.</li>
+                    <li>Perfusion et spectral sensibles aux choix de post-traitement et à la calibration.</li>
+                    <li>Harmonisation inter-vendor indispensable avant comparaison multicentrique.</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
             <section className="grid md:grid-cols-2 gap-6 items-stretch">
               <div className="rounded-2xl border border-border bg-card/50 p-8 space-y-4">
                 <h2 className="text-2xl font-semibold text-foreground">Ce qui différencie l’approche</h2>
@@ -319,6 +383,61 @@ const Expertise = () => {
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
+              </div>
+            </section>
+
+            <section className="space-y-8">
+              <h2 className="text-2xl font-semibold text-center text-foreground">
+                Questions fréquentes - Expertise imagerie quantitative
+              </h2>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                {faqItems.map((item, index) => (
+                  <div
+                    key={item.question}
+                    className={`rounded-xl border border-border bg-card/50 p-6 ${index === 2 ? "md:col-span-2" : ""}`}
+                  >
+                    <h3 className="font-semibold text-foreground">{item.question}</h3>
+                    <p className="text-muted-foreground mt-2">{item.answer}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold">Pages associées</h2>
+
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  to="/irm-imagerie-quantitative"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  IRM quantitative <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  to="/ct-imagerie-quantitative"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  CT quantitatif <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  to="/methodologie-imagerie-quantitative"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  Méthodologie <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  to="/ingenierie-imagerie-quantitative"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  Ingénierie quantitative <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  to="/corelab-essais-cliniques"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  Core Lab IRM <ArrowRight className="w-4 h-4" />
+                </Link>
               </div>
             </section>
 

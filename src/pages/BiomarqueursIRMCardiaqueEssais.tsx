@@ -116,12 +116,12 @@ const faqJsonLd = {
   return (
     <>
     <Helmet>
-      <title>Biomarqueurs IRM cardiaque & Endpoints d’essais cliniques | NOXIA</title>
+      <title>Biomarqueurs IRM cardiaque: validation en essais | NOXIA</title>
 
-      <meta
-        name="description"
-        content="IRM cardiaque comme endpoint d’essais thérapeutiques multicentriques : LGE, MVO, ECV, T1, T2, remodelage VG. Validation translationnelle, harmonisation inter-centre et reproductibilité."
-      />
+        <meta
+          name="description"
+          content="Biomarqueurs IRM cardiaque en essais cliniques: endpoints LGE, MVO, ECV, structuration multicentrique et validation méthodologique des analyses."
+        />
 
       <link rel="canonical" href={CANONICAL} />
 
@@ -494,7 +494,7 @@ const faqJsonLd = {
 
             {/* ================= PAGES LIEES ================= */}
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
-              <h2 className="text-xl font-semibold">Pages liées</h2>
+              <h2 className="text-xl font-semibold">Pages associées</h2>
 
               <div className="flex flex-wrap gap-3">
                 <Link

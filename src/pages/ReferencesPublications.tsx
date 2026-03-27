@@ -152,10 +152,10 @@ const ReferencesPublications = () => {
   return (
     <>
       <Helmet>
-        <title>References & publications | NOXIA</title>
+        <title>Références & publications en imagerie quantitative | NOXIA</title>
         <meta
           name="description"
-          content="Publications signees, DOI et contributions methodologiques en imagerie medicale quantitative."
+          content="Publications et références méthodologiques en imagerie quantitative: DOI, rôle contributif, contexte multicentrique et validation de biomarqueurs cliniques."
         />
         <link rel="canonical" href={CANONICAL} />
         <script type="application/ld+json">{JSON.stringify(pageJsonLd)}</script>
@@ -185,6 +185,23 @@ const ReferencesPublications = () => {
                 { label: "Voir A propos", to: "/a-propos", variant: "secondary", icon: BookOpen },
               ]}
             />
+
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold">Comment lire cette page</h2>
+              <p className="text-muted-foreground leading-relaxed">
+                Cette page consolide les publications signees et les contributions methodologiques. Pour replacer
+                les references dans l'offre NOXIA, voir aussi l’
+                <Link to="/expertise" className="text-primary hover:underline"> architecture d’expertise</Link>,
+                la{" "}
+                <Link to="/methodologie-imagerie-quantitative" className="text-primary hover:underline"> methodologie quantitative</Link>,
+                les travaux{" "}
+                <Link to="/corelab-essais-cliniques" className="text-primary hover:underline"> CoreLab essais cliniques</Link>{" "}
+                et les pages{" "}
+                <Link to="/irm-imagerie-quantitative" className="text-primary hover:underline"> IRM quantitative</Link>{" "}
+                /{" "}
+                <Link to="/ct-imagerie-quantitative" className="text-primary hover:underline"> CT quantitative</Link>.
+              </p>
+            </section>
 
             <section className="grid md:grid-cols-2 gap-6">
               <div className="rounded-2xl border border-border bg-card/50 p-6 md:p-8 space-y-5">
@@ -264,6 +281,27 @@ const ReferencesPublications = () => {
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
                 ))}
+              </div>
+            </section>
+
+            <section className="rounded-2xl border border-border bg-card/50 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold">Pages associees</h2>
+              <div className="flex flex-wrap gap-3">
+                <Link to="/a-propos" className="inline-flex items-center rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Profil et parcours
+                </Link>
+                <Link to="/expertise" className="inline-flex items-center rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Expertise imagerie quantitative
+                </Link>
+                <Link to="/methodologie-imagerie-quantitative" className="inline-flex items-center rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Méthodologie et validation
+                </Link>
+                <Link to="/corelab-essais-cliniques" className="inline-flex items-center rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  CoreLab essais cliniques
+                </Link>
+                <Link to="/contact" className="inline-flex items-center rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Contacter NOXIA
+                </Link>
               </div>
             </section>
           </div>

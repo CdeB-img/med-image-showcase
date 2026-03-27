@@ -74,12 +74,12 @@ const Index = () => {
     <>
       <Helmet>
         <title>
-          Imagerie médicale quantitative & Corelab IRM / CT | NOXIA
+          Imagerie quantitative IRM/CT: biomarqueurs validés | NOXIA
         </title>
 
         <meta
           name="description"
-          content="Expert indépendant en imagerie médicale quantitative : biomarqueurs IRM et CT, corelab d’essais cliniques, structuration multicentrique et développement de pipelines reproductibles pour la recherche hospitalière."
+          content="NOXIA accompagne la recherche clinique en imagerie quantitative IRM et CT: méthodologie multicentrique, validation de biomarqueurs et pipelines robustes."
         />
 
         <link rel="canonical" href={CANONICAL} />

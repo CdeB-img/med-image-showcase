@@ -119,11 +119,11 @@ const jsonLd = {
   return (
     <>
       <Helmet>
-        <title>IRM quantitative multicentrique & biomarqueurs reproductibles | NOXIA</title>
+        <title>IRM quantitative multicentrique: biomarqueurs validés | NOXIA</title>
 
         <meta
           name="description"
-          content="IRM quantitative en cardiologie et neuro-imagerie : LGE, ECV, T1/T2 mapping, perfusion cérébrale, harmonisation multicentrique et structuration Core Lab."
+          content="IRM quantitative cardio-neuro: LGE, mapping et perfusion avec harmonisation multicentrique, validation méthodologique et biomarqueurs reproductibles."
         />
 
         <link rel="canonical" href={CANONICAL} />
@@ -170,6 +170,16 @@ const jsonLd = {
                 { label: "ECV & Mapping", to: "/ecv-mapping-t1-t2-irm-cardiaque", variant: "secondary", icon: ArrowRight },
               ]}
             />
+
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold text-foreground">
+                Réponse courte
+              </h2>
+              <p className="text-muted-foreground leading-relaxed">
+                L’IRM quantitative transforme le signal IRM en biomarqueurs mesurables comme le LGE, l’ECV, le T1 mapping et le T2 mapping. Ces mesures ne sont pas directement comparables sans contrôle des séquences, des règles de segmentation et du post-traitement. Une IRM quantitative défendable nécessite donc une méthodologie explicite et une harmonisation multicentrique.
+              </p>
+            </section>
+
             <section className="grid md:grid-cols-3 gap-6">
 
               <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
@@ -448,6 +458,49 @@ const jsonLd = {
                 <li>AHA 17-segment myocardial model</li>
                 <li>Guidelines for quantitative MRI in clinical trials</li>
               </ul>
+            </section>
+
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold">Pages associées</h2>
+
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  to="/segmentation-irm"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  Segmentation IRM <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  to="/biomarqueurs-irm-cardiaque-essais-cliniques"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  Biomarqueurs IRM cardiaques <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  to="/ecv-mapping-t1-t2-irm-cardiaque"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  ECV / T1 / T2 mapping <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  to="/perfusion-metabolique-neuro-imagerie"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  Perfusion & métabolisme cérébral <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  to="/cmro2-imagerie-cerebrale"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  Focus CMRO2 <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  to="/oef-imagerie-cerebrale"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  Focus OEF <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
             </section>
             {/* CTA FINAL */}
             <section className="text-center space-y-4">

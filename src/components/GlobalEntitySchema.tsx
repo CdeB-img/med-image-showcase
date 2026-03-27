@@ -24,6 +24,12 @@ const GlobalEntitySchema = () => {
     founder: {
       "@id": `${SITE_URL}/a-propos#person`,
     },
+    sameAs: [
+      ORCID_URL,
+      LINKEDIN_URL,
+      `${SITE_URL}/a-propos`,
+      `${SITE_URL}/references-publications`,
+    ],
   };
 
   const personJsonLd = {
@@ -68,8 +74,21 @@ const GlobalEntitySchema = () => {
     ],
   };
 
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${SITE_URL}#website`,
+    name: "NOXIA Imagerie",
+    url: SITE_URL,
+    inLanguage: "fr-FR",
+    publisher: {
+      "@id": `${SITE_URL}#organization`,
+    },
+  };
+
   return (
     <Helmet>
+      <script type="application/ld+json">{JSON.stringify(websiteJsonLd)}</script>
       <script type="application/ld+json">{JSON.stringify(organizationJsonLd)}</script>
       <script type="application/ld+json">{JSON.stringify(personJsonLd)}</script>
     </Helmet>

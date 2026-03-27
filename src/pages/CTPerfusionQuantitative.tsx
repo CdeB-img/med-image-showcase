@@ -150,10 +150,10 @@ const CTPerfusionQuantitative = () => {
   return (
     <>
       <Helmet>
-        <title>CT Perfusion quantitative en AVC aigu | Core & pénombre | NOXIA</title>
+        <title>CT perfusion AVC: core/pénombre validés multicentrique | NOXIA</title>
         <meta
           name="description"
-          content="CT Perfusion quantitative en AVC aigu : quantification core (CBF/CBV) et pénombre (Tmax), contrôle AIF/VOF, stabilité multi-seuil, variabilité inter-logiciels, harmonisation multicentrique et livrables traçables."
+          content="CT perfusion quantitative en AVC: CBF, CBV, Tmax, contrôle AIF/VOF et validation multicentrique pour des biomarqueurs reproductibles inter-centres."
         />
         <link rel="canonical" href={CANONICAL} />
 
@@ -238,6 +238,32 @@ const CTPerfusionQuantitative = () => {
                   <p className="text-muted-foreground text-sm">
                     Biomarker → Endpoint → Statistical robustness
                   </p>
+                </div>
+              </div>
+            </section>
+
+            <section className="rounded-2xl border border-border bg-card/50 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold text-foreground">Acronymes / definitions rapides</h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4 text-sm text-muted-foreground">
+                <div>
+                  <div className="font-semibold text-foreground">CBF</div>
+                  <p>Debit sanguin cerebral.</p>
+                </div>
+                <div>
+                  <div className="font-semibold text-foreground">CBV</div>
+                  <p>Volume sanguin cerebral.</p>
+                </div>
+                <div>
+                  <div className="font-semibold text-foreground">Tmax</div>
+                  <p>Retard temporel de perfusion.</p>
+                </div>
+                <div>
+                  <div className="font-semibold text-foreground">AIF/VOF</div>
+                  <p>Courbes arterielle et veineuse de reference.</p>
+                </div>
+                <div>
+                  <div className="font-semibold text-foreground">Core/Penombre</div>
+                  <p>Noyau infarci vs tissu potentiellement recuperable.</p>
                 </div>
               </div>
             </section>
@@ -523,9 +549,9 @@ const CTPerfusionQuantitative = () => {
               </div>
             </section>
 
-            {/* PAGES LIÉES */}
+            {/* PAGES ASSOCIÉES */}
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
-              <h2 className="text-xl font-semibold">Pages liées</h2>
+              <h2 className="text-xl font-semibold">Pages associées</h2>
 
               <div className="flex flex-wrap gap-3">
                 <Link

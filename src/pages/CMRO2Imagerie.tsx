@@ -116,10 +116,10 @@ const CMRO2Imagerie = () => {
   return (
     <>
       <Helmet>
-        <title>CMRO2 en imagerie cerebrale & metabolisme de l'oxygene | NOXIA</title>
+        <title>CMRO2 en imagerie cérébrale: biomarqueur métabolique | NOXIA</title>
         <meta
           name="description"
-          content="CMRO2 : biomarqueur du metabolisme cerebral en imagerie. Interpretation, relation a l'OEF, limites methodologiques et applications en AVC et recherche clinique."
+          content="CMRO2 en imagerie cérébrale: consommation d’oxygène, interprétation en AVC, lien avec l’OEF et validation multicentrique des biomarqueurs cliniques."
         />
         <link rel="canonical" href={CANONICAL} />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
@@ -152,6 +152,41 @@ const CMRO2Imagerie = () => {
                 { label: "Voir le focus OEF", to: "/oef-imagerie-cerebrale", variant: "secondary", icon: ArrowRight }
               ]}
             />
+
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold text-foreground">
+                Réponse courte
+              </h2>
+              <p className="text-muted-foreground leading-relaxed">
+                Le CMRO2 mesure la consommation cérébrale d’oxygène, et non uniquement la perfusion. En AVC, il aide à distinguer un tissu encore métaboliquement actif d’un tissu déjà en échec énergétique. L’interprétation du CMRO2 se fait avec l’OEF, le CBF et les données de diffusion.
+              </p>
+            </section>
+
+            <section className="rounded-2xl border border-border bg-card/50 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold text-foreground">Acronymes / definitions rapides</h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4 text-sm text-muted-foreground">
+                <div>
+                  <div className="font-semibold text-foreground">CMRO2</div>
+                  <p>Consommation cerebrale d'oxygene du tissu.</p>
+                </div>
+                <div>
+                  <div className="font-semibold text-foreground">OEF</div>
+                  <p>Fraction d'oxygene extraite du sang.</p>
+                </div>
+                <div>
+                  <div className="font-semibold text-foreground">CBF</div>
+                  <p>Debit sanguin cerebral, composante hemodynamique.</p>
+                </div>
+                <div>
+                  <div className="font-semibold text-foreground">Tmax</div>
+                  <p>Retard temporel perfusionnel, utile en mismatch.</p>
+                </div>
+                <div>
+                  <div className="font-semibold text-foreground">PET</div>
+                  <p>Reference historique pour validation metabolique.</p>
+                </div>
+              </div>
+            </section>
 
             <section className="grid md:grid-cols-3 gap-6">
               <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
@@ -267,7 +302,12 @@ const CMRO2Imagerie = () => {
                 {" "}Le pendant "extraction" est détaillé sur{" "}
                 <Link to="/oef-imagerie-cerebrale" className="text-primary hover:underline">
                   OEF en imagerie cerebrale
-                </Link>.
+                </Link>
+                . Le cadre de structuration des mesures est détaillé sur{" "}
+                <Link to="/methodologie-imagerie-quantitative" className="text-primary hover:underline">
+                  Methodologie imagerie quantitative
+                </Link>
+                .
               </p>
             </section>
 
@@ -360,11 +400,20 @@ const CMRO2Imagerie = () => {
                     Pas sans cadre methodologique strict. Il faut des regles explicites de calcul, de normalisation, de QC et d'interpretation.
                   </p>
                 </div>
+
+                <div className="rounded-xl border border-border bg-card/50 p-6 md:col-span-2">
+                  <h3 className="font-semibold text-foreground">
+                    Le CMRO2 est-il mesurable en pratique clinique ?
+                  </h3>
+                  <p className="text-muted-foreground mt-2">
+                    Le CMRO2 direct reste difficile en routine. Des estimations sont possibles via IRM, CT perfusion ou modeles metaboliques, mais elles doivent etre validees dans un cadre methodologique strict.
+                  </p>
+                </div>
               </div>
             </section>
 
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
-              <h2 className="text-xl font-semibold">Pages associees</h2>
+              <h2 className="text-xl font-semibold">Pages associées</h2>
 
               <div className="flex flex-wrap gap-3">
                 <Link to="/perfusion-metabolique-neuro-imagerie" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">

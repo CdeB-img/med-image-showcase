@@ -103,10 +103,10 @@ const SegmentationIRM = () => {
   return (
     <>
       <Helmet>
-        <title>Segmentation IRM cérébrale & cardiaque en recherche clinique | NOXIA</title>
+        <title>Segmentation IRM cardio-neuro: validation multicentrique | NOXIA</title>
         <meta
           name="description"
-          content="Segmentation IRM cérébrale et cardiaque en recherche clinique. Approche signal-driven, validation méthodologique, livrables traçables (DICOM/NIfTI) et extraction de biomarqueurs quantitatifs."
+          content="Segmentation IRM cérébrale et cardiaque: protocoles traçables, contrôle qualité, harmonisation multicentrique et biomarqueurs quantitatifs validés."
         />
         <link rel="canonical" href={CANONICAL} />
 
@@ -562,7 +562,7 @@ const SegmentationIRM = () => {
 
             {/* LIENS INTERNES */}
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
-              <h2 className="text-xl font-semibold">Pages liées</h2>
+              <h2 className="text-xl font-semibold">Pages associées</h2>
               <div className="flex flex-wrap gap-3">
                 <Link
                   to="/analyse-dicom"

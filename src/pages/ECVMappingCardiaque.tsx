@@ -110,11 +110,11 @@ const faqJsonLd = {
   return (
     <>
       <Helmet>
-        <title>ECV & Mapping T1/T2 en IRM cardiaque | NOXIA</title>
+        <title>ECV et mapping T1/T2: biomarqueurs cardiaques validés | NOXIA</title>
 
         <meta
           name="description"
-          content="ECV, T1 natif et T2 mapping en IRM cardiaque : validation histologique, précision de l’hématocrite, sectorisation AHA, timing post-contraste et contrôle des biais méthodologiques."
+          content="ECV et mapping T1/T2 en IRM cardiaque: standardisation des acquisitions, contrôle hématocrite et validation multicentrique de biomarqueurs tissulaires."
         />
 
         <link rel="canonical" href={CANONICAL} />
@@ -200,6 +200,32 @@ const faqJsonLd = {
                   <p className="text-muted-foreground">
                     Séquences homogènes, ROI maîtrisées, sectorisation AHA, QA, et harmonisation multicentrique documentée.
                   </p>
+                </div>
+              </div>
+            </section>
+
+            <section className="rounded-2xl border border-border bg-card/50 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold text-foreground">Acronymes / definitions rapides</h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4 text-sm text-muted-foreground">
+                <div>
+                  <div className="font-semibold text-foreground">ECV</div>
+                  <p>Fraction extracellulaire myocardique calculee apres contraste.</p>
+                </div>
+                <div>
+                  <div className="font-semibold text-foreground">T1 mapping</div>
+                  <p>Biomarqueur sensible a la fibrose/inflammation selon contexte.</p>
+                </div>
+                <div>
+                  <div className="font-semibold text-foreground">T2 mapping</div>
+                  <p>Biomarqueur sensible a l'oedeme myocardique.</p>
+                </div>
+                <div>
+                  <div className="font-semibold text-foreground">ROI</div>
+                  <p>Region d'interet dont la definition conditionne la mesure.</p>
+                </div>
+                <div>
+                  <div className="font-semibold text-foreground">AHA 17</div>
+                  <p>Modelisation segmentaire standard du myocarde.</p>
                 </div>
               </div>
             </section>
@@ -417,9 +443,35 @@ const faqJsonLd = {
 
               </div>
             </section>
+
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-6">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Données de la littérature et repères quantitatifs
+              </h2>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">Ordres de grandeur rapportés</h3>
+                  <ul className="list-disc pl-6 text-sm text-muted-foreground space-y-2">
+                    <li>Écarts absolus ECV inter-centres souvent de l'ordre de 2-4% selon protocole.</li>
+                    <li>Variabilité T1/T2 influencée par le champ, la séquence et le post-traitement.</li>
+                    <li>Reproductibilité améliorée quand timing et règles ROI sont strictement standardisés.</li>
+                  </ul>
+                </div>
+
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">Implications méthodologiques</h3>
+                  <ul className="list-disc pl-6 text-sm text-muted-foreground space-y-2">
+                    <li>Comparer des valeurs absolues sans harmonisation expose à des faux écarts biologiques.</li>
+                    <li>La stratification 1.5T/3T est souvent nécessaire pour les analyses multicentriques.</li>
+                    <li>Le contrôle de l'hématocrite et du timing post-contraste est déterminant pour l'ECV.</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
             {/* ================= PAGES LIEES ================= */}
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
-              <h2 className="text-xl font-semibold">Pages liées</h2>
+              <h2 className="text-xl font-semibold">Pages associées</h2>
 
               <div className="flex flex-wrap gap-3">
                 <Link

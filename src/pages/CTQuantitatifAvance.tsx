@@ -1,4 +1,3 @@
-import React from "react";
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
@@ -12,586 +11,565 @@ import {
   AlertTriangle,
   CheckCircle2,
   FileText,
-  Brain
+  Brain,
+  Database,
+  Workflow,
+  Layers,
 } from "lucide-react";
 
 const CANONICAL = "https://noxia-imagerie.fr/ct-quantitatif-avance-imagerie-spectrale";
 
+const FAQ_ITEMS = [
+  {
+    question: "Les unités Hounsfield sont-elles comparables entre centres ?",
+    answer:
+      "Pas directement. Les valeurs HU varient selon le constructeur, le kernel, l’algorithme itératif et l’énergie effective. En pratique, des écarts de plusieurs HU à parfois plus d’une dizaine de HU peuvent être observés si la chaîne n’est pas harmonisée.",
+  },
+  {
+    question: "L’imagerie spectrale améliore-t-elle réellement la quantification ?",
+    answer:
+      "Oui, mais pas automatiquement. Le spectral améliore la séparation matière et peut renforcer le contraste utile, à condition de contrôler les reconstructions, la calibration énergétique et la reproductibilité inter-systèmes.",
+  },
+  {
+    question: "Pourquoi une calibration phantom reste-t-elle nécessaire ?",
+    answer:
+      "Parce qu’elle fournit un repère physique indépendant de l’image patient. Elle permet d’objectiver les dérives instrumentales et de limiter les biais systématiques avant extraction d’un biomarqueur.",
+  },
+  {
+    question: "Quelle est la variabilité inter-constructeur en CT quantitatif ?",
+    answer:
+      "Sans harmonisation explicite, la variabilité technique inter-vendor peut dépasser l’effet biologique recherché. C’est particulièrement vrai quand les reconstructions et les protocoles d’acquisition ne sont pas alignés.",
+  },
+  {
+    question: "Les basses énergies (<70 keV) sont-elles toujours préférables ?",
+    answer:
+      "Non. Elles peuvent améliorer le contraste d’iode, mais augmentent aussi la sensibilité au bruit et à la reconstruction. Leur usage doit être validé selon l’indication, le patient et le pipeline de post-traitement.",
+  },
+  {
+    question: "Améliorer le contraste visuel suffit-il pour valider un biomarqueur ?",
+    answer:
+      "Non. Un meilleur contraste ne garantit pas la validité quantitative. La robustesse d’un biomarqueur repose sur la traçabilité, la calibration, les contrôles QA et la stabilité inter-centre.",
+  },
+];
+
 const CTQuantitatifAvance = () => {
-  // MAJ du JSON-LD pour matcher les 4 questions de la FAQ et enrichir le contexte
-  const jsonLd = {
+  const medicalWebPageJsonLd = {
     "@context": "https://schema.org",
     "@type": "MedicalWebPage",
     name: "CT quantitatif avancé et imagerie spectrale",
     description:
-      "Imagerie spectrale, reconstruction monoénergétique et décomposition matière en CT. Calibration phantom, validation physique indépendante et harmonisation inter-constructeurs.",
+      "Approche méthodologique du CT spectral : décomposition physique, calibration phantom, validation indépendante, harmonisation multicentrique et extraction de biomarqueurs reproductibles.",
     about: [
-      "Dual-energy CT",
       "Spectral CT",
-      "Monoenergetic reconstruction",
+      "Dual-energy CT",
+      "Photon-counting CT",
+      "Monoenergetic imaging",
       "Material decomposition",
       "Hounsfield unit variability",
       "Phantom calibration",
-      "Multicenter CT reproducibility"
+      "Quantitative imaging biomarkers",
+      "Multicenter harmonization",
+      "Clinical trial imaging",
     ],
-    specialty: ["Radiology", "Medical physics", "Quantitative imaging research"],
+    specialty: [
+      "Radiology",
+      "Medical physics",
+      "Quantitative imaging biomarkers",
+      "Clinical research imaging",
+    ],
     medicalAudience: {
       "@type": "MedicalAudience",
-      audienceType: "Researchers"
+      audienceType: "Healthcare professionals and clinical researchers",
     },
     provider: {
       "@type": "Organization",
       name: "NOXIA Imagerie",
-      url: "https://noxia-imagerie.fr"
+      url: "https://noxia-imagerie.fr",
     },
-    url: CANONICAL
+    url: CANONICAL,
+  };
+
+  const serviceJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "CT quantitatif avancé et imagerie spectrale",
+    serviceType: [
+      "Audit DICOM spectral",
+      "Calibration phantom et contrôle énergétique",
+      "Validation indépendante de biomarqueurs CT",
+      "Harmonisation inter-constructeurs",
+      "Structuration multicentrique des données CT",
+    ],
+    provider: {
+      "@type": "Organization",
+      name: "NOXIA Imagerie",
+      url: "https://noxia-imagerie.fr",
+    },
+    areaServed: "Europe",
+    url: CANONICAL,
+    description:
+      "Conception et validation de pipelines CT quantitatifs avancés pour produire des mesures traçables, comparables entre centres et défendables scientifiquement.",
   };
 
   const breadcrumbJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    {
-      "@type": "ListItem",
-      position: 1,
-      name: "Accueil",
-      item: "https://noxia-imagerie.fr/"
-    },
-    {
-      "@type": "ListItem",
-      position: 2,
-      name: "Expertise",
-      item: "https://noxia-imagerie.fr/expertise"
-    },
-    {
-      "@type": "ListItem",
-      position: 3,
-      name: "CT",
-      item: "https://noxia-imagerie.fr/ct-imagerie-quantitative"
-    },
-    {
-      "@type": "ListItem",
-      position: 4,
-      name: "CT quantitatif avancé",
-      item: CANONICAL
-    }
-  ]
-};
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Accueil", item: "https://noxia-imagerie.fr/" },
+      { "@type": "ListItem", position: 2, name: "Expertise", item: "https://noxia-imagerie.fr/expertise" },
+      { "@type": "ListItem", position: 3, name: "CT", item: "https://noxia-imagerie.fr/ct-imagerie-quantitative" },
+      { "@type": "ListItem", position: 4, name: "CT quantitatif avancé", item: CANONICAL },
+    ],
+  };
 
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "Les unités Hounsfield sont-elles comparables entre centres ?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Non. Les valeurs HU dépendent du kernel, de l’algorithme itératif, de l’énergie effective et du constructeur. Des écarts de 5 à 20 HU peuvent apparaître entre systèmes."
-        }
+    mainEntity: FAQ_ITEMS.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
       },
-      {
-        "@type": "Question",
-        name: "Le CT spectral améliore-t-il réellement la quantification ?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Oui sous conditions. La décomposition Compton / photoélectrique et les reconstructions monoénergétiques réduisent certains biais, mais nécessitent calibration phantom et validation indépendante."
-        }
-      },
-      {
-        "@type": "Question",
-        name: "Pourquoi une calibration phantom est-elle nécessaire ?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Elle permet de mesurer la dérive instrumentale et de convertir les valeurs machine-dépendantes en grandeurs physiques absolues (densité électronique, Z effectif)."
-        }
-      },
-      {
-        "@type": "Question",
-        name: "Quelle est la variabilité inter-constructeur ?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Sans harmonisation, la variabilité technique peut dépasser la variation biologique d'intérêt. L'harmonisation réduit ce bruit de fond méthodologique."
-        }
-      }
-    ]
+    })),
   };
 
   return (
     <>
       <Helmet>
-        <title>CT quantitatif avancé & imagerie spectrale | NOXIA</title>
+        <title>CT spectral avancé: décomposition et validation physique | NOXIA</title>
         <meta
           name="description"
-          content="Imagerie spectrale, reconstruction monoénergétique et décomposition matière en CT. Calibration phantom, validation physique et harmonisation inter-constructeurs."
+          content="CT spectral avancé et double énergie: décomposition matière, calibration phantom et validation multicentrique pour des biomarqueurs CT robustes."
         />
         <link rel="canonical" href={CANONICAL} />
-        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(medicalWebPageJsonLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(serviceJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
         <main className="flex-1 py-20 px-4">
-          <div className="max-w-5xl mx-auto space-y-24">
-            
+          <div className="max-w-5xl mx-auto space-y-20">
             <Breadcrumb
               items={[
                 { label: "Accueil", path: "/" },
                 { label: "Expertise", path: "/expertise" },
                 { label: "CT", path: "/ct-imagerie-quantitative" },
-                { label: "CT quantitatif avancé" }
+                { label: "CT quantitatif avancé" },
               ]}
             />
 
-            {/* HERO */}
             <ExpertiseHero
-              badge="Imagerie spectrale"
+              badge="Physique du signal CT"
               badgeIcon={Atom}
-              title="CT quantitatif avancé"
-              description="Transformer la physique du signal CT en paramètres reproductibles, calibrés et multicentriques."
-              chips={["Dual-energy", "Décomposition matière", "Calibration phantom"]}
+              title="CT quantitatif avancé & imagerie spectrale"
+              description="Structurer des mesures CT robustes au-delà du contraste visuel : décomposition physique, calibration indépendante et reproductibilité multicentrique."
+              chips={["Spectral / dual-energy", "Calibration phantom", "Reproductibilité inter-vendor"]}
               actions={[
-                { label: "Étude de faisabilité", to: "/contact", variant: "primary", icon: ArrowRight },
-                { label: "Quantification CT clinique", to: "/quantification-ct", variant: "secondary", icon: ArrowRight },
+                { label: "Cadrer un protocole CT", to: "/contact", variant: "primary", icon: ArrowRight },
+                { label: "Voir CT quantitatif", to: "/ct-imagerie-quantitative", variant: "secondary", icon: Database },
               ]}
             />
 
-            {/* BANDEAU INTRO FULL-WIDTH (Ex-section orpheline) */}
-            <section className="rounded-2xl border border-border bg-card/50 p-8 space-y-4 shadow-sm">
-              <div className="flex items-center gap-3 font-semibold text-foreground text-lg">
-                <Atom className="w-6 h-6 text-primary shrink-0" />
-                Décomposition physique du signal
-              </div>
-              <p className="text-muted-foreground leading-relaxed max-w-3xl">
-                L'imagerie quantitative moderne ne se contente plus de niveaux de gris. 
-                Elle repose sur la modélisation des interactions Compton / Photoélectrique, 
-                la reconstruction monoénergétique synthétique et la maîtrise de la cohérence basse énergie.
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold text-foreground">
+                Réponse courte
+              </h2>
+              <p className="text-muted-foreground leading-relaxed">
+                Le CT spectral (scanner à double énergie) utilise plusieurs niveaux d’énergie pour différencier les matériaux et produire des reconstructions monoénergétiques. Son intérêt en quantification est d’améliorer l’interprétation physique des mesures, notamment pour l’iode et les tissus denses. Un CT spectral exploitable en multicentrique exige néanmoins calibration, contrôle de reconstruction et validation indépendante.
               </p>
             </section>
 
-            {/* SECTION 1 : SPECTRAL */}
-            <section className="space-y-10">
+            <section className="rounded-2xl border border-border bg-card/50 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold text-foreground">Acronymes / definitions rapides</h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4 text-sm text-muted-foreground">
+                <div>
+                  <div className="font-semibold text-foreground">CT spectral</div>
+                  <p>Acquisition multi-energie pour caracterisation matiere.</p>
+                </div>
+                <div>
+                  <div className="font-semibold text-foreground">DECT</div>
+                  <p>Dual-Energy CT, forme courante de scanner spectral.</p>
+                </div>
+                <div>
+                  <div className="font-semibold text-foreground">keV</div>
+                  <p>Niveau d'energie de reconstruction monoenergetique.</p>
+                </div>
+                <div>
+                  <div className="font-semibold text-foreground">HU</div>
+                  <p>Unite Hounsfield, dependante de la chaine technique.</p>
+                </div>
+                <div>
+                  <div className="font-semibold text-foreground">Z effectif</div>
+                  <p>Approximation de composition atomique utile en spectral.</p>
+                </div>
+              </div>
+            </section>
+
+            <section className="rounded-2xl border border-border bg-card/50 p-6 md:p-8 space-y-6">
+              <div className="flex items-center gap-2 font-semibold text-foreground">
+                <Workflow className="w-5 h-5 text-primary" />
+                Positionnement méthodologique
+              </div>
+
+              <p className="text-muted-foreground leading-relaxed">
+                Cette page traite du passage d’une image CT « lisible » à un biomarqueur quantitativement
+                défendable. En pratique, cela combine{" "}
+                <Link to="/analyse-dicom" className="text-primary hover:underline">
+                  audit DICOM
+                </Link>
+                , règles de calibration, contrôle de reconstruction et traçabilité pipeline, dans la continuité
+                de l’
+                <Link to="/ingenierie-imagerie-quantitative" className="text-primary hover:underline">
+                  ingénierie quantitative
+                </Link>{" "}
+                et de l’
+                <Link to="/bases-multicentriques" className="text-primary hover:underline">
+                  harmonisation multicentrique
+                </Link>
+                .
+              </p>
+
+              <div className="grid md:grid-cols-3 gap-4">
+                <div className="rounded-xl border border-border bg-muted/20 p-4">
+                  <div className="text-sm font-semibold text-foreground">Objectif</div>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Réduire la variance technique avant interprétation biologique.
+                  </p>
+                </div>
+                <div className="rounded-xl border border-border bg-muted/20 p-4">
+                  <div className="text-sm font-semibold text-foreground">Risque principal</div>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Confondre un effet constructeur/reconstruction avec un effet clinique.
+                  </p>
+                </div>
+                <div className="rounded-xl border border-border bg-muted/20 p-4">
+                  <div className="text-sm font-semibold text-foreground">Livrable attendu</div>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Valeurs comparables entre centres, documentées et auditables.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <section className="space-y-8">
               <h2 className="text-2xl font-semibold text-foreground">
                 Imagerie spectrale & décomposition physique
               </h2>
 
-              <div className="grid md:grid-cols-2 gap-12 items-start">
-                
-                {/* Colonne Gauche : Contexte + Liste */}
-                <div className="space-y-6 text-muted-foreground">
-                  <p className="leading-relaxed">
-                    Le dual-energy et le CT spectral permettent de s'affranchir partiellement 
-                    des artefacts de durcissement de faisceau et d'accéder aux propriétés 
-                    intrinsèques de la matière, notamment dans des approches de {" "}
-                    <Link to="/quantification-ct" className="text-primary hover:underline">
-                    quantification CT clinique
-                    </Link>.
-                  </p>
-                  <ul className="space-y-3 pl-2">
-                    <li className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                      <span>Décomposition Compton / Photoélectrique</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                      <span>Reconstructions monoénergétiques (40-190 keV)</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                      <span>Cartographie de densité électronique (Z-eff)</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                      <span>Analyse du comportement spectral (&lt;70 keV)</span>
-                    </li>
-                  </ul>
-                </div>
-
-                {/* Colonne Droite : Focus Technique */}
-                <div className="rounded-2xl border border-border bg-card/50 p-8 space-y-6">
-                  <div className="flex items-center gap-3 font-semibold text-foreground">
-                    <Brain className="w-5 h-5 text-primary shrink-0" />
-                    Modèles physiques & validation
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Implémentation de modèles inspirés des équations de décomposition 
-                    type Alvarez-Macovski, avec confrontation systématique aux reconstructions 
-                    constructeur.
-                  </p>
-                  <div className="rounded-lg bg-muted/50 p-4 border border-border/50">
-                    <p className="text-xs text-muted-foreground font-medium">
-                      Objectif : Cohérence physique inter-vendor plutôt que reproduction visuelle flatteuse.
-                    </p>
-                  </div>
-                </div>
-
-              </div>
-            </section>
-
-            {/* SECTION BREAK : LE PROBLÈME (Pattern visuel distinct) */}
-            <section className="rounded-2xl border border-primary/20 bg-primary/5 p-10 space-y-6 text-center md:text-left relative overflow-hidden">
-              <div className="absolute top-0 right-0 p-4 opacity-10">
-                <AlertTriangle className="w-32 h-32" />
-              </div>
-              
-              <h2 className="text-3xl font-semibold text-foreground relative z-10">
-                L’illusion de la stabilité des unités Hounsfield
-              </h2>
-
-              <div className="grid md:grid-cols-3 gap-8 relative z-10">
-                <div className="md:col-span-2 space-y-4">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="rounded-2xl border border-border bg-card/50 p-6 space-y-4">
                   <p className="text-muted-foreground leading-relaxed">
-                    Une valeur HU n’est pas une constante universelle. 
-                    Elle dépend du kernel, de l’algorithme itératif, 
-                    de l’énergie effective et du constructeur.
-                    Sans calibration, comparer deux patients revient à comparer deux devises sans taux de change.
+                    Le spectral (dual-energy, multi-couches ou photon-counting selon systèmes) ouvre l’accès à des
+                    variables plus proches de la composition tissulaire que la seule HU. C’est central en{" "}
+                    <Link to="/quantification-ct" className="text-primary hover:underline">
+                      quantification CT
+                    </Link>
+                    , mais dépend fortement de la chaîne de reconstruction.
                   </p>
-                </div>
-                <div className="rounded-xl bg-background/80 border border-border p-6 shadow-sm flex flex-col justify-center items-center md:items-start">
-                  <p className="text-3xl font-bold text-primary">5 à 20 HU</p>
-                  <p className="text-sm text-muted-foreground mt-1">Variabilité inter-vendor sans calibration</p>
-                </div>
-              </div>
-            </section>
 
-            {/* SECTION 2 : CALIBRATION */}
-            <section className="space-y-10">
-              <h2 className="text-2xl font-semibold text-foreground">
-                Calibration indépendante & validation physique
-              </h2>
-
-              <div className="grid md:grid-cols-2 gap-12 items-start">
-
-                {/* Colonne Gauche */}
-                <div className="space-y-6 text-muted-foreground">
-                  <p className="leading-relaxed">
-                    Pour dépasser l'analyse visuelle, toute quantification avancée doit être 
-                    confrontée à une validation physique indépendante ("Ground Truth").
-                    Cette étape s’inscrit dans une logique d’
-                      <Link to="/bases-multicentriques" className="text-primary hover:underline">
-                      harmonisation multicentrique {" "}
-                      </Link>
-                      indispensable en recherche clinique.
-                  </p>
-                  <ul className="space-y-3 pl-2">
-                    <li className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                      <span>Calibration phantom (eau / inserts tissulaires)</span>
+                  <ul className="space-y-3 text-sm text-muted-foreground">
+                    <li className="flex gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
+                      <span>Reconstructions monoénergétiques et sensibilité énergie-dépendante.</span>
                     </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                      <span>Correction des dérives énergétiques temporelles</span>
+                    <li className="flex gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
+                      <span>Décomposition matière (iode, eau, calcium, densité électronique, Z effectif).</span>
                     </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                      <span>Harmonisation des biais systématiques inter-vendor</span>
+                    <li className="flex gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
+                      <span>Effets non négligeables du débruitage et des reconstructions itératives.</span>
                     </li>
                   </ul>
                 </div>
 
-                {/* Colonne Droite */}
-                <div className="rounded-2xl border border-border bg-card/50 p-8 space-y-6">
-                  <div className="flex items-center gap-3 font-semibold text-foreground">
-                    <ShieldCheck className="w-5 h-5 text-primary shrink-0" />
-                    Impact méthodologique
+                <div className="rounded-2xl border border-primary/20 bg-gradient-to-b from-card/80 to-primary/5 p-6 space-y-4">
+                  <div className="flex items-center gap-2 font-semibold text-foreground">
+                    <AlertTriangle className="w-5 h-5 text-primary" />
+                    Point de vigilance
                   </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Une calibration indépendante transforme un outil technique 
-                    en biomarqueur scientifiquement défendable.
+                  <p className="text-muted-foreground leading-relaxed">
+                    Les reconstructions basses énergies (&lt;70 keV) peuvent augmenter le contraste utile mais aussi
+                    la fragilité au bruit. Une amélioration visuelle n’est pas, à elle seule, une validation
+                    quantitative.
                   </p>
-                  <div className="rounded-lg bg-muted/50 p-4 border border-border/50">
-                    <p className="text-xs text-muted-foreground font-medium">
-                      Sans calibration externe, la variabilité technique 
-                      peut dépasser la variation biologique étudiée.
-                    </p>
-                  </div>
+                  <p className="text-muted-foreground text-sm">
+                    En contexte neurovasculaire, cette logique complète la{" "}
+                    <Link to="/ct-perfusion-quantitative-avc" className="text-primary hover:underline">
+                      CT perfusion quantitative
+                    </Link>{" "}
+                    et se discute en interface avec l’
+                    <Link to="/irm-imagerie-quantitative" className="text-primary hover:underline">
+                      IRM quantitative
+                    </Link>
+                    .
+                  </p>
                 </div>
-
               </div>
             </section>
 
-            {/* SECTION 3 : ARCHITECTURE */}
-            <section className="space-y-10">
+            <section className="space-y-8">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Calibration phantom & validation indépendante
+              </h2>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="rounded-2xl border border-border bg-card/50 p-6 space-y-4">
+                  <div className="flex items-center gap-2 font-semibold text-foreground">
+                    <ShieldCheck className="w-5 h-5 text-primary" />
+                    Pourquoi calibrer
+                  </div>
+                  <p className="text-muted-foreground leading-relaxed">
+                    La calibration phantom fixe un repère externe à l’image patient. Elle permet d’identifier les
+                    dérives instrumentales et de mesurer des biais stables ou dynamiques entre lots, scanners et
+                    versions logicielles.
+                  </p>
+                  <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-2">
+                    <li>Contrôle périodique eau/air et inserts de référence.</li>
+                    <li>Suivi longitudinal des dérives HU et des paramètres spectraux.</li>
+                    <li>Critères d’acceptation/rejet documentés avant extraction biomarqueur.</li>
+                  </ul>
+                </div>
+
+                <div className="rounded-2xl border border-border bg-card/50 p-6 space-y-4">
+                  <div className="flex items-center gap-2 font-semibold text-foreground">
+                    <BarChart3 className="w-5 h-5 text-primary" />
+                    Validation indépendante
+                  </div>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Un biomarqueur CT robuste doit être confronté à une validation indépendante (phantom,
+                    reproductibilité test-retest, cohérence inter-centre), pas uniquement à une cohérence visuelle.
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    Les métadonnées critiques sont structurées via{" "}
+                    <Link to="/analyse-dicom" className="text-primary hover:underline">
+                      Analyse DICOM
+                    </Link>{" "}
+                    puis intégrées dans un cadre{" "}
+                    <Link to="/bases-multicentriques" className="text-primary hover:underline">
+                      multicentrique
+                    </Link>
+                    .
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <section className="space-y-8">
               <h2 className="text-2xl font-semibold text-foreground">
                 Architecture d’un biomarqueur CT robuste
               </h2>
 
-              <div className="grid md:grid-cols-2 gap-12 items-start">
-
-                {/* Colonne Gauche */}
-                <div className="space-y-6 text-muted-foreground">
-                  <p className="leading-relaxed">
-                    Un biomarqueur CT exploitable repose sur une séquence méthodologique 
-                    explicite, documentée et versionnée.
-                    La robustesse dépend aussi d’une {" "}
-                    <Link to="/ingenierie-imagerie-quantitative" className="text-primary hover:underline">
-                    ingénierie en imagerie quantitative
-                    </Link>
-                    structurée.
-                  </p>
-                  <ul className="space-y-3 pl-2">
-                    <li className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                      <span>Audit DICOM des métadonnées énergétiques</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                      <span>Stratification par constructeur (Siemens/GE/Philips)</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                      <span>Extraction métrique automatisée et logs de QC</span>
-                    </li>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="rounded-2xl border border-border bg-card/50 p-6 space-y-4">
+                  <div className="flex items-center gap-2 font-semibold text-foreground">
+                    <Layers className="w-5 h-5 text-primary" />
+                    Chaîne technique
+                  </div>
+                  <ul className="space-y-2 text-sm text-muted-foreground">
+                    <li>1. Audit DICOM (acquisition, énergie, reconstruction, kernel).</li>
+                    <li>2. Calibration phantom et contrôle de stabilité.</li>
+                    <li>3. Segmentation/ROI reproductible et règles d’exclusion.</li>
+                    <li>4. Extraction métrique versionnée et journalisée.</li>
+                    <li>5. Contrôle statistique de robustesse inter-centre.</li>
                   </ul>
                 </div>
 
-                {/* Colonne Droite */}
-                <div className="rounded-2xl border border-border bg-card/50 p-8 space-y-6">
-                  <div className="flex items-center gap-3 font-semibold text-foreground">
-                    <BarChart3 className="w-5 h-5 text-primary shrink-0" />
-                    Principe central
+                <div className="rounded-2xl border border-border bg-card/50 p-6 space-y-4">
+                  <div className="flex items-center gap-2 font-semibold text-foreground">
+                    <Database className="w-5 h-5 text-primary" />
+                    Chaîne méthodologique
                   </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    L’objectif final n'est pas le{" "}
+                  <p className="text-muted-foreground leading-relaxed">
+                    L’outil n’est qu’une partie du résultat. La valeur finale dépend d’un pipeline explicite,
+                    reproductible et relisible, dans la continuité de l’
+                    <Link to="/ingenierie-imagerie-quantitative" className="text-primary hover:underline">
+                      ingénierie quantitative
+                    </Link>
+                    . La qualité des contours peut être outillée par les mêmes principes de contrôle que ceux décrits
+                    en{" "}
                     <Link to="/segmentation-irm" className="text-primary hover:underline">
-                    masque de segmentation
-                    </Link>,
-                    mais la valeur numérique extraite (quantification).
+                      segmentation IRM
+                    </Link>
+                    .
                   </p>
-                  <div className="rounded-lg bg-muted/50 p-4 border border-border/50">
-                    <p className="text-xs text-muted-foreground font-medium">
-                      Priorité à la robustesse statistique sur la précision pixel-perfect isolée.
-                    </p>
-                  </div>
                 </div>
-
               </div>
             </section>
 
-            {/* SECTION 4 : APPLICATIONS */}
-            <section className="space-y-10">
+            <section className="space-y-8">
               <h2 className="text-2xl font-semibold text-foreground">
                 Applications cliniques et translationnelles
               </h2>
 
-              <div className="grid md:grid-cols-2 gap-12 items-start">
-
-                {/* Colonne Gauche */}
-                <div className="space-y-6 text-muted-foreground">
-                  <p className="leading-relaxed">
-                    Ces méthodes s'appliquent dès lors qu'une mesure quantitative 
-                    est requise pour un endpoint d'essai clinique ou une étude physiopathologique. dans une logique de{" "}
-                    <Link to="/quantification-ct" className="text-primary hover:underline">
-                    quantification CT clinique
-                    </Link>.
-                  </p>
-                  <ul className="space-y-3 pl-2">
-                    <li className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                      <span>Quantification fibrose pulmonaire & inflammation</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                      <span>Caractérisation de plaque (Calcium / Lipide)</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                      <span>Perfusion CT quantitative (Flux/Volume)</span>
-                    </li>
-                  </ul>
-                  <div className="pt-2">
-                    <Link to="/ingenierie-imagerie-quantitative" className="text-primary text-sm font-medium hover:underline inline-flex items-center gap-1">
-                      Voir l'ingénierie quantitative <ArrowRight className="w-3 h-3"/>
-                    </Link>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                  <div className="flex items-center gap-2 font-semibold text-foreground">
+                    <Brain className="w-5 h-5 text-primary" />
+                    Neurovasculaire
                   </div>
+                  <p className="text-sm text-muted-foreground">
+                    Optimisation des biomarqueurs de perfusion et cohérence avec les stratégies de sélection en AVC.
+                  </p>
+                  <Link to="/ct-perfusion-quantitative-avc" className="text-primary text-sm hover:underline">
+                    Voir CT perfusion AVC →
+                  </Link>
                 </div>
 
-                {/* Colonne Droite */}
-                <div className="rounded-2xl border border-border bg-card/50 p-8 space-y-6">
-                  <div className="flex items-center gap-3 font-semibold text-foreground">
-                    <FileText className="w-5 h-5 text-primary shrink-0" />
-                    Positionnement
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                  <div className="flex items-center gap-2 font-semibold text-foreground">
+                    <Atom className="w-5 h-5 text-primary" />
+                    Caractérisation matière
                   </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    L’objectif est de produire des paramètres exploitables
-                    en contexte multicentrique, industriel ou réglementaire,
-                    et non des indicateurs dépendants d’un système unique.
+                  <p className="text-sm text-muted-foreground">
+                    Analyse iode/calcium, densité électronique et signatures spectrales dans des protocoles
+                    quantitatifs.
                   </p>
-                  <div className="rounded-lg bg-muted/50 p-4 border border-border/50">
-                    <p className="text-xs text-muted-foreground font-medium">
-                      Le biomarqueur doit survivre au changement de machine.
-                    </p>
-                  </div>
+                  <Link to="/quantification-ct" className="text-primary text-sm hover:underline">
+                    Voir Quantification CT →
+                  </Link>
                 </div>
 
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                  <div className="flex items-center gap-2 font-semibold text-foreground">
+                    <Workflow className="w-5 h-5 text-primary" />
+                    Multimodal & essais
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Intégration CT/IRM pour endpoints composites et protocoles translationnels multicentriques.
+                  </p>
+                  <Link to="/recalage-multimodal" className="text-primary text-sm hover:underline">
+                    Voir Recalage multimodal →
+                  </Link>
+                </div>
               </div>
             </section>
 
-            {/* DATA & CONSENSUS (Full Width Grid) */}
-            <section className="rounded-2xl border border-border bg-muted/40 p-10 space-y-8">
-              <h2 className="text-2xl font-semibold text-center">
-                Données de référence & Consensus
-              </h2>
-              <div className="grid md:grid-cols-2 gap-12">
-                <div className="space-y-4">
-                  <h3 className="font-semibold flex items-center gap-2">
-                    <BarChart3 className="w-4 h-4 text-primary" />
-                    Reproductibilité rapportée
-                  </h3>
-                  <ul className="list-disc pl-5 text-muted-foreground text-sm space-y-2 leading-relaxed">
-                    <li>Variabilité HU inter-constructeur brute : <strong>5–20 HU</strong></li>
-                    <li>Gain de contraste en monoénergétique (40keV) : <strong>+30–50%</strong></li>
-                    <li>Coefficient de variation Perfusion CT : <strong>5–12%</strong></li>
-                    <li>Nécessité de débruitage itératif &lt;70 keV</li>
+            <section className="rounded-2xl border border-primary/20 bg-gradient-to-b from-card/80 to-primary/5 p-6 md:p-8 space-y-6">
+              <div className="flex items-center gap-2 font-semibold text-foreground">
+                <BarChart3 className="w-5 h-5 text-primary" />
+                Données de la littérature (ordres de grandeur)
+              </div>
+
+              <p className="text-muted-foreground leading-relaxed">
+                Les amplitudes exactes dépendent des protocoles et des plateformes. Les points ci-dessous sont des
+                repères pratiques, utiles pour cadrer un pipeline plutôt que pour imposer un seuil universel.
+              </p>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="rounded-xl border border-border bg-card/60 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">Variabilité rapportée</h3>
+                  <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-2">
+                    <li>Écarts HU inter-systèmes de l’ordre de ±5 à ±15 HU selon contexte.</li>
+                    <li>Différences supplémentaires possibles selon kernel et reconstruction itérative.</li>
+                    <li>Instabilité plus marquée en basses énergies si le bruit n’est pas contrôlé.</li>
+                    <li>En spectral, gains de contraste de l’ordre de plusieurs dizaines de pourcents selon l’indication.</li>
                   </ul>
                 </div>
-                <div className="space-y-4">
-                  <h3 className="font-semibold flex items-center gap-2">
-                    <FileText className="w-4 h-4 text-primary" />
-                    Guidelines
-                  </h3>
-                  <ul className="list-disc pl-5 text-muted-foreground text-sm space-y-2 leading-relaxed">
-                    <li>Guidelines on Dual-Energy CT (Quality & Safety)</li>
-                    <li>Consensus sur la reproductibilité en Perfusion CT</li>
-                    <li>Standards de calibration Phantom (AAPM/QIBA)</li>
-                    <li>Recommandations pour l'harmonisation multicentrique</li>
+
+                <div className="rounded-xl border border-border bg-card/60 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">Implications méthodologiques</h3>
+                  <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-2">
+                    <li>Comparer des chiffres bruts sans harmonisation expose à un biais technique.</li>
+                    <li>La calibration phantom réduit les biais systématiques inter-vendor.</li>
+                    <li>La reproductibilité doit être vérifiée par lot, centre et version logicielle.</li>
+                    <li>La validité quantitative repose sur la chaîne complète, pas sur une seule carte.</li>
                   </ul>
                 </div>
               </div>
             </section>
-           <section className="rounded-2xl border border-border bg-card/40 p-10 space-y-8 text-center">
-            <h2 className="text-xl font-semibold text-foreground">
-              Expertises associées
-            </h2>
 
-            <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
-              Cette approche s’intègre dans une architecture plus large
-              d’ingénierie quantitative et d’harmonisation multicentrique.
-            </p>
-
-            <div className="grid md:grid-cols-3 gap-6">
-
-              <Link
-                to="/quantification-ct"
-                className="rounded-xl border border-border bg-card/50 p-6 hover:border-primary/40 hover:bg-card/70 transition-all group"
-              >
-                <div className="space-y-2">
-                  <p className="font-medium group-hover:text-primary transition-colors">
-                    Quantification CT clinique
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    Extraction métrique robuste en contexte patient.
-                  </p>
-                </div>
-              </Link>
-
-              <Link
-                to="/bases-multicentriques"
-                className="rounded-xl border border-border bg-card/50 p-6 hover:border-primary/40 hover:bg-card/70 transition-all group"
-              >
-                <div className="space-y-2">
-                  <p className="font-medium group-hover:text-primary transition-colors">
-                    Harmonisation multicentrique
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    Réduction des biais inter-constructeurs.
-                  </p>
-                </div>
-              </Link>
-
-              <Link
-                to="/ingenierie-imagerie-quantitative"
-                className="rounded-xl border border-border bg-card/50 p-6 hover:border-primary/40 hover:bg-card/70 transition-all group"
-              >
-                <div className="space-y-2">
-                  <p className="font-medium group-hover:text-primary transition-colors">
-                    Ingénierie en imagerie quantitative
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    Architecture méthodologique complète.
-                  </p>
-                </div>
-              </Link>
-
-            </div>
-          </section>
-            <section className="rounded-2xl border border-primary/20 bg-primary/5 p-8 space-y-4">
-              <h2 className="text-xl font-semibold text-foreground">
-                En résumé
-              </h2>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>• La valeur HU brute n’est pas stable entre centres</li>
-                <li>• Le spectral améliore la physique, pas la validité automatique</li>
-                <li>• La calibration phantom est indispensable</li>
-                <li>• Un biomarqueur robuste doit survivre au changement de machine</li>
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-5">
+              <div className="flex items-center gap-2 font-semibold text-foreground">
+                <FileText className="w-5 h-5 text-primary" />
+                Références & consensus
+              </div>
+              <ul className="list-disc pl-5 text-muted-foreground space-y-2">
+                <li>Recommandations de sociétés savantes sur le CT spectral / dual-energy en pratique clinique.</li>
+                <li>Cadres de calibration phantom et de contrôle qualité en physique médicale (AAPM/QIBA).</li>
+                <li>Bonnes pratiques de reproductibilité des quantitative imaging biomarkers en multicentrique.</li>
+                <li>Principes de traçabilité pipeline, auditabilité et validation inter-plateformes en recherche clinique.</li>
               </ul>
             </section>
-            {/* FAQ ROBUSTE (Grid 2x2) */}
-            <section className="space-y-10">
+
+            <section className="space-y-8">
               <h2 className="text-2xl font-semibold text-center text-foreground">
-                Questions fréquentes – CT quantitatif
+                Questions fréquentes – CT quantitatif avancé
               </h2>
-              <div className="grid md:grid-cols-2 gap-8">
-                
-                <div className="rounded-2xl border border-border bg-card/50 p-8 space-y-3 hover:border-primary/30 transition-colors">
-                  <h3 className="font-semibold text-foreground">
-                    Les unités Hounsfield sont-elles comparables entre centres ?
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    Non. Des écarts de 5 à 20 HU sont fréquents selon le kernel,
-                    l'énergie effective et le constructeur. Une harmonisation est requise.
-                  </p>
-                </div>
 
-                <div className="rounded-2xl border border-border bg-card/50 p-8 space-y-3 hover:border-primary/30 transition-colors">
-                  <h3 className="font-semibold text-foreground">
-                    Le CT spectral améliore-t-il la quantification ?
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    Oui, car il permet de séparer l'effet photoélectrique du Compton, 
-                    mais cela exige une calibration rigoureuse pour être valide.
-                  </p>
-                </div>
-
-                <div className="rounded-2xl border border-border bg-card/50 p-8 space-y-3 hover:border-primary/30 transition-colors">
-                  <h3 className="font-semibold text-foreground">
-                    Pourquoi utiliser un fantôme de calibration ?
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    Pour fixer une "vérité terrain". Cela permet de mesurer la dérive 
-                    instrumentale et de la corriger avant l'analyse des patients.
-                  </p>
-                </div>
-
-                <div className="rounded-2xl border border-border bg-card/50 p-8 space-y-3 hover:border-primary/30 transition-colors">
-                  <h3 className="font-semibold text-foreground">
-                    Est-ce applicable en routine clinique ?
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    Oui, mais le pipeline de post-traitement doit être automatisé 
-                    pour ne pas alourdir le flux de travail radiologique.
-                  </p>
-                </div>
-
+              <div className="grid md:grid-cols-2 gap-6">
+                {FAQ_ITEMS.map((item) => (
+                  <div key={item.question} className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                    <h3 className="font-semibold text-foreground">{item.question}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{item.answer}</p>
+                  </div>
+                ))}
               </div>
-            </section>        
-
-            {/* CTA */}
-            <section className="rounded-2xl border border-border bg-card/30 p-10 text-center">
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                Vous développez un protocole de recherche ou un outil industriel ? <br/>
-                Sécurisez vos données avec une validation physique explicite.
-              </p>
-              <Link
-                to="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-8 py-4 text-primary-foreground font-medium hover:opacity-95 transition shadow-lg shadow-primary/20"
-              >
-                Discuter d’un projet spectral
-                <ArrowRight className="w-5 h-5" />
-              </Link>
             </section>
 
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold text-foreground">Pages associées</h2>
+              <div className="flex flex-wrap gap-3">
+                <Link to="/ct-imagerie-quantitative" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  CT imagerie quantitative <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link to="/quantification-ct" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Quantification CT <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link to="/ct-perfusion-quantitative-avc" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  CT perfusion AVC <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link to="/analyse-dicom" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Analyse DICOM <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link to="/bases-multicentriques" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Bases multicentriques <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link to="/ingenierie-imagerie-quantitative" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Ingénierie quantitative <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link to="/recalage-multimodal" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Recalage multimodal <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link to="/irm-imagerie-quantitative" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  IRM quantitative <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link to="/segmentation-irm" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Segmentation IRM <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </section>
+
+            <section className="rounded-2xl border border-primary/20 bg-primary/5 p-6 md:p-8 space-y-5">
+              <h2 className="text-xl font-semibold text-foreground">Synthèse opérationnelle</h2>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>La comparaison HU brute n’est pas suffisante pour un endpoint multicentrique.</li>
+                <li>Le spectral est puissant, mais son interprétation doit rester physiquement validée.</li>
+                <li>Calibration phantom + QA + traçabilité sont les prérequis d’un biomarqueur opposable.</li>
+                <li>L’objectif est une mesure stable entre centres, pas seulement une image plus contrastée.</li>
+              </ul>
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-primary-foreground font-medium hover:opacity-95 transition"
+                >
+                  Discuter d’un protocole CT spectral
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  to="/ct-imagerie-quantitative"
+                  className="inline-flex items-center justify-center gap-2 rounded-md border border-border px-6 py-3 font-medium hover:bg-muted/40 transition"
+                >
+                  Revenir au pôle CT
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </section>
           </div>
         </main>
         <Footer />

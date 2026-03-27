@@ -111,10 +111,10 @@ const MethodologieImagerieQuantitative = () => {
   return (
     <>
       <Helmet>
-        <title>Méthodologie en Imagerie Quantitative | NOXIA</title>
+        <title>Méthodologie imagerie quantitative: standardisation | NOXIA</title>
         <meta
           name="description"
-          content="Cadre méthodologique complet pour biomarqueurs IRM et CT : audit DICOM, normalisation, harmonisation multicentrique, calibration physique et robustesse statistique."
+          content="Cadre méthodologique pour imagerie quantitative IRM/CT: audit DICOM, harmonisation multicentrique, validation statistique et biomarqueurs reproductibles."
         />
         <link rel="canonical" href={CANONICAL} />
         <meta property="og:title" content="Méthodologie en Imagerie Quantitative" />

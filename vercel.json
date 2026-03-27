@@ -4,6 +4,41 @@
   "framework": null,
   "redirects": [
     {
+      "source": "/biomarqueurs-irm-cardiaque-essais-cliniques/",
+      "destination": "/biomarqueurs-irm-cardiaque-essais-cliniques",
+      "permanent": true
+    },
+    {
+      "source": "/ecv-mapping-t1-t2-irm-cardiaque/",
+      "destination": "/ecv-mapping-t1-t2-irm-cardiaque",
+      "permanent": true
+    },
+    {
+      "source": "/perfusion-metabolique-neuro-imagerie/",
+      "destination": "/perfusion-metabolique-neuro-imagerie",
+      "permanent": true
+    },
+    {
+      "source": "/cmro2-imagerie-cerebrale/",
+      "destination": "/cmro2-imagerie-cerebrale",
+      "permanent": true
+    },
+    {
+      "source": "/oef-imagerie-cerebrale/",
+      "destination": "/oef-imagerie-cerebrale",
+      "permanent": true
+    },
+    {
+      "source": "/ct-quantitatif-avance-imagerie-spectrale/",
+      "destination": "/ct-quantitatif-avance-imagerie-spectrale",
+      "permanent": true
+    },
+    {
+      "source": "/ct-perfusion-quantitative-avc/",
+      "destination": "/ct-perfusion-quantitative-avc",
+      "permanent": true
+    },
+    {
       "source": "/Corelab-essais-cliniques",
       "destination": "/corelab-essais-cliniques",
       "permanent": true
@@ -11,6 +46,76 @@
     {
       "source": "/Corelab-essais-cliniques/",
       "destination": "/corelab-essais-cliniques",
+      "permanent": true
+    },
+    {
+      "source": "/Biomarqueurs-irm-cardiaque-essais-cliniques",
+      "destination": "/biomarqueurs-irm-cardiaque-essais-cliniques",
+      "permanent": true
+    },
+    {
+      "source": "/Biomarqueurs-irm-cardiaque-essais-cliniques/",
+      "destination": "/biomarqueurs-irm-cardiaque-essais-cliniques",
+      "permanent": true
+    },
+    {
+      "source": "/Ct-quantitatif-avance-imagerie-spectrale",
+      "destination": "/ct-quantitatif-avance-imagerie-spectrale",
+      "permanent": true
+    },
+    {
+      "source": "/Ct-quantitatif-avance-imagerie-spectrale/",
+      "destination": "/ct-quantitatif-avance-imagerie-spectrale",
+      "permanent": true
+    },
+    {
+      "source": "/Ct-perfusion-quantitative-avc",
+      "destination": "/ct-perfusion-quantitative-avc",
+      "permanent": true
+    },
+    {
+      "source": "/Ct-perfusion-quantitative-avc/",
+      "destination": "/ct-perfusion-quantitative-avc",
+      "permanent": true
+    },
+    {
+      "source": "/Ecv-mapping-t1-t2-irm-cardiaque",
+      "destination": "/ecv-mapping-t1-t2-irm-cardiaque",
+      "permanent": true
+    },
+    {
+      "source": "/Ecv-mapping-t1-t2-irm-cardiaque/",
+      "destination": "/ecv-mapping-t1-t2-irm-cardiaque",
+      "permanent": true
+    },
+    {
+      "source": "/Perfusion-metabolique-neuro-imagerie",
+      "destination": "/perfusion-metabolique-neuro-imagerie",
+      "permanent": true
+    },
+    {
+      "source": "/Perfusion-metabolique-neuro-imagerie/",
+      "destination": "/perfusion-metabolique-neuro-imagerie",
+      "permanent": true
+    },
+    {
+      "source": "/Cmro2-imagerie-cerebrale",
+      "destination": "/cmro2-imagerie-cerebrale",
+      "permanent": true
+    },
+    {
+      "source": "/Cmro2-imagerie-cerebrale/",
+      "destination": "/cmro2-imagerie-cerebrale",
+      "permanent": true
+    },
+    {
+      "source": "/Oef-imagerie-cerebrale",
+      "destination": "/oef-imagerie-cerebrale",
+      "permanent": true
+    },
+    {
+      "source": "/Oef-imagerie-cerebrale/",
+      "destination": "/oef-imagerie-cerebrale",
       "permanent": true
     },
     {

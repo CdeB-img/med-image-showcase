@@ -113,10 +113,10 @@ const Prestations = () => {
   return (
     <>
       <Helmet>
-        <title>Consultant indépendant CoreLab IRM & CT | Prestations NOXIA</title>
+        <title>Prestations Core Lab IRM/CT: consultant indépendant | NOXIA</title>
         <meta
           name="description"
-          content="Consultant indépendant en imagerie médicale quantitative : CoreLab IRM/CT, audit DICOM, harmonisation multicentrique, reprise d'études et ingénierie sur mesure."
+          content="Prestations de consultant indépendant en imagerie quantitative: Core Lab IRM/CT, audit DICOM, harmonisation multicentrique et validation de biomarqueurs."
         />
         <link rel="canonical" href={CANONICAL} />
         <script type="application/ld+json">{JSON.stringify(serviceJsonLd)}</script>

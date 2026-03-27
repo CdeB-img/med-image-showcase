@@ -78,10 +78,10 @@ const RecalageMultimodal = () => {
   return (
     <>
       <Helmet>
-        <title>Recalage multimodal IRM / CT en recherche clinique | NOXIA</title>
+        <title>Recalage multimodal IRM/CT: alignement validé | NOXIA</title>
         <meta
           name="description"
-          content="Recalage multimodal IRM et CT pour études longitudinales et projets multicentriques. Alignement géométrique rigoureux, validation méthodologique et intégration dans pipelines quantitatifs."
+          content="Recalage multimodal IRM/CT pour études longitudinales: alignement géométrique contrôlé, validation multicentrique et intégration aux biomarqueurs quantitatifs."
         />
         <link rel="canonical" href={CANONICAL} />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
@@ -260,6 +260,32 @@ const RecalageMultimodal = () => {
                     <li>Dice, Hausdorff, TRE selon cas d'usage</li>
                     <li>Suivi de stabilité inter-temps/inter-centres</li>
                     <li>Seuils d'acceptation définis avant analyse finale</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-6">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Données de la littérature et repères quantitatifs
+              </h2>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">Tendances rapportées</h3>
+                  <ul className="list-disc pl-6 text-sm text-muted-foreground space-y-2">
+                    <li>Les performances Dice/TRE varient fortement selon modalité, anatomie et qualité des entrées.</li>
+                    <li>Les approches multimodales sont plus sensibles aux choix de métriques et à l'initialisation.</li>
+                    <li>Les artefacts de mouvement dégradent significativement la stabilité du recalage longitudinal.</li>
+                  </ul>
+                </div>
+
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">Lecture méthodologique</h3>
+                  <ul className="list-disc pl-6 text-sm text-muted-foreground space-y-2">
+                    <li>Un bon score global ne dispense pas d'un contrôle local des zones d'intérêt.</li>
+                    <li>La reproductibilité inter-centre dépend autant du QA que de l'algorithme choisi.</li>
+                    <li>Des seuils d'acceptation définis en amont limitent les biais d'interprétation a posteriori.</li>
                   </ul>
                 </div>
               </div>

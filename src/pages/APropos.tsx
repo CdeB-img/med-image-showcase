@@ -107,12 +107,12 @@ const APropos = () => {
     <>
       <Helmet>
         <title>
-          Charles de Bourguignon | Consultant indépendant en imagerie médicale – NOXIA
+          Charles de Bourguignon: expertise imagerie quantitative | NOXIA
         </title>
 
         <meta
           name="description"
-          content="Charles de Bourguignon, expert indépendant en imagerie médicale quantitative. IRM cardiaque et neuro, CT avancé, CoreLab multicentrique et ingénierie de biomarqueurs reproductibles."
+          content="Parcours de Charles de Bourguignon en imagerie quantitative IRM/CT: contributions académiques, Core Lab multicentrique et validation de biomarqueurs."
         />
 
         <link rel="canonical" href={CANONICAL} />
@@ -169,7 +169,15 @@ const APropos = () => {
                   J’interviens à l’interface entre clinique, recherche translationnelle
                   et ingénierie quantitative. Mon activité est dédiée à la conception
                   de flux d’analyse robustes, traçables et inter-constructeurs,
-                  transformant le signal d’imagerie en biomarqueurs exploitables.
+                  transformant le signal d’imagerie en biomarqueurs exploitables, dans
+                  le prolongement de l’
+                  <Link to="/ingenierie-imagerie-quantitative" className="text-primary hover:underline">
+                    ingénierie en imagerie quantitative
+                  </Link>{" "}
+                  et d’une{" "}
+                  <Link to="/methodologie-imagerie-quantitative" className="text-primary hover:underline">
+                    méthodologie explicite
+                  </Link>.
                 </p>
 
                 {/* Preuve chiffrée */}
@@ -215,7 +223,11 @@ const APropos = () => {
                 Aujourd’hui, j’interviens de manière indépendante auprès
                 d’équipes académiques, de centres hospitaliers et de promoteurs
                 industriels pour concevoir, harmoniser et fiabiliser
-                des flux d’imagerie quantitative à haute exigence scientifique.
+                des flux d’imagerie quantitative à haute exigence scientifique,
+                avec des formats d’accompagnement détaillés sur la page{" "}
+                <Link to="/prestations-imagerie-medicale" className="text-primary hover:underline">
+                  prestations d’imagerie médicale
+                </Link>.
               </p>
             </section>
 
@@ -237,7 +249,14 @@ const APropos = () => {
                 <p className="text-muted-foreground leading-relaxed">
                   L’analyse est systématiquement guidée par une cohérence
                   physiopathologique du signal et une exigence de reproductibilité
-                  inter-centre.
+                  inter-centre, en cohérence avec l’
+                  <Link to="/irm-imagerie-quantitative" className="text-primary hover:underline">
+                    IRM quantitative
+                  </Link>{" "}
+                  et la{" "}
+                  <Link to="/ct-imagerie-quantitative" className="text-primary hover:underline">
+                    quantification CT
+                  </Link>.
                 </p>
               </div>
 
@@ -355,7 +374,15 @@ const APropos = () => {
                 La robustesse méthodologique précède l’automatisation.
                 Les solutions IA sont évaluées, validées et intégrées
                 dans des flux contrôlés. L’objectif est la production
-                de biomarqueurs fiables, interprétables et réglementairement défendables.
+                de biomarqueurs fiables, interprétables et réglementairement défendables,
+                en lien avec la{" "}
+                <Link to="/methodologie-imagerie-quantitative" className="text-primary hover:underline">
+                  page méthodologie
+                </Link>{" "}
+                et les activités{" "}
+                <Link to="/corelab-essais-cliniques" className="text-primary hover:underline">
+                  CoreLab en essais cliniques
+                </Link>.
               </p>
 
               <Link
@@ -364,6 +391,27 @@ const APropos = () => {
               >
                 Discuter d’un projet
               </Link>
+            </section>
+
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold">Pages associées</h2>
+              <div className="flex flex-wrap gap-3">
+                <Link to="/expertise" className="inline-flex items-center rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Expertise imagerie quantitative
+                </Link>
+                <Link to="/prestations-imagerie-medicale" className="inline-flex items-center rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Prestations et formats d’accompagnement
+                </Link>
+                <Link to="/corelab-essais-cliniques" className="inline-flex items-center rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  CoreLab essais cliniques
+                </Link>
+                <Link to="/methodologie-imagerie-quantitative" className="inline-flex items-center rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Méthodologie imagerie quantitative
+                </Link>
+                <Link to="/references-publications" className="inline-flex items-center rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Références et publications
+                </Link>
+              </div>
             </section>
 
           </div>

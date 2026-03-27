@@ -85,10 +85,10 @@ const AnalyseDICOM = () => {
   return (
     <>
       <Helmet>
-        <title>Analyse DICOM & structuration multicentrique | NOXIA</title>
+        <title>Analyse DICOM multicentrique: audit et structuration | NOXIA</title>
         <meta
           name="description"
-          content="Audit DICOM avancé, harmonisation multicentrique et structuration de bases d'images médicales. Contrôle géométrique, anonymisation et pipelines reproductibles pour recherche clinique."
+          content="Analyse DICOM pour recherche multicentrique: cohérence géométrique, anonymisation, contrôle des métadonnées et préparation fiable des biomarqueurs quantitatifs."
         />
         <link rel="canonical" href={CANONICAL} />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
@@ -272,6 +272,32 @@ const AnalyseDICOM = () => {
                     <li>Tags indispensables absents ou inconsistants</li>
                     <li>Reconstructions non identifiées correctement</li>
                     <li>Mauvaise séparation des temps et séries dynamiques</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-6">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Données de littérature et ordres de grandeur utiles
+              </h2>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">Constats récurrents</h3>
+                  <ul className="list-disc pl-6 text-sm text-muted-foreground space-y-2">
+                    <li>Une proportion non négligeable de lots multicentriques contient des séries incomplètes ou doublonnées.</li>
+                    <li>Les incohérences de géométrie inter-séries sont une source fréquente d'erreurs de quantification.</li>
+                    <li>Les tags critiques manquants dégradent la comparabilité inter-sites et les conversions contrôlées.</li>
+                  </ul>
+                </div>
+
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">Impact opérationnel</h3>
+                  <ul className="list-disc pl-6 text-sm text-muted-foreground space-y-2">
+                    <li>Un audit précoce réduit fortement les retraitements tardifs de pipeline.</li>
+                    <li>La standardisation des règles d'exclusion améliore la robustesse statistique des analyses.</li>
+                    <li>La traçabilité DICOM limite le risque de biais silencieux dans les biomarqueurs finaux.</li>
                   </ul>
                 </div>
               </div>

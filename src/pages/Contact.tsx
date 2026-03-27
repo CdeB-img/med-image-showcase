@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { z } from "zod";
+import { Link } from "react-router-dom";
 
 /* ============================================================
    CONFIG
@@ -180,10 +181,10 @@ const Contact = () => {
   return (
     <>
       <Helmet>
-        <title>Contact consultant indépendant en imagerie médicale | NOXIA</title>
+        <title>Contact consultant imagerie quantitative IRM/CT | NOXIA</title>
         <meta
           name="description"
-          content="Contact consultant indépendant en imagerie médicale quantitative : CoreLab IRM/CT, analyse DICOM, harmonisation multicentrique et ingénierie méthodologique."
+          content="Contactez NOXIA pour une mission en imagerie quantitative: Core Lab IRM/CT, validation multicentrique, audit méthodologique et biomarqueurs défendables."
         />
         <meta property="og:title" content="Contact consultant indépendant en imagerie médicale | NOXIA" />
         <meta
@@ -251,6 +252,42 @@ const Contact = () => {
                     Remise à plat technique d'une base hétérogène avec traçabilité et livrables exploitables.
                   </p>
                 </article>
+              </div>
+            </section>
+
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold text-foreground">Avant de prendre contact</h2>
+              <p className="text-muted-foreground leading-relaxed">
+                Pour gagner du temps au cadrage, vous pouvez consulter en amont les{" "}
+                <Link to="/prestations-imagerie-medicale" className="text-primary hover:underline">
+                  prestations détaillées
+                </Link>
+                , la{" "}
+                <Link to="/methodologie-imagerie-quantitative" className="text-primary hover:underline">
+                  méthodologie imagerie quantitative
+                </Link>
+                , des{" "}
+                <Link to="/projets" className="text-primary hover:underline">
+                  exemples de projets
+                </Link>{" "}
+                et la page{" "}
+                <Link to="/expertise" className="text-primary hover:underline">
+                  expertise IRM/CT
+                </Link>.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Link to="/prestations-imagerie-medicale" className="inline-flex items-center rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Formats d’accompagnement
+                </Link>
+                <Link to="/expertise" className="inline-flex items-center rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Domaines d’expertise
+                </Link>
+                <Link to="/methodologie-imagerie-quantitative" className="inline-flex items-center rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Méthodologie et qualité
+                </Link>
+                <Link to="/references-publications" className="inline-flex items-center rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Références et publications
+                </Link>
               </div>
             </section>
 

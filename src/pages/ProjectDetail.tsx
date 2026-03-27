@@ -132,7 +132,6 @@ const ProjectDetail = () => {
         <Helmet>
           <title>Projet non trouvé | NOXIA</title>
           <meta name="robots" content="noindex, nofollow" />
-          <link rel="canonical" href="https://noxia-imagerie.fr/projets" />
         </Helmet>
 
         <main className="min-h-screen flex items-center justify-center px-4">
@@ -262,6 +261,46 @@ const ProjectDetail = () => {
                 </Button>
               </div>
             </div>
+
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold">Ce cas dans l’architecture NOXIA</h2>
+              <p className="text-muted-foreground leading-relaxed">
+                Ce projet s’inscrit dans une logique complète :{" "}
+                <Link to="/expertise" className="text-primary hover:underline">
+                  domaines d’expertise
+                </Link>
+                ,{" "}
+                <Link to="/methodologie-imagerie-quantitative" className="text-primary hover:underline">
+                  méthodologie quantitative
+                </Link>
+                , et{" "}
+                <Link to="/prestations-imagerie-medicale" className="text-primary hover:underline">
+                  modalités d’accompagnement
+                </Link>. Selon le contexte, les étapes d’
+                <Link to="/analyse-dicom" className="text-primary hover:underline">
+                  audit DICOM
+                </Link>{" "}
+                et d’
+                <Link to="/bases-multicentriques" className="text-primary hover:underline">
+                  harmonisation multicentrique
+                </Link>{" "}
+                sont activées avant production des livrables.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Link to="/expertise" className="inline-flex items-center rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Explorer les expertises
+                </Link>
+                <Link to="/methodologie-imagerie-quantitative" className="inline-flex items-center rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Voir la méthodologie
+                </Link>
+                <Link to="/prestations-imagerie-medicale" className="inline-flex items-center rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Formats d’intervention
+                </Link>
+                <Link to="/contact" className="inline-flex items-center rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Discuter de ce besoin
+                </Link>
+              </div>
+            </section>
 
 
 

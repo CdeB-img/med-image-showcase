@@ -96,10 +96,10 @@ const QuantificationCT = () => {
   return (
     <>
       <Helmet>
-        <title>Quantification CT multicentrique & biomarqueurs robustes | NOXIA</title>
+        <title>Quantification CT: perfusion, spectral, calibration | NOXIA</title>
         <meta
           name="description"
-          content="Quantification CT avancée : HU validés, perfusion cérébrale, CT spectral, harmonisation inter-constructeurs et architecture Core Lab."
+          content="Quantification CT avancée: mesures HU, perfusion cérébrale et spectral avec harmonisation multicentrique, validation physique et biomarqueurs robustes."
         />
         <link rel="canonical" href={CANONICAL} />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
@@ -364,9 +364,7 @@ const QuantificationCT = () => {
               </Link>
             </section>
             <section className="rounded-2xl border border-border bg-card/40 p-6 space-y-4">
-              <h2 className="text-xl font-semibold">
-                Explorer les expertises associées
-              </h2>
+              <h2 className="text-xl font-semibold">Pages associées</h2>
 
               <div className="flex flex-wrap gap-4 text-sm">
                 <Link to="/irm-imagerie-quantitative" className="text-primary hover:underline">

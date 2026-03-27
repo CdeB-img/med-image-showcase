@@ -128,11 +128,11 @@ const CTImagerieQuantitative = () => {
   return (
     <>
       <Helmet>
-        <title>CT quantitatif multicentrique & biomarqueurs physiques | NOXIA</title>
+        <title>CT quantitatif multicentrique: HU et biomarqueurs validés | NOXIA</title>
 
         <meta
           name="description"
-          content="CT quantitatif en recherche clinique : stabilité HU, calibration phantom, spectral CT, perfusion et harmonisation multicentrique."
+          content="CT quantitatif pour recherche clinique: stabilité HU, calibration physique, harmonisation multicentrique et validation de biomarqueurs exploitables."
         />
 
         <link rel="canonical" href={CANONICAL} />
@@ -174,6 +174,15 @@ const CTImagerieQuantitative = () => {
                 { label: "CT Perfusion AVC", to: "/ct-perfusion-quantitative-avc", variant: "secondary", icon: ArrowRight },
               ]}
             />
+
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold text-foreground">
+                Réponse courte
+              </h2>
+              <p className="text-muted-foreground leading-relaxed">
+                Le CT quantitatif consiste à produire des mesures CT comparables entre patients et entre centres, et pas seulement des images lisibles. En pratique, la valeur des unités Hounsfield dépend du constructeur, des reconstructions et du protocole d’acquisition. Un CT quantitatif robuste repose donc sur l’audit DICOM, la calibration phantom et l’harmonisation multicentrique.
+              </p>
+            </section>
 
             {/* REPRODUCTIBILITÉ */}
             <section className="grid md:grid-cols-3 gap-6">
