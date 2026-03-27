@@ -50,9 +50,7 @@ const ExpertiseHero = ({
           <div
             className={[
               "inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-medium text-primary",
-              enhanced ? "motion-safe:opacity-0 motion-safe:animate-fade-in" : "",
             ].join(" ")}
-            style={enhanced ? { animationDelay: "70ms" } : undefined}
           >
             {BadgeIcon ? <BadgeIcon className="h-3.5 w-3.5" /> : null}
             {badge}
@@ -62,9 +60,8 @@ const ExpertiseHero = ({
         <h1
           className={[
             "text-4xl md:text-5xl font-bold tracking-tight text-foreground",
-            enhanced ? "motion-safe:opacity-0 motion-safe:animate-fade-in text-glow" : "",
+            enhanced ? "text-glow" : "",
           ].join(" ")}
-          style={enhanced ? { animationDelay: "140ms" } : undefined}
         >
           {title}
         </h1>
@@ -72,9 +69,7 @@ const ExpertiseHero = ({
         <p
           className={[
             "text-lg md:text-xl text-muted-foreground leading-relaxed max-w-4xl mx-auto",
-            enhanced ? "motion-safe:opacity-0 motion-safe:animate-fade-in" : "",
           ].join(" ")}
-          style={enhanced ? { animationDelay: "220ms" } : undefined}
         >
           {description}
         </p>
@@ -83,9 +78,7 @@ const ExpertiseHero = ({
           <div
             className={[
               "flex flex-wrap items-center justify-center gap-2 pt-1",
-              enhanced ? "motion-safe:opacity-0 motion-safe:animate-fade-in" : "",
             ].join(" ")}
-            style={enhanced ? { animationDelay: "300ms" } : undefined}
           >
             {chips.map((chip) => (
               <span
@@ -106,9 +99,7 @@ const ExpertiseHero = ({
         <div
           className={[
             "relative flex flex-col sm:flex-row flex-wrap gap-3 justify-center pt-1",
-            enhanced ? "motion-safe:opacity-0 motion-safe:animate-fade-in" : "",
           ].join(" ")}
-          style={enhanced ? { animationDelay: "360ms" } : undefined}
         >
           {actions.map((action, index) => {
             const Icon = action.icon ?? ArrowRight;
