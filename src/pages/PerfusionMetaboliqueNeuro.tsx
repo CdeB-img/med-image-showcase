@@ -255,6 +255,25 @@ const PerfusionMetaboliqueNeuro = () => {
               </div>
             </section>
 
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold text-foreground">
+                Focus biomarqueur : CMRO2
+              </h2>
+
+              <p className="text-muted-foreground leading-relaxed">
+                Le CMRO2 merite une lecture dédiée car il ne se confond ni avec le debit, ni avec l'extraction.
+                Son interpretation depend du couple OEF/CBF, du contexte de reperfusion et du pipeline de normalisation.
+              </p>
+
+              <Link
+                to="/cmro2-imagerie-cerebrale"
+                className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+              >
+                Voir la page dédiée au CMRO2
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </section>
+
             {/* FAQ */}
             <section className="space-y-8">
               <h2 className="text-2xl font-semibold text-center">
@@ -315,6 +334,22 @@ const PerfusionMetaboliqueNeuro = () => {
                 <li>Consensus sur Tmax ≥ 6s en sélection thrombectomie</li>
                 <li>Recommandations sur biomarqueurs métaboliques expérimentaux</li>
               </ul>
+            </section>
+
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold">Pages associées</h2>
+
+              <div className="flex flex-wrap gap-3">
+                <Link to="/cmro2-imagerie-cerebrale" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  CMRO2 cérébral <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link to="/irm-imagerie-quantitative" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  IRM quantitative <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link to="/ct-perfusion-quantitative-avc" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  CT Perfusion AVC <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
             </section>
 
             {/* CTA */}

@@ -20,6 +20,7 @@ const CorelabEC = lazy(() => import("@/pages/CorelabEC"));
 const BiomarqueursIRMCardiaqueEssais = lazy(() => import("@/pages/BiomarqueursIRMCardiaqueEssais"));
 const ECVMappingCardiaque = lazy(() => import("@/pages/ECVMappingCardiaque"));
 const PerfusionMetaboliqueNeuro = lazy(() => import("@/pages/PerfusionMetaboliqueNeuro"));
+const CMRO2Imagerie = lazy(() => import("@/pages/CMRO2Imagerie"));
 const IngenierieImagerieQuantitative = lazy(() => import("@/pages/IngenierieImagerieQuantitative"));
 const CTQuantitatifAvance = lazy(() => import("@/pages/CTQuantitatifAvance"));
 const CTPerfusionQuantitative = lazy(() => import("@/pages/CTPerfusionQuantitative"));
@@ -81,6 +82,7 @@ const App = () => (
             <Route path="/biomarqueurs-irm-cardiaque-essais-cliniques" element={<BiomarqueursIRMCardiaqueEssais />} />
             <Route path="/ecv-mapping-t1-t2-irm-cardiaque" element={<ECVMappingCardiaque />} />
             <Route path="/perfusion-metabolique-neuro-imagerie" element={<PerfusionMetaboliqueNeuro />} />
+            <Route path="/cmro2-imagerie-cerebrale" element={<CMRO2Imagerie />} />
             <Route path="/ingenierie-imagerie-quantitative" element={<IngenierieImagerieQuantitative />} />
             <Route path="/ct-quantitatif-avance-imagerie-spectrale" element={<CTQuantitatifAvance />} />
             <Route path="/ct-perfusion-quantitative-avc" element={<CTPerfusionQuantitative />} />

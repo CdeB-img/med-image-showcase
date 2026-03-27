@@ -330,12 +330,20 @@ const jsonLd = {
               </div>
 
               <div className="text-center">
-                <Link
-                  to="/perfusion-metabolique-neuro-imagerie"
-                  className="text-primary hover:underline"
-                >
-                  Voir perfusion cérébrale détaillée →
-                </Link>
+                <div className="flex flex-col items-center gap-2">
+                  <Link
+                    to="/perfusion-metabolique-neuro-imagerie"
+                    className="text-primary hover:underline"
+                  >
+                    Voir perfusion cérébrale détaillée →
+                  </Link>
+                  <Link
+                    to="/cmro2-imagerie-cerebrale"
+                    className="text-primary hover:underline"
+                  >
+                    Voir le focus CMRO2 →
+                  </Link>
+                </div>
               </div>
             </section>
 
