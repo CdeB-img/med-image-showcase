@@ -7,14 +7,15 @@ import { HelmetProvider } from "react-helmet-async";
 import { useEffect, lazy, Suspense, Component, type ErrorInfo, type ReactNode } from "react";
 import Header from "@/components/Header";
 import GlobalEntitySchema from "@/components/GlobalEntitySchema";
-import CorelabEC from "@/pages/CorelabEC";
-import BiomarqueursIRMCardiaqueEssais from "@/pages/BiomarqueursIRMCardiaqueEssais";
-import ECVMappingCardiaque from "@/pages/ECVMappingCardiaque";
-import PerfusionMetaboliqueNeuro from "@/pages/PerfusionMetaboliqueNeuro";
-import CMRO2Imagerie from "@/pages/CMRO2Imagerie";
-import OEFImagerie from "@/pages/OEFImagerie";
-import CTQuantitatifAvance from "@/pages/CTQuantitatifAvance";
-import CTPerfusionQuantitative from "@/pages/CTPerfusionQuantitative";
+
+const CorelabEC = lazy(() => import("@/pages/CorelabEC"));
+const BiomarqueursIRMCardiaqueEssais = lazy(() => import("@/pages/BiomarqueursIRMCardiaqueEssais"));
+const ECVMappingCardiaque = lazy(() => import("@/pages/ECVMappingCardiaque"));
+const PerfusionMetaboliqueNeuro = lazy(() => import("@/pages/PerfusionMetaboliqueNeuro"));
+const CMRO2Imagerie = lazy(() => import("@/pages/CMRO2Imagerie"));
+const OEFImagerie = lazy(() => import("@/pages/OEFImagerie"));
+const CTQuantitatifAvance = lazy(() => import("@/pages/CTQuantitatifAvance"));
+const CTPerfusionQuantitative = lazy(() => import("@/pages/CTPerfusionQuantitative"));
 
 const Index = lazy(() => import("./pages/Index"));
 const Projects = lazy(() => import("./pages/Projects"));
@@ -140,6 +141,12 @@ const App = () => (
             <Route path="/recalage-multimodal" element={<RecalageMultimodal />} />
             <Route path="/bases-multicentriques" element={<BasesMulticentriques />} />
             <Route path="/corelab-essais-cliniques" element={<CorelabEC />} />
+            
+            {/* Redirections pour correspondre à tes termes exacts */}
+            <Route path="/corelabirm" element={<Navigate to="/corelab-essais-cliniques" replace />} />
+            <Route path="/cmro2" element={<Navigate to="/cmro2-imagerie-cerebrale" replace />} />
+            <Route path="/oef" element={<Navigate to="/oef-imagerie-cerebrale" replace />} />
+            
             <Route path="/biomarqueurs-irm-cardiaque-essais-cliniques" element={<BiomarqueursIRMCardiaqueEssais />} />
             <Route path="/ecv-mapping-t1-t2-irm-cardiaque" element={<ECVMappingCardiaque />} />
             <Route path="/perfusion-metabolique-neuro-imagerie" element={<PerfusionMetaboliqueNeuro />} />
