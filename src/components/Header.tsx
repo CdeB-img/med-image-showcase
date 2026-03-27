@@ -27,6 +27,7 @@ const NAV_CONFIG: NavItemType[] = [
           { label: "Biomarqueurs cardiaques", path: "/biomarqueurs-irm-cardiaque-essais-cliniques" },
           { label: "ECV & Mapping", path: "/ecv-mapping-t1-t2-irm-cardiaque" },
           { label: "Perfusion métabolique neuro", path: "/perfusion-metabolique-neuro-imagerie" },
+          { label: "OEF cérébral", path: "/oef-imagerie-cerebrale" },
           { label: "CMRO2 cérébral", path: "/cmro2-imagerie-cerebrale" },
           { label: "Corelab IRM", path: "/corelab-essais-cliniques" },
         ],

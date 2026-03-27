@@ -436,7 +436,15 @@ const CTPerfusionQuantitative = () => {
                 <Link to="/perfusion-metabolique-neuro-imagerie" className="text-primary hover:underline">
                   Perfusion & métabolisme cérébral
                 </Link>{" "}
-                (CT & IRM) pour un cadrage dédié.
+                (CT & IRM) pour un cadrage dédié, ainsi que{" "}
+                <Link to="/cmro2-imagerie-cerebrale" className="text-primary hover:underline">
+                  CMRO2
+                </Link>{" "}
+                et{" "}
+                <Link to="/oef-imagerie-cerebrale" className="text-primary hover:underline">
+                  OEF
+                </Link>{" "}
+                pour les focus métaboliques.
               </p>
             </section>
 
@@ -549,6 +557,22 @@ const CTPerfusionQuantitative = () => {
                   className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
                 >
                   Perfusion & métabolisme
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <Link
+                  to="/cmro2-imagerie-cerebrale"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  Focus CMRO2
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <Link
+                  to="/oef-imagerie-cerebrale"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  Focus OEF
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>

@@ -159,6 +159,7 @@ const PerfusionMetaboliqueNeuro = () => {
               actions={[
                 { label: "Échanger sur un protocole", to: "/contact", variant: "primary", icon: ArrowRight },
                 { label: "Voir IRM quantitative", to: "/irm-imagerie-quantitative", variant: "secondary", icon: Database },
+                { label: "Voir focus OEF", to: "/oef-imagerie-cerebrale", variant: "secondary", icon: ArrowRight },
                 { label: "Voir focus CMRO2", to: "/cmro2-imagerie-cerebrale", variant: "secondary", icon: ArrowRight },
               ]}
             />
@@ -180,6 +181,13 @@ const PerfusionMetaboliqueNeuro = () => {
                     className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline mt-3"
                   >
                     Ouvrir le focus CMRO2
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                  <Link
+                    to="/oef-imagerie-cerebrale"
+                    className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline mt-2"
+                  >
+                    Ouvrir le focus OEF
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
@@ -350,6 +358,9 @@ const PerfusionMetaboliqueNeuro = () => {
               <div className="flex flex-wrap gap-3">
                 <Link to="/cmro2-imagerie-cerebrale" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
                   CMRO2 cérébral <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link to="/oef-imagerie-cerebrale" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  OEF cérébral <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link to="/irm-imagerie-quantitative" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
                   IRM quantitative <ArrowRight className="w-4 h-4" />

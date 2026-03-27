@@ -343,6 +343,12 @@ const jsonLd = {
                   >
                     Voir le focus CMRO2 →
                   </Link>
+                  <Link
+                    to="/oef-imagerie-cerebrale"
+                    className="text-primary hover:underline"
+                  >
+                    Voir le focus OEF →
+                  </Link>
                 </div>
               </div>
             </section>

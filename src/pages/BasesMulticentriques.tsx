@@ -171,6 +171,18 @@ const BasesMulticentriques = () => {
                 </Link>
                 .
               </p>
+
+              <p>
+                Pour les endpoints neuro-métaboliques, voir aussi{" "}
+                <Link to="/cmro2-imagerie-cerebrale" className="text-primary hover:underline">
+                  CMRO2
+                </Link>{" "}
+                et{" "}
+                <Link to="/oef-imagerie-cerebrale" className="text-primary hover:underline">
+                  OEF
+                </Link>
+                .
+              </p>
             </section>
 
             <section className="space-y-10">
@@ -391,6 +403,18 @@ const BasesMulticentriques = () => {
                   className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
                 >
                   Core Lab essais cliniques <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  to="/cmro2-imagerie-cerebrale"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  Focus CMRO2 <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  to="/oef-imagerie-cerebrale"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  Focus OEF <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </section>

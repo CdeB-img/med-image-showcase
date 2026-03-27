@@ -16,6 +16,7 @@ Primary domain: imagerie medicale quantitative (IRM, CT, CoreLab, methodologie m
 ## Core expertise pages
 - IRM quantitative: https://noxia-imagerie.fr/irm-imagerie-quantitative
 - CMRO2 cerebral: https://noxia-imagerie.fr/cmro2-imagerie-cerebrale
+- OEF cerebral: https://noxia-imagerie.fr/oef-imagerie-cerebrale
 - CT quantitative: https://noxia-imagerie.fr/ct-imagerie-quantitative
 - Ingenierie quantitative: https://noxia-imagerie.fr/ingenierie-imagerie-quantitative
 - Analyse DICOM: https://noxia-imagerie.fr/analyse-dicom

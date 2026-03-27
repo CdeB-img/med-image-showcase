@@ -5,8 +5,8 @@ import Breadcrumb from "@/components/Breadcrumb";
 import ExpertiseHero from "@/components/ExpertiseHero";
 import {
   ArrowRight,
-  Brain,
   Activity,
+  Brain,
   BarChart3,
   Layers,
   AlertTriangle,
@@ -15,23 +15,23 @@ import {
   Database
 } from "lucide-react";
 
-const CANONICAL = "https://noxia-imagerie.fr/cmro2-imagerie-cerebrale";
+const CANONICAL = "https://noxia-imagerie.fr/oef-imagerie-cerebrale";
 const PERFUSION_CANONICAL =
   "https://noxia-imagerie.fr/perfusion-metabolique-neuro-imagerie";
 
-const CMRO2Imagerie = () => {
+const OEFImagerie = () => {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "MedicalWebPage",
-    name: "CMRO2 en imagerie cerebrale - biomarqueur metabolique",
+    name: "OEF en imagerie cerebrale - extraction d'oxygene",
     description:
-      "CMRO2 (cerebral metabolic rate of oxygen) : biomarqueur du metabolisme cerebral, interpretation physiopathologique, relation avec l'OEF et applications en AVC.",
+      "OEF (Oxygen Extraction Fraction) : biomarqueur de l'extraction d'oxygene cerebral, interpretation physiopathologique, lien avec CMRO2 et applications en AVC.",
     about: [
-      "CMRO2",
-      "Cerebral metabolic rate of oxygen",
       "OEF",
-      "Cerebral metabolism",
+      "Oxygen Extraction Fraction",
+      "CMRO2",
       "Stroke imaging",
+      "Cerebral metabolism",
       "Perfusion MRI"
     ],
     provider: {
@@ -73,7 +73,7 @@ const CMRO2Imagerie = () => {
       {
         "@type": "ListItem",
         position: 5,
-        name: "CMRO2",
+        name: "OEF",
         item: CANONICAL
       }
     ]
@@ -85,29 +85,29 @@ const CMRO2Imagerie = () => {
     mainEntity: [
       {
         "@type": "Question",
-        name: "Qu'est-ce que le CMRO2 en imagerie cerebrale ?",
+        name: "Qu'est-ce que l'OEF en imagerie cerebrale ?",
         acceptedAnswer: {
           "@type": "Answer",
           text:
-            "Le CMRO2 correspond au taux de consommation d'oxygene cerebral. Il reflete l'activite metabolique neuronale et permet d'apprecier la viabilite tissulaire au-dela du seul debit sanguin."
+            "L'OEF correspond a la fraction d'oxygene extraite du sang par le tissu cerebral. Elle reflete la capacite d'adaptation metabolique en cas de baisse de perfusion."
         }
       },
       {
         "@type": "Question",
-        name: "Quelle est la difference entre CMRO2 et OEF ?",
+        name: "Quelle est la difference entre OEF et CMRO2 ?",
         acceptedAnswer: {
           "@type": "Answer",
           text:
-            "L'OEF mesure la fraction d'oxygene extraite du sang, tandis que le CMRO2 correspond a la consommation reelle d'oxygene par le tissu. Le CMRO2 integre donc debit sanguin et extraction."
+            "L'OEF mesure l'extraction d'oxygene, tandis que le CMRO2 mesure la consommation totale. Le CMRO2 depend a la fois du debit sanguin et de l'OEF."
         }
       },
       {
         "@type": "Question",
-        name: "Le CMRO2 est-il mesurable en pratique clinique ?",
+        name: "Pourquoi l'OEF est-elle importante en AVC ?",
         acceptedAnswer: {
           "@type": "Answer",
           text:
-            "Le CMRO2 direct reste difficile a mesurer en routine. Des estimations sont possibles via IRM, CT perfusion ou modeles metaboliques, mais exigent une validation methodologique rigoureuse."
+            "Une augmentation de l'OEF peut indiquer un tissu encore viable qui compense une hypoperfusion. C'est un signal typique des zones de penombre ischemique."
         }
       }
     ]
@@ -116,10 +116,10 @@ const CMRO2Imagerie = () => {
   return (
     <>
       <Helmet>
-        <title>CMRO2 en imagerie cerebrale & metabolisme de l'oxygene | NOXIA</title>
+        <title>OEF en imagerie cerebrale & extraction d'oxygene | NOXIA</title>
         <meta
           name="description"
-          content="CMRO2 : biomarqueur du metabolisme cerebral en imagerie. Interpretation, relation a l'OEF, limites methodologiques et applications en AVC et recherche clinique."
+          content="OEF : biomarqueur de l'extraction d'oxygene cerebral. Role en AVC, lien avec CMRO2 et interpretation en imagerie quantitative."
         />
         <link rel="canonical" href={CANONICAL} />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
@@ -136,80 +136,80 @@ const CMRO2Imagerie = () => {
                 { label: "Expertise", path: "/expertise" },
                 { label: "IRM", path: "/irm-imagerie-quantitative" },
                 { label: "Perfusion & Métabolisme cérébral", path: "/perfusion-metabolique-neuro-imagerie" },
-                { label: "CMRO2" }
+                { label: "OEF" }
               ]}
             />
 
             <ExpertiseHero
-              badge="Biomarqueur metabolique"
-              badgeIcon={Brain}
-              title="CMRO2 en imagerie cerebrale"
-              description="Le CMRO2 (Cerebral Metabolic Rate of Oxygen) permet d'approcher la consommation reelle d'oxygene du tissu cerebral et d'affiner l'evaluation de la viabilite neuronale au-dela de la simple perfusion."
-              chips={["Metabolisme cerebral", "AVC ischemique", "OEF & CBF"]}
+              badge="Biomarqueur d'extraction"
+              badgeIcon={Activity}
+              title="OEF en imagerie cerebrale"
+              description="L'OEF (Oxygen Extraction Fraction) renseigne sur la capacite du tissu cerebral a compenser une baisse de perfusion en augmentant l'extraction d'oxygene."
+              chips={["Extraction d'oxygene", "Penombre ischemique", "Lien OEF-CMRO2"]}
               actions={[
                 { label: "Discuter d'un projet neuro", to: "/contact", variant: "primary", icon: ArrowRight },
                 { label: "Voir la page perfusion", to: "/perfusion-metabolique-neuro-imagerie", variant: "secondary", icon: Database },
-                { label: "Voir le focus OEF", to: "/oef-imagerie-cerebrale", variant: "secondary", icon: ArrowRight }
+                { label: "Voir le focus CMRO2", to: "/cmro2-imagerie-cerebrale", variant: "secondary", icon: ArrowRight }
               ]}
             />
 
             <section className="grid md:grid-cols-3 gap-6">
               <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
                 <div className="flex items-center gap-2 font-semibold text-foreground">
-                  <Brain className="w-5 h-5 text-primary" />
-                  Metabolisme
+                  <Activity className="w-5 h-5 text-primary" />
+                  Extraction
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Reflet de l'activite energetique neuronale et de la capacite du tissu a utiliser l'oxygene disponible.
+                  Part d'oxygene prelevee par le tissu cerebral a partir du sang disponible.
                 </p>
               </div>
 
               <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
                 <div className="flex items-center gap-2 font-semibold text-foreground">
-                  <Activity className="w-5 h-5 text-primary" />
-                  Viabilite
+                  <Brain className="w-5 h-5 text-primary" />
+                  Adaptation
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Aide a distinguer adaptation compensatoire, penombre encore recuperable et effondrement metabolique.
+                  L'OEF peut augmenter pour maintenir le metabolisme quand le debit sanguin chute.
                 </p>
               </div>
 
               <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
                 <div className="flex items-center gap-2 font-semibold text-foreground">
                   <Layers className="w-5 h-5 text-primary" />
-                  Multimodalite
+                  Lecture combinee
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Interpretation a mettre en regard de la diffusion, de la perfusion, de l'OEF et du contexte clinique.
+                  Interpretation a relier au CBF, au CMRO2, a la diffusion et au contexte clinique.
                 </p>
               </div>
             </section>
 
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                Definition physiologique du CMRO2
+                Definition physiologique de l'OEF
               </h2>
 
               <p>
-                Le CMRO2 correspond au taux de consommation d'oxygene par le tissu cerebral.
-                Il depend du debit sanguin cerebral, du contenu arteriel en oxygene et de la part effectivement extraite par le tissu.
+                L'OEF correspond au rapport entre l'oxygene consomme par le tissu
+                et l'oxygene effectivement delivre par le flux sanguin cerebral.
               </p>
 
               <p>
-                Contrairement aux parametres purement hemodynamiques, il cherche a approcher une variable plus directement liee au metabolisme neuronal.
-                C'est ce qui le rend attractif pour l'etude de la viabilite tissulaire en neuro-imagerie.
+                Ce n'est pas une mesure de debit: c'est une mesure d'adaptation.
+                Elle devient particulierement utile pour analyser les etats de compensation metabolique en ischemie.
               </p>
             </section>
 
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-6">
               <div className="flex items-center gap-2 text-foreground font-semibold">
                 <Workflow className="w-5 h-5 text-primary" />
-                Du signal au biomarqueur interpretable
+                Du signal a la mesure interpretable
               </div>
 
               <p className="text-muted-foreground leading-relaxed">
-                Le CMRO2 n'est pas une simple carte "a lire". Pour en faire une mesure defendable,
-                il faut expliciter les hypotheses physiologiques, la normalisation, les seuils et les controles qualite.
+                Une carte OEF brute ne suffit pas. L'interpretation demande une normalisation explicite,
+                une coherence avec les autres cartes et des controles qualite reproductibles.
               </p>
 
               <div className="grid md:grid-cols-2 gap-6">
@@ -220,22 +220,22 @@ const CMRO2Imagerie = () => {
                   </div>
                   <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
                     <li>Reference intra-sujet ou hemispherique explicite</li>
-                    <li>Coherence avec diffusion, CBF, Tmax et contexte de reperfusion</li>
-                    <li>Traçabilite des modeles et parametres de calcul</li>
-                    <li>Gestion documentee des artefacts et exclusions</li>
+                    <li>Lecture conjointe avec diffusion, CBF, Tmax et CMRO2</li>
+                    <li>Traçabilite des modeles et parametres d'estimation</li>
+                    <li>Gestion explicite des artefacts et des exclusions</li>
                   </ul>
                 </div>
 
                 <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
                   <div className="flex items-center gap-2 font-semibold text-foreground">
                     <BarChart3 className="w-5 h-5 text-primary" />
-                    Ce qu'on cherche a stabiliser
+                    Points de vigilance
                   </div>
                   <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
-                    <li>La variabilite inter-centre et inter-modele</li>
-                    <li>La separation tissu viable / tissue en echec metabolique</li>
-                    <li>La reproductibilite des volumes ou ratios derives</li>
-                    <li>L'interpretabilite clinique d'une carte continue</li>
+                    <li>Variabilite inter-centre et inter-modele</li>
+                    <li>Sensibilite au bruit et a la perfusion</li>
+                    <li>Risque de sur-interpretation d'une carte isolee</li>
+                    <li>Dependance au contexte de reperfusion</li>
                   </ul>
                 </div>
               </div>
@@ -243,63 +243,43 @@ const CMRO2Imagerie = () => {
 
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                Relation entre CMRO2 et OEF
+                Relation avec le CMRO2
               </h2>
 
-              <p>
-                Le CMRO2 est relie a l'OEF selon une relation simple dans son principe :
-                <strong className="text-foreground"> CMRO2 = CBF x OEF x contenu arteriel en oxygene</strong>.
-              </p>
-
               <ul className="list-disc pl-6 space-y-2">
-                <li>L'OEF traduit l'effort d'extraction quand la perfusion baisse</li>
-                <li>Le CMRO2 cherche a quantifier la consommation reelle du tissu</li>
-                <li>Une hausse d'OEF n'implique pas forcement un maintien du CMRO2</li>
-                <li>La baisse du CMRO2 signe plus directement la souffrance metabolique</li>
+                <li>L'OEF augmente frequemment quand le debit sanguin diminue</li>
+                <li>Le CMRO2 peut rester transitoirement stable en phase compensatoire</li>
+                <li>La chute conjointe OEF + CMRO2 signe un echec metabolique tissulaire</li>
               </ul>
 
               <p>
-                Pour replacer le CMRO2 dans une lecture plus large des biomarqueurs neurovasculaires,
-                voir{" "}
-                <Link to="/perfusion-metabolique-neuro-imagerie" className="text-primary hover:underline">
-                  Perfusion & Métabolisme cérébral
-                </Link>.
-                {" "}Le pendant "extraction" est détaillé sur{" "}
-                <Link to="/oef-imagerie-cerebrale" className="text-primary hover:underline">
-                  OEF en imagerie cerebrale
-                </Link>.
+                Voir{" "}
+                <Link to="/cmro2-imagerie-cerebrale" className="text-primary hover:underline">
+                  CMRO2 en imagerie cerebrale
+                </Link>
+                {" "}pour la lecture complementaire du metabolisme global.
               </p>
             </section>
 
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                Applications en AVC et neuro-imagerie
+                Role en AVC et penombre ischemique
               </h2>
 
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
-                  <div className="font-semibold text-foreground">Penombre ischemique</div>
-                  <p className="text-sm text-muted-foreground">
-                    Le CMRO2 peut aider a distinguer un tissu encore metabolisant d'un territoire dont la perfusion est alteree mais non completement condamne.
-                  </p>
-                </div>
-
-                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
-                  <div className="font-semibold text-foreground">Suivi post-reperfusion</div>
-                  <p className="text-sm text-muted-foreground">
-                    L'evolution du CMRO2 peut contribuer a interpreter recanalisation, recuperation partielle et persistance d'une souffrance tissulaire.
-                  </p>
-                </div>
-              </div>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>OEF augmentee : tissu encore viable mais menace</li>
+                <li>Mismatch metabolique utile pour caracteriser la penombre</li>
+                <li>Aide a interpreter la recuperation post-reperfusion</li>
+              </ul>
 
               <p>
-                En pratique, ces approches se lisent avec la{" "}
+                En pratique, ces analyses s'integrent avec la{" "}
                 <Link to="/ct-perfusion-quantitative-avc" className="text-primary hover:underline">
                   perfusion CT
-                </Link>{" "}
-                et l'
-                <Link to="/irm-imagerie-quantitative" className="text-primary hover:underline">
-                  IRM quantitative
+                </Link>
+                {" "}et la{" "}
+                <Link to="/perfusion-metabolique-neuro-imagerie" className="text-primary hover:underline">
+                  perfusion/metabolisme IRM
                 </Link>
                 .
               </p>
@@ -312,52 +292,52 @@ const CMRO2Imagerie = () => {
               </div>
 
               <ul className="list-disc pl-6 text-muted-foreground space-y-2">
-                <li>Mesure directe difficile en routine clinique</li>
-                <li>Dependance forte aux hypotheses et modeles physiologiques</li>
-                <li>Sensibilite aux erreurs de perfusion, recalage et calibration</li>
-                <li>Variabilite inter-centres et inter-implementations</li>
+                <li>Mesure souvent indirecte en contexte clinique</li>
+                <li>Dependance aux hypotheses physiologiques</li>
+                <li>Variabilite inter-methodes et inter-logiciels</li>
+                <li>Sensibilite au bruit et aux erreurs de perfusion</li>
               </ul>
             </section>
 
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-6">
               <h2 className="text-2xl font-semibold text-foreground">
-                Ordres de grandeur rapportes dans la litterature
+                Donnees issues de la litterature
               </h2>
 
               <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
-                <li>CMRO2 cerebral normal : environ 3.0 a 3.5 ml O2 / 100 g / min</li>
-                <li>Baisse nette dans les zones infarciees ou en echec metabolique</li>
-                <li>Augmentation compensatoire de l'OEF possible en penombre</li>
-                <li>Correlations historiquement etablies avec la viabilite en PET</li>
+                <li>OEF cerebrale normale : environ 30 a 40%</li>
+                <li>OEF augmentee en penombre ischemique compensatoire</li>
+                <li>Correlations historiques avec viabilite tissulaire en PET</li>
+                <li>Chute d'OEF associee a un infarctus etabli dans les etats avances</li>
               </ul>
 
               <p className="text-muted-foreground">
-                Ces valeurs servent surtout de repere conceptuel : l'enjeu reel, en imagerie quantitative,
-                est de stabiliser la mesure dans un pipeline reproductible.
+                Consensus : l'OEF est centrale pour lire l'adaptation metabolique,
+                mais doit etre interpretee conjointement avec CMRO2 et la perfusion.
               </p>
             </section>
 
             <section className="space-y-8">
               <h2 className="text-2xl font-semibold text-center text-foreground">
-                Questions frequentes - CMRO2
+                Questions frequentes - OEF
               </h2>
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="rounded-xl border border-border bg-card/50 p-6">
                   <h3 className="font-semibold text-foreground">
-                    CMRO2 et perfusion sont-ils equivalents ?
+                    L'OEF suffit-elle pour statuer sur la viabilite ?
                   </h3>
                   <p className="text-muted-foreground mt-2">
-                    Non. La perfusion renseigne sur le debit, alors que le CMRO2 vise la consommation reelle d'oxygene par le tissu.
+                    Non. Elle doit etre interpretee avec la diffusion, la perfusion et le CMRO2.
                   </p>
                 </div>
 
                 <div className="rounded-xl border border-border bg-card/50 p-6">
                   <h3 className="font-semibold text-foreground">
-                    Peut-on utiliser le CMRO2 comme endpoint directement ?
+                    Une OEF elevee est-elle toujours favorable ?
                   </h3>
                   <p className="text-muted-foreground mt-2">
-                    Pas sans cadre methodologique strict. Il faut des regles explicites de calcul, de normalisation, de QC et d'interpretation.
+                    Pas necessairement. Elle peut signer une compensation utile, mais son sens depend du contexte hemodynamique et temporel.
                   </p>
                 </div>
               </div>
@@ -370,11 +350,8 @@ const CMRO2Imagerie = () => {
                 <Link to="/perfusion-metabolique-neuro-imagerie" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
                   Perfusion & Métabolisme cérébral <ArrowRight className="w-4 h-4" />
                 </Link>
-                <Link to="/oef-imagerie-cerebrale" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
-                  OEF cérébral <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link to="/irm-imagerie-quantitative" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
-                  IRM quantitative <ArrowRight className="w-4 h-4" />
+                <Link to="/cmro2-imagerie-cerebrale" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  CMRO2 cérébral <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link to="/ct-perfusion-quantitative-avc" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
                   CT Perfusion AVC <ArrowRight className="w-4 h-4" />
@@ -384,15 +361,14 @@ const CMRO2Imagerie = () => {
 
             <section className="text-center space-y-4">
               <p className="text-muted-foreground">
-                Le metabolisme cerebral ne s'interprete pas isolément :
-                il demande une lecture conjointe de la perfusion, de l'extraction et de la consommation.
+                L'extraction d'oxygene doit se lire dans un modele metabolique global et jamais de maniere isolee.
               </p>
 
               <Link
                 to="/contact"
                 className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-primary-foreground font-medium"
               >
-                Discuter d'un projet neurovasculaire
+                Discuter d'un projet neuro
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </section>
@@ -404,4 +380,4 @@ const CMRO2Imagerie = () => {
   );
 };
 
-export default CMRO2Imagerie;
+export default OEFImagerie;

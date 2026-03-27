@@ -586,6 +586,14 @@ const IngenierieImagerieQuantitative = () => {
                 <Link to="/segmentation-irm" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
                   Segmentation <ArrowRight className="w-4 h-4" />
                 </Link>
+
+                <Link to="/cmro2-imagerie-cerebrale" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Focus CMRO2 <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <Link to="/oef-imagerie-cerebrale" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Focus OEF <ArrowRight className="w-4 h-4" />
+                </Link>
               </div>
             </section>
             {/* CTA */}
