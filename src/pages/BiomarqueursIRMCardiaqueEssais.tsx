@@ -183,6 +183,15 @@ const faqJsonLd = {
               ]}
             />
 
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold text-foreground">
+                Réponse courte
+              </h2>
+              <p className="text-muted-foreground leading-relaxed">
+                Un biomarqueur IRM cardiaque utilisable en essai n’est pas qu’une mesure d’image: c’est un endpoint défini, reproductible et auditable. Il doit préciser la règle de mesure, le timing, les exclusions et la gestion de variabilité multicentrique. Sans cette architecture, la valeur clinique et statistique de l’endpoint reste fragile.
+              </p>
+            </section>
+
             {/* ================= TL;DR ================= */}
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8">
               <div className="grid md:grid-cols-3 gap-6">
@@ -228,22 +237,64 @@ const faqJsonLd = {
               </h2>
 
               <p>
-                Un biomarqueur IRM cardiaque devient un endpoint d’essai
-                uniquement lorsque sa définition est strictement contrôlée :
-                <strong>quoi</strong> est mesuré, <strong>où</strong>, <strong>quand</strong>,
-                <strong>comment</strong> (règles, seuils, exclusions), et <strong>avec quel niveau d’incertitude</strong>.
+                Qu’est-ce qu’un endpoint IRM cardiaque robuste ? Une mesure dont la définition est strictement contrôlée :
+                <strong> quoi</strong> est mesuré, <strong>où</strong>, <strong>quand</strong>, <strong>comment</strong> (règles, seuils, exclusions),
+                et <strong>avec quel niveau d’incertitude</strong>, dans un cadre{" "}
+                <Link to="/corelab-essais-cliniques" className="text-primary hover:underline">
+                  Core Lab
+                </Link>.
               </p>
 
               <p>
-                En multicentrique, la variabilité technique (constructeur, champ, implémentation de séquence,
-                logiciel de post-traitement, versions) peut dépasser l’effet thérapeutique.
-                La conséquence est immédiate : baisse de puissance, dilution de signal, et résultats difficiles à défendre.
+                Comment fonctionne cette logique en pratique ? En multicentrique, la variabilité technique
+                (constructeur, champ, implémentation de séquence, logiciel, versions) peut dépasser l’effet thérapeutique.
+                Pourquoi c’est critique cliniquement ? Parce que cela réduit la puissance statistique et fragilise l’interprétation d’un bénéfice de traitement.
               </p>
 
               <p>
                 L’approche NOXIA se positionne au niveau méthodologique :
                 structurer l’endpoint pour qu’il résiste à l’hétérogénéité réelle,
-                et non uniquement à un sous-groupe idéalisé.
+                et non uniquement à un sous-groupe idéalisé, en continuité avec l’
+                <Link to="/ecv-mapping-t1-t2-irm-cardiaque" className="text-primary hover:underline">
+                  ECV/T1/T2 mapping
+                </Link>{" "}
+                et la{" "}
+                <Link to="/methodologie-imagerie-quantitative" className="text-primary hover:underline">
+                  méthodologie quantitative
+                </Link>.
+              </p>
+            </section>
+
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">
+                IRM cardiaque vs CT quantitatif : complémentarité en essai
+              </h2>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="p-6 rounded-xl border border-border/50 bg-muted/20">
+                  <h3 className="font-semibold text-foreground mb-2">IRM cardiaque</h3>
+                  <p>
+                    Prioritaire pour les biomarqueurs tissulaires (LGE, MVO, ECV, T1/T2) et la lecture fine de la physiopathologie myocardique.
+                  </p>
+                </div>
+
+                <div className="p-6 rounded-xl border border-border/50 bg-muted/20">
+                  <h3 className="font-semibold text-foreground mb-2">CT quantitatif</h3>
+                  <p>
+                    Utile pour la standardisation physique des mesures et certains volets structuraux, avec des enjeux spécifiques de calibration et de robustesse inter-constructeurs.
+                  </p>
+                </div>
+              </div>
+
+              <p>
+                En pratique, ces approches se complètent dans les programmes translationnels multicentriques, en lien avec la{" "}
+                <Link to="/ct-imagerie-quantitative" className="text-primary hover:underline">
+                  quantification CT
+                </Link>{" "}
+                et l’
+                <Link to="/ingenierie-imagerie-quantitative" className="text-primary hover:underline">
+                  ingénierie de pipeline
+                </Link>.
               </p>
             </section>
 

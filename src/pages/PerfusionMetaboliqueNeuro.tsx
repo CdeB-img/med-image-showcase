@@ -164,6 +164,15 @@ const PerfusionMetaboliqueNeuro = () => {
               ]}
             />
 
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold text-foreground">
+                Réponse courte
+              </h2>
+              <p className="text-muted-foreground leading-relaxed">
+                La perfusion neuro IRM quantitative mesure le déséquilibre entre débit et métabolisme dans l’AVC, via des indicateurs comme OEF, CMRO2, CBF et Tmax. En pratique, ces cartes n’ont de valeur clinique que si le pipeline de normalisation, de segmentation et de QA est explicite. L’objectif est de produire des biomarqueurs comparables entre centres, et pas seulement des visualisations physiologiques.
+              </p>
+            </section>
+
             {/* TL;DR */}
             <section className="rounded-2xl border border-border bg-muted/10 p-8">
               <div className="grid md:grid-cols-3 gap-6">
@@ -226,7 +235,25 @@ const PerfusionMetaboliqueNeuro = () => {
                 La diffusion définit le noyau ischémique (D_core),
                 servant d’ancrage anatomique.
                 Les cartes métaboliques sont ensuite analysées
-                relativement à l’hémisphère controlatéral.
+                relativement à l’hémisphère controlatéral, avec une lecture croisée entre{" "}
+                <Link to="/oef-imagerie-cerebrale" className="text-primary hover:underline">
+                  OEF
+                </Link>{" "}
+                et{" "}
+                <Link to="/cmro2-imagerie-cerebrale" className="text-primary hover:underline">
+                  CMRO2
+                </Link>.
+              </p>
+
+              <p>
+                Cliniquement, le même principe que la{" "}
+                <Link to="/ct-perfusion-quantitative-avc" className="text-primary hover:underline">
+                  CT perfusion quantitative
+                </Link>{" "}
+                s’applique : séparer l’information utile du bruit technique, puis documenter la robustesse selon un cadre{" "}
+                <Link to="/methodologie-imagerie-quantitative" className="text-primary hover:underline">
+                  méthodologique reproductible
+                </Link>.
               </p>
 
               <ul className="list-disc pl-6 space-y-2">
@@ -288,6 +315,41 @@ const PerfusionMetaboliqueNeuro = () => {
                 Voir la page dédiée au CMRO2
                 <ArrowRight className="w-4 h-4" />
               </Link>
+            </section>
+
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">
+                OEF vs CMRO2 : ce qu’on mesure réellement
+              </h2>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                  <div className="font-semibold text-foreground">OEF (extraction)</div>
+                  <p className="text-sm text-muted-foreground">
+                    L’OEF décrit la part d’oxygène extraite quand la perfusion baisse. Une hausse peut refléter une compensation, sans garantir que le métabolisme global soit préservé.
+                  </p>
+                  <Link to="/oef-imagerie-cerebrale" className="text-primary text-sm hover:underline">
+                    Voir le détail OEF →
+                  </Link>
+                </div>
+
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                  <div className="font-semibold text-foreground">CMRO2 (consommation)</div>
+                  <p className="text-sm text-muted-foreground">
+                    Le CMRO2 cherche à approcher la consommation réelle d’oxygène du tissu. Sa baisse signe plus directement un échec énergétique et une viabilité réduite.
+                  </p>
+                  <Link to="/cmro2-imagerie-cerebrale" className="text-primary text-sm hover:underline">
+                    Voir le détail CMRO2 →
+                  </Link>
+                </div>
+              </div>
+
+              <p>
+                L’interprétation la plus robuste repose sur une lecture conjointe OEF/CMRO2/CBF/Tmax, dans le cadre global de l’
+                <Link to="/irm-imagerie-quantitative" className="text-primary hover:underline">
+                  IRM quantitative
+                </Link>.
+              </p>
             </section>
 
             {/* FAQ */}

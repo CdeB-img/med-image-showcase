@@ -226,13 +226,29 @@ const OEFImagerie = () => {
               </h2>
 
               <p>
-                L'OEF correspond au rapport entre l'oxygene consomme par le tissu
-                et l'oxygene effectivement delivre par le flux sanguin cerebral.
+                En neuro-imagerie, l’OEF correspond à la fraction d’oxygène extraite par le tissu cérébral à partir du flux disponible. Ce marqueur répond à une question clinique simple : le tissu compense-t-il encore une hypoperfusion ?
               </p>
 
               <p>
-                Ce n'est pas une mesure de debit: c'est une mesure d'adaptation.
-                Elle devient particulierement utile pour analyser les etats de compensation metabolique en ischemie.
+                Ce n’est pas une mesure de débit mais une mesure d’adaptation métabolique. Son interprétation devient robuste quand elle est intégrée au pipeline de{" "}
+                <Link to="/perfusion-metabolique-neuro-imagerie" className="text-primary hover:underline">
+                  perfusion/métabolisme IRM
+                </Link>{" "}
+                et à une{" "}
+                <Link to="/methodologie-imagerie-quantitative" className="text-primary hover:underline">
+                  méthodologie quantitative
+                </Link>{" "}
+                explicite.
+              </p>
+            </section>
+
+            <section className="rounded-2xl border border-border bg-card/50 p-6 md:p-8 space-y-4">
+              <div className="flex items-center gap-2 font-semibold text-foreground">
+                <ShieldCheck className="w-5 h-5 text-primary" />
+                Lecture experte
+              </div>
+              <p className="text-muted-foreground leading-relaxed">
+                Une OEF élevée n’est pas automatiquement un “bon” ou un “mauvais” signal : elle doit être lue avec la chronologie clinique, la diffusion et la qualité de reperfusion. C’est la cohérence des marqueurs, plus que la valeur isolée, qui soutient la décision.
               </p>
             </section>
 

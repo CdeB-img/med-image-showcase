@@ -230,7 +230,17 @@ const CTQuantitatifAvance = () => {
                 <Link to="/bases-multicentriques" className="text-primary hover:underline">
                   harmonisation multicentrique
                 </Link>
+                {" "}et cadre{" "}
+                <Link to="/methodologie-imagerie-quantitative" className="text-primary hover:underline">
+                  méthodologique
+                </Link>
                 .
+              </p>
+
+              <p className="text-muted-foreground leading-relaxed">
+                Concrètement, la logique est simple : contrôler l’acquisition, vérifier la stabilité physique,
+                puis valider la mesure avant d’interpréter un signal clinique. C’est cette séquence qui distingue
+                un usage quantitatif robuste d’une simple amélioration de contraste.
               </p>
 
               <div className="grid md:grid-cols-3 gap-4">
@@ -310,6 +320,40 @@ const CTQuantitatifAvance = () => {
                   </p>
                 </div>
               </div>
+            </section>
+
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Spectral CT vs CT conventionnel
+              </h2>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                  <div className="font-semibold text-foreground">CT conventionnel</div>
+                  <p className="text-sm text-muted-foreground">
+                    Fournit principalement une densité apparente (HU) utile en clinique courante, mais limitée pour séparer proprement les effets matériau, énergie et reconstruction.
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                  <div className="font-semibold text-foreground">CT spectral</div>
+                  <p className="text-sm text-muted-foreground">
+                    Ajoute une dimension énergétique qui facilite la décomposition matière et certaines quantifications, au prix d’une exigence plus forte en calibration et validation inter-centres.
+                  </p>
+                </div>
+              </div>
+
+              <p>
+                En pratique, le spectral ne remplace pas la rigueur d’un pipeline : il l’exige davantage. La même
+                logique de robustesse s’applique dans la{" "}
+                <Link to="/quantification-ct" className="text-primary hover:underline">
+                  quantification CT
+                </Link>{" "}
+                et dans les protocoles de{" "}
+                <Link to="/ct-perfusion-quantitative-avc" className="text-primary hover:underline">
+                  perfusion AVC
+                </Link>.
+              </p>
             </section>
 
             <section className="space-y-8">

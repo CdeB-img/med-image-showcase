@@ -226,13 +226,33 @@ const CMRO2Imagerie = () => {
               </h2>
 
               <p>
-                Le CMRO2 correspond au taux de consommation d'oxygene par le tissu cerebral.
-                Il depend du debit sanguin cerebral, du contenu arteriel en oxygene et de la part effectivement extraite par le tissu.
+                Le CMRO2 correspond à la consommation cérébrale d’oxygène par le tissu, c’est-à-dire à la dépense métabolique effective plutôt qu’au seul apport sanguin. C’est le marqueur qui répond à la question : le tissu utilise-t-il encore l’oxygène disponible ?
               </p>
 
               <p>
-                Contrairement aux parametres purement hemodynamiques, il cherche a approcher une variable plus directement liee au metabolisme neuronal.
-                C'est ce qui le rend attractif pour l'etude de la viabilite tissulaire en neuro-imagerie.
+                Contrairement aux paramètres purement hémodynamiques, le CMRO2 vise une lecture plus directe de la viabilité neuronale. Son intérêt est maximal quand il est interprété avec l’
+                <Link to="/oef-imagerie-cerebrale" className="text-primary hover:underline">
+                  OEF
+                </Link>
+                , la{" "}
+                <Link to="/perfusion-metabolique-neuro-imagerie" className="text-primary hover:underline">
+                  perfusion IRM
+                </Link>{" "}
+                et un cadre{" "}
+                <Link to="/methodologie-imagerie-quantitative" className="text-primary hover:underline">
+                  méthodologique explicite
+                </Link>
+                .
+              </p>
+            </section>
+
+            <section className="rounded-2xl border border-border bg-card/50 p-6 md:p-8 space-y-4">
+              <div className="flex items-center gap-2 font-semibold text-foreground">
+                <ShieldCheck className="w-5 h-5 text-primary" />
+                Interprétation clinique rapide
+              </div>
+              <p className="text-muted-foreground leading-relaxed">
+                Une baisse persistante du CMRO2, surtout associée à une diffusion altérée, suggère une souffrance métabolique avancée. À l’inverse, un CMRO2 relativement préservé malgré l’hypoperfusion peut soutenir l’hypothèse d’un tissu encore récupérable.
               </p>
             </section>
 
