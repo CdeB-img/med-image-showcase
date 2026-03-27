@@ -3,7 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
-import { useEffect, lazy, Suspense } from "react";
+import { useEffect, lazy, Suspense, Component, type ErrorInfo, type ReactNode } from "react";
 import Header from "@/components/Header";
 import GlobalEntitySchema from "@/components/GlobalEntitySchema";
 import CorelabEC from "@/pages/CorelabEC";
@@ -55,6 +55,63 @@ const RouteFallback = () => (
   </div>
 );
 
+type RouteRenderBoundaryProps = {
+  children: ReactNode;
+};
+
+type RouteRenderBoundaryState = {
+  hasError: boolean;
+  message: string;
+};
+
+class RouteRenderBoundary extends Component<RouteRenderBoundaryProps, RouteRenderBoundaryState> {
+  state: RouteRenderBoundaryState = {
+    hasError: false,
+    message: "",
+  };
+
+  static getDerivedStateFromError(error: unknown): RouteRenderBoundaryState {
+    return {
+      hasError: true,
+      message: error instanceof Error ? error.message : "Erreur de rendu inconnue",
+    };
+  }
+
+  componentDidCatch(error: unknown, info: ErrorInfo) {
+    console.error("Route render error:", error, info);
+  }
+
+  render() {
+    if (!this.state.hasError) {
+      return this.props.children;
+    }
+
+    return (
+      <div className="px-4 py-16">
+        <div className="mx-auto max-w-3xl rounded-2xl border border-destructive/30 bg-card/70 p-6 space-y-4">
+          <h1 className="text-xl font-semibold text-foreground">Erreur de rendu de la page</h1>
+          <p className="text-sm text-muted-foreground">
+            Une erreur JavaScript empêche l’affichage de cette route. Recharge la page, puis ouvre la console navigateur si le problème persiste.
+          </p>
+          <div className="rounded-lg border border-border bg-muted/20 px-4 py-3 text-xs text-muted-foreground break-all">
+            {this.state.message || "Aucun message d’erreur disponible"}
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+function RouteRenderBoundaryWithReset({ children }: { children: ReactNode }) {
+  const location = useLocation();
+
+  return (
+    <RouteRenderBoundary key={location.pathname}>
+      {children}
+    </RouteRenderBoundary>
+  );
+}
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -68,8 +125,9 @@ const App = () => (
         <Header />
         <GlobalEntitySchema />
 
-        <Suspense fallback={<RouteFallback />}>
-          <Routes>
+        <RouteRenderBoundaryWithReset>
+          <Suspense fallback={<RouteFallback />}>
+            <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/projets" element={<Projects />} />
             <Route path="/projet/:id" element={<ProjectDetail />} />
@@ -118,8 +176,9 @@ const App = () => (
 
             {/* Fallback */}
             <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
+            </Routes>
+          </Suspense>
+        </RouteRenderBoundaryWithReset>
 
       </BrowserRouter>
     </TooltipProvider>
