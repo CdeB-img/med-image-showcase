@@ -150,6 +150,29 @@ function RouteRenderBoundaryWithReset({ children }: { children: ReactNode }) {
   );
 }
 
+function isDiagEnabled(search: string) {
+  const params = new URLSearchParams(search);
+  return params.get("diag") === "1";
+}
+
+function RouteProbe({ pageName, children }: { pageName: string; children: ReactNode }) {
+  const location = useLocation();
+  const diag = isDiagEnabled(location.search);
+
+  return (
+    <>
+      {diag ? (
+        <div className="fixed bottom-3 right-3 z-[9999] rounded-md border border-primary/40 bg-background/95 px-3 py-2 text-xs text-foreground shadow-lg">
+          <div className="font-semibold">DIAG route</div>
+          <div>{pageName}</div>
+          <div className="text-muted-foreground">{location.pathname}</div>
+        </div>
+      ) : null}
+      {children}
+    </>
+  );
+}
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -176,17 +199,73 @@ const App = () => (
               <Route path="/quantification-ct" element={<QuantificationCT />} />
               <Route path="/recalage-multimodal" element={<RecalageMultimodal />} />
               <Route path="/bases-multicentriques" element={<BasesMulticentriques />} />
-              <Route path="/corelab-essais-cliniques" element={<CorelabEC />} />
-              <Route path="/biomarqueurs-irm-cardiaque-essais-cliniques" element={<BiomarqueursIRMCardiaqueEssais />} />
-              <Route path="/ecv-mapping-t1-t2-irm-cardiaque" element={<ECVMappingCardiaque />} />
-              <Route path="/perfusion-metabolique-neuro-imagerie" element={<PerfusionMetaboliqueNeuro />} />
+              <Route
+                path="/corelab-essais-cliniques"
+                element={
+                  <RouteProbe pageName="CorelabEC">
+                    <CorelabEC />
+                  </RouteProbe>
+                }
+              />
+              <Route
+                path="/biomarqueurs-irm-cardiaque-essais-cliniques"
+                element={
+                  <RouteProbe pageName="BiomarqueursIRMCardiaqueEssais">
+                    <BiomarqueursIRMCardiaqueEssais />
+                  </RouteProbe>
+                }
+              />
+              <Route
+                path="/ecv-mapping-t1-t2-irm-cardiaque"
+                element={
+                  <RouteProbe pageName="ECVMappingCardiaque">
+                    <ECVMappingCardiaque />
+                  </RouteProbe>
+                }
+              />
+              <Route
+                path="/perfusion-metabolique-neuro-imagerie"
+                element={
+                  <RouteProbe pageName="PerfusionMetaboliqueNeuro">
+                    <PerfusionMetaboliqueNeuro />
+                  </RouteProbe>
+                }
+              />
               <Route path="/perfusion-metabolique-neuro-imagerie/CMRO2Imagerie" element={<Navigate to="/cmro2-imagerie-cerebrale" replace />} />
-              <Route path="/cmro2-imagerie-cerebrale" element={<CMRO2Imagerie />} />
+              <Route
+                path="/cmro2-imagerie-cerebrale"
+                element={
+                  <RouteProbe pageName="CMRO2Imagerie">
+                    <CMRO2Imagerie />
+                  </RouteProbe>
+                }
+              />
               <Route path="/perfusion-metabolique-neuro-imagerie/OEFImagerie" element={<Navigate to="/oef-imagerie-cerebrale" replace />} />
-              <Route path="/oef-imagerie-cerebrale" element={<OEFImagerie />} />
+              <Route
+                path="/oef-imagerie-cerebrale"
+                element={
+                  <RouteProbe pageName="OEFImagerie">
+                    <OEFImagerie />
+                  </RouteProbe>
+                }
+              />
               <Route path="/ingenierie-imagerie-quantitative" element={<IngenierieImagerieQuantitative />} />
-              <Route path="/ct-quantitatif-avance-imagerie-spectrale" element={<CTQuantitatifAvance />} />
-              <Route path="/ct-perfusion-quantitative-avc" element={<CTPerfusionQuantitative />} />
+              <Route
+                path="/ct-quantitatif-avance-imagerie-spectrale"
+                element={
+                  <RouteProbe pageName="CTQuantitatifAvance">
+                    <CTQuantitatifAvance />
+                  </RouteProbe>
+                }
+              />
+              <Route
+                path="/ct-perfusion-quantitative-avc"
+                element={
+                  <RouteProbe pageName="CTPerfusionQuantitative">
+                    <CTPerfusionQuantitative />
+                  </RouteProbe>
+                }
+              />
               <Route path="/irm-imagerie-quantitative" element={<IRMImagerieQuantitative />} />
               <Route path="/ct-imagerie-quantitative" element={<CTImagerieQuantitative />} />
               <Route path="/methodologie-imagerie-quantitative" element={<MethodologieImagerieQuantitative />} />
