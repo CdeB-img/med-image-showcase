@@ -16,8 +16,7 @@ import {
 } from "lucide-react";
 
 const CANONICAL = "https://noxia-imagerie.fr/cmro2-imagerie-cerebrale";
-const PERFUSION_CANONICAL =
-  "https://noxia-imagerie.fr/perfusion-metabolique-neuro-imagerie";
+const HUB_CANONICAL = "https://noxia-imagerie.fr/metabolisme-cerebral";
 
 const CMRO2Imagerie = () => {
   const jsonLd = {
@@ -67,8 +66,8 @@ const CMRO2Imagerie = () => {
       {
         "@type": "ListItem",
         position: 4,
-        name: "Perfusion & Metabolisme cerebral",
-        item: PERFUSION_CANONICAL
+        name: "Metabolisme cerebral",
+        item: HUB_CANONICAL
       },
       {
         "@type": "ListItem",
@@ -134,8 +133,7 @@ const CMRO2Imagerie = () => {
               items={[
                 { label: "Accueil", path: "/" },
                 { label: "Expertise", path: "/expertise" },
-                { label: "IRM", path: "/irm-imagerie-quantitative" },
-                { label: "Perfusion & Métabolisme cérébral", path: "/perfusion-metabolique-neuro-imagerie" },
+                { label: "Métabolisme cérébral", path: "/metabolisme-cerebral" },
                 { label: "CMRO2" }
               ]}
             />
@@ -148,7 +146,7 @@ const CMRO2Imagerie = () => {
               chips={["Metabolisme cerebral", "AVC ischemique", "OEF & CBF"]}
               actions={[
                 { label: "Discuter d'un projet neuro", to: "/contact", variant: "primary", icon: ArrowRight },
-                { label: "Voir la page perfusion", to: "/perfusion-metabolique-neuro-imagerie", variant: "secondary", icon: Database },
+                { label: "Voir le hub métabolisme", to: "/metabolisme-cerebral", variant: "secondary", icon: Database },
                 { label: "Voir le focus OEF", to: "/oef-imagerie-cerebrale", variant: "secondary", icon: ArrowRight }
               ]}
             />
@@ -238,7 +236,12 @@ const CMRO2Imagerie = () => {
                 <Link to="/perfusion-metabolique-neuro-imagerie" className="text-primary hover:underline">
                   perfusion IRM
                 </Link>{" "}
-                et un cadre{" "}
+                et la{" "}
+                <Link to="/perfusion-hemodynamique-neuro-imagerie" className="text-primary hover:underline">
+                  perfusion hémodynamique
+                </Link>
+                {" "},
+                puis un cadre{" "}
                 <Link to="/methodologie-imagerie-quantitative" className="text-primary hover:underline">
                   méthodologique explicite
                 </Link>
@@ -441,6 +444,9 @@ const CMRO2Imagerie = () => {
                 </Link>
                 <Link to="/oef-imagerie-cerebrale" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
                   OEF cérébral <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link to="/perfusion-hemodynamique-neuro-imagerie" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Perfusion hémodynamique <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link to="/irm-imagerie-quantitative" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
                   IRM quantitative <ArrowRight className="w-4 h-4" />

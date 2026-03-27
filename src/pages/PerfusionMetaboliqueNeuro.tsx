@@ -60,8 +60,8 @@ const PerfusionMetaboliqueNeuro = () => {
       {
         "@type": "ListItem",
         position: 3,
-        name: "IRM",
-        item: "https://noxia-imagerie.fr/irm-imagerie-quantitative"
+        name: "Metabolisme cerebral",
+        item: "https://noxia-imagerie.fr/metabolisme-cerebral"
       },
       {
         "@type": "ListItem",
@@ -144,7 +144,7 @@ const PerfusionMetaboliqueNeuro = () => {
               items={[
                 { label: "Accueil", path: "/" },
                 { label: "Expertise", path: "/expertise" },
-                { label: "IRM", path: "/irm-imagerie-quantitative" },
+                { label: "Métabolisme cérébral", path: "/metabolisme-cerebral" },
                 { label: "Perfusion & Métabolisme cérébral" }
               ]}
             />
@@ -158,9 +158,9 @@ const PerfusionMetaboliqueNeuro = () => {
               chips={["OEF/CMRO2", "AVC ischémique", "Multicentrique"]}
               actions={[
                 { label: "Échanger sur un protocole", to: "/contact", variant: "primary", icon: ArrowRight },
-                { label: "Voir IRM quantitative", to: "/irm-imagerie-quantitative", variant: "secondary", icon: Database },
+                { label: "Voir le hub métabolisme", to: "/metabolisme-cerebral", variant: "secondary", icon: Brain },
+                { label: "Voir la perfusion hémodynamique", to: "/perfusion-hemodynamique-neuro-imagerie", variant: "secondary", icon: Database },
                 { label: "Voir focus OEF", to: "/oef-imagerie-cerebrale", variant: "secondary", icon: ArrowRight },
-                { label: "Voir focus CMRO2", to: "/cmro2-imagerie-cerebrale", variant: "secondary", icon: ArrowRight },
               ]}
             />
 
@@ -170,6 +170,24 @@ const PerfusionMetaboliqueNeuro = () => {
               </h2>
               <p className="text-muted-foreground leading-relaxed">
                 La perfusion neuro IRM quantitative mesure le déséquilibre entre débit et métabolisme dans l’AVC, via des indicateurs comme OEF, CMRO2, CBF et Tmax. En pratique, ces cartes n’ont de valeur clinique que si le pipeline de normalisation, de segmentation et de QA est explicite. L’objectif est de produire des biomarqueurs comparables entre centres, et pas seulement des visualisations physiologiques.
+              </p>
+              <p className="text-muted-foreground leading-relaxed">
+                Cette page s'inscrit dans le{" "}
+                <Link to="/metabolisme-cerebral" className="text-primary hover:underline">
+                  hub métabolisme cérébral
+                </Link>
+                {" "}et se lit conjointement avec le{" "}
+                <Link to="/perfusion-cerebrale" className="text-primary hover:underline">
+                  hub perfusion cérébrale
+                </Link>
+                .
+              </p>
+              <p className="text-muted-foreground leading-relaxed">
+                Le pendant hémodynamique (CBF/CBV/Tmax/MTT/TTP) est détaillé dans{" "}
+                <Link to="/perfusion-hemodynamique-neuro-imagerie" className="text-primary hover:underline">
+                  Perfusion hémodynamique cérébrale
+                </Link>
+                .
               </p>
             </section>
 
@@ -423,6 +441,9 @@ const PerfusionMetaboliqueNeuro = () => {
                 </Link>
                 <Link to="/oef-imagerie-cerebrale" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
                   OEF cérébral <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link to="/perfusion-hemodynamique-neuro-imagerie" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Perfusion hémodynamique <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link to="/irm-imagerie-quantitative" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
                   IRM quantitative <ArrowRight className="w-4 h-4" />

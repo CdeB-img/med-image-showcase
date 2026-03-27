@@ -19,11 +19,17 @@ const BasesMulticentriques = lazy(() => import("@/pages/BasesMulticentriques"));
 const CorelabEC = lazy(() => import("@/pages/CorelabEC"));
 const BiomarqueursIRMCardiaqueEssais = lazy(() => import("@/pages/BiomarqueursIRMCardiaqueEssais"));
 const ECVMappingCardiaque = lazy(() => import("@/pages/ECVMappingCardiaque"));
+const PerfusionCerebrale = lazy(() => import("@/pages/PerfusionCerebrale"));
+const MetabolismeCerebral = lazy(() => import("@/pages/MetabolismeCerebral"));
 const PerfusionMetaboliqueNeuro = lazy(() => import("@/pages/PerfusionMetaboliqueNeuro"));
+const PerfusionHemodynamiqueNeuro = lazy(() => import("@/pages/PerfusionHemodynamiqueNeuro"));
 const CMRO2Imagerie = lazy(() => import("@/pages/CMRO2Imagerie"));
 const OEFImagerie = lazy(() => import("@/pages/OEFImagerie"));
 const IngenierieImagerieQuantitative = lazy(() => import("@/pages/IngenierieImagerieQuantitative"));
 const CTQuantitatifAvance = lazy(() => import("@/pages/CTQuantitatifAvance"));
+const ScannerDoubleEnergie = lazy(() => import("@/pages/ScannerDoubleEnergie"));
+const ScannerComptagePhoton = lazy(() => import("@/pages/ScannerComptagePhoton"));
+const ScannerSpectralPrincipe = lazy(() => import("@/pages/ScannerSpectralPrincipe"));
 const CTPerfusionQuantitative = lazy(() => import("@/pages/CTPerfusionQuantitative"));
 const IRMImagerieQuantitative = lazy(() => import("@/pages/IRMImagerieQuantitative"));
 const CTImagerieQuantitative = lazy(() => import("@/pages/CTImagerieQuantitative"));
@@ -81,7 +87,10 @@ const App = () => (
               element={<BiomarqueursIRMCardiaqueEssais />}
             />
             <Route path="/ecv-mapping-t1-t2-irm-cardiaque" element={<ECVMappingCardiaque />} />
+            <Route path="/perfusion-cerebrale" element={<PerfusionCerebrale />} />
+            <Route path="/metabolisme-cerebral" element={<MetabolismeCerebral />} />
             <Route path="/perfusion-metabolique-neuro-imagerie" element={<PerfusionMetaboliqueNeuro />} />
+            <Route path="/perfusion-hemodynamique-neuro-imagerie" element={<PerfusionHemodynamiqueNeuro />} />
             <Route
               path="/perfusion-metabolique-neuro-imagerie/CMRO2Imagerie"
               element={<Navigate to="/cmro2-imagerie-cerebrale" replace />}
@@ -94,6 +103,9 @@ const App = () => (
             <Route path="/oef-imagerie-cerebrale" element={<OEFImagerie />} />
             <Route path="/ingenierie-imagerie-quantitative" element={<IngenierieImagerieQuantitative />} />
             <Route path="/ct-quantitatif-avance-imagerie-spectrale" element={<CTQuantitatifAvance />} />
+            <Route path="/scanner-double-energie" element={<ScannerDoubleEnergie />} />
+            <Route path="/scanner-comptage-photon" element={<ScannerComptagePhoton />} />
+            <Route path="/scanner-spectral-principe" element={<ScannerSpectralPrincipe />} />
             <Route path="/ct-perfusion-quantitative-avc" element={<CTPerfusionQuantitative />} />
             <Route path="/irm-imagerie-quantitative" element={<IRMImagerieQuantitative />} />
             <Route path="/ct-imagerie-quantitative" element={<CTImagerieQuantitative />} />
@@ -106,6 +118,7 @@ const App = () => (
             <Route path="/corelabirm" element={<Navigate to="/corelab-essais-cliniques" replace />} />
             <Route path="/cmro2" element={<Navigate to="/cmro2-imagerie-cerebrale" replace />} />
             <Route path="/oef" element={<Navigate to="/oef-imagerie-cerebrale" replace />} />
+            <Route path="/perfusion-hemodynamique" element={<Navigate to="/perfusion-hemodynamique-neuro-imagerie" replace />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -105,7 +105,28 @@
 
   <!-- NEURO PERFUSION / MÉTABOLISME -->
   <url>
+    <loc>https://noxia-imagerie.fr/perfusion-cerebrale</loc>
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://noxia-imagerie.fr/metabolisme-cerebral</loc>
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
     <loc>https://noxia-imagerie.fr/perfusion-metabolique-neuro-imagerie</loc>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://noxia-imagerie.fr/perfusion-hemodynamique-neuro-imagerie</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -138,6 +159,27 @@
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://noxia-imagerie.fr/scanner-double-energie</loc>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://noxia-imagerie.fr/scanner-comptage-photon</loc>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://noxia-imagerie.fr/scanner-spectral-principe</loc>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
   </url>
 
   <url>

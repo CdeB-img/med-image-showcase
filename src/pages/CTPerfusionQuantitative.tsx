@@ -462,6 +462,10 @@ const CTPerfusionQuantitative = () => {
                 <Link to="/perfusion-metabolique-neuro-imagerie" className="text-primary hover:underline">
                   Perfusion & métabolisme cérébral
                 </Link>{" "}
+                et{" "}
+                <Link to="/perfusion-hemodynamique-neuro-imagerie" className="text-primary hover:underline">
+                  perfusion hémodynamique cérébrale
+                </Link>{" "}
                 (CT & IRM) pour un cadrage dédié, ainsi que{" "}
                 <Link to="/cmro2-imagerie-cerebrale" className="text-primary hover:underline">
                   CMRO2
@@ -583,6 +587,13 @@ const CTPerfusionQuantitative = () => {
                   className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
                 >
                   Perfusion & métabolisme
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  to="/perfusion-hemodynamique-neuro-imagerie"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  Perfusion hémodynamique
                   <ArrowRight className="w-4 h-4" />
                 </Link>
 

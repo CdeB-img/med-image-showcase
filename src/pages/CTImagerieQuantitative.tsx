@@ -171,6 +171,7 @@ const CTImagerieQuantitative = () => {
               chips={["HU stables", "Spectral CT", "Inter-constructeurs"]}
               actions={[
                 { label: "CT quantitatif avancé", to: "/ct-quantitatif-avance-imagerie-spectrale", variant: "secondary", icon: ArrowRight },
+                { label: "Scanner double énergie", to: "/scanner-double-energie", variant: "secondary", icon: ArrowRight },
                 { label: "CT Perfusion AVC", to: "/ct-perfusion-quantitative-avc", variant: "secondary", icon: ArrowRight },
               ]}
             />
@@ -239,7 +240,15 @@ const CTImagerieQuantitative = () => {
                 <Link to="/analyse-dicom" className="text-primary hover:underline">
                   audit DICOM complet
                 </Link>,
-                préalable à toute quantification exploitable.
+                préalable à toute quantification exploitable, qu’il s’agisse de{" "}
+                <Link to="/scanner-double-energie" className="text-primary hover:underline">
+                  scanner double énergie
+                </Link>{" "}
+                ou de{" "}
+                <Link to="/scanner-comptage-photon" className="text-primary hover:underline">
+                  scanner à comptage photonique
+                </Link>
+                .
               </p>
             </section>
             <section className="space-y-6 text-muted-foreground leading-relaxed">
@@ -576,6 +585,18 @@ const CTImagerieQuantitative = () => {
 
                 <Link to="/ct-quantitatif-avance-imagerie-spectrale" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
                   CT spectral avancé
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link to="/scanner-double-energie" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Scanner double énergie
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link to="/scanner-comptage-photon" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Scanner à comptage photonique
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link to="/scanner-spectral-principe" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Principe scanner spectral
                   <ArrowRight className="w-4 h-4" />
                 </Link>
 

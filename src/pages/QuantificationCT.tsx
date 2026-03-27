@@ -142,6 +142,7 @@ const QuantificationCT = () => {
               chips={["HU", "Perfusion", "Harmonisation"]}
               actions={[
                 { label: "Voir CT quantitatif avancé", to: "/ct-quantitatif-avance-imagerie-spectrale", variant: "secondary", icon: ArrowRight },
+                { label: "Voir scanner double énergie", to: "/scanner-double-energie", variant: "secondary", icon: ArrowRight },
                 { label: "Discuter d'un protocole", to: "/contact", variant: "primary", icon: ArrowRight },
               ]}
             />
@@ -254,6 +255,14 @@ const QuantificationCT = () => {
                     <li>Modélisation physique avancée</li>
                     <li>Optimisation contraste matière</li>
                   </ul>
+                  <div className="flex flex-col gap-1 pt-1">
+                    <Link to="/scanner-spectral-principe" className="text-primary text-sm hover:underline">
+                      Principe scanner spectral →
+                    </Link>
+                    <Link to="/scanner-comptage-photon" className="text-primary text-sm hover:underline">
+                      Focus scanner à comptage photonique →
+                    </Link>
+                  </div>
                 </div>
 
                 <div className="rounded-xl border border-border bg-muted/20 p-6 space-y-4">
@@ -375,6 +384,15 @@ const QuantificationCT = () => {
                 </Link>
                 <Link to="/bases-multicentriques" className="text-primary hover:underline">
                   Harmonisation multicentrique
+                </Link>
+                <Link to="/scanner-double-energie" className="text-primary hover:underline">
+                  Scanner double énergie
+                </Link>
+                <Link to="/scanner-comptage-photon" className="text-primary hover:underline">
+                  Scanner à comptage photonique
+                </Link>
+                <Link to="/scanner-spectral-principe" className="text-primary hover:underline">
+                  Principe scanner spectral
                 </Link>
                 <Link to="/segmentation-irm" className="text-primary hover:underline">
                   Segmentation contrôlée

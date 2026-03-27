@@ -348,6 +348,12 @@ const jsonLd = {
                     Voir perfusion cérébrale détaillée →
                   </Link>
                   <Link
+                    to="/perfusion-hemodynamique-neuro-imagerie"
+                    className="text-primary hover:underline"
+                  >
+                    Voir la perfusion hémodynamique →
+                  </Link>
+                  <Link
                     to="/cmro2-imagerie-cerebrale"
                     className="text-primary hover:underline"
                   >
@@ -487,6 +493,12 @@ const jsonLd = {
                   className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
                 >
                   Perfusion & métabolisme cérébral <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  to="/perfusion-hemodynamique-neuro-imagerie"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  Perfusion hémodynamique <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link
                   to="/cmro2-imagerie-cerebrale"

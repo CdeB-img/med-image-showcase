@@ -171,6 +171,7 @@ const CTQuantitatifAvance = () => {
               actions={[
                 { label: "Cadrer un protocole CT", to: "/contact", variant: "primary", icon: ArrowRight },
                 { label: "Voir CT quantitatif", to: "/ct-imagerie-quantitative", variant: "secondary", icon: Database },
+                { label: "Comparer DECT / conventionnel", to: "/scanner-double-energie", variant: "secondary", icon: Layers },
               ]}
             />
 
@@ -349,7 +350,15 @@ const CTQuantitatifAvance = () => {
                 <Link to="/quantification-ct" className="text-primary hover:underline">
                   quantification CT
                 </Link>{" "}
-                et dans les protocoles de{" "}
+                avec un comparatif dédié{" "}
+                <Link to="/scanner-double-energie" className="text-primary hover:underline">
+                  scanner double énergie vs conventionnel
+                </Link>{" "}
+                et un rappel du{" "}
+                <Link to="/scanner-spectral-principe" className="text-primary hover:underline">
+                  principe spectral
+                </Link>
+                , ainsi que dans les protocoles de{" "}
                 <Link to="/ct-perfusion-quantitative-avc" className="text-primary hover:underline">
                   perfusion AVC
                 </Link>.
@@ -563,6 +572,15 @@ const CTQuantitatifAvance = () => {
                 </Link>
                 <Link to="/quantification-ct" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
                   Quantification CT <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link to="/scanner-double-energie" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Scanner double énergie <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link to="/scanner-comptage-photon" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Scanner à comptage photonique <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link to="/scanner-spectral-principe" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
+                  Principe scanner spectral <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link to="/ct-perfusion-quantitative-avc" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
                   CT perfusion AVC <ArrowRight className="w-4 h-4" />

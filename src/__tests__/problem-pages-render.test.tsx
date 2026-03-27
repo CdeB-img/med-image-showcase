@@ -6,6 +6,8 @@ import { HelmetProvider } from "react-helmet-async";
 import CMRO2Imagerie from "@/pages/CMRO2Imagerie";
 import OEFImagerie from "@/pages/OEFImagerie";
 import PerfusionMetaboliqueNeuro from "@/pages/PerfusionMetaboliqueNeuro";
+import PerfusionCerebrale from "@/pages/PerfusionCerebrale";
+import MetabolismeCerebral from "@/pages/MetabolismeCerebral";
 import CTQuantitatifAvance from "@/pages/CTQuantitatifAvance";
 import CTPerfusionQuantitative from "@/pages/CTPerfusionQuantitative";
 import CorelabEC from "@/pages/CorelabEC";
@@ -29,6 +31,14 @@ describe("Problem pages render", () => {
 
   it("renders Perfusion", () => {
     expect(() => render(wrap(<PerfusionMetaboliqueNeuro />))).not.toThrow();
+  });
+
+  it("renders Perfusion hub", () => {
+    expect(() => render(wrap(<PerfusionCerebrale />))).not.toThrow();
+  });
+
+  it("renders Metabolisme hub", () => {
+    expect(() => render(wrap(<MetabolismeCerebral />))).not.toThrow();
   });
 
   it("renders CT spectral", () => {
