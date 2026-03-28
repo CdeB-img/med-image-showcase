@@ -60,18 +60,12 @@ const OEFImagerie = () => {
       {
         "@type": "ListItem",
         position: 3,
-        name: "IRM",
-        item: "https://noxia-imagerie.fr/irm-imagerie-quantitative"
-      },
-      {
-        "@type": "ListItem",
-        position: 4,
-        name: "Metabolisme cerebral",
+        name: "Métabolisme cérébral",
         item: HUB_CANONICAL
       },
       {
         "@type": "ListItem",
-        position: 5,
+        position: 4,
         name: "OEF",
         item: CANONICAL
       }

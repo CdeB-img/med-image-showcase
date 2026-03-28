@@ -7,6 +7,7 @@ Primary domain: imagerie medicale quantitative (IRM, CT, CoreLab, methodologie m
 ## Canonical pages
 - Home: https://noxia-imagerie.fr/
 - Expertise: https://noxia-imagerie.fr/expertise
+- Quantification tissulaire: https://noxia-imagerie.fr/quantification-tissulaire
 - Prestations: https://noxia-imagerie.fr/prestations-imagerie-medicale
 - Methodologie: https://noxia-imagerie.fr/methodologie-imagerie-quantitative
 - A propos: https://noxia-imagerie.fr/a-propos
@@ -15,6 +16,7 @@ Primary domain: imagerie medicale quantitative (IRM, CT, CoreLab, methodologie m
 
 ## Core expertise pages
 - IRM quantitative: https://noxia-imagerie.fr/irm-imagerie-quantitative
+- Hub quantification tissulaire: https://noxia-imagerie.fr/quantification-tissulaire
 - Perfusion cerebrale (hub): https://noxia-imagerie.fr/perfusion-cerebrale
 - Metabolisme cerebral (hub): https://noxia-imagerie.fr/metabolisme-cerebral
 - Perfusion metabolique neuro: https://noxia-imagerie.fr/perfusion-metabolique-neuro-imagerie

@@ -234,6 +234,73 @@ const PerfusionCerebrale = () => {
             </section>
 
             <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Perfusion cérébrale: différence IRM vs CT
+              </h2>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                  <div className="font-semibold text-foreground">IRM perfusion</div>
+                  <p className="text-sm text-muted-foreground">
+                    Très utile pour intégrer diffusion, perfusion et contexte tissulaire sans irradiation. Les
+                    paramètres restent sensibles aux séquences, au post-traitement et à la standardisation inter-centres.
+                  </p>
+                  <Link
+                    to="/perfusion-hemodynamique-neuro-imagerie"
+                    className="text-primary text-sm font-medium hover:underline"
+                  >
+                    Voir la perfusion hémodynamique IRM
+                  </Link>
+                </div>
+
+                <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
+                  <div className="font-semibold text-foreground">CT perfusion</div>
+                  <p className="text-sm text-muted-foreground">
+                    Très utilisée en AVC aigu pour cartographier vite core/pénombre, avec forte dépendance aux
+                    hypothèses de déconvolution, aux seuils et au logiciel d&apos;analyse.
+                  </p>
+                  <Link
+                    to="/ct-perfusion-quantitative-avc"
+                    className="text-primary text-sm font-medium hover:underline"
+                  >
+                    Voir la CT perfusion AVC
+                  </Link>
+                </div>
+              </div>
+            </section>
+
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">Rôle de CBF, CBV et Tmax</h2>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="rounded-xl border border-border bg-card/50 p-5 space-y-2">
+                  <div className="font-semibold text-foreground">CBF (débit)</div>
+                  <p className="text-sm text-muted-foreground">
+                    Indique la baisse de perfusion active. Une chute marquée soutient l&apos;hypoperfusion significative.
+                  </p>
+                </div>
+                <div className="rounded-xl border border-border bg-card/50 p-5 space-y-2">
+                  <div className="font-semibold text-foreground">CBV (volume)</div>
+                  <p className="text-sm text-muted-foreground">
+                    Informe sur le compartiment sanguin perfusé, utile pour nuancer la sévérité et la compensation.
+                  </p>
+                </div>
+                <div className="rounded-xl border border-border bg-card/50 p-5 space-y-2">
+                  <div className="font-semibold text-foreground">Tmax (retard)</div>
+                  <p className="text-sm text-muted-foreground">
+                    Mesure le retard hémodynamique et participe à la définition des volumes à risque selon les seuils.
+                  </p>
+                </div>
+              </div>
+              <p>
+                Ces trois marqueurs décrivent surtout le transport sanguin. Pour une lecture de viabilité, il faut les
+                relier au volet{" "}
+                <Link to="/metabolisme-cerebral" className="text-primary hover:underline">
+                  métabolisme cérébral
+                </Link>{" "}
+                (notamment OEF/CMRO2).
+              </p>
+            </section>
+
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">Architecture d&apos;un pipeline de perfusion robuste</h2>
               <p>
                 Un pipeline robuste sépare l&apos;acquisition, le calcul des cartes, la définition des seuils et

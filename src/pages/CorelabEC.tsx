@@ -66,8 +66,7 @@ const CorelabEC = () => {
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Accueil", item: "https://noxia-imagerie.fr/" },
       { "@type": "ListItem", position: 2, name: "Expertise", item: "https://noxia-imagerie.fr/expertise" },
-      { "@type": "ListItem", position: 3, name: "IRM", item: "https://noxia-imagerie.fr/irm-imagerie-quantitative" },
-      { "@type": "ListItem", position: 4, name: "Core Lab IRM essais cliniques", item: CANONICAL }
+      { "@type": "ListItem", position: 3, name: "Core Lab imagerie", item: CANONICAL }
     ]
   };
 
@@ -128,8 +127,7 @@ const CorelabEC = () => {
               items={[
                 { label: "Accueil", path: "/" },
                 { label: "Expertise", path: "/expertise" },
-                { label: "IRM", path: "/irm-imagerie-quantitative" },
-                { label: "Core Lab IRM essais cliniques" }
+                { label: "Core Lab imagerie" }
               ]}
             />
 
@@ -189,9 +187,24 @@ const CorelabEC = () => {
               </h2>
 
               <p>
-                En essai thérapeutique cardiovasculaire, l'effet traitement peut être plus faible
-                que la variabilité technique de mesure. Sans standardisation stricte,
-                l'endpoint d'imagerie perd sa puissance statistique.
+                Dans un essai multicentrique, un endpoint IRM n’est utile que s’il réduit la
+                variance technique plus vite qu’il n’augmente la complexité analytique. Sans
+                règles de lecture explicites, l’effet centre peut masquer un effet traitement
+                réel, même avec une acquisition de bonne qualité.
+              </p>
+
+              <p>
+                Le rôle d’un Core Lab est de convertir un signal image en variable statistique
+                auditable : définition de l’endpoint, règles d’exclusion, adjudication des cas
+                limites et traçabilité des versions. Cette logique s’applique directement aux{" "}
+                <Link to="/biomarqueurs-irm-cardiaque-essais-cliniques" className="text-primary hover:underline">
+                  biomarqueurs IRM cardiaques
+                </Link>{" "}
+                et aux mesures tissulaires comme{" "}
+                <Link to="/ecv-mapping-t1-t2-irm-cardiaque" className="text-primary hover:underline">
+                  ECV/T1/T2
+                </Link>
+                .
               </p>
 
               <ul className="list-disc pl-6 space-y-2">
@@ -212,7 +225,7 @@ const CorelabEC = () => {
             </section>
 
             {/* WORKFLOW + CHECKLIST */}
-            <section className="space-y-10">
+            <section id="methodologie-corelab" className="space-y-10 scroll-mt-28">
               <h2 className="text-2xl font-semibold text-foreground">
                 Architecture type d'un Core Lab IRM
               </h2>
@@ -258,6 +271,31 @@ const CorelabEC = () => {
                 {" "}
                 <Link to="/bases-multicentriques" className="text-primary hover:underline">
                   bases multicentriques harmonisées
+                </Link>
+                .
+              </p>
+            </section>
+
+            <section className="rounded-2xl border border-border bg-card/50 p-6 md:p-8 space-y-6">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Comment ces résultats pilotent la décision d’essai
+              </h2>
+
+              <ul className="list-disc pl-6 space-y-2 text-muted-foreground leading-relaxed">
+                <li>Qualification d’un endpoint primaire/secondaire sur sa robustesse et pas uniquement sa significativité.</li>
+                <li>Arbitrage des déviations centre (qualité acquisition, segmentation, exclusions) avant gel de base.</li>
+                <li>Lecture cohérente pour les analyses longitudinales, sous-groupes et analyses de sensibilité.</li>
+                <li>Documentation exploitable pour audit méthodologique, protocole et publication.</li>
+              </ul>
+
+              <p className="text-muted-foreground leading-relaxed">
+                Cette gouvernance est alignée avec la{" "}
+                <Link to="/methodologie-imagerie-quantitative" className="text-primary hover:underline">
+                  méthodologie quantitative
+                </Link>{" "}
+                et la logique de{" "}
+                <Link to="/quantification-tissulaire" className="text-primary hover:underline">
+                  quantification tissulaire
                 </Link>
                 .
               </p>

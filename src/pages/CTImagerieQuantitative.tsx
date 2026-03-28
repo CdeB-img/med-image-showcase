@@ -76,7 +76,13 @@ const CTImagerieQuantitative = () => {
       {
         "@type": "ListItem",
         position: 3,
-        name: "CT",
+        name: "Quantification tissulaire",
+        item: "https://noxia-imagerie.fr/quantification-tissulaire"
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: "CT quantitative",
         item: CANONICAL
       }
     ]
@@ -158,7 +164,8 @@ const CTImagerieQuantitative = () => {
               items={[
                 { label: "Accueil", path: "/" },
                 { label: "Expertise", path: "/expertise" },
-                { label: "CT" }
+                { label: "Quantification tissulaire", path: "/quantification-tissulaire" },
+                { label: "CT quantitative" }
               ]}
             />
 

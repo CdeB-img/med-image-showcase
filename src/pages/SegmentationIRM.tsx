@@ -89,12 +89,18 @@ const SegmentationIRM = () => {
           {
             "@type": "ListItem",
             position: 3,
-            name: "IRM",
-            item: "https://noxia-imagerie.fr/irm-imagerie-quantitative"
+            name: "Quantification tissulaire",
+            item: "https://noxia-imagerie.fr/quantification-tissulaire"
           },
           {
             "@type": "ListItem",
             position: 4,
+            name: "IRM quantitative",
+            item: "https://noxia-imagerie.fr/irm-imagerie-quantitative"
+          },
+          {
+            "@type": "ListItem",
+            position: 5,
             name: "Segmentation IRM",
             item: CANONICAL
           }
@@ -141,7 +147,8 @@ const SegmentationIRM = () => {
               items={[
                 { label: "Accueil", path: "/" },
                 { label: "Expertise", path: "/expertise" },
-                { label: "IRM", path: "/irm-imagerie-quantitative" }, // Ajout du niveau intermédiaire
+                { label: "Quantification tissulaire", path: "/quantification-tissulaire" },
+                { label: "IRM quantitative", path: "/irm-imagerie-quantitative" },
                 { label: "Segmentation IRM" }
               ]}
             />

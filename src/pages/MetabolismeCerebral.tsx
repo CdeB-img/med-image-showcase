@@ -216,8 +216,28 @@ const MetabolismeCerebral = () => {
             </section>
 
             <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">Lien perfusion ↔ métabolisme</h2>
+              <p>
+                La perfusion et le métabolisme répondent à deux questions complémentaires: combien de sang arrive
+                (transport) et comment l&apos;oxygène est utilisé (fonction). C&apos;est leur couplage qui permet une lecture
+                robuste de la viabilité tissulaire en phase aiguë.
+              </p>
+              <p>
+                Cette articulation est détaillée dans le{" "}
+                <Link to="/perfusion-cerebrale" className="text-primary hover:underline">
+                  hub perfusion cérébrale
+                </Link>{" "}
+                et opérationnalisée dans{" "}
+                <Link to="/perfusion-metabolique-neuro-imagerie" className="text-primary hover:underline">
+                  la perfusion métabolique IRM
+                </Link>
+                .
+              </p>
+            </section>
+
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                OEF et CMRO2: complémentarité physiopathologique
+                OEF vs CMRO2: complémentarité physiopathologique
               </h2>
               <p>
                 L&apos;OEF et le CMRO2 ne répondent pas à la même question. L&apos;OEF renseigne sur l&apos;effort d&apos;extraction,
@@ -234,6 +254,29 @@ const MetabolismeCerebral = () => {
                   pipeline versionné
                 </Link>
                 .
+              </p>
+            </section>
+
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Notion de pénombre et logique physiopathologique
+              </h2>
+              <p>
+                La pénombre correspond à un tissu menacé mais potentiellement récupérable: la perfusion est insuffisante
+                mais le métabolisme n&apos;est pas encore totalement effondré. L&apos;objectif de la lecture OEF/CMRO2 est
+                justement de préciser cette zone intermédiaire.
+              </p>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Hypoperfusion avec compensation: OEF tend à augmenter.</li>
+                <li>Défaillance métabolique: CMRO2 diminue durablement.</li>
+                <li>Échec tissulaire installé: chute conjointe des indicateurs fonctionnels.</li>
+              </ul>
+              <p>
+                En pratique, cette logique physiopathologique doit rester alignée avec la{" "}
+                <Link to="/perfusion-hemodynamique-neuro-imagerie" className="text-primary hover:underline">
+                  lecture hémodynamique
+                </Link>{" "}
+                et les contrôles QA du pipeline.
               </p>
             </section>
 

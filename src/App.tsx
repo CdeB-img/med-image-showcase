@@ -14,6 +14,7 @@ const Contact = lazy(() => import("./pages/Contact"));
 const SegmentationIRM = lazy(() => import("@/pages/SegmentationIRM"));
 const AnalyseDICOM = lazy(() => import("@/pages/AnalyseDICOM"));
 const QuantificationCT = lazy(() => import("@/pages/QuantificationCT"));
+const QuantificationTissulaire = lazy(() => import("@/pages/QuantificationTissulaire"));
 const RecalageMultimodal = lazy(() => import("@/pages/RecalageMultimodal"));
 const BasesMulticentriques = lazy(() => import("@/pages/BasesMulticentriques"));
 const CorelabEC = lazy(() => import("@/pages/CorelabEC"));
@@ -79,6 +80,7 @@ const App = () => (
             <Route path="/segmentation-irm" element={<SegmentationIRM />} />
             <Route path="/analyse-dicom" element={<AnalyseDICOM />} />
             <Route path="/quantification-ct" element={<QuantificationCT />} />
+            <Route path="/quantification-tissulaire" element={<QuantificationTissulaire />} />
             <Route path="/recalage-multimodal" element={<RecalageMultimodal />} />
             <Route path="/bases-multicentriques" element={<BasesMulticentriques />} />
             <Route path="/corelab-essais-cliniques" element={<CorelabEC />} />

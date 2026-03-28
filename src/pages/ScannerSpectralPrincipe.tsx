@@ -95,14 +95,13 @@ const ScannerSpectralPrincipe = () => {
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Accueil", item: "https://noxia-imagerie.fr/" },
       { "@type": "ListItem", position: 2, name: "Expertise", item: "https://noxia-imagerie.fr/expertise" },
-      { "@type": "ListItem", position: 3, name: "CT", item: "https://noxia-imagerie.fr/ct-imagerie-quantitative" },
+      { "@type": "ListItem", position: 3, name: "CT spectral avancé", item: "https://noxia-imagerie.fr/ct-quantitatif-avance-imagerie-spectrale" },
       {
         "@type": "ListItem",
         position: 4,
-        name: "CT quantitatif avancé",
-        item: "https://noxia-imagerie.fr/ct-quantitatif-avance-imagerie-spectrale",
+        name: "Principe spectral",
+        item: CANONICAL,
       },
-      { "@type": "ListItem", position: 5, name: "Principe spectral", item: CANONICAL },
     ],
   };
 
@@ -141,8 +140,7 @@ const ScannerSpectralPrincipe = () => {
               items={[
                 { label: "Accueil", path: "/" },
                 { label: "Expertise", path: "/expertise" },
-                { label: "CT", path: "/ct-imagerie-quantitative" },
-                { label: "CT quantitatif avancé", path: "/ct-quantitatif-avance-imagerie-spectrale" },
+                { label: "CT spectral avancé", path: "/ct-quantitatif-avance-imagerie-spectrale" },
                 { label: "Principe spectral" },
               ]}
             />

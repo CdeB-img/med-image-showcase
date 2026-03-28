@@ -76,7 +76,13 @@ const jsonLd = {
       {
         "@type": "ListItem",
         position: 3,
-        name: "IRM",
+        name: "Quantification tissulaire",
+        item: "https://noxia-imagerie.fr/quantification-tissulaire"
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: "IRM quantitative",
         item: CANONICAL
       }
     ]
@@ -149,7 +155,8 @@ const jsonLd = {
               items={[
                 { label: "Accueil", path: "/" },
                 { label: "Expertise", path: "/expertise" },
-                { label: "IRM" }
+                { label: "Quantification tissulaire", path: "/quantification-tissulaire" },
+                { label: "IRM quantitative" }
               ]}
             />
 
@@ -178,6 +185,19 @@ const jsonLd = {
               <p className="text-muted-foreground leading-relaxed">
                 L’IRM quantitative transforme le signal IRM en biomarqueurs mesurables comme le LGE, l’ECV, le T1 mapping et le T2 mapping. Ces mesures ne sont pas directement comparables sans contrôle des séquences, des règles de segmentation et du post-traitement. Une IRM quantitative défendable nécessite donc une méthodologie explicite et une harmonisation multicentrique.
               </p>
+              <p className="text-muted-foreground leading-relaxed">
+                En essai clinique, ces mesures servent à stratifier, comparer et suivre des trajectoires tissulaires.
+                Elles doivent donc rester stables entre centres et versions logicielles. Cette exigence rejoint une
+                logique de{" "}
+                <Link to="/corelab-essais-cliniques" className="text-primary hover:underline">
+                  Core Lab imagerie
+                </Link>{" "}
+                et de{" "}
+                <Link to="/methodologie-imagerie-quantitative" className="text-primary hover:underline">
+                  contrôle méthodologique
+                </Link>{" "}
+                continu.
+              </p>
             </section>
 
             <section className="grid md:grid-cols-3 gap-6">
@@ -199,8 +219,8 @@ const jsonLd = {
                   Architecture pipeline
                 </div>
                 <p className="text-muted-foreground text-sm leading-relaxed">
-                  Audit DICOM, segmentation, quantification, traçabilité,
-                  versioning et QA systématique.
+                  Audit DICOM, segmentation contrôlée, quantification explicite, versioning et QA systématique.
+                  Chaque étape est définie pour limiter la dérive entre centres et garantir la stabilité des biomarqueurs.
                 </p>
               </div>
 
@@ -250,8 +270,8 @@ const jsonLd = {
               </ul>
 
               <p>
-                L’objectif n’est pas de produire une valeur,
-                mais de produire une valeur opposable.
+                L’enjeu n’est pas de produire une valeur,
+                mais une mesure défendable dans un contexte multicentrique.
               </p>
             </section>
             {/* IRM CARDIAQUE */}
@@ -391,6 +411,30 @@ const jsonLd = {
               <p>
                 Sans harmonisation, la variabilité technique peut dépasser
                 la variation biologique recherchée.
+              </p>
+            </section>
+
+            <section className="rounded-2xl border border-border bg-card/50 p-6 md:p-8 space-y-5">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Limites d’interprétation et transférabilité
+              </h2>
+
+              <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                <li>Les seuils ou plages “normales” ne sont pas directement transférables d’un pipeline à un autre.</li>
+                <li>Une amélioration de segmentation ne garantit pas une amélioration de validité clinique.</li>
+                <li>Le changement de séquence/version peut déplacer la distribution des biomarqueurs.</li>
+              </ul>
+
+              <p className="text-muted-foreground leading-relaxed">
+                La transférabilité est sécurisée par des règles explicites, des tests de reproductibilité et un lien
+                direct avec les pages{" "}
+                <Link to="/biomarqueurs-irm-cardiaque-essais-cliniques" className="text-primary hover:underline">
+                  biomarqueurs IRM cardiaque
+                </Link>{" "}
+                et{" "}
+                <Link to="/ecv-mapping-t1-t2-irm-cardiaque" className="text-primary hover:underline">
+                  ECV/T1/T2
+                </Link>.
               </p>
             </section>
 

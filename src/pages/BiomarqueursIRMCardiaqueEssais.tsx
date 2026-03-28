@@ -40,8 +40,8 @@ const breadcrumbJsonLd = {
     {
       "@type": "ListItem",
       position: 3,
-      name: "IRM",
-      item: "https://noxia-imagerie.fr/irm-imagerie-quantitative"
+      name: "Core Lab imagerie",
+      item: "https://noxia-imagerie.fr/corelab-essais-cliniques"
     },
     {
       "@type": "ListItem",
@@ -159,7 +159,7 @@ const faqJsonLd = {
               items={[
                 { label: "Accueil", path: "/" },
                 { label: "Expertise", path: "/expertise" },
-                { label: "IRM", path: "/irm-imagerie-quantitative" },
+                { label: "Core Lab imagerie", path: "/corelab-essais-cliniques" },
                 { label: "Biomarqueurs IRM cardiaque" }
               ]}
             />
@@ -189,6 +189,13 @@ const faqJsonLd = {
               </h2>
               <p className="text-muted-foreground leading-relaxed">
                 Un biomarqueur IRM cardiaque utilisable en essai n’est pas qu’une mesure d’image: c’est un endpoint défini, reproductible et auditable. Il doit préciser la règle de mesure, le timing, les exclusions et la gestion de variabilité multicentrique. Sans cette architecture, la valeur clinique et statistique de l’endpoint reste fragile.
+              </p>
+              <p className="text-muted-foreground leading-relaxed">
+                Cette définition prend son sens opérationnel dans un cadre de{" "}
+                <Link to="/corelab-essais-cliniques" className="text-primary hover:underline">
+                  Core Lab imagerie
+                </Link>
+                , avec règles de lecture, contrôles qualité et traçabilité harmonisés entre centres.
               </p>
             </section>
 

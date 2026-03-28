@@ -54,8 +54,9 @@ const QuantificationCT = () => {
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Accueil", item: "https://noxia-imagerie.fr/" },
       { "@type": "ListItem", position: 2, name: "Expertise", item: "https://noxia-imagerie.fr/expertise" },
-      { "@type": "ListItem", position: 3, name: "CT", item: "https://noxia-imagerie.fr/ct-imagerie-quantitative" },
-      { "@type": "ListItem", position: 4, name: "Quantification CT", item: CANONICAL }
+      { "@type": "ListItem", position: 3, name: "Quantification tissulaire", item: "https://noxia-imagerie.fr/quantification-tissulaire" },
+      { "@type": "ListItem", position: 4, name: "CT quantitative", item: "https://noxia-imagerie.fr/ct-imagerie-quantitative" },
+      { "@type": "ListItem", position: 5, name: "HU & calibration CT", item: CANONICAL }
     ]
   };
 
@@ -115,16 +116,17 @@ const QuantificationCT = () => {
               items={[
                 { label: "Accueil", path: "/" },
                 { label: "Expertise", path: "/expertise" },
-                { label: "CT", path: "/ct-imagerie-quantitative" },
-                { label: "Quantification CT" }
+                { label: "Quantification tissulaire", path: "/quantification-tissulaire" },
+                { label: "CT quantitative", path: "/ct-imagerie-quantitative" },
+                { label: "HU & calibration CT" }
               ]}
             />
 
             {/* HERO */}
             <ExpertiseHero
-              badge="Quantification clinique"
+              badge="Module technique CT"
               badgeIcon={Workflow}
-              title="Quantification CT multicentrique"
+              title="HU & calibration CT multicentrique"
               description={
                 <>
                   Transformation des voxels <strong>Hounsfield Units (HU)</strong> en biomarqueurs reproductibles,

@@ -117,8 +117,7 @@ const CTQuantitatifAvance = () => {
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Accueil", item: "https://noxia-imagerie.fr/" },
       { "@type": "ListItem", position: 2, name: "Expertise", item: "https://noxia-imagerie.fr/expertise" },
-      { "@type": "ListItem", position: 3, name: "CT", item: "https://noxia-imagerie.fr/ct-imagerie-quantitative" },
-      { "@type": "ListItem", position: 4, name: "CT quantitatif avancé", item: CANONICAL },
+      { "@type": "ListItem", position: 3, name: "CT spectral avancé", item: CANONICAL },
     ],
   };
 
@@ -157,8 +156,7 @@ const CTQuantitatifAvance = () => {
               items={[
                 { label: "Accueil", path: "/" },
                 { label: "Expertise", path: "/expertise" },
-                { label: "CT", path: "/ct-imagerie-quantitative" },
-                { label: "CT quantitatif avancé" },
+                { label: "CT spectral avancé" },
               ]}
             />
 
@@ -213,7 +211,7 @@ const CTQuantitatifAvance = () => {
             <section className="rounded-2xl border border-border bg-card/50 p-6 md:p-8 space-y-6">
               <div className="flex items-center gap-2 font-semibold text-foreground">
                 <Workflow className="w-5 h-5 text-primary" />
-                Positionnement méthodologique
+                Positionnement en imagerie quantitative
               </div>
 
               <p className="text-muted-foreground leading-relaxed">
@@ -239,7 +237,7 @@ const CTQuantitatifAvance = () => {
               </p>
 
               <p className="text-muted-foreground leading-relaxed">
-                Concrètement, la logique est simple : contrôler l’acquisition, vérifier la stabilité physique,
+                Concrètement, la logique repose sur une séquence stricte : contrôler l’acquisition, vérifier la stabilité physique,
                 puis valider la mesure avant d’interpréter un signal clinique. C’est cette séquence qui distingue
                 un usage quantitatif robuste d’une simple amélioration de contraste.
               </p>
@@ -345,20 +343,24 @@ const CTQuantitatifAvance = () => {
               </div>
 
               <p>
-                En pratique, le spectral ne remplace pas la rigueur d’un pipeline : il l’exige davantage. La même
-                logique de robustesse s’applique dans la{" "}
-                <Link to="/quantification-ct" className="text-primary hover:underline">
-                  quantification CT
-                </Link>{" "}
-                avec un comparatif dédié{" "}
+                En pratique, le spectral ne remplace pas la rigueur d’un pipeline: il l’exige davantage. Cette logique
+                se rattache au socle{" "}
+                <Link to="/ct-imagerie-quantitative" className="text-primary hover:underline">
+                  CT quantitative
+                </Link>
+                , avec un comparatif dédié{" "}
                 <Link to="/scanner-double-energie" className="text-primary hover:underline">
                   scanner double énergie vs conventionnel
-                </Link>{" "}
-                et un rappel du{" "}
+                </Link>
+                , le{" "}
                 <Link to="/scanner-spectral-principe" className="text-primary hover:underline">
                   principe spectral
                 </Link>
-                , ainsi que dans les protocoles de{" "}
+                {" "}et l’ouverture{" "}
+                <Link to="/scanner-comptage-photon" className="text-primary hover:underline">
+                  scanner à comptage photonique
+                </Link>
+                . Les mêmes exigences s’appliquent aux protocoles de{" "}
                 <Link to="/ct-perfusion-quantitative-avc" className="text-primary hover:underline">
                   perfusion AVC
                 </Link>.
@@ -500,6 +502,17 @@ const CTQuantitatifAvance = () => {
                   </Link>
                 </div>
               </div>
+            </section>
+
+            <section className="rounded-2xl border border-border bg-card/50 p-6 md:p-8 space-y-5">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Ce que cette mesure change en pratique clinique et en essai
+              </h2>
+              <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                <li>Affiner des comparaisons inter-groupes quand la variabilité technique est contrôlée.</li>
+                <li>Documenter une composante matière/énergie plutôt qu’un simple contraste visuel.</li>
+                <li>Rendre la mesure opposable via calibration, QA longitudinal et validation indépendante.</li>
+              </ul>
             </section>
 
             <section className="rounded-2xl border border-primary/20 bg-gradient-to-b from-card/80 to-primary/5 p-6 md:p-8 space-y-6">

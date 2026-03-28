@@ -9,7 +9,6 @@ import {
   Workflow,
   BarChart3,
   ShieldCheck,
-  Layers,
   Database,
   AlertTriangle
 } from "lucide-react";
@@ -60,13 +59,13 @@ const PerfusionMetaboliqueNeuro = () => {
       {
         "@type": "ListItem",
         position: 3,
-        name: "Metabolisme cerebral",
+        name: "Métabolisme cérébral",
         item: "https://noxia-imagerie.fr/metabolisme-cerebral"
       },
       {
         "@type": "ListItem",
         position: 4,
-        name: "Perfusion & Métabolisme cérébral",
+        name: "Perfusion métabolique",
         item: CANONICAL
         
       }
@@ -145,7 +144,7 @@ const PerfusionMetaboliqueNeuro = () => {
                 { label: "Accueil", path: "/" },
                 { label: "Expertise", path: "/expertise" },
                 { label: "Métabolisme cérébral", path: "/metabolisme-cerebral" },
-                { label: "Perfusion & Métabolisme cérébral" }
+                { label: "Perfusion métabolique" }
               ]}
             />
 
@@ -169,7 +168,7 @@ const PerfusionMetaboliqueNeuro = () => {
                 Définition de la perfusion neuro IRM quantitative
               </h2>
               <p className="text-muted-foreground leading-relaxed">
-                La perfusion neuro IRM quantitative mesure le déséquilibre entre débit et métabolisme dans l’AVC, via des indicateurs comme OEF, CMRO2, CBF et Tmax. En pratique, ces cartes n’ont de valeur clinique que si le pipeline de normalisation, de segmentation et de QA est explicite. L’objectif est de produire des biomarqueurs comparables entre centres, et pas seulement des visualisations physiologiques.
+                La perfusion métabolique neuro combine transport (CBF, Tmax) et utilisation d’oxygène (OEF, CMRO2) pour répondre à une question décisionnelle: tissu récupérable ou tissu déjà en échec énergétique. En pratique, la valeur clinique dépend de la robustesse du pipeline (normalisation, segmentation, QA), pas d’une carte isolée.
               </p>
               <p className="text-muted-foreground leading-relaxed">
                 Cette page s'inscrit dans le{" "}
@@ -225,8 +224,9 @@ const PerfusionMetaboliqueNeuro = () => {
                     Ce qui fait la différence
                   </div>
                   <p className="text-muted-foreground mt-2">
-                    Normalisation hémisphérique robuste,
-                    hystérésis 3D et validation multi-seuil.
+                    Le pipeline ne repose pas sur un seuil ou une carte isolée, mais sur une cohérence entre signaux.
+                    La normalisation intra-sujet, la propagation contrôlée et la lecture conjointe des cartes permettent
+                    de réduire les faux positifs et d’interpréter le signal dans un cadre physiopathologique.
                   </p>
                 </div>
 
@@ -236,8 +236,8 @@ const PerfusionMetaboliqueNeuro = () => {
                     Objectif final
                   </div>
                   <p className="text-muted-foreground mt-2">
-                    Transformer une cartographie physiologique
-                    en biomarqueur exploitable et défendable.
+                    Produire une mesure qui reste interprétable dans un contexte clinique, reproductible entre centres
+                    et défendable comme endpoint d’étude.
                   </p>
                 </div>
               </div>
@@ -246,74 +246,85 @@ const PerfusionMetaboliqueNeuro = () => {
             {/* ARCHITECTURE */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                Architecture physiopathologique du pipeline
+                Lecture physiopathologique du pipeline
               </h2>
 
               <p>
-                La diffusion définit le noyau ischémique (D_core),
-                servant d’ancrage anatomique.
-                Les cartes métaboliques sont ensuite analysées
-                relativement à l’hémisphère controlatéral, avec une lecture croisée entre{" "}
+                La diffusion définit le noyau ischémique (D_core) et sert d’ancrage anatomique.
+                Les cartes métaboliques sont ensuite interprétées relativement à l’hémisphère controlatéral,
+                avec une lecture conjointe de l’{" "}
                 <Link to="/oef-imagerie-cerebrale" className="text-primary hover:underline">
                   OEF
                 </Link>{" "}
-                et{" "}
+                et du{" "}
                 <Link to="/cmro2-imagerie-cerebrale" className="text-primary hover:underline">
                   CMRO2
                 </Link>.
               </p>
 
               <p>
-                Cliniquement, le même principe que la{" "}
+                Cette logique s’inscrit dans une approche où la mesure est construite pour rester interprétable, et pas
+                seulement calculable.
+              </p>
+
+              <p>
+                L’objectif n’est pas d’accumuler des transformations, mais de produire une mesure stable
+                et interprétable. Comme en{" "}
                 <Link to="/ct-perfusion-quantitative-avc" className="text-primary hover:underline">
                   CT perfusion quantitative
                 </Link>{" "}
-                s’applique : séparer l’information utile du bruit technique, puis documenter la robustesse selon un cadre{" "}
-                <Link to="/methodologie-imagerie-quantitative" className="text-primary hover:underline">
-                  méthodologique reproductible
-                </Link>.
+                la robustesse dépend davantage du cadre méthodologique que de la complexité du traitement.
               </p>
 
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Calcul miroir hémisphérique intra-sujet</li>
-                <li>Normalisation médiane + IQR</li>
-                <li>Détection multi-seuil (60–250%)</li>
-                <li>Propagation 3D contrôlée</li>
-                <li>Filtrage morphologique multi-échelle</li>
-              </ul>
+              <h3 className="text-xl font-semibold text-foreground">
+                Lecture opérationnelle du pipeline
+              </h3>
+
+              <p>
+                Le pipeline repose sur une référence intra-sujet, avec une normalisation basée sur l’hémisphère
+                controlatéral. La segmentation n’est pas définie par un seuil fixe, mais par une adaptation au signal
+                et au bruit, avec propagation spatiale contrôlée.
+              </p>
+
+              <p>
+                L’objectif est de produire une cohérence entre cartes (OEF, CMRO2, CBF, Tmax) plutôt que des volumes
+                indépendants. Cette cohérence est essentielle pour éviter les interprétations erronées liées au bruit,
+                aux artefacts ou aux variations inter-centres.
+              </p>
             </section>
 
             {/* POINTS MÉTHODOLOGIQUES */}
-            <section className="space-y-6">
+            <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold">
-                Points méthodologiques clés
+                Architecture pipeline
               </h2>
 
-              <div className="grid md:grid-cols-2 gap-6">
+              <p>
+                Audit DICOM, contrôle géométrique, séparation inférence/mesure et traçabilité complète des livrables.
+                L’objectif est de dissocier ce qui relève du signal, du modèle et de la décision finale.
+              </p>
+            </section>
 
-                <div className="rounded-xl border border-border bg-muted/10 p-6">
-                  <div className="flex items-center gap-2 font-semibold">
-                    <Layers className="w-5 h-5 text-primary" />
-                    Normalisation intra-sujet
-                  </div>
-                  <p className="text-muted-foreground mt-2">
-                    Réduction de la variabilité inter-centre
-                    via référence controlatérale.
-                  </p>
-                </div>
+            <section className="rounded-2xl border border-border bg-card/50 p-6 md:p-8 space-y-5">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Ce que le pipeline corrige réellement
+              </h2>
 
-                <div className="rounded-xl border border-border bg-muted/10 p-6">
-                  <div className="flex items-center gap-2 font-semibold">
-                    <Database className="w-5 h-5 text-primary" />
-                    Multi-seuil & stabilité
-                  </div>
-                  <p className="text-muted-foreground mt-2">
-                    Analyse de sensibilité volumétrique
-                    aux variations de paramètres.
-                  </p>
-                </div>
+              <p className="text-muted-foreground leading-relaxed">
+                En pratique, les cartes perfusionnelles et métaboliques peuvent être incohérentes entre elles à cause
+                du bruit, des artefacts ou des hypothèses de modèle.
+              </p>
 
-              </div>
+              <ul className="list-disc pl-6 text-muted-foreground space-y-2">
+                <li>en utilisant la diffusion comme ancrage anatomique,</li>
+                <li>en normalisant chaque mesure au contexte du patient,</li>
+                <li>et en imposant une cohérence entre extraction, transport et consommation.</li>
+              </ul>
+
+              <p className="text-muted-foreground leading-relaxed">
+                Ce n’est pas une étape de traitement supplémentaire, mais une condition nécessaire pour interpréter le
+                signal comme un biomarqueur.
+              </p>
             </section>
 
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
@@ -368,6 +379,30 @@ const PerfusionMetaboliqueNeuro = () => {
                   IRM quantitative
                 </Link>.
               </p>
+            </section>
+
+            <section className="rounded-2xl border border-border bg-card/50 p-6 md:p-8 space-y-5">
+              <h2 className="text-2xl font-semibold text-foreground">
+                Interprétation décisionnelle en AVC
+              </h2>
+
+              <p className="text-muted-foreground leading-relaxed">
+                En phase aiguë, l’objectif n’est pas “d’avoir plus de cartes”, mais d’estimer la viabilité tissulaire
+                avec un niveau d’incertitude explicite. Cette lecture complète la{" "}
+                <Link to="/perfusion-hemodynamique-neuro-imagerie" className="text-primary hover:underline">
+                  perfusion hémodynamique
+                </Link>{" "}
+                et se confronte aux volumes issus de{" "}
+                <Link to="/ct-perfusion-quantitative-avc" className="text-primary hover:underline">
+                  CT perfusion AVC
+                </Link>.
+              </p>
+
+              <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                <li>OEF élevée + CMRO2 préservé: compensation métabolique possible.</li>
+                <li>CMRO2 en baisse persistante: risque de non-récupération plus élevé.</li>
+                <li>Discordance cartes/morphologie: relecture QA et contrôle des hypothèses de modèle.</li>
+              </ul>
             </section>
 
             {/* FAQ */}

@@ -20,11 +20,12 @@ const NAV_CONFIG: NavItemType[] = [
     children: [
       {
         label: "Quantification tissulaire",
-        path: "/expertise#quantification-tissulaire",
+        path: "/quantification-tissulaire",
         description: "Biomarqueurs tissulaires en IRM cardiaque et CT quantitatif",
         children: [
+          { label: "IRM quantitative", path: "/irm-imagerie-quantitative" },
+          { label: "CT quantitative", path: "/ct-imagerie-quantitative" },
           { label: "IRM cardiaque (ECV, T1/T2)", path: "/ecv-mapping-t1-t2-irm-cardiaque" },
-          { label: "CT quantitatif", path: "/quantification-ct" },
         ],
       },
       {
@@ -61,6 +62,7 @@ const NAV_CONFIG: NavItemType[] = [
         path: "/methodologie-imagerie-quantitative",
         description: "Processus, QA et structuration des données d'imagerie",
         children: [
+          { label: "Ingénierie quantitative", path: "/ingenierie-imagerie-quantitative" },
           { label: "Analyse DICOM", path: "/analyse-dicom" },
           { label: "Bases multicentriques", path: "/bases-multicentriques" },
           { label: "Recalage multimodal", path: "/recalage-multimodal" },
@@ -70,6 +72,9 @@ const NAV_CONFIG: NavItemType[] = [
         label: "Core Lab imagerie",
         path: "/corelab-essais-cliniques",
         description: "Organisation de lectures centralisées et endpoints d'essais",
+        children: [
+          { label: "Biomarqueurs IRM cardiaque", path: "/biomarqueurs-irm-cardiaque-essais-cliniques" },
+        ],
       },
     ],
   },

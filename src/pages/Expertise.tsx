@@ -156,8 +156,15 @@ const Expertise = () => {
               </div>
             </section>
 
-            <section className="space-y-8">
+            <section id="quantification-tissulaire" className="space-y-8 scroll-mt-28">
               <h2 className="text-2xl font-semibold text-center text-foreground">Champs d’intervention</h2>
+              <p className="text-center text-muted-foreground">
+                Vue transversale IRM/CT disponible sur le hub{" "}
+                <Link to="/quantification-tissulaire" className="text-primary hover:underline">
+                  Quantification tissulaire
+                </Link>
+                .
+              </p>
 
               <div className="grid md:grid-cols-3 gap-6">
                 <article className="rounded-2xl border border-border bg-card/50 p-7 space-y-4 h-full">

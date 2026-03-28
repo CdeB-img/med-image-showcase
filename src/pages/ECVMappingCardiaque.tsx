@@ -61,13 +61,13 @@ const breadcrumbJsonLd = {
     {
       "@type": "ListItem",
       position: 3,
-      name: "IRM",
-      item: "https://noxia-imagerie.fr/irm-imagerie-quantitative"
+      name: "Quantification tissulaire",
+      item: "https://noxia-imagerie.fr/quantification-tissulaire"
     },
     {
       "@type": "ListItem",
       position: 4,
-      name: "ECV & Mapping T1/T2",
+      name: "IRM cardiaque (ECV, T1/T2)",
       item: CANONICAL
     }
 
@@ -144,8 +144,8 @@ const faqJsonLd = {
               items={[
                 { label: "Accueil", path: "/" },
                 { label: "Expertise", path: "/expertise" },
-                { label: "IRM", path: "/irm-imagerie-quantitative" },
-                { label: "ECV & Mapping T1/T2" }
+                { label: "Quantification tissulaire", path: "/quantification-tissulaire" },
+                { label: "IRM cardiaque (ECV, T1/T2)" }
               ]}
             />
             {/* ================= HERO ================= */}

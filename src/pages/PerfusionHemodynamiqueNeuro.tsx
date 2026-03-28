@@ -91,13 +91,13 @@ const PerfusionHemodynamiqueNeuro = () => {
       {
         "@type": "ListItem",
         position: 3,
-        name: "Perfusion cerebrale",
+        name: "Perfusion cérébrale",
         item: "https://noxia-imagerie.fr/perfusion-cerebrale"
       },
       {
         "@type": "ListItem",
         position: 4,
-        name: "Perfusion hemodynamique cerebrale",
+        name: "Perfusion hémodynamique IRM",
         item: CANONICAL
       }
     ]
@@ -169,7 +169,7 @@ const PerfusionHemodynamiqueNeuro = () => {
                 { label: "Accueil", path: "/" },
                 { label: "Expertise", path: "/expertise" },
                 { label: "Perfusion cérébrale", path: "/perfusion-cerebrale" },
-                { label: "Perfusion hémodynamique" }
+                { label: "Perfusion hémodynamique IRM" }
               ]}
             />
 
