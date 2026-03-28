@@ -386,7 +386,7 @@ const CorelabEC = () => {
               </div>
 
               <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
-                <li>Règles de segmentation implicites ou changeantes en cours d'étude</li>
+                <li>La robustesse disparaît dès que les règles de lecture ou de segmentation ne sont plus strictement maintenues et tracées.</li>
                 <li>Hétérogénéité séquence/champ non prise en compte (1.5T vs 3T)</li>
                 <li>Corrections manuelles non tracées</li>
                 <li>Absence de politique de relecture des cas limites</li>

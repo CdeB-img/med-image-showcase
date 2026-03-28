@@ -196,6 +196,18 @@ const MethodologieImagerieQuantitative = () => {
                 méthodologique dont chaque étape doit être définie, contrôlée et justifiable.
               </p>
 
+              <p>
+                Ce cadre s’applique directement aux approches{" "}
+                <Link to="/irm-imagerie-quantitative" className="text-primary hover:underline">
+                  IRM quantitative
+                </Link>{" "}
+                et{" "}
+                <Link to="/ct-imagerie-quantitative" className="text-primary hover:underline">
+                  CT quantitative
+                </Link>
+                , où la cohérence des règles de mesure conditionne la validité des résultats.
+              </p>
+
               <ul className="list-disc pl-6 space-y-2">
                 <li>Qualification des entrées (métadonnées et géométrie)</li>
                 <li>Séparation stricte visualisation, inférence et mesure</li>

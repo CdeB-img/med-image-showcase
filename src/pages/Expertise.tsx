@@ -96,7 +96,7 @@ const Expertise = () => {
               badge="Vue d'ensemble"
               badgeIcon={Workflow}
               title="Expertise en imagerie médicale quantitative"
-              description="Transformer des images cliniques hétérogènes en biomarqueurs reproductibles, multicentriques et physiquement cohérents."
+              description="Convertir des données IRM et CT hétérogènes en mesures comparables entre centres et exploitables en décision clinique ou en essai."
               chips={["IRM", "CT", "Méthodologie"]}
               enhanced
               actions={[
@@ -109,6 +109,25 @@ const Expertise = () => {
               <h2 className="text-xl font-semibold text-foreground">Définition de l’expertise NOXIA en imagerie quantitative</h2>
               <p className="text-muted-foreground leading-relaxed">
                 L'expertise NOXIA couvre l'IRM quantitative, le CT quantitatif et la méthodologie multicentrique pour produire des biomarqueurs défendables. La différence se fait sur l'architecture complète: audit DICOM, normalisation, règles de mesure explicites, contrôles QA et traçabilité. L'objectif n'est pas de générer des cartes visuelles, mais des endpoints robustes pour décision clinique et recherche.
+              </p>
+              <p className="text-muted-foreground leading-relaxed">
+                Cette structuration s’appuie sur des axes complémentaires:{" "}
+                <Link to="/quantification-tissulaire" className="text-primary hover:underline">
+                  quantification tissulaire
+                </Link>
+                ,{" "}
+                <Link to="/perfusion-cerebrale" className="text-primary hover:underline">
+                  perfusion cérébrale
+                </Link>
+                ,{" "}
+                <Link to="/metabolisme-cerebral" className="text-primary hover:underline">
+                  métabolisme cérébral
+                </Link>{" "}
+                et{" "}
+                <Link to="/corelab-essais-cliniques" className="text-primary hover:underline">
+                  Core Lab imagerie
+                </Link>
+                .
               </p>
             </section>
 

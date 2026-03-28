@@ -241,6 +241,18 @@ const faqJsonLd = {
                 Ils sont donc plus sensibles aux conditions de mesure que des endpoints purement morphologiques.
               </p>
 
+              <p>
+                Cette lecture s’intègre dans le cadre de l’
+                <Link to="/irm-imagerie-quantitative" className="text-primary hover:underline">
+                  IRM quantitative
+                </Link>{" "}
+                et devient réellement exploitable lorsqu’elle est structurée comme endpoint dans un{" "}
+                <Link to="/corelab-essais-cliniques" className="text-primary hover:underline">
+                  Core Lab imagerie
+                </Link>
+                .
+              </p>
+
               <ul className="list-disc pl-6 space-y-2">
                 <li>Champ magnétique (1.5T vs 3T) : distributions et artefacts différents</li>
                 <li>Constructeur / version logicielle : implémentations non équivalentes</li>

@@ -282,6 +282,18 @@ const SegmentationIRM = () => {
                 et validation physiopathologique indépendante.
               </p>
 
+              <p>
+                En pratique, cette articulation se construit dans un cadre de{" "}
+                <Link to="/irm-imagerie-quantitative" className="text-primary hover:underline">
+                  quantification IRM
+                </Link>{" "}
+                avec des règles de lecture centralisées proches d’un{" "}
+                <Link to="/corelab-essais-cliniques" className="text-primary hover:underline">
+                  Core Lab imagerie
+                </Link>
+                .
+              </p>
+
               <h3 className="text-lg font-semibold text-foreground pt-2">
                 Quantification de l’ECV et corrélations histologiques
               </h3>
@@ -362,6 +374,18 @@ const SegmentationIRM = () => {
                 Chaque projet débute par un audit structuré des données :
                 cohérence géométrique (spacing, orientation), intégrité des métadonnées,
                 stabilité inter-centre et compatibilité DICOM ↔ NIfTI.
+              </p>
+
+              <p>
+                Cette étape s’inscrit dans la continuité de l’
+                <Link to="/analyse-dicom" className="text-primary hover:underline">
+                  analyse DICOM
+                </Link>{" "}
+                et des contraintes propres aux{" "}
+                <Link to="/bases-multicentriques" className="text-primary hover:underline">
+                  bases multicentriques
+                </Link>
+                .
               </p>
 
               <ul className="list-disc pl-6 space-y-2">
