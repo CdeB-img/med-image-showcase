@@ -38,7 +38,7 @@ const FAQ_ITEMS = [
   {
     question: "Quelle est la variabilité inter-constructeur en CT quantitatif ?",
     answer:
-      "Sans harmonisation explicite, la variabilité technique inter-vendor peut dépasser l’effet biologique recherché. C’est particulièrement vrai quand les reconstructions et les protocoles d’acquisition ne sont pas alignés.",
+      "Sans harmonisation explicite, la variabilité technique inter-constructeur peut dépasser l’effet biologique recherché. C’est particulièrement vrai quand les reconstructions et les protocoles d’acquisition ne sont pas alignés.",
   },
   {
     question: "Les basses énergies (<70 keV) sont-elles toujours préférables ?",
@@ -165,7 +165,7 @@ const CTQuantitatifAvance = () => {
               badgeIcon={Atom}
               title="CT quantitatif avancé & imagerie spectrale"
               description="Structurer des mesures CT robustes au-delà du contraste visuel : décomposition physique, calibration indépendante et reproductibilité multicentrique."
-              chips={["Spectral / dual-energy", "Calibration phantom", "Reproductibilité inter-vendor"]}
+              chips={["Spectral / dual-energy", "Calibration phantom", "Reproductibilité inter-constructeur"]}
               actions={[
                 { label: "Cadrer un protocole CT", to: "/contact", variant: "primary", icon: ArrowRight },
                 { label: "Voir CT quantitatif", to: "/ct-imagerie-quantitative", variant: "secondary", icon: Database },
@@ -541,7 +541,7 @@ const CTQuantitatifAvance = () => {
                   <h3 className="font-semibold text-foreground">Implications méthodologiques</h3>
                   <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-2">
                     <li>Comparer des chiffres bruts sans harmonisation expose à un biais technique.</li>
-                    <li>La calibration phantom réduit les biais systématiques inter-vendor.</li>
+                    <li>La calibration phantom réduit les biais systématiques inter-constructeur.</li>
                     <li>La reproductibilité doit être vérifiée par lot, centre et version logicielle.</li>
                     <li>La validité quantitative repose sur la chaîne complète, pas sur une seule carte.</li>
                   </ul>

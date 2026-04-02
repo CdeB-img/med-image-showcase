@@ -8,36 +8,32 @@ import {
   Cpu,
   ShieldCheck,
   AlertTriangle,
-  BarChart3,
   Workflow,
-  Layers,
   Database,
-  FileText,
-  Activity,
 } from "lucide-react";
 
 const CANONICAL = "https://noxia-imagerie.fr/scanner-comptage-photon";
 
 const FAQ_ITEMS = [
   {
-    question: "Le scanner à comptage photonique remplace-t-il immédiatement le DECT ?",
+    question: "Quels gains sont déjà rapportés avec le comptage photonique ?",
     answer:
-      "Pas en pratique courante. Il apporte des avantages physiques importants, mais son déploiement reste progressif et dépend des usages, des coûts et de la maturité des pipelines.",
+      "Les gains déjà documentés concernent surtout la résolution spatiale, la séparation matière, la détectabilité de structures fines et certaines tâches quantitatives. Leur ampleur reste liée à l’indication, au protocole et à la reconstruction.",
   },
   {
-    question: "Quels gains sont attendus avec le comptage photonique ?",
+    question: "Pourquoi la reconstruction reste-t-elle un point critique ?",
     answer:
-      "Les gains attendus concernent surtout la résolution spatiale, l'efficacité énergétique et la caractérisation matière. Leur impact clinique dépend toutefois des protocoles et de la validation locale.",
+      "Parce qu’elle modifie directement le compromis bruit/résolution et peut déplacer les métriques. Un rendu visuel plus net ne garantit pas, à lui seul, une mesure plus robuste.",
+  },
+  {
+    question: "Que permet réellement l’imagerie K-edge et la séparation matière ?",
+    answer:
+      "Elle permet de distinguer plus spécifiquement certains matériaux ou agents de contraste, avec des cas déjà rapportés en dual-contraste et en imagerie ciblée. La valeur clinique dépend de la calibration et de la cohérence de la chaîne d’analyse.",
   },
   {
     question: "Les mesures sont-elles automatiquement plus robustes ?",
     answer:
-      "Non. La technologie améliore le signal disponible, mais la robustesse reste liée à la calibration, au QA, à la reconstruction et à l'harmonisation multicentrique.",
-  },
-  {
-    question: "Existe-t-il un intérêt hors scanner diagnostique, notamment en interventionnel ?",
-    answer:
-      "Oui, potentiellement. Les principes du comptage photonique intéressent aussi l'imagerie interventionnelle et des capteurs spectraux dédiés, mais les applications cliniques restent hétérogènes selon les plateformes.",
+      "Non. Le SPCCT enrichit le signal disponible, mais la robustesse d’un endpoint dépend toujours des règles de reconstruction, de calibration, de QA et d’harmonisation inter-systèmes.",
   },
 ];
 
@@ -45,17 +41,17 @@ const ScannerComptagePhoton = () => {
   const medicalWebPageJsonLd = {
     "@context": "https://schema.org",
     "@type": "MedicalWebPage",
-    name: "Scanner à comptage photonique: enjeux quantitatifs",
+    name: "Scanner à comptage photonique (SPCCT): séparation matière, K-edge et quantification",
     description:
-      "Scanner à comptage photonique (PCCT): principes, bénéfices, limites et ouverture vers l'imagerie interventionnelle et les capteurs spectraux hors scanner.",
+      "Le scanner à comptage photonique (SPCCT) est désormais utilisé en clinique avec des bénéfices déjà documentés en résolution, séparation matière, détectabilité et quantification ciblée.",
     about: [
       "Photon-counting CT",
       "Spectral imaging",
       "Energy-resolved detectors",
       "Material decomposition",
-      "Dose optimization",
-      "Interventional imaging",
-      "Quantitative biomarkers",
+      "K-edge imaging",
+      "Quantitative imaging",
+      "Image detectability",
     ],
     specialty: ["Radiology", "Medical physics", "Quantitative imaging"],
     medicalAudience: {
@@ -88,7 +84,7 @@ const ScannerComptagePhoton = () => {
     areaServed: "Europe",
     url: CANONICAL,
     description:
-      "Cadrage méthodologique pour exploiter le comptage photonique en biomarqueurs quantitatifs robustes et comparables entre sites.",
+      "Cadrage méthodologique pour exploiter le SPCCT en biomarqueurs quantitatifs comparables et défendables.",
   };
 
   const breadcrumbJsonLd = {
@@ -97,7 +93,12 @@ const ScannerComptagePhoton = () => {
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Accueil", item: "https://noxia-imagerie.fr/" },
       { "@type": "ListItem", position: 2, name: "Expertise", item: "https://noxia-imagerie.fr/expertise" },
-      { "@type": "ListItem", position: 3, name: "CT spectral avancé", item: "https://noxia-imagerie.fr/ct-quantitatif-avance-imagerie-spectrale" },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "CT spectral avancé",
+        item: "https://noxia-imagerie.fr/ct-quantitatif-avance-imagerie-spectrale",
+      },
       {
         "@type": "ListItem",
         position: 4,
@@ -123,10 +124,10 @@ const ScannerComptagePhoton = () => {
   return (
     <>
       <Helmet>
-        <title>Scanner à comptage photonique: enjeux cliniques et QA | NOXIA</title>
+        <title>Scanner à comptage photonique: séparation matière, K-edge et quantification | NOXIA</title>
         <meta
           name="description"
-          content="Scanner à comptage photonique: principes, bénéfices réels, limites techniques et intégration multicentrique en quantification CT."
+          content="Scanner à comptage photonique: séparation matière, imagerie K-edge, détectabilité et quantification en CT spectral avancé."
         />
         <link rel="canonical" href={CANONICAL} />
         <script type="application/ld+json">{JSON.stringify(medicalWebPageJsonLd)}</script>
@@ -148,120 +149,152 @@ const ScannerComptagePhoton = () => {
             />
 
             <ExpertiseHero
-              badge="Satellite CT spectral"
+              badge="SPCCT clinique"
               badgeIcon={Cpu}
-              title="Scanner à comptage photonique"
-              description="Transformer le gain physique du photon-counting en mesure clinique robuste: résolution, caractérisation matière, QA et comparabilité multicentrique."
-              chips={["PCCT", "Résolution & énergie", "Validation multicentrique"]}
+              title="Scanner à comptage photonique (SPCCT)"
+              description="Le SPCCT est désormais une technologie clinique qui change réellement le CT lorsqu’on cherche plus de résolution, une séparation matière plus spécifique, une imagerie K-edge exploitable et une quantification utile."
+              chips={["SPCCT", "K-edge", "Séparation matière", "Quantification"]}
               actions={[
-                { label: "Cadrer un pipeline PCCT", to: "/contact", variant: "primary", icon: ArrowRight },
+                { label: "Cadrer un pipeline SPCCT", to: "/contact", variant: "primary", icon: ArrowRight },
                 { label: "Voir le pilier CT spectral", to: "/ct-quantitatif-avance-imagerie-spectrale", variant: "secondary", icon: Database },
                 { label: "Voir DECT vs conventionnel", to: "/scanner-double-energie", variant: "secondary", icon: Workflow },
               ]}
             />
 
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
-              <h2 className="text-xl font-semibold text-foreground">Définition du scanner à comptage photonique</h2>
+              <h2 className="text-xl font-semibold text-foreground">Ce que change réellement le comptage photonique</h2>
               <p className="text-muted-foreground leading-relaxed">
-                Le scanner à comptage photonique détecte les photons individuellement et exploite l’information énergétique de façon plus fine que les détecteurs intégrateurs classiques. Cette approche ouvre des perspectives fortes en quantification, mais impose une discipline technique stricte pour éviter de sur-interpréter des gains instrumentaux non validés cliniquement.
+                Le SPCCT n’est plus seulement un sujet de preuve de concept. En pratique clinique,
+                la résolution spatiale supérieure est déjà tangible sur des structures fines,
+                notamment en cardio-thoracique et en imagerie vasculaire.
+              </p>
+              <p className="text-muted-foreground leading-relaxed">
+                Sa valeur ne se limite pas à la résolution: séparation matière, imagerie K-edge,
+                détectabilité et quantification ciblée sont désormais documentées. Ces bénéfices sont
+                déjà accessibles en clinique, mais leur niveau de performance dépend de l’usage, du
+                protocole et de la chaîne de reconstruction.
               </p>
             </section>
 
             <section className="space-y-8">
-              <h2 className="text-2xl font-semibold text-foreground">Apports potentiels et limites actuelles</h2>
+              <h2 className="text-2xl font-semibold text-foreground">Ce que le SPCCT apporte — et ce qu’il faut encore contrôler</h2>
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="rounded-2xl border border-border bg-card/50 p-6 space-y-4">
                   <div className="flex items-center gap-2 font-semibold text-foreground">
                     <ShieldCheck className="w-5 h-5 text-primary" />
-                    Atouts attendus
+                    Apports déjà tangibles
                   </div>
                   <ul className="list-disc pl-6 text-sm text-muted-foreground space-y-2">
-                    <li>Résolution spatiale plus fine selon protocoles et matrices.</li>
-                    <li>Meilleure efficience énergétique pour la caractérisation matière.</li>
-                    <li>Réduction de certains artéfacts et meilleure séparation spectrale.</li>
-                    <li>Potentiel d'amélioration de biomarqueurs densité/matière.</li>
+                    <li>Résolution spatiale plus fine sur structures de petite taille.</li>
+                    <li>Meilleure séparation matière en comparaison de CT intégrateurs.</li>
+                    <li>Imagerie spectrale et K-edge plus spécifiques pour certaines tâches de caractérisation et de quantification.</li>
+                    <li>Meilleure efficience de dose dans certains protocoles.</li>
+                    <li>Réduction possible de dose et/ou de charge iodée selon l’indication, le protocole et la reconstruction.</li>
                   </ul>
                 </div>
 
                 <div className="rounded-2xl border border-border bg-card/50 p-6 space-y-4">
                   <div className="flex items-center gap-2 font-semibold text-foreground">
                     <AlertTriangle className="w-5 h-5 text-primary" />
-                    Limites de déploiement
+                    Points encore critiques
                   </div>
                   <ul className="list-disc pl-6 text-sm text-muted-foreground space-y-2">
-                    <li>Dépendance aux algorithmes de correction et de reconstruction.</li>
-                    <li>Volumes de données et complexité de QA accrus.</li>
-                    <li>Comparabilité inter-vendor encore en consolidation.</li>
-                    <li>Nécessité d'une validation endpoint avant usage d'essai.</li>
+                    <li>Dépendance forte aux choix de reconstruction et de post-traitement.</li>
+                    <li>Stabilité quantitative sensible au protocole d’acquisition.</li>
+                    <li>Comparabilité inter-systèmes non triviale en multicentrique.</li>
+                    <li>Validation indispensable des endpoints avant usage d’étude.</li>
+                    <li>Risque de surestimation si gain visuel et robustesse métrique sont confondus.</li>
                   </ul>
                 </div>
               </div>
             </section>
 
-            <section className="rounded-2xl border border-border bg-card/50 p-6 md:p-8 space-y-6">
-              <div className="flex items-center gap-2 font-semibold text-foreground">
-                <Activity className="w-5 h-5 text-primary" />
-                Ouverture hors scanner: interventionnel et autres capteurs spectraux
+            <section className="space-y-8">
+              <h2 className="text-2xl font-semibold text-foreground">Exemples de résultats déjà rapportés</h2>
+
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="rounded-2xl border border-border bg-card/50 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">Perfusion rénale dual-contraste</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Faisabilité d&apos;une perfusion rénale dynamique avec iode et gadolinium K-edge,
+                    avec modélisation gamma variate et corrélations significatives entre cartes HU,
+                    iode et gadolinium.
+                  </p>
+                </div>
+
+                <div className="rounded-2xl border border-border bg-card/50 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">Imagerie thoracique humaine haute résolution</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Faisabilité humaine rapportée avec visualisation plus fine des petites voies
+                    aériennes, des vaisseaux et des parois bronchiques, y compris dans des contextes
+                    de dose maîtrisée selon protocole.
+                  </p>
+                </div>
+
+                <div className="rounded-2xl border border-border bg-card/50 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">Imagerie cardiaque et coronaire avancée</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Intérêt rapporté pour l’analyse des stents, calcifications et plaques, avec
+                    amélioration de la détectabilité et lecture plus fine des structures coronaires,
+                    notamment sur les effets de blooming.
+                  </p>
+                </div>
               </div>
 
               <p className="text-muted-foreground leading-relaxed">
-                Les principes de comptage photonique intéressent aussi des domaines hors scanner diagnostique: imagerie interventionnelle, systèmes de fluoroscopie spectraux et capteurs spécialisés. L’enjeu reste le même: transformer un signal physique riche en indicateur clinique reproductible.
-              </p>
-
-              <p className="text-muted-foreground leading-relaxed">
-                Dans cette perspective, la logique développée en{" "}
-                <Link to="/ingenierie-imagerie-quantitative" className="text-primary hover:underline">
-                  ingénierie quantitative
-                </Link>{" "}
-                et{" "}
-                <Link to="/bases-multicentriques" className="text-primary hover:underline">
-                  harmonisation multicentrique
-                </Link>{" "}
-                reste la condition de crédibilité des biomarqueurs, quel que soit le capteur.
+                Leur exploitation quantitative reste toutefois dépendante de la reconstruction, de la calibration et de la cohérence de la chaîne technique.
               </p>
             </section>
 
             <section className="space-y-8">
-              <h2 className="text-2xl font-semibold text-foreground">Données de la littérature (ordres de grandeur prudents)</h2>
+              <h2 className="text-2xl font-semibold text-foreground">Quand le SPCCT apporte réellement quelque chose</h2>
 
               <div className="grid md:grid-cols-2 gap-6">
-                <div className="rounded-xl border border-border bg-card/60 p-6 space-y-3">
-                  <div className="flex items-center gap-2 font-semibold text-foreground">
-                    <BarChart3 className="w-5 h-5 text-primary" />
-                    Tendances rapportées
-                  </div>
+                <div className="rounded-2xl border border-border bg-card/50 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">Situations favorables</h3>
                   <ul className="list-disc pl-6 text-sm text-muted-foreground space-y-2">
-                    <li>Amélioration possible de résolution et de contraste spectral selon protocoles.</li>
-                    <li>Variabilité encore notable selon constructeur et chaîne de reconstruction.</li>
-                    <li>Gains quantitatifs dépendants du QA et des calibrations locales.</li>
+                    <li>Analyse de petites structures avec exigence de haute résolution.</li>
+                    <li>Stents, calcifications, coronaires et plaque avec besoin de lecture fine.</li>
+                    <li>Séparation matière lorsque l’information énergétique change la décision.</li>
+                    <li>Imagerie d’agents spécifiques et approches K-edge ciblées.</li>
+                    <li>Quantification dédiée dans un pipeline acquisition/reconstruction stabilisé.</li>
                   </ul>
                 </div>
 
-                <div className="rounded-xl border border-border bg-card/60 p-6 space-y-3">
-                  <div className="flex items-center gap-2 font-semibold text-foreground">
-                    <Layers className="w-5 h-5 text-primary" />
-                    Implication méthodologique
-                  </div>
+                <div className="rounded-2xl border border-border bg-card/50 p-6 space-y-3">
+                  <h3 className="font-semibold text-foreground">Situations à risque d’interprétation</h3>
                   <ul className="list-disc pl-6 text-sm text-muted-foreground space-y-2">
-                    <li>Le gain matériel ne dispense pas de validation indépendante.</li>
-                    <li>Les endpoints doivent rester robustes en conditions multicentriques.</li>
-                    <li>La traçabilité des versions est critique en phase de transition technologique.</li>
+                    <li>Comparaisons de valeurs entre protocoles non harmonisés.</li>
+                    <li>Extrapolation multicentrique sans contrôle inter-systèmes.</li>
+                    <li>Confusion entre gain visuel et endpoint quantitativement robuste.</li>
+                    <li>Lecture indépendante des cartes sans contrôle de cohérence inter-reconstructions.</li>
+                    <li>Sous-estimation de l’impact des paramètres de reconstruction.</li>
                   </ul>
                 </div>
               </div>
             </section>
 
-            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-5">
-              <div className="flex items-center gap-2 font-semibold text-foreground">
-                <FileText className="w-5 h-5 text-primary" />
-                Références & consensus
-              </div>
-              <ul className="list-disc pl-6 text-muted-foreground space-y-2">
-                <li>Recommandations émergentes sur le photon-counting CT en imagerie clinique.</li>
-                <li>Guides de physique médicale sur calibration et contrôle spectral.</li>
-                <li>Principes de reproductibilité pour biomarqueurs quantitatifs en recherche multicentrique.</li>
-              </ul>
+            <section className="rounded-2xl border border-border bg-card/50 p-6 md:p-8 space-y-4">
+              <h2 className="text-xl font-semibold text-foreground">Ce que NOXIA opère en pratique</h2>
+              <p className="text-muted-foreground leading-relaxed">
+                NOXIA structure un signal spectral riche en sorties défendables: comparaison HU, monoE
+                et cartes matière, cohérence inter-reconstructions, extraction de métriques
+                quantitatives et revue dédiée dans des viewers spectraux pour replacer chaque carte
+                dans une lecture cohérente de l’ensemble des reconstructions.
+              </p>
+              <p className="text-muted-foreground leading-relaxed">
+                Cette approche s&apos;inscrit dans une logique d&apos;
+                <Link to="/ingenierie-imagerie-quantitative" className="text-primary hover:underline">
+                  ingénierie quantitative
+                </Link>{" "}
+                et de{" "}
+                <Link to="/corelab-essais-cliniques" className="text-primary hover:underline">
+                  lecture Core Lab
+                </Link>
+                {" "}: l&apos;objectif reste une mesure exploitable, traçable, comparée et
+                interprétable dans un contexte clinique ou d&apos;étude.
+              </p>
             </section>
 
             <section className="space-y-8">
@@ -296,13 +329,14 @@ const ScannerComptagePhoton = () => {
 
             <section className="text-center space-y-4">
               <p className="text-muted-foreground">
-                Le comptage photonique est une avancée prometteuse, mais la crédibilité clinique repose toujours sur la validation méthodologique.
+                Le SPCCT devient réellement utile lorsqu’un gain instrumental est transformé en
+                mesure exploitable, traçable et interprétable.
               </p>
               <Link
                 to="/contact"
                 className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-primary-foreground font-medium"
               >
-                Discuter d’un pipeline PCCT
+                Discuter d’un pipeline SPCCT
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </section>
