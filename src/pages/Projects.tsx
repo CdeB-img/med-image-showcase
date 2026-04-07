@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import Breadcrumb from "@/components/Breadcrumb";
 import ExpertiseHero from "@/components/ExpertiseHero";
 import { Helmet } from "react-helmet-async";
-import { ArrowRight, BarChart3, Workflow } from "lucide-react";
+import { ArrowRight, BarChart3, ChevronRight, Workflow } from "lucide-react";
 
 const CANONICAL = "https://noxia-imagerie.fr/projets";
 
@@ -33,6 +33,12 @@ function CollapsibleSection({
   filter,
 }: CollapsibleSectionProps) {
   const items = projects.filter(filter);
+  const previewTitles = items.slice(0, 2).map((p) => p.title).join(" • ");
+  const remainingCount = Math.max(items.length - 2, 0);
+  const previewText =
+    remainingCount > 0
+      ? `${previewTitles} • +${remainingCount} autre${remainingCount > 1 ? "s" : ""}`
+      : previewTitles;
 
   return (
     <section className="w-full border-b border-border/40">
@@ -66,6 +72,12 @@ function CollapsibleSection({
             <p className="text-muted-foreground max-w-3xl">
               {subtitle}
             </p>
+
+            {!isOpen && (
+              <p className="text-sm text-muted-foreground/80 max-w-3xl pt-1">
+                {items.length} projet{items.length > 1 ? "s" : ""} : {previewText}
+              </p>
+            )}
           </div>
 
           {/* Icône + chevron */}
@@ -87,23 +99,26 @@ function CollapsibleSection({
             />
 
             <span
-              aria-hidden
               className={`
-                text-2xl
-                transition-transform duration-300
-                ${isOpen
-                  ? "rotate-90 text-primary"
-                  : "text-muted-foreground group-hover:text-primary"}
+                inline-flex items-center gap-1.5 text-sm font-medium
+                transition-colors
+                ${isOpen ? "text-primary" : "text-muted-foreground group-hover:text-primary"}
               `}
             >
-              ▸
+              {isOpen ? "Masquer" : "Voir le détail"}
+              <ChevronRight
+                className={`
+                  w-4 h-4 transition-transform duration-300
+                  ${isOpen ? "rotate-90" : "rotate-0"}
+                `}
+              />
             </span>
           </div>
         </div>
 
         {/* Indication mobile */}
-        <span className="block sm:hidden text-xs mt-3 text-muted-foreground/70">
-          Appuyer pour afficher les projets
+        <span className="block text-xs mt-3 text-muted-foreground/70">
+          Cliquer pour {isOpen ? "replier" : "afficher"} les projets
         </span>
       </button>
 
@@ -128,7 +143,7 @@ function CollapsibleSection({
    PAGE
 ============================================================ */
 const Projects = () => {
-  const [active, setActive] = useState<string | null>(null);
+  const [active, setActive] = useState<string | null>("segmentation");
 
   const collectionJsonLd = {
     "@context": "https://schema.org",
