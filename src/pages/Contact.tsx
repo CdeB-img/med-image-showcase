@@ -22,7 +22,7 @@ const CANONICAL = "https://noxia-imagerie.fr/contact";
 
 const PROJECT_TYPES = [
   "Audit méthodologique",
-  "CoreLab externalisé",
+  "Core Lab externalisé",
   "Reprise d'étude",
   "Ingénierie pipeline",
   "Autre besoin",
@@ -218,7 +218,7 @@ const Contact = () => {
                 </p>
                 <div className="flex flex-wrap justify-center gap-2 pt-1">
                   <span className="rounded-full border border-border bg-card/70 px-3 py-1 text-xs text-foreground">
-                    CoreLab & méthodologie
+                    Core Lab & méthodologie
                   </span>
                   <span className="rounded-full border border-border bg-card/70 px-3 py-1 text-xs text-foreground">
                     Analyse DICOM & multicentrique
@@ -240,7 +240,7 @@ const Contact = () => {
                   </p>
                 </article>
                 <article className="rounded-xl border border-border bg-card/50 p-5 space-y-2">
-                  <h3 className="font-semibold text-foreground">CoreLab externalisé</h3>
+                  <h3 className="font-semibold text-foreground">Core Lab externalisé</h3>
                   <p className="text-sm text-muted-foreground">
                     Structuration des lectures quantitatives IRM/CT pour étude mono ou multicentrique.
                   </p>
@@ -323,7 +323,7 @@ const Contact = () => {
                   <ul className="space-y-1 text-sm text-muted-foreground">
                     <li>• Audit méthodologique d'un pipeline existant</li>
                     <li>• Reprise d'une base hétérogène multicentrique</li>
-                    <li>• Structuration d'un CoreLab IRM/CT</li>
+                    <li>• Structuration d'un Core Lab IRM/CT</li>
                     <li>• Définition d'endpoints quantitatifs</li>
                   </ul>
                 </div>

@@ -523,7 +523,7 @@ const faqJsonLd = {
             {/* FAQ TECHNIQUE */}
             <section className="space-y-8">
               <h2 className="text-2xl font-semibold text-center">
-                Questions fréquentes (ECV / T1 / T2)
+                Questions fréquentes : ECV, T1 et T2
               </h2>
 
               <div className="space-y-6">

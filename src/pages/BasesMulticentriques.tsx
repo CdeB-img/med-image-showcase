@@ -362,7 +362,7 @@ const BasesMulticentriques = () => {
 
             <section className="space-y-8">
               <h2 className="text-2xl font-semibold text-center text-foreground">
-                Questions fréquentes - Bases multicentriques
+                Questions fréquentes : bases multicentriques
               </h2>
 
               <div className="grid md:grid-cols-2 gap-6">

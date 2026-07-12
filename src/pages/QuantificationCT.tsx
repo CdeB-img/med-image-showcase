@@ -157,10 +157,11 @@ const QuantificationCT = () => {
                   Robustesse physique
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Validation HU, calibration eau/air, contrôle kernel et reconstructions multiples, selon une approche alignée avec les principes de 
-                  <Link to="/irm-imagerie-quantitative" className="text-primary hover:underline">
-                    biomarqueur reproductible en IRM
-                  </Link>.
+                  Validation HU, calibration eau/air, contrôle kernel et reconstructions multiples, dans le cadre d’un{" "}
+                  <Link to="/ct-imagerie-quantitative" className="text-primary hover:underline">
+                    CT quantitatif multicentrique
+                  </Link>{" "}
+                  où le domaine de validité de chaque mesure est défini.
                 </p>
               </div>
 

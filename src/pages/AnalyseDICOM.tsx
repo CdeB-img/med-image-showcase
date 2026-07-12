@@ -176,6 +176,14 @@ const AnalyseDICOM = () => {
                 </Link>
                 .
               </p>
+
+              <p>
+                Ce contrôle constitue la première étape de la{" "}
+                <Link to="/methodologie-imagerie-quantitative" className="text-primary hover:underline">
+                  méthodologie d’imagerie quantitative
+                </Link>{" "}
+                qui fixe les règles de réception, de transformation et de validation avant toute mesure.
+              </p>
             </section>
 
             <section className="space-y-10">
@@ -371,7 +379,7 @@ const AnalyseDICOM = () => {
 
             <section className="space-y-8">
               <h2 className="text-2xl font-semibold text-center text-foreground">
-                Questions fréquentes - Analyse DICOM
+                Questions fréquentes : analyse DICOM
               </h2>
 
               <div className="grid md:grid-cols-2 gap-6">

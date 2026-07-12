@@ -1,6 +1,6 @@
 # Rapport local SEO - NOXIA
 
-Genere localement le 2026-07-12T16:25:39.558Z. Aucune requete reseau n'est effectuee.
+Genere localement le 2026-07-12T19:13:03.109Z. Aucune requete reseau n'est effectuee.
 
 ## Resume
 
@@ -20,10 +20,10 @@ Genere localement le 2026-07-12T16:25:39.558Z. Aucune requete reseau n'est effec
 | `/projets` | `src/pages/Projects.tsx` | `https://noxia-imagerie.fr/projets` | Projets d’imagerie quantitative IRM/CT en recherche | NOXIA | Projets & expertises en imagerie médicale | 59 | 152 | oui | non | 7 |
 | `/contact` | `src/pages/Contact.tsx` | `https://noxia-imagerie.fr/contact` | Contact consultant imagerie quantitative IRM/CT | NOXIA | Contact professionnel | 55 | 152 | oui | non | 5 |
 | `/segmentation-irm` | `src/pages/SegmentationIRM.tsx` | `https://noxia-imagerie.fr/segmentation-irm` | Segmentation IRM cardio-neuro: validation multicentrique | NOXIA | Segmentation IRM cérébrale & cardiaque en recherche clinique | 64 | 147 | oui | non | 8 |
-| `/analyse-dicom` | `src/pages/AnalyseDICOM.tsx` | `https://noxia-imagerie.fr/analyse-dicom` | Analyse DICOM multicentrique: audit et structuration | NOXIA | Analyse DICOM et structuration multicentrique | 60 | 160 | oui | non | 6 |
-| `/quantification-ct` | `src/pages/QuantificationCT.tsx` | `https://noxia-imagerie.fr/quantification-ct` | Quantification CT: perfusion, spectral, calibration | NOXIA | HU & calibration CT multicentrique | 59 | 151 | oui | non | 9 |
+| `/analyse-dicom` | `src/pages/AnalyseDICOM.tsx` | `https://noxia-imagerie.fr/analyse-dicom` | Analyse DICOM multicentrique: audit et structuration | NOXIA | Analyse DICOM et structuration multicentrique | 60 | 160 | oui | non | 7 |
+| `/quantification-ct` | `src/pages/QuantificationCT.tsx` | `https://noxia-imagerie.fr/quantification-ct` | Quantification CT: perfusion, spectral, calibration | NOXIA | HU & calibration CT multicentrique | 59 | 151 | oui | non | 10 |
 | `/quantification-tissulaire` | `src/pages/QuantificationTissulaire.tsx` | `https://noxia-imagerie.fr/quantification-tissulaire` | Quantification tissulaire IRM/CT: hub multicentrique | NOXIA | Quantification tissulaire en imagerie medicale | 60 | 163 | oui | non | 11 |
-| `/recalage-multimodal` | `src/pages/RecalageMultimodal.tsx` | `https://noxia-imagerie.fr/recalage-multimodal` | Recalage multimodal IRM/CT: alignement validé | NOXIA | Recalage multimodal IRM / CT | 53 | 159 | oui | non | 6 |
+| `/recalage-multimodal` | `src/pages/RecalageMultimodal.tsx` | `https://noxia-imagerie.fr/recalage-multimodal` | Recalage multimodal IRM/CT: alignement validé | NOXIA | Recalage multimodal IRM / CT | 53 | 159 | oui | non | 7 |
 | `/bases-multicentriques` | `src/pages/BasesMulticentriques.tsx` | `https://noxia-imagerie.fr/bases-multicentriques` | Bases multicentriques IRM/CT: harmonisation robuste | NOXIA | Harmonisation de bases multicentriques IRM et CT | 59 | 160 | oui | non | 11 |
 | `/corelab-essais-cliniques` | `src/pages/CorelabEC.tsx` | `https://noxia-imagerie.fr/corelab-essais-cliniques` | Core Lab IRM cardiaque: essais cliniques multicentriques | NOXIA | Core Lab IRM cardiovasculaire multicentrique | 64 | 148 | oui | non | 9 |
 | `/biomarqueurs-irm-cardiaque-essais-cliniques` | `src/pages/BiomarqueursIRMCardiaqueEssais.tsx` | `https://noxia-imagerie.fr/biomarqueurs-irm-cardiaque-essais-cliniques` | Biomarqueurs IRM cardiaque: validation en essais | NOXIA | Biomarqueurs IRM cardiaque comme endpoints d’essais cliniques | 56 | 144 | oui | non | 10 |
@@ -46,7 +46,7 @@ Genere localement le 2026-07-12T16:25:39.558Z. Aucune requete reseau n'est effec
 | `/a-propos` | `src/pages/APropos.tsx` | `https://noxia-imagerie.fr/a-propos` | Charles de Bourguignon: expertise imagerie quantitative | NOXIA | Charles de Bourguignon | 63 | 149 | oui | non | 9 |
 | `/prestations-imagerie-medicale` | `src/pages/Prestations.tsx` | `https://noxia-imagerie.fr/prestations-imagerie-medicale` | Prestations Core Lab IRM/CT: consultant indépendant | NOXIA | CoreLab IRM & CT externalisé pour études cliniques | 59 | 153 | oui | non | 7 |
 | `/expertise` | `src/pages/Expertise.tsx` | `https://noxia-imagerie.fr/expertise` | Expertise imagerie quantitative: IRM, CT, biomarqueurs | NOXIA | Expertise en imagerie médicale quantitative | 62 | 148 | oui | non | 13 |
-| `/references-publications` | `src/pages/ReferencesPublications.tsx` | `https://noxia-imagerie.fr/references-publications` | Références & publications en imagerie quantitative | NOXIA | Références & publications | 58 | 156 | oui | non | 7 |
+| `/references-publications` | `src/pages/ReferencesPublications.tsx` | `https://noxia-imagerie.fr/references-publications` | Références & publications en imagerie quantitative | NOXIA | References & publications | 58 | 156 | oui | non | 7 |
 | `/projet/perfusion-segmentation` | `src/pages/ProjectDetail.tsx` | `https://noxia-imagerie.fr/projet/perfusion-segmentation` | Segmentation perfusion CT/IRM: démonstration de pipeline | NOXIA | Perfusion cérébrale CT/IRM | 64 | 143 | oui | non | 5 |
 | `/projet/neuro-onco` | `src/pages/ProjectDetail.tsx` | `https://noxia-imagerie.fr/projet/neuro-onco` | Segmentation IRM neuro-oncologique: démonstration | NOXIA | Neuro-oncologie IRM | 57 | 152 | oui | non | 5 |
 | `/projet/recalage` | `src/pages/ProjectDetail.tsx` | `https://noxia-imagerie.fr/projet/recalage` | Recalage IRM/CT: démonstration multimodale | NOXIA | Recalage IRM / CT | 50 | 143 | oui | non | 5 |

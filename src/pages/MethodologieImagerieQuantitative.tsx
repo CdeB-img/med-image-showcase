@@ -392,7 +392,7 @@ const MethodologieImagerieQuantitative = () => {
 
             <section className="space-y-8">
               <h2 className="text-2xl font-semibold text-center text-foreground">
-                Questions fréquentes - Méthodologie quantitative
+                Questions fréquentes : méthodologie quantitative
               </h2>
 
               <div className="grid md:grid-cols-2 gap-6">

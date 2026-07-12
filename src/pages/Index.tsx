@@ -19,7 +19,7 @@ const CANONICAL = "https://noxia-imagerie.fr/";
 
 const entryPoints = [
   {
-    title: "Structurer un CoreLab IRM/CT",
+    title: "Structurer un Core Lab IRM/CT",
     description:
       "Mise en place d'un cadre méthodologique explicite pour projets hospitaliers, académiques ou industriels.",
     to: "/prestations-imagerie-medicale#corelab",
@@ -162,7 +162,7 @@ const Index = () => {
                   </p>
 
                   <div className="flex flex-wrap gap-2 pt-1">
-                    {["CoreLab IRM/CT", "Audit méthodologique", "Analyse multicentrique", "Ingénierie d'analyse"].map((chip) => (
+                    {["Core Lab IRM/CT", "Audit méthodologique", "Analyse multicentrique", "Ingénierie d'analyse"].map((chip) => (
                       <span
                         key={chip}
                         className="rounded-full border border-border bg-background/70 px-3 py-1 text-xs text-foreground"
@@ -219,7 +219,7 @@ const Index = () => {
                   <div className="aspect-[21/9] overflow-hidden">
                     <img
                       src={PROJECTS_BANNER_IMAGE}
-                      alt="Projets en imagerie médicale quantitative : IRM, CT, corelab et biomarqueurs"
+                      alt="Projets en imagerie médicale quantitative : IRM, CT, Core Lab et biomarqueurs"
                       loading="lazy"
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                     />

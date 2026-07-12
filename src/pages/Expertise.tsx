@@ -352,7 +352,7 @@ const Expertise = () => {
                   <ul className="list-disc pl-6 text-sm text-muted-foreground space-y-2">
                     <li>Écarts HU inter-système de plusieurs unités, accentués par kernel et reconstruction.</li>
                     <li>Perfusion et spectral sensibles aux choix de post-traitement et à la calibration.</li>
-                    <li>Harmonisation inter-vendor indispensable avant comparaison multicentrique.</li>
+                    <li>Harmonisation inter-constructeurs indispensable avant comparaison multicentrique.</li>
                   </ul>
                 </div>
               </div>
@@ -413,7 +413,7 @@ const Expertise = () => {
 
             <section className="space-y-8">
               <h2 className="text-2xl font-semibold text-center text-foreground">
-                Questions fréquentes - Expertise imagerie quantitative
+                Questions fréquentes : expertise en imagerie quantitative
               </h2>
 
               <div className="grid md:grid-cols-2 gap-6">

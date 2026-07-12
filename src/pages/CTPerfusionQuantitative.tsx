@@ -523,7 +523,7 @@ const CTPerfusionQuantitative = () => {
             {/* FAQ visible (doit matcher le FAQ JSON-LD) */}
             <section className="space-y-8">
               <h2 className="text-2xl font-semibold text-center text-foreground">
-                Questions fréquentes (CT Perfusion AVC)
+                Questions fréquentes : CT perfusion AVC
               </h2>
 
               <div className="grid md:grid-cols-2 gap-6">

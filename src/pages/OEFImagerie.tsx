@@ -154,7 +154,7 @@ const OEFImagerie = () => {
             </section>
 
             <section className="rounded-2xl border border-border bg-card/50 p-6 md:p-8 space-y-4">
-              <h2 className="text-xl font-semibold text-foreground">Acronymes / definitions rapides</h2>
+              <h2 className="text-xl font-semibold text-foreground">Acronymes / définitions rapides</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4 text-sm text-muted-foreground">
                 <div>
                   <div className="font-semibold text-foreground">OEF</div>
@@ -203,7 +203,7 @@ const OEFImagerie = () => {
               <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
                 <div className="flex items-center gap-2 font-semibold text-foreground">
                   <Layers className="w-5 h-5 text-primary" />
-                  Lecture combinee
+                  Lecture combinée
                 </div>
                 <p className="text-sm text-muted-foreground">
                   Interpretation a relier au CBF, au CMRO2, a la diffusion et au contexte clinique.
@@ -213,7 +213,7 @@ const OEFImagerie = () => {
 
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                Definition physiologique de l'OEF
+                Définition physiologique de l’OEF
               </h2>
 
               <p>
@@ -255,7 +255,7 @@ const OEFImagerie = () => {
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-6">
               <div className="flex items-center gap-2 text-foreground font-semibold">
                 <Workflow className="w-5 h-5 text-primary" />
-                Du signal a la mesure interpretable
+                Du signal à la mesure interprétable
               </div>
 
               <p className="text-muted-foreground leading-relaxed">
@@ -374,7 +374,7 @@ const OEFImagerie = () => {
 
             <section className="space-y-8">
               <h2 className="text-2xl font-semibold text-center text-foreground">
-                Questions frequentes - OEF
+                Questions fréquentes : OEF
               </h2>
 
               <div className="grid md:grid-cols-2 gap-6">

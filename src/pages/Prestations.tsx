@@ -154,7 +154,7 @@ const Prestations = () => {
                   to="/prestations-imagerie-medicale#corelab"
                   className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
                 >
-                  CoreLab IRM & CT
+                  Core Lab IRM & CT
                   <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link
@@ -254,7 +254,7 @@ const Prestations = () => {
                 <article id="corelab" className="scroll-mt-28 rounded-2xl border border-border bg-card/50 p-7 space-y-4">
                   <div className="flex items-center gap-2 text-foreground font-semibold">
                     <Layers className="w-5 h-5 text-primary" />
-                    CoreLab IRM & CT externalisé
+                    Core Lab IRM & CT externalisé
                   </div>
 
                   <p className="text-muted-foreground text-sm leading-relaxed">
@@ -275,7 +275,7 @@ const Prestations = () => {
                   </ul>
 
                   <Link to="/contact" className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline">
-                    Cadrer un CoreLab
+                    Cadrer un Core Lab
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </article>
@@ -388,7 +388,7 @@ const Prestations = () => {
                   </p>
                 </div>
                 <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
-                  <h3 className="font-semibold text-foreground">Accompagnement CoreLab</h3>
+                  <h3 className="font-semibold text-foreground">Accompagnement Core Lab</h3>
                   <p className="text-xs text-primary font-medium uppercase tracking-wide">Gouvernance définie</p>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     Pilotage global de la chaîne imagerie avec gouvernance et reporting.

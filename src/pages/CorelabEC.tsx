@@ -443,7 +443,7 @@ const CorelabEC = () => {
             {/* FAQ */}
             <section className="space-y-8">
                 <h2 className="text-2xl font-semibold text-center text-foreground">
-                Questions fréquentes - Core Lab IRM
+                Questions fréquentes : Core Lab IRM cardiaque
               </h2>
 
               <div className="grid md:grid-cols-2 gap-6">

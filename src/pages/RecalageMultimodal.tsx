@@ -174,6 +174,14 @@ const RecalageMultimodal = () => {
                 </Link>
                 .
               </p>
+
+              <p>
+                La{" "}
+                <Link to="/methodologie-imagerie-quantitative" className="text-primary hover:underline">
+                  méthodologie d’imagerie quantitative
+                </Link>{" "}
+                précise ensuite les critères qui permettent de retenir un recalage pour la mesure, et non pour la seule visualisation.
+              </p>
             </section>
 
             <section className="space-y-10">
@@ -359,7 +367,7 @@ const RecalageMultimodal = () => {
 
             <section className="space-y-8">
               <h2 className="text-2xl font-semibold text-center text-foreground">
-                Questions fréquentes - Recalage multimodal
+                Questions fréquentes : recalage multimodal
               </h2>
 
               <div className="grid md:grid-cols-2 gap-6">

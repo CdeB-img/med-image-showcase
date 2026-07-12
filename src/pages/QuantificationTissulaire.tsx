@@ -217,17 +217,17 @@ const QuantificationTissulaire = () => {
                 <li>Validation inter-centres avant interpretation biologique.</li>
               </ul>
               <p className="text-muted-foreground leading-relaxed">
-                Cette logique est detaillee dans la page
-                {" "}<Link to="/methodologie-imagerie-quantitative" className="text-primary hover:underline">Methodologie quantitative</Link>
-                {" "}et mise en oeuvre via
-                {" "}<Link to="/ingenierie-imagerie-quantitative" className="text-primary hover:underline">l'ingenierie de pipeline</Link>.
+                Cette logique est détaillée dans la page
+                {" "}<Link to="/methodologie-imagerie-quantitative" className="text-primary hover:underline">méthodologie quantitative</Link>
+                {" "}et mise en œuvre via
+                {" "}<Link to="/ingenierie-imagerie-quantitative" className="text-primary hover:underline">l’ingénierie de pipeline</Link>.
               </p>
             </section>
 
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-6">
               <div className="flex items-center gap-2 text-foreground font-semibold">
                 <BarChart3 className="w-5 h-5 text-primary" />
-                Reperes litterature (ordres de grandeur)
+                Repères de la littérature (ordres de grandeur)
               </div>
               <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
                 <li>IRM: des variations de plusieurs pourcents peuvent apparaitre entre centres sans harmonisation des sequences.</li>
@@ -238,7 +238,7 @@ const QuantificationTissulaire = () => {
 
             <section className="space-y-8">
               <h2 className="text-2xl font-semibold text-center text-foreground">
-                Questions frequentes - Quantification tissulaire
+                Questions fréquentes : quantification tissulaire
               </h2>
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="rounded-xl border border-border bg-card/50 p-6">
@@ -269,19 +269,19 @@ const QuantificationTissulaire = () => {
             </section>
 
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
-              <h2 className="text-xl font-semibold">Pages associees</h2>
+              <h2 className="text-xl font-semibold text-foreground">Pages associées</h2>
               <div className="flex flex-wrap gap-3">
                 <Link to="/irm-imagerie-quantitative" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">IRM quantitative <ArrowRight className="w-4 h-4" /></Link>
                 <Link to="/ct-imagerie-quantitative" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">CT quantitative <ArrowRight className="w-4 h-4" /></Link>
                 <Link to="/quantification-ct" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">HU & calibration CT <ArrowRight className="w-4 h-4" /></Link>
                 <Link to="/ecv-mapping-t1-t2-irm-cardiaque" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">IRM cardiaque (ECV/T1/T2) <ArrowRight className="w-4 h-4" /></Link>
-                <Link to="/methodologie-imagerie-quantitative" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">Methodologie <ArrowRight className="w-4 h-4" /></Link>
+                <Link to="/methodologie-imagerie-quantitative" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">Méthodologie <ArrowRight className="w-4 h-4" /></Link>
               </div>
             </section>
 
             <section className="text-center space-y-5 pt-4">
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                L'objectif de la quantification tissulaire est de transformer des mesures fragiles en biomarqueurs exploitables, interpretable et defendables.
+                L'objectif de la quantification tissulaire est de transformer des mesures fragiles en biomarqueurs exploitables, interprétables et défendables.
               </p>
               <Link
                 to="/contact"

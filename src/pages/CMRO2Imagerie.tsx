@@ -154,7 +154,7 @@ const CMRO2Imagerie = () => {
             </section>
 
             <section className="rounded-2xl border border-border bg-card/50 p-6 md:p-8 space-y-4">
-              <h2 className="text-xl font-semibold text-foreground">Acronymes / definitions rapides</h2>
+              <h2 className="text-xl font-semibold text-foreground">Acronymes / définitions rapides</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4 text-sm text-muted-foreground">
                 <div>
                   <div className="font-semibold text-foreground">CMRO2</div>
@@ -183,7 +183,7 @@ const CMRO2Imagerie = () => {
               <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
                 <div className="flex items-center gap-2 font-semibold text-foreground">
                   <Brain className="w-5 h-5 text-primary" />
-                  Metabolisme
+                  Métabolisme
                 </div>
                 <p className="text-sm text-muted-foreground">
                   Reflet de l'activite energetique neuronale et de la capacite du tissu a utiliser l'oxygene disponible.
@@ -193,7 +193,7 @@ const CMRO2Imagerie = () => {
               <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
                 <div className="flex items-center gap-2 font-semibold text-foreground">
                   <Activity className="w-5 h-5 text-primary" />
-                  Viabilite
+                  Viabilité
                 </div>
                 <p className="text-sm text-muted-foreground">
                   Aide a distinguer adaptation compensatoire, penombre encore recuperable et effondrement metabolique.
@@ -203,7 +203,7 @@ const CMRO2Imagerie = () => {
               <div className="rounded-xl border border-border bg-card/50 p-6 space-y-3">
                 <div className="flex items-center gap-2 font-semibold text-foreground">
                   <Layers className="w-5 h-5 text-primary" />
-                  Multimodalite
+                  Multimodalité
                 </div>
                 <p className="text-sm text-muted-foreground">
                   Interpretation a mettre en regard de la diffusion, de la perfusion, de l'OEF et du contexte clinique.
@@ -213,7 +213,7 @@ const CMRO2Imagerie = () => {
 
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                Definition physiologique du CMRO2
+                Définition physiologique du CMRO2
               </h2>
 
               <p>
@@ -259,7 +259,7 @@ const CMRO2Imagerie = () => {
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-6">
               <div className="flex items-center gap-2 text-foreground font-semibold">
                 <Workflow className="w-5 h-5 text-primary" />
-                Du signal au biomarqueur interpretable
+                Du signal au biomarqueur interprétable
               </div>
 
               <p className="text-muted-foreground leading-relaxed">
@@ -399,7 +399,7 @@ const CMRO2Imagerie = () => {
 
             <section className="space-y-8">
               <h2 className="text-2xl font-semibold text-center text-foreground">
-                Questions frequentes - CMRO2
+                Questions fréquentes : CMRO2
               </h2>
 
               <div className="grid md:grid-cols-2 gap-6">
@@ -456,7 +456,7 @@ const CMRO2Imagerie = () => {
 
             <section className="text-center space-y-4">
               <p className="text-muted-foreground">
-                Le metabolisme cerebral ne s'interprete pas isolément :
+                Le métabolisme cérébral ne s'interprète pas isolément :
                 il demande une lecture conjointe de la perfusion, de l'extraction et de la consommation.
               </p>
 

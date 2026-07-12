@@ -106,7 +106,7 @@ const Footer = () => {
           </p>
 
           <p className="text-[11px] text-muted-foreground/70">
-            Imagerie quantitative · CoreLab · IRM & CT · Recherche clinique
+            Imagerie quantitative · Core Lab · IRM & CT · Recherche clinique
           </p>
         </div>
 
