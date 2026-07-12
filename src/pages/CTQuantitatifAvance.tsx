@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Breadcrumb from "@/components/Breadcrumb";
 import ExpertiseHero from "@/components/ExpertiseHero";
+import AuthorExpertiseBlock from "@/components/AuthorExpertiseBlock";
 import {
   ArrowRight,
   ShieldCheck,
@@ -146,7 +147,6 @@ const CTQuantitatifAvance = () => {
         <script type="application/ld+json">{JSON.stringify(medicalWebPageJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(serviceJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
@@ -180,7 +180,20 @@ const CTQuantitatifAvance = () => {
               <p className="text-muted-foreground leading-relaxed">
                 Le CT spectral (scanner à double énergie) utilise plusieurs niveaux d’énergie pour différencier les matériaux et produire des reconstructions monoénergétiques. Son intérêt en quantification est d’améliorer l’interprétation physique des mesures, notamment pour l’iode et les tissus denses. Son intérêt dépend directement du cadre technique : sans calibration, contrôle de reconstruction et harmonisation inter-constructeurs, l’information énergétique peut devenir plus instable qu’interprétable.
               </p>
+              <p className="text-muted-foreground leading-relaxed">
+                Cette approche devient décisive lorsqu'une mesure doit être comparée entre lots, centres ou bras d'étude.
+                Elle ne transforme pas automatiquement une reconstruction spectrale en endpoint : la stabilité du protocole
+                et le domaine de validité de la métrique restent à démontrer.
+              </p>
             </section>
+
+            <AuthorExpertiseBlock
+              context="Sur un protocole spectral, la valeur ne vient pas d'une carte isolée mais de la comparaison cohérente des reconstructions, des paramètres d'acquisition et des sorties quantitatives avant toute interprétation clinique ou statistique."
+              links={[
+                { label: "Voir le parcours", to: "/a-propos" },
+                { label: "Références & publications", to: "/references-publications" },
+              ]}
+            />
 
             <section className="rounded-2xl border border-border bg-card/50 p-6 md:p-8 space-y-4">
               <h2 className="text-xl font-semibold text-foreground">Acronymes / definitions rapides</h2>
@@ -552,13 +565,13 @@ const CTQuantitatifAvance = () => {
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-5">
               <div className="flex items-center gap-2 font-semibold text-foreground">
                 <FileText className="w-5 h-5 text-primary" />
-                Références & consensus
+                Points de validation à documenter
               </div>
               <ul className="list-disc pl-5 text-muted-foreground space-y-2">
-                <li>Recommandations de sociétés savantes sur le CT spectral / dual-energy en pratique clinique.</li>
-                <li>Cadres de calibration phantom et de contrôle qualité en physique médicale (AAPM/QIBA).</li>
-                <li>Bonnes pratiques de reproductibilité des quantitative imaging biomarkers en multicentrique.</li>
-                <li>Principes de traçabilité pipeline, auditabilité et validation inter-plateformes en recherche clinique.</li>
+                <li>Indication clinique, protocole d'acquisition et version de reconstruction réellement comparés.</li>
+                <li>Calibration phantom et critères de contrôle qualité définis avant l'extraction métrique.</li>
+                <li>Références spécifiques à l'endpoint retenu, plutôt qu'une bibliographie générique de technologie.</li>
+                <li>Traçabilité des versions et stratégie de comparaison inter-constructeurs lorsque plusieurs systèmes sont inclus.</li>
               </ul>
             </section>
 

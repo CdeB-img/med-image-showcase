@@ -129,7 +129,6 @@ const QuantificationTissulaire = () => {
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(serviceJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
@@ -157,9 +156,11 @@ const QuantificationTissulaire = () => {
             />
 
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
-              <h2 className="text-xl font-semibold text-foreground">Reponse courte</h2>
+              <h2 className="text-xl font-semibold text-foreground">
+                Définition de la quantification tissulaire en imagerie
+              </h2>
               <p className="text-muted-foreground leading-relaxed">
-                La quantification tissulaire convertit le signal d'imagerie en mesures reproductibles du tissu, et pas seulement en images interpretable visuellement. En pratique, la robustesse depend de la combinaison: protocoles, segmentation, calibration, QA et harmonisation multicentrique.
+                La quantification tissulaire convertit le signal d&apos;imagerie en mesures reproductibles du tissu, et pas seulement en images interprétables visuellement. En pratique, la robustesse dépend de la combinaison entre protocoles, segmentation, calibration, QA et harmonisation multicentrique.
               </p>
             </section>
 

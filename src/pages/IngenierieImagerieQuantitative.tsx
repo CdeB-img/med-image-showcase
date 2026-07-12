@@ -120,7 +120,6 @@ const IngenierieImagerieQuantitative = () => {
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(serviceJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
@@ -161,6 +160,13 @@ const IngenierieImagerieQuantitative = () => {
                 cohérence géométrique, normalisation du signal, post-traitement morphologique 
                 et extraction métrique. L'ingénierie vise à rendre cette chaîne 
                 explicite, versionnée et reproductible.
+              </p>
+              <p className="text-muted-foreground leading-relaxed">
+                Elle met en œuvre les principes de{" "}
+                <Link to="/methodologie-imagerie-quantitative" className="text-primary hover:underline">
+                  méthodologie quantitative
+                </Link>{" "}
+                dans des pipelines dont les hypothèses, les dépendances et les livrables restent auditables.
               </p>
             </section>
 

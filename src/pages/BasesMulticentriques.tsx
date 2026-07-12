@@ -86,7 +86,6 @@ const BasesMulticentriques = () => {
         <link rel="canonical" href={CANONICAL} />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
@@ -170,6 +169,14 @@ const BasesMulticentriques = () => {
                   Core Lab
                 </Link>
                 .
+              </p>
+
+              <p>
+                Les règles d&apos;harmonisation doivent être définies avant l&apos;analyse, dans le cadre de la{" "}
+                <Link to="/methodologie-imagerie-quantitative" className="text-primary hover:underline">
+                  méthodologie quantitative
+                </Link>
+                , puis appliquées de façon traçable à chaque lot de données.
               </p>
 
               <p>
@@ -319,11 +326,11 @@ const BasesMulticentriques = () => {
             </section>
 
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
-              <h2 className="text-xl font-semibold">Références & standards utiles</h2>
+              <h2 className="text-xl font-semibold">Conditions d'harmonisation à documenter</h2>
               <ul className="list-disc pl-6 text-muted-foreground space-y-2">
-                <li>Guides multicentriques de standardisation IRM et CT</li>
-                <li>Recommandations de bonnes pratiques en quantitative imaging biomarkers</li>
-                <li>Cadres QA/QC pour essais cliniques multicentriques</li>
+                <li>Stratification par centre, constructeur, protocole, séquence et reconstruction.</li>
+                <li>Règles de normalisation, de calibration et de traitement des valeurs manquantes.</li>
+                <li>Contrôles QA, critères d&apos;exclusion et gestion des écarts au protocole.</li>
               </ul>
             </section>
 

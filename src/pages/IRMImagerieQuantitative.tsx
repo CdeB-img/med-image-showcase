@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Breadcrumb from "@/components/Breadcrumb";
 import ExpertiseHero from "@/components/ExpertiseHero";
+import AuthorExpertiseBlock from "@/components/AuthorExpertiseBlock";
 import {
   ArrowRight,
   ShieldCheck,
@@ -125,7 +126,7 @@ const jsonLd = {
   return (
     <>
       <Helmet>
-        <title>IRM quantitative multicentrique: biomarqueurs validés | NOXIA</title>
+        <title>IRM quantitative multicentrique: biomarqueurs robustes | NOXIA</title>
 
         <meta
           name="description"
@@ -142,9 +143,6 @@ const jsonLd = {
           {JSON.stringify(breadcrumbJsonLd)}
         </script>
 
-        <script type="application/ld+json">
-          {JSON.stringify(faqJsonLd)}
-        </script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
@@ -183,7 +181,11 @@ const jsonLd = {
                 Définition de l’IRM quantitative multicentrique
               </h2>
               <p className="text-muted-foreground leading-relaxed">
-                L’IRM quantitative transforme le signal IRM en biomarqueurs mesurables comme le LGE, l’ECV, le T1 mapping et le T2 mapping. Ces mesures ne sont pas directement comparables sans contrôle des séquences, des règles de segmentation et du post-traitement. Une IRM quantitative défendable nécessite donc une méthodologie explicite et une harmonisation multicentrique.
+                L’IRM quantitative transforme le signal IRM en biomarqueurs mesurables comme le LGE, l’ECV, le T1 mapping et le T2 mapping. Ces mesures ne sont pas directement comparables sans contrôle des séquences, des règles de segmentation et du post-traitement. Elle constitue le volet IRM de la{" "}
+                <Link to="/quantification-tissulaire" className="text-primary hover:underline">
+                  quantification tissulaire
+                </Link>{" "}
+                et nécessite une méthodologie explicite ainsi qu’une harmonisation multicentrique.
               </p>
               <p className="text-muted-foreground leading-relaxed">
                 En essai clinique, ces mesures servent à stratifier, comparer et suivre des trajectoires tissulaires.
@@ -437,6 +439,20 @@ const jsonLd = {
                 </Link>.
               </p>
             </section>
+
+            <AuthorExpertiseBlock
+              context={
+                <>
+                  En IRM quantitative, la valeur d&apos;une analyse dépend de la séparation entre acquisition, segmentation,
+                  mesure et contrôle qualité. L&apos;objectif est de préserver des règles de lecture stables lorsque les données
+                  proviennent de séquences, de centres ou de versions logicielles différents.
+                </>
+              }
+              links={[
+                { label: "Publications et contributions", to: "/references-publications" },
+                { label: "Cadre Core Lab", to: "/corelab-essais-cliniques" },
+              ]}
+            />
 
             {/* FAQ VISUELLE */}
             <section className="space-y-8">

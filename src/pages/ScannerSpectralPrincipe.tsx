@@ -121,7 +121,7 @@ const ScannerSpectralPrincipe = () => {
   return (
     <>
       <Helmet>
-        <title>Principe du scanner spectral: DECT, PCCT et quantification | NOXIA</title>
+        <title>Principe du scanner spectral: DECT et PCCT | NOXIA</title>
         <meta
           name="description"
           content="Principe du scanner spectral: bases physiques, différences DECT/PCCT et impact concret sur la robustesse des biomarqueurs CT multicentriques."
@@ -130,7 +130,6 @@ const ScannerSpectralPrincipe = () => {
         <script type="application/ld+json">{JSON.stringify(medicalWebPageJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(serviceJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
@@ -223,7 +222,7 @@ const ScannerSpectralPrincipe = () => {
                   <ul className="list-disc pl-6 text-sm text-muted-foreground space-y-2">
                     <li>Des gains de contraste peuvent être importants à basses énergies.</li>
                     <li>Le bruit augmente souvent quand l’énergie baisse fortement.</li>
-                    <li>Les écarts inter-vendor restent non négligeables sans harmonisation.</li>
+                    <li>Les écarts inter-constructeurs restent non négligeables sans harmonisation.</li>
                   </ul>
                 </div>
 
@@ -244,12 +243,12 @@ const ScannerSpectralPrincipe = () => {
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-5">
               <div className="flex items-center gap-2 font-semibold text-foreground">
                 <FileText className="w-5 h-5 text-primary" />
-                Références & consensus
+                Conditions de validité à documenter
               </div>
               <ul className="list-disc pl-6 text-muted-foreground space-y-2">
-                <li>Consensus sur imagerie CT spectral/DECT et pratiques de reconstruction.</li>
-                <li>Cadres de physique médicale (QA, calibration, comparabilité).</li>
-                <li>Guides de reproductibilité pour biomarqueurs quantitatifs en recherche clinique.</li>
+                <li>Hypothèses de décomposition retenues par le constructeur et le protocole.</li>
+                <li>Version de reconstruction, niveau d'énergie et paramètres de débruitage comparés.</li>
+                <li>Calibration, contrôle qualité et métrique de reproductibilité définis avant usage d'endpoint.</li>
               </ul>
             </section>
 

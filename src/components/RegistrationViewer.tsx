@@ -80,7 +80,7 @@ export default function RegistrationViewer({
       <div className="space-y-4">
         {/* Row labels */}
         <div className="grid grid-cols-3 gap-3">
-          <div className="text-center text-sm font-medium text-muted-foreground col-span-3">Multimodal  CT / IRM</div>
+          <div className="text-center text-sm font-medium text-muted-foreground col-span-3">Multimodal CT / IRM</div>
         </div>
 
         {/* Multimodal row */}
@@ -88,14 +88,14 @@ export default function RegistrationViewer({
           {multimodalPairs.map((pair, idx) => <div key={`multi-${idx}`} className="aspect-square bg-black rounded-lg overflow-hidden relative border border-border/50">
               {/* Background: Reference */}
               <div className={cn("absolute inset-0 flex items-center justify-center", ROTATION_CLASS)}>
-                <img src={pair.reference} alt={`Reference ${idx + 1}`} className="w-full h-full object-contain" crossOrigin="anonymous" />
+                <img src={pair.reference} alt={`Image de référence pour le recalage, ${pair.label}`} loading="lazy" className="w-full h-full object-contain" crossOrigin="anonymous" />
               </div>
 
               {/* Overlay: Registered with opacity */}
               <div className={cn("absolute inset-0 flex items-center justify-center pointer-events-none", ROTATION_CLASS)} style={{
             opacity
           }}>
-                <img src={pair.registered} alt={`Registered ${idx + 1}`} className="w-full h-full object-contain mix-blend-screen" crossOrigin="anonymous" />
+                <img src={pair.registered} alt="" loading="lazy" className="w-full h-full object-contain mix-blend-screen" crossOrigin="anonymous" />
               </div>
 
               {/* Label */}
@@ -119,14 +119,14 @@ export default function RegistrationViewer({
           {monomodalPairs.map((pair, idx) => <div key={`mono-${idx}`} className="aspect-square bg-black rounded-lg overflow-hidden relative border border-border/50">
               {/* Background: Reference */}
               <div className={cn("absolute inset-0 flex items-center justify-center", ROTATION_CLASS)}>
-                <img src={pair.reference} alt={`Reference ${idx + 1}`} className="w-full h-full object-contain" crossOrigin="anonymous" />
+                <img src={pair.reference} alt={`Image de référence pour le recalage, ${pair.label}`} loading="lazy" className="w-full h-full object-contain" crossOrigin="anonymous" />
               </div>
 
               {/* Overlay: Registered with opacity */}
               <div className={cn("absolute inset-0 flex items-center justify-center pointer-events-none", ROTATION_CLASS)} style={{
             opacity
           }}>
-                <img src={pair.registered} alt={`Registered ${idx + 1}`} className="w-full h-full object-contain mix-blend-screen" crossOrigin="anonymous" />
+                <img src={pair.registered} alt="" loading="lazy" className="w-full h-full object-contain mix-blend-screen" crossOrigin="anonymous" />
               </div>
 
               {/* Label */}

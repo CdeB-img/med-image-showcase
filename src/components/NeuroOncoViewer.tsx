@@ -102,9 +102,9 @@ export default function NeuroOncoViewer({ className, hideHero = false }: Props) 
             <div className="aspect-square bg-black rounded-lg overflow-hidden">
               <img
                 src={nativeSlices[sliceIndex]}
-                alt={`Native slice ${sliceIndex + 1}`}
-                className="w-full h-full object-contain"
+                alt={`IRM native de démonstration, coupe ${sliceIndex + 1}`}
                 loading="lazy"
+                className="w-full h-full object-contain"
                 decoding="async"
               />
             </div>
@@ -117,7 +117,8 @@ export default function NeuroOncoViewer({ className, hideHero = false }: Props) 
             <div className="aspect-square bg-black rounded-lg overflow-hidden">
               <img
                 src={overlaySlices[sliceIndex]}
-                alt={`Overlay slice ${sliceIndex + 1}`}
+                alt={`Segmentation superposée de démonstration, coupe ${sliceIndex + 1}`}
+                loading="lazy"
                 className="w-full h-full object-contain"
               />
             </div>

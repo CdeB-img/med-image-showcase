@@ -168,7 +168,6 @@ const CTPerfusionQuantitative = () => {
         <script type="application/ld+json">{JSON.stringify(medicalWebPageJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(serviceJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
@@ -279,6 +278,14 @@ const CTPerfusionQuantitative = () => {
                 et sont utiles en pratique. Mais le volume final dépend d’une chaîne algorithmique :
                 déconvolution (SVD), sélection AIF/VOF, filtrage, résolution temporelle, lissage,
                 et contraintes propres à chaque plateforme.
+              </p>
+
+              <p>
+                Cette lecture s&apos;inscrit dans le cadre plus large de la{" "}
+                <Link to="/perfusion-cerebrale" className="text-primary hover:underline">
+                  perfusion cérébrale quantitative
+                </Link>{" "}
+                : les cartes CT répondent à une question hémodynamique et doivent rester cohérentes avec le protocole, le contexte clinique et les règles de mesure retenues.
               </p>
 
               <ul className="list-disc pl-6 space-y-2">

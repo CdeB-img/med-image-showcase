@@ -121,7 +121,6 @@ const Prestations = () => {
         <link rel="canonical" href={CANONICAL} />
         <script type="application/ld+json">{JSON.stringify(serviceJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
@@ -259,7 +258,11 @@ const Prestations = () => {
                   </div>
 
                   <p className="text-muted-foreground text-sm leading-relaxed">
-                    Mise en place et pilotage d'un circuit image complet pour essais cliniques, cohortes et projets translationnels.
+                    Mise en place et pilotage d'un circuit image complet pour essais cliniques, cohortes et projets translationnels,
+                    selon les principes détaillés pour un{" "}
+                    <Link to="/corelab-essais-cliniques" className="text-primary hover:underline">
+                      Core Lab imagerie
+                    </Link>.
                   </p>
                   <p className="text-xs text-muted-foreground">
                     Idéal si vous démarrez une étude multicentrique ou si vous voulez externaliser l'ensemble du flux image.
@@ -284,7 +287,11 @@ const Prestations = () => {
                   </div>
 
                   <p className="text-muted-foreground text-sm leading-relaxed">
-                    Intervention sur études en difficulté méthodologique pour reconstruire un flux défendable avant analyse finale.
+                    Intervention sur études en difficulté méthodologique pour reconstruire un flux défendable avant analyse finale,
+                    à partir d’un audit des données et de leurs contraintes{" "}
+                    <Link to="/analyse-dicom" className="text-primary hover:underline">
+                      DICOM
+                    </Link>.
                   </p>
                   <p className="text-xs text-muted-foreground">
                     Idéal si les données sont déjà acquises et nécessitent une relecture méthodologique.
@@ -309,7 +316,11 @@ const Prestations = () => {
                   </div>
 
                   <p className="text-muted-foreground text-sm leading-relaxed">
-                    Analyse critique d'un pipeline existant et plan d'action concret pour clarifier hypothèses, risques et choix analytiques.
+                    Analyse critique d'un pipeline existant et plan d'action concret pour clarifier hypothèses, risques et choix analytiques,
+                    notamment dans des{" "}
+                    <Link to="/bases-multicentriques" className="text-primary hover:underline">
+                      bases multicentriques
+                    </Link>.
                   </p>
                   <p className="text-xs text-muted-foreground">
                     Idéal pour un avis externe indépendant avant verrouillage des analyses ou soumission.
@@ -334,7 +345,11 @@ const Prestations = () => {
                   </div>
 
                   <p className="text-muted-foreground text-sm leading-relaxed">
-                    Développement d'outils et d'architectures data en support des objectifs scientifiques et opérationnels.
+                    Développement d'outils et d'architectures data en support des objectifs scientifiques et opérationnels,
+                    dans le prolongement de l’{" "}
+                    <Link to="/ingenierie-imagerie-quantitative" className="text-primary hover:underline">
+                      ingénierie en imagerie quantitative
+                    </Link>.
                   </p>
                   <p className="text-xs text-muted-foreground">
                     Idéal si vous avez un besoin technique spécifique non couvert par les outils standards.

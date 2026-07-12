@@ -10,6 +10,8 @@ import {
   ShieldCheck,
   Workflow,
 } from "lucide-react";
+import { siteIdentity } from "@/config/siteIdentity";
+import { organizationReference } from "@/lib/structuredData";
 
 const OG_IMAGE = "https://noxia-imagerie.fr/images/branding/og-home.webp";
 const PROJECTS_BANNER_IMAGE = "https://noxia-imagerie.fr/images/branding/og-projets.webp";
@@ -106,20 +108,15 @@ const Index = () => {
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": ["ProfessionalService", "MedicalBusiness"],
-              name: "NOXIA Imagerie",
+              "@type": "ProfessionalService",
+              "@id": `${CANONICAL}#service`,
+              name: siteIdentity.organization.name,
               url: CANONICAL,
               description:
                 "Expert indépendant en imagerie médicale quantitative spécialisé en biomarqueurs IRM et CT, corelab d’essais cliniques et structuration multicentrique.",
-              areaServed: "Europe",
-              serviceType: [
-                "Corelab IRM",
-                "Corelab CT",
-                "Biomarqueurs d'imagerie",
-                "Structuration multicentrique",
-                "Segmentation quantitative",
-                "Imagerie de perfusion",
-              ],
+              provider: organizationReference,
+              areaServed: siteIdentity.organization.areaServed,
+              serviceType: "Conseil en imagerie médicale quantitative",
               knowsAbout: [
                 "IRM cardiaque",
                 "IRM cérébrale",
@@ -148,14 +145,20 @@ const Index = () => {
                   </h2>
 
                   <p className="text-muted-foreground leading-relaxed">
-                    NOXIA intervient comme expertise indépendante en IRM et CT quantitative,
-                    avec une approche orientée méthodologie, qualité des données et lisibilité
-                    des choix analytiques.
+                  NOXIA intervient comme expertise indépendante en IRM et CT quantitative,
+                  avec une approche orientée méthodologie, qualité des données et lisibilité
+                  des choix analytiques. Pour les études cliniques, cette logique se traduit par une
+                  <Link to="/corelab-essais-cliniques" className="text-primary hover:underline"> lecture Core Lab structurée</Link>{" "}
+                  des endpoints et des règles de contrôle.
                   </p>
 
                   <p className="text-muted-foreground leading-relaxed">
-                    L'objectif est de transformer des données hétérogènes en livrables
-                    exploitables, traçables et discutables scientifiquement.
+                  L'objectif est de transformer des données hétérogènes en livrables
+                  exploitables, traçables et discutables scientifiquement, selon un cadre de{" "}
+                  <Link to="/methodologie-imagerie-quantitative" className="text-primary hover:underline">
+                    méthodologie quantitative
+                  </Link>{" "}
+                  et d’<Link to="/ingenierie-imagerie-quantitative" className="text-primary hover:underline">ingénierie de pipeline</Link> explicite.
                   </p>
 
                   <div className="flex flex-wrap gap-2 pt-1">
@@ -217,6 +220,7 @@ const Index = () => {
                     <img
                       src={PROJECTS_BANNER_IMAGE}
                       alt="Projets en imagerie médicale quantitative : IRM, CT, corelab et biomarqueurs"
+                      loading="lazy"
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                     />
                   </div>

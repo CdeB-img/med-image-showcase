@@ -24,7 +24,8 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
         <div className="relative aspect-square overflow-hidden bg-surface">
           <img
             src={project.thumbnailUrl}
-            alt={project.title}
+            alt={`Aperçu du projet : ${project.title}`}
+            loading="lazy"
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
           {/* Gradient subtil pour la lisibilité si besoin */}

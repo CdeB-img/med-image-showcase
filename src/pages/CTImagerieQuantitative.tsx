@@ -151,9 +151,6 @@ const CTImagerieQuantitative = () => {
           {JSON.stringify(breadcrumbJsonLd)}
         </script>
 
-        <script type="application/ld+json">
-          {JSON.stringify(faqJsonLd)}
-        </script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
@@ -188,7 +185,14 @@ const CTImagerieQuantitative = () => {
                 Définition du CT quantitatif multicentrique
               </h2>
               <p className="text-muted-foreground leading-relaxed">
-                Le CT quantitatif consiste à produire des mesures CT comparables entre patients et entre centres, et pas seulement des images lisibles. En pratique, la valeur des unités Hounsfield dépend du constructeur, des reconstructions et du protocole d’acquisition. Un CT quantitatif robuste repose donc sur l’audit DICOM, la calibration phantom et l’harmonisation multicentrique.
+                Le CT quantitatif consiste à produire des mesures CT comparables entre patients et entre centres, et pas seulement des images lisibles. En pratique, la valeur des unités Hounsfield dépend du constructeur, des reconstructions et du protocole d’acquisition. Un CT quantitatif robuste repose donc sur l’audit DICOM, la calibration phantom et l’harmonisation multicentrique. La logique de mesure HU est détaillée dans la{" "}
+                <Link to="/quantification-ct" className="text-primary hover:underline">
+                  quantification CT
+                </Link>{" "}
+                et les reconstructions énergétiques dans le{" "}
+                <Link to="/ct-quantitatif-avance-imagerie-spectrale" className="text-primary hover:underline">
+                  CT spectral avancé
+                </Link>.
               </p>
             </section>
 

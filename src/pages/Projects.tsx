@@ -316,7 +316,7 @@ const Projects = () => {
                 isOpen={active === "methodo"}
                 onToggle={toggleSection}
                 filter={(p) =>
-                  p.analysisType === "Registration" ||
+                  p.analysisType === "Recalage" ||
                   p.analysisType === "Prototypage"
                 }
               />

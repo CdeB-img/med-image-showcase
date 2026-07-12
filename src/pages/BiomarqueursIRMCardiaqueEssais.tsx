@@ -146,10 +146,6 @@ const faqJsonLd = {
         {JSON.stringify(breadcrumbJsonLd)}
       </script>
 
-      {/* JSON-LD FAQ */}
-      <script type="application/ld+json">
-        {JSON.stringify(faqJsonLd)}
-      </script>
     </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
@@ -195,7 +191,11 @@ const faqJsonLd = {
                 <Link to="/corelab-essais-cliniques" className="text-primary hover:underline">
                   Core Lab imagerie
                 </Link>
-                , avec règles de lecture, contrôles qualité et traçabilité harmonisés entre centres.
+                , avec règles de lecture, contrôles qualité et traçabilité harmonisés entre centres. Elle s&apos;appuie sur la{" "}
+                <Link to="/quantification-tissulaire" className="text-primary hover:underline">
+                  quantification tissulaire
+                </Link>{" "}
+                pour relier une mesure locale à un endpoint exploitable à l&apos;échelle de l&apos;étude.
               </p>
             </section>
 

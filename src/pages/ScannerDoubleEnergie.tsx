@@ -123,7 +123,7 @@ const ScannerDoubleEnergie = () => {
   return (
     <>
       <Helmet>
-        <title>Scanner double énergie vs conventionnel: cadre quantitatif | NOXIA</title>
+        <title>Scanner double énergie: analyse vs CT conventionnel | NOXIA</title>
         <meta
           name="description"
           content="Scanner double énergie vs conventionnel: gains cliniques, limites, impact dose et validation multicentrique pour mesures CT robustes."
@@ -132,7 +132,6 @@ const ScannerDoubleEnergie = () => {
         <script type="application/ld+json">{JSON.stringify(medicalWebPageJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(serviceJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
@@ -163,7 +162,10 @@ const ScannerDoubleEnergie = () => {
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
               <h2 className="text-xl font-semibold text-foreground">Définition du scanner double énergie</h2>
               <p className="text-muted-foreground leading-relaxed">
-                Le scanner double énergie acquiert ou reconstruit l’information à plusieurs niveaux d’énergie, ce qui améliore la différenciation matière par rapport au scanner conventionnel. Son intérêt n’est pas uniquement visuel: il peut renforcer certaines mesures quantitatives, à condition de contrôler reconstruction, calibration et variabilité inter-constructeurs.
+                Le scanner double énergie est désormais utilisé en pratique clinique pour exploiter l'information énergie-dépendante de l'atténuation. Il améliore la séparation matière par rapport au scanner conventionnel et peut renforcer certaines mesures quantitatives, à condition de contrôler reconstruction, calibration et variabilité inter-constructeurs. Les principes physiques sous-jacents sont détaillés sur la page{" "}
+                <Link to="/scanner-spectral-principe" className="text-primary hover:underline">
+                  principe du scanner spectral
+                </Link>.
               </p>
             </section>
 
@@ -259,12 +261,12 @@ const ScannerDoubleEnergie = () => {
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-5">
               <div className="flex items-center gap-2 font-semibold text-foreground">
                 <FileText className="w-5 h-5 text-primary" />
-                Références & consensus
+                Points de validation à documenter
               </div>
               <ul className="list-disc pl-6 text-muted-foreground space-y-2">
-                <li>Recommandations de sociétés savantes sur le scanner spectral / dual-energy.</li>
-                <li>Cadres de physique médicale sur calibration phantom et QA CT.</li>
-                <li>Principes de reproductibilité des biomarqueurs quantitatifs multicentriques.</li>
+                <li>Indication et question de caractérisation matière visées par le protocole.</li>
+                <li>Paramètres de dose, d'injection et de reconstruction effectivement comparés.</li>
+                <li>Calibration et critères de reproductibilité adaptés à la mesure retenue.</li>
               </ul>
             </section>
 

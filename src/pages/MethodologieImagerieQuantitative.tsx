@@ -128,7 +128,6 @@ const MethodologieImagerieQuantitative = () => {
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(serviceJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
@@ -206,6 +205,15 @@ const MethodologieImagerieQuantitative = () => {
                   CT quantitative
                 </Link>
                 , où la cohérence des règles de mesure conditionne la validité des résultats.
+              </p>
+
+              <p>
+                Dans un{" "}
+                <Link to="/corelab-essais-cliniques" className="text-primary hover:underline">
+                  Core Lab imagerie
+                </Link>
+                , ces principes deviennent des règles de lecture, de contrôle qualité et de traçabilité appliquées
+                de manière identique à chaque centre.
               </p>
 
               <ul className="list-disc pl-6 space-y-2">

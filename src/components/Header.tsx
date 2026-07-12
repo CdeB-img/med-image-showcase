@@ -2,16 +2,21 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { ChevronDown, Menu, X, ChevronRight } from "lucide-react";
-import { projects as _projects } from "@/data/projects";
+import { projects, type Project } from "@/data/projects";
 
 /* =========================
    CONFIG & TYPES (description ajouté)
    ========================= */
-const projects = Array.isArray(_projects) ? _projects : [];
+type NavigationItem = {
+  label: string;
+  path: string;
+  description?: string;
+  children?: NavigationItem[];
+};
 
-type Child = { label: string; path: string; children?: Child[] };
-type Category = { label: string; path: string; description?: string; children?: Child[] };
-type NavItemType = { label: string; path: string; children?: Category[] };
+type Child = NavigationItem;
+type Category = NavigationItem;
+type NavItemType = NavigationItem;
 
 const NAV_CONFIG: NavItemType[] = [
   {
@@ -91,7 +96,7 @@ const NAV_CONFIG: NavItemType[] = [
   {
     label: "Projets",
     path: "/projets",
-    children: projects.map((p: any) => ({ label: p.title, path: `/projet/${p.id}` })),
+    children: projects.map((project: Project) => ({ label: project.title, path: `/projet/${project.id}` })),
   },
 ];
 
@@ -113,24 +118,11 @@ const parsePathWithHash = (p: string) => {
   };
 };
 
-const isBranchActive = (item: NavItemType | Category | Child | undefined, pathname: string, hash: string | undefined) => {
-  if (!item || !("path" in item) || !item.path) return false;
-  const parsed = parsePathWithHash((item as any).path);
+const isBranchActive = (item: NavigationItem | undefined, pathname: string, hash: string | undefined) => {
+  if (!item) return false;
+  const parsed = parsePathWithHash(item.path);
   if (parsed.pathname === pathname && (parsed.hash || "") === (hash || "")) return true;
-  if ((item as any).children) {
-    return (item as any).children.some((c: any) => {
-      const pc = parsePathWithHash(c.path);
-      if (pc.pathname === pathname && (pc.hash || "") === (hash || "")) return true;
-      if (c.children) {
-        return c.children.some((g: any) => {
-          const pg = parsePathWithHash(g.path);
-          return pg.pathname === pathname && (pg.hash || "") === (hash || "");
-        });
-      }
-      return false;
-    });
-  }
-  return false;
+  return item.children?.some((child) => isBranchActive(child, pathname, hash)) ?? false;
 };
 
 /* =========================
@@ -163,8 +155,8 @@ const DesktopNavItem: React.FC<{ item: NavItemType }> = ({ item }) => {
 
   useEffect(() => {
     if (!open || !isMega) return;
-    const match = item.children?.find((c: any) => isBranchActive(c, location.pathname, location.hash));
-    setHoveredCat((match as Category) || (item.children?.[0] as Category) || null);
+    const match = item.children?.find((category) => isBranchActive(category, location.pathname, location.hash));
+    setHoveredCat(match ?? item.children?.[0] ?? null);
   }, [open, isMega, item.children, location.pathname, location.hash]);
 
   const parentActive = isBranchActive(item, location.pathname, location.hash);
@@ -189,7 +181,7 @@ const DesktopNavItem: React.FC<{ item: NavItemType }> = ({ item }) => {
             <div className="w-[680px] bg-background/80 border border-border rounded-xl shadow-2xl flex min-h-[320px] overflow-hidden backdrop-blur-sm">
               {/* colonne gauche */}
               <div className="w-[220px] bg-muted/5 border-r border-border p-2 flex flex-col gap-1">
-                {item.children!.map((cat: any) => {
+                {item.children!.map((cat) => {
                   const active = isBranchActive(cat, location.pathname, location.hash) || hoveredCat?.label === cat.label;
                   return (
                     <Link
@@ -217,7 +209,7 @@ const DesktopNavItem: React.FC<{ item: NavItemType }> = ({ item }) => {
                 </div>
 
                 <div className="grid grid-cols-1 gap-1">
-                  {hoveredCat?.children?.map((sub: any) => (
+                  {hoveredCat?.children?.map((sub) => (
                     <Link
                       key={sub.path}
                       to={sub.path}
@@ -238,7 +230,7 @@ const DesktopNavItem: React.FC<{ item: NavItemType }> = ({ item }) => {
             </div>
           ) : (
             <div className="w-72 bg-background border border-border rounded-xl shadow-xl p-2 flex flex-col gap-1">
-              {item.children!.map((child: any) => {
+              {item.children!.map((child) => {
                 const parsed = parsePathWithHash(child.path);
                 const isHashTarget = parsed.pathname === location.pathname && parsed.hash === (location.hash || "");
                 return (

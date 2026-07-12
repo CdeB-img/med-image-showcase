@@ -93,7 +93,6 @@ const AnalyseDICOM = () => {
         <link rel="canonical" href={CANONICAL} />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
@@ -246,6 +245,10 @@ const AnalyseDICOM = () => {
                 <Link to="/ingenierie-imagerie-quantitative" className="text-primary hover:underline">
                   ingénierie quantitative
                 </Link>
+                , notamment avant la constitution de{" "}
+                <Link to="/bases-multicentriques" className="text-primary hover:underline">
+                  bases multicentriques
+                </Link>
                 .
               </p>
             </section>
@@ -332,11 +335,11 @@ const AnalyseDICOM = () => {
             </section>
 
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
-              <h2 className="text-xl font-semibold">Références & standards utiles</h2>
+              <h2 className="text-xl font-semibold">Points de conformité à documenter</h2>
               <ul className="list-disc pl-6 text-muted-foreground space-y-2">
-                <li>DICOM Standard (IOD, tags, cohérence géométrique)</li>
-                <li>Guides de bonnes pratiques d'anonymisation en imagerie clinique</li>
-                <li>Recommandations de QA pour pipelines d'imagerie quantitative</li>
+                <li>Classes DICOM, tags critiques et cohérence géométrique attendus par le protocole.</li>
+                <li>Règles d&apos;anonymisation et de conservation des informations nécessaires à l&apos;analyse.</li>
+                <li>Critères QA d&apos;acceptation, d&apos;exclusion et de rerun avant conversion ou mesure.</li>
               </ul>
             </section>
 

@@ -1,10 +1,4 @@
-import {
-  ArrowRight,
-  Brain,
-  Activity,
-  Database,
-  Heart,
-} from "lucide-react";
+import { ArrowRight, Brain, Activity, Database, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import {
@@ -70,31 +64,35 @@ const HeroSection = () => {
 
           {/* Main heading */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight max-w-4xl">
-            Expert en{" "}
-            <span className="text-primary text-glow">Imagerie Médicale</span>{" "}
-            pour la Recherche
+            Imagerie quantitative{" "}
+            <span className="text-primary text-glow">pour la recherche clinique</span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
-            Prestataire indépendant spécialisé dans le traitement et l’analyse
-            d’images médicales. Segmentation, quantification et solutions sur
-            mesure pour la recherche clinique.
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl leading-relaxed">
+            NOXIA accompagne les équipes cliniques et de recherche sur les données IRM et CT :
+            Core Lab, biomarqueurs, segmentation, quantification et structuration de pipelines multicentriques.
           </p>
 
-          {/* CTA */}
-          <Link to="/projets">
-            <Button size="lg" className="group glow-primary">
-              Découvrir les projets
-              <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-            </Button>
-          </Link>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Link to="/prestations-imagerie-medicale">
+              <Button size="lg" className="group glow-primary">
+                Cadrer une mission
+                <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </Link>
+            <Link to="/expertise">
+              <Button size="lg" variant="outline" className="group">
+                Explorer les expertises
+                <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </Link>
+          </div>
 
           {/* Credibility line */}
-          <p className="text-sm md:text-base text-muted-foreground max-w-xl italic">
-            Ingénieur en imagerie médicale, avec une maîtrise de la chaîne
-            d’analyse, du signal brut aux biomarqueurs exploitables, pour des
-            résultats interprétables, traçables et reproductibles.
+          <p className="text-sm md:text-base text-muted-foreground max-w-2xl italic">
+            Du contrôle des données au livrable statistique, chaque mesure est conçue pour rester
+            interprétable, traçable et utilisable dans un protocole ou un essai.
           </p>
 
           {/* Icon cluster */}

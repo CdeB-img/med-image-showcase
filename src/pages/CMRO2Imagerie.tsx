@@ -117,7 +117,6 @@ const CMRO2Imagerie = () => {
         <link rel="canonical" href={CANONICAL} />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
@@ -222,7 +221,11 @@ const CMRO2Imagerie = () => {
               </p>
 
               <p>
-                Contrairement aux paramètres purement hémodynamiques, le CMRO2 vise une lecture plus directe de la viabilité neuronale. Son intérêt est maximal quand il est interprété avec l’
+                Contrairement aux paramètres purement hémodynamiques, le CMRO2 vise une lecture plus directe de la viabilité neuronale. Son intérêt est maximal lorsqu&apos;il est replacé dans le{" "}
+                <Link to="/metabolisme-cerebral" className="text-primary hover:underline">
+                  métabolisme cérébral
+                </Link>{" "}
+                et interprété avec l’
                 <Link to="/oef-imagerie-cerebrale" className="text-primary hover:underline">
                   OEF
                 </Link>

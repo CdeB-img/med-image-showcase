@@ -130,10 +130,6 @@ const SegmentationIRM = () => {
           {JSON.stringify(jsonLd)}
         </script>
 
-        {/* JSON-LD FAQ */}
-        <script type="application/ld+json">
-          {JSON.stringify(faqJsonLd)}
-        </script>
 
         <script type="application/ld+json">
           {JSON.stringify(breadcrumbJsonLd)}
@@ -264,7 +260,11 @@ const SegmentationIRM = () => {
                     Validité scientifique
                   </div>
                   <p>
-                    Un masque “joli” n’est pas un biomarqueur. Le pipeline doit documenter
+                    Un masque “joli” n’est pas un biomarqueur. Dans une logique de{" "}
+                    <Link to="/quantification-tissulaire" className="text-primary hover:underline">
+                      quantification tissulaire
+                    </Link>
+                    , le pipeline doit documenter
                     hypothèses, seuils, post-traitements et impact sur les métriques.
                   </p>
                 </div>

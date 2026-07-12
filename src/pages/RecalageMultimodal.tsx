@@ -86,7 +86,6 @@ const RecalageMultimodal = () => {
         <link rel="canonical" href={CANONICAL} />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
@@ -168,6 +167,10 @@ const RecalageMultimodal = () => {
                 et de l'{" "}
                 <Link to="/analyse-dicom" className="text-primary hover:underline">
                   audit DICOM
+                </Link>
+                {" "}et de l&apos;
+                <Link to="/ingenierie-imagerie-quantitative" className="text-primary hover:underline">
+                  ingénierie quantitative
                 </Link>
                 .
               </p>
@@ -320,11 +323,11 @@ const RecalageMultimodal = () => {
             </section>
 
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
-              <h2 className="text-xl font-semibold">Références & standards utiles</h2>
+              <h2 className="text-xl font-semibold">Conditions de validation à documenter</h2>
               <ul className="list-disc pl-6 text-muted-foreground space-y-2">
-                <li>ITK/ANTs bonnes pratiques de registration médicale</li>
-                <li>Consensus sur validation de recalage en imagerie clinique</li>
-                <li>Cadres QA/QC pour pipelines longitudinaux et multimodaux</li>
+                <li>Type de transformation, métrique de similarité et paramètres d&apos;optimisation retenus.</li>
+                <li>Contrôles visuels, métriques quantitatives et critères d&apos;acceptation par cas.</li>
+                <li>Gestion des échecs, transformations sauvegardées et versions de pipeline utilisées.</li>
               </ul>
             </section>
 

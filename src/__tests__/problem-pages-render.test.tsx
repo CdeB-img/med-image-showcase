@@ -20,44 +20,46 @@ const wrap = (ui: React.ReactElement) => (
   </HelmetProvider>
 );
 
+const renderPage = (ui: React.ReactElement) => render(wrap(ui));
+
 describe("Problem pages render", () => {
   it("renders CMRO2", () => {
-    expect(() => render(wrap(<CMRO2Imagerie />))).not.toThrow();
+    expect(() => renderPage(<CMRO2Imagerie />)).not.toThrow();
   });
 
   it("renders OEF", () => {
-    expect(() => render(wrap(<OEFImagerie />))).not.toThrow();
+    expect(() => renderPage(<OEFImagerie />)).not.toThrow();
   });
 
   it("renders Perfusion", () => {
-    expect(() => render(wrap(<PerfusionMetaboliqueNeuro />))).not.toThrow();
+    expect(() => renderPage(<PerfusionMetaboliqueNeuro />)).not.toThrow();
   });
 
   it("renders Perfusion hub", () => {
-    expect(() => render(wrap(<PerfusionCerebrale />))).not.toThrow();
+    expect(() => renderPage(<PerfusionCerebrale />)).not.toThrow();
   });
 
   it("renders Metabolisme hub", () => {
-    expect(() => render(wrap(<MetabolismeCerebral />))).not.toThrow();
+    expect(() => renderPage(<MetabolismeCerebral />)).not.toThrow();
   });
 
   it("renders CT spectral", () => {
-    expect(() => render(wrap(<CTQuantitatifAvance />))).not.toThrow();
+    expect(() => renderPage(<CTQuantitatifAvance />)).not.toThrow();
   });
 
   it("renders CT perfusion", () => {
-    expect(() => render(wrap(<CTPerfusionQuantitative />))).not.toThrow();
+    expect(() => renderPage(<CTPerfusionQuantitative />)).not.toThrow();
   });
 
   it("renders CorelabEC", () => {
-    expect(() => render(wrap(<CorelabEC />))).not.toThrow();
+    expect(() => renderPage(<CorelabEC />)).not.toThrow();
   });
 
   it("renders Biomarqueurs", () => {
-    expect(() => render(wrap(<BiomarqueursIRMCardiaqueEssais />))).not.toThrow();
+    expect(() => renderPage(<BiomarqueursIRMCardiaqueEssais />)).not.toThrow();
   });
 
   it("renders ECV", () => {
-    expect(() => render(wrap(<ECVMappingCardiaque />))).not.toThrow();
+    expect(() => renderPage(<ECVMappingCardiaque />)).not.toThrow();
   });
 });

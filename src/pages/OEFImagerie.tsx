@@ -117,7 +117,6 @@ const OEFImagerie = () => {
         <link rel="canonical" href={CANONICAL} />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
@@ -222,7 +221,11 @@ const OEFImagerie = () => {
               </p>
 
               <p>
-                Ce n’est pas une mesure de débit mais une mesure d’adaptation métabolique. Son interprétation devient robuste quand elle est intégrée au pipeline de{" "}
+                Ce n’est pas une mesure de débit mais une mesure d’adaptation métabolique. Son interprétation devient robuste lorsqu&apos;elle est replacée dans le{" "}
+                <Link to="/metabolisme-cerebral" className="text-primary hover:underline">
+                  métabolisme cérébral
+                </Link>{" "}
+                et intégrée au pipeline de{" "}
                 <Link to="/perfusion-metabolique-neuro-imagerie" className="text-primary hover:underline">
                   perfusion/métabolisme IRM
                 </Link>{" "}

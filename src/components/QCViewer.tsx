@@ -7,6 +7,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import MaskOverlay from "@/components/MaskOverlay";
+import WindowedImage from "@/components/WindowedImage";
 
 interface ImagePair {
   label: string;
@@ -32,6 +33,7 @@ export default function QCViewer({
   const [sliceIndex, setSliceIndex] = React.useState(
     maxSlices > 0 ? Math.floor(maxSlices / 2) : 0
   );
+  const [windowing, setWindowing] = React.useState({ center: 128, width: 256 });
 
   React.useEffect(() => {
     setSliceIndex((prev) =>
@@ -74,6 +76,47 @@ export default function QCViewer({
         </span>
       </div>
 
+      <div className="flex flex-wrap items-center gap-2 rounded-md border border-border/50 bg-muted/20 p-2">
+        <label className="flex items-center gap-2 text-[11px] text-muted-foreground">
+          Centre
+          <input
+            type="number"
+            value={windowing.center}
+            onChange={(event) =>
+              setWindowing((prev) => ({
+                ...prev,
+                center: Number(event.target.value),
+              }))
+            }
+            className="h-7 w-20 rounded border border-border bg-background px-2 font-mono text-xs text-foreground"
+          />
+        </label>
+
+        <label className="flex items-center gap-2 text-[11px] text-muted-foreground">
+          Largeur
+          <input
+            type="number"
+            min={1}
+            value={windowing.width}
+            onChange={(event) =>
+              setWindowing((prev) => ({
+                ...prev,
+                width: Math.max(1, Number(event.target.value)),
+              }))
+            }
+            className="h-7 w-20 rounded border border-border bg-background px-2 font-mono text-xs text-foreground"
+          />
+        </label>
+
+        <button
+          type="button"
+          onClick={() => setWindowing({ center: 128, width: 256 })}
+          className="h-7 rounded border border-border px-3 text-xs text-muted-foreground hover:bg-muted/40 hover:text-foreground"
+        >
+          Reset
+        </button>
+      </div>
+
       {/* ===== Grille 4 colonnes fixes ===== */}
       <div className="grid grid-cols-4 gap-[2px]">
         {pairs.map((pair) => (
@@ -81,11 +124,15 @@ export default function QCViewer({
             <ImageCell
               src={pair.native[sliceIndex]}
               label={pair.label}
+              windowing={windowing}
+              onWindowChange={setWindowing}
             />
             <ImageCell
               src={pair.native[sliceIndex]}
               mask={pair.mask[sliceIndex]}
               label={`${pair.label}+mask`}
+              windowing={windowing}
+              onWindowChange={setWindowing}
             />
           </React.Fragment>
         ))}
@@ -113,16 +160,22 @@ function ImageCell({
   src,
   mask,
   label,
+  windowing,
+  onWindowChange,
 }: {
   src: string;
   mask?: string;
   label: string;
+  windowing: { center: number; width: number };
+  onWindowChange: (next: { center: number; width: number }) => void;
 }) {
   return (
     <div className="relative aspect-square bg-black overflow-hidden">
-      <img
+      <WindowedImage
         src={src}
-        alt={label}
+        windowCenter={windowing.center}
+        windowWidth={windowing.width}
+        onWindowChange={onWindowChange}
         className={cn(
           "absolute inset-0 w-full h-full object-contain",
           ROTATION_CLASS

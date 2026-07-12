@@ -112,7 +112,7 @@ const CardiacViewer = ({ className, hideHero = false }: Props) => {
           {/* Diastole */}
           <div className="space-y-3">
             <div className="aspect-square bg-black rounded-lg overflow-hidden border border-border">
-              <img src={`${RAW_BASE}/cardio/diastole.webp`} alt="Télédiastole" className="w-full h-full object-contain" />
+              <img src={`${RAW_BASE}/cardio/diastole.webp`} alt="IRM cardiaque de démonstration en télédiastole" loading="lazy" className="w-full h-full object-contain" />
             </div>
             <div className="text-center">
               <span className="text-sm font-medium">Télédiastole</span>
@@ -123,7 +123,7 @@ const CardiacViewer = ({ className, hideHero = false }: Props) => {
           {/* Systole */}
           <div className="space-y-3">
             <div className="aspect-square bg-black rounded-lg overflow-hidden border border-border">
-              <img src={`${RAW_BASE}/cardio/systole.webp`} alt="Télésystole" className="w-full h-full object-contain" />
+              <img src={`${RAW_BASE}/cardio/systole.webp`} alt="IRM cardiaque de démonstration en télésystole" loading="lazy" className="w-full h-full object-contain" />
             </div>
             <div className="text-center">
               <span className="text-sm font-medium">Télésystole</span>
@@ -151,7 +151,7 @@ const CardiacViewer = ({ className, hideHero = false }: Props) => {
           {/* Base */}
           <div className="space-y-3">
             <div className="aspect-square bg-black rounded-lg overflow-hidden border border-border">
-              <img src={`${RAW_BASE}/cardio/base.webp`} alt="Étage basal" className="w-full h-full object-contain" />
+              <img src={`${RAW_BASE}/cardio/base.webp`} alt="IRM cardiaque de démonstration, étage basal" loading="lazy" className="w-full h-full object-contain" />
             </div>
             <div className="text-center">
               <span className="text-sm font-medium">Basal</span>
@@ -162,7 +162,7 @@ const CardiacViewer = ({ className, hideHero = false }: Props) => {
           {/* Mid */}
           <div className="space-y-3">
             <div className="aspect-square bg-black rounded-lg overflow-hidden border border-border">
-              <img src={`${RAW_BASE}/cardio/mid.webp`} alt="Étage médio-ventriculaire" className="w-full h-full object-contain" />
+              <img src={`${RAW_BASE}/cardio/mid.webp`} alt="IRM cardiaque de démonstration, étage médio-ventriculaire" loading="lazy" className="w-full h-full object-contain" />
             </div>
             <div className="text-center">
               <span className="text-sm font-medium">Médio-ventriculaire</span>
@@ -173,7 +173,7 @@ const CardiacViewer = ({ className, hideHero = false }: Props) => {
           {/* Apex */}
           <div className="space-y-3">
             <div className="aspect-square bg-black rounded-lg overflow-hidden border border-border">
-              <img src={`${RAW_BASE}/cardio/apex.webp`} alt="Étage apical" className="w-full h-full object-contain" />
+              <img src={`${RAW_BASE}/cardio/apex.webp`} alt="IRM cardiaque de démonstration, étage apical" loading="lazy" className="w-full h-full object-contain" />
             </div>
             <div className="text-center">
               <span className="text-sm font-medium">Apical</span>

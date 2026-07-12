@@ -105,7 +105,6 @@ const QuantificationCT = () => {
         <link rel="canonical" href={CANONICAL} />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
@@ -241,8 +240,8 @@ const QuantificationCT = () => {
                     <li>Contrôle cohérence temporelle</li>
                     <li>Gestion artefacts mouvement</li>
                   </ul>
-                  <Link to="/perfusion-metabolique-neuro-imagerie" className="text-primary text-sm hover:underline">
-                    Voir perfusion IRM →
+                  <Link to="/ct-perfusion-quantitative-avc" className="text-primary text-sm hover:underline">
+                    Voir CT perfusion AVC →
                   </Link>
                 </div>
 

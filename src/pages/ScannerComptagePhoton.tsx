@@ -124,7 +124,7 @@ const ScannerComptagePhoton = () => {
   return (
     <>
       <Helmet>
-        <title>Scanner à comptage photonique: séparation matière, K-edge et quantification | NOXIA</title>
+        <title>Scanner à comptage photonique: K-edge et quantification | NOXIA</title>
         <meta
           name="description"
           content="Scanner à comptage photonique: séparation matière, imagerie K-edge, détectabilité et quantification en CT spectral avancé."
@@ -133,7 +133,6 @@ const ScannerComptagePhoton = () => {
         <script type="application/ld+json">{JSON.stringify(medicalWebPageJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(serviceJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">

@@ -17,6 +17,7 @@ const ROTATION_CLASS = "-rotate-90 scale-[1.42]";
 const SliceViewer = React.forwardRef<HTMLDivElement, Props>(
   ({ nativeSlices, processedSlices, className }, ref) => {
     const [sliceIndex, setSliceIndex] = React.useState(0);
+    const [windowing, setWindowing] = React.useState({ center: 128, width: 256 });
 
     const maxSlices = Math.min(
       nativeSlices?.length ?? 0,
@@ -41,6 +42,9 @@ const SliceViewer = React.forwardRef<HTMLDivElement, Props>(
             <div className={cn("w-full h-full", ROTATION_CLASS)}>
               <WindowedImage
                 src={nativeSlices[sliceIndex]}
+                windowCenter={windowing.center}
+                windowWidth={windowing.width}
+                onWindowChange={setWindowing}
                 className="w-full h-full"
               />
             </div>
@@ -60,6 +64,9 @@ const SliceViewer = React.forwardRef<HTMLDivElement, Props>(
             >
               <WindowedImage
                 src={nativeSlices[sliceIndex]}
+                windowCenter={windowing.center}
+                windowWidth={windowing.width}
+                onWindowChange={setWindowing}
                 className="w-full h-full"
               />
             </div>
@@ -98,6 +105,41 @@ const SliceViewer = React.forwardRef<HTMLDivElement, Props>(
           <span className="text-sm font-mono w-16 text-right">
             {sliceIndex + 1}/{maxSlices}
           </span>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2 rounded-md border border-border/50 bg-muted/20 p-2">
+          <label className="flex items-center gap-2 text-xs text-muted-foreground">
+            Centre
+            <input
+              type="number"
+              value={windowing.center}
+              onChange={(event) =>
+                setWindowing((prev) => ({ ...prev, center: Number(event.target.value) }))
+              }
+              className="h-8 w-24 rounded border border-border bg-background px-2 font-mono text-xs text-foreground"
+            />
+          </label>
+
+          <label className="flex items-center gap-2 text-xs text-muted-foreground">
+            Largeur
+            <input
+              type="number"
+              min={1}
+              value={windowing.width}
+              onChange={(event) =>
+                setWindowing((prev) => ({ ...prev, width: Math.max(1, Number(event.target.value)) }))
+              }
+              className="h-8 w-24 rounded border border-border bg-background px-2 font-mono text-xs text-foreground"
+            />
+          </label>
+
+          <button
+            type="button"
+            onClick={() => setWindowing({ center: 128, width: 256 })}
+            className="h-8 rounded border border-border px-3 text-xs text-muted-foreground hover:bg-muted/40 hover:text-foreground"
+          >
+            Reset
+          </button>
         </div>
       </div>
     );

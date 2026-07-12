@@ -178,7 +178,7 @@ const ProjectDetail = () => {
   return (
     <>
       <Helmet>
-        <title>{project.title} | NOXIA</title>
+        <title>{project.seoTitle}</title>
 
         <meta name="description" content={project.description} />
         <meta name="robots" content="index, follow" />
@@ -262,42 +262,49 @@ const ProjectDetail = () => {
               </div>
             </div>
 
-            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
-              <h2 className="text-xl font-semibold">Ce cas dans l’architecture NOXIA</h2>
+            <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-6">
+              <div className="flex flex-wrap items-center gap-3">
+                <h2 className="text-xl font-semibold">Cadre de démonstration</h2>
+                <span className="rounded-full border border-border px-3 py-1 text-xs font-medium text-muted-foreground">
+                  {project.status}
+                </span>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-6 text-muted-foreground leading-relaxed">
+                <div className="space-y-2">
+                  <h3 className="font-semibold text-foreground">Contexte</h3>
+                  <p>{project.context}</p>
+                </div>
+                <div className="space-y-2">
+                  <h3 className="font-semibold text-foreground">Contribution méthodologique</h3>
+                  <p>{project.contribution}</p>
+                </div>
+                <div className="space-y-2">
+                  <h3 className="font-semibold text-foreground">Limites</h3>
+                  <p>{project.limitations}</p>
+                </div>
+              </div>
+
               <p className="text-muted-foreground leading-relaxed">
-                Ce projet s’inscrit dans une logique complète :{" "}
-                <Link to="/expertise" className="text-primary hover:underline">
-                  domaines d’expertise
-                </Link>
-                ,{" "}
-                <Link to="/methodologie-imagerie-quantitative" className="text-primary hover:underline">
-                  méthodologie quantitative
-                </Link>
-                , et{" "}
-                <Link to="/prestations-imagerie-medicale" className="text-primary hover:underline">
-                  modalités d’accompagnement
-                </Link>. Selon le contexte, les étapes d’
-                <Link to="/analyse-dicom" className="text-primary hover:underline">
-                  audit DICOM
-                </Link>{" "}
-                et d’
-                <Link to="/bases-multicentriques" className="text-primary hover:underline">
-                  harmonisation multicentrique
-                </Link>{" "}
-                sont activées avant production des livrables.
+                Ce cas est relié aux méthodes qui le rendent interprétable, avec des règles adaptées à la donnée et au
+                niveau de preuve attendu.
               </p>
               <div className="flex flex-wrap gap-3">
-                <Link to="/expertise" className="inline-flex items-center rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
-                  Explorer les expertises
-                </Link>
-                <Link to="/methodologie-imagerie-quantitative" className="inline-flex items-center rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
-                  Voir la méthodologie
-                </Link>
-                <Link to="/prestations-imagerie-medicale" className="inline-flex items-center rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
-                  Formats d’intervention
-                </Link>
-                <Link to="/contact" className="inline-flex items-center rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition">
-                  Discuter de ce besoin
+                {project.relatedLinks.map((link) => (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                  >
+                    {link.label}
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                ))}
+                <Link
+                  to="/prestations-imagerie-medicale"
+                  className="inline-flex items-center rounded-full border border-border px-4 py-2 text-sm hover:bg-muted/40 transition"
+                >
+                  Formats d&apos;accompagnement
                 </Link>
               </div>
             </section>

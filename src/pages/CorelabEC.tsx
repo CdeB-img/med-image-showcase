@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Breadcrumb from "@/components/Breadcrumb";
 import ExpertiseHero from "@/components/ExpertiseHero";
+import AuthorExpertiseBlock from "@/components/AuthorExpertiseBlock";
 import {
   ArrowRight,
   ShieldCheck,
@@ -117,7 +118,6 @@ const CorelabEC = () => {
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(serviceJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
@@ -183,7 +183,7 @@ const CorelabEC = () => {
             {/* POSITIONNEMENT */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                Du signal IRM au surrogate endpoint opposable
+                Du signal IRM à un endpoint d’étude défendable
               </h2>
 
               <p>
@@ -301,6 +301,21 @@ const CorelabEC = () => {
               </p>
             </section>
 
+            <AuthorExpertiseBlock
+              title="Repère d'expertise Core Lab"
+              context={
+                <>
+                  La lecture centralisée n&apos;est utile que si les décisions de qualité, de segmentation et d&apos;exclusion
+                  restent traçables jusqu&apos;aux tables d&apos;analyse. Le travail est donc organisé autour de règles explicites,
+                  de contrôles documentés et de livrables relisibles.
+                </>
+              }
+              links={[
+                { label: "Publications et contributions", to: "/references-publications" },
+                { label: "À propos de NOXIA", to: "/a-propos" },
+              ]}
+            />
+
             {/* ENDPOINTS */}
             <section className="space-y-10">
               <h2 className="text-2xl font-semibold text-foreground text-center">
@@ -394,15 +409,15 @@ const CorelabEC = () => {
               </ul>
             </section>
 
-            {/* REFERENCES */}
+            {/* POINTS DE PROTOCOLE */}
             <section className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 space-y-4">
-              <h2 className="text-xl font-semibold">Références & standards utiles</h2>
+              <h2 className="text-xl font-semibold">Points de protocole à documenter</h2>
 
               <ul className="list-disc pl-6 text-muted-foreground space-y-2">
-                <li>SCMR recommendations (acquisition, mapping T1/T2, reporting)</li>
-                <li>AHA 17-segment model pour analyses myocardiques regionales</li>
-                <li>Consensus CMR en essais cliniques multicentriques</li>
-                <li>Guides de bonnes pratiques pour surrogate endpoints d'imagerie</li>
+                <li>Référentiel d&apos;acquisition et de reconstruction retenu pour chaque centre.</li>
+                <li>Modèle segmentaire, règles de lecture et seuils associés à chaque endpoint.</li>
+                <li>Critères d&apos;exclusion, de relecture et d&apos;adjudication des cas limites.</li>
+                <li>Version du pipeline, des exports et du plan d&apos;analyse utilisé pour le gel de base.</li>
               </ul>
             </section>
 

@@ -111,7 +111,8 @@ const CTScanViewer = ({ className, hideHero = false }: Props) => {
           <div className="aspect-square bg-black rounded-lg overflow-hidden border border-border">
             <img
               src={`${RAW_BASE}/cardio/ct-coeur.webp`}
-              alt="CT Cardiaque"
+              alt="Démonstration de CT cardiaque"
+              loading="lazy"
               className="w-full h-full object-contain"
             />
           </div>

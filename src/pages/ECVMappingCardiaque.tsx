@@ -132,9 +132,6 @@ const faqJsonLd = {
           {JSON.stringify(breadcrumbJsonLd)}
         </script>
 
-        <script type="application/ld+json">
-          {JSON.stringify(faqJsonLd)}
-        </script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
@@ -242,7 +239,11 @@ const faqJsonLd = {
               </p>
 
               <p>
-                Cette lecture s’intègre dans le cadre de l’
+                Cette lecture s&apos;inscrit dans la{" "}
+                <Link to="/quantification-tissulaire" className="text-primary hover:underline">
+                  quantification tissulaire
+                </Link>{" "}
+                et dans le cadre de l’
                 <Link to="/irm-imagerie-quantitative" className="text-primary hover:underline">
                   IRM quantitative
                 </Link>{" "}

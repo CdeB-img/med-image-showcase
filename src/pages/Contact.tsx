@@ -10,6 +10,8 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { z } from "zod";
 import { Link } from "react-router-dom";
+import { siteIdentity } from "@/config/siteIdentity";
+import { createBreadcrumbListJsonLd } from "@/lib/structuredData";
 
 /* ============================================================
    CONFIG
@@ -80,25 +82,22 @@ const Contact = () => {
       "Prise de contact avec un consultant indépendant en imagerie quantitative IRM et CT.",
     mainEntity: {
       "@type": "Organization",
-      name: "NOXIA Imagerie",
-      url: "https://noxia-imagerie.fr",
+      "@id": siteIdentity.organization.id,
+      name: siteIdentity.organization.name,
+      url: siteIdentity.organization.url,
       contactPoint: {
         "@type": "ContactPoint",
         contactType: "business",
-        email: "contact@noxia-imagerie.fr",
+        email: siteIdentity.organization.email,
         availableLanguage: ["fr"],
       },
     },
   };
 
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Accueil", item: "https://noxia-imagerie.fr/" },
-      { "@type": "ListItem", position: 2, name: "Contact", item: CANONICAL },
-    ],
-  };
+  const breadcrumbJsonLd = createBreadcrumbListJsonLd([
+    { name: "Accueil", url: `${siteIdentity.organization.url}/` },
+    { name: "Contact", url: CANONICAL },
+  ]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -332,10 +331,10 @@ const Contact = () => {
                 <div className="rounded-xl border border-border bg-background/70 p-4 space-y-2 mt-auto">
                   <p className="text-sm font-semibold text-foreground">Contact direct</p>
                   <a
-                    href={"mailto:" + "contact" + "@noxia-imagerie.fr"}
+                    href={`mailto:${siteIdentity.organization.email}`}
                     className="text-sm text-primary hover:underline underline-offset-4"
                   >
-                    contact@noxia-imagerie.fr
+                    {siteIdentity.organization.email}
                   </a>
                   <p className="text-xs text-muted-foreground">
                     Vos informations sont utilisées uniquement pour répondre à votre demande.

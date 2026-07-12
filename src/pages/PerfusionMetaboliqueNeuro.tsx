@@ -130,9 +130,6 @@ const PerfusionMetaboliqueNeuro = () => {
           {JSON.stringify(breadcrumbJsonLd)}
         </script>
 
-        <script type="application/ld+json">
-          {JSON.stringify(faqJsonLd)}
-        </script>
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-background">
@@ -318,7 +315,7 @@ const PerfusionMetaboliqueNeuro = () => {
               <ul className="list-disc pl-6 text-muted-foreground space-y-2">
                 <li>en utilisant la diffusion comme ancrage anatomique,</li>
                 <li>en normalisant chaque mesure au contexte du patient,</li>
-                <li>et en imposant une cohérence entre extraction, transport et consommation.</li>
+                <li>et en vérifiant que les cartes d&apos;extraction (OEF), de consommation (CMRO2) et de perfusion (CBF, Tmax) restent physiologiquement compatibles.</li>
               </ul>
 
               <p className="text-muted-foreground leading-relaxed">
@@ -436,17 +433,17 @@ const PerfusionMetaboliqueNeuro = () => {
 
               </div>
             </section>
-            {/* DONNÉES ISSUES DE LA LITTÉRATURE */}
+            {/* REPÈRES DE LECTURE */}
             <section className="space-y-6 text-muted-foreground leading-relaxed">
               <h2 className="text-2xl font-semibold text-foreground">
-                Données issues des essais cliniques
+                Repères de lecture clinique
               </h2>
 
               <ul className="list-disc pl-6 space-y-2">
-                <li>DEFUSE 3 : sélection basée sur mismatch perfusion-diffusion</li>
-                <li>DAWN : extension fenêtre thrombectomie jusqu’à 24h</li>
-                <li>Tmax ≥ 6s : corrélé au volume hypoperfusé critique</li>
-                <li>Variabilité inter-centre documentée supérieure 15% sans harmonisation</li>
+                <li>Les stratégies de sélection par mismatch perfusion-diffusion ont structuré la lecture core/pénombre en phase aiguë.</li>
+                <li>Un seuil de délai ou de débit ne devient interprétable que dans le contexte du logiciel, de l&apos;acquisition et du modèle utilisés.</li>
+                <li>La diffusion aide à ancrer anatomiquement la lecture métabolique, sans remplacer l&apos;interprétation de la perfusion.</li>
+                <li>La comparabilité entre centres exige de documenter les règles de normalisation, de segmentation et de contrôle qualité.</li>
               </ul>
 
               <p>
@@ -454,16 +451,16 @@ const PerfusionMetaboliqueNeuro = () => {
                 du traitement du bruit et de la cohérence anatomique 3D.
               </p>
             </section>
-            {/* RÉFÉRENCES */}
+            {/* CONDITIONS DE VALIDITÉ */}
             <section className="rounded-2xl border border-border bg-muted/10 p-8">
               <h2 className="text-xl font-semibold">
-                Références & consensus
+                Conditions de validité à documenter
               </h2>
 
               <ul className="list-disc pl-6 text-muted-foreground space-y-2 mt-4">
-                <li>DEFUSE / DAWN – critères mismatch perfusion-diffusion</li>
-                <li>Consensus sur Tmax ≥ 6s en sélection thrombectomie</li>
-                <li>Recommandations sur biomarqueurs métaboliques expérimentaux</li>
+                <li>Qualité et complétude des données de diffusion, de perfusion et de leurs métadonnées.</li>
+                <li>Hypothèses physiologiques, paramètres de normalisation et règles de segmentation.</li>
+                <li>Versions logicielles, contrôles qualité et critères d&apos;exclusion appliqués à chaque analyse.</li>
               </ul>
             </section>
 

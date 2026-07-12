@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Brain, Mail, FileText, Home, User, BookOpen } from "lucide-react";
+import { siteIdentity } from "@/config/siteIdentity";
 
 const Footer = () => {
   return (
@@ -11,7 +12,7 @@ const Footer = () => {
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <Brain className="w-6 h-6 text-primary" />
-              <span className="font-semibold tracking-tight">NOXIA</span>
+              <span className="font-semibold tracking-tight">{siteIdentity.organization.shortName}</span>
             </div>
 
             <p className="text-sm text-muted-foreground leading-relaxed">
@@ -101,7 +102,7 @@ const Footer = () => {
         {/* ================= BOTTOM BAR ================= */}
         <div className="mt-10 pt-8 border-t border-border text-center space-y-2">
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} NOXIA Imagerie — Tous droits réservés.
+            © {new Date().getFullYear()} {siteIdentity.organization.name} — Tous droits réservés.
           </p>
 
           <p className="text-[11px] text-muted-foreground/70">
