@@ -1,0 +1,3751 @@
+{
+  "biomarkerProfileMigrations": [
+    {
+      "appliedClassification": "Biomarker",
+      "biomarkerId": "noxia:radiology:biomarker:adc",
+      "classificationDecision": "PRESERVED_FROM_HISTORICAL_REGISTRY",
+      "completeness": {
+        "CATALOG": "COMPLETE",
+        "SCIENTIFIC": "INSUFFICIENT"
+      },
+      "emptyArraysTreatedAsComplete": false,
+      "gaps": [
+        "NO_EVIDENCE_LINK",
+        "LIMITATIONS_NOT_DOCUMENTED",
+        "INTERPRETATION_NOT_MODELED",
+        "NO_VERIFIED_SCIENTIFIC_ASSERTION"
+      ],
+      "historicalClassification": "Biomarker",
+      "historicalProfileDigest": "041c4ccf8b8045cdb51e530db5568d90c717bef02bf92c86198d658ad0cd5e37",
+      "proposedClassifications": [
+        "Biomarker"
+      ],
+      "scientificAssertionCreated": false
+    },
+    {
+      "appliedClassification": "Biomarker",
+      "biomarkerId": "noxia:radiology:biomarker:cbf",
+      "classificationDecision": "PRESERVED_PENDING_SCIENTIFIC_REVIEW",
+      "completeness": {
+        "CATALOG": "COMPLETE",
+        "SCIENTIFIC": "INSUFFICIENT"
+      },
+      "emptyArraysTreatedAsComplete": false,
+      "gaps": [
+        "NO_EVIDENCE_LINK",
+        "LIMITATIONS_NOT_DOCUMENTED",
+        "INTERPRETATION_NOT_MODELED",
+        "NO_VERIFIED_SCIENTIFIC_ASSERTION"
+      ],
+      "historicalClassification": "Biomarker",
+      "historicalProfileDigest": "3d305b4daa990d04508ae84094ca32bf54ee5b376ff65802523757213d0a5cc9",
+      "proposedClassifications": [
+        "Biomarker",
+        "Measurement"
+      ],
+      "scientificAssertionCreated": false
+    },
+    {
+      "appliedClassification": "Biomarker",
+      "biomarkerId": "noxia:radiology:biomarker:cbv",
+      "classificationDecision": "PRESERVED_FROM_HISTORICAL_REGISTRY",
+      "completeness": {
+        "CATALOG": "COMPLETE",
+        "SCIENTIFIC": "INSUFFICIENT"
+      },
+      "emptyArraysTreatedAsComplete": false,
+      "gaps": [
+        "NO_EVIDENCE_LINK",
+        "LIMITATIONS_NOT_DOCUMENTED",
+        "INTERPRETATION_NOT_MODELED",
+        "NO_VERIFIED_SCIENTIFIC_ASSERTION"
+      ],
+      "historicalClassification": "Biomarker",
+      "historicalProfileDigest": "3eab36c5782293e37cb14f34f22de510e897849fd0dde739a1454b07a8b008b7",
+      "proposedClassifications": [
+        "Biomarker"
+      ],
+      "scientificAssertionCreated": false
+    },
+    {
+      "appliedClassification": "Biomarker",
+      "biomarkerId": "noxia:radiology:biomarker:cmro2",
+      "classificationDecision": "PRESERVED_PENDING_SCIENTIFIC_REVIEW",
+      "completeness": {
+        "CATALOG": "COMPLETE",
+        "SCIENTIFIC": "INSUFFICIENT"
+      },
+      "emptyArraysTreatedAsComplete": false,
+      "gaps": [
+        "NO_EVIDENCE_LINK",
+        "LIMITATIONS_NOT_DOCUMENTED",
+        "INTERPRETATION_NOT_MODELED",
+        "NO_VERIFIED_SCIENTIFIC_ASSERTION"
+      ],
+      "historicalClassification": "Biomarker",
+      "historicalProfileDigest": "611fa0c6aa39353a43178eeb8820bb69237e6b1724bd6efc8c6ddeb2bfa9e14b",
+      "proposedClassifications": [
+        "Biomarker",
+        "Measurement"
+      ],
+      "scientificAssertionCreated": false
+    },
+    {
+      "appliedClassification": "Biomarker",
+      "biomarkerId": "noxia:radiology:biomarker:ecv",
+      "classificationDecision": "PRESERVED_PENDING_SCIENTIFIC_REVIEW",
+      "completeness": {
+        "CATALOG": "COMPLETE",
+        "SCIENTIFIC": "INSUFFICIENT"
+      },
+      "emptyArraysTreatedAsComplete": false,
+      "gaps": [
+        "NO_EVIDENCE_LINK",
+        "LIMITATIONS_NOT_DOCUMENTED",
+        "INTERPRETATION_NOT_MODELED",
+        "NO_VERIFIED_SCIENTIFIC_ASSERTION"
+      ],
+      "historicalClassification": "Biomarker",
+      "historicalProfileDigest": "fe779c9d9aa7dadb7d9e7ea3cfb74b74470c5c29d757de23f63c1b70dc6062b4",
+      "proposedClassifications": [
+        "Biomarker",
+        "Measurement"
+      ],
+      "scientificAssertionCreated": false
+    },
+    {
+      "appliedClassification": "Biomarker",
+      "biomarkerId": "noxia:radiology:biomarker:lge-quantification",
+      "classificationDecision": "PRESERVED_PENDING_SCIENTIFIC_REVIEW",
+      "completeness": {
+        "CATALOG": "COMPLETE",
+        "SCIENTIFIC": "INSUFFICIENT"
+      },
+      "emptyArraysTreatedAsComplete": false,
+      "gaps": [
+        "NO_EVIDENCE_LINK",
+        "LIMITATIONS_NOT_DOCUMENTED",
+        "INTERPRETATION_NOT_MODELED",
+        "NO_VERIFIED_SCIENTIFIC_ASSERTION"
+      ],
+      "historicalClassification": "Biomarker",
+      "historicalProfileDigest": "37d8ed24610103fedff82b2a682725b8851808e8f23aebff1faddff1826e3db5",
+      "proposedClassifications": [
+        "Biomarker",
+        "Endpoint",
+        "Measurement"
+      ],
+      "scientificAssertionCreated": false
+    },
+    {
+      "appliedClassification": "Biomarker",
+      "biomarkerId": "noxia:radiology:biomarker:mtt",
+      "classificationDecision": "PRESERVED_FROM_HISTORICAL_REGISTRY",
+      "completeness": {
+        "CATALOG": "COMPLETE",
+        "SCIENTIFIC": "INSUFFICIENT"
+      },
+      "emptyArraysTreatedAsComplete": false,
+      "gaps": [
+        "NO_EVIDENCE_LINK",
+        "LIMITATIONS_NOT_DOCUMENTED",
+        "INTERPRETATION_NOT_MODELED",
+        "NO_VERIFIED_SCIENTIFIC_ASSERTION"
+      ],
+      "historicalClassification": "Biomarker",
+      "historicalProfileDigest": "041c4ccf8b8045cdb51e530db5568d90c717bef02bf92c86198d658ad0cd5e37",
+      "proposedClassifications": [
+        "Biomarker"
+      ],
+      "scientificAssertionCreated": false
+    },
+    {
+      "appliedClassification": "Biomarker",
+      "biomarkerId": "noxia:radiology:biomarker:mvo",
+      "classificationDecision": "PRESERVED_FROM_HISTORICAL_REGISTRY",
+      "completeness": {
+        "CATALOG": "COMPLETE",
+        "SCIENTIFIC": "INSUFFICIENT"
+      },
+      "emptyArraysTreatedAsComplete": false,
+      "gaps": [
+        "NO_EVIDENCE_LINK",
+        "LIMITATIONS_NOT_DOCUMENTED",
+        "INTERPRETATION_NOT_MODELED",
+        "NO_VERIFIED_SCIENTIFIC_ASSERTION"
+      ],
+      "historicalClassification": "Biomarker",
+      "historicalProfileDigest": "0877cfc113d0269377ca387b15841b934a6eb19ef806d5e9e3febc12608d1165",
+      "proposedClassifications": [
+        "Biomarker"
+      ],
+      "scientificAssertionCreated": false
+    },
+    {
+      "appliedClassification": "Biomarker",
+      "biomarkerId": "noxia:radiology:biomarker:myocardial-hemorrhage",
+      "classificationDecision": "PRESERVED_FROM_HISTORICAL_REGISTRY",
+      "completeness": {
+        "CATALOG": "COMPLETE",
+        "SCIENTIFIC": "INSUFFICIENT"
+      },
+      "emptyArraysTreatedAsComplete": false,
+      "gaps": [
+        "NO_EVIDENCE_LINK",
+        "LIMITATIONS_NOT_DOCUMENTED",
+        "INTERPRETATION_NOT_MODELED",
+        "NO_VERIFIED_SCIENTIFIC_ASSERTION"
+      ],
+      "historicalClassification": "Biomarker",
+      "historicalProfileDigest": "0877cfc113d0269377ca387b15841b934a6eb19ef806d5e9e3febc12608d1165",
+      "proposedClassifications": [
+        "Biomarker"
+      ],
+      "scientificAssertionCreated": false
+    },
+    {
+      "appliedClassification": "Biomarker",
+      "biomarkerId": "noxia:radiology:biomarker:oef",
+      "classificationDecision": "PRESERVED_PENDING_SCIENTIFIC_REVIEW",
+      "completeness": {
+        "CATALOG": "COMPLETE",
+        "SCIENTIFIC": "INSUFFICIENT"
+      },
+      "emptyArraysTreatedAsComplete": false,
+      "gaps": [
+        "NO_EVIDENCE_LINK",
+        "LIMITATIONS_NOT_DOCUMENTED",
+        "INTERPRETATION_NOT_MODELED",
+        "NO_VERIFIED_SCIENTIFIC_ASSERTION"
+      ],
+      "historicalClassification": "Biomarker",
+      "historicalProfileDigest": "17f88e78bbad4d50ff47beb35b29fed499952f32a6e6a0f97c195ae7416d3eb4",
+      "proposedClassifications": [
+        "Biomarker",
+        "Measurement"
+      ],
+      "scientificAssertionCreated": false
+    },
+    {
+      "appliedClassification": "Biomarker",
+      "biomarkerId": "noxia:radiology:biomarker:t1",
+      "classificationDecision": "PRESERVED_FROM_HISTORICAL_REGISTRY",
+      "completeness": {
+        "CATALOG": "COMPLETE",
+        "SCIENTIFIC": "INSUFFICIENT"
+      },
+      "emptyArraysTreatedAsComplete": false,
+      "gaps": [
+        "NO_EVIDENCE_LINK",
+        "LIMITATIONS_NOT_DOCUMENTED",
+        "INTERPRETATION_NOT_MODELED",
+        "NO_VERIFIED_SCIENTIFIC_ASSERTION"
+      ],
+      "historicalClassification": "Biomarker",
+      "historicalProfileDigest": "b059ec032e66c6f9abb50f5120583dba876749e8db77b57eed4b60530d1604d8",
+      "proposedClassifications": [
+        "Biomarker"
+      ],
+      "scientificAssertionCreated": false
+    },
+    {
+      "appliedClassification": "Biomarker",
+      "biomarkerId": "noxia:radiology:biomarker:t2",
+      "classificationDecision": "PRESERVED_FROM_HISTORICAL_REGISTRY",
+      "completeness": {
+        "CATALOG": "COMPLETE",
+        "SCIENTIFIC": "INSUFFICIENT"
+      },
+      "emptyArraysTreatedAsComplete": false,
+      "gaps": [
+        "NO_EVIDENCE_LINK",
+        "LIMITATIONS_NOT_DOCUMENTED",
+        "INTERPRETATION_NOT_MODELED",
+        "NO_VERIFIED_SCIENTIFIC_ASSERTION"
+      ],
+      "historicalClassification": "Biomarker",
+      "historicalProfileDigest": "5ac52e7405c6efd72f7e723190d49a506ebffaac1b1ec99f7070ae7b02d45749",
+      "proposedClassifications": [
+        "Biomarker"
+      ],
+      "scientificAssertionCreated": false
+    },
+    {
+      "appliedClassification": "Biomarker",
+      "biomarkerId": "noxia:radiology:biomarker:tmax",
+      "classificationDecision": "PRESERVED_PENDING_SCIENTIFIC_REVIEW",
+      "completeness": {
+        "CATALOG": "COMPLETE",
+        "SCIENTIFIC": "INSUFFICIENT"
+      },
+      "emptyArraysTreatedAsComplete": false,
+      "gaps": [
+        "NO_EVIDENCE_LINK",
+        "LIMITATIONS_NOT_DOCUMENTED",
+        "INTERPRETATION_NOT_MODELED",
+        "NO_VERIFIED_SCIENTIFIC_ASSERTION"
+      ],
+      "historicalClassification": "Biomarker",
+      "historicalProfileDigest": "b4115a7ae19c9fa9c7ad42378ed401251426a9bf14cfa52187d5a7b2ab11d0d0",
+      "proposedClassifications": [
+        "Biomarker",
+        "Measurement"
+      ],
+      "scientificAssertionCreated": false
+    }
+  ],
+  "counts": {
+    "biomarkerProfilesBefore": 13,
+    "biomarkerProfilesMigrated": 13,
+    "entitiesBefore": 118,
+    "entitiesMigrated": 118,
+    "entityMigrationEntries": 118,
+    "evidenceLinksCreated": 0,
+    "publicationVersions": 9,
+    "publicationWorks": 9,
+    "publicationsBefore": 9,
+    "relationsActive": 44,
+    "relationsBefore": 93,
+    "relationsDeferred": 47,
+    "relationsDisabled": 2,
+    "relationsInventoried": 93,
+    "relationsMigrated": 46,
+    "scientificAssertionsCreated": 0,
+    "sourceIdentities": 33,
+    "sourceRevisions": 33
+  },
+  "deferredRelationIds": [
+    "noxia:radiology:relation:applies_to:biorxiv-2024-12-12:acute-ischemic-stroke",
+    "noxia:radiology:relation:applies_to:cbf:brain",
+    "noxia:radiology:relation:applies_to:cbv:brain",
+    "noxia:radiology:relation:applies_to:cmro2:brain",
+    "noxia:radiology:relation:applies_to:ecv:heart",
+    "noxia:radiology:relation:applies_to:oef:brain",
+    "noxia:radiology:relation:applies_to:pone-0245684:stemi",
+    "noxia:radiology:relation:applies_to:stroke-124-047311:acute-ischemic-stroke",
+    "noxia:radiology:relation:applies_to:t1:heart",
+    "noxia:radiology:relation:applies_to:t2:heart",
+    "noxia:radiology:relation:applies_to:tmax:brain",
+    "noxia:radiology:relation:derived_from:cbf:cbf",
+    "noxia:radiology:relation:derived_from:cmro2:cmro2",
+    "noxia:radiology:relation:derived_from:ecv:ecv",
+    "noxia:radiology:relation:derived_from:oef:oef",
+    "noxia:radiology:relation:derived_from:tmax:tmax",
+    "noxia:radiology:relation:documents:biorxiv-2024-12-12:cmro2",
+    "noxia:radiology:relation:documents:pone-0245684:mvo",
+    "noxia:radiology:relation:documents:pone-0245684:myocardial-hemorrhage",
+    "noxia:radiology:relation:documents:stroke-124-047311:oef",
+    "noxia:radiology:relation:implemented_by:dicom-to-nifti:dicom-audit",
+    "noxia:radiology:relation:implemented_by:noxia-cardiac-mri:corelab-cardiac-mri",
+    "noxia:radiology:relation:measures:late-gadolinium-enhancement:lge-quantification",
+    "noxia:radiology:relation:measures:perfusion-ct:cbf",
+    "noxia:radiology:relation:measures:perfusion-ct:cbv",
+    "noxia:radiology:relation:measures:perfusion-ct:tmax",
+    "noxia:radiology:relation:measures:t1-mapping:t1",
+    "noxia:radiology:relation:measures:t2-mapping:t2",
+    "noxia:radiology:relation:produces:perfusion-segmentation-demo:cbf",
+    "noxia:radiology:relation:produces:perfusion-segmentation-demo:tmax",
+    "noxia:radiology:relation:references:eacvi-biomarker-reproducibility:ecv",
+    "noxia:radiology:relation:references:scmr-cardiac-mri-standardisation:cardiac-mapping",
+    "noxia:radiology:relation:supports:cardiac:cardiac-quantification-demo",
+    "noxia:radiology:relation:supports:corelab:noxia-cardiac-mri",
+    "noxia:radiology:relation:supports:ct-scan:ct-quantification-demo",
+    "noxia:radiology:relation:supports:dicom-audit:dicom-audit",
+    "noxia:radiology:relation:supports:mimi:noxia-cardiac-mri",
+    "noxia:radiology:relation:supports:multicentric-harmonization:multicentric-harmonization",
+    "noxia:radiology:relation:supports:multicentric-harmonization:multicentric-quantification",
+    "noxia:radiology:relation:supports:neuro-oncology:neuro-oncology-segmentation",
+    "noxia:radiology:relation:supports:perfusion-segmentation:perfusion-segmentation-demo",
+    "noxia:radiology:relation:supports:quality-control:quality-control",
+    "noxia:radiology:relation:supports:quantitative-engineering:quantitative-imaging",
+    "noxia:radiology:relation:supports:registration:multimodal-registration",
+    "noxia:radiology:relation:supports:rhu-marvelous:noxia-cardiac-mri",
+    "noxia:radiology:relation:uses:corelab-cardiac-mri:dicom-audit",
+    "noxia:radiology:relation:uses:quantitative-imaging:quality-control"
+  ],
+  "deterministicMigrationAt": "2026-07-31T00:00:00.000Z",
+  "digests": {
+    "after": "5c33efa3d65f3b7c49269951232e9beb9e6a731dd7eabb321425d66c2cb6da78",
+    "before": {
+      "biomarkerProfiles": "65de4db8d8b9cd093471017590b3590283bd0c7b77d1bdbd2ac09f40190004b9",
+      "constraints": "54b8481d89eb06928c6dcb7e29b03554e145d702e1f8ba59bb7157db0f27037a",
+      "contract": "451117f9f5439dd2c15381c5e6844167072de474ab27b8d88eb8815b29e7bc9e",
+      "entities": "6de169977863dcbf597216f6466860c8df60187dbee63e88313187ba16878284",
+      "publications": "6ec939c002c309ac80fe5ddf42a04fba97fbe70a1a1270bda19b09d4e8c5f4d6",
+      "relations": "a9328feabc798cfaa56095c827c1a8aec6c672ee335bc9ef2e38aa0b61e1a766",
+      "sources": "e6723e6305671b5fc32b661f42028aa1c0233d672b92255fcabc937a2d289c3c",
+      "taxonomy": "65832090022730a30046ae6c2fac8b949f9dbda34a01a1f31c4da844aefdbaa3",
+      "validation": "83de04737490cdef36de9c93f39e0cd17b809fd8380e7ac1f2e5311dc3cb58bf"
+    }
+  },
+  "disabledRelationIds": [
+    "noxia:radiology:relation:compatible_with:dicom:dicom",
+    "noxia:radiology:relation:part_of:thoracic:lung"
+  ],
+  "entityMigrations": [
+    {
+      "historicalDigest": "6c75764cf3e6c6af707e7ecb2e8ded2c31a03100e4dc1420c6cbf8ac610082f6",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "6c75764cf3e6c6af707e7ecb2e8ded2c31a03100e4dc1420c6cbf8ac610082f6",
+      "oldId": "noxia:radiology:abbreviation:cbf",
+      "revisionId": "noxia:radiology:abbreviation:cbf:revision:1",
+      "stableId": "noxia:radiology:abbreviation:cbf",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "564a3dd243c935d2b57f1bf5d5efa0f8be80880c398c6f221ff7bb04a5a69275",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "564a3dd243c935d2b57f1bf5d5efa0f8be80880c398c6f221ff7bb04a5a69275",
+      "oldId": "noxia:radiology:abbreviation:cbv",
+      "revisionId": "noxia:radiology:abbreviation:cbv:revision:1",
+      "stableId": "noxia:radiology:abbreviation:cbv",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "9b3f11b19612c1230226cb21429d11c0a2c1c675b4e65b7a20ad7abddb78c752",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "9b3f11b19612c1230226cb21429d11c0a2c1c675b4e65b7a20ad7abddb78c752",
+      "oldId": "noxia:radiology:abbreviation:cmro2",
+      "revisionId": "noxia:radiology:abbreviation:cmro2:revision:1",
+      "stableId": "noxia:radiology:abbreviation:cmro2",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "c9313d89ba9646bee84be98fbe6e0be0d27ceb56f9c1a10fca8d8fc9b0672c01",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "c9313d89ba9646bee84be98fbe6e0be0d27ceb56f9c1a10fca8d8fc9b0672c01",
+      "oldId": "noxia:radiology:abbreviation:ecv",
+      "revisionId": "noxia:radiology:abbreviation:ecv:revision:1",
+      "stableId": "noxia:radiology:abbreviation:ecv",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "e4b0268d4284ee344b7b769d22820df1592f543446e8d66ca93ceb445b472751",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "e4b0268d4284ee344b7b769d22820df1592f543446e8d66ca93ceb445b472751",
+      "oldId": "noxia:radiology:abbreviation:mtt",
+      "revisionId": "noxia:radiology:abbreviation:mtt:revision:1",
+      "stableId": "noxia:radiology:abbreviation:mtt",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "d0548727dfd96d92f9d55ee48ad7de4780c3b2615f5bbca9e866cf905192f1e2",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "d0548727dfd96d92f9d55ee48ad7de4780c3b2615f5bbca9e866cf905192f1e2",
+      "oldId": "noxia:radiology:abbreviation:oef",
+      "revisionId": "noxia:radiology:abbreviation:oef:revision:1",
+      "stableId": "noxia:radiology:abbreviation:oef",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "c3821b70bac540f40b2cc3b1a37f16a26cbd0f78e516122799af729debb5d23d",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "c3821b70bac540f40b2cc3b1a37f16a26cbd0f78e516122799af729debb5d23d",
+      "oldId": "noxia:radiology:biomarker:adc",
+      "revisionId": "noxia:radiology:biomarker:adc:revision:1",
+      "stableId": "noxia:radiology:biomarker:adc",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "4cd84dadf52b8d215d8cc0abbbc746319d01fc5fab7a9a0994a817bf8589f933",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "4cd84dadf52b8d215d8cc0abbbc746319d01fc5fab7a9a0994a817bf8589f933",
+      "oldId": "noxia:radiology:biomarker:cbf",
+      "revisionId": "noxia:radiology:biomarker:cbf:revision:1",
+      "stableId": "noxia:radiology:biomarker:cbf",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "28d1658e4a272cb63ed882de022853cba2fa562c4fe3bd226b557cc621b3837d",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "28d1658e4a272cb63ed882de022853cba2fa562c4fe3bd226b557cc621b3837d",
+      "oldId": "noxia:radiology:biomarker:cbv",
+      "revisionId": "noxia:radiology:biomarker:cbv:revision:1",
+      "stableId": "noxia:radiology:biomarker:cbv",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "175f1d398253e9f33d7747fa2dfbc416c27cbe18694cf7aa59960bcb62a3ea38",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "175f1d398253e9f33d7747fa2dfbc416c27cbe18694cf7aa59960bcb62a3ea38",
+      "oldId": "noxia:radiology:biomarker:cmro2",
+      "revisionId": "noxia:radiology:biomarker:cmro2:revision:1",
+      "stableId": "noxia:radiology:biomarker:cmro2",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "13bad41fdf8a87996ae0dcf927e58fa61dc04605fc9861ceb44097acc48ba1c5",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "13bad41fdf8a87996ae0dcf927e58fa61dc04605fc9861ceb44097acc48ba1c5",
+      "oldId": "noxia:radiology:biomarker:ecv",
+      "revisionId": "noxia:radiology:biomarker:ecv:revision:1",
+      "stableId": "noxia:radiology:biomarker:ecv",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "8980f9cc74633dbb7c7486cfbaf93243ce7bf6298c3b64033928703f2ca4b6f2",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "8980f9cc74633dbb7c7486cfbaf93243ce7bf6298c3b64033928703f2ca4b6f2",
+      "oldId": "noxia:radiology:biomarker:lge-quantification",
+      "revisionId": "noxia:radiology:biomarker:lge-quantification:revision:1",
+      "stableId": "noxia:radiology:biomarker:lge-quantification",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "0a0d5d04b0eeb071de6359502c06a8f1ce6ce32789eb0fe02a1216da8851647f",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "0a0d5d04b0eeb071de6359502c06a8f1ce6ce32789eb0fe02a1216da8851647f",
+      "oldId": "noxia:radiology:biomarker:mtt",
+      "revisionId": "noxia:radiology:biomarker:mtt:revision:1",
+      "stableId": "noxia:radiology:biomarker:mtt",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "f32f6e3e231872984bd051f9b83419b0823d667eff7e070503b2440cbdaf52a0",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "f32f6e3e231872984bd051f9b83419b0823d667eff7e070503b2440cbdaf52a0",
+      "oldId": "noxia:radiology:biomarker:mvo",
+      "revisionId": "noxia:radiology:biomarker:mvo:revision:1",
+      "stableId": "noxia:radiology:biomarker:mvo",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "4c8dba72f5d35f40ecc4d07fa1cca40d81e126cd9afa13b76441a65a4361b777",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "4c8dba72f5d35f40ecc4d07fa1cca40d81e126cd9afa13b76441a65a4361b777",
+      "oldId": "noxia:radiology:biomarker:myocardial-hemorrhage",
+      "revisionId": "noxia:radiology:biomarker:myocardial-hemorrhage:revision:1",
+      "stableId": "noxia:radiology:biomarker:myocardial-hemorrhage",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "d9d2dd04dfc1afcf9cceb3a0de2d19863a18472f8905e0b14117cf40e756ef60",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "d9d2dd04dfc1afcf9cceb3a0de2d19863a18472f8905e0b14117cf40e756ef60",
+      "oldId": "noxia:radiology:biomarker:oef",
+      "revisionId": "noxia:radiology:biomarker:oef:revision:1",
+      "stableId": "noxia:radiology:biomarker:oef",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "7dfe4dde349f2ec818234ca2862a9d8092a195ea198bf4b8912f97cabac606cd",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "7dfe4dde349f2ec818234ca2862a9d8092a195ea198bf4b8912f97cabac606cd",
+      "oldId": "noxia:radiology:biomarker:t1",
+      "revisionId": "noxia:radiology:biomarker:t1:revision:1",
+      "stableId": "noxia:radiology:biomarker:t1",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "4790637feb7684a5f5fcf5c1f5d6c66a9aee5462ff897e45c22f0255504edbde",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "4790637feb7684a5f5fcf5c1f5d6c66a9aee5462ff897e45c22f0255504edbde",
+      "oldId": "noxia:radiology:biomarker:t2",
+      "revisionId": "noxia:radiology:biomarker:t2:revision:1",
+      "stableId": "noxia:radiology:biomarker:t2",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "5aebe0cf8a52e2ac68e0cc35d9f6409e580915fe20faf61eadeffb8dd3599ab6",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "5aebe0cf8a52e2ac68e0cc35d9f6409e580915fe20faf61eadeffb8dd3599ab6",
+      "oldId": "noxia:radiology:biomarker:tmax",
+      "revisionId": "noxia:radiology:biomarker:tmax:revision:1",
+      "stableId": "noxia:radiology:biomarker:tmax",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "67ef6b12303fe8ba8a22399ab67b3ee61e9b9ac0bb812abe8a139c9f47f0a5df",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "67ef6b12303fe8ba8a22399ab67b3ee61e9b9ac0bb812abe8a139c9f47f0a5df",
+      "oldId": "noxia:radiology:bodysystem:cardiovascular",
+      "revisionId": "noxia:radiology:bodysystem:cardiovascular:revision:1",
+      "stableId": "noxia:radiology:bodysystem:cardiovascular",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "a0358f7be0e9043de80663a1d2095b6971eb8559f0ac40a89a4db03e046b30d5",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "a0358f7be0e9043de80663a1d2095b6971eb8559f0ac40a89a4db03e046b30d5",
+      "oldId": "noxia:radiology:bodysystem:nervous",
+      "revisionId": "noxia:radiology:bodysystem:nervous:revision:1",
+      "stableId": "noxia:radiology:bodysystem:nervous",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "bda2fe7e4f2a09e0d5b951b0a835c5b3bb17ca0bf14c83d98736f12c21937270",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "bda2fe7e4f2a09e0d5b951b0a835c5b3bb17ca0bf14c83d98736f12c21937270",
+      "oldId": "noxia:radiology:bodysystem:respiratory",
+      "revisionId": "noxia:radiology:bodysystem:respiratory:revision:1",
+      "stableId": "noxia:radiology:bodysystem:respiratory",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "04a1338bc8e91c36ad62f80601528c0317e1a9c423e0ebe3725311ad7dc82541",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "04a1338bc8e91c36ad62f80601528c0317e1a9c423e0ebe3725311ad7dc82541",
+      "oldId": "noxia:radiology:clinicalquestion:cardiac-tissue-characterization",
+      "revisionId": "noxia:radiology:clinicalquestion:cardiac-tissue-characterization:revision:1",
+      "stableId": "noxia:radiology:clinicalquestion:cardiac-tissue-characterization",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "f6cab8d707cc46d35bf170bc438aff3332287020b6c0540d8142a1c46b02bdd1",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "f6cab8d707cc46d35bf170bc438aff3332287020b6c0540d8142a1c46b02bdd1",
+      "oldId": "noxia:radiology:clinicalquestion:multicentric-quantification",
+      "revisionId": "noxia:radiology:clinicalquestion:multicentric-quantification:revision:1",
+      "stableId": "noxia:radiology:clinicalquestion:multicentric-quantification",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "95a6adbfd58b1a5445599243645fad52d2d60b100660788e0926cb980e5a816b",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "95a6adbfd58b1a5445599243645fad52d2d60b100660788e0926cb980e5a816b",
+      "oldId": "noxia:radiology:clinicalquestion:neurovascular-perfusion",
+      "revisionId": "noxia:radiology:clinicalquestion:neurovascular-perfusion:revision:1",
+      "stableId": "noxia:radiology:clinicalquestion:neurovascular-perfusion",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "f5e9db762b99e1db1b6da6ec18644472c8f5f30abce95fb32b6fb2c27619e85f",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "f5e9db762b99e1db1b6da6ec18644472c8f5f30abce95fb32b6fb2c27619e85f",
+      "oldId": "noxia:radiology:corelab:noxia-cardiac-mri",
+      "revisionId": "noxia:radiology:corelab:noxia-cardiac-mri:revision:1",
+      "stableId": "noxia:radiology:corelab:noxia-cardiac-mri",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "c580d3c141fe5827d5b28fa08f4067c6828854d5f5abdcc9e48c07b682fb301f",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "c580d3c141fe5827d5b28fa08f4067c6828854d5f5abdcc9e48c07b682fb301f",
+      "oldId": "noxia:radiology:definition:quantitative-biomarker",
+      "revisionId": "noxia:radiology:definition:quantitative-biomarker:revision:1",
+      "stableId": "noxia:radiology:definition:quantitative-biomarker",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "bc921f0f232cfef40f19643cb630dcf751310aad43b8ef1896227c9420af3050",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "bc921f0f232cfef40f19643cb630dcf751310aad43b8ef1896227c9420af3050",
+      "oldId": "noxia:radiology:disease:acute-ischemic-stroke",
+      "revisionId": "noxia:radiology:disease:acute-ischemic-stroke:revision:1",
+      "stableId": "noxia:radiology:disease:acute-ischemic-stroke",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "859f820caa6d47f0beb4aee557b7aec8a7cf18a65543d2e9b48f82dc19547c1e",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "859f820caa6d47f0beb4aee557b7aec8a7cf18a65543d2e9b48f82dc19547c1e",
+      "oldId": "noxia:radiology:disease:cerebral-tumoral-lesion",
+      "revisionId": "noxia:radiology:disease:cerebral-tumoral-lesion:revision:1",
+      "stableId": "noxia:radiology:disease:cerebral-tumoral-lesion",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "5c7da6ea1ae156fd2b9f861f956d4a49926470af7ef75be00dd2d86ebae1170b",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "5c7da6ea1ae156fd2b9f861f956d4a49926470af7ef75be00dd2d86ebae1170b",
+      "oldId": "noxia:radiology:disease:stemi",
+      "revisionId": "noxia:radiology:disease:stemi:revision:1",
+      "stableId": "noxia:radiology:disease:stemi",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "f15db2b554d474b945ce6688caa581bc9d7426fd5f42e9b8f09525df5c5cec98",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "f15db2b554d474b945ce6688caa581bc9d7426fd5f42e9b8f09525df5c5cec98",
+      "oldId": "noxia:radiology:feature:mask-overlay",
+      "revisionId": "noxia:radiology:feature:mask-overlay:revision:1",
+      "stableId": "noxia:radiology:feature:mask-overlay",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "9336545ac1b92161aff597af682a21d64746970949a9625ec1548c7699a839c3",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "9336545ac1b92161aff597af682a21d64746970949a9625ec1548c7699a839c3",
+      "oldId": "noxia:radiology:feature:quality-control",
+      "revisionId": "noxia:radiology:feature:quality-control:revision:1",
+      "stableId": "noxia:radiology:feature:quality-control",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "4a66f531e1bb8e8303c8a873b509ee0270a25137d0036f4815c5fb560de81d52",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "4a66f531e1bb8e8303c8a873b509ee0270a25137d0036f4815c5fb560de81d52",
+      "oldId": "noxia:radiology:feature:registration-comparison",
+      "revisionId": "noxia:radiology:feature:registration-comparison:revision:1",
+      "stableId": "noxia:radiology:feature:registration-comparison",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "e4cc783833c1875a38e0c770fca15743326175a8f7e13a65c1f1b128f28ab5df",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "e4cc783833c1875a38e0c770fca15743326175a8f7e13a65c1f1b128f28ab5df",
+      "oldId": "noxia:radiology:feature:slice-navigation",
+      "revisionId": "noxia:radiology:feature:slice-navigation:revision:1",
+      "stableId": "noxia:radiology:feature:slice-navigation",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "263c36ed9a528bb6700a983b0a7633df9291451c76f1970b5719ec14161b564e",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "263c36ed9a528bb6700a983b0a7633df9291451c76f1970b5719ec14161b564e",
+      "oldId": "noxia:radiology:feature:windowing",
+      "revisionId": "noxia:radiology:feature:windowing:revision:1",
+      "stableId": "noxia:radiology:feature:windowing",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "3c90de680a08e37f8602873f5ebb3aba45eeab10cb0ca380d80f6f7d7cf73502",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "3c90de680a08e37f8602873f5ebb3aba45eeab10cb0ca380d80f6f7d7cf73502",
+      "oldId": "noxia:radiology:format:dicom",
+      "revisionId": "noxia:radiology:format:dicom:revision:1",
+      "stableId": "noxia:radiology:format:dicom",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "0295b5520f4cac8db22df0377aecb91a9f0c5e7cea707e9e5a9c6ab24b74a5ad",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "0295b5520f4cac8db22df0377aecb91a9f0c5e7cea707e9e5a9c6ab24b74a5ad",
+      "oldId": "noxia:radiology:format:dicom-seg",
+      "revisionId": "noxia:radiology:format:dicom-seg:revision:1",
+      "stableId": "noxia:radiology:format:dicom-seg",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "708d2404fca50ff096e0977413af9c42ffb90d76c2454af2463263f965ef869c",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "708d2404fca50ff096e0977413af9c42ffb90d76c2454af2463263f965ef869c",
+      "oldId": "noxia:radiology:format:nifti",
+      "revisionId": "noxia:radiology:format:nifti:revision:1",
+      "stableId": "noxia:radiology:format:nifti",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "06bd124084a2088078efa3fa4a61727b2a06541e1ad64b9d6e04f56d70304b8c",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "06bd124084a2088078efa3fa4a61727b2a06541e1ad64b9d6e04f56d70304b8c",
+      "oldId": "noxia:radiology:guideline:scmr-cardiac-mri-standardisation",
+      "revisionId": "noxia:radiology:guideline:scmr-cardiac-mri-standardisation:revision:1",
+      "stableId": "noxia:radiology:guideline:scmr-cardiac-mri-standardisation",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "48b9c458b66408f4449e219c519a5372967843fe4c76986c3904782155cb00b1",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "48b9c458b66408f4449e219c519a5372967843fe4c76986c3904782155cb00b1",
+      "oldId": "noxia:radiology:measurement:cbf",
+      "revisionId": "noxia:radiology:measurement:cbf:revision:1",
+      "stableId": "noxia:radiology:measurement:cbf",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "948ca384fe2356972553d095201bbc0365a704f5c139f45b7f24ee1c8c246c10",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "948ca384fe2356972553d095201bbc0365a704f5c139f45b7f24ee1c8c246c10",
+      "oldId": "noxia:radiology:measurement:cmro2",
+      "revisionId": "noxia:radiology:measurement:cmro2:revision:1",
+      "stableId": "noxia:radiology:measurement:cmro2",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "6957a89bdbeb7d20c5cd84a9c587f38fa38a918376c2899a7ac2526e14363b2a",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "6957a89bdbeb7d20c5cd84a9c587f38fa38a918376c2899a7ac2526e14363b2a",
+      "oldId": "noxia:radiology:measurement:ecv",
+      "revisionId": "noxia:radiology:measurement:ecv:revision:1",
+      "stableId": "noxia:radiology:measurement:ecv",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "18d9945dc3c7fabc6ea42f9078a7f26f6488798d13340174059a9e4ecf3b4684",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "18d9945dc3c7fabc6ea42f9078a7f26f6488798d13340174059a9e4ecf3b4684",
+      "oldId": "noxia:radiology:measurement:oef",
+      "revisionId": "noxia:radiology:measurement:oef:revision:1",
+      "stableId": "noxia:radiology:measurement:oef",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "fd042a616db1a001201d2479a547f5649da74987414e984d0fb836e12ef80b2c",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "fd042a616db1a001201d2479a547f5649da74987414e984d0fb836e12ef80b2c",
+      "oldId": "noxia:radiology:measurement:tmax",
+      "revisionId": "noxia:radiology:measurement:tmax:revision:1",
+      "stableId": "noxia:radiology:measurement:tmax",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "00f667a6e6f96d29a196a2abd86bc3561de481d647fb69013dc92ad6e857090e",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "00f667a6e6f96d29a196a2abd86bc3561de481d647fb69013dc92ad6e857090e",
+      "oldId": "noxia:radiology:modality:ct",
+      "revisionId": "noxia:radiology:modality:ct:revision:1",
+      "stableId": "noxia:radiology:modality:ct",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "ee4d59adb1b7e4f513da116f5d8b22aa76c34a9ef2d0b21aedca0c49ae34e4bc",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "ee4d59adb1b7e4f513da116f5d8b22aa76c34a9ef2d0b21aedca0c49ae34e4bc",
+      "oldId": "noxia:radiology:modality:irm",
+      "revisionId": "noxia:radiology:modality:irm:revision:1",
+      "stableId": "noxia:radiology:modality:irm",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "760e743dc8d96613b2bfe549eb8efc535388a5adca6a9c1f37fb68e955d7ec82",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "760e743dc8d96613b2bfe549eb8efc535388a5adca6a9c1f37fb68e955d7ec82",
+      "oldId": "noxia:radiology:organ:brain",
+      "revisionId": "noxia:radiology:organ:brain:revision:1",
+      "stableId": "noxia:radiology:organ:brain",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "a68a890768b323488e94db5ca7e8a9b4d7139305ba23f7fccebd4d8cf82f92b4",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "a68a890768b323488e94db5ca7e8a9b4d7139305ba23f7fccebd4d8cf82f92b4",
+      "oldId": "noxia:radiology:organ:heart",
+      "revisionId": "noxia:radiology:organ:heart:revision:1",
+      "stableId": "noxia:radiology:organ:heart",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "590c228d2847d59deddf2890a3f3dc55a836ab6bf5eef090bde78f183c9fa8ba",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "590c228d2847d59deddf2890a3f3dc55a836ab6bf5eef090bde78f183c9fa8ba",
+      "oldId": "noxia:radiology:organ:lung",
+      "revisionId": "noxia:radiology:organ:lung:revision:1",
+      "stableId": "noxia:radiology:organ:lung",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "9fda801da0422cfb39c44684f8dc80136909d8085d1ceb1f0ad453287a469ff4",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "9fda801da0422cfb39c44684f8dc80136909d8085d1ceb1f0ad453287a469ff4",
+      "oldId": "noxia:radiology:pipeline:cardiac-quantification-demo",
+      "revisionId": "noxia:radiology:pipeline:cardiac-quantification-demo:revision:1",
+      "stableId": "noxia:radiology:pipeline:cardiac-quantification-demo",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "7669fa4e3552845070b37b2ab19bde02c0aed845303ee678d1eb73333b2e4418",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "7669fa4e3552845070b37b2ab19bde02c0aed845303ee678d1eb73333b2e4418",
+      "oldId": "noxia:radiology:pipeline:ct-quantification-demo",
+      "revisionId": "noxia:radiology:pipeline:ct-quantification-demo:revision:1",
+      "stableId": "noxia:radiology:pipeline:ct-quantification-demo",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "2108ff7d34031b0fd71ac2478419a88efe2535270425f5c3370eb994b1b26d80",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "2108ff7d34031b0fd71ac2478419a88efe2535270425f5c3370eb994b1b26d80",
+      "oldId": "noxia:radiology:pipeline:dicom-to-nifti",
+      "revisionId": "noxia:radiology:pipeline:dicom-to-nifti:revision:1",
+      "stableId": "noxia:radiology:pipeline:dicom-to-nifti",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "675ca0a9b7ab291da5691d223668ab66648f794b78abe97633aa565f6aadf492",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "675ca0a9b7ab291da5691d223668ab66648f794b78abe97633aa565f6aadf492",
+      "oldId": "noxia:radiology:pipeline:multimodal-registration",
+      "revisionId": "noxia:radiology:pipeline:multimodal-registration:revision:1",
+      "stableId": "noxia:radiology:pipeline:multimodal-registration",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "ab8da4c362d61bc6f596538bac03383b77a9ace94a9ebbdd1ea85e8eafcade9e",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "ab8da4c362d61bc6f596538bac03383b77a9ace94a9ebbdd1ea85e8eafcade9e",
+      "oldId": "noxia:radiology:pipeline:neuro-oncology-segmentation",
+      "revisionId": "noxia:radiology:pipeline:neuro-oncology-segmentation:revision:1",
+      "stableId": "noxia:radiology:pipeline:neuro-oncology-segmentation",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "74db0fb533aa60ddf474b79d5a817d2cb331cd8f6cfc6f3b73858ea5dae54b2f",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "74db0fb533aa60ddf474b79d5a817d2cb331cd8f6cfc6f3b73858ea5dae54b2f",
+      "oldId": "noxia:radiology:pipeline:perfusion-segmentation-demo",
+      "revisionId": "noxia:radiology:pipeline:perfusion-segmentation-demo:revision:1",
+      "stableId": "noxia:radiology:pipeline:perfusion-segmentation-demo",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "ca4e2f135df33cdbad4717b7916cd8abca12e81201559929abdc4871237e74c3",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "ca4e2f135df33cdbad4717b7916cd8abca12e81201559929abdc4871237e74c3",
+      "oldId": "noxia:radiology:publication:biorxiv-2024-12-12",
+      "revisionId": "noxia:radiology:publication:biorxiv-2024-12-12:revision:1",
+      "stableId": "noxia:radiology:publication:biorxiv-2024-12-12",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "14e11b6f030abbb463a5ecf772b6cf8ea13672377b4203b33955a6d72aea959c",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "14e11b6f030abbb463a5ecf772b6cf8ea13672377b4203b33955a6d72aea959c",
+      "oldId": "noxia:radiology:publication:covert-mi",
+      "revisionId": "noxia:radiology:publication:covert-mi:revision:1",
+      "stableId": "noxia:radiology:publication:covert-mi",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "3036345ac297f5c21b1614c28f4447a51c9858a37af0ba7874158d0673fbeab1",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "3036345ac297f5c21b1614c28f4447a51c9858a37af0ba7874158d0673fbeab1",
+      "oldId": "noxia:radiology:publication:inflammation-penumbra",
+      "revisionId": "noxia:radiology:publication:inflammation-penumbra:revision:1",
+      "stableId": "noxia:radiology:publication:inflammation-penumbra",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "947d923f4b47ecadc853d1ee1c1f37ed0ee2dc580f1ba0db2a5e4218178b02ee",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "947d923f4b47ecadc853d1ee1c1f37ed0ee2dc580f1ba0db2a5e4218178b02ee",
+      "oldId": "noxia:radiology:publication:mimi-003388",
+      "revisionId": "noxia:radiology:publication:mimi-003388:revision:1",
+      "stableId": "noxia:radiology:publication:mimi-003388",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "f4d7c9daec4bf72e3cc96e9b894c0f5465217081fb516bd8836331ba1b6455ed",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "f4d7c9daec4bf72e3cc96e9b894c0f5465217081fb516bd8836331ba1b6455ed",
+      "oldId": "noxia:radiology:publication:pone-0161855",
+      "revisionId": "noxia:radiology:publication:pone-0161855:revision:1",
+      "stableId": "noxia:radiology:publication:pone-0161855",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "33ea18ada9488cf0d61019b6718e0665dffc9c88ccdce870c17c852189ae8d87",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "33ea18ada9488cf0d61019b6718e0665dffc9c88ccdce870c17c852189ae8d87",
+      "oldId": "noxia:radiology:publication:pone-0167668",
+      "revisionId": "noxia:radiology:publication:pone-0167668:revision:1",
+      "stableId": "noxia:radiology:publication:pone-0167668",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "e819170ca4888b1188f3fc3bb584ba4e4820ddef0cc5d109fc3dfee654e036a4",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "e819170ca4888b1188f3fc3bb584ba4e4820ddef0cc5d109fc3dfee654e036a4",
+      "oldId": "noxia:radiology:publication:pone-0245684",
+      "revisionId": "noxia:radiology:publication:pone-0245684:revision:1",
+      "stableId": "noxia:radiology:publication:pone-0245684",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "a24fce6b75dcca1e85c0a9bd6fb246b01c202dda46ae11487d3424becc7d2db0",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "a24fce6b75dcca1e85c0a9bd6fb246b01c202dda46ae11487d3424becc7d2db0",
+      "oldId": "noxia:radiology:publication:stnfr-stemi",
+      "revisionId": "noxia:radiology:publication:stnfr-stemi:revision:1",
+      "stableId": "noxia:radiology:publication:stnfr-stemi",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "d2fd5d82f3b1dbd9847c30180acfde3312912dc45b0de2da3faa839d5b0e75be",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "d2fd5d82f3b1dbd9847c30180acfde3312912dc45b0de2da3faa839d5b0e75be",
+      "oldId": "noxia:radiology:publication:stroke-124-047311",
+      "revisionId": "noxia:radiology:publication:stroke-124-047311:revision:1",
+      "stableId": "noxia:radiology:publication:stroke-124-047311",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "a95ede37c256633f5063929572ec4031ef25ab93d6cb2d34b40e51fb719471af",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "a95ede37c256633f5063929572ec4031ef25ab93d6cb2d34b40e51fb719471af",
+      "oldId": "noxia:radiology:recommendation:eacvi-biomarker-reproducibility",
+      "revisionId": "noxia:radiology:recommendation:eacvi-biomarker-reproducibility:revision:1",
+      "stableId": "noxia:radiology:recommendation:eacvi-biomarker-reproducibility",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "ccc41cb72994fcc441c6ff8bc5b430ea32f1bc7432157f4b792512cc617efa86",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "ccc41cb72994fcc441c6ff8bc5b430ea32f1bc7432157f4b792512cc617efa86",
+      "oldId": "noxia:radiology:region:cerebral",
+      "revisionId": "noxia:radiology:region:cerebral:revision:1",
+      "stableId": "noxia:radiology:region:cerebral",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "23a1fafea6e4aa138281764f8efe3f7a7e8c4b57a078c944996bab9935975197",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "23a1fafea6e4aa138281764f8efe3f7a7e8c4b57a078c944996bab9935975197",
+      "oldId": "noxia:radiology:region:myocardium",
+      "revisionId": "noxia:radiology:region:myocardium:revision:1",
+      "stableId": "noxia:radiology:region:myocardium",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "49058e3b44eeceffcf0a4d420f19e60f201b50b437eecc6a6777778774e1c063",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "49058e3b44eeceffcf0a4d420f19e60f201b50b437eecc6a6777778774e1c063",
+      "oldId": "noxia:radiology:region:thoracic",
+      "revisionId": "noxia:radiology:region:thoracic:revision:1",
+      "stableId": "noxia:radiology:region:thoracic",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "4b4921fb28ccf7ad8f5355a42b0f887c16c7c88b31abb623f969107441644116",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "4b4921fb28ccf7ad8f5355a42b0f887c16c7c88b31abb623f969107441644116",
+      "oldId": "noxia:radiology:researchproject:cardiac",
+      "revisionId": "noxia:radiology:researchproject:cardiac:revision:1",
+      "stableId": "noxia:radiology:researchproject:cardiac",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "5364fde304b77faa7ead6b4ed6983f89f83f42b60741bf3e0a2355836f0dd504",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "5364fde304b77faa7ead6b4ed6983f89f83f42b60741bf3e0a2355836f0dd504",
+      "oldId": "noxia:radiology:researchproject:ct-scan",
+      "revisionId": "noxia:radiology:researchproject:ct-scan:revision:1",
+      "stableId": "noxia:radiology:researchproject:ct-scan",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "694dca751abe656b2b34e4909942e657754e8562fac8da211515aadf8e2eb5c8",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "694dca751abe656b2b34e4909942e657754e8562fac8da211515aadf8e2eb5c8",
+      "oldId": "noxia:radiology:researchproject:neuro-onco",
+      "revisionId": "noxia:radiology:researchproject:neuro-onco:revision:1",
+      "stableId": "noxia:radiology:researchproject:neuro-onco",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "010001b88b5dd9e3a6c3a84986481615bf589a1333fe632c95b8420a75193e4f",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "010001b88b5dd9e3a6c3a84986481615bf589a1333fe632c95b8420a75193e4f",
+      "oldId": "noxia:radiology:researchproject:perfusion-segmentation",
+      "revisionId": "noxia:radiology:researchproject:perfusion-segmentation:revision:1",
+      "stableId": "noxia:radiology:researchproject:perfusion-segmentation",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "9ff8dd15b08822773721d10b4050a899b6d55da3f4c1211dc37f5c96b30c09e7",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "9ff8dd15b08822773721d10b4050a899b6d55da3f4c1211dc37f5c96b30c09e7",
+      "oldId": "noxia:radiology:researchproject:recalage",
+      "revisionId": "noxia:radiology:researchproject:recalage:revision:1",
+      "stableId": "noxia:radiology:researchproject:recalage",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "22c883816e68be0a37addcf16360995c003040d3c06c9b6b95d2ce1f2a7e6cc3",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "22c883816e68be0a37addcf16360995c003040d3c06c9b6b95d2ce1f2a7e6cc3",
+      "oldId": "noxia:radiology:researchproject:tools",
+      "revisionId": "noxia:radiology:researchproject:tools:revision:1",
+      "stableId": "noxia:radiology:researchproject:tools",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "a585c250a67b94e37dde4865541b52998d184d2cbd615702faf07edbfd17d72c",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "a585c250a67b94e37dde4865541b52998d184d2cbd615702faf07edbfd17d72c",
+      "oldId": "noxia:radiology:sequence:cardiac-cine",
+      "revisionId": "noxia:radiology:sequence:cardiac-cine:revision:1",
+      "stableId": "noxia:radiology:sequence:cardiac-cine",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "d7394d432efb194a11c761b993b97397a3483860f5c46e5af685328f2cf26ebb",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "d7394d432efb194a11c761b993b97397a3483860f5c46e5af685328f2cf26ebb",
+      "oldId": "noxia:radiology:sequence:diffusion-mri",
+      "revisionId": "noxia:radiology:sequence:diffusion-mri:revision:1",
+      "stableId": "noxia:radiology:sequence:diffusion-mri",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "b120062d0c2a6d196f89d55ec818a9973818c46147a1f3fdc3d65a6085258cb0",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "b120062d0c2a6d196f89d55ec818a9973818c46147a1f3fdc3d65a6085258cb0",
+      "oldId": "noxia:radiology:sequence:late-gadolinium-enhancement",
+      "revisionId": "noxia:radiology:sequence:late-gadolinium-enhancement:revision:1",
+      "stableId": "noxia:radiology:sequence:late-gadolinium-enhancement",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "d65aca601e70b9ca5a17231d5ed6f22223b96583663eb39e4a72b661f906ac04",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "d65aca601e70b9ca5a17231d5ed6f22223b96583663eb39e4a72b661f906ac04",
+      "oldId": "noxia:radiology:sequence:perfusion-ct",
+      "revisionId": "noxia:radiology:sequence:perfusion-ct:revision:1",
+      "stableId": "noxia:radiology:sequence:perfusion-ct",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "4fb4598640ce9ea956fc6b3d07a7b3b391fae38514d1ad684d4fe4a218fba72e",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "4fb4598640ce9ea956fc6b3d07a7b3b391fae38514d1ad684d4fe4a218fba72e",
+      "oldId": "noxia:radiology:sequence:t1-mapping",
+      "revisionId": "noxia:radiology:sequence:t1-mapping:revision:1",
+      "stableId": "noxia:radiology:sequence:t1-mapping",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "b078601c295816f15fceb0aa0b5fd4fe60325f76e36355ab0c38df4ee42e051e",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "b078601c295816f15fceb0aa0b5fd4fe60325f76e36355ab0c38df4ee42e051e",
+      "oldId": "noxia:radiology:sequence:t2-mapping",
+      "revisionId": "noxia:radiology:sequence:t2-mapping:revision:1",
+      "stableId": "noxia:radiology:sequence:t2-mapping",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "a6d9c217c6431753af327507b0991c6b41b1c7519b11b6afafbd46f45630b6f5",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "a6d9c217c6431753af327507b0991c6b41b1c7519b11b6afafbd46f45630b6f5",
+      "oldId": "noxia:radiology:sequencefamily:cardiac-cine",
+      "revisionId": "noxia:radiology:sequencefamily:cardiac-cine:revision:1",
+      "stableId": "noxia:radiology:sequencefamily:cardiac-cine",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "52a5f537b60784103dbe6ee92976eb64cfd90c466976dba9ba82fdfe43db764e",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "52a5f537b60784103dbe6ee92976eb64cfd90c466976dba9ba82fdfe43db764e",
+      "oldId": "noxia:radiology:sequencefamily:cardiac-mapping",
+      "revisionId": "noxia:radiology:sequencefamily:cardiac-mapping:revision:1",
+      "stableId": "noxia:radiology:sequencefamily:cardiac-mapping",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "79c11bb3c9e9c8dfb0149791790d15cdf54f9b5c241ce01e2f420e2aa590a0fe",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "79c11bb3c9e9c8dfb0149791790d15cdf54f9b5c241ce01e2f420e2aa590a0fe",
+      "oldId": "noxia:radiology:sequencefamily:diffusion",
+      "revisionId": "noxia:radiology:sequencefamily:diffusion:revision:1",
+      "stableId": "noxia:radiology:sequencefamily:diffusion",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "0b70274195698b09184a7065de32f141d5f347d65987faa66abdb8c4ead5d103",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "0b70274195698b09184a7065de32f141d5f347d65987faa66abdb8c4ead5d103",
+      "oldId": "noxia:radiology:sequencefamily:late-enhancement",
+      "revisionId": "noxia:radiology:sequencefamily:late-enhancement:revision:1",
+      "stableId": "noxia:radiology:sequencefamily:late-enhancement",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "b3ccd96b3f24344ea9a5296850dbfecc9fefe61379a1f5f50579a90791988119",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "b3ccd96b3f24344ea9a5296850dbfecc9fefe61379a1f5f50579a90791988119",
+      "oldId": "noxia:radiology:sequencefamily:perfusion",
+      "revisionId": "noxia:radiology:sequencefamily:perfusion:revision:1",
+      "stableId": "noxia:radiology:sequencefamily:perfusion",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "aabe1d4f378995850e551ec679e496df16d8169d374fa9f53aa872dc9add1045",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "aabe1d4f378995850e551ec679e496df16d8169d374fa9f53aa872dc9add1045",
+      "oldId": "noxia:radiology:service:corelab",
+      "revisionId": "noxia:radiology:service:corelab:revision:1",
+      "stableId": "noxia:radiology:service:corelab",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "342fb67334610d0861132122ad3d2d66b6d886716c38bbc191fc19656a62340b",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "342fb67334610d0861132122ad3d2d66b6d886716c38bbc191fc19656a62340b",
+      "oldId": "noxia:radiology:service:dicom-audit",
+      "revisionId": "noxia:radiology:service:dicom-audit:revision:1",
+      "stableId": "noxia:radiology:service:dicom-audit",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "017c20e915884a07179067a5510bd14ab9746349ad54316f78b24eb2b345bac0",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "017c20e915884a07179067a5510bd14ab9746349ad54316f78b24eb2b345bac0",
+      "oldId": "noxia:radiology:service:multicentric-harmonization",
+      "revisionId": "noxia:radiology:service:multicentric-harmonization:revision:1",
+      "stableId": "noxia:radiology:service:multicentric-harmonization",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "482f71d137b181ae8988ea4626973172f69743bbeae4b03d5c2316099abaf0b0",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "482f71d137b181ae8988ea4626973172f69743bbeae4b03d5c2316099abaf0b0",
+      "oldId": "noxia:radiology:service:quantitative-engineering",
+      "revisionId": "noxia:radiology:service:quantitative-engineering:revision:1",
+      "stableId": "noxia:radiology:service:quantitative-engineering",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "777b6ec45ecf06cb58240cdd4d91fea31c6e6597777516beef2eca73f7fe4ba8",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "777b6ec45ecf06cb58240cdd4d91fea31c6e6597777516beef2eca73f7fe4ba8",
+      "oldId": "noxia:radiology:standard:dicom",
+      "revisionId": "noxia:radiology:standard:dicom:revision:1",
+      "stableId": "noxia:radiology:standard:dicom",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "ad30508283de988869a3297154e1aed81e5939d7498129428b58c82294d3533d",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "ad30508283de988869a3297154e1aed81e5939d7498129428b58c82294d3533d",
+      "oldId": "noxia:radiology:study:covert-mi",
+      "revisionId": "noxia:radiology:study:covert-mi:revision:1",
+      "stableId": "noxia:radiology:study:covert-mi",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "102550a7993745d0aa3100076c7e24319d1d737be40a7bcc51ed35c7239f83b8",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "102550a7993745d0aa3100076c7e24319d1d737be40a7bcc51ed35c7239f83b8",
+      "oldId": "noxia:radiology:study:mimi",
+      "revisionId": "noxia:radiology:study:mimi:revision:1",
+      "stableId": "noxia:radiology:study:mimi",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "f1cb107e2a6ea72017ae7242c36588f20b7f860f82cd33abf5bbcf7651e0eb87",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "f1cb107e2a6ea72017ae7242c36588f20b7f860f82cd33abf5bbcf7651e0eb87",
+      "oldId": "noxia:radiology:study:rhu-marvelous",
+      "revisionId": "noxia:radiology:study:rhu-marvelous:revision:1",
+      "stableId": "noxia:radiology:study:rhu-marvelous",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "d3709cb4beca00b63527fceef41d7e31f13f91fd4158aa045f422bca7bf6233a",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "d3709cb4beca00b63527fceef41d7e31f13f91fd4158aa045f422bca7bf6233a",
+      "oldId": "noxia:radiology:synonym:core-lab",
+      "revisionId": "noxia:radiology:synonym:core-lab:revision:1",
+      "stableId": "noxia:radiology:synonym:core-lab",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "7272375fdee76f202994a953ee9db56aaa307f3f63e2aab43637601190e10567",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "7272375fdee76f202994a953ee9db56aaa307f3f63e2aab43637601190e10567",
+      "oldId": "noxia:radiology:synonym:late-enhancement",
+      "revisionId": "noxia:radiology:synonym:late-enhancement:revision:1",
+      "stableId": "noxia:radiology:synonym:late-enhancement",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "3a4d6dde9d157933273de3b6dccaf4e27af030dcc031a7eb794b23472ea1b3df",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "3a4d6dde9d157933273de3b6dccaf4e27af030dcc031a7eb794b23472ea1b3df",
+      "oldId": "noxia:radiology:terminology:dicom-tags",
+      "revisionId": "noxia:radiology:terminology:dicom-tags:revision:1",
+      "stableId": "noxia:radiology:terminology:dicom-tags",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "716f940af20df8afdf6cc7409bf2167b6802197abd518112af5fd07bbbbbcd26",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "716f940af20df8afdf6cc7409bf2167b6802197abd518112af5fd07bbbbbcd26",
+      "oldId": "noxia:radiology:tool:antspy",
+      "revisionId": "noxia:radiology:tool:antspy:revision:1",
+      "stableId": "noxia:radiology:tool:antspy",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "94d5a9532d64a25b06b56fdb79447b3ea6fde095ddf419ef8e226725c265e0e2",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "94d5a9532d64a25b06b56fdb79447b3ea6fde095ddf419ef8e226725c265e0e2",
+      "oldId": "noxia:radiology:tool:elastix",
+      "revisionId": "noxia:radiology:tool:elastix:revision:1",
+      "stableId": "noxia:radiology:tool:elastix",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "19ce971af57586751c23c855e53134ee21eadbda06e23352719240e97c7199a4",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "19ce971af57586751c23c855e53134ee21eadbda06e23352719240e97c7199a4",
+      "oldId": "noxia:radiology:tool:matplotlib",
+      "revisionId": "noxia:radiology:tool:matplotlib:revision:1",
+      "stableId": "noxia:radiology:tool:matplotlib",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "27c929b1a82f719e0eec6beb4353a6c9b51f249aad9bcbef5b6921ae345ca0dc",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "27c929b1a82f719e0eec6beb4353a6c9b51f249aad9bcbef5b6921ae345ca0dc",
+      "oldId": "noxia:radiology:tool:nibabel",
+      "revisionId": "noxia:radiology:tool:nibabel:revision:1",
+      "stableId": "noxia:radiology:tool:nibabel",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "0accba4c53e3df50ae5446a68d334084b8d6881bd05db5ac5b6048625e909bb7",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "0accba4c53e3df50ae5446a68d334084b8d6881bd05db5ac5b6048625e909bb7",
+      "oldId": "noxia:radiology:tool:numpy",
+      "revisionId": "noxia:radiology:tool:numpy:revision:1",
+      "stableId": "noxia:radiology:tool:numpy",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "2fd11cd2bcc6356732ddb7f87a37efcfa6bb8490e5ab68874304d701f58ede98",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "2fd11cd2bcc6356732ddb7f87a37efcfa6bb8490e5ab68874304d701f58ede98",
+      "oldId": "noxia:radiology:tool:python",
+      "revisionId": "noxia:radiology:tool:python:revision:1",
+      "stableId": "noxia:radiology:tool:python",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "966d6bde518f1be7228312591db645eaebb8e16e85381ca3297c818af81be36b",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "966d6bde518f1be7228312591db645eaebb8e16e85381ca3297c818af81be36b",
+      "oldId": "noxia:radiology:tool:react",
+      "revisionId": "noxia:radiology:tool:react:revision:1",
+      "stableId": "noxia:radiology:tool:react",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "fce4c7809a382fe11e3daa67194b5ecc63186fb53b91da11c5bd172b67658cf6",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "fce4c7809a382fe11e3daa67194b5ecc63186fb53b91da11c5bd172b67658cf6",
+      "oldId": "noxia:radiology:tool:simpleitk",
+      "revisionId": "noxia:radiology:tool:simpleitk:revision:1",
+      "stableId": "noxia:radiology:tool:simpleitk",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "c577d15d54e6c525a42fba405841e4e1a903cc7b972627116f47c9870dce42a4",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "c577d15d54e6c525a42fba405841e4e1a903cc7b972627116f47c9870dce42a4",
+      "oldId": "noxia:radiology:viewer:cardiac",
+      "revisionId": "noxia:radiology:viewer:cardiac:revision:1",
+      "stableId": "noxia:radiology:viewer:cardiac",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "f3198f6e8b80faaa16cab5de0cd76c361b4534e9f2bf5ffdf7a317c631c6f398",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "f3198f6e8b80faaa16cab5de0cd76c361b4534e9f2bf5ffdf7a317c631c6f398",
+      "oldId": "noxia:radiology:viewer:ct-scan",
+      "revisionId": "noxia:radiology:viewer:ct-scan:revision:1",
+      "stableId": "noxia:radiology:viewer:ct-scan",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "b4e279ae3ba3e160bca51696d924d674d74d0be2b72eb21ba1c4531f806b19dd",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "b4e279ae3ba3e160bca51696d924d674d74d0be2b72eb21ba1c4531f806b19dd",
+      "oldId": "noxia:radiology:viewer:neuro-oncology",
+      "revisionId": "noxia:radiology:viewer:neuro-oncology:revision:1",
+      "stableId": "noxia:radiology:viewer:neuro-oncology",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "4b18b52610f360d79b8eaf605f60da99a3be7f5ee48adba73264d8305820d941",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "4b18b52610f360d79b8eaf605f60da99a3be7f5ee48adba73264d8305820d941",
+      "oldId": "noxia:radiology:viewer:perfusion-segmentation",
+      "revisionId": "noxia:radiology:viewer:perfusion-segmentation:revision:1",
+      "stableId": "noxia:radiology:viewer:perfusion-segmentation",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "ed5d80870c20b44724be2cda9ab4327e9bb9f2f90f0db96ecebcb0b348d036a2",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "ed5d80870c20b44724be2cda9ab4327e9bb9f2f90f0db96ecebcb0b348d036a2",
+      "oldId": "noxia:radiology:viewer:quality-control",
+      "revisionId": "noxia:radiology:viewer:quality-control:revision:1",
+      "stableId": "noxia:radiology:viewer:quality-control",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "527033d305b6f04903cc602a2a7676067c111a827bb492a6cdfa65a997c48407",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "527033d305b6f04903cc602a2a7676067c111a827bb492a6cdfa65a997c48407",
+      "oldId": "noxia:radiology:viewer:registration",
+      "revisionId": "noxia:radiology:viewer:registration:revision:1",
+      "stableId": "noxia:radiology:viewer:registration",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "1d813de5bb5c418e33a43edfe4373cc06c0ff059f275a9035f229b3f0147dfc6",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "1d813de5bb5c418e33a43edfe4373cc06c0ff059f275a9035f229b3f0147dfc6",
+      "oldId": "noxia:radiology:viewer:slice",
+      "revisionId": "noxia:radiology:viewer:slice:revision:1",
+      "stableId": "noxia:radiology:viewer:slice",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "15bbd366fa13e608dffc8d1c69e8e411599395aaa16660515271631af276c7da",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "15bbd366fa13e608dffc8d1c69e8e411599395aaa16660515271631af276c7da",
+      "oldId": "noxia:radiology:viewer:tools",
+      "revisionId": "noxia:radiology:viewer:tools:revision:1",
+      "stableId": "noxia:radiology:viewer:tools",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "8a3bc543270f09bbd2c1446621c9f594a830b12f8a0ec537e1ff50c44711b1b8",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "8a3bc543270f09bbd2c1446621c9f594a830b12f8a0ec537e1ff50c44711b1b8",
+      "oldId": "noxia:radiology:workflow:corelab-cardiac-mri",
+      "revisionId": "noxia:radiology:workflow:corelab-cardiac-mri:revision:1",
+      "stableId": "noxia:radiology:workflow:corelab-cardiac-mri",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "1b4e86087a177e836e295af98bfba549edae798903e3ce28ee111cba3bfae984",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "1b4e86087a177e836e295af98bfba549edae798903e3ce28ee111cba3bfae984",
+      "oldId": "noxia:radiology:workflow:dicom-anonymization",
+      "revisionId": "noxia:radiology:workflow:dicom-anonymization:revision:1",
+      "stableId": "noxia:radiology:workflow:dicom-anonymization",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "64de4d5983d4b01d2e3e2190f1e8ccb76605383afcd4dd9fcd43897897ce861f",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "64de4d5983d4b01d2e3e2190f1e8ccb76605383afcd4dd9fcd43897897ce861f",
+      "oldId": "noxia:radiology:workflow:dicom-audit",
+      "revisionId": "noxia:radiology:workflow:dicom-audit:revision:1",
+      "stableId": "noxia:radiology:workflow:dicom-audit",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "11dab89ffdb75cc9e7c0f5eeaca3c26b75ef69f4e4d3747747b077371714c442",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "11dab89ffdb75cc9e7c0f5eeaca3c26b75ef69f4e4d3747747b077371714c442",
+      "oldId": "noxia:radiology:workflow:multicentric-harmonization",
+      "revisionId": "noxia:radiology:workflow:multicentric-harmonization:revision:1",
+      "stableId": "noxia:radiology:workflow:multicentric-harmonization",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "399fb415861ac283890be5ae16602ffa373d4030a774d8d2b3c869d868e68744",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "399fb415861ac283890be5ae16602ffa373d4030a774d8d2b3c869d868e68744",
+      "oldId": "noxia:radiology:workflow:quality-control",
+      "revisionId": "noxia:radiology:workflow:quality-control:revision:1",
+      "stableId": "noxia:radiology:workflow:quality-control",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    },
+    {
+      "historicalDigest": "e7f51b488d4438a4d798a36dd4ce9db9114ed8c492f1f1c38da539ef3d87d6c4",
+      "identityPreserved": true,
+      "migratedPayloadDigest": "e7f51b488d4438a4d798a36dd4ce9db9114ed8c492f1f1c38da539ef3d87d6c4",
+      "oldId": "noxia:radiology:workflow:quantitative-imaging",
+      "revisionId": "noxia:radiology:workflow:quantitative-imaging:revision:1",
+      "stableId": "noxia:radiology:workflow:quantitative-imaging",
+      "status": "MIGRATED_WITH_UNKNOWN_VALUES_PRESERVED"
+    }
+  ],
+  "errors": [],
+  "excludedProductScope": [
+    "PACS",
+    "VIEWERS",
+    "EXECUTABLE_PROTOCOLS",
+    "APPLICATION_WORKFLOWS",
+    "CORELAB_ASSIGNMENTS",
+    "INSTALLED_EQUIPMENT",
+    "OPERATIONAL_LICENSES",
+    "INTERNAL_DATASET_MANAGEMENT",
+    "DEPLOYED_AI_MODELS",
+    "CLINICAL_RECOMMENDATION_ENGINE",
+    "SUPABASE",
+    "AUTH",
+    "STRIPE"
+  ],
+  "manifestDigest": "2e81e1f39fde6e5673ae4f010a4bdde2aff68fa9cb08e637ee08e21742a7eceb",
+  "manifestVersion": "1.0.0",
+  "migrationId": "noxia:radiology:migration:p3m-web:1.0.0-to-2.0.0-web",
+  "perimeter": "NOXIA_PUBLIC_WEBSITE_SCIENTIFIC_DOCUMENTARY_KNOWLEDGE",
+  "publicationCorrectionAudit": {
+    "candidateId": "candidate:publication-correction:pone-0167668:pone-0161855",
+    "correctionPublicationId": "noxia:radiology:publication:pone-0167668",
+    "decision": "CANDIDATE_NOT_APPLIED",
+    "evidence": "Titles and distinct DOI values are present in the repository registry, but no explicit repository relation identifies the corrected work.",
+    "evidenceLinkCreated": false,
+    "possibleOriginalPublicationId": "noxia:radiology:publication:pone-0161855",
+    "reason": "CORRECTS requires an explicit source locator demonstrating both document identities."
+  },
+  "publicationMigrations": [
+    {
+      "authors": null,
+      "doi": "10.1101/2024.12.12.24318960",
+      "pmid": null,
+      "revisionId": "noxia:radiology:publication:biorxiv-2024-12-12:version:1",
+      "stableId": "noxia:radiology:publication:biorxiv-2024-12-12",
+      "status": "CURRENT"
+    },
+    {
+      "authors": null,
+      "doi": null,
+      "pmid": null,
+      "revisionId": "noxia:radiology:publication:covert-mi:version:1",
+      "stableId": "noxia:radiology:publication:covert-mi",
+      "status": "CURRENT"
+    },
+    {
+      "authors": null,
+      "doi": null,
+      "pmid": null,
+      "revisionId": "noxia:radiology:publication:inflammation-penumbra:version:1",
+      "stableId": "noxia:radiology:publication:inflammation-penumbra",
+      "status": "CURRENT"
+    },
+    {
+      "authors": "Belle L et al.",
+      "doi": "10.1161/CIRCINTERVENTIONS.115.003388",
+      "pmid": null,
+      "revisionId": "noxia:radiology:publication:mimi-003388:version:1",
+      "stableId": "noxia:radiology:publication:mimi-003388",
+      "status": "CURRENT"
+    },
+    {
+      "authors": null,
+      "doi": "10.1371/journal.pone.0161855",
+      "pmid": null,
+      "revisionId": "noxia:radiology:publication:pone-0161855:version:1",
+      "stableId": "noxia:radiology:publication:pone-0161855",
+      "status": "CURRENT"
+    },
+    {
+      "authors": null,
+      "doi": "10.1371/journal.pone.0167668",
+      "pmid": null,
+      "revisionId": "noxia:radiology:publication:pone-0167668:version:1",
+      "stableId": "noxia:radiology:publication:pone-0167668",
+      "status": "CURRENT"
+    },
+    {
+      "authors": null,
+      "doi": "10.1371/journal.pone.0245684",
+      "pmid": null,
+      "revisionId": "noxia:radiology:publication:pone-0245684:version:1",
+      "stableId": "noxia:radiology:publication:pone-0245684",
+      "status": "CURRENT"
+    },
+    {
+      "authors": null,
+      "doi": null,
+      "pmid": null,
+      "revisionId": "noxia:radiology:publication:stnfr-stemi:version:1",
+      "stableId": "noxia:radiology:publication:stnfr-stemi",
+      "status": "CURRENT"
+    },
+    {
+      "authors": null,
+      "doi": "10.1161/STROKEAHA.124.047311",
+      "pmid": null,
+      "revisionId": "noxia:radiology:publication:stroke-124-047311:version:1",
+      "stableId": "noxia:radiology:publication:stroke-124-047311",
+      "status": "CURRENT"
+    }
+  ],
+  "relationIdentityMigrations": [
+    {
+      "digest": "951c1c3542a929a46532df9051ded073f7bc30a570e6b729b30da1f1302ecc52",
+      "newId": "noxia:radiology:relation:v2:applies_to:951c1c3542a929a46532df9051ded073f7bc30a570e6b729b30da1f1302ecc52",
+      "oldId": "noxia:radiology:relation:applies_to:biorxiv-2024-12-12:acute-ischemic-stroke"
+    },
+    {
+      "digest": "810bc5253761f9d092862f69554bccc289765d31b6ca991599f87e9b0d7c7ee7",
+      "newId": "noxia:radiology:relation:v2:applies_to:810bc5253761f9d092862f69554bccc289765d31b6ca991599f87e9b0d7c7ee7",
+      "oldId": "noxia:radiology:relation:applies_to:cbf:brain"
+    },
+    {
+      "digest": "0983c420e26c7a6415aa1344103299e5cfa13e750959b03f3fc2bde2e1ac39da",
+      "newId": "noxia:radiology:relation:v2:applies_to:0983c420e26c7a6415aa1344103299e5cfa13e750959b03f3fc2bde2e1ac39da",
+      "oldId": "noxia:radiology:relation:applies_to:cbv:brain"
+    },
+    {
+      "digest": "0468ec1f2ae3be77ffe2c5c4f2c9c132e1e8b4d6d30b345c5f972077cd1662c6",
+      "newId": "noxia:radiology:relation:v2:applies_to:0468ec1f2ae3be77ffe2c5c4f2c9c132e1e8b4d6d30b345c5f972077cd1662c6",
+      "oldId": "noxia:radiology:relation:applies_to:cmro2:brain"
+    },
+    {
+      "digest": "ed797a50c7910de14f35d3088860690546d36bcace964c643e302be3473d178a",
+      "newId": "noxia:radiology:relation:v2:applies_to:ed797a50c7910de14f35d3088860690546d36bcace964c643e302be3473d178a",
+      "oldId": "noxia:radiology:relation:applies_to:ecv:heart"
+    },
+    {
+      "digest": "8ba2e7e126dbbd27cf598c45277a7e983e571f4177b832a645da3419ed9d8a93",
+      "newId": "noxia:radiology:relation:v2:applies_to:8ba2e7e126dbbd27cf598c45277a7e983e571f4177b832a645da3419ed9d8a93",
+      "oldId": "noxia:radiology:relation:applies_to:oef:brain"
+    },
+    {
+      "digest": "737e0eb233fcdfe00f4d29370ac93b6f93be5cb81027b1a93ff6ff64a6a82f51",
+      "newId": "noxia:radiology:relation:v2:applies_to:737e0eb233fcdfe00f4d29370ac93b6f93be5cb81027b1a93ff6ff64a6a82f51",
+      "oldId": "noxia:radiology:relation:applies_to:pone-0245684:stemi"
+    },
+    {
+      "digest": "7bbbac6015823ccf1da94675ffab840c66b3f1a20b4631b4f2345dca0280fcb1",
+      "newId": "noxia:radiology:relation:v2:applies_to:7bbbac6015823ccf1da94675ffab840c66b3f1a20b4631b4f2345dca0280fcb1",
+      "oldId": "noxia:radiology:relation:applies_to:stroke-124-047311:acute-ischemic-stroke"
+    },
+    {
+      "digest": "923f7c0b2c56a978cd568f60cf02af7de8352c67c599590f460fba9fbfd32486",
+      "newId": "noxia:radiology:relation:v2:applies_to:923f7c0b2c56a978cd568f60cf02af7de8352c67c599590f460fba9fbfd32486",
+      "oldId": "noxia:radiology:relation:applies_to:t1:heart"
+    },
+    {
+      "digest": "13b9a0baa037709a823ad29e94454af45823a7caa49a5263c6d5fae30b256c78",
+      "newId": "noxia:radiology:relation:v2:applies_to:13b9a0baa037709a823ad29e94454af45823a7caa49a5263c6d5fae30b256c78",
+      "oldId": "noxia:radiology:relation:applies_to:t2:heart"
+    },
+    {
+      "digest": "3b6c33431526ef71e079cb7a923ce9bfe9b6b538291267cea5a911f38a2a856d",
+      "newId": "noxia:radiology:relation:v2:applies_to:3b6c33431526ef71e079cb7a923ce9bfe9b6b538291267cea5a911f38a2a856d",
+      "oldId": "noxia:radiology:relation:applies_to:tmax:brain"
+    },
+    {
+      "digest": "69b88b8789cc8dc32692c41159c472d84d930d8dedc434144a5d700bc8330b62",
+      "newId": "noxia:radiology:relation:v2:compatible_with:69b88b8789cc8dc32692c41159c472d84d930d8dedc434144a5d700bc8330b62",
+      "oldId": "noxia:radiology:relation:compatible_with:dicom:dicom"
+    },
+    {
+      "digest": "863d7f8e628f69b8547714c3636a8b35e44a2b6544bb2445a155c39fab7223b7",
+      "newId": "noxia:radiology:relation:v2:derived_from:863d7f8e628f69b8547714c3636a8b35e44a2b6544bb2445a155c39fab7223b7",
+      "oldId": "noxia:radiology:relation:derived_from:cbf:cbf"
+    },
+    {
+      "digest": "7fa419a2fc41f766f33092d829ed8e992d35c16df9512ebb0214b4a84bd4bc83",
+      "newId": "noxia:radiology:relation:v2:derived_from:7fa419a2fc41f766f33092d829ed8e992d35c16df9512ebb0214b4a84bd4bc83",
+      "oldId": "noxia:radiology:relation:derived_from:cmro2:cmro2"
+    },
+    {
+      "digest": "d03a82cb2bea709e14108e01c522151bcb101bf4e1ae9df4cff4da59b588452c",
+      "newId": "noxia:radiology:relation:v2:derived_from:d03a82cb2bea709e14108e01c522151bcb101bf4e1ae9df4cff4da59b588452c",
+      "oldId": "noxia:radiology:relation:derived_from:ecv:ecv"
+    },
+    {
+      "digest": "42873f6f4374126aaea6c6abeadb3deaf5ec18cee9d4f389dac4d2767f81b566",
+      "newId": "noxia:radiology:relation:v2:derived_from:42873f6f4374126aaea6c6abeadb3deaf5ec18cee9d4f389dac4d2767f81b566",
+      "oldId": "noxia:radiology:relation:derived_from:oef:oef"
+    },
+    {
+      "digest": "f43ab445fdc66164eee724566be4df72f8fb47cdcc12ba9a1fddac28fcf588dd",
+      "newId": "noxia:radiology:relation:v2:derived_from:f43ab445fdc66164eee724566be4df72f8fb47cdcc12ba9a1fddac28fcf588dd",
+      "oldId": "noxia:radiology:relation:derived_from:tmax:tmax"
+    },
+    {
+      "digest": "faa6fb903e30eed54a89e244e23ba5384a069e22a99dc3e1cc48bd2dbf295592",
+      "newId": "noxia:radiology:relation:v2:documents:faa6fb903e30eed54a89e244e23ba5384a069e22a99dc3e1cc48bd2dbf295592",
+      "oldId": "noxia:radiology:relation:documents:biorxiv-2024-12-12:cmro2"
+    },
+    {
+      "digest": "d428e191f1e4953df3329a9cc4f14b6aae8f9721c0ca03d4c790e603d6490a54",
+      "newId": "noxia:radiology:relation:v2:documents:d428e191f1e4953df3329a9cc4f14b6aae8f9721c0ca03d4c790e603d6490a54",
+      "oldId": "noxia:radiology:relation:documents:pone-0245684:mvo"
+    },
+    {
+      "digest": "d4f81e1a7ea8857a25ce47a39105cf726c8171ce375ea1f8ea122a51029438d3",
+      "newId": "noxia:radiology:relation:v2:documents:d4f81e1a7ea8857a25ce47a39105cf726c8171ce375ea1f8ea122a51029438d3",
+      "oldId": "noxia:radiology:relation:documents:pone-0245684:myocardial-hemorrhage"
+    },
+    {
+      "digest": "f2a6eefc462dda754e325ff1dc9cdbde5ad0477e93f55fb55b26b7176c07c75e",
+      "newId": "noxia:radiology:relation:v2:documents:f2a6eefc462dda754e325ff1dc9cdbde5ad0477e93f55fb55b26b7176c07c75e",
+      "oldId": "noxia:radiology:relation:documents:stroke-124-047311:oef"
+    },
+    {
+      "digest": "97302e55ec39adafce43d5549459cb14e22a094ffb0a9e9f57b898420c4ed2f6",
+      "newId": "noxia:radiology:relation:v2:has_feature:97302e55ec39adafce43d5549459cb14e22a094ffb0a9e9f57b898420c4ed2f6",
+      "oldId": "noxia:radiology:relation:has_feature:perfusion-segmentation:mask-overlay"
+    },
+    {
+      "digest": "c060511526f2261400dae92cbcc41e6a09d4ca675ffe43903ae46c7d26b8f8fd",
+      "newId": "noxia:radiology:relation:v2:has_feature:c060511526f2261400dae92cbcc41e6a09d4ca675ffe43903ae46c7d26b8f8fd",
+      "oldId": "noxia:radiology:relation:has_feature:quality-control:quality-control"
+    },
+    {
+      "digest": "b964b94f9ff7a69c58a64c149b28d07586c6f995b86662a345d84c69523e5939",
+      "newId": "noxia:radiology:relation:v2:has_feature:b964b94f9ff7a69c58a64c149b28d07586c6f995b86662a345d84c69523e5939",
+      "oldId": "noxia:radiology:relation:has_feature:quality-control:windowing"
+    },
+    {
+      "digest": "38eec8d023c35d7f1b5947b4e97c6860523a024e161c77917a250a7ecacea0c7",
+      "newId": "noxia:radiology:relation:v2:has_feature:38eec8d023c35d7f1b5947b4e97c6860523a024e161c77917a250a7ecacea0c7",
+      "oldId": "noxia:radiology:relation:has_feature:registration:registration-comparison"
+    },
+    {
+      "digest": "39ef48c4f9326e93da90cd8caf3f4bf30d00b0dc41bf7f14127cd5af40c1f28e",
+      "newId": "noxia:radiology:relation:v2:has_feature:39ef48c4f9326e93da90cd8caf3f4bf30d00b0dc41bf7f14127cd5af40c1f28e",
+      "oldId": "noxia:radiology:relation:has_feature:slice:slice-navigation"
+    },
+    {
+      "digest": "fb0aa2b1d1d8e7f2e0e85cfafaae9b12962c739dbf821ba6fc3fc283be941861",
+      "newId": "noxia:radiology:relation:v2:implemented_by:fb0aa2b1d1d8e7f2e0e85cfafaae9b12962c739dbf821ba6fc3fc283be941861",
+      "oldId": "noxia:radiology:relation:implemented_by:cardiac:cardiac-quantification-demo"
+    },
+    {
+      "digest": "07b2fe2930eb5966d2c89aed0f856768424dd9c16317bb763875aec39d064b4c",
+      "newId": "noxia:radiology:relation:v2:implemented_by:07b2fe2930eb5966d2c89aed0f856768424dd9c16317bb763875aec39d064b4c",
+      "oldId": "noxia:radiology:relation:implemented_by:ct-scan:ct-quantification-demo"
+    },
+    {
+      "digest": "3b6c5f2475eced33b11b936916fc5f574f716843048b04ca96e7e11011d37ffc",
+      "newId": "noxia:radiology:relation:v2:implemented_by:3b6c5f2475eced33b11b936916fc5f574f716843048b04ca96e7e11011d37ffc",
+      "oldId": "noxia:radiology:relation:implemented_by:dicom-to-nifti:dicom-audit"
+    },
+    {
+      "digest": "59e85c3f008c16e3a809dc33d4304337e0063b8192208e460ebf72641acdd3fe",
+      "newId": "noxia:radiology:relation:v2:implemented_by:59e85c3f008c16e3a809dc33d4304337e0063b8192208e460ebf72641acdd3fe",
+      "oldId": "noxia:radiology:relation:implemented_by:neuro-onco:neuro-oncology-segmentation"
+    },
+    {
+      "digest": "494daa5b8128801beee4c3b95097b3b9a3418e8df247be4f7344bc0e1e557f93",
+      "newId": "noxia:radiology:relation:v2:implemented_by:494daa5b8128801beee4c3b95097b3b9a3418e8df247be4f7344bc0e1e557f93",
+      "oldId": "noxia:radiology:relation:implemented_by:noxia-cardiac-mri:corelab-cardiac-mri"
+    },
+    {
+      "digest": "f1c8aaec8187ecadcdc1906c7ce50d8432bf6ff01646b7c0598508aee2660e85",
+      "newId": "noxia:radiology:relation:v2:implemented_by:f1c8aaec8187ecadcdc1906c7ce50d8432bf6ff01646b7c0598508aee2660e85",
+      "oldId": "noxia:radiology:relation:implemented_by:perfusion-segmentation:perfusion-segmentation-demo"
+    },
+    {
+      "digest": "23a2b48d7550f1bc507508163995b3d881610bb240c6e87ad7c7dc50d6606343",
+      "newId": "noxia:radiology:relation:v2:implemented_by:23a2b48d7550f1bc507508163995b3d881610bb240c6e87ad7c7dc50d6606343",
+      "oldId": "noxia:radiology:relation:implemented_by:recalage:multimodal-registration"
+    },
+    {
+      "digest": "321802408115da546d239d66d2e001704dfd52b3e4099194f65a9901273be7e7",
+      "newId": "noxia:radiology:relation:v2:measures:321802408115da546d239d66d2e001704dfd52b3e4099194f65a9901273be7e7",
+      "oldId": "noxia:radiology:relation:measures:late-gadolinium-enhancement:lge-quantification"
+    },
+    {
+      "digest": "c88accc374fc5309dc01051dfa81b67e2e94892cf1039749cad12cb950de7808",
+      "newId": "noxia:radiology:relation:v2:measures:c88accc374fc5309dc01051dfa81b67e2e94892cf1039749cad12cb950de7808",
+      "oldId": "noxia:radiology:relation:measures:perfusion-ct:cbf"
+    },
+    {
+      "digest": "8522d4cc6f41dc441d20cc678ebeb65fa3a448e8b4f681521974d981cc85ebb6",
+      "newId": "noxia:radiology:relation:v2:measures:8522d4cc6f41dc441d20cc678ebeb65fa3a448e8b4f681521974d981cc85ebb6",
+      "oldId": "noxia:radiology:relation:measures:perfusion-ct:cbv"
+    },
+    {
+      "digest": "61e4d57e85e548f2b37c8bb696d45515f20904565e97798fa36cc831de555f64",
+      "newId": "noxia:radiology:relation:v2:measures:61e4d57e85e548f2b37c8bb696d45515f20904565e97798fa36cc831de555f64",
+      "oldId": "noxia:radiology:relation:measures:perfusion-ct:tmax"
+    },
+    {
+      "digest": "30db571421e99618f6b3fb71a1d6456e4a0691756b20a919e0dd9105f3dc5f1e",
+      "newId": "noxia:radiology:relation:v2:measures:30db571421e99618f6b3fb71a1d6456e4a0691756b20a919e0dd9105f3dc5f1e",
+      "oldId": "noxia:radiology:relation:measures:t1-mapping:t1"
+    },
+    {
+      "digest": "b87365c21c309df1caae4b670356be72b5ec0f5bd36155f3ebb5eaba868443fa",
+      "newId": "noxia:radiology:relation:v2:measures:b87365c21c309df1caae4b670356be72b5ec0f5bd36155f3ebb5eaba868443fa",
+      "oldId": "noxia:radiology:relation:measures:t2-mapping:t2"
+    },
+    {
+      "digest": "8aa51983cbddcaa9e6dc013e371834dade6bb15dfba899f16afc4b7275f3836f",
+      "newId": "noxia:radiology:relation:v2:part_of:8aa51983cbddcaa9e6dc013e371834dade6bb15dfba899f16afc4b7275f3836f",
+      "oldId": "noxia:radiology:relation:part_of:brain:nervous"
+    },
+    {
+      "digest": "fdfb3529c3004e0847f45a432f7f332b3910df20b7491351e3b0c66ee7919244",
+      "newId": "noxia:radiology:relation:v2:part_of:fdfb3529c3004e0847f45a432f7f332b3910df20b7491351e3b0c66ee7919244",
+      "oldId": "noxia:radiology:relation:part_of:cardiac-cine:cardiac-cine"
+    },
+    {
+      "digest": "b03344e0e69b4a6dcccdf5bec8b99e37408c443d5c42c4661a4e5a2d94ae4b0f",
+      "newId": "noxia:radiology:relation:v2:part_of:b03344e0e69b4a6dcccdf5bec8b99e37408c443d5c42c4661a4e5a2d94ae4b0f",
+      "oldId": "noxia:radiology:relation:part_of:cerebral:brain"
+    },
+    {
+      "digest": "7953210b3c892f7996492d496ac891887a3afb99086b5faf39f69e08e2a03ecd",
+      "newId": "noxia:radiology:relation:v2:part_of:7953210b3c892f7996492d496ac891887a3afb99086b5faf39f69e08e2a03ecd",
+      "oldId": "noxia:radiology:relation:part_of:diffusion-mri:diffusion"
+    },
+    {
+      "digest": "02441fc8b3072f1a61a15d430f692bd8b77170f81d7a69d3cc52f16c48b3a969",
+      "newId": "noxia:radiology:relation:v2:part_of:02441fc8b3072f1a61a15d430f692bd8b77170f81d7a69d3cc52f16c48b3a969",
+      "oldId": "noxia:radiology:relation:part_of:heart:cardiovascular"
+    },
+    {
+      "digest": "12b3abaa572aaef6dc1c545cbaa564c2289d2d0e3d55d855c3fb0c7c9b4e969b",
+      "newId": "noxia:radiology:relation:v2:part_of:12b3abaa572aaef6dc1c545cbaa564c2289d2d0e3d55d855c3fb0c7c9b4e969b",
+      "oldId": "noxia:radiology:relation:part_of:late-gadolinium-enhancement:late-enhancement"
+    },
+    {
+      "digest": "d776506204535c741dd327e3c8d1726e827f400837873982656fa3485ab0d868",
+      "newId": "noxia:radiology:relation:v2:part_of:d776506204535c741dd327e3c8d1726e827f400837873982656fa3485ab0d868",
+      "oldId": "noxia:radiology:relation:part_of:lung:respiratory"
+    },
+    {
+      "digest": "53390d4c910ed5448d497f71d099e6e85d05c4c63907464d204998aaa7c45bee",
+      "newId": "noxia:radiology:relation:v2:part_of:53390d4c910ed5448d497f71d099e6e85d05c4c63907464d204998aaa7c45bee",
+      "oldId": "noxia:radiology:relation:part_of:myocardium:heart"
+    },
+    {
+      "digest": "7cdf9ca21829615f54d9275047aa9440e5b718c3dcbed47543818cbfe3c343b3",
+      "newId": "noxia:radiology:relation:v2:part_of:7cdf9ca21829615f54d9275047aa9440e5b718c3dcbed47543818cbfe3c343b3",
+      "oldId": "noxia:radiology:relation:part_of:perfusion-ct:perfusion"
+    },
+    {
+      "digest": "59b2e5eea24aa9c26e9a141cfefa1937b9dd29825dfbfe78b1ecb9e9c91f2bcf",
+      "newId": "noxia:radiology:relation:v2:part_of:59b2e5eea24aa9c26e9a141cfefa1937b9dd29825dfbfe78b1ecb9e9c91f2bcf",
+      "oldId": "noxia:radiology:relation:part_of:t1-mapping:cardiac-mapping"
+    },
+    {
+      "digest": "7c23444404796fb9589b9b1f9bb49133989b80add8bce7e74baee03909f3d902",
+      "newId": "noxia:radiology:relation:v2:part_of:7c23444404796fb9589b9b1f9bb49133989b80add8bce7e74baee03909f3d902",
+      "oldId": "noxia:radiology:relation:part_of:t2-mapping:cardiac-mapping"
+    },
+    {
+      "digest": "7642eab512149ebfe9e74f05cf6cb417678ef125408425d3729750583e643893",
+      "newId": "noxia:radiology:relation:v2:part_of:7642eab512149ebfe9e74f05cf6cb417678ef125408425d3729750583e643893",
+      "oldId": "noxia:radiology:relation:part_of:thoracic:lung"
+    },
+    {
+      "digest": "9c3dc8e5c10c7852e6d3e2c219b2a52adbf9ba00a9239c6fffa0a15a3fff5737",
+      "newId": "noxia:radiology:relation:v2:produces:9c3dc8e5c10c7852e6d3e2c219b2a52adbf9ba00a9239c6fffa0a15a3fff5737",
+      "oldId": "noxia:radiology:relation:produces:perfusion-segmentation-demo:cbf"
+    },
+    {
+      "digest": "b5857f09e1619e6c8bb95e7bec2161b5795d1d2e9cc4ad6080c05cc50981d2df",
+      "newId": "noxia:radiology:relation:v2:produces:b5857f09e1619e6c8bb95e7bec2161b5795d1d2e9cc4ad6080c05cc50981d2df",
+      "oldId": "noxia:radiology:relation:produces:perfusion-segmentation-demo:tmax"
+    },
+    {
+      "digest": "c6714d2a590d736f3d6b9560813d0fec214d22fd1c3ac7591de408d9f7bee691",
+      "newId": "noxia:radiology:relation:v2:references:c6714d2a590d736f3d6b9560813d0fec214d22fd1c3ac7591de408d9f7bee691",
+      "oldId": "noxia:radiology:relation:references:cbf:cbf"
+    },
+    {
+      "digest": "cb0e44de90dc21ee6686ec95f5786d7f6bcdb5dcf6e313af3748b25fe520d422",
+      "newId": "noxia:radiology:relation:v2:references:cb0e44de90dc21ee6686ec95f5786d7f6bcdb5dcf6e313af3748b25fe520d422",
+      "oldId": "noxia:radiology:relation:references:cbv:cbv"
+    },
+    {
+      "digest": "c58f1f6509a3d4b129a5cc5654062592b908f65ad0ca6c89d2bc64dd6fb8dc45",
+      "newId": "noxia:radiology:relation:v2:references:c58f1f6509a3d4b129a5cc5654062592b908f65ad0ca6c89d2bc64dd6fb8dc45",
+      "oldId": "noxia:radiology:relation:references:cmro2:cmro2"
+    },
+    {
+      "digest": "fca6566701ff6714d12ad3214a4d3a7cce8b6cee5dc77b92d4161424a29060cf",
+      "newId": "noxia:radiology:relation:v2:references:fca6566701ff6714d12ad3214a4d3a7cce8b6cee5dc77b92d4161424a29060cf",
+      "oldId": "noxia:radiology:relation:references:core-lab:noxia-cardiac-mri"
+    },
+    {
+      "digest": "ea6ee92341392cf1ac21faa756d519726dd733fe22ad06fbd9c2353ca178f7ac",
+      "newId": "noxia:radiology:relation:v2:references:ea6ee92341392cf1ac21faa756d519726dd733fe22ad06fbd9c2353ca178f7ac",
+      "oldId": "noxia:radiology:relation:references:dicom-tags:dicom"
+    },
+    {
+      "digest": "d4dda21e17067e718c12f7263b8ca53773310ae19f2e1109fc028e8e8980979c",
+      "newId": "noxia:radiology:relation:v2:references:d4dda21e17067e718c12f7263b8ca53773310ae19f2e1109fc028e8e8980979c",
+      "oldId": "noxia:radiology:relation:references:eacvi-biomarker-reproducibility:ecv"
+    },
+    {
+      "digest": "e6edb177a2710b4f718b8eb2aa635a55284d784d3720661a434abfb5cbe7c58d",
+      "newId": "noxia:radiology:relation:v2:references:e6edb177a2710b4f718b8eb2aa635a55284d784d3720661a434abfb5cbe7c58d",
+      "oldId": "noxia:radiology:relation:references:ecv:ecv"
+    },
+    {
+      "digest": "2bf5bd700faefb8a07618b8faabc712f2b383a00201d014d72877bdeb58abc23",
+      "newId": "noxia:radiology:relation:v2:references:2bf5bd700faefb8a07618b8faabc712f2b383a00201d014d72877bdeb58abc23",
+      "oldId": "noxia:radiology:relation:references:late-enhancement:late-gadolinium-enhancement"
+    },
+    {
+      "digest": "ad7b4b819d4692398da3d367f888fc4cad3de9a470a35151b7d4e283f57ef887",
+      "newId": "noxia:radiology:relation:v2:references:ad7b4b819d4692398da3d367f888fc4cad3de9a470a35151b7d4e283f57ef887",
+      "oldId": "noxia:radiology:relation:references:mtt:mtt"
+    },
+    {
+      "digest": "df2d12f218a98623ddd99e8dbee06e0d28c410a07ec17635c60c860fb72ed2a3",
+      "newId": "noxia:radiology:relation:v2:references:df2d12f218a98623ddd99e8dbee06e0d28c410a07ec17635c60c860fb72ed2a3",
+      "oldId": "noxia:radiology:relation:references:oef:oef"
+    },
+    {
+      "digest": "50ab5d5e7d045e8023bac165d44fb1b47f3c220eed518acebbc67925f2e037ec",
+      "newId": "noxia:radiology:relation:v2:references:50ab5d5e7d045e8023bac165d44fb1b47f3c220eed518acebbc67925f2e037ec",
+      "oldId": "noxia:radiology:relation:references:scmr-cardiac-mri-standardisation:cardiac-mapping"
+    },
+    {
+      "digest": "60a7fcc3c6eba30a9a444034c195328eb7ace0b230b114231b4979db7515f7dc",
+      "newId": "noxia:radiology:relation:v2:related_to:60a7fcc3c6eba30a9a444034c195328eb7ace0b230b114231b4979db7515f7dc",
+      "oldId": "noxia:radiology:relation:related_to:covert-mi:covert-mi"
+    },
+    {
+      "digest": "41fb0f8e9f777d57bdf62bb3f4227ffccf278e32159d37eb438c8ca1f7143832",
+      "newId": "noxia:radiology:relation:v2:supports:41fb0f8e9f777d57bdf62bb3f4227ffccf278e32159d37eb438c8ca1f7143832",
+      "oldId": "noxia:radiology:relation:supports:cardiac:cardiac-quantification-demo"
+    },
+    {
+      "digest": "c2ebe5497066128f03e060e8dd548153a21cb41c9d4a8bed0c0118d68c189bee",
+      "newId": "noxia:radiology:relation:v2:supports:c2ebe5497066128f03e060e8dd548153a21cb41c9d4a8bed0c0118d68c189bee",
+      "oldId": "noxia:radiology:relation:supports:corelab:noxia-cardiac-mri"
+    },
+    {
+      "digest": "d39a6cd793605dea75bcd336a2e7464b7ae3be611dc928b0e78f9430fee7bca6",
+      "newId": "noxia:radiology:relation:v2:supports:d39a6cd793605dea75bcd336a2e7464b7ae3be611dc928b0e78f9430fee7bca6",
+      "oldId": "noxia:radiology:relation:supports:ct-scan:ct-quantification-demo"
+    },
+    {
+      "digest": "4f1c6294be65d47db326b53d9e359293ffc4d1769a7c1bccc3ff20a2211b32b2",
+      "newId": "noxia:radiology:relation:v2:supports:4f1c6294be65d47db326b53d9e359293ffc4d1769a7c1bccc3ff20a2211b32b2",
+      "oldId": "noxia:radiology:relation:supports:dicom-audit:dicom-audit"
+    },
+    {
+      "digest": "28b6cc405d2a754e82803b437c8ec90e6bd6445983ad63760a796d98103315b9",
+      "newId": "noxia:radiology:relation:v2:supports:28b6cc405d2a754e82803b437c8ec90e6bd6445983ad63760a796d98103315b9",
+      "oldId": "noxia:radiology:relation:supports:mimi:noxia-cardiac-mri"
+    },
+    {
+      "digest": "2ecccec7258b6260ac4d63f05ab8468e2ea9817fbfe6f1b055d7366a4a9d7541",
+      "newId": "noxia:radiology:relation:v2:supports:2ecccec7258b6260ac4d63f05ab8468e2ea9817fbfe6f1b055d7366a4a9d7541",
+      "oldId": "noxia:radiology:relation:supports:multicentric-harmonization:multicentric-harmonization"
+    },
+    {
+      "digest": "42665e34ab446b940900f45ae3d1f422d22b0a954236c6985c749597b2786d26",
+      "newId": "noxia:radiology:relation:v2:supports:42665e34ab446b940900f45ae3d1f422d22b0a954236c6985c749597b2786d26",
+      "oldId": "noxia:radiology:relation:supports:multicentric-harmonization:multicentric-quantification"
+    },
+    {
+      "digest": "c09a380064e4a9f69c42796a20794510de741688cb2330ea81c615a7fe14c3d4",
+      "newId": "noxia:radiology:relation:v2:supports:c09a380064e4a9f69c42796a20794510de741688cb2330ea81c615a7fe14c3d4",
+      "oldId": "noxia:radiology:relation:supports:neuro-oncology:neuro-oncology-segmentation"
+    },
+    {
+      "digest": "cdfc94ba0d76c6725c6953144d36e59ad136bcfdda5720a8ac5f981f3d2d5281",
+      "newId": "noxia:radiology:relation:v2:supports:cdfc94ba0d76c6725c6953144d36e59ad136bcfdda5720a8ac5f981f3d2d5281",
+      "oldId": "noxia:radiology:relation:supports:perfusion-segmentation:perfusion-segmentation-demo"
+    },
+    {
+      "digest": "2f55dfe31a444d651e710bf176e2e86ef9888a1dedec251339049aae846e575e",
+      "newId": "noxia:radiology:relation:v2:supports:2f55dfe31a444d651e710bf176e2e86ef9888a1dedec251339049aae846e575e",
+      "oldId": "noxia:radiology:relation:supports:quality-control:quality-control"
+    },
+    {
+      "digest": "91cf87fc1c91e3c719b97272d2853b54aaf3af004a66d169a3ac1ad3a4d1e55d",
+      "newId": "noxia:radiology:relation:v2:supports:91cf87fc1c91e3c719b97272d2853b54aaf3af004a66d169a3ac1ad3a4d1e55d",
+      "oldId": "noxia:radiology:relation:supports:quantitative-engineering:quantitative-imaging"
+    },
+    {
+      "digest": "d510b00ab7c16b68ac7be6c8a9f8046e7a9f4b5f0e0024d04ba02abd209117c9",
+      "newId": "noxia:radiology:relation:v2:supports:d510b00ab7c16b68ac7be6c8a9f8046e7a9f4b5f0e0024d04ba02abd209117c9",
+      "oldId": "noxia:radiology:relation:supports:registration:multimodal-registration"
+    },
+    {
+      "digest": "0cfa8e7425e7887d68c15b49f8443401269335c43908c7e496125961caa58338",
+      "newId": "noxia:radiology:relation:v2:supports:0cfa8e7425e7887d68c15b49f8443401269335c43908c7e496125961caa58338",
+      "oldId": "noxia:radiology:relation:supports:rhu-marvelous:noxia-cardiac-mri"
+    },
+    {
+      "digest": "18c1586cbd5f785eed84a3e31524ca960d5b1e82ae71367165fb7b65abbdb148",
+      "newId": "noxia:radiology:relation:v2:uses:18c1586cbd5f785eed84a3e31524ca960d5b1e82ae71367165fb7b65abbdb148",
+      "oldId": "noxia:radiology:relation:uses:cardiac-cine:irm"
+    },
+    {
+      "digest": "a496c28ea2609109569d44a1e4a8e6d59320ebce3fd96463e2e396748902ab1b",
+      "newId": "noxia:radiology:relation:v2:uses:a496c28ea2609109569d44a1e4a8e6d59320ebce3fd96463e2e396748902ab1b",
+      "oldId": "noxia:radiology:relation:uses:corelab-cardiac-mri:dicom-audit"
+    },
+    {
+      "digest": "6a73c07488b49b44db52aa1c3e42473df1891a2ea989971088eb2f25f9beab0c",
+      "newId": "noxia:radiology:relation:v2:uses:6a73c07488b49b44db52aa1c3e42473df1891a2ea989971088eb2f25f9beab0c",
+      "oldId": "noxia:radiology:relation:uses:ct-quantification-demo:simpleitk"
+    },
+    {
+      "digest": "33d2d9a631e5437343299ee5674ce516e26ab5046f576a7beee9d4ad21913a73",
+      "newId": "noxia:radiology:relation:v2:uses:33d2d9a631e5437343299ee5674ce516e26ab5046f576a7beee9d4ad21913a73",
+      "oldId": "noxia:radiology:relation:uses:dicom-anonymization:dicom"
+    },
+    {
+      "digest": "6c5a92f9b1d46254cc742dacc6ab2ba8e519d04907b61b0cfa876e5d5a26b008",
+      "newId": "noxia:radiology:relation:v2:uses:6c5a92f9b1d46254cc742dacc6ab2ba8e519d04907b61b0cfa876e5d5a26b008",
+      "oldId": "noxia:radiology:relation:uses:dicom-audit:dicom"
+    },
+    {
+      "digest": "7abe44ad022d8c8f0b87d215474928526129ad1dd63168254536c23014d23043",
+      "newId": "noxia:radiology:relation:v2:uses:7abe44ad022d8c8f0b87d215474928526129ad1dd63168254536c23014d23043",
+      "oldId": "noxia:radiology:relation:uses:diffusion-mri:irm"
+    },
+    {
+      "digest": "3e0a658f82f3b1faaee64ebe03ab0982c3983ae5f4f98b88dea95aaa62dc85e7",
+      "newId": "noxia:radiology:relation:v2:uses:3e0a658f82f3b1faaee64ebe03ab0982c3983ae5f4f98b88dea95aaa62dc85e7",
+      "oldId": "noxia:radiology:relation:uses:late-gadolinium-enhancement:irm"
+    },
+    {
+      "digest": "f2d3c9233fb06cf1e17783136966e5782f694708c0987438c41caa4247c57310",
+      "newId": "noxia:radiology:relation:v2:uses:f2d3c9233fb06cf1e17783136966e5782f694708c0987438c41caa4247c57310",
+      "oldId": "noxia:radiology:relation:uses:multimodal-registration:antspy"
+    },
+    {
+      "digest": "bb4532d4d5b71ed08527507463b509fef86d0ba6c1652b92b51f950e371b4fb1",
+      "newId": "noxia:radiology:relation:v2:uses:bb4532d4d5b71ed08527507463b509fef86d0ba6c1652b92b51f950e371b4fb1",
+      "oldId": "noxia:radiology:relation:uses:multimodal-registration:elastix"
+    },
+    {
+      "digest": "4b439bc813e34fc5764c8b2527549a784986a3df83be70ea4fef9c04ff2097dd",
+      "newId": "noxia:radiology:relation:v2:uses:4b439bc813e34fc5764c8b2527549a784986a3df83be70ea4fef9c04ff2097dd",
+      "oldId": "noxia:radiology:relation:uses:perfusion-ct:ct"
+    },
+    {
+      "digest": "18b2f8e2abe25895afb84cbf05cb57ec5977ae081e2010c352a13a7587663c4a",
+      "newId": "noxia:radiology:relation:v2:uses:18b2f8e2abe25895afb84cbf05cb57ec5977ae081e2010c352a13a7587663c4a",
+      "oldId": "noxia:radiology:relation:uses:perfusion-segmentation-demo:nibabel"
+    },
+    {
+      "digest": "a0ee9b9ba7ddc80379b509a334e14bba539084e347a1562b6dff7fefeabdc1ce",
+      "newId": "noxia:radiology:relation:v2:uses:a0ee9b9ba7ddc80379b509a334e14bba539084e347a1562b6dff7fefeabdc1ce",
+      "oldId": "noxia:radiology:relation:uses:perfusion-segmentation-demo:python"
+    },
+    {
+      "digest": "f0ec497f1203d2b52fa0751d02de9cdd5db7455aaff6ef5726406d5c6aa5da76",
+      "newId": "noxia:radiology:relation:v2:uses:f0ec497f1203d2b52fa0751d02de9cdd5db7455aaff6ef5726406d5c6aa5da76",
+      "oldId": "noxia:radiology:relation:uses:quantitative-imaging:quality-control"
+    },
+    {
+      "digest": "cf7e47fa02bab8068df9b9cb3c4a07e9937254acc3a0db1ab063d970bc92b38d",
+      "newId": "noxia:radiology:relation:v2:uses:cf7e47fa02bab8068df9b9cb3c4a07e9937254acc3a0db1ab063d970bc92b38d",
+      "oldId": "noxia:radiology:relation:uses:t1-mapping:irm"
+    },
+    {
+      "digest": "f6c3632c2a1c4c173549f4a3c04e2e7e93a73d35a9f7a3f3e65aa482c0d11b3d",
+      "newId": "noxia:radiology:relation:v2:uses:f6c3632c2a1c4c173549f4a3c04e2e7e93a73d35a9f7a3f3e65aa482c0d11b3d",
+      "oldId": "noxia:radiology:relation:uses:t2-mapping:irm"
+    }
+  ],
+  "relationMigrations": [
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "EVIDENCE_MENTION",
+      "decision": "PRESERVED_AS_MENTION_CANDIDATE_WITHOUT_EVIDENCE_LINK",
+      "historicalDigest": "6cc32d45e1abf6ef6a80f83ae48b58f8514f09bb3f03855f886ab09cff367de9",
+      "justification": "The repository establishes a documentary mention only; no assertion revision exists to receive an EvidenceLink.",
+      "migratedIdentityDigest": "951c1c3542a929a46532df9051ded073f7bc30a570e6b729b30da1f1302ecc52",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:applies_to:951c1c3542a929a46532df9051ded073f7bc30a570e6b729b30da1f1302ecc52",
+      "oldId": "noxia:radiology:relation:applies_to:biorxiv-2024-12-12:acute-ischemic-stroke",
+      "relationType": "APPLIES_TO",
+      "sourceEntityId": "noxia:radiology:publication:biorxiv-2024-12-12",
+      "sourceRefs": [
+        "source:publications"
+      ],
+      "targetEntityId": "noxia:radiology:disease:acute-ischemic-stroke"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "SCIENTIFIC_CANDIDATE",
+      "decision": "DEFERRED_PENDING_SOURCE_LEVEL_ASSERTION_REVIEW",
+      "historicalDigest": "ca902c550078a43ead9fa2cd85addc93076200ceb1c7acabcdd948ee2fae2373",
+      "justification": "The edge may contain scientific meaning but lacks a reviewed assertion, context and evidence locator.",
+      "migratedIdentityDigest": "810bc5253761f9d092862f69554bccc289765d31b6ca991599f87e9b0d7c7ee7",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:applies_to:810bc5253761f9d092862f69554bccc289765d31b6ca991599f87e9b0d7c7ee7",
+      "oldId": "noxia:radiology:relation:applies_to:cbf:brain",
+      "relationType": "APPLIES_TO",
+      "sourceEntityId": "noxia:radiology:biomarker:cbf",
+      "sourceRefs": [
+        "source:ct-perfusion"
+      ],
+      "targetEntityId": "noxia:radiology:organ:brain"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "SCIENTIFIC_CANDIDATE",
+      "decision": "DEFERRED_PENDING_SOURCE_LEVEL_ASSERTION_REVIEW",
+      "historicalDigest": "dc39cf873a717cc3ba85cf841e6996595c4dd0407cc926d6e4b66245100e0702",
+      "justification": "The edge may contain scientific meaning but lacks a reviewed assertion, context and evidence locator.",
+      "migratedIdentityDigest": "0983c420e26c7a6415aa1344103299e5cfa13e750959b03f3fc2bde2e1ac39da",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:applies_to:0983c420e26c7a6415aa1344103299e5cfa13e750959b03f3fc2bde2e1ac39da",
+      "oldId": "noxia:radiology:relation:applies_to:cbv:brain",
+      "relationType": "APPLIES_TO",
+      "sourceEntityId": "noxia:radiology:biomarker:cbv",
+      "sourceRefs": [
+        "source:ct-perfusion"
+      ],
+      "targetEntityId": "noxia:radiology:organ:brain"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "SCIENTIFIC_CANDIDATE",
+      "decision": "DEFERRED_PENDING_SOURCE_LEVEL_ASSERTION_REVIEW",
+      "historicalDigest": "9117ad90e51eb37df3a486f88d7f89e185e653846658a0e0feddbbc40b07242e",
+      "justification": "The edge may contain scientific meaning but lacks a reviewed assertion, context and evidence locator.",
+      "migratedIdentityDigest": "0468ec1f2ae3be77ffe2c5c4f2c9c132e1e8b4d6d30b345c5f972077cd1662c6",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:applies_to:0468ec1f2ae3be77ffe2c5c4f2c9c132e1e8b4d6d30b345c5f972077cd1662c6",
+      "oldId": "noxia:radiology:relation:applies_to:cmro2:brain",
+      "relationType": "APPLIES_TO",
+      "sourceEntityId": "noxia:radiology:biomarker:cmro2",
+      "sourceRefs": [
+        "source:cmro2"
+      ],
+      "targetEntityId": "noxia:radiology:organ:brain"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "SCIENTIFIC_CANDIDATE",
+      "decision": "DEFERRED_PENDING_SOURCE_LEVEL_ASSERTION_REVIEW",
+      "historicalDigest": "7ff0ab420f6a40577025e95b41a36b5e921ab298ec517c37d26f825da9e72bc5",
+      "justification": "The edge may contain scientific meaning but lacks a reviewed assertion, context and evidence locator.",
+      "migratedIdentityDigest": "ed797a50c7910de14f35d3088860690546d36bcace964c643e302be3473d178a",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:applies_to:ed797a50c7910de14f35d3088860690546d36bcace964c643e302be3473d178a",
+      "oldId": "noxia:radiology:relation:applies_to:ecv:heart",
+      "relationType": "APPLIES_TO",
+      "sourceEntityId": "noxia:radiology:biomarker:ecv",
+      "sourceRefs": [
+        "source:ecv"
+      ],
+      "targetEntityId": "noxia:radiology:organ:heart"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "SCIENTIFIC_CANDIDATE",
+      "decision": "DEFERRED_PENDING_SOURCE_LEVEL_ASSERTION_REVIEW",
+      "historicalDigest": "c5cb6fdf4028601691a63460cdc074958401cb6384bad5afaee379e1463c066c",
+      "justification": "The edge may contain scientific meaning but lacks a reviewed assertion, context and evidence locator.",
+      "migratedIdentityDigest": "8ba2e7e126dbbd27cf598c45277a7e983e571f4177b832a645da3419ed9d8a93",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:applies_to:8ba2e7e126dbbd27cf598c45277a7e983e571f4177b832a645da3419ed9d8a93",
+      "oldId": "noxia:radiology:relation:applies_to:oef:brain",
+      "relationType": "APPLIES_TO",
+      "sourceEntityId": "noxia:radiology:biomarker:oef",
+      "sourceRefs": [
+        "source:oef"
+      ],
+      "targetEntityId": "noxia:radiology:organ:brain"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "EVIDENCE_MENTION",
+      "decision": "PRESERVED_AS_MENTION_CANDIDATE_WITHOUT_EVIDENCE_LINK",
+      "historicalDigest": "3d5f05a003ddf840c6f43ea93a34ee793ae3c1418225cbf730a0c1ab1559e0ea",
+      "justification": "The repository establishes a documentary mention only; no assertion revision exists to receive an EvidenceLink.",
+      "migratedIdentityDigest": "737e0eb233fcdfe00f4d29370ac93b6f93be5cb81027b1a93ff6ff64a6a82f51",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:applies_to:737e0eb233fcdfe00f4d29370ac93b6f93be5cb81027b1a93ff6ff64a6a82f51",
+      "oldId": "noxia:radiology:relation:applies_to:pone-0245684:stemi",
+      "relationType": "APPLIES_TO",
+      "sourceEntityId": "noxia:radiology:publication:pone-0245684",
+      "sourceRefs": [
+        "source:publications"
+      ],
+      "targetEntityId": "noxia:radiology:disease:stemi"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "EVIDENCE_MENTION",
+      "decision": "PRESERVED_AS_MENTION_CANDIDATE_WITHOUT_EVIDENCE_LINK",
+      "historicalDigest": "ff0404d8c66cc5126c5d30bf05bab0372e5132f9e407a89aa9f9d6d0e0acf110",
+      "justification": "The repository establishes a documentary mention only; no assertion revision exists to receive an EvidenceLink.",
+      "migratedIdentityDigest": "7bbbac6015823ccf1da94675ffab840c66b3f1a20b4631b4f2345dca0280fcb1",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:applies_to:7bbbac6015823ccf1da94675ffab840c66b3f1a20b4631b4f2345dca0280fcb1",
+      "oldId": "noxia:radiology:relation:applies_to:stroke-124-047311:acute-ischemic-stroke",
+      "relationType": "APPLIES_TO",
+      "sourceEntityId": "noxia:radiology:publication:stroke-124-047311",
+      "sourceRefs": [
+        "source:publications"
+      ],
+      "targetEntityId": "noxia:radiology:disease:acute-ischemic-stroke"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "SCIENTIFIC_CANDIDATE",
+      "decision": "DEFERRED_PENDING_SOURCE_LEVEL_ASSERTION_REVIEW",
+      "historicalDigest": "c83c88b15688093ebe1a992b2a3f75807b10fd13ae33565c9bdf425303df96b7",
+      "justification": "The edge may contain scientific meaning but lacks a reviewed assertion, context and evidence locator.",
+      "migratedIdentityDigest": "923f7c0b2c56a978cd568f60cf02af7de8352c67c599590f460fba9fbfd32486",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:applies_to:923f7c0b2c56a978cd568f60cf02af7de8352c67c599590f460fba9fbfd32486",
+      "oldId": "noxia:radiology:relation:applies_to:t1:heart",
+      "relationType": "APPLIES_TO",
+      "sourceEntityId": "noxia:radiology:biomarker:t1",
+      "sourceRefs": [
+        "source:ecv"
+      ],
+      "targetEntityId": "noxia:radiology:organ:heart"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "SCIENTIFIC_CANDIDATE",
+      "decision": "DEFERRED_PENDING_SOURCE_LEVEL_ASSERTION_REVIEW",
+      "historicalDigest": "91583b5efcb0833898efc177063a7d5d7c42eb10f5729e67bda070dbd5118a56",
+      "justification": "The edge may contain scientific meaning but lacks a reviewed assertion, context and evidence locator.",
+      "migratedIdentityDigest": "13b9a0baa037709a823ad29e94454af45823a7caa49a5263c6d5fae30b256c78",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:applies_to:13b9a0baa037709a823ad29e94454af45823a7caa49a5263c6d5fae30b256c78",
+      "oldId": "noxia:radiology:relation:applies_to:t2:heart",
+      "relationType": "APPLIES_TO",
+      "sourceEntityId": "noxia:radiology:biomarker:t2",
+      "sourceRefs": [
+        "source:ecv"
+      ],
+      "targetEntityId": "noxia:radiology:organ:heart"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "SCIENTIFIC_CANDIDATE",
+      "decision": "DEFERRED_PENDING_SOURCE_LEVEL_ASSERTION_REVIEW",
+      "historicalDigest": "dc21cc24f044cf37c21c569427c90ac54f961b2992aca9b67254ebdb7d4dd9da",
+      "justification": "The edge may contain scientific meaning but lacks a reviewed assertion, context and evidence locator.",
+      "migratedIdentityDigest": "3b6c33431526ef71e079cb7a923ce9bfe9b6b538291267cea5a911f38a2a856d",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:applies_to:3b6c33431526ef71e079cb7a923ce9bfe9b6b538291267cea5a911f38a2a856d",
+      "oldId": "noxia:radiology:relation:applies_to:tmax:brain",
+      "relationType": "APPLIES_TO",
+      "sourceEntityId": "noxia:radiology:biomarker:tmax",
+      "sourceRefs": [
+        "source:ct-perfusion"
+      ],
+      "targetEntityId": "noxia:radiology:organ:brain"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "SEMANTICALLY_INCORRECT",
+      "decision": "REPLACED_BY_UNPOPULATED_STANDARD_CONTRACT",
+      "historicalDigest": "a3ef317eaeb49231405d8b864bbe9c3f5f2ac7729209ad1469bf74c8bfab2b1e",
+      "justification": "DICOM cannot be reduced to a format-to-standard compatibility edge; the old edge is preserved but excluded from the active projection.",
+      "migratedIdentityDigest": "69b88b8789cc8dc32692c41159c472d84d930d8dedc434144a5d700bc8330b62",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:compatible_with:69b88b8789cc8dc32692c41159c472d84d930d8dedc434144a5d700bc8330b62",
+      "oldId": "noxia:radiology:relation:compatible_with:dicom:dicom",
+      "relationType": "COMPATIBLE_WITH",
+      "sourceEntityId": "noxia:radiology:format:dicom",
+      "sourceRefs": [
+        "source:dicom"
+      ],
+      "targetEntityId": "noxia:radiology:standard:dicom"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "SCIENTIFIC_CANDIDATE",
+      "decision": "DEFERRED_PENDING_SOURCE_LEVEL_ASSERTION_REVIEW",
+      "historicalDigest": "fc2ba9fa33b57dc414dbb570521cadcc7ec9fce881bcef048b980cff2136f020",
+      "justification": "The edge may contain scientific meaning but lacks a reviewed assertion, context and evidence locator.",
+      "migratedIdentityDigest": "863d7f8e628f69b8547714c3636a8b35e44a2b6544bb2445a155c39fab7223b7",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:derived_from:863d7f8e628f69b8547714c3636a8b35e44a2b6544bb2445a155c39fab7223b7",
+      "oldId": "noxia:radiology:relation:derived_from:cbf:cbf",
+      "relationType": "DERIVED_FROM",
+      "sourceEntityId": "noxia:radiology:measurement:cbf",
+      "sourceRefs": [
+        "source:ct-perfusion"
+      ],
+      "targetEntityId": "noxia:radiology:biomarker:cbf"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "SCIENTIFIC_CANDIDATE",
+      "decision": "DEFERRED_PENDING_SOURCE_LEVEL_ASSERTION_REVIEW",
+      "historicalDigest": "52af95cd1272992821027372bb990f5c3837892b92589d73278fd0d2006e17ed",
+      "justification": "The edge may contain scientific meaning but lacks a reviewed assertion, context and evidence locator.",
+      "migratedIdentityDigest": "7fa419a2fc41f766f33092d829ed8e992d35c16df9512ebb0214b4a84bd4bc83",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:derived_from:7fa419a2fc41f766f33092d829ed8e992d35c16df9512ebb0214b4a84bd4bc83",
+      "oldId": "noxia:radiology:relation:derived_from:cmro2:cmro2",
+      "relationType": "DERIVED_FROM",
+      "sourceEntityId": "noxia:radiology:measurement:cmro2",
+      "sourceRefs": [
+        "source:cmro2"
+      ],
+      "targetEntityId": "noxia:radiology:biomarker:cmro2"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "SCIENTIFIC_CANDIDATE",
+      "decision": "DEFERRED_PENDING_SOURCE_LEVEL_ASSERTION_REVIEW",
+      "historicalDigest": "7c9624a2a0f430133b514f97029672b11ed26c5c3cf29a8cfe596f0073cfafc8",
+      "justification": "The edge may contain scientific meaning but lacks a reviewed assertion, context and evidence locator.",
+      "migratedIdentityDigest": "d03a82cb2bea709e14108e01c522151bcb101bf4e1ae9df4cff4da59b588452c",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:derived_from:d03a82cb2bea709e14108e01c522151bcb101bf4e1ae9df4cff4da59b588452c",
+      "oldId": "noxia:radiology:relation:derived_from:ecv:ecv",
+      "relationType": "DERIVED_FROM",
+      "sourceEntityId": "noxia:radiology:measurement:ecv",
+      "sourceRefs": [
+        "source:ecv"
+      ],
+      "targetEntityId": "noxia:radiology:biomarker:ecv"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "SCIENTIFIC_CANDIDATE",
+      "decision": "DEFERRED_PENDING_SOURCE_LEVEL_ASSERTION_REVIEW",
+      "historicalDigest": "6ba8471ad8856e45e4b0a52199a359ff87c4eb3a865f9bcd5f73c94c3c1201e0",
+      "justification": "The edge may contain scientific meaning but lacks a reviewed assertion, context and evidence locator.",
+      "migratedIdentityDigest": "42873f6f4374126aaea6c6abeadb3deaf5ec18cee9d4f389dac4d2767f81b566",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:derived_from:42873f6f4374126aaea6c6abeadb3deaf5ec18cee9d4f389dac4d2767f81b566",
+      "oldId": "noxia:radiology:relation:derived_from:oef:oef",
+      "relationType": "DERIVED_FROM",
+      "sourceEntityId": "noxia:radiology:measurement:oef",
+      "sourceRefs": [
+        "source:oef"
+      ],
+      "targetEntityId": "noxia:radiology:biomarker:oef"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "SCIENTIFIC_CANDIDATE",
+      "decision": "DEFERRED_PENDING_SOURCE_LEVEL_ASSERTION_REVIEW",
+      "historicalDigest": "f7359e485bccae6a7747f213a889849bd6e9d020a525c67155fdac70df5ba3a1",
+      "justification": "The edge may contain scientific meaning but lacks a reviewed assertion, context and evidence locator.",
+      "migratedIdentityDigest": "f43ab445fdc66164eee724566be4df72f8fb47cdcc12ba9a1fddac28fcf588dd",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:derived_from:f43ab445fdc66164eee724566be4df72f8fb47cdcc12ba9a1fddac28fcf588dd",
+      "oldId": "noxia:radiology:relation:derived_from:tmax:tmax",
+      "relationType": "DERIVED_FROM",
+      "sourceEntityId": "noxia:radiology:measurement:tmax",
+      "sourceRefs": [
+        "source:ct-perfusion"
+      ],
+      "targetEntityId": "noxia:radiology:biomarker:tmax"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "EVIDENCE_MENTION",
+      "decision": "PRESERVED_AS_MENTION_CANDIDATE_WITHOUT_EVIDENCE_LINK",
+      "historicalDigest": "54a8e04e9e4bec1535f634f0985eebcbcbb5e01dfde8fd1b196491e39388938b",
+      "justification": "The repository establishes a documentary mention only; no assertion revision exists to receive an EvidenceLink.",
+      "migratedIdentityDigest": "faa6fb903e30eed54a89e244e23ba5384a069e22a99dc3e1cc48bd2dbf295592",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:documents:faa6fb903e30eed54a89e244e23ba5384a069e22a99dc3e1cc48bd2dbf295592",
+      "oldId": "noxia:radiology:relation:documents:biorxiv-2024-12-12:cmro2",
+      "relationType": "DOCUMENTS",
+      "sourceEntityId": "noxia:radiology:publication:biorxiv-2024-12-12",
+      "sourceRefs": [
+        "source:publications"
+      ],
+      "targetEntityId": "noxia:radiology:biomarker:cmro2"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "EVIDENCE_MENTION",
+      "decision": "PRESERVED_AS_MENTION_CANDIDATE_WITHOUT_EVIDENCE_LINK",
+      "historicalDigest": "4a64f0397db003b5639869f7d8c00c817b8043fb50a49a6ccf26a4831d976a50",
+      "justification": "The repository establishes a documentary mention only; no assertion revision exists to receive an EvidenceLink.",
+      "migratedIdentityDigest": "d428e191f1e4953df3329a9cc4f14b6aae8f9721c0ca03d4c790e603d6490a54",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:documents:d428e191f1e4953df3329a9cc4f14b6aae8f9721c0ca03d4c790e603d6490a54",
+      "oldId": "noxia:radiology:relation:documents:pone-0245684:mvo",
+      "relationType": "DOCUMENTS",
+      "sourceEntityId": "noxia:radiology:publication:pone-0245684",
+      "sourceRefs": [
+        "source:publications"
+      ],
+      "targetEntityId": "noxia:radiology:biomarker:mvo"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "EVIDENCE_MENTION",
+      "decision": "PRESERVED_AS_MENTION_CANDIDATE_WITHOUT_EVIDENCE_LINK",
+      "historicalDigest": "d6e3edbe14c442782ede6b5af9839797b3a7ab9368c27d3475629ad6515c1500",
+      "justification": "The repository establishes a documentary mention only; no assertion revision exists to receive an EvidenceLink.",
+      "migratedIdentityDigest": "d4f81e1a7ea8857a25ce47a39105cf726c8171ce375ea1f8ea122a51029438d3",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:documents:d4f81e1a7ea8857a25ce47a39105cf726c8171ce375ea1f8ea122a51029438d3",
+      "oldId": "noxia:radiology:relation:documents:pone-0245684:myocardial-hemorrhage",
+      "relationType": "DOCUMENTS",
+      "sourceEntityId": "noxia:radiology:publication:pone-0245684",
+      "sourceRefs": [
+        "source:publications"
+      ],
+      "targetEntityId": "noxia:radiology:biomarker:myocardial-hemorrhage"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "EVIDENCE_MENTION",
+      "decision": "PRESERVED_AS_MENTION_CANDIDATE_WITHOUT_EVIDENCE_LINK",
+      "historicalDigest": "f356e47cf8d64fb1ef6b04445b0a9390d4775d6d4c84f43786077039e4feef79",
+      "justification": "The repository establishes a documentary mention only; no assertion revision exists to receive an EvidenceLink.",
+      "migratedIdentityDigest": "f2a6eefc462dda754e325ff1dc9cdbde5ad0477e93f55fb55b26b7176c07c75e",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:documents:f2a6eefc462dda754e325ff1dc9cdbde5ad0477e93f55fb55b26b7176c07c75e",
+      "oldId": "noxia:radiology:relation:documents:stroke-124-047311:oef",
+      "relationType": "DOCUMENTS",
+      "sourceEntityId": "noxia:radiology:publication:stroke-124-047311",
+      "sourceRefs": [
+        "source:publications"
+      ],
+      "targetEntityId": "noxia:radiology:biomarker:oef"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "252d40445ddb87f76b76b3037149ad0df22145c326c10dcee9a836e35309ebe3",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "97302e55ec39adafce43d5549459cb14e22a094ffb0a9e9f57b898420c4ed2f6",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:has_feature:97302e55ec39adafce43d5549459cb14e22a094ffb0a9e9f57b898420c4ed2f6",
+      "oldId": "noxia:radiology:relation:has_feature:perfusion-segmentation:mask-overlay",
+      "relationType": "HAS_FEATURE",
+      "sourceEntityId": "noxia:radiology:viewer:perfusion-segmentation",
+      "sourceRefs": [
+        "source:perfusion-viewer"
+      ],
+      "targetEntityId": "noxia:radiology:feature:mask-overlay"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "9bd167530fdc229de917f205ea94a9711dfd270026fac47f5e295ddf15bd11e3",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "c060511526f2261400dae92cbcc41e6a09d4ca675ffe43903ae46c7d26b8f8fd",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:has_feature:c060511526f2261400dae92cbcc41e6a09d4ca675ffe43903ae46c7d26b8f8fd",
+      "oldId": "noxia:radiology:relation:has_feature:quality-control:quality-control",
+      "relationType": "HAS_FEATURE",
+      "sourceEntityId": "noxia:radiology:viewer:quality-control",
+      "sourceRefs": [
+        "source:qc-viewer"
+      ],
+      "targetEntityId": "noxia:radiology:feature:quality-control"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "3d01beac9dcf6312eacf186cb4d93a656e4f514c64a1e3c959d084ccb18f511c",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "b964b94f9ff7a69c58a64c149b28d07586c6f995b86662a345d84c69523e5939",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:has_feature:b964b94f9ff7a69c58a64c149b28d07586c6f995b86662a345d84c69523e5939",
+      "oldId": "noxia:radiology:relation:has_feature:quality-control:windowing",
+      "relationType": "HAS_FEATURE",
+      "sourceEntityId": "noxia:radiology:viewer:quality-control",
+      "sourceRefs": [
+        "source:qc-viewer"
+      ],
+      "targetEntityId": "noxia:radiology:feature:windowing"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "60991c33845f1d628e8c10b0e386acd1aed839e138d4fbbbd746f5c2951fe076",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "38eec8d023c35d7f1b5947b4e97c6860523a024e161c77917a250a7ecacea0c7",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:has_feature:38eec8d023c35d7f1b5947b4e97c6860523a024e161c77917a250a7ecacea0c7",
+      "oldId": "noxia:radiology:relation:has_feature:registration:registration-comparison",
+      "relationType": "HAS_FEATURE",
+      "sourceEntityId": "noxia:radiology:viewer:registration",
+      "sourceRefs": [
+        "source:registration-viewer"
+      ],
+      "targetEntityId": "noxia:radiology:feature:registration-comparison"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "5f07b7c353ec321d9ac13bffc10066c8afc9951e2cad51563cde3305e1096c43",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "39ef48c4f9326e93da90cd8caf3f4bf30d00b0dc41bf7f14127cd5af40c1f28e",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:has_feature:39ef48c4f9326e93da90cd8caf3f4bf30d00b0dc41bf7f14127cd5af40c1f28e",
+      "oldId": "noxia:radiology:relation:has_feature:slice:slice-navigation",
+      "relationType": "HAS_FEATURE",
+      "sourceEntityId": "noxia:radiology:viewer:slice",
+      "sourceRefs": [
+        "source:slice-viewer"
+      ],
+      "targetEntityId": "noxia:radiology:feature:slice-navigation"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "1717255d296aa12aa52061b6a17a87d36c014902c0543933acdd81dcbeacef36",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "fb0aa2b1d1d8e7f2e0e85cfafaae9b12962c739dbf821ba6fc3fc283be941861",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:implemented_by:fb0aa2b1d1d8e7f2e0e85cfafaae9b12962c739dbf821ba6fc3fc283be941861",
+      "oldId": "noxia:radiology:relation:implemented_by:cardiac:cardiac-quantification-demo",
+      "relationType": "IMPLEMENTED_BY",
+      "sourceEntityId": "noxia:radiology:researchproject:cardiac",
+      "sourceRefs": [
+        "source:projects"
+      ],
+      "targetEntityId": "noxia:radiology:pipeline:cardiac-quantification-demo"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "67633ec00598d018f6b2737abbe2b54148718d6c43d5600ecaf68464ac64e45d",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "07b2fe2930eb5966d2c89aed0f856768424dd9c16317bb763875aec39d064b4c",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:implemented_by:07b2fe2930eb5966d2c89aed0f856768424dd9c16317bb763875aec39d064b4c",
+      "oldId": "noxia:radiology:relation:implemented_by:ct-scan:ct-quantification-demo",
+      "relationType": "IMPLEMENTED_BY",
+      "sourceEntityId": "noxia:radiology:researchproject:ct-scan",
+      "sourceRefs": [
+        "source:projects"
+      ],
+      "targetEntityId": "noxia:radiology:pipeline:ct-quantification-demo"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "WORKFLOW_AMBIGUOUS",
+      "decision": "DEFERRED_FOR_WORKFLOW_ORDERING_REVIEW",
+      "historicalDigest": "c6374758c15b308e7ea049bd002cfd68c8892a4c50945b81f5e89866b6a8f4af",
+      "justification": "The historical edge may encode ordering or implementation; WorkflowStep and WorkflowTransition semantics cannot be inferred safely.",
+      "migratedIdentityDigest": "3b6c5f2475eced33b11b936916fc5f574f716843048b04ca96e7e11011d37ffc",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:implemented_by:3b6c5f2475eced33b11b936916fc5f574f716843048b04ca96e7e11011d37ffc",
+      "oldId": "noxia:radiology:relation:implemented_by:dicom-to-nifti:dicom-audit",
+      "relationType": "IMPLEMENTED_BY",
+      "sourceEntityId": "noxia:radiology:pipeline:dicom-to-nifti",
+      "sourceRefs": [
+        "source:dicom"
+      ],
+      "targetEntityId": "noxia:radiology:workflow:dicom-audit"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "8fd80850230536f6131df2d0c55d5238b0e37110a67a29adac8a751609a51838",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "59e85c3f008c16e3a809dc33d4304337e0063b8192208e460ebf72641acdd3fe",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:implemented_by:59e85c3f008c16e3a809dc33d4304337e0063b8192208e460ebf72641acdd3fe",
+      "oldId": "noxia:radiology:relation:implemented_by:neuro-onco:neuro-oncology-segmentation",
+      "relationType": "IMPLEMENTED_BY",
+      "sourceEntityId": "noxia:radiology:researchproject:neuro-onco",
+      "sourceRefs": [
+        "source:projects"
+      ],
+      "targetEntityId": "noxia:radiology:pipeline:neuro-oncology-segmentation"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "UNRESOLVED",
+      "decision": "DEFERRED_PENDING_WORKFLOW_VERSION",
+      "historicalDigest": "d06260427138fe0d915c60e489525c1addef90dc6327df941053dc75115e70d1",
+      "justification": "The implementation target must be attached to a versioned workflow, not inferred from a concept-level edge.",
+      "migratedIdentityDigest": "494daa5b8128801beee4c3b95097b3b9a3418e8df247be4f7344bc0e1e557f93",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:implemented_by:494daa5b8128801beee4c3b95097b3b9a3418e8df247be4f7344bc0e1e557f93",
+      "oldId": "noxia:radiology:relation:implemented_by:noxia-cardiac-mri:corelab-cardiac-mri",
+      "relationType": "IMPLEMENTED_BY",
+      "sourceEntityId": "noxia:radiology:corelab:noxia-cardiac-mri",
+      "sourceRefs": [
+        "source:corelab"
+      ],
+      "targetEntityId": "noxia:radiology:workflow:corelab-cardiac-mri"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "95a48216292dae5c0b34074217e14bcb8a47abfe21bb4c1d8eefa0a3e4e84651",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "f1c8aaec8187ecadcdc1906c7ce50d8432bf6ff01646b7c0598508aee2660e85",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:implemented_by:f1c8aaec8187ecadcdc1906c7ce50d8432bf6ff01646b7c0598508aee2660e85",
+      "oldId": "noxia:radiology:relation:implemented_by:perfusion-segmentation:perfusion-segmentation-demo",
+      "relationType": "IMPLEMENTED_BY",
+      "sourceEntityId": "noxia:radiology:researchproject:perfusion-segmentation",
+      "sourceRefs": [
+        "source:projects"
+      ],
+      "targetEntityId": "noxia:radiology:pipeline:perfusion-segmentation-demo"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "bb5d4bf13b7a61ab6651ff929df5aeebe6c9e879e5f6c2e437fee851fc927fbf",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "23a2b48d7550f1bc507508163995b3d881610bb240c6e87ad7c7dc50d6606343",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:implemented_by:23a2b48d7550f1bc507508163995b3d881610bb240c6e87ad7c7dc50d6606343",
+      "oldId": "noxia:radiology:relation:implemented_by:recalage:multimodal-registration",
+      "relationType": "IMPLEMENTED_BY",
+      "sourceEntityId": "noxia:radiology:researchproject:recalage",
+      "sourceRefs": [
+        "source:projects"
+      ],
+      "targetEntityId": "noxia:radiology:pipeline:multimodal-registration"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "SCIENTIFIC_CANDIDATE",
+      "decision": "DEFERRED_PENDING_SOURCE_LEVEL_ASSERTION_REVIEW",
+      "historicalDigest": "eca2b800558d5c55b4857d5ff28ab40df610b23edd5c7683f711486d76169847",
+      "justification": "The edge may contain scientific meaning but lacks a reviewed assertion, context and evidence locator.",
+      "migratedIdentityDigest": "321802408115da546d239d66d2e001704dfd52b3e4099194f65a9901273be7e7",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:measures:321802408115da546d239d66d2e001704dfd52b3e4099194f65a9901273be7e7",
+      "oldId": "noxia:radiology:relation:measures:late-gadolinium-enhancement:lge-quantification",
+      "relationType": "MEASURES",
+      "sourceEntityId": "noxia:radiology:sequence:late-gadolinium-enhancement",
+      "sourceRefs": [
+        "source:corelab"
+      ],
+      "targetEntityId": "noxia:radiology:biomarker:lge-quantification"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "SCIENTIFIC_CANDIDATE",
+      "decision": "DEFERRED_PENDING_SOURCE_LEVEL_ASSERTION_REVIEW",
+      "historicalDigest": "a6cf83203d9eb5bb769e8a258b9d1b04b8bb4781a6d391d778ff4652c8347dea",
+      "justification": "The edge may contain scientific meaning but lacks a reviewed assertion, context and evidence locator.",
+      "migratedIdentityDigest": "c88accc374fc5309dc01051dfa81b67e2e94892cf1039749cad12cb950de7808",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:measures:c88accc374fc5309dc01051dfa81b67e2e94892cf1039749cad12cb950de7808",
+      "oldId": "noxia:radiology:relation:measures:perfusion-ct:cbf",
+      "relationType": "MEASURES",
+      "sourceEntityId": "noxia:radiology:sequence:perfusion-ct",
+      "sourceRefs": [
+        "source:ct-perfusion"
+      ],
+      "targetEntityId": "noxia:radiology:biomarker:cbf"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "SCIENTIFIC_CANDIDATE",
+      "decision": "DEFERRED_PENDING_SOURCE_LEVEL_ASSERTION_REVIEW",
+      "historicalDigest": "0bd56b9e731170173cb39bb407a896796e924f91f36c43924c3c5478ba41846d",
+      "justification": "The edge may contain scientific meaning but lacks a reviewed assertion, context and evidence locator.",
+      "migratedIdentityDigest": "8522d4cc6f41dc441d20cc678ebeb65fa3a448e8b4f681521974d981cc85ebb6",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:measures:8522d4cc6f41dc441d20cc678ebeb65fa3a448e8b4f681521974d981cc85ebb6",
+      "oldId": "noxia:radiology:relation:measures:perfusion-ct:cbv",
+      "relationType": "MEASURES",
+      "sourceEntityId": "noxia:radiology:sequence:perfusion-ct",
+      "sourceRefs": [
+        "source:ct-perfusion"
+      ],
+      "targetEntityId": "noxia:radiology:biomarker:cbv"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "SCIENTIFIC_CANDIDATE",
+      "decision": "DEFERRED_PENDING_SOURCE_LEVEL_ASSERTION_REVIEW",
+      "historicalDigest": "e3c28d4d8415e5b56499b62e2ab972c51ec3235e306c13471b94ea9edbcd02a0",
+      "justification": "The edge may contain scientific meaning but lacks a reviewed assertion, context and evidence locator.",
+      "migratedIdentityDigest": "61e4d57e85e548f2b37c8bb696d45515f20904565e97798fa36cc831de555f64",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:measures:61e4d57e85e548f2b37c8bb696d45515f20904565e97798fa36cc831de555f64",
+      "oldId": "noxia:radiology:relation:measures:perfusion-ct:tmax",
+      "relationType": "MEASURES",
+      "sourceEntityId": "noxia:radiology:sequence:perfusion-ct",
+      "sourceRefs": [
+        "source:ct-perfusion"
+      ],
+      "targetEntityId": "noxia:radiology:biomarker:tmax"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "SCIENTIFIC_CANDIDATE",
+      "decision": "DEFERRED_PENDING_SOURCE_LEVEL_ASSERTION_REVIEW",
+      "historicalDigest": "55af895d41dee9dbb34d614b2ed0d25425055cfd80a7d2191fe8dab61bdb3016",
+      "justification": "The edge may contain scientific meaning but lacks a reviewed assertion, context and evidence locator.",
+      "migratedIdentityDigest": "30db571421e99618f6b3fb71a1d6456e4a0691756b20a919e0dd9105f3dc5f1e",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:measures:30db571421e99618f6b3fb71a1d6456e4a0691756b20a919e0dd9105f3dc5f1e",
+      "oldId": "noxia:radiology:relation:measures:t1-mapping:t1",
+      "relationType": "MEASURES",
+      "sourceEntityId": "noxia:radiology:sequence:t1-mapping",
+      "sourceRefs": [
+        "source:ecv"
+      ],
+      "targetEntityId": "noxia:radiology:biomarker:t1"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "SCIENTIFIC_CANDIDATE",
+      "decision": "DEFERRED_PENDING_SOURCE_LEVEL_ASSERTION_REVIEW",
+      "historicalDigest": "c9268395e56998d8a247d3b41287b6822fa7dc0f17310c772cadf7b2b226567a",
+      "justification": "The edge may contain scientific meaning but lacks a reviewed assertion, context and evidence locator.",
+      "migratedIdentityDigest": "b87365c21c309df1caae4b670356be72b5ec0f5bd36155f3ebb5eaba868443fa",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:measures:b87365c21c309df1caae4b670356be72b5ec0f5bd36155f3ebb5eaba868443fa",
+      "oldId": "noxia:radiology:relation:measures:t2-mapping:t2",
+      "relationType": "MEASURES",
+      "sourceEntityId": "noxia:radiology:sequence:t2-mapping",
+      "sourceRefs": [
+        "source:ecv"
+      ],
+      "targetEntityId": "noxia:radiology:biomarker:t2"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "35025d493d6febf20e8054ee05aab748c0abfbb44a40401fcbcc74f6c352c2af",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "8aa51983cbddcaa9e6dc013e371834dade6bb15dfba899f16afc4b7275f3836f",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:part_of:8aa51983cbddcaa9e6dc013e371834dade6bb15dfba899f16afc4b7275f3836f",
+      "oldId": "noxia:radiology:relation:part_of:brain:nervous",
+      "relationType": "PART_OF",
+      "sourceEntityId": "noxia:radiology:organ:brain",
+      "sourceRefs": [
+        "source:cmro2"
+      ],
+      "targetEntityId": "noxia:radiology:bodysystem:nervous"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "6a22e41a2319b1f3ff2e36c0c031926514d9f35746f1c4ed77d9b876eb14c943",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "fdfb3529c3004e0847f45a432f7f332b3910df20b7491351e3b0c66ee7919244",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:part_of:fdfb3529c3004e0847f45a432f7f332b3910df20b7491351e3b0c66ee7919244",
+      "oldId": "noxia:radiology:relation:part_of:cardiac-cine:cardiac-cine",
+      "relationType": "PART_OF",
+      "sourceEntityId": "noxia:radiology:sequence:cardiac-cine",
+      "sourceRefs": [
+        "source:projects"
+      ],
+      "targetEntityId": "noxia:radiology:sequencefamily:cardiac-cine"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "0127c010a0400e54d13807c407c3382c1850dca6de327b06b7d1421d25f0fa5e",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "b03344e0e69b4a6dcccdf5bec8b99e37408c443d5c42c4661a4e5a2d94ae4b0f",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:part_of:b03344e0e69b4a6dcccdf5bec8b99e37408c443d5c42c4661a4e5a2d94ae4b0f",
+      "oldId": "noxia:radiology:relation:part_of:cerebral:brain",
+      "relationType": "PART_OF",
+      "sourceEntityId": "noxia:radiology:region:cerebral",
+      "sourceRefs": [
+        "source:ct-perfusion"
+      ],
+      "targetEntityId": "noxia:radiology:organ:brain"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "15f466fa92158c4ac42b2a8e485fccbb6998a7c9dde404add00f6f7c133a63d3",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "7953210b3c892f7996492d496ac891887a3afb99086b5faf39f69e08e2a03ecd",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:part_of:7953210b3c892f7996492d496ac891887a3afb99086b5faf39f69e08e2a03ecd",
+      "oldId": "noxia:radiology:relation:part_of:diffusion-mri:diffusion",
+      "relationType": "PART_OF",
+      "sourceEntityId": "noxia:radiology:sequence:diffusion-mri",
+      "sourceRefs": [
+        "source:perfusion-metabolic"
+      ],
+      "targetEntityId": "noxia:radiology:sequencefamily:diffusion"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "78f7f244e08d4fc3e1a604af2eff7a3614ca7117049f4b5dc88d7a313a818c93",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "02441fc8b3072f1a61a15d430f692bd8b77170f81d7a69d3cc52f16c48b3a969",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:part_of:02441fc8b3072f1a61a15d430f692bd8b77170f81d7a69d3cc52f16c48b3a969",
+      "oldId": "noxia:radiology:relation:part_of:heart:cardiovascular",
+      "relationType": "PART_OF",
+      "sourceEntityId": "noxia:radiology:organ:heart",
+      "sourceRefs": [
+        "source:corelab"
+      ],
+      "targetEntityId": "noxia:radiology:bodysystem:cardiovascular"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "70d1ef213019c6c44a0b7c17cbe0187d968e3a59ac1502ac0ab4c69c1d3ad914",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "12b3abaa572aaef6dc1c545cbaa564c2289d2d0e3d55d855c3fb0c7c9b4e969b",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:part_of:12b3abaa572aaef6dc1c545cbaa564c2289d2d0e3d55d855c3fb0c7c9b4e969b",
+      "oldId": "noxia:radiology:relation:part_of:late-gadolinium-enhancement:late-enhancement",
+      "relationType": "PART_OF",
+      "sourceEntityId": "noxia:radiology:sequence:late-gadolinium-enhancement",
+      "sourceRefs": [
+        "source:irm"
+      ],
+      "targetEntityId": "noxia:radiology:sequencefamily:late-enhancement"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "e290561ded91b70906b1067db74ba45121c96cf4f47cbda90ae46d14fa641fe1",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "d776506204535c741dd327e3c8d1726e827f400837873982656fa3485ab0d868",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:part_of:d776506204535c741dd327e3c8d1726e827f400837873982656fa3485ab0d868",
+      "oldId": "noxia:radiology:relation:part_of:lung:respiratory",
+      "relationType": "PART_OF",
+      "sourceEntityId": "noxia:radiology:organ:lung",
+      "sourceRefs": [
+        "source:ct-viewer"
+      ],
+      "targetEntityId": "noxia:radiology:bodysystem:respiratory"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "b102334f565ff356dbcea5c8f9a67da6b128166fc85a8931e7caa9fec052485f",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "53390d4c910ed5448d497f71d099e6e85d05c4c63907464d204998aaa7c45bee",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:part_of:53390d4c910ed5448d497f71d099e6e85d05c4c63907464d204998aaa7c45bee",
+      "oldId": "noxia:radiology:relation:part_of:myocardium:heart",
+      "relationType": "PART_OF",
+      "sourceEntityId": "noxia:radiology:region:myocardium",
+      "sourceRefs": [
+        "source:publications"
+      ],
+      "targetEntityId": "noxia:radiology:organ:heart"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "1a3695ba507bee863c048ce62a107110cea962b3742e8df284a3a8b11a7459b2",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "7cdf9ca21829615f54d9275047aa9440e5b718c3dcbed47543818cbfe3c343b3",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:part_of:7cdf9ca21829615f54d9275047aa9440e5b718c3dcbed47543818cbfe3c343b3",
+      "oldId": "noxia:radiology:relation:part_of:perfusion-ct:perfusion",
+      "relationType": "PART_OF",
+      "sourceEntityId": "noxia:radiology:sequence:perfusion-ct",
+      "sourceRefs": [
+        "source:ct-perfusion"
+      ],
+      "targetEntityId": "noxia:radiology:sequencefamily:perfusion"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "904d6595eedba18dea3387b6aa5b8f3e771c1f450cb3d2dac145e1e729429655",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "59b2e5eea24aa9c26e9a141cfefa1937b9dd29825dfbfe78b1ecb9e9c91f2bcf",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:part_of:59b2e5eea24aa9c26e9a141cfefa1937b9dd29825dfbfe78b1ecb9e9c91f2bcf",
+      "oldId": "noxia:radiology:relation:part_of:t1-mapping:cardiac-mapping",
+      "relationType": "PART_OF",
+      "sourceEntityId": "noxia:radiology:sequence:t1-mapping",
+      "sourceRefs": [
+        "source:ecv"
+      ],
+      "targetEntityId": "noxia:radiology:sequencefamily:cardiac-mapping"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "7c3b91e33dfeec48ca65bf045a703c3920ff88fe308d52ab829cd21715f3bdb9",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "7c23444404796fb9589b9b1f9bb49133989b80add8bce7e74baee03909f3d902",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:part_of:7c23444404796fb9589b9b1f9bb49133989b80add8bce7e74baee03909f3d902",
+      "oldId": "noxia:radiology:relation:part_of:t2-mapping:cardiac-mapping",
+      "relationType": "PART_OF",
+      "sourceEntityId": "noxia:radiology:sequence:t2-mapping",
+      "sourceRefs": [
+        "source:ecv"
+      ],
+      "targetEntityId": "noxia:radiology:sequencefamily:cardiac-mapping"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "SEMANTICALLY_INCORRECT",
+      "decision": "DISABLED_FROM_ACTIVE_PROJECTION",
+      "historicalDigest": "45afe1f9a100692330677b2ea06ccfe68cfac673c996874c3cef4241d0f223be",
+      "justification": "A thoracic region is not a component of the lung; the historical statement is retained for audit and requires a sourced anatomical remodel.",
+      "migratedIdentityDigest": "7642eab512149ebfe9e74f05cf6cb417678ef125408425d3729750583e643893",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:part_of:7642eab512149ebfe9e74f05cf6cb417678ef125408425d3729750583e643893",
+      "oldId": "noxia:radiology:relation:part_of:thoracic:lung",
+      "relationType": "PART_OF",
+      "sourceEntityId": "noxia:radiology:region:thoracic",
+      "sourceRefs": [
+        "source:ct-viewer"
+      ],
+      "targetEntityId": "noxia:radiology:organ:lung"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "SCIENTIFIC_CANDIDATE",
+      "decision": "DEFERRED_PENDING_SOURCE_LEVEL_ASSERTION_REVIEW",
+      "historicalDigest": "98f2afc0400db7a26dd818ce1938bece98ea0584c5303197da565d19fcaed09b",
+      "justification": "The edge may contain scientific meaning but lacks a reviewed assertion, context and evidence locator.",
+      "migratedIdentityDigest": "9c3dc8e5c10c7852e6d3e2c219b2a52adbf9ba00a9239c6fffa0a15a3fff5737",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:produces:9c3dc8e5c10c7852e6d3e2c219b2a52adbf9ba00a9239c6fffa0a15a3fff5737",
+      "oldId": "noxia:radiology:relation:produces:perfusion-segmentation-demo:cbf",
+      "relationType": "PRODUCES",
+      "sourceEntityId": "noxia:radiology:pipeline:perfusion-segmentation-demo",
+      "sourceRefs": [
+        "source:projects"
+      ],
+      "targetEntityId": "noxia:radiology:measurement:cbf"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "SCIENTIFIC_CANDIDATE",
+      "decision": "DEFERRED_PENDING_SOURCE_LEVEL_ASSERTION_REVIEW",
+      "historicalDigest": "7d55e5c5148a539e724bd579812b1104bca2eae6314147afe0f3a8bc535b4488",
+      "justification": "The edge may contain scientific meaning but lacks a reviewed assertion, context and evidence locator.",
+      "migratedIdentityDigest": "b5857f09e1619e6c8bb95e7bec2161b5795d1d2e9cc4ad6080c05cc50981d2df",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:produces:b5857f09e1619e6c8bb95e7bec2161b5795d1d2e9cc4ad6080c05cc50981d2df",
+      "oldId": "noxia:radiology:relation:produces:perfusion-segmentation-demo:tmax",
+      "relationType": "PRODUCES",
+      "sourceEntityId": "noxia:radiology:pipeline:perfusion-segmentation-demo",
+      "sourceRefs": [
+        "source:projects"
+      ],
+      "targetEntityId": "noxia:radiology:measurement:tmax"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "e8195d03a30ddf7aec314dc559d3a43102b35f44634757c5b18f74cad1221856",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "c6714d2a590d736f3d6b9560813d0fec214d22fd1c3ac7591de408d9f7bee691",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:references:c6714d2a590d736f3d6b9560813d0fec214d22fd1c3ac7591de408d9f7bee691",
+      "oldId": "noxia:radiology:relation:references:cbf:cbf",
+      "relationType": "REFERENCES",
+      "sourceEntityId": "noxia:radiology:abbreviation:cbf",
+      "sourceRefs": [
+        "source:ct-perfusion"
+      ],
+      "targetEntityId": "noxia:radiology:biomarker:cbf"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "3f78c647fbeac736b78387f5943ddb912783839315d6c1c2d8293af5cb5b2203",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "cb0e44de90dc21ee6686ec95f5786d7f6bcdb5dcf6e313af3748b25fe520d422",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:references:cb0e44de90dc21ee6686ec95f5786d7f6bcdb5dcf6e313af3748b25fe520d422",
+      "oldId": "noxia:radiology:relation:references:cbv:cbv",
+      "relationType": "REFERENCES",
+      "sourceEntityId": "noxia:radiology:abbreviation:cbv",
+      "sourceRefs": [
+        "source:ct-perfusion"
+      ],
+      "targetEntityId": "noxia:radiology:biomarker:cbv"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "1f529977204a7e0e0ef807ed264fd5bf992d4de4363eeafadc2a3f8c1d00e8ca",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "c58f1f6509a3d4b129a5cc5654062592b908f65ad0ca6c89d2bc64dd6fb8dc45",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:references:c58f1f6509a3d4b129a5cc5654062592b908f65ad0ca6c89d2bc64dd6fb8dc45",
+      "oldId": "noxia:radiology:relation:references:cmro2:cmro2",
+      "relationType": "REFERENCES",
+      "sourceEntityId": "noxia:radiology:abbreviation:cmro2",
+      "sourceRefs": [
+        "source:cmro2"
+      ],
+      "targetEntityId": "noxia:radiology:biomarker:cmro2"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "5a0c296a94121006bc29ac88475f81dbde18c29b30ce9d957d15e4515aaefff9",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "fca6566701ff6714d12ad3214a4d3a7cce8b6cee5dc77b92d4161424a29060cf",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:references:fca6566701ff6714d12ad3214a4d3a7cce8b6cee5dc77b92d4161424a29060cf",
+      "oldId": "noxia:radiology:relation:references:core-lab:noxia-cardiac-mri",
+      "relationType": "REFERENCES",
+      "sourceEntityId": "noxia:radiology:synonym:core-lab",
+      "sourceRefs": [
+        "source:services"
+      ],
+      "targetEntityId": "noxia:radiology:corelab:noxia-cardiac-mri"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "c9bad24ce8d36b0f9100341b0a3976dac213e7e3f7121bd7ae9d7e65cb8eb066",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "ea6ee92341392cf1ac21faa756d519726dd733fe22ad06fbd9c2353ca178f7ac",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:references:ea6ee92341392cf1ac21faa756d519726dd733fe22ad06fbd9c2353ca178f7ac",
+      "oldId": "noxia:radiology:relation:references:dicom-tags:dicom",
+      "relationType": "REFERENCES",
+      "sourceEntityId": "noxia:radiology:terminology:dicom-tags",
+      "sourceRefs": [
+        "source:dicom"
+      ],
+      "targetEntityId": "noxia:radiology:format:dicom"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "EVIDENCE_MENTION",
+      "decision": "PRESERVED_AS_MENTION_CANDIDATE_WITHOUT_EVIDENCE_LINK",
+      "historicalDigest": "e1595bae16c78ec8867fdd5a7544e1161c5866a7bba997de8875d99867996a9d",
+      "justification": "The repository establishes a documentary mention only; no assertion revision exists to receive an EvidenceLink.",
+      "migratedIdentityDigest": "d4dda21e17067e718c12f7263b8ca53773310ae19f2e1109fc028e8e8980979c",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:references:d4dda21e17067e718c12f7263b8ca53773310ae19f2e1109fc028e8e8980979c",
+      "oldId": "noxia:radiology:relation:references:eacvi-biomarker-reproducibility:ecv",
+      "relationType": "REFERENCES",
+      "sourceEntityId": "noxia:radiology:recommendation:eacvi-biomarker-reproducibility",
+      "sourceRefs": [
+        "source:segmentation"
+      ],
+      "targetEntityId": "noxia:radiology:biomarker:ecv"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "a0f72c001a6e9d93f5a3497402bd8c8837ba0d952e9092dc3108b98f7540d244",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "e6edb177a2710b4f718b8eb2aa635a55284d784d3720661a434abfb5cbe7c58d",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:references:e6edb177a2710b4f718b8eb2aa635a55284d784d3720661a434abfb5cbe7c58d",
+      "oldId": "noxia:radiology:relation:references:ecv:ecv",
+      "relationType": "REFERENCES",
+      "sourceEntityId": "noxia:radiology:abbreviation:ecv",
+      "sourceRefs": [
+        "source:ecv"
+      ],
+      "targetEntityId": "noxia:radiology:biomarker:ecv"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "81ba86d827f25cc24e18263b170d61887caa317a3e3a0dfe4e1255a9368b6f01",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "2bf5bd700faefb8a07618b8faabc712f2b383a00201d014d72877bdeb58abc23",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:references:2bf5bd700faefb8a07618b8faabc712f2b383a00201d014d72877bdeb58abc23",
+      "oldId": "noxia:radiology:relation:references:late-enhancement:late-gadolinium-enhancement",
+      "relationType": "REFERENCES",
+      "sourceEntityId": "noxia:radiology:synonym:late-enhancement",
+      "sourceRefs": [
+        "source:irm"
+      ],
+      "targetEntityId": "noxia:radiology:sequence:late-gadolinium-enhancement"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "54c31e4ccec5365e6c718c0ff6cb112a1b3473c3ed141d088ad19f7b6aa645a4",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "ad7b4b819d4692398da3d367f888fc4cad3de9a470a35151b7d4e283f57ef887",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:references:ad7b4b819d4692398da3d367f888fc4cad3de9a470a35151b7d4e283f57ef887",
+      "oldId": "noxia:radiology:relation:references:mtt:mtt",
+      "relationType": "REFERENCES",
+      "sourceEntityId": "noxia:radiology:abbreviation:mtt",
+      "sourceRefs": [
+        "source:ct-perfusion"
+      ],
+      "targetEntityId": "noxia:radiology:biomarker:mtt"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "32eecb83c4f528a1e6821aed8d620bed3153a9e4b990ec553a0d74077ca3f70b",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "df2d12f218a98623ddd99e8dbee06e0d28c410a07ec17635c60c860fb72ed2a3",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:references:df2d12f218a98623ddd99e8dbee06e0d28c410a07ec17635c60c860fb72ed2a3",
+      "oldId": "noxia:radiology:relation:references:oef:oef",
+      "relationType": "REFERENCES",
+      "sourceEntityId": "noxia:radiology:abbreviation:oef",
+      "sourceRefs": [
+        "source:oef"
+      ],
+      "targetEntityId": "noxia:radiology:biomarker:oef"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "EVIDENCE_MENTION",
+      "decision": "PRESERVED_AS_MENTION_CANDIDATE_WITHOUT_EVIDENCE_LINK",
+      "historicalDigest": "34c90a3972964ced3e4f493df5dce4a57f42896c099ec7eedfa3fe4a0c6c9035",
+      "justification": "The repository establishes a documentary mention only; no assertion revision exists to receive an EvidenceLink.",
+      "migratedIdentityDigest": "50ab5d5e7d045e8023bac165d44fb1b47f3c220eed518acebbc67925f2e037ec",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:references:50ab5d5e7d045e8023bac165d44fb1b47f3c220eed518acebbc67925f2e037ec",
+      "oldId": "noxia:radiology:relation:references:scmr-cardiac-mri-standardisation:cardiac-mapping",
+      "relationType": "REFERENCES",
+      "sourceEntityId": "noxia:radiology:guideline:scmr-cardiac-mri-standardisation",
+      "sourceRefs": [
+        "source:segmentation"
+      ],
+      "targetEntityId": "noxia:radiology:sequencefamily:cardiac-mapping"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "cd5107b6c1cebd34406e2f52b859bbd7be7dfb5247343590e387d691fb6d88c5",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "60a7fcc3c6eba30a9a444034c195328eb7ace0b230b114231b4979db7515f7dc",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:related_to:60a7fcc3c6eba30a9a444034c195328eb7ace0b230b114231b4979db7515f7dc",
+      "oldId": "noxia:radiology:relation:related_to:covert-mi:covert-mi",
+      "relationType": "RELATED_TO",
+      "sourceEntityId": "noxia:radiology:study:covert-mi",
+      "sourceRefs": [
+        "source:publications"
+      ],
+      "targetEntityId": "noxia:radiology:publication:covert-mi"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "UNRESOLVED",
+      "decision": "DEFERRED_OVERLOADED_SUPPORTS_SEMANTICS",
+      "historicalDigest": "f1d477b9009a51abfef58906627d11108e7e6cf026ae53ea262a0041d16a0b2f",
+      "justification": "SUPPORTS is overloaded in the historical graph and cannot be treated as scientific support without a source-to-assertion EvidenceLink.",
+      "migratedIdentityDigest": "41fb0f8e9f777d57bdf62bb3f4227ffccf278e32159d37eb438c8ca1f7143832",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:supports:41fb0f8e9f777d57bdf62bb3f4227ffccf278e32159d37eb438c8ca1f7143832",
+      "oldId": "noxia:radiology:relation:supports:cardiac:cardiac-quantification-demo",
+      "relationType": "SUPPORTS",
+      "sourceEntityId": "noxia:radiology:viewer:cardiac",
+      "sourceRefs": [
+        "source:cardiac-viewer"
+      ],
+      "targetEntityId": "noxia:radiology:pipeline:cardiac-quantification-demo"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "UNRESOLVED",
+      "decision": "DEFERRED_OVERLOADED_SUPPORTS_SEMANTICS",
+      "historicalDigest": "fa29219d16d6c7b45bd0054df0c2e88c2b072ceba01929ea45e43733a9e2ad66",
+      "justification": "SUPPORTS is overloaded in the historical graph and cannot be treated as scientific support without a source-to-assertion EvidenceLink.",
+      "migratedIdentityDigest": "c2ebe5497066128f03e060e8dd548153a21cb41c9d4a8bed0c0118d68c189bee",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:supports:c2ebe5497066128f03e060e8dd548153a21cb41c9d4a8bed0c0118d68c189bee",
+      "oldId": "noxia:radiology:relation:supports:corelab:noxia-cardiac-mri",
+      "relationType": "SUPPORTS",
+      "sourceEntityId": "noxia:radiology:service:corelab",
+      "sourceRefs": [
+        "source:services"
+      ],
+      "targetEntityId": "noxia:radiology:corelab:noxia-cardiac-mri"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "UNRESOLVED",
+      "decision": "DEFERRED_OVERLOADED_SUPPORTS_SEMANTICS",
+      "historicalDigest": "4d13d1dfc92dbeb41f34b57a41b7580691741121efff6427ca5fe354b331c248",
+      "justification": "SUPPORTS is overloaded in the historical graph and cannot be treated as scientific support without a source-to-assertion EvidenceLink.",
+      "migratedIdentityDigest": "d39a6cd793605dea75bcd336a2e7464b7ae3be611dc928b0e78f9430fee7bca6",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:supports:d39a6cd793605dea75bcd336a2e7464b7ae3be611dc928b0e78f9430fee7bca6",
+      "oldId": "noxia:radiology:relation:supports:ct-scan:ct-quantification-demo",
+      "relationType": "SUPPORTS",
+      "sourceEntityId": "noxia:radiology:viewer:ct-scan",
+      "sourceRefs": [
+        "source:ct-viewer"
+      ],
+      "targetEntityId": "noxia:radiology:pipeline:ct-quantification-demo"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "UNRESOLVED",
+      "decision": "DEFERRED_OVERLOADED_SUPPORTS_SEMANTICS",
+      "historicalDigest": "9c0fe171ef25e785ecdf1d1592859df26258032e587c6a62d9c67b0e0d89249f",
+      "justification": "SUPPORTS is overloaded in the historical graph and cannot be treated as scientific support without a source-to-assertion EvidenceLink.",
+      "migratedIdentityDigest": "4f1c6294be65d47db326b53d9e359293ffc4d1769a7c1bccc3ff20a2211b32b2",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:supports:4f1c6294be65d47db326b53d9e359293ffc4d1769a7c1bccc3ff20a2211b32b2",
+      "oldId": "noxia:radiology:relation:supports:dicom-audit:dicom-audit",
+      "relationType": "SUPPORTS",
+      "sourceEntityId": "noxia:radiology:service:dicom-audit",
+      "sourceRefs": [
+        "source:services"
+      ],
+      "targetEntityId": "noxia:radiology:workflow:dicom-audit"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "EVIDENCE_MENTION",
+      "decision": "PRESERVED_AS_MENTION_CANDIDATE_WITHOUT_EVIDENCE_LINK",
+      "historicalDigest": "057b566c81208d8fc9bb92d92b6c82729b761b90b53d89725a53109de5a0e089",
+      "justification": "SUPPORTS is overloaded in the historical graph and cannot be treated as scientific support without a source-to-assertion EvidenceLink.",
+      "migratedIdentityDigest": "28b6cc405d2a754e82803b437c8ec90e6bd6445983ad63760a796d98103315b9",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:supports:28b6cc405d2a754e82803b437c8ec90e6bd6445983ad63760a796d98103315b9",
+      "oldId": "noxia:radiology:relation:supports:mimi:noxia-cardiac-mri",
+      "relationType": "SUPPORTS",
+      "sourceEntityId": "noxia:radiology:study:mimi",
+      "sourceRefs": [
+        "source:publications"
+      ],
+      "targetEntityId": "noxia:radiology:corelab:noxia-cardiac-mri"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "UNRESOLVED",
+      "decision": "DEFERRED_OVERLOADED_SUPPORTS_SEMANTICS",
+      "historicalDigest": "c2b7d0f710ecc6ac14dedcae985097ac9c39ab0c802c0532861595a02c5d8590",
+      "justification": "SUPPORTS is overloaded in the historical graph and cannot be treated as scientific support without a source-to-assertion EvidenceLink.",
+      "migratedIdentityDigest": "2ecccec7258b6260ac4d63f05ab8468e2ea9817fbfe6f1b055d7366a4a9d7541",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:supports:2ecccec7258b6260ac4d63f05ab8468e2ea9817fbfe6f1b055d7366a4a9d7541",
+      "oldId": "noxia:radiology:relation:supports:multicentric-harmonization:multicentric-harmonization",
+      "relationType": "SUPPORTS",
+      "sourceEntityId": "noxia:radiology:service:multicentric-harmonization",
+      "sourceRefs": [
+        "source:services"
+      ],
+      "targetEntityId": "noxia:radiology:workflow:multicentric-harmonization"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "UNRESOLVED",
+      "decision": "DEFERRED_OVERLOADED_SUPPORTS_SEMANTICS",
+      "historicalDigest": "0c6d0ad6cd85488db2210678f283da5f25b08d5eb1a2d9a5c84a5c089f440aaf",
+      "justification": "SUPPORTS is overloaded in the historical graph and cannot be treated as scientific support without a source-to-assertion EvidenceLink.",
+      "migratedIdentityDigest": "42665e34ab446b940900f45ae3d1f422d22b0a954236c6985c749597b2786d26",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:supports:42665e34ab446b940900f45ae3d1f422d22b0a954236c6985c749597b2786d26",
+      "oldId": "noxia:radiology:relation:supports:multicentric-harmonization:multicentric-quantification",
+      "relationType": "SUPPORTS",
+      "sourceEntityId": "noxia:radiology:workflow:multicentric-harmonization",
+      "sourceRefs": [
+        "source:methodology"
+      ],
+      "targetEntityId": "noxia:radiology:clinicalquestion:multicentric-quantification"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "UNRESOLVED",
+      "decision": "DEFERRED_OVERLOADED_SUPPORTS_SEMANTICS",
+      "historicalDigest": "057cf3a9e7909a47831921174565d86d939ca2f159cbca131a8cafc67c09b503",
+      "justification": "SUPPORTS is overloaded in the historical graph and cannot be treated as scientific support without a source-to-assertion EvidenceLink.",
+      "migratedIdentityDigest": "c09a380064e4a9f69c42796a20794510de741688cb2330ea81c615a7fe14c3d4",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:supports:c09a380064e4a9f69c42796a20794510de741688cb2330ea81c615a7fe14c3d4",
+      "oldId": "noxia:radiology:relation:supports:neuro-oncology:neuro-oncology-segmentation",
+      "relationType": "SUPPORTS",
+      "sourceEntityId": "noxia:radiology:viewer:neuro-oncology",
+      "sourceRefs": [
+        "source:neuro-viewer"
+      ],
+      "targetEntityId": "noxia:radiology:pipeline:neuro-oncology-segmentation"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "UNRESOLVED",
+      "decision": "DEFERRED_OVERLOADED_SUPPORTS_SEMANTICS",
+      "historicalDigest": "a781ad5f8d08dd31f8f26643f1872aa31b115a8293b3acdf5d3dec229b0dbdba",
+      "justification": "SUPPORTS is overloaded in the historical graph and cannot be treated as scientific support without a source-to-assertion EvidenceLink.",
+      "migratedIdentityDigest": "cdfc94ba0d76c6725c6953144d36e59ad136bcfdda5720a8ac5f981f3d2d5281",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:supports:cdfc94ba0d76c6725c6953144d36e59ad136bcfdda5720a8ac5f981f3d2d5281",
+      "oldId": "noxia:radiology:relation:supports:perfusion-segmentation:perfusion-segmentation-demo",
+      "relationType": "SUPPORTS",
+      "sourceEntityId": "noxia:radiology:viewer:perfusion-segmentation",
+      "sourceRefs": [
+        "source:perfusion-viewer"
+      ],
+      "targetEntityId": "noxia:radiology:pipeline:perfusion-segmentation-demo"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "UNRESOLVED",
+      "decision": "DEFERRED_OVERLOADED_SUPPORTS_SEMANTICS",
+      "historicalDigest": "a3f0b772fcba9dbe7e948cbf3d49b8263fe2e7d373035809939b6cac5b4d0ff8",
+      "justification": "SUPPORTS is overloaded in the historical graph and cannot be treated as scientific support without a source-to-assertion EvidenceLink.",
+      "migratedIdentityDigest": "2f55dfe31a444d651e710bf176e2e86ef9888a1dedec251339049aae846e575e",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:supports:2f55dfe31a444d651e710bf176e2e86ef9888a1dedec251339049aae846e575e",
+      "oldId": "noxia:radiology:relation:supports:quality-control:quality-control",
+      "relationType": "SUPPORTS",
+      "sourceEntityId": "noxia:radiology:viewer:quality-control",
+      "sourceRefs": [
+        "source:qc-viewer"
+      ],
+      "targetEntityId": "noxia:radiology:workflow:quality-control"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "UNRESOLVED",
+      "decision": "DEFERRED_OVERLOADED_SUPPORTS_SEMANTICS",
+      "historicalDigest": "2bdbedc13b34c776d3fb74bcbaa0a7abc6728e10b412a34becc0bfc02d774748",
+      "justification": "SUPPORTS is overloaded in the historical graph and cannot be treated as scientific support without a source-to-assertion EvidenceLink.",
+      "migratedIdentityDigest": "91cf87fc1c91e3c719b97272d2853b54aaf3af004a66d169a3ac1ad3a4d1e55d",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:supports:91cf87fc1c91e3c719b97272d2853b54aaf3af004a66d169a3ac1ad3a4d1e55d",
+      "oldId": "noxia:radiology:relation:supports:quantitative-engineering:quantitative-imaging",
+      "relationType": "SUPPORTS",
+      "sourceEntityId": "noxia:radiology:service:quantitative-engineering",
+      "sourceRefs": [
+        "source:services"
+      ],
+      "targetEntityId": "noxia:radiology:workflow:quantitative-imaging"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "UNRESOLVED",
+      "decision": "DEFERRED_OVERLOADED_SUPPORTS_SEMANTICS",
+      "historicalDigest": "c53984438daea8de54023b4f3a33dc17a53c8184b66460a2ce2ce74bac63f033",
+      "justification": "SUPPORTS is overloaded in the historical graph and cannot be treated as scientific support without a source-to-assertion EvidenceLink.",
+      "migratedIdentityDigest": "d510b00ab7c16b68ac7be6c8a9f8046e7a9f4b5f0e0024d04ba02abd209117c9",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:supports:d510b00ab7c16b68ac7be6c8a9f8046e7a9f4b5f0e0024d04ba02abd209117c9",
+      "oldId": "noxia:radiology:relation:supports:registration:multimodal-registration",
+      "relationType": "SUPPORTS",
+      "sourceEntityId": "noxia:radiology:viewer:registration",
+      "sourceRefs": [
+        "source:registration-viewer"
+      ],
+      "targetEntityId": "noxia:radiology:pipeline:multimodal-registration"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "EVIDENCE_MENTION",
+      "decision": "PRESERVED_AS_MENTION_CANDIDATE_WITHOUT_EVIDENCE_LINK",
+      "historicalDigest": "73e7aca58bc7018c34c6cb3761ccf0503be364ff51a1c8165b70c2bfcb50bc00",
+      "justification": "SUPPORTS is overloaded in the historical graph and cannot be treated as scientific support without a source-to-assertion EvidenceLink.",
+      "migratedIdentityDigest": "0cfa8e7425e7887d68c15b49f8443401269335c43908c7e496125961caa58338",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:supports:0cfa8e7425e7887d68c15b49f8443401269335c43908c7e496125961caa58338",
+      "oldId": "noxia:radiology:relation:supports:rhu-marvelous:noxia-cardiac-mri",
+      "relationType": "SUPPORTS",
+      "sourceEntityId": "noxia:radiology:study:rhu-marvelous",
+      "sourceRefs": [
+        "source:publications"
+      ],
+      "targetEntityId": "noxia:radiology:corelab:noxia-cardiac-mri"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "152cbf246e8eb87018a550556976cec83e72d99bd9796985013a1bfd88d058c7",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "18c1586cbd5f785eed84a3e31524ca960d5b1e82ae71367165fb7b65abbdb148",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:uses:18c1586cbd5f785eed84a3e31524ca960d5b1e82ae71367165fb7b65abbdb148",
+      "oldId": "noxia:radiology:relation:uses:cardiac-cine:irm",
+      "relationType": "USES",
+      "sourceEntityId": "noxia:radiology:sequence:cardiac-cine",
+      "sourceRefs": [
+        "source:projects"
+      ],
+      "targetEntityId": "noxia:radiology:modality:irm"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "WORKFLOW_AMBIGUOUS",
+      "decision": "DEFERRED_FOR_WORKFLOW_ORDERING_REVIEW",
+      "historicalDigest": "ea406451d9a10bd271b0f18f77507810fa1bda6f9d6511d266b0b3d53cc9841a",
+      "justification": "The historical edge may encode ordering or implementation; WorkflowStep and WorkflowTransition semantics cannot be inferred safely.",
+      "migratedIdentityDigest": "a496c28ea2609109569d44a1e4a8e6d59320ebce3fd96463e2e396748902ab1b",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:uses:a496c28ea2609109569d44a1e4a8e6d59320ebce3fd96463e2e396748902ab1b",
+      "oldId": "noxia:radiology:relation:uses:corelab-cardiac-mri:dicom-audit",
+      "relationType": "USES",
+      "sourceEntityId": "noxia:radiology:workflow:corelab-cardiac-mri",
+      "sourceRefs": [
+        "source:corelab"
+      ],
+      "targetEntityId": "noxia:radiology:workflow:dicom-audit"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "35a7487763f29557f6a33e4e180ed0d3018f9c81aa99d100b36b04426c210471",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "6a73c07488b49b44db52aa1c3e42473df1891a2ea989971088eb2f25f9beab0c",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:uses:6a73c07488b49b44db52aa1c3e42473df1891a2ea989971088eb2f25f9beab0c",
+      "oldId": "noxia:radiology:relation:uses:ct-quantification-demo:simpleitk",
+      "relationType": "USES",
+      "sourceEntityId": "noxia:radiology:pipeline:ct-quantification-demo",
+      "sourceRefs": [
+        "source:projects"
+      ],
+      "targetEntityId": "noxia:radiology:tool:simpleitk"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "d4a255a4322eff967d144eaf95018b0afa07ea61e671331af51f4e80ecd6dad9",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "33d2d9a631e5437343299ee5674ce516e26ab5046f576a7beee9d4ad21913a73",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:uses:33d2d9a631e5437343299ee5674ce516e26ab5046f576a7beee9d4ad21913a73",
+      "oldId": "noxia:radiology:relation:uses:dicom-anonymization:dicom",
+      "relationType": "USES",
+      "sourceEntityId": "noxia:radiology:workflow:dicom-anonymization",
+      "sourceRefs": [
+        "source:dicom"
+      ],
+      "targetEntityId": "noxia:radiology:format:dicom"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "62a4404777b031619bcfe4ec746567c602f07fae3eda5116794d00d89fd9eb93",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "6c5a92f9b1d46254cc742dacc6ab2ba8e519d04907b61b0cfa876e5d5a26b008",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:uses:6c5a92f9b1d46254cc742dacc6ab2ba8e519d04907b61b0cfa876e5d5a26b008",
+      "oldId": "noxia:radiology:relation:uses:dicom-audit:dicom",
+      "relationType": "USES",
+      "sourceEntityId": "noxia:radiology:workflow:dicom-audit",
+      "sourceRefs": [
+        "source:dicom"
+      ],
+      "targetEntityId": "noxia:radiology:format:dicom"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "3a48f4246aaa1e6f53e63709a0e34ab71ef636e1e69825281ea6a72d3c21df27",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "7abe44ad022d8c8f0b87d215474928526129ad1dd63168254536c23014d23043",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:uses:7abe44ad022d8c8f0b87d215474928526129ad1dd63168254536c23014d23043",
+      "oldId": "noxia:radiology:relation:uses:diffusion-mri:irm",
+      "relationType": "USES",
+      "sourceEntityId": "noxia:radiology:sequence:diffusion-mri",
+      "sourceRefs": [
+        "source:perfusion-metabolic"
+      ],
+      "targetEntityId": "noxia:radiology:modality:irm"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "12b265beea34a403f66ae607fa254f4f1ac4647bed6f1325cc7db7845ccba08c",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "3e0a658f82f3b1faaee64ebe03ab0982c3983ae5f4f98b88dea95aaa62dc85e7",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:uses:3e0a658f82f3b1faaee64ebe03ab0982c3983ae5f4f98b88dea95aaa62dc85e7",
+      "oldId": "noxia:radiology:relation:uses:late-gadolinium-enhancement:irm",
+      "relationType": "USES",
+      "sourceEntityId": "noxia:radiology:sequence:late-gadolinium-enhancement",
+      "sourceRefs": [
+        "source:irm"
+      ],
+      "targetEntityId": "noxia:radiology:modality:irm"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "cc61f7143e575f6de9e039b384e46573ab5fe4457bd7db086132998f1034fbc1",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "f2d3c9233fb06cf1e17783136966e5782f694708c0987438c41caa4247c57310",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:uses:f2d3c9233fb06cf1e17783136966e5782f694708c0987438c41caa4247c57310",
+      "oldId": "noxia:radiology:relation:uses:multimodal-registration:antspy",
+      "relationType": "USES",
+      "sourceEntityId": "noxia:radiology:pipeline:multimodal-registration",
+      "sourceRefs": [
+        "source:projects"
+      ],
+      "targetEntityId": "noxia:radiology:tool:antspy"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "8071c9cb620ee4950865d642403516b5a7046ed98bb88ba055b8d6e05d11e03b",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "bb4532d4d5b71ed08527507463b509fef86d0ba6c1652b92b51f950e371b4fb1",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:uses:bb4532d4d5b71ed08527507463b509fef86d0ba6c1652b92b51f950e371b4fb1",
+      "oldId": "noxia:radiology:relation:uses:multimodal-registration:elastix",
+      "relationType": "USES",
+      "sourceEntityId": "noxia:radiology:pipeline:multimodal-registration",
+      "sourceRefs": [
+        "source:projects"
+      ],
+      "targetEntityId": "noxia:radiology:tool:elastix"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "769a553473996355538d51b4901f326c8a9d5ee56d4db5d7c251ef61706ebb5e",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "4b439bc813e34fc5764c8b2527549a784986a3df83be70ea4fef9c04ff2097dd",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:uses:4b439bc813e34fc5764c8b2527549a784986a3df83be70ea4fef9c04ff2097dd",
+      "oldId": "noxia:radiology:relation:uses:perfusion-ct:ct",
+      "relationType": "USES",
+      "sourceEntityId": "noxia:radiology:sequence:perfusion-ct",
+      "sourceRefs": [
+        "source:ct-perfusion"
+      ],
+      "targetEntityId": "noxia:radiology:modality:ct"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "810950cb7f2e4f1357ade7344bf7724e4a08e735b610133e8eeda84c0014a819",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "18b2f8e2abe25895afb84cbf05cb57ec5977ae081e2010c352a13a7587663c4a",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:uses:18b2f8e2abe25895afb84cbf05cb57ec5977ae081e2010c352a13a7587663c4a",
+      "oldId": "noxia:radiology:relation:uses:perfusion-segmentation-demo:nibabel",
+      "relationType": "USES",
+      "sourceEntityId": "noxia:radiology:pipeline:perfusion-segmentation-demo",
+      "sourceRefs": [
+        "source:projects"
+      ],
+      "targetEntityId": "noxia:radiology:tool:nibabel"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "4ae2e704fa4df76327c6c8bed802159ffbb269f68a1f6a0f8cee34383be24775",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "a0ee9b9ba7ddc80379b509a334e14bba539084e347a1562b6dff7fefeabdc1ce",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:uses:a0ee9b9ba7ddc80379b509a334e14bba539084e347a1562b6dff7fefeabdc1ce",
+      "oldId": "noxia:radiology:relation:uses:perfusion-segmentation-demo:python",
+      "relationType": "USES",
+      "sourceEntityId": "noxia:radiology:pipeline:perfusion-segmentation-demo",
+      "sourceRefs": [
+        "source:projects"
+      ],
+      "targetEntityId": "noxia:radiology:tool:python"
+    },
+    {
+      "active": false,
+      "assertionCreated": false,
+      "category": "WORKFLOW_AMBIGUOUS",
+      "decision": "DEFERRED_FOR_WORKFLOW_ORDERING_REVIEW",
+      "historicalDigest": "639696a3629fb687746de70da9bef71347f2a2d89987bbe507f0266f4bfad77d",
+      "justification": "The historical edge may encode ordering or implementation; WorkflowStep and WorkflowTransition semantics cannot be inferred safely.",
+      "migratedIdentityDigest": "f0ec497f1203d2b52fa0751d02de9cdd5db7455aaff6ef5726406d5c6aa5da76",
+      "migrationApplied": false,
+      "newId": "noxia:radiology:relation:v2:uses:f0ec497f1203d2b52fa0751d02de9cdd5db7455aaff6ef5726406d5c6aa5da76",
+      "oldId": "noxia:radiology:relation:uses:quantitative-imaging:quality-control",
+      "relationType": "USES",
+      "sourceEntityId": "noxia:radiology:workflow:quantitative-imaging",
+      "sourceRefs": [
+        "source:methodology"
+      ],
+      "targetEntityId": "noxia:radiology:workflow:quality-control"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "cf5101cf96a66b1d551b9652d28395b46cb6bf57f07308abfa48f0d141de79b6",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "cf7e47fa02bab8068df9b9cb3c4a07e9937254acc3a0db1ab063d970bc92b38d",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:uses:cf7e47fa02bab8068df9b9cb3c4a07e9937254acc3a0db1ab063d970bc92b38d",
+      "oldId": "noxia:radiology:relation:uses:t1-mapping:irm",
+      "relationType": "USES",
+      "sourceEntityId": "noxia:radiology:sequence:t1-mapping",
+      "sourceRefs": [
+        "source:irm"
+      ],
+      "targetEntityId": "noxia:radiology:modality:irm"
+    },
+    {
+      "active": true,
+      "assertionCreated": false,
+      "category": "STRUCTURAL_SAFE",
+      "decision": "MIGRATED_TO_ACTIVE_STRUCTURAL_PROJECTION",
+      "historicalDigest": "be6019460e5bb8ce6ac431e01c883418f971c52792058d90dda61f18ad40a3b1",
+      "justification": "The edge retains non-scientific structural, lexical or explicitly operational semantics and keeps its historical source references.",
+      "migratedIdentityDigest": "f6c3632c2a1c4c173549f4a3c04e2e7e93a73d35a9f7a3f3e65aa482c0d11b3d",
+      "migrationApplied": true,
+      "newId": "noxia:radiology:relation:v2:uses:f6c3632c2a1c4c173549f4a3c04e2e7e93a73d35a9f7a3f3e65aa482c0d11b3d",
+      "oldId": "noxia:radiology:relation:uses:t2-mapping:irm",
+      "relationType": "USES",
+      "sourceEntityId": "noxia:radiology:sequence:t2-mapping",
+      "sourceRefs": [
+        "source:irm"
+      ],
+      "targetEntityId": "noxia:radiology:modality:irm"
+    }
+  ],
+  "rollback": {
+    "historicalDataDeleted": false,
+    "historicalRegistriesPreserved": true,
+    "legacyRelationResolver": "src/knowledge-graph/migration/relation-id-resolver.mjs",
+    "rollbackProcedure": "Stop consuming the v2 web projection and read the frozen snapshot or unchanged v1 registries; no reverse data rewrite is required.",
+    "sourceSnapshot": "src/knowledge-graph/migration/snapshots/knowledge-graph-v1.0.0-before-migration.json"
+  },
+  "sourceGitSha": "857e94b6df88289b59de149fe8f77e84dbee9492",
+  "sourceVersion": "1.0.0",
+  "status": "VALIDATED_SAFE_WEB_MIGRATION_READY_FOR_SOURCED_ENRICHMENT",
+  "targetVersion": "2.0.0-web",
+  "validation": {
+    "competencyValid": true,
+    "coverageValid": true,
+    "layerErrorCounts": {
+      "competency": 0,
+      "coverage": 0,
+      "migration": 0,
+      "projection": 0,
+      "provenance": 0,
+      "scientific": 0,
+      "semantics": 0,
+      "structure": 0
+    },
+    "layerWarningCounts": {
+      "competency": 11,
+      "coverage": 118,
+      "migration": 1,
+      "projection": 1,
+      "provenance": 1,
+      "scientific": 1,
+      "semantics": 0,
+      "structure": 5
+    },
+    "migrationIntegrityValid": true,
+    "projectionReady": true,
+    "provenanceValid": true,
+    "publicScientificContentReady": false,
+    "scientificValid": true,
+    "semanticsValid": true,
+    "structureValid": true
+  },
+  "warnings": [
+    {
+      "code": "SOURCED_SCIENTIFIC_ENRICHMENT_REQUIRED",
+      "count": 118
+    },
+    {
+      "code": "PUBLIC_PROJECTION_REQUIRES_EDITORIAL_APPROVAL",
+      "count": 1
+    },
+    {
+      "code": "P3_AUDIT_REUSED_NOT_REGENERATED",
+      "count": 1
+    }
+  ]
+}
