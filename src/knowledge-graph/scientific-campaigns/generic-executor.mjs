@@ -62,6 +62,7 @@ export const executeScientificCampaign = async ({
   executionHistory = [],
   attemptHistory = [],
   writer = null,
+  executionAdapterId = null,
   now = campaignManifest?.createdAt ?? campaignManifest?.generatedAt,
 } = {}) => {
   if (!CAMPAIGN_EXECUTION_MODES.includes(mode)) throw new Error("CAMPAIGN_EXECUTION_MODE_UNKNOWN");
@@ -96,7 +97,7 @@ export const executeScientificCampaign = async ({
     mutationApplied: false,
     immutableTraceDigest: sha256Digest({ campaignManifest, governanceDecision, executionIdentity, attempt, mode }),
   });
-  const adapterId = campaignManifest.executionPolicy.adapterId;
+  const adapterId = executionAdapterId ?? campaignManifest.executionAdapterId ?? campaignManifest.executionPolicy.adapterId;
   const adapter = adapterRegistry.get(adapterId);
   if (!adapter) throw new Error(`CAMPAIGN_ADAPTER_NOT_REGISTERED:${adapterId ?? "UNSPECIFIED"}`);
   const prepared = await adapter.prepare({ campaignManifest, catalog, mode });

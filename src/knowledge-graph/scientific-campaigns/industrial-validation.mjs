@@ -1,8 +1,10 @@
 import { stableStringify } from "../migration/stable-json.mjs";
 import {
   createAuthoritativeScientificRegistry,
+  p9ScientificKnowledgeCatalog,
   scientificKnowledgeCatalog,
 } from "../knowledge-catalog/catalog-builder.mjs";
+import { EMPTY_TERRITORIAL_CAMPAIGN_CORPUS } from "./continuous-wave/constants.mjs";
 import { validateCampaignManifest } from "../knowledge-catalog/campaign-contracts.mjs";
 import { validateCampaignDependencies } from "../knowledge-catalog/campaign-dependencies.mjs";
 import { authorizeCampaignExecution } from "../knowledge-catalog/governance.mjs";
@@ -135,11 +137,11 @@ export const validateP8CorruptionReplays = () => {
   return freezeResult(errors, { scenarios });
 };
 
-export const validateP9IndustrialPlatform = ({ catalog = scientificKnowledgeCatalog } = {}) => {
+export const validateP9IndustrialPlatform = ({ catalog = p9ScientificKnowledgeCatalog } = {}) => {
   const identities = validateCampaignIdentities({ catalog });
   const governance = validateCampaignGovernance({ catalog });
   const dependencies = validateCampaignDependencies({ nodes: catalog.nodes, dependencies: catalog.dependencyRegistry ?? [] });
-  const readinessIntegrity = validateCatalogReadinessIntegrity({ catalog, registry: createAuthoritativeScientificRegistry() });
+  const readinessIntegrity = validateCatalogReadinessIntegrity({ catalog, registry: createAuthoritativeScientificRegistry({ territorialCampaignCorpus: EMPTY_TERRITORIAL_CAMPAIGN_CORPUS }) });
   const corruptionReplays = validateP8CorruptionReplays();
   const layers = { identities, governance, dependencies, readinessIntegrity, corruptionReplays };
   const errors = Object.entries(layers).flatMap(([layer, validation]) => validation.errors.map((error) => ({ layer, ...error })));

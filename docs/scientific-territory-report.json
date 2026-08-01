@@ -1,0 +1,3172 @@
+{
+  "catalogComparison": {
+    "automaticCorrectionsApplied": 0,
+    "branchesWithoutCatalogDomain": [
+      "noxia:scientific-territory:anatomy-specialties:domain:abdominal-digestive",
+      "noxia:scientific-territory:anatomy-specialties:domain:breast",
+      "noxia:scientific-territory:anatomy-specialties:domain:emergency-trauma",
+      "noxia:scientific-territory:anatomy-specialties:domain:gynecology-obstetrics",
+      "noxia:scientific-territory:anatomy-specialties:domain:head-neck",
+      "noxia:scientific-territory:anatomy-specialties:domain:musculoskeletal",
+      "noxia:scientific-territory:anatomy-specialties:domain:oncologic-imaging",
+      "noxia:scientific-territory:anatomy-specialties:domain:pediatric",
+      "noxia:scientific-territory:anatomy-specialties:domain:thoracic",
+      "noxia:scientific-territory:anatomy-specialties:domain:urogenital",
+      "noxia:scientific-territory:anatomy-specialties:domain:whole-body",
+      "noxia:scientific-territory:clinical-applications:domain:appropriateness-incidental",
+      "noxia:scientific-territory:clinical-applications:domain:cardiovascular-disease",
+      "noxia:scientific-territory:clinical-applications:domain:diagnosis-characterization",
+      "noxia:scientific-territory:clinical-applications:domain:infection-inflammation",
+      "noxia:scientific-territory:clinical-applications:domain:musculoskeletal-rheumatic-disease",
+      "noxia:scientific-territory:clinical-applications:domain:respiratory-disease",
+      "noxia:scientific-territory:clinical-applications:domain:screening-prevention",
+      "noxia:scientific-territory:clinical-applications:domain:staging-prognosis",
+      "noxia:scientific-territory:clinical-applications:domain:treatment-response",
+      "noxia:scientific-territory:clinical-applications:domain:urogenital-reproductive-disease",
+      "noxia:scientific-territory:computational-imaging:domain:ai-evaluation",
+      "noxia:scientific-territory:computational-imaging:domain:data-annotation",
+      "noxia:scientific-territory:computational-imaging:domain:detection-classification",
+      "noxia:scientific-territory:computational-imaging:domain:explainability-uncertainty",
+      "noxia:scientific-territory:computational-imaging:domain:foundation-generative",
+      "noxia:scientific-territory:computational-imaging:domain:machine-learning",
+      "noxia:scientific-territory:computational-imaging:domain:preprocessing",
+      "noxia:scientific-territory:computational-imaging:domain:quantitative-pipelines",
+      "noxia:scientific-territory:computational-imaging:domain:visualization",
+      "noxia:scientific-territory:informatics-workflows:domain:core-lab-documentary",
+      "noxia:scientific-territory:informatics-workflows:domain:image-formats",
+      "noxia:scientific-territory:informatics-workflows:domain:interoperability-workflows",
+      "noxia:scientific-territory:informatics-workflows:domain:pacs-vna-archives",
+      "noxia:scientific-territory:informatics-workflows:domain:protocol-management-documentary",
+      "noxia:scientific-territory:informatics-workflows:domain:research-data-informatics",
+      "noxia:scientific-territory:informatics-workflows:domain:structured-reporting-informatics",
+      "noxia:scientific-territory:informatics-workflows:domain:teleradiology-collaboration",
+      "noxia:scientific-territory:informatics-workflows:domain:terminology-knowledge-representation",
+      "noxia:scientific-territory:informatics-workflows:domain:viewers-visualization",
+      "noxia:scientific-territory:interventional-imaging:domain:breast-interventional",
+      "noxia:scientific-territory:interventional-imaging:domain:image-guidance-navigation",
+      "noxia:scientific-territory:interventional-imaging:domain:interventional-oncology",
+      "noxia:scientific-territory:interventional-imaging:domain:musculoskeletal-intervention",
+      "noxia:scientific-territory:interventional-imaging:domain:neurointervention",
+      "noxia:scientific-territory:interventional-imaging:domain:nonvascular-intervention",
+      "noxia:scientific-territory:interventional-imaging:domain:pediatric-intervention",
+      "noxia:scientific-territory:interventional-imaging:domain:peri-procedural",
+      "noxia:scientific-territory:interventional-imaging:domain:vascular-intervention",
+      "noxia:scientific-territory:measurements-biomarkers:domain:attenuation-density-composition",
+      "noxia:scientific-territory:measurements-biomarkers:domain:flow-function",
+      "noxia:scientific-territory:measurements-biomarkers:domain:mechanics-elastography",
+      "noxia:scientific-territory:measurements-biomarkers:domain:molecular-tracer-kinetics",
+      "noxia:scientific-territory:measurements-biomarkers:domain:morphology-volumetry",
+      "noxia:scientific-territory:measurements-biomarkers:domain:reference-values-thresholds",
+      "noxia:scientific-territory:measurements-biomarkers:domain:signal-intensity",
+      "noxia:scientific-territory:modalities-acquisition:domain:emerging-modalities",
+      "noxia:scientific-territory:modalities-acquisition:domain:hybrid-multimodal",
+      "noxia:scientific-territory:modalities-acquisition:domain:radiography-fluoroscopy",
+      "noxia:scientific-territory:modalities-acquisition:domain:ultrasound",
+      "noxia:scientific-territory:physics-instrumentation:domain:artifacts-corrections",
+      "noxia:scientific-territory:physics-instrumentation:domain:contrast-agents",
+      "noxia:scientific-territory:physics-instrumentation:domain:emerging-technology",
+      "noxia:scientific-territory:physics-instrumentation:domain:equipment-platforms",
+      "noxia:scientific-territory:physics-instrumentation:domain:metrology-calibration",
+      "noxia:scientific-territory:physics-instrumentation:domain:mr-physics",
+      "noxia:scientific-territory:physics-instrumentation:domain:nuclear-physics",
+      "noxia:scientific-territory:physics-instrumentation:domain:radiation-matter",
+      "noxia:scientific-territory:physics-instrumentation:domain:reconstruction-science",
+      "noxia:scientific-territory:physics-instrumentation:domain:sampling-acquisition",
+      "noxia:scientific-territory:physics-instrumentation:domain:ultrasound-physics",
+      "noxia:scientific-territory:quality-safety:domain:contrast-safety",
+      "noxia:scientific-territory:quality-safety:domain:image-quality",
+      "noxia:scientific-territory:quality-safety:domain:mr-safety",
+      "noxia:scientific-territory:quality-safety:domain:patient-safety",
+      "noxia:scientific-territory:quality-safety:domain:privacy-security",
+      "noxia:scientific-territory:quality-safety:domain:radiation-safety",
+      "noxia:scientific-territory:quality-safety:domain:regulation-accreditation",
+      "noxia:scientific-territory:quality-safety:domain:reproducibility-harmonization",
+      "noxia:scientific-territory:quality-safety:domain:standards",
+      "noxia:scientific-territory:quality-safety:domain:structured-reporting",
+      "noxia:scientific-territory:quality-safety:domain:sustainability",
+      "noxia:scientific-territory:research-evidence:domain:education-training",
+      "noxia:scientific-territory:research-evidence:domain:ethics-society",
+      "noxia:scientific-territory:research-evidence:domain:evidence-synthesis",
+      "noxia:scientific-territory:research-evidence:domain:guidelines-consensus",
+      "noxia:scientific-territory:research-evidence:domain:health-services",
+      "noxia:scientific-territory:research-evidence:domain:history-future",
+      "noxia:scientific-territory:research-evidence:domain:multicenter-core-lab",
+      "noxia:scientific-territory:research-evidence:domain:open-science-reproducibility",
+      "noxia:scientific-territory:research-evidence:domain:publication-lifecycle",
+      "noxia:scientific-territory:research-evidence:domain:quantitative-biomarker-qualification",
+      "noxia:scientific-territory:research-evidence:domain:study-design"
+    ],
+    "mappedCatalogDomains": 15,
+    "multiMappedCatalogNodes": [
+      {
+        "catalogNodeId": "noxia:knowledge-catalog:domain:cerebral-perfusion",
+        "territoryMemberships": 4
+      },
+      {
+        "catalogNodeId": "noxia:knowledge-catalog:domain:diffusion-adc",
+        "territoryMemberships": 6
+      },
+      {
+        "catalogNodeId": "noxia:knowledge-catalog:domain:ecv-t1",
+        "territoryMemberships": 6
+      },
+      {
+        "catalogNodeId": "noxia:knowledge-catalog:domain:hepatic-imaging",
+        "territoryMemberships": 2
+      },
+      {
+        "catalogNodeId": "noxia:knowledge-catalog:domain:myocardial-tissue-characterization",
+        "territoryMemberships": 2
+      },
+      {
+        "catalogNodeId": "noxia:knowledge-catalog:domain:neuro-oncology",
+        "territoryMemberships": 2
+      },
+      {
+        "catalogNodeId": "noxia:knowledge-catalog:domain:oef-cmro2",
+        "territoryMemberships": 5
+      },
+      {
+        "catalogNodeId": "noxia:knowledge-catalog:domain:photon-counting-ct-applications",
+        "territoryMemberships": 2
+      },
+      {
+        "catalogNodeId": "noxia:knowledge-catalog:domain:radiomics",
+        "territoryMemberships": 2
+      },
+      {
+        "catalogNodeId": "noxia:knowledge-catalog:domain:spectral-ct",
+        "territoryMemberships": 2
+      },
+      {
+        "catalogNodeId": "noxia:knowledge-catalog:domain:t2-mapping",
+        "territoryMemberships": 3
+      }
+    ],
+    "orphanCatalogConceptNodeIds": [],
+    "representedCatalogConcepts": 235,
+    "roleDifferences": [
+      {
+        "automaticCorrection": false,
+        "catalogNodeId": "noxia:knowledge-catalog:domain:quality-control",
+        "observation": "Catalog Domain is retained; the Territory Model also treats this subject as a transverse method or quality dimension."
+      },
+      {
+        "automaticCorrection": false,
+        "catalogNodeId": "noxia:knowledge-catalog:domain:radiomics",
+        "observation": "Catalog Domain is retained; the Territory Model also treats this subject as a transverse method or quality dimension."
+      },
+      {
+        "automaticCorrection": false,
+        "catalogNodeId": "noxia:knowledge-catalog:domain:registration",
+        "observation": "Catalog Domain is retained; the Territory Model also treats this subject as a transverse method or quality dimension."
+      },
+      {
+        "automaticCorrection": false,
+        "catalogNodeId": "noxia:knowledge-catalog:domain:segmentation",
+        "observation": "Catalog Domain is retained; the Territory Model also treats this subject as a transverse method or quality dimension."
+      }
+    ],
+    "snapshot": {
+      "catalogId": "noxia:scientific-knowledge-catalog",
+      "digest": "4c170654c3c215fe6f7e426202dee8a2325d3d669f75d6ff562b76af55d76616",
+      "generatedAt": "2026-08-01T00:00:00.000Z",
+      "knowledgeNodes": 250,
+      "planningDigest": "012ecccdcbb81aab025cf5f4f48f4e204f8198ffc1c9ad1c72bf07e736d888d5",
+      "version": "1.1.0"
+    },
+    "unmappedCatalogDomainIds": []
+  },
+  "coverage": {
+    "byTerritory": [
+      {
+        "currentCoverageEquivalent": 0.0085,
+        "currentCoverageState": "PARTIALLY_COVERED",
+        "domains": 14,
+        "knowledgeAreas": 281,
+        "label": "Anatomie, organes et spécialités",
+        "subdomains": 58,
+        "targetCoverage": "CORE",
+        "territoryId": "anatomy-specialties"
+      },
+      {
+        "currentCoverageEquivalent": 0.0037,
+        "currentCoverageState": "PARTIALLY_COVERED",
+        "domains": 12,
+        "knowledgeAreas": 216,
+        "label": "Pathologies et applications cliniques",
+        "subdomains": 43,
+        "targetCoverage": "CORE",
+        "territoryId": "clinical-applications"
+      },
+      {
+        "currentCoverageEquivalent": 0,
+        "currentCoverageState": "PLANNED",
+        "domains": 12,
+        "knowledgeAreas": 200,
+        "label": "Traitement d'image, informatique scientifique et IA",
+        "subdomains": 40,
+        "targetCoverage": "CORE",
+        "territoryId": "computational-imaging"
+      },
+      {
+        "currentCoverageEquivalent": 0,
+        "currentCoverageState": "NOT_COVERED",
+        "domains": 10,
+        "knowledgeAreas": 155,
+        "label": "Informatique d'imagerie et workflows documentaires",
+        "subdomains": 31,
+        "targetCoverage": "CORE",
+        "territoryId": "informatics-workflows"
+      },
+      {
+        "currentCoverageEquivalent": 0,
+        "currentCoverageState": "NOT_COVERED",
+        "domains": 9,
+        "knowledgeAreas": 135,
+        "label": "Radiologie interventionnelle et guidage par l'image",
+        "subdomains": 27,
+        "targetCoverage": "SELECTIVE",
+        "territoryId": "interventional-imaging"
+      },
+      {
+        "currentCoverageEquivalent": 0.0166,
+        "currentCoverageState": "PARTIALLY_COVERED",
+        "domains": 12,
+        "knowledgeAreas": 190,
+        "label": "Mesures, biomarqueurs et quantification",
+        "subdomains": 38,
+        "targetCoverage": "CORE",
+        "territoryId": "measurements-biomarkers"
+      },
+      {
+        "currentCoverageEquivalent": 0.0119,
+        "currentCoverageState": "PARTIALLY_COVERED",
+        "domains": 7,
+        "knowledgeAreas": 204,
+        "label": "Modalités et acquisition",
+        "subdomains": 40,
+        "targetCoverage": "CORE",
+        "territoryId": "modalities-acquisition"
+      },
+      {
+        "currentCoverageEquivalent": 0,
+        "currentCoverageState": "NOT_COVERED",
+        "domains": 11,
+        "knowledgeAreas": 190,
+        "label": "Physique, instrumentation et technologies",
+        "subdomains": 38,
+        "targetCoverage": "CORE",
+        "territoryId": "physics-instrumentation"
+      },
+      {
+        "currentCoverageEquivalent": 0,
+        "currentCoverageState": "PLANNED",
+        "domains": 12,
+        "knowledgeAreas": 186,
+        "label": "Qualité, sécurité, standards et gouvernance",
+        "subdomains": 37,
+        "targetCoverage": "CORE",
+        "territoryId": "quality-safety"
+      },
+      {
+        "currentCoverageEquivalent": 0,
+        "currentCoverageState": "NOT_COVERED",
+        "domains": 11,
+        "knowledgeAreas": 181,
+        "label": "Recherche, preuves, éducation et services",
+        "subdomains": 36,
+        "targetCoverage": "CORE",
+        "territoryId": "research-evidence"
+      }
+    ],
+    "method": "COVERED=1, PARTIALLY_COVERED=0.5, other states=0; current state is a read-only projection of the P9 catalog snapshot.",
+    "states": {
+      "COVERED": 1,
+      "NOT_COVERED": 2412,
+      "OUT_OF_SCOPE": 0,
+      "PARTIALLY_COVERED": 20,
+      "PLANNED": 13
+    },
+    "targetMethod": "Every included explicit territory node has a target; future and selective targets remain distinguishable in the node records."
+  },
+  "generatedAt": "2026-08-01T00:00:00.000Z",
+  "limits": [
+    "The model is exhaustive at territory, domain, subdomain and knowledge-area granularity, not an enumeration of every possible atomic scientific concept.",
+    "Current coverage is derived from exact catalog identities and concept-family compatibility; semantic reassignment is reported but never applied.",
+    "Potential KnowledgeNode and page totals are planning ranges, not forecasts of scientific evidence or search demand.",
+    "No territory node is scientific evidence and no projection is publication authorization."
+  ],
+  "modelDigest": "23dbfdf7d0d65016bc27b607fa91b0b6103394cdc87573e08c30e3acf455fd66",
+  "modelId": "noxia:scientific-territory-model",
+  "modelVersion": "1.0.0",
+  "reportId": "noxia:scientific-territory:report:1.0.0",
+  "roadmap": {
+    "governance": {
+      "campaignsCannotCreateTerritoryNodes": true,
+      "catalogueCoverageCannotExpandTerritory": true,
+      "projectedNodesMayReenterWithinTerritory": true,
+      "publicProjectionRequiresSeparateReadiness": true,
+      "territoryRevisionRequiredForNewDomain": true
+    },
+    "manualCampaignSelectionAllowed": false,
+    "responsibility": "PRIORITIZE_TERRITORY_FAMILIES_WITHOUT_SELECTING_CAMPAIGNS",
+    "roadmapId": "noxia:scientific-territory:roadmap:1.0.0",
+    "selectionAuthority": "SCIENTIFIC_KNOWLEDGE_CATALOG_CAMPAIGN_PLANNER",
+    "waves": [
+      {
+        "catalogRule": "Select HIGH priority nodes inside these territories only when the catalogue records an actionable source, assertion, provenance or synthesis gap.",
+        "dependsOnWaveIds": [],
+        "naturalClusters": [
+          "modalités et acquisition",
+          "métrologie et qualité",
+          "standards et interopérabilité",
+          "terminologie et définitions",
+          "protocoles documentaires"
+        ],
+        "objective": "Établir les concepts transverses dont dépendent les comparaisons et les mesures de plusieurs spécialités.",
+        "priority": "FOUNDATION",
+        "territoryIds": [
+          "modalities-acquisition",
+          "measurements-biomarkers",
+          "physics-instrumentation",
+          "quality-safety",
+          "informatics-workflows"
+        ],
+        "waveId": "TERRITORY-WAVE-FOUNDATIONS"
+      },
+      {
+        "catalogRule": "The catalogue resolves actual order from coverage, dependencies and priority; the territory supplies no hand-picked node.",
+        "dependsOnWaveIds": [
+          "TERRITORY-WAVE-FOUNDATIONS"
+        ],
+        "naturalClusters": [
+          "neurovasculaire",
+          "cardiaque et vasculaire",
+          "thorax",
+          "abdomen et foie",
+          "oncologie",
+          "musculosquelettique",
+          "pédiatrie et urgence"
+        ],
+        "objective": "Couvrir les grandes spécialités anatomiques et les questions cliniques transverses à forte valeur documentaire.",
+        "priority": "PRIMARY",
+        "territoryIds": [
+          "anatomy-specialties",
+          "clinical-applications"
+        ],
+        "waveId": "TERRITORY-WAVE-CLINICAL-CORE"
+      },
+      {
+        "catalogRule": "Measurement campaigns require explicit method, unit, applicability and provenance gaps in the catalogue.",
+        "dependsOnWaveIds": [
+          "TERRITORY-WAVE-FOUNDATIONS"
+        ],
+        "naturalClusters": [
+          "diffusion",
+          "perfusion",
+          "relaxométrie",
+          "oxygénation et métabolisme",
+          "mécanique",
+          "phénotypage",
+          "qualification de biomarqueurs"
+        ],
+        "objective": "Étendre les biomarqueurs, mesures et comparaisons quantitatives au-delà des pilotes existants.",
+        "priority": "PRIMARY",
+        "territoryIds": [
+          "measurements-biomarkers",
+          "research-evidence"
+        ],
+        "waveId": "TERRITORY-WAVE-QUANTITATIVE"
+      },
+      {
+        "catalogRule": "No internal dataset, training job or deployed model may be created by a scientific enrichment campaign.",
+        "dependsOnWaveIds": [
+          "TERRITORY-WAVE-FOUNDATIONS"
+        ],
+        "naturalClusters": [
+          "recalage",
+          "segmentation",
+          "radiomique",
+          "validation IA",
+          "incertitude",
+          "visualisation",
+          "interopérabilité IA"
+        ],
+        "objective": "Couvrir traitement d'image, radiomique et IA selon des contrats de validation indépendants des applications cliniques.",
+        "priority": "PRIMARY",
+        "territoryIds": [
+          "computational-imaging",
+          "quality-safety",
+          "informatics-workflows"
+        ],
+        "waveId": "TERRITORY-WAVE-COMPUTATIONAL"
+      },
+      {
+        "catalogRule": "Only documentary scientific objects are eligible; operational procedure configuration remains out of scope.",
+        "dependsOnWaveIds": [
+          "TERRITORY-WAVE-FOUNDATIONS",
+          "TERRITORY-WAVE-CLINICAL-CORE"
+        ],
+        "naturalClusters": [
+          "vasculaire",
+          "neurointervention",
+          "oncologie interventionnelle",
+          "biopsie et drainage",
+          "fusion et navigation",
+          "sécurité procédurale"
+        ],
+        "objective": "Documenter guidage, techniques et résultats d'intervention sans créer de workflow exécutable ni de recommandation clinique automatique.",
+        "priority": "SECONDARY",
+        "territoryIds": [
+          "interventional-imaging",
+          "quality-safety",
+          "clinical-applications"
+        ],
+        "waveId": "TERRITORY-WAVE-INTERVENTIONAL"
+      },
+      {
+        "catalogRule": "Future nodes require an explicit territory revision before the catalogue can schedule them.",
+        "dependsOnWaveIds": [
+          "TERRITORY-WAVE-FOUNDATIONS"
+        ],
+        "naturalClusters": [
+          "modalités émergentes",
+          "nouveaux détecteurs",
+          "bas et ultra-haut champ",
+          "modèles fondamentaux",
+          "prospective"
+        ],
+        "objective": "Réévaluer périodiquement les technologies émergentes et les zones adjacentes conditionnelles.",
+        "priority": "FUTURE",
+        "territoryIds": [
+          "modalities-acquisition",
+          "physics-instrumentation",
+          "computational-imaging",
+          "research-evidence"
+        ],
+        "waveId": "TERRITORY-WAVE-FUTURE"
+      }
+    ]
+  },
+  "summary": {
+    "conceptScopes": 1938,
+    "currentCoverageEquivalent": 0.0045,
+    "domains": 110,
+    "estimatedKnowledgeNodesAtMaturity": {
+      "maximum": 21040,
+      "midpoint": 13150,
+      "minimum": 5260
+    },
+    "estimatedPotentialScientificPages": {
+      "maximum": 8214,
+      "midpoint": 4361,
+      "minimum": 508
+    },
+    "excludedDomains": 10,
+    "explicitNodes": 2446,
+    "knowledgeAreas": 1938,
+    "maximumDefinedDepth": 6,
+    "maximumExplicitDepth": 3,
+    "priorityDomains": 97,
+    "subdomains": 388,
+    "targetCoverageEquivalent": 1,
+    "territories": 10
+  },
+  "tables": {
+    "boundaries": [
+      {
+        "domain": "Imagerie diagnostique humaine",
+        "excluded": false,
+        "included": true,
+        "justification": "Cœur du territoire documentaire et scientifique de Noxia.",
+        "status": "INCLUDED"
+      },
+      {
+        "domain": "Intervention guidée par l'image",
+        "excluded": false,
+        "included": true,
+        "justification": "Incluse comme science de l'imagerie, des techniques guidées et de leurs résultats documentés.",
+        "status": "INCLUDED"
+      },
+      {
+        "domain": "Imagerie de médecine nucléaire",
+        "excluded": false,
+        "included": true,
+        "justification": "PET, SPECT, imagerie hybride, traceurs et quantification appartiennent au territoire.",
+        "status": "INCLUDED"
+      },
+      {
+        "domain": "Physique médicale de l'imagerie",
+        "excluded": false,
+        "included": true,
+        "justification": "Inclut acquisition, instrumentation, reconstruction, métrologie, dose, qualité et sécurité.",
+        "status": "INCLUDED"
+      },
+      {
+        "domain": "Informatique d'imagerie",
+        "excluded": false,
+        "included": true,
+        "justification": "Standards, formats, interopérabilité, visualisation et workflows documentaires sont couverts.",
+        "status": "INCLUDED"
+      },
+      {
+        "domain": "IA appliquée à l'imagerie",
+        "excluded": false,
+        "included": true,
+        "justification": "Méthodes, validation, biais, reproductibilité et applications publiées sont documentables.",
+        "status": "INCLUDED"
+      },
+      {
+        "domain": "Protocoles d'acquisition",
+        "excluded": false,
+        "included": true,
+        "justification": "Les protocoles, paramètres et variantes peuvent être décrits, jamais exécutés par cette couche.",
+        "status": "INCLUDED_DOCUMENTARY_ONLY"
+      },
+      {
+        "domain": "Équipements et constructeurs",
+        "excluded": false,
+        "included": true,
+        "justification": "Gamme, modèle, génération, capacité et contexte publié sont couverts sans instance installée ni licence.",
+        "status": "INCLUDED_DOCUMENTARY_ONLY"
+      },
+      {
+        "domain": "Recommandations et consensus",
+        "excluded": false,
+        "included": true,
+        "justification": "Le texte, l'émetteur, la date, la population et le grade peuvent être représentés sans moteur de recommandation clinique.",
+        "status": "INCLUDED_DOCUMENTARY_ONLY"
+      },
+      {
+        "domain": "Core Lab",
+        "excluded": false,
+        "included": true,
+        "justification": "Définitions, méthodes, organisation et contrôles publiés sont couverts sans affectation ni production opérationnelle.",
+        "status": "INCLUDED_DOCUMENTARY_ONLY"
+      },
+      {
+        "domain": "Radiothérapie",
+        "excluded": false,
+        "included": true,
+        "justification": "Inclure l'imagerie, le contourage, le guidage, la réponse et les interfaces dosimétriques; exclure la prescription et l'exécution thérapeutiques.",
+        "status": "ADJACENT_CONDITIONAL"
+      },
+      {
+        "domain": "Histopathologie et anatomopathologie",
+        "excluded": false,
+        "included": true,
+        "justification": "Inclure uniquement la corrélation ou la validation d'un résultat d'imagerie; ne pas construire une taxonomie diagnostique tissulaire autonome.",
+        "status": "ADJACENT_CONDITIONAL"
+      },
+      {
+        "domain": "Génomique",
+        "excluded": false,
+        "included": true,
+        "justification": "Inclure les liens radiogénomiques documentés; exclure l'interprétation génomique autonome et la médecine génomique.",
+        "status": "ADJACENT_CONDITIONAL"
+      },
+      {
+        "domain": "Microscopie",
+        "excluded": false,
+        "included": true,
+        "justification": "Inclure seulement comme méthode de validation ou d'imagerie multimodale reliée à la radiologie.",
+        "status": "ADJACENT_CONDITIONAL"
+      },
+      {
+        "domain": "Théranostique",
+        "excluded": false,
+        "included": true,
+        "justification": "Inclure sélection par l'image, dosimétrie et suivi; exclure les schémas thérapeutiques opérationnels.",
+        "status": "ADJACENT_CONDITIONAL"
+      },
+      {
+        "domain": "Cardiologie, neurologie, oncologie et autres spécialités",
+        "excluded": false,
+        "included": true,
+        "justification": "Inclure les questions, populations et résultats nécessaires à l'interprétation de l'imagerie, sans couvrir la prise en charge clinique générale.",
+        "status": "ADJACENT_CONDITIONAL"
+      },
+      {
+        "domain": "Imagerie vétérinaire",
+        "excluded": true,
+        "included": false,
+        "justification": "Le territoire cible l'imagerie médicale humaine; une extension vétérinaire nécessiterait une décision produit distincte.",
+        "status": "OUT_OF_SCOPE"
+      },
+      {
+        "domain": "Imagerie industrielle et contrôle non médical",
+        "excluded": true,
+        "included": false,
+        "justification": "Le domaine ne relève pas de la radiologie médicale humaine.",
+        "status": "OUT_OF_SCOPE"
+      },
+      {
+        "domain": "Anatomopathologie autonome",
+        "excluded": true,
+        "included": false,
+        "justification": "Absence de finalité radiologique directe hors corrélation d'imagerie.",
+        "status": "OUT_OF_SCOPE"
+      },
+      {
+        "domain": "Génomique autonome",
+        "excluded": true,
+        "included": false,
+        "justification": "Absence de finalité d'imagerie directe hors radiogénomique.",
+        "status": "OUT_OF_SCOPE"
+      },
+      {
+        "domain": "Microscopie autonome",
+        "excluded": true,
+        "included": false,
+        "justification": "Absence de finalité radiologique directe hors validation multimodale.",
+        "status": "OUT_OF_SCOPE"
+      },
+      {
+        "domain": "Logique PACS et viewers opérationnels",
+        "excluded": true,
+        "included": false,
+        "justification": "La couche décrit les standards et concepts, mais ne configure ni n'exécute le produit Noxia.",
+        "status": "OUT_OF_SCOPE"
+      },
+      {
+        "domain": "Parc installé, licences et capacités locales",
+        "excluded": true,
+        "included": false,
+        "justification": "Le territoire documentaire ne gère pas les installations d'un centre.",
+        "status": "OUT_OF_SCOPE"
+      },
+      {
+        "domain": "Workflows applicatifs et CoreLab opérationnel",
+        "excluded": true,
+        "included": false,
+        "justification": "Aucun état applicatif, rôle, affectation, adjudication ou contrôle qualité de production.",
+        "status": "OUT_OF_SCOPE"
+      },
+      {
+        "domain": "Datasets internes et entraînement IA",
+        "excluded": true,
+        "included": false,
+        "justification": "Les études et modèles publiés sont documentables; les actifs internes et l'entraînement ne relèvent pas du site.",
+        "status": "OUT_OF_SCOPE"
+      },
+      {
+        "domain": "Moteur de recommandation clinique",
+        "excluded": true,
+        "included": false,
+        "justification": "Noxia peut documenter une recommandation, jamais automatiser une décision clinique dans cette couche.",
+        "status": "OUT_OF_SCOPE"
+      }
+    ],
+    "contracts": [
+      {
+        "contract": "responsibility",
+        "note": "Contract is explicit in the model.",
+        "preserved": "DEFINE_INTENDED_SCIENTIFIC_SCOPE_ONLY",
+        "test": "validate:scientific-territory:responsibility"
+      },
+      {
+        "contract": "catalogResponsibility",
+        "note": "Contract is explicit in the model.",
+        "preserved": "MEASURE_AND_PLAN_ACTUAL_COVERAGE_ONLY",
+        "test": "validate:scientific-territory:catalogResponsibility"
+      },
+      {
+        "contract": "explicitEnumerationThrough",
+        "note": "Contract is explicit in the model.",
+        "preserved": "KNOWLEDGE_AREA",
+        "test": "validate:scientific-territory:explicitEnumerationThrough"
+      },
+      {
+        "contract": "lowerLevels",
+        "note": "Contract is explicit in the model.",
+        "preserved": "OPEN_ENUMERATION_BY_SCIENTIFIC_KNOWLEDGE_CATALOG",
+        "test": "validate:scientific-territory:lowerLevels"
+      },
+      {
+        "contract": "multipleParentsAllowed",
+        "note": "Contract is explicit in the model.",
+        "preserved": true,
+        "test": "validate:scientific-territory:multipleParentsAllowed"
+      },
+      {
+        "contract": "territoryDoesNotStoreScientificKnowledge",
+        "note": "Contract is explicit in the model.",
+        "preserved": true,
+        "test": "validate:scientific-territory:territoryDoesNotStoreScientificKnowledge"
+      },
+      {
+        "contract": "territoryDoesNotSelectCampaigns",
+        "note": "Contract is explicit in the model.",
+        "preserved": true,
+        "test": "validate:scientific-territory:territoryDoesNotSelectCampaigns"
+      },
+      {
+        "contract": "territoryConstrainsCatalogCandidates",
+        "note": "Contract is explicit in the model.",
+        "preserved": true,
+        "test": "validate:scientific-territory:territoryConstrainsCatalogCandidates"
+      },
+      {
+        "contract": "catalogRemainsCoverageSourceOfTruth",
+        "note": "Contract is explicit in the model.",
+        "preserved": true,
+        "test": "validate:scientific-territory:catalogRemainsCoverageSourceOfTruth"
+      },
+      {
+        "contract": "scientificKnowledgeGraphMutated",
+        "note": "Prohibited output remains absent.",
+        "preserved": false,
+        "test": "validate:scientific-territory:scientificKnowledgeGraphMutated"
+      },
+      {
+        "contract": "scientificAssertionsCreated",
+        "note": "Prohibited output remains absent.",
+        "preserved": 0,
+        "test": "validate:scientific-territory:scientificAssertionsCreated"
+      },
+      {
+        "contract": "evidenceLinksCreated",
+        "note": "Prohibited output remains absent.",
+        "preserved": 0,
+        "test": "validate:scientific-territory:evidenceLinksCreated"
+      },
+      {
+        "contract": "campaignsExecuted",
+        "note": "Prohibited output remains absent.",
+        "preserved": 0,
+        "test": "validate:scientific-territory:campaignsExecuted"
+      },
+      {
+        "contract": "publicPagesCreated",
+        "note": "Prohibited output remains absent.",
+        "preserved": 0,
+        "test": "validate:scientific-territory:publicPagesCreated"
+      },
+      {
+        "contract": "routesCreated",
+        "note": "Prohibited output remains absent.",
+        "preserved": 0,
+        "test": "validate:scientific-territory:routesCreated"
+      },
+      {
+        "contract": "seoArtifactsCreated",
+        "note": "Prohibited output remains absent.",
+        "preserved": 0,
+        "test": "validate:scientific-territory:seoArtifactsCreated"
+      },
+      {
+        "contract": "publicationAuthorized",
+        "note": "Prohibited output remains absent.",
+        "preserved": false,
+        "test": "validate:scientific-territory:publicationAuthorized"
+      }
+    ],
+    "domains": [
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:anatomy-specialties:domain:abdominal-digestive",
+        "label": "Imagerie abdominale et digestive",
+        "parents": [
+          "noxia:scientific-territory:anatomy-specialties"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:anatomy-specialties:domain:breast",
+        "label": "Imagerie mammaire",
+        "parents": [
+          "noxia:scientific-territory:anatomy-specialties"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "PARTIALLY_COVERED",
+        "domainId": "noxia:scientific-territory:anatomy-specialties:domain:cardiac-vascular",
+        "label": "Imagerie cardiaque et vasculaire",
+        "parents": [
+          "noxia:scientific-territory:anatomy-specialties"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:anatomy-specialties:domain:emergency-trauma",
+        "label": "Radiologie d'urgence et traumatologique",
+        "parents": [
+          "noxia:scientific-territory:anatomy-specialties"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:anatomy-specialties:domain:gynecology-obstetrics",
+        "label": "Imagerie gynécologique, obstétricale et fœtale",
+        "parents": [
+          "noxia:scientific-territory:anatomy-specialties"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:anatomy-specialties:domain:head-neck",
+        "label": "Tête et cou",
+        "parents": [
+          "noxia:scientific-territory:anatomy-specialties"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "PARTIALLY_COVERED",
+        "domainId": "noxia:scientific-territory:anatomy-specialties:domain:hepatobiliary",
+        "label": "Imagerie hépatobiliaire",
+        "parents": [
+          "noxia:scientific-territory:anatomy-specialties"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:anatomy-specialties:domain:musculoskeletal",
+        "label": "Imagerie musculosquelettique",
+        "parents": [
+          "noxia:scientific-territory:anatomy-specialties"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "PARTIALLY_COVERED",
+        "domainId": "noxia:scientific-territory:anatomy-specialties:domain:neuroradiology",
+        "label": "Neuroradiologie",
+        "parents": [
+          "noxia:scientific-territory:anatomy-specialties"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:anatomy-specialties:domain:oncologic-imaging",
+        "label": "Imagerie oncologique",
+        "parents": [
+          "noxia:scientific-territory:anatomy-specialties"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:anatomy-specialties:domain:pediatric",
+        "label": "Radiologie pédiatrique",
+        "parents": [
+          "noxia:scientific-territory:anatomy-specialties"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:anatomy-specialties:domain:thoracic",
+        "label": "Imagerie thoracique",
+        "parents": [
+          "noxia:scientific-territory:anatomy-specialties"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:anatomy-specialties:domain:urogenital",
+        "label": "Imagerie urogénitale",
+        "parents": [
+          "noxia:scientific-territory:anatomy-specialties"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:anatomy-specialties:domain:whole-body",
+        "label": "Imagerie corps entier",
+        "parents": [
+          "noxia:scientific-territory:anatomy-specialties"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:clinical-applications:domain:appropriateness-incidental",
+        "label": "Pertinence, indications et découvertes fortuites",
+        "parents": [
+          "noxia:scientific-territory:clinical-applications"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:clinical-applications:domain:cardiovascular-disease",
+        "label": "Applications cardiovasculaires",
+        "parents": [
+          "noxia:scientific-territory:clinical-applications"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:clinical-applications:domain:diagnosis-characterization",
+        "label": "Diagnostic et caractérisation",
+        "parents": [
+          "noxia:scientific-territory:clinical-applications"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "PARTIALLY_COVERED",
+        "domainId": "noxia:scientific-territory:clinical-applications:domain:digestive-hepatobiliary-disease",
+        "label": "Applications digestives et hépatobiliaires",
+        "parents": [
+          "noxia:scientific-territory:clinical-applications"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:clinical-applications:domain:infection-inflammation",
+        "label": "Infection et inflammation",
+        "parents": [
+          "noxia:scientific-territory:clinical-applications"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:clinical-applications:domain:musculoskeletal-rheumatic-disease",
+        "label": "Applications musculosquelettiques et rhumatologiques",
+        "parents": [
+          "noxia:scientific-territory:clinical-applications"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "PLANNED",
+        "domainId": "noxia:scientific-territory:clinical-applications:domain:neurologic-disease",
+        "label": "Applications neurologiques",
+        "parents": [
+          "noxia:scientific-territory:clinical-applications"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:clinical-applications:domain:respiratory-disease",
+        "label": "Applications thoraciques et respiratoires",
+        "parents": [
+          "noxia:scientific-territory:clinical-applications"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:clinical-applications:domain:screening-prevention",
+        "label": "Dépistage et détection précoce",
+        "parents": [
+          "noxia:scientific-territory:clinical-applications"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:clinical-applications:domain:staging-prognosis",
+        "label": "Stadification et pronostic",
+        "parents": [
+          "noxia:scientific-territory:clinical-applications"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:clinical-applications:domain:treatment-response",
+        "label": "Réponse au traitement et suivi",
+        "parents": [
+          "noxia:scientific-territory:clinical-applications"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:clinical-applications:domain:urogenital-reproductive-disease",
+        "label": "Applications urogénitales et reproductives",
+        "parents": [
+          "noxia:scientific-territory:clinical-applications"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:computational-imaging:domain:ai-evaluation",
+        "label": "Évaluation et validation de l'IA",
+        "parents": [
+          "noxia:scientific-territory:computational-imaging"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:computational-imaging:domain:data-annotation",
+        "label": "Données et annotation",
+        "parents": [
+          "noxia:scientific-territory:computational-imaging"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:computational-imaging:domain:detection-classification",
+        "label": "Détection, classification et diagnostic assisté",
+        "parents": [
+          "noxia:scientific-territory:computational-imaging"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:computational-imaging:domain:explainability-uncertainty",
+        "label": "Explicabilité et incertitude",
+        "parents": [
+          "noxia:scientific-territory:computational-imaging"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:computational-imaging:domain:foundation-generative",
+        "label": "Modèles fondamentaux et génératifs",
+        "parents": [
+          "noxia:scientific-territory:computational-imaging"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "SELECTIVE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:computational-imaging:domain:machine-learning",
+        "label": "Apprentissage automatique",
+        "parents": [
+          "noxia:scientific-territory:computational-imaging"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:computational-imaging:domain:preprocessing",
+        "label": "Prétraitement",
+        "parents": [
+          "noxia:scientific-territory:computational-imaging"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:computational-imaging:domain:quantitative-pipelines",
+        "label": "Pipelines quantitatifs",
+        "parents": [
+          "noxia:scientific-territory:computational-imaging"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "PLANNED",
+        "domainId": "noxia:scientific-territory:computational-imaging:domain:radiomics-computation",
+        "label": "Calcul radiomique",
+        "parents": [
+          "noxia:scientific-territory:computational-imaging"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "PLANNED",
+        "domainId": "noxia:scientific-territory:computational-imaging:domain:registration",
+        "label": "Recalage",
+        "parents": [
+          "noxia:scientific-territory:computational-imaging"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "PLANNED",
+        "domainId": "noxia:scientific-territory:computational-imaging:domain:segmentation",
+        "label": "Segmentation",
+        "parents": [
+          "noxia:scientific-territory:computational-imaging"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:computational-imaging:domain:visualization",
+        "label": "Visualisation et interaction",
+        "parents": [
+          "noxia:scientific-territory:computational-imaging"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:informatics-workflows:domain:core-lab-documentary",
+        "label": "Core Lab documentaire",
+        "parents": [
+          "noxia:scientific-territory:informatics-workflows"
+        ],
+        "projectionTypes": [
+          "API",
+          "DocumentaryWorkflow",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:informatics-workflows:domain:image-formats",
+        "label": "Formats et objets d'imagerie",
+        "parents": [
+          "noxia:scientific-territory:informatics-workflows"
+        ],
+        "projectionTypes": [
+          "API",
+          "DocumentaryWorkflow",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:informatics-workflows:domain:interoperability-workflows",
+        "label": "Interopérabilité et profils de workflow",
+        "parents": [
+          "noxia:scientific-territory:informatics-workflows"
+        ],
+        "projectionTypes": [
+          "API",
+          "DocumentaryWorkflow",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:informatics-workflows:domain:pacs-vna-archives",
+        "label": "PACS, VNA et archives comme sujets documentaires",
+        "parents": [
+          "noxia:scientific-territory:informatics-workflows"
+        ],
+        "projectionTypes": [
+          "API",
+          "DocumentaryWorkflow",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:informatics-workflows:domain:protocol-management-documentary",
+        "label": "Gestion documentaire des protocoles",
+        "parents": [
+          "noxia:scientific-territory:informatics-workflows"
+        ],
+        "projectionTypes": [
+          "API",
+          "DocumentaryWorkflow",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:informatics-workflows:domain:research-data-informatics",
+        "label": "Informatique des données de recherche",
+        "parents": [
+          "noxia:scientific-territory:informatics-workflows"
+        ],
+        "projectionTypes": [
+          "API",
+          "DocumentaryWorkflow",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:informatics-workflows:domain:structured-reporting-informatics",
+        "label": "Rapportage structuré",
+        "parents": [
+          "noxia:scientific-territory:informatics-workflows"
+        ],
+        "projectionTypes": [
+          "API",
+          "DocumentaryWorkflow",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:informatics-workflows:domain:teleradiology-collaboration",
+        "label": "Téléradiologie et collaboration",
+        "parents": [
+          "noxia:scientific-territory:informatics-workflows"
+        ],
+        "projectionTypes": [
+          "API",
+          "DocumentaryWorkflow",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:informatics-workflows:domain:terminology-knowledge-representation",
+        "label": "Terminologie et représentation des connaissances",
+        "parents": [
+          "noxia:scientific-territory:informatics-workflows"
+        ],
+        "projectionTypes": [
+          "API",
+          "DocumentaryWorkflow",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:informatics-workflows:domain:viewers-visualization",
+        "label": "Viewers et visualisation comme sujets documentaires",
+        "parents": [
+          "noxia:scientific-territory:informatics-workflows"
+        ],
+        "projectionTypes": [
+          "API",
+          "DocumentaryWorkflow",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:interventional-imaging:domain:breast-interventional",
+        "label": "Intervention mammaire",
+        "parents": [
+          "noxia:scientific-territory:interventional-imaging"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "SELECTIVE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:interventional-imaging:domain:image-guidance-navigation",
+        "label": "Guidage, fusion et navigation",
+        "parents": [
+          "noxia:scientific-territory:interventional-imaging"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "SELECTIVE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:interventional-imaging:domain:interventional-oncology",
+        "label": "Oncologie interventionnelle",
+        "parents": [
+          "noxia:scientific-territory:interventional-imaging"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "SELECTIVE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:interventional-imaging:domain:musculoskeletal-intervention",
+        "label": "Intervention musculosquelettique",
+        "parents": [
+          "noxia:scientific-territory:interventional-imaging"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "SELECTIVE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:interventional-imaging:domain:neurointervention",
+        "label": "Neuroradiologie interventionnelle",
+        "parents": [
+          "noxia:scientific-territory:interventional-imaging"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "SELECTIVE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:interventional-imaging:domain:nonvascular-intervention",
+        "label": "Interventions non vasculaires",
+        "parents": [
+          "noxia:scientific-territory:interventional-imaging"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "SELECTIVE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:interventional-imaging:domain:pediatric-intervention",
+        "label": "Intervention pédiatrique",
+        "parents": [
+          "noxia:scientific-territory:interventional-imaging"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "SELECTIVE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:interventional-imaging:domain:peri-procedural",
+        "label": "Évaluation péri-procédurale",
+        "parents": [
+          "noxia:scientific-territory:interventional-imaging"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "SELECTIVE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:interventional-imaging:domain:vascular-intervention",
+        "label": "Interventions vasculaires",
+        "parents": [
+          "noxia:scientific-territory:interventional-imaging"
+        ],
+        "projectionTypes": [
+          "CaseStudy",
+          "Comparison",
+          "DecisionTree",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "SELECTIVE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:measurements-biomarkers:domain:attenuation-density-composition",
+        "label": "Atténuation, densité et composition",
+        "parents": [
+          "noxia:scientific-territory:measurements-biomarkers"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparator",
+          "Comparison",
+          "Documentation",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "PARTIALLY_COVERED",
+        "domainId": "noxia:scientific-territory:measurements-biomarkers:domain:diffusion-metrics",
+        "label": "Diffusion",
+        "parents": [
+          "noxia:scientific-territory:measurements-biomarkers"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparator",
+          "Comparison",
+          "Documentation",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:measurements-biomarkers:domain:flow-function",
+        "label": "Flux et fonction",
+        "parents": [
+          "noxia:scientific-territory:measurements-biomarkers"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparator",
+          "Comparison",
+          "Documentation",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:measurements-biomarkers:domain:mechanics-elastography",
+        "label": "Mécanique et élastographie",
+        "parents": [
+          "noxia:scientific-territory:measurements-biomarkers"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparator",
+          "Comparison",
+          "Documentation",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:measurements-biomarkers:domain:molecular-tracer-kinetics",
+        "label": "Biomarqueurs moléculaires et cinétique des traceurs",
+        "parents": [
+          "noxia:scientific-territory:measurements-biomarkers"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparator",
+          "Comparison",
+          "Documentation",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:measurements-biomarkers:domain:morphology-volumetry",
+        "label": "Morphologie et volumétrie",
+        "parents": [
+          "noxia:scientific-territory:measurements-biomarkers"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparator",
+          "Comparison",
+          "Documentation",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "PLANNED",
+        "domainId": "noxia:scientific-territory:measurements-biomarkers:domain:oxygenation-metabolism",
+        "label": "Oxygénation et métabolisme",
+        "parents": [
+          "noxia:scientific-territory:measurements-biomarkers"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparator",
+          "Comparison",
+          "Documentation",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "PARTIALLY_COVERED",
+        "domainId": "noxia:scientific-territory:measurements-biomarkers:domain:perfusion-hemodynamics",
+        "label": "Perfusion et hémodynamique",
+        "parents": [
+          "noxia:scientific-territory:measurements-biomarkers"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparator",
+          "Comparison",
+          "Documentation",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "PLANNED",
+        "domainId": "noxia:scientific-territory:measurements-biomarkers:domain:radiomics-phenotyping",
+        "label": "Radiomique et phénotypage",
+        "parents": [
+          "noxia:scientific-territory:measurements-biomarkers"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparator",
+          "Comparison",
+          "Documentation",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:measurements-biomarkers:domain:reference-values-thresholds",
+        "label": "Valeurs de référence et seuils",
+        "parents": [
+          "noxia:scientific-territory:measurements-biomarkers"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparator",
+          "Comparison",
+          "Documentation",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "PARTIALLY_COVERED",
+        "domainId": "noxia:scientific-territory:measurements-biomarkers:domain:relaxation-mapping",
+        "label": "Relaxation et mapping quantitatif",
+        "parents": [
+          "noxia:scientific-territory:measurements-biomarkers"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparator",
+          "Comparison",
+          "Documentation",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:measurements-biomarkers:domain:signal-intensity",
+        "label": "Signal, intensité et texture",
+        "parents": [
+          "noxia:scientific-territory:measurements-biomarkers"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparator",
+          "Comparison",
+          "Documentation",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "PARTIALLY_COVERED",
+        "domainId": "noxia:scientific-territory:modalities-acquisition:domain:computed-tomography",
+        "label": "Tomodensitométrie",
+        "parents": [
+          "noxia:scientific-territory:modalities-acquisition"
+        ],
+        "projectionTypes": [
+          "Comparator",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:modalities-acquisition:domain:emerging-modalities",
+        "label": "Modalités émergentes",
+        "parents": [
+          "noxia:scientific-territory:modalities-acquisition"
+        ],
+        "projectionTypes": [
+          "Comparator",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "FUTURE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:modalities-acquisition:domain:hybrid-multimodal",
+        "label": "Imagerie hybride et multimodale",
+        "parents": [
+          "noxia:scientific-territory:modalities-acquisition"
+        ],
+        "projectionTypes": [
+          "Comparator",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "PARTIALLY_COVERED",
+        "domainId": "noxia:scientific-territory:modalities-acquisition:domain:magnetic-resonance",
+        "label": "Imagerie par résonance magnétique",
+        "parents": [
+          "noxia:scientific-territory:modalities-acquisition"
+        ],
+        "projectionTypes": [
+          "Comparator",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "PLANNED",
+        "domainId": "noxia:scientific-territory:modalities-acquisition:domain:nuclear-medicine-modalities",
+        "label": "Médecine nucléaire et imagerie moléculaire",
+        "parents": [
+          "noxia:scientific-territory:modalities-acquisition"
+        ],
+        "projectionTypes": [
+          "Comparator",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:modalities-acquisition:domain:radiography-fluoroscopy",
+        "label": "Radiographie, fluoroscopie et imagerie de projection",
+        "parents": [
+          "noxia:scientific-territory:modalities-acquisition"
+        ],
+        "projectionTypes": [
+          "Comparator",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:modalities-acquisition:domain:ultrasound",
+        "label": "Échographie",
+        "parents": [
+          "noxia:scientific-territory:modalities-acquisition"
+        ],
+        "projectionTypes": [
+          "Comparator",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:physics-instrumentation:domain:artifacts-corrections",
+        "label": "Artéfacts et corrections",
+        "parents": [
+          "noxia:scientific-territory:physics-instrumentation"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:physics-instrumentation:domain:contrast-agents",
+        "label": "Agents de contraste et traceurs",
+        "parents": [
+          "noxia:scientific-territory:physics-instrumentation"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:physics-instrumentation:domain:emerging-technology",
+        "label": "Technologies émergentes",
+        "parents": [
+          "noxia:scientific-territory:physics-instrumentation"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "FUTURE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:physics-instrumentation:domain:equipment-platforms",
+        "label": "Équipements, plateformes et constructeurs",
+        "parents": [
+          "noxia:scientific-territory:physics-instrumentation"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:physics-instrumentation:domain:metrology-calibration",
+        "label": "Métrologie et calibration",
+        "parents": [
+          "noxia:scientific-territory:physics-instrumentation"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:physics-instrumentation:domain:mr-physics",
+        "label": "Physique IRM",
+        "parents": [
+          "noxia:scientific-territory:physics-instrumentation"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:physics-instrumentation:domain:nuclear-physics",
+        "label": "Physique de médecine nucléaire",
+        "parents": [
+          "noxia:scientific-territory:physics-instrumentation"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:physics-instrumentation:domain:radiation-matter",
+        "label": "Rayonnements et interaction avec la matière",
+        "parents": [
+          "noxia:scientific-territory:physics-instrumentation"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:physics-instrumentation:domain:reconstruction-science",
+        "label": "Science de la reconstruction",
+        "parents": [
+          "noxia:scientific-territory:physics-instrumentation"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:physics-instrumentation:domain:sampling-acquisition",
+        "label": "Échantillonnage et acquisition",
+        "parents": [
+          "noxia:scientific-territory:physics-instrumentation"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:physics-instrumentation:domain:ultrasound-physics",
+        "label": "Physique ultrasonore",
+        "parents": [
+          "noxia:scientific-territory:physics-instrumentation"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:quality-safety:domain:contrast-safety",
+        "label": "Sécurité des contrastes et traceurs",
+        "parents": [
+          "noxia:scientific-territory:quality-safety"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:quality-safety:domain:image-quality",
+        "label": "Qualité d'image",
+        "parents": [
+          "noxia:scientific-territory:quality-safety"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:quality-safety:domain:mr-safety",
+        "label": "Sécurité IRM",
+        "parents": [
+          "noxia:scientific-territory:quality-safety"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:quality-safety:domain:patient-safety",
+        "label": "Sécurité patient",
+        "parents": [
+          "noxia:scientific-territory:quality-safety"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:quality-safety:domain:privacy-security",
+        "label": "Confidentialité et cybersécurité",
+        "parents": [
+          "noxia:scientific-territory:quality-safety"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "PLANNED",
+        "domainId": "noxia:scientific-territory:quality-safety:domain:quality-control",
+        "label": "Contrôle et assurance qualité",
+        "parents": [
+          "noxia:scientific-territory:quality-safety"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:quality-safety:domain:radiation-safety",
+        "label": "Radioprotection et dose",
+        "parents": [
+          "noxia:scientific-territory:quality-safety"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:quality-safety:domain:regulation-accreditation",
+        "label": "Réglementation, accréditation et évaluation",
+        "parents": [
+          "noxia:scientific-territory:quality-safety"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:quality-safety:domain:reproducibility-harmonization",
+        "label": "Reproductibilité et harmonisation",
+        "parents": [
+          "noxia:scientific-territory:quality-safety"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:quality-safety:domain:standards",
+        "label": "Standards et référentiels",
+        "parents": [
+          "noxia:scientific-territory:quality-safety"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:quality-safety:domain:structured-reporting",
+        "label": "Terminologie et rapportage structuré",
+        "parents": [
+          "noxia:scientific-territory:quality-safety"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:quality-safety:domain:sustainability",
+        "label": "Durabilité",
+        "parents": [
+          "noxia:scientific-territory:quality-safety"
+        ],
+        "projectionTypes": [
+          "API",
+          "Comparison",
+          "Documentation",
+          "FAQ",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "Tutorial"
+        ],
+        "targetCoverage": "SELECTIVE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:research-evidence:domain:education-training",
+        "label": "Éducation et formation",
+        "parents": [
+          "noxia:scientific-territory:research-evidence"
+        ],
+        "projectionTypes": [
+          "Comparison",
+          "Documentation",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:research-evidence:domain:ethics-society",
+        "label": "Éthique et société",
+        "parents": [
+          "noxia:scientific-territory:research-evidence"
+        ],
+        "projectionTypes": [
+          "Comparison",
+          "Documentation",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:research-evidence:domain:evidence-synthesis",
+        "label": "Synthèse des preuves",
+        "parents": [
+          "noxia:scientific-territory:research-evidence"
+        ],
+        "projectionTypes": [
+          "Comparison",
+          "Documentation",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:research-evidence:domain:guidelines-consensus",
+        "label": "Recommandations, consensus et standards de pratique",
+        "parents": [
+          "noxia:scientific-territory:research-evidence"
+        ],
+        "projectionTypes": [
+          "Comparison",
+          "Documentation",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:research-evidence:domain:health-services",
+        "label": "Services, accès et organisation documentaire",
+        "parents": [
+          "noxia:scientific-territory:research-evidence"
+        ],
+        "projectionTypes": [
+          "Comparison",
+          "Documentation",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:research-evidence:domain:history-future",
+        "label": "Histoire et prospective",
+        "parents": [
+          "noxia:scientific-territory:research-evidence"
+        ],
+        "projectionTypes": [
+          "Comparison",
+          "Documentation",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:research-evidence:domain:multicenter-core-lab",
+        "label": "Recherche multicentrique et Core Lab documentaire",
+        "parents": [
+          "noxia:scientific-territory:research-evidence"
+        ],
+        "projectionTypes": [
+          "Comparison",
+          "Documentation",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:research-evidence:domain:open-science-reproducibility",
+        "label": "Science ouverte et reproductibilité",
+        "parents": [
+          "noxia:scientific-territory:research-evidence"
+        ],
+        "projectionTypes": [
+          "Comparison",
+          "Documentation",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:research-evidence:domain:publication-lifecycle",
+        "label": "Cycle de vie documentaire",
+        "parents": [
+          "noxia:scientific-territory:research-evidence"
+        ],
+        "projectionTypes": [
+          "Comparison",
+          "Documentation",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:research-evidence:domain:quantitative-biomarker-qualification",
+        "label": "Qualification des biomarqueurs",
+        "parents": [
+          "noxia:scientific-territory:research-evidence"
+        ],
+        "projectionTypes": [
+          "Comparison",
+          "Documentation",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      },
+      {
+        "currentCoverage": "NOT_COVERED",
+        "domainId": "noxia:scientific-territory:research-evidence:domain:study-design",
+        "label": "Plans d'étude et méthodologie",
+        "parents": [
+          "noxia:scientific-territory:research-evidence"
+        ],
+        "projectionTypes": [
+          "Comparison",
+          "Documentation",
+          "Glossary",
+          "Guide",
+          "Reference",
+          "StateOfKnowledge"
+        ],
+        "targetCoverage": "CORE"
+      }
+    ],
+    "territoryCoverage": [
+      {
+        "currentCoverageEquivalent": 0.0085,
+        "currentCoverageState": "PARTIALLY_COVERED",
+        "domains": 14,
+        "knowledgeAreas": 281,
+        "label": "Anatomie, organes et spécialités",
+        "subdomains": 58,
+        "targetCoverage": "CORE",
+        "territoryId": "anatomy-specialties"
+      },
+      {
+        "currentCoverageEquivalent": 0.0037,
+        "currentCoverageState": "PARTIALLY_COVERED",
+        "domains": 12,
+        "knowledgeAreas": 216,
+        "label": "Pathologies et applications cliniques",
+        "subdomains": 43,
+        "targetCoverage": "CORE",
+        "territoryId": "clinical-applications"
+      },
+      {
+        "currentCoverageEquivalent": 0,
+        "currentCoverageState": "PLANNED",
+        "domains": 12,
+        "knowledgeAreas": 200,
+        "label": "Traitement d'image, informatique scientifique et IA",
+        "subdomains": 40,
+        "targetCoverage": "CORE",
+        "territoryId": "computational-imaging"
+      },
+      {
+        "currentCoverageEquivalent": 0,
+        "currentCoverageState": "NOT_COVERED",
+        "domains": 10,
+        "knowledgeAreas": 155,
+        "label": "Informatique d'imagerie et workflows documentaires",
+        "subdomains": 31,
+        "targetCoverage": "CORE",
+        "territoryId": "informatics-workflows"
+      },
+      {
+        "currentCoverageEquivalent": 0,
+        "currentCoverageState": "NOT_COVERED",
+        "domains": 9,
+        "knowledgeAreas": 135,
+        "label": "Radiologie interventionnelle et guidage par l'image",
+        "subdomains": 27,
+        "targetCoverage": "SELECTIVE",
+        "territoryId": "interventional-imaging"
+      },
+      {
+        "currentCoverageEquivalent": 0.0166,
+        "currentCoverageState": "PARTIALLY_COVERED",
+        "domains": 12,
+        "knowledgeAreas": 190,
+        "label": "Mesures, biomarqueurs et quantification",
+        "subdomains": 38,
+        "targetCoverage": "CORE",
+        "territoryId": "measurements-biomarkers"
+      },
+      {
+        "currentCoverageEquivalent": 0.0119,
+        "currentCoverageState": "PARTIALLY_COVERED",
+        "domains": 7,
+        "knowledgeAreas": 204,
+        "label": "Modalités et acquisition",
+        "subdomains": 40,
+        "targetCoverage": "CORE",
+        "territoryId": "modalities-acquisition"
+      },
+      {
+        "currentCoverageEquivalent": 0,
+        "currentCoverageState": "NOT_COVERED",
+        "domains": 11,
+        "knowledgeAreas": 190,
+        "label": "Physique, instrumentation et technologies",
+        "subdomains": 38,
+        "targetCoverage": "CORE",
+        "territoryId": "physics-instrumentation"
+      },
+      {
+        "currentCoverageEquivalent": 0,
+        "currentCoverageState": "PLANNED",
+        "domains": 12,
+        "knowledgeAreas": 186,
+        "label": "Qualité, sécurité, standards et gouvernance",
+        "subdomains": 37,
+        "targetCoverage": "CORE",
+        "territoryId": "quality-safety"
+      },
+      {
+        "currentCoverageEquivalent": 0,
+        "currentCoverageState": "NOT_COVERED",
+        "domains": 11,
+        "knowledgeAreas": 181,
+        "label": "Recherche, preuves, éducation et services",
+        "subdomains": 36,
+        "targetCoverage": "CORE",
+        "territoryId": "research-evidence"
+      }
+    ],
+    "transverseDimensions": [
+      {
+        "dimension": "Constructeurs, plateformes et générations",
+        "territories": [
+          "modalities-acquisition",
+          "physics-instrumentation",
+          "measurements-biomarkers",
+          "quality-safety",
+          "informatics-workflows"
+        ]
+      },
+      {
+        "dimension": "Champ magnétique",
+        "territories": [
+          "modalities-acquisition",
+          "physics-instrumentation",
+          "measurements-biomarkers",
+          "quality-safety"
+        ]
+      },
+      {
+        "dimension": "Énergie, spectre et paramètres d'exposition",
+        "territories": [
+          "modalities-acquisition",
+          "physics-instrumentation",
+          "measurements-biomarkers",
+          "quality-safety",
+          "interventional-imaging"
+        ]
+      },
+      {
+        "dimension": "Agents de contraste, traceurs et radiopharmaceutiques",
+        "territories": [
+          "modalities-acquisition",
+          "clinical-applications",
+          "measurements-biomarkers",
+          "physics-instrumentation",
+          "quality-safety",
+          "interventional-imaging"
+        ]
+      },
+      {
+        "dimension": "Protocoles et paramètres d'acquisition documentaires",
+        "territories": [
+          "modalities-acquisition",
+          "anatomy-specialties",
+          "clinical-applications",
+          "quality-safety",
+          "informatics-workflows"
+        ]
+      },
+      {
+        "dimension": "Reconstruction et corrections",
+        "territories": [
+          "modalities-acquisition",
+          "physics-instrumentation",
+          "computational-imaging",
+          "quality-safety"
+        ]
+      },
+      {
+        "dimension": "Post-traitement et visualisation",
+        "territories": [
+          "measurements-biomarkers",
+          "computational-imaging",
+          "quality-safety",
+          "informatics-workflows"
+        ]
+      },
+      {
+        "dimension": "Quantification",
+        "territories": [
+          "modalities-acquisition",
+          "anatomy-specialties",
+          "clinical-applications",
+          "measurements-biomarkers",
+          "computational-imaging",
+          "quality-safety"
+        ]
+      },
+      {
+        "dimension": "Métrologie, unités, formules et incertitude",
+        "territories": [
+          "measurements-biomarkers",
+          "physics-instrumentation",
+          "quality-safety",
+          "research-evidence"
+        ]
+      },
+      {
+        "dimension": "Répétabilité, reproductibilité et harmonisation",
+        "territories": [
+          "measurements-biomarkers",
+          "computational-imaging",
+          "quality-safety",
+          "research-evidence"
+        ]
+      },
+      {
+        "dimension": "Normalisation et valeurs de référence",
+        "territories": [
+          "measurements-biomarkers",
+          "quality-safety",
+          "research-evidence"
+        ]
+      },
+      {
+        "dimension": "Interopérabilité et échange",
+        "territories": [
+          "modalities-acquisition",
+          "computational-imaging",
+          "quality-safety",
+          "informatics-workflows",
+          "research-evidence"
+        ]
+      },
+      {
+        "dimension": "Terminologies, codages et définitions",
+        "territories": [
+          "anatomy-specialties",
+          "clinical-applications",
+          "measurements-biomarkers",
+          "quality-safety",
+          "informatics-workflows",
+          "research-evidence"
+        ]
+      },
+      {
+        "dimension": "Sécurité, dose et bénéfice-risque",
+        "territories": [
+          "modalities-acquisition",
+          "clinical-applications",
+          "physics-instrumentation",
+          "quality-safety",
+          "interventional-imaging"
+        ]
+      },
+      {
+        "dimension": "Population, âge, sexe, grossesse et vulnérabilités",
+        "territories": [
+          "anatomy-specialties",
+          "clinical-applications",
+          "measurements-biomarkers",
+          "quality-safety",
+          "research-evidence"
+        ]
+      },
+      {
+        "dimension": "Stade, temporalité et trajectoire de maladie",
+        "territories": [
+          "clinical-applications",
+          "measurements-biomarkers",
+          "interventional-imaging",
+          "research-evidence"
+        ]
+      },
+      {
+        "dimension": "Centre, scanner, lecteur et contexte multicentrique",
+        "territories": [
+          "measurements-biomarkers",
+          "computational-imaging",
+          "quality-safety",
+          "informatics-workflows",
+          "research-evidence"
+        ]
+      },
+      {
+        "dimension": "Logiciels, versions et implémentations",
+        "territories": [
+          "modalities-acquisition",
+          "measurements-biomarkers",
+          "computational-imaging",
+          "quality-safety",
+          "informatics-workflows"
+        ]
+      },
+      {
+        "dimension": "Données, provenance et cycle de vie documentaire",
+        "territories": [
+          "computational-imaging",
+          "quality-safety",
+          "informatics-workflows",
+          "research-evidence"
+        ]
+      },
+      {
+        "dimension": "Validation, biais, robustesse et explicabilité de l'IA",
+        "territories": [
+          "clinical-applications",
+          "computational-imaging",
+          "quality-safety",
+          "research-evidence"
+        ]
+      },
+      {
+        "dimension": "Évolution historique des connaissances et technologies",
+        "territories": [
+          "modalities-acquisition",
+          "physics-instrumentation",
+          "informatics-workflows",
+          "research-evidence"
+        ]
+      },
+      {
+        "dimension": "Facteurs humains, ergonomie et communication",
+        "territories": [
+          "quality-safety",
+          "informatics-workflows",
+          "interventional-imaging",
+          "research-evidence"
+        ]
+      },
+      {
+        "dimension": "Accès, équité et diversité",
+        "territories": [
+          "anatomy-specialties",
+          "clinical-applications",
+          "quality-safety",
+          "research-evidence"
+        ]
+      },
+      {
+        "dimension": "Durabilité environnementale",
+        "territories": [
+          "modalities-acquisition",
+          "physics-instrumentation",
+          "quality-safety",
+          "informatics-workflows",
+          "research-evidence"
+        ]
+      }
+    ]
+  }
+}

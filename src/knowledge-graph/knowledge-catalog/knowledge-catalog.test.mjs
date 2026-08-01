@@ -6,7 +6,7 @@ import { stableStringify } from "../migration/stable-json.mjs";
 import { scientificCorpusEntityRevisions } from "../scientific-corpus/concepts.mjs";
 import { multidomainConcepts } from "../scientific-multidomain/concepts.mjs";
 import { buildScientificEnrichmentCampaigns, isCampaignCandidate } from "./campaign-engine.mjs";
-import { createScientificKnowledgeCatalog, p6ScientificKnowledgeCatalog, scientificKnowledgeCatalog } from "./catalog-builder.mjs";
+import { createScientificKnowledgeCatalog, p6ScientificKnowledgeCatalog, p9ScientificKnowledgeCatalog, scientificKnowledgeCatalog } from "./catalog-builder.mjs";
 import { KNOWLEDGE_CATALOG_GENERATED_AT, KNOWLEDGE_NODE_DEPENDENCY_FIELDS, KNOWLEDGE_NODE_REQUIRED_FIELDS, PROJECTION_CAPABILITIES } from "./constants.mjs";
 import { authorizeScientificEnrichment, authorizeScientificProjection, requireCataloguedScientificOperation } from "./governance.mjs";
 import { createKnowledgeNode, exportKnowledgeNodeRegistry, importKnowledgeNodeRegistry, KnowledgeNodeRegistry } from "./knowledge-node-registry.mjs";
@@ -37,14 +37,15 @@ const syntheticNode = (key, overrides = {}) => createKnowledgeNode({
   ...overrides,
 });
 
-describe("Scientific Knowledge Catalog after the first automatic campaign", () => {
-  it("preserves P3M-Web, P4R and P5 while adding only the catalog-selected campaign corpus", () => {
+describe("Scientific Knowledge Catalog after the first territorial campaign", () => {
+  it("preserves every prior baseline while adding only the territory-selected segmentation corpus", () => {
     expect(entityRevisions).toHaveLength(118);
     expect(scientificCorpusEntityRevisions).toHaveLength(42);
     expect(multidomainConcepts).toHaveLength(60);
     expect(p6ScientificKnowledgeCatalog).toMatchObject({ digest: "503cd942c65888a4dd684f4cae8445940869152f7ce9fbdecab37f2e13e38bb5" });
-    expect(scientificKnowledgeCatalog.summary).toMatchObject({ knowledgeNodes: 250, concepts: 235, domains: 15, sources: 92, assertions: 177, evidenceLinks: 214, syntheses: 27, internalProjections: 24 });
-    expect(scientificKnowledgeCatalog.contracts).toMatchObject({ knowledgeStoredInCatalog: false, scientificKnowledgeGraphMutated: true, assertionsCreated: 22, publicPagesCreated: 0, routesCreated: 0, publicationAuthorized: false });
+    expect(p9ScientificKnowledgeCatalog.summary).toMatchObject({ knowledgeNodes: 250, sources: 92, assertions: 177, evidenceLinks: 214, syntheses: 27, internalProjections: 24 });
+    expect(scientificKnowledgeCatalog.summary).toMatchObject({ knowledgeNodes: 258, concepts: 243, domains: 15, sources: 97, assertions: 189, evidenceLinks: 226, syntheses: 28, internalProjections: 25 });
+    expect(scientificKnowledgeCatalog.contracts).toMatchObject({ knowledgeStoredInCatalog: false, scientificKnowledgeGraphMutated: true, assertionsCreated: 34, publicPagesCreated: 0, routesCreated: 0, publicationAuthorized: false });
   });
 
   it("builds every required KnowledgeNode field and explicit dependency collection", () => {
@@ -84,9 +85,9 @@ describe("Scientific Knowledge Catalog after the first automatic campaign", () =
       catalogPlanningDigest: scientificKnowledgeCatalog.planningDigest,
     });
     expect(campaigns).toEqual(scientificKnowledgeCatalog.campaigns);
-    expect(campaigns).toHaveLength(13);
+    expect(campaigns).toHaveLength(12);
     const selected = campaigns.flatMap((campaign) => campaign.selectedNodeIds);
-    expect(new Set(selected).size).toBe(13);
+    expect(new Set(selected).size).toBe(12);
     for (const campaign of campaigns) {
       expect(campaign.selectionRule.manualDomainSelection).toBe(false);
       expect(campaign.publicationAuthorized).toBe(false);

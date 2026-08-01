@@ -21,8 +21,9 @@ import {
   createAuthoritativeScientificRegistry,
   p6ScientificKnowledgeCatalog,
   p7ScientificKnowledgeCatalog,
-  scientificKnowledgeCatalog,
+  p9ScientificKnowledgeCatalog,
 } from "../knowledge-catalog/catalog-builder.mjs";
+import { EMPTY_TERRITORIAL_CAMPAIGN_CORPUS } from "./continuous-wave/constants.mjs";
 import { authorizeCampaignExecution, authorizeScientificEnrichment, requireCataloguedScientificOperation } from "../knowledge-catalog/governance.mjs";
 import { createKnowledgeNode } from "../knowledge-catalog/knowledge-node-registry.mjs";
 import { validateCatalogReadinessIntegrity } from "../knowledge-catalog/readiness-integrity.mjs";
@@ -57,8 +58,8 @@ const syntheticNode = (key, { complete = false, status, nodeType = "Domain", pri
 });
 
 const integrityAfter = (mutate) => {
-  const catalog = clone(scientificKnowledgeCatalog);
-  const registry = clone(createAuthoritativeScientificRegistry());
+  const catalog = clone(p9ScientificKnowledgeCatalog);
+  const registry = clone(createAuthoritativeScientificRegistry({ territorialCampaignCorpus: EMPTY_TERRITORIAL_CAMPAIGN_CORPUS }));
   mutate(catalog, registry);
   return validateCatalogReadinessIntegrity({ catalog, registry });
 };
@@ -74,20 +75,20 @@ describe("P9 industrial scientific campaign platform", () => {
   });
 
   it("builds complete generic manifests and plans by global calculated priority", () => {
-    const rebuilt = buildScientificEnrichmentCampaigns(scientificKnowledgeCatalog.nodes, {
-      dependencies: scientificKnowledgeCatalog.dependencyRegistry,
-      executions: scientificKnowledgeCatalog.campaignExecutions,
-      catalogPlanningDigest: scientificKnowledgeCatalog.planningDigest,
+    const rebuilt = buildScientificEnrichmentCampaigns(p9ScientificKnowledgeCatalog.nodes, {
+      dependencies: p9ScientificKnowledgeCatalog.dependencyRegistry,
+      executions: p9ScientificKnowledgeCatalog.campaignExecutions,
+      catalogPlanningDigest: p9ScientificKnowledgeCatalog.planningDigest,
     });
-    expect(rebuilt).toEqual(scientificKnowledgeCatalog.campaigns);
+    expect(rebuilt).toEqual(p9ScientificKnowledgeCatalog.campaigns);
     expect(rebuilt[0].selectedNodeIds).toEqual(["noxia:knowledge-catalog:domain:segmentation"]);
     expect(rebuilt.map((item) => item.prioritySnapshot.score)).toEqual([...rebuilt].sort((a, b) => b.prioritySnapshot.score - a.prioritySnapshot.score).map((item) => item.prioritySnapshot.score));
     for (const manifest of rebuilt) expect(validateCampaignManifest(manifest).valid).toBe(true);
   });
 
   it("keeps definition identity stable and changes revision identity when relevant input changes", () => {
-    const original = scientificKnowledgeCatalog.campaigns[0];
-    const node = clone(scientificKnowledgeCatalog.nodes.find((item) => item.nodeId === original.selectedNodeIds[0]));
+    const original = p9ScientificKnowledgeCatalog.campaigns[0];
+    const node = clone(p9ScientificKnowledgeCatalog.nodes.find((item) => item.nodeId === original.selectedNodeIds[0]));
     node.priority.score += 1;
     const dependencyEvaluation = evaluateCampaignDependencies({ nodeId: node.nodeId, nodes: [node], dependencies: [] });
     const priorityBreakdown = calculateCampaignPriorityBreakdown(node, { dependencyEvaluation, planningAt: at });
@@ -98,18 +99,18 @@ describe("P9 industrial scientific campaign platform", () => {
   });
 
   it("is deterministic across input order and reacts to priority changes", () => {
-    const nodes = scientificKnowledgeCatalog.nodes;
-    const digest = createCatalogPlanningDigest({ nodes, dependencies: [], executions: scientificKnowledgeCatalog.campaignExecutions });
-    const forward = buildScientificEnrichmentCampaigns(nodes, { executions: scientificKnowledgeCatalog.campaignExecutions, catalogPlanningDigest: digest });
-    const reverseDigest = createCatalogPlanningDigest({ nodes: [...nodes].reverse(), dependencies: [], executions: scientificKnowledgeCatalog.campaignExecutions });
-    const reversed = buildScientificEnrichmentCampaigns([...nodes].reverse(), { executions: scientificKnowledgeCatalog.campaignExecutions, catalogPlanningDigest: reverseDigest });
+    const nodes = p9ScientificKnowledgeCatalog.nodes;
+    const digest = createCatalogPlanningDigest({ nodes, dependencies: [], executions: p9ScientificKnowledgeCatalog.campaignExecutions });
+    const forward = buildScientificEnrichmentCampaigns(nodes, { executions: p9ScientificKnowledgeCatalog.campaignExecutions, catalogPlanningDigest: digest });
+    const reverseDigest = createCatalogPlanningDigest({ nodes: [...nodes].reverse(), dependencies: [], executions: p9ScientificKnowledgeCatalog.campaignExecutions });
+    const reversed = buildScientificEnrichmentCampaigns([...nodes].reverse(), { executions: p9ScientificKnowledgeCatalog.campaignExecutions, catalogPlanningDigest: reverseDigest });
     expect(reverseDigest).toBe(digest);
     expect(reversed).toEqual(forward);
     const reprioritized = clone(nodes);
     const t2 = reprioritized.find((node) => node.nodeId === "noxia:knowledge-catalog:domain:t2-mapping");
     t2.priority.score = 71;
-    const reprioritizedDigest = createCatalogPlanningDigest({ nodes: reprioritized, dependencies: [], executions: scientificKnowledgeCatalog.campaignExecutions });
-    const replanned = buildScientificEnrichmentCampaigns(reprioritized, { executions: scientificKnowledgeCatalog.campaignExecutions, catalogPlanningDigest: reprioritizedDigest });
+    const reprioritizedDigest = createCatalogPlanningDigest({ nodes: reprioritized, dependencies: [], executions: p9ScientificKnowledgeCatalog.campaignExecutions });
+    const replanned = buildScientificEnrichmentCampaigns(reprioritized, { executions: p9ScientificKnowledgeCatalog.campaignExecutions, catalogPlanningDigest: reprioritizedDigest });
     expect(replanned[0].selectedNodeIds).toEqual([t2.nodeId]);
   });
 
@@ -117,20 +118,20 @@ describe("P9 industrial scientific campaign platform", () => {
     const projectedIncomplete = p7ScientificKnowledgeCatalog.nodes.filter((node) => node.status === "PROJECTED" && !node.coverage.complete);
     expect(projectedIncomplete).toHaveLength(52);
     expect(projectedIncomplete.every((node) => calculateCampaignReentry(node).projectionExists)).toBe(true);
-    const reentered = scientificKnowledgeCatalog.campaigns.filter((campaign) => campaign.coverageSnapshot.projectionExists);
+    const reentered = p9ScientificKnowledgeCatalog.campaigns.filter((campaign) => campaign.coverageSnapshot.projectionExists);
     expect(reentered).toHaveLength(4);
     expect(reentered.every((campaign) => campaign.coverageSnapshot.reentryReasons.length > 0)).toBe(true);
   });
 
   it("enforces manifest-bound governance and fails closed", () => {
-    const manifest = scientificKnowledgeCatalog.campaigns[0];
-    expect(authorizeCampaignExecution({ campaignManifest: manifest }).authorized).toBe(true);
-    expect(authorizeScientificEnrichment({ nodeId: manifest.selectedNodeIds[0] })).toMatchObject({ authorized: false, blockers: ["CAMPAIGN_MANIFEST_REQUIRED"] });
-    expect(authorizeScientificEnrichment({ nodeId: "noxia:outside", campaignManifest: manifest })).toMatchObject({ authorized: false, blockers: ["NODE_OUTSIDE_CAMPAIGN"] });
+    const manifest = p9ScientificKnowledgeCatalog.campaigns[0];
+    expect(authorizeCampaignExecution({ campaignManifest: manifest, catalog: p9ScientificKnowledgeCatalog }).authorized).toBe(true);
+    expect(authorizeScientificEnrichment({ nodeId: manifest.selectedNodeIds[0], catalog: p9ScientificKnowledgeCatalog })).toMatchObject({ authorized: false, blockers: ["CAMPAIGN_MANIFEST_REQUIRED"] });
+    expect(authorizeScientificEnrichment({ nodeId: "noxia:outside", campaignManifest: manifest, catalog: p9ScientificKnowledgeCatalog })).toMatchObject({ authorized: false, blockers: ["NODE_OUTSIDE_CAMPAIGN"] });
     const superseded = clone(manifest);
     superseded.status = "SUPERSEDED";
-    expect(authorizeCampaignExecution({ campaignManifest: superseded }).blockers).toContain("CAMPAIGN_NOT_EXECUTABLE");
-    expect(() => requireCataloguedScientificOperation({ operation: "UNKNOWN", nodeId: manifest.selectedNodeIds[0] })).toThrow("UNKNOWN_SCIENTIFIC_OPERATION");
+    expect(authorizeCampaignExecution({ campaignManifest: superseded, catalog: p9ScientificKnowledgeCatalog }).blockers).toContain("CAMPAIGN_NOT_EXECUTABLE");
+    expect(() => requireCataloguedScientificOperation({ operation: "UNKNOWN", nodeId: manifest.selectedNodeIds[0], catalog: p9ScientificKnowledgeCatalog })).toThrow("UNKNOWN_SCIENTIFIC_OPERATION");
   });
 
   it("executes hepatic and three structurally different fixtures through one generic engine", async () => {
@@ -145,7 +146,7 @@ describe("P9 industrial scientific campaign platform", () => {
     expect(results).toHaveLength(4);
     expect(results.every((result) => ["COMPLETED", "COMPLETED_WITH_GAPS"].includes(result.status) && !result.mutationApplied)).toBe(true);
     expect(p9SyntheticCampaignFixtures.find((item) => item.definition.key === "documentary-standard").definition.quantitativeModel).toBe(false);
-    expect(scientificKnowledgeCatalog.nodes.some((node) => node.nodeId.startsWith("noxia:p9-fixture:"))).toBe(false);
+    expect(p9ScientificKnowledgeCatalog.nodes.some((node) => node.nodeId.startsWith("noxia:p9-fixture:"))).toBe(false);
   });
 
   it("deduplicates completed inputs and versions attempts without duplicate writes", async () => {

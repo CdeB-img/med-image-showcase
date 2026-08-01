@@ -4,6 +4,8 @@ import { validateAutomaticScientificCampaign } from "../scientific-campaigns/val
 import { validateScientificMultidomain } from "../scientific-multidomain/validate.mjs";
 import { buildScientificEnrichmentCampaigns, isCampaignCandidate } from "./campaign-engine.mjs";
 import { createAuthoritativeScientificRegistry, createScientificKnowledgeCatalog, p7ScientificKnowledgeCatalog, scientificKnowledgeCatalog } from "./catalog-builder.mjs";
+import { EMPTY_TERRITORIAL_CAMPAIGN_CORPUS } from "../scientific-campaigns/continuous-wave/constants.mjs";
+import { officialTerritorialCampaignCorpus } from "../scientific-campaigns/continuous-wave/official-corpus.mjs";
 import { validateCampaignManifest } from "./campaign-contracts.mjs";
 import { validateCampaignDependencies } from "./campaign-dependencies.mjs";
 import { calculateCoverage } from "./coverage-engine.mjs";
@@ -18,6 +20,8 @@ import {
   PRIORITY_LEVELS,
   PROJECTION_CAPABILITIES,
   READY_LIKE_STATUSES,
+  TERRITORIAL_KNOWLEDGE_CATALOG_SCOPE,
+  TERRITORIAL_KNOWLEDGE_CATALOG_VERSION,
   TERMINAL_STATUSES,
 } from "./constants.mjs";
 import { calculateNodePriority, priorityLevelForScore } from "./priority-engine.mjs";
@@ -143,11 +147,13 @@ const validateCampaigns = (catalog) => {
 };
 
 export const validateScientificKnowledgeCatalog = ({ catalog = scientificKnowledgeCatalog, root = process.cwd(), inspectGit = true, verifyDeterminism = true } = {}) => {
+  const territorialCampaignCorpus = catalog.version === TERRITORIAL_KNOWLEDGE_CATALOG_VERSION ? officialTerritorialCampaignCorpus : EMPTY_TERRITORIAL_CAMPAIGN_CORPUS;
+  const expectedScope = catalog.version === TERRITORIAL_KNOWLEDGE_CATALOG_VERSION ? TERRITORIAL_KNOWLEDGE_CATALOG_SCOPE : KNOWLEDGE_CATALOG_SCOPE;
   const graph = validateKnowledgeCatalogGraph(catalog.nodes);
   const contracts = validateNodeContracts(catalog.nodes);
   const campaigns = validateCampaigns(catalog);
   const dependencies = validateCampaignDependencies({ nodes: catalog.nodes, dependencies: catalog.dependencyRegistry ?? [] });
-  const integrity = validateCatalogReadinessIntegrity({ catalog, registry: createAuthoritativeScientificRegistry() });
+  const integrity = validateCatalogReadinessIntegrity({ catalog, registry: createAuthoritativeScientificRegistry({ territorialCampaignCorpus }) });
   const campaignExecution = validateAutomaticScientificCampaign({ root, inspectGit: false });
   const errors = [
     ...graph.errors.map((error) => ({ layer: "graph", ...error })),
@@ -163,11 +169,11 @@ export const validateScientificKnowledgeCatalog = ({ catalog = scientificKnowled
   add(errors, p7ScientificKnowledgeCatalog.nodes.some((legacyNode) => !catalog.nodes.some((node) => node.nodeId === legacyNode.nodeId)), "P7_KNOWLEDGE_NODE_LOST", { layer: "baseline" });
   add(errors, catalog.summary.knowledgeNodes !== catalog.nodes.length || catalog.summary.concepts !== catalog.nodes.filter((node) => node.nodeType !== "Domain").length || catalog.summary.domains !== catalog.nodes.filter((node) => node.nodeType === "Domain").length, "CATALOG_INVENTORY_SUMMARY_INVALID", { layer: "baseline" });
   add(errors, catalog.summary.graphCyclic || graph.depth.maxDepth !== catalog.summary.maxDepth, "CATALOG_GRAPH_SUMMARY_INVALID", { layer: "summary" });
-  add(errors, stableStringify(catalog.scope, 0) !== stableStringify(KNOWLEDGE_CATALOG_SCOPE, 0), "CATALOG_SCOPE_CHANGED", { layer: "scope" });
+  add(errors, stableStringify(catalog.scope, 0) !== stableStringify(expectedScope, 0), "CATALOG_SCOPE_CHANGED", { layer: "scope" });
   add(errors, catalog.contracts.knowledgeStoredInCatalog || !catalog.contracts.scientificKnowledgeGraphMutated || catalog.contracts.assertionsCreated < campaignExecution.counts.assertions, "SCIENTIFIC_KNOWLEDGE_SCOPE_VIOLATION", { layer: "scope" });
   add(errors, catalog.contracts.publicPagesCreated !== 0 || catalog.contracts.seoArtifactsCreated !== 0 || catalog.contracts.routesCreated !== 0 || catalog.contracts.publicationAuthorized, "PUBLIC_SURFACE_SCOPE_VIOLATION", { layer: "scope" });
   add(errors, catalog.nodes.some((node) => node.status === "PUBLISHED" || node.metrics.publicPageCount > 0), "CATALOG_PUBLICATION_DETECTED", { layer: "scope" });
-  if (verifyDeterminism) add(errors, stableStringify(createScientificKnowledgeCatalog(), 0) !== stableStringify(catalog, 0), "CATALOG_NON_DETERMINISTIC", { layer: "determinism" });
+  if (verifyDeterminism) add(errors, stableStringify(createScientificKnowledgeCatalog({ territorialCampaignCorpus }), 0) !== stableStringify(catalog, 0), "CATALOG_NON_DETERMINISTIC", { layer: "determinism" });
   const p5 = validateScientificMultidomain({ root, inspectGit });
   add(errors, !p5.valid, "P5_BASELINE_INVALID", { layer: "baseline", p5Errors: p5.errors });
   const protectedSurfaces = inspectGit ? inspectProtectedSurfaces({ root }) : { protectedSurfacesUnchanged: true, editorialEngineUnchanged: true, protectedChanges: [], editorialEngine: { changed: [] } };
@@ -175,7 +181,7 @@ export const validateScientificKnowledgeCatalog = ({ catalog = scientificKnowled
   add(errors, !protectedSurfaces.editorialEngineUnchanged, "EDITORIAL_ENGINE_CHANGED", { layer: "protectedSurfaces", changes: protectedSurfaces.editorialEngine?.changed });
   return Object.freeze({
     valid: errors.length === 0,
-    version: "P7_CATALOG_DRIVEN_SCIENTIFIC_ENRICHMENT",
+    version: catalog.version === TERRITORIAL_KNOWLEDGE_CATALOG_VERSION ? "P10_TERRITORY_DRIVEN_SCIENTIFIC_ENRICHMENT" : "P7_CATALOG_DRIVEN_SCIENTIFIC_ENRICHMENT",
     errors: Object.freeze(errors),
     layers: Object.freeze({ graph, contracts, campaigns, dependencies, readinessIntegrity: integrity, campaignExecution: Object.freeze({ valid: campaignExecution.valid, counts: campaignExecution.counts }), p5Baseline: Object.freeze({ valid: p5.valid, counts: p5.counts }) }),
     protectedSurfaces,

@@ -28,6 +28,12 @@ import {
   hepaticImagingSourceRevisions,
 } from "../scientific-campaigns/hepatic-imaging.mjs";
 import {
+  EMPTY_TERRITORIAL_CAMPAIGN_CORPUS,
+} from "../scientific-campaigns/continuous-wave/constants.mjs";
+import {
+  officialTerritorialCampaignCorpus,
+} from "../scientific-campaigns/continuous-wave/official-corpus.mjs";
+import {
   scientificCorpusConceptIdentities,
   scientificCorpusEntityRevisions,
 } from "../scientific-corpus/concepts.mjs";
@@ -65,9 +71,11 @@ import {
   KNOWLEDGE_CATALOG_SCOPE,
   KNOWLEDGE_CATALOG_VERSION,
   ENRICHED_KNOWLEDGE_CATALOG_VERSION,
+  TERRITORIAL_KNOWLEDGE_CATALOG_VERSION,
   KNOWLEDGE_CATALOG_NAMESPACE,
   P6_KNOWLEDGE_CATALOG_SCOPE,
   READY_LIKE_STATUSES,
+  TERRITORIAL_KNOWLEDGE_CATALOG_SCOPE,
 } from "./constants.mjs";
 import { createKnowledgeNode } from "./knowledge-node-registry.mjs";
 
@@ -138,7 +146,7 @@ const addDomainMembership = (seeds, nodeId, domainId) => {
   addParent(seeds, nodeId, parentId);
 };
 
-const buildSeeds = ({ includeCampaignExecutions }) => {
+const buildSeeds = ({ includeCampaignExecutions, territorialCampaignCorpus = EMPTY_TERRITORIAL_CAMPAIGN_CORPUS }) => {
   const seeds = new Map();
   for (const revision of entityRevisions) {
     const payload = revision.payload;
@@ -216,8 +224,27 @@ const buildSeeds = ({ includeCampaignExecutions }) => {
         provenance: { sourceLayers: ["P7_AUTOMATIC_CAMPAIGN"], sourceIdentityIds: [concept.stableId], catalogRevisionIds: [concept.revisionId], sourceRevisionIds: [] },
       }));
     }
+    for (const concept of territorialCampaignCorpus.concepts ?? []) {
+      seeds.set(concept.stableId, seed({
+        nodeId: concept.stableId,
+        nodeType: concept.ontologicalClass,
+        preferredLabel: concept.preferredLabel,
+        aliases: concept.designations.map((item) => item.value).filter((value) => value !== concept.preferredLabel),
+        description: concept.description,
+        sourceRefs: concept.sourceRefs,
+        version: "1.0.0",
+        createdAt: concept.createdAt ?? territorialCampaignCorpus.campaignExecution?.executedAt ?? KNOWLEDGE_CATALOG_GENERATED_AT,
+        updatedAt: concept.updatedAt ?? territorialCampaignCorpus.campaignExecution?.executedAt ?? KNOWLEDGE_CATALOG_GENERATED_AT,
+        sourceStatus: concept.status,
+        modeled: true,
+        planned: false,
+        roadmapSignals: null,
+        provenance: { sourceLayers: ["P10_TERRITORIAL_CAMPAIGN"], sourceIdentityIds: [concept.stableId], catalogRevisionIds: [concept.revisionId], sourceRevisionIds: [] },
+      }));
+    }
   }
-  const executedDomainIds = new Set(includeCampaignExecutions ? [AUTOMATIC_CAMPAIGN_DOMAIN_ID] : []);
+  const territorialDomainIds = includeCampaignExecutions && territorialCampaignCorpus.status?.startsWith("COMPLETED") ? [territorialCampaignCorpus.domainId] : [];
+  const executedDomainIds = new Set(includeCampaignExecutions ? [AUTOMATIC_CAMPAIGN_DOMAIN_ID, ...territorialDomainIds] : []);
   const enrichedDomains = [
     { domainId: "ecv-t1", objective: "Pilot corpus for myocardial T1 mapping and extracellular volume across MR and CT documentary branches." },
     ...scientificDomainManifests.map((manifest) => ({ domainId: manifest.domainId, objective: manifest.objective })),
@@ -225,7 +252,11 @@ const buildSeeds = ({ includeCampaignExecutions }) => {
       domainId: AUTOMATIC_CAMPAIGN_DOMAIN_ID,
       objective: "Automatically selected scientific campaign covering documented hepatic lesion characterization, fat fraction, iron quantification and MR elastography metrology.",
       roadmapSignals: nextScientificWaves.find((wave) => wave.domainId === AUTOMATIC_CAMPAIGN_DOMAIN_ID) ?? null,
-    }] : []),
+    }, ...territorialDomainIds.map((domainId) => ({
+      domainId,
+      objective: `Territory-selected and atomically executed scientific campaign for ${domainId}.`,
+      roadmapSignals: nextScientificWaves.find((wave) => wave.domainId === domainId) ?? null,
+    }))] : []),
   ];
   for (const domain of enrichedDomains) {
     const nodeId = domainNodeId(domain.domainId);
@@ -243,7 +274,7 @@ const buildSeeds = ({ includeCampaignExecutions }) => {
       modeled: true,
       planned: false,
       roadmapSignals: domain.roadmapSignals ?? null,
-      provenance: { sourceLayers: [domain.domainId === "ecv-t1" ? "P4R_DOMAIN" : executedDomainIds.has(domain.domainId) ? "P7_AUTOMATIC_CAMPAIGN" : "P5_DOMAIN_MANIFEST"], sourceIdentityIds: [domain.domainId], catalogRevisionIds: [], sourceRevisionIds: [] },
+      provenance: { sourceLayers: [domain.domainId === "ecv-t1" ? "P4R_DOMAIN" : territorialDomainIds.includes(domain.domainId) ? "P10_TERRITORIAL_CAMPAIGN" : executedDomainIds.has(domain.domainId) ? "P7_AUTOMATIC_CAMPAIGN" : "P5_DOMAIN_MANIFEST"], sourceIdentityIds: [domain.domainId], catalogRevisionIds: [], sourceRevisionIds: [] },
     }));
   }
   for (const wave of nextScientificWaves) {
@@ -330,51 +361,63 @@ const graphDepth = (nodes) => {
 
 const countBy = (items, selector) => Object.freeze(Object.fromEntries([...Map.groupBy(items, selector).entries()].sort(([a], [b]) => String(a).localeCompare(String(b))).map(([key, values]) => [key, values.length])));
 
-export const createAuthoritativeScientificRegistry = ({ includeCampaignExecutions = true } = {}) => Object.freeze({
+export const createAuthoritativeScientificRegistry = ({ includeCampaignExecutions = true, territorialCampaignCorpus = officialTerritorialCampaignCorpus } = {}) => Object.freeze({
+  sourceIdentities: Object.freeze([
+    ...(includeCampaignExecutions ? (territorialCampaignCorpus.sourceIdentities ?? []) : []),
+  ]),
   sources: Object.freeze([
     ...p4ScientificSourceRevisions,
     ...consolidatedSourceRevisions,
     ...multidomainSourceRevisions,
     ...(includeCampaignExecutions ? hepaticImagingSourceRevisions : []),
+    ...(includeCampaignExecutions ? (territorialCampaignCorpus.sources ?? []) : []),
+  ]),
+  assertionIdentities: Object.freeze([
+    ...(includeCampaignExecutions ? (territorialCampaignCorpus.assertionIdentities ?? []) : []),
   ]),
   assertions: Object.freeze([
     ...consolidatedAssertionRevisions,
     ...multidomainAssertionRevisions,
     ...(includeCampaignExecutions ? hepaticImagingAssertionRevisions : []),
+    ...(includeCampaignExecutions ? (territorialCampaignCorpus.assertions ?? []) : []),
   ]),
   evidenceLinks: Object.freeze([
     ...consolidatedEvidenceLinks,
     ...multidomainEvidenceLinks,
     ...(includeCampaignExecutions ? hepaticImagingEvidenceLinks : []),
+    ...(includeCampaignExecutions ? (territorialCampaignCorpus.evidenceLinks ?? []) : []),
   ]),
   syntheses: Object.freeze([
     ...p4rScientificSyntheses,
     ...multidomainScientificSyntheses,
     ...(includeCampaignExecutions ? hepaticImagingScientificSyntheses : []),
+    ...(includeCampaignExecutions ? (territorialCampaignCorpus.syntheses ?? []) : []),
   ]),
   projections: Object.freeze([
     ...p4rInternalScientificProjections,
     ...multidomainInternalProjections,
     ...(includeCampaignExecutions ? hepaticImagingInternalProjections : []),
+    ...(includeCampaignExecutions ? (territorialCampaignCorpus.projections ?? []) : []),
   ]),
 });
 
-export const createScientificKnowledgeCatalog = ({ includeCampaignExecutions = true, campaignEngine = "INDUSTRIAL" } = {}) => {
+export const createScientificKnowledgeCatalog = ({ includeCampaignExecutions = true, campaignEngine = "INDUSTRIAL", territorialCampaignCorpus = officialTerritorialCampaignCorpus } = {}) => {
   const legacyMode = campaignEngine === "LEGACY_P7_GOLDEN_MASTER";
-  const campaignConcepts = includeCampaignExecutions ? hepaticImagingConcepts : [];
-  const campaignSources = includeCampaignExecutions ? hepaticImagingSourceRevisions : [];
-  const campaignAssertions = includeCampaignExecutions ? hepaticImagingAssertionRevisions : [];
-  const campaignEvidence = includeCampaignExecutions ? hepaticImagingEvidenceLinks : [];
-  const campaignContradictions = includeCampaignExecutions ? hepaticImagingContextDifferences : [];
-  const campaignSyntheses = includeCampaignExecutions ? hepaticImagingScientificSyntheses : [];
-  const campaignProjections = includeCampaignExecutions ? hepaticImagingInternalProjections : [];
+  const territorialExecuted = includeCampaignExecutions && territorialCampaignCorpus.status?.startsWith("COMPLETED");
+  const campaignConcepts = includeCampaignExecutions ? [...hepaticImagingConcepts, ...(territorialExecuted ? territorialCampaignCorpus.concepts : [])] : [];
+  const campaignSources = includeCampaignExecutions ? [...hepaticImagingSourceRevisions, ...(territorialExecuted ? territorialCampaignCorpus.sources : [])] : [];
+  const campaignAssertions = includeCampaignExecutions ? [...hepaticImagingAssertionRevisions, ...(territorialExecuted ? territorialCampaignCorpus.assertions : [])] : [];
+  const campaignEvidence = includeCampaignExecutions ? [...hepaticImagingEvidenceLinks, ...(territorialExecuted ? territorialCampaignCorpus.evidenceLinks : [])] : [];
+  const campaignContradictions = includeCampaignExecutions ? [...hepaticImagingContextDifferences, ...(territorialExecuted ? territorialCampaignCorpus.contextDifferences : [])] : [];
+  const campaignSyntheses = includeCampaignExecutions ? [...hepaticImagingScientificSyntheses, ...(territorialExecuted ? territorialCampaignCorpus.syntheses : [])] : [];
+  const campaignProjections = includeCampaignExecutions ? [...hepaticImagingInternalProjections, ...(territorialExecuted ? territorialCampaignCorpus.projections : [])] : [];
   const scientificSources = Object.freeze([...consolidatedSourceRevisions, ...multidomainSourceRevisions, ...campaignSources]);
   const scientificSourceByCanonicalId = new Map(scientificSources.flatMap((source) => [
     [canonicalSourceId(source.revisionId), source],
     [canonicalSourceId(source.stableId), source],
   ]));
   const conceptByDomainKey = new Map([...multidomainConcepts, ...campaignConcepts].map((concept) => [`${concept.domainId}:${concept.key}`, concept.stableId]));
-  const seeds = buildSeeds({ includeCampaignExecutions });
+  const seeds = buildSeeds({ includeCampaignExecutions, territorialCampaignCorpus });
   const knownIds = new Set(seeds.keys());
   const slugGroups = Map.groupBy([...knownIds], lastSegment);
   const uniqueSlugIds = new Map([...slugGroups.entries()].filter(([, ids]) => ids.length === 1).map(([key, ids]) => [key, ids[0]]));
@@ -568,7 +611,10 @@ export const createScientificKnowledgeCatalog = ({ includeCampaignExecutions = t
   })));
   const dependencyRegistry = Object.freeze([]);
   const campaignExecutions = includeCampaignExecutions
-    ? Object.freeze([legacyMode ? hepaticImagingCampaignExecution : p7IndustrialCampaignExecution])
+    ? Object.freeze([
+      legacyMode ? hepaticImagingCampaignExecution : p7IndustrialCampaignExecution,
+      ...(territorialExecuted && !legacyMode ? [territorialCampaignCorpus.campaignExecution] : []),
+    ])
     : Object.freeze([]);
   const planningDigest = legacyMode ? null : createCatalogPlanningDigest({ nodes, dependencies: dependencyRegistry, executions: campaignExecutions });
   const campaigns = legacyMode
@@ -625,16 +671,17 @@ export const createScientificKnowledgeCatalog = ({ includeCampaignExecutions = t
   });
   const base = Object.freeze({
     catalogId: KNOWLEDGE_CATALOG_ID,
-    version: includeCampaignExecutions ? ENRICHED_KNOWLEDGE_CATALOG_VERSION : KNOWLEDGE_CATALOG_VERSION,
+    version: territorialExecuted && !legacyMode ? TERRITORIAL_KNOWLEDGE_CATALOG_VERSION : includeCampaignExecutions ? ENRICHED_KNOWLEDGE_CATALOG_VERSION : KNOWLEDGE_CATALOG_VERSION,
     generatedAt: KNOWLEDGE_CATALOG_GENERATED_AT,
-    scope: includeCampaignExecutions ? KNOWLEDGE_CATALOG_SCOPE : P6_KNOWLEDGE_CATALOG_SCOPE,
+    scope: territorialExecuted && !legacyMode ? TERRITORIAL_KNOWLEDGE_CATALOG_SCOPE : includeCampaignExecutions ? KNOWLEDGE_CATALOG_SCOPE : P6_KNOWLEDGE_CATALOG_SCOPE,
     sourceBaselines: Object.freeze(includeCampaignExecutions ? {
       historicalConcepts: entityRevisions.length,
       p4rConcepts: scientificCorpusEntityRevisions.length,
       p5Concepts: multidomainConcepts.length,
       campaignConcepts: campaignConcepts.length,
-      enrichedDomains: 6,
-      plannedDomains: nextScientificWaves.length - 1,
+      ...(territorialExecuted ? { territorialCampaignConcepts: territorialCampaignCorpus.concepts.length } : {}),
+      enrichedDomains: 6 + (territorialExecuted ? 1 : 0),
+      plannedDomains: nextScientificWaves.length - 1 - (territorialExecuted ? 1 : 0),
     } : {
       historicalConcepts: entityRevisions.length,
       p4rConcepts: scientificCorpusEntityRevisions.length,
@@ -659,15 +706,17 @@ export const createScientificKnowledgeCatalog = ({ includeCampaignExecutions = t
       dependencyRegistry,
       campaignDefinitionIdentities: Object.freeze([
         ...(includeCampaignExecutions ? [p7CampaignDefinitionIdentity] : []),
+        ...(territorialExecuted ? [territorialCampaignCorpus.campaignDefinitionIdentity] : []),
         ...plannedCampaignDefinitionIdentities,
       ]),
       campaignDefinitionRevisions: Object.freeze([
         ...(includeCampaignExecutions ? [p7CampaignDefinitionRevision] : []),
+        ...(territorialExecuted ? [territorialCampaignCorpus.campaignManifest] : []),
         ...campaigns,
       ]),
-      campaignExecutionIdentities: includeCampaignExecutions ? Object.freeze([p7CampaignExecutionIdentity]) : Object.freeze([]),
-      campaignExecutionAttempts: includeCampaignExecutions ? Object.freeze([p7CampaignExecutionAttempt]) : Object.freeze([]),
-      campaignResults: includeCampaignExecutions ? Object.freeze([p7CampaignResult]) : Object.freeze([]),
+      campaignExecutionIdentities: includeCampaignExecutions ? Object.freeze([p7CampaignExecutionIdentity, ...(territorialExecuted ? [territorialCampaignCorpus.campaignExecutionIdentity] : [])]) : Object.freeze([]),
+      campaignExecutionAttempts: includeCampaignExecutions ? Object.freeze([p7CampaignExecutionAttempt, ...(territorialExecuted ? [territorialCampaignCorpus.campaignExecutionAttempt] : [])]) : Object.freeze([]),
+      campaignResults: includeCampaignExecutions ? Object.freeze([p7CampaignResult, ...(territorialExecuted ? [territorialCampaignCorpus.campaignResult] : [])]) : Object.freeze([]),
       campaignIdentityMigrations: includeCampaignExecutions ? Object.freeze([p7CampaignIdentityResolution]) : Object.freeze([]),
     } : {}),
     summary,
@@ -678,6 +727,7 @@ export const createScientificKnowledgeCatalog = ({ includeCampaignExecutions = t
 };
 
 export const scientificKnowledgeCatalog = createScientificKnowledgeCatalog();
-export const p6ScientificKnowledgeCatalog = createScientificKnowledgeCatalog({ includeCampaignExecutions: false, campaignEngine: "LEGACY_P7_GOLDEN_MASTER" });
-export const p7ScientificKnowledgeCatalog = createScientificKnowledgeCatalog({ includeCampaignExecutions: true, campaignEngine: "LEGACY_P7_GOLDEN_MASTER" });
+export const p9ScientificKnowledgeCatalog = createScientificKnowledgeCatalog({ territorialCampaignCorpus: EMPTY_TERRITORIAL_CAMPAIGN_CORPUS });
+export const p6ScientificKnowledgeCatalog = createScientificKnowledgeCatalog({ includeCampaignExecutions: false, campaignEngine: "LEGACY_P7_GOLDEN_MASTER", territorialCampaignCorpus: EMPTY_TERRITORIAL_CAMPAIGN_CORPUS });
+export const p7ScientificKnowledgeCatalog = createScientificKnowledgeCatalog({ includeCampaignExecutions: true, campaignEngine: "LEGACY_P7_GOLDEN_MASTER", territorialCampaignCorpus: EMPTY_TERRITORIAL_CAMPAIGN_CORPUS });
 export const knowledgeNodeRegistry = Object.freeze(Object.fromEntries(scientificKnowledgeCatalog.nodes.map((node) => [node.nodeId, node])));

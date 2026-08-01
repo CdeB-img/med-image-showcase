@@ -47,6 +47,7 @@ export const createCampaignManifest = ({
   generatedAt,
   supersedesRevisionId = null,
   executionPolicy = {},
+  campaignRunId = null,
 }) => {
   const selectedNodeIds = Object.freeze([node.nodeId]);
   const campaignDefinitionId = campaignDefinitionIdForNode(node.nodeId);
@@ -113,7 +114,7 @@ export const createCampaignManifest = ({
   const inputDigest = sha256Digest({ campaignRevisionId, selectionDigest, catalogPlanningDigest });
   return Object.freeze({
     recordType: "CampaignDefinitionRevision",
-    campaignId: campaignDefinitionId,
+    campaignId: campaignRunId ?? campaignDefinitionId,
     campaignDefinitionId,
     campaignRevisionId,
     revisionId: campaignRevisionId,
@@ -173,7 +174,7 @@ export const validateCampaignManifest = (manifest) => {
   for (const field of requiredManifestFields) if (!(field in manifest)) errors.push({ code: "CAMPAIGN_MANIFEST_FIELD_MISSING", field });
   if (!Array.isArray(manifest.selectedNodeIds) || manifest.selectedNodeIds.length === 0) errors.push({ code: "CAMPAIGN_MANIFEST_NODE_SET_EMPTY" });
   if (new Set(manifest.selectedNodeIds ?? []).size !== (manifest.selectedNodeIds ?? []).length) errors.push({ code: "CAMPAIGN_MANIFEST_NODE_DUPLICATE" });
-  if (manifest.campaignId !== manifest.campaignDefinitionId) errors.push({ code: "CAMPAIGN_STABLE_IDENTITY_MISMATCH" });
+  if (manifest.campaignId !== manifest.campaignDefinitionId && !/^SCIENTIFIC-CAMPAIGN-\d{8}-\d{3}$/.test(manifest.campaignId)) errors.push({ code: "CAMPAIGN_STABLE_IDENTITY_MISMATCH" });
   if (manifest.revisionId !== manifest.campaignRevisionId) errors.push({ code: "CAMPAIGN_REVISION_IDENTITY_MISMATCH" });
   if (manifest.publicationAuthorized || manifest.executionPolicy?.allowPublicPublication) errors.push({ code: "CAMPAIGN_PUBLICATION_NOT_ALLOWED" });
   if (!CAMPAIGN_EXECUTION_STATES.includes(manifest.status)) errors.push({ code: "CAMPAIGN_STATUS_UNKNOWN", status: manifest.status });
