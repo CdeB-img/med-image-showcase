@@ -71,6 +71,7 @@ const NAV_CONFIG: NavItemType[] = [
           { label: "Analyse DICOM", path: "/analyse-dicom" },
           { label: "Bases multicentriques", path: "/bases-multicentriques" },
           { label: "Recalage multimodal", path: "/recalage-multimodal" },
+          { label: "Explorer les connaissances", path: "/connaissances" },
         ],
       },
       {

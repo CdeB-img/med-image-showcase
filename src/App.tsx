@@ -39,6 +39,7 @@ const APropos = lazy(() => import("@/pages/APropos"));
 const Prestations = lazy(() => import("@/pages/Prestations"));
 const Expertise = lazy(() => import("@/pages/Expertise"));
 const ReferencesPublications = lazy(() => import("@/pages/ReferencesPublications"));
+const ScientificKnowledgeExplorer = lazy(() => import("@/pages/ScientificKnowledgeExplorer"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -116,6 +117,7 @@ const App = () => (
             <Route path="/prestations-imagerie-medicale" element={<Prestations />} />
             <Route path="/expertise" element={<Expertise />} />
             <Route path="/references-publications" element={<ReferencesPublications />} />
+            <Route path="/connaissances" element={<ScientificKnowledgeExplorer />} />
 
             <Route path="/corelabirm" element={<Navigate to="/corelab-essais-cliniques" replace />} />
             <Route path="/cmro2" element={<Navigate to="/cmro2-imagerie-cerebrale" replace />} />

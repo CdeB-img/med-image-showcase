@@ -106,7 +106,10 @@
     "validate:continuous-territorial-wave": "node scripts/p11-scientific-production.mjs --action=validate",
     "report:continuous-territorial-wave": "node scripts/p11-scientific-production.mjs --action=report",
     "generate:p11-scientific-production-report": "node scripts/generate-p11-scientific-production-report.mjs",
-    "generate:p11-scientific-production-report:check": "node scripts/generate-p11-scientific-production-report.mjs --check"
+    "generate:p11-scientific-production-report:check": "node scripts/generate-p11-scientific-production-report.mjs --check",
+    "build:scientific-explorer-data": "node scripts/generate-scientific-explorer-data.mjs",
+    "build:scientific-explorer-data:check": "node scripts/generate-scientific-explorer-data.mjs --check",
+    "validate:scientific-explorer": "node scripts/validate-scientific-explorer.mjs"
   },
   "dependencies": {
     "@editorial-engine/core": "file:../../editorial-engine/packages/core",

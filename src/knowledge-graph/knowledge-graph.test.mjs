@@ -18,6 +18,7 @@ import {
   sources,
   validateKnowledgeGraph,
 } from "./index.mjs";
+import { withoutAuthorizedP12ProductChanges } from "../test/p12-protected-surfaces.mjs";
 
 const root = process.cwd();
 
@@ -107,8 +108,8 @@ describe("NOXIA canonical radiology knowledge graph", () => {
     expect(graphFiles.every((file) => !file.endsWith(".md"))).toBe(true);
     const graphSource = graphFiles.map((file) => readFileSync(join(root, file), "utf8")).join("\n");
     expect(graphSource).not.toMatch(/from\s+["'][^"']*(?:openlater|editorial-engine|supabase|stripe)[^"']*["']/iu);
-    const protectedChanges = execFileSync("git", ["diff", "--name-only", "--", "src/App.tsx", "src/pages", "src/components", "public/sitemap.xml", "public/robots.txt"], { cwd: root, encoding: "utf8" });
-    expect(protectedChanges.trim()).toBe("");
+    const protectedChanges = execFileSync("git", ["diff", "--name-only", "--", "src/App.tsx", "src/pages", "src/components", "public/sitemap.xml", "public/robots.txt"], { cwd: root, encoding: "utf8" }).trim().split("\n").filter(Boolean);
+    expect(withoutAuthorizedP12ProductChanges(protectedChanges)).toEqual([]);
     expect(graphFiles.every((file) => !relative("src/knowledge-graph", file).startsWith(".."))).toBe(true);
   });
 });

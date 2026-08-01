@@ -2,6 +2,7 @@ import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { withoutAuthorizedP12ProductChanges } from "../test/p12-protected-surfaces.mjs";
 import { entities, relations } from "./catalog.mjs";
 import { competencyCases, validateCompetencyModel } from "./competency-cases.mjs";
 import { evaluateEntityCompleteness, familyCompletenessProfiles } from "./completeness-profiles.mjs";
@@ -489,13 +490,13 @@ describe("P3M-Web deterministic migration", () => {
   });
 
   it("77. leaves public pages and components unchanged", () => {
-    const changed = execFileSync("git", ["diff", "--name-only", "--", "src/pages", "src/components"], { cwd: root, encoding: "utf8" });
-    expect(changed.trim()).toBe("");
+    const changed = execFileSync("git", ["diff", "--name-only", "--", "src/pages", "src/components"], { cwd: root, encoding: "utf8" }).trim().split("\n").filter(Boolean);
+    expect(withoutAuthorizedP12ProductChanges(changed)).toEqual([]);
   });
 
   it("78. leaves routes, SEO, sitemap and robots unchanged", () => {
-    const changed = execFileSync("git", ["diff", "--name-only", "--", "src/App.tsx", "index.html", "public/sitemap.xml", "public/robots.txt"], { cwd: root, encoding: "utf8" });
-    expect(changed.trim()).toBe("");
+    const changed = execFileSync("git", ["diff", "--name-only", "--", "src/App.tsx", "index.html", "public/sitemap.xml", "public/robots.txt"], { cwd: root, encoding: "utf8" }).trim().split("\n").filter(Boolean);
+    expect(withoutAuthorizedP12ProductChanges(changed)).toEqual([]);
   });
 
   it("79. does not import product, PACS, viewer, SaaS, Auth or Stripe modules", () => {

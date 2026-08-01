@@ -6,6 +6,7 @@ const root = process.cwd();
 const appSource = fs.readFileSync(path.join(root, "src/App.tsx"), "utf8");
 const projectsSource = fs.readFileSync(path.join(root, "src/data/projects.ts"), "utf8");
 const siteOrigin = "https://noxia-imagerie.fr";
+const noindexInteractiveRoutes = new Set(["/connaissances"]);
 
 const imports = new Map<string, string>();
 for (const match of appSource.matchAll(/const\s+(\w+)\s*=\s*lazy\(\(\)\s*=>\s*import\(["']([^"']+)["']\)\)/g)) {
@@ -36,22 +37,26 @@ describe("SEO page contract", () => {
       expect(source, `${page.route} needs a title`).toMatch(/<title>[\s\S]+?<\/title>/);
       expect(source, `${page.route} needs a description`).toMatch(/name="description"[\s\S]{0,320}?content=/);
       expect(source, `${page.route} needs a canonical`).toMatch(/rel="canonical"[\s\S]{0,160}?href=/);
-      expect(source, `${page.route} needs a visible H1 renderer`).toMatch(/<h1|<ExpertiseHero|<HeroSection/);
+      expect(source, `${page.route} needs a visible H1 renderer`).toMatch(/<h1|<ExpertiseHero|<HeroSection|<ScientificExplorer/);
       expect([...source.matchAll(/rel="canonical"/g)], `${page.route} needs one canonical`).toHaveLength(1);
 
       if (!isDynamicProject) {
         const canonical = source.match(/const\s+CANONICAL\s*=\s*"([^"]+)"/)?.[1];
         expect(canonical, `${page.route} needs a literal canonical`).toBeTruthy();
         expect(canonical, `${page.route} canonical must be lowercase`).toBe(canonical?.toLowerCase());
-        expect(sitemapPaths, `${page.route} canonical must be in sitemap`).toContain(
-          new URL(canonical as string, siteOrigin).pathname.replace(/\/$/, "") || "/"
-        );
+        const canonicalPath = new URL(canonical as string, siteOrigin).pathname.replace(/\/$/, "") || "/";
+        if (noindexInteractiveRoutes.has(page.route)) {
+          expect(source, `${page.route} needs noindex,follow`).toMatch(/name="robots"\s+content="noindex, follow"/);
+          expect(sitemapPaths, `${page.route} must stay out of the sitemap`).not.toContain(canonicalPath);
+        } else {
+          expect(sitemapPaths, `${page.route} canonical must be in sitemap`).toContain(canonicalPath);
+        }
       }
     }
   });
 
   it("keeps BreadcrumbList markup on every non-home public page", () => {
-    for (const page of pageRoutes.filter((page) => page.route !== "/")) {
+    for (const page of pageRoutes.filter((page) => page.route !== "/" && !noindexInteractiveRoutes.has(page.route))) {
       const source = fs.readFileSync(path.join(root, page.file), "utf8");
       expect(source, `${page.route} needs BreadcrumbList JSON-LD`).toContain("BreadcrumbList");
     }

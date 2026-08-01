@@ -8,6 +8,7 @@ import { engineEntries, buildPilotTestSitemap, planNoxiaPilotPublication, resolv
 import { pilotEntities, sourceCatalog } from "./catalog.mjs";
 import { EditorialPilotTemplate } from "./EditorialPilotTemplates";
 import { validateNoxiaPilot } from "./validate.mjs";
+import { withoutAuthorizedP12ProductChanges } from "../test/p12-protected-surfaces.mjs";
 
 const root = process.cwd();
 
@@ -61,9 +62,9 @@ describe("NOXIA editorial-engine pilot", () => {
     }
   });
 
-  it("leaves viewers and application surfaces outside the change set", () => {
-    const changedComponents = execFileSync("git", ["diff", "--name-only", "--", "src/components"], { cwd: root, encoding: "utf8" });
-    expect(changedComponents.trim()).toBe("");
+  it("leaves viewers and unauthorized application surfaces outside the change set", () => {
+    const changedComponents = execFileSync("git", ["diff", "--name-only", "--", "src/components"], { cwd: root, encoding: "utf8" }).trim().split("\n").filter(Boolean);
+    expect(withoutAuthorizedP12ProductChanges(changedComponents)).toEqual([]);
     const editorialSource = fs.readFileSync(path.join(root, "src/editorial/engine.mjs"), "utf8");
     expect(editorialSource).not.toMatch(/supabase|stripe|auth/iu);
   });

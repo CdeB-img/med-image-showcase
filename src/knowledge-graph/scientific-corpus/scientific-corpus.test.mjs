@@ -15,6 +15,7 @@ import { scientificSourceRevisions } from "./sources.mjs";
 import { createScientificSynthesis, scientificSyntheses, synthesisDefinitions } from "./synthesis.mjs";
 import { validateP4AssertionCandidate, validateP4EvidenceCandidate, validateScientificCorpus } from "./validate.mjs";
 import { stableStringify } from "../migration/stable-json.mjs";
+import { withoutAuthorizedP12ProtectedChanges } from "../../test/p12-protected-surfaces.mjs";
 
 const root = process.cwd();
 const protectedState = inspectProtectedSurfaces({ root });
@@ -221,8 +222,8 @@ describe("P4 real sourced ECV/T1 scientific corpus", () => {
   it("64 — sources every designation", () => expect(scientificCorpusConceptDesignations.every((item) => item.sourceRef)).toBe(true));
   it("65 — preserves ambiguous historical classifications", () => expect(ontologicalRequalificationDecisions.every((item) => item.decision === "DEFERRED" && item.appliedClass === item.historicalClass)).toBe(true));
   it("66 — leaves editorial-engine unchanged", () => expect(protectedState.editorialEngineUnchanged).toBe(true));
-  it("67 — leaves public pages unchanged", () => expect(protectedState.protectedChanges.filter((item) => item.surface === "PUBLIC_PAGES")).toHaveLength(0));
-  it("68 — leaves public routes unchanged", () => expect(protectedState.protectedChanges.filter((item) => item.surface === "PUBLIC_ROUTES")).toHaveLength(0));
+  it("67 — leaves public pages unchanged outside the authorized P12 explorer", () => expect(withoutAuthorizedP12ProtectedChanges(protectedState.protectedChanges.filter((item) => item.surface === "PUBLIC_PAGES"))).toHaveLength(0));
+  it("68 — leaves public routes unchanged outside the authorized P12 explorer", () => expect(withoutAuthorizedP12ProtectedChanges(protectedState.protectedChanges.filter((item) => item.surface === "PUBLIC_ROUTES"))).toHaveLength(0));
   it("69 — leaves SEO files unchanged", () => expect(protectedState.protectedChanges.filter((item) => item.surface === "SEO")).toHaveLength(0));
   it("70 — leaves the sitemap unchanged", () => expect(protectedState.changedPaths.filter((path) => /sitemap/i.test(path))).toHaveLength(0));
   it("71 — leaves viewers unchanged", () => expect(protectedState.protectedChanges.filter((item) => item.surface === "VIEWERS")).toHaveLength(0));
