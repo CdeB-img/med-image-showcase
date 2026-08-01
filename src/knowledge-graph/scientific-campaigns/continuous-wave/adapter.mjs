@@ -24,8 +24,8 @@ const mutationRecordsFor = ({ reviewedCorpus, campaignManifest }) => Object.free
   payload,
 }))));
 
-export const createTerritorialScientificCampaignAdapter = ({ reviewedCorpus } = {}) => freeze({
-  adapterId: P10_ADAPTER_ID,
+export const createTerritorialScientificCampaignAdapter = ({ reviewedCorpus, adapterId = P10_ADAPTER_ID } = {}) => freeze({
+  adapterId,
   async prepare({ campaignManifest }) {
     if (campaignManifest.campaignId !== reviewedCorpus.campaignId) throw new Error("TERRITORIAL_ADAPTER_CAMPAIGN_ID_MISMATCH");
     const records = mutationRecordsFor({ reviewedCorpus, campaignManifest });

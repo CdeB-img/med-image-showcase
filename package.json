@@ -95,7 +95,18 @@
     "report:territorial-scientific-production": "node scripts/scientific-continuous-production.mjs --action=report",
     "report:scientific-campaign": "node scripts/report-scientific-campaign.mjs",
     "generate:scientific-campaign-report": "node scripts/generate-p7-scientific-campaign-report.mjs",
-    "generate:scientific-campaign-report:check": "node scripts/generate-p7-scientific-campaign-report.mjs --check"
+    "generate:scientific-campaign-report:check": "node scripts/generate-p7-scientific-campaign-report.mjs --check",
+    "audit:continuous-territorial-wave": "node scripts/p11-scientific-production.mjs --action=audit",
+    "plan:continuous-territorial-wave": "node scripts/p11-scientific-production.mjs --action=plan",
+    "simulate:continuous-territorial-wave": "node scripts/p11-scientific-production.mjs --action=simulate",
+    "execute:continuous-territorial-wave": "node scripts/p11-scientific-production.mjs --action=execute",
+    "execute:continuous-territorial-wave:check": "node scripts/p11-scientific-production.mjs --action=execute --check",
+    "replay:continuous-territorial-wave": "node scripts/p11-scientific-production.mjs --action=replay",
+    "rollback:continuous-territorial-wave": "node scripts/p11-scientific-production.mjs --action=rollback --dry-run",
+    "validate:continuous-territorial-wave": "node scripts/p11-scientific-production.mjs --action=validate",
+    "report:continuous-territorial-wave": "node scripts/p11-scientific-production.mjs --action=report",
+    "generate:p11-scientific-production-report": "node scripts/generate-p11-scientific-production-report.mjs",
+    "generate:p11-scientific-production-report:check": "node scripts/generate-p11-scientific-production-report.mjs --check"
   },
   "dependencies": {
     "@editorial-engine/core": "file:../../editorial-engine/packages/core",

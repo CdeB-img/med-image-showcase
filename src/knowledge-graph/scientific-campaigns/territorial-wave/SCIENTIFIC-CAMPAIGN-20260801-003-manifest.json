@@ -1,0 +1,394 @@
+{
+  "assertionCandidateIds": [
+    "noxia:radiology:scientific-assertion:continuous-wave:quality-control:accuracy-needs-components:revision:1",
+    "noxia:radiology:scientific-assertion:continuous-wave:quality-control:acquisition-analysis-both-affect:revision:1",
+    "noxia:radiology:scientific-assertion:continuous-wave:quality-control:adc-claims-conditional:revision:1",
+    "noxia:radiology:scientific-assertion:continuous-wave:quality-control:bias-needs-reference:revision:1",
+    "noxia:radiology:scientific-assertion:continuous-wave:quality-control:claims-require-applicability:revision:1",
+    "noxia:radiology:scientific-assertion:continuous-wave:quality-control:correlation-not-agreement:revision:1",
+    "noxia:radiology:scientific-assertion:continuous-wave:quality-control:dsc-reproducibility-barrier:revision:1",
+    "noxia:radiology:scientific-assertion:continuous-wave:quality-control:estimates-require-uncertainty:revision:1",
+    "noxia:radiology:scientific-assertion:continuous-wave:quality-control:ground-truth-terminology-ambiguous:revision:1",
+    "noxia:radiology:scientific-assertion:continuous-wave:quality-control:qc-not-one-time:revision:1",
+    "noxia:radiology:scientific-assertion:continuous-wave:quality-control:repeatability-conditions:revision:1",
+    "noxia:radiology:scientific-assertion:continuous-wave:quality-control:reproducibility-conditions:revision:1"
+  ],
+  "campaignDefinitionId": "noxia:scientific-campaign-definition:quality-control:056c4d46fee7",
+  "campaignId": "SCIENTIFIC-CAMPAIGN-20260801-003",
+  "campaignRevisionId": "noxia:scientific-campaign-definition:quality-control:056c4d46fee7:revision:cccdb6863c38003f",
+  "candidateDigest": "d8cfa70dd92fcd5e815f6ed27f75edf279616fb46ae7bcf803b75366106ecd0d",
+  "catalogPlanningDigest": "c3891c789665f08bbd5e7eed2b341024c7bc18e7781bda4a6830f3372a61e005",
+  "completedAt": null,
+  "contractVersion": "2.0.0",
+  "coverageBefore": {
+    "assertionCoverage": {
+      "count": 0,
+      "evidenceLinkCount": 0,
+      "level": "NONE",
+      "localizedEvidenceLinkCount": 0,
+      "ratio": 0,
+      "target": 12
+    },
+    "enrichmentComplete": false,
+    "projectionCoverage": {
+      "actual": 0,
+      "estimatedPages": 0,
+      "level": "NONE",
+      "potential": 1,
+      "ratio": 0
+    },
+    "projectionExists": false,
+    "readiness": {
+      "catalogReady": {
+        "blockers": [],
+        "justification": "The KnowledgeNode contract, identity and graph endpoints are complete.",
+        "ready": true,
+        "warnings": []
+      },
+      "coverageComplete": false,
+      "editorialProjectionReady": {
+        "blockers": [
+          "NO_INTERNAL_PROJECTION"
+        ],
+        "justification": "Only virtual projection capabilities are available.",
+        "ready": false,
+        "warnings": []
+      },
+      "provenanceReady": {
+        "blockers": [
+          "NO_SOURCE"
+        ],
+        "justification": "No source is currently attached.",
+        "ready": false,
+        "warnings": []
+      },
+      "publicPublicationReady": {
+        "blockers": [
+          "PUBLICATION_OUT_OF_SCOPE",
+          "NO_PUBLIC_CONTENT",
+          "NO_ROUTE",
+          "NO_CANONICAL"
+        ],
+        "justification": "P6 is an internal planning layer and creates no public content or route.",
+        "ready": false,
+        "warnings": []
+      },
+      "scientificReady": {
+        "blockers": [
+          "NO_SCIENTIFIC_ASSERTION"
+        ],
+        "justification": "No scientific assertion corpus is available for this node.",
+        "ready": false,
+        "warnings": []
+      },
+      "seoReady": {
+        "blockers": [
+          "NO_SEO_ARTIFACT"
+        ],
+        "justification": "The catalogue creates no SEO artifact.",
+        "ready": false,
+        "warnings": []
+      },
+      "synthesisReady": {
+        "blockers": [
+          "NO_SYNTHESIS"
+        ],
+        "justification": "No deterministic synthesis includes this node.",
+        "ready": false,
+        "warnings": []
+      }
+    },
+    "reentryReasons": [
+      "SOURCE_COVERAGE_INCOMPLETE",
+      "ASSERTION_COVERAGE_INCOMPLETE",
+      "PROVENANCE_INCOMPLETE",
+      "SCIENTIFIC_READINESS_INCOMPLETE"
+    ],
+    "scientificCoverage": {
+      "assertionRatio": 0,
+      "contradictionsPreserved": 0,
+      "level": "NONE",
+      "localizedEvidenceRatio": 0,
+      "openQuestionsPreserved": 0,
+      "ratio": 0,
+      "sourceRatio": 0
+    },
+    "sourceCoverage": {
+      "abstractOnlySourceCount": 0,
+      "count": 0,
+      "fullTextSourceCount": 0,
+      "level": "NONE",
+      "ratio": 0,
+      "scientificSourceCount": 0,
+      "target": 5
+    },
+    "status": "DISCOVERING"
+  },
+  "coverageSnapshot": {
+    "assertionCoverage": {
+      "count": 0,
+      "evidenceLinkCount": 0,
+      "level": "NONE",
+      "localizedEvidenceLinkCount": 0,
+      "ratio": 0,
+      "target": 12
+    },
+    "enrichmentComplete": false,
+    "projectionCoverage": {
+      "actual": 0,
+      "estimatedPages": 0,
+      "level": "NONE",
+      "potential": 1,
+      "ratio": 0
+    },
+    "projectionExists": false,
+    "readiness": {
+      "catalogReady": {
+        "blockers": [],
+        "justification": "The KnowledgeNode contract, identity and graph endpoints are complete.",
+        "ready": true,
+        "warnings": []
+      },
+      "coverageComplete": false,
+      "editorialProjectionReady": {
+        "blockers": [
+          "NO_INTERNAL_PROJECTION"
+        ],
+        "justification": "Only virtual projection capabilities are available.",
+        "ready": false,
+        "warnings": []
+      },
+      "provenanceReady": {
+        "blockers": [
+          "NO_SOURCE"
+        ],
+        "justification": "No source is currently attached.",
+        "ready": false,
+        "warnings": []
+      },
+      "publicPublicationReady": {
+        "blockers": [
+          "PUBLICATION_OUT_OF_SCOPE",
+          "NO_PUBLIC_CONTENT",
+          "NO_ROUTE",
+          "NO_CANONICAL"
+        ],
+        "justification": "P6 is an internal planning layer and creates no public content or route.",
+        "ready": false,
+        "warnings": []
+      },
+      "scientificReady": {
+        "blockers": [
+          "NO_SCIENTIFIC_ASSERTION"
+        ],
+        "justification": "No scientific assertion corpus is available for this node.",
+        "ready": false,
+        "warnings": []
+      },
+      "seoReady": {
+        "blockers": [
+          "NO_SEO_ARTIFACT"
+        ],
+        "justification": "The catalogue creates no SEO artifact.",
+        "ready": false,
+        "warnings": []
+      },
+      "synthesisReady": {
+        "blockers": [
+          "NO_SYNTHESIS"
+        ],
+        "justification": "No deterministic synthesis includes this node.",
+        "ready": false,
+        "warnings": []
+      }
+    },
+    "reentryReasons": [
+      "SOURCE_COVERAGE_INCOMPLETE",
+      "ASSERTION_COVERAGE_INCOMPLETE",
+      "PROVENANCE_INCOMPLETE",
+      "SCIENTIFIC_READINESS_INCOMPLETE"
+    ],
+    "scientificCoverage": {
+      "assertionRatio": 0,
+      "contradictionsPreserved": 0,
+      "level": "NONE",
+      "localizedEvidenceRatio": 0,
+      "openQuestionsPreserved": 0,
+      "ratio": 0,
+      "sourceRatio": 0
+    },
+    "sourceCoverage": {
+      "abstractOnlySourceCount": 0,
+      "count": 0,
+      "fullTextSourceCount": 0,
+      "level": "NONE",
+      "ratio": 0,
+      "scientificSourceCount": 0,
+      "target": 5
+    },
+    "status": "DISCOVERING"
+  },
+  "createdAt": "2026-08-01T00:00:00.000Z",
+  "dependencies": {
+    "blockers": [],
+    "evaluations": [],
+    "satisfied": true
+  },
+  "dependencySnapshot": {
+    "blockers": [],
+    "evaluations": [],
+    "satisfied": true
+  },
+  "evidenceLinkCandidateIds": [
+    "noxia:radiology:evidence-link:continuous-wave:quality-control:accuracy-needs-components",
+    "noxia:radiology:evidence-link:continuous-wave:quality-control:acquisition-analysis-both-affect",
+    "noxia:radiology:evidence-link:continuous-wave:quality-control:adc-claims-conditional",
+    "noxia:radiology:evidence-link:continuous-wave:quality-control:bias-needs-reference",
+    "noxia:radiology:evidence-link:continuous-wave:quality-control:claims-require-applicability",
+    "noxia:radiology:evidence-link:continuous-wave:quality-control:correlation-not-agreement",
+    "noxia:radiology:evidence-link:continuous-wave:quality-control:dsc-reproducibility-barrier",
+    "noxia:radiology:evidence-link:continuous-wave:quality-control:estimates-require-uncertainty",
+    "noxia:radiology:evidence-link:continuous-wave:quality-control:ground-truth-terminology-ambiguous",
+    "noxia:radiology:evidence-link:continuous-wave:quality-control:qc-not-one-time",
+    "noxia:radiology:evidence-link:continuous-wave:quality-control:repeatability-conditions",
+    "noxia:radiology:evidence-link:continuous-wave:quality-control:reproducibility-conditions"
+  ],
+  "executionAdapterId": "noxia:scientific-campaign-adapter:territorial-reviewed-package:v2",
+  "executionPolicy": {
+    "adapterId": null,
+    "allowDirectRegistryMutation": false,
+    "allowPublicPublication": false,
+    "maxAttempts": 3,
+    "mode": "CATALOG_DRIVEN",
+    "requireGovernanceToken": true,
+    "retryPolicy": "EXPLICIT_REPLAN_AFTER_FAILURE"
+  },
+  "expectedOutputs": [
+    "SOURCE_REVISIONS_OR_EXPLICIT_SOURCE_GAPS",
+    "ATOMIC_ASSERTION_REVISIONS_OR_EXPLICIT_ASSERTION_GAPS",
+    "LOCALIZED_EVIDENCE_LINKS",
+    "COVERAGE_AND_READINESS_RECALCULATION",
+    "IMMUTABLE_EXECUTION_TRACE"
+  ],
+  "generatedAssertions": false,
+  "generatedAt": "2026-08-01T00:00:00.000Z",
+  "generatedContent": false,
+  "inputDigest": "47c4e75c7a5d7ff6e0b6a1afb20c763b8e41f8aa51c5d3a7b7e835b9f77dfb10",
+  "knowledgeNodeIds": [
+    "noxia:knowledge-catalog:domain:quality-control"
+  ],
+  "manifestDigest": "978ba16f6f8faabb1bf4c1a5d64b904b847e7bb1206136f7bf9be1871312e2b7",
+  "nodeIds": [
+    "noxia:knowledge-catalog:domain:quality-control"
+  ],
+  "plannedCoverageAfter": {
+    "assertions": 12,
+    "evidenceLinks": 12,
+    "projections": 1,
+    "publicArtifacts": 0,
+    "sources": 5,
+    "syntheses": 1
+  },
+  "priority": "HIGH",
+  "prioritySnapshot": {
+    "components": {
+      "assertionRichness": 0,
+      "documentaryAvailability": 0.9,
+      "editorialValue": 0.9,
+      "linkingPotential": 0,
+      "projectionPotential": 0.9,
+      "scientificValue": 0.9,
+      "userInterest": 0.84
+    },
+    "level": "HIGH",
+    "scheduling": {
+      "assertionGap": 1,
+      "dependenciesSatisfied": true,
+      "documentaryAvailability": 0.9,
+      "editorialValue": 0.9,
+      "enrichmentComplete": false,
+      "gapSeverity": 0.85,
+      "nodeId": "noxia:knowledge-catalog:domain:quality-control",
+      "openPriorityGaps": false,
+      "orderingPolicy": [
+        "priorityScore:desc",
+        "gapSeverity:desc",
+        "scientificValue:desc",
+        "editorialValue:desc",
+        "documentaryAvailability:desc",
+        "dependenciesSatisfied:desc",
+        "queueAge:asc",
+        "nodeId:asc"
+      ],
+      "periodicReviewDue": false,
+      "priorityScore": 69,
+      "projectionCapabilityGap": false,
+      "projectionExists": false,
+      "provenanceGap": true,
+      "queueAge": "2026-08-01T00:00:00.000Z",
+      "reentryReasons": [
+        "SOURCE_COVERAGE_INCOMPLETE",
+        "ASSERTION_COVERAGE_INCOMPLETE",
+        "PROVENANCE_INCOMPLETE",
+        "SCIENTIFIC_READINESS_INCOMPLETE"
+      ],
+      "scientificGap": true,
+      "scientificValue": 0.9,
+      "sourceGap": 1,
+      "sourceRevisionAvailable": false
+    },
+    "score": 69
+  },
+  "publicationAuthorized": false,
+  "readinessRequirements": [
+    "SOURCE_LOCALIZED",
+    "ATOMIC_ASSERTIONS",
+    "VALID_EVIDENCE_LINKS",
+    "INTERNAL_ONLY_PROJECTION"
+  ],
+  "recordType": "CampaignDefinitionRevision",
+  "revisionId": "noxia:scientific-campaign-definition:quality-control:056c4d46fee7:revision:cccdb6863c38003f",
+  "riskProfile": {
+    "clinicalRecommendationEngine": false,
+    "humanReviewPending": true,
+    "level": "MODERATE",
+    "quantitativeClinicalThresholds": false
+  },
+  "scientificGoals": [
+    "FORMALIZE_QUANTITATIVE_IMAGING_METROLOGY",
+    "DISTINGUISH_BIAS_PRECISION_AGREEMENT_AND_CORRELATION",
+    "PRESERVE_APPLICABILITY_AND_UNCERTAINTY_CONDITIONS"
+  ],
+  "selectedNodeIds": [
+    "noxia:knowledge-catalog:domain:quality-control"
+  ],
+  "selectionDigest": "066c2bf845e3697b70a86352a836a20b4f118ee378a60e47a2e60d4f32ecd982",
+  "selectionRule": {
+    "dependenciesRequired": true,
+    "gapSemantics": "ANY_ACTIONABLE_SCIENTIFIC_OR_PROVENANCE_GAP",
+    "manualDomainSelection": false,
+    "priority": "HIGH",
+    "projectedNodesMayReenter": true,
+    "version": "2.0.0"
+  },
+  "sourceCandidateIds": [
+    "noxia:scientific-source:pubmed:24919831:revision:1",
+    "noxia:scientific-source:pubmed:26267831:revision:1",
+    "noxia:scientific-source:pubmed:34455593:revision:1",
+    "noxia:scientific-source:pubmed:39377680:revision:1",
+    "noxia:scientific-source:pubmed:39656118:revision:1"
+  ],
+  "sourceDigest": "9d36fcb5e6a11d9b7255e4793ce8ff0c47df9f69e6ed3010856445b40badfdf9",
+  "status": "PLANNED",
+  "stopCriteria": [
+    "ALL_SELECTED_KNOWLEDGE_NODES_PROCESSED",
+    "SCIENTIFIC_SOURCE_GAPS_RECALCULATED",
+    "SCIENTIFIC_ASSERTION_GAPS_RECALCULATED",
+    "PROVENANCE_AND_READINESS_RECALCULATED",
+    "CATALOG_UPDATED_OR_GAPS_EXPLICITLY_PRESERVED"
+  ],
+  "supersedesRevisionId": null,
+  "territoryNodeIds": [
+    "noxia:scientific-territory:quality-safety:domain:quality-control"
+  ]
+}

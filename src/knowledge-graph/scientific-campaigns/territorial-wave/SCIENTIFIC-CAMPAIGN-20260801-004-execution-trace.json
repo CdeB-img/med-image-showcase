@@ -1,0 +1,29 @@
+{
+  "beforeSnapshotDigest": "9af51cf6d50a55974871bc7c1ec1062971a345dc9eb136f2658a99c9ec27325f",
+  "campaignId": "SCIENTIFIC-CAMPAIGN-20260801-004",
+  "campaignRevisionId": "noxia:scientific-campaign-definition:neuro-oncology:bb83741e5543:revision:4933ec8622248441",
+  "domainId": "neuro-oncology",
+  "executionDigest": "6dc7a064471fcfb76a3ce399fe40536a94f68ad835bb27fe9d00642ba288e8e3",
+  "manifestDigest": "4b7e93ea223393eff289b3c680e7dd288dc534c2102e4a578bdd9c8f8fad3170",
+  "mutationRecordCount": 68,
+  "postSnapshotDigest": "0fd660f0f522549f98cc69accb102366a4d161a225c4a7557e72362253a008a8",
+  "replay": {
+    "catalogDigest": "c82863cd802e5bfe4bccb67a88eafa5b1c78400f1a6d9c4fbabb989d8162f9d9",
+    "planningDigest": "b7bc6969e011fb55991cb2885bd90a2c8ca36ee1bbee720b4d8a3b84bb9efcab",
+    "snapshotDigest": "0fd660f0f522549f98cc69accb102366a4d161a225c4a7557e72362253a008a8",
+    "valid": true
+  },
+  "rollbackDryRun": {
+    "applied": false,
+    "manifestPreserved": true,
+    "restoredCatalogDigest": "cd8db1b098b300c628d97e00f5ab96689a8d0874288ff9e12ad8508959db8001",
+    "restoredPlanningDigest": "666b8cfaba3b8d52540150cf25286b4a940cb6f9345f4143b83db9bddf01612c",
+    "restoredSnapshotDigest": "9af51cf6d50a55974871bc7c1ec1062971a345dc9eb136f2658a99c9ec27325f",
+    "tracePreserved": true,
+    "valid": true
+  },
+  "sequence": 3,
+  "simulationDigest": "446b159c35e73fa56bced787cba22d4c779c6cd736127aa56d2eea18166b5cb6",
+  "status": "COMPLETED_WITH_GAPS",
+  "traceDigest": "307967df687debc4b01d116e9b2db50b146a11425de26527de12da9fadcaaafb"
+}

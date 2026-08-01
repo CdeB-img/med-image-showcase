@@ -1,0 +1,29 @@
+{
+  "beforeSnapshotDigest": "53d0623e162de389906de675804676374e57d8cdea49cffe9ea30e9fc8fa8ca2",
+  "campaignId": "SCIENTIFIC-CAMPAIGN-20260801-002",
+  "campaignRevisionId": "noxia:scientific-campaign-definition:t2-mapping:bc3b09d23a8a:revision:66444e201b72d6e7",
+  "domainId": "t2-mapping",
+  "executionDigest": "f37b18b88e4376f74ef4a23132e52836cd97f71898d71b6f99c96de918549c80",
+  "manifestDigest": "53ac10610b500c99dd5d3a3b850c805ff2ba72d1f5ab3d7e4e710699fd034a28",
+  "mutationRecordCount": 68,
+  "postSnapshotDigest": "88a304493b7c095facf2d0d363be60ad3ab828dc624b8469e5ed57f836251e1a",
+  "replay": {
+    "catalogDigest": "54785fdf50faeefed125ed4db60a0445813f9bb87c410f2fef343722ad34e84d",
+    "planningDigest": "c3891c789665f08bbd5e7eed2b341024c7bc18e7781bda4a6830f3372a61e005",
+    "snapshotDigest": "88a304493b7c095facf2d0d363be60ad3ab828dc624b8469e5ed57f836251e1a",
+    "valid": true
+  },
+  "rollbackDryRun": {
+    "applied": false,
+    "manifestPreserved": true,
+    "restoredCatalogDigest": "92834a05b8719456eeecae538cdac8aad1325eb7a3959c97a665be3b29044a58",
+    "restoredPlanningDigest": "e5ed52d9cae826ddf7b21b1b22e2e8d11371eea4c246c2cee82a93b6bfb9be58",
+    "restoredSnapshotDigest": "53d0623e162de389906de675804676374e57d8cdea49cffe9ea30e9fc8fa8ca2",
+    "tracePreserved": true,
+    "valid": true
+  },
+  "sequence": 1,
+  "simulationDigest": "06b75b8466ca247694e945e4e87b677ef1c88f021986e7b6b2508d00e08f2739",
+  "status": "COMPLETED_WITH_GAPS",
+  "traceDigest": "f22508377bea35828374dcf387d9bd858feabc6d1f32ad6624229fb8d0c98081"
+}

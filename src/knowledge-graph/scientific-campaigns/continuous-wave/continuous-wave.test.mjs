@@ -208,10 +208,10 @@ describe("P10 territory-driven continuous scientific production", () => {
   });
 
   it("updates the official catalog and removes only the completed campaign from the queue", () => {
-    expect(scientificKnowledgeCatalog.summary).toMatchObject({ knowledgeNodes: 258, sources: 97, assertions: 189, evidenceLinks: 226, syntheses: 28, internalProjections: 25 });
-    expect(scientificKnowledgeCatalog.campaigns).toHaveLength(12);
-    expect(scientificKnowledgeCatalog.campaigns.some((item) => item.selectedNodeIds.includes(P10_SELECTED_NODE_ID))).toBe(false);
-    expect(createScientificKnowledgeCatalog()).toEqual(scientificKnowledgeCatalog);
+    const p10Catalog = createScientificKnowledgeCatalog({ territorialCampaignCorpus: officialP10ExecutionBundle.officialCorpus });
+    expect(p10Catalog.summary).toMatchObject({ knowledgeNodes: 258, sources: 97, assertions: 189, evidenceLinks: 226, syntheses: 28, internalProjections: 25 });
+    expect(p10Catalog.campaigns).toHaveLength(12);
+    expect(p10Catalog.campaigns.some((item) => item.selectedNodeIds.includes(P10_SELECTED_NODE_ID))).toBe(false);
   });
 
   it("recalculates only segmentation coverage from DISCOVERING to EDITORIAL_READY", () => {

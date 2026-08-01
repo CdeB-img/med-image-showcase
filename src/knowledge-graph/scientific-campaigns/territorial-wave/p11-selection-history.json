@@ -1,0 +1,38 @@
+[
+  {
+    "iteration": 1,
+    "manualSelection": false,
+    "queueDigest": "25ab4856d12d8ca161dba0db4e4eb4d4cc85135e7e7f2cd07dc14b8eeb9d8675",
+    "reason": "FIRST_OFFICIAL_QUEUE_ENTRY_WITH_VALIDATED_PACKAGE",
+    "selectedDomainId": "t2-mapping",
+    "selectedNodeId": "noxia:knowledge-catalog:domain:t2-mapping",
+    "selectedQueueRank": 1
+  },
+  {
+    "iteration": 2,
+    "manualSelection": false,
+    "queueDigest": "6bc52603ea978dba8734879f88f846c2b0c0b6f2e9992e7085e00c3d8f89b4d2",
+    "reason": "FIRST_OFFICIAL_QUEUE_ENTRY_WITH_VALIDATED_PACKAGE",
+    "selectedDomainId": "quality-control",
+    "selectedNodeId": "noxia:knowledge-catalog:domain:quality-control",
+    "selectedQueueRank": 1
+  },
+  {
+    "iteration": 3,
+    "manualSelection": false,
+    "queueDigest": "9183a5a607e299f3e7cf10c3d0d8e202d2d7c7d54ae5d3830324469aa9667374",
+    "reason": "FIRST_OFFICIAL_QUEUE_ENTRY_WITH_VALIDATED_PACKAGE",
+    "selectedDomainId": "neuro-oncology",
+    "selectedNodeId": "noxia:knowledge-catalog:domain:neuro-oncology",
+    "selectedQueueRank": 1
+  },
+  {
+    "iteration": 4,
+    "manualSelection": false,
+    "queueDigest": "bc39a8d51bb7fa23604a29f4190febac17fb53298b7c73db847b4cb69772195c",
+    "reason": "FIRST_OFFICIAL_QUEUE_ENTRY_WITH_VALIDATED_PACKAGE",
+    "selectedDomainId": "oef-cmro2",
+    "selectedNodeId": "noxia:knowledge-catalog:domain:oef-cmro2",
+    "selectedQueueRank": 1
+  }
+]

@@ -1,0 +1,233 @@
+{
+  "nextExecutablePreparedPackage": null,
+  "nextQueueEntry": {
+    "assertionsAvailable": 0,
+    "campaignDefinitionId": "noxia:scientific-campaign-definition:radiomics:0c19dfe42df1",
+    "coverage": {
+      "assertionCoverage": {
+        "count": 0,
+        "evidenceLinkCount": 0,
+        "level": "NONE",
+        "localizedEvidenceLinkCount": 0,
+        "ratio": 0,
+        "target": 12
+      },
+      "enrichmentComplete": false,
+      "projectionCoverage": {
+        "actual": 0,
+        "estimatedPages": 0,
+        "level": "NONE",
+        "potential": 1,
+        "ratio": 0
+      },
+      "projectionExists": false,
+      "readiness": {
+        "catalogReady": {
+          "blockers": [],
+          "justification": "The KnowledgeNode contract, identity and graph endpoints are complete.",
+          "ready": true,
+          "warnings": []
+        },
+        "coverageComplete": false,
+        "editorialProjectionReady": {
+          "blockers": [
+            "NO_INTERNAL_PROJECTION"
+          ],
+          "justification": "Only virtual projection capabilities are available.",
+          "ready": false,
+          "warnings": []
+        },
+        "provenanceReady": {
+          "blockers": [
+            "NO_SOURCE"
+          ],
+          "justification": "No source is currently attached.",
+          "ready": false,
+          "warnings": []
+        },
+        "publicPublicationReady": {
+          "blockers": [
+            "PUBLICATION_OUT_OF_SCOPE",
+            "NO_PUBLIC_CONTENT",
+            "NO_ROUTE",
+            "NO_CANONICAL"
+          ],
+          "justification": "P6 is an internal planning layer and creates no public content or route.",
+          "ready": false,
+          "warnings": []
+        },
+        "scientificReady": {
+          "blockers": [
+            "NO_SCIENTIFIC_ASSERTION"
+          ],
+          "justification": "No scientific assertion corpus is available for this node.",
+          "ready": false,
+          "warnings": []
+        },
+        "seoReady": {
+          "blockers": [
+            "NO_SEO_ARTIFACT"
+          ],
+          "justification": "The catalogue creates no SEO artifact.",
+          "ready": false,
+          "warnings": []
+        },
+        "synthesisReady": {
+          "blockers": [
+            "NO_SYNTHESIS"
+          ],
+          "justification": "No deterministic synthesis includes this node.",
+          "ready": false,
+          "warnings": []
+        }
+      },
+      "reentryReasons": [
+        "SOURCE_COVERAGE_INCOMPLETE",
+        "ASSERTION_COVERAGE_INCOMPLETE",
+        "PROVENANCE_INCOMPLETE",
+        "SCIENTIFIC_READINESS_INCOMPLETE"
+      ],
+      "scientificCoverage": {
+        "assertionRatio": 0,
+        "contradictionsPreserved": 0,
+        "level": "NONE",
+        "localizedEvidenceRatio": 0,
+        "openQuestionsPreserved": 0,
+        "ratio": 0,
+        "sourceRatio": 0
+      },
+      "sourceCoverage": {
+        "abstractOnlySourceCount": 0,
+        "count": 0,
+        "fullTextSourceCount": 0,
+        "level": "NONE",
+        "ratio": 0,
+        "scientificSourceCount": 0,
+        "target": 5
+      },
+      "status": "DISCOVERING"
+    },
+    "dependencies": {
+      "blockers": [],
+      "evaluations": [],
+      "satisfied": true
+    },
+    "knowledgeNodeId": "noxia:knowledge-catalog:domain:radiomics",
+    "nextTreatment": "NEXT_ATOMIC_CAMPAIGN_CANDIDATE",
+    "priority": {
+      "components": {
+        "assertionRichness": 0,
+        "documentaryAvailability": 0.9,
+        "editorialValue": 0.65,
+        "linkingPotential": 0,
+        "projectionPotential": 0.9,
+        "scientificValue": 0.9,
+        "userInterest": 0.78
+      },
+      "level": "HIGH",
+      "scheduling": {
+        "assertionGap": 1,
+        "dependenciesSatisfied": true,
+        "documentaryAvailability": 0.9,
+        "editorialValue": 0.65,
+        "enrichmentComplete": false,
+        "gapSeverity": 0.85,
+        "nodeId": "noxia:knowledge-catalog:domain:radiomics",
+        "openPriorityGaps": false,
+        "orderingPolicy": [
+          "priorityScore:desc",
+          "gapSeverity:desc",
+          "scientificValue:desc",
+          "editorialValue:desc",
+          "documentaryAvailability:desc",
+          "dependenciesSatisfied:desc",
+          "queueAge:asc",
+          "nodeId:asc"
+        ],
+        "periodicReviewDue": false,
+        "priorityScore": 64,
+        "projectionCapabilityGap": false,
+        "projectionExists": false,
+        "provenanceGap": true,
+        "queueAge": "2026-08-01T00:00:00.000Z",
+        "reentryReasons": [
+          "SOURCE_COVERAGE_INCOMPLETE",
+          "ASSERTION_COVERAGE_INCOMPLETE",
+          "PROVENANCE_INCOMPLETE",
+          "SCIENTIFIC_READINESS_INCOMPLETE"
+        ],
+        "scientificGap": true,
+        "scientificValue": 0.9,
+        "sourceGap": 1,
+        "sourceRevisionAvailable": false
+      },
+      "score": 64
+    },
+    "rank": 1,
+    "readiness": {
+      "catalogReady": {
+        "blockers": [],
+        "justification": "The KnowledgeNode contract, identity and graph endpoints are complete.",
+        "ready": true,
+        "warnings": []
+      },
+      "coverageComplete": false,
+      "editorialProjectionReady": {
+        "blockers": [
+          "NO_INTERNAL_PROJECTION"
+        ],
+        "justification": "Only virtual projection capabilities are available.",
+        "ready": false,
+        "warnings": []
+      },
+      "provenanceReady": {
+        "blockers": [
+          "NO_SOURCE"
+        ],
+        "justification": "No source is currently attached.",
+        "ready": false,
+        "warnings": []
+      },
+      "publicPublicationReady": {
+        "blockers": [
+          "PUBLICATION_OUT_OF_SCOPE",
+          "NO_PUBLIC_CONTENT",
+          "NO_ROUTE",
+          "NO_CANONICAL"
+        ],
+        "justification": "P6 is an internal planning layer and creates no public content or route.",
+        "ready": false,
+        "warnings": []
+      },
+      "scientificReady": {
+        "blockers": [
+          "NO_SCIENTIFIC_ASSERTION"
+        ],
+        "justification": "No scientific assertion corpus is available for this node.",
+        "ready": false,
+        "warnings": []
+      },
+      "seoReady": {
+        "blockers": [
+          "NO_SEO_ARTIFACT"
+        ],
+        "justification": "The catalogue creates no SEO artifact.",
+        "ready": false,
+        "warnings": []
+      },
+      "synthesisReady": {
+        "blockers": [
+          "NO_SYNTHESIS"
+        ],
+        "justification": "No deterministic synthesis includes this node.",
+        "ready": false,
+        "warnings": []
+      }
+    },
+    "sourcesAvailable": 0,
+    "state": "PLANNED",
+    "territoryNodeId": "noxia:scientific-territory:computational-imaging:domain:radiomics-computation"
+  },
+  "reason": "NEXT_QUEUE_DOMAIN_HAS_NO_VALIDATED_PREPARED_CANDIDATES",
+  "sourceResearchRequiredBeforeResume": true
+}

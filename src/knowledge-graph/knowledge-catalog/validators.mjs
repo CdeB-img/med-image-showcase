@@ -6,12 +6,15 @@ import { buildScientificEnrichmentCampaigns, isCampaignCandidate } from "./campa
 import { createAuthoritativeScientificRegistry, createScientificKnowledgeCatalog, p7ScientificKnowledgeCatalog, scientificKnowledgeCatalog } from "./catalog-builder.mjs";
 import { EMPTY_TERRITORIAL_CAMPAIGN_CORPUS } from "../scientific-campaigns/continuous-wave/constants.mjs";
 import { officialTerritorialCampaignCorpus } from "../scientific-campaigns/continuous-wave/official-corpus.mjs";
+import { officialContinuousTerritorialCampaignCorpus } from "../scientific-campaigns/territorial-wave/official-corpus.mjs";
 import { validateCampaignManifest } from "./campaign-contracts.mjs";
 import { validateCampaignDependencies } from "./campaign-dependencies.mjs";
 import { calculateCoverage } from "./coverage-engine.mjs";
 import { validateCatalogReadinessIntegrity } from "./readiness-integrity.mjs";
 import {
   COVERAGE_LEVELS,
+  CONTINUOUS_TERRITORIAL_KNOWLEDGE_CATALOG_SCOPE,
+  CONTINUOUS_TERRITORIAL_KNOWLEDGE_CATALOG_VERSION,
   KNOWLEDGE_CATALOG_SCOPE,
   KNOWLEDGE_NODE_DEPENDENCY_FIELDS,
   KNOWLEDGE_NODE_REQUIRED_FIELDS,
@@ -147,8 +150,16 @@ const validateCampaigns = (catalog) => {
 };
 
 export const validateScientificKnowledgeCatalog = ({ catalog = scientificKnowledgeCatalog, root = process.cwd(), inspectGit = true, verifyDeterminism = true } = {}) => {
-  const territorialCampaignCorpus = catalog.version === TERRITORIAL_KNOWLEDGE_CATALOG_VERSION ? officialTerritorialCampaignCorpus : EMPTY_TERRITORIAL_CAMPAIGN_CORPUS;
-  const expectedScope = catalog.version === TERRITORIAL_KNOWLEDGE_CATALOG_VERSION ? TERRITORIAL_KNOWLEDGE_CATALOG_SCOPE : KNOWLEDGE_CATALOG_SCOPE;
+  const territorialCampaignCorpus = catalog.version === CONTINUOUS_TERRITORIAL_KNOWLEDGE_CATALOG_VERSION
+    ? officialContinuousTerritorialCampaignCorpus
+    : catalog.version === TERRITORIAL_KNOWLEDGE_CATALOG_VERSION
+      ? officialTerritorialCampaignCorpus
+      : EMPTY_TERRITORIAL_CAMPAIGN_CORPUS;
+  const expectedScope = catalog.version === CONTINUOUS_TERRITORIAL_KNOWLEDGE_CATALOG_VERSION
+    ? CONTINUOUS_TERRITORIAL_KNOWLEDGE_CATALOG_SCOPE
+    : catalog.version === TERRITORIAL_KNOWLEDGE_CATALOG_VERSION
+      ? TERRITORIAL_KNOWLEDGE_CATALOG_SCOPE
+      : KNOWLEDGE_CATALOG_SCOPE;
   const graph = validateKnowledgeCatalogGraph(catalog.nodes);
   const contracts = validateNodeContracts(catalog.nodes);
   const campaigns = validateCampaigns(catalog);
@@ -181,7 +192,11 @@ export const validateScientificKnowledgeCatalog = ({ catalog = scientificKnowled
   add(errors, !protectedSurfaces.editorialEngineUnchanged, "EDITORIAL_ENGINE_CHANGED", { layer: "protectedSurfaces", changes: protectedSurfaces.editorialEngine?.changed });
   return Object.freeze({
     valid: errors.length === 0,
-    version: catalog.version === TERRITORIAL_KNOWLEDGE_CATALOG_VERSION ? "P10_TERRITORY_DRIVEN_SCIENTIFIC_ENRICHMENT" : "P7_CATALOG_DRIVEN_SCIENTIFIC_ENRICHMENT",
+    version: catalog.version === CONTINUOUS_TERRITORIAL_KNOWLEDGE_CATALOG_VERSION
+      ? "P11_CONTINUOUS_TERRITORY_DRIVEN_SCIENTIFIC_ENRICHMENT"
+      : catalog.version === TERRITORIAL_KNOWLEDGE_CATALOG_VERSION
+        ? "P10_TERRITORY_DRIVEN_SCIENTIFIC_ENRICHMENT"
+        : "P7_CATALOG_DRIVEN_SCIENTIFIC_ENRICHMENT",
     errors: Object.freeze(errors),
     layers: Object.freeze({ graph, contracts, campaigns, dependencies, readinessIntegrity: integrity, campaignExecution: Object.freeze({ valid: campaignExecution.valid, counts: campaignExecution.counts }), p5Baseline: Object.freeze({ valid: p5.valid, counts: p5.counts }) }),
     protectedSurfaces,

@@ -1,0 +1,100 @@
+{
+  "coverageState": "EDITORIAL_READY",
+  "digest": "cfda6195b66749c4dc88031e15576a5de79079ff1ae67fcaab4eca08a01ef3f2",
+  "dimensions": {
+    "coverageReadiness": {
+      "errors": [],
+      "gaps": [],
+      "justification": "All 2 explicit rules pass.",
+      "ready": true,
+      "rules": [
+        "SOURCE_TARGET_MET",
+        "ASSERTION_TARGET_MET"
+      ],
+      "status": "READY",
+      "warnings": []
+    },
+    "editorialReadiness": {
+      "errors": [],
+      "gaps": [],
+      "justification": "All 2 explicit rules pass.",
+      "ready": true,
+      "rules": [
+        "SCIENTIFIC_PROJECTION_EXPLOITABLE",
+        "LIMITS_AND_GAPS_VISIBLE"
+      ],
+      "status": "READY",
+      "warnings": [
+        "SCIENTIFIC_HUMAN_REVIEW_NOT_PERFORMED"
+      ]
+    },
+    "projectionReadiness": {
+      "errors": [],
+      "gaps": [],
+      "justification": "All 1 explicit rules pass.",
+      "ready": true,
+      "rules": [
+        "INTERNAL_ONLY_PROJECTION_PRESENT"
+      ],
+      "status": "READY",
+      "warnings": []
+    },
+    "provenanceReadiness": {
+      "errors": [],
+      "gaps": [],
+      "justification": "All 2 explicit rules pass.",
+      "ready": true,
+      "rules": [
+        "SOURCE_PRESENT",
+        "ALL_EVIDENCE_LOCALIZED"
+      ],
+      "status": "READY",
+      "warnings": []
+    },
+    "publicReadiness": {
+      "errors": [
+        "PUBLICATION_OUT_OF_SCOPE",
+        "NO_PUBLIC_CONTENT",
+        "NO_ROUTE",
+        "NO_CANONICAL"
+      ],
+      "gaps": [],
+      "justification": "Blocked by PUBLICATION_OUT_OF_SCOPE, NO_PUBLIC_CONTENT, NO_ROUTE, NO_CANONICAL.",
+      "ready": false,
+      "rules": [
+        "SEPARATE_PUBLICATION_APPROVAL",
+        "SEO_AND_ROUTE_CONTRACTS",
+        "SCIENTIFIC_REVIEW_POLICY"
+      ],
+      "status": "BLOCKED",
+      "warnings": []
+    },
+    "scientificReadiness": {
+      "errors": [],
+      "gaps": [],
+      "justification": "All 2 explicit rules pass.",
+      "ready": true,
+      "rules": [
+        "AT_LEAST_ONE_ATOMIC_ASSERTION",
+        "NO_AUTOMATIC_HUMAN_REVIEW_CLAIM"
+      ],
+      "status": "READY",
+      "warnings": [
+        "SCIENTIFIC_HUMAN_REVIEW_NOT_PERFORMED"
+      ]
+    },
+    "synthesisReadiness": {
+      "errors": [],
+      "gaps": [],
+      "justification": "All 1 explicit rules pass.",
+      "ready": true,
+      "rules": [
+        "DETERMINISTIC_SYNTHESIS_PRESENT"
+      ],
+      "status": "READY",
+      "warnings": []
+    }
+  },
+  "nodeId": "noxia:knowledge-catalog:domain:quality-control",
+  "opaqueAggregateScore": null
+}

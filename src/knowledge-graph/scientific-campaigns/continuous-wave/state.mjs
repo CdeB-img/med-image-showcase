@@ -21,11 +21,11 @@ export const coverageStateForNode = (node) => {
   return "UNCOVERED";
 };
 
-export const createScientificProductionSnapshot = ({ phase, catalog, registry, territoryModel, warnings = [] } = {}) => {
+export const createScientificProductionSnapshot = ({ phase, catalog, registry, territoryModel, warnings = [], gitSha = P10_GIT_SHA } = {}) => {
   const inventory = (items) => freeze(items.map((item) => freeze({ id: id(item), digest: digest(item) })).sort((a, b) => String(a.id).localeCompare(String(b.id))));
   const material = {
     phase,
-    gitSha: P10_GIT_SHA,
+    gitSha,
     catalog: { catalogId: catalog.catalogId, version: catalog.version, digest: catalog.digest, planningDigest: catalog.planningDigest },
     territory: { modelId: territoryModel.modelId, version: territoryModel.version, digest: territoryModel.digest },
     knowledgeNodes: inventory(catalog.nodes),

@@ -31,8 +31,8 @@ import {
   EMPTY_TERRITORIAL_CAMPAIGN_CORPUS,
 } from "../scientific-campaigns/continuous-wave/constants.mjs";
 import {
-  officialTerritorialCampaignCorpus,
-} from "../scientific-campaigns/continuous-wave/official-corpus.mjs";
+  officialContinuousTerritorialCampaignCorpus,
+} from "../scientific-campaigns/territorial-wave/official-corpus.mjs";
 import {
   scientificCorpusConceptIdentities,
   scientificCorpusEntityRevisions,
@@ -72,10 +72,12 @@ import {
   KNOWLEDGE_CATALOG_VERSION,
   ENRICHED_KNOWLEDGE_CATALOG_VERSION,
   TERRITORIAL_KNOWLEDGE_CATALOG_VERSION,
+  CONTINUOUS_TERRITORIAL_KNOWLEDGE_CATALOG_VERSION,
   KNOWLEDGE_CATALOG_NAMESPACE,
   P6_KNOWLEDGE_CATALOG_SCOPE,
   READY_LIKE_STATUSES,
   TERRITORIAL_KNOWLEDGE_CATALOG_SCOPE,
+  CONTINUOUS_TERRITORIAL_KNOWLEDGE_CATALOG_SCOPE,
 } from "./constants.mjs";
 import { createKnowledgeNode } from "./knowledge-node-registry.mjs";
 
@@ -86,6 +88,8 @@ const domainNodeId = (domainId) => `${KNOWLEDGE_CATALOG_NAMESPACE}:domain:${doma
 const lastSegment = (value) => String(value).split(":").at(-1);
 const isIsoDate = (value) => typeof value === "string" && !Number.isNaN(Date.parse(value));
 const maxDate = (values) => unique(values.filter(isIsoDate)).sort().at(-1) ?? KNOWLEDGE_CATALOG_GENERATED_AT;
+const corpusList = (corpus, plural, singular) => corpus?.[plural] ?? (corpus?.[singular] ? [corpus[singular]] : []);
+const corpusDomainIds = (corpus) => unique(corpus?.domainIds ?? asArray(corpus?.domainId));
 
 const DOMAIN_LABELS = Object.freeze({
   "ecv-t1": "ECV et mapping T1 myocardique",
@@ -233,17 +237,17 @@ const buildSeeds = ({ includeCampaignExecutions, territorialCampaignCorpus = EMP
         description: concept.description,
         sourceRefs: concept.sourceRefs,
         version: "1.0.0",
-        createdAt: concept.createdAt ?? territorialCampaignCorpus.campaignExecution?.executedAt ?? KNOWLEDGE_CATALOG_GENERATED_AT,
-        updatedAt: concept.updatedAt ?? territorialCampaignCorpus.campaignExecution?.executedAt ?? KNOWLEDGE_CATALOG_GENERATED_AT,
+        createdAt: concept.createdAt ?? corpusList(territorialCampaignCorpus, "campaignExecutions", "campaignExecution").find((execution) => execution.domainId === concept.domainId)?.executedAt ?? KNOWLEDGE_CATALOG_GENERATED_AT,
+        updatedAt: concept.updatedAt ?? corpusList(territorialCampaignCorpus, "campaignExecutions", "campaignExecution").find((execution) => execution.domainId === concept.domainId)?.executedAt ?? KNOWLEDGE_CATALOG_GENERATED_AT,
         sourceStatus: concept.status,
         modeled: true,
         planned: false,
         roadmapSignals: null,
-        provenance: { sourceLayers: ["P10_TERRITORIAL_CAMPAIGN"], sourceIdentityIds: [concept.stableId], catalogRevisionIds: [concept.revisionId], sourceRevisionIds: [] },
+        provenance: { sourceLayers: [concept.domainId === "segmentation" ? "P10_TERRITORIAL_CAMPAIGN" : "P11_CONTINUOUS_TERRITORIAL_CAMPAIGN"], sourceIdentityIds: [concept.stableId], catalogRevisionIds: [concept.revisionId], sourceRevisionIds: [] },
       }));
     }
   }
-  const territorialDomainIds = includeCampaignExecutions && territorialCampaignCorpus.status?.startsWith("COMPLETED") ? [territorialCampaignCorpus.domainId] : [];
+  const territorialDomainIds = includeCampaignExecutions && territorialCampaignCorpus.status?.startsWith("COMPLETED") ? corpusDomainIds(territorialCampaignCorpus) : [];
   const executedDomainIds = new Set(includeCampaignExecutions ? [AUTOMATIC_CAMPAIGN_DOMAIN_ID, ...territorialDomainIds] : []);
   const enrichedDomains = [
     { domainId: "ecv-t1", objective: "Pilot corpus for myocardial T1 mapping and extracellular volume across MR and CT documentary branches." },
@@ -274,7 +278,7 @@ const buildSeeds = ({ includeCampaignExecutions, territorialCampaignCorpus = EMP
       modeled: true,
       planned: false,
       roadmapSignals: domain.roadmapSignals ?? null,
-      provenance: { sourceLayers: [domain.domainId === "ecv-t1" ? "P4R_DOMAIN" : territorialDomainIds.includes(domain.domainId) ? "P10_TERRITORIAL_CAMPAIGN" : executedDomainIds.has(domain.domainId) ? "P7_AUTOMATIC_CAMPAIGN" : "P5_DOMAIN_MANIFEST"], sourceIdentityIds: [domain.domainId], catalogRevisionIds: [], sourceRevisionIds: [] },
+      provenance: { sourceLayers: [domain.domainId === "ecv-t1" ? "P4R_DOMAIN" : territorialDomainIds.includes(domain.domainId) ? (domain.domainId === "segmentation" ? "P10_TERRITORIAL_CAMPAIGN" : "P11_CONTINUOUS_TERRITORIAL_CAMPAIGN") : executedDomainIds.has(domain.domainId) ? "P7_AUTOMATIC_CAMPAIGN" : "P5_DOMAIN_MANIFEST"], sourceIdentityIds: [domain.domainId], catalogRevisionIds: [], sourceRevisionIds: [] },
     }));
   }
   for (const wave of nextScientificWaves) {
@@ -361,7 +365,7 @@ const graphDepth = (nodes) => {
 
 const countBy = (items, selector) => Object.freeze(Object.fromEntries([...Map.groupBy(items, selector).entries()].sort(([a], [b]) => String(a).localeCompare(String(b))).map(([key, values]) => [key, values.length])));
 
-export const createAuthoritativeScientificRegistry = ({ includeCampaignExecutions = true, territorialCampaignCorpus = officialTerritorialCampaignCorpus } = {}) => Object.freeze({
+export const createAuthoritativeScientificRegistry = ({ includeCampaignExecutions = true, territorialCampaignCorpus = officialContinuousTerritorialCampaignCorpus } = {}) => Object.freeze({
   sourceIdentities: Object.freeze([
     ...(includeCampaignExecutions ? (territorialCampaignCorpus.sourceIdentities ?? []) : []),
   ]),
@@ -401,9 +405,10 @@ export const createAuthoritativeScientificRegistry = ({ includeCampaignExecution
   ]),
 });
 
-export const createScientificKnowledgeCatalog = ({ includeCampaignExecutions = true, campaignEngine = "INDUSTRIAL", territorialCampaignCorpus = officialTerritorialCampaignCorpus } = {}) => {
+export const createScientificKnowledgeCatalog = ({ includeCampaignExecutions = true, campaignEngine = "INDUSTRIAL", territorialCampaignCorpus = officialContinuousTerritorialCampaignCorpus } = {}) => {
   const legacyMode = campaignEngine === "LEGACY_P7_GOLDEN_MASTER";
   const territorialExecuted = includeCampaignExecutions && territorialCampaignCorpus.status?.startsWith("COMPLETED");
+  const territorialDomainIds = territorialExecuted ? corpusDomainIds(territorialCampaignCorpus) : [];
   const campaignConcepts = includeCampaignExecutions ? [...hepaticImagingConcepts, ...(territorialExecuted ? territorialCampaignCorpus.concepts : [])] : [];
   const campaignSources = includeCampaignExecutions ? [...hepaticImagingSourceRevisions, ...(territorialExecuted ? territorialCampaignCorpus.sources : [])] : [];
   const campaignAssertions = includeCampaignExecutions ? [...hepaticImagingAssertionRevisions, ...(territorialExecuted ? territorialCampaignCorpus.assertions : [])] : [];
@@ -610,10 +615,11 @@ export const createScientificKnowledgeCatalog = ({ includeCampaignExecutions = t
     blockingNodes: unique([...node.prerequisites, ...node.dependencies].filter((nodeId) => !READY_LIKE_STATUSES.includes(nodeById.get(nodeId)?.status))),
   })));
   const dependencyRegistry = Object.freeze([]);
+  const territorialCampaignExecutions = territorialExecuted && !legacyMode ? corpusList(territorialCampaignCorpus, "campaignExecutions", "campaignExecution") : [];
   const campaignExecutions = includeCampaignExecutions
     ? Object.freeze([
       legacyMode ? hepaticImagingCampaignExecution : p7IndustrialCampaignExecution,
-      ...(territorialExecuted && !legacyMode ? [territorialCampaignCorpus.campaignExecution] : []),
+      ...territorialCampaignExecutions,
     ])
     : Object.freeze([]);
   const planningDigest = legacyMode ? null : createCatalogPlanningDigest({ nodes, dependencies: dependencyRegistry, executions: campaignExecutions });
@@ -671,17 +677,17 @@ export const createScientificKnowledgeCatalog = ({ includeCampaignExecutions = t
   });
   const base = Object.freeze({
     catalogId: KNOWLEDGE_CATALOG_ID,
-    version: territorialExecuted && !legacyMode ? TERRITORIAL_KNOWLEDGE_CATALOG_VERSION : includeCampaignExecutions ? ENRICHED_KNOWLEDGE_CATALOG_VERSION : KNOWLEDGE_CATALOG_VERSION,
+    version: territorialExecuted && !legacyMode ? (territorialDomainIds.length > 1 ? CONTINUOUS_TERRITORIAL_KNOWLEDGE_CATALOG_VERSION : TERRITORIAL_KNOWLEDGE_CATALOG_VERSION) : includeCampaignExecutions ? ENRICHED_KNOWLEDGE_CATALOG_VERSION : KNOWLEDGE_CATALOG_VERSION,
     generatedAt: KNOWLEDGE_CATALOG_GENERATED_AT,
-    scope: territorialExecuted && !legacyMode ? TERRITORIAL_KNOWLEDGE_CATALOG_SCOPE : includeCampaignExecutions ? KNOWLEDGE_CATALOG_SCOPE : P6_KNOWLEDGE_CATALOG_SCOPE,
+    scope: territorialExecuted && !legacyMode ? (territorialDomainIds.length > 1 ? CONTINUOUS_TERRITORIAL_KNOWLEDGE_CATALOG_SCOPE : TERRITORIAL_KNOWLEDGE_CATALOG_SCOPE) : includeCampaignExecutions ? KNOWLEDGE_CATALOG_SCOPE : P6_KNOWLEDGE_CATALOG_SCOPE,
     sourceBaselines: Object.freeze(includeCampaignExecutions ? {
       historicalConcepts: entityRevisions.length,
       p4rConcepts: scientificCorpusEntityRevisions.length,
       p5Concepts: multidomainConcepts.length,
       campaignConcepts: campaignConcepts.length,
       ...(territorialExecuted ? { territorialCampaignConcepts: territorialCampaignCorpus.concepts.length } : {}),
-      enrichedDomains: 6 + (territorialExecuted ? 1 : 0),
-      plannedDomains: nextScientificWaves.length - 1 - (territorialExecuted ? 1 : 0),
+      enrichedDomains: 6 + territorialDomainIds.length,
+      plannedDomains: nextScientificWaves.length - 1 - territorialDomainIds.length,
     } : {
       historicalConcepts: entityRevisions.length,
       p4rConcepts: scientificCorpusEntityRevisions.length,
@@ -706,17 +712,17 @@ export const createScientificKnowledgeCatalog = ({ includeCampaignExecutions = t
       dependencyRegistry,
       campaignDefinitionIdentities: Object.freeze([
         ...(includeCampaignExecutions ? [p7CampaignDefinitionIdentity] : []),
-        ...(territorialExecuted ? [territorialCampaignCorpus.campaignDefinitionIdentity] : []),
+        ...(territorialExecuted ? corpusList(territorialCampaignCorpus, "campaignDefinitionIdentities", "campaignDefinitionIdentity") : []),
         ...plannedCampaignDefinitionIdentities,
       ]),
       campaignDefinitionRevisions: Object.freeze([
         ...(includeCampaignExecutions ? [p7CampaignDefinitionRevision] : []),
-        ...(territorialExecuted ? [territorialCampaignCorpus.campaignManifest] : []),
+        ...(territorialExecuted ? corpusList(territorialCampaignCorpus, "campaignManifests", "campaignManifest") : []),
         ...campaigns,
       ]),
-      campaignExecutionIdentities: includeCampaignExecutions ? Object.freeze([p7CampaignExecutionIdentity, ...(territorialExecuted ? [territorialCampaignCorpus.campaignExecutionIdentity] : [])]) : Object.freeze([]),
-      campaignExecutionAttempts: includeCampaignExecutions ? Object.freeze([p7CampaignExecutionAttempt, ...(territorialExecuted ? [territorialCampaignCorpus.campaignExecutionAttempt] : [])]) : Object.freeze([]),
-      campaignResults: includeCampaignExecutions ? Object.freeze([p7CampaignResult, ...(territorialExecuted ? [territorialCampaignCorpus.campaignResult] : [])]) : Object.freeze([]),
+      campaignExecutionIdentities: includeCampaignExecutions ? Object.freeze([p7CampaignExecutionIdentity, ...(territorialExecuted ? corpusList(territorialCampaignCorpus, "campaignExecutionIdentities", "campaignExecutionIdentity") : [])]) : Object.freeze([]),
+      campaignExecutionAttempts: includeCampaignExecutions ? Object.freeze([p7CampaignExecutionAttempt, ...(territorialExecuted ? corpusList(territorialCampaignCorpus, "campaignExecutionAttempts", "campaignExecutionAttempt") : [])]) : Object.freeze([]),
+      campaignResults: includeCampaignExecutions ? Object.freeze([p7CampaignResult, ...(territorialExecuted ? corpusList(territorialCampaignCorpus, "campaignResults", "campaignResult") : [])]) : Object.freeze([]),
       campaignIdentityMigrations: includeCampaignExecutions ? Object.freeze([p7CampaignIdentityResolution]) : Object.freeze([]),
     } : {}),
     summary,
