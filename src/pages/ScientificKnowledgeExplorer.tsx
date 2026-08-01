@@ -11,7 +11,7 @@ const ScientificKnowledgeExplorer = () => (
       <title>Explorateur de connaissances scientifiques | NOXIA</title>
       <meta
         name="description"
-        content="Explorateur pilote du corpus scientifique structuré NOXIA : assertions, preuves localisées, limites et données manquantes en segmentation d’image médicale."
+        content="Comprendre et évaluer la segmentation en imagerie médicale : concepts, métriques, limites et justifications scientifiques issues du corpus structuré NOXIA."
       />
       <meta name="robots" content="noindex, follow" />
       <meta name="googlebot" content="noindex, follow" />
