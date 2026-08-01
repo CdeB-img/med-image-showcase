@@ -67,6 +67,13 @@
     "execute:scientific-campaign": "node scripts/execute-scientific-campaign.mjs",
     "execute:scientific-campaign:check": "node scripts/execute-scientific-campaign.mjs --check",
     "validate:scientific-campaign": "node scripts/validate-scientific-campaign.mjs",
+    "validate:scientific-campaigns": "node scripts/validate-scientific-campaigns.mjs",
+    "validate:campaign-governance": "node scripts/validate-campaign-governance.mjs",
+    "validate:campaign-identities": "node scripts/validate-campaign-identities.mjs",
+    "validate:campaign-dependencies": "node scripts/validate-campaign-dependencies.mjs",
+    "validate:catalog-readiness-integrity": "node scripts/validate-catalog-readiness-integrity.mjs",
+    "benchmark:scientific-campaign-platform": "node scripts/benchmark-scientific-campaign-platform.mjs",
+    "generate:p9-industrial-report": "node scripts/generate-p9-industrial-report.mjs",
     "report:scientific-campaign": "node scripts/report-scientific-campaign.mjs",
     "generate:scientific-campaign-report": "node scripts/generate-p7-scientific-campaign-report.mjs",
     "generate:scientific-campaign-report:check": "node scripts/generate-p7-scientific-campaign-report.mjs --check"

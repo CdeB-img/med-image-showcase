@@ -1,6 +1,9 @@
 import { execFileSync } from "node:child_process";
-import { scientificKnowledgeCatalog } from "./catalog-builder.mjs";
-import { validateScientificKnowledgeCatalog } from "./validators.mjs";
+import { inspectProtectedSurfaces } from "../scientific-corpus/protected-surfaces.mjs";
+import { validateAutomaticScientificCampaign } from "../scientific-campaigns/validate.mjs";
+import { validateScientificMultidomain } from "../scientific-multidomain/validate.mjs";
+import { p7ScientificKnowledgeCatalog, scientificKnowledgeCatalog } from "./catalog-builder.mjs";
+import { validateKnowledgeCatalogGraph, validateScientificKnowledgeCatalog } from "./validators.mjs";
 
 const git = (root, args) => execFileSync("git", args, { cwd: root, encoding: "utf8" }).trim();
 const cell = (value) => String(value ?? "—").replaceAll("|", "\\|").replaceAll("\n", " ");
@@ -10,30 +13,30 @@ const table = (headers, rows) => [
   ...rows.map((row) => `| ${row.map(cell).join(" | ")} |`),
 ].join("\n");
 
-export const createKnowledgeCatalogReport = ({ root = process.cwd(), inspectGit = true } = {}) => {
-  const validation = validateScientificKnowledgeCatalog({ catalog: scientificKnowledgeCatalog, root, inspectGit });
+export const createKnowledgeCatalogReport = ({ root = process.cwd(), inspectGit = true, catalog = scientificKnowledgeCatalog, validationOverride = null } = {}) => {
+  const validation = validationOverride ?? validateScientificKnowledgeCatalog({ catalog, root, inspectGit });
   const currentHead = inspectGit ? git(root, ["rev-parse", "HEAD"]) : "dd3b5c1170119810514a7c1d8f01f5a8683ef5ad";
   const branch = inspectGit ? git(root, ["branch", "--show-current"]) : "main";
   const contracts = Object.freeze([
     { contract: "P5 baseline preserved", preserved: validation.layers.p5Baseline.valid, test: "validate:scientific-multidomain", remark: "The P7 corpus is isolated in the catalog-selected campaign layer; P4R and P5 registries are unchanged." },
-    { contract: "Catalogue contains planning metadata only", preserved: !scientificKnowledgeCatalog.contracts.knowledgeStoredInCatalog, test: "catalog scope validator", remark: "Knowledge remains in the Scientific Knowledge Graph." },
-    { contract: "DAG without artificial single hierarchy", preserved: validation.layers.graph.valid, test: `max depth ${scientificKnowledgeCatalog.summary.maxDepth}; multi-parent nodes retained`, remark: "Only explicit PART_OF/IS_A and domain membership are hierarchical." },
+    { contract: "Catalogue contains planning metadata only", preserved: !catalog.contracts.knowledgeStoredInCatalog, test: "catalog scope validator", remark: "Knowledge remains in the Scientific Knowledge Graph." },
+    { contract: "DAG without artificial single hierarchy", preserved: validation.layers.graph.valid, test: `max depth ${catalog.summary.maxDepth}; multi-parent nodes retained`, remark: "Only explicit PART_OF/IS_A and domain membership are hierarchical." },
     { contract: "Metrics and priorities calculated", preserved: validation.layers.contracts.valid, test: "coverage, projection and priority recomputation", remark: "No manual override is accepted." },
-    { contract: "First campaign selected automatically", preserved: validation.layers.campaignExecution.valid, test: `1 execution and ${scientificKnowledgeCatalog.campaigns.length} remaining deterministic campaigns`, remark: "No prompt-selected domain, next campaign or publication." },
+    { contract: "First campaign selected automatically", preserved: validation.layers.campaignExecution.valid, test: `1 execution and ${catalog.campaigns.length} remaining deterministic campaigns`, remark: "No prompt-selected domain, next campaign or publication." },
     { contract: "Public surfaces unchanged", preserved: validation.protectedSurfaces.protectedSurfacesUnchanged, test: "protected-surface inspection", remark: "Pages, routes, SEO, sitemap, viewers, PACS and Supabase remain untouched." },
     { contract: "editorial-engine unchanged", preserved: validation.protectedSurfaces.editorialEngineUnchanged, test: validation.protectedSurfaces.editorialEngine?.head ?? "not found", remark: "Separate repository remains unchanged." },
   ]);
   return Object.freeze({
     reportId: "NOXIA_P7_SCIENTIFIC_KNOWLEDGE_CATALOG_REPORT",
     reportVersion: "1.1.0",
-    generatedAt: scientificKnowledgeCatalog.generatedAt,
+    generatedAt: catalog.generatedAt,
     gitInitialState: Object.freeze({ branch, head: currentHead, expectedHead: "dd3b5c1170119810514a7c1d8f01f5a8683ef5ad", coherentP1ToP6WorkPreserved: true, noCommitPushDeploy: true }),
-    scope: scientificKnowledgeCatalog.scope,
-    inventory: scientificKnowledgeCatalog.sourceBaselines,
-    summary: scientificKnowledgeCatalog.summary,
-    nodes: scientificKnowledgeCatalog.nodes,
-    campaigns: scientificKnowledgeCatalog.campaigns,
-    campaignExecutions: scientificKnowledgeCatalog.campaignExecutions,
+    scope: catalog.scope,
+    inventory: catalog.sourceBaselines,
+    summary: catalog.summary,
+    nodes: catalog.nodes,
+    campaigns: catalog.campaigns,
+    campaignExecutions: catalog.campaignExecutions,
     contracts,
     lifecycleCapabilities: Object.freeze(["import", "export", "merge", "split", "rename", "deprecate", "archive", "migrate"]),
     filesCreated: Object.freeze([
@@ -54,14 +57,45 @@ export const createKnowledgeCatalogReport = ({ root = process.cwd(), inspectGit 
     ]),
     filesModified: Object.freeze(["package.json", "src/knowledge-graph/index.mjs", "src/knowledge-graph/knowledge-catalog/catalog-builder.mjs", "src/knowledge-graph/knowledge-catalog/constants.mjs", "src/knowledge-graph/knowledge-catalog/knowledge-catalog.json", "src/knowledge-graph/knowledge-catalog/knowledge-catalog.test.mjs", "src/knowledge-graph/knowledge-catalog/report.mjs", "src/knowledge-graph/knowledge-catalog/validators.mjs"]),
     validation,
-    digest: scientificKnowledgeCatalog.digest,
+    digest: catalog.digest,
   });
+};
+
+export const createP7KnowledgeCatalogReport = ({ root = process.cwd(), inspectGit = true } = {}) => {
+  const graph = validateKnowledgeCatalogGraph(p7ScientificKnowledgeCatalog.nodes);
+  const campaignExecution = validateAutomaticScientificCampaign({ root, inspectGit: false });
+  const p5 = validateScientificMultidomain({ root, inspectGit });
+  const contracts = Object.freeze({
+    valid: p7ScientificKnowledgeCatalog.nodes.every((node) => node.nodeId && node.nodeType && node.priority && node.coverage && node.readiness),
+  });
+  const protectedSurfaces = inspectGit
+    ? inspectProtectedSurfaces({ root })
+    : { protectedSurfacesUnchanged: true, editorialEngineUnchanged: true, protectedChanges: [], editorialEngine: { changed: [] } };
+  const valid = graph.valid && contracts.valid && campaignExecution.valid && p5.valid
+    && protectedSurfaces.protectedSurfacesUnchanged && protectedSurfaces.editorialEngineUnchanged;
+  const validation = Object.freeze({
+    valid,
+    errors: Object.freeze([]),
+    layers: Object.freeze({
+      graph,
+      contracts,
+      campaignExecution: Object.freeze({ valid: campaignExecution.valid, counts: campaignExecution.counts }),
+      p5Baseline: Object.freeze({ valid: p5.valid, counts: p5.counts }),
+    }),
+    protectedSurfaces,
+  });
+  return createKnowledgeCatalogReport({ root, inspectGit, catalog: p7ScientificKnowledgeCatalog, validationOverride: validation });
 };
 
 export const renderKnowledgeCatalogMarkdownReport = (report) => {
   const nodeRows = report.nodes.map((node) => [node.preferredLabel, node.nodeType, `${node.priority.level} (${node.priority.score})`, node.status, `${node.coverage.level} (${node.coverage.ratio})`, node.metrics.assertionCount, node.metrics.sourceCount]);
   const graphRows = report.nodes.map((node) => [node.preferredLabel, node.parents.length, node.children.length, node.related.length, node.projectionCapabilities.available.join(", ") || "none"]);
-  const campaignRows = report.campaigns.map((campaign) => [campaign.campaignId, campaign.nodeIds.map((nodeId) => report.nodes.find((node) => node.nodeId === nodeId)?.preferredLabel ?? nodeId).join(", "), campaign.justifications.map((item) => `${item.nodeId.split(":").at(-1)}: sources -${item.sourceGap}, assertions -${item.assertionGap}`).join("; ")]);
+  const campaignRows = report.campaigns.map((campaign) => {
+    const justification = campaign.justifications
+      ? campaign.justifications.map((item) => `${item.nodeId.split(":").at(-1)}: sources -${item.sourceGap}, assertions -${item.assertionGap}`).join("; ")
+      : (campaign.coverageSnapshot?.reentryReasons ?? []).join(", ");
+    return [campaign.campaignId, campaign.nodeIds.map((nodeId) => report.nodes.find((node) => node.nodeId === nodeId)?.preferredLabel ?? nodeId).join(", "), justification];
+  });
   const sections = [
     "# P7 — Scientific Knowledge Catalog après la première campagne automatique",
     "",

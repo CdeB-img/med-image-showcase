@@ -1,0 +1,229 @@
+{
+  "reportId": "NOXIA_P8_SCIENTIFIC_PLATFORM_INDUSTRIAL_AUDIT_REPORT",
+  "reportVersion": "1.0.0",
+  "auditDate": "2026-08-01",
+  "baseline": {
+    "branch": "main",
+    "head": "eb611004a0024c0545ad474647839d0e819863d3",
+    "p7CatalogDigest": "0499f51a39b19633e539ec5c2711a8897c9e4a0beaef1aa3a1993309b7fb8162",
+    "p7TraceDigest": "9536482b01c5fd5eca4c64c8495d9a81769c0c45bbe466deb6028deca2531d3c"
+  },
+  "executiveConclusion": {
+    "p7Reproducible": true,
+    "rawComputationScalesTo5000SyntheticDomains": true,
+    "catalogCanDriveContinuousProductionWithoutTechnicalIntervention": false,
+    "primaryReason": "The current execution, registration, validation and governance paths are specific to the single P7 hepatic campaign and do not provide a generic, enforced, stable multi-campaign lifecycle."
+  },
+  "findings": [
+    {
+      "id": "P8-F01",
+      "severity": "CRITICAL",
+      "category": "EXECUTION",
+      "title": "The campaign executor is a one-campaign P7 replay, not a generic executor",
+      "evidence": [
+        "scripts/execute-scientific-campaign.mjs imports the hepatic P7 trace and data directly.",
+        "createAutomaticCampaignExecutionTrace requires the selected ID to equal noxia:scientific-campaign:hepatic-imaging:01.",
+        "createScientificKnowledgeCatalog exposes only includeCampaignExecutions=true|false and stores exactly one hard-coded execution.",
+        "The default selector still reads the frozen P6 catalog."
+      ],
+      "impact": "A second campaign cannot be executed without modifying architecture code, validators and registries.",
+      "productionBlocker": true
+    },
+    {
+      "id": "P8-F02",
+      "severity": "CRITICAL",
+      "category": "GOVERNANCE",
+      "title": "Catalog governance is declarative and bypassable",
+      "evidence": [
+        "The governance functions have no production call site outside tests.",
+        "Enrichment authorization checks only node existence and terminal status.",
+        "Priority, campaign membership, coverage, dependencies and blockingNodes are ignored.",
+        "An unknown operation is treated as SCIENTIFIC_ENRICHMENT and authorized.",
+        "A decision for an injected catalog reports the global catalog digest instead of the injected digest."
+      ],
+      "impact": "Scientific enrichment can bypass the official campaign selection contract and can be attributed to the wrong catalog snapshot.",
+      "productionBlocker": true
+    },
+    {
+      "id": "P8-F03",
+      "severity": "CRITICAL",
+      "category": "VALIDATION",
+      "title": "Catalog validators do not verify status, readiness and provenance coherence",
+      "evidence": [
+        "READY without sources was accepted in a mutation test.",
+        "READY without assertions was accepted in a mutation test.",
+        "READY with zero coverage was accepted in a mutation test.",
+        "Removing a source reference or assertion reference from node provenance was accepted.",
+        "Replacing an EvidenceLink reference with an unknown ID was accepted."
+      ],
+      "impact": "The catalog can advertise readiness while its scientific and provenance records are incomplete or disconnected.",
+      "productionBlocker": true
+    },
+    {
+      "id": "P8-F04",
+      "severity": "CRITICAL",
+      "category": "IDENTITY",
+      "title": "Campaign IDs are not bound to the selected node set",
+      "evidence": [
+        "Campaign identity is group slug plus batch ordinal.",
+        "Inserting a node changed batch 01 membership without changing its campaignId.",
+        "Execution lookup uses campaignId only and skipped the newly inserted node in the mutation test."
+      ],
+      "impact": "Catalog evolution can silently mark a different campaign payload as already executed.",
+      "productionBlocker": true
+    },
+    {
+      "id": "P8-F05",
+      "severity": "HIGH",
+      "category": "PRIORITIZATION",
+      "title": "Global campaign order is lexicographic, not priority-driven",
+      "evidence": [
+        "The next planned campaign is neuro-oncology at score 68.",
+        "Segmentation and T2 mapping both score 70 but appear eighth and ninth.",
+        "The nine current campaigns contain 23 priority inversions out of 36 possible pairs."
+      ],
+      "impact": "The Scientific Knowledge Catalog does not currently determine the next campaign according to its own strongest priority score.",
+      "productionBlocker": true
+    },
+    {
+      "id": "P8-F06",
+      "severity": "HIGH",
+      "category": "LIVENESS",
+      "title": "Candidate and status rules create selection blind spots",
+      "evidence": [
+        "A candidate must have both sourceCoverage<1 and assertionCoverage<1; either gap alone is ignored.",
+        "READY, PROJECTED and PUBLISHED are all excluded before coverage gaps are considered.",
+        "The current catalog contains 52 PROJECTED nodes with incomplete coverage, including 38 with a source gap and 39 with an assertion gap.",
+        "A blocked node remained a campaign candidate in mutation testing."
+      ],
+      "impact": "Incomplete nodes can become permanently invisible to automatic enrichment while blocked nodes can still be scheduled.",
+      "productionBlocker": true
+    },
+    {
+      "id": "P8-F07",
+      "severity": "HIGH",
+      "category": "DEPENDENCIES",
+      "title": "Dependency governance is unproven and partially unchecked",
+      "evidence": [
+        "The production catalog currently contains zero dependency edges and zero blocking nodes.",
+        "Dependency cycles are detected, but prerequisite, blocking-node and successor cycles are not.",
+        "Selection and authorization ignore dependencies and blockingNodes."
+      ],
+      "impact": "The system cannot yet demonstrate safe scheduling when real cross-domain dependencies are introduced.",
+      "productionBlocker": true
+    },
+    {
+      "id": "P8-F08",
+      "severity": "HIGH",
+      "category": "VALIDATION",
+      "title": "P7 validators reject legitimate future growth",
+      "evidence": [
+        "Exact counts for 5 sources, 15 concepts, 22 assertions, 22 links, one execution and nine remaining campaigns are hard-coded.",
+        "Catalog node, concept and domain totals are hard-coded.",
+        "P6 and P7 digests and the hepatic campaign ID are hard-coded as current-state requirements."
+      ],
+      "impact": "A valid second campaign will require validator rewrites and will otherwise be reported as a regression.",
+      "productionBlocker": true
+    },
+    {
+      "id": "P8-F09",
+      "severity": "HIGH",
+      "category": "PROVENANCE",
+      "title": "Coverage treats unresolved documentary references as scientific source coverage",
+      "evidence": [
+        "sourceCoverage and provenanceReady use sourceCount rather than scientificSourceCount.",
+        "114 nodes have source references but zero resolved scientific source records and are still provenanceReady.",
+        "22 of those nodes have complete sourceCoverage."
+      ],
+      "impact": "Planning and readiness can overstate scientific provenance for historical or documentary-only nodes.",
+      "productionBlocker": true
+    },
+    {
+      "id": "P8-F10",
+      "severity": "HIGH",
+      "category": "TRANSACTIONAL_SAFETY",
+      "title": "No generic durable execution lifecycle exists",
+      "evidence": [
+        "There is no generic queued, running, failed, retryable, cancelled or resumed campaign state.",
+        "There is no lock, lease, attempt number or compare-and-swap against the catalog digest.",
+        "The current command rewrites deterministic P7 artifacts rather than executing a selected campaign payload."
+      ],
+      "impact": "Concurrent runs, partial failures and retries cannot be governed safely across hundreds of campaigns.",
+      "productionBlocker": true
+    },
+    {
+      "id": "P8-F11",
+      "severity": "MEDIUM",
+      "category": "SCALABILITY",
+      "title": "Node planning is fast, but validation and evidence lookup contain superlinear paths",
+      "evidence": [
+        "At 5000 flat domains, median selection was 4.825 ms but graph validation rose to 184.592 ms.",
+        "Cycle traversal uses Array.shift and repeated sorting.",
+        "Catalog construction performs evidence.find for each EvidenceLink reference.",
+        "The exact lookup pattern took 178.447 ms at 10000 links versus 0.961 ms with a Map index."
+      ],
+      "impact": "Tens of thousands of assertions remain plausible but are not validated at industrial scale with the current implementation.",
+      "productionBlocker": false
+    },
+    {
+      "id": "P8-F12",
+      "severity": "MEDIUM",
+      "category": "STORAGE",
+      "title": "The generated catalog is verbose for source-control scale",
+      "evidence": [
+        "The current 250-node JSON is 2.667 MiB, or 11185.9 bytes per node.",
+        "A minimal 5000-node synthetic catalog serialized to 27.831 MiB.",
+        "The catalog repeats readiness, coverage and fourteen projection evaluations on every node."
+      ],
+      "impact": "Repository churn, reviewability and report size will degrade before computation itself becomes a bottleneck.",
+      "productionBlocker": false
+    },
+    {
+      "id": "P8-F13",
+      "severity": "MEDIUM",
+      "category": "REPRODUCIBILITY",
+      "title": "P7 replay is deterministic but does not revalidate source content",
+      "evidence": [
+        "Twenty local replays produced one value for every compared digest.",
+        "All five P7 sources retain official URLs but contentDigest is null."
+      ],
+      "impact": "The system proves deterministic transformation of captured metadata, not byte-level reproducibility of external evidence.",
+      "productionBlocker": false
+    },
+    {
+      "id": "P8-F14",
+      "severity": "MEDIUM",
+      "category": "EXTENSIBILITY",
+      "title": "Generic node classes exist, but generic campaign ingestion does not",
+      "evidence": [
+        "Modality, Manufacturer, Technology and Biomarker are already valid node types.",
+        "Specialty is not a node type and currently needs Domain as a documented fallback.",
+        "Adding any real new campaign still requires imports and branches in catalog-builder, validators, execution and reports."
+      ],
+      "impact": "Ontology extension is mostly adequate; operational extension is not plug-in based.",
+      "productionBlocker": true
+    },
+    {
+      "id": "P8-F15",
+      "severity": "LOW",
+      "category": "REPORTING_DEBT",
+      "title": "P7 reports contain stale phase-specific statements",
+      "evidence": [
+        "The catalog report still lists the P6 HEAD as expectedHead.",
+        "It states noCommitPushDeploy=true although P7 is now committed.",
+        "Readiness justification still says P6 is the internal planning layer."
+      ],
+      "impact": "Historical reports remain reproducible but can be mistaken for current operational state.",
+      "productionBlocker": false
+    }
+  ],
+  "validationSummary": {
+    "validatorCommandsRun": 23,
+    "validatorCommandsPassed": 23,
+    "p7CheckArtifactsCurrent": true,
+    "mutationTestsExposeFalseNegatives": true,
+    "noScientificContentChanged": true,
+    "noPublicSurfaceChanged": true
+  },
+  "decision": "INTERVENTION TECHNIQUE REQUISE"
+}

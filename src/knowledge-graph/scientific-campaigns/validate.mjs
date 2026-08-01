@@ -1,7 +1,7 @@
 import { stableStringify } from "../migration/stable-json.mjs";
 import { inspectProtectedSurfaces } from "../scientific-corpus/protected-surfaces.mjs";
-import { buildScientificEnrichmentCampaigns } from "../knowledge-catalog/campaign-engine.mjs";
-import { scientificKnowledgeCatalog, p6ScientificKnowledgeCatalog } from "../knowledge-catalog/catalog-builder.mjs";
+import { buildLegacyScientificEnrichmentCampaigns } from "../knowledge-catalog/campaign-engine.mjs";
+import { p6ScientificKnowledgeCatalog, p7ScientificKnowledgeCatalog } from "../knowledge-catalog/catalog-builder.mjs";
 import { KNOWLEDGE_NODE_TYPES } from "../knowledge-catalog/constants.mjs";
 import { automaticCampaignExecutionTrace, createAutomaticCampaignExecutionTrace, selectFirstUnexecutedScientificCampaign } from "./execution.mjs";
 import {
@@ -28,16 +28,16 @@ export const validateAutomaticScientificCampaign = ({ root = process.cwd(), insp
   const errors = [];
   const selected = selectFirstUnexecutedScientificCampaign();
   const beforeNode = p6ScientificKnowledgeCatalog.nodes.find((node) => node.nodeId === AUTOMATIC_CAMPAIGN_NODE_ID);
-  const afterNode = scientificKnowledgeCatalog.nodes.find((node) => node.nodeId === AUTOMATIC_CAMPAIGN_NODE_ID);
+  const afterNode = p7ScientificKnowledgeCatalog.nodes.find((node) => node.nodeId === AUTOMATIC_CAMPAIGN_NODE_ID);
   const sourceIds = new Set(hepaticImagingSourceRevisions.map((item) => item.revisionId));
   const assertionIds = new Set(hepaticImagingAssertionRevisions.map((item) => item.revisionId));
   const beforeIds = new Set(p6ScientificKnowledgeCatalog.nodes.map((node) => node.nodeId));
-  const afterIds = new Set(scientificKnowledgeCatalog.nodes.map((node) => node.nodeId));
+  const afterIds = new Set(p7ScientificKnowledgeCatalog.nodes.map((node) => node.nodeId));
 
   add(errors, p6ScientificKnowledgeCatalog.digest !== "503cd942c65888a4dd684f4cae8445940869152f7ce9fbdecab37f2e13e38bb5", "P6_BASELINE_DIGEST_CHANGED");
   add(errors, !selected || selected.campaignId !== AUTOMATIC_CAMPAIGN_ID, "FIRST_CAMPAIGN_SELECTION_INVALID", { selectedCampaignId: selected?.campaignId });
   add(errors, selected?.selectionRule.manualDomainSelection !== false, "MANUAL_DOMAIN_SELECTION_DETECTED");
-  add(errors, stableStringify(buildScientificEnrichmentCampaigns(p6ScientificKnowledgeCatalog.nodes), 0) !== stableStringify(p6ScientificKnowledgeCatalog.campaigns, 0), "PRE_CAMPAIGN_PLANNING_NON_DETERMINISTIC");
+  add(errors, stableStringify(buildLegacyScientificEnrichmentCampaigns(p6ScientificKnowledgeCatalog.nodes), 0) !== stableStringify(p6ScientificKnowledgeCatalog.campaigns, 0), "PRE_CAMPAIGN_PLANNING_NON_DETERMINISTIC");
   add(errors, selected?.nodeIds.length !== 1 || selected?.nodeIds[0] !== AUTOMATIC_CAMPAIGN_NODE_ID, "SELECTED_NODE_SET_CHANGED");
   add(errors, beforeNode?.blockingNodes.length !== 0 || beforeNode?.dependencies.length !== 0, "SELECTED_NODE_HAS_UNRESOLVED_DEPENDENCY");
 
@@ -90,10 +90,10 @@ export const validateAutomaticScientificCampaign = ({ root = process.cwd(), insp
   }
 
   add(errors, [...beforeIds].some((nodeId) => !afterIds.has(nodeId)), "PREVIOUS_KNOWLEDGE_NODE_LOST");
-  add(errors, scientificKnowledgeCatalog.sourceBaselines.historicalConcepts !== 118 || scientificKnowledgeCatalog.sourceBaselines.p4rConcepts !== 42 || scientificKnowledgeCatalog.sourceBaselines.p5Concepts !== 60, "P4R_P5_BASELINE_CHANGED");
-  add(errors, scientificKnowledgeCatalog.campaignExecutions.length !== 1 || scientificKnowledgeCatalog.campaignExecutions[0].campaignId !== AUTOMATIC_CAMPAIGN_ID, "CAMPAIGN_EXECUTION_REGISTRY_INVALID");
-  add(errors, scientificKnowledgeCatalog.campaigns.some((campaign) => campaign.campaignId === AUTOMATIC_CAMPAIGN_ID), "EXECUTED_CAMPAIGN_REPLANNED");
-  add(errors, scientificKnowledgeCatalog.campaigns.length !== 9, "NEXT_CAMPAIGN_COUNT_INVALID");
+  add(errors, p7ScientificKnowledgeCatalog.sourceBaselines.historicalConcepts !== 118 || p7ScientificKnowledgeCatalog.sourceBaselines.p4rConcepts !== 42 || p7ScientificKnowledgeCatalog.sourceBaselines.p5Concepts !== 60, "P4R_P5_BASELINE_CHANGED");
+  add(errors, p7ScientificKnowledgeCatalog.campaignExecutions.length !== 1 || p7ScientificKnowledgeCatalog.campaignExecutions[0].campaignId !== AUTOMATIC_CAMPAIGN_ID, "CAMPAIGN_EXECUTION_REGISTRY_INVALID");
+  add(errors, p7ScientificKnowledgeCatalog.campaigns.some((campaign) => campaign.campaignId === AUTOMATIC_CAMPAIGN_ID), "EXECUTED_CAMPAIGN_REPLANNED");
+  add(errors, p7ScientificKnowledgeCatalog.campaigns.length !== 9, "NEXT_CAMPAIGN_COUNT_INVALID");
   add(errors, afterNode?.sourceCoverage.ratio !== 1 || afterNode?.assertionCoverage.ratio !== 1 || !afterNode?.coverage.complete, "CAMPAIGN_COVERAGE_TARGET_NOT_REACHED");
   add(errors, afterNode?.status !== "PROJECTED" || !afterNode?.readiness.scientificReady.ready || !afterNode?.readiness.provenanceReady.ready || !afterNode?.readiness.synthesisReady.ready || !afterNode?.readiness.editorialProjectionReady.ready, "CAMPAIGN_READINESS_INVALID");
   add(errors, afterNode?.readiness.publicPublicationReady.ready || afterNode?.readiness.seoReady.ready || afterNode?.metrics.publicPageCount !== 0, "CAMPAIGN_PUBLIC_READINESS_ENABLED");
@@ -127,7 +127,7 @@ export const validateAutomaticScientificCampaign = ({ root = process.cwd(), insp
       contextualDifferences: hepaticImagingContextDifferences.length,
       syntheses: hepaticImagingScientificSyntheses.length,
       internalProjections: hepaticImagingInternalProjections.length,
-      remainingCampaigns: scientificKnowledgeCatalog.campaigns.length,
+      remainingCampaigns: p7ScientificKnowledgeCatalog.campaigns.length,
     }),
   });
 };

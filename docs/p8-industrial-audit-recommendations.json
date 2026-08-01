@@ -1,0 +1,217 @@
+{
+  "recommendationSetId": "NOXIA_P8_SCIENTIFIC_PLATFORM_HARDENING_RECOMMENDATIONS",
+  "auditDate": "2026-08-01",
+  "principle": "Harden and generalize the existing Scientific Knowledge Catalog, Campaign Engine and validators. Do not create a parallel architecture layer.",
+  "productionGate": "Continuous scientific production must remain paused until every P0 recommendation is implemented and validated together.",
+  "recommendations": [
+    {
+      "id": "P8-R01",
+      "priority": "P0",
+      "target": "Campaign Engine",
+      "action": "Replace the hepatic-specific execution path with one generic campaign execution contract inside the existing Campaign Engine.",
+      "minimumContract": [
+        "selectedCatalogDigest",
+        "selectionDigest",
+        "selectedNodeIds",
+        "campaignPayloadDigest",
+        "executionId",
+        "attempt",
+        "state",
+        "resultDigest",
+        "beforeCatalogDigest",
+        "afterCatalogDigest"
+      ],
+      "acceptance": [
+        "A second fixture campaign runs without editing catalog-builder, execution, validation or report source files.",
+        "P7 remains a golden-master fixture, not the implementation template for every campaign.",
+        "No new public or product layer is introduced."
+      ],
+      "addresses": ["P8-F01", "P8-F10", "P8-F14"]
+    },
+    {
+      "id": "P8-R02",
+      "priority": "P0",
+      "target": "Campaign identity",
+      "action": "Bind campaign identity and execution identity to immutable selection material rather than group ordinal alone.",
+      "minimumContract": [
+        "groupId",
+        "orderedNodeIds",
+        "selectionRuleVersion",
+        "catalogDigest",
+        "selectionDigest"
+      ],
+      "acceptance": [
+        "Changing batch membership changes the campaign revision or selection digest.",
+        "An execution record cannot suppress a newly inserted node unless its exact selection material was executed.",
+        "Idempotent replay of identical material returns the same execution result."
+      ],
+      "addresses": ["P8-F04"]
+    },
+    {
+      "id": "P8-R03",
+      "priority": "P0",
+      "target": "Governance",
+      "action": "Make the existing governance gate mandatory for every scientific mutation and fail closed for unknown operations.",
+      "acceptance": [
+        "Unknown operations are rejected.",
+        "Authorization uses the supplied catalog and returns that catalog's digest.",
+        "Enrichment requires membership in the exact selected campaign.",
+        "Priority, coverage policy, dependencies and blockingNodes are checked.",
+        "No campaign writer can be invoked without a governance decision token bound to the selection digest."
+      ],
+      "addresses": ["P8-F02", "P8-F07"]
+    },
+    {
+      "id": "P8-R04",
+      "priority": "P0",
+      "target": "Catalog validators",
+      "action": "Recompute and cross-check status, readiness, coverage, provenance counts and referenced endpoints from authoritative graph records.",
+      "acceptance": [
+        "READY without sources is rejected.",
+        "READY without assertions is rejected when the node type requires assertions.",
+        "READY with insufficient coverage is rejected.",
+        "Every provenance source, assertion and EvidenceLink ID resolves.",
+        "The catalog digest is recomputed and checked.",
+        "The seven P8 robustness mutations produce the expected failure or explicit documentary exception."
+      ],
+      "addresses": ["P8-F03", "P8-F09"]
+    },
+    {
+      "id": "P8-R05",
+      "priority": "P0",
+      "target": "Prioritization and liveness",
+      "action": "Define one explicit global scheduling order and make gap/status semantics consistent with that order.",
+      "policyQuestionsToResolve": [
+        "Whether any source gap OR assertion gap is sufficient for enrichment.",
+        "Whether PROJECTED is allowed to hide incomplete scientific coverage.",
+        "Whether domain campaigns supersede child-node campaigns or coexist with them.",
+        "How failed or insufficient campaigns re-enter the queue without starving other nodes."
+      ],
+      "acceptance": [
+        "The highest eligible score is selected first, with a deterministic tie-breaker.",
+        "Blocked nodes are never selected.",
+        "Every incomplete eligible node has a documented path to selection or a documented permanent exclusion reason.",
+        "No candidate can be selected forever after repeated failure without retry/backoff state."
+      ],
+      "addresses": ["P8-F05", "P8-F06"]
+    },
+    {
+      "id": "P8-R06",
+      "priority": "P0",
+      "target": "Validator evolution",
+      "action": "Keep P7 exact counts and digests as a historical golden master, but remove them from the generic current-state validity gate.",
+      "acceptance": [
+        "P7 replay still verifies its original counts and digests.",
+        "A second valid campaign increases totals without modifying generic validator code.",
+        "Generic validators check invariants, uniqueness, provenance, deltas and append-only execution history rather than a single expected total."
+      ],
+      "addresses": ["P8-F08"]
+    },
+    {
+      "id": "P8-R07",
+      "priority": "P1",
+      "target": "Execution lifecycle",
+      "action": "Add an append-only lifecycle to the existing campaign execution registry with atomic transition guards.",
+      "states": ["PLANNED", "AUTHORIZED", "RUNNING", "COMPLETED", "COMPLETED_WITH_GAPS", "FAILED_RETRYABLE", "FAILED_FINAL", "CANCELLED"],
+      "acceptance": [
+        "Concurrent execution of the same selection is rejected or deduplicated.",
+        "A partial failure leaves the previous catalog digest authoritative.",
+        "Retry increments attempt and preserves earlier evidence.",
+        "A completed transition can be replayed without duplicate graph records."
+      ],
+      "addresses": ["P8-F10"]
+    },
+    {
+      "id": "P8-R08",
+      "priority": "P1",
+      "target": "Dependency model",
+      "action": "Define which directed relation sets must be acyclic and validate them consistently in selection, authorization and execution.",
+      "acceptance": [
+        "Dependency, prerequisite and blocking cycles are either rejected or explicitly modeled with a non-schedulable resolution state.",
+        "Successor and replacement lifecycle relations receive their own coherent cycle policy.",
+        "Tests include non-empty dependency graphs, blocked priorities and unblocking transitions."
+      ],
+      "addresses": ["P8-F07"]
+    },
+    {
+      "id": "P8-R09",
+      "priority": "P1",
+      "target": "Source coverage",
+      "action": "Separate documentary reference coverage from resolved scientific source coverage in planning and readiness rules.",
+      "acceptance": [
+        "sourceCoverage used for scientific campaigns is based on resolved scientific sources.",
+        "Historical or documentary refs remain visible in a separate dimension.",
+        "A node with only unresolved refs cannot become scientific provenance ready."
+      ],
+      "addresses": ["P8-F09"]
+    },
+    {
+      "id": "P8-R10",
+      "priority": "P1",
+      "target": "Scale",
+      "action": "Index EvidenceLinks by ID and assertion, and replace queue operations with linear-time traversals.",
+      "acceptance": [
+        "Catalog construction does not call a linear evidence search for each evidence ID.",
+        "Graph validation remains near-linear on flat and deep 5000-node fixtures.",
+        "A benchmark includes at least 5000 nodes and 50000 EvidenceLinks/assertions before continuous production is opened."
+      ],
+      "addresses": ["P8-F11"]
+    },
+    {
+      "id": "P8-R11",
+      "priority": "P2",
+      "target": "Artifacts",
+      "action": "Keep one canonical machine artifact and derive verbose reports on demand or split the catalog into stable indexed partitions.",
+      "acceptance": [
+        "No scientific data is duplicated as an independently authoritative registry.",
+        "Diffs remain reviewable when one campaign is appended.",
+        "Projection evaluations and readiness explanations can be regenerated deterministically."
+      ],
+      "addresses": ["P8-F12"]
+    },
+    {
+      "id": "P8-R12",
+      "priority": "P2",
+      "target": "Source reproducibility",
+      "action": "Define an explicit content-digest policy for sources when lawful and technically possible.",
+      "acceptance": [
+        "A null content digest remains an explicit limitation.",
+        "Archived or locally retained lawful source material is byte-digested.",
+        "Remote-only sources retain metadata and retrieval evidence without claiming byte-level replay."
+      ],
+      "addresses": ["P8-F13"]
+    },
+    {
+      "id": "P8-R13",
+      "priority": "P2",
+      "target": "Taxonomy",
+      "action": "Document whether a medical specialty is represented by Domain or warrants a generic Specialty class based on multiple concrete domains.",
+      "acceptance": [
+        "No class is added for a single example.",
+        "The chosen representation supports modality, manufacturer, technology and biomarker additions without campaign-engine changes."
+      ],
+      "addresses": ["P8-F14"]
+    },
+    {
+      "id": "P8-R14",
+      "priority": "P2",
+      "target": "Reports and commands",
+      "action": "Separate immutable historical phase reports from a current operational status report and consolidate redundant validator wrappers where useful.",
+      "acceptance": [
+        "Historical P6/P7 reports are labeled snapshots.",
+        "Current reports do not claim no commit after the audited commit exists.",
+        "Layer-specific validators remain available for diagnosis while the default industrial gate emits a compact summary."
+      ],
+      "addresses": ["P8-F15"]
+    }
+  ],
+  "minimumIndustrialAcceptanceSuite": [
+    "Two different fixture campaigns execute through the same generic path.",
+    "Campaign identity drift and retry behavior are tested.",
+    "All P8 provenance/readiness mutations are rejected.",
+    "A non-empty dependency DAG is scheduled correctly and blocked nodes are excluded.",
+    "5000 nodes and 50000 assertions/EvidenceLinks complete within an explicit performance budget.",
+    "All protected public and product surfaces remain unchanged.",
+    "P7 golden-master digests remain reproducible."
+  ]
+}

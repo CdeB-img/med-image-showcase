@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { stableStringify } from "../migration/stable-json.mjs";
-import { p6ScientificKnowledgeCatalog, scientificKnowledgeCatalog } from "../knowledge-catalog/catalog-builder.mjs";
+import { p6ScientificKnowledgeCatalog, p7ScientificKnowledgeCatalog } from "../knowledge-catalog/catalog-builder.mjs";
 import { automaticCampaignExecutionTrace, createAutomaticCampaignExecutionTrace, selectFirstUnexecutedScientificCampaign } from "./execution.mjs";
 import {
   AUTOMATIC_CAMPAIGN_ID,
@@ -85,7 +85,7 @@ describe("first catalog-driven scientific campaign", () => {
   });
 
   it("recalculates coverage and removes only the executed campaign from the queue", () => {
-    const node = scientificKnowledgeCatalog.nodes.find((item) => item.nodeId === AUTOMATIC_CAMPAIGN_NODE_ID);
+    const node = p7ScientificKnowledgeCatalog.nodes.find((item) => item.nodeId === AUTOMATIC_CAMPAIGN_NODE_ID);
     expect(node).toMatchObject({
       status: "PROJECTED",
       sourceCoverage: { ratio: 1, count: 5, target: 5 },
@@ -99,15 +99,15 @@ describe("first catalog-driven scientific campaign", () => {
         publicPublicationReady: { ready: false },
       },
     });
-    expect(scientificKnowledgeCatalog.campaigns).toHaveLength(9);
-    expect(scientificKnowledgeCatalog.campaigns.some((campaign) => campaign.campaignId === AUTOMATIC_CAMPAIGN_ID)).toBe(false);
+    expect(p7ScientificKnowledgeCatalog.campaigns).toHaveLength(9);
+    expect(p7ScientificKnowledgeCatalog.campaigns.some((campaign) => campaign.campaignId === AUTOMATIC_CAMPAIGN_ID)).toBe(false);
     expect(hepaticImagingCampaignExecution.nextCampaignStarted).toBe(false);
   });
 
   it("builds an immutable deterministic before-selection-after trace", () => {
     expect(createAutomaticCampaignExecutionTrace()).toEqual(automaticCampaignExecutionTrace);
     expect(automaticCampaignExecutionTrace.before.catalogDigest).toBe(p6ScientificKnowledgeCatalog.digest);
-    expect(automaticCampaignExecutionTrace.after.catalogDigest).toBe(scientificKnowledgeCatalog.digest);
+    expect(automaticCampaignExecutionTrace.after.catalogDigest).toBe(p7ScientificKnowledgeCatalog.digest);
     expect(automaticCampaignExecutionTrace.selection.selectionRule.manualDomainSelection).toBe(false);
     expect(automaticCampaignExecutionTrace.after.nextCampaignStarted).toBe(false);
     expect(stableStringify(createAutomaticCampaignExecutionTrace())).toBe(stableStringify(automaticCampaignExecutionTrace));
@@ -119,4 +119,3 @@ describe("first catalog-driven scientific campaign", () => {
     expect(validation.errors).toEqual([]);
   });
 });
-

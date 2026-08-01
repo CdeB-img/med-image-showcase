@@ -1,0 +1,90 @@
+{
+  "benchmarkId": "NOXIA_P9_INDUSTRIAL_CAMPAIGN_PLATFORM",
+  "interpretation": "P9 scenarios include priority snapshots, projected-node reentry, dependencies, blocked campaigns, recurrent signals and campaign revisions; timings are therefore not directly equivalent to the flatter P8 selector benchmark.",
+  "measuredAt": "2026-08-01",
+  "p8Reference": {
+    "100": {
+      "planningMs": 0.119,
+      "validationMs": 0.428
+    },
+    "500": {
+      "planningMs": 0.366,
+      "validationMs": 3.121
+    },
+    "1000": {
+      "planningMs": 0.746,
+      "validationMs": 3.906
+    },
+    "5000": {
+      "planningMs": 4.825,
+      "validationMs": 184.592
+    }
+  },
+  "results": [
+    {
+      "blockedCampaignCandidates": 1,
+      "campaignOrderDigest": "85eac76085fe86b8cc8cebc5c5f821ef596e5058585788d1b454147ce7886b03",
+      "campaigns": 47,
+      "dependencies": 3,
+      "dependenciesValid": true,
+      "deterministic": true,
+      "fixtureCreationMs": 1.434,
+      "graphValid": true,
+      "nodes": 100,
+      "observedHeapDeltaMiB": 0,
+      "planningMs": 1.984,
+      "projectedIncomplete": 22,
+      "recurrentReviewSignals": 2,
+      "validationMs": 1.591
+    },
+    {
+      "blockedCampaignCandidates": 9,
+      "campaignOrderDigest": "df66d8c5aaa34979adf6403d764b93dfdc957f97181d11b6d93024e1d418d60d",
+      "campaigns": 217,
+      "dependencies": 19,
+      "dependenciesValid": true,
+      "deterministic": true,
+      "fixtureCreationMs": 5.244,
+      "graphValid": true,
+      "nodes": 500,
+      "observedHeapDeltaMiB": 27.438,
+      "planningMs": 16.493,
+      "projectedIncomplete": 113,
+      "recurrentReviewSignals": 6,
+      "validationMs": 11.604
+    },
+    {
+      "blockedCampaignCandidates": 19,
+      "campaignOrderDigest": "8dbcdfea58522d58898655805d768b5dcea90e56c452b168fc5df481f81af5e7",
+      "campaigns": 434,
+      "dependencies": 39,
+      "dependenciesValid": true,
+      "deterministic": true,
+      "fixtureCreationMs": 9.165,
+      "graphValid": true,
+      "nodes": 1000,
+      "observedHeapDeltaMiB": 16.889,
+      "planningMs": 46.441,
+      "projectedIncomplete": 227,
+      "recurrentReviewSignals": 11,
+      "validationMs": 40.78
+    },
+    {
+      "blockedCampaignCandidates": 99,
+      "campaignOrderDigest": "c6b8233d5e0af18ad405732ea1e3029a2ef01e9a7c6f67da5d7205dd9706f3cf",
+      "campaigns": 2164,
+      "dependencies": 199,
+      "dependenciesValid": true,
+      "deterministic": true,
+      "fixtureCreationMs": 45.286,
+      "graphValid": true,
+      "nodes": 5000,
+      "observedHeapDeltaMiB": 78.673,
+      "planningMs": 1246.644,
+      "projectedIncomplete": 1136,
+      "recurrentReviewSignals": 52,
+      "validationMs": 1267.524
+    }
+  ],
+  "scope": "ISOLATED_SYNTHETIC_FIXTURES_NO_REAL_SCIENTIFIC_ENRICHMENT"
+}

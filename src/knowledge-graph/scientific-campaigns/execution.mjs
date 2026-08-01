@@ -1,5 +1,5 @@
 import { sha256Digest } from "../migration/stable-json.mjs";
-import { scientificKnowledgeCatalog, p6ScientificKnowledgeCatalog } from "../knowledge-catalog/catalog-builder.mjs";
+import { p6ScientificKnowledgeCatalog, p7ScientificKnowledgeCatalog } from "../knowledge-catalog/catalog-builder.mjs";
 import {
   AUTOMATIC_CAMPAIGN_ID,
   AUTOMATIC_CAMPAIGN_NODE_ID,
@@ -38,7 +38,7 @@ export const selectFirstUnexecutedScientificCampaign = ({ beforeCatalog = p6Scie
 
 export const createAutomaticCampaignExecutionTrace = ({
   beforeCatalog = p6ScientificKnowledgeCatalog,
-  afterCatalog = scientificKnowledgeCatalog,
+  afterCatalog = p7ScientificKnowledgeCatalog,
 } = {}) => {
   const selection = selectFirstUnexecutedScientificCampaign({ beforeCatalog });
   if (!selection) throw new Error("NO_UNEXECUTED_SCIENTIFIC_CAMPAIGN");

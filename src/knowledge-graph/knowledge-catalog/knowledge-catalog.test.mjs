@@ -78,26 +78,31 @@ describe("Scientific Knowledge Catalog after the first automatic campaign", () =
   });
 
   it("plans every campaign from the catalogue criteria without manual domain selection", () => {
-    const campaigns = buildScientificEnrichmentCampaigns(scientificKnowledgeCatalog.nodes);
+    const campaigns = buildScientificEnrichmentCampaigns(scientificKnowledgeCatalog.nodes, {
+      dependencies: scientificKnowledgeCatalog.dependencyRegistry,
+      executions: scientificKnowledgeCatalog.campaignExecutions,
+      catalogPlanningDigest: scientificKnowledgeCatalog.planningDigest,
+    });
     expect(campaigns).toEqual(scientificKnowledgeCatalog.campaigns);
-    expect(campaigns).toHaveLength(9);
-    const selected = campaigns.flatMap((campaign) => campaign.nodeIds);
-    expect(new Set(selected).size).toBe(9);
+    expect(campaigns).toHaveLength(13);
+    const selected = campaigns.flatMap((campaign) => campaign.selectedNodeIds);
+    expect(new Set(selected).size).toBe(13);
     for (const campaign of campaigns) {
       expect(campaign.selectionRule.manualDomainSelection).toBe(false);
       expect(campaign.publicationAuthorized).toBe(false);
-      for (const nodeId of campaign.nodeIds) expect(isCampaignCandidate(scientificKnowledgeCatalog.nodes.find((node) => node.nodeId === nodeId))).toBe(true);
+      for (const nodeId of campaign.selectedNodeIds) expect(isCampaignCandidate(scientificKnowledgeCatalog.nodes.find((node) => node.nodeId === nodeId), { nodes: scientificKnowledgeCatalog.nodes, dependencies: scientificKnowledgeCatalog.dependencyRegistry })).toBe(true);
     }
   });
 
   it("rejects every future scientific operation that is not derived from the catalogue", () => {
-    expect(authorizeScientificEnrichment({ nodeId: "noxia:unknown:domain" })).toMatchObject({ authorized: false, blockers: ["NODE_NOT_IN_CATALOG"] });
-    const plannedDomainId = "noxia:knowledge-catalog:domain:t2-mapping";
-    expect(authorizeScientificEnrichment({ nodeId: plannedDomainId })).toMatchObject({ authorized: true, publicPublicationAuthorized: false });
+    expect(authorizeScientificEnrichment({ nodeId: "noxia:unknown:domain" })).toMatchObject({ authorized: false, blockers: ["CAMPAIGN_MANIFEST_REQUIRED"] });
+    const manifest = scientificKnowledgeCatalog.campaigns[0];
+    const plannedDomainId = manifest.selectedNodeIds[0];
+    expect(authorizeScientificEnrichment({ nodeId: plannedDomainId, campaignManifest: manifest })).toMatchObject({ authorized: true, publicPublicationAuthorized: false });
     expect(authorizeScientificProjection({ nodeId: plannedDomainId, capability: "StateOfKnowledge" })).toMatchObject({ authorized: false, blockers: ["NO_SOURCE", "NO_SYNTHESIS"] });
     const projectedDomainId = "noxia:knowledge-catalog:domain:diffusion-adc";
     expect(authorizeScientificProjection({ nodeId: projectedDomainId, capability: "StateOfKnowledge" })).toMatchObject({ authorized: true, publicPublicationAuthorized: false });
-    expect(() => requireCataloguedScientificOperation({ operation: "SCIENTIFIC_ENRICHMENT", nodeId: "noxia:unknown:domain" })).toThrow("NODE_NOT_IN_CATALOG");
+    expect(() => requireCataloguedScientificOperation({ operation: "SCIENTIFIC_ENRICHMENT", nodeId: "noxia:unknown:domain" })).toThrow("CAMPAIGN_MANIFEST_REQUIRED");
   });
 
   it("keeps the generated JSON synchronized with the deterministic builder", () => {

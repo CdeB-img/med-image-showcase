@@ -31,6 +31,7 @@ import {
   scientificCorpusConceptIdentities,
   scientificCorpusEntityRevisions,
 } from "../scientific-corpus/concepts.mjs";
+import { scientificSourceRevisions as p4ScientificSourceRevisions } from "../scientific-corpus/sources.mjs";
 import {
   multidomainAssertionRevisions,
   multidomainEvidenceLinks,
@@ -42,7 +43,22 @@ import { scientificDomainManifests } from "../scientific-multidomain/manifests.m
 import { multidomainInternalProjections } from "../scientific-multidomain/projections.mjs";
 import { multidomainSourceRevisions } from "../scientific-multidomain/sources.mjs";
 import { multidomainScientificSyntheses } from "../scientific-multidomain/synthesis.mjs";
-import { buildScientificEnrichmentCampaigns, campaignSummary } from "./campaign-engine.mjs";
+import {
+  buildLegacyScientificEnrichmentCampaigns,
+  buildScientificEnrichmentCampaigns,
+  campaignSummary,
+  createCatalogPlanningDigest,
+} from "./campaign-engine.mjs";
+import { createCampaignDefinitionIdentity } from "./campaign-contracts.mjs";
+import {
+  p7CampaignDefinitionIdentity,
+  p7CampaignDefinitionRevision,
+  p7CampaignExecutionAttempt,
+  p7CampaignExecutionIdentity,
+  p7CampaignIdentityResolution,
+  p7CampaignResult,
+  p7IndustrialCampaignExecution,
+} from "../scientific-campaigns/p7-identity-migration.mjs";
 import {
   KNOWLEDGE_CATALOG_GENERATED_AT,
   KNOWLEDGE_CATALOG_ID,
@@ -275,8 +291,24 @@ const assertionReferences = (assertion, domainId, knownIds, uniqueSlugIds, conce
   return unique(flattenStrings(candidates).map((value) => resolveReference(value, domainId, knownIds, uniqueSlugIds, conceptByDomainKey)));
 };
 
-const sourceIsFullText = (source) => source ? !(source.abstractOnly ?? source.metadata?.abstractOnly ?? source.fullTextAvailability === "ABSTRACT_ONLY") : false;
-const sourceIsAbstractOnly = (source) => source ? Boolean(source.abstractOnly ?? source.metadata?.abstractOnly ?? source.fullTextAvailability === "ABSTRACT_ONLY") : false;
+const sourceAvailability = (source) => source?.fullTextAvailability ?? source?.metadata?.fullTextAvailability ?? null;
+const sourceIsAbstractOnly = (source) => Boolean(
+  source
+  && (source.abstractOnly === true
+    || source.metadata?.abstractOnly === true
+    || sourceAvailability(source) === "ABSTRACT_ONLY"),
+);
+const sourceIsFullText = (source) => Boolean(
+  source
+  && !sourceIsAbstractOnly(source)
+  && (["FULL_TEXT_VERIFIED", "PMC_FULL_TEXT", "OFFICIAL_FULL_TEXT", "OFFICIAL_PUBLISHER_FULL_TEXT"].includes(sourceAvailability(source))
+    || source.abstractOnly === false
+    || source.metadata?.abstractOnly === false),
+);
+// P6/P7 are immutable golden masters. Their historical availability calculation
+// remains isolated here so their byte-level digests do not change in P9.
+const legacySourceIsFullText = (source) => source ? !(source.abstractOnly ?? source.metadata?.abstractOnly ?? source.fullTextAvailability === "ABSTRACT_ONLY") : false;
+const legacySourceIsAbstractOnly = (source) => source ? Boolean(source.abstractOnly ?? source.metadata?.abstractOnly ?? source.fullTextAvailability === "ABSTRACT_ONLY") : false;
 
 const graphDepth = (nodes) => {
   const byId = new Map(nodes.map((node) => [node.nodeId, node]));
@@ -298,7 +330,37 @@ const graphDepth = (nodes) => {
 
 const countBy = (items, selector) => Object.freeze(Object.fromEntries([...Map.groupBy(items, selector).entries()].sort(([a], [b]) => String(a).localeCompare(String(b))).map(([key, values]) => [key, values.length])));
 
-export const createScientificKnowledgeCatalog = ({ includeCampaignExecutions = true } = {}) => {
+export const createAuthoritativeScientificRegistry = ({ includeCampaignExecutions = true } = {}) => Object.freeze({
+  sources: Object.freeze([
+    ...p4ScientificSourceRevisions,
+    ...consolidatedSourceRevisions,
+    ...multidomainSourceRevisions,
+    ...(includeCampaignExecutions ? hepaticImagingSourceRevisions : []),
+  ]),
+  assertions: Object.freeze([
+    ...consolidatedAssertionRevisions,
+    ...multidomainAssertionRevisions,
+    ...(includeCampaignExecutions ? hepaticImagingAssertionRevisions : []),
+  ]),
+  evidenceLinks: Object.freeze([
+    ...consolidatedEvidenceLinks,
+    ...multidomainEvidenceLinks,
+    ...(includeCampaignExecutions ? hepaticImagingEvidenceLinks : []),
+  ]),
+  syntheses: Object.freeze([
+    ...p4rScientificSyntheses,
+    ...multidomainScientificSyntheses,
+    ...(includeCampaignExecutions ? hepaticImagingScientificSyntheses : []),
+  ]),
+  projections: Object.freeze([
+    ...p4rInternalScientificProjections,
+    ...multidomainInternalProjections,
+    ...(includeCampaignExecutions ? hepaticImagingInternalProjections : []),
+  ]),
+});
+
+export const createScientificKnowledgeCatalog = ({ includeCampaignExecutions = true, campaignEngine = "INDUSTRIAL" } = {}) => {
+  const legacyMode = campaignEngine === "LEGACY_P7_GOLDEN_MASTER";
   const campaignConcepts = includeCampaignExecutions ? hepaticImagingConcepts : [];
   const campaignSources = includeCampaignExecutions ? hepaticImagingSourceRevisions : [];
   const campaignAssertions = includeCampaignExecutions ? hepaticImagingAssertionRevisions : [];
@@ -343,6 +405,7 @@ export const createScientificKnowledgeCatalog = ({ includeCampaignExecutions = t
     ...campaignAssertions.map((assertion) => ({ domainId: assertion.domainId, assertion })),
   ];
   const evidence = [...consolidatedEvidenceLinks, ...multidomainEvidenceLinks, ...campaignEvidence];
+  const evidenceById = new Map(evidence.map((item) => [item.evidenceLinkId, item]));
   const evidenceByAssertion = Map.groupBy(evidence, (item) => item.assertionRevisionId);
   const referencesByAssertion = new Map();
   for (const { domainId, assertion } of assertions) {
@@ -426,16 +489,23 @@ export const createScientificKnowledgeCatalog = ({ includeCampaignExecutions = t
   const nodesFirstPass = [...seeds.values()].map((item) => {
     const canonicalSources = unique([...item.sourceRefs].map(canonicalSourceId));
     const resolvedScientificSources = unique(canonicalSources.filter((sourceId) => scientificSourceByCanonicalId.has(sourceId)));
-    const fullTextSourceCount = resolvedScientificSources.filter((sourceId) => sourceIsFullText(scientificSourceByCanonicalId.get(sourceId))).length;
-    const abstractOnlySourceCount = resolvedScientificSources.filter((sourceId) => sourceIsAbstractOnly(scientificSourceByCanonicalId.get(sourceId))).length;
+    const fullTextSourceCount = resolvedScientificSources.filter((sourceId) => (legacyMode ? legacySourceIsFullText : sourceIsFullText)(scientificSourceByCanonicalId.get(sourceId))).length;
+    const abstractOnlySourceCount = resolvedScientificSources.filter((sourceId) => (legacyMode ? legacySourceIsAbstractOnly : sourceIsAbstractOnly)(scientificSourceByCanonicalId.get(sourceId))).length;
+    const scientificSourceCountForCoverage = legacyMode || ["Abbreviation", "Definition", "Format", "Publication", "PublicationTopic", "Synonym", "Terminology"].includes(item.nodeType)
+      ? canonicalSources.length
+      : resolvedScientificSources.length;
     const metrics = {
-      sourceCount: canonicalSources.length,
+      sourceCount: scientificSourceCountForCoverage,
+      ...(!legacyMode ? {
+        documentaryReferenceCount: canonicalSources.length,
+        unresolvedDocumentaryReferenceCount: canonicalSources.length - resolvedScientificSources.length,
+      } : {}),
       scientificSourceCount: resolvedScientificSources.length,
       fullTextSourceCount,
       abstractOnlySourceCount,
       assertionCount: item.assertionIds.size,
       evidenceLinkCount: item.evidenceIds.size,
-      localizedEvidenceLinkCount: [...item.evidenceIds].filter((evidenceId) => evidence.find((link) => link.evidenceLinkId === evidenceId)?.locator).length,
+      localizedEvidenceLinkCount: [...item.evidenceIds].filter((evidenceId) => evidenceById.get(evidenceId)?.locator).length,
       contradictionCount: item.contradictionIds.size,
       openQuestionCount: item.openQuestions.size,
       synthesisCount: item.synthesisIds.size,
@@ -466,6 +536,10 @@ export const createScientificKnowledgeCatalog = ({ includeCampaignExecutions = t
       provenance: {
         ...item.provenance,
         sourceRevisionIds: unique([...item.provenance.sourceRevisionIds, ...item.sourceRefs]),
+        ...(!legacyMode ? {
+          scientificSourceRevisionIds: unique([...item.sourceRefs].filter((sourceId) => scientificSourceByCanonicalId.has(canonicalSourceId(sourceId)))),
+          documentarySourceRefs: unique([...item.sourceRefs].filter((sourceId) => !scientificSourceByCanonicalId.has(canonicalSourceId(sourceId)))),
+        } : {}),
         scientificSourceIdentityIds: resolvedScientificSources,
         assertionRevisionIds: unique([...item.assertionIds]),
         evidenceLinkIds: unique([...item.evidenceIds]),
@@ -492,7 +566,17 @@ export const createScientificKnowledgeCatalog = ({ includeCampaignExecutions = t
     ...node,
     blockingNodes: unique([...node.prerequisites, ...node.dependencies].filter((nodeId) => !READY_LIKE_STATUSES.includes(nodeById.get(nodeId)?.status))),
   })));
-  const campaigns = buildScientificEnrichmentCampaigns(nodes);
+  const dependencyRegistry = Object.freeze([]);
+  const campaignExecutions = includeCampaignExecutions
+    ? Object.freeze([legacyMode ? hepaticImagingCampaignExecution : p7IndustrialCampaignExecution])
+    : Object.freeze([]);
+  const planningDigest = legacyMode ? null : createCatalogPlanningDigest({ nodes, dependencies: dependencyRegistry, executions: campaignExecutions });
+  const campaigns = legacyMode
+    ? buildLegacyScientificEnrichmentCampaigns(nodes)
+    : buildScientificEnrichmentCampaigns(nodes, { dependencies: dependencyRegistry, executions: campaignExecutions, catalogPlanningDigest: planningDigest });
+  const plannedCampaignDefinitionIdentities = legacyMode
+    ? Object.freeze([])
+    : Object.freeze(campaigns.map((manifest) => createCampaignDefinitionIdentity({ manifest })));
   const depth = graphDepth(nodes);
   const parentEdges = nodes.reduce((sum, node) => sum + node.parents.length, 0);
   const dependencyEdges = nodes.reduce((sum, node) => sum + node.dependencies.length, 0);
@@ -532,7 +616,12 @@ export const createScientificKnowledgeCatalog = ({ includeCampaignExecutions = t
     estimatedPages: totalPotentialPages,
     averageScientificCoverage: Number((nodes.reduce((sum, node) => sum + node.scientificCoverage.ratio, 0) / nodes.length).toFixed(4)),
     averageEditorialCoverage: Number((nodes.reduce((sum, node) => sum + node.editorialCoverage.ratio, 0) / nodes.length).toFixed(4)),
-    campaignSummary: campaignSummary(campaigns),
+    campaignSummary: legacyMode ? Object.freeze({
+      campaigns: campaigns.length,
+      selectedNodes: new Set(campaigns.flatMap((item) => item.nodeIds)).size,
+      manualDomainSelections: campaigns.filter((item) => item.selectionRule.manualDomainSelection).length,
+      publicationAuthorized: campaigns.some((item) => item.publicationAuthorized),
+    }) : campaignSummary(campaigns),
   });
   const base = Object.freeze({
     catalogId: KNOWLEDGE_CATALOG_ID,
@@ -564,7 +653,23 @@ export const createScientificKnowledgeCatalog = ({ includeCampaignExecutions = t
       futureEnrichmentOutsideCatalogAllowed: false,
       futureProjectionOutsideCatalogAllowed: false,
     }),
-    ...(includeCampaignExecutions ? { campaignExecutions: Object.freeze([hepaticImagingCampaignExecution]) } : {}),
+    ...(includeCampaignExecutions ? { campaignExecutions } : {}),
+    ...(!legacyMode ? {
+      planningDigest,
+      dependencyRegistry,
+      campaignDefinitionIdentities: Object.freeze([
+        ...(includeCampaignExecutions ? [p7CampaignDefinitionIdentity] : []),
+        ...plannedCampaignDefinitionIdentities,
+      ]),
+      campaignDefinitionRevisions: Object.freeze([
+        ...(includeCampaignExecutions ? [p7CampaignDefinitionRevision] : []),
+        ...campaigns,
+      ]),
+      campaignExecutionIdentities: includeCampaignExecutions ? Object.freeze([p7CampaignExecutionIdentity]) : Object.freeze([]),
+      campaignExecutionAttempts: includeCampaignExecutions ? Object.freeze([p7CampaignExecutionAttempt]) : Object.freeze([]),
+      campaignResults: includeCampaignExecutions ? Object.freeze([p7CampaignResult]) : Object.freeze([]),
+      campaignIdentityMigrations: includeCampaignExecutions ? Object.freeze([p7CampaignIdentityResolution]) : Object.freeze([]),
+    } : {}),
     summary,
     campaigns,
     nodes,
@@ -573,5 +678,6 @@ export const createScientificKnowledgeCatalog = ({ includeCampaignExecutions = t
 };
 
 export const scientificKnowledgeCatalog = createScientificKnowledgeCatalog();
-export const p6ScientificKnowledgeCatalog = createScientificKnowledgeCatalog({ includeCampaignExecutions: false });
+export const p6ScientificKnowledgeCatalog = createScientificKnowledgeCatalog({ includeCampaignExecutions: false, campaignEngine: "LEGACY_P7_GOLDEN_MASTER" });
+export const p7ScientificKnowledgeCatalog = createScientificKnowledgeCatalog({ includeCampaignExecutions: true, campaignEngine: "LEGACY_P7_GOLDEN_MASTER" });
 export const knowledgeNodeRegistry = Object.freeze(Object.fromEntries(scientificKnowledgeCatalog.nodes.map((node) => [node.nodeId, node])));

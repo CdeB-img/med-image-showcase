@@ -1,10 +1,13 @@
-import { stableStringify } from "../migration/stable-json.mjs";
+import { sha256Digest, stableStringify } from "../migration/stable-json.mjs";
 import { inspectProtectedSurfaces } from "../scientific-corpus/protected-surfaces.mjs";
 import { validateAutomaticScientificCampaign } from "../scientific-campaigns/validate.mjs";
 import { validateScientificMultidomain } from "../scientific-multidomain/validate.mjs";
 import { buildScientificEnrichmentCampaigns, isCampaignCandidate } from "./campaign-engine.mjs";
-import { createScientificKnowledgeCatalog, scientificKnowledgeCatalog } from "./catalog-builder.mjs";
+import { createAuthoritativeScientificRegistry, createScientificKnowledgeCatalog, p7ScientificKnowledgeCatalog, scientificKnowledgeCatalog } from "./catalog-builder.mjs";
+import { validateCampaignManifest } from "./campaign-contracts.mjs";
+import { validateCampaignDependencies } from "./campaign-dependencies.mjs";
 import { calculateCoverage } from "./coverage-engine.mjs";
+import { validateCatalogReadinessIntegrity } from "./readiness-integrity.mjs";
 import {
   COVERAGE_LEVELS,
   KNOWLEDGE_CATALOG_SCOPE,
@@ -121,16 +124,21 @@ const validateNodeContracts = (nodes) => {
 
 const validateCampaigns = (catalog) => {
   const errors = [];
-  const expected = buildScientificEnrichmentCampaigns(catalog.nodes);
+  const expected = buildScientificEnrichmentCampaigns(catalog.nodes, {
+    dependencies: catalog.dependencyRegistry,
+    executions: catalog.campaignExecutions,
+    catalogPlanningDigest: catalog.planningDigest,
+  });
   add(errors, stableStringify(expected, 0) !== stableStringify(catalog.campaigns, 0), "CAMPAIGNS_NON_DETERMINISTIC");
-  const selected = catalog.campaigns.flatMap((item) => item.nodeIds);
+  const selected = catalog.campaigns.flatMap((item) => item.selectedNodeIds);
   add(errors, duplicates(selected).length > 0, "NODE_SELECTED_BY_MULTIPLE_CAMPAIGNS");
   const byId = new Map(catalog.nodes.map((node) => [node.nodeId, node]));
   for (const campaign of catalog.campaigns) {
+    for (const error of validateCampaignManifest(campaign).errors) errors.push({ ...error, campaignId: campaign.campaignId });
     add(errors, campaign.selectionRule.manualDomainSelection || campaign.publicationAuthorized || campaign.generatedContent || campaign.generatedAssertions, "CAMPAIGN_SCOPE_VIOLATION", { campaignId: campaign.campaignId });
-    for (const nodeId of campaign.nodeIds) add(errors, !isCampaignCandidate(byId.get(nodeId)), "CAMPAIGN_NODE_NOT_ELIGIBLE", { campaignId: campaign.campaignId, nodeId });
+    for (const nodeId of campaign.selectedNodeIds) add(errors, !isCampaignCandidate(byId.get(nodeId), { nodes: catalog.nodes, dependencies: catalog.dependencyRegistry }), "CAMPAIGN_NODE_NOT_ELIGIBLE", { campaignId: campaign.campaignId, nodeId });
   }
-  for (const node of catalog.nodes.filter(isCampaignCandidate)) add(errors, !selected.includes(node.nodeId), "ELIGIBLE_NODE_MISSING_FROM_CAMPAIGN", { nodeId: node.nodeId });
+  for (const node of catalog.nodes.filter((item) => isCampaignCandidate(item, { nodes: catalog.nodes, dependencies: catalog.dependencyRegistry }))) add(errors, !selected.includes(node.nodeId), "ELIGIBLE_NODE_MISSING_FROM_CAMPAIGN", { nodeId: node.nodeId });
   return Object.freeze({ valid: errors.length === 0, errors: Object.freeze(errors), campaigns: catalog.campaigns.length, selectedNodes: selected.length });
 };
 
@@ -138,18 +146,25 @@ export const validateScientificKnowledgeCatalog = ({ catalog = scientificKnowled
   const graph = validateKnowledgeCatalogGraph(catalog.nodes);
   const contracts = validateNodeContracts(catalog.nodes);
   const campaigns = validateCampaigns(catalog);
+  const dependencies = validateCampaignDependencies({ nodes: catalog.nodes, dependencies: catalog.dependencyRegistry ?? [] });
+  const integrity = validateCatalogReadinessIntegrity({ catalog, registry: createAuthoritativeScientificRegistry() });
   const campaignExecution = validateAutomaticScientificCampaign({ root, inspectGit: false });
   const errors = [
     ...graph.errors.map((error) => ({ layer: "graph", ...error })),
     ...contracts.errors.map((error) => ({ layer: "contracts", ...error })),
     ...campaigns.errors.map((error) => ({ layer: "campaigns", ...error })),
+    ...dependencies.errors.map((error) => ({ layer: "dependencies", ...error })),
+    ...integrity.errors.map((error) => ({ layer: "readinessIntegrity", ...error })),
     ...campaignExecution.errors.map((error) => ({ layer: "campaignExecution", ...error })),
   ];
-  add(errors, catalog.sourceBaselines.historicalConcepts !== 118 || catalog.sourceBaselines.p4rConcepts !== 42 || catalog.sourceBaselines.p5Concepts !== 60, "SOURCE_BASELINE_COUNT_CHANGED", { layer: "baseline" });
-  add(errors, catalog.nodes.length !== 235 + campaignExecution.counts.concepts || catalog.summary.concepts !== 220 + campaignExecution.counts.concepts || catalog.summary.domains !== 15, "CATALOG_INVENTORY_COUNT_CHANGED", { layer: "baseline" });
+  const { digest: suppliedDigest, ...catalogMaterial } = catalog;
+  add(errors, suppliedDigest !== sha256Digest(catalogMaterial), "CATALOG_DIGEST_MISMATCH", { layer: "integrity" });
+  add(errors, catalog.sourceBaselines.historicalConcepts < 118 || catalog.sourceBaselines.p4rConcepts < 42 || catalog.sourceBaselines.p5Concepts < 60, "SOURCE_BASELINE_LOST", { layer: "baseline" });
+  add(errors, p7ScientificKnowledgeCatalog.nodes.some((legacyNode) => !catalog.nodes.some((node) => node.nodeId === legacyNode.nodeId)), "P7_KNOWLEDGE_NODE_LOST", { layer: "baseline" });
+  add(errors, catalog.summary.knowledgeNodes !== catalog.nodes.length || catalog.summary.concepts !== catalog.nodes.filter((node) => node.nodeType !== "Domain").length || catalog.summary.domains !== catalog.nodes.filter((node) => node.nodeType === "Domain").length, "CATALOG_INVENTORY_SUMMARY_INVALID", { layer: "baseline" });
   add(errors, catalog.summary.graphCyclic || graph.depth.maxDepth !== catalog.summary.maxDepth, "CATALOG_GRAPH_SUMMARY_INVALID", { layer: "summary" });
   add(errors, stableStringify(catalog.scope, 0) !== stableStringify(KNOWLEDGE_CATALOG_SCOPE, 0), "CATALOG_SCOPE_CHANGED", { layer: "scope" });
-  add(errors, catalog.contracts.knowledgeStoredInCatalog || !catalog.contracts.scientificKnowledgeGraphMutated || catalog.contracts.assertionsCreated !== campaignExecution.counts.assertions, "SCIENTIFIC_KNOWLEDGE_SCOPE_VIOLATION", { layer: "scope" });
+  add(errors, catalog.contracts.knowledgeStoredInCatalog || !catalog.contracts.scientificKnowledgeGraphMutated || catalog.contracts.assertionsCreated < campaignExecution.counts.assertions, "SCIENTIFIC_KNOWLEDGE_SCOPE_VIOLATION", { layer: "scope" });
   add(errors, catalog.contracts.publicPagesCreated !== 0 || catalog.contracts.seoArtifactsCreated !== 0 || catalog.contracts.routesCreated !== 0 || catalog.contracts.publicationAuthorized, "PUBLIC_SURFACE_SCOPE_VIOLATION", { layer: "scope" });
   add(errors, catalog.nodes.some((node) => node.status === "PUBLISHED" || node.metrics.publicPageCount > 0), "CATALOG_PUBLICATION_DETECTED", { layer: "scope" });
   if (verifyDeterminism) add(errors, stableStringify(createScientificKnowledgeCatalog(), 0) !== stableStringify(catalog, 0), "CATALOG_NON_DETERMINISTIC", { layer: "determinism" });
@@ -162,7 +177,7 @@ export const validateScientificKnowledgeCatalog = ({ catalog = scientificKnowled
     valid: errors.length === 0,
     version: "P7_CATALOG_DRIVEN_SCIENTIFIC_ENRICHMENT",
     errors: Object.freeze(errors),
-    layers: Object.freeze({ graph, contracts, campaigns, campaignExecution: Object.freeze({ valid: campaignExecution.valid, counts: campaignExecution.counts }), p5Baseline: Object.freeze({ valid: p5.valid, counts: p5.counts }) }),
+    layers: Object.freeze({ graph, contracts, campaigns, dependencies, readinessIntegrity: integrity, campaignExecution: Object.freeze({ valid: campaignExecution.valid, counts: campaignExecution.counts }), p5Baseline: Object.freeze({ valid: p5.valid, counts: p5.counts }) }),
     protectedSurfaces,
     counts: catalog.summary,
     statusSemantics: Object.freeze({ readyLike: READY_LIKE_STATUSES, terminal: TERMINAL_STATUSES }),

@@ -1,9 +1,9 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { createKnowledgeCatalogReport, renderKnowledgeCatalogMarkdownReport } from "../src/knowledge-graph/knowledge-catalog/report.mjs";
+import { createP7KnowledgeCatalogReport, renderKnowledgeCatalogMarkdownReport } from "../src/knowledge-graph/knowledge-catalog/report.mjs";
 
 const outputPath = resolve(process.cwd(), "docs/p7-scientific-knowledge-catalog-report.md");
-const report = createKnowledgeCatalogReport({ root: process.cwd(), inspectGit: false });
+const report = createP7KnowledgeCatalogReport({ root: process.cwd(), inspectGit: false });
 const content = renderKnowledgeCatalogMarkdownReport(report);
 if (process.argv.includes("--check")) {
   if (!existsSync(outputPath) || readFileSync(outputPath, "utf8") !== content) {
@@ -16,4 +16,3 @@ if (process.argv.includes("--check")) {
   writeFileSync(outputPath, content, "utf8");
   console.log(`Generated ${outputPath}`);
 }
-

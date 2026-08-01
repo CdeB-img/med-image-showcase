@@ -1,0 +1,267 @@
+{
+  "auditId": "NOXIA_P8_SCIENTIFIC_PLATFORM_INDUSTRIAL_AUDIT",
+  "auditDate": "2026-08-01",
+  "scope": "TECHNICAL_SYSTEM_BEHAVIOR_ONLY",
+  "gitBaseline": {
+    "branch": "main",
+    "head": "eb611004a0024c0545ad474647839d0e819863d3",
+    "worktreeInitiallyClean": true,
+    "diffCheckInitiallyValid": true
+  },
+  "p7Replay": {
+    "runs": 20,
+    "allComparedFieldsStable": true,
+    "catalogDigest": "0499f51a39b19633e539ec5c2711a8897c9e4a0beaef1aa3a1993309b7fb8162",
+    "traceDigest": "9536482b01c5fd5eca4c64c8495d9a81769c0c45bbe466deb6028deca2531d3c",
+    "selectionDigest": "c96e0838e0ccbcd7f28bafee9e0c470c9fb637327c9883d5f66d3f167c8867b1",
+    "campaignResultDigest": "0cc9b5a25e5d09cff0f8610611e1d8ee73669e236f778032b7742263f6f50a60",
+    "transitionDigest": "952b22baacad33e84034c7a1bf54b68a8e407b82df83ad7d0239a051236e2d27",
+    "campaignOrderDigest": "7ec978156f00c56fda6b5ab946c10d254097817dd36645b1979c8728e328584e",
+    "sourceDigest": "8d159c8e95fb0d06d98ed0c9f6fb670a8665e6d860c08a0daf24b127f52c270e",
+    "assertionDigest": "ac75dfc1c0e723655ccf1316a23f69cc342ee497db2137b72b9d1cebc03df416",
+    "evidenceDigest": "7a4dacde31523ef5b8992b8f179978dc9f62b79ccc57a465deaf57e9c52c0d62",
+    "synthesisDigest": "532f3cce9b78e25bba8c1483533d91598070f812b97b35b99fc18e0fc1200d69",
+    "projectionDigest": "cd21c4afb2d23d32d68b6b8a66ce4789747050ef3e5a4242e73c6c007ac529f4",
+    "coverageDigest": "4c511c26033ebb05a5d329a15ab250e988748076096fd6f0f96987a6f4a9bf6a",
+    "readinessDigest": "5bd9d49ba2f8e721fb1d44d8e5b3fa23ca40c21ff424577785777dd80b5c4a95",
+    "sources": 5,
+    "assertions": 22,
+    "evidenceLinks": 22,
+    "syntheses": 5,
+    "internalProjections": 4,
+    "limitation": "The replay validates frozen local representations. All five P7 source records have contentDigest=null, so remote source bytes are not replayed or revalidated."
+  },
+  "catalogBaseline": {
+    "knowledgeNodes": 250,
+    "domains": 15,
+    "sourcesReported": 92,
+    "scientificSourceRecordsLoaded": 70,
+    "assertions": 177,
+    "evidenceLinks": 214,
+    "syntheses": 27,
+    "internalProjections": 24,
+    "plannedCampaigns": 9,
+    "dependencyEdges": 0,
+    "catalogJsonBytes": 2796481,
+    "catalogJsonMiB": 2.667,
+    "catalogJsonBytesPerNode": 11185.9
+  },
+  "scaleSimulation": [
+    {
+      "domains": 100,
+      "campaigns": 100,
+      "nodeRecalculationMs": 1.238,
+      "campaignSelectionMedianMs": 0.119,
+      "graphValidationMedianMs": 0.428,
+      "observedHeapDeltaMiB": 7.39,
+      "syntheticJsonMiB": 0.556,
+      "stableAcrossInputOrder": true
+    },
+    {
+      "domains": 500,
+      "campaigns": 500,
+      "nodeRecalculationMs": 5.192,
+      "campaignSelectionMedianMs": 0.366,
+      "graphValidationMedianMs": 3.121,
+      "observedHeapDeltaMiB": 6.149,
+      "syntheticJsonMiB": 2.782,
+      "stableAcrossInputOrder": true
+    },
+    {
+      "domains": 1000,
+      "campaigns": 1000,
+      "nodeRecalculationMs": 9.845,
+      "campaignSelectionMedianMs": 0.746,
+      "graphValidationMedianMs": 3.906,
+      "observedHeapDeltaMiB": 15.991,
+      "syntheticJsonMiB": 5.564,
+      "stableAcrossInputOrder": true
+    },
+    {
+      "domains": 5000,
+      "campaigns": 5000,
+      "nodeRecalculationMs": 42.179,
+      "campaignSelectionMedianMs": 4.825,
+      "graphValidationMedianMs": 184.592,
+      "observedHeapDeltaMiB": 52.04,
+      "syntheticJsonMiB": 27.831,
+      "stableAcrossInputOrder": true
+    }
+  ],
+  "serializationSimulation": [
+    {
+      "nodes": 100,
+      "stableStringifyMs": 4.664,
+      "digestMs": 4.209,
+      "jsonMiB": 0.557
+    },
+    {
+      "nodes": 500,
+      "stableStringifyMs": 16.434,
+      "digestMs": 19.944,
+      "jsonMiB": 2.786
+    },
+    {
+      "nodes": 1000,
+      "stableStringifyMs": 34.333,
+      "digestMs": 36.506,
+      "jsonMiB": 5.573
+    },
+    {
+      "nodes": 5000,
+      "stableStringifyMs": 169.499,
+      "digestMs": 175.611,
+      "jsonMiB": 27.874
+    }
+  ],
+  "currentCatalogRebuildMs": {
+    "runs": 10,
+    "median": 18.273,
+    "values": [19.931, 18.211, 18.786, 18.126, 18.834, 18.119, 18.29, 17.459, 18.273, 17.841]
+  },
+  "priorityAudit": {
+    "eligibleNodes": 9,
+    "nextCampaignByCurrentOrder": "noxia:scientific-campaign:neuro-oncology:01",
+    "nextCampaignPriorityScore": 68,
+    "highestPriorityScore": 70,
+    "highestPriorityCampaigns": [
+      "noxia:scientific-campaign:segmentation:01",
+      "noxia:scientific-campaign:t2-mapping:01"
+    ],
+    "priorityInversions": 23,
+    "maximumPairwiseInversions": 36,
+    "orderingRuleObserved": "GROUP_ID_LEXICOGRAPHIC_THEN_SCORE_WITHIN_GROUP",
+    "globalPriorityOrdering": false,
+    "nodesPriorityNotHigh": 189,
+    "nonHighIncompleteNonTerminalNodes": 155,
+    "bothSourceAndAssertionGapsButNonHigh": 105,
+    "projectedIncompleteNodes": 52,
+    "projectedWithSourceGap": 38,
+    "projectedWithAssertionGap": 39,
+    "highReadyLikeIncompleteNodes": 4
+  },
+  "candidateRuleAudit": {
+    "sourceCompleteAssertionMissingSelected": false,
+    "sourceMissingAssertionCompleteSelected": false,
+    "blockedNodeSelected": true,
+    "usesBothGapsAsMandatory": true,
+    "dependenciesUsedBySelection": false
+  },
+  "campaignIdentityAudit": {
+    "identityMaterial": "GROUP_SLUG_AND_BATCH_ORDINAL_ONLY",
+    "sameCampaignIdAfterNodeSetChange": true,
+    "sameNodeSet": false,
+    "executionLookupUsesCampaignIdOnly": true,
+    "newNodeCanBeSkippedAfterBatchDrift": true
+  },
+  "governanceAudit": {
+    "enforcementCallSitesOutsideTests": 0,
+    "blockedNodeAuthorizedForEnrichment": true,
+    "unknownOperationAuthorizedAsEnrichment": true,
+    "injectedCatalogDigestRespected": false,
+    "authorizationChecksCampaignMembership": false,
+    "authorizationChecksPriority": false,
+    "authorizationChecksCoverage": false,
+    "authorizationChecksDependencies": false,
+    "authorizationChecksBlockingNodes": false
+  },
+  "robustnessMutationTests": [
+    {
+      "scenario": "SOURCE_REFERENCE_REMOVED_FROM_CATALOG_NODE",
+      "detected": false,
+      "validatorErrors": []
+    },
+    {
+      "scenario": "ASSERTION_REFERENCE_REMOVED_FROM_CATALOG_NODE",
+      "detected": false,
+      "validatorErrors": []
+    },
+    {
+      "scenario": "INVALID_EVIDENCE_REFERENCE_IN_CATALOG_NODE",
+      "detected": false,
+      "validatorErrors": []
+    },
+    {
+      "scenario": "KNOWLEDGE_NODE_REQUIRED_DESCRIPTION_REMOVED",
+      "detected": true,
+      "validatorErrors": [
+        "KNOWLEDGE_NODE_REQUIRED_FIELD_MISSING",
+        "KNOWLEDGE_NODE_PROJECTION_NON_DETERMINISTIC"
+      ]
+    },
+    {
+      "scenario": "READY_WITHOUT_SOURCES",
+      "detected": false,
+      "validatorErrors": []
+    },
+    {
+      "scenario": "READY_WITHOUT_ASSERTIONS",
+      "detected": false,
+      "validatorErrors": []
+    },
+    {
+      "scenario": "READY_WITH_ZERO_COVERAGE",
+      "detected": false,
+      "validatorErrors": []
+    }
+  ],
+  "cycleMutationTests": {
+    "dependencyCycleDetected": true,
+    "prerequisiteCycleDetected": false,
+    "blockingNodeCycleDetected": false,
+    "successorCycleDetected": false
+  },
+  "provenanceSemantics": {
+    "nodesWithMoreSourceRefsThanResolvedScientificSources": 118,
+    "nodesWithOnlyNonScientificSourceRefs": 114,
+    "provenanceReadyUsingOnlyNonScientificRefs": 114,
+    "sourceCoverageCompleteUsingOnlyNonScientificRefs": 22,
+    "coverageUsesSourceCountInsteadOfScientificSourceCount": true
+  },
+  "evidenceLookupSimulation": [
+    {
+      "evidenceLinks": 1000,
+      "linearFindMs": 3.084,
+      "mapLookupMs": 0.14
+    },
+    {
+      "evidenceLinks": 5000,
+      "linearFindMs": 71.553,
+      "mapLookupMs": 0.543
+    },
+    {
+      "evidenceLinks": 10000,
+      "linearFindMs": 178.447,
+      "mapLookupMs": 0.961
+    }
+  ],
+  "extensibilityAudit": {
+    "genericNodeTypesAlreadySupported": {
+      "Modality": true,
+      "Manufacturer": true,
+      "Technology": true,
+      "Biomarker": true,
+      "Specialty": false
+    },
+    "domainCanRepresentSpecialtyWithoutNewClass": true,
+    "genericCampaignRegistrationAvailable": false,
+    "genericCampaignExecutionAvailable": false,
+    "futureCampaignRequiresCatalogBuilderModification": true,
+    "futureCampaignRequiresValidatorModification": true
+  },
+  "validatorRun": {
+    "commands": 23,
+    "passed": 23,
+    "failed": 0,
+    "totalDurationMs": 4245.9,
+    "largestOutputsByLines": {
+      "validate:scientific-knowledge-graph": 7941,
+      "validate:knowledge-graph-completeness": 7071,
+      "validate:knowledge-graph-provenance": 442
+    },
+    "falseNegativeMutationScenarios": 6,
+    "futureEvolutionFalsePositiveRisk": true,
+    "reason": "P7 validators and catalog baselines hard-code one execution and exact P7 inventory counts."
+  },
+  "decision": "INTERVENTION TECHNIQUE REQUISE"
+}
