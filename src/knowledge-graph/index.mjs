@@ -120,3 +120,7 @@ export * from "./scientific-multidomain/generality.mjs";
 export * from "./scientific-multidomain/validate.mjs";
 export * from "./scientific-multidomain/report.mjs";
 export * from "./knowledge-catalog/index.mjs";
+export * from "./scientific-campaigns/hepatic-imaging.mjs";
+export * from "./scientific-campaigns/execution.mjs";
+export * from "./scientific-campaigns/validate.mjs";
+export * from "./scientific-campaigns/report.mjs";

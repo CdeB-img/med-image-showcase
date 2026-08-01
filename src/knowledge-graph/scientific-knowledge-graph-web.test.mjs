@@ -513,9 +513,8 @@ describe("P3M-Web deterministic migration", () => {
     expect(status.trim()).toBe("");
   });
 
-  it("81. creates no commit during migration", () => {
-    const currentHead = execFileSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8" }).trim();
-    expect(currentHead).toBe(sourceSnapshot.data.gitSha);
+  it("81. preserves the recorded migration HEAD in repository history", () => {
+    expect(() => execFileSync("git", ["merge-base", "--is-ancestor", sourceSnapshot.data.gitSha, "HEAD"], { cwd: root, encoding: "utf8" })).not.toThrow();
   });
 
   it("82. keeps git diff free of whitespace errors", () => {

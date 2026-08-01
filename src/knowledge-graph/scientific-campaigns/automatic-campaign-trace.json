@@ -1,0 +1,852 @@
+{
+  "after": {
+    "catalogDigest": "0499f51a39b19633e539ec5c2711a8897c9e4a0beaef1aa3a1993309b7fb8162",
+    "catalogId": "noxia:scientific-knowledge-catalog",
+    "catalogVersion": "1.1.0",
+    "nextCampaignStarted": false,
+    "node": {
+      "assertionCoverage": {
+        "count": 22,
+        "evidenceLinkCount": 22,
+        "level": "COMPLETE",
+        "localizedEvidenceLinkCount": 22,
+        "ratio": 1,
+        "target": 12
+      },
+      "blockingNodes": [],
+      "coverage": {
+        "calculation": "MEAN_OF_SCIENTIFIC_EDITORIAL_AND_PROJECTION_DIMENSIONS",
+        "complete": true,
+        "level": "HIGH",
+        "ratio": 0.8148
+      },
+      "metrics": {
+        "abstractOnlySourceCount": 0,
+        "assertionCount": 22,
+        "childCount": 17,
+        "contradictionCount": 2,
+        "evidenceLinkCount": 22,
+        "fullTextSourceCount": 5,
+        "localizedEvidenceLinkCount": 22,
+        "openQuestionCount": 8,
+        "parentCount": 0,
+        "potentialPageCount": 8,
+        "potentialProjectionCount": 9,
+        "projectionCount": 4,
+        "publicPageCount": 0,
+        "relatedCount": 0,
+        "scientificSourceCount": 5,
+        "sourceCount": 5,
+        "synthesisCount": 5
+      },
+      "nodeId": "noxia:knowledge-catalog:domain:hepatic-imaging",
+      "priority": {
+        "components": {
+          "assertionRichness": 1,
+          "documentaryAvailability": 0.9,
+          "editorialValue": 0.9,
+          "linkingPotential": 1,
+          "projectionPotential": 0.9,
+          "scientificValue": 0.9,
+          "userInterest": 0.94
+        },
+        "engineVersion": "1.0.0",
+        "level": "HIGH",
+        "manualOverride": false,
+        "score": 93,
+        "userInterestBasis": "P5_EXPLICIT_ROADMAP_SIGNAL",
+        "weights": {
+          "assertionRichness": 0.1,
+          "documentaryAvailability": 0.15,
+          "editorialValue": 0.18,
+          "linkingPotential": 0.12,
+          "projectionPotential": 0.1,
+          "scientificValue": 0.2,
+          "userInterest": 0.15
+        }
+      },
+      "projectionCapabilities": {
+        "available": [
+          "Glossary",
+          "Guide",
+          "FAQ",
+          "Comparison",
+          "StateOfKnowledge",
+          "ScientificSummary",
+          "Reference",
+          "Documentation",
+          "API"
+        ],
+        "blocked": [],
+        "estimatedPageCount": 8,
+        "estimatedProjectionCount": 9,
+        "evaluations": [
+          {
+            "blockers": [],
+            "capability": "Glossary",
+            "eligible": true,
+            "potential": true
+          },
+          {
+            "blockers": [],
+            "capability": "Guide",
+            "eligible": true,
+            "potential": true
+          },
+          {
+            "blockers": [],
+            "capability": "FAQ",
+            "eligible": true,
+            "potential": true
+          },
+          {
+            "blockers": [],
+            "capability": "Comparison",
+            "eligible": true,
+            "potential": true
+          },
+          {
+            "blockers": [],
+            "capability": "StateOfKnowledge",
+            "eligible": true,
+            "potential": true
+          },
+          {
+            "blockers": [],
+            "capability": "ScientificSummary",
+            "eligible": true,
+            "potential": true
+          },
+          {
+            "blockers": [
+              "NODE_TYPE_NOT_APPLICABLE"
+            ],
+            "capability": "Tutorial",
+            "eligible": false,
+            "potential": false
+          },
+          {
+            "blockers": [],
+            "capability": "Reference",
+            "eligible": true,
+            "potential": true
+          },
+          {
+            "blockers": [
+              "NODE_TYPE_NOT_APPLICABLE"
+            ],
+            "capability": "CaseStudy",
+            "eligible": false,
+            "potential": false
+          },
+          {
+            "blockers": [
+              "NODE_TYPE_NOT_APPLICABLE"
+            ],
+            "capability": "DecisionTree",
+            "eligible": false,
+            "potential": false
+          },
+          {
+            "blockers": [
+              "NODE_TYPE_NOT_APPLICABLE"
+            ],
+            "capability": "ProtocolDocumentation",
+            "eligible": false,
+            "potential": false
+          },
+          {
+            "blockers": [
+              "NODE_TYPE_NOT_APPLICABLE"
+            ],
+            "capability": "ViewerOverlay",
+            "eligible": false,
+            "potential": false
+          },
+          {
+            "blockers": [],
+            "capability": "Documentation",
+            "eligible": true,
+            "potential": true
+          },
+          {
+            "blockers": [],
+            "capability": "API",
+            "eligible": true,
+            "potential": true
+          }
+        ],
+        "potential": [
+          "Glossary",
+          "Guide",
+          "FAQ",
+          "Comparison",
+          "StateOfKnowledge",
+          "ScientificSummary",
+          "Reference",
+          "Documentation",
+          "API"
+        ],
+        "publicArtifactsCreated": 0,
+        "virtualOnly": true
+      },
+      "projectionCoverage": {
+        "actual": 4,
+        "estimatedPages": 8,
+        "level": "PARTIAL",
+        "potential": 9,
+        "ratio": 0.4444
+      },
+      "readiness": {
+        "catalogReady": {
+          "blockers": [],
+          "justification": "The KnowledgeNode contract, identity and graph endpoints are complete.",
+          "ready": true,
+          "warnings": []
+        },
+        "coverageComplete": true,
+        "editorialProjectionReady": {
+          "blockers": [],
+          "justification": "At least one guarded internal projection includes this node.",
+          "ready": true,
+          "warnings": []
+        },
+        "provenanceReady": {
+          "blockers": [],
+          "justification": "Sources are explicitly referenced and scientific assertions retain localized evidence.",
+          "ready": true,
+          "warnings": []
+        },
+        "publicPublicationReady": {
+          "blockers": [
+            "PUBLICATION_OUT_OF_SCOPE",
+            "NO_PUBLIC_CONTENT",
+            "NO_ROUTE",
+            "NO_CANONICAL"
+          ],
+          "justification": "P6 is an internal planning layer and creates no public content or route.",
+          "ready": false,
+          "warnings": []
+        },
+        "scientificReady": {
+          "blockers": [],
+          "justification": "Atomic assertions are connected to localized EvidenceLinks.",
+          "ready": true,
+          "warnings": []
+        },
+        "seoReady": {
+          "blockers": [
+            "NO_SEO_ARTIFACT"
+          ],
+          "justification": "The catalogue creates no SEO artifact.",
+          "ready": false,
+          "warnings": []
+        },
+        "synthesisReady": {
+          "blockers": [],
+          "justification": "At least one deterministic structured synthesis includes this node.",
+          "ready": true,
+          "warnings": []
+        }
+      },
+      "scientificCoverage": {
+        "assertionRatio": 1,
+        "contradictionsPreserved": 2,
+        "level": "COMPLETE",
+        "localizedEvidenceRatio": 1,
+        "openQuestionsPreserved": 8,
+        "ratio": 1,
+        "sourceRatio": 1
+      },
+      "sourceCoverage": {
+        "abstractOnlySourceCount": 0,
+        "count": 5,
+        "fullTextSourceCount": 5,
+        "level": "COMPLETE",
+        "ratio": 1,
+        "scientificSourceCount": 5,
+        "target": 5
+      },
+      "status": "PROJECTED"
+    },
+    "remainingCampaigns": 9,
+    "stopReason": "CAMPAIGN_COVERAGE_CRITERIA_REACHED_WITH_EXPLICIT_NON_BLOCKING_GAPS"
+  },
+  "before": {
+    "availableCampaigns": 10,
+    "catalogDigest": "503cd942c65888a4dd684f4cae8445940869152f7ce9fbdecab37f2e13e38bb5",
+    "catalogId": "noxia:scientific-knowledge-catalog",
+    "catalogVersion": "1.0.0",
+    "node": {
+      "assertionCoverage": {
+        "count": 0,
+        "evidenceLinkCount": 0,
+        "level": "NONE",
+        "localizedEvidenceLinkCount": 0,
+        "ratio": 0,
+        "target": 12
+      },
+      "blockingNodes": [],
+      "coverage": {
+        "calculation": "MEAN_OF_SCIENTIFIC_EDITORIAL_AND_PROJECTION_DIMENSIONS",
+        "complete": false,
+        "level": "NONE",
+        "ratio": 0
+      },
+      "metrics": {
+        "abstractOnlySourceCount": 0,
+        "assertionCount": 0,
+        "childCount": 0,
+        "contradictionCount": 0,
+        "evidenceLinkCount": 0,
+        "fullTextSourceCount": 0,
+        "localizedEvidenceLinkCount": 0,
+        "openQuestionCount": 0,
+        "parentCount": 0,
+        "potentialPageCount": 0,
+        "potentialProjectionCount": 1,
+        "projectionCount": 0,
+        "publicPageCount": 0,
+        "relatedCount": 0,
+        "scientificSourceCount": 0,
+        "sourceCount": 0,
+        "synthesisCount": 0
+      },
+      "nodeId": "noxia:knowledge-catalog:domain:hepatic-imaging",
+      "priority": {
+        "components": {
+          "assertionRichness": 0,
+          "documentaryAvailability": 0.9,
+          "editorialValue": 0.9,
+          "linkingPotential": 0,
+          "projectionPotential": 0.9,
+          "scientificValue": 0.9,
+          "userInterest": 0.74
+        },
+        "engineVersion": "1.0.0",
+        "level": "HIGH",
+        "manualOverride": false,
+        "score": 68,
+        "userInterestBasis": "P5_EXPLICIT_ROADMAP_SIGNAL",
+        "weights": {
+          "assertionRichness": 0.1,
+          "documentaryAvailability": 0.15,
+          "editorialValue": 0.18,
+          "linkingPotential": 0.12,
+          "projectionPotential": 0.1,
+          "scientificValue": 0.2,
+          "userInterest": 0.15
+        }
+      },
+      "projectionCapabilities": {
+        "available": [
+          "API"
+        ],
+        "blocked": [
+          {
+            "blockers": [
+              "NO_SOURCE"
+            ],
+            "capability": "Glossary"
+          },
+          {
+            "blockers": [
+              "NO_SOURCE"
+            ],
+            "capability": "Guide"
+          },
+          {
+            "blockers": [
+              "NO_SOURCE",
+              "NO_ASSERTION"
+            ],
+            "capability": "FAQ"
+          },
+          {
+            "blockers": [
+              "NO_SOURCE",
+              "NO_COMPARABLE_RELATION"
+            ],
+            "capability": "Comparison"
+          },
+          {
+            "blockers": [
+              "NO_SOURCE",
+              "NO_SYNTHESIS"
+            ],
+            "capability": "StateOfKnowledge"
+          },
+          {
+            "blockers": [
+              "NO_SOURCE",
+              "NO_ASSERTION"
+            ],
+            "capability": "ScientificSummary"
+          },
+          {
+            "blockers": [
+              "NO_SOURCE"
+            ],
+            "capability": "Reference"
+          },
+          {
+            "blockers": [
+              "NO_SOURCE"
+            ],
+            "capability": "Documentation"
+          }
+        ],
+        "estimatedPageCount": 0,
+        "estimatedProjectionCount": 1,
+        "evaluations": [
+          {
+            "blockers": [
+              "NO_SOURCE"
+            ],
+            "capability": "Glossary",
+            "eligible": false,
+            "potential": true
+          },
+          {
+            "blockers": [
+              "NO_SOURCE"
+            ],
+            "capability": "Guide",
+            "eligible": false,
+            "potential": true
+          },
+          {
+            "blockers": [
+              "NO_SOURCE",
+              "NO_ASSERTION"
+            ],
+            "capability": "FAQ",
+            "eligible": false,
+            "potential": true
+          },
+          {
+            "blockers": [
+              "NO_SOURCE",
+              "NO_COMPARABLE_RELATION"
+            ],
+            "capability": "Comparison",
+            "eligible": false,
+            "potential": true
+          },
+          {
+            "blockers": [
+              "NO_SOURCE",
+              "NO_SYNTHESIS"
+            ],
+            "capability": "StateOfKnowledge",
+            "eligible": false,
+            "potential": true
+          },
+          {
+            "blockers": [
+              "NO_SOURCE",
+              "NO_ASSERTION"
+            ],
+            "capability": "ScientificSummary",
+            "eligible": false,
+            "potential": true
+          },
+          {
+            "blockers": [
+              "NODE_TYPE_NOT_APPLICABLE"
+            ],
+            "capability": "Tutorial",
+            "eligible": false,
+            "potential": false
+          },
+          {
+            "blockers": [
+              "NO_SOURCE"
+            ],
+            "capability": "Reference",
+            "eligible": false,
+            "potential": true
+          },
+          {
+            "blockers": [
+              "NODE_TYPE_NOT_APPLICABLE"
+            ],
+            "capability": "CaseStudy",
+            "eligible": false,
+            "potential": false
+          },
+          {
+            "blockers": [
+              "NODE_TYPE_NOT_APPLICABLE"
+            ],
+            "capability": "DecisionTree",
+            "eligible": false,
+            "potential": false
+          },
+          {
+            "blockers": [
+              "NODE_TYPE_NOT_APPLICABLE"
+            ],
+            "capability": "ProtocolDocumentation",
+            "eligible": false,
+            "potential": false
+          },
+          {
+            "blockers": [
+              "NODE_TYPE_NOT_APPLICABLE"
+            ],
+            "capability": "ViewerOverlay",
+            "eligible": false,
+            "potential": false
+          },
+          {
+            "blockers": [
+              "NO_SOURCE"
+            ],
+            "capability": "Documentation",
+            "eligible": false,
+            "potential": true
+          },
+          {
+            "blockers": [],
+            "capability": "API",
+            "eligible": true,
+            "potential": true
+          }
+        ],
+        "potential": [
+          "Glossary",
+          "Guide",
+          "FAQ",
+          "Comparison",
+          "StateOfKnowledge",
+          "ScientificSummary",
+          "Reference",
+          "Documentation",
+          "API"
+        ],
+        "publicArtifactsCreated": 0,
+        "virtualOnly": true
+      },
+      "projectionCoverage": {
+        "actual": 0,
+        "estimatedPages": 0,
+        "level": "NONE",
+        "potential": 1,
+        "ratio": 0
+      },
+      "readiness": {
+        "catalogReady": {
+          "blockers": [],
+          "justification": "The KnowledgeNode contract, identity and graph endpoints are complete.",
+          "ready": true,
+          "warnings": []
+        },
+        "coverageComplete": false,
+        "editorialProjectionReady": {
+          "blockers": [
+            "NO_INTERNAL_PROJECTION"
+          ],
+          "justification": "Only virtual projection capabilities are available.",
+          "ready": false,
+          "warnings": []
+        },
+        "provenanceReady": {
+          "blockers": [
+            "NO_SOURCE"
+          ],
+          "justification": "No source is currently attached.",
+          "ready": false,
+          "warnings": []
+        },
+        "publicPublicationReady": {
+          "blockers": [
+            "PUBLICATION_OUT_OF_SCOPE",
+            "NO_PUBLIC_CONTENT",
+            "NO_ROUTE",
+            "NO_CANONICAL"
+          ],
+          "justification": "P6 is an internal planning layer and creates no public content or route.",
+          "ready": false,
+          "warnings": []
+        },
+        "scientificReady": {
+          "blockers": [
+            "NO_SCIENTIFIC_ASSERTION"
+          ],
+          "justification": "No scientific assertion corpus is available for this node.",
+          "ready": false,
+          "warnings": []
+        },
+        "seoReady": {
+          "blockers": [
+            "NO_SEO_ARTIFACT"
+          ],
+          "justification": "The catalogue creates no SEO artifact.",
+          "ready": false,
+          "warnings": []
+        },
+        "synthesisReady": {
+          "blockers": [
+            "NO_SYNTHESIS"
+          ],
+          "justification": "No deterministic synthesis includes this node.",
+          "ready": false,
+          "warnings": []
+        }
+      },
+      "scientificCoverage": {
+        "assertionRatio": 0,
+        "contradictionsPreserved": 0,
+        "level": "NONE",
+        "localizedEvidenceRatio": 0,
+        "openQuestionsPreserved": 0,
+        "ratio": 0,
+        "sourceRatio": 0
+      },
+      "sourceCoverage": {
+        "abstractOnlySourceCount": 0,
+        "count": 0,
+        "fullTextSourceCount": 0,
+        "level": "NONE",
+        "ratio": 0,
+        "scientificSourceCount": 0,
+        "target": 5
+      },
+      "status": "DISCOVERING"
+    }
+  },
+  "digests": {
+    "afterCatalog": "0499f51a39b19633e539ec5c2711a8897c9e4a0beaef1aa3a1993309b7fb8162",
+    "beforeCatalog": "503cd942c65888a4dd684f4cae8445940869152f7ce9fbdecab37f2e13e38bb5",
+    "campaignResult": "0cc9b5a25e5d09cff0f8610611e1d8ee73669e236f778032b7742263f6f50a60",
+    "selection": "c96e0838e0ccbcd7f28bafee9e0c470c9fb637327c9883d5f66d3f167c8867b1",
+    "transition": "952b22baacad33e84034c7a1bf54b68a8e407b82df83ad7d0239a051236e2d27"
+  },
+  "execution": {
+    "additions": {
+      "assertions": 22,
+      "concepts": 15,
+      "contexts": 22,
+      "evidenceLinks": 22,
+      "internalProjections": 4,
+      "sources": 5,
+      "syntheses": 5
+    },
+    "assertionsAdded": [
+      "noxia:radiology:scientific-assertion:campaign:hepatic-imaging:iron-both-field-strengths-accepted:revision:1",
+      "noxia:radiology:scientific-assertion:campaign:hepatic-imaging:iron-fat-confounds-uncorrected:revision:1",
+      "noxia:radiology:scientific-assertion:campaign:hepatic-imaging:iron-r2star-preferred-first-line:revision:1",
+      "noxia:radiology:scientific-assertion:campaign:hepatic-imaging:iron-severe-overload-prefers-1-5t:revision:1",
+      "noxia:radiology:scientific-assertion:campaign:hepatic-imaging:iron-three-method-families:revision:1",
+      "noxia:radiology:scientific-assertion:campaign:hepatic-imaging:lirads-does-not-endorse-single-modality:revision:1",
+      "noxia:radiology:scientific-assertion:campaign:hepatic-imaging:lirads-high-risk-population:revision:1",
+      "noxia:radiology:scientific-assertion:campaign:hepatic-imaging:lirads-standardizes-hcc-imaging:revision:1",
+      "noxia:radiology:scientific-assertion:campaign:hepatic-imaging:mre-cross-platform-reproducibility-open:revision:1",
+      "noxia:radiology:scientific-assertion:campaign:hepatic-imaging:mre-measures-shear-stiffness:revision:1",
+      "noxia:radiology:scientific-assertion:campaign:hepatic-imaging:mre-repeatability-22-percent:revision:1",
+      "noxia:radiology:scientific-assertion:campaign:hepatic-imaging:mre-repeatability-heterogeneity:revision:1",
+      "noxia:radiology:scientific-assertion:campaign:hepatic-imaging:multiphase-needed-for-lirads-features:revision:1",
+      "noxia:radiology:scientific-assertion:campaign:hepatic-imaging:observation-can-be-pseudolesion:revision:1",
+      "noxia:radiology:scientific-assertion:campaign:hepatic-imaging:pdff-definition:revision:1",
+      "noxia:radiology:scientific-assertion:campaign:hepatic-imaging:pdff-high-linearity:revision:1",
+      "noxia:radiology:scientific-assertion:campaign:hepatic-imaging:pdff-high-precision:revision:1",
+      "noxia:radiology:scientific-assertion:campaign:hepatic-imaging:pdff-intersite-heterogeneity-not-explicit:revision:1",
+      "noxia:radiology:scientific-assertion:campaign:hepatic-imaging:pdff-performance-minimal-technical-effects:revision:1",
+      "noxia:radiology:scientific-assertion:campaign:hepatic-imaging:pdff-requires-confounder-correction:revision:1",
+      "noxia:radiology:scientific-assertion:campaign:hepatic-imaging:pdff-small-bias:revision:1",
+      "noxia:radiology:scientific-assertion:campaign:hepatic-imaging:signal-fat-fraction-not-pdff:revision:1"
+    ],
+    "campaignId": "noxia:scientific-campaign:hepatic-imaging:01",
+    "completedAt": "2026-08-01T00:00:00.000Z",
+    "conceptsAdded": [
+      "noxia:radiology:scientific-concept:hepatic-imaging:chemical-shift-encoded-mri:revision:1",
+      "noxia:radiology:scientific-concept:hepatic-imaging:hepatic-observation:revision:1",
+      "noxia:radiology:scientific-concept:hepatic-imaging:hepatic-pdff:revision:1",
+      "noxia:radiology:scientific-concept:hepatic-imaging:hepatocellular-carcinoma:revision:1",
+      "noxia:radiology:scientific-concept:hepatic-imaging:li-rads:revision:1",
+      "noxia:radiology:scientific-concept:hepatic-imaging:liver:revision:1",
+      "noxia:radiology:scientific-concept:hepatic-imaging:liver-iron-concentration:revision:1",
+      "noxia:radiology:scientific-concept:hepatic-imaging:liver-mr-elastography:revision:1",
+      "noxia:radiology:scientific-concept:hepatic-imaging:liver-mre-repeatability:revision:1",
+      "noxia:radiology:scientific-concept:hepatic-imaging:liver-stiffness:revision:1",
+      "noxia:radiology:scientific-concept:hepatic-imaging:multiphase-hepatic-imaging:revision:1",
+      "noxia:radiology:scientific-concept:hepatic-imaging:r2-relaxometry:revision:1",
+      "noxia:radiology:scientific-concept:hepatic-imaging:r2-star-relaxometry:revision:1",
+      "noxia:radiology:scientific-concept:hepatic-imaging:signal-fat-fraction:revision:1",
+      "noxia:radiology:scientific-concept:hepatic-imaging:signal-intensity-ratio-iron:revision:1"
+    ],
+    "contextsAdded": [
+      "noxia:radiology:scientific-context:campaign:hepatic-imaging:iron-both-field-strengths-accepted",
+      "noxia:radiology:scientific-context:campaign:hepatic-imaging:iron-fat-confounds-uncorrected",
+      "noxia:radiology:scientific-context:campaign:hepatic-imaging:iron-r2star-preferred-first-line",
+      "noxia:radiology:scientific-context:campaign:hepatic-imaging:iron-severe-overload-prefers-1-5t",
+      "noxia:radiology:scientific-context:campaign:hepatic-imaging:iron-three-method-families",
+      "noxia:radiology:scientific-context:campaign:hepatic-imaging:lirads-does-not-endorse-single-modality",
+      "noxia:radiology:scientific-context:campaign:hepatic-imaging:lirads-high-risk-population",
+      "noxia:radiology:scientific-context:campaign:hepatic-imaging:lirads-standardizes-hcc-imaging",
+      "noxia:radiology:scientific-context:campaign:hepatic-imaging:mre-cross-platform-reproducibility-open",
+      "noxia:radiology:scientific-context:campaign:hepatic-imaging:mre-measures-shear-stiffness",
+      "noxia:radiology:scientific-context:campaign:hepatic-imaging:mre-repeatability-22-percent",
+      "noxia:radiology:scientific-context:campaign:hepatic-imaging:mre-repeatability-heterogeneity",
+      "noxia:radiology:scientific-context:campaign:hepatic-imaging:multiphase-needed-for-lirads-features",
+      "noxia:radiology:scientific-context:campaign:hepatic-imaging:observation-can-be-pseudolesion",
+      "noxia:radiology:scientific-context:campaign:hepatic-imaging:pdff-definition",
+      "noxia:radiology:scientific-context:campaign:hepatic-imaging:pdff-high-linearity",
+      "noxia:radiology:scientific-context:campaign:hepatic-imaging:pdff-high-precision",
+      "noxia:radiology:scientific-context:campaign:hepatic-imaging:pdff-intersite-heterogeneity-not-explicit",
+      "noxia:radiology:scientific-context:campaign:hepatic-imaging:pdff-performance-minimal-technical-effects",
+      "noxia:radiology:scientific-context:campaign:hepatic-imaging:pdff-requires-confounder-correction",
+      "noxia:radiology:scientific-context:campaign:hepatic-imaging:pdff-small-bias",
+      "noxia:radiology:scientific-context:campaign:hepatic-imaging:signal-fat-fraction-not-pdff"
+    ],
+    "contextualDifferencesPreserved": [
+      "noxia:radiology:context-difference:campaign:hepatic-imaging:iron-field-strength",
+      "noxia:radiology:context-difference:campaign:hepatic-imaging:pdff-signal-fraction"
+    ],
+    "decisions": [
+      "OFFICIAL_FULL_TEXT_ONLY_RETAINED",
+      "AUTHOR_POSITION_NOT_PROMOTED_TO_CONSENSUS",
+      "CONTEXT_DIFFERENCES_NOT_RESOLVED_AS_CONTRADICTIONS",
+      "NO_MANUFACTURER_OR_SOFTWARE_EFFECT_INFERRED",
+      "NO_PUBLIC_PROJECTION_CREATED"
+    ],
+    "evidenceLinksAdded": [
+      "noxia:radiology:evidence-link:campaign:hepatic-imaging:iron-both-field-strengths-accepted",
+      "noxia:radiology:evidence-link:campaign:hepatic-imaging:iron-fat-confounds-uncorrected",
+      "noxia:radiology:evidence-link:campaign:hepatic-imaging:iron-r2star-preferred-first-line",
+      "noxia:radiology:evidence-link:campaign:hepatic-imaging:iron-severe-overload-prefers-1-5t",
+      "noxia:radiology:evidence-link:campaign:hepatic-imaging:iron-three-method-families",
+      "noxia:radiology:evidence-link:campaign:hepatic-imaging:lirads-does-not-endorse-single-modality",
+      "noxia:radiology:evidence-link:campaign:hepatic-imaging:lirads-high-risk-population",
+      "noxia:radiology:evidence-link:campaign:hepatic-imaging:lirads-standardizes-hcc-imaging",
+      "noxia:radiology:evidence-link:campaign:hepatic-imaging:mre-cross-platform-reproducibility-open",
+      "noxia:radiology:evidence-link:campaign:hepatic-imaging:mre-measures-shear-stiffness",
+      "noxia:radiology:evidence-link:campaign:hepatic-imaging:mre-repeatability-22-percent",
+      "noxia:radiology:evidence-link:campaign:hepatic-imaging:mre-repeatability-heterogeneity",
+      "noxia:radiology:evidence-link:campaign:hepatic-imaging:multiphase-needed-for-lirads-features",
+      "noxia:radiology:evidence-link:campaign:hepatic-imaging:observation-can-be-pseudolesion",
+      "noxia:radiology:evidence-link:campaign:hepatic-imaging:pdff-definition",
+      "noxia:radiology:evidence-link:campaign:hepatic-imaging:pdff-high-linearity",
+      "noxia:radiology:evidence-link:campaign:hepatic-imaging:pdff-high-precision",
+      "noxia:radiology:evidence-link:campaign:hepatic-imaging:pdff-intersite-heterogeneity-not-explicit",
+      "noxia:radiology:evidence-link:campaign:hepatic-imaging:pdff-performance-minimal-technical-effects",
+      "noxia:radiology:evidence-link:campaign:hepatic-imaging:pdff-requires-confounder-correction",
+      "noxia:radiology:evidence-link:campaign:hepatic-imaging:pdff-small-bias",
+      "noxia:radiology:evidence-link:campaign:hepatic-imaging:signal-fat-fraction-not-pdff"
+    ],
+    "executionId": "noxia:scientific-campaign-execution:hepatic-imaging:01",
+    "gaps": [
+      "HUMAN_SCIENTIFIC_REVIEW_NOT_PERFORMED",
+      "INTERSITE_PDFF_HETEROGENEITY_NOT_EXPLICITLY_EVALUATED",
+      "CROSS_SYSTEM_LIVER_MRE_REPRODUCIBILITY_INSUFFICIENT",
+      "CROSS_VENDOR_LIVER_MRE_REPRODUCIBILITY_INSUFFICIENT",
+      "LI_RADS_COMPONENT_LEVEL_EVIDENCE_REMAINS_INCOMPLETE"
+    ],
+    "internalProjectionsUpdated": [
+      "noxia:radiology:scientific-projection:campaign:hepatic-imaging:hepatic-pdff-state-of-knowledge",
+      "noxia:radiology:scientific-projection:campaign:hepatic-imaging:lirads-internal-scientific-sheet",
+      "noxia:radiology:scientific-projection:campaign:hepatic-imaging:liver-iron-method-comparison",
+      "noxia:radiology:scientific-projection:campaign:hepatic-imaging:liver-mre-repeatability-state"
+    ],
+    "manualDomainSelection": false,
+    "nextCampaignStarted": false,
+    "nodeIds": [
+      "noxia:knowledge-catalog:domain:hepatic-imaging"
+    ],
+    "publicationAuthorized": false,
+    "resultDigest": "0cc9b5a25e5d09cff0f8610611e1d8ee73669e236f778032b7742263f6f50a60",
+    "selectedAutomatically": true,
+    "sourcesExamined": 8,
+    "sourcesRejected": [
+      "PMID:30759967",
+      "PMID:31392478",
+      "PMID:34725719"
+    ],
+    "sourcesRetained": [
+      "noxia:scientific-source:pubmed:22777847:revision:1",
+      "noxia:scientific-source:pubmed:28530847:revision:1",
+      "noxia:scientific-source:pubmed:28892458:revision:1",
+      "noxia:scientific-source:pubmed:30251931:revision:1",
+      "noxia:scientific-source:pubmed:36809220:revision:1"
+    ],
+    "status": "COMPLETED_WITH_EXPLICIT_GAPS",
+    "synthesesUpdated": [
+      "noxia:radiology:scientific-synthesis:campaign:hepatic-imaging:hepatic-imaging-overview",
+      "noxia:radiology:scientific-synthesis:campaign:hepatic-imaging:hepatic-pdff-methods-metrology",
+      "noxia:radiology:scientific-synthesis:campaign:hepatic-imaging:lirads-lesion-characterization",
+      "noxia:radiology:scientific-synthesis:campaign:hepatic-imaging:liver-iron-methods",
+      "noxia:radiology:scientific-synthesis:campaign:hepatic-imaging:liver-mre-repeatability"
+    ]
+  },
+  "immutable": true,
+  "selection": {
+    "blockingNodes": [],
+    "campaignId": "noxia:scientific-campaign:hepatic-imaging:01",
+    "campaignVersion": "1.0.0",
+    "coverageObjectives": {
+      "assertions": 12,
+      "internalProjections": 1,
+      "localizedEvidencePerAssertion": 1,
+      "sources": 5,
+      "syntheses": 1
+    },
+    "dependencies": [],
+    "engineVersion": "1.0.0",
+    "generatedAssertions": false,
+    "generatedContent": false,
+    "groupId": "noxia:knowledge-catalog:domain:hepatic-imaging",
+    "justifications": [
+      {
+        "assertionGap": 12,
+        "nodeId": "noxia:knowledge-catalog:domain:hepatic-imaging",
+        "priorityScore": 68,
+        "projectionPotential": [
+          "Glossary",
+          "Guide",
+          "FAQ",
+          "Comparison",
+          "StateOfKnowledge",
+          "ScientificSummary",
+          "Reference",
+          "Documentation",
+          "API"
+        ],
+        "sourceGap": 5,
+        "status": "DISCOVERING"
+      }
+    ],
+    "nodeIds": [
+      "noxia:knowledge-catalog:domain:hepatic-imaging"
+    ],
+    "priority": "HIGH",
+    "publicationAuthorized": false,
+    "selectedBy": "FIRST_UNEXECUTED_CAMPAIGN_IN_OFFICIAL_DETERMINISTIC_ORDER",
+    "selectionDigest": "c96e0838e0ccbcd7f28bafee9e0c470c9fb637327c9883d5f66d3f167c8867b1",
+    "selectionRule": {
+      "assertionCoverageBelow": 1,
+      "excludedStatuses": [
+        "READY",
+        "PROJECTED",
+        "PUBLISHED",
+        "DEPRECATED",
+        "OBSOLETE"
+      ],
+      "manualDomainSelection": false,
+      "priority": "HIGH",
+      "sourceCoverageBelow": 1
+    },
+    "status": "PLANNED_INTERNAL",
+    "stopCriteria": [
+      "ALL_SELECTED_KNOWLEDGE_NODES_PROCESSED",
+      "SOURCE_COVERAGE_TARGET_REACHED",
+      "ASSERTION_COVERAGE_TARGET_REACHED",
+      "LOCALIZED_EVIDENCE_TARGET_REACHED",
+      "SYNTHESIS_TARGET_REACHED",
+      "INTERNAL_PROJECTION_TARGET_REACHED"
+    ]
+  },
+  "traceDigest": "9536482b01c5fd5eca4c64c8495d9a81769c0c45bbe466deb6028deca2531d3c",
+  "traceId": "noxia:scientific-campaign-trace:hepatic-imaging:01",
+  "traceVersion": "1.0.0"
+}

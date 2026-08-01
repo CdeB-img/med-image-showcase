@@ -16,6 +16,18 @@ import {
 } from "../scientific-consolidation/review.mjs";
 import { consolidatedSourceRevisions } from "../scientific-consolidation/sources.mjs";
 import {
+  AUTOMATIC_CAMPAIGN_DOMAIN_ID,
+  AUTOMATIC_CAMPAIGN_EXECUTED_AT,
+  hepaticImagingAssertionRevisions,
+  hepaticImagingCampaignExecution,
+  hepaticImagingConcepts,
+  hepaticImagingContextDifferences,
+  hepaticImagingEvidenceLinks,
+  hepaticImagingInternalProjections,
+  hepaticImagingScientificSyntheses,
+  hepaticImagingSourceRevisions,
+} from "../scientific-campaigns/hepatic-imaging.mjs";
+import {
   scientificCorpusConceptIdentities,
   scientificCorpusEntityRevisions,
 } from "../scientific-corpus/concepts.mjs";
@@ -36,7 +48,9 @@ import {
   KNOWLEDGE_CATALOG_ID,
   KNOWLEDGE_CATALOG_SCOPE,
   KNOWLEDGE_CATALOG_VERSION,
+  ENRICHED_KNOWLEDGE_CATALOG_VERSION,
   KNOWLEDGE_CATALOG_NAMESPACE,
+  P6_KNOWLEDGE_CATALOG_SCOPE,
   READY_LIKE_STATUSES,
 } from "./constants.mjs";
 import { createKnowledgeNode } from "./knowledge-node-registry.mjs";
@@ -108,7 +122,7 @@ const addDomainMembership = (seeds, nodeId, domainId) => {
   addParent(seeds, nodeId, parentId);
 };
 
-const buildSeeds = () => {
+const buildSeeds = ({ includeCampaignExecutions }) => {
   const seeds = new Map();
   for (const revision of entityRevisions) {
     const payload = revision.payload;
@@ -167,9 +181,35 @@ const buildSeeds = () => {
       provenance: { sourceLayers: ["P5_MULTIDOMAIN"], sourceIdentityIds: [concept.stableId], catalogRevisionIds: [concept.revisionId], sourceRevisionIds: [] },
     }));
   }
+  if (includeCampaignExecutions) {
+    for (const concept of hepaticImagingConcepts) {
+      seeds.set(concept.stableId, seed({
+        nodeId: concept.stableId,
+        nodeType: concept.ontologicalClass,
+        preferredLabel: concept.preferredLabel,
+        aliases: concept.designations.map((item) => item.value).filter((value) => value !== concept.preferredLabel),
+        description: concept.description,
+        sourceRefs: concept.sourceRefs,
+        version: "1.0.0",
+        createdAt: AUTOMATIC_CAMPAIGN_EXECUTED_AT,
+        updatedAt: AUTOMATIC_CAMPAIGN_EXECUTED_AT,
+        sourceStatus: concept.status,
+        modeled: true,
+        planned: false,
+        roadmapSignals: null,
+        provenance: { sourceLayers: ["P7_AUTOMATIC_CAMPAIGN"], sourceIdentityIds: [concept.stableId], catalogRevisionIds: [concept.revisionId], sourceRevisionIds: [] },
+      }));
+    }
+  }
+  const executedDomainIds = new Set(includeCampaignExecutions ? [AUTOMATIC_CAMPAIGN_DOMAIN_ID] : []);
   const enrichedDomains = [
     { domainId: "ecv-t1", objective: "Pilot corpus for myocardial T1 mapping and extracellular volume across MR and CT documentary branches." },
     ...scientificDomainManifests.map((manifest) => ({ domainId: manifest.domainId, objective: manifest.objective })),
+    ...(includeCampaignExecutions ? [{
+      domainId: AUTOMATIC_CAMPAIGN_DOMAIN_ID,
+      objective: "Automatically selected scientific campaign covering documented hepatic lesion characterization, fat fraction, iron quantification and MR elastography metrology.",
+      roadmapSignals: nextScientificWaves.find((wave) => wave.domainId === AUTOMATIC_CAMPAIGN_DOMAIN_ID) ?? null,
+    }] : []),
   ];
   for (const domain of enrichedDomains) {
     const nodeId = domainNodeId(domain.domainId);
@@ -186,11 +226,12 @@ const buildSeeds = () => {
       sourceStatus: "ACTIVE",
       modeled: true,
       planned: false,
-      roadmapSignals: null,
-      provenance: { sourceLayers: [domain.domainId === "ecv-t1" ? "P4R_DOMAIN" : "P5_DOMAIN_MANIFEST"], sourceIdentityIds: [domain.domainId], catalogRevisionIds: [], sourceRevisionIds: [] },
+      roadmapSignals: domain.roadmapSignals ?? null,
+      provenance: { sourceLayers: [domain.domainId === "ecv-t1" ? "P4R_DOMAIN" : executedDomainIds.has(domain.domainId) ? "P7_AUTOMATIC_CAMPAIGN" : "P5_DOMAIN_MANIFEST"], sourceIdentityIds: [domain.domainId], catalogRevisionIds: [], sourceRevisionIds: [] },
     }));
   }
   for (const wave of nextScientificWaves) {
+    if (executedDomainIds.has(wave.domainId)) continue;
     const nodeId = domainNodeId(wave.domainId);
     seeds.set(nodeId, seed({
       nodeId,
@@ -212,19 +253,12 @@ const buildSeeds = () => {
   return seeds;
 };
 
-const scientificSources = Object.freeze([...consolidatedSourceRevisions, ...multidomainSourceRevisions]);
-const scientificSourceByCanonicalId = new Map(scientificSources.flatMap((source) => [
-  [canonicalSourceId(source.revisionId), source],
-  [canonicalSourceId(source.stableId), source],
-]));
-const p5ConceptByDomainKey = new Map(multidomainConcepts.map((concept) => [`${concept.domainId}:${concept.key}`, concept.stableId]));
-
-const resolveReference = (value, domainId, knownIds, uniqueSlugIds) => {
+const resolveReference = (value, domainId, knownIds, uniqueSlugIds, conceptByDomainKey) => {
   if (typeof value !== "string") return null;
   if (knownIds.has(value)) return value;
   const modality = { MR: "noxia:radiology:modality:irm", MRI: "noxia:radiology:modality:irm", IRM: "noxia:radiology:modality:irm", CT: "noxia:radiology:modality:ct" }[value];
   if (modality && knownIds.has(modality)) return modality;
-  const domainConcept = p5ConceptByDomainKey.get(`${domainId}:${value}`);
+  const domainConcept = conceptByDomainKey.get(`${domainId}:${value}`);
   if (domainConcept) return domainConcept;
   return uniqueSlugIds.get(value) ?? null;
 };
@@ -236,9 +270,9 @@ const flattenStrings = (value, output = []) => {
   return output;
 };
 
-const assertionReferences = (assertion, domainId, knownIds, uniqueSlugIds) => {
+const assertionReferences = (assertion, domainId, knownIds, uniqueSlugIds, conceptByDomainKey) => {
   const candidates = [assertion.subjectEntityId, assertion.objectEntityId, assertion.method, assertion.modality, assertion.sequence, assertion.fieldStrength, assertion.facets, assertion.context?.dimensions?.map((item) => item.value)];
-  return unique(flattenStrings(candidates).map((value) => resolveReference(value, domainId, knownIds, uniqueSlugIds)));
+  return unique(flattenStrings(candidates).map((value) => resolveReference(value, domainId, knownIds, uniqueSlugIds, conceptByDomainKey)));
 };
 
 const sourceIsFullText = (source) => source ? !(source.abstractOnly ?? source.metadata?.abstractOnly ?? source.fullTextAvailability === "ABSTRACT_ONLY") : false;
@@ -264,14 +298,28 @@ const graphDepth = (nodes) => {
 
 const countBy = (items, selector) => Object.freeze(Object.fromEntries([...Map.groupBy(items, selector).entries()].sort(([a], [b]) => String(a).localeCompare(String(b))).map(([key, values]) => [key, values.length])));
 
-export const createScientificKnowledgeCatalog = () => {
-  const seeds = buildSeeds();
+export const createScientificKnowledgeCatalog = ({ includeCampaignExecutions = true } = {}) => {
+  const campaignConcepts = includeCampaignExecutions ? hepaticImagingConcepts : [];
+  const campaignSources = includeCampaignExecutions ? hepaticImagingSourceRevisions : [];
+  const campaignAssertions = includeCampaignExecutions ? hepaticImagingAssertionRevisions : [];
+  const campaignEvidence = includeCampaignExecutions ? hepaticImagingEvidenceLinks : [];
+  const campaignContradictions = includeCampaignExecutions ? hepaticImagingContextDifferences : [];
+  const campaignSyntheses = includeCampaignExecutions ? hepaticImagingScientificSyntheses : [];
+  const campaignProjections = includeCampaignExecutions ? hepaticImagingInternalProjections : [];
+  const scientificSources = Object.freeze([...consolidatedSourceRevisions, ...multidomainSourceRevisions, ...campaignSources]);
+  const scientificSourceByCanonicalId = new Map(scientificSources.flatMap((source) => [
+    [canonicalSourceId(source.revisionId), source],
+    [canonicalSourceId(source.stableId), source],
+  ]));
+  const conceptByDomainKey = new Map([...multidomainConcepts, ...campaignConcepts].map((concept) => [`${concept.domainId}:${concept.key}`, concept.stableId]));
+  const seeds = buildSeeds({ includeCampaignExecutions });
   const knownIds = new Set(seeds.keys());
   const slugGroups = Map.groupBy([...knownIds], lastSegment);
   const uniqueSlugIds = new Map([...slugGroups.entries()].filter(([, ids]) => ids.length === 1).map(([key, ids]) => [key, ids[0]]));
 
   for (const concept of scientificCorpusEntityRevisions) addDomainMembership(seeds, concept.stableId, "ecv-t1");
   for (const concept of multidomainConcepts) addDomainMembership(seeds, concept.stableId, concept.domainId);
+  for (const concept of campaignConcepts) addDomainMembership(seeds, concept.stableId, concept.domainId);
 
   for (const relation of activeStructuralRelations) {
     if (!knownIds.has(relation.sourceId) || !knownIds.has(relation.targetId)) continue;
@@ -292,12 +340,13 @@ export const createScientificKnowledgeCatalog = () => {
   const assertions = [
     ...consolidatedAssertionRevisions.map((assertion) => ({ domainId: "ecv-t1", assertion })),
     ...multidomainAssertionRevisions.map((assertion) => ({ domainId: assertion.domainId, assertion })),
+    ...campaignAssertions.map((assertion) => ({ domainId: assertion.domainId, assertion })),
   ];
-  const evidence = [...consolidatedEvidenceLinks, ...multidomainEvidenceLinks];
+  const evidence = [...consolidatedEvidenceLinks, ...multidomainEvidenceLinks, ...campaignEvidence];
   const evidenceByAssertion = Map.groupBy(evidence, (item) => item.assertionRevisionId);
   const referencesByAssertion = new Map();
   for (const { domainId, assertion } of assertions) {
-    const references = assertionReferences(assertion, domainId, knownIds, uniqueSlugIds);
+    const references = assertionReferences(assertion, domainId, knownIds, uniqueSlugIds, conceptByDomainKey);
     referencesByAssertion.set(assertion.revisionId, references);
     const domainSeed = seeds.get(domainNodeId(domainId));
     const links = evidenceByAssertion.get(assertion.revisionId) ?? [];
@@ -321,13 +370,14 @@ export const createScientificKnowledgeCatalog = () => {
         domainSeed.reviewDates.add(link.date ?? link.reviewedAt);
       }
     }
-    const subjectId = resolveReference(assertion.subjectEntityId, domainId, knownIds, uniqueSlugIds);
+    const subjectId = resolveReference(assertion.subjectEntityId, domainId, knownIds, uniqueSlugIds, conceptByDomainKey);
     for (const relatedId of references) addRelated(seeds, subjectId, relatedId);
   }
 
   const contradictions = [
     ...p4rContradictionAssessments.map((item) => ({ domainId: "ecv-t1", item })),
     ...multidomainContradictionAssessments.map((item) => ({ domainId: item.domainId, item })),
+    ...campaignContradictions.map((item) => ({ domainId: item.domainId, item })),
   ];
   for (const { domainId, item } of contradictions) {
     const relatedNodeIds = unique((item.assertionRevisionIds ?? []).flatMap((assertionId) => referencesByAssertion.get(assertionId) ?? []));
@@ -338,13 +388,14 @@ export const createScientificKnowledgeCatalog = () => {
   const syntheses = [
     ...p4rScientificSyntheses.map((item) => ({ domainId: "ecv-t1", item })),
     ...multidomainScientificSyntheses.map((item) => ({ domainId: item.domainId, item })),
+    ...campaignSyntheses.map((item) => ({ domainId: item.domainId, item })),
   ];
   for (const { domainId, item } of syntheses) {
     const synthesisId = item.synthesisId ?? `noxia:scientific-synthesis:${domainId}:${item.key}`;
-    const nodeIds = new Set(asArray(item.concepts).map((value) => resolveReference(value, domainId, knownIds, uniqueSlugIds)).filter(Boolean));
+    const nodeIds = new Set(asArray(item.concepts).map((value) => resolveReference(value, domainId, knownIds, uniqueSlugIds, conceptByDomainKey)).filter(Boolean));
     for (const assertion of item.applicableAssertions ?? item.assertions ?? []) {
       if (typeof assertion === "string") for (const nodeId of referencesByAssertion.get(assertion) ?? []) nodeIds.add(nodeId);
-      else for (const nodeId of assertionReferences(assertion, domainId, knownIds, uniqueSlugIds)) nodeIds.add(nodeId);
+      else for (const nodeId of assertionReferences(assertion, domainId, knownIds, uniqueSlugIds, conceptByDomainKey)) nodeIds.add(nodeId);
     }
     const questions = unique([...(item.openQuestions ?? []), ...(item.questionsOpen ?? []), ...(item.gaps ?? []), ...(item.missingData ?? [])]);
     for (const nodeId of nodeIds) {
@@ -359,13 +410,14 @@ export const createScientificKnowledgeCatalog = () => {
   const projections = [
     ...p4rInternalScientificProjections.map((item) => ({ domainId: "ecv-t1", item })),
     ...multidomainInternalProjections.map((item) => ({ domainId: item.domainId, item })),
+    ...campaignProjections.map((item) => ({ domainId: item.domainId, item })),
   ];
   for (const { domainId, item } of projections) {
     const projectionId = item.projectionId;
-    const nodeIds = new Set(asArray(item.concepts).map((value) => resolveReference(value, domainId, knownIds, uniqueSlugIds)).filter(Boolean));
+    const nodeIds = new Set(asArray(item.concepts).map((value) => resolveReference(value, domainId, knownIds, uniqueSlugIds, conceptByDomainKey)).filter(Boolean));
     for (const assertion of item.assertions ?? []) {
       if (typeof assertion === "string") for (const nodeId of referencesByAssertion.get(assertion) ?? []) nodeIds.add(nodeId);
-      else for (const nodeId of assertionReferences(assertion, domainId, knownIds, uniqueSlugIds)) nodeIds.add(nodeId);
+      else for (const nodeId of assertionReferences(assertion, domainId, knownIds, uniqueSlugIds, conceptByDomainKey)) nodeIds.add(nodeId);
     }
     for (const nodeId of nodeIds) seeds.get(nodeId).projectionIds.add(projectionId);
     seeds.get(domainNodeId(domainId)).projectionIds.add(projectionId);
@@ -484,14 +536,27 @@ export const createScientificKnowledgeCatalog = () => {
   });
   const base = Object.freeze({
     catalogId: KNOWLEDGE_CATALOG_ID,
-    version: KNOWLEDGE_CATALOG_VERSION,
+    version: includeCampaignExecutions ? ENRICHED_KNOWLEDGE_CATALOG_VERSION : KNOWLEDGE_CATALOG_VERSION,
     generatedAt: KNOWLEDGE_CATALOG_GENERATED_AT,
-    scope: KNOWLEDGE_CATALOG_SCOPE,
-    sourceBaselines: Object.freeze({ historicalConcepts: entityRevisions.length, p4rConcepts: scientificCorpusEntityRevisions.length, p5Concepts: multidomainConcepts.length, enrichedDomains: 5, plannedDomains: nextScientificWaves.length }),
+    scope: includeCampaignExecutions ? KNOWLEDGE_CATALOG_SCOPE : P6_KNOWLEDGE_CATALOG_SCOPE,
+    sourceBaselines: Object.freeze(includeCampaignExecutions ? {
+      historicalConcepts: entityRevisions.length,
+      p4rConcepts: scientificCorpusEntityRevisions.length,
+      p5Concepts: multidomainConcepts.length,
+      campaignConcepts: campaignConcepts.length,
+      enrichedDomains: 6,
+      plannedDomains: nextScientificWaves.length - 1,
+    } : {
+      historicalConcepts: entityRevisions.length,
+      p4rConcepts: scientificCorpusEntityRevisions.length,
+      p5Concepts: multidomainConcepts.length,
+      enrichedDomains: 5,
+      plannedDomains: nextScientificWaves.length,
+    }),
     contracts: Object.freeze({
       knowledgeStoredInCatalog: false,
-      scientificKnowledgeGraphMutated: false,
-      assertionsCreated: 0,
+      scientificKnowledgeGraphMutated: includeCampaignExecutions,
+      assertionsCreated: campaignAssertions.length,
       publicPagesCreated: 0,
       seoArtifactsCreated: 0,
       routesCreated: 0,
@@ -499,6 +564,7 @@ export const createScientificKnowledgeCatalog = () => {
       futureEnrichmentOutsideCatalogAllowed: false,
       futureProjectionOutsideCatalogAllowed: false,
     }),
+    ...(includeCampaignExecutions ? { campaignExecutions: Object.freeze([hepaticImagingCampaignExecution]) } : {}),
     summary,
     campaigns,
     nodes,
@@ -507,4 +573,5 @@ export const createScientificKnowledgeCatalog = () => {
 };
 
 export const scientificKnowledgeCatalog = createScientificKnowledgeCatalog();
+export const p6ScientificKnowledgeCatalog = createScientificKnowledgeCatalog({ includeCampaignExecutions: false });
 export const knowledgeNodeRegistry = Object.freeze(Object.fromEntries(scientificKnowledgeCatalog.nodes.map((node) => [node.nodeId, node])));

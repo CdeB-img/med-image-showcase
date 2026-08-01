@@ -1,5 +1,6 @@
 export const KNOWLEDGE_CATALOG_ID = "noxia:scientific-knowledge-catalog";
 export const KNOWLEDGE_CATALOG_VERSION = "1.0.0";
+export const ENRICHED_KNOWLEDGE_CATALOG_VERSION = "1.1.0";
 export const KNOWLEDGE_CATALOG_GENERATED_AT = "2026-08-01T00:00:00.000Z";
 export const KNOWLEDGE_CATALOG_NAMESPACE = "noxia:knowledge-catalog";
 
@@ -148,7 +149,7 @@ export const KNOWLEDGE_NODE_DEPENDENCY_FIELDS = Object.freeze([
   "blockingNodes",
 ]);
 
-export const KNOWLEDGE_CATALOG_SCOPE = Object.freeze({
+export const P6_KNOWLEDGE_CATALOG_SCOPE = Object.freeze({
   kind: "REPOSITORY_OBSERVED_AND_EXPLICITLY_PLANNED",
   exhaustiveWithin: Object.freeze([
     "P3M_WEB_HISTORICAL_IDENTITIES",
@@ -160,6 +161,20 @@ export const KNOWLEDGE_CATALOG_SCOPE = Object.freeze({
   excludes: Object.freeze([
     "UNOBSERVED_UNIVERSAL_RADIOLOGY_TAXONOMY",
     "NEW_SCIENTIFIC_KNOWLEDGE",
+    "PUBLIC_EDITORIAL_CONTENT",
+    "EXECUTABLE_PRODUCT_WORKFLOWS",
+  ]),
+});
+
+export const KNOWLEDGE_CATALOG_SCOPE = Object.freeze({
+  kind: "REPOSITORY_OBSERVED_PLANNED_AND_CATALOG_EXECUTED",
+  exhaustiveWithin: Object.freeze([
+    ...P6_KNOWLEDGE_CATALOG_SCOPE.exhaustiveWithin,
+    "P7_FIRST_AUTOMATIC_SCIENTIFIC_CAMPAIGN",
+  ]),
+  excludes: Object.freeze([
+    "UNOBSERVED_UNIVERSAL_RADIOLOGY_TAXONOMY",
+    "UNEXECUTED_SCIENTIFIC_KNOWLEDGE",
     "PUBLIC_EDITORIAL_CONTENT",
     "EXECUTABLE_PRODUCT_WORKFLOWS",
   ]),

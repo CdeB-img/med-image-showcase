@@ -1,5 +1,6 @@
 import { stableStringify } from "../migration/stable-json.mjs";
 import { inspectProtectedSurfaces } from "../scientific-corpus/protected-surfaces.mjs";
+import { validateAutomaticScientificCampaign } from "../scientific-campaigns/validate.mjs";
 import { validateScientificMultidomain } from "../scientific-multidomain/validate.mjs";
 import { buildScientificEnrichmentCampaigns, isCampaignCandidate } from "./campaign-engine.mjs";
 import { createScientificKnowledgeCatalog, scientificKnowledgeCatalog } from "./catalog-builder.mjs";
@@ -137,16 +138,18 @@ export const validateScientificKnowledgeCatalog = ({ catalog = scientificKnowled
   const graph = validateKnowledgeCatalogGraph(catalog.nodes);
   const contracts = validateNodeContracts(catalog.nodes);
   const campaigns = validateCampaigns(catalog);
+  const campaignExecution = validateAutomaticScientificCampaign({ root, inspectGit: false });
   const errors = [
     ...graph.errors.map((error) => ({ layer: "graph", ...error })),
     ...contracts.errors.map((error) => ({ layer: "contracts", ...error })),
     ...campaigns.errors.map((error) => ({ layer: "campaigns", ...error })),
+    ...campaignExecution.errors.map((error) => ({ layer: "campaignExecution", ...error })),
   ];
   add(errors, catalog.sourceBaselines.historicalConcepts !== 118 || catalog.sourceBaselines.p4rConcepts !== 42 || catalog.sourceBaselines.p5Concepts !== 60, "SOURCE_BASELINE_COUNT_CHANGED", { layer: "baseline" });
-  add(errors, catalog.nodes.length !== 235 || catalog.summary.concepts !== 220 || catalog.summary.domains !== 15, "CATALOG_INVENTORY_COUNT_CHANGED", { layer: "baseline" });
+  add(errors, catalog.nodes.length !== 235 + campaignExecution.counts.concepts || catalog.summary.concepts !== 220 + campaignExecution.counts.concepts || catalog.summary.domains !== 15, "CATALOG_INVENTORY_COUNT_CHANGED", { layer: "baseline" });
   add(errors, catalog.summary.graphCyclic || graph.depth.maxDepth !== catalog.summary.maxDepth, "CATALOG_GRAPH_SUMMARY_INVALID", { layer: "summary" });
   add(errors, stableStringify(catalog.scope, 0) !== stableStringify(KNOWLEDGE_CATALOG_SCOPE, 0), "CATALOG_SCOPE_CHANGED", { layer: "scope" });
-  add(errors, catalog.contracts.knowledgeStoredInCatalog || catalog.contracts.scientificKnowledgeGraphMutated || catalog.contracts.assertionsCreated !== 0, "SCIENTIFIC_KNOWLEDGE_SCOPE_VIOLATION", { layer: "scope" });
+  add(errors, catalog.contracts.knowledgeStoredInCatalog || !catalog.contracts.scientificKnowledgeGraphMutated || catalog.contracts.assertionsCreated !== campaignExecution.counts.assertions, "SCIENTIFIC_KNOWLEDGE_SCOPE_VIOLATION", { layer: "scope" });
   add(errors, catalog.contracts.publicPagesCreated !== 0 || catalog.contracts.seoArtifactsCreated !== 0 || catalog.contracts.routesCreated !== 0 || catalog.contracts.publicationAuthorized, "PUBLIC_SURFACE_SCOPE_VIOLATION", { layer: "scope" });
   add(errors, catalog.nodes.some((node) => node.status === "PUBLISHED" || node.metrics.publicPageCount > 0), "CATALOG_PUBLICATION_DETECTED", { layer: "scope" });
   if (verifyDeterminism) add(errors, stableStringify(createScientificKnowledgeCatalog(), 0) !== stableStringify(catalog, 0), "CATALOG_NON_DETERMINISTIC", { layer: "determinism" });
@@ -157,9 +160,9 @@ export const validateScientificKnowledgeCatalog = ({ catalog = scientificKnowled
   add(errors, !protectedSurfaces.editorialEngineUnchanged, "EDITORIAL_ENGINE_CHANGED", { layer: "protectedSurfaces", changes: protectedSurfaces.editorialEngine?.changed });
   return Object.freeze({
     valid: errors.length === 0,
-    version: "P6_SCIENTIFIC_KNOWLEDGE_CATALOG",
+    version: "P7_CATALOG_DRIVEN_SCIENTIFIC_ENRICHMENT",
     errors: Object.freeze(errors),
-    layers: Object.freeze({ graph, contracts, campaigns, p5Baseline: Object.freeze({ valid: p5.valid, counts: p5.counts }) }),
+    layers: Object.freeze({ graph, contracts, campaigns, campaignExecution: Object.freeze({ valid: campaignExecution.valid, counts: campaignExecution.counts }), p5Baseline: Object.freeze({ valid: p5.valid, counts: p5.counts }) }),
     protectedSurfaces,
     counts: catalog.summary,
     statusSemantics: Object.freeze({ readyLike: READY_LIKE_STATUSES, terminal: TERMINAL_STATUSES }),

@@ -62,7 +62,14 @@
     "validate:knowledge-catalog": "node scripts/validate-knowledge-catalog.mjs",
     "report:knowledge-catalog": "node scripts/report-knowledge-catalog.mjs",
     "plan:scientific-campaigns": "node scripts/plan-scientific-campaigns.mjs",
-    "generate:knowledge-catalog-report": "node scripts/generate-p6-knowledge-catalog-report.mjs"
+    "generate:knowledge-catalog-report": "node scripts/generate-current-knowledge-catalog-report.mjs",
+    "generate:knowledge-catalog-report:check": "node scripts/generate-current-knowledge-catalog-report.mjs --check",
+    "execute:scientific-campaign": "node scripts/execute-scientific-campaign.mjs",
+    "execute:scientific-campaign:check": "node scripts/execute-scientific-campaign.mjs --check",
+    "validate:scientific-campaign": "node scripts/validate-scientific-campaign.mjs",
+    "report:scientific-campaign": "node scripts/report-scientific-campaign.mjs",
+    "generate:scientific-campaign-report": "node scripts/generate-p7-scientific-campaign-report.mjs",
+    "generate:scientific-campaign-report:check": "node scripts/generate-p7-scientific-campaign-report.mjs --check"
   },
   "dependencies": {
     "@editorial-engine/core": "file:../../editorial-engine/packages/core",
