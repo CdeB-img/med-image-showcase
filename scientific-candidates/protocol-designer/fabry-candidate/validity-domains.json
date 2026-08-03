@@ -1,0 +1,133 @@
+{
+  "schema_compatibility": "Scientific Knowledge Graph ApplicabilityContext 2.0.0 — projection candidate non fonctionnelle",
+  "validity_domains": [
+    {
+      "contextId": "noxia:protocol-designer:fabry-candidate:validity-domain:fabry-myocardial-general",
+      "combination": "ALL_OF",
+      "label": "Atteinte myocardique dans Fabry confirmé ou suffisamment étayé",
+      "dimensions": [
+        {"dimension":"species","operator":"EXACT","value":"HUMAN","unknownState":null},
+        {"dimension":"disease","operator":"EXACT","value":"noxia:protocol-designer:fabry-candidate:concept:fabry-disease","unknownState":null},
+        {"dimension":"clinicalDomain","operator":"EXACT","value":"CARDIAC","unknownState":null}
+      ],
+      "exclusions": ["Une imagerie seule ne confirme ni la maladie ni la pathogénicité d’un variant."],
+      "status": "CANDIDATE_NOT_ACTIVATED",
+      "version": "1.0.0",
+      "sourceRefs": ["PD002:REF-R01","PD002:REF-R04"]
+    },
+    {
+      "contextId": "noxia:protocol-designer:fabry-candidate:validity-domain:focal-scar-lge",
+      "combination": "ALL_OF",
+      "label": "Cicatrice focale évaluée par LGE techniquement crédible",
+      "dimensions": [
+        {"dimension":"disease","operator":"CONDITION","condition":"FABRY_ETIOLOGY_ESTABLISHED_OR_EXPLICITLY_UNCERTAIN","unknownState":null},
+        {"dimension":"modality","operator":"EXACT","value":"CMR","unknownState":null},
+        {"dimension":"measurementMethod","operator":"EXACT","value":"LGE_WITH_EXPLICIT_ANALYTICAL_METHOD","unknownState":null},
+        {"dimension":"contrastAgent","operator":"CONDITION","condition":"AVAILABLE_AND_JUSTIFIABLE","unknownState":null}
+      ],
+      "exclusions": ["Absence de contraste","Qualité technique insuffisante","Motif ischémique ou diagnostic concurrent non arbitré"],
+      "status": "CANDIDATE_NOT_ACTIVATED",
+      "version": "1.0.0",
+      "sourceRefs": ["PD002:REF-R13","PD002:REF-R29","PD002:REF-R31","PD002:REF-R32"]
+    },
+    {
+      "contextId": "noxia:protocol-designer:fabry-candidate:validity-domain:diffuse-ecv",
+      "combination": "ALL_OF",
+      "label": "Expansion extracellulaire évaluée par ECV contextualisée",
+      "dimensions": [
+        {"dimension":"modality","operator":"EXACT","value":"CMR","unknownState":null},
+        {"dimension":"measurementMethod","operator":"CONDITION","condition":"EXPLICIT_T1_MAPPING_AND_ECV_METHOD","unknownState":null},
+        {"dimension":"workflow","operator":"CONDITION","condition":"CONTEMPORANEOUS_HEMATOCRIT_AND_REGIONAL_LGE_HANDLING_DECLARED","unknownState":null}
+      ],
+      "exclusions": ["Interprétation comme pourcentage direct de collagène","Import d’une référence non contextualisée"],
+      "status": "CANDIDATE_NOT_ACTIVATED",
+      "version": "1.0.0",
+      "sourceRefs": ["PD002:REF-R30","PD002:REF-R32"]
+    },
+    {
+      "contextId": "noxia:protocol-designer:fabry-candidate:validity-domain:native-t1-local",
+      "combination": "ALL_OF",
+      "label": "T1 natif interprété dans un contexte local déclaré",
+      "dimensions": [
+        {"dimension":"measurementMethod","operator":"CONDITION","condition":"LOCAL_METHOD_AND_REFERENCE_CONTEXT_DECLARED","unknownState":null},
+        {"dimension":"fieldStrength","operator":"UNKNOWN","value":null,"unknownState":"UNKNOWN"},
+        {"dimension":"softwareVersion","operator":"UNKNOWN","value":null,"unknownState":"UNKNOWN"},
+        {"dimension":"population","operator":"CONDITION","condition":"SEX_STAGE_AND_VARIANT_CONTEXT_PRESERVED","unknownState":null}
+      ],
+      "exclusions": ["Exclusion de Fabry sur une valeur normale isolée","Transport automatique d’une valeur externe"],
+      "status": "CANDIDATE_NOT_ACTIVATED",
+      "version": "1.0.0",
+      "sourceRefs": ["PD002:REF-R06","PD002:REF-R08","PD002:REF-R10","PD002:REF-R15","PD002:REF-R30"]
+    },
+    {
+      "contextId": "noxia:protocol-designer:fabry-candidate:validity-domain:t2-active-injury",
+      "combination": "ALL_OF",
+      "label": "T2 comme contexte d’eau tissulaire et de lésion active",
+      "dimensions": [
+        {"dimension":"disease","operator":"EXACT","value":"noxia:protocol-designer:fabry-candidate:concept:fabry-disease","unknownState":null},
+        {"dimension":"measurementMethod","operator":"CONDITION","condition":"T2_METHOD_AND_REGIONAL_CONTEXT_DECLARED","unknownState":null},
+        {"dimension":"temporality","operator":"CONDITION","condition":"ACUTE_EVENTS_AND_CONCURRENT_CAUSES_CONSIDERED","unknownState":null}
+      ],
+      "exclusions": ["Preuve d’inflammation sur T2 seul","Attribution causale sans contexte ou histologie"],
+      "status": "CANDIDATE_NOT_ACTIVATED",
+      "version": "1.0.0",
+      "sourceRefs": ["PD002:REF-R14","PD002:REF-R15","PD002:REF-R16","PD002:REF-R25"]
+    },
+    {
+      "contextId": "noxia:protocol-designer:fabry-candidate:validity-domain:women-without-lvh",
+      "combination": "ALL_OF",
+      "label": "Femmes porteuses ou atteintes sans hypertrophie globale",
+      "dimensions": [
+        {"dimension":"sex","operator":"EXACT","value":"FEMALE_AS_REPORTED_IN_SOURCE_COHORTS","unknownState":null},
+        {"dimension":"stage","operator":"EXACT","value":"NO_GLOBAL_LVH","unknownState":null},
+        {"dimension":"disease","operator":"CONDITION","condition":"FABRY_STATUS_EXPLICIT","unknownState":null}
+      ],
+      "exclusions": ["Exclusion automatique fondée sur l’absence d’hypertrophie","Prédiction individuelle par inactivation du chromosome X"],
+      "status": "CANDIDATE_NOT_ACTIVATED",
+      "version": "1.0.0",
+      "sourceRefs": ["PD002:REF-R04","PD002:REF-R07"]
+    },
+    {
+      "contextId": "noxia:protocol-designer:fabry-candidate:validity-domain:observational-prognosis",
+      "combination": "ALL_OF",
+      "label": "Association pronostique observationnelle",
+      "dimensions": [
+        {"dimension":"population","operator":"CONDITION","condition":"SOURCE_COHORT_POPULATION_ONLY","unknownState":null},
+        {"dimension":"study","operator":"CONDITION","condition":"OBSERVATIONAL_OR_META_ANALYTIC_EVIDENCE","unknownState":null},
+        {"dimension":"temporality","operator":"CONDITION","condition":"SOURCE_DEFINED_FOLLOW_UP","unknownState":null}
+      ],
+      "exclusions": ["Causalité","Indication thérapeutique","Seuil universel"],
+      "status": "CANDIDATE_NOT_ACTIVATED",
+      "version": "1.0.0",
+      "sourceRefs": ["PD002:REF-R22","PD002:REF-R23","PD002:REF-R24"]
+    },
+    {
+      "contextId": "noxia:protocol-designer:fabry-candidate:validity-domain:longitudinal-comparability",
+      "combination": "ALL_OF",
+      "label": "Comparaison longitudinale de mesures",
+      "dimensions": [
+        {"dimension":"temporality","operator":"CONDITION","condition":"TIME_ZERO_AND_FOLLOW_UP_DEFINED","unknownState":null},
+        {"dimension":"measurementMethod","operator":"CONDITION","condition":"SAME_METHOD_OR_EXPLICITLY_QUALIFIED_CHANGE","unknownState":null},
+        {"dimension":"softwareVersion","operator":"CONDITION","condition":"SAME_VERSION_OR_CHANGE_RECORDED","unknownState":null},
+        {"dimension":"workflow","operator":"CONDITION","condition":"REPEATABILITY_AND_MISSINGNESS_DECLARED","unknownState":null}
+      ],
+      "exclusions": ["Progression conclue sous l’erreur de répétabilité","Attribution thérapeutique sans contrefactuel"],
+      "status": "CANDIDATE_NOT_ACTIVATED",
+      "version": "1.0.0",
+      "sourceRefs": ["PD002:REF-R19","PD002:REF-R29","PD002:REF-R31","PD002:REF-R32"]
+    },
+    {
+      "contextId": "noxia:protocol-designer:fabry-candidate:validity-domain:no-contrast-requalified",
+      "combination": "ALL_OF",
+      "label": "Phénotypage sans contraste avec estimand requalifié",
+      "dimensions": [
+        {"dimension":"contrastAgent","operator":"EXCLUDES","values":["AVAILABLE_AND_JUSTIFIABLE"],"unknownState":null},
+        {"dimension":"measurementMethod","operator":"ANY_OF","values":["NATIVE_T1","T2","CINE","STRAIN","CIRCULATING_BIOMARKERS"],"unknownState":null}
+      ],
+      "exclusions": ["Affirmation d’absence de cicatrice focale","Substitution opaque au LGE","Maintien du même estimand de cicatrice focale"],
+      "status": "CANDIDATE_NOT_ACTIVATED",
+      "version": "1.0.0",
+      "sourceRefs": ["PD002:SOURCE-REASONING-BOOK"]
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "package_id": "noxia:protocol-designer:knowledge-package:fabry-myocardial-fibrosis:candidate:v1",
+  "package_status": "CANDIDATE_NOT_ACTIVATED",
+  "domain": "FABRY_MYOCARDIAL_FIBROSIS",
+  "scientific_scope": "Sous-ensemble non fonctionnel du Reasoning Book PD-002 nécessaire au cas vertical : étudier la fibrose myocardique dans la maladie de Fabry.",
+  "source_reasoning_book_id": "PD-002",
+  "source_reasoning_book_version": "1.0",
+  "source_reasoning_book_date": "2026-08-02",
+  "effective_knowledge_date": "2026-08-02",
+  "package_version": "0.1.0-candidate",
+  "generated_at": "2026-08-02T00:00:00.000Z",
+  "generated_by": "codex-structured-preparation-under-human-review",
+  "review_status": "HUMAN_REVIEW_REQUIRED",
+  "activation_status": "NOT_ACTIVATED",
+  "digest": {
+    "algorithm": "sha256",
+    "canonicalization": "recursive-key-sort-json-utf8",
+    "scope": "Tous les fichiers JSON de données du paquet, sauf manifest.json et validation-baseline.json, triés par chemin puis concaténés sous forme chemin + LF + JSON canonique + LF.",
+    "value": "682ad4f32903ef7f6ea97b24d2a96020eec31dd8fcdfde0acbf96ad8219b4858"
+  },
+  "included_object_counts": {
+    "concepts": 31,
+    "assertions": 28,
+    "relations": 25,
+    "sources": 34,
+    "evidence_links": 70,
+    "validity_domains": 9,
+    "limitations": 15,
+    "controversies": 7,
+    "interpretation_rule_candidates": 6,
+    "decision_candidates": 17,
+    "objective_candidates": 7,
+    "hypothesis_candidates": 10,
+    "vertical_slice_conditions": 5
+  },
+  "excluded_sections": [
+    "Séquences, ordre d’acquisition et paramètres scanner",
+    "Doses et instructions d’administration",
+    "Protocole exécutable ou autorisation de protocole",
+    "Modèle produit et interface utilisateur",
+    "Decision Engine, transitions, gates et arrêts exécutables",
+    "Objectifs du Reasoning Book sans nécessité directe pour la tranche",
+    "Publications absentes du Reasoning Book PD-002",
+    "Correction ou mise à jour scientifique du Reasoning Book"
+  ],
+  "known_limitations": [
+    "Les localisateurs primaires précis ne sont pas fournis par PD-002 pour la plupart des références bibliographiques.",
+    "Le corpus est volontairement partiel et borné au cas vertical Fabry–fibrose myocardique.",
+    "Les niveaux A–D sont recopiés de PD-002 et ne constituent ni un statut de conclusion ni une revue humaine.",
+    "Aucune valeur normale, différence minimale cliniquement importante ou limite universelle n’est définie.",
+    "Les décisions scientifiques restent candidates et non exécutables."
+  ],
+  "unresolved_items": [
+    "Exactitude des localisateurs primaires à vérifier par un expert scientifique humain.",
+    "Sélection finale des objectifs et hypothèses par le chercheur non réalisée.",
+    "Transportabilité locale des mesures T1 et ECV non établie.",
+    "Importance réelle de la fibrose diffuse précoce dans Fabry insuffisamment documentée.",
+    "Mécanisme inflammatoire précis des segments T2 élevés non établi.",
+    "Différence minimale de changement interprétable non validée."
+  ],
+  "forbidden_uses": [
+    "Activation automatique dans le produit",
+    "Génération d’un protocole ou d’un ordre d’acquisition",
+    "Prescription clinique ou indication thérapeutique",
+    "Conversion d’une décision candidate en transition exécutable",
+    "Déclaration de validité scientifique ou de revue humaine",
+    "Publication éditoriale ou projection publique",
+    "Création d’un seuil universel"
+  ],
+  "compatibility_targets": [
+    "PD-003 Research Object Model",
+    "Scientific Assertion Layer 1.0.0",
+    "Scientific Knowledge Graph 2.0.0",
+    "PD-007 contrat C-KNOW candidat"
+  ],
+  "source_files": [
+    {"path": "0. NOXIA — SOURCE-OF-TRUTH-INDEX.md", "sha256": "775f82ea80e40523344fe4e51429e6bf1f120316817b05f0e1dbc5f0a1cfffdb", "authority_role": "governance-index"},
+    {"path": "output/documents/noxia-la-charte-fondatrice-edition-editoriale.docx", "sha256": "6b6fa882d47d07afb13ec77f3b57c5c03cf7619ab2b333d6bb1cd91266d43c9e", "authority_role": "founding-charter"},
+    {"path": "output/documents/noxia-protocol-designer-scientific-product-manifesto-edition-editoriale.docx", "sha256": "6906a9438769f28a445a9560e8eca145219d939095ae9d5a17387de1d88de591", "authority_role": "scientific-product-manifesto"},
+    {"path": "docs/pd-003-research-object-model.md", "sha256": "047c4d728b080fda367c40e8a81b5c07e66b01dd7a4c51b74ad34fd8128b814f", "authority_role": "research-object-model"},
+    {"path": "docs/pd-009-decision-engine-architecture.md", "sha256": "4e971ab426272c0ea12874907e937118dba41f056c884aa1b1a495b2306d9c62", "authority_role": "decision-engine-boundary"},
+    {"path": "docs/pd-007-protocol-designer-implementation-readiness.md", "sha256": "caad14474087e9cae6fc7af0a40a0fbeb871683e1459335a33dadf81cd08b09e", "authority_role": "implementation-readiness"},
+    {"path": "docs/pd-011-evaluation-framework.md", "sha256": "77280afb3729225fa9c872382bf27a9317c13782ec6ddf333688cedae3e41dd3", "authority_role": "evaluation-boundary"},
+    {"path": "docs/scientific-assertion-layer.md", "sha256": "6bb57519d4bf3bf1bbb557b078b49285293877b12e266d4092d27224dbb8dcd4", "authority_role": "assertion-contract"},
+    {"path": "docs/scientific-knowledge-graph-web.md", "sha256": "9251d4f187239bbe3a658d2063995124302ce5d61ce973c10f16a706a5767581", "authority_role": "knowledge-graph-contract"},
+    {"path": "output/documents/noxia-protocol-designer-reasoning-book-pd-002-fabry.docx", "sha256": "750ea6dac7daf94fab303166457463862b3810131d5801830b5318c5c9d880e7", "authority_role": "scientific-master"},
+    {"path": "docs/p4-scientific-corpus.md", "sha256": "225ab2892f93aacec1b89f6fc0298fd1d8ab7ef13aabbf1940beb2d2851e5562", "authority_role": "scientific-corpus-contract"},
+    {"path": "docs/p4r-scientific-consolidation.md", "sha256": "ff0a48ff4400db9da201105dd25318ffae25ccf8602b023537495a1c5a8dd0a3", "authority_role": "scientific-consolidation-contract"},
+    {"path": "docs/p5-scientific-multidomain.md", "sha256": "1a374683c5f5379f9d9008551cc9bb96599c176af01878d9118563a602952f1a", "authority_role": "multidomain-contract"}
+  ],
+  "namespace_policy": {
+    "package_prefix": "noxia:protocol-designer:fabry-candidate",
+    "role_id_pattern": "PD005:Rxx",
+    "reasoning_book_reference_pattern": "PD002:REF-Rxx",
+    "bare_reasoning_book_reference_forbidden": true,
+    "stable_id_rule": "préfixe canonique + type + clé sémantique normalisée ; aucun UUID aléatoire",
+    "revision_id_rule": "stableId + :revision:1"
+  },
+  "runtime_imports": [],
+  "public_projection": false,
+  "human_review": null
+}

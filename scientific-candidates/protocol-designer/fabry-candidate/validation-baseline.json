@@ -1,0 +1,23 @@
+{
+  "baseline_git_head": "bdf670d519c70422ca037a8344aba0fde3393986",
+  "baseline_branch": "main",
+  "candidate_location": "scientific-candidates/protocol-designer/fabry-candidate",
+  "authority_file_sha256": {
+    "output/documents/noxia-protocol-designer-reasoning-book-pd-002-fabry.docx": "750ea6dac7daf94fab303166457463862b3810131d5801830b5318c5c9d880e7",
+    "docs/pd-003-research-object-model.md": "047c4d728b080fda367c40e8a81b5c07e66b01dd7a4c51b74ad34fd8128b814f",
+    "docs/pd-007-protocol-designer-implementation-readiness.md": "caad14474087e9cae6fc7af0a40a0fbeb871683e1459335a33dadf81cd08b09e",
+    "docs/pd-009-decision-engine-architecture.md": "4e971ab426272c0ea12874907e937118dba41f056c884aa1b1a495b2306d9c62",
+    "docs/pd-011-evaluation-framework.md": "77280afb3729225fa9c872382bf27a9317c13782ec6ddf333688cedae3e41dd3"
+  },
+  "initial_git_status_short": [
+    "?? 0. NOXIA — SOURCE-OF-TRUTH-INDEX.md",
+    "?? docs/pd-003-research-object-model.md",
+    "?? docs/pd-004-ux-manifesto.md",
+    "?? docs/pd-005-prompt-library-architecture.md",
+    "?? docs/pd-007-protocol-designer-implementation-readiness.md",
+    "?? docs/pd-009-decision-engine-architecture.md",
+    "?? docs/pd-011-evaluation-framework.md",
+    "?? output/",
+    "?? tmp/"
+  ]
+}
