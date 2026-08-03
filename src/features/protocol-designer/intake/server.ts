@@ -1,4 +1,4 @@
-import { SCIENTIFIC_INTAKE_SYSTEM_PROMPT } from "../../../../api/prompts/scientific-intake-system-prompt";
+import { SCIENTIFIC_INTAKE_SYSTEM_PROMPT } from "../../../../api/prompts/scientific-intake-system-prompt.js";
 import { detectSensitiveData } from "./privacy.js";
 import { normalizeInterpretation } from "./normalizer.js";
 import { MAX_REQUEST_BYTES, parseScientificIntakeProviderOutput, parseScientificIntakeRequest, SCIENTIFIC_INTAKE_JSON_SCHEMA } from "./schema.js";
