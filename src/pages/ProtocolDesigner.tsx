@@ -49,10 +49,10 @@ const ProtocolDesigner = () => {
                   Explorez un parcours déterministe qui rend visibles les hypothèses, les informations manquantes, les preuves, les controverses et les limites avant toute décision humaine.
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                  <Link to="/protocol-designer/demo" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 font-semibold text-primary-foreground transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background">
+                  <Link to="/protocol-designer/demo" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 font-semibold text-primary-foreground transition-colors hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background">
                     Ouvrir le démonstrateur <ArrowRight aria-hidden="true" className="h-4 w-4" />
                   </Link>
-                  <a href="#principes" className="inline-flex min-h-12 items-center justify-center rounded-lg border border-border bg-card/60 px-6 py-3 font-semibold transition hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+                  <a href="#principes" className="inline-flex min-h-12 items-center justify-center rounded-lg border border-border bg-card/60 px-6 py-3 font-semibold transition-colors hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
                     Comprendre le cadre
                   </a>
                 </div>

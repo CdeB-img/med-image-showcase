@@ -161,4 +161,15 @@ describe("P-WEB-03 — regression and prepublication contracts", () => {
     expect(landing).not.toContain('name="robots" content="noindex');
     expect(demo).toContain('<meta name="robots" content="noindex, follow" />');
   });
+
+  it("PWEB03-12 — does not animate away keyboard focus rings on navigational controls", () => {
+    renderPage(<ProtocolDesigner />);
+    const entryLink = screen.getByRole("link", { name: /Ouvrir le démonstrateur/i });
+    expect(entryLink).toHaveClass("transition-colors");
+    expect(entryLink).not.toHaveClass("transition");
+    expect(entryLink).toHaveClass("focus-visible:ring-2", "focus-visible:ring-primary");
+    expect(read("src/pages/ProtocolDesigner.tsx")).not.toContain("transition hover:bg-card focus-visible");
+    expect(read("src/pages/ProtocolDesignerDemo.tsx")).not.toContain("transition focus-visible");
+    expect(read("src/pages/ProtocolDesignerDemo.tsx")).not.toContain("transition hover:bg-primary/10 focus-visible");
+  });
 });

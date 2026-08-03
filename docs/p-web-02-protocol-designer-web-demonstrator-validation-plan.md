@@ -1,12 +1,13 @@
 # P-WEB-02-QA — Plan indépendant de validation du démonstrateur Protocol Designer Web
 
-**Statut documentaire :** PLAN_DE_VALIDATION — EXECUTE_SOUS_P_WEB_03
+**Statut documentaire :** PLAN_DE_VALIDATION — EXECUTE_SOUS_P_WEB_03_ET_CLOTURE_SOUS_P_WEB_03C
 **Niveau documentaire :** NIVEAU_3 — plan et résultats de contrôle
-**Version :** 1.1
+**Version :** 1.2
 **Date d’exécution :** 3 août 2026
 **Source maîtresse :** `docs/p-web-02-protocol-designer-web-demonstrator-validation-plan.md`
-**Objet évalué :** implémentation P-WEB-02 au commit de référence `8b28c04d0e583708f21b2edba9755e77c5a85cb0`, puis corrections bornées P-WEB-03 du même espace de travail
-**Résultat actuel global :** `NOT_TESTED`
+**Objet évalué :** implémentation P-WEB-02 au commit de référence `8b28c04d0e583708f21b2edba9755e77c5a85cb0`, corrections bornées P-WEB-03, puis clôture probatoire P-WEB-03C sur la baseline `b64956d29c59dc6c678cce3ee3ca540a71d13345`
+**Résultat historique à l’arrêt P-WEB-03 :** `NOT_TESTED`
+**Résultat du périmètre de clôture P-WEB-03C :** `PASS_WITH_WARNING`
 **Autorité scientifique revendiquée :** aucune
 **PASS PD-011 revendiqué :** aucun
 
@@ -930,3 +931,50 @@ Le plan a été exécuté sur une référence P-WEB-02 stabilisée puis rejoué 
 **Résultat global du plan : `NOT_TESTED`.**
 
 Le sous-ensemble produit local observé reste `PASS_WITH_WARNING` ; il ne suffit pas à autoriser P-WEB-04 tant que les preuves manuelles bloquantes ne sont pas exécutées.
+
+---
+
+## 29. Addendum d’exécution P-WEB-03C — 3 août 2026
+
+### 29.1 Portée et baseline
+
+P-WEB-03C traite exclusivement les deux preuves demeurées `NOT_TESTED` à l’arrêt P-WEB-03 : parcours clavier intégral et PDF réels inspectés. La baseline est `main` à `b64956d29c59dc6c678cce3ee3ca540a71d13345` (`fix(protocol-designer): audit and stabilize P-WEB-03`), identique à `origin/main` au début de la mission et initialement propre. Aucun verrou Git ni descripteur ouvert sur les documents cibles n’a été observé. L’énumération générale des processus a été refusée par le bac à sable ; cette limite est conservée comme avertissement, sans indice concurrent observé.
+
+Le parcours a été exécuté dans Chrome visible `150.0.7871.187`, par événements clavier natifs CDP et sans entrée souris, à 1440 px puis 390 px. Les deux rapports ont été imprimés par le moteur Chrome Skia/PDF, en A4. La fermeture animée du dialogue et la restitution du focus ont été contrôlées dans le navigateur visible ; le mode headless suspendait l’animation de sortie et n’a pas servi à l’adjudication finale.
+
+### 29.2 États actuels qui supersèdent les états probatoires historiques
+
+Les lignes historiques des §§17, 23, 25 et 28 restent lisibles comme état à l’arrêt P-WEB-03. Pour le périmètre P-WEB-03C, les états courants sont :
+
+| Contrôle | État P-WEB-03 | Preuve P-WEB-03C | État courant |
+|---|---|---|---|
+| AC-26 / A11Y-04 — parcours clavier essentiel | `NOT_TESTED` | parcours public → démo → 7 étapes → rapports → reset ; 58 contrôles de focus, 0 échec | `PASS` |
+| A11Y-05 — focus visible | `NOT_TESTED` | contrôle `:focus-visible` et rendu calculé ; correction ciblée puis rejeu | `PASS_WITH_WARNING` |
+| A11Y-06 — absence de piège | `NOT_TESTED` | tabulation complète, modale cyclée, menu mobile refermé | `PASS` |
+| A11Y-07 — restauration du focus | `NOT_TESTED` | fondations/niveaux, dialogue Annuler, menu mobile | `PASS` |
+| PRINT-01 — contrôles inutiles absents | `NOT_TESTED` | inspection des quatre pages PDF ; aucun bouton de navigation ou d’impression | `PASS` |
+| PRINT-02 à PRINT-06 | `PASS_WITH_WARNING` | deux PDF réels, contenu concordant avec chaque session | `PASS` |
+| PRINT-07 — tableaux | `NOT_TESTED` | aucun tableau dans les deux rapports imprimés | `NOT_APPLICABLE` |
+| PRINT-08 — pagination et mise en page | `NOT_TESTED` | quatre pages inspectées à 144 dpi | `PASS` |
+| PRINT-09 — deux thèmes | `NOT_TESTED` | sortie imprimée claire lisible contrôlée ; comparaison exhaustive des thèmes hors mission | `PASS_WITH_WARNING` |
+| PRINT-10 — lecture hors interaction | `NOT_TESTED` | localisateurs et provenance lisibles comme texte | `PASS` |
+
+Les lecteurs d’écran, le zoom 400 %, la réduction des mouvements et les sessions utilisateurs demeurent hors du périmètre de cette clôture. Ils ne sont pas silencieusement promus en succès.
+
+### 29.3 Artefacts probatoires
+
+- `output/pdf/p-web-03c-protocol-designer-final-report.pdf` — 2 pages A4, rapport final avec décision humaine ;
+- `output/pdf/p-web-03c-protocol-designer-provisional-report.pdf` — 2 pages A4, deux bloqueurs critiques et aucune décision humaine ;
+- `src/features/protocol-designer/__tests__/p-web-03-regression.test.tsx` — garde `PWEB03-12` sur la visibilité des contours de focus.
+
+Rejeu final : typecheck `PASS` ; lint 0 erreur et 7 avertissements préexistants ; tests ciblés 49/49 ; build 1 804 modules ; audit SEO 40 pages, 0 erreur, 0 avertissement ; suite globale 540/543 avec les trois seules gardes Editorial Engine `BLOCKED_EXTERNAL` ; `git diff --check` `PASS`.
+
+L’index de vérité n’est pas modifié : conformément à sa règle de parcimonie, la clôture ne crée ni nouvelle norme, ni nouveau corpus, ni changement d’autorité. Le rapport P-WEB-03 déjà admis reçoit l’addendum factuel autorisé.
+
+### 29.4 Décision de clôture distincte
+
+Les deux causes de la décision historique `NOT_READY_FOR_P_WEB_04` sont levées. Les avertissements restants sont non bloquants pour P-WEB-03C : trois gardes externes Editorial Engine, sept avertissements lint préexistants et contrôles spécialisés hors périmètre.
+
+**Décision P-WEB-03C : `P_WEB_03_EVIDENCE_CLOSED_WITH_NON_BLOCKING_WARNINGS`.**
+
+Cette décision ne réécrit pas la décision historique, ne vaut ni PASS PD-011, ni publication, ni déploiement, ni autorisation automatique de phase produit.

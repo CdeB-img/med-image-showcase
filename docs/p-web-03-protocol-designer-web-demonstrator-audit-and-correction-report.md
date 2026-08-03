@@ -410,3 +410,116 @@ La réouverture du gate nécessite au minimum :
 | P-WEB-01 AC-38 — frontières documentaires | `PASS` | diff et index | aucun niveau 0, 1 ou 2 modifié |
 
 **Décision finale unique : `NOT_READY_FOR_P_WEB_04`.**
+
+---
+
+## 31. Addendum factuel P-WEB-03C — clôture probatoire du 3 août 2026
+
+### 31.1 Autorité et non-réécriture historique
+
+La décision `NOT_READY_FOR_P_WEB_04` ci-dessus reste la décision exacte rendue à l’arrêt P-WEB-03. Le présent addendum ne la remplace pas rétroactivement. Il constate séparément l’exécution des deux preuves alors absentes, sans modifier les sources scientifiques, les références normatives, l’architecture officielle ou les états PD-011.
+
+Nature de la mission : preuve produit de niveau 3, bornée au clavier et aux PDF réels. Principes établis, références normatives et corpus scientifiques sont demeurés en lecture seule ; la cible P-WEB-01 n’a pas été réinterprétée ; l’état réellement implémenté a été testé ; aucune hypothèse de conformité n’a remplacé une observation.
+
+### 31.2 Baseline et concurrence
+
+| Élément | Observation |
+|---|---|
+| Branche | `main` |
+| HEAD initial | `b64956d29c59dc6c678cce3ee3ca540a71d13345` |
+| Sujet | `fix(protocol-designer): audit and stabilize P-WEB-03` |
+| Écart à `origin/main` | `+0 / -0` au départ |
+| Statut initial | propre |
+| Verrou Git | aucun `.git/index.lock` |
+| Concurrence sur les documents cibles | aucun descripteur ouvert observé |
+| Limite d’inspection | énumération générale des processus refusée par le bac à sable ; aucun changement concurrent détecté pendant la mission |
+
+### 31.3 Défaut bloquant corrigé
+
+| ID | Surface | Défaut observé | Cause | Correction bornée | Régression | État final |
+|---|---|---|---|---|---|---|
+| PWEB03C-D01 | CTA public et contrôles Protocol Designer utilisant une transition générique | élément focalisé et `:focus-visible=true`, mais contour calculé transparent dans Chrome | `transition` animait aussi l’ombre servant de contour | remplacement limité par `transition-colors` sur les contrôles concernés | `PWEB03-12` ; rejeu Chrome intégral | `PASS` |
+
+Aucun contenu scientifique, libellé de scénario, logique de décision, architecture ou norme n’a été modifié.
+
+### 31.4 Trace du parcours sans souris
+
+Environnement adjudicatif : Chrome visible `150.0.7871.187`, viewport 1440 × 1000 puis 390 × 844, activation par `Tab`, `Maj+Tab`, `Entrée` pour les liens et `Espace` ou `Entrée` selon le contrôle natif. L’impression est produite par `Page.printToPDF` du même Chrome. Total : 58 observations de focus, 0 échec final.
+
+| Écran | Action clavier | Résultat | Défaut | Correction éventuelle | Preuve finale |
+|---|---|---|---|---|---|
+| Page publique desktop | `Tab` ×9, `Entrée` | ordre NOXIA → navigation → breadcrumb → CTA ; démo ouverte | contour CTA transparent au premier essai | PWEB03C-D01 | focus cyan visible après rejeu |
+| Menu desktop | `Tab` dans le Header | liens Accueil, Expertise, Protocol Designer, Prestations, Projets, Contact accessibles dans l’ordre | aucun | sans objet | `activeElement`, liens et destinations |
+| Intention | `Tab`, `Espace` sur Comparer | intention sélectionnée ; `aria-pressed=true` | aucun | sans objet | état du bouton |
+| Question | `Tab`, saisie | texte conservé dans le champ | aucun | sans objet | valeur du `textarea` |
+| Compréhension | `Tab`, `Espace` sur RB-003 | scénario Spectral Imaging sélectionné après l’intention | aucun | sans objet | titre et identité rendus |
+| Fondations | `Tab`, `Espace` ouverture/fermeture | RB-003, RB-004 et RB-005 visibles ; focus maintenu sur le résumé | aucun | sans objet | `details.open`, contenu visible |
+| Niveau 0 | lecture | orientation visible sans action | aucun | sans objet | libellé Niveau 0 |
+| Niveaux 1 à 3 | `Tab`, `Espace` ouverture/fermeture | trois niveaux accessibles ; provenance NXP-000001/RB-003/fixture au niveau 3 ; focus conservé | aucun | sans objet | `details.open`, identifiants affichés |
+| Contexte | `Tab`, saisie | contexte scientifique conservé | aucun | sans objet | valeur du champ |
+| Contradiction | `Tab`, `Espace` deux fois | positions A et B avec localisateurs annoncées puis refermées | aucun | sans objet | région `role=alert` |
+| Hypothèses | `Tab`, `Espace` Retenir → Contester → Retenir, puis autres hypothèses | sélection réciproque et trois positions finales retenues | aucun | sans objet | groupes nommés et `aria-pressed` |
+| Informations | `Tab`, `Espace` sur chaque disponibilité | trois informations déclarées disponibles ; deux bloqueurs levés | aucun | sans objet | états pressés, alerte absente |
+| Stratégies | `Tab`, ouverture des dépendances, fermeture, sélection | deux stratégies comparées sur bénéfice, compromis et condition ; option soumise à revue | aucun | sans objet | cartes, détail, état pressé |
+| Retour/correction | `Tab` vers Précédent, `Espace`, Inconnu puis Disponible | impact Modifié/Préservé/À réexaminer annoncé ; stratégie invalidée puis ressaisie | aucun | sans objet | `ImpactSummary`, état stratégie |
+| Revue humaine | `Espace` sur Retenir, saisies, confirmation | décision, justification, réserve, auteur et portée enregistrés | aucun | sans objet | message de décision enregistrée |
+| Rapport final | `Tab` vers impression | décision, Evidence Map, provenance, limites et avertissements présents | aucun | sans objet | PDF final réel |
+| Dialogue reset | ouverture, cycle `Tab` Annuler/Réinitialiser, `Entrée` sur Annuler | focus confiné ; fermeture ; retour au déclencheur | aucun | sans objet | cycle interne et `activeElement=Réinitialiser` |
+| Reset confirmé | réouverture, `Tab`, `Entrée` sur Réinitialiser | état initial propre, saisies et choix effacés | aucun | sans objet | intention initiale, dialogue fermé |
+| Menu mobile 390 px | `Tab`, `Espace`, parcours des liens, `Espace` fermeture | lien Protocol Designer atteint ; aucune fuite ; focus rendu au bouton Ouvrir le menu | aucun | sans objet | libellés Ouvrir/Fermer et focus final |
+| Rapport provisoire | parcours clavier avec informations critiques laissées inconnues | deux bloqueurs, limites et absence de décision finale conservés | aucun | sans objet | PDF provisoire réel |
+| Annonces dynamiques | déclenchement des états | blocage critique annoncé dans une région `role=alert` ; région polie présente | aucun | sans objet | inventaire `aria-live`/alert |
+| Radios / checkboxes | inspection du parcours | aucune radio ni checkbox dans ce démonstrateur ; choix modélisés par boutons pressés nommés | aucun | sans objet | `NOT_APPLICABLE`, non assimilé à une preuve absente |
+| Drawers | inspection desktop/mobile | aucun composant drawer dans le périmètre ; menu mobile et panneau Fondations testés selon leurs contrats réels | aucun | sans objet | `NOT_APPLICABLE` pour drawer |
+
+### 31.5 PDF réels et contrôle visuel intégral
+
+| PDF | Moteur | Pages | Contenu requis | Contrôle visuel final |
+|---|---|---:|---|---|
+| `output/pdf/p-web-03c-protocol-designer-final-report.pdf` | Chrome 150 / Skia PDF | 2 A4 | décision Retenir, auteur, portée, justification, réserve, stratégie, Evidence Map, limites, provenance, fixture, avertissement PD-011 | `PASS` |
+| `output/pdf/p-web-03c-protocol-designer-provisional-report.pdf` | Chrome 150 / Skia PDF | 2 A4 | deux bloqueurs critiques, informations inconnues, alternatives non classées, absence de décision, limites, provenance, fixture, avertissement PD-011 | `PASS` |
+
+Les quatre pages ont été rendues à 144 dpi et inspectées individuellement. Pagination, marges, titres, listes, retours à la ligne, contraste et lisibilité sont cohérents. Aucun chevauchement, texte tronqué, page vide, contrôle interactif inutile ou contenu issu d’un autre scénario n’a été observé. Les cartes Evidence Map restent entières. Les rapports ne contiennent pas de tableau ; le contrôle de coupure de tableaux est donc `NOT_APPLICABLE`, pas présumé conforme.
+
+### 31.6 Contrats de clôture
+
+| Contract | Préservé ? | Test-preuve | Remarque |
+|---|---|---|---|
+| Parcours complet sans souris | `PASS` | Chrome visible, trace §31.4 | sept étapes, retours, deux rapports et reset |
+| Aucun piège clavier | `PASS` | cycle complet + dialogue + mobile | 0 échec sur 58 observations de focus |
+| Focus visible | `PASS` | styles calculés et inspection visuelle après PWEB03C-D01 | test `PWEB03-12` ajouté |
+| Retour du focus | `PASS` | fondations, niveaux, dialogue, menu mobile | retour aux déclencheurs contrôlé |
+| PDF final réel | `PASS` | Chrome/Skia, 2 pages A4 | session finale concordante |
+| PDF provisoire réel | `PASS` | Chrome/Skia, 2 pages A4 | blocage et absence de décision concordants |
+| Contrôle visuel intégral | `PASS` | quatre pages rendues à 144 dpi | aucune anomalie bloquante |
+| Avertissements conservés | `PASS` | textes extraits + inspection | fixture, non-PD-011, non-protocole, non-publication |
+| Aucune modification scientifique | `PASS` | diff final | aucun Program, RB ou fixture scientifique modifié |
+| Aucune modification normative | `PASS` | diff final | aucun niveau 0, 1 ou 2 modifié |
+| SOURCE-OF-TRUTH-INDEX | `NOT_APPLICABLE` | règle de parcimonie de l’index | corpus, hiérarchie et autorité inchangés |
+| Aucune publication | `PASS` | actions de mission | aucun commit, push ou publication |
+| Aucun déploiement | `PASS` | actions de mission | aucun déploiement |
+
+### 31.7 Validations et avertissements
+
+Les résultats finaux sont inscrits après rejeu : typecheck, lint, tests Protocol Designer/accessibilité/impression disponibles, suite ciblée, suite globale pertinente, build de production et `git diff --check`. Les trois gardes Editorial Engine restent `BLOCKED_EXTERNAL` si le dépôt externe demeure non propre ; elles ne sont ni neutralisées ni converties en succès. Les avertissements lint Fast Refresh préexistants restent non bloquants. Les tests lecteur d’écran et zoom 400 % ne font pas partie des deux causes de clôture et conservent leur état antérieur.
+
+| Validation | Résultat P-WEB-03C | Preuve |
+|---|---|---|
+| Typecheck | `PASS` | aucune erreur |
+| Lint | `PASS_WITH_WARNING` | 0 erreur, 7 avertissements Fast Refresh préexistants |
+| Tests PWEB03 | `PASS` | 12/12, dont `PWEB03-12` |
+| Tests ciblés Protocol Designer, P0 et SEO | `PASS` | 49/49 |
+| Parcours clavier et focus | `PASS` | Chrome visible ; 58 observations, 0 échec |
+| Impression et inspection PDF | `PASS` | 2 PDF, 4/4 pages inspectées |
+| Audit SEO | `PASS` | 40 pages, 0 erreur, 0 avertissement ; rapport régénéré puis non conservé conformément au périmètre documentaire |
+| Build production | `PASS_WITH_WARNING` | 1 804 modules ; avertissements de dépendances non bloquants |
+| Suite globale | `BLOCKED_EXTERNAL` | 540/543 ; trois échecs exclusivement liés à l’état non propre d’Editorial Engine |
+| `git diff --check` | `PASS` | aucune erreur après restauration du rapport SEO hors périmètre |
+
+### 31.8 Décision de clôture distincte
+
+Les deux causes qui avaient motivé `NOT_READY_FOR_P_WEB_04` sont désormais levées par preuves réelles. La clôture est assortie d’avertissements non bloquants externes ou hors périmètre.
+
+**Décision P-WEB-03C : `P_WEB_03_EVIDENCE_CLOSED_WITH_NON_BLOCKING_WARNINGS`.**
+
+Cette décision ne vaut pas autorisation de publication, de déploiement, de PASS PD-011 ou de modification automatique de la feuille de route produit.
