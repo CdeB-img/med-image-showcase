@@ -14,8 +14,10 @@ export const DEMONSTRATOR_SCENARIOS: DemonstratorScenario[] = [
     shortLabel: "Imagerie spectrale",
     title: "Caractériser une mesure en imagerie spectrale",
     intent: "Je souhaite comparer la portée de mesures spectrales pour une étude quantitative.",
-    program: { id: "NXP-000001", title: "Spectral Imaging & Quantitative CT", version: "1.1" },
-    reasoningBook: { id: "RB-003", title: "Spectral Imaging & Quantitative CT", version: "1.0" },
+    program: { id: "NXP-000001", title: "Spectral Imaging", version: "1.1" },
+    reasoningBook: { id: "RB-003", title: "Reasoning Book 03 — Spectral Imaging", version: "1.0" },
+    knowledgeDate: "2026-08-03",
+    fixtureStatus: "DEMO_FIXTURE_NOT_DYNAMIC",
     comprehension:
       "La question porte sur la comparabilité d’une mesure reconstruite, pas sur la seule disponibilité d’une image ou d’une carte.",
     constructs: [
@@ -38,8 +40,8 @@ export const DEMONSTRATOR_SCENARIOS: DemonstratorScenario[] = [
       { id: "spectral-multisystem", title: "Comparaison multi-systèmes qualifiée", benefit: "Explore la transférabilité entre architectures.", tradeoff: "Charge de calibration et risque de non-identifiabilité plus élevés.", condition: "Phantoms, versions et transformations explicitement harmonisés." },
     ],
     evidence: [
-      { label: "Distinction mesure / grandeur dérivée", locator: "RB-003 v1.0, §7–14", contribution: "Qualifie le construit et sa dépendance au modèle." },
-      { label: "Métrologie et reproductibilité", locator: "RB-003 v1.0, §51–57", contribution: "Qualifie les exigences de calibration et de comparabilité." },
+      { label: "Distinction mesure / grandeur dérivée", locator: "RB-003 v1.0, §7–14", contribution: "Qualifie le construit et sa dépendance au modèle.", relation: "QUALIFIES" },
+      { label: "Métrologie et reproductibilité", locator: "RB-003 v1.0, §51–57", contribution: "Borne les conditions de calibration et de comparabilité.", relation: "BOUNDS" },
     ],
     limitations: [
       "Les sorties portant le même nom ne sont pas nécessairement interchangeables.",
@@ -47,6 +49,10 @@ export const DEMONSTRATOR_SCENARIOS: DemonstratorScenario[] = [
       "Le démonstrateur n’évalue ni données ni paramètres réels.",
     ],
     controversy: "La transférabilité des mesures entre architectures et constructeurs ne peut pas être présumée universelle.",
+    contradictionPositions: [
+      { label: "Position A — comparabilité conditionnelle", statement: "Une comparaison quantitative peut être défendable lorsque le construit, la calibration et la reconstruction sont explicitement qualifiés.", locator: "RB-003 v1.0, §51–57" },
+      { label: "Position B — non-interchangeabilité", statement: "Deux sorties portant le même nom peuvent rester non interchangeables entre architectures ou chaînes de reconstruction.", locator: "RB-003 v1.0, §7–14" },
+    ],
     openQuestion: "Quel niveau de calibration externe rendrait la comparaison suffisamment robuste pour l’objectif déclaré ?",
   },
   {
@@ -54,8 +60,10 @@ export const DEMONSTRATOR_SCENARIOS: DemonstratorScenario[] = [
     shortLabel: "IRM cardiaque",
     title: "Structurer une question quantitative en IRM cardiaque",
     intent: "Je souhaite étudier un biomarqueur d’IRM cardiaque dans un cadre multicentrique.",
-    program: { id: "NXP-000002", title: "Cardiac MRI & Quantitative Myocardial Imaging", version: "1.2" },
-    reasoningBook: { id: "RB-004", title: "Cardiac MRI & Quantitative Myocardial Imaging", version: "1.1" },
+    program: { id: "NXP-000002", title: "Cardiac MRI & Quantitative Cardiac Imaging", version: "1.2" },
+    reasoningBook: { id: "RB-004", title: "Reasoning Book 04 — Cardiac MRI & Quantitative Cardiac Imaging", version: "1.1" },
+    knowledgeDate: "2026-08-03",
+    fixtureStatus: "DEMO_FIXTURE_NOT_DYNAMIC",
     comprehension:
       "La question vise la défendabilité d’un biomarqueur dans une chaîne d’acquisition, d’analyse et de contrôle qualité explicite.",
     constructs: [
@@ -78,8 +86,8 @@ export const DEMONSTRATOR_SCENARIOS: DemonstratorScenario[] = [
       { id: "cardiac-multiparametric", title: "Lecture multiparamétrique", benefit: "Met en regard fonction et caractérisation tissulaire.", tradeoff: "Complexité, multiplicité et dépendances techniques accrues.", condition: "Hiérarchie des mesures et gestion des résultats discordants explicites." },
     ],
     evidence: [
-      { label: "Dépendances des biomarqueurs cardiaques", locator: "RB-004 v1.1, §17–36", contribution: "Qualifie les familles de mesures et leurs conditions." },
-      { label: "Qualité, harmonisation et répétabilité", locator: "RB-004 v1.1, §44–49", contribution: "Qualifie la comparabilité et les états non évaluables." },
+      { label: "Dépendances des biomarqueurs cardiaques", locator: "RB-004 v1.1, §17–36", contribution: "Qualifie les familles de mesures et leurs conditions.", relation: "QUALIFIES" },
+      { label: "Qualité, harmonisation et répétabilité", locator: "RB-004 v1.1, §44–49", contribution: "Borne la comparabilité et les états non évaluables.", relation: "BOUNDS" },
     ],
     limitations: [
       "Le rehaussement tardif est une lecture relative et dépendante du contexte.",
@@ -87,6 +95,10 @@ export const DEMONSTRATOR_SCENARIOS: DemonstratorScenario[] = [
       "Aucun seuil clinique ni ordre de séquences n’est produit ici.",
     ],
     controversy: "La généralisation de seuils et de valeurs de référence entre centres reste conditionnée par l’harmonisation.",
+    contradictionPositions: [
+      { label: "Position A — usage multicentrique qualifié", statement: "Un biomarqueur peut soutenir une étude multicentrique lorsque la séquence, l’analyse et le contrôle qualité sont harmonisés.", locator: "RB-004 v1.1, §44–49" },
+      { label: "Position B — généralisation limitée", statement: "Une valeur ou un seuil ne devient pas universel du seul fait qu’il est mesurable dans plusieurs centres.", locator: "RB-004 v1.1, §17–36" },
+    ],
     openQuestion: "Quelle part de la variabilité observée relève de la biologie, de l’acquisition ou de l’analyse ?",
   },
   {
@@ -95,7 +107,9 @@ export const DEMONSTRATOR_SCENARIOS: DemonstratorScenario[] = [
     title: "Raisonner sur perfusion, oxygénation et métabolisme cérébral",
     intent: "Je souhaite comparer des biomarqueurs de perfusion et de métabolisme cérébral.",
     program: { id: "NXP-000003", title: "Neuro Perfusion & Metabolism", version: "1.1" },
-    reasoningBook: { id: "RB-005", title: "Neuro Perfusion & Metabolism", version: "1.0" },
+    reasoningBook: { id: "RB-005", title: "Reasoning Book 05 — Neuro Perfusion & Metabolism Foundations", version: "1.0" },
+    knowledgeDate: "2026-08-03",
+    fixtureStatus: "DEMO_FIXTURE_NOT_DYNAMIC",
     comprehension:
       "La question distingue les grandeurs hémodynamiques, l’oxygénation et le métabolisme, ainsi que les hypothèses propres à chaque modalité.",
     constructs: [
@@ -118,8 +132,8 @@ export const DEMONSTRATOR_SCENARIOS: DemonstratorScenario[] = [
       { id: "neuro-integrated", title: "Lecture physiologique intégrée", benefit: "Met en relation perfusion, oxygénation et métabolisme.", tradeoff: "Plus de modèles, de modalités et d’incertitudes cumulées.", condition: "Temporalité, recalage et hypothèses intermodalités documentés." },
     ],
     evidence: [
-      { label: "Grandeurs hémodynamiques et modèles", locator: "RB-005 v1.0, §7–44", contribution: "Qualifie les distinctions entre débit, volume et délais." },
-      { label: "OEF, CMRO₂ et différences de modalité", locator: "RB-005 v1.0, §45–69", contribution: "Qualifie l’interprétation physiologique et les hypothèses." },
+      { label: "Grandeurs hémodynamiques et modèles", locator: "RB-005 v1.0, §7–27", contribution: "Qualifie les distinctions entre débit, volume et délais.", relation: "QUALIFIES" },
+      { label: "OEF, CMRO₂ et différences de modalité", locator: "RB-005 v1.0, §28–31 et §39–64", contribution: "Borne l’interprétation physiologique et la commutabilité entre modalités.", relation: "BOUNDS" },
     ],
     limitations: [
       "Tmax et TTP ne sont pas des synonymes de débit cérébral.",
@@ -127,6 +141,10 @@ export const DEMONSTRATOR_SCENARIOS: DemonstratorScenario[] = [
       "Le démonstrateur ne formule aucune recommandation clinique ou de thrombectomie.",
     ],
     controversy: "La robustesse des seuils et des cartes dépend des méthodes, des délais collatéraux et de la transférabilité entre populations.",
+    contradictionPositions: [
+      { label: "Position A — information physiologique utile", statement: "Les profils de perfusion, d’oxygénation et de métabolisme peuvent éclairer des construits distincts lorsque le modèle est explicite.", locator: "RB-005 v1.0, §7–31" },
+      { label: "Position B — non-substituabilité", statement: "CBF, CBV, délais, OEF et CMRO₂ ne sont ni synonymes ni directement commutables entre modalités.", locator: "RB-005 v1.0, §28–31 et §39–64" },
+    ],
     openQuestion: "Comment séparer une altération métabolique d’un effet de délai, de modèle ou de condition systémique ?",
   },
 ];

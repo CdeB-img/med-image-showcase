@@ -4,6 +4,13 @@ export type EvidenceReference = {
   label: string;
   locator: string;
   contribution: string;
+  relation: "QUALIFIES" | "BOUNDS";
+};
+
+export type ContradictionPosition = {
+  label: string;
+  statement: string;
+  locator: string;
 };
 
 export type MissingInformation = {
@@ -36,6 +43,8 @@ export type DemonstratorScenario = {
     title: string;
     version: string;
   };
+  knowledgeDate: "2026-08-03";
+  fixtureStatus: "DEMO_FIXTURE_NOT_DYNAMIC";
   comprehension: string;
   constructs: string[];
   hypotheses: string[];
@@ -44,6 +53,7 @@ export type DemonstratorScenario = {
   evidence: EvidenceReference[];
   limitations: string[];
   controversy: string;
+  contradictionPositions: [ContradictionPosition, ContradictionPosition];
   openQuestion: string;
 };
 

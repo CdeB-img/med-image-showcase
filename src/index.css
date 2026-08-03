@@ -139,7 +139,7 @@
     color: #0f172a !important;
   }
 
-  header,
+  .site-header,
   #demo-main > :first-child,
   #demo-main nav,
   body > footer {
@@ -148,9 +148,25 @@
 
   #protocol-designer-report {
     break-inside: auto;
+    color-adjust: exact;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
   }
 
   #protocol-designer-report section {
-    break-inside: avoid;
+    break-inside: avoid-page;
+  }
+
+  #protocol-designer-report header,
+  #protocol-designer-report footer {
+    display: block !important;
+  }
+
+  #protocol-designer-report a,
+  #protocol-designer-report p,
+  #protocol-designer-report li,
+  #protocol-designer-report dd {
+    orphans: 3;
+    widows: 3;
   }
 }

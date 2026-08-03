@@ -18,7 +18,7 @@ import {
   sources,
   validateKnowledgeGraph,
 } from "./index.mjs";
-import { withoutAuthorizedP12ProductChanges } from "../test/p12-protected-surfaces.mjs";
+import { withoutAuthorizedProductChanges } from "../test/p12-protected-surfaces.mjs";
 
 const root = process.cwd();
 
@@ -103,13 +103,17 @@ describe("NOXIA canonical radiology knowledge graph", () => {
     ])).toBe(true);
   });
 
-  it("does not couple the graph to SEO, editorial output, SaaS or application routes", () => {
+  it("does not couple the graph to SEO, editorial output, SaaS or unauthorized application routes", () => {
     const graphFiles = execFileSync("rg", ["--files", "src/knowledge-graph"], { cwd: root, encoding: "utf8" }).trim().split("\n");
     expect(graphFiles.every((file) => !file.endsWith(".md"))).toBe(true);
     const graphSource = graphFiles.map((file) => readFileSync(join(root, file), "utf8")).join("\n");
     expect(graphSource).not.toMatch(/from\s+["'][^"']*(?:openlater|editorial-engine|supabase|stripe)[^"']*["']/iu);
     const protectedChanges = execFileSync("git", ["diff", "--name-only", "--", "src/App.tsx", "src/pages", "src/components", "public/sitemap.xml", "public/robots.txt"], { cwd: root, encoding: "utf8" }).trim().split("\n").filter(Boolean);
-    expect(withoutAuthorizedP12ProductChanges(protectedChanges)).toEqual([]);
+    expect(withoutAuthorizedProductChanges(protectedChanges)).toEqual([]);
+    const protocolDesignerSource = ["src/pages/ProtocolDesigner.tsx", "src/pages/ProtocolDesignerDemo.tsx"]
+      .map((file) => readFileSync(join(root, file), "utf8"))
+      .join("\n");
+    expect(protocolDesignerSource).not.toMatch(/from\s+["'][^"']*knowledge-graph[^"']*["']/iu);
     expect(graphFiles.every((file) => !relative("src/knowledge-graph", file).startsWith(".."))).toBe(true);
   });
 });

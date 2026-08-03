@@ -37,6 +37,8 @@ describe("P-WEB-02 — Protocol Designer demonstrator contracts", () => {
     renderPage(<ProtocolDesignerDemo />);
     expect(screen.getByRole("heading", { level: 1, name: /quelle est votre intention/i })).toBeInTheDocument();
     expect(screen.getAllByRole("button", { name: /comprendre|comparer|quantifier|examiner|reproduire/i })).toHaveLength(5);
+    expect(screen.getByRole("button", { name: /^Autre objectif/ })).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /NXP-000001|RB-003/ })).not.toBeInTheDocument();
   });
 
   it("PWEB02-02 — exposes exactly the three admitted deterministic scenarios", () => {
@@ -71,8 +73,9 @@ describe("P-WEB-02 — Protocol Designer demonstrator contracts", () => {
     expect(disclosureSource).toContain("Niveau 3 · Traçabilité");
     renderPage(<ProtocolDesignerDemo />);
     fireEvent.click(screen.getByRole("button", { name: /^Comprendre Clarifier/ }));
-    fireEvent.click(screen.getByRole("button", { name: /NXP-000003 Neuro-perfusion/ }));
+    fireEvent.change(screen.getByLabelText(/formulation de l’intention/i), { target: { value: "Comprendre un construit neurovasculaire." } });
     fireEvent.click(screen.getByRole("button", { name: "Continuer" }));
+    fireEvent.click(screen.getByRole("button", { name: /^Neuro-perfusion/ }));
     expect(screen.getByRole("heading", { name: /comprendre la question/i })).toBeInTheDocument();
     expect(screen.getByText("Niveau 0 · Orientation")).toBeInTheDocument();
     expect(screen.getByText("Niveau 3 · Traçabilité")).toBeInTheDocument();
@@ -85,7 +88,8 @@ describe("P-WEB-02 — Protocol Designer demonstrator contracts", () => {
   });
 
   it("PWEB02-08 — makes no visible declaration of formal validation or automatic recommendation", () => {
-    expect(`${landingSource}\n${demoSource}`).not.toMatch(/PASS PD-011|scientifiquement valid[eé]|recommandation clinique automatique|activ[eé] en production/i);
+    expect(`${landingSource}\n${demoSource}`).not.toMatch(/PASS PD-011 accord[eé]|scientifiquement valid[eé]|recommandation clinique automatique|activ[eé] en production/i);
+    expect(landingSource).toContain("Aucun PASS PD-011");
   });
 
   it("PWEB02-09 — encodes no clinical protocol or acquisition parameters", () => {
@@ -95,6 +99,9 @@ describe("P-WEB-02 — Protocol Designer demonstrator contracts", () => {
 
   it("PWEB02-10 — displays the exact owner and corpus versions", () => {
     expect(DEMONSTRATOR_SCENARIOS.map((item) => [item.program.version, item.reasoningBook.version])).toEqual([["1.1", "1.0"], ["1.2", "1.1"], ["1.1", "1.0"]]);
+    expect(DEMONSTRATOR_SCENARIOS.map((item) => item.program.title)).toEqual(["Spectral Imaging", "Cardiac MRI & Quantitative Cardiac Imaging", "Neuro Perfusion & Metabolism"]);
+    expect(DEMONSTRATOR_SCENARIOS.map((item) => item.reasoningBook.title)).toEqual(["Reasoning Book 03 — Spectral Imaging", "Reasoning Book 04 — Cardiac MRI & Quantitative Cardiac Imaging", "Reasoning Book 05 — Neuro Perfusion & Metabolism Foundations"]);
+    expect(DEMONSTRATOR_SCENARIOS.every((item) => item.knowledgeDate === "2026-08-03" && item.fixtureStatus === "DEMO_FIXTURE_NOT_DYNAMIC")).toBe(true);
     expect(demoSource).toMatch(/program\.version/);
     expect(demoSource).toMatch(/reasoningBook\.version/);
   });

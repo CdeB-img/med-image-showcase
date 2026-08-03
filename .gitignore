@@ -25,3 +25,6 @@ dist-ssr
 
 # Temporary working directory
 tmp/
+
+.env.local
+.env.*.local

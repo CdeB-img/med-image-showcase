@@ -56,7 +56,7 @@ export default function DisclosureStack({ scenario, openDepths, onDepthChange }:
           <ChevronDown aria-hidden="true" className="h-4 w-4 transition-transform group-open:rotate-180" />
         </summary>
         <div className="border-t border-border/70 px-4 py-4 text-sm text-muted-foreground print:text-slate-700">
-          Projection locale déterministe issue de {scenario.program.id} v{scenario.program.version} et {scenario.reasoningBook.id} v{scenario.reasoningBook.version}. Aucun chargement dynamique du corpus ou du graphe de connaissances.
+          Projection locale déterministe issue de {scenario.program.id} « {scenario.program.title} » v{scenario.program.version} et {scenario.reasoningBook.id} « {scenario.reasoningBook.title} » v{scenario.reasoningBook.version}. État des connaissances : 3 août 2026. Statut : {scenario.fixtureStatus}. Aucun chargement dynamique du corpus ou du graphe de connaissances.
         </div>
       </details>
     </section>

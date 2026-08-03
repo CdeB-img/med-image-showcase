@@ -16,7 +16,7 @@ import { multidomainDomainReadiness, multidomainProjectionReadiness, multidomain
 import { multidomainSourceRevisions, multidomainSourceSummary } from "./sources.mjs";
 import { createMultidomainSynthesis, multidomainScientificSyntheses, multidomainSynthesisDefinitions } from "./synthesis.mjs";
 import { validateP4RBaselineForP5, validateScientificDomains, validateScientificMultidomain } from "./validate.mjs";
-import { withoutAuthorizedP12ProtectedChanges } from "../../test/p12-protected-surfaces.mjs";
+import { withoutAuthorizedProtectedChanges } from "../../test/p12-protected-surfaces.mjs";
 
 const protectedState = inspectProtectedSurfaces({ root: process.cwd() });
 const queries = executeMandatoryMultidomainQueries();
@@ -99,9 +99,9 @@ describe("P5 scientific multidomain wave", () => {
   it("detects no residual ECV/T1 bias", () => expect(p5GeneralitySummary.residualEcvBiasDetected).toBe(false));
   it("imposes no hematocrit outside ECV/T1", () => expect(residualEcvBiasAudit.mandatoryHematocrit).toBe(false));
   it("claims no human scientific review", () => expect(multidomainAssertionReviewDecisions.every((item) => item.scientificHumanReview === null)).toBe(true));
-  it("leaves public pages unchanged outside the authorized P12 explorer", () => expect(withoutAuthorizedP12ProtectedChanges(protectedState.protectedChanges.filter((item) => item.surface === "PUBLIC_PAGES"))).toEqual([]));
-  it("leaves public routes unchanged outside the authorized P12 explorer", () => expect(withoutAuthorizedP12ProtectedChanges(protectedState.protectedChanges.filter((item) => item.surface === "PUBLIC_ROUTES"))).toEqual([]));
-  it("leaves SEO unchanged", () => expect(protectedState.protectedChanges.filter((item) => item.surface === "SEO")).toEqual([]));
+  it("leaves public pages unchanged outside explicitly authorized product missions", () => expect(withoutAuthorizedProtectedChanges(protectedState.protectedChanges.filter((item) => item.surface === "PUBLIC_PAGES"))).toEqual([]));
+  it("leaves public routes unchanged outside explicitly authorized product missions", () => expect(withoutAuthorizedProtectedChanges(protectedState.protectedChanges.filter((item) => item.surface === "PUBLIC_ROUTES"))).toEqual([]));
+  it("leaves SEO unchanged outside explicitly authorized product missions", () => expect(withoutAuthorizedProtectedChanges(protectedState.protectedChanges.filter((item) => item.surface === "SEO"))).toEqual([]));
   it("leaves viewers unchanged", () => expect(protectedState.protectedChanges.filter((item) => item.surface === "VIEWERS")).toEqual([]));
   it("leaves PACS unchanged", () => expect(protectedState.protectedChanges.filter((item) => item.surface === "PACS")).toEqual([]));
   it("leaves Supabase unchanged", () => expect(protectedState.protectedChanges.filter((item) => item.surface === "SUPABASE")).toEqual([]));

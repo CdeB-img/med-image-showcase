@@ -2,7 +2,7 @@
 
 **Statut documentaire :** RAPPORT_D_IMPLEMENTATION — CANDIDAT_NON_ADMIS  
 **Niveau documentaire :** NIVEAU_3  
-**Version :** 1.0  
+**Version :** 1.1 — erratum factuel P-WEB-03
 **Date d’arrêt :** 3 août 2026  
 **Source maîtresse :** `docs/p-web-02-protocol-designer-web-demonstrator-implementation-report.md`  
 **Décision unique de mission :** `PASS_WITH_WARNING`  
@@ -264,3 +264,12 @@ Aucun fichier de niveau 0, 1 ou 2 n’a été modifié. Le SOURCE-OF-TRUTH-INDEX
 - aucun fichier stagé ;
 - aucun document normatif ou scientifique modifié ;
 - arbre NOXIA volontairement modifié uniquement par les fichiers listés aux sections 21 et 22, plus le plan QA non suivi et préexistant signalé séparément.
+
+## 25. Erratum factuel P-WEB-03 — 3 août 2026
+
+Cet erratum ne réécrit pas rétrospectivement l’implémentation P-WEB-02 ; il corrige les faits devenus faux ou ambigus après stabilisation et push du lot évalué.
+
+1. La section 4 décrivait P-WEB-01 comme une architecture à deux scénarios non réécrite. La source actuellement présente au commit de référence est P-WEB-01 **v1.1**, qui admet explicitement RB-003, RB-004 et RB-005. L’écart avec la version 1.0 est une différence temporelle résolue, non une extension implicite par le code.
+2. Sur l’arbre NOXIA propre au commit `8b28c04d0e583708f21b2edba9755e77c5a85cb0`, la suite globale initiale observée par P-WEB-03 atteint **528/531**. Les trois échecs restants dépendent exclusivement de l’état non propre préexistant du dépôt externe `editorial-engine`. Les sept échecs historiques fondés sur le diff courant mentionnés en sections 1, 19 et 23 ne se reproduisent plus sur cette référence propre.
+3. Les listes de fichiers des sections 21 et 22 décrivent le lot P-WEB-02 à sa date. Elles ne constituent pas l’inventaire des corrections P-WEB-03 ultérieures.
+4. Les conclusions de conformité détaillées de ce rapport sont supersédées, pour la prépublication, par le plan exécuté P-WEB-02-QA v1.1 et par le rapport P-WEB-03. Aucune de ces corrections ne vaut PASS PD-011, publication ou activation produit.
