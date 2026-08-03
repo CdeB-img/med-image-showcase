@@ -157,6 +157,10 @@
     break-inside: avoid-page;
   }
 
+  #protocol-designer-report details > * {
+    display: block !important;
+  }
+
   #protocol-designer-report header,
   #protocol-designer-report footer {
     display: block !important;
