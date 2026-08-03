@@ -85,6 +85,10 @@ const NAV_CONFIG: NavItemType[] = [
     ],
   },
   {
+    label: "Protocol Designer",
+    path: "/protocol-designer",
+  },
+  {
     label: "Prestations",
     path: "/prestations-imagerie-medicale",
     children: [
@@ -436,7 +440,7 @@ export default function Header(): JSX.Element {
         </Link>
 
         {/* Desktop */}
-        <nav className="hidden md:flex items-center gap-2">
+        <nav className="hidden lg:flex items-center gap-2">
           <NavLink
             to="/"
             className={({ isActive }) =>
@@ -467,7 +471,7 @@ export default function Header(): JSX.Element {
         </nav>
 
         {/* Mobile hamburger */}
-        <div className="flex items-center gap-2 md:hidden">
+        <div className="flex items-center gap-2 lg:hidden">
           <button
             aria-label={mobileOpen ? "Fermer le menu" : "Ouvrir le menu"}
             onClick={() => setMobileOpen((s) => !s)}
@@ -481,7 +485,7 @@ export default function Header(): JSX.Element {
       {/* Mobile panel */}
       <div
         className={cn(
-          "md:hidden border-t border-border/30 bg-background/95 transition-[max-height,opacity] duration-200 ease-in-out overflow-hidden",
+          "lg:hidden border-t border-border/30 bg-background/95 transition-[max-height,opacity] duration-200 ease-in-out overflow-hidden",
           mobileOpen ? "max-h-[80vh] opacity-100" : "max-h-0 opacity-0"
         )}
       >

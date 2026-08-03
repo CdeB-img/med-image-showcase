@@ -7,6 +7,7 @@ const rootDirectory = path.resolve(scriptDirectory, "..");
 const appSource = read("src/App.tsx");
 const projectsSource = read("src/data/projects.ts");
 const siteOrigin = "https://noxia-imagerie.fr";
+const noindexInteractiveRoutes = new Set(["/connaissances", "/protocol-designer/demo"]);
 
 function read(relativePath) {
   return fs.readFileSync(path.join(rootDirectory, relativePath), "utf8");
@@ -103,6 +104,9 @@ function pageDetails(route) {
   const directH1 = source.match(/<h1[^>]*>([\s\S]*?)<\/h1>/);
   const heroTitle = source.match(/<ExpertiseHero[\s\S]{0,520}?\btitle=(?:"([^"]+)"|\{([^}]+)\})/);
   const usesHeroSection = source.includes("<HeroSection");
+  const usesSectionTitle = source.includes("<SectionTitle");
+  const usesScientificExplorer = source.includes("<ScientificExplorer");
+  const renderedH1 = cleanText(directH1?.[1] ?? heroTitle?.[1] ?? heroTitle?.[2] ?? "");
   const linkPattern = /\b(?:to|href)\s*=\s*(?:\{\s*)?["'](\/[^"'#?]*)/g;
   const links = [...source.matchAll(linkPattern)].map((match) => match[1]);
   if (project) links.push(...project.relatedLinks);
@@ -115,7 +119,7 @@ function pageDetails(route) {
     canonical,
     title: project?.seoTitle ?? cleanText(titleMatch?.[1] ?? ""),
     description: project?.description ?? descriptionMatch?.[1] ?? descriptionMatch?.[2] ?? "",
-    h1: project?.title ?? cleanText(directH1?.[1] ?? heroTitle?.[1] ?? heroTitle?.[2] ?? (usesHeroSection ? "HeroSection" : "")),
+    h1: (project?.title ?? renderedH1) || (usesHeroSection ? "HeroSection" : usesSectionTitle ? "SectionTitle" : usesScientificExplorer ? "ScientificExplorer" : ""),
     hasBreadcrumbList: source.includes("BreadcrumbList"),
     hasFaqPage: source.includes("FAQPage") && /JSON\.stringify\([^)]*faq/i.test(source),
     jsonTypes: [...new Set(jsonTypes)],
@@ -131,7 +135,11 @@ function sitemapPaths() {
 
 const { routes, redirects } = getRoutes();
 const pages = routes.map(pageDetails);
-const canonicalRoutes = new Set(pages.map((page) => normalizePath(page.canonical || page.route)));
+const canonicalRoutes = new Set(
+  pages
+    .filter((page) => !noindexInteractiveRoutes.has(page.route))
+    .map((page) => normalizePath(page.canonical || page.route)),
+);
 const knownRoutes = new Set([...pages.map((page) => page.route), ...redirects.map((redirect) => redirect.route)]);
 const sitemap = new Set(sitemapPaths());
 const errors = [];
@@ -148,8 +156,15 @@ for (const page of pages) {
   if (page.canonical && page.canonical !== page.canonical.toLowerCase()) {
     errors.push(`${page.route}: canonical avec une casse incoherente (${page.canonical})`);
   }
-  if (!page.projectId && /name="robots"[\s\S]{0,120}?content="[^"]*noindex/i.test(read(page.file))) {
+  const hasNoindex = /name="robots"[\s\S]{0,120}?content="[^"]*noindex/i.test(read(page.file));
+  if (!page.projectId && hasNoindex && !noindexInteractiveRoutes.has(page.route)) {
     errors.push(`${page.route}: noindex detecte sur une page canonique`);
+  }
+  if (noindexInteractiveRoutes.has(page.route) && !hasNoindex) {
+    errors.push(`${page.route}: noindex absent sur une page interactive`);
+  }
+  if (noindexInteractiveRoutes.has(page.route) && sitemap.has(page.route)) {
+    errors.push(`${page.route}: page interactive presente dans le sitemap`);
   }
   if (!page.hasOnlySerializedJsonLd) {
     errors.push(`${page.route}: JSON-LD non serialise de maniere sure`);
@@ -160,7 +175,7 @@ for (const page of pages) {
   if (page.description.length < 100 || page.description.length > 165) {
     warnings.push(`${page.route}: meta description hors plage de lecture cible (${page.description.length} caracteres)`);
   }
-  if (page.route !== "/" && !page.hasBreadcrumbList) warnings.push(`${page.route}: BreadcrumbList absent`);
+  if (page.route !== "/" && !page.hasBreadcrumbList && !noindexInteractiveRoutes.has(page.route)) warnings.push(`${page.route}: BreadcrumbList absent`);
   for (const link of page.links) {
     if (!knownRoutes.has(link) && !link.startsWith("/projet/")) {
       errors.push(`${page.route}: lien interne introuvable (${link})`);

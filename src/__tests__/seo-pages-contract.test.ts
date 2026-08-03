@@ -6,7 +6,7 @@ const root = process.cwd();
 const appSource = fs.readFileSync(path.join(root, "src/App.tsx"), "utf8");
 const projectsSource = fs.readFileSync(path.join(root, "src/data/projects.ts"), "utf8");
 const siteOrigin = "https://noxia-imagerie.fr";
-const noindexInteractiveRoutes = new Set(["/connaissances"]);
+const noindexInteractiveRoutes = new Set(["/connaissances", "/protocol-designer/demo"]);
 
 const imports = new Map<string, string>();
 for (const match of appSource.matchAll(/const\s+(\w+)\s*=\s*lazy\(\(\)\s*=>\s*import\(["']([^"']+)["']\)\)/g)) {
@@ -47,7 +47,7 @@ describe("SEO page contract", () => {
         const canonicalPath = new URL(canonical as string, siteOrigin).pathname.replace(/\/$/, "") || "/";
         if (noindexInteractiveRoutes.has(page.route)) {
           expect(source, `${page.route} needs noindex,follow`).toMatch(/name="robots"\s+content="noindex, follow"/);
-          expect(sitemapPaths, `${page.route} must stay out of the sitemap`).not.toContain(canonicalPath);
+          expect(sitemapPaths, `${page.route} must stay out of the sitemap`).not.toContain(page.route);
         } else {
           expect(sitemapPaths, `${page.route} canonical must be in sitemap`).toContain(canonicalPath);
         }

@@ -1,13 +1,15 @@
-# Protocol Designer — frontière P0
+# Protocol Designer — historique P0 et démonstrateur P-WEB-02
 
 ## Statut
 
 - Référentiel PD-007 : `READY_FOR_IMPLEMENTATION`
-- Protocol Designer : `NOT_IMPLEMENTED`
+- Protocol Designer : `DEMONSTRATOR_IMPLEMENTED`
 - Évaluation scientifique : `NOT_EVALUATED_UNDER_PD011`
 - Pilote réel : `NOT_READY_FOR_REAL_PILOT`
 
-Ce répertoire est un espace privé, inactif et non importé. Il ne contient ni fonctionnalité produit, ni écran, ni route, ni moteur scientifique. Sa présence démontre uniquement que la passe P0 a fixé une frontière avant P1.
+La frontière P0 a été préservée jusqu’à l’autorisation P-WEB-02 du 3 août 2026. P-WEB-02 autorise désormais une interface locale déterministe, limitée à trois projections documentaires. La fixture Fabry P0 reste inchangée et n’est jamais importée par le démonstrateur.
+
+Les contrats P0 ne sont ni supprimés ni assouplis : leur objet demeure le candidat Fabry, qui reste strictement technique, non implémenté, non routé, non indexé et dépourvu de sortie scientifique. Les tests historiques sont conservés avec ce périmètre explicite afin que l’autorisation P-WEB-02 ne soit pas interprétée comme une activation du candidat.
 
 Ce fichier est une note locale d’implémentation. Il n’est pas un document normatif et ne modifie pas la gouvernance documentaire de NOXIA.
 
@@ -21,9 +23,9 @@ Ce fichier est une note locale d’implémentation. Il n’est pas un document n
 
 Les gates PD-007 sont des évaluations dérivées. `Gate` et `Stop` ne doivent jamais devenir des objets métier concurrents de PD-003. Un statut de gate PD-007 ne doit jamais être présenté comme un PASS PD-011.
 
-## Frontière P0
+## Frontière P0 historique
 
-Jusqu’à une passe ultérieure explicitement autorisée, ce répertoire ne doit contenir que :
+Avant P-WEB-02, ce répertoire ne devait contenir que :
 
 - la présente note de frontière ;
 - des fixtures techniques sans vérité scientifique exécutable ;
@@ -46,9 +48,20 @@ P0 ne modifie pas :
 - PD-003, PD-004, PD-005, PD-007, PD-009, PD-011 et le SOURCE-OF-TRUTH-INDEX ;
 - la publication et le déploiement.
 
-L’inactivité est garantie par l’absence de fichier de production dans ce répertoire et par l’absence d’import ou de route depuis l’application.
+La non-activation de Fabry est désormais garantie par l’absence d’import de sa fixture, par les tests de non-régression et par l’absence de scénario Fabry dans les trois projections admises.
 
-## Ordre futur gouverné par PD-007
+## Frontière P-WEB-02
+
+Le démonstrateur :
+
+- utilise uniquement des fixtures locales dérivées des RB-003 v1.0, RB-004 v1.1 et RB-005 v1.0 ;
+- n’accède à aucun réseau, service scientifique, document dynamique ou graphe de connaissances ;
+- ne génère aucun protocole, seuil clinique, ordre de séquences ou recommandation ;
+- ne prend aucune décision automatique ;
+- conserve l’état dans la session du navigateur et l’efface sur confirmation explicite ;
+- distingue l’admission documentaire de toute validation scientifique PD-011 ou activation produit.
+
+## Ordre cible gouverné par PD-007
 
 1. P1 — noyau métier V1 ;
 2. P2 — paquet Fabry gouverné ;
@@ -60,7 +73,7 @@ L’inactivité est garantie par l’absence de fichier de production dans ce r�
 8. P8 — version, trace et impact ;
 9. P9 — admission interne de la tranche, sans revendication de PASS PD-011.
 
-Cet ordre est une cible de travail. P0 n’implémente aucune de ces capacités.
+Cet ordre reste une cible de travail. Le démonstrateur P-WEB-02 ne prétend pas implémenter le moteur scientifique complet de ces passes.
 
 ## Validation reproductible
 

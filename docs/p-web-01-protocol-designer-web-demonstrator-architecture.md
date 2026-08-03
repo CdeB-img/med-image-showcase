@@ -4,14 +4,14 @@
 
 **Statut :** ARCHITECTURE_DE_PREPARATION — OFFICIAL  
 **Niveau documentaire :** NIVEAU_3 — documentation d’implémentation  
-**Version :** 1.0  
+**Version :** 1.1
 **Date d’effet :** 3 août 2026  
 **Source maîtresse :** `docs/p-web-01-protocol-designer-web-demonstrator-architecture.md`  
 **Édition dérivée :** aucune  
 **Nature :** architecture produit intermédiaire, architecture UX et préparation d’implémentation  
 **État couvert :** cible du démonstrateur définie ; Protocol Designer `NOT_IMPLEMENTED` ; `NOT_EVALUATED_UNDER_PD011` ; aucune publication interactive autorisée  
 **Autorités supérieures :** Charte fondatrice, Scientific Product Manifesto, Product Specification, PD-003, PD-004, PD-009 et PD-011 dans leurs domaines respectifs  
-**Corpus officiels démontrables :** RB-003 version 1.0 et RB-004 version 1.1 uniquement  
+**Corpus officiels démontrables :** RB-003 version 1.0, RB-004 version 1.1 et RB-005 version 1.0
 **Condition d’évolution :** changement explicite du périmètre démontrable, du parcours, d’un contrat de vue, d’un scénario admis, d’une dépendance d’implémentation ou d’un critère de recette  
 **Usage interdit :** prouver une implémentation, une validation scientifique, un PASS PD-011, une publication, une recommandation clinique, un protocole validé ou une capacité dynamique absente
 
@@ -25,21 +25,23 @@ P-WEB-01 définit la première architecture démontrable du Protocol Designer su
 
 Il ne crée ni interface, ni route, ni composant, ni donnée scientifique, ni moteur. Son statut `OFFICIAL` signifie uniquement que cette architecture de préparation est admise dans la gouvernance documentaire. Il ne transforme aucune cible en capacité présente.
 
+La version 1.1 constitue une correction documentaire bornée de la version 1.0. Elle ajoute RB-005 comme troisième scénario officiel après son admission ultérieure dans PD-013 état 1.7, conformément à l’« Instruction corrective — P-WEB-01 v1.1 — Extension du démonstrateur à RB-005 » du 3 août 2026. Elle ne modifie aucun principe, règle UX, objet conceptuel, Scientific Program, Reasoning Book, contenu scientifique, nombre de vues, composant, famille d’états ou critère d’acceptation.
+
 ### 0.2 Niveaux de vérité applicables
 
 | Niveau de vérité | État applicable à P-WEB-01 | Conséquence de lecture |
 |---|---|---|
 | Principes établis | science avant technologie ; intention avant solution ; contexte indissociable ; incertitude conservée ; responsabilité humaine ; traçabilité ; droit à l’arrêt | Invariants non négociables |
 | Références normatives | Product Specification, PD-003, PD-004, PD-009, PD-011, PD-012 et PD-013 | Contrats à appliquer sans les modifier |
-| Corpus scientifiques officiels | PD-002, PD-008, RB-003 et RB-004 ; seuls RB-003 et RB-004 alimentent les deux scénarios demandés | Connaissance datée ; aucune généralisation hors contexte |
+| Corpus scientifiques officiels | PD-002, PD-008, RB-003, RB-004 et RB-005 ; seuls RB-003 v1.0, RB-004 v1.1 et RB-005 v1.0 alimentent les trois scénarios actifs | Connaissance datée ; aucune généralisation hors contexte |
 | Cible produit | produit complet de 65 écrans, navigation scientifique, projections, évaluation et publication futures | Horizon de cohérence, pas périmètre à livrer ici |
 | État réellement implémenté | site React/Vite existant ; aucune route ou interface Protocol Designer ; répertoire P0 privé, inactif et non importé ; fixture Fabry strictement technique | Le démonstrateur n’existe pas encore |
 | Hypothèses du démonstrateur | parcours borné, scénarios préconfigurés, choix de routes, lecture secondaire des fondations, trace limitée à la démonstration | À vérifier par prototypage et recette |
-| Compromis temporaires | deux scénarios seulement ; cinq entrées visibles ; absence de collaboration réelle, de calcul scientifique dynamique et de publication | Ne deviennent pas des normes produit |
+| Compromis temporaires | trois scénarios seulement ; cinq entrées visibles ; absence de collaboration réelle, de calcul scientifique dynamique et de publication | Ne deviennent pas des normes produit |
 
 ### 0.3 Documents consultés, dans l’ordre appliqué
 
-1. `0. NOXIA — SOURCE-OF-TRUTH-INDEX.md`, version 1.17 avant admission du présent document ;
+1. `0. NOXIA — SOURCE-OF-TRUTH-INDEX.md`, version 1.19 avant la présente correction ;
 2. `output/documents/noxia-la-charte-fondatrice-edition-editoriale.docx` ;
 3. `output/documents/noxia-protocol-designer-scientific-product-manifesto-edition-editoriale.docx` ;
 4. `output/documents/noxia-protocol-designer-product-specification-v1.0.docx` ;
@@ -49,7 +51,7 @@ Il ne crée ni interface, ni route, ni composant, ni donnée scientifique, ni mo
 8. `docs/pd-009-decision-engine-architecture.md` ;
 9. `docs/pd-011-evaluation-framework.md` ;
 10. `docs/pd-012-scientific-program-architecture.md` ;
-11. `docs/pd-013-scientific-program-registry.md`, contrat 1.0, état 1.6 ;
+11. `docs/pd-013-scientific-program-registry.md`, contrat 1.0, état 1.7 ;
 12. `docs/scientific-territory-model.md` ;
 13. `docs/p6-scientific-knowledge-catalog.md` ;
 14. `docs/scientific-assertion-layer.md` ;
@@ -58,8 +60,10 @@ Il ne crée ni interface, ni route, ni composant, ni donnée scientifique, ni mo
 17. `output/documents/noxia-protocol-designer-reasoning-book-pd-008-myocardite.docx` ;
 18. `output/documents/noxia-protocol-designer-reasoning-book-rb-003-spectral-imaging.docx` ;
 19. `output/documents/noxia-protocol-designer-reasoning-book-rb-004-cardiac-mri-quantitative-cardiac-imaging.docx` ;
-20. `docs/p17-scientific-programs-reasoning-books-consolidation-report.md` ;
-21. preuves courantes d’implémentation : `src/App.tsx`, `src/components/Header.tsx`, `src/features/protocol-designer/README.md`, sa fixture P0 et ses tests de frontière.
+20. `output/documents/noxia-protocol-designer-reasoning-book-rb-005-neuro-perfusion-metabolism-foundations.docx` ;
+21. `docs/p17-scientific-programs-reasoning-books-consolidation-report.md` ;
+22. `docs/p-web-02-protocol-designer-web-demonstrator-validation-plan.md` ;
+23. preuves courantes d’implémentation : `src/App.tsx`, `src/components/Header.tsx`, `src/features/protocol-designer/README.md`, sa fixture P0 et ses tests de frontière.
 
 Les documents autonomes PD-014, PD-015 et PD-016 n’ont pas été recherchés. Les traces correspondantes sont lues dans PD-013, conformément au mandat.
 
@@ -70,12 +74,12 @@ Les documents autonomes PD-014, PD-015 et PD-016 n’ont pas été recherchés. 
 | E01 | Product Specification S03 : six entrées ; PD-004 budget officiel : cinq points d’entrée visibles | Contradiction de présentation dans un même niveau ; PD-004 est l’autorité UX spécialisée | Cinq cartes visibles et une voie « Autre objectif » recherchable. Les six familles produit restent accessibles sans être affichées simultanément. Compromis de démonstrateur, à réévaluer lors d’une évolution coordonnée des autorités. |
 | E02 | Product Specification : cible complète de 65 écrans ; démonstrateur : 17 vues fonctionnelles et états associés | Différence de périmètre, pas contradiction | Le démonstrateur sélectionne une tranche représentative sans prétendre remplacer la cible complète. |
 | E03 | PD-004 nomme `manquant` comme projection de l’inconnu ; PD-003 conserve l’état canonique `inconnu` ; le prompt demande aussi `déclaré` | Différence entre modèle et projection | Le modèle conserve `inconnu`. L’interface affiche « Information manquante » lorsque cet inconnu est requis ; `déclaré` qualifie la provenance, jamais un nouvel état épistémique. |
-| E04 | Index v1.17, registre de niveau 2 : RB-004 encore libellé version 1.0 ; PD-013 état 1.6, DOCX maître et P17 : version 1.1 | Contradiction active de métrique dans l’index | La mise à jour d’index corrige uniquement ce libellé en 1.1. Aucune source scientifique n’est modifiée. |
+| E04 | Index v1.17, registre de niveau 2 : RB-004 encore libellé version 1.0 ; PD-013 état 1.6, DOCX maître et P17 : version 1.1 | Écart historique résolu par l’index v1.18, sans contradiction courante | Conserver la trace de la correction ; la fixture utilise RB-004 v1.1. Aucune source scientifique n’est modifiée. |
 | E05 | P0 protège l’absence de route et de code ; P-WEB-01 décrit de futures routes et composants | Différence cible/état courant | P0 reste la preuve actuelle. Les routes, composants et dépendances de ce document sont des décisions de préparation, non des modifications présentes. |
-| E06 | RB-005 est inscrit comme `PLANNED_CANDIDATE_NOT_CREATED` | Absence explicite, pas lacune à combler | Aucun contenu, scénario ou exemple RB-005. Seul un emplacement générique de futur scénario est prévu. |
+| E06 | P-WEB-01 v1.0 excluait RB-005 alors candidat ; PD-013 état 1.7 et l’index v1.19 l’admettent ensuite comme actif officiel | Écart temporel explicitement résolu, sans réécriture de l’état historique | La présente version 1.1 ajoute RB-005 v1.0 comme troisième scénario déterministe sous `NXP-000003` v1.1. Aucun contenu scientifique n’est créé ou modifié. |
 | E07 | Scientific Assertion Layer décrit une migration initiale vide ; les corpus narratifs existent | Différence de couche et de date | Le démonstrateur n’invente aucun graphe exécutable. Les relations de preuve sont des projections bornées des corpus admis et sont étiquetées comme telles. |
 | E08 | Le mandat emploie « Niveau 1 — Raisonnement » ; PD-004 et le Manuel UX nomment la profondeur officielle « Niveau 1 — Compréhension » | Divergence de libellé ; PD-004 est l’autorité UX spécialisée | Le démonstrateur conserve « Niveau 1 — Compréhension ». Le raisonnement décrit son contenu, mais ne crée pas un cinquième libellé ni une profondeur concurrente. |
-| E09 | RB-004 v1.1 conserve le récit de son admission dans PD-013 état 1.4 et de `NXP-000002` v1.1 ; PD-013 courant est à l’état 1.6 et le Programme en v1.2 | État historique d’admission contre état courant ultérieur, pas contradiction scientifique | La fixture conserve l’historique si affiché, mais utilise PD-013 état 1.6 et P17 pour l’état courant. Aucun texte de RB-004 n’est réécrit. |
+| E09 | RB-004 v1.1 conserve le récit de son admission dans PD-013 état 1.4 et de `NXP-000002` v1.1 ; PD-013 courant est à l’état 1.7 et le Programme en v1.2 | État historique d’admission contre état courant ultérieur, pas contradiction scientifique | La fixture conserve l’historique si affiché, mais utilise PD-013 état 1.7 et P17 pour l’état courant. Aucun texte de RB-004 n’est réécrit. |
 
 ### 0.5 Décisions structurantes
 
@@ -90,7 +94,7 @@ Les documents autonomes PD-014, PD-015 et PD-016 n’ont pas été recherchés. 
 | D07 | PD-009 ; PD-004 UX-20/22 | État par phase et différentiel d’impact | Pourcentage de progression ; réécriture automatique | Préserve l’histoire et évite la fausse complétion | Impacts difficiles à expliquer | Durable |
 | D08 | PD-003 ; PD-004 UX-04/60 | Décision humaine datée et attribuée | Acceptation implicite ; auto-validation | Maintient le Mandat et la responsabilité | Friction de confirmation | Durable |
 | D09 | PD-011 | Aucune mention PASS/validation | Badge de performance ou « projet validé » | Le démonstrateur n’a pas été évalué | Valeur perçue moins spectaculaire | Durable jusqu’à preuve PD-011 |
-| D10 | PD-013 état 1.6 ; P17 | Deux scénarios : RB-003 et RB-004 | Fabry/Myocardite comme scénarios principaux ; RB-005 | Ce sont les deux corpus officiels demandés et possédés par un Program | Couverture fonctionnelle étroite | Temporaire |
+| D10 | PD-013 état 1.7 ; index v1.19 ; instruction corrective P-WEB-01 v1.1 | Trois scénarios : RB-003, RB-004 et RB-005 | Fabry/Myocardite comme scénarios principaux ; tout quatrième corpus non admis | Ce sont les trois corpus officiellement admis et explicitement autorisés pour le démonstrateur | Couverture fonctionnelle bornée à trois domaines | Temporaire |
 | D11 | PD-004 UX-06 ; prompt | Fondations scientifiques secondaires | Catalogue ou graphe comme accueil | Le produit montre un raisonnement, pas son infrastructure | Provenance moins visible au premier regard | Durable |
 | D12 | Site courant ; prompt | Page publique `/protocol-designer` et espace interactif `/protocol-designer/demo` | Démonstrateur en page d’accueil ; sous-route d’un Program | Sépare explication indexable et interaction non indexable | Deux surfaces à maintenir | Cible de cette tranche |
 | D13 | P0 ; PD-011 | Fixtures versionnées, lecture seule, explicitement préconfigurées | Génération dynamique simulée | Ne présente pas une fixture comme moteur | Démonstration moins ouverte | Temporaire |
@@ -106,7 +110,7 @@ Les documents autonomes PD-014, PD-015 et PD-016 n’ont pas été recherchés. 
 
 Le démonstrateur présente NOXIA comme un accompagnateur de raisonnement scientifique. Un visiteur découvre la proposition de valeur, choisit une intention, précise un contexte, voit ce qui est connu, supposé, manquant ou contradictoire, examine des hypothèses et des options, compare leurs conséquences, demande une revue critique, prend explicitement une décision humaine et consulte un rapport reconstructible.
 
-La surface visible repose sur deux scénarios préconfigurés et versionnés : Spectral Imaging à partir de RB-003 v1.0, et Cardiac MRI & Quantitative Cardiac Imaging à partir de RB-004 v1.1. Les Reasoning Books, Scientific Programs, sources et preuves sont accessibles comme fondations secondaires. Ils ne constituent jamais le menu principal.
+La surface visible repose sur trois scénarios préconfigurés, déterministes et versionnés : Spectral Imaging à partir de RB-003 v1.0, Cardiac MRI & Quantitative Cardiac Imaging à partir de RB-004 v1.1, et Neuro Perfusion & Metabolism Foundations à partir de RB-005 v1.0. Les Reasoning Books, Scientific Programs, sources et preuves sont accessibles comme fondations secondaires. Ils ne constituent jamais le menu principal.
 
 La démonstration ne calcule pas une vérité, ne produit pas de protocole clinique, ne simule pas une validation, ne revendique aucun PASS et ne publie aucune connaissance nouvelle. Elle rend visibles les contrats essentiels d’un futur produit : contexte, information manquante, hypothèses, options, limites, provenance, impact des changements, arrêt honnête et décision humaine.
 
@@ -171,7 +175,7 @@ Le DOCX du Manuel UX officiel a été vérifié : il contient les mêmes 70 iden
 - un espace interactif de démonstration distinct ;
 - cinq entrées visibles par intention et une voie « Autre objectif » ;
 - sept phases canoniques ;
-- deux scénarios officiels préconfigurés ;
+- trois scénarios officiels préconfigurés ;
 - état des informations, hypothèses, options, comparaison, preuves, limites, contradiction, revue, décision humaine et rapport ;
 - retour en amont avec impact aval visible ;
 - reprise dans une session ou un scénario préconfiguré ;
@@ -191,7 +195,7 @@ Le DOCX du Manuel UX officiel a été vérifié : il contient les mêmes 70 iden
 - stockage durable multi-utilisateur, API, synchronisation, export réglementaire ou publication ;
 - évaluation ou PASS PD-011 ;
 - indexation de l’espace interactif ;
-- usage de RB-005 ;
+- usage de tout corpus autre que RB-003 v1.0, RB-004 v1.1 et RB-005 v1.0 ;
 - remplacement de la Product Specification complète.
 
 ---
@@ -245,9 +249,12 @@ Les cinq entrées visibles sont :
 - **Ce que la fixture peut montrer :** chaîne phénomène → signal → mesure → qualité → incertitude → contexte, dépendances de mouvement et reconstruction, alternatives, métrologie, non-évaluabilité et provenance RB-004.
 - **Interdit :** pathologie particulière déduite, protocole patient, paramètres exécutables, seuil universel, recommandation thérapeutique ou équivalence non prouvée.
 
-### 6.3 Emplacement futur générique
+### 6.3 S-RB005 — Neuro Perfusion & Metabolism Foundations
 
-Le registre de scénarios cible accepte un futur identifiant, un corpus officiel, une version, un Program Owner, un paquet de projection et une décision d’admission. Aucun libellé, contenu ou comportement propre à RB-005 n’est créé. L’emplacement reste désactivé tant que PD-013 et l’index ne constatent pas son admission.
+- **Corpus :** RB-005 v1.0 ; Program Owner `NXP-000003` v1.1.
+- **Intention de démonstration :** comprendre, comparer ou quantifier un construit de perfusion cérébrale, d’oxygénation, de métabolisme ou de barrière hémato-encéphalique, sans commencer par une modalité.
+- **Ce que la fixture peut montrer :** distinction CBF/CBV/MTT/TTP/Tmax, relations et limites de l’OEF et du CMRO₂, séparation entre perfusion, métabolisme et BBB, dépendances de modèle, fonction d’entrée, calibration, transit, physiologie et version, comparaison bornée de CTP, DSC-MRI, DCE-MRI, ASL et PET, non-évaluabilité, limites de détection, refus et provenance RB-005.
+- **Interdit :** protocole clinique, dose, injection ou inhalation prescrite, paramètre d’acquisition, seuil universel, conclusion patient, recommandation, modalité déclarée supérieure en toute situation, viabilité ou irréversibilité affirmée sur une carte seule, interprétation non soutenue par RB-005.
 
 ---
 
@@ -257,7 +264,7 @@ Le registre de scénarios cible accepte un futur identifiant, un corpus officiel
 
 | Phase | Question utilisateur | Entrées minimales | Sortie visible | Blocage possible | Action principale |
 |---|---|---|---|---|---|
-| Découverte | Qu’est-ce que NOXIA démontre ici ? | Aucun | Valeur, limites, deux scénarios disponibles | JavaScript indisponible | Commencer la démonstration |
+| Découverte | Qu’est-ce que NOXIA démontre ici ? | Aucun | Valeur, limites, trois scénarios disponibles | JavaScript indisponible | Commencer la démonstration |
 | Intention | Qu’est-ce que je cherche à accomplir ? | Verbe et formulation libre | Intention structurée, sans décision scientifique | Formulation vide ou multiple | Clarifier cette intention |
 | Compréhension | Ai-je été compris dans mon contexte ? | Question, objectif, population, phénomène, temporalité, contraintes | Reformulation prudente et contexte minimal | Contexte décisif absent | Retenir cette reformulation |
 | Hypothèses | Quelles explications ou relations doivent être testées ? | Question, objectifs, informations | Hypothèses principales et concurrentes, statuts | Hypothèse non réfutable ou hors corpus | Ajouter cette hypothèse |
@@ -342,7 +349,7 @@ Site NOXIA
 Une intention scientifique devient un raisonnement traçable sous décision humaine.
 [Ce que le démonstrateur montre] [Ce qu’il ne valide pas]
 [7 phases en aperçu]
-[Scénario Spectral Imaging] [Scénario Cardiac MRI]
+[Scénario Spectral Imaging] [Scénario Cardiac MRI] [Scénario Neuro Perfusion]
 [Commencer la démonstration]
 [Méthode, accessibilité, limites, date et version]
 ```
@@ -426,7 +433,7 @@ Objet examiné : [proposition ou limite]
 Chaîne : proposition → justification → élément de preuve
 [SOUTIENT] [RÉFUTE] [QUALIFIE] [MENTIONNE]
 Source | version | date | localisateur | contexte | limite
-Projection issue de RB-003 v1.0 ou RB-004 v1.1
+Projection issue de RB-003 v1.0, RB-004 v1.1 ou RB-005 v1.0
 [Comparer le contexte] [Signaler un problème] [Revenir à l’objet]
 ```
 
@@ -891,7 +898,7 @@ Chaque fixture doit porter : identifiant stable, version, scénario, corpus et v
 
 La fixture n’extrait pas librement une phrase d’un Reasoning Book pour la transformer en assertion. Chaque élément narratif doit être soit un extrait localisé, soit une reformulation de lecture bornée portant son origine et ses limites. `SOUTIENT`, `RÉFUTE`, `QUALIFIE` et `MENTIONNE` ne sont affichés que lorsqu’une relation est explicitement établie dans le paquet ; aucune stance n’est inférée du simple fait qu’une référence est citée.
 
-Le registre de fixtures contient exactement deux scénarios actifs à la version 1.0 de P-WEB-01. Toute extension exige : corpus officiellement admis, Program Owner unique, revue documentaire, mise à jour du registre de fixtures, cas d’état non heureux, validation des localisateurs et mise à jour du présent document si le parcours ou les contrats changent.
+Le registre de fixtures contient exactement trois scénarios actifs à la version 1.1 de P-WEB-01 : RB-003 v1.0 sous `NXP-000001` v1.1, RB-004 v1.1 sous `NXP-000002` v1.2 et RB-005 v1.0 sous `NXP-000003` v1.1. Toute extension exige : corpus officiellement admis, Program Owner unique, revue documentaire, mise à jour du registre de fixtures, cas d’état non heureux, validation des localisateurs et mise à jour du présent document si le parcours ou les contrats changent.
 
 PD-002 Fabry et PD-008 Myocardite restent des corpus consultés pour vérifier la structure et les portes de non-protocole. Ils ne sont pas des scénarios actifs de P-WEB-01. La fixture Fabry P0 existante reste technique et inchangée ; elle ne doit pas être enrichie silencieusement en paquet scientifique.
 
@@ -925,7 +932,7 @@ Sans JavaScript, la page publique conserve titre, proposition de valeur, limites
 Ces dépendances décrivent des responsabilités à construire, sans imposer une API ou une technologie supplémentaire :
 
 1. **admission de surface :** décision séparée pour routes, navigation, SEO, sitemap et métadonnées ;
-2. **registre de scénarios :** deux fixtures versionnées, localisateurs vérifiés et statut de disponibilité ;
+2. **registre de scénarios :** trois fixtures versionnées, localisateurs vérifiés et statut de disponibilité ;
 3. **adaptateur de projection PD-003 :** transforme les objets en vues sans créer de modèle concurrent ;
 4. **navigation conforme PD-009 :** prochaine action, branches, états, arrêts et impacts ; pour le démonstrateur, résultats bornés et explicitement préconfigurés ;
 5. **coquille UX PD-004 :** résumé, phases, zone de travail, inspecteur, rapport et reprise ;
@@ -945,7 +952,7 @@ Ordre recommandé : préserver P0 → admettre fixtures → implémenter la coqu
 
 | ID | Risque/compromis | Impact | Mesure de maîtrise | Propriétaire futur | Revue/expiration |
 |---|---|---|---|---|---|
-| R01 | Deux scénarios seulement | Peut suggérer une généricité plus large que démontrée | Nommer exactement le périmètre et la version | Product Governance | À chaque nouveau corpus admis |
+| R01 | Trois scénarios seulement | Peut suggérer une généricité plus large que démontrée | Nommer exactement le périmètre et la version | Product Governance | À chaque nouveau corpus admis |
 | R02 | Fixtures préconfigurées | Peut être confondu avec un moteur dynamique | Badge « scénario préconfiguré », trace des réponses fixes | Lead implementation | Expire avec moteur démontré |
 | R03 | Cinq entrées vs six familles S03 | Une famille moins visible | « Autre objectif » et test de trouvabilité | UX Governance | Revue conjointe PD-004/Product Spec |
 | R04 | Décisions de session sans identité institutionnelle | Responsabilité réduite | « Décision de démonstration » et aucun Mandat inventé | Product Governance | Expire avec gestion d’identité admise |
@@ -954,7 +961,7 @@ Ordre recommandé : préserver P0 → admettre fixtures → implémenter la coqu
 | R07 | Matrices denses sur mobile | Perte de relations | Vue linéaire équivalente et tests 320 px/400 % | UX implementation | Avant recette |
 | R08 | Site public et espace interactif proches | Confusion indexation/publication | Routes et statuts SEO distincts | SEO Governance | Avant mise en ligne |
 | R09 | RB-004 a connu une révision 1.1 | Fixture périmée | Version verrouillée et alerte de conflit | Fixture owner | À chaque révision de corpus |
-| R10 | RB-005 futur | Pression pour anticiper son contenu | Slot générique désactivé | Registry Governance | Jusqu’à admission officielle |
+| R10 | RB-005 nouvellement admis | Risque de projection au-delà de son corpus ou de sa version | Fixture verrouillée sur RB-005 v1.0, localisateurs et interdits explicites | Registry Governance | À chaque révision du corpus ou de son Programme |
 | R11 | P0 garantit aujourd’hui l’absence de code | Première implémentation cassera cette frontière | Mission explicite pour faire évoluer les tests P0 avec preuve | Implementation owner | Au démarrage du code |
 | R12 | Aucun résultat PD-011 | Démo confondue avec validation | Mentions `NOT_EVALUATED_UNDER_PD011` et aucun claim de valeur mesurée | Evaluation Governance | Jusqu’à campagne PASS applicable |
 
@@ -979,8 +986,8 @@ Ordre recommandé : préserver P0 → admettre fixtures → implémenter la coqu
 
 ### 22.2 Science, corpus et gouvernance
 
-- **AC-13** Seuls RB-003 v1.0 et RB-004 v1.1 sont scénarios actifs.
-- **AC-14** RB-005 n’apparaît ni comme scénario, ni comme contenu disponible.
+- **AC-13** Exactement trois scénarios sont actifs : RB-003 v1.0, RB-004 v1.1 et RB-005 v1.0.
+- **AC-14** Le scénario RB-005 affiche `NXP-000003` v1.1, sa version, sa provenance et ses limites sans contenu extrapolé.
 - **AC-15** Chaque contenu scientifique porte corpus, version, date et localisateur.
 - **AC-16** Une citation ne reçoit aucune stance par inférence.
 - **AC-17** Aucune fixture n’est présentée comme connaissance nouvelle ou calcul dynamique.
@@ -993,7 +1000,7 @@ Ordre recommandé : préserver P0 → admettre fixtures → implémenter la coqu
 - **AC-21** Les douze familles d’états de la section 12 possèdent un exemple testable.
 - **AC-22** Une contradiction est distinguée d’une erreur de saisie et conserve les deux positions.
 - **AC-23** Une non-évaluabilité expose cause, préservé, actions et revue humaine.
-- **AC-24** Les deux scénarios sont réalisables à 320 px sans fonction essentielle absente.
+- **AC-24** Les trois scénarios sont réalisables à 320 px sans fonction essentielle absente.
 - **AC-25** À 400 % de zoom, aucune action ou information n’est perdue et les matrices ont une vue linéaire.
 - **AC-26** Toutes les actions sont utilisables au clavier avec focus visible et restauré.
 - **AC-27** Les statuts, alertes et sélections sont compréhensibles sans couleur.
@@ -1019,14 +1026,14 @@ Ordre recommandé : préserver P0 → admettre fixtures → implémenter la coqu
 ### Gouvernance
 
 - [ ] relire l’index courant et vérifier que P-WEB-01 reste admis ;
-- [ ] vérifier versions PD-004, PD-009, PD-011, PD-013, RB-003 et RB-004 ;
-- [ ] confirmer que RB-005 reste exclu ou réaliser une admission séparée ;
+- [ ] vérifier versions PD-004, PD-009, PD-011, PD-013, RB-003, RB-004 et RB-005 ;
+- [ ] confirmer que les trois scénarios actifs correspondent au registre et à la présente version ;
 - [ ] nommer les propriétaires UX, science, fixture, accessibilité, SEO et recette ;
 - [ ] documenter toute exception selon UX-68.
 
 ### Fixtures et contenu
 
-- [ ] construire deux paquets versionnés sans modifier les Reasoning Books ;
+- [ ] construire trois paquets versionnés sans modifier les Reasoning Books ;
 - [ ] vérifier chaque localisateur et relation de preuve ;
 - [ ] inclure heureux, manquant, contradiction, non-évaluable, conflit de version et reprise ;
 - [ ] marquer tout contenu `DEMO_FIXTURE_NOT_DYNAMIC` ;
@@ -1055,7 +1062,7 @@ Ordre recommandé : préserver P0 → admettre fixtures → implémenter la coqu
 
 - [ ] transformer AC-01 à AC-38 en tests ou preuves de recette ;
 - [ ] exécuter les tests de routes, SEO, frontières et non-régression existants ;
-- [ ] tester les deux scénarios avec médecins/chercheurs et un profil méthodologique ou Core Lab ;
+- [ ] tester les trois scénarios avec médecins/chercheurs et un profil méthodologique ou Core Lab ;
 - [ ] tester explicitement compréhension, limite principale et prochaine action ;
 - [ ] réaliser clavier, lecteur d’écran, zoom 400 %, contraste, reflow 320 px et tactile ;
 - [ ] consigner que la recette d’implémentation ne vaut pas PASS PD-011.
@@ -1068,7 +1075,7 @@ Ordre recommandé : préserver P0 → admettre fixtures → implémenter la coqu
 |---|---|---|---|
 | Entrée par l’intention | Oui | §§5, 7, 10.2 ; D01 ; AC-01/02 | Aucun Program, RB ou modalité en entrée |
 | Parcours canonique | Oui | §§7–10 ; D02 ; AC-03 | Carte réouvrable, non tunnel |
-| Programs et Reasoning Books secondaires | Oui | §§6.3, 9, 10.15, 11.16 ; AC-18 | Fondations et provenance seulement |
+| Programs et Reasoning Books secondaires | Oui | §§6, 9, 10.15, 11.16 ; AC-18 | Fondations et provenance seulement |
 | Architecture interne non exposée | Oui | §§8–9, 17 | Les objets alimentent des projections utilisateur |
 | Progressive disclosure | Oui | §§2, 13 | Quatre profondeurs conformes à UX-15–18 |
 | Blocages critiques visibles | Oui | §§7.3, 10.9–10.12, 11.10–11.11 ; AC-07 | Niveau 0, jamais replié |
@@ -1078,7 +1085,7 @@ Ordre recommandé : préserver P0 → admettre fixtures → implémenter la coqu
 | WCAG 2.2 AA | Oui comme cible | §15 ; AC-25–30 | Aucune conformité actuelle revendiquée |
 | Cible non présentée comme implémentée | Oui | En-tête, §§0.2, 19.1 | P0 reste `NOT_IMPLEMENTED` |
 | Aucun contenu scientifique inventé | Oui | §§6, 17–18 ; AC-15–20 | Fixtures bornées aux corpus officiels |
-| RB-005 non utilisé | Oui | §§0.4 E06, 6.3, 18 ; AC-14 | Slot générique désactivé uniquement |
+| Trois scénarios officiels exacts | Oui | §§0.4 E06, 6, 18 ; AC-13/14 | RB-003 v1.0, RB-004 v1.1 et RB-005 v1.0 ; aucun quatrième scénario |
 | PD-003 préservé | Oui | §17 | Aucun objet métier concurrent |
 | PD-004 préservé | Oui | §§2, 13–16 | Aucune règle UX normative modifiée |
 | PD-009 préservé | Oui | §§7–8, 20 | Navigation cible, aucun rôle IA propriétaire |
@@ -1092,6 +1099,6 @@ Ordre recommandé : préserver P0 → admettre fixtures → implémenter la coqu
 
 ## Décision de clôture
 
-P-WEB-01 est admis comme **architecture de préparation NIVEAU_3, version 1.0**. Il fournit une base directement exploitable pour une mission ultérieure d’implémentation, sous réserve d’une autorisation distincte de modifier le site et de la vérification des versions documentaires alors courantes.
+P-WEB-01 est admis comme **architecture de préparation NIVEAU_3, version 1.1**. Il fournit une base directement exploitable pour une mission ultérieure d’implémentation, sous réserve d’une autorisation distincte de modifier le site et de la vérification des versions documentaires alors courantes.
 
 La création de ce document ne modifie ni la science, ni les normes, ni le registre des Scientific Programs, ni les Reasoning Books, ni le code, ni les routes, ni le SEO, ni la publication. Le Protocol Designer demeure `NOT_IMPLEMENTED` et `NOT_EVALUATED_UNDER_PD011`.
