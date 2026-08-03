@@ -1,8 +1,8 @@
 import { SCIENTIFIC_INTAKE_SYSTEM_PROMPT } from "../../../../api/prompts/scientific-intake-system-prompt";
-import { detectSensitiveData } from "./privacy";
-import { normalizeInterpretation } from "./normalizer";
-import { MAX_REQUEST_BYTES, parseScientificIntakeProviderOutput, parseScientificIntakeRequest, SCIENTIFIC_INTAKE_JSON_SCHEMA } from "./schema";
-import type { IntakeApiError, ScientificIntakeInterpretation, ScientificIntakeRequest } from "./types";
+import { detectSensitiveData } from "./privacy.js";
+import { normalizeInterpretation } from "./normalizer.js";
+import { MAX_REQUEST_BYTES, parseScientificIntakeProviderOutput, parseScientificIntakeRequest, SCIENTIFIC_INTAKE_JSON_SCHEMA } from "./schema.js";
+import type { IntakeApiError, ScientificIntakeInterpretation, ScientificIntakeRequest } from "./types.js";
 
 export type IntakeHttpRequest = { method?: string; headers: Record<string, string | string[] | undefined>; body: unknown; ip?: string };
 export type IntakeHttpResponse = { status: number; headers: Record<string, string>; body: ScientificIntakeInterpretation | IntakeApiError };

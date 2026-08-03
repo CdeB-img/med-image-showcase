@@ -1,4 +1,4 @@
-import type { AdaptiveQuestion, InterpretedFieldKey, ValidatedScientificIntent } from "./types";
+import type { AdaptiveQuestion, InterpretedFieldKey, ValidatedScientificIntent } from "./types.js";
 
 export const ADAPTIVE_QUESTION_REGISTRY: AdaptiveQuestion[] = [
   {

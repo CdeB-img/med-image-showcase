@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { hasSensitiveData } from "./privacy";
-import { parseScientificIntakeInterpretation } from "./schema";
-import { INTAKE_FIXTURE_SET_VERSION, INTAKE_SESSION_SCHEMA_VERSION, type HumanFieldReview, type InterpretedFieldKey, type ProtocolDesignerSession, type ScientificIntakeInterpretation, type ValidatedScientificIntent } from "./types";
+import { hasSensitiveData } from "./privacy.js";
+import { parseScientificIntakeInterpretation } from "./schema.js";
+import { INTAKE_FIXTURE_SET_VERSION, INTAKE_SESSION_SCHEMA_VERSION, type HumanFieldReview, type InterpretedFieldKey, type ProtocolDesignerSession, type ScientificIntakeInterpretation, type ValidatedScientificIntent } from "./types.js";
 
 export const INTAKE_SESSION_KEY = "noxia-guided-intake-session-v3";
 

@@ -1,4 +1,4 @@
-import { INTERPRETED_FIELD_KEYS, type AdaptiveQuestion, type ProtocolDesignerSession } from "./types";
+import { INTERPRETED_FIELD_KEYS, type AdaptiveQuestion, type ProtocolDesignerSession } from "./types.js";
 import { scenarioDetails } from "./scenarios";
 
 export type ReportSectionStatus = "Disponible" | "Partiellement disponible" | "Bloqué" | "Non encore supporté" | "Non applicable" | "À confirmer" | "Revue experte nécessaire";

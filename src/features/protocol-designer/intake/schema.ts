@@ -4,7 +4,7 @@ import {
   INTAKE_SCHEMA_VERSION,
   type ScientificIntakeInterpretation,
   type ScientificIntakeRequest,
-} from "./types";
+} from "./types.js";
 
 export const MIN_QUESTION_LENGTH = 24;
 export const MAX_QUESTION_LENGTH = 4_000;

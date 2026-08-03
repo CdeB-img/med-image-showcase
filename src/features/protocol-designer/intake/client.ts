@@ -1,5 +1,5 @@
-import { parseScientificIntakeInterpretation, type scientificIntakeRequestSchema } from "./schema";
-import type { ScientificIntakeInterpretation } from "./types";
+import { parseScientificIntakeInterpretation, type scientificIntakeRequestSchema } from "./schema.js";
+import type { ScientificIntakeInterpretation } from "./types.js";
 import type { z } from "zod";
 
 export class IntakeClientError extends Error {

@@ -1,4 +1,4 @@
-import { INTERPRETED_FIELD_KEYS, type InterpretedField, type ScientificIntakeInterpretation, type ScientificIntakeRequest } from "./types";
+import { INTERPRETED_FIELD_KEYS, type InterpretedField, type ScientificIntakeInterpretation, type ScientificIntakeRequest } from "./types.js";
 
 export class IntakeValidationError extends Error {
   constructor(public readonly reason: string) {

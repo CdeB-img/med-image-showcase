@@ -1,5 +1,5 @@
 import { DEMONSTRATOR_SCENARIOS } from "../fixtures";
-import type { ScenarioMatch, ValidatedScientificIntent } from "./types";
+import type { ScenarioMatch, ValidatedScientificIntent } from "./types.js";
 
 const TERMS = {
   spectral: ["spectral", "dual energy", "double énergie", "photon counting", "k-edge", "iode", "monoénergétique"],
