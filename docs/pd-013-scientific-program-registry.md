@@ -10,7 +10,7 @@
 
 **Date d’effet :** 2 août 2026
 
-**Révision de l’état officiel du registre :** 1.4
+**Révision de l’état officiel du registre :** 1.7
 
 **Date d’état :** 3 août 2026
 
@@ -20,7 +20,7 @@
 
 **Éditions dérivées :** aucune
 
-**Programmes officiels inscrits dans l’état 1.4 :** 2
+**Programmes officiels inscrits dans l’état 1.7 :** 3
 
 **Périmètre :** contrat du registre et état officiel de ses inscriptions
 
@@ -43,9 +43,9 @@ PD-013 remplit deux fonctions indissociables :
 1. il définit le contrat du Scientific Program Registry ;
 2. il constitue la source maîtresse de l’état officiel des inscriptions tant qu’aucune autre représentation n’a été admise par le SOURCE-OF-TRUTH-INDEX.
 
-Le contrat PD-013 reste en version 1.0. Son état initial contenait **zéro Scientific Program officiel**. La révision d’état 1.1 a enregistré en premier l’admission documentaire de `NXP-000002 — Cardiac MRI & Quantitative Cardiac Imaging`. La révision d’état 1.2 a ensuite enregistré l’admission documentaire de `NXP-000001 — Spectral Imaging`. La révision d’état 1.3 admet `RB-003 — Reasoning Book 03 — Spectral Imaging` comme actif officiel de niveau 2 du portefeuille de `NXP-000001` et porte ce Programme à la version mineure 1.1. La révision d’état 1.4 admet `RB-004 — Reasoning Book 04 — Cardiac MRI & Quantitative Cardiac Imaging` comme actif officiel de niveau 2 du portefeuille de `NXP-000002` et porte ce Programme à la version mineure 1.1. L’ordre numérique des ProgramID n’encode aucune chronologie et ne réécrit pas cet ordre historique.
+Le contrat PD-013 reste en version 1.0. Son état initial contenait **zéro Scientific Program officiel**. La révision d’état 1.1 a enregistré en premier l’admission documentaire de `NXP-000002 — Cardiac MRI & Quantitative Cardiac Imaging`. La révision d’état 1.2 a ensuite enregistré l’admission documentaire de `NXP-000001 — Spectral Imaging`. La révision d’état 1.3 admet `RB-003 — Reasoning Book 03 — Spectral Imaging` comme actif officiel de niveau 2 du portefeuille de `NXP-000001` et porte ce Programme à la version mineure 1.1. La révision d’état 1.4 admet `RB-004 — Reasoning Book 04 — Cardiac MRI & Quantitative Cardiac Imaging` comme actif officiel de niveau 2 du portefeuille de `NXP-000002` et porte ce Programme à la version mineure 1.1. La révision d’état 1.5 enregistre en troisième l’admission documentaire de `NXP-000003 — Neuro Perfusion & Metabolism`, `OFFICIAL` version 1.0, avec `RB-005` comme unique référence candidate non créée. La révision d’état 1.6 enregistre la correction bibliographique bornée de RB-004, version 1.0 vers 1.1, et porte `NXP-000002` à la version mineure 1.2 sans modifier sa vision, ses frontières, ses relations ou son ownership. La révision d’état 1.7 admet `RB-005 — Reasoning Book 05 — Neuro Perfusion & Metabolism Foundations` comme actif officiel de niveau 2 du portefeuille de `NXP-000003` et porte ce Programme à la version mineure 1.1. L’ordre numérique des ProgramID n’encode aucune chronologie et ne réécrit pas cet ordre historique.
 
-Les admissions de Programmes ne créent aucune représentation exécutable et ne promeuvent automatiquement aucun nom illustratif, nœud territorial, KnowledgeNode ou Reasoning Book. Les admissions ultérieures de RB-003 puis de RB-004 résultent de décisions documentaires distinctes et ne créent ni registre exécutable, ni activation produit, ni publication.
+Les admissions de Programmes ne créent aucune représentation exécutable et ne promeuvent automatiquement aucun nom illustratif, nœud territorial, KnowledgeNode ou Reasoning Book. Les admissions ultérieures de RB-003, RB-004 puis RB-005 résultent de décisions documentaires distinctes et ne créent ni registre exécutable, ni activation produit, ni publication. L’admission de RB-005 ne crée ni les autres cahiers de la roadmap de `NXP-000003`, ni ownership sur les connaissances déjà présentes dans le Catalog ou le Knowledge Graph.
 
 PD-013 ne crée :
 
@@ -83,8 +83,8 @@ PD-013 ne crée :
 | Références normatives | PD-003, PD-009, PD-011, PD-012, Territory Model, Catalog et Knowledge Graph | Contrats spécialisés que le registre référence sans les absorber |
 | Corpus scientifiques | Reasoning Books et corpus P4–P5 | Actifs éventuellement référencés par un futur Programme, jamais modifiés ou inscrits automatiquement par PD-013 |
 | Cible normative | registre unique, déterministe et auditable capable de gouverner plusieurs centaines d’inscriptions | Contrat durable, sans choix d’implémentation |
-| État réellement observé | PD-012 et PD-013 sont officiels ; les états 1.1 puis 1.2 enregistrent deux admissions de Programmes, l’état 1.3 l’admission de RB-003 et l’état 1.4 l’admission de RB-004 | `NXP-000002` et `NXP-000001` sont `OFFICIAL` version 1.1 ; RB-003 et RB-004 sont des corpus de niveau 2 `OFFICIAL` version 1.0 ; aucune représentation exécutable, activation produit ou publication n’est démontrée |
-| Hypothèses | futurs Programmes, futures relations inter-Programmes et actifs non créés | Données absentes ou prospectives ; les exemples historiques de la section 14 restent exclus du registre officiel |
+| État réellement observé | PD-012 et PD-013 sont officiels ; les états 1.1 puis 1.2 enregistrent deux admissions de Programmes, l’état 1.3 l’admission de RB-003, l’état 1.4 l’admission de RB-004, l’état 1.5 la troisième admission de Programme, l’état 1.6 une correction bibliographique de RB-004 et l’état 1.7 l’admission de RB-005 | `NXP-000002` est `OFFICIAL` version 1.2 ; `NXP-000001` est `OFFICIAL` version 1.1 ; `NXP-000003` est `OFFICIAL` version 1.1 ; RB-003 et RB-005 sont `OFFICIAL` version 1.0 et RB-004 `OFFICIAL` version 1.1 ; aucune représentation exécutable, activation produit ou publication n’est démontrée |
+| Hypothèses | futurs Programmes, futures relations inter-Programmes, les sept entrées non identifiées de la roadmap de `NXP-000003`, ainsi que tous les actifs non créés | Données absentes ou prospectives ; les exemples historiques de la section 14 restent exclus du registre officiel |
 
 ### 0.4 Arbitrages explicites
 
@@ -180,16 +180,18 @@ Il ne possède aucune autorité pour inventer un Programme, modifier PD-012, pro
 
 ### 1.4 Portée et registre courant
 
-| Mesure du registre — état 1.4 | Valeur | Interprétation |
+| Mesure du registre — état 1.7 | Valeur | Interprétation |
 |---|---:|---|
-| Programmes officiellement inscrits | 2 | `NXP-000002`, puis `NXP-000001`, ont franchi l’admission PD-012 et PD-013 |
-| Programmes `OFFICIAL` | 2 | `NXP-000002` et `NXP-000001` en version 1.1 |
+| Programmes officiellement inscrits | 3 | `NXP-000002`, puis `NXP-000001`, puis `NXP-000003`, ont franchi l’admission PD-012 et PD-013 |
+| Programmes `OFFICIAL` | 3 | `NXP-000002` en version 1.2 ; `NXP-000001` en version 1.1 ; `NXP-000003` en version 1.1 |
 | Programmes `MAINTAINED` | 0 | Aucun Programme officiel en maintenance |
-| Programmes candidats inscrits | 0 | RB-003 et RB-004 sont des actifs officiels, pas des Programmes candidats |
+| Programmes candidats inscrits | 0 | Aucun Scientific Program candidat |
 | Programmes expérimentaux inscrits | 0 | Aucun dossier expérimental enregistré |
 | Programmes retirés ou historiques | 0 | Aucun identifiant antérieur à conserver |
-| Reasoning Books officiels | 2 | RB-003 sous `NXP-000001` et RB-004 sous `NXP-000002`, chacun en version 1.0 |
-| Éditions dérivées de Reasoning Books | 2 | Un PDF dérivé pour chaque DOCX maître ; aucun PDF n’est source maîtresse |
+| Reasoning Books officiels | 3 | RB-003 version 1.0 sous `NXP-000001`, RB-004 version 1.1 sous `NXP-000002` et RB-005 version 1.0 sous `NXP-000003` |
+| Références candidates de Reasoning Books non créés | 0 | La référence candidate RB-005 est devenue un actif officiel ; aucune autre référence de roadmap ne possède d’identifiant |
+| Entrées prospectives de roadmap sous `NXP-000003` | 7 | Sept candidats restent sans identifiant, sans réservation et sans autorité |
+| Éditions dérivées de Reasoning Books | 3 | Un PDF dérivé pour chaque DOCX maître ; aucun PDF n’est source maîtresse |
 | Exemples documentaires historiques | 3 | Exclus du registre officiel ; `Cardiac MRI` et `Spectral CT` sont supplantés comme exemples par des inscriptions distinctes |
 
 Cette table est un état documentaire explicite. Elle ne prouve ni l’existence d’un registre exécutable ni l’absence de domaines dans le Territory Model ou le Catalog.
@@ -917,7 +919,7 @@ Si deux inscriptions semblent représenter le même Programme, aucune fusion sil
 
 ### 14.1 Règle commune
 
-Les trois fiches suivantes conservent la trace des exemples utilisés lors de la création du contrat. Elles ne sont pas des dossiers `DRAFT`, ne réservent aucun identifiant et ne prouvent aucun rattachement territorial. Dans l’état 1.4, les colonnes `Cardiac MRI` et `Spectral CT` sont des exemples historiques supplantés : seules les inscriptions distinctes et complètes `NXP-000002` et `NXP-000001` de la section 19 possèdent une autorité.
+Les trois fiches suivantes conservent la trace des exemples utilisés lors de la création du contrat. Elles ne sont pas des dossiers `DRAFT`, ne réservent aucun identifiant et ne prouvent aucun rattachement territorial. Dans l’état courant 1.6, les colonnes `Cardiac MRI` et `Spectral CT` sont des exemples historiques supplantés : seules les inscriptions distinctes et complètes `NXP-000002`, `NXP-000001` et `NXP-000003` de la section 19 possèdent une autorité.
 
 | Champ | Cardiac MRI | Spectral CT | Imaging Biomarkers |
 |---|---|---|---|
@@ -1110,7 +1112,7 @@ Aucune édition DOCX, PDF, JSON, interface ou représentation exécutable n’es
 ## 18. Invariants officiels
 
 1. Il existe un seul Scientific Program Registry canonique.
-2. Le contrat v1.0 a été établi avec un registre initial vide ; l’état 1.1 contient historiquement `NXP-000002`, l’état 1.2 les deux admissions de Programmes, l’état 1.3 l’admission de RB-003 et l’état courant 1.4 exactement deux Scientific Programs officiels, `NXP-000002` puis `NXP-000001` dans l’ordre d’admission, tous deux en version 1.1, chacun possédant un Reasoning Book officiel version 1.0.
+2. Le contrat v1.0 a été établi avec un registre initial vide ; l’état 1.1 contient historiquement `NXP-000002`, l’état 1.2 les deux premières admissions de Programmes, l’état 1.3 l’admission de RB-003, l’état 1.4 l’admission de RB-004, l’état 1.5 l’admission de `NXP-000003`, l’état 1.6 la correction bibliographique de RB-004 et l’état courant 1.7 l’admission de RB-005 : `NXP-000002` est en version 1.2 avec RB-004 version 1.1, `NXP-000001` en version 1.1 avec RB-003 version 1.0, et `NXP-000003` en version 1.1 avec RB-005 version 1.0.
 3. PD-012 définit les Programmes ; PD-013 enregistre leur identité et leur état.
 4. Un ProgramID identifie une seule identité et n’est jamais réutilisé.
 5. Un alias ne crée jamais de Programme.
@@ -1137,16 +1139,17 @@ Aucune édition DOCX, PDF, JSON, interface ou représentation exécutable n’es
 
 ---
 
-## 19. État officiel du registre — contrat v1.0, état 1.4
+## 19. État officiel du registre — contrat v1.0, état 1.7
 
 ### 19.1 Inscriptions officielles
 
 | ProgramID | Nom officiel | Type | Statut | Version | Date d’effet | Program Owner |
 |---|---|---|---|---|---|---|
-| `NXP-000002` | Cardiac MRI & Quantitative Cardiac Imaging | `HYBRID_PROGRAM` | `OFFICIAL` | 1.1 | 3 août 2026 | `NXP-000002` |
+| `NXP-000002` | Cardiac MRI & Quantitative Cardiac Imaging | `HYBRID_PROGRAM` | `OFFICIAL` | 1.2 | 3 août 2026 | `NXP-000002` |
 | `NXP-000001` | Spectral Imaging | `MODALITY_PROGRAM` | `OFFICIAL` | 1.1 | 3 août 2026 | `NXP-000001` |
+| `NXP-000003` | Neuro Perfusion & Metabolism | `DOMAIN_PROGRAM` | `OFFICIAL` | 1.1 | 3 août 2026 | `NXP-000003` |
 
-L’ordre des lignes est chronologique : `NXP-000002` a été admis par l’événement `NXP-REG-EVENT-20260803-0001` dans l’état 1.1 ; `NXP-000001` a été admis ensuite par l’événement `NXP-REG-EVENT-20260803-0002` dans l’état 1.2, puis porté à la version 1.1 par l’admission de RB-003 dans l’événement `NXP-REG-EVENT-20260803-0003` et l’état 1.3 ; `NXP-000002` a enfin été porté à la version 1.1 par l’admission de RB-004 dans l’événement `NXP-REG-EVENT-20260803-0004` et l’état 1.4. Conformément à la section 4.1, la séquence numérique du ProgramID n’encode aucune chronologie.
+L’ordre des lignes est chronologique : `NXP-000002` a été admis par l’événement `NXP-REG-EVENT-20260803-0001` dans l’état 1.1 ; `NXP-000001` a été admis ensuite par l’événement `NXP-REG-EVENT-20260803-0002` dans l’état 1.2, puis porté à la version 1.1 par l’admission de RB-003 dans l’événement `NXP-REG-EVENT-20260803-0003` et l’état 1.3 ; `NXP-000002` a été porté à la version 1.1 par l’admission de RB-004 dans l’événement `NXP-REG-EVENT-20260803-0004` et l’état 1.4 ; `NXP-000003` a été admis par l’événement `NXP-REG-EVENT-20260803-0005` dans l’état 1.5 ; la correction bibliographique de RB-004 a porté cet actif à la version 1.1 et `NXP-000002` à la version 1.2 par l’événement `NXP-REG-EVENT-20260803-0006` dans l’état 1.6 ; l’admission de RB-005 a enfin porté `NXP-000003` à la version 1.1 par l’événement `NXP-REG-EVENT-20260803-0007` dans l’état 1.7. Conformément à la section 4.1, la séquence numérique du ProgramID n’encode aucune chronologie.
 
 #### 19.1.1 Identité et classification de NXP-000002
 
@@ -2109,13 +2112,13 @@ Les libellés `PASS` ci-dessus qualifient exclusivement les contrôles documenta
 
 **Aucun Scientific Program candidat ou expérimental.**
 
-RB-003 et RB-004 sont désormais des actifs officiels respectifs de `NXP-000001` et `NXP-000002`, pas des Scientific Programs. Leurs anciens états candidats restent conservés dans les pré-états historiques des §§19.1 et 19.2. Les exemples de la section 14 restent exclus.
+RB-003, RB-004 et RB-005 sont des actifs officiels respectifs de `NXP-000001`, `NXP-000002` et `NXP-000003`, pas des Scientific Programs. Leurs anciens états candidats restent conservés dans les pré-états historiques des §§19.1, 19.2 et 19.6. Les exemples de la section 14 restent exclus.
 
 ### 19.4 Identifiants réservés sans inscription officielle
 
 **Aucun.**
 
-`NXP-000002` et `NXP-000001` sont attribués et officiels. Aucun autre ProgramID n’est réservé.
+`NXP-000002`, `NXP-000001` et `NXP-000003` sont attribués et officiels. Aucun autre ProgramID n’est réservé. Les libellés RB-006 à RB-012 de la roadmap historique cardiaque ne sont ni des ProgramID, ni des identités documentaires réservées. Les sept entrées sans identifiant de la roadmap de `NXP-000003` ne constituent pas davantage une réservation.
 
 ### 19.5 Historique d’opérations
 
@@ -2126,6 +2129,657 @@ RB-003 et RB-004 sont désormais des actifs officiels respectifs de `NXP-000001`
 | Admission ultérieure de `NXP-000001`, état 1.2, 3 août 2026 | 2 inscriptions officielles | `ADMIT` — `ADMISSION-DECISION-NXP-000001-20260803` |
 | Admission de RB-003 sous `NXP-000001`, état 1.3, 3 août 2026 | 2 inscriptions officielles ; un Reasoning Book officiel ; `NXP-000001` version 1.1 | `ADMIT_ASSET_REFERENCE` — `ASSET-ADMISSION-DECISION-RB-003-20260803` |
 | Admission de RB-004 sous `NXP-000002`, état 1.4, 3 août 2026 | 2 inscriptions officielles ; deux Reasoning Books officiels ; `NXP-000002` version 1.1 | `ADMIT_ASSET_REFERENCE` — `ASSET-ADMISSION-DECISION-RB-004-20260803` |
+| Admission de `NXP-000003`, état 1.5, 3 août 2026 | 3 inscriptions officielles ; `NXP-000003` version 1.0 ; RB-005 candidat non créé | `ADMIT` — `ADMISSION-DECISION-NXP-000003-20260803` |
+| Révision bibliographique de RB-004, état 1.6, 3 août 2026 | Trois Programmes officiels ; RB-004 version 1.1 ; `NXP-000002` version 1.2 | `REVISE_ASSET_REFERENCE` — `ASSET-REVISION-DECISION-RB-004-20260803` |
+| Admission de RB-005 sous `NXP-000003`, état 1.7, 3 août 2026 | Trois Programmes officiels ; trois Reasoning Books officiels ; `NXP-000003` version 1.1 | `ADMIT_ASSET_REFERENCE` — `ASSET-ADMISSION-DECISION-RB-005-20260803` |
+
+---
+
+### 19.6 Admission de NXP-000003 dans l’état 1.5
+
+#### 19.6.1 Nature de l’opération, niveaux de vérité et écarts qualifiés
+
+La présente opération est une **admission documentaire atomique de Scientific Program**. Elle enregistre une identité de Programme, son périmètre, sa vision, sa roadmap, son ownership prévu et sa décision humaine bornée. Elle ne crée ni connaissance, ni Reasoning Book, ni corpus, ni assertion, ni recommandation, ni protocole, ni produit.
+
+Les autorités ont été consultées dans l’ordre imposé par le Mandat : SOURCE-OF-TRUTH-INDEX ; Charte fondatrice ; Scientific Product Manifesto ; Product Specification ; PD-003 ; PD-009 ; PD-011 ; PD-012 ; PD-013 ; recherche des sources PD-014 puis PD-015 ; Scientific Territory Model ; Scientific Knowledge Catalog ; Scientific Knowledge Graph. Aucun fichier autonome PD-014 ou PD-015 n’étant présent, leur contenu n’a pas été inventé : seules leurs traces historiques dans le présent registre sont opposables à cette opération.
+
+| Catégorie | État applicable à l’admission de `NXP-000003` | Conséquence |
+|---|---|---|
+| Principes établis | science avant technologie ; phénomènes et objectifs avant modalités ; responsabilité humaine ; connaissance partagée ; incertitudes et limites visibles ; historique non réécrit | Contraintes héritées de la Charte et du Scientific Product Manifesto, inchangées |
+| Références normatives | PD-003, PD-009, PD-011, PD-012, contrat PD-013 v1.0, Territory Model, Catalog et Knowledge Graph | Autorités coordonnées respectées sans modification |
+| Corpus scientifiques datés | RB-003 et RB-004 existent comme corpus officiels ; d’autres contenus scientifiques sont présents dans le Catalog et le Knowledge Graph | Aucun de ces contenus n’est absorbé, copié, validé ou attribué à `NXP-000003` par l’admission |
+| Cible | portefeuille durable de futurs raisonnements sur la perfusion, l’hémodynamique, l’oxygénation et le métabolisme cérébraux | Vision et roadmap documentaires uniquement |
+| État réellement implémenté | PD-013 reste un registre documentaire ; aucun registre exécutable ni lien d’ownership de Programme n’est démontré dans le Catalog ou le Knowledge Graph | L’admission n’affirme aucune capacité produit, interface, persistance, activation ou automatisation |
+| Hypothèses | RB-005 non créé ; sept autres candidats de roadmap sans identifiant attribué ; relations futures ; futurs corpus et actifs | Aucun effet scientifique ou opérationnel ; revue et admission distinctes requises |
+
+Les écarts suivants sont explicitement conservés et qualifiés :
+
+| Écart documentaire | Constat | Qualification appliquée dans l’état 1.5 |
+|---|---|---|
+| Deux usages du libellé de mission `PD-016` | L’état 1.4 conserve déjà `PD-016-MANDATE-RB-004-NXP-000002-20260803` pour la réconciliation de RB-004 ; la présente mission est également intitulée PD-016 | Aucun document autonome PD-016 n’existe. Les deux opérations restent distinguées par des MandateRef, DecisionID et EventID uniques ; aucune autorité n’est transférée de l’une à l’autre |
+| Attribution de `RB-005` face aux libellés historiques RB-005 à RB-012 | PD-013 §19.1.4 emploie ces libellés pour des entrées prospectives de `NXP-000002`, mais établit qu’elles ne sont ni Reasoning Books, ni actifs, ni identités réservées | `RB-005` devient la seule référence candidate suffisamment définie de `NXP-000003`. Les occurrences cardiaques restent des libellés historiques non réservants et ne peuvent fonder aucun ownership ; les sept autres entrées de la nouvelle roadmap ne reçoivent aucun identifiant |
+| Le mandat nomme huit futurs Reasoning Books mais ne fournit pas leurs identifiants | Seul le prochain identifiant documentaire réellement disponible peut être déterminé sans préempter les admissions futures | `RB-005` est attribué au premier candidat, « Neuro Perfusion Foundations ». Les sept autres candidats sont enregistrés sans identifiant, avec le statut imposé et une qualification `ROADMAP_ONLY — NOT_AN_IDENTITY — NOT_RESERVED` |
+| Un nœud territorial intitulé exactement « Neurovascular Coupling » est absent | Le Territory Model possède le nœud `couplage-debit-metabolisme`, mais pas ce libellé exact | Le concept demandé reste dans la frontière documentaire du Programme et est ancré au nœud existant le plus précis ; aucune mutation territoriale ni équivalence scientifique n’est affirmée |
+| Un nœud territorial intitulé exactement « PET Perfusion » est absent | Le Territory Model possède des nœuds de traceurs de perfusion, de mesures PET et de comparaison PET–IRM | PET Perfusion reste dans la frontière documentaire du Programme et est rattachée à ces ancrages existants ; aucune équivalence taxonomique ou scientifique n’est inventée |
+| Des KnowledgeNodes et connaissances existent déjà dans les domaines concernés | Le Catalog et le Knowledge Graph décrivent notamment `cerebral-perfusion` et `oef-cmro2` | Leur existence ne crée aucun `ConceptRef`, `BiomarkerRef`, Knowledge Asset ou ownership dans ce Programme. Les vues correspondantes restent vides jusqu’à une opération distincte et gouvernée |
+
+Ces qualifications ne réécrivent aucun pré-état. Elles empêchent qu’un libellé prospectif, un contenu préexistant ou un numéro de prompt soit interprété comme une identité, un actif ou une autorité non admise.
+
+#### 19.6.2 Identité et classification de NXP-000003
+
+| Champ | Valeur effective dans l’état 1.5 |
+|---|---|
+| ProgramID | `NXP-000003` |
+| Nom officiel | Neuro Perfusion & Metabolism |
+| Alias | `[]` |
+| Description courte | Programme de domaine organisant le portefeuille documentaire de référence consacré à la perfusion cérébrale, au métabolisme cérébral et à l’imagerie hémodynamique quantitative |
+| Description longue | Responsabilité documentaire durable couvrant les phénomènes, construits, mesures et familles de méthodes nécessaires aux futurs Reasoning Books de perfusion, hémodynamique, oxygénation et métabolisme cérébraux, sans contenu scientifique, pathologie particulière, protocole, recommandation ou implémentation |
+| Type | `DOMAIN_PROGRAM` |
+| Statut | `OFFICIAL` |
+| Version | 1.0 |
+| Date d’effet | 3 août 2026, après `NXP-REG-EVENT-20260803-0004` |
+| Program Owner | `NXP-000003` |
+| Responsables humains | NOXIA Project Governance, représentée par Charles de Bourguignon ; MandateRef `PD-016-MANDATE-NXP-000003-20260803` |
+| Program Vision | `NXP-000003 §19.6.3` |
+| Scientific Roadmap | `NXP-000003 §19.6.5` |
+| Territory Links | `NXP-000003 §19.6.4` |
+| Relations canoniques effectives | `[]` |
+| Dependencies canoniques effectives | `[]` |
+| Reasoning Books | `[RB-005 — PLANNED_CANDIDATE_NOT_CREATED]` |
+| Scientific Corpus | `[]` |
+| Knowledge Assets | `[]` |
+| Editorial Assets | `[]` |
+| Evaluation Assets | `[]` |
+| AdmissionDecisionRef | `ADMISSION-DECISION-NXP-000003-20260803` |
+| OwnershipRegistryRef | `OWNERSHIP-NXP-000003-20260803` |
+| ChangeLogRef | `CHANGE-NXP-000003-0001` |
+
+| Type PD-012 examiné | Résultat | Justification |
+|---|---|---|
+| `MODALITY_PROGRAM` | Non retenu | La cohérence ne provient pas d’une technologie unique : le périmètre traverse CT, IRM et des contextes d’imagerie moléculaire ou nucléaire sans posséder ces modalités génériques |
+| `DOMAIN_PROGRAM` | **Retenu** | Le Programme organise une famille autonome de questions, phénomènes, construits, mesures et usages scientifiques centrés sur la perfusion, l’hémodynamique, l’oxygénation et le métabolisme cérébraux ; PD-012 cite explicitement Neuro Perfusion et Neuro Metabolism comme exemples de ce type |
+| `CROSS_CUTTING_PROGRAM` | Non retenu | Les méthodes quantitatives peuvent être réutilisables, mais la responsabilité ici reste bornée au domaine cérébral et ne maintient pas une méthode générique pour tous les organes et modalités |
+| `HYBRID_PROGRAM` | Non retenu | Les différentes modalités sont des moyens d’observation du même domaine ; leur croisement ne constitue pas l’axe principal de responsabilité et ne justifie pas l’appropriation de leurs actifs génériques |
+
+Le Programme est nécessaire au-delà d’un RB isolé parce qu’il porte huit axes documentaires autonomes prévus, plusieurs familles de mesure, plusieurs contextes de modalité, une frontière propre avec les méthodes génériques et une continuité d’ownership. Il ne duplique ni `NXP-000001`, centré sur la technologie spectrale, ni `NXP-000002`, centré sur le croisement IRM–cardiaque–quantification.
+
+#### 19.6.3 Scientific Vision, Mission, frontières et objectifs
+
+**Scientific Vision.** Organiser un portefeuille documentaire cohérent, durable et traçable permettant de développer de futurs Reasoning Books sur la perfusion cérébrale, l’hémodynamique cérébrale, l’oxygénation et le métabolisme cérébral, tout en maintenant des frontières explicites entre phénomènes, mesures, modalités, applications et actifs transverses.
+
+**Mission.** Gouverner les références documentaires futures du domaine ; rendre leurs dépendances et limites visibles ; attribuer un ownership unique aux seuls actifs effectivement admis ; préserver la distinction entre ce qui est mesuré, dérivé, interprété ou encore hypothétique ; empêcher toute duplication du Territory Model, du Catalog, du Knowledge Graph ou des Programmes de modalité.
+
+**Scientific Strategy.** Construire progressivement le portefeuille par Reasoning Books autonomes, en commençant par un cahier de fondations suffisamment défini, puis en soumettant séparément chacun des sept axes prospectifs à une décision de création et, le cas échéant, à une admission documentaire. Les savoirs partagés restent référencés depuis leurs autorités d’origine ; aucune modalité, connaissance ou relation inter-Programme n’est absorbée par anticipation.
+
+**Domaine couvert.** Le périmètre documentaire comprend :
+
+- Cerebral Perfusion ;
+- CT Perfusion ;
+- MR Perfusion ;
+- PET Perfusion ;
+- DSC MRI ;
+- DCE MRI ;
+- ASL ;
+- OEF ;
+- CMRO₂ ;
+- Oxygen Extraction ;
+- Oxygen Metabolism ;
+- Cerebral Blood Flow (CBF) ;
+- Cerebral Blood Volume (CBV) ;
+- Mean Transit Time (MTT) ;
+- Tmax ;
+- Time To Peak ;
+- Delay et Delay maps ;
+- Penumbra ;
+- Ischemic Core ;
+- Neurovascular Coupling ;
+- Cerebral Hemodynamics ;
+- Cerebrovascular Physiology ;
+- Cerebral Metabolism ;
+- Brain Oxygenation ;
+- Oxygen Imaging ;
+- Quantitative Neuro Imaging.
+
+Cette liste délimite des sujets documentaires futurs. Elle ne formule aucune assertion sur leur sens, leur méthode, leur validité, leurs seuils, leurs relations causales ou leur emploi clinique.
+
+**Domaine exclu.** Sont exclus :
+
+- toute pathologie particulière comme responsabilité propre du Programme ;
+- toute décision diagnostique, pronostique, thérapeutique ou clinique individuelle ;
+- tout protocole clinique ou protocole d’acquisition exécutable ;
+- tout seuil, valeur, formule, conclusion ou recommandation scientifique ;
+- toute assertion, source, EvidenceLink, corpus ou synthèse créée par l’admission ;
+- toute propriété générique de l’ensemble de la CT, de l’IRM, de la médecine nucléaire, de l’imagerie spectrale ou de l’imagerie quantitative ;
+- toute instance locale du Territory Model, du Catalog, du Knowledge Graph, du Protocol Designer ou de l’Editorial Engine ;
+- toute interface, implémentation, activation, campagne, projection publique ou autorisation de publication.
+
+**Frontières adjacentes.** Les techniques génériques CT, IRM, spectrales et nucléaires, la physique médicale, la reconstruction, le traitement d’image, l’intelligence artificielle, la qualification transverse des biomarqueurs, la méthodologie Core Lab et les essais cliniques restent sous leurs autorités actuelles ou de futurs Programmes dédiés. Les pathologies neurologiques restent des contextes d’application, non des sous-domaines possédés.
+
+**Dépendances documentaires.** Le Programme dépend des constitutions et normes supérieures pour ses règles ; du Territory Model pour ses ancrages ; du Catalog pour la couverture, la priorité, la readiness et la file ; du Knowledge Graph partagé pour toute future connaissance ; de PD-011 pour toute évaluation. Ces dépendances d’autorité ne sont pas des relations `DEPENDS_ON` entre Scientific Programs.
+
+**Objectifs stratégiques.** Le Programme vise à :
+
+1. gouverner une roadmap de huit futurs Reasoning Books sans créer automatiquement leurs documents ;
+2. maintenir une séparation explicite entre phénomènes cérébraux, mesures candidates, méthodes d’acquisition et interprétations ;
+3. rendre compatibles les futurs cahiers de fondations, hémodynamique, OEF, CMRO₂, pénombre, noyau ischémique, imagerie neuro quantitative et imagerie de l’oxygène sans dupliquer leurs corpus ;
+4. préserver l’ownership des méthodes génériques et des connaissances partagées hors du Programme lorsqu’elles appartiennent à une autre autorité ;
+5. documenter les futures exigences de quantification, limites, inconnues, controverses, harmonisation et reproductibilité sans en inventer le contenu ;
+6. propager de façon versionnée les évolutions futures vers les Reasoning Books, corpus, évaluations et projections concernés ;
+7. conserver un arrêt explicite lorsque les sources, contextes, mesures ou validations nécessaires ne sont pas disponibles.
+
+**Cadence de revue.** Une revue documentaire est requise au moins annuellement et après toute proposition d’admission d’un Reasoning Book, évolution de frontière, conflit d’ownership ou relation structurante. La première revue de maintenance est due au plus tard le 3 août 2027. Cette cadence ne vaut ni revue scientifique humaine, ni PASS PD-011 ; le Programme reste `OFFICIAL` tant que les critères de passage à `MAINTAINED` ne sont pas satisfaits.
+
+#### 19.6.4 Territory Links
+
+Les liens suivants référencent uniquement des nœuds existants. Ils ne modifient ni le Territory Model, ni leur couverture, ni leur priorité. `INCLUDED` et `ADJACENT` qualifient la frontière de `NXP-000003`, pas l’état de couverture territorial.
+
+| Territory Link | Frontière | Fonction dans le Programme |
+|---|---|---|
+| `noxia:scientific-territory:anatomy-specialties:domain:neuroradiology` | `ADJACENT` | Cadre anatomoclinique général, non possédé dans son ensemble |
+| `noxia:scientific-territory:anatomy-specialties:domain:neuroradiology:subdomain:brain` | `ADJACENT` | Cadre cérébral général, non possédé dans son ensemble |
+| `noxia:scientific-territory:anatomy-specialties:domain:neuroradiology:subdomain:cerebrovascular` | `INCLUDED` | Ancrage neurovasculaire |
+| `noxia:scientific-territory:anatomy-specialties:domain:neuroradiology:subdomain:cerebrovascular:knowledge-area:perfusion-cerebrale` | `INCLUDED` | Ancrage de la perfusion cérébrale |
+| `noxia:scientific-territory:measurements-biomarkers:domain:perfusion-hemodynamics` | `INCLUDED` | Axe principal perfusion et hémodynamique |
+| `noxia:scientific-territory:measurements-biomarkers:domain:perfusion-hemodynamics:subdomain:flow-volume-time` | `INCLUDED` | Organisation des familles débit, volume et temps |
+| `noxia:scientific-territory:measurements-biomarkers:domain:perfusion-hemodynamics:subdomain:flow-volume-time:knowledge-area:cbf` | `INCLUDED` | Ancrage documentaire CBF |
+| `noxia:scientific-territory:measurements-biomarkers:domain:perfusion-hemodynamics:subdomain:flow-volume-time:knowledge-area:cbv` | `INCLUDED` | Ancrage documentaire CBV |
+| `noxia:scientific-territory:measurements-biomarkers:domain:perfusion-hemodynamics:subdomain:flow-volume-time:knowledge-area:mtt` | `INCLUDED` | Ancrage documentaire MTT |
+| `noxia:scientific-territory:measurements-biomarkers:domain:perfusion-hemodynamics:subdomain:flow-volume-time:knowledge-area:temps-au-pic` | `INCLUDED` | Ancrage documentaire Time To Peak |
+| `noxia:scientific-territory:measurements-biomarkers:domain:perfusion-hemodynamics:subdomain:flow-volume-time:knowledge-area:tmax` | `INCLUDED` | Ancrage documentaire Tmax et temporalité de retard |
+| `noxia:scientific-territory:measurements-biomarkers:domain:perfusion-hemodynamics:subdomain:kinetic-models` | `INCLUDED` | Ancrage des futurs raisonnements sur les modèles et cartes dérivées |
+| `noxia:scientific-territory:measurements-biomarkers:domain:perfusion-hemodynamics:subdomain:vascular-function` | `INCLUDED` | Ancrage des fonctions hémodynamiques vasculaires |
+| `noxia:scientific-territory:measurements-biomarkers:domain:oxygenation-metabolism` | `INCLUDED` | Axe principal oxygénation et métabolisme |
+| `noxia:scientific-territory:measurements-biomarkers:domain:oxygenation-metabolism:subdomain:oxygen-extraction` | `INCLUDED` | Ancrage de l’extraction d’oxygène |
+| `noxia:scientific-territory:measurements-biomarkers:domain:oxygenation-metabolism:subdomain:oxygen-extraction:knowledge-area:comparaison-pet-et-irm` | `INCLUDED` | Ancrage comparatif existant des contextes PET et IRM |
+| `noxia:scientific-territory:measurements-biomarkers:domain:oxygenation-metabolism:subdomain:oxygen-extraction:knowledge-area:oef` | `INCLUDED` | Ancrage documentaire OEF |
+| `noxia:scientific-territory:measurements-biomarkers:domain:oxygenation-metabolism:subdomain:oxygen-metabolism` | `INCLUDED` | Ancrage du métabolisme de l’oxygène |
+| `noxia:scientific-territory:measurements-biomarkers:domain:oxygenation-metabolism:subdomain:oxygen-metabolism:knowledge-area:cmro2` | `INCLUDED` | Ancrage documentaire CMRO₂ |
+| `noxia:scientific-territory:measurements-biomarkers:domain:oxygenation-metabolism:subdomain:oxygen-metabolism:knowledge-area:couplage-debit-metabolisme` | `INCLUDED` | Ancrage existant le plus précis pour le couplage débit–métabolisme, sans créer une équivalence scientifique universelle avec « Neurovascular Coupling » |
+| `noxia:scientific-territory:measurements-biomarkers:domain:oxygenation-metabolism:subdomain:oxygen-metabolism:knowledge-area:mesures-pet` | `INCLUDED` | Ancrage existant des mesures PET du métabolisme de l’oxygène |
+| `noxia:scientific-territory:modalities-acquisition:domain:computed-tomography` | `ADJACENT` | La CT générique reste hors ownership ; seul son usage de perfusion entre dans le domaine |
+| `noxia:scientific-territory:modalities-acquisition:domain:computed-tomography:subdomain:perfusion-ct` | `INCLUDED` | Ancrage de CT Perfusion |
+| `noxia:scientific-territory:modalities-acquisition:domain:computed-tomography:subdomain:perfusion-ct:knowledge-area:cartes-parametriques-de-perfusion` | `INCLUDED` | Ancrage des cartes de perfusion CT, y compris la famille documentaire des cartes de retard |
+| `noxia:scientific-territory:modalities-acquisition:domain:magnetic-resonance` | `ADJACENT` | L’IRM générique reste hors ownership ; seuls ses usages de perfusion et métabolisme sont concernés |
+| `noxia:scientific-territory:modalities-acquisition:domain:magnetic-resonance:subdomain:perfusion-mri` | `INCLUDED` | Ancrage de MRI Perfusion |
+| `noxia:scientific-territory:modalities-acquisition:domain:magnetic-resonance:subdomain:perfusion-mri:knowledge-area:asl` | `INCLUDED` | Ancrage documentaire ASL |
+| `noxia:scientific-territory:modalities-acquisition:domain:magnetic-resonance:subdomain:perfusion-mri:knowledge-area:dce` | `INCLUDED` | Ancrage documentaire DCE MRI |
+| `noxia:scientific-territory:modalities-acquisition:domain:magnetic-resonance:subdomain:perfusion-mri:knowledge-area:dsc` | `INCLUDED` | Ancrage documentaire DSC MRI |
+| `noxia:scientific-territory:modalities-acquisition:domain:magnetic-resonance:subdomain:perfusion-mri:knowledge-area:cartes-de-perfusion` | `INCLUDED` | Ancrage des cartes de perfusion IRM |
+| `noxia:scientific-territory:modalities-acquisition:domain:nuclear-medicine-modalities` | `ADJACENT` | Les modalités nucléaires restent génériques ; leurs futurs usages comparatifs peuvent être référencés |
+| `noxia:scientific-territory:modalities-acquisition:domain:nuclear-medicine-modalities:subdomain:radiopharmaceutical-imaging:knowledge-area:traceurs-de-perfusion` | `INCLUDED` | Ancrage existant le plus précis pour la famille documentaire PET Perfusion, sans affirmer une équivalence de modalité |
+| `noxia:scientific-territory:clinical-applications:domain:neurologic-disease:subdomain:stroke:knowledge-area:penombre-et-core` | `ADJACENT` | Ancrage territorial existant pour Penumbra et Infarct Core sans inclure une pathologie dans la responsabilité du Programme |
+| `noxia:scientific-territory:computational-imaging:domain:quantitative-pipelines` | `ADJACENT` | Les chaînes quantitatives génériques restent transverses |
+| `noxia:scientific-territory:research-evidence:domain:quantitative-biomarker-qualification` | `ADJACENT` | La qualification générique des biomarqueurs reste sous son autorité propre |
+
+Les états territoriaux et les niveaux de couverture restent inchangés. Les absences de nœuds exacts pour certains libellés du mandat sont conservées comme limites d’alignement, non corrigées par invention.
+
+#### 19.6.5 Scientific Roadmap officielle
+
+La roadmap est une `DOCUMENTARY_HYPOTHESIS — NOT_A_CAMPAIGN — NOT_A_READINESS_CLAIM`.
+
+| Référence de roadmap | Titre ou fonction documentaire prévu | État dans l’état 1.5 | Effet d’autorité |
+|---|---|---|---|
+| `RB-005` | Neuro Perfusion Foundations | `PLANNED_CANDIDATE_NOT_CREATED` | Unique référence candidate suffisamment définie du portefeuille ; aucun contenu ni autorité scientifique |
+| `NOT_ASSIGNED` | Cerebral Hemodynamics | `PLANNED_CANDIDATE_NOT_CREATED — ROADMAP_ONLY — NOT_AN_IDENTITY — NOT_RESERVED` | Aucun ; candidat non suffisamment défini |
+| `NOT_ASSIGNED` | OEF | `PLANNED_CANDIDATE_NOT_CREATED — ROADMAP_ONLY — NOT_AN_IDENTITY — NOT_RESERVED` | Aucun ; candidat non suffisamment défini |
+| `NOT_ASSIGNED` | CMRO₂ | `PLANNED_CANDIDATE_NOT_CREATED — ROADMAP_ONLY — NOT_AN_IDENTITY — NOT_RESERVED` | Aucun ; candidat non suffisamment défini |
+| `NOT_ASSIGNED` | Penumbra | `PLANNED_CANDIDATE_NOT_CREATED — ROADMAP_ONLY — NOT_AN_IDENTITY — NOT_RESERVED` | Aucun ; candidat non suffisamment défini |
+| `NOT_ASSIGNED` | Ischemic Core | `PLANNED_CANDIDATE_NOT_CREATED — ROADMAP_ONLY — NOT_AN_IDENTITY — NOT_RESERVED` | Aucun ; candidat non suffisamment défini |
+| `NOT_ASSIGNED` | Quantitative Neuro Imaging | `PLANNED_CANDIDATE_NOT_CREATED — ROADMAP_ONLY — NOT_AN_IDENTITY — NOT_RESERVED` | Aucun ; candidat non suffisamment défini |
+| `NOT_ASSIGNED` | Oxygen Imaging | `PLANNED_CANDIDATE_NOT_CREATED — ROADMAP_ONLY — NOT_AN_IDENTITY — NOT_RESERVED` | Aucun ; candidat non suffisamment défini |
+
+Les sept entrées `NOT_ASSIGNED` ne sont ni des Reasoning Books créés, ni des actifs, ni des identités documentaires réservées. Leur roadmap ne garantit aucun futur identifiant et ne crée aucun ownership. Toute future proposition devra démontrer son autonomie, vérifier l’absence de collision au moment de l’admission et recevoir une décision distincte.
+
+#### 19.6.6 Premier portefeuille documentaire
+
+| Famille | Références effectives dans l’état 1.5 |
+|---|---|
+| Scientific Vision | `NXP-000003 §19.6.3` |
+| Scientific Roadmap | `NXP-000003 §19.6.5` |
+| Territory Links | `NXP-000003 §19.6.4` |
+| ConceptRefs | `[]` |
+| BiomarkerRefs | `[]` |
+| ScientificAssertionRefs | `[]` |
+| SourceRefs | `[]` |
+| Knowledge Assets | `[]` |
+| Evaluation Assets | `[]` |
+| Editorial Assets | `[]` |
+| Reasoning Book Portfolio | `[RB-005 — PLANNED_CANDIDATE_NOT_CREATED]` |
+| Corpus Portfolio | `[]` |
+| Relations canoniques effectives | `[]` |
+| Dependencies canoniques effectives | `[]` |
+| Dependency Registry | `[]` — aucune dépendance inter-Programme effective |
+| Ownership Registry | `OWNERSHIP-NXP-000003-20260803` |
+
+Le portefeuille est non vide uniquement par la référence candidate RB-005. L’existence de nœuds, sources, assertions ou synthèses dans les systèmes scientifiques partagés ne les inscrit pas dans ces vues et ne crée aucun actif local.
+
+#### 19.6.7 Référence candidate RB-005
+
+| Champ RB-005 | Valeur |
+|---|---|
+| Identifiant documentaire candidat | `RB-005` |
+| Titre planifié | Reasoning Book 05 — Neuro Perfusion Foundations |
+| Fonction de roadmap | Neuro Perfusion Foundations |
+| Statut | `PLANNED_CANDIDATE_NOT_CREATED` |
+| Program Owner prévu | `NXP-000003` |
+| Rôle du Programme | `OWNS`, limité à la référence candidate ; aucun contenu scientifique n’existe |
+| Version | `NOT_APPLICABLE_UNTIL_CREATED` |
+| Contexte d’usage | Premier portefeuille documentaire de `NXP-000003` |
+| État de validité de la référence | `VALID_REFERENCE_TO_UNCREATED_CANDIDATE` |
+| Date d’effet de la référence | 3 août 2026 |
+| Dépendances et impacts ouverts | `[]` |
+| Niveau documentaire prévu | `NIVEAU_2` |
+| Source maîtresse prévue | `DOCX` |
+| Édition dérivée prévue | `PDF` |
+| Périmètre résumé | Fondements documentaires de la perfusion, de l’hémodynamique, de l’oxygénation et du métabolisme cérébraux, sans assertion ni protocole |
+| État scientifique | `NOT_CREATED` |
+| Revue | `NOT_PERFORMED` |
+| Activation | `NOT_ACTIVATED` |
+| Autorité scientifique | `NONE` |
+| Contenu scientifique | `ABSENT` |
+
+RB-005 n’est pas un actif scientifique effectif. Aucun fichier RB-005 n’est créé. Sa création, sa revue scientifique, sa source maîtresse réelle, son admission de niveau 2 et toute relation à des corpus devront faire l’objet d’une mission distincte et d’une mise à jour documentaire atomique.
+
+#### 19.6.8 Ownership Registry
+
+**OwnershipRegistryID :** `OWNERSHIP-NXP-000003-20260803`.
+
+| Référence | Program Owner | Nature de l’ownership | État |
+|---|---|---|---|
+| Dossier de Programme `NXP-000003` | `NXP-000003` | Identité canonique du Programme | `EFFECTIVE` |
+| Référence candidate `RB-005` | `NXP-000003` | Ownership prévu de la référence candidate uniquement | `PLANNED_NOT_EFFECTIVE_FOR_SCIENTIFIC_CONTENT` |
+
+Aucun corpus, ConceptIdentity, biomarqueur, assertion, SourceIdentity, Knowledge Asset, Editorial Asset ou Evaluation Asset n’est possédé par cette admission. Aucun humain n’est Program Owner. Les sept autres candidats de roadmap n’entrent pas dans l’Ownership Registry.
+
+#### 19.6.9 Relations et Dependency Registry
+
+**Relations canoniques effectives :** `[]`.
+
+| Programme examiné | ProgramID | Recouvrement potentiel observé | Décision dans l’état 1.5 |
+|---|---|---|---|
+| Spectral Imaging | `NXP-000001` | Certaines futures questions de CT Perfusion pourraient mobiliser une technologie spectrale | `RELATION_REVIEWED_NOT_CREATED` — aucun actif partagé effectif, aucune dépendance structurante ni référence canonique versionnée n’est attribuée par l’admission |
+| Cardiac MRI & Quantitative Cardiac Imaging | `NXP-000002` | Les deux domaines emploient des thèmes de perfusion, d’hémodynamique et de quantification | `RELATION_REVIEWED_NOT_CREATED` — similarité thématique insuffisante, aucun actif partagé effectif et aucun transfert d’ownership justifié |
+
+**Dependency Registry :** `[]`. Aucune relation `DEPENDS_ON` inter-Programme n’est créée ; aucun cycle n’existe.
+
+Les autres cibles restent une vue prospective non autoritative :
+
+| Cible prospective | ProgramID cible | Type relationnel à examiner ultérieurement | État | Effet d’autorité |
+|---|---|---|---|---|
+| Neuro Imaging | `NOT_REGISTERED` | `REFERENCES` / `SHARES_KNOWLEDGE_WITH` | `PROSPECTIVE_RELATIONS_NOT_REGISTERED` | Aucun |
+| Imaging Biomarkers | `NOT_REGISTERED` | `CROSS_CUTS` / `SHARES_KNOWLEDGE_WITH` | `PROSPECTIVE_RELATIONS_NOT_REGISTERED` | Aucun |
+| Quantitative Imaging | `NOT_REGISTERED` | `CROSS_CUTS` / `SUPPORTS` | `PROSPECTIVE_RELATIONS_NOT_REGISTERED` | Aucun |
+| Medical Physics | `NOT_REGISTERED` | `SUPPORTS` / `DEPENDS_ON` | `PROSPECTIVE_RELATIONS_NOT_REGISTERED` | Aucun |
+| Nuclear Imaging | `NOT_REGISTERED` | `REFERENCES` / `SHARES_KNOWLEDGE_WITH` | `PROSPECTIVE_RELATIONS_NOT_REGISTERED` | Aucun |
+| Molecular Imaging | `NOT_REGISTERED` | `REFERENCES` / `SHARES_KNOWLEDGE_WITH` | `PROSPECTIVE_RELATIONS_NOT_REGISTERED` | Aucun |
+| Image Processing | `NOT_REGISTERED` | `SUPPORTS` / `CROSS_CUTS` | `PROSPECTIVE_RELATIONS_NOT_REGISTERED` | Aucun |
+| Artificial Intelligence | `NOT_REGISTERED` | `REFERENCES` / `CROSS_CUTS` | `PROSPECTIVE_RELATIONS_NOT_REGISTERED` | Aucun |
+| Core Lab Imaging | `NOT_REGISTERED` | `SUPPORTS` / `CROSS_CUTS` | `PROSPECTIVE_RELATIONS_NOT_REGISTERED` | Aucun |
+| Clinical Trial Imaging | `NOT_REGISTERED` | `REFERENCES` / `CROSS_CUTS` | `PROSPECTIVE_RELATIONS_NOT_REGISTERED` | Aucun |
+
+Ces lignes n’attribuent aucun ProgramID, aucune version, aucun ownership et aucune relation canonique.
+
+#### 19.6.10 Mandat documentaire borné
+
+| Champ | Valeur |
+|---|---|
+| MandateRef | `PD-016-MANDATE-NXP-000003-20260803` |
+| Source du Mandat | Mission PD-016 — Admission du troisième Scientific Program — Neuro Perfusion & Metabolism |
+| Instance humaine mandatée | NOXIA Project Governance |
+| Représentant humain | Charles de Bourguignon |
+| Rôle | Propriétaire du projet et autorité actuelle de gouvernance documentaire |
+| Portée | Admission documentaire de `NXP-000003` uniquement |
+| Opération autorisée | Examiner, décider et enregistrer l’admission documentaire de `Neuro Perfusion & Metabolism`, puis réconcilier PD-013 et le SOURCE-OF-TRUTH-INDEX |
+| Date d’effet | 3 août 2026 |
+| Durée | Limitée à l’opération d’admission et à sa trace atomique |
+
+Le Mandat exclut toute décision scientifique, création ou validation de corpus, revue scientifique humaine, décision PASS PD-011, publication, activation produit, création de protocole, implémentation et modification du Territory Model, du Catalog ou du Knowledge Graph. Il ne crée aucun Mandat permanent.
+
+#### 19.6.11 Admission Decision
+
+| Champ | Valeur |
+|---|---|
+| AdmissionDecisionID | `ADMISSION-DECISION-NXP-000003-20260803` |
+| Décision | `ADMIT` |
+| ProgramID | `NXP-000003` |
+| État avant du Programme | `NOT_REGISTERED` |
+| État après du Programme | `OFFICIAL` |
+| État global avant | 1.4 — deux Programmes officiels |
+| État global après | 1.5 — trois Programmes officiels |
+| Version résultante | 1.0 |
+| Date d’effet | 3 août 2026, après `NXP-REG-EVENT-20260803-0004` |
+| Instance décisionnelle | NOXIA Project Governance |
+| Représentant | Charles de Bourguignon |
+| MandateRef | `PD-016-MANDATE-NXP-000003-20260803` |
+| Nature | Décision documentaire d’admission uniquement |
+| Documents sources | Mission PD-016 et autorités listées aux §§0.2 et 19.6.1, avec qualification explicite des absences PD-014/PD-015 |
+
+**Justification.** L’identité et le nom sont uniques ; la responsabilité de domaine est autonome ; le type `DOMAIN_PROGRAM` est justifié ; les frontières et ancrages territoriaux existent ; la Vision et la Roadmap sont établies sans connaissance inventée ; RB-005 fournit le premier portefeuille non vide sans créer de contenu ; l’ownership est unique ; les collisions de libellés historiques sont qualifiées sans réécriture ; aucune relation canonique n’est forcée ; aucune contradiction bloquante ne subsiste. La version 1.0 est la version initiale exigée par PD-012 pour une première admission `OFFICIAL` et n’altère aucun contrat existant.
+
+`ADMIT` rend officiel le Programme documentaire. Il ne valide aucune connaissance, n’admet aucun Reasoning Book et n’attribue aucun actif du Knowledge Graph.
+
+#### 19.6.12 Registry Event et Change Log
+
+| Champ | Registry Event |
+|---|---|
+| EventID | `NXP-REG-EVENT-20260803-0005` |
+| Ordre chronologique | Postérieur à `NXP-REG-EVENT-20260803-0004`, qui reste inchangé |
+| ProgramID | `NXP-000003` |
+| Opération | `ADMIT` |
+| État et version avant du Programme | `NOT_REGISTERED` / `NOT_APPLICABLE` |
+| État et version après du Programme | `OFFICIAL` / 1.0 |
+| État global avant | 1.4 / deux Programmes officiels |
+| État global après | 1.5 / trois Programmes officiels |
+| Date d’effet | 3 août 2026 |
+| Instance | NOXIA Project Governance |
+| MandateRef | `PD-016-MANDATE-NXP-000003-20260803` |
+| AdmissionDecisionRef | `ADMISSION-DECISION-NXP-000003-20260803` |
+| Relations effectives | `[]` |
+| Ownerships affectés | Dossier `NXP-000003` effectif ; référence RB-005 prospective |
+| Actifs affectés | Dossier de Programme et référence candidate RB-005 uniquement |
+| Réserves | RB-005 non créé ; sept autres candidats de roadmap sans identité ni réservation ; actifs scientifiques absents ; aucune relation canonique créée |
+| Contrôles | Identité, type, frontières, Territory Links, portfolio, ownership, relations, compatibilité, collisions documentaires, chronologie et index vérifiés |
+| Événement remplacé ou corrigé | `NONE` |
+
+| ChangeLogID | Modification | Effet | Éléments inchangés |
+|---|---|---|---|
+| `CHANGE-NXP-000003-0001` | Admission de `NXP-000003` et passage de l’état global du registre de 1.4 à 1.5 | Trois Programmes `OFFICIAL` ; `NXP-000003` version 1.0 ; RB-005 candidat non créé | Contrat PD-013 v1.0 ; versions, statuts, Reasoning Books et corpus de `NXP-000001` et `NXP-000002` ; PD-012 ; Territory Model ; Catalog ; Knowledge Graph ; produit ; code ; publication |
+
+L’opération est atomique : l’état 1.5 n’est effectif qu’avec identité, type, statut, version, Vision, Roadmap, Territory Links, portfolio, ownership, Mandat, Decision, Event, Change Log, contrôles et réconciliation du SOURCE-OF-TRUTH-INDEX.
+
+#### 19.6.13 Tableau complet de compatibilité
+
+| Autorité | Contrôle | Résultat documentaire | Limite conservée |
+|---|---|---|---|
+| PD-003 | Identité stable, responsabilité humaine, Mandat, traçabilité, versionnement et distinction entre hypothèse et connaissance | `PASS_DOCUMENTAIRE` | L’admission ne crée aucun objet de projet, Décision scientifique, Biomarqueur, Preuve ou Stratégie scientifique |
+| PD-009 | Aucune appropriation de la prochaine action, aucun chemin automatique vers un protocole et arrêt possible lorsque l’information manque | `PASS_DOCUMENTAIRE` | Le Programme fournit seulement une frontière et un portefeuille ; il ne navigue pas dans un projet |
+| PD-011 | Aucun seuil local, Evaluation Asset, benchmark, PASS/FAIL ou décision de publication | `PASS_DOCUMENTAIRE` | La valeur scientifique de NOXIA et de tout futur actif reste à démontrer séparément |
+| PD-012 | Responsabilité autonome, type justifié, Vision, Roadmap, premier portefeuille non vide, ownership unique, relations explicites et admission humaine | `PASS_DOCUMENTAIRE` | `OFFICIAL` ne signifie pas `MAINTAINED` ; RB-005 reste absent |
+| PD-013 | ProgramID unique, état effectif unique, chronologie, Event, Change Log, Mandat et historique conservés | `PASS_DOCUMENTAIRE` | Le contrat reste v1.0 et aucune représentation exécutable n’est créée |
+| PD-014 | Admission historique de `NXP-000001`, son MandateRef, son Event et son état préservés | `COMPATIBLE — AUTORITÉ_AUTONOME_ABSENTE` | Aucun fichier autonome PD-014 n’existe ; aucun contenu normatif n’est inventé ou réputé consulté |
+| PD-015 | Admission historique de `NXP-000002`, son MandateRef, son Event et son état préservés | `COMPATIBLE — AUTORITÉ_AUTONOME_ABSENTE` | Aucun fichier autonome PD-015 n’existe ; aucun contenu normatif n’est inventé ou réputé consulté |
+| Scientific Territory Model | Liens exacts vers des nœuds existants ; frontières incluses ou adjacentes ; aucune mutation | `PASS_DOCUMENTAIRE` | Les couvertures territoriales, priorités et absences de nœuds exacts restent inchangées |
+| Scientific Knowledge Catalog | Aucun override de couverture, priorité, readiness, file ou campagne ; nœuds existants seulement observés | `PASS_DOCUMENTAIRE` | Les KnowledgeNodes existants ne deviennent ni actifs ni propriété du Programme |
+| Scientific Knowledge Graph | Aucun concept, source, assertion, EvidenceLink, contexte, synthèse, révision ou Program Owner ajouté | `PASS_DOCUMENTAIRE` | La connaissance existante reste partagée et sous ses autorités actuelles |
+
+Les libellés `PASS_DOCUMENTAIRE` qualifient uniquement la conformité de l’admission. Ils ne constituent ni revue scientifique humaine, ni PASS PD-011, ni autorisation de publication.
+
+#### 19.6.14 Contract final de l’admission
+
+| Contract | Préservé ? | Preuve | Remarque |
+|---|---|---|---|
+| Trois Scientific Programs officiels | Oui | En-tête, §1.4, §19.5 et `NXP-REG-EVENT-20260803-0005` | Ordre historique : `NXP-000002`, `NXP-000001`, `NXP-000003` |
+| Program Owner unique par Programme | Oui | Ownership Registries des §§19.1, 19.2 et 19.6.8 | Chaque dossier s’auto-référence ; aucun humain n’est Program Owner |
+| NXP-000001 et NXP-000002 préservés | Oui | `CHANGE-NXP-000003-0001` | Versions 1.1, statuts et actifs officiels inchangés |
+| Type de NXP-000003 justifié | Oui | §19.6.2 | `DOMAIN_PROGRAM`, après examen explicite des quatre types |
+| Vision, frontières et objectifs sans connaissance inventée | Oui | §19.6.3 | Orientations documentaires, aucune assertion, valeur ou recommandation |
+| Territory Links existants et non mutatifs | Oui | §19.6.4 et contrôle d’existence ciblé | Aucun nœud créé ou modifié |
+| Portefeuille non vide mais sans contenu scientifique | Oui | §19.6.6 | Seule la référence candidate RB-005 rend le portefeuille non vide |
+| RB-005 non créé | Oui | §19.6.7 | `NOT_CREATED`, `ABSENT`, `NONE`; aucun fichier RB-005 |
+| Sept autres candidats de roadmap non créés et non réservés | Oui | §19.6.5 | Tous portent `PLANNED_CANDIDATE_NOT_CREATED` ; aucun identifiant futur n’est garanti |
+| Roadmap prospective complète | Oui | §19.6.5 | Huit intitulés imposés présents exactement une fois ; seul RB-005 est suffisamment défini |
+| Collision prospective RB explicitement qualifiée | Oui | §19.6.1 | Les anciens libellés cardiaques n’étaient ni identités ni réservations |
+| Collision de libellé PD-016 explicitement qualifiée | Oui | §19.6.1 et MandateRef distincts | Aucun document PD-016 autonome n’est créé |
+| Autorités PD-014 et PD-015 non inventées | Oui | §19.6.13 et absences documentaires de l’index | Seules leurs traces historiques dans PD-013 sont préservées |
+| Aucune relation injustifiée | Oui | §19.6.9 | Deux Programmes existants examinés ; zéro relation canonique |
+| Aucune dépendance inter-Programme | Oui | Dependency Registry `[]` | Aucun cycle possible |
+| Aucun corpus, assertion ou Knowledge Asset | Oui | §19.6.6 et §19.6.8 | Catalog et Knowledge Graph inchangés |
+| Aucun Reasoning Book, protocole ou connaissance créé | Oui | §19.6.1, §19.6.5 à §19.6.8 | La roadmap ne produit aucun fichier ni contenu scientifique |
+| Aucune revendication PD-011 | Oui | Evaluation Assets `[]` et §19.6.13 | Aucun benchmark, PASS ou valeur démontrée |
+| Aucune publication | Oui | Editorial Assets `[]` | Aucun statut éditorial ou public |
+| Aucune implémentation | Oui | Nature documentaire §19.6.1 | Aucun code, interface, registre exécutable, activation ou déploiement |
+| Atomicité PD-013 et index | Oui | État 1.5, Event `…0005`, Change Log et SOURCE-OF-TRUTH-INDEX v1.16 | Aucun post-état partiel officiel |
+| Comptes documentaires recalculés | Oui | Inventaire de l’index v1.16 | 60 artefacts gouvernés ; 61 index inclus ; aucun nouveau fichier |
+| Aucune contradiction résiduelle active | Oui | §19.6.1 et §19.6.13 | Absences PD-014/PD-015 et collision PD-016 qualifiées sans invention ni réécriture historique |
+| Aucun autre document normatif modifié | Oui | Périmètre du diff documentaire | Seuls PD-013 et l’index sont révisés |
+
+#### 19.6.15 État résultant et portée d’autorité
+
+`NXP-000003 — Neuro Perfusion & Metabolism` est le troisième Scientific Program officiellement admis. Il est `OFFICIAL`, version 1.0, de type `DOMAIN_PROGRAM`, avec lui-même comme Program Owner et NOXIA Project Governance comme instance humaine mandatée pour cette admission seulement.
+
+Son autorité porte sur son identité, ses frontières, sa Vision, sa Roadmap et la gouvernance future de son portefeuille. Elle ne porte sur aucun contenu scientifique actuel. RB-005 reste une référence candidate sans fichier ni autorité ; les sept autres candidats restent des entrées de roadmap sans identifiant, non identitaires et non réservées.
+
+---
+
+### 19.7 Révision bibliographique de RB-004 dans l’état 1.6
+
+#### 19.7.1 Constat, classification et portée
+
+La consolidation P17 a vérifié les 43 références de RB-004 contre les notices officielles disponibles le 3 août 2026. La notice PubMed du PMID `42241965`, déjà correctement associée au DOI `10.1016/j.jocmr.2025.101912`, expose désormais le PMCID `PMC13265417`. RB-004 version 1.0 portait encore `PMCID: N/A` pour cette référence R30.
+
+L’écart est classé `ERROR` bibliographique : il affecte la traçabilité d’une source, sans changer son identité, son contenu cité, sa fonction dans le raisonnement ou une conclusion scientifique. La correction est limitée à trois opérations cohérentes : remplacement du PMCID de R30, passage documentaire de RB-004 de la version 1.0 à la version 1.1 et régénération du PDF dérivé depuis le DOCX maître.
+
+Les autres contrôles P17 ne démontrent aucune incohérence active dans PD-012, PD-013, RB-003 ou les portefeuilles. Les anciens états candidats, versions 1.0, roadmaps et admissions restent immuables dans les §§19.1 à 19.6.
+
+#### 19.7.2 État courant de l’actif et du portefeuille
+
+| Champ | État 1.5 | État 1.6 |
+|---|---|---|
+| AssetID | `RB-004` | `RB-004` |
+| Statut | `OFFICIAL` | `OFFICIAL` |
+| Version de l’actif | 1.0 | 1.1 |
+| Program Owner | `NXP-000002` | `NXP-000002` |
+| Version du Programme | 1.1 | 1.2 |
+| Source maîtresse | DOCX enregistré au §19.1.13.1 | même DOCX maître, révisé |
+| Édition dérivée | PDF enregistré au §19.1.13.1 | même PDF dérivé, régénéré |
+| Référence R30 | PMID et DOI corrects ; PMCID déclaré `N/A` | PMID `42241965`, DOI inchangé, PMCID `PMC13265417` |
+| Effet scientifique | aucun | aucun |
+| Vision, frontières, type, relations et ownership | inchangés | inchangés |
+
+Le passage de `NXP-000002` à la version mineure 1.2 documente l’évolution compatible de son portefeuille au sens de PD-012 §10.3. Aucune version majeure n’est justifiée : la responsabilité, la frontière, le type, les relations et l’ownership du Programme sont inchangés.
+
+#### 19.7.3 Mandat et décision de révision
+
+| Champ | Valeur |
+|---|---|
+| MandateRef | `P17-MANDATE-CONSOLIDATION-20260803` |
+| Source du Mandat | Mission P17 — Consolidation documentaire des Scientific Programs et Reasoning Books |
+| Instance humaine mandatée | NOXIA Project Governance |
+| Représentant humain | Charles de Bourguignon |
+| Portée | Contrôler PD-012, PD-013, RB-003, RB-004 et le SOURCE-OF-TRUTH-INDEX ; corriger uniquement les incohérences documentaires démontrées |
+| Exclusions | Nouveau Programme, nouveau Reasoning Book, nouvelle connaissance, nouveau corpus, implémentation, code, commit, push et déploiement |
+| Date d’effet | 3 août 2026 |
+| Durée | Limitée à la consolidation P17 et à sa trace documentaire |
+
+| Champ | Valeur |
+|---|---|
+| DecisionID | `ASSET-REVISION-DECISION-RB-004-20260803` |
+| Décision | `REVISE_ASSET_REFERENCE` |
+| ProgramID | `NXP-000002` |
+| AssetID | `RB-004` |
+| État et version avant | `OFFICIAL` / 1.0 |
+| État et version après | `OFFICIAL` / 1.1 |
+| Version du Programme avant | 1.1 |
+| Version du Programme après | 1.2 |
+| État global avant | 1.5 |
+| État global après | 1.6 |
+| MandateRef | `P17-MANDATE-CONSOLIDATION-20260803` |
+| Nature | Correction bibliographique et révision documentaire mineure ; aucune révision scientifique |
+
+#### 19.7.4 Registry Event et Change Log
+
+| Champ | Registry Event |
+|---|---|
+| EventID | `NXP-REG-EVENT-20260803-0006` |
+| Ordre chronologique | Postérieur à `NXP-REG-EVENT-20260803-0005`, qui reste inchangé |
+| ProgramID | `NXP-000002` |
+| Opération | `REGISTER_REASONING_BOOK_REVISION` |
+| État et version avant du Programme | `OFFICIAL` / 1.1 |
+| État et version après du Programme | `OFFICIAL` / 1.2 |
+| État global avant | 1.5 |
+| État global après | 1.6 |
+| Actif avant | `RB-004` / `OFFICIAL` / 1.0 |
+| Actif après | `RB-004` / `OFFICIAL` / 1.1 |
+| Date d’effet | 3 août 2026 |
+| Instance | NOXIA Project Governance |
+| MandateRef | `P17-MANDATE-CONSOLIDATION-20260803` |
+| DecisionRef | `ASSET-REVISION-DECISION-RB-004-20260803` |
+| Ownerships affectés | aucun transfert ; `NXP-000002` reste l’unique Program Owner |
+| Actifs affectés | DOCX maître et PDF dérivé de RB-004 ; référence de portefeuille |
+| Réserves | aucune conclusion scientifique modifiée ; aucune revue humaine ou décision PD-011 revendiquée |
+| Événement remplacé ou corrigé | `NONE` — l’événement enregistre une nouvelle révision et ne réécrit pas l’admission `…0004` |
+
+| ChangeLogID | Modification | Effet | Éléments inchangés |
+|---|---|---|---|
+| `CHANGE-NXP-000002-0003` | PMCID R30 `N/A` → `PMC13265417`, RB-004 1.0 → 1.1, `NXP-000002` 1.1 → 1.2 et état global 1.5 → 1.6 | Traçabilité bibliographique restaurée et portefeuille courant réconcilié | Contrat PD-013 v1.0, PD-012, identité et statut de RB-004, contenu scientifique, décisions CMR-D00–D18, relations, ownership, Territory Model, Catalog, Knowledge Graph, produit, code et publication |
+
+#### 19.7.5 Contrôles de clôture
+
+| Contrôle | Résultat | Limite |
+|---|---|---|
+| DOI, PMID et PMCID de RB-003 | `PASS_DOCUMENTAIRE` — 61 notices concordantes | Ne vaut pas revue scientifique humaine |
+| DOI, PMID et PMCID de RB-004 | `PASS_DOCUMENTAIRE` après correction de R30 — 43 références concordantes, dont deux objets hors PubMed vérifiés séparément | Ne vaut pas réévaluation du corpus |
+| Program Owner et portefeuille | `PASS_DOCUMENTAIRE` — RB-004 reste sous `NXP-000002` uniquement | Aucun ownership de connaissance partagée créé |
+| Territory Links | `PASS_DOCUMENTAIRE` — 13, 18 et 35 liens uniques et existants pour les trois Programmes | Les recouvrements inter-Programmes restent des références partagées, non des doublons d’identité |
+| Relations et cycles | `PASS_DOCUMENTAIRE` — zéro relation canonique effective et zéro dépendance inter-Programme | Les vues prospectives restent `NOT_REGISTERED` et sans autorité |
+| Historique | `PASS_DOCUMENTAIRE` — états 1.1 à 1.5 et versions antérieures conservés | Aucune réécriture rétroactive |
+| PD-011 | `NOT_CLAIMED` | Aucun PASS scientifique ou droit de publication |
+
+---
+
+### 19.8 Admission de RB-005 dans l’état 1.7
+
+Les §§19.6.1 à 19.6.12 conservent intégralement le pré-état 1.5 : RB-005 y est une référence candidate non créée et `NXP-000003` y est en version 1.0. Ces formulations sont historiques et ne sont pas réécrites. Le présent paragraphe porte seul l’état effectif ultérieur.
+
+#### 19.8.1 Nature de l’opération et niveaux de vérité
+
+L’opération admet un actif documentaire scientifique déjà créé et validé dans les formats requis. Elle ne modifie ni le contrat PD-013 version 1.0, ni PD-012, ni la Vision, la Roadmap, les Territory Links, les relations ou les frontières de `NXP-000003`.
+
+| Catégorie | État applicable à l’admission de RB-005 | Conséquence |
+|---|---|---|
+| Principes établis | Science avant technologie ; phénomènes avant biomarqueurs ; responsabilité humaine ; preuves, limites et contradictions visibles | Contraintes supérieures inchangées |
+| Références normatives | PD-003, PD-004, PD-009, PD-011, PD-012 et contrat PD-013 version 1.0 | Contrats appliqués sans modification |
+| Corpus scientifique daté | RB-005 version 1.0, état des connaissances arrêté au 3 août 2026 | Corpus officiel borné ; aucune vérité universelle ou décision clinique individuelle |
+| Cible | Socle scientifique de référence de `NXP-000003` pour l’hémodynamique, la perfusion, l’oxygénation, le métabolisme et la barrière hémato-encéphalique | Portefeuille documentaire enrichi, sans activation produit |
+| État réellement implémenté | DOCX maître et PDF dérivé accessibles ; registre toujours documentaire | Aucune interface, règle exécutable, campagne, assertion de graphe ou automatisation démontrée |
+| Hypothèses | NPM-H01 à NPM-H20, questions ouvertes et sept autres entrées de roadmap sans identifiant | Éléments à tester ; aucune autorité protocolaire ou recommandation |
+
+#### 19.8.2 Référence d’actif officielle
+
+| Champ | Valeur effective dans l’état 1.7 |
+|---|---|
+| AssetID | `RB-005` |
+| Titre | Reasoning Book 05 — Neuro Perfusion & Metabolism Foundations |
+| Famille | `REASONING_BOOK` et corpus scientifique général daté |
+| Niveau documentaire | `NIVEAU_2` |
+| Statut | `OFFICIAL` |
+| Version | 1.0 |
+| État des connaissances | 3 août 2026 |
+| Program Owner | `NXP-000003` |
+| Rôle du Programme | `OWNS` |
+| Contexte d’usage | Corpus scientifique de référence de `NXP-000003` pour les fondements de la neuro-perfusion et du métabolisme cérébral |
+| Source maîtresse | `output/documents/noxia-protocol-designer-reasoning-book-rb-005-neuro-perfusion-metabolism-foundations.docx` |
+| Édition dérivée | `output/pdf/noxia-protocol-designer-reasoning-book-rb-005-neuro-perfusion-metabolism-foundations.pdf` |
+| Date d’effet | 3 août 2026 |
+| Blocage | `NONE` |
+| Relations canoniques effectives | `[]` |
+| Activation produit | `NOT_ACTIVATED` |
+| Publication | `NOT_AUTHORIZED_BY_THIS_DECISION` |
+| Évaluation PD-011 | `NOT_CLAIMED` |
+| Revue scientifique humaine | `NOT_CLAIMED` |
+| Autorité scientifique | Corpus officiel général, daté et borné ; aucune autorité protocolaire, thérapeutique ou clinique individuelle |
+
+RB-005 couvre les construits CBF, CBV, MTT, TTP, Tmax, délai, OEF, CMRO₂, autorégulation, réactivité cérébrovasculaire, couplage neurovasculaire, collatérales, microcirculation et barrière hémato-encéphalique ; il compare CTP, DSC-MRI, DCE-MRI, ASL et PET et examine la métrologie ainsi que des applications illustratives. Il ne contient ni protocole clinique, ni recommandation, ni paramètre exécutable, ni interface, ni implémentation.
+
+Le portefeuille effectif de `NXP-000003` référence désormais :
+
+| Famille | Références effectives dans l’état 1.7 |
+|---|---|
+| Scientific Vision | `NXP-000003 §19.6.3` |
+| Scientific Roadmap | `NXP-000003 §19.6.5`, pré-état historique conservé |
+| Territory Links | `NXP-000003 §19.6.4` |
+| Reasoning Books | `[RB-005 — OFFICIAL — VERSION_1_0]` |
+| Scientific Corpus | `[RB-005 — OFFICIAL — VERSION_1_0]` |
+| ConceptRefs | `[]` |
+| BiomarkerRefs | `[]` |
+| ScientificAssertionRefs | `[]` |
+| SourceRefs | `[]` — les références R01–R65 restent gouvernées par le DOCX maître, sans création d’identités de graphe par PD-013 |
+| Knowledge Assets | `[]` |
+| Editorial Assets | `[]` |
+| Evaluation Assets | `[]` |
+| Relations canoniques effectives | `[]` |
+| Dependencies canoniques effectives | `[]` |
+| Ownership Registry | `OWNERSHIP-NXP-000003-20260803`, révision d’état 1.7 |
+
+#### 19.8.3 Versionnement et cycle de vie
+
+L’admission d’un nouveau Reasoning Book compatible modifie le portefeuille de `NXP-000003` sans modifier sa vision, sa frontière, son type, ses relations ni son ownership. Conformément à PD-012 §10.3, le Programme passe donc de la version 1.0 à la version mineure **1.1** et conserve le statut `OFFICIAL`.
+
+RB-005 possède son propre cycle de vie. Une révision mineure peut corriger une référence ou clarifier un passage sans modifier les construits, décisions NPM-D00 à NPM-D20 ou conditions de refus NPM-RF01 à NPM-RF26. Une révision majeure est requise si le périmètre, un construit, un statut de preuve, une décision ou une condition de refus change. Toute révision conserve le motif, la date des connaissances, les sources ajoutées ou retirées, les contradictions, les identifiants et les versions antérieures ; le PDF est toujours régénéré depuis le DOCX maître et n’est jamais corrigé isolément.
+
+#### 19.8.4 Mandat et décision d’admission de l’actif
+
+| Champ | Valeur |
+|---|---|
+| MandateRef | `RB-005-MANDATE-NXP-000003-20260803` |
+| Source du Mandat | Mission RB-005 — Reasoning Book 05 — Neuro Perfusion & Metabolism Foundations |
+| Instance humaine mandatée | NOXIA Project Governance |
+| Représentant humain | Charles de Bourguignon |
+| Portée | Créer, classifier, vérifier et admettre RB-005 sous `NXP-000003`, puis réconcilier PD-013 et le SOURCE-OF-TRUTH-INDEX |
+| Exclusions | Protocole clinique, recommandation, interface, implémentation, code, activation produit, PASS PD-011, publication, commit, push et déploiement |
+| Date d’effet | 3 août 2026 |
+| Durée | Limitée à la création, à l’admission et à leur trace documentaire atomique |
+
+| Champ | Valeur |
+|---|---|
+| DecisionID | `ASSET-ADMISSION-DECISION-RB-005-20260803` |
+| Décision | `ADMIT_ASSET_REFERENCE` |
+| ProgramID | `NXP-000003` |
+| AssetID | `RB-005` |
+| État de l’actif avant | `PLANNED_CANDIDATE_NOT_CREATED` / `NOT_APPLICABLE_UNTIL_CREATED` |
+| État de l’actif après | `OFFICIAL` / 1.0 |
+| Version du Programme avant | 1.0 |
+| Version du Programme après | 1.1 |
+| État global avant | 1.6 |
+| État global après | 1.7 |
+| Date d’effet | 3 août 2026, après `NXP-REG-EVENT-20260803-0006` |
+| Instance décisionnelle | NOXIA Project Governance |
+| MandateRef | `RB-005-MANDATE-NXP-000003-20260803` |
+| Nature | Admission documentaire d’un corpus scientifique de niveau 2 ; aucune activation produit ou publication |
+
+#### 19.8.5 Registry Event, Change Log et contrôles
+
+| Champ | Registry Event |
+|---|---|
+| EventID | `NXP-REG-EVENT-20260803-0007` |
+| Ordre chronologique | Postérieur à `NXP-REG-EVENT-20260803-0006`, qui reste inchangé |
+| ProgramID | `NXP-000003` |
+| Opération | `REGISTER_REASONING_BOOK_ASSET` |
+| État et version avant du Programme | `OFFICIAL` / 1.0 |
+| État et version après du Programme | `OFFICIAL` / 1.1 |
+| État global avant | 1.6 |
+| État global après | 1.7 |
+| Actif avant | `RB-005` / `PLANNED_CANDIDATE_NOT_CREATED` |
+| Actif après | `RB-005` / `OFFICIAL` / 1.0 |
+| Date d’effet | 3 août 2026 |
+| Instance | NOXIA Project Governance |
+| MandateRef | `RB-005-MANDATE-NXP-000003-20260803` |
+| DecisionRef | `ASSET-ADMISSION-DECISION-RB-005-20260803` |
+| Relations effectives | `[]` |
+| Ownerships affectés | Ownership prévu de RB-005 devenu effectif sous `NXP-000003` |
+| Actifs affectés | DOCX maître et PDF dérivé de RB-005 |
+| Réserves | Revue scientifique humaine et PASS PD-011 non revendiqués ; aucune publication ni activation produit |
+| Événement remplacé ou corrigé | `NONE` |
+
+| ChangeLogID | Modification | Effet | Éléments inchangés |
+|---|---|---|---|
+| `CHANGE-NXP-000003-0002` | Admission de RB-005 version 1.0, état global 1.6 → 1.7 et version Programme 1.0 → 1.1 | Un Reasoning Book et corpus de niveau 2 officiel, possédé par `NXP-000003` | Contrat PD-013 v1.0, statut, type et frontières du Programme, PD-012, relations, dépendances, Knowledge Graph, Catalog, produit, implémentation et publication |
+
+| Contrôle | Résultat | Preuve synthétique |
+|---|---|---|
+| Identité et titre | `PASS_DOCUMENTAIRE` | `RB-005 — Reasoning Book 05 — Neuro Perfusion & Metabolism Foundations`, sans doublon dans le portefeuille |
+| Niveau et source maîtresse | `PASS_DOCUMENTAIRE` | Niveau 2 ; DOCX maître et PDF dérivé explicitement enregistrés |
+| Program Owner unique | `PASS_DOCUMENTAIRE` | `NXP-000003`, ownership prévu devenu effectif sans copropriété |
+| Version du Programme | `PASS_DOCUMENTAIRE` | Passage mineur 1.0 → 1.1 conforme à PD-012 pour un nouveau Reasoning Book compatible |
+| Contenu borné | `PASS_DOCUMENTAIRE` | Aucun protocole, recommandation, interface, implémentation ou paramètre clinique exécutable |
+| Structure scientifique | `PASS_DOCUMENTAIRE` | 100 sections ; NPM-C01–C20 ; NPM-O01–O20 ; NPM-H01–H20 ; NPM-D00–D20 ; NPM-RF01–RF26 ; NPM-A01–A22 ; KG-NPM-01–24 ; Evidence Map et questions ouvertes |
+| Identifiants bibliographiques | `PASS_DOCUMENTAIRE` | 65 PMID uniques ; 64 DOI présents ; une absence de DOI vérifiée et explicitée ; PMCID présents ou absence PubMed/PMC explicitée ; 65 liens PubMed |
+| DOCX maître | `PASS_DOCUMENTAIRE` | OOXML valide ; 18 tableaux géométriquement cohérents et balisés ; 123 signets ; 142 liens internes ; audit d’accessibilité sans constat |
+| PDF dérivé | `PASS_DOCUMENTAIRE` | 38 pages rendues et inspectées ; PDF balisé ; métadonnées, polices incorporées, 129 entrées de navigation et 277 annotations cohérentes |
+| Contradictions | `PASS_DOCUMENTAIRE` | Pré-état 1.5 conservé comme historique ; l’ancienne référence candidate devient l’actif officiel dans l’état 1.7 ; aucune norme supérieure modifiée |
+| PD-011 | `NOT_CLAIMED` | Aucun PASS scientifique, benchmark produit ou droit de publication |
+
+Les libellés `PASS_DOCUMENTAIRE` ci-dessus qualifient exclusivement les contrôles de gouvernance, de traçabilité, d’identifiants et de fabrication. Ils ne constituent ni revue scientifique humaine, ni PASS PD-011, ni autorisation de publication.
 
 ---
 
@@ -2151,9 +2805,10 @@ Protocol Designer / Editorial Engine / Public Knowledge
 
 PD-013 reste le point d’autorité qui enregistre les admissions sans confondre intention territoriale, architecture normative, couverture scientifique et existence réelle.
 
-Le contrat reste en version 1.0. Son état courant 1.4 contient exactement deux Programmes officiellement admis et de statut `OFFICIAL` :
+Le contrat reste en version 1.0. Son état courant 1.7 contient exactement trois Programmes officiellement admis et de statut `OFFICIAL` :
 
-1. `NXP-000002 — Cardiac MRI & Quantitative Cardiac Imaging`, admis en premier dans l’état 1.1 par l’événement `NXP-REG-EVENT-20260803-0001`, puis porté à la version 1.1 dans l’état 1.4 par l’admission de RB-004 et l’événement `NXP-REG-EVENT-20260803-0004` ;
-2. `NXP-000001 — Spectral Imaging`, admis ensuite en version 1.0 dans l’état 1.2 par l’événement `NXP-REG-EVENT-20260803-0002`, puis porté à la version 1.1 dans l’état 1.3 par l’admission de RB-003 et l’événement `NXP-REG-EVENT-20260803-0003`.
+1. `NXP-000002 — Cardiac MRI & Quantitative Cardiac Imaging`, admis en premier dans l’état 1.1 par l’événement `NXP-REG-EVENT-20260803-0001`, porté à la version 1.1 dans l’état 1.4 par l’admission de RB-004 et l’événement `NXP-REG-EVENT-20260803-0004`, puis à la version 1.2 dans l’état 1.6 par la révision bibliographique de RB-004 et l’événement `NXP-REG-EVENT-20260803-0006` ;
+2. `NXP-000001 — Spectral Imaging`, admis ensuite en version 1.0 dans l’état 1.2 par l’événement `NXP-REG-EVENT-20260803-0002`, puis porté à la version 1.1 dans l’état 1.3 par l’admission de RB-003 et l’événement `NXP-REG-EVENT-20260803-0003` ;
+3. `NXP-000003 — Neuro Perfusion & Metabolism`, admis en troisième dans l’état 1.5, version 1.0 et type `DOMAIN_PROGRAM`, par l’événement `NXP-REG-EVENT-20260803-0005`, puis porté à la version 1.1 dans l’état 1.7 par l’admission de RB-005 et l’événement `NXP-REG-EVENT-20260803-0007`.
 
-Les admissions de Programmes sont exclusivement documentaires. Les opérations ultérieures admettent `RB-003 — Reasoning Book 03 — Spectral Imaging` et `RB-004 — Reasoning Book 04 — Cardiac MRI & Quantitative Cardiac Imaging`, chacun en version 1.0, comme corpus scientifiques de niveau 2 possédés respectivement par `NXP-000001` et `NXP-000002`, avec DOCX maître et PDF dérivé. Elles ne créent ni assertion dans le Knowledge Graph, ni relation canonique non justifiée, ni implémentation, ni activation produit, ni publication, et ne revendiquent aucun PASS PD-011.
+Les admissions de Programmes sont exclusivement documentaires. Les opérations ultérieures admettent `RB-003 — Reasoning Book 03 — Spectral Imaging` version 1.0, `RB-004 — Reasoning Book 04 — Cardiac MRI & Quantitative Cardiac Imaging` initialement version 1.0 et `RB-005 — Reasoning Book 05 — Neuro Perfusion & Metabolism Foundations` version 1.0 comme corpus scientifiques de niveau 2 possédés respectivement par `NXP-000001`, `NXP-000002` et `NXP-000003`, avec DOCX maître et PDF dérivé. La révision 1.1 de RB-004 corrige uniquement le PMCID de R30 et ne modifie aucune conclusion scientifique. Les sept autres candidats de la roadmap de `NXP-000003` restent des entrées sans identifiant, non identitaires et non réservées. L’état 1.7 ne crée ni assertion dans le Knowledge Graph, ni relation canonique non justifiée, ni implémentation, ni activation produit, ni publication, et ne revendique aucun PASS PD-011.
