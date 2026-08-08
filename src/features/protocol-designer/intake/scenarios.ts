@@ -3,7 +3,7 @@ import type { ScenarioMatch, ValidatedScientificIntent } from "./types.js";
 
 const TERMS = {
   spectral: ["spectral", "dual energy", "double énergie", "photon counting", "k-edge", "iode", "monoénergétique"],
-  cardiac: ["cardiaque", "cardiac", "myocarde", "myocard", "t1 mapping", "lge", "fibrose", "strain"],
+  cardiac: ["cardiaque", "cardiac", "myocarde", "myocard", "t1 mapping", "ecv", "lge", "fibrose", "strain", "no-reflow", "no reflow", "obstruction microvasculaire", "lésion microvasculaire", "reperfusion"],
   neuro: ["cérébr", "cerebr", "neuro", "perfusion", "cbf", "cbv", "tmax", "oef", "cmro2", "cmro₂", "pénombre"],
 } as const;
 

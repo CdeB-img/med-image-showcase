@@ -10,6 +10,7 @@ export const ADAPTIVE_QUESTION_REGISTRY: AdaptiveQuestion[] = [
       { value: "mechanism", label: "Un mécanisme physiologique", consequence: "Les hypothèses de modèle devront être distinguées des observations." },
       { value: "unknown", label: "Je ne sais pas encore", consequence: "L’orientation restera provisoire." },
     ], sourceRefs: ["PD-003", "PD-009"], implementationStatus: "FULLY_OPERATIONAL", knownFromFields: ["phenomenaOfInterest"],
+    decisionBlock: "SCIENTIFIC_OBJECTIVE", projectStage: 2,
   },
   {
     questionId: "Q-PURPOSE", label: "Quel est l’objectif scientifique principal ?",
@@ -19,7 +20,9 @@ export const ADAPTIVE_QUESTION_REGISTRY: AdaptiveQuestion[] = [
       { value: "understand", label: "Comprendre", consequence: "Le rapport privilégiera les construits et hypothèses." },
       { value: "compare", label: "Comparer", consequence: "Le rapport exposera les conditions de comparabilité." },
       { value: "quantify", label: "Quantifier", consequence: "Le rapport rendra visibles calibration et répétabilité." },
+      { value: "unknown", label: "Je ne sais pas encore", consequence: "L’objectif restera explicitement à confirmer." },
     ], sourceRefs: ["Scientific Product Manifesto", "PD-004"], implementationStatus: "FULLY_OPERATIONAL", knownFromFields: ["scientificPurpose"],
+    decisionBlock: "SCIENTIFIC_OBJECTIVE", projectStage: 1,
   },
   {
     questionId: "Q-CONTEXT", label: "Dans quel contexte scientifique cette question se pose-t-elle ?",
@@ -30,6 +33,7 @@ export const ADAPTIVE_QUESTION_REGISTRY: AdaptiveQuestion[] = [
       { value: "multicenter", label: "Multicentrique", consequence: "L’harmonisation deviendra un point critique." },
       { value: "unknown", label: "Non précisé", consequence: "La portée restera limitée." },
     ], sourceRefs: ["PD-003", "PD-004"], implementationStatus: "FULLY_OPERATIONAL", knownFromFields: ["clinicalContext", "centers"],
+    decisionBlock: "STUDY_CONTEXT", projectStage: 3,
   },
   {
     questionId: "Q-EQUIPMENT", label: "Quels équipements ou données sont réellement disponibles ?",
@@ -40,6 +44,7 @@ export const ADAPTIVE_QUESTION_REGISTRY: AdaptiveQuestion[] = [
       { value: "partial", label: "Informations partielles", consequence: "Les inconnues resteront ouvertes." },
       { value: "unknown", label: "Inconnu", consequence: "Aucune faisabilité technique ne sera affirmée." },
     ], sourceRefs: ["PD-003", "Product Specification"], implementationStatus: "PARTIALLY_OPERATIONAL", knownFromFields: ["availableEquipment", "availableData"],
+    decisionBlock: "FEASIBILITY", projectStage: 4,
   },
   {
     questionId: "Q-TIMING", label: "Des moments de mesure sont-ils déjà imposés par votre projet ?",
@@ -49,6 +54,7 @@ export const ADAPTIVE_QUESTION_REGISTRY: AdaptiveQuestion[] = [
       { value: "declared", label: "Oui, ils sont déclarés", consequence: "Ils seront conservés comme contrainte utilisateur." },
       { value: "unknown", label: "Pas encore", consequence: "TIMING_NOT_YET_GENERATABLE_FROM_CURRENT_EXECUTABLE_KNOWLEDGE" },
     ], sourceRefs: ["PD-007", "PD-011"], implementationStatus: "RECORDED_ONLY", knownFromFields: ["declaredTimings"],
+    decisionBlock: "FEASIBILITY", projectStage: 5,
   },
 ];
 

@@ -1,0 +1,184 @@
+import type {
+  ConfidenceLevel,
+  QuestionChangeKind,
+  RoutingIntent,
+  ScientificSessionContext,
+  ValidatedScientificIntent,
+} from "./types.js";
+
+export const ROUTING_INTENT_LABELS: Record<RoutingIntent, string> = {
+  UNDERSTAND: "Comprendre une question scientifique",
+  FORMALIZE_IDEA: "Transformer une idée en question scientifique",
+  DESIGN_STUDY: "Construire un projet de recherche",
+};
+
+export const PROJECT_STAGES = [
+  "Intention",
+  "Objectifs scientifiques",
+  "Population",
+  "Matériel et méthodes",
+  "Imagerie",
+  "Statistiques",
+  "Budget",
+  "Documents",
+] as const;
+
+const SCIENTIFIC_TERMS = [
+  "obstruction microvasculaire",
+  "lésions microvasculaires",
+  "photon counting",
+  "double énergie",
+  "dual energy",
+  "ct spectral",
+  "imagerie spectrale",
+  "t1 mapping",
+  "monoénergétique",
+  "no-reflow",
+  "no reflow",
+  "k-edge",
+  "cmro₂",
+  "cmro2",
+  "oef",
+  "ecv",
+  "lge",
+  "cbf",
+  "cbv",
+  "tmax",
+] as const;
+
+const normalized = (value: string) => value.normalize("NFKC").toLocaleLowerCase("fr-FR");
+
+const fieldValues = (intent: ValidatedScientificIntent, key: keyof ValidatedScientificIntent["interpretation"]) => {
+  const field = intent.interpretation[key];
+  if (!field || typeof field !== "object" || !("value" in field)) return [];
+  const value = field.value;
+  return Array.isArray(value) ? value.filter((item): item is string => typeof item === "string") : typeof value === "string" ? [value] : [];
+};
+
+export const deriveRoutingIntent = (intent: ValidatedScientificIntent): {
+  routeIntent: RoutingIntent;
+  confidence: ConfidenceLevel;
+  reasons: string[];
+} => {
+  const corpus = normalized(`${intent.originalQuestion} ${intent.validatedReformulation} ${fieldValues(intent, "scientificPurpose").join(" ")}`);
+  const scores: Record<RoutingIntent, number> = { UNDERSTAND: 0, FORMALIZE_IDEA: 0, DESIGN_STUDY: 0 };
+  const reasons: Record<RoutingIntent, string[]> = { UNDERSTAND: [], FORMALIZE_IDEA: [], DESIGN_STUDY: [] };
+  const add = (route: RoutingIntent, pattern: RegExp, reason: string, weight = 1) => {
+    if (pattern.test(corpus)) {
+      scores[route] += weight;
+      reasons[route].push(reason);
+    }
+  };
+  add("UNDERSTAND", /\b(comprendre|expliquer|fonctionne|diff[ée]rence|rôle|signifie|qu['’]est-ce)\b/, "La demande exprime un besoin de compréhension.", 3);
+  add("FORMALIZE_IDEA", /\b(id[ée]e|intuition|hypoth[èe]se|je pense|pourrait|d[ée]pend)\b/, "La demande formule une idée ou une hypothèse à structurer.", 3);
+  add("DESIGN_STUDY", /\b(construire|concevoir|protocole|[ée]tude|projet de recherche|multicentrique|reproduire|auditer)\b/, "La demande vise explicitement un projet ou une étude.", 3);
+  add("DESIGN_STUDY", /\b(comparer|mesurer|quantifier|[ée]valuer|suivre|d[ée]tecter)\b/, "La demande porte une action de recherche à cadrer.", 2);
+  const ordered = (Object.keys(scores) as RoutingIntent[]).sort((a, b) => scores[b] - scores[a]);
+  const routeIntent = ordered[0];
+  const margin = scores[ordered[0]] - scores[ordered[1]];
+  return {
+    routeIntent,
+    confidence: scores[routeIntent] >= 3 && margin >= 2 ? "HIGH" : scores[routeIntent] >= 2 ? "MEDIUM" : "LOW",
+    reasons: reasons[routeIntent].length ? reasons[routeIntent] : ["L’intention reste peu explicite ; NOXIA propose le parcours le plus réversible."],
+  };
+};
+
+export const preservedScientificTerms = (intent: ValidatedScientificIntent) => {
+  const source = `${intent.originalQuestion} ${intent.validatedReformulation}`;
+  const corpus = normalized(source);
+  const exact = SCIENTIFIC_TERMS.flatMap((term) => {
+    const index = corpus.indexOf(normalized(term));
+    if (index < 0) return [];
+    const match = source.match(new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i"));
+    return [{ value: match?.[0] ?? term, index }];
+  }).sort((a, b) => a.index - b.index).map((item) => item.value);
+  const interpreted = [
+    ...fieldValues(intent, "phenomenaOfInterest"),
+    ...fieldValues(intent, "pathologyOrCondition"),
+    ...fieldValues(intent, "scientificDomain"),
+  ];
+  return [...new Set([...exact, ...interpreted].map((item) => item.trim()).filter(Boolean))].slice(0, 8);
+};
+
+export const centralScientificObject = (intent: ValidatedScientificIntent) => {
+  const terms = preservedScientificTerms(intent);
+  const exactTerms = terms.filter((term) => SCIENTIFIC_TERMS.some((candidate) => normalized(candidate) === normalized(term)));
+  return exactTerms.length > 1 ? `${exactTerms[0]} et ${exactTerms[1]}` : exactTerms[0] ?? terms[0] ?? fieldValues(intent, "phenomenaOfInterest")[0] ?? fieldValues(intent, "scientificDomain")[0] ?? intent.validatedReformulation;
+};
+
+export const detectedRelationships = (intent: ValidatedScientificIntent) => {
+  const corpus = normalized(`${intent.originalQuestion} ${intent.validatedReformulation}`);
+  const relationships: string[] = [];
+  if (/\b(comparer|diff[ée]rence|versus|vs\.? )\b/.test(corpus)) relationships.push("comparaison explicitement demandée");
+  if (/\b(effet|impact|influence|d[ée]pend|associ[ée])\b/.test(corpus)) relationships.push("relation ou dépendance à examiner");
+  if (/\b(apr[èe]s|avant|pendant|suivi|[ée]volution)\b/.test(corpus)) relationships.push("relation temporelle déclarée");
+  return relationships;
+};
+
+export const buildScientificSessionContext = (
+  intent: ValidatedScientificIntent,
+  previous?: ScientificSessionContext,
+): ScientificSessionContext => {
+  const routing = deriveRoutingIntent(intent);
+  return {
+    routeIntent: routing.routeIntent,
+    routeConfidence: routing.confidence,
+    routeReasons: routing.reasons,
+    centralScientificObject: centralScientificObject(intent),
+    preservedScientificTerms: preservedScientificTerms(intent),
+    detectedRelationships: detectedRelationships(intent),
+    workingHypotheses: previous?.workingHypotheses ?? [],
+    missingInformation: [...new Set(intent.interpretation.missingInformation)],
+    contextVersion: (previous?.contextVersion ?? 0) + 1,
+    transitions: previous?.transitions ?? [],
+    currentProjectStage: previous?.currentProjectStage ?? 1,
+  };
+};
+
+const tokens = (value: string) => new Set(normalized(value).split(/[^\p{L}\p{N}-]+/u).filter((item) => item.length > 3));
+
+export const assessQuestionChange = (previous: string, next: string): {
+  kind: QuestionChangeKind;
+  affectedElements: string[];
+} => {
+  if (normalized(previous).trim() === normalized(next).trim()) return { kind: "NONE", affectedElements: [] };
+  const before = tokens(previous);
+  const after = tokens(next);
+  const shared = [...before].filter((item) => after.has(item)).length;
+  const overlap = shared / Math.max(1, Math.min(before.size, after.size));
+  const family = (value: string) => {
+    const text = normalized(value);
+    if (/spectral|photon|k-edge|iode|mono[ée]nerg/.test(text)) return "spectral";
+    if (/cardia|myocard|t1 mapping|ecv|no-reflow|microvascul/.test(text)) return "cardiac";
+    if (/c[ée]r[ée]br|neuro|perfusion|oef|cmro|cbf|cbv|tmax/.test(text)) return "neuro";
+    return "unknown";
+  };
+  const beforeFamily = family(previous);
+  const afterFamily = family(next);
+  const major = overlap < 0.55 || (beforeFamily !== "unknown" && afterFamily !== "unknown" && beforeFamily !== afterFamily);
+  return major
+    ? {
+      kind: "MAJOR",
+      affectedElements: [
+        "compréhension et objet scientifique central",
+        "orientation vers le corpus local",
+        "questions et réponses adaptatives",
+        "options scientifiques discutées",
+        "décision humaine et rapport",
+      ],
+    }
+    : { kind: "MINOR", affectedElements: ["reformulation et traçabilité de la question"] };
+};
+
+export const formalizedQuestionCandidate = (intent: ValidatedScientificIntent, object: string) => {
+  const population = fieldValues(intent, "population")[0];
+  const purpose = fieldValues(intent, "scientificPurpose")[0];
+  const context = fieldValues(intent, "clinicalContext")[0];
+  const parts = [
+    population ? `Chez ${population}` : "Dans la population à préciser",
+    `comment étudier ${object}`,
+    purpose ? `pour ${purpose}` : "pour répondre à l’objectif scientifique à confirmer",
+    context ? `dans le contexte ${context}` : "dans un contexte d’étude à préciser",
+  ];
+  return `${parts.join(" ")} ?`;
+};

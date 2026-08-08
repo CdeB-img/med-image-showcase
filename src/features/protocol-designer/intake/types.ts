@@ -1,6 +1,6 @@
 export const INTAKE_SCHEMA_VERSION = "1.0" as const;
-export const INTAKE_SESSION_SCHEMA_VERSION = "3.0" as const;
-export const INTAKE_FIXTURE_SET_VERSION = "p-web-04r-rb003-1.0-rb004-1.1-rb005-1.0" as const;
+export const INTAKE_SESSION_SCHEMA_VERSION = "4.0" as const;
+export const INTAKE_FIXTURE_SET_VERSION = "p-web-06-rb003-1.0-rb004-1.1-rb005-1.0" as const;
 
 export type EvidenceOrigin =
   | "EXPLICIT_USER_STATEMENT"
@@ -12,6 +12,8 @@ export type EvidenceOrigin =
 
 export type ConfidenceLevel = "HIGH" | "MEDIUM" | "LOW" | "UNKNOWN";
 export type UserExpertise = "NON_SPECIALIST" | "INTERMEDIATE" | "EXPERT" | "UNKNOWN";
+export type RoutingIntent = "UNDERSTAND" | "FORMALIZE_IDEA" | "DESIGN_STUDY";
+export type QuestionChangeKind = "NONE" | "MINOR" | "MAJOR";
 
 export type InterpretedField<T> = {
   value: T | null;
@@ -128,6 +130,8 @@ export type AdaptiveQuestion = {
   sourceRefs: string[];
   implementationStatus: AdaptiveQuestionImplementationStatus;
   knownFromFields?: InterpretedFieldKey[];
+  decisionBlock: "SCIENTIFIC_OBJECTIVE" | "STUDY_CONTEXT" | "FEASIBILITY";
+  projectStage: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 };
 
 export type AdaptiveAnswer = {
@@ -184,6 +188,27 @@ export type SessionDecision = {
   decidedAt: string;
 };
 
+export type JourneyTransition = {
+  from: RoutingIntent;
+  to: RoutingIntent;
+  reason: string;
+  changedAt: string;
+};
+
+export type ScientificSessionContext = {
+  routeIntent: RoutingIntent | null;
+  routeConfidence: ConfidenceLevel;
+  routeReasons: string[];
+  centralScientificObject: string;
+  preservedScientificTerms: string[];
+  detectedRelationships: string[];
+  workingHypotheses: string[];
+  missingInformation: string[];
+  contextVersion: number;
+  transitions: JourneyTransition[];
+  currentProjectStage: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+};
+
 export type ProtocolDesignerSession = {
   sessionSchemaVersion: typeof INTAKE_SESSION_SCHEMA_VERSION;
   fixtureSetVersion: typeof INTAKE_FIXTURE_SET_VERSION;
@@ -201,6 +226,7 @@ export type ProtocolDesignerSession = {
   decision: SessionDecision | null;
   reportStatus: "NONE" | "PROVISIONAL" | "FINAL";
   invalidatedDownstream: string[];
+  scientificContext: ScientificSessionContext;
 };
 
 export type IntakeApiErrorCode =

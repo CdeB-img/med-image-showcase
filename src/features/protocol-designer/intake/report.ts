@@ -47,11 +47,11 @@ export const generateContextualReport = (
   const questionMap = new Map(questions.map((question) => [question.questionId, question]));
   const answeredQuestions = session.adaptiveAnswers.map((answer) => questionMap.get(answer.questionId)).filter(Boolean) as AdaptiveQuestion[];
   const sectionsContent: string[][] = [
-    [`Session ${session.sessionId}`, `Créée ${session.createdAt}`, `Schéma ${session.sessionSchemaVersion}`, `Rapport ${status}`],
+    [`Session ${session.sessionId}`, `Créée ${session.createdAt}`, `Schéma ${session.sessionSchemaVersion}`, `Contexte v${session.scientificContext.contextVersion}`, `Parcours ${session.scientificContext.routeIntent ?? "à confirmer"}`, `Rapport ${status}`],
     [session.originalQuestion || "Non fournie"], [intent?.validatedReformulation || "Non validée"],
     list(valuesFor(session, "userExpertise"), "Niveau non confirmé"), list(valuesFor(session, "clinicalContext"), "Contexte à confirmer"),
     list(valuesFor(session, "population"), "Population inconnue"), list(valuesFor(session, "interventionsOrGroups"), "Non précisés"),
-    list(valuesFor(session, "scientificPurpose"), "Objectif à préciser"), list(valuesFor(session, "phenomenaOfInterest"), "Phénomène à clarifier"),
+    [...list(valuesFor(session, "scientificPurpose"), "Objectif à préciser"), `Objet central conservé : ${session.scientificContext.centralScientificObject || "à confirmer"}`], list(valuesFor(session, "phenomenaOfInterest"), "Phénomène à clarifier"),
     list(valuesFor(session, "outcomesMentioned"), "Critères non déclarés"), list(valuesFor(session, "centers"), "Organisation non précisée"),
     list([...valuesFor(session, "availableEquipment"), ...valuesFor(session, "fieldStrengths"), ...valuesFor(session, "manufacturers"), ...valuesFor(session, "models")], "Équipements inconnus"),
     list(valuesFor(session, "constraints"), "Aucune contrainte confirmée"),
@@ -74,7 +74,7 @@ export const generateContextualReport = (
     ["Projection de démonstration — ni validation scientifique, ni avis médical, ni PASS PD-011."],
     ["Dossier de raisonnement scientifique"],
     ["Protocole d’acquisition: NOT_YET_GENERATABLE_FROM_CURRENT_EXECUTABLE_KNOWLEDGE", "Financement: STRUCTURE_ONLY", "Publication: STRUCTURE_ONLY"],
-    [`Création ${session.createdAt}`, ...session.invalidatedDownstream.map((item) => `Invalidation: ${item}`), `Génération ${now}`],
+    [`Création ${session.createdAt}`, ...session.scientificContext.transitions.map((item) => `Transition ${item.from} → ${item.to} : ${item.reason}`), ...session.invalidatedDownstream.map((item) => `Invalidation: ${item}`), `Génération ${now}`],
   ];
   const sections = REPORT_SECTION_TITLES.map((title, index) => ({
     number: index + 1, title,

@@ -14,6 +14,13 @@ const storedSessionSchema = z.object({
   confirmedScenarioId: z.enum(["spectral", "cardiac", "neuro"]).nullable(), secondaryScenarioIds: z.array(z.enum(["spectral", "cardiac", "neuro"])),
   adaptiveAnswers: z.array(z.unknown()), decision: z.unknown().nullable(), reportStatus: z.enum(["NONE", "PROVISIONAL", "FINAL"]),
   invalidatedDownstream: z.array(z.string()),
+  scientificContext: z.object({
+    routeIntent: z.enum(["UNDERSTAND", "FORMALIZE_IDEA", "DESIGN_STUDY"]).nullable(),
+    routeConfidence: z.enum(["HIGH", "MEDIUM", "LOW", "UNKNOWN"]),
+    routeReasons: z.array(z.string()), centralScientificObject: z.string(), preservedScientificTerms: z.array(z.string()),
+    detectedRelationships: z.array(z.string()), workingHypotheses: z.array(z.string()), missingInformation: z.array(z.string()),
+    contextVersion: z.number().int().min(0), transitions: z.array(z.unknown()), currentProjectStage: z.number().int().min(1).max(8),
+  }).passthrough(),
 }).passthrough();
 
 const makeId = () => typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `session-${Date.now()}`;
@@ -25,6 +32,11 @@ export const createProtocolDesignerSession = (now = new Date().toISOString()): P
   interfaceState: "IDLE", currentStep: 0, originalQuestion: "", validatedIntent: null,
   scenarioMatches: [], confirmedScenarioId: null, secondaryScenarioIds: [], adaptiveAnswers: [], decision: null,
   reportStatus: "NONE", invalidatedDownstream: [],
+  scientificContext: {
+    routeIntent: null, routeConfidence: "UNKNOWN", routeReasons: [], centralScientificObject: "",
+    preservedScientificTerms: [], detectedRelationships: [], workingHypotheses: [], missingInformation: [],
+    contextVersion: 0, transitions: [], currentProjectStage: 1,
+  },
 });
 
 export const buildValidatedIntent = (
