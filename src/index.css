@@ -140,7 +140,6 @@
   }
 
   .site-header,
-  #demo-main > :first-child,
   #demo-main nav,
   body > footer {
     display: none !important;

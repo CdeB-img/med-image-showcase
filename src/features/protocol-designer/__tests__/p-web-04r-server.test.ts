@@ -34,7 +34,11 @@ describe("P-WEB-04R — server and intake contracts", () => {
   it("02 fails closed without a key", async () => expect((await processScientificIntakeHttp(request(), { model: "gemini-3.5-flash" })).body).toMatchObject({ error: { code: "API_UNAVAILABLE" } }));
   it("03 rejects an invalid method", async () => expect((await processScientificIntakeHttp(request({ method: "GET" }), deps())).status).toBe(405));
   it("04 rejects an invalid MIME type", async () => expect((await processScientificIntakeHttp(request({ headers: { "content-type": "text/plain" } }), deps())).status).toBe(415));
-  it("05 rejects an oversized payload", async () => expect((await processScientificIntakeHttp(request({ headers: { "content-type": "application/json", "content-length": "12001" } }), deps())).status).toBe(413));
+  it("05 rejects an oversized payload before calling the provider", async () => {
+    const fetchImpl = provider();
+    expect((await processScientificIntakeHttp(request({ headers: { "content-type": "application/json", "content-length": "12001" } }), deps(fetchImpl))).status).toBe(413);
+    expect(fetchImpl).not.toHaveBeenCalled();
+  });
   it("06 rejects a short question", async () => expect((await processScientificIntakeHttp(request({ body: { question: "Trop court", schemaVersion: "1.0" } }), deps())).status).toBe(400));
   it("07 rejects a long question", async () => expect((await processScientificIntakeHttp(request({ body: { question: "x".repeat(4001), schemaVersion: "1.0" } }), deps())).status).toBe(400));
   it("08 blocks personal data before the provider", async () => {
@@ -93,6 +97,19 @@ describe("P-WEB-04R — server and intake contracts", () => {
     expect(response.body).toMatchObject({ contradictions: value.contradictions });
   });
   it("24 never returns a forced scenario", async () => expect(JSON.stringify((await processScientificIntakeHttp(request(), deps())).body)).not.toMatch(/MATCH_CONFIRMED|scenarioId/));
+  it("25 limits one client to ten provider calls per minute", async () => {
+    const fetchImpl = provider();
+    const fixedNow = () => 1_000;
+    const responses = await Promise.all(Array.from({ length: 11 }, () => processScientificIntakeHttp(request(), { ...deps(fetchImpl), now: fixedNow })));
+    expect(responses.slice(0, 10).every((response) => response.status === 200)).toBe(true);
+    expect(responses[10]).toMatchObject({ status: 429, body: { error: { code: "RATE_LIMITED", retryable: true } } });
+    expect(fetchImpl).toHaveBeenCalledTimes(10);
+  });
+  it("26 performs exactly one provider call for one accepted request", async () => {
+    const fetchImpl = provider();
+    expect((await processScientificIntakeHttp(request(), deps(fetchImpl))).status).toBe(200);
+    expect(fetchImpl).toHaveBeenCalledTimes(1);
+  });
   it("rejects a URL before calling the provider", async () => {
     const fetchImpl = provider();
     const response = await processScientificIntakeHttp(request({ body: { question: "Je veux analyser cette source https://example.org dans une étude scientifique.", schemaVersion: "1.0" } }), deps(fetchImpl));

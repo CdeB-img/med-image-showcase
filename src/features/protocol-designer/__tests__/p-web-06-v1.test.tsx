@@ -1,12 +1,12 @@
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
 import ProtocolDesignerDemo from "@/pages/ProtocolDesignerDemo";
 import { buildScientificSessionContext, assessQuestionChange, deriveRoutingIntent, preservedScientificTerms } from "../intake/journey";
 import { createEmptyInterpretation } from "../intake/schema";
 import { matchScenarios } from "../intake/scenarios";
-import { buildValidatedIntent, createProtocolDesignerSession, persistSession } from "../intake/session";
+import { buildValidatedIntent, createProtocolDesignerSession, loadSessionCandidate, persistSession } from "../intake/session";
 import type { HumanFieldReview, InterpretedFieldKey, RoutingIntent } from "../intake/types";
 
 const makeIntent = (question: string, domain: string, purpose: string) => {
@@ -47,7 +47,7 @@ const resume = async () => {
 
 describe("P-WEB-06 — Protocol Designer V1", () => {
   beforeEach(() => window.localStorage.clear());
-  afterEach(cleanup);
+  afterEach(() => { cleanup(); vi.unstubAllGlobals(); });
 
   it("routes an explanatory OEF/CMRO₂ request to UNDERSTAND", () => {
     const intent = makeIntent("Quelle différence physiologique entre l’OEF et le CMRO₂ ?", "OEF et CMRO₂", "comprendre");
@@ -78,6 +78,36 @@ describe("P-WEB-06 — Protocol Designer V1", () => {
     const major = assessQuestionChange("Étudier l’OEF en imagerie cérébrale", "Comparer le T1 mapping et l’ECV en IRM cardiaque");
     expect(major.kind).toBe("MAJOR");
     expect(major.affectedElements).toContain("décision humaine et rapport");
+  });
+
+  it("invalidates downstream decisions after a confirmed major change in local fallback mode", async () => {
+    storeWorkspace("DESIGN_STUDY");
+    const stored = loadSessionCandidate(window.localStorage)!;
+    persistSession(window.localStorage, {
+      ...stored,
+      currentStep: 5,
+      reportStatus: "FINAL",
+      decision: {
+        author: "Évaluation précédente",
+        outcome: "CONFIRM_ORIENTATION",
+        justification: "Décision fondée sur la question initiale.",
+        reservations: "",
+        decidedAt: "2026-08-08T00:10:00Z",
+      },
+    });
+    vi.stubGlobal("fetch", vi.fn(async () => new Response(JSON.stringify({ error: { code: "API_UNAVAILABLE", message: "Indisponible", retryable: true } }), { status: 503, headers: { "content-type": "application/json" } })));
+
+    await resume();
+    fireEvent.click(screen.getByRole("button", { name: "Revoir la question" }));
+    fireEvent.change(screen.getByLabelText("Votre question scientifique"), { target: { value: "Comparer le T1 mapping et l’ECV en IRM cardiaque dans une cohorte multicentrique." } });
+    fireEvent.click(screen.getByRole("button", { name: "Commencer la conversation" }));
+    fireEvent.click(await screen.findByRole("button", { name: "Reconstruire les éléments concernés" }));
+    fireEvent.click(await screen.findByRole("button", { name: "Continuer localement sans interprétation automatique" }));
+    fireEvent.click(screen.getByRole("button", { name: "Valider les éléments repérés" }));
+    fireEvent.click(screen.getByRole("button", { name: "Confirmer cette compréhension" }));
+
+    await waitFor(() => expect(screen.getByRole("status")).toHaveTextContent("Modification majeure confirmée"));
+    await waitFor(() => expect(loadSessionCandidate(window.localStorage)).toMatchObject({ decision: null, reportStatus: "NONE" }));
   });
 
   it("renders the Knowledge Assistant as a specialized workspace", async () => {

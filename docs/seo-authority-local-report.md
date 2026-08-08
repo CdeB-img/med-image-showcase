@@ -1,6 +1,6 @@
 # Rapport local SEO - NOXIA
 
-Genere localement le 2026-08-03T15:57:34.173Z. Aucune requete reseau n'est effectuee.
+Genere localement le 2026-08-08T13:46:26.181Z. Aucune requete reseau n'est effectuee.
 
 ## Resume
 
@@ -49,7 +49,7 @@ Genere localement le 2026-08-03T15:57:34.173Z. Aucune requete reseau n'est effec
 | `/references-publications` | `src/pages/ReferencesPublications.tsx` | `https://noxia-imagerie.fr/references-publications` | Références & publications en imagerie quantitative | NOXIA | References & publications | 58 | 156 | oui | non | 7 |
 | `/connaissances` | `src/pages/ScientificKnowledgeExplorer.tsx` | `https://noxia-imagerie.fr/connaissances/` | Explorateur de connaissances scientifiques | NOXIA | ScientificExplorer | 50 | 155 | non | non | 0 |
 | `/protocol-designer` | `src/pages/ProtocolDesigner.tsx` | `https://noxia-imagerie.fr/protocol-designer` | Protocol Designer : démonstrateur de raisonnement | NOXIA | De l’intention à une décision explicable. | 57 | 138 | oui | non | 1 |
-| `/protocol-designer/demo` | `src/pages/ProtocolDesignerDemo.tsx` | `https://noxia-imagerie.fr/protocol-designer` | Démonstrateur Protocol Designer | NOXIA | SectionTitle | 39 | 134 | non | non | 1 |
+| `/protocol-designer/demo` | `src/pages/ProtocolDesignerDemo.tsx` | `https://noxia-imagerie.fr/protocol-designer` | Protocol Designer — assistant scientifique | NOXIA | Décrivez votre question scientifique | 50 | 122 | non | non | 1 |
 | `/projet/perfusion-segmentation` | `src/pages/ProjectDetail.tsx` | `https://noxia-imagerie.fr/projet/perfusion-segmentation` | Segmentation perfusion CT/IRM: démonstration de pipeline | NOXIA | Perfusion cérébrale CT/IRM | 64 | 143 | oui | non | 5 |
 | `/projet/neuro-onco` | `src/pages/ProjectDetail.tsx` | `https://noxia-imagerie.fr/projet/neuro-onco` | Segmentation IRM neuro-oncologique: démonstration | NOXIA | Neuro-oncologie IRM | 57 | 152 | oui | non | 5 |
 | `/projet/recalage` | `src/pages/ProjectDetail.tsx` | `https://noxia-imagerie.fr/projet/recalage` | Recalage IRM/CT: démonstration multimodale | NOXIA | Recalage IRM / CT | 50 | 143 | oui | non | 5 |
