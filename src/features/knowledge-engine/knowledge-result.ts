@@ -1,0 +1,90 @@
+import { logicalDigest, uniqueSorted } from "./canonical";
+import type { AdapterResult, CoverageStatus, KnowledgeGap, KnowledgeRequest, KnowledgeResult, KnowledgeTrace, ProviderExecution, QueryPlan, RuntimeAssertion, RuntimeConflict, RuntimeKnowledgeSynthesis } from "./types";
+
+const dedupeBy = <T>(values: T[], key: (value: T) => string) => [...new Map(values.map((value) => [key(value), value])).values()].sort((left, right) => key(left).localeCompare(key(right)));
+
+export const createKnowledgeResult = (input: {
+  request: KnowledgeRequest;
+  queryPlan: QueryPlan;
+  adapterResults: AdapterResult[];
+  providerExecutions: ProviderExecution[];
+  coverageStatus: CoverageStatus;
+  applicableAssertions: RuntimeAssertion[];
+  excludedAssertions: RuntimeAssertion[];
+  candidateAssertions: RuntimeAssertion[];
+  conflicts: RuntimeConflict[];
+  gaps: KnowledgeGap[];
+  synthesis: RuntimeKnowledgeSynthesis;
+  trace: KnowledgeTrace;
+}): KnowledgeResult => {
+  const statements = dedupeBy(input.adapterResults.flatMap((item) => item.documentaryStatements), (item) => item.statementId);
+  const sources = dedupeBy(input.adapterResults.flatMap((item) => item.sources), (item) => item.sourceId);
+  const evidence = dedupeBy(input.adapterResults.flatMap((item) => item.evidenceLinks), (item) => item.evidenceId);
+  const limitations = uniqueSorted([...input.adapterResults.flatMap((item) => item.limitations), ...input.synthesis.limitations]);
+  const provenance = input.adapterResults.map((item) => ({ providerId: item.providerId, version: item.providerVersion, representationDigest: item.sourceRepresentationDigest })).sort((left, right) => left.providerId.localeCompare(right.providerId));
+  const logicalMaterial = {
+    requestRef: input.request.requestId,
+    queryPlanRef: input.queryPlan.queryPlanId,
+    registrySnapshotRef: input.queryPlan.registrySnapshotRef,
+    providerVersions: Object.fromEntries(input.providerExecutions.filter((item) => item.included).map((item) => [item.providerId, item.providerVersion]).sort(([left], [right]) => left.localeCompare(right))),
+    coverageStatus: input.coverageStatus,
+    contextStatus: input.request.context.status,
+    resolvedConceptIds: input.queryPlan.resolvedConcepts.map((item) => item.conceptId),
+    unresolvedConcepts: input.queryPlan.unresolvedConcepts,
+    applicableAssertionIds: input.applicableAssertions.map((item) => item.revision),
+    excludedAssertionIds: input.excludedAssertions.map((item) => item.revision),
+    candidateAssertionIds: input.candidateAssertions.map((item) => item.revision),
+    documentaryStatementIds: statements.map((item) => item.statementId),
+    sourceIds: sources.map((item) => item.sourceId),
+    evidenceIds: evidence.map((item) => item.evidenceId),
+    synthesisDigest: input.synthesis.digest,
+    conflictIds: input.conflicts.map((item) => item.conflictId),
+    gapIds: input.gaps.map((item) => item.gapId),
+    limitations,
+    provenance,
+    traceDigest: input.trace.digest,
+  };
+  const resultDigest = logicalDigest(logicalMaterial);
+  const runtimeStatus = input.applicableAssertions.length || statements.length ? "RUNTIME_DERIVED" : "UNAVAILABLE_OR_UNKNOWN";
+  return {
+    resultId: `knowledge-result:${resultDigest}`,
+    resultRevision: 1,
+    resultDigest,
+    request: input.request,
+    queryPlan: input.queryPlan,
+    registrySnapshotRef: input.queryPlan.registrySnapshotRef,
+    providerVersions: logicalMaterial.providerVersions,
+    runtimeStatus,
+    coverageStatus: input.coverageStatus,
+    contextStatus: input.request.context.status,
+    resolvedConcepts: input.queryPlan.resolvedConcepts,
+    unresolvedConcepts: input.queryPlan.unresolvedConcepts,
+    applicableAssertions: input.applicableAssertions,
+    excludedAssertions: input.excludedAssertions,
+    documentaryStatements: statements,
+    candidateAssertions: input.candidateAssertions,
+    sources,
+    evidence,
+    applicability: Object.fromEntries([...input.applicableAssertions, ...input.excludedAssertions].map((item) => [item.revision, item.applicability])),
+    synthesis: input.synthesis,
+    controversies: input.conflicts,
+    gaps: input.gaps,
+    limitations,
+    provenance,
+    freshness: { requirement: input.request.freshnessRequirement, corpusStateDate: "2026-08-01" },
+    consumerHints: uniqueSorted([
+      ...(input.gaps.some((item) => item.code === "PRIVACY_BLOCKED") ? ["REFORMULATE_AS_GENERAL_METHODOLOGICAL_QUESTION"] : []),
+      ...(input.gaps.some((item) => item.code === "MISSING_CRITICAL_CONTEXT") ? ["REQUEST_CONTEXT_CLARIFICATION"] : []),
+      ...(input.coverageStatus === "PARTIAL" ? ["SHOW_EACH_COMPARISON_BRANCH"] : []),
+      "DO_NOT_ADD_UNSUPPORTED_NARRATIVE",
+    ]),
+    humanReviewRequirements: uniqueSorted([
+      ...(input.candidateAssertions.length ? ["ASSERTION_CANDIDATE_REVIEW_REQUIRED"] : []),
+      ...(input.conflicts.length ? ["CONFLICT_REVIEW_REQUIRED"] : []),
+      ...(input.request.requestedClaimType === "BEST_OPTION" ? ["HUMAN_SELECTION_REQUIRED"] : []),
+    ]),
+    providerExecutions: input.providerExecutions,
+    trace: input.trace,
+  };
+};
+
