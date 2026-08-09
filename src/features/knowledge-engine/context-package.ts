@@ -26,6 +26,11 @@ const explicitFromQuestion = (question: string): Partial<Record<ContextDimension
   else if (/dicom|numpy|pipeline|fourier/.test(text)) result.domain = ["IMAGING_METHODS"];
   else if (/spectral|double energie|dual energy|photon counting/.test(text)) result.domain = ["SPECTRAL_CT"];
   if (/fibrose myocard/.test(text)) result.phenomenon = ["MYOCARDIAL_FIBROSIS"];
+  if (/maladie de fabry|fabry disease/.test(text)) result.pathology = ["FABRY_DISEASE"];
+  else {
+    const pathology = text.match(/\bmaladie\s+(?:non\s+couverte\s+)?[\p{L}-]+/u)?.[0];
+    if (pathology) result.pathology = [pathology.toLocaleUpperCase("fr-FR")];
+  }
   if (/no[- ]?reflow/.test(text)) result.phenomenon = ["NO_REFLOW"];
   if (/obstruction microvascul|\bmvo\b/.test(text)) result.phenomenon = [...(result.phenomenon ?? []), "MICROVASCULAR_OBSTRUCTION"];
   if (/\becv\b|volume extracellulaire/.test(text)) result.biomarker = [...(result.biomarker ?? []), "ECV"];
@@ -105,4 +110,3 @@ export const relaxKnowledgeContext = (
   const digest = logicalDigest(material);
   return { ...context, contextId: `knowledge-context:${digest}`, digest, dimensions, relaxation, status: dimensions.some((item) => item.critical && item.state === "UNKNOWN") ? "UNKNOWN" : "PARTIAL" };
 };
-

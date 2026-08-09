@@ -35,9 +35,18 @@ export const createQueryPlan = (request: KnowledgeRequest, resolution: ConceptRe
     const matchedConceptIds = provider.coverageConcepts.filter((id) => resolvedIds.includes(id));
     const substantiveMatches = matchedConceptIds.filter(nonRoutingConcept);
     const graphTechnicalMatch = provider.id === "knowledge-graph" && matchedConceptIds.some((id) => ["tool:numpy", "format:dicom"].includes(id));
-    const included = domainGate === "IN_SCOPE" && (substantiveMatches.length > 0 || graphTechnicalMatch);
+    const selectable = provider.availability === "AVAILABLE";
+    const included = domainGate === "IN_SCOPE" && selectable && (substantiveMatches.length > 0 || graphTechnicalMatch);
     const reason = domainGate !== "IN_SCOPE"
       ? `Exclu par Domain Gate : ${domainGate}.`
+      : provider.availability === "REPLAY_ONLY"
+        ? "Provider historique conservé pour replay ; la version courante consolidée est interrogée à sa place."
+        : provider.availability === "AVAILABLE_EMPTY"
+          ? "Provider inspecté mais registre scientifique actuellement vide ; il ne peut produire aucune correspondance positive."
+          : provider.availability === "NOT_ACTIVATED"
+            ? "Provider candidat présent mais non activé par son statut documentaire."
+            : provider.availability === "UNAVAILABLE"
+              ? "Provider enregistré mais indisponible à l’exécution."
       : included
         ? `Correspondance exacte déclarée : ${matchedConceptIds.join(", ")}.`
         : matchedConceptIds.length
@@ -52,7 +61,9 @@ export const createQueryPlan = (request: KnowledgeRequest, resolution: ConceptRe
     contextRef: request.context.contextId,
     registrySnapshotRef: KNOWLEDGE_PROVIDER_REGISTRY.digest,
     resolvedConcepts: resolution.concepts,
+    resolvedRelations: resolution.relations,
     unresolvedConcepts: resolution.unresolvedTerms,
+    ambiguities: resolution.ambiguities,
     branches,
     providerSelections: selections,
     exclusions: request.exclusions,

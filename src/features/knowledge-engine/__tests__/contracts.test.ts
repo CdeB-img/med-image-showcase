@@ -38,7 +38,10 @@ describe("KnowledgeProviderRegistry", () => {
   it("contains only deterministic local providers with explicit limitations", () => {
     expect(registrySnapshotIsStable()).toBe(true);
     expect(KNOWLEDGE_PROVIDER_REGISTRY.providers.map((item) => item.id)).toEqual([...KNOWLEDGE_PROVIDER_REGISTRY.providers].map((item) => item.id).sort());
-    expect(KNOWLEDGE_PROVIDER_REGISTRY.providers.every((item) => item.availability === "AVAILABLE" && item.limitations.length > 0)).toBe(true);
+    expect(KNOWLEDGE_PROVIDER_REGISTRY.providers.map((item) => item.providerId)).toEqual(["assertion-layer", "knowledge-graph", "p4-historical", "p4r-ecv-t1", "p5-multidomain", "rb-003", "rb-004", "rb-005"]);
+    expect(KNOWLEDGE_PROVIDER_REGISTRY.providers.every((item) => item.providerId === item.id && item.providerType === item.type && item.knownLimitations.length > 0 && item.completenessClaim.length > 0)).toBe(true);
+    expect(KNOWLEDGE_PROVIDER_REGISTRY.providers.find((item) => item.providerId === "p4-historical")).toMatchObject({ status: "HISTORICAL_SUPERSEDED", availability: "REPLAY_ONLY" });
+    expect(KNOWLEDGE_PROVIDER_REGISTRY.providers.find((item) => item.providerId === "assertion-layer")).toMatchObject({ status: "CURRENT_EMPTY", availability: "AVAILABLE_EMPTY" });
     expect(KNOWLEDGE_PROVIDER_REGISTRY.diagnostics).toContain("SCIENTIFIC_ASSERTION_LAYER_HAS_ZERO_ASSERTIONS_AND_IS_NOT_A_POSITIVE_ASSERTION_PROVIDER");
   });
 });

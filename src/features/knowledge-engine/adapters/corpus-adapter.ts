@@ -8,8 +8,7 @@ export type CorpusAdapterInput = {
 
 export interface CorpusAdapter {
   readonly adapterId: string;
-  readonly adapterVersion: "1.0.0";
+  readonly adapterVersion: string;
   supports(provider: KnowledgeProviderDefinition): boolean;
   query(input: CorpusAdapterInput): AdapterResult;
 }
-

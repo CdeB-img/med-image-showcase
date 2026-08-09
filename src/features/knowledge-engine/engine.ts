@@ -1,6 +1,7 @@
 import { applyApplicability, isApplicable } from "./applicability";
 import { resolveAssertions } from "./assertion-resolver";
 import { analyzeConflicts, analyzeGaps, determineCoverage } from "./conflict-gap-analyzer";
+import { buildCoverageMap } from "./coverage-map";
 import { extractScientificObjectTerms, resolveConcepts } from "./concept-resolver";
 import { createKnowledgeRequest, type KnowledgeRequestInput } from "./knowledge-request";
 import { createKnowledgeResult } from "./knowledge-result";
@@ -9,6 +10,7 @@ import { KNOWLEDGE_PROVIDER_REGISTRY } from "./provider-registry";
 import { createQueryPlan } from "./query-planner";
 import { retrieveKnowledge } from "./retrieval";
 import { synthesizeKnowledge } from "./synthesizer";
+import { buildScientificQuestionSpecificity } from "./specificity";
 import { KnowledgeTraceBuilder } from "./trace";
 import type { KnowledgeResult } from "./types";
 
@@ -41,6 +43,8 @@ export const executeKnowledgeEngine = (input: ExecuteKnowledgeInput): KnowledgeR
     ...analyzeConflicts(assertionResolution.applicableAssertions),
   ].map((item) => [item.conflictId, item])).values()].sort((left, right) => left.conflictId.localeCompare(right.conflictId));
   const coverageStatus = determineCoverage(queryPlan, retrieval.providerExecutions, assertionResolution.applicableAssertions, applicableStatements.length, assertionResolution.excludedAssertions.length, conflicts);
+  const coverageMap = buildCoverageMap({ queryPlan, providerExecutions: retrieval.providerExecutions, applicableAssertions: assertionResolution.applicableAssertions, excludedAssertions: assertionResolution.excludedAssertions, documentaryStatements: applicableStatements, conflicts });
+  const specificity = buildScientificQuestionSpecificity(request, queryPlan);
   const gaps = analyzeGaps(request, queryPlan, coverageStatus, conflicts, assertionResolution.applicableAssertions);
   const inheritedLimitations = retrieval.adapterResults.flatMap((item) => item.limitations);
   const synthesis = synthesizeKnowledge(request, assertionResolution.applicableAssertions, applicableStatements, retrieval.adapterResults.flatMap((item) => item.evidenceLinks), conflicts, gaps, inheritedLimitations);
@@ -52,6 +56,8 @@ export const executeKnowledgeEngine = (input: ExecuteKnowledgeInput): KnowledgeR
     adapterResults: retrieval.adapterResults,
     providerExecutions: retrieval.providerExecutions,
     coverageStatus,
+    coverageMap,
+    specificity,
     applicableAssertions: assertionResolution.applicableAssertions,
     excludedAssertions: assertionResolution.excludedAssertions,
     candidateAssertions: assertionResolution.candidateAssertions,

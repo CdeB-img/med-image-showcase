@@ -1,6 +1,7 @@
 import Footer from "@/components/Footer";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
-import { executeKnowledgeEngine, isPatientLevelExpression, projectUnderstandResult, type KnowledgeContextInput } from "@/features/knowledge-engine";
+import { deleteKnowledgeSnapshots, executeKnowledgeEngine, isPatientLevelExpression, type ContextDimensionName, type KnowledgeContextInput } from "@/features/knowledge-engine";
+import KnowledgeUnderstandView from "@/features/knowledge-engine/KnowledgeUnderstandView";
 import { IntakeClientError, requestScientificInterpretation } from "@/features/protocol-designer/intake/client";
 import { assessQuestionChange, buildScientificSessionContext, formalizedQuestionCandidate, PROJECT_STAGES, ROUTING_INTENT_LABELS } from "@/features/protocol-designer/intake/journey";
 import { detectSensitiveData } from "@/features/protocol-designer/intake/privacy";
@@ -10,7 +11,7 @@ import { createEmptyInterpretation } from "@/features/protocol-designer/intake/s
 import { confirmScenario, matchScenarios, scenarioDetails } from "@/features/protocol-designer/intake/scenarios";
 import { buildValidatedIntent, createProtocolDesignerSession, deleteSession, invalidateDownstream, loadSessionCandidate, persistSession } from "@/features/protocol-designer/intake/session";
 import { INTERPRETED_FIELD_KEYS, type AdaptiveQuestion, type HumanFieldReview, type HumanValidationState, type InterpretedFieldKey, type ProtocolDesignerSession, type QuestionChangeKind, type RoutingIntent, type ScientificIntakeInterpretation } from "@/features/protocol-designer/intake/types";
-import { ArrowLeft, ArrowRight, BookOpen, CircleAlert, Compass, Copy, Info, Lightbulb, LoaderCircle, MessageCircle, Printer, RotateCcw, ShieldCheck, Sparkles, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpen, CircleAlert, Compass, Copy, Info, Lightbulb, LoaderCircle, MessageCircle, Printer, RotateCcw, ShieldCheck, X } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
@@ -141,6 +142,8 @@ export default function ProtocolDesignerDemo() {
   const [busy, setBusy] = useState(false);
   const [localFallbackAvailable, setLocalFallbackAvailable] = useState(false);
   const [knowledgeOpen, setKnowledgeOpen] = useState(false);
+  const [knowledgeContextOverrides, setKnowledgeContextOverrides] = useState<Partial<Record<ContextDimensionName, string | string[] | null>>>({});
+  const [knowledgeContextRevision, setKnowledgeContextRevision] = useState(0);
   const [pendingChangeKind, setPendingChangeKind] = useState<QuestionChangeKind>("NONE");
   const [majorChange, setMajorChange] = useState<{ stage: "BEFORE_ANALYSIS" | "AFTER_INTERPRETATION"; affectedElements: string[] } | null>(null);
   const [decisionForm, setDecisionForm] = useState({ author: "", justification: "", reservations: "", outcome: "CONFIRM_ORIENTATION" as const });
@@ -163,11 +166,10 @@ export default function ProtocolDesignerDemo() {
     originalQuestion: intent.originalQuestion,
     scientificObjectTerms: session.scientificContext.preservedScientificTerms.map((term, index) => ({ term, role: index === 0 ? "SUBJECT" as const : index === 1 ? "COMPARATOR" as const : "CONTEXT" as const })),
     relations: session.scientificContext.detectedRelationships,
-    context: buildKnowledgeContext(intent),
+    context: { ...buildKnowledgeContext(intent), ...knowledgeContextOverrides },
     unknowns: session.scientificContext.missingInformation,
     consumer: "PROTOCOL_DESIGNER_UNDERSTAND",
-  }) : null, [intent, routeIntent, session.scientificContext.detectedRelationships, session.scientificContext.missingInformation, session.scientificContext.preservedScientificTerms]);
-  const knowledgeProjection = useMemo(() => knowledgeResult ? projectUnderstandResult(knowledgeResult) : null, [knowledgeResult]);
+  }) : null, [intent, knowledgeContextOverrides, routeIntent, session.scientificContext.detectedRelationships, session.scientificContext.missingInformation, session.scientificContext.preservedScientificTerms]);
   const report = useMemo(() => generateContextualReport(session, allAdaptiveQuestions, reportMode), [session, allAdaptiveQuestions, reportMode]);
   const fieldGroups = useMemo(() => {
     if (!interpretation) return [];
@@ -290,6 +292,10 @@ export default function ProtocolDesignerDemo() {
     const transitions = previous && previous !== next ? [...current.scientificContext.transitions, { from: previous, to: next, reason, changedAt: new Date().toISOString() }] : current.scientificContext.transitions;
     return { ...current, currentStep: moveToWorkspace ? 3 : current.currentStep, scientificContext: { ...current.scientificContext, routeIntent: next, transitions, contextVersion: previous === next ? current.scientificContext.contextVersion : current.scientificContext.contextVersion + 1 }, updatedAt: new Date().toISOString() };
   });
+  const clarifyKnowledge = (dimension: ContextDimensionName, value: string | null) => {
+    setKnowledgeContextOverrides((current) => ({ ...current, [dimension]: value }));
+    setKnowledgeContextRevision((current) => current + 1);
+  };
   const answerQuestion = (item: AdaptiveQuestion, value: string, label: string, consequence: string, status: "ANSWERED" | "UNKNOWN" = "ANSWERED") => setSession((current) => {
     const previous = current.adaptiveAnswers.find((answer) => answer.questionId === item.questionId);
     const changed = Boolean(previous && previous.answer !== value);
@@ -307,7 +313,7 @@ export default function ProtocolDesignerDemo() {
     setReportMode("FINAL");
   };
   const reset = () => {
-    deleteSession(window.localStorage); setCandidate(null); setSession(createProtocolDesignerSession()); setQuestion(""); setInterpretation(null); setReviews({}); setCorrections({}); setReformulation(""); setAmbiguityResolutions({}); setContradictionResolutions({}); setAnswerDrafts({}); setError(null); setBusy(false); setLocalFallbackAvailable(false); setPendingChangeKind("NONE"); setMajorChange(null); setKnowledgeOpen(false);
+    deleteSession(window.localStorage); deleteKnowledgeSnapshots(window.localStorage); setCandidate(null); setSession(createProtocolDesignerSession()); setQuestion(""); setInterpretation(null); setReviews({}); setCorrections({}); setReformulation(""); setAmbiguityResolutions({}); setContradictionResolutions({}); setAnswerDrafts({}); setError(null); setBusy(false); setLocalFallbackAvailable(false); setPendingChangeKind("NONE"); setMajorChange(null); setKnowledgeOpen(false); setKnowledgeContextOverrides({}); setKnowledgeContextRevision(0);
   };
   const copyReport = async () => navigator.clipboard?.writeText(reportToMarkdown(report));
   const downloadMarkdown = () => {
@@ -340,7 +346,19 @@ export default function ProtocolDesignerDemo() {
 
         {step === 3 && intent && routeIntent && (routeIntent === "UNDERSTAND" || activeScenario) && <div><div className="flex flex-wrap items-end justify-between gap-4"><div><p className="text-xs font-semibold uppercase tracking-wide text-primary">Contexte v{session.scientificContext.contextVersion} · {activeScenario?.shortLabel ?? "Knowledge Engine"}</p><h1 className="mt-2 text-4xl font-bold">{ROUTING_INTENT_LABELS[routeIntent]}</h1><p className="mt-3 text-muted-foreground">Objet central conservé : <strong>{session.scientificContext.centralScientificObject}</strong></p></div>{activeScenario && <button onClick={() => setKnowledgeOpen(true)} className="inline-flex items-center gap-2 rounded-lg border px-4 py-2"><BookOpen className="h-4 w-4" /> Explorer ce concept</button>}</div><div className="mt-6 flex gap-2 overflow-x-auto pb-2 print:hidden">{(Object.keys(ROUTING_INTENT_LABELS) as RoutingIntent[]).map((route) => <button key={route} disabled={!activeScenario && route !== "UNDERSTAND"} aria-pressed={routeIntent === route} onClick={() => transitionJourney(route, `Transition depuis ${ROUTING_INTENT_LABELS[routeIntent]}`)} className={`min-w-fit rounded-full border px-3 py-2 text-sm disabled:opacity-50 ${routeIntent === route ? "border-primary bg-primary text-primary-foreground" : "bg-background"}`}>{ROUTING_INTENT_LABELS[route]}</button>)}</div>
 
-          {routeIntent === "UNDERSTAND" && knowledgeResult && knowledgeProjection && <div className="mt-8"><div className="max-w-4xl rounded-2xl rounded-bl-sm bg-primary/10 p-6"><div className="flex items-start gap-3"><Sparkles className="mt-1 h-5 w-5 shrink-0 text-primary" /><div className="min-w-0"><div className="flex flex-wrap gap-2"><Tag tone={knowledgeResult.coverageStatus === "SUPPORTED" ? "good" : "warning"}>{knowledgeProjection.coverageLabel}</Tag><Tag>{knowledgeResult.runtimeStatus}</Tag></div><p className="mt-3 font-semibold">Réponse construite par NOXIA, centrée sur {session.scientificContext.centralScientificObject}</p><p className="mt-3">{knowledgeProjection.answer}</p><p className="mt-3 text-sm text-muted-foreground">Le résultat structuré est indépendant du fournisseur linguistique. Aucun appel externe n’a été effectué pour cette réponse.</p></div></div></div><div className="mt-6 grid gap-4 lg:grid-cols-2"><Panel><h2 className="text-xl font-semibold">Objets et distinctions conservés</h2>{knowledgeProjection.concepts.map((item) => <p className="mt-3 text-sm" key={item}>• {item}</p>)}{knowledgeResult.queryPlan.resolvedConcepts.length > 1 && knowledgeResult.queryPlan.branches.map((branch) => <p className="mt-2 text-sm text-muted-foreground" key={branch.branchId}>Branche : {branch.label}</p>)}</Panel><Panel><h2 className="text-xl font-semibold">Connaissances applicables</h2>{knowledgeProjection.supportedItems.length ? knowledgeProjection.supportedItems.map((item) => <article className="mt-4 rounded-xl border p-4" key={item.id}><Tag>{item.status}</Tag><p className="mt-3 text-sm">{item.text}</p>{item.locator && <p className="mt-2 text-xs text-muted-foreground">Localisateur : {item.locator}</p>}</article>) : <p className="mt-3 text-sm text-muted-foreground">Aucune assertion ou déclaration documentaire applicable n’est promue dans ce contexte.</p>}</Panel><Panel><h2 className="text-xl font-semibold">Limites et zones non couvertes</h2>{knowledgeProjection.limitations.slice(0, 8).map((item) => <p className="mt-3 text-sm" key={item}>• {item}</p>)}{knowledgeResult.controversies.map((item) => <p className="mt-3 text-sm" key={item.conflictId}>• Divergence contextualisée — {item.explanation}</p>)}{knowledgeProjection.gaps.map((item) => <p className="mt-3 text-sm text-amber-700 dark:text-amber-200" key={item}>• {item}</p>)}</Panel><Panel><h2 className="text-xl font-semibold">Sources et traçabilité</h2>{knowledgeProjection.sources.length ? knowledgeProjection.sources.slice(0, 12).map((source) => <p className="mt-3 text-sm" key={source.id}><strong>{source.label}</strong>{source.locator && <><br/><span className="text-xs text-muted-foreground">{source.locator}</span></>}</p>) : <p className="mt-3 text-sm text-muted-foreground">Aucune source n’est citée lorsqu’aucun contenu applicable n’a été retenu.</p>}<details className="mt-5 text-xs"><summary className="cursor-pointer font-semibold">Voir la trace d’exécution</summary><p className="mt-2 break-all text-muted-foreground">{knowledgeProjection.traceLabel}</p>{knowledgeResult.providerExecutions.map((execution) => <p className="mt-2" key={execution.providerId}>{execution.providerId} v{execution.providerVersion} — {execution.included ? execution.executionStatus : "non interrogé"} — {execution.reason}</p>)}</details></Panel></div>{renderQuestions(journeyQuestions)}{activeScenario && <div className="mt-6 flex flex-wrap gap-3"><button onClick={() => transitionJourney("FORMALIZE_IDEA", "Transformer la compréhension en question scientifique")} className="rounded-lg bg-primary px-4 py-3 text-primary-foreground">Formaliser une question à partir de cette compréhension</button><button onClick={() => transitionJourney("DESIGN_STUDY", "Construire un projet à partir de la compréhension")} className="rounded-lg border px-4 py-3">Construire un projet</button></div>}</div>}
+          {routeIntent === "UNDERSTAND" && knowledgeResult && <>
+            <KnowledgeUnderstandView
+              result={knowledgeResult}
+              sessionId={session.sessionId}
+              contextVersion={session.scientificContext.contextVersion + knowledgeContextRevision}
+              onClarify={clarifyKnowledge}
+            />
+            {renderQuestions(journeyQuestions)}
+            {activeScenario && <div className="mt-6 flex flex-wrap gap-3">
+              <button onClick={() => transitionJourney("FORMALIZE_IDEA", "Transformer la compréhension en question scientifique")} className="rounded-lg bg-primary px-4 py-3 text-primary-foreground">Formaliser une question à partir de cette compréhension</button>
+              <button onClick={() => transitionJourney("DESIGN_STUDY", "Construire un projet à partir de la compréhension")} className="rounded-lg border px-4 py-3">Construire un projet</button>
+            </div>}
+          </>}
 
           {routeIntent === "FORMALIZE_IDEA" && <div className="mt-8"><div className="max-w-4xl rounded-2xl rounded-bl-sm bg-primary/10 p-6"><div className="flex items-start gap-3"><Lightbulb className="mt-1 h-5 w-5 shrink-0 text-primary" /><div><p className="font-semibold">Question scientifique candidate</p><p className="mt-3 text-lg">{formalizedQuestionCandidate(intent, session.scientificContext.centralScientificObject)}</p><p className="mt-3 text-sm text-muted-foreground">C’est une proposition de travail. Vous pourrez la corriger ; elle ne devient pas une décision scientifique automatique.</p></div></div></div><Panel className="mt-6"><h2 className="text-xl font-semibold">Hypothèses à discuter, non validées</h2><div className="mt-4 grid gap-3 md:grid-cols-3">{activeScenario.hypotheses.map((hypothesis) => <div key={hypothesis} className="rounded-xl border p-4 text-sm"><Tag tone="warning">Hypothèse candidate</Tag><p className="mt-3">{hypothesis}</p></div>)}</div></Panel>{renderQuestions(journeyQuestions)}<div className="mt-6 flex flex-wrap gap-3"><button onClick={() => transitionJourney("UNDERSTAND", "Revenir à la compréhension du concept")} className="rounded-lg border px-4 py-3">Revenir à la compréhension</button><button onClick={() => transitionJourney("DESIGN_STUDY", "Question candidate à développer en projet")} className="rounded-lg bg-primary px-4 py-3 text-primary-foreground">Développer cette question en projet</button></div></div>}
 

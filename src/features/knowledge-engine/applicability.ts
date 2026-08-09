@@ -21,6 +21,7 @@ export const evaluateAssertionApplicability = (request: KnowledgeRequest, assert
   if (explicitIntervention.length && !dimensions.some((item) => item.dimension === "intervention")) return { state: "UNKNOWN_APPLICABILITY", reasons: [`Le contexte d’intervention ${explicitIntervention.join(", ")} n’est pas documenté par cette assertion.`] };
   const requestedPathology = valuesFor(request, "pathology");
   const pathologyDimension = dimensions.find((item) => item.dimension === "pathology");
+  if (requestedPathology.length && !pathologyDimension) return { state: "UNKNOWN_APPLICABILITY", reasons: [`La pathologie demandée (${requestedPathology.join(", ")}) n’est pas documentée par cette assertion.`] };
   if (requestedPathology.length && pathologyDimension?.operator === "ANY_OF" && Array.isArray(pathologyDimension.value) && !requestedPathology.some((item) => (pathologyDimension.value as unknown[]).includes(item))) return { state: "OUT_OF_VALIDITY_DOMAIN", reasons: ["La pathologie demandée est hors du domaine déclaré de l’assertion."] };
   const limitations = assertion.limitations.length > 0 || dimensions.some((item) => item.operator === "UNKNOWN" || item.operator === "CONDITION");
   return limitations

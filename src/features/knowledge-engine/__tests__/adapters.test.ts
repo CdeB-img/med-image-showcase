@@ -36,12 +36,19 @@ describe("P5 adapter", () => {
 });
 
 describe("Reasoning Book adapter", () => {
-  it("returns governed documentary blocks without promoting them to assertions", () => {
-    const { adapter, input } = adapterInput("Comprendre le CT spectral et le photon counting CT.", "rb-003");
+  it.each([
+    ["rb-003", "Comprendre le CT spectral et le photon counting CT.", "RB-003", "1.0"],
+    ["rb-004", "Comprendre le T1 mapping et l’ECV en IRM cardiaque.", "RB-004", "1.1"],
+    ["rb-005", "Comprendre l’OEF et le CMRO2 en perfusion cérébrale.", "RB-005", "1.0"],
+  ])("returns typed governed blocks for %s without assertion promotion", (providerId, question, rbId, version) => {
+    const { adapter, input } = adapterInput(question, providerId);
     const result = adapter.query(input);
+    expect(result.providerVersion).toBe(version);
     expect(result.assertions).toHaveLength(0);
-    expect(result.documentaryStatements.length).toBeGreaterThan(0);
-    expect(result.documentaryStatements.every((item) => item.status === "GOVERNED_DOCUMENTARY" && item.locator.includes("RB-003"))).toBe(true);
+    expect(result.documentaryStatements.length).toBeGreaterThan(10);
+    expect(result.documentaryStatements.every((item) => item.status === "GOVERNED_DOCUMENTARY" && item.locator.includes(rbId))).toBe(true);
+    expect(result.documentaryStatements.map((item) => item.statementType)).toEqual(expect.arrayContaining(["CONSTRUCT", "HYPOTHESIS", "LIMITATION", "EVIDENCE_MAP", "DECISION_CANDIDATE", "OPEN_QUESTION"]));
+    expect(result.diagnostics).toContain("10_RELIABLE_SECTION_FAMILIES_INVENTORIED");
   });
 });
 
@@ -58,7 +65,7 @@ describe("Knowledge Graph adapter", () => {
 describe("adapter contract", () => {
   it("has one real adapter for every registered adapter family and stable versions", () => {
     expect(KNOWLEDGE_ADAPTERS.map((item) => item.adapterId)).toEqual([...KNOWLEDGE_ADAPTERS].map((item) => item.adapterId).sort());
-    expect(KNOWLEDGE_ADAPTERS.every((item) => item.adapterVersion === "1.0.0")).toBe(true);
+    expect(KNOWLEDGE_ADAPTERS.map((item) => item.adapterId)).toEqual(expect.arrayContaining(["empty-provider-adapter-v1", "knowledge-graph-adapter-v1", "p4r-adapter-v1", "p5-adapter-v1", "reasoning-book-adapter-v1-1"]));
+    expect(KNOWLEDGE_ADAPTERS.every((item) => /^1\.[01]\.0$/.test(item.adapterVersion))).toBe(true);
   });
 });
-

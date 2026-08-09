@@ -46,16 +46,17 @@ describe("Knowledge Engine — UNDERSTAND projection", () => {
   it("renders a covered specialized question from KnowledgeResult sources", async () => {
     storeUnderstandSession("Comprendre le CT spectral et le photon counting CT.", "CT spectral", "spectral");
     await renderStored();
-    expect(screen.getByText("SUPPORTED")).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Connaissances applicables" })).toBeInTheDocument();
+    expect(screen.getByText("Réponse étayée")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Comprendre CT spectral" })).toBeInTheDocument();
     expect(screen.getByText(/Photon-counting CT uses direct-conversion detectors/)).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Sources et traçabilité" })).toBeInTheDocument();
+    expect(screen.getByText("Preuves et sources")).toBeInTheDocument();
+    expect(screen.queryByText(/p5-multidomain|knowledge-result:/)).not.toBeInTheDocument();
   });
 
   it("does not let empty intake fields erase an explicit MRI modality", async () => {
     storeUnderstandSession("Quelle différence entre le T1 mapping et l’ECV en IRM cardiaque ?", "IRM cardiaque", "cardiac");
     await renderStored();
-    expect(screen.getByText("SUPPORTED")).toBeInTheDocument();
+    expect(screen.getByText("Réponse étayée")).toBeInTheDocument();
     expect(screen.queryByText(/ECV_CT =/)).not.toBeInTheDocument();
     expect(screen.queryByText(/myocardial ecv ct/)).not.toBeInTheDocument();
   });
@@ -63,18 +64,18 @@ describe("Knowledge Engine — UNDERSTAND projection", () => {
   it("shows partial MRI/CT coverage without dropping either branch", async () => {
     storeUnderstandSession("Comparer IRM vs CT pour étudier la fibrose myocardique.", "fibrose myocardique", "cardiac");
     await renderStored();
-    expect(screen.getByText("PARTIAL")).toBeInTheDocument();
-    expect(screen.getByText("Branche : IRM")).toBeInTheDocument();
-    expect(screen.getByText("Branche : CT")).toBeInTheDocument();
-    expect(screen.getByText(/Aucune comparaison générale directe/)).toBeInTheDocument();
+    expect(screen.getByText("Réponse partielle")).toBeInTheDocument();
+    expect(screen.getAllByRole("heading", { name: "IRM" }).length).toBeGreaterThan(0);
+    expect(screen.getAllByRole("heading", { name: "CT" }).length).toBeGreaterThan(0);
+    expect(screen.getByText(/branches restent visibles/i)).toBeInTheDocument();
   });
 
   it("shows an honest stop for an uncovered Fourier question without a scenario", async () => {
     storeUnderstandSession("Expliquer la transformée de Fourier en IRM.", "transformée de Fourier");
     await renderStored();
-    expect(screen.getByText("NO_PROVIDER")).toBeInTheDocument();
-    expect(screen.getByText(/Aucun fournisseur gouverné de cette V1/)).toBeInTheDocument();
-    expect(screen.getByText(/Aucune assertion ou déclaration documentaire applicable/)).toBeInTheDocument();
+    expect(screen.getByText("Connaissance interne absente")).toBeInTheDocument();
+    expect(screen.getByText(/Aucun corpus interne courant/)).toBeInTheDocument();
+    expect(screen.getByText(/Aucun élément applicable/)).toBeInTheDocument();
   });
 
   it("refuses an individual T2 interpretation", async () => {
@@ -82,13 +83,22 @@ describe("Knowledge Engine — UNDERSTAND projection", () => {
     fireEvent.change(screen.getByLabelText("Votre question scientifique"), { target: { value: "J’ai un T2 élevé." } });
     fireEvent.click(screen.getByRole("button", { name: /Commencer la conversation/ }));
     expect(screen.getByText(/NOXIA n’interprète pas une valeur individuelle/)).toBeInTheDocument();
-    expect(screen.getByText(/PRIVACY_BLOCKED/)).toBeInTheDocument();
+    expect(screen.queryByText(/PRIVACY_BLOCKED/)).not.toBeInTheDocument();
     expect(window.localStorage.length).toBe(0);
   });
 
   it("keeps a documented contextual divergence visible", async () => {
     storeUnderstandSession("Comprendre l’ECV avec un hématocrite synthétique.", "ECV et hématocrite synthétique", "cardiac");
     await renderStored();
-    expect(screen.getByText(/Divergence contextualisée/)).toBeInTheDocument();
+    expect(screen.getByText(/Controverse conservée/)).toBeInTheDocument();
+  });
+
+  it("persists the KnowledgeResult locally with a visible history and depth controls", async () => {
+    storeUnderstandSession("Comprendre le CT spectral.", "CT spectral", "spectral");
+    await renderStored();
+    expect(screen.getByRole("button", { name: "Synthétique" })).toBeInTheDocument();
+    fireEvent.click(screen.getByText(/Historique local des réponses/));
+    expect(await screen.findByText(/Version courante/)).toBeInTheDocument();
+    expect(window.localStorage.getItem("noxia-knowledge-engine-snapshots-v1-1")).toContain("knowledge-result:");
   });
 });

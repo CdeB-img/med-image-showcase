@@ -1,4 +1,4 @@
-export const KNOWLEDGE_ENGINE_VERSION = "1.0.0" as const;
+export const KNOWLEDGE_ENGINE_VERSION = "1.1.0" as const;
 
 export type KnowledgeRequestType =
   | "EXPLAIN"
@@ -126,22 +126,39 @@ export type ConceptResolution = {
   digest: string;
 };
 
-export type ProviderType = "STRUCTURED_CORPUS" | "KNOWLEDGE_GRAPH" | "REASONING_BOOK";
+export type ProviderType = "STRUCTURED_CORPUS" | "KNOWLEDGE_GRAPH" | "ASSERTION_LAYER" | "REASONING_BOOK";
 export type ProviderCapability = "CONCEPT" | "RELATION" | "ASSERTION" | "EVIDENCE" | "DOCUMENTARY_STATEMENT";
+export type ProviderAvailability = "AVAILABLE" | "AVAILABLE_EMPTY" | "REPLAY_ONLY" | "NOT_ACTIVATED" | "UNAVAILABLE";
+export type ProviderStatus = "CURRENT_EFFECTIVE" | "CURRENT_DOCUMENTARY" | "CURRENT_EMPTY" | "HISTORICAL_SUPERSEDED" | "CANDIDATE_NOT_ACTIVATED";
 
 export type KnowledgeProviderDefinition = {
   id: string;
+  providerId: string;
   version: string;
   type: ProviderType;
+  providerType: ProviderType;
   authoritySource: string;
+  authority: string;
   domains: string[];
+  domain: string[];
   coverageConcepts: string[];
   capabilities: ProviderCapability[];
+  queryCapabilities: ProviderCapability[];
+  supportedEntities: string[];
+  supportedRelations: string[];
   contextDimensions: ContextDimensionName[];
+  supportedContextDimensions: ContextDimensionName[];
   granularity: "ATOMIC_ASSERTION" | "DOCUMENTARY_BLOCK" | "ENTITY_RELATION";
+  resultGranularity: "ATOMIC_ASSERTION" | "DOCUMENTARY_BLOCK" | "ENTITY_RELATION";
   provenanceSupport: "SOURCE_AND_LOCATOR" | "SOURCE_REFS";
+  sourceLocatorSupport: "SOURCE_AND_LOCATOR" | "SOURCE_REFS";
+  evidenceSupport: "EVIDENCE_LINKS" | "DOCUMENTARY_LOCALIZERS" | "NONE";
   limitations: string[];
-  availability: "AVAILABLE";
+  knownLimitations: string[];
+  completenessClaim: string;
+  status: ProviderStatus;
+  availability: ProviderAvailability;
+  programOwner?: string;
   adapterId: string;
 };
 
@@ -168,7 +185,9 @@ export type QueryPlan = {
   contextRef: string;
   registrySnapshotRef: string;
   resolvedConcepts: ResolvedConcept[];
+  resolvedRelations: ResolvedConceptRelation[];
   unresolvedConcepts: string[];
+  ambiguities: string[];
   branches: QueryBranch[];
   providerSelections: ProviderSelection[];
   exclusions: string[];
@@ -226,7 +245,7 @@ export type GovernedDocumentaryStatement = {
   providerId: string;
   status: "GOVERNED_DOCUMENTARY";
   text: string;
-  statementType: "CONSTRUCT" | "LIMITATION" | "CONTROVERSY" | "CONTEXT";
+  statementType: "CONSTRUCT" | "HYPOTHESIS" | "METHODOLOGICAL_RULE" | "LIMITATION" | "CONTROVERSY" | "EVIDENCE_MAP" | "DECISION_CANDIDATE" | "OPEN_QUESTION" | "GENERAL_INFORMATION" | "CONTEXT";
   conceptIds: string[];
   locator: string;
   sourceId: string;
@@ -251,6 +270,25 @@ export type AdapterResult = {
 };
 
 export type CoverageStatus = "NO_PROVIDER" | "PROVIDER_NOT_APPLICABLE" | "NO_MATCH" | "PARTIAL" | "SUPPORTED" | "CONFLICTING" | "SOURCE_UNAVAILABLE" | "COVERAGE_UNKNOWN";
+export type CoverageMapStatus = "SUPPORTED_COVERAGE" | "PARTIAL_COVERAGE" | "NO_MATCH" | "INCOMPATIBLE_CONTEXT" | "NO_PROVIDER" | "CONFLICTING_COVERAGE" | "OUT_OF_DOMAIN" | "INSUFFICIENT_EVIDENCE";
+export type CoverageMapItem = {
+  coverageId: string;
+  branchId: string;
+  label: string;
+  requestedConceptIds: string[];
+  status: CoverageMapStatus;
+  consideredProviderIds: string[];
+  supportingProviderIds: string[];
+  resultCount: number;
+  explanation: string;
+  externalResearchRequired: boolean;
+};
+
+export type CoverageMap = {
+  items: CoverageMapItem[];
+  externalResearchRequired: boolean;
+  digest: string;
+};
 export type ProviderExecution = {
   providerId: string;
   providerVersion: string;
@@ -261,7 +299,7 @@ export type ProviderExecution = {
   diagnostics: string[];
 };
 
-export type KnowledgeGapCode = "NO_REGISTERED_PROVIDER" | "NO_APPLICABLE_PROVIDER" | "NO_ASSERTION_MATCH" | "MISSING_CRITICAL_CONTEXT" | "MISSING_SOURCE_ACCESS" | "MISSING_REVIEW_OR_ACTIVATION" | "CONFLICT_UNRESOLVED" | "PROVIDER_FAILURE" | "PRIVACY_BLOCKED" | "OUT_OF_DOMAIN";
+export type KnowledgeGapCode = "NO_REGISTERED_PROVIDER" | "NO_APPLICABLE_PROVIDER" | "NO_ASSERTION_MATCH" | "MISSING_CRITICAL_CONTEXT" | "MISSING_SOURCE_ACCESS" | "MISSING_REVIEW_OR_ACTIVATION" | "CONFLICT_UNRESOLVED" | "PROVIDER_FAILURE" | "PRIVACY_BLOCKED" | "OUT_OF_DOMAIN" | "EXTERNAL_RESEARCH_REQUIRED";
 export type KnowledgeGap = {
   gapId: string;
   code: KnowledgeGapCode;
@@ -291,6 +329,20 @@ export type RuntimeKnowledgeSynthesis = {
   gaps: KnowledgeGap[];
   methodologicalImplications: string[];
   sourceIds: string[];
+};
+
+export type ScientificQuestionSpecificity = {
+  centralObject: string;
+  comparatorObjects: string[];
+  phenomena: string[];
+  biomarkers: string[];
+  pathologies: string[];
+  populations: string[];
+  temporalities: string[];
+  requestedRelations: string[];
+  userObjective: string;
+  preservedTerms: string[];
+  digest: string;
 };
 
 export type KnowledgeTraceEvent = {
@@ -324,9 +376,12 @@ export type KnowledgeResult = {
   providerVersions: Record<string, string>;
   runtimeStatus: RuntimeStatus;
   coverageStatus: CoverageStatus;
+  coverageMap: CoverageMap;
   contextStatus: ContextStatus;
+  specificity: ScientificQuestionSpecificity;
   resolvedConcepts: ResolvedConcept[];
   unresolvedConcepts: string[];
+  ambiguities: string[];
   applicableAssertions: RuntimeAssertion[];
   excludedAssertions: RuntimeAssertion[];
   documentaryStatements: GovernedDocumentaryStatement[];

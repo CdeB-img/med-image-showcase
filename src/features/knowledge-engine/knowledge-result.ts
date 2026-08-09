@@ -1,5 +1,5 @@
 import { logicalDigest, uniqueSorted } from "./canonical";
-import type { AdapterResult, CoverageStatus, KnowledgeGap, KnowledgeRequest, KnowledgeResult, KnowledgeTrace, ProviderExecution, QueryPlan, RuntimeAssertion, RuntimeConflict, RuntimeKnowledgeSynthesis } from "./types";
+import type { AdapterResult, CoverageMap, CoverageStatus, KnowledgeGap, KnowledgeRequest, KnowledgeResult, KnowledgeTrace, ProviderExecution, QueryPlan, RuntimeAssertion, RuntimeConflict, RuntimeKnowledgeSynthesis, ScientificQuestionSpecificity } from "./types";
 
 const dedupeBy = <T>(values: T[], key: (value: T) => string) => [...new Map(values.map((value) => [key(value), value])).values()].sort((left, right) => key(left).localeCompare(key(right)));
 
@@ -9,6 +9,8 @@ export const createKnowledgeResult = (input: {
   adapterResults: AdapterResult[];
   providerExecutions: ProviderExecution[];
   coverageStatus: CoverageStatus;
+  coverageMap: CoverageMap;
+  specificity: ScientificQuestionSpecificity;
   applicableAssertions: RuntimeAssertion[];
   excludedAssertions: RuntimeAssertion[];
   candidateAssertions: RuntimeAssertion[];
@@ -28,9 +30,12 @@ export const createKnowledgeResult = (input: {
     registrySnapshotRef: input.queryPlan.registrySnapshotRef,
     providerVersions: Object.fromEntries(input.providerExecutions.filter((item) => item.included).map((item) => [item.providerId, item.providerVersion]).sort(([left], [right]) => left.localeCompare(right))),
     coverageStatus: input.coverageStatus,
+    coverageMapDigest: input.coverageMap.digest,
+    specificityDigest: input.specificity.digest,
     contextStatus: input.request.context.status,
     resolvedConceptIds: input.queryPlan.resolvedConcepts.map((item) => item.conceptId),
     unresolvedConcepts: input.queryPlan.unresolvedConcepts,
+    ambiguities: input.queryPlan.ambiguities,
     applicableAssertionIds: input.applicableAssertions.map((item) => item.revision),
     excludedAssertionIds: input.excludedAssertions.map((item) => item.revision),
     candidateAssertionIds: input.candidateAssertions.map((item) => item.revision),
@@ -56,9 +61,12 @@ export const createKnowledgeResult = (input: {
     providerVersions: logicalMaterial.providerVersions,
     runtimeStatus,
     coverageStatus: input.coverageStatus,
+    coverageMap: input.coverageMap,
     contextStatus: input.request.context.status,
+    specificity: input.specificity,
     resolvedConcepts: input.queryPlan.resolvedConcepts,
     unresolvedConcepts: input.queryPlan.unresolvedConcepts,
+    ambiguities: input.queryPlan.ambiguities,
     applicableAssertions: input.applicableAssertions,
     excludedAssertions: input.excludedAssertions,
     documentaryStatements: statements,
@@ -71,7 +79,7 @@ export const createKnowledgeResult = (input: {
     gaps: input.gaps,
     limitations,
     provenance,
-    freshness: { requirement: input.request.freshnessRequirement, corpusStateDate: "2026-08-01" },
+    freshness: { requirement: input.request.freshnessRequirement, corpusStateDate: "2026-08-03" },
     consumerHints: uniqueSorted([
       ...(input.gaps.some((item) => item.code === "PRIVACY_BLOCKED") ? ["REFORMULATE_AS_GENERAL_METHODOLOGICAL_QUESTION"] : []),
       ...(input.gaps.some((item) => item.code === "MISSING_CRITICAL_CONTEXT") ? ["REQUEST_CONTEXT_CLARIFICATION"] : []),
@@ -87,4 +95,3 @@ export const createKnowledgeResult = (input: {
     trace: input.trace,
   };
 };
-

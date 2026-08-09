@@ -9,11 +9,13 @@ export * from "./retrieval";
 export * from "./applicability";
 export * from "./assertion-resolver";
 export * from "./conflict-gap-analyzer";
+export * from "./coverage-map";
+export * from "./specificity";
 export * from "./synthesizer";
 export * from "./knowledge-result";
 export * from "./llm-policy";
 export * from "./privacy";
+export * from "./persistence";
 export * from "./trace";
 export * from "./engine";
 export * from "./understand-projection";
-

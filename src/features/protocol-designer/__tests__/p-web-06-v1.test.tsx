@@ -114,7 +114,9 @@ describe("P-WEB-06 — Protocol Designer V1", () => {
     storeWorkspace("UNDERSTAND");
     await resume();
     expect(screen.getByRole("heading", { name: "Comprendre une question scientifique" })).toBeInTheDocument();
-    expect(screen.getByText(/Réponse construite par NOXIA, centrée sur OEF et CMRO₂/)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Comprendre OEF" })).toBeInTheDocument();
+    expect(screen.getByText(/Votre question porte sur OEF/)).toBeInTheDocument();
+    expect(screen.getAllByText(/CMRO₂/).length).toBeGreaterThan(0);
     expect(screen.getByRole("button", { name: "Explorer ce concept" })).toBeInTheDocument();
   });
 

@@ -13,12 +13,14 @@ type ConceptRule = {
 const rules: ConceptRule[] = [
   { conceptId: "modality:mri", preferredLabel: "IRM", objectType: "MODALITY", patterns: [/\birm\b/, /\bmri\b/, /\bcmr\b/], providerConcepts: { "p4r-ecv-t1": ["noxia:radiology:modality:irm"], "p5-multidomain": ["MR"], "rb-004": ["IRM cardiaque"], "rb-005": ["IRM"] } },
   { conceptId: "modality:ct", preferredLabel: "CT", objectType: "MODALITY", patterns: [/\bct\b/, /scanner/, /tomodensitometr/], providerConcepts: { "p4r-ecv-t1": ["noxia:radiology:modality:ct"], "p5-multidomain": ["CT"], "rb-003": ["CT spectral"], "rb-005": ["CT"] } },
-  { conceptId: "modality:pet", preferredLabel: "PET", objectType: "MODALITY", patterns: [/\bpet\b/, /\btep\b/], providerConcepts: {} },
+  { conceptId: "modality:pet", preferredLabel: "PET", objectType: "MODALITY", patterns: [/\bpet\b/, /\btep\b/], providerConcepts: { "rb-005": ["PET"] } },
   { conceptId: "phenomenon:myocardial-fibrosis", preferredLabel: "fibrose myocardique", objectType: "PHENOMENON", patterns: [/fibrose myocard/, /myocardial fibrosis/], providerConcepts: { "p4r-ecv-t1": ["noxia:radiology:finding:diffuse-myocardial-fibrosis"], "rb-004": ["caractérisation tissulaire"] } },
+  { conceptId: "pathology:fabry-disease", preferredLabel: "maladie de Fabry", objectType: "PATHOLOGY", patterns: [/maladie de fabry/, /fabry disease/], providerConcepts: {} },
   { conceptId: "phenomenon:no-reflow", preferredLabel: "no-reflow", objectType: "PHENOMENON", patterns: [/no[- ]?reflow/], kind: "DOCUMENT_BOUND_CONCEPT", providerConcepts: { "rb-004": ["no-reflow"] } },
   { conceptId: "phenomenon:microvascular-obstruction", preferredLabel: "obstruction microvasculaire", objectType: "PHENOMENON", patterns: [/obstruction microvascul/, /\bmvo\b/], providerConcepts: { "p5-multidomain": ["microvascular-obstruction"], "rb-004": ["obstruction microvasculaire"] } },
   { conceptId: "biomarker:ecv", preferredLabel: "ECV", objectType: "DERIVED_MEASUREMENT", patterns: [/\becv\b/, /volume extracellulaire/, /extracellular volume/], providerConcepts: { "p4r-ecv-t1": ["noxia:radiology:biomarker:ecv", "noxia:radiology:derived-measurement:myocardial-ecv-mr", "noxia:radiology:derived-measurement:myocardial-ecv-ct"], "rb-004": ["ECV"] } },
-  { conceptId: "method:t1-mapping", preferredLabel: "T1 mapping", objectType: "MEASUREMENT_METHOD", patterns: [/t1 mapping/, /cartograph(?:ie|y) t1/], providerConcepts: { "p4r-ecv-t1": ["noxia:radiology:measurement-method:myocardial-t1-mapping", "noxia:radiology:biomarker:t1"], "rb-004": ["T1 mapping"] } },
+  { conceptId: "method:t1-mapping", preferredLabel: "T1 mapping", objectType: "MEASUREMENT_METHOD", patterns: [/t1 map{1,2}ing/, /t1 maping/, /cartograph(?:ie|y) t1/], providerConcepts: { "p4r-ecv-t1": ["noxia:radiology:measurement-method:myocardial-t1-mapping", "noxia:radiology:biomarker:t1"], "rb-004": ["T1 mapping"] } },
+  { conceptId: "ambiguous:t1", preferredLabel: "T1 (acronyme à préciser)", objectType: "AMBIGUOUS_ACRONYM", patterns: [/\bt1\b(?!\s*(?:map{1,2}ing|maping|natif))/], kind: "AMBIGUOUS", providerConcepts: {} },
   { conceptId: "measurement:native-t1", preferredLabel: "T1 natif", objectType: "OBSERVATION", patterns: [/t1 natif/, /native t1/], providerConcepts: { "p4r-ecv-t1": ["noxia:radiology:observation:native-myocardial-t1"], "rb-004": ["T1 natif"] } },
   { conceptId: "method:synthetic-hematocrit", preferredLabel: "hématocrite synthétique", objectType: "MEASUREMENT_METHOD", patterns: [/hematocrite synthetique/, /synthetic hematocrit/], providerConcepts: { "p4r-ecv-t1": ["noxia:radiology:measurement-method:synthetic-hematocrit"] } },
   { conceptId: "biomarker:t2", preferredLabel: "T2", objectType: "BIOMARKER", patterns: [/\bt2\b/, /t2 mapping/], providerConcepts: { "rb-004": ["T2"] } },
@@ -47,7 +49,10 @@ export const extractScientificObjectTerms = (question: string): Array<{ term: st
     return [{ term: earliest.match[0], index: earliest.match.index, conceptId: rule.conceptId }];
   }).sort((left, right) => left.index - right.index);
   const unique = matches.filter((item, index, list) => list.findIndex((candidate) => candidate.conceptId === item.conceptId) === index);
-  return unique.map((item, index) => ({ term: item.term, role: index === 0 ? "SUBJECT" : index === 1 && /\b(vs\.?|versus|compar|difference|différence)\b/.test(normalized) ? "COMPARATOR" : "CONTEXT" }));
+  const terms = unique.map((item, index) => ({ term: item.term, role: index === 0 ? "SUBJECT" as const : index === 1 && /\b(vs\.?|versus|compar|difference|différence)\b/.test(normalized) ? "COMPARATOR" as const : "CONTEXT" as const }));
+  const uncoveredPathology = normalized.match(/\bmaladie\s+(?:non\s+couverte\s+)?[\p{L}-]+/u)?.[0];
+  if (uncoveredPathology && !terms.some((item) => item.term.includes(uncoveredPathology))) terms.push({ term: uncoveredPathology, role: "CONTEXT" });
+  return terms;
 };
 
 export const resolveConcepts = (request: KnowledgeRequest): ConceptResolution => {
@@ -75,6 +80,6 @@ export const resolveConcepts = (request: KnowledgeRequest): ConceptResolution =>
 
   const unresolvedTerms = request.scientificObjects.map((item) => normalizeScientificText(item.originalTerm)).filter((term) => term !== "UNKNOWN_SCIENTIFIC_OBJECT" && !rules.some((rule) => rule.patterns.some((pattern) => pattern.test(comparableScientificText(term)))));
   if (!concepts.length) concepts.push({ conceptId: `unknown:${logicalDigest(request.originalQuestion)}`, preferredLabel: "concept non résolu", originalTerms: request.scientificObjects.map((item) => item.originalTerm), kind: "UNKNOWN", objectType: "UNKNOWN", providerConcepts: {} });
-  const material = { concepts, relations, unresolvedTerms: uniqueSorted(unresolvedTerms), ambiguities: [] as string[] };
+  const material = { concepts, relations, unresolvedTerms: uniqueSorted(unresolvedTerms), ambiguities: concepts.filter((item) => item.kind === "AMBIGUOUS").map((item) => `${item.preferredLabel} doit être désambiguïsé avant sélection d’un corpus.`) };
   return { ...material, digest: logicalDigest(material) };
 };
