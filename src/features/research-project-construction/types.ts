@@ -15,7 +15,13 @@ export type ResearchProjectConstructionInput = {
   strategyVersion: string;
   sourceHandoffs: {
     scientificThinking: { status: "AUTHORIZED" | "VALIDATED_CONTEXT"; outputRef: string | null };
-    imaging: { status: "FROZEN_BY_HUMAN" | "NOT_APPLICABLE" | "REQUIRED_BUT_NOT_READY"; resultRef: string | null };
+    imaging: {
+      status: "FROZEN_BY_HUMAN" | "NOT_APPLICABLE" | "REQUIRED_BUT_NOT_READY";
+      resultRef: string | null;
+      projectHandoffReadiness: ImagingDesignResult["projectConstructionHandoff"]["projectHandoffReadiness"] | null;
+      equipmentCompatibilityStatus: ImagingDesignResult["projectConstructionHandoff"]["equipmentCompatibilityStatus"] | null;
+      executableProtocolReadiness: ImagingDesignResult["projectConstructionHandoff"]["executableProtocolReadiness"] | null;
+    };
   };
   confirmedScientificQuestion: { questionId: string; text: string; confirmation: "HUMAN_CONFIRMED" | "VALIDATED_CONTEXT" };
   objectives: Array<{ objectiveId: string; text: string; level: "PRIMARY" | "SECONDARY" | "EXPLORATORY"; reviewState: ProjectReviewState }>;
@@ -196,6 +202,10 @@ export type ResearchProjectDesignResult = {
     acquisitionRefs: string[];
     qualityRefs: string[];
     limitations: string[];
+    projectHandoffReadiness: ImagingDesignResult["projectConstructionHandoff"]["projectHandoffReadiness"] | null;
+    equipmentCompatibilityStatus: ImagingDesignResult["projectConstructionHandoff"]["equipmentCompatibilityStatus"] | null;
+    executableProtocolReadiness: ImagingDesignResult["projectConstructionHandoff"]["executableProtocolReadiness"] | null;
+    requiredFutureReviews: string[];
   };
   dataManagementRequirements: Array<{ requirementId: string; kind: string; reason: string; sourceRefs: string[]; status: "SPECIALIZED_ENGINE_REQUIRED" }>;
   biostatisticsRequirements: {
@@ -329,7 +339,7 @@ export type ResearchProjectConstructionSession = {
 const stringArray = z.array(z.string().min(1).max(4_000)).max(1_000);
 export const researchProjectConstructionInputSchema = z.object({
   contractVersion: z.literal(RESEARCH_PROJECT_CONSTRUCTION_VERSION), inputId: z.string(), projectId: z.string(), strategyVersion: z.string(),
-  sourceHandoffs: z.object({ scientificThinking: z.object({ status: z.enum(["AUTHORIZED", "VALIDATED_CONTEXT"]), outputRef: z.string().nullable() }).strict(), imaging: z.object({ status: z.enum(["FROZEN_BY_HUMAN", "NOT_APPLICABLE", "REQUIRED_BUT_NOT_READY"]), resultRef: z.string().nullable() }).strict() }).strict(),
+  sourceHandoffs: z.object({ scientificThinking: z.object({ status: z.enum(["AUTHORIZED", "VALIDATED_CONTEXT"]), outputRef: z.string().nullable() }).strict(), imaging: z.object({ status: z.enum(["FROZEN_BY_HUMAN", "NOT_APPLICABLE", "REQUIRED_BUT_NOT_READY"]), resultRef: z.string().nullable(), projectHandoffReadiness: z.enum(["PROJECT_HANDOFF_READY", "PROJECT_HANDOFF_BLOCKED"]).nullable(), equipmentCompatibilityStatus: z.enum(["UNKNOWN", "DECLARED_NOT_VERIFIED", "VERIFIED_AVAILABILITY_COMPATIBILITY_UNCONFIRMED", "PARTIALLY_KNOWN", "TECHNICAL_COMPATIBILITY_CONFIRMED", "INCOMPATIBLE", "NOT_APPLICABLE"]).nullable(), executableProtocolReadiness: z.enum(["EXECUTABLE_PROTOCOL_READY", "EXECUTABLE_PROTOCOL_NOT_READY"]).nullable() }).strict() }).strict(),
   confirmedScientificQuestion: z.object({ questionId: z.string(), text: z.string().min(3), confirmation: z.enum(["HUMAN_CONFIRMED", "VALIDATED_CONTEXT"]) }).strict(),
   objectives: z.array(z.object({ objectiveId: z.string(), text: z.string(), level: z.enum(["PRIMARY", "SECONDARY", "EXPLORATORY"]), reviewState: z.enum(["PENDING", "ADOPTED", "REJECTED"]) }).strict()),
   hypotheses: z.array(z.object({ hypothesisId: z.string(), text: z.string(), kind: z.enum(["PRIMARY", "ALTERNATIVE", "NULL_OR_COMPETING"]), reviewState: z.enum(["PENDING", "ADOPTED", "REJECTED"]) }).strict()),

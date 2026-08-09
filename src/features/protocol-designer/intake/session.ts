@@ -6,7 +6,7 @@ import { hasSensitiveData } from "./privacy.js";
 import { parseScientificIntakeInterpretation } from "./schema.js";
 import { INTAKE_FIXTURE_SET_VERSION, INTAKE_SESSION_SCHEMA_VERSION, type HumanFieldReview, type InterpretedFieldKey, type ProtocolDesignerSession, type ScientificIntakeInterpretation, type ValidatedScientificIntent } from "./types.js";
 
-export const INTAKE_SESSION_KEY = "noxia-guided-intake-session-v7";
+export const INTAKE_SESSION_KEY = "noxia-guided-intake-session-v8";
 
 const storedSessionSchema = z.object({
   sessionSchemaVersion: z.literal(INTAKE_SESSION_SCHEMA_VERSION),

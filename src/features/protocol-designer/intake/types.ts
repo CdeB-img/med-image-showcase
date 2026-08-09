@@ -3,7 +3,7 @@ import type { ScientificThinkingSession } from "@/features/scientific-thinking/t
 import type { ImagingDesignSession } from "@/features/imaging-study-designer/types";
 import type { ResearchProjectConstructionSession } from "@/features/research-project-construction/types";
 
-export const INTAKE_SESSION_SCHEMA_VERSION = "7.0" as const;
+export const INTAKE_SESSION_SCHEMA_VERSION = "8.0" as const;
 export const INTAKE_FIXTURE_SET_VERSION = "p-web-06-rb003-1.0-rb004-1.1-rb005-1.0" as const;
 
 export type EvidenceOrigin =

@@ -40,7 +40,13 @@ export const makeProjectInput = (options: ProjectFixtureOptions = {}): ResearchP
     strategyVersion: "PRJ-TEST-1",
     sourceHandoffs: {
       scientificThinking: { status: "AUTHORIZED", outputRef: "scientific-thinking-output:test" },
-      imaging: { status: imagingStatus, resultRef: imagingResult?.resultId ?? null },
+      imaging: {
+        status: imagingStatus,
+        resultRef: imagingResult?.resultId ?? null,
+        projectHandoffReadiness: imagingResult?.projectConstructionHandoff.projectHandoffReadiness ?? null,
+        equipmentCompatibilityStatus: imagingResult?.projectConstructionHandoff.equipmentCompatibilityStatus ?? null,
+        executableProtocolReadiness: imagingResult?.projectConstructionHandoff.executableProtocolReadiness ?? null,
+      },
     },
     confirmedScientificQuestion: { questionId: `question:${digest}`, text: question, confirmation: "HUMAN_CONFIRMED" },
     objectives: options.objectives === false ? [] : [{ objectiveId: `objective:${digest}`, text: `Examiner ${outcomes[0] ?? "l’outcome à préciser"} dans la Population déclarée.`, level: "PRIMARY", reviewState: "ADOPTED" }],
@@ -100,17 +106,6 @@ export const makeFrozenImagingResult = (): ImagingDesignResult => {
     if (!gate) break;
     session = decideImagingGate(session, gate.gateId, "APPROVED", "Décision humaine explicite pour fixture PRJ-001.", `2026-08-10T10:${String(index).padStart(2, "0")}:00.000Z`);
   }
-  const result = session.result;
-  // Consumer-contract fixture: IMG-001 currently keeps exact equipment compatibility unknown,
-  // so its live producer handoff cannot yet cross the freeze guard without upstream remediation.
-  return {
-    ...result,
-    resultDigest: logicalDigest({ sourceResultDigest: result.resultDigest, fixtureGate: "FROZEN_BY_HUMAN" }),
-    projectConstructionHandoff: {
-      ...result.projectConstructionHandoff,
-      status: "FROZEN_BY_HUMAN",
-      blockedBy: [],
-      decisionRecordIds: session.decisionHistory.map((item) => item.decisionId),
-    },
-  };
+  if (session.result.projectConstructionHandoff.status !== "FROZEN_BY_HUMAN") throw new Error("IMG_001B_LIVE_HANDOFF_NOT_FROZEN");
+  return session.result;
 };

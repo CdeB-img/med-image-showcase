@@ -15,7 +15,7 @@ export type ImagingChangeRequest = {
 };
 
 const majorEvents = new Set<ImagingChangeEventType>([
-  "BiomarkerChanged", "ModalityChanged", "AcquisitionChanged", "FieldStrengthChanged", "SoftwareVersionChanged", "CoreLabStrategyChanged", "ImagingEndpointChanged",
+  "BiomarkerChanged", "ModalityChanged", "AcquisitionChanged", "EquipmentChanged", "FieldStrengthChanged", "SoftwareVersionChanged", "CoreLabStrategyChanged", "ImagingEndpointChanged",
 ]);
 
 export const classifyImagingChange = (change: ImagingChangeRequest): "MINOR" | "MAJOR" => majorEvents.has(change.eventType) ? "MAJOR" : "MINOR";

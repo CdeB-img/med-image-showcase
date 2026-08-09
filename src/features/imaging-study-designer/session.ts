@@ -6,19 +6,29 @@ import type { HumanReviewState, ImagingDesignInput, ImagingDesignSession } from 
 const controlsFrom = (session: ImagingDesignSession) => ({
   ...session.controls,
   decisionRecordIds: session.decisionHistory.map((item) => item.decisionId),
+  handoffDecisionRecordId: [...session.decisionHistory].reverse().find((item) => item.gateId === "IMG-GATE-HANDOFF-FREEZE" && item.decision === "APPROVED")?.decisionId ?? null,
 });
 
-const rebuild = (session: ImagingDesignSession): ImagingDesignSession => ({
-  ...session,
-  result: executeImagingStudyDesigner(session.input, controlsFrom(session)),
-  revisions: session.revisions + 1,
-});
+const rebuild = (session: ImagingDesignSession): ImagingDesignSession => {
+  const result = executeImagingStudyDesigner(session.input, controlsFrom(session));
+  const previousHandoff = session.result.projectConstructionHandoff;
+  const preservePrevious = previousHandoff.status === "FROZEN_BY_HUMAN"
+    && result.projectConstructionHandoff.status !== "FROZEN_BY_HUMAN"
+    && !session.handoffHistory.some((item) => item.imagingStrategyVersion === previousHandoff.imagingStrategyVersion);
+  return {
+    ...session,
+    result,
+    handoffHistory: preservePrevious ? [...session.handoffHistory, previousHandoff] : session.handoffHistory,
+    revisions: session.revisions + 1,
+  };
+};
 
 export const createImagingDesignSession = (input: ImagingDesignInput): ImagingDesignSession => ({
   input,
   result: executeImagingStudyDesigner(input),
   controls: {},
   decisionHistory: [],
+  handoffHistory: [],
   revisions: 1,
 });
 
@@ -45,7 +55,7 @@ export const decideImagingGate = (
   now = new Date().toISOString(),
 ): ImagingDesignSession => {
   const gate = session.result.decisionsRequired.find((item) => item.gateId === gateId);
-  if (!gate || !reason.trim()) return session;
+  if (!gate || !reason.trim() || gateId === "IMG-GATE-HANDOFF-FREEZE" && session.result.projectConstructionHandoff.status !== "READY_FOR_HUMAN_FREEZE") return session;
   const record = {
     decisionId: `imaging-decision:${logicalDigest({ gateId, decision, targetIds: gate.targetIds, reason, revision: session.revisions })}`,
     gateId,
@@ -87,6 +97,9 @@ export const decideImagingChange = (session: ImagingDesignSession, changeId: str
   ...session,
   controls: {
     ...session.controls,
+    gateStatuses: decision === "CONFIRMED"
+      ? Object.fromEntries(Object.entries(session.controls.gateStatuses ?? {}).map(([gateId, status]) => [gateId, ["IMG-GATE-ACQUISITION", "IMG-GATE-MULTICENTER", "IMG-GATE-HANDOFF-FREEZE"].includes(gateId) ? "PENDING" : status]))
+      : session.controls.gateStatuses,
     changes: (session.controls.changes ?? []).map((item) => item.changeId === changeId ? { ...item, status: decision } : item),
     impacts: (session.controls.impacts ?? []).map((item) => item.changeId === changeId && decision === "REJECTED" ? { ...item, state: "PRESERVED" as const, reason: "Changement majeur rejeté ; état antérieur préservé." } : item),
   },

@@ -262,7 +262,26 @@ export default function ProtocolDesignerDemo() {
 
   useEffect(() => {
     if (!projectConstructionInput) return;
-    if (projectConstructionInput.sourceHandoffs.imaging.status === "REQUIRED_BUT_NOT_READY" && imagingDesignInput) return;
+    if (projectConstructionInput.sourceHandoffs.imaging.status === "REQUIRED_BUT_NOT_READY" && imagingDesignInput) {
+      setSession((current) => {
+        const previous = current.projectConstruction;
+        if (!previous) return current;
+        return {
+          ...current,
+          projectConstruction: null,
+          projectConstructionHistory: [...current.projectConstructionHistory, {
+            inputId: previous.input.inputId,
+            resultId: previous.result.resultId,
+            resultDigest: previous.result.resultDigest,
+            decisionRecordIds: previous.decisionHistory.map((item) => item.decisionId),
+            invalidatedReason: "Handoff Imaging devenu obsolète après changement ; requalification ciblée requise.",
+          }],
+          scientificContext: { ...current.scientificContext, activeDesignSurface: "IMAGING" },
+          updatedAt: new Date().toISOString(),
+        };
+      });
+      return;
+    }
     setSession((current) => {
       const previous = current.projectConstruction;
       if (previous?.input.inputId === projectConstructionInput.inputId) return current;

@@ -211,6 +211,10 @@ const buildEquipment = (input: ImagingDesignInput, acquisitions: AcquisitionStra
       equipmentId: item.equipmentId,
       acquisitionId: acquisition.acquisitionId,
       availability: item.availability,
+      availabilityEvidenceStatus: item.availability === "KNOWN_AVAILABLE" ? "VERIFIED" as const
+        : item.availability === "DECLARED_AVAILABLE" ? "DECLARED" as const
+          : item.availability === "KNOWN_UNAVAILABLE" ? "CONFIRMED_ABSENT" as const
+            : "UNKNOWN" as const,
       compatibility,
       gaps: uniqueSorted([
         ...(!item.manufacturer ? ["Constructeur inconnu"] : []),
@@ -398,6 +402,17 @@ const buildDecisions = (input: ImagingDesignInput, phenomena: PhenomenonCandidat
 
 const patientLevel = (input: ImagingDesignInput) => input.safetyFlags.some((item) => /patient|medical|clinique individuel/i.test(item)) || /\b(mon|ma|mes)\b.*\b(t1|t2|irm|scanner|résultat|élevé|grave)\b/i.test(input.originalExpression);
 
+const equipmentCompatibilityStatus = (assessments: ImagingDesignResult["equipmentAssessment"]): ImagingDesignResult["projectConstructionHandoff"]["equipmentCompatibilityStatus"] => {
+  if (!assessments.length) return "NOT_APPLICABLE";
+  if (assessments.some((item) => item.compatibility === "INCOMPATIBLE")) return "INCOMPATIBLE";
+  if (assessments.every((item) => item.compatibility === "EXACT_MATCH")) return "TECHNICAL_COMPATIBILITY_CONFIRMED";
+  const evidence = new Set(assessments.map((item) => item.availabilityEvidenceStatus));
+  if (evidence.size > 1) return "PARTIALLY_KNOWN";
+  if (evidence.has("VERIFIED")) return "VERIFIED_AVAILABILITY_COMPATIBILITY_UNCONFIRMED";
+  if (evidence.has("DECLARED")) return "DECLARED_NOT_VERIFIED";
+  return "UNKNOWN";
+};
+
 export const executeImagingStudyDesigner = (rawInput: ImagingDesignInput, controls: ImagingDesignControls = {}): ImagingDesignResult => {
   const input = parseImagingDesignInput(rawInput);
   const isPatient = patientLevel(input);
@@ -442,8 +457,26 @@ export const executeImagingStudyDesigner = (rawInput: ImagingDesignInput, contro
   const impacts = controls.impacts ?? [];
   const unresolvedGates = decisionsRequired.filter((item) => item.status !== "APPROVED").map((item) => item.gateId);
   const blockingChains = graph.brokenChains.map((item) => item.code);
-  const readyForFreeze = status === "STRATEGY_CANDIDATES" && !blockingChains.length && !unresolvedGates.filter((item) => item !== "IMG-GATE-HANDOFF-FREEZE").length;
+  const nonBlockingProjectChains = new Set(["UNKNOWN_MANUFACTURER_DEPENDENCY"]);
+  const projectBlockingChains = blockingChains.filter((code) => !nonBlockingProjectChains.has(code));
+  const projectBlockingQuestions = adaptiveQuestions.filter((item) => !item.answeredValue && item.questionId !== "IMG-AQ-EQUIPMENT").map((item) => item.questionId);
+  const unresolvedStructuralGates = unresolvedGates.filter((item) => item !== "IMG-GATE-HANDOFF-FREEZE");
+  const criticalSafetyIssue = input.safetyFlags.length > 0;
+  const scientificStrategyDefined = !isPatient && !noUpstreamChain && !noDefensibleChain;
+  const freezeBlockers = uniqueSorted([
+    ...(isPatient ? ["PATIENT_LEVEL_DOMAIN_GATE"] : []),
+    ...(noUpstreamChain ? ["QUESTION_OBJECTIVE_HYPOTHESIS_CHAIN_INCOMPLETE"] : []),
+    ...(noDefensibleChain ? ["NO_DEFENSIBLE_IMAGING_CHAIN"] : []),
+    ...projectBlockingChains,
+    ...projectBlockingQuestions,
+    ...unresolvedStructuralGates,
+    ...(input.contradictions.length ? ["UNRESOLVED_STRUCTURAL_CONTRADICTION"] : []),
+    ...(criticalSafetyIssue ? ["CRITICAL_SAFETY_REVIEW_REQUIRED"] : []),
+  ]);
+  const readyForFreeze = scientificStrategyDefined && !freezeBlockers.length;
   const frozen = readyForFreeze && decisionsRequired.find((item) => item.gateId === "IMG-GATE-HANDOFF-FREEZE")?.status === "APPROVED";
+  const compatibilityStatus = equipmentCompatibilityStatus(equipmentAssessment);
+  const handoffDecisionPending = !frozen;
   const inputDigest = logicalDigest(input);
   const resultMaterial = {
     inputRef: input.inputId, status, phenomena, biomarkerCandidates, modalityCandidates, acquisitionStrategies, equipmentAssessment, timingStrategy,
@@ -452,6 +485,17 @@ export const executeImagingStudyDesigner = (rawInput: ImagingDesignInput, contro
   };
   const resultDigest = logicalDigest(resultMaterial);
   const resultId = `imaging-design-result:${resultDigest}`;
+  const imagingStrategyVersion = `${input.strategyVersion}:IMG-${logicalDigest({
+    inputRef: input.inputId,
+    phenomena,
+    biomarkerCandidates,
+    modalityCandidates,
+    acquisitionStrategies,
+    equipmentAssessment,
+    timingStrategy,
+    harmonizationStrategy,
+    confirmedChanges: changes.filter((item) => item.status === "CONFIRMED"),
+  }).slice(0, 12)}`;
   const result: ImagingDesignResult = {
     contractVersion: IMAGING_STUDY_DESIGNER_VERSION,
     inputVersion: IMAGING_STUDY_DESIGNER_VERSION,
@@ -511,13 +555,45 @@ export const executeImagingStudyDesigner = (rawInput: ImagingDesignInput, contro
     graph,
     knowledgeHandoff: { requestRef: input.knowledge.resultId ? `request-of:${input.knowledge.resultId}` : null, resultRef: input.knowledge.resultId, resultDigest: input.knowledge.resultDigest, coverageStatus: input.knowledge.coverageStatus, gapCodes: uniqueSorted(input.knowledge.gaps.map((item) => item.code)), noClosestCorpusFallback: true },
     projectConstructionHandoff: {
-      handoffVersion: "1.0",
+      handoffVersion: "1.1",
       status: frozen ? "FROZEN_BY_HUMAN" : readyForFreeze ? "READY_FOR_HUMAN_FREEZE" : "NOT_READY",
+      imagingStrategyVersion,
+      humanDecision: { status: frozen ? "ADOPTED" : "PENDING", decisionRecordId: frozen ? controls.handoffDecisionRecordId ?? null : null },
+      scientificStrategyStatus: scientificStrategyDefined ? "SCIENTIFIC_STRATEGY_DEFINED" : "SCIENTIFIC_STRATEGY_BLOCKED",
+      projectHandoffReadiness: frozen ? "PROJECT_HANDOFF_READY" : "PROJECT_HANDOFF_BLOCKED",
+      equipmentCompatibilityStatus: compatibilityStatus,
+      executableProtocolReadiness: "EXECUTABLE_PROTOCOL_NOT_READY",
       resultRef: resultId,
       includedSections: ["Question", "Objectives", "Hypotheses", "Phenomena", "Biomarkers", "Modalities", "AcquisitionStrategy", "Timing", "Equipment", "Harmonization", "Quality", "ImageAnalysis", "Variables", "EndpointContributions", "CoreLabAssessment", "NonEvaluability", "Risks", "Limitations", "KnowledgeGaps", "Alternatives", "HumanDecisions", "Provenance"],
       excludedSections: ["STATISTICAL_SIZING", "COMPLETE_BUDGET", "FINAL_CRF", "REGULATORY_PLAN", "COMPLETE_OPERATIONAL_PLAN", "FINAL_SUBMISSION_PROTOCOL"],
       decisionRecordIds: uniqueSorted(controls.decisionRecordIds ?? []),
-      blockedBy: uniqueSorted([...(isPatient ? ["PATIENT_LEVEL_DOMAIN_GATE"] : []), ...(noUpstreamChain ? ["RETURN_TO_SCIENTIFIC_THINKING"] : []), ...blockingChains, ...unresolvedGates]),
+      blockedBy: uniqueSorted([...freezeBlockers, ...(handoffDecisionPending ? ["HUMAN_HANDOFF_FREEZE_DECISION_PENDING"] : [])]),
+      unknowns: uniqueSorted([
+        ...equipmentAssessment.filter((item) => item.compatibility === "UNKNOWN_COMPATIBILITY").flatMap((item) => item.gaps),
+        ...harmonizationStrategy.unknowns,
+        ...input.uncertainties,
+      ]),
+      limitations: uniqueSorted([
+        "PROJECT_HANDOFF_DOES_NOT_CONFIRM_TECHNICAL_COMPATIBILITY",
+        "PROJECT_HANDOFF_DOES_NOT_AUTHORIZE_EXECUTABLE_ACQUISITION",
+        ...(compatibilityStatus === "DECLARED_NOT_VERIFIED" ? ["EQUIPMENT_AVAILABILITY_DECLARED_NOT_VERIFIED"] : []),
+        ...(compatibilityStatus === "PARTIALLY_KNOWN" ? ["MULTICENTER_TECHNICAL_FEASIBILITY_PARTIAL"] : []),
+      ]),
+      contradictions: input.contradictions,
+      requiredFutureReviews: uniqueSorted([
+        ...(compatibilityStatus !== "TECHNICAL_COMPATIBILITY_CONFIRMED" && compatibilityStatus !== "NOT_APPLICABLE" ? ["EQUIPMENT_COMPATIBILITY_REVIEW"] : []),
+        ...(currentCenterMode.startsWith("MULTICENTRIC") ? ["MULTICENTER_HARMONIZATION_REVIEW"] : []),
+        "EXECUTABLE_PROTOCOL_REVIEW_WITH_GOVERNED_EQUIPMENT_KNOWLEDGE",
+        "BIOSTATISTICS_REVIEW",
+        "DATA_MANAGEMENT_REVIEW",
+      ]),
+      provenance: uniqueSorted([input.inputId, ...input.provenance, ...input.knowledge.sourceIds]),
+      trace: [
+        { sequence: 1, decision: scientificStrategyDefined ? "SCIENTIFIC_STRATEGY_DEFINED" : "SCIENTIFIC_STRATEGY_BLOCKED", rationale: "Question, phénomènes et biomarqueurs sont évalués indépendamment de la qualification technique locale." },
+        { sequence: 2, decision: compatibilityStatus, rationale: "La disponibilité, sa vérification et la compatibilité restent distinctes." },
+        { sequence: 3, decision: frozen ? "PROJECT_HANDOFF_READY" : "PROJECT_HANDOFF_BLOCKED", rationale: frozen ? "Les décisions structurantes et le gel humain sont tracés." : "Une porte scientifique, structurelle ou humaine reste ouverte." },
+        { sequence: 4, decision: "EXECUTABLE_PROTOCOL_NOT_READY", rationale: "Aucune connaissance exécutable gouvernée ne permet de produire des paramètres exacts." },
+      ],
     },
     refusal,
     nextActions: uniqueSorted([

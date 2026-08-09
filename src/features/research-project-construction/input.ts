@@ -59,8 +59,10 @@ export const buildResearchProjectConstructionInput = (
   const questionText = selectedQuestion?.text ?? normalizeScientificText(intent.validatedReformulation);
   const questionId = selectedQuestion?.questionId ?? `validated-question:${logicalDigest(questionText)}`;
   const imagingRequired = questionRequiresImaging(intent, thinking);
-  const frozenImaging = imaging?.result.projectConstructionHandoff.status === "FROZEN_BY_HUMAN";
+  const frozenImaging = imaging?.result.projectConstructionHandoff.status === "FROZEN_BY_HUMAN"
+    && imaging.result.projectConstructionHandoff.projectHandoffReadiness === "PROJECT_HANDOFF_READY";
   const imagingResult = frozenImaging ? imaging.result : null;
+  const imagingHandoff = imagingResult?.projectConstructionHandoff ?? null;
   const imagingHandoffStatus = imagingResult ? "FROZEN_BY_HUMAN" as const : imagingRequired ? "REQUIRED_BUT_NOT_READY" as const : "NOT_APPLICABLE" as const;
   const knowledge = knowledgeProjection(knowledgeResult);
   const projectId = runtime.projectId ?? thinking?.input.researchContext.researchProjectId ?? imaging?.input.researchProjectId ?? `research-project:${runtime.sessionId}`;
@@ -75,6 +77,9 @@ export const buildResearchProjectConstructionInput = (
     knowledgeDigest: knowledge.resultDigest,
     imagingDigest: imagingResult?.resultDigest ?? null,
     imagingHandoffStatus,
+    imagingProjectHandoffReadiness: imagingHandoff?.projectHandoffReadiness ?? null,
+    imagingEquipmentCompatibilityStatus: imagingHandoff?.equipmentCompatibilityStatus ?? null,
+    imagingExecutableProtocolReadiness: imagingHandoff?.executableProtocolReadiness ?? null,
     contextVersion: runtime.contextVersion,
   };
   const inputDigest = logicalDigest(material);
@@ -85,7 +90,13 @@ export const buildResearchProjectConstructionInput = (
     strategyVersion,
     sourceHandoffs: {
       scientificThinking: { status: thinkingOutput?.handoff.status === "AUTHORIZED" ? "AUTHORIZED" : "VALIDATED_CONTEXT", outputRef: thinkingOutput?.outputId ?? null },
-      imaging: { status: imagingHandoffStatus, resultRef: imagingResult?.resultId ?? null },
+      imaging: {
+        status: imagingHandoffStatus,
+        resultRef: imagingResult?.resultId ?? null,
+        projectHandoffReadiness: imagingHandoff?.projectHandoffReadiness ?? null,
+        equipmentCompatibilityStatus: imagingHandoff?.equipmentCompatibilityStatus ?? null,
+        executableProtocolReadiness: imagingHandoff?.executableProtocolReadiness ?? null,
+      },
     },
     confirmedScientificQuestion: { questionId, text: questionText, confirmation: selectedQuestion?.reviewState === "ADOPTED" ? "HUMAN_CONFIRMED" : "VALIDATED_CONTEXT" },
     objectives: thinkingOutput?.objectives.filter((item) => thinkingOutput.handoff.objectiveIds.includes(item.objectiveId)).map((item) => ({ objectiveId: item.objectiveId, text: item.text, level: item.level, reviewState: item.reviewState })) ?? [],

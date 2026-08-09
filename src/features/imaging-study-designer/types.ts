@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const IMAGING_STUDY_DESIGNER_VERSION = "1.0.0" as const;
+export const IMAGING_STUDY_DESIGNER_VERSION = "1.1.0" as const;
 
 export type SupportState = "SUPPORTED" | "PARTIALLY_SUPPORTED" | "UNKNOWN" | "NOT_APPLICABLE" | "CONFLICTING";
 export type HumanReviewState = "PENDING" | "ADOPTED" | "REJECTED";
@@ -193,6 +193,7 @@ export type ImagingDesignResult = {
     equipmentId: string;
     acquisitionId: string;
     availability: ImagingDesignInput["declaredEquipment"][number]["availability"];
+    availabilityEvidenceStatus: "UNKNOWN" | "DECLARED" | "VERIFIED" | "CONFIRMED_ABSENT";
     compatibility: "EXACT_MATCH" | "COMPATIBLE_WITH_LIMITATIONS" | "UNKNOWN_COMPATIBILITY" | "INCOMPATIBLE";
     gaps: string[];
     evidenceRefs: string[];
@@ -317,13 +318,28 @@ export type ImagingDesignResult = {
   graph: ImagingDecisionGraph;
   knowledgeHandoff: { requestRef: string | null; resultRef: string | null; resultDigest: string | null; coverageStatus: string; gapCodes: string[]; noClosestCorpusFallback: true };
   projectConstructionHandoff: {
-    handoffVersion: "1.0";
+    handoffVersion: "1.1";
     status: "NOT_READY" | "READY_FOR_HUMAN_FREEZE" | "FROZEN_BY_HUMAN";
+    imagingStrategyVersion: string;
+    humanDecision: {
+      status: "PENDING" | "ADOPTED";
+      decisionRecordId: string | null;
+    };
+    scientificStrategyStatus: "SCIENTIFIC_STRATEGY_DEFINED" | "SCIENTIFIC_STRATEGY_BLOCKED";
+    projectHandoffReadiness: "PROJECT_HANDOFF_READY" | "PROJECT_HANDOFF_BLOCKED";
+    equipmentCompatibilityStatus: "UNKNOWN" | "DECLARED_NOT_VERIFIED" | "VERIFIED_AVAILABILITY_COMPATIBILITY_UNCONFIRMED" | "PARTIALLY_KNOWN" | "TECHNICAL_COMPATIBILITY_CONFIRMED" | "INCOMPATIBLE" | "NOT_APPLICABLE";
+    executableProtocolReadiness: "EXECUTABLE_PROTOCOL_READY" | "EXECUTABLE_PROTOCOL_NOT_READY";
     resultRef: string;
     includedSections: string[];
     excludedSections: ["STATISTICAL_SIZING", "COMPLETE_BUDGET", "FINAL_CRF", "REGULATORY_PLAN", "COMPLETE_OPERATIONAL_PLAN", "FINAL_SUBMISSION_PROTOCOL"];
     decisionRecordIds: string[];
     blockedBy: string[];
+    unknowns: string[];
+    limitations: string[];
+    contradictions: string[];
+    requiredFutureReviews: string[];
+    provenance: string[];
+    trace: Array<{ sequence: number; decision: string; rationale: string }>;
   };
   refusal: null | { code: "PATIENT_LEVEL" | "NO_DEFENSIBLE_IMAGING_CHAIN" | "ST_HANDOFF_NOT_AUTHORIZED"; reason: string; resumeCondition: string };
   nextActions: string[];
@@ -342,6 +358,7 @@ export type ImagingDesignControls = {
   changes?: ImagingDesignResult["changes"];
   impacts?: ImagingDesignResult["impacts"];
   decisionRecordIds?: string[];
+  handoffDecisionRecordId?: string | null;
 };
 
 export type ImagingDesignSession = {
@@ -349,6 +366,7 @@ export type ImagingDesignSession = {
   result: ImagingDesignResult;
   controls: ImagingDesignControls;
   decisionHistory: Array<{ decisionId: string; gateId: string; decision: "APPROVED" | "REJECTED"; targetIds: string[]; reason: string; decidedAt: string }>;
+  handoffHistory: ImagingDesignResult["projectConstructionHandoff"][];
   revisions: number;
 };
 
@@ -356,6 +374,28 @@ const stringArray = z.array(z.string().min(1).max(4_000)).max(500);
 const knowledgeStatementSchema = z.object({
   statementId: z.string(), text: z.string(), conceptIds: stringArray, status: z.string(), applicability: z.string(),
   sourceId: z.string(), locator: z.string(), limitations: stringArray, modality: z.string().nullable(),
+}).strict();
+
+const projectConstructionHandoffSchema = z.object({
+  handoffVersion: z.literal("1.1"),
+  status: z.enum(["NOT_READY", "READY_FOR_HUMAN_FREEZE", "FROZEN_BY_HUMAN"]),
+  imagingStrategyVersion: z.string(),
+  humanDecision: z.object({ status: z.enum(["PENDING", "ADOPTED"]), decisionRecordId: z.string().nullable() }).strict(),
+  scientificStrategyStatus: z.enum(["SCIENTIFIC_STRATEGY_DEFINED", "SCIENTIFIC_STRATEGY_BLOCKED"]),
+  projectHandoffReadiness: z.enum(["PROJECT_HANDOFF_READY", "PROJECT_HANDOFF_BLOCKED"]),
+  equipmentCompatibilityStatus: z.enum(["UNKNOWN", "DECLARED_NOT_VERIFIED", "VERIFIED_AVAILABILITY_COMPATIBILITY_UNCONFIRMED", "PARTIALLY_KNOWN", "TECHNICAL_COMPATIBILITY_CONFIRMED", "INCOMPATIBLE", "NOT_APPLICABLE"]),
+  executableProtocolReadiness: z.enum(["EXECUTABLE_PROTOCOL_READY", "EXECUTABLE_PROTOCOL_NOT_READY"]),
+  resultRef: z.string(),
+  includedSections: stringArray,
+  excludedSections: z.tuple([z.literal("STATISTICAL_SIZING"), z.literal("COMPLETE_BUDGET"), z.literal("FINAL_CRF"), z.literal("REGULATORY_PLAN"), z.literal("COMPLETE_OPERATIONAL_PLAN"), z.literal("FINAL_SUBMISSION_PROTOCOL")]),
+  decisionRecordIds: stringArray,
+  blockedBy: stringArray,
+  unknowns: stringArray,
+  limitations: stringArray,
+  contradictions: stringArray,
+  requiredFutureReviews: stringArray,
+  provenance: stringArray,
+  trace: z.array(z.object({ sequence: z.number().int().positive(), decision: z.string(), rationale: z.string() }).strict()),
 }).strict();
 
 export const imagingDesignInputSchema = z.object({
@@ -388,7 +428,7 @@ export const imagingDesignResultSchema = z.object({
   projectionNotice: z.literal("RUNTIME_PROJECTION_DOES_NOT_OWN_CANONICAL_SCIENCE"),
   ...Object.fromEntries(resultRequiredKeys.map((key) => [key, z.unknown()])),
   biomarkerComparison: z.array(z.unknown()), modalityComparison: z.array(z.unknown()), changes: z.array(z.unknown()), impacts: z.array(z.unknown()), graph: z.unknown(),
-  knowledgeHandoff: z.unknown(), projectConstructionHandoff: z.unknown(), adaptiveQuestions: z.array(z.unknown()), refusal: z.unknown().nullable(),
+  knowledgeHandoff: z.unknown(), projectConstructionHandoff: projectConstructionHandoffSchema, adaptiveQuestions: z.array(z.unknown()), refusal: z.unknown().nullable(),
 }).strict();
 
 export const imagingDesignSessionSchema = z.object({
@@ -401,9 +441,10 @@ export const imagingDesignSessionSchema = z.object({
     acquisitionReviews: z.record(z.enum(["PENDING", "ADOPTED", "REJECTED"])).optional(),
     analysisReviews: z.record(z.enum(["PENDING", "ADOPTED", "REJECTED"])).optional(),
     answers: z.record(z.string()).optional(), gateStatuses: z.record(z.enum(["PENDING", "APPROVED", "REJECTED"])).optional(),
-    changes: z.array(z.unknown()).optional(), impacts: z.array(z.unknown()).optional(), decisionRecordIds: stringArray.optional(),
+    changes: z.array(z.unknown()).optional(), impacts: z.array(z.unknown()).optional(), decisionRecordIds: stringArray.optional(), handoffDecisionRecordId: z.string().nullable().optional(),
   }).strict(),
   decisionHistory: z.array(z.object({ decisionId: z.string(), gateId: z.string(), decision: z.enum(["APPROVED", "REJECTED"]), targetIds: stringArray, reason: z.string(), decidedAt: z.string() }).strict()),
+  handoffHistory: z.array(projectConstructionHandoffSchema),
   revisions: z.number().int().positive(),
 }).strict();
 
