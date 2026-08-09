@@ -26,12 +26,18 @@ export const PROJECT_STAGES = [
 const SCIENTIFIC_TERMS = [
   "obstruction microvasculaire",
   "lésions microvasculaires",
+  "atteinte microvasculaire",
+  "microcirculation",
+  "fibrose myocardique",
+  "maladie de fabry",
   "photon counting",
   "double énergie",
   "dual energy",
   "ct spectral",
   "imagerie spectrale",
   "t1 mapping",
+  "molli",
+  "sasha",
   "monoénergétique",
   "no-reflow",
   "no reflow",
@@ -71,6 +77,7 @@ export const deriveRoutingIntent = (intent: ValidatedScientificIntent): {
   };
   add("UNDERSTAND", /\b(comprendre|expliquer|fonctionne|diff[ée]rence|rôle|signifie|qu['’]est-ce)\b/, "La demande exprime un besoin de compréhension.", 3);
   add("FORMALIZE_IDEA", /\b(id[ée]e|intuition|hypoth[èe]se|je pense|pourrait|d[ée]pend)\b/, "La demande formule une idée ou une hypothèse à structurer.", 3);
+  add("FORMALIZE_IDEA", /\b(je voudrais [ée]tudier|je cherche [àa] [ée]tudier|voir si|est-(?:il|elle) associ[ée]e?|pr[ée]dit)\b/, "La demande cherche à transformer une relation ou une finalité encore ouverte en question scientifique.", 3);
   add("DESIGN_STUDY", /\b(construire|concevoir|protocole|[ée]tude|projet de recherche|multicentrique|reproduire|auditer)\b/, "La demande vise explicitement un projet ou une étude.", 3);
   add("DESIGN_STUDY", /\b(comparer|mesurer|quantifier|[ée]valuer|suivre|d[ée]tecter)\b/, "La demande porte une action de recherche à cadrer.", 2);
   const ordered = (Object.keys(scores) as RoutingIntent[]).sort((a, b) => scores[b] - scores[a]);

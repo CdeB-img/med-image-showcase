@@ -125,7 +125,8 @@ describe("P-WEB-06 — Protocol Designer V1", () => {
     await resume();
     fireEvent.click(screen.getByRole("button", { name: "Formaliser une question à partir de cette compréhension" }));
     await waitFor(() => expect(screen.getByRole("heading", { name: "Transformer une idée en question scientifique" })).toBeInTheDocument());
-    expect(screen.getByText(/comment étudier OEF et CMRO₂/)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Questions scientifiques candidates" })).toBeInTheDocument();
+    expect(screen.getAllByText(/OEF|CMRO₂/).length).toBeGreaterThan(0);
   });
 
   it("exposes all eight project stages without pretending they are complete", async () => {

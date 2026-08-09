@@ -1,5 +1,7 @@
 export const INTAKE_SCHEMA_VERSION = "1.0" as const;
-export const INTAKE_SESSION_SCHEMA_VERSION = "4.0" as const;
+import type { ScientificThinkingSession } from "@/features/scientific-thinking/types";
+
+export const INTAKE_SESSION_SCHEMA_VERSION = "5.0" as const;
 export const INTAKE_FIXTURE_SET_VERSION = "p-web-06-rb003-1.0-rb004-1.1-rb005-1.0" as const;
 
 export type EvidenceOrigin =
@@ -227,6 +229,13 @@ export type ProtocolDesignerSession = {
   reportStatus: "NONE" | "PROVISIONAL" | "FINAL";
   invalidatedDownstream: string[];
   scientificContext: ScientificSessionContext;
+  scientificThinking: ScientificThinkingSession | null;
+  scientificThinkingHistory: Array<{
+    outputId: string;
+    outputDigest: string;
+    decisionRecordIds: string[];
+    invalidatedReason: string;
+  }>;
 };
 
 export type IntakeApiErrorCode =

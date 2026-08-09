@@ -1,9 +1,10 @@
 import { z } from "zod";
+import { scientificThinkingSessionSchema } from "@/features/scientific-thinking/types";
 import { hasSensitiveData } from "./privacy.js";
 import { parseScientificIntakeInterpretation } from "./schema.js";
 import { INTAKE_FIXTURE_SET_VERSION, INTAKE_SESSION_SCHEMA_VERSION, type HumanFieldReview, type InterpretedFieldKey, type ProtocolDesignerSession, type ScientificIntakeInterpretation, type ValidatedScientificIntent } from "./types.js";
 
-export const INTAKE_SESSION_KEY = "noxia-guided-intake-session-v3";
+export const INTAKE_SESSION_KEY = "noxia-guided-intake-session-v4";
 
 const storedSessionSchema = z.object({
   sessionSchemaVersion: z.literal(INTAKE_SESSION_SCHEMA_VERSION),
@@ -21,6 +22,10 @@ const storedSessionSchema = z.object({
     detectedRelationships: z.array(z.string()), workingHypotheses: z.array(z.string()), missingInformation: z.array(z.string()),
     contextVersion: z.number().int().min(0), transitions: z.array(z.unknown()), currentProjectStage: z.number().int().min(1).max(8),
   }).passthrough(),
+  scientificThinking: scientificThinkingSessionSchema.nullable(),
+  scientificThinkingHistory: z.array(z.object({
+    outputId: z.string(), outputDigest: z.string(), decisionRecordIds: z.array(z.string()), invalidatedReason: z.string(),
+  }).strict()),
 }).passthrough();
 
 const makeId = () => typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `session-${Date.now()}`;
@@ -37,6 +42,8 @@ export const createProtocolDesignerSession = (now = new Date().toISOString()): P
     preservedScientificTerms: [], detectedRelationships: [], workingHypotheses: [], missingInformation: [],
     contextVersion: 0, transitions: [], currentProjectStage: 1,
   },
+  scientificThinking: null,
+  scientificThinkingHistory: [],
 });
 
 export const buildValidatedIntent = (
@@ -57,6 +64,13 @@ export const buildValidatedIntent = (
 export const invalidateDownstream = (session: ProtocolDesignerSession, reason: string): ProtocolDesignerSession => ({
   ...session, updatedAt: new Date().toISOString(), scenarioMatches: [], confirmedScenarioId: null,
   secondaryScenarioIds: [], adaptiveAnswers: [], decision: null, reportStatus: "NONE",
+  scientificThinkingHistory: session.scientificThinking ? [...session.scientificThinkingHistory, {
+    outputId: session.scientificThinking.output.outputId,
+    outputDigest: session.scientificThinking.output.outputDigest,
+    decisionRecordIds: session.scientificThinking.decisionHistory.map((item) => item.decisionId),
+    invalidatedReason: reason,
+  }] : session.scientificThinkingHistory,
+  scientificThinking: null,
   invalidatedDownstream: [...session.invalidatedDownstream, reason],
 });
 
