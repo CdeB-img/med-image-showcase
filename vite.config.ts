@@ -8,8 +8,8 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      "node:crypto": path.resolve(__dirname, "./src/features/knowledge-engine/browser-crypto.ts"),
     },
   },
 });
-
 
