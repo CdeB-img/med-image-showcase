@@ -3,8 +3,9 @@ import { KNOWLEDGE_PROVIDER_REGISTRY } from "./provider-registry";
 import type { KnowledgeRequest, KnowledgeResult } from "./types";
 import type { ProjectionDepth } from "./understand-projection";
 
-export const KNOWLEDGE_PERSISTENCE_SCHEMA_VERSION = "1.1.0" as const;
-export const KNOWLEDGE_SNAPSHOT_KEY = "noxia-knowledge-engine-snapshots-v1-1" as const;
+export const KNOWLEDGE_PERSISTENCE_SCHEMA_VERSION = "1.2.0" as const;
+export const KNOWLEDGE_SNAPSHOT_KEY = "noxia-knowledge-engine-snapshots-v1-2" as const;
+export const LEGACY_KNOWLEDGE_SNAPSHOT_KEYS = ["noxia-knowledge-engine-snapshots-v1-1"] as const;
 export const MAX_KNOWLEDGE_SNAPSHOTS = 20;
 
 export type KnowledgeProjectionSettings = {
@@ -43,14 +44,16 @@ const isKnowledgeSnapshot = (value: unknown): value is KnowledgeSnapshot => {
 };
 
 const readRawSnapshots = (storage: Pick<Storage, "getItem">): unknown[] => {
-  const raw = storage.getItem(KNOWLEDGE_SNAPSHOT_KEY);
-  if (!raw) return [];
-  try {
-    const value = JSON.parse(raw) as unknown;
-    return Array.isArray(value) ? value : [];
-  } catch {
-    return [];
-  }
+  return [KNOWLEDGE_SNAPSHOT_KEY, ...LEGACY_KNOWLEDGE_SNAPSHOT_KEYS].flatMap((key) => {
+    const raw = storage.getItem(key);
+    if (!raw) return [];
+    try {
+      const value = JSON.parse(raw) as unknown;
+      return Array.isArray(value) ? value : [];
+    } catch {
+      return [];
+    }
+  });
 };
 
 export const createKnowledgeSnapshot = (input: {
@@ -111,4 +114,7 @@ export const loadKnowledgeSnapshots = (storage: Pick<Storage, "getItem">, curren
   .map((value) => assessKnowledgeSnapshot(value, { registryDigest: KNOWLEDGE_PROVIDER_REGISTRY.digest, ...current }))
   .sort((left, right) => right.snapshot.timestamp.localeCompare(left.snapshot.timestamp));
 
-export const deleteKnowledgeSnapshots = (storage: Pick<Storage, "removeItem">) => storage.removeItem(KNOWLEDGE_SNAPSHOT_KEY);
+export const deleteKnowledgeSnapshots = (storage: Pick<Storage, "removeItem">) => {
+  storage.removeItem(KNOWLEDGE_SNAPSHOT_KEY);
+  LEGACY_KNOWLEDGE_SNAPSHOT_KEYS.forEach((key) => storage.removeItem(key));
+};

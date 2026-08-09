@@ -49,7 +49,7 @@ describe("Knowledge Engine — UNDERSTAND projection", () => {
     expect(screen.getByText("Réponse étayée")).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Comprendre CT spectral" })).toBeInTheDocument();
     expect(screen.getByText(/Photon-counting CT uses direct-conversion detectors/)).toBeInTheDocument();
-    expect(screen.getByText("Preuves et sources")).toBeInTheDocument();
+    expect(screen.getByText("Preuves internes — corpus NOXIA")).toBeInTheDocument();
     expect(screen.queryByText(/p5-multidomain|knowledge-result:/)).not.toBeInTheDocument();
   });
 
@@ -99,6 +99,6 @@ describe("Knowledge Engine — UNDERSTAND projection", () => {
     expect(screen.getByRole("button", { name: "Synthétique" })).toBeInTheDocument();
     fireEvent.click(screen.getByText(/Historique local des réponses/));
     expect(await screen.findByText(/Version courante/)).toBeInTheDocument();
-    expect(window.localStorage.getItem("noxia-knowledge-engine-snapshots-v1-1")).toContain("knowledge-result:");
+    expect(window.localStorage.getItem("noxia-knowledge-engine-snapshots-v1-2")).toContain("knowledge-result:");
   });
 });

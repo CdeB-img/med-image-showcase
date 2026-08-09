@@ -96,7 +96,7 @@ describe("ENG-002 — 12 cas produit supplémentaires", () => {
     saveKnowledgeSnapshot(storage, snapshot);
     const loaded = loadKnowledgeSnapshots(storage, { registryDigest: result.registrySnapshotRef, providerVersions: result.providerVersions, corpusRepresentationDigests: snapshot.corpusRepresentationDigests, question: result.request.originalQuestion, contextVersion: 3 });
     expect(loaded).toHaveLength(1);
-    expect(loaded[0]).toMatchObject({ state: "CURRENT", snapshot: { requestId: result.request.requestId, schemaVersion: "1.1.0", contextVersion: 3 } });
+    expect(loaded[0]).toMatchObject({ state: "CURRENT", snapshot: { requestId: result.request.requestId, schemaVersion: "1.2.0", contextVersion: 3 } });
     expect(loaded[0].snapshot.result.resultDigest).toBe(result.resultDigest);
   });
 

@@ -93,5 +93,6 @@ export const createKnowledgeResult = (input: {
     ]),
     providerExecutions: input.providerExecutions,
     trace: input.trace,
+    externalEvidence: null,
   };
 };

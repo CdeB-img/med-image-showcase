@@ -2,7 +2,7 @@ import { z } from "zod";
 import { logicalDigest, normalizeScientificText, uniqueSorted } from "./canonical";
 import { createKnowledgeContextPackage, type KnowledgeContextInput } from "./context-package";
 import { classifySensitivity } from "./privacy";
-import { KNOWLEDGE_ENGINE_VERSION, type KnowledgePurpose, type KnowledgeRequest, type KnowledgeRequestType, type ScientificObjectRef } from "./types";
+import { KNOWLEDGE_ENGINE_VERSION, type ExternalSearchPolicy, type KnowledgePurpose, type KnowledgeRequest, type KnowledgeRequestType, type ScientificObjectRef } from "./types";
 
 const scientificObjectSchema = z.object({
   objectId: z.string().min(1).max(200),
@@ -46,6 +46,7 @@ export type KnowledgeRequestInput = {
   strategyVersion?: string;
   consumer?: KnowledgeRequest["consumer"];
   freshnessRequirement?: string;
+  externalSearchPolicy?: ExternalSearchPolicy;
   createdAt?: string;
 };
 
@@ -60,6 +61,9 @@ const classifyPurpose = (question: string): { purpose: KnowledgePurpose; request
 export const createKnowledgeRequest = (input: KnowledgeRequestInput): KnowledgeRequest => {
   const originalQuestion = normalizeScientificText(input.originalQuestion);
   if (!originalQuestion) throw new Error("KNOWLEDGE_REQUEST_EMPTY_QUESTION");
+  const sensitivityClassification = input.researchProjectId || input.strategyVersion
+    ? "CONFIDENTIAL_PROJECT" as const
+    : classifySensitivity(originalQuestion);
   const classification = classifyPurpose(originalQuestion);
   const context = createKnowledgeContextPackage(originalQuestion, classification.purpose, input.context);
   const scientificObjects = input.scientificObjectTerms.map(({ term, role = "UNKNOWN" }) => {
@@ -98,8 +102,8 @@ export const createKnowledgeRequest = (input: KnowledgeRequestInput): KnowledgeR
     unknowns: material.unknowns,
     expectedUse: classification.purpose === "UNDERSTAND" ? "GENERAL_SCIENTIFIC_UNDERSTANDING" : "METHODOLOGICAL_REASONING",
     freshnessRequirement: material.freshnessRequirement,
-    sensitivityClassification: classifySensitivity(originalQuestion),
-    externalSearchPolicy: "INTERNAL_ONLY",
+    sensitivityClassification,
+    externalSearchPolicy: input.externalSearchPolicy ?? "INTERNAL_ONLY",
     traceId: `knowledge-trace:${digest}`,
     createdAt: input.createdAt ?? new Date().toISOString(),
   };

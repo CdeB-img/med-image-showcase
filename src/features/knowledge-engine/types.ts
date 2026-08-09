@@ -1,4 +1,6 @@
-export const KNOWLEDGE_ENGINE_VERSION = "1.1.0" as const;
+import type { ExternalEvidenceSearchResult } from "./external-evidence/types";
+
+export const KNOWLEDGE_ENGINE_VERSION = "1.2.0" as const;
 
 export type KnowledgeRequestType =
   | "EXPLAIN"
@@ -41,6 +43,7 @@ export type ContextDimensionName =
 
 export type PrivacyClass = "PUBLIC" | "INTERNAL" | "CONFIDENTIAL_PROJECT" | "RESTRICTED_PERSONAL";
 export type ExternalSearchPolicy = "INTERNAL_ONLY" | "EXTERNAL_ALLOWED" | "EXTERNAL_REQUIRED" | "EXTERNAL_FORBIDDEN";
+export type KnowledgeContentOrigin = "INTERNAL_OFFICIAL" | "INTERNAL_RUNTIME_DERIVED" | "EXTERNAL_CANDIDATE" | "USER_PROVIDED" | "LOCAL_PRACTICE";
 
 export type ContextDimension = {
   name: ContextDimensionName;
@@ -360,7 +363,7 @@ export type KnowledgeTrace = {
   events: KnowledgeTraceEvent[];
   registrySnapshotDigest: string;
   policyRefs: string[];
-  privacy: { transmittedFields: string[]; redactedFields: string[]; externalCallMade: false };
+  privacy: { transmittedFields: string[]; redactedFields: string[]; externalCallMade: boolean };
   digest: string;
 };
 
@@ -399,4 +402,5 @@ export type KnowledgeResult = {
   humanReviewRequirements: string[];
   providerExecutions: ProviderExecution[];
   trace: KnowledgeTrace;
+  externalEvidence: ExternalEvidenceSearchResult | null;
 };

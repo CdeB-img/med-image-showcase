@@ -190,8 +190,14 @@ export const projectUnderstandResult = (result: KnowledgeResult, depth: Projecti
     coverageLabel: overallCoverageLabels[result.coverageStatus],
     requestSummary,
     answer,
-    boundedConclusion: result.coverageMap.externalResearchRequired
-      ? "La réponse s’arrête aux connaissances internes disponibles. Une recherche externe serait nécessaire pour fermer les zones signalées ; aucune recherche externe n’a été réalisée."
+    boundedConclusion: result.externalEvidence
+      ? result.externalEvidence.status === "SOURCE_UNAVAILABLE"
+        ? "La réponse interne reste inchangée. La recherche documentaire externe est indisponible et cette panne n’est pas assimilée à une absence scientifique."
+        : result.externalEvidence.status === "NO_MATCH"
+          ? "La réponse interne reste inchangée. La requête externe bornée n’a retourné aucune correspondance ; elle ne prouve pas l’absence de littérature."
+          : "La réponse interne reste la conclusion NOXIA. Les publications externes découvertes sont présentées séparément comme candidates et exigent une revue humaine."
+      : result.coverageMap.externalResearchRequired
+        ? "La réponse s’arrête aux connaissances internes disponibles. Une recherche externe serait nécessaire pour fermer les zones signalées ; aucune recherche externe n’a été réalisée."
       : "La conclusion reste bornée aux corpus internes, à leurs versions et au contexte affiché.",
     concepts: result.resolvedConcepts.map((item) => item.preferredLabel),
     relations: result.queryPlan.resolvedRelations.map((relation) => ({ label: relation.explanation, support: relation.authority === "PROVIDER" ? "Relation documentée par un corpus interne" : "Distinction gouvernée par le contrat du Knowledge Engine" })),

@@ -13,6 +13,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:knowledge": "vitest run src/features/knowledge-engine/__tests__",
+    "test:knowledge:external:manual": "node scripts/manual-test-eng-003-pubmed.mjs",
     "audit:seo": "node scripts/audit-seo-pages.mjs",
     "validate:editorial-pilot": "node scripts/validate-editorial-pilot.mjs",
     "validate:knowledge-graph": "node scripts/validate-knowledge-graph.mjs",

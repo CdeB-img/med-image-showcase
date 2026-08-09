@@ -19,3 +19,4 @@ export * from "./persistence";
 export * from "./trace";
 export * from "./engine";
 export * from "./understand-projection";
+export * from "./external-evidence";
