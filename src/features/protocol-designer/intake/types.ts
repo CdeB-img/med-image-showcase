@@ -1,7 +1,8 @@
 export const INTAKE_SCHEMA_VERSION = "1.0" as const;
 import type { ScientificThinkingSession } from "@/features/scientific-thinking/types";
+import type { ImagingDesignSession } from "@/features/imaging-study-designer/types";
 
-export const INTAKE_SESSION_SCHEMA_VERSION = "5.0" as const;
+export const INTAKE_SESSION_SCHEMA_VERSION = "6.0" as const;
 export const INTAKE_FIXTURE_SET_VERSION = "p-web-06-rb003-1.0-rb004-1.1-rb005-1.0" as const;
 
 export type EvidenceOrigin =
@@ -233,6 +234,14 @@ export type ProtocolDesignerSession = {
   scientificThinkingHistory: Array<{
     outputId: string;
     outputDigest: string;
+    decisionRecordIds: string[];
+    invalidatedReason: string;
+  }>;
+  imagingDesign: ImagingDesignSession | null;
+  imagingDesignHistory: Array<{
+    inputId: string;
+    resultId: string;
+    resultDigest: string;
     decisionRecordIds: string[];
     invalidatedReason: string;
   }>;

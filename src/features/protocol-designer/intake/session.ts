@@ -1,10 +1,11 @@
 import { z } from "zod";
 import { scientificThinkingSessionSchema } from "@/features/scientific-thinking/types";
+import { imagingDesignSessionSchema } from "@/features/imaging-study-designer/types";
 import { hasSensitiveData } from "./privacy.js";
 import { parseScientificIntakeInterpretation } from "./schema.js";
 import { INTAKE_FIXTURE_SET_VERSION, INTAKE_SESSION_SCHEMA_VERSION, type HumanFieldReview, type InterpretedFieldKey, type ProtocolDesignerSession, type ScientificIntakeInterpretation, type ValidatedScientificIntent } from "./types.js";
 
-export const INTAKE_SESSION_KEY = "noxia-guided-intake-session-v4";
+export const INTAKE_SESSION_KEY = "noxia-guided-intake-session-v5";
 
 const storedSessionSchema = z.object({
   sessionSchemaVersion: z.literal(INTAKE_SESSION_SCHEMA_VERSION),
@@ -26,6 +27,10 @@ const storedSessionSchema = z.object({
   scientificThinkingHistory: z.array(z.object({
     outputId: z.string(), outputDigest: z.string(), decisionRecordIds: z.array(z.string()), invalidatedReason: z.string(),
   }).strict()),
+  imagingDesign: imagingDesignSessionSchema.nullable(),
+  imagingDesignHistory: z.array(z.object({
+    inputId: z.string(), resultId: z.string(), resultDigest: z.string(), decisionRecordIds: z.array(z.string()), invalidatedReason: z.string(),
+  }).strict()),
 }).passthrough();
 
 const makeId = () => typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `session-${Date.now()}`;
@@ -44,6 +49,8 @@ export const createProtocolDesignerSession = (now = new Date().toISOString()): P
   },
   scientificThinking: null,
   scientificThinkingHistory: [],
+  imagingDesign: null,
+  imagingDesignHistory: [],
 });
 
 export const buildValidatedIntent = (
@@ -71,6 +78,14 @@ export const invalidateDownstream = (session: ProtocolDesignerSession, reason: s
     invalidatedReason: reason,
   }] : session.scientificThinkingHistory,
   scientificThinking: null,
+  imagingDesignHistory: session.imagingDesign ? [...session.imagingDesignHistory, {
+    inputId: session.imagingDesign.input.inputId,
+    resultId: session.imagingDesign.result.resultId,
+    resultDigest: session.imagingDesign.result.resultDigest,
+    decisionRecordIds: session.imagingDesign.decisionHistory.map((item) => item.decisionId),
+    invalidatedReason: reason,
+  }] : session.imagingDesignHistory,
+  imagingDesign: null,
   invalidatedDownstream: [...session.invalidatedDownstream, reason],
 });
 

@@ -129,13 +129,13 @@ describe("P-WEB-06 — Protocol Designer V1", () => {
     expect(screen.getAllByText(/OEF|CMRO₂/).length).toBeGreaterThan(0);
   });
 
-  it("exposes all eight project stages without pretending they are complete", async () => {
+  it("exposes all eight Imaging stages without pretending they are complete", async () => {
     storeWorkspace("DESIGN_STUDY");
     await resume();
-    expect(screen.getByText("Étape 1 sur 8")).toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: "8. Documents" }));
-    expect(screen.getByText("Étape 8 sur 8")).toBeInTheDocument();
-    expect(screen.getByText(/Les éléments non générables resteront visibles/)).toBeInTheDocument();
+    expect(await screen.findByText("Étape 1 sur environ 8")).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "8. Stratégie Imaging" }));
+    expect(screen.getByRole("heading", { name: "Stratégie Imaging" })).toBeInTheDocument();
+    expect(screen.getByText(/Il exclut dimensionnement, budget, CRF, plan réglementaire et protocole final/)).toBeInTheDocument();
   });
 
   it("keeps free text, suggestions and an unknown answer in adaptive questions", async () => {
