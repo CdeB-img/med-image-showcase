@@ -139,6 +139,7 @@ export const buildScientificSessionContext = (
     contextVersion: (previous?.contextVersion ?? 0) + 1,
     transitions: previous?.transitions ?? [],
     currentProjectStage: previous?.currentProjectStage ?? 1,
+    activeDesignSurface: previous?.activeDesignSurface ?? "IMAGING",
   };
 };
 

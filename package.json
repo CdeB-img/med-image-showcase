@@ -14,6 +14,7 @@
     "test:watch": "vitest",
     "test:knowledge": "vitest run src/features/knowledge-engine/__tests__",
     "test:img": "vitest run src/features/imaging-study-designer/__tests__",
+    "test:prj": "vitest run src/features/research-project-construction/__tests__",
     "test:knowledge:external:manual": "node scripts/manual-test-eng-003-pubmed.mjs",
     "audit:seo": "node scripts/audit-seo-pages.mjs",
     "validate:editorial-pilot": "node scripts/validate-editorial-pilot.mjs",

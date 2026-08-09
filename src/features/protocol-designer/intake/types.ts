@@ -1,8 +1,9 @@
 export const INTAKE_SCHEMA_VERSION = "1.0" as const;
 import type { ScientificThinkingSession } from "@/features/scientific-thinking/types";
 import type { ImagingDesignSession } from "@/features/imaging-study-designer/types";
+import type { ResearchProjectConstructionSession } from "@/features/research-project-construction/types";
 
-export const INTAKE_SESSION_SCHEMA_VERSION = "6.0" as const;
+export const INTAKE_SESSION_SCHEMA_VERSION = "7.0" as const;
 export const INTAKE_FIXTURE_SET_VERSION = "p-web-06-rb003-1.0-rb004-1.1-rb005-1.0" as const;
 
 export type EvidenceOrigin =
@@ -210,6 +211,7 @@ export type ScientificSessionContext = {
   contextVersion: number;
   transitions: JourneyTransition[];
   currentProjectStage: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+  activeDesignSurface: "IMAGING" | "PROJECT_CONSTRUCTION";
 };
 
 export type ProtocolDesignerSession = {
@@ -239,6 +241,14 @@ export type ProtocolDesignerSession = {
   }>;
   imagingDesign: ImagingDesignSession | null;
   imagingDesignHistory: Array<{
+    inputId: string;
+    resultId: string;
+    resultDigest: string;
+    decisionRecordIds: string[];
+    invalidatedReason: string;
+  }>;
+  projectConstruction: ResearchProjectConstructionSession | null;
+  projectConstructionHistory: Array<{
     inputId: string;
     resultId: string;
     resultDigest: string;

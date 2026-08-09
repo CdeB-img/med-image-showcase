@@ -1,11 +1,12 @@
 import { z } from "zod";
 import { scientificThinkingSessionSchema } from "@/features/scientific-thinking/types";
 import { imagingDesignSessionSchema } from "@/features/imaging-study-designer/types";
+import { researchProjectConstructionSessionSchema } from "@/features/research-project-construction/types";
 import { hasSensitiveData } from "./privacy.js";
 import { parseScientificIntakeInterpretation } from "./schema.js";
 import { INTAKE_FIXTURE_SET_VERSION, INTAKE_SESSION_SCHEMA_VERSION, type HumanFieldReview, type InterpretedFieldKey, type ProtocolDesignerSession, type ScientificIntakeInterpretation, type ValidatedScientificIntent } from "./types.js";
 
-export const INTAKE_SESSION_KEY = "noxia-guided-intake-session-v5";
+export const INTAKE_SESSION_KEY = "noxia-guided-intake-session-v7";
 
 const storedSessionSchema = z.object({
   sessionSchemaVersion: z.literal(INTAKE_SESSION_SCHEMA_VERSION),
@@ -22,6 +23,7 @@ const storedSessionSchema = z.object({
     routeReasons: z.array(z.string()), centralScientificObject: z.string(), preservedScientificTerms: z.array(z.string()),
     detectedRelationships: z.array(z.string()), workingHypotheses: z.array(z.string()), missingInformation: z.array(z.string()),
     contextVersion: z.number().int().min(0), transitions: z.array(z.unknown()), currentProjectStage: z.number().int().min(1).max(8),
+    activeDesignSurface: z.enum(["IMAGING", "PROJECT_CONSTRUCTION"]),
   }).passthrough(),
   scientificThinking: scientificThinkingSessionSchema.nullable(),
   scientificThinkingHistory: z.array(z.object({
@@ -29,6 +31,10 @@ const storedSessionSchema = z.object({
   }).strict()),
   imagingDesign: imagingDesignSessionSchema.nullable(),
   imagingDesignHistory: z.array(z.object({
+    inputId: z.string(), resultId: z.string(), resultDigest: z.string(), decisionRecordIds: z.array(z.string()), invalidatedReason: z.string(),
+  }).strict()),
+  projectConstruction: researchProjectConstructionSessionSchema.nullable(),
+  projectConstructionHistory: z.array(z.object({
     inputId: z.string(), resultId: z.string(), resultDigest: z.string(), decisionRecordIds: z.array(z.string()), invalidatedReason: z.string(),
   }).strict()),
 }).passthrough();
@@ -45,12 +51,14 @@ export const createProtocolDesignerSession = (now = new Date().toISOString()): P
   scientificContext: {
     routeIntent: null, routeConfidence: "UNKNOWN", routeReasons: [], centralScientificObject: "",
     preservedScientificTerms: [], detectedRelationships: [], workingHypotheses: [], missingInformation: [],
-    contextVersion: 0, transitions: [], currentProjectStage: 1,
+    contextVersion: 0, transitions: [], currentProjectStage: 1, activeDesignSurface: "IMAGING",
   },
   scientificThinking: null,
   scientificThinkingHistory: [],
   imagingDesign: null,
   imagingDesignHistory: [],
+  projectConstruction: null,
+  projectConstructionHistory: [],
 });
 
 export const buildValidatedIntent = (
@@ -86,6 +94,15 @@ export const invalidateDownstream = (session: ProtocolDesignerSession, reason: s
     invalidatedReason: reason,
   }] : session.imagingDesignHistory,
   imagingDesign: null,
+  projectConstructionHistory: session.projectConstruction ? [...session.projectConstructionHistory, {
+    inputId: session.projectConstruction.input.inputId,
+    resultId: session.projectConstruction.result.resultId,
+    resultDigest: session.projectConstruction.result.resultDigest,
+    decisionRecordIds: session.projectConstruction.decisionHistory.map((item) => item.decisionId),
+    invalidatedReason: reason,
+  }] : session.projectConstructionHistory,
+  projectConstruction: null,
+  scientificContext: { ...session.scientificContext, activeDesignSurface: "IMAGING" },
   invalidatedDownstream: [...session.invalidatedDownstream, reason],
 });
 
