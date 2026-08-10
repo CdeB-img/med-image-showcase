@@ -1,0 +1,12 @@
+{
+  "auditVersion": "1.0.0",
+  "catalogDigest": "doc2-badbdb3301dcc35f",
+  "findings": [],
+  "counts": {
+    "ERROR": 0,
+    "WARNING": 0,
+    "INFORMATION": 0
+  },
+  "passed": true,
+  "boundary": "DETECTION_ONLY_NO_AUTOMATIC_FIX"
+}

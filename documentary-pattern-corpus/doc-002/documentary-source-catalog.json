@@ -1,0 +1,398 @@
+[
+  {
+    "sourceId": "SRC-DOC000A-CANDIDATES",
+    "corpusId": "DOC-000A",
+    "artifactPath": "_audit/10-reusable-knowledge-candidates.csv",
+    "artifactVersion": "1.0",
+    "artifactDigest": "9945fcf35a6fc4d297b21669ed4f2d4b0ee63d161d84cc8fe960de820f641a0b",
+    "sourceKind": "DERIVED_AUDIT",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-DOC000A-LIFECYCLE",
+    "corpusId": "DOC-000A",
+    "artifactPath": "_audit/11-study-lifecycle-map.md",
+    "artifactVersion": "1.0",
+    "artifactDigest": "147b6f1264cb9f27e87795e04e45f7ff56dd233f68b283d374b77df984f9f058",
+    "sourceKind": "DERIVED_AUDIT",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-DOC000A-REPORT",
+    "corpusId": "DOC-000A",
+    "artifactPath": "_audit/13-document-corpus-audit-report.md",
+    "artifactVersion": "1.0",
+    "artifactDigest": "09c8c09690765a84999e62e5a40445f35ea36ca4ac9ae85a67b4708ed0f85ee4",
+    "sourceKind": "DERIVED_AUDIT",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-DOC000B-PATTERNS",
+    "corpusId": "DOC-000B",
+    "artifactPath": "_intelligence/_document-patterns.md",
+    "artifactVersion": "1.0",
+    "artifactDigest": "dfc1c30fbbdfa5bfef9e393f0c48d7e64510494d77fda4e9060c4271a0d3d915",
+    "sourceKind": "DERIVED_INTELLIGENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-DOC000B-R1-TRACKING",
+    "corpusId": "DOC-000B-R1",
+    "artifactPath": "_audit/doc-000b-r1-study-tracking.md",
+    "artifactVersion": "1.0",
+    "artifactDigest": "43751498e5ba3cb2f79fe538a0540c535c7bb5bbc3e5038251706424004e438d",
+    "sourceKind": "DERIVED_INTELLIGENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-DOC000B-R1-VALIDATION",
+    "corpusId": "DOC-000B-R1",
+    "artifactPath": "_audit/doc-000b-r1-computerized-systems-validation.md",
+    "artifactVersion": "1.0",
+    "artifactDigest": "3bc0e4dadfa89e985cdffa143630b9e32e5658d8535b123ceba0556e7b34b80a",
+    "sourceKind": "DERIVED_INTELLIGENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-DOC000B-STRUCTURES",
+    "corpusId": "DOC-000B",
+    "artifactPath": "_intelligence/_document-reusable-structures.md",
+    "artifactVersion": "1.0",
+    "artifactDigest": "afcfcd91ee917250230cb407aaaaa323570b61970f19a66c8ba8c8733c79258e",
+    "sourceKind": "DERIVED_INTELLIGENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-DOC000B-VARIANTS",
+    "corpusId": "DOC-000B",
+    "artifactPath": "_intelligence/_document-variants.md",
+    "artifactVersion": "1.0",
+    "artifactDigest": "368a7f9387de5257ff8406f6e5c9b9b54aef08fb8af0499158f053245591ecfc",
+    "sourceKind": "DERIVED_INTELLIGENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-DOC000C-CLOSURE",
+    "corpusId": "DOC-000C",
+    "artifactPath": "_audit/doc-000c-documentary-closure-review.md",
+    "artifactVersion": "1.0",
+    "artifactDigest": "119eae618414b82acbc40e046d3fbea148a0a2107609d1a8c93fec34677c9bcd",
+    "sourceKind": "DERIVED_AUDIT",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-DOC000C-STATUS",
+    "corpusId": "DOC-000C",
+    "artifactPath": "_audit/doc-000c-final-corpus-status.md",
+    "artifactVersion": "1.0",
+    "artifactDigest": "d282e66f25ca182fb17df34669019e8dc00792137e284ec7934e88aa4db3330f",
+    "sourceKind": "DERIVED_AUDIT",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-DOC000D-FDA",
+    "corpusId": "DOC-000D",
+    "artifactPath": "_audit/corelab-fda-comparison.md",
+    "artifactVersion": "1.1",
+    "artifactDigest": "b9defabb35c07cac70c8a9cde82267ab41ca71d1078de7e8c39b26b5e6c7e97b",
+    "sourceKind": "EXTERNAL_COMPARISON",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-DOC000D-PATTERNS",
+    "corpusId": "DOC-000D",
+    "artifactPath": "_audit/corelab-patterns.json",
+    "artifactVersion": "1.1",
+    "artifactDigest": "e4ebf74248d1f9aa3d03f61475d6ec0fbec0c412ad582bdfdbb2be1fbf80e327",
+    "sourceKind": "DERIVED_OPERATIONAL_CORPUS",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-DOC000D-REPORT",
+    "corpusId": "DOC-000D",
+    "artifactPath": "_audit/doc-000d-corelab-operational-corpus-report.md",
+    "artifactVersion": "1.1",
+    "artifactDigest": "06992291afd88488ac30df7b7741b9a4829afa6755b73b7597b8ed9bdcea8fea",
+    "sourceKind": "DERIVED_OPERATIONAL_CORPUS",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-DOC000D-WORKFLOWS",
+    "corpusId": "DOC-000D",
+    "artifactPath": "_audit/corelab-workflows.json",
+    "artifactVersion": "1.1",
+    "artifactDigest": "af7413deb9086f0616798bb1a56e8bbd1c156608ca3878462d044287f8e6961c",
+    "sourceKind": "DERIVED_OPERATIONAL_CORPUS",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-05593A006A03",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_audit/audit-completion.json",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "10ca10e56dae560fa30483d718a3fc42999e0a97220dcdc32e8d96c9bb54cfa0",
+    "sourceKind": "DERIVED_AUDIT",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-0B2DA3694489",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_audit/12-future-engine-knowledge-map.md",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "55be91c71becd9c0c1b408359419f7ce8beb32624765adcd23ee92bde501c546",
+    "sourceKind": "DERIVED_AUDIT",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-116E01C7F182",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_audit/doc-000b-r1-fair-data-governance.md",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "f86c5b1d7b15b1e3bac5bdb0e980e857dd398fec6b9356794a2cbba09e669814",
+    "sourceKind": "DERIVED_AUDIT",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-12183F0B522F",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_audit/corelab-document-map.csv",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "02e23c3ef5c4e671623f3adef18c78cfd77999e21d160556e10b862ffc711fdd",
+    "sourceKind": "DERIVED_AUDIT",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-1247E3371EE2",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_audit/09-document-engine-ownership-map.csv",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "92bda614f289074295e2d3b0f0d00e14effa6f5c46f573e8e3a15eb549b3c848",
+    "sourceKind": "DERIVED_AUDIT",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-1684D9D818D3",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_intelligence/_document-engine-map.csv",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "65c33ca368d55379e888af2fd61bfdb0086379b3df2a5d91f25aa51f5d71cb56",
+    "sourceKind": "DERIVED_INTELLIGENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-1A29890B0E1C",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_audit/04-duplicate-groups.csv",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "01d521a37ea7a2b1f210e5d95f1b2a4bb2afc8aec02fe183675e47eee9519148",
+    "sourceKind": "DERIVED_AUDIT",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-2E5FE66B9449",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_audit/doc-000b-r1-conversion-candidates.csv",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "478ece00e2e15ac619898066f93080645b8372375d546fd7746cb97354acf890",
+    "sourceKind": "DERIVED_AUDIT",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-2F94B6EEFB4A",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_audit/corelab-equipment-map.csv",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "061bb2fab300e9b18e64af249801692c7ad5ee0e7de366536340ab57f081a213",
+    "sourceKind": "DERIVED_AUDIT",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-4A2712F451EC",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_intelligence/_document-knowledge-model.md",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "51e370a478d28778abf34b8dce62d63569904cbe8979cd67bf0306202ecf10e6",
+    "sourceKind": "DERIVED_INTELLIGENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-5EE007C25148",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_intelligence/_document-sections.md",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "b8117f4b89fa0ba1bc818d4683c0125350633e23e70f520bc038cc4eb2019cb4",
+    "sourceKind": "DERIVED_INTELLIGENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-6DA7942B9710",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_intelligence/_document-projection-model.md",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "93b1fdc272cc837612d7a495efd33a652d05ecdd32aac0392998ee8b1b355d2f",
+    "sourceKind": "DERIVED_INTELLIGENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-72E944BFC521",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_audit/doc-000c-documents-to-keep.csv",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "2b2d8bddb493ce8cf5a6916c7fb537b0a5cbd6f14a8d1b19440fdd6386a22ef9",
+    "sourceKind": "DERIVED_AUDIT",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-738EDEACF0AC",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_intelligence/_document-field-map.csv",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "6f28d8b12f8c541a3fe7e9ae229af68a6ea5279598eca99da91a0c7017f72f9a",
+    "sourceKind": "DERIVED_INTELLIGENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-7D68E3CDC54F",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_audit/02-path-mapping.csv",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "928bcd0c4bca125b3de64e1ef45209e29d427a35d06b7ea0169a96930e489811",
+    "sourceKind": "DERIVED_AUDIT",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-8505BBB537B3",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_audit/03-deletion-log.csv",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "270cf47efb86e81f087af5946244e9733899e0e92cd6c33cec515754e1eb595a",
+    "sourceKind": "DERIVED_AUDIT",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-90AB9ACFA305",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_audit/14-unresolved-items.md",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "f40c181e218f98b375b5fc482ced047393ea2a87c6b9f11018f70949b399f7ee",
+    "sourceKind": "DERIVED_AUDIT",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-9AEE0E38BC41",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_audit/15-recommended-next-corpus.md",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "0cb39dcf3d053baa1c57eb16be117239aba22ee531ac0d99f50cf66157e14a32",
+    "sourceKind": "DERIVED_AUDIT",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-A0D037380CB2",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_audit/doc-000b-r1-extracted-archives-integration.md",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "274dfbfdce593662afec547e133621b81ac2617d329086ab4fe8a885297760b3",
+    "sourceKind": "DERIVED_AUDIT",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-A7993FCE654A",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_audit/08-document-relationships.csv",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "2236f0bc7e39b10d5a8879b8075c9d5ec9fc9448d28fa6473965be49e75414a7",
+    "sourceKind": "DERIVED_AUDIT",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-B51C4B1175B0",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_audit/01-cleanup-log.csv",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "c94fdb7497e1cea044337cb44a4d27424e10517552c63544d7bc07fe524f0028",
+    "sourceKind": "DERIVED_AUDIT",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-B85B533F62AA",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_audit/doc-000c-priority-matrix.csv",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "6c70120dcebff74553d8cbce9c20430cc91e0a0e4201ec0e2b354f9578a38f30",
+    "sourceKind": "DERIVED_AUDIT",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-C2A679E74CF8",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_intelligence/_document-dependencies.md",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "23a05178a5e96f8b44f45593bb88cd86d461367d528fa74444d057631c7481a1",
+    "sourceKind": "DERIVED_INTELLIGENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-C8D5810F4992",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_intelligence/_document-human-decisions.md",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "2c91d6cd22ad0bb8c82b043e5d11c18b8354663e3a7ada8bed3a541df5e034fc",
+    "sourceKind": "DERIVED_INTELLIGENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-D6A8063A78B6",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_audit/doc-000c-documents-to-ignore.csv",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "6a3884361e151ffe85dc400c739a87bd2a933a376d7df8a191559863508c55ab",
+    "sourceKind": "DERIVED_AUDIT",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-E211E764695D",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_audit/corelab-pattern-map.csv",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "073d083185dba9977fec30284add0e18818353a9c1cd9ada21ce1caeead0eb79",
+    "sourceKind": "DERIVED_AUDIT",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-F092C9001385",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_audit/corelab-taxonomy.csv",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "6bfab6a3bff393c74a9607961c067b546b5758e3867531d1d72a94cab946d0d1",
+    "sourceKind": "DERIVED_AUDIT",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-F60EA88A65D2",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_audit/07-document-classification.csv",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "0a27af4462927c203c71a52c5dd2aedad3be26d4eff90eb1f7f975119f0bb0f5",
+    "sourceKind": "DERIVED_AUDIT",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-F7C9C4751E28",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_audit/06-document-inventory.csv",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "439d4e39bc7d50aff3351167186f69952d5ae5ce09b40082fd8bd94ac17e9522",
+    "sourceKind": "DERIVED_AUDIT",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "sourceId": "SRC-INTEGRITY-F88792A5E192",
+    "corpusId": "DOC-000-DERIVED-INTEGRITY",
+    "artifactPath": "_audit/05-version-families.csv",
+    "artifactVersion": "2026-08-10-snapshot",
+    "artifactDigest": "6c3332aca2ae470adea605ec65e4ad7b712aa4205412f1dea9837f49e865071d",
+    "sourceKind": "DERIVED_AUDIT",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY"
+  }
+]

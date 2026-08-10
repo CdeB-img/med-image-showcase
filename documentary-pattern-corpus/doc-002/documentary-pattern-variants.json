@@ -1,0 +1,694 @@
+[
+  {
+    "patternId": "DKP-005C1C1BF536",
+    "variantId": "DKV-PROTOCOL-OBSERVED",
+    "name": "Structure observée",
+    "description": "Sections réellement observées, sans promotion normative.",
+    "applicability": "Contexte source démontré",
+    "kind": "OBSERVED_VARIANT",
+    "evidenceIds": [
+      "DKE-DOC000B-PROTOCOL-STRUCTURE"
+    ],
+    "limitations": [
+      "Ne prouve ni complétude ni actualité."
+    ]
+  },
+  {
+    "patternId": "DKP-005C1C1BF536",
+    "variantId": "DKV-PROTOCOL-UNRESOLVED",
+    "name": "Bloc conditionnel",
+    "description": "Bloc dont l’applicabilité dépend d’une dimension de projet non résolue.",
+    "applicability": "Décision explicite de l’owner requise",
+    "kind": "UNRESOLVED_VARIANT",
+    "evidenceIds": [
+      "DKE-DOC000B-PROTOCOL-VARIANTS"
+    ],
+    "limitations": [
+      "Aucune sélection automatique."
+    ]
+  },
+  {
+    "patternId": "DKP-070D8E33DEB5",
+    "variantId": "DKV-CLP-034",
+    "name": "Variante locale observée",
+    "description": "Acquisition documentaire de sources d'imagerie",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-034"
+    ],
+    "limitations": [
+      "L'archive conserve les octets sources et peut contenir des identifiants internes; elle n'est pas un corpus produit",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-079528499A54",
+    "variantId": "DKV-CLP-008",
+    "name": "Variante locale observée",
+    "description": "Protocole d'imagerie approuvé",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-008"
+    ],
+    "limitations": [
+      "Seule la structure de contrôle est réutilisable",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-08146AFAFF99",
+    "variantId": "DKV-CLP-023",
+    "name": "Variante locale observée",
+    "description": "Écart détecté",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-023"
+    ],
+    "limitations": [
+      "Les formulaires locaux nécessitent des champs additionnels",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-0962C34542FA",
+    "variantId": "DKV-CLP-012",
+    "name": "Variante locale observée",
+    "description": "Question d'étude et biais identifiés",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-012"
+    ],
+    "limitations": [
+      "Aucune implémentation de randomisation fournie",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-16C56F376B3F",
+    "variantId": "DKV-CLP-030",
+    "name": "Variante locale observée",
+    "description": "Qualification initiale ou changement",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-030"
+    ],
+    "limitations": [
+      "Les références la source locale sont historiques, la plateforme observée-spécifiques et non testées aujourd'hui",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-2DBB65C675A5",
+    "variantId": "DKV-CLP-003",
+    "name": "Variante locale observée",
+    "description": "Calendrier d'étude adopté",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-003"
+    ],
+    "limitations": [
+      "Les valeurs locales observées ne sont pas réutilisées",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-3E40594432AF",
+    "variantId": "DKV-CLP-027",
+    "name": "Variante locale observée",
+    "description": "Procédure approuvée",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-027"
+    ],
+    "limitations": [
+      "Versions historiques et validation non démontrée",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-4157CBB5FD14",
+    "variantId": "DKV-CLP-007",
+    "name": "Variante locale observée",
+    "description": "Examen annoncé et manifeste attendu",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-007"
+    ],
+    "limitations": [
+      "Algorithme de checksum non imposé",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-4EE259F40461",
+    "variantId": "DKV-CLP-031",
+    "name": "Variante locale observée",
+    "description": "Ouverture ou réouverture d'un site d'imagerie",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-031"
+    ],
+    "limitations": [
+      "Le corpus fournit une trame historique, pas un dossier d'activation complet",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-543B2D7FC04B",
+    "variantId": "DKV-CLP-015",
+    "name": "Variante locale observée",
+    "description": "Plusieurs lectures ou désaccord détecté",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-015"
+    ],
+    "limitations": [
+      "Adjudication absente des procédures locales observées; pattern gap-driven",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-546AE98D76C1",
+    "variantId": "DKV-CLP-029",
+    "name": "Variante locale observée",
+    "description": "Réception d'un examen ou lot d'imagerie",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-029"
+    ],
+    "limitations": [
+      "Le tutoriel nominatif source reste restreint; seule la structure est retenue",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-5954C8B43537",
+    "variantId": "DKV-CLP-021",
+    "name": "Variante locale observée",
+    "description": "Site candidat",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-021"
+    ],
+    "limitations": [
+      "Aucun dossier de qualification complet observé",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-59CD377DCBD8",
+    "variantId": "DKV-CLP-001",
+    "name": "Variante locale observée",
+    "description": "Projet et site qualifiés",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-001"
+    ],
+    "limitations": [
+      "Aucune plage de paramètres n'est promue par DOC-000D",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-5B4FE8E5D88F",
+    "variantId": "DKV-CLP-004",
+    "name": "Variante locale observée",
+    "description": "Dépendance temporelle identifiée",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-004"
+    ],
+    "limitations": [
+      "Technique de transformation non spécifiée ici",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-5F41BA34FF7F",
+    "variantId": "DKV-CLP-016",
+    "name": "Variante locale observée",
+    "description": "Canal autorisé",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-016"
+    ],
+    "limitations": [
+      "Le corpus local ne démontre pas chiffrement, IAM ou validation",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-644F8B272EA9",
+    "variantId": "DKV-CLP-002",
+    "name": "Variante locale observée",
+    "description": "Modalité et objectif connus",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-002"
+    ],
+    "limitations": [
+      "Exemples cardiaques uniquement locaux",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-6592CE98DB94",
+    "variantId": "DKV-CLP-033",
+    "name": "Variante locale observée",
+    "description": "CRF d'imagerie et export de post-traitement",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-033"
+    ],
+    "limitations": [
+      "L'exemple chiffré source reste dans l'archive restreinte",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-693E7BC412DE",
+    "variantId": "DKV-CLP-018",
+    "name": "Variante locale observée",
+    "description": "Équipement inventorié",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-018"
+    ],
+    "limitations": [
+      "Le corpus n'apporte pas de méthode métrologique validée",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-6E93AD68A472",
+    "variantId": "DKV-CLP-028",
+    "name": "Variante locale observée",
+    "description": "Échec observé",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-028"
+    ],
+    "limitations": [
+      "Les solutions historiques ne sont pas recommandées",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-9E9611C8A7BB",
+    "variantId": "DKV-CLP-009",
+    "name": "Variante locale observée",
+    "description": "QC disponible",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-009"
+    ],
+    "limitations": [
+      "Catégories exactes à définir au projet",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-A7227C6A8CA7",
+    "variantId": "DKV-CLP-013",
+    "name": "Variante locale observée",
+    "description": "Méthode de lecture définie",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-013"
+    ],
+    "limitations": [
+      "Seule la structure est extraite",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-BB38755CB6DD",
+    "variantId": "DKV-CLP-011",
+    "name": "Variante locale observée",
+    "description": "Images reçues",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-011"
+    ],
+    "limitations": [
+      "Le verrouillage n'est pas démontré dans les outils locaux",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-BB4C893DAB13",
+    "variantId": "DKV-CLP-032",
+    "name": "Variante locale observée",
+    "description": "QC initial, monitoring et dérive de site",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-032"
+    ],
+    "limitations": [
+      "La source illustrée reste restreinte; seule l'architecture de boucle est retenue",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-BC5BD38DCCC4",
+    "variantId": "DKV-09074DAB0511",
+    "name": "Imagerie/Core Lab",
+    "description": "modalité, équipement, QA, transfert, lecture, adjudication",
+    "applicability": "Qualification par Imaging, Data, Operations, humain",
+    "kind": "UNRESOLVED_VARIANT",
+    "evidenceIds": [
+      "DKE-DOC000B-VARIANT-DIMENSIONS"
+    ],
+    "limitations": [
+      "créer des paramètres constructeur exécutables"
+    ]
+  },
+  {
+    "patternId": "DKP-BC5BD38DCCC4",
+    "variantId": "DKV-174E3292647B",
+    "name": "Domaine clinique",
+    "description": "variables, mesures, risques, procédures, résultats",
+    "applicability": "Qualification par Knowledge, Study Design, moteurs de domaine, humain",
+    "kind": "UNRESOLVED_VARIANT",
+    "evidenceIds": [
+      "DKE-DOC000B-VARIANT-DIMENSIONS"
+    ],
+    "limitations": [
+      "inventer une connaissance de domaine"
+    ]
+  },
+  {
+    "patternId": "DKP-BC5BD38DCCC4",
+    "variantId": "DKV-5CB25AFF6B60",
+    "name": "Pays/juridiction",
+    "description": "consent, privacy, CPP/ANSM ou équivalents, langues, conservation",
+    "applicability": "Qualification par Regulatory et humain",
+    "kind": "UNRESOLVED_VARIANT",
+    "evidenceIds": [
+      "DKE-DOC000B-VARIANT-DIMENSIONS"
+    ],
+    "limitations": [
+      "réutiliser une archive comme droit actuel"
+    ]
+  },
+  {
+    "patternId": "DKP-BC5BD38DCCC4",
+    "variantId": "DKV-5E9250815E51",
+    "name": "Type d'étude",
+    "description": "design, consent, safety, statistiques, pièces réglementaires",
+    "applicability": "Qualification par Study Design, Safety, Regulatory, Biostatistics, humain",
+    "kind": "UNRESOLVED_VARIANT",
+    "evidenceIds": [
+      "DKE-DOC000B-VARIANT-DIMENSIONS"
+    ],
+    "limitations": [
+      "déduire le type depuis un seul document"
+    ]
+  },
+  {
+    "patternId": "DKP-BC5BD38DCCC4",
+    "variantId": "DKV-64BBEBB70508",
+    "name": "Externalisation",
+    "description": "Data, statistics, Core Lab, monitoring, laboratory, pharmacy",
+    "applicability": "Qualification par owner de domaine, Economics, Operations, humain",
+    "kind": "UNRESOLVED_VARIANT",
+    "evidenceIds": [
+      "DKE-DOC000B-VARIANT-DIMENSIONS"
+    ],
+    "limitations": [
+      "attribuer implicitement la responsabilité"
+    ]
+  },
+  {
+    "patternId": "DKP-BC5BD38DCCC4",
+    "variantId": "DKV-66E514F042B2",
+    "name": "Population",
+    "description": "adulte/mineur/capacité, vulnérabilité, langue, consent pathway",
+    "applicability": "Qualification par Study Design, Safety, Regulatory, humain",
+    "kind": "UNRESOLVED_VARIANT",
+    "evidenceIds": [
+      "DKE-DOC000B-VARIANT-DIMENSIONS"
+    ],
+    "limitations": [
+      "utiliser une notice générique"
+    ]
+  },
+  {
+    "patternId": "DKP-BC5BD38DCCC4",
+    "variantId": "DKV-B084ECC6DEE6",
+    "name": "Centre/site",
+    "description": "faisabilité, équipements, équipe, pharmacy/lab, monitoring, budget",
+    "applicability": "Qualification par Clinical Operations, Imaging, Economics, humain",
+    "kind": "UNRESOLVED_VARIANT",
+    "evidenceIds": [
+      "DKE-DOC000B-VARIANT-DIMENSIONS"
+    ],
+    "limitations": [
+      "généraliser la capacité d'un site"
+    ]
+  },
+  {
+    "patternId": "DKP-BC5BD38DCCC4",
+    "variantId": "DKV-C8DB0005B8C6",
+    "name": "Stade du projet",
+    "description": "conception, protocol, activation, conduite, lock, résultats, archive",
+    "applicability": "Qualification par Research Project, Operations, humain",
+    "kind": "UNRESOLVED_VARIANT",
+    "evidenceIds": [
+      "DKE-DOC000B-VARIANT-DIMENSIONS"
+    ],
+    "limitations": [
+      "afficher un contenu futur comme réalisé"
+    ]
+  },
+  {
+    "patternId": "DKP-BC5BD38DCCC4",
+    "variantId": "DKV-D6BE9CFB27A9",
+    "name": "Contexte de soumission",
+    "description": "initial, amendement, réponse, renouvellement, clôture",
+    "applicability": "Qualification par Regulatory, Document Engine, humain",
+    "kind": "UNRESOLVED_VARIANT",
+    "evidenceIds": [
+      "DKE-DOC000B-VARIANT-DIMENSIONS"
+    ],
+    "limitations": [
+      "confondre complétude et approbation"
+    ]
+  },
+  {
+    "patternId": "DKP-BC5BD38DCCC4",
+    "variantId": "DKV-E6747D8AE807",
+    "name": "Sponsor/promoteur/CRO",
+    "description": "identité, rôles, circuits d'approbation, templates, coûts, TMF",
+    "applicability": "Qualification par Research Project, Operations, Regulatory, Economics, humain",
+    "kind": "UNRESOLVED_VARIANT",
+    "evidenceIds": [
+      "DKE-DOC000B-VARIANT-DIMENSIONS"
+    ],
+    "limitations": [
+      "traiter une pratique sponsor comme universelle"
+    ]
+  },
+  {
+    "patternId": "DKP-BC5BD38DCCC4",
+    "variantId": "DKV-F432E7CB773A",
+    "name": "Données/système",
+    "description": "papier/eCRF, EDC, transferts, codelists, audit trail, lock",
+    "applicability": "Qualification par Data Management, Regulatory, humain",
+    "kind": "UNRESOLVED_VARIANT",
+    "evidenceIds": [
+      "DKE-DOC000B-VARIANT-DIMENSIONS"
+    ],
+    "limitations": [
+      "supposer l'EDC/CTMS/PACS"
+    ]
+  },
+  {
+    "patternId": "DKP-BF350009D500",
+    "variantId": "DKV-CLP-017",
+    "name": "Variante locale observée",
+    "description": "Usage, risque et juridiction qualifiés",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-017"
+    ],
+    "limitations": [
+      "Les listes de tags locales sont historiques et insuffisantes comme standard",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-C4B9CE7B526B",
+    "variantId": "DKV-CLP-005",
+    "name": "Variante locale observée",
+    "description": "Objectif de mesure défini",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-005"
+    ],
+    "limitations": [
+      "Les critères exacts restent au projet",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-D29430919432",
+    "variantId": "DKV-CLP-025",
+    "name": "Variante locale observée",
+    "description": "Rôle de l'imagerie décidé",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-025"
+    ],
+    "limitations": [
+      "Structure candidate seulement",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-D29A6FD414F8",
+    "variantId": "DKV-CLP-022",
+    "name": "Variante locale observée",
+    "description": "Étude active",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-022"
+    ],
+    "limitations": [
+      "Le plan local n'est pas démontré comme appliqué",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-D934B8AA192F",
+    "variantId": "DKV-CLP-019",
+    "name": "Variante locale observée",
+    "description": "Site identifié",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-019"
+    ],
+    "limitations": [
+      "Équipement observé ancien et incomplet",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-DC7B0E8C6D8C",
+    "variantId": "DKV-CLP-020",
+    "name": "Variante locale observée",
+    "description": "Exigence d'acquisition/lecture définie",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-020"
+    ],
+    "limitations": [
+      "Aucune matrice de compatibilité complète dans le corpus",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-EADDC91BABD8",
+    "variantId": "DKV-CLP-006",
+    "name": "Variante locale observée",
+    "description": "Mesure et plateforme qualifiées",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-006"
+    ],
+    "limitations": [
+      "Corpus insuffisant pour établir des équivalences",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-F9B69C5ABEF6",
+    "variantId": "DKV-CLP-010",
+    "name": "Variante locale observée",
+    "description": "Artefact observé",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-010"
+    ],
+    "limitations": [
+      "Causes locales seulement candidates",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-FA4A7ED68CB7",
+    "variantId": "DKV-CLP-014",
+    "name": "Variante locale observée",
+    "description": "Lecteurs identifiés",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-014"
+    ],
+    "limitations": [
+      "Seuils de performance non établis",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-FC7E687B13AF",
+    "variantId": "DKV-CLP-026",
+    "name": "Variante locale observée",
+    "description": "Workflow et variables décidés",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-026"
+    ],
+    "limitations": [
+      "Variables exactes restent projet-spécifiques",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-FD29840F7616",
+    "variantId": "DKV-CLP-024",
+    "name": "Variante locale observée",
+    "description": "Mandat potentiel identifié",
+    "applicability": "Sélection explicite selon le projet, le site et la modalité; aucun héritage silencieux.",
+    "kind": "LOCAL_VARIANT",
+    "evidenceIds": [
+      "DKE-CLP-024"
+    ],
+    "limitations": [
+      "L'état implémenté reste NOT_IMPLEMENTED",
+      "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  }
+]

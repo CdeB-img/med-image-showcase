@@ -1,0 +1,152 @@
+[
+  {
+    "category": "Document Structure",
+    "description": "Composition et contrôle documentaire sans propriété du sens.",
+    "status": "SUPPORTED_CATEGORY",
+    "boundary": "CLASSIFICATION_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "category": "Editorial",
+    "description": "Forme éditoriale sans création de faits.",
+    "status": "SUPPORTED_CATEGORY",
+    "boundary": "CLASSIFICATION_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "category": "Workflow",
+    "description": "Enchaînement de travail candidat et contextualisé.",
+    "status": "SUPPORTED_CATEGORY",
+    "boundary": "CLASSIFICATION_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "category": "Decision",
+    "description": "Point de choix sans décision automatique.",
+    "status": "SUPPORTED_CATEGORY",
+    "boundary": "CLASSIFICATION_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "category": "Review",
+    "description": "Revue humaine ou spécialisée.",
+    "status": "SUPPORTED_CATEGORY",
+    "boundary": "CLASSIFICATION_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "category": "Validation",
+    "description": "Preuves, tests et acceptation sans validation implicite.",
+    "status": "SUPPORTED_CATEGORY",
+    "boundary": "CLASSIFICATION_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "category": "Quality",
+    "description": "Contrôle, finding, action et clôture humaine.",
+    "status": "SUPPORTED_CATEGORY",
+    "boundary": "CLASSIFICATION_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "category": "CoreLab",
+    "description": "Organisation opérationnelle de Core Lab candidate.",
+    "status": "SUPPORTED_CATEGORY",
+    "boundary": "CLASSIFICATION_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "category": "Acquisition",
+    "description": "Comportements d’acquisition sans paramètres exécutables.",
+    "status": "SUPPORTED_CATEGORY",
+    "boundary": "CLASSIFICATION_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "category": "Imaging",
+    "description": "Pratiques documentaires d’imagerie.",
+    "status": "SUPPORTED_CATEGORY",
+    "boundary": "CLASSIFICATION_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "category": "Data",
+    "description": "Structures de données, transfert, traçabilité et gouvernance.",
+    "status": "SUPPORTED_CATEGORY",
+    "boundary": "CLASSIFICATION_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "category": "Monitoring",
+    "description": "Suivi, jalons, écarts et escalade.",
+    "status": "SUPPORTED_CATEGORY",
+    "boundary": "CLASSIFICATION_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "category": "Regulatory Interaction",
+    "description": "Interaction documentaire avec une référence externe, sans règle réglementaire.",
+    "status": "SUPPORTED_CATEGORY",
+    "boundary": "CLASSIFICATION_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "category": "Funding",
+    "description": "Structures de ressources et coûts sans montant historique.",
+    "status": "SUPPORTED_CATEGORY",
+    "boundary": "CLASSIFICATION_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "category": "Deviation",
+    "description": "Observation, impact, action, acceptation et clôture.",
+    "status": "SUPPORTED_CATEGORY",
+    "boundary": "CLASSIFICATION_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "category": "Training",
+    "description": "Formation versionnée et traçable.",
+    "status": "SUPPORTED_CATEGORY",
+    "boundary": "CLASSIFICATION_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "category": "Operational",
+    "description": "Pratique de conduite opérationnelle.",
+    "status": "SUPPORTED_CATEGORY",
+    "boundary": "CLASSIFICATION_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "category": "Project",
+    "description": "Cadrage et suivi de projet.",
+    "status": "SUPPORTED_CATEGORY",
+    "boundary": "CLASSIFICATION_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "category": "Communication",
+    "description": "Événement ou circuit de communication.",
+    "status": "SUPPORTED_CATEGORY",
+    "boundary": "CLASSIFICATION_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "category": "Risk",
+    "description": "Risque, contrôle, owner et statut sans score implicite.",
+    "status": "SUPPORTED_CATEGORY",
+    "boundary": "CLASSIFICATION_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "category": "Software",
+    "description": "Pratique liée à un système informatisé sans produit recommandé.",
+    "status": "SUPPORTED_CATEGORY",
+    "boundary": "CLASSIFICATION_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "category": "Equipment",
+    "description": "Profil et capacité d’équipement sans compatibilité déduite.",
+    "status": "SUPPORTED_CATEGORY",
+    "boundary": "CLASSIFICATION_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "category": "Troubleshooting",
+    "description": "Incident, reprise, vérification et escalade.",
+    "status": "SUPPORTED_CATEGORY",
+    "boundary": "CLASSIFICATION_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "category": "Human Decision",
+    "description": "Décision, mandat, justification et impact attribuables.",
+    "status": "SUPPORTED_CATEGORY",
+    "boundary": "CLASSIFICATION_ONLY_NOT_AUTHORITY"
+  },
+  {
+    "category": "Unknown",
+    "description": "Catégorie non résolue conservée explicitement.",
+    "status": "SUPPORTED_CATEGORY",
+    "boundary": "CLASSIFICATION_ONLY_NOT_AUTHORITY"
+  }
+]
