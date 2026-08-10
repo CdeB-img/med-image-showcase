@@ -3,6 +3,8 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { deleteKnowledgeSnapshots, executeKnowledgeEngine, isPatientLevelExpression, type ContextDimensionName, type KnowledgeContextInput } from "@/features/knowledge-engine";
 import KnowledgeUnderstandView from "@/features/knowledge-engine/KnowledgeUnderstandView";
 import ImagingStudyDesignerView from "@/features/imaging-study-designer/ImagingStudyDesignerView";
+import DocumentProjectionView from "@/features/document-projection/DocumentProjectionView";
+import { projectDocument, type DocumentProjection } from "@/features/document-projection";
 import { buildImagingDesignInput, createImagingDesignSession } from "@/features/imaging-study-designer";
 import ResearchProjectConstructionView from "@/features/research-project-construction/ResearchProjectConstructionView";
 import { buildResearchProjectConstructionInput, createResearchProjectConstructionSession, questionRequiresImaging } from "@/features/research-project-construction";
@@ -60,6 +62,7 @@ const ROUTE_DESCRIPTIONS: Record<RoutingIntent, string> = {
   UNDERSTAND: "Éclairer un concept ou une relation sans construire automatiquement un projet.",
   FORMALIZE_IDEA: "Faire émerger une question et des hypothèses de travail, soumises à votre validation.",
   DESIGN_STUDY: "Construire progressivement un dossier de recherche, sans inventer les éléments absents.",
+  DOCUMENT: "Composer une projection documentaire depuis une version de projet gelée et explicitement autorisée.",
 };
 const BLOCK_LABELS: Record<AdaptiveQuestion["decisionBlock"], string> = {
   SCIENTIFIC_OBJECTIVE: "Bloc décisionnel — objectif scientifique",
@@ -156,6 +159,7 @@ export default function ProtocolDesignerDemo() {
   const [majorChange, setMajorChange] = useState<{ stage: "BEFORE_ANALYSIS" | "AFTER_INTERPRETATION"; affectedElements: string[] } | null>(null);
   const [decisionForm, setDecisionForm] = useState({ author: "", justification: "", reservations: "", outcome: "CONFIRM_ORIENTATION" as const });
   const [reportMode, setReportMode] = useState<"PROVISIONAL" | "FINAL">("PROVISIONAL");
+  const [documentProjections, setDocumentProjections] = useState<DocumentProjection[]>([]);
   const understandingHeadingRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => setCandidate(loadSessionCandidate(window.localStorage)), []);
@@ -170,7 +174,7 @@ export default function ProtocolDesignerDemo() {
   const allAdaptiveQuestions = useMemo(() => intent ? selectAdaptiveQuestions(intent, session.scenarioMatches.map((match) => match.scenarioId)) : [], [intent, session.scenarioMatches]);
   const routeIntent = session.scientificContext.routeIntent;
   const journeyQuestions = useMemo(() => routeIntent === "UNDERSTAND" ? allAdaptiveQuestions.filter((item) => ["Q-PHENOMENON", "Q-PURPOSE"].includes(item.questionId)) : routeIntent === "FORMALIZE_IDEA" ? allAdaptiveQuestions.filter((item) => ["Q-PHENOMENON", "Q-PURPOSE", "Q-CONTEXT"].includes(item.questionId)) : allAdaptiveQuestions, [allAdaptiveQuestions, routeIntent]);
-  const knowledgeResult = useMemo(() => intent && routeIntent ? executeKnowledgeEngine({
+  const knowledgeResult = useMemo(() => intent && routeIntent && routeIntent !== "DOCUMENT" ? executeKnowledgeEngine({
     originalQuestion: intent.originalQuestion,
     scientificObjectTerms: session.scientificContext.preservedScientificTerms.map((term, index) => ({ term, role: index === 0 ? "SUBJECT" as const : index === 1 ? "COMPARATOR" as const : "CONTEXT" as const })),
     relations: session.scientificContext.detectedRelationships,
@@ -214,6 +218,11 @@ export default function ProtocolDesignerDemo() {
     },
   ) : null, [intent, knowledgeResult, routeIntent, session.imagingDesign, session.projectConstruction?.input.projectId, session.projectConstruction?.input.strategyVersion, session.scientificContext.contextVersion, session.scientificThinking, session.sessionId]);
   const report = useMemo(() => generateContextualReport(session, allAdaptiveQuestions, reportMode), [session, allAdaptiveQuestions, reportMode]);
+  const currentDocumentProjection = useMemo(() => {
+    const project = session.projectConstruction?.result;
+    if (!project) return null;
+    return [...documentProjections].reverse().find((item) => item.projectionType === "PROTOCOL" && item.source.projectDigest === project.resultDigest && item.source.projectVersion === project.candidateVersion.versionId) ?? null;
+  }, [documentProjections, session.projectConstruction?.result]);
   const fieldGroups = useMemo(() => {
     if (!interpretation) return [];
     const visible = INTERPRETED_FIELD_KEYS.filter((key) => interpretation[key].origin !== "NOT_PROVIDED");
@@ -300,6 +309,26 @@ export default function ProtocolDesignerDemo() {
       };
     });
   }, [imagingDesignInput, projectConstructionInput]);
+
+  useEffect(() => {
+    const projectSession = session.projectConstruction;
+    if (routeIntent !== "DOCUMENT" || !projectSession || projectSession.result.documentHandoff.status !== "AUTHORIZED") return;
+    setDocumentProjections((current) => {
+      const prior = [...current].reverse().find((item) => item.projectionType === "PROTOCOL" && item.source.projectId === projectSession.result.documentHandoff.projectId) ?? null;
+      const result = projectDocument({
+        project: projectSession.result,
+        decisionRecords: projectSession.decisionHistory,
+        projectionType: "PROTOCOL",
+        profile: "RESEARCH_PROTOCOL",
+        usage: "SCIENTIFIC_REVIEW",
+        audience: "RESEARCH_TEAM",
+        requestedAt: session.updatedAt,
+        priorProjection: prior,
+      });
+      if (!result.ok || current.some((item) => item.projectionId === result.projection.projectionId)) return current;
+      return [...current, result.projection];
+    });
+  }, [routeIntent, session.projectConstruction, session.updatedAt]);
 
   const updateStep = (next: number) => setSession((current) => ({ ...current, currentStep: Math.max(0, Math.min(5, next)), updatedAt: new Date().toISOString() }));
   const applyQuestionChange = (value: string) => {
@@ -401,10 +430,11 @@ export default function ProtocolDesignerDemo() {
     };
   });
   const transitionJourney = (next: RoutingIntent, reason: string, moveToWorkspace = true) => setSession((current) => {
+    if (next === "DOCUMENT" && current.projectConstruction?.result.documentHandoff.status !== "AUTHORIZED") return current;
     const previous = current.scientificContext.routeIntent;
     const transitions = previous && previous !== next ? [...current.scientificContext.transitions, { from: previous, to: next, reason, changedAt: new Date().toISOString() }] : current.scientificContext.transitions;
     const nextSurface = next === "DESIGN_STUDY" && current.validatedIntent && !questionRequiresImaging(current.validatedIntent, current.scientificThinking) ? "PROJECT_CONSTRUCTION" as const : "IMAGING" as const;
-    return { ...current, currentStep: moveToWorkspace ? 3 : current.currentStep, scientificContext: { ...current.scientificContext, routeIntent: next, transitions, activeDesignSurface: next === "DESIGN_STUDY" ? nextSurface : current.scientificContext.activeDesignSurface, contextVersion: previous === next ? current.scientificContext.contextVersion : current.scientificContext.contextVersion + 1 }, updatedAt: new Date().toISOString() };
+    return { ...current, currentStep: moveToWorkspace ? 3 : current.currentStep, scientificContext: { ...current.scientificContext, routeIntent: next, transitions, activeDesignSurface: next === "DOCUMENT" ? "DOCUMENT_PROJECTION" : next === "DESIGN_STUDY" ? nextSurface : current.scientificContext.activeDesignSurface, contextVersion: previous === next ? current.scientificContext.contextVersion : current.scientificContext.contextVersion + 1 }, updatedAt: new Date().toISOString() };
   });
   const clarifyKnowledge = (dimension: ContextDimensionName, value: string | null) => {
     setKnowledgeContextOverrides((current) => ({ ...current, [dimension]: value }));
@@ -426,7 +456,7 @@ export default function ProtocolDesignerDemo() {
     setReportMode("FINAL");
   };
   const reset = () => {
-    deleteSession(window.localStorage); deleteKnowledgeSnapshots(window.localStorage); setCandidate(null); setSession(createProtocolDesignerSession()); setQuestion(""); setInterpretation(null); setReviews({}); setCorrections({}); setReformulation(""); setAmbiguityResolutions({}); setContradictionResolutions({}); setAnswerDrafts({}); setError(null); setBusy(false); setLocalFallbackAvailable(false); setPendingChangeKind("NONE"); setMajorChange(null); setKnowledgeOpen(false); setKnowledgeContextOverrides({}); setKnowledgeContextRevision(0);
+    deleteSession(window.localStorage); deleteKnowledgeSnapshots(window.localStorage); setCandidate(null); setSession(createProtocolDesignerSession()); setDocumentProjections([]); setQuestion(""); setInterpretation(null); setReviews({}); setCorrections({}); setReformulation(""); setAmbiguityResolutions({}); setContradictionResolutions({}); setAnswerDrafts({}); setError(null); setBusy(false); setLocalFallbackAvailable(false); setPendingChangeKind("NONE"); setMajorChange(null); setKnowledgeOpen(false); setKnowledgeContextOverrides({}); setKnowledgeContextRevision(0);
   };
   const copyReport = async () => navigator.clipboard?.writeText(reportToMarkdown(report));
   const downloadMarkdown = () => {
@@ -457,7 +487,16 @@ export default function ProtocolDesignerDemo() {
 
         {step === 2 && intent && <div><h1 className="text-4xl font-bold">Je vous propose un point de départ</h1><p className="mt-3 text-muted-foreground">L’intention de parcours et le corpus sont deux décisions distinctes. Vous pouvez corriger l’une sans perdre votre contexte.</p><Panel className="mt-6 border-primary/40"><div className="flex items-start gap-3"><Compass className="mt-1 h-6 w-6 text-primary" /><div><Tag tone="good">Proposition de parcours · confiance {session.scientificContext.routeConfidence.toLowerCase()}</Tag><h2 className="mt-3 text-2xl font-semibold">{routeIntent ? ROUTING_INTENT_LABELS[routeIntent] : "Intention à confirmer"}</h2><p className="mt-2 text-muted-foreground">{routeIntent ? ROUTE_DESCRIPTIONS[routeIntent] : "La demande reste trop ambiguë pour être orientée."}</p>{session.scientificContext.routeReasons.map((reason) => <p className="mt-2 text-sm" key={reason}>• {reason}</p>)}</div></div><div className="mt-5 flex flex-wrap gap-2">{(Object.keys(ROUTING_INTENT_LABELS) as RoutingIntent[]).map((route) => <button key={route} aria-pressed={routeIntent === route} onClick={() => transitionJourney(route, "Parcours corrigé par l’utilisateur", false)} className={`rounded-full border px-3 py-2 text-sm ${routeIntent === route ? "border-primary bg-primary text-primary-foreground" : "bg-background"}`}>{ROUTING_INTENT_LABELS[route]}</button>)}</div></Panel><h2 className="mt-8 text-2xl font-bold">Objet scientifique conservé : {session.scientificContext.centralScientificObject}</h2><div className="mt-3 flex flex-wrap gap-2">{session.scientificContext.preservedScientificTerms.map((term) => <Tag key={term}>{term}</Tag>)}</div>{!session.scenarioMatches.length ? <Panel className="mt-6"><CircleAlert className="h-6 w-6 text-amber-500" /><h2 className="mt-3 text-xl font-semibold">Le corpus local de cette V1 ne couvre pas encore suffisamment « {session.scientificContext.centralScientificObject} ».</h2><p className="mt-2 text-muted-foreground">La demande et l’intention restent conservées. NOXIA refuse de les remplacer par une réponse encyclopédique ou un scénario proche non justifié.</p>{routeIntent === "UNDERSTAND" && <p className="mt-3 text-sm">Le Knowledge Engine peut néanmoins qualifier cet arrêt, montrer les fournisseurs consultés et conserver les objets non couverts.</p>}{routeIntent === "FORMALIZE_IDEA" && <p className="mt-3 text-sm">Le Scientific Thinking Engine peut néanmoins structurer un candidat explicitement non soutenu et demander la connaissance manquante.</p>}{routeIntent === "DESIGN_STUDY" && <p className="mt-3 text-sm">Project Construction peut préserver une structure partielle et ses inconnues ; aucune imagerie, Population opérationnelle ou valeur statistique ne sera inventée.</p>}<button onClick={() => updateStep(0)} className="mt-4 rounded-lg border px-4 py-2">Préciser ma demande</button></Panel> : <div className="mt-6 grid gap-4 lg:grid-cols-3">{session.scenarioMatches.map((match) => { const scenario = scenarioDetails(match.scenarioId); if (!scenario) return null; return <Panel key={match.scenarioId} className={session.confirmedScenarioId === match.scenarioId ? "border-primary" : ""}><div className="flex justify-between gap-2"><Tag tone={match.status === "MATCH_CONFIRMED" ? "good" : "warning"}>{match.status}</Tag><Tag>Confiance {match.confidence.toLowerCase()}</Tag></div><h3 className="mt-4 text-xl font-semibold">{scenario.shortLabel}</h3><p className="mt-2 text-sm text-muted-foreground">{scenario.comprehension}</p><p className="mt-4 text-sm"><strong>Termes concordants :</strong> {match.matchedTerms.join(", ")}</p><button disabled={!scenarioConfirmationAllowed} onClick={() => chooseScenario(match.scenarioId)} className="mt-5 w-full rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground disabled:opacity-50">Confirmer comme orientation principale</button><details className="mt-4 text-sm"><summary className="cursor-pointer">Traçabilité documentaire</summary><div className="mt-2 text-muted-foreground"><p>Program Owner : {scenario.program.id}</p><p>{scenario.reasoningBook.id} v{scenario.reasoningBook.version}</p><p>{scenario.fixtureStatus}</p><p>État des connaissances : {scenario.knowledgeDate}</p></div></details></Panel>; })}</div>}<div className="mt-6 flex justify-between gap-3 print:hidden"><button onClick={() => updateStep(1)} className="rounded-lg border px-4 py-2">Retour</button><button disabled={!routeIntent} onClick={() => updateStep(3)} className="rounded-lg bg-primary px-5 py-3 font-semibold text-primary-foreground disabled:opacity-50">{routeIntent === "UNDERSTAND" ? "Interroger le Knowledge Engine" : "Entrer dans cet espace scientifique"}</button></div></div>}
 
-        {step === 3 && intent && routeIntent && (routeIntent === "UNDERSTAND" || routeIntent === "FORMALIZE_IDEA" || routeIntent === "DESIGN_STUDY") && <div><div className="flex flex-wrap items-end justify-between gap-4"><div><p className="text-xs font-semibold uppercase tracking-wide text-primary">Contexte v{session.scientificContext.contextVersion} · {activeScenario?.shortLabel ?? (routeIntent === "FORMALIZE_IDEA" ? "Scientific Thinking Engine" : routeIntent === "DESIGN_STUDY" ? "Research Design handoff" : "Knowledge Engine")}</p><h1 className="mt-2 text-4xl font-bold">{ROUTING_INTENT_LABELS[routeIntent]}</h1><p className="mt-3 text-muted-foreground">Objet central conservé : <strong>{session.scientificContext.centralScientificObject}</strong></p></div>{activeScenario && <button onClick={() => setKnowledgeOpen(true)} className="inline-flex items-center gap-2 rounded-lg border px-4 py-2"><BookOpen className="h-4 w-4" /> Explorer ce concept</button>}</div><div className="mt-6 flex gap-2 overflow-x-auto pb-2 print:hidden">{(Object.keys(ROUTING_INTENT_LABELS) as RoutingIntent[]).map((route) => <button key={route} disabled={route === "DESIGN_STUDY" && routeIntent === "FORMALIZE_IDEA" && session.scientificThinking?.output.handoff.status !== "AUTHORIZED"} aria-pressed={routeIntent === route} onClick={() => transitionJourney(route, `Transition depuis ${ROUTING_INTENT_LABELS[routeIntent]}`)} className={`min-w-fit rounded-full border px-3 py-2 text-sm disabled:opacity-50 ${routeIntent === route ? "border-primary bg-primary text-primary-foreground" : "bg-background"}`}>{ROUTING_INTENT_LABELS[route]}</button>)}</div>
+        {step === 3 && intent && routeIntent && <div>
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-primary">Contexte v{session.scientificContext.contextVersion} · {routeIntent === "DOCUMENT" ? "Document Projection Engine" : activeScenario?.shortLabel ?? (routeIntent === "FORMALIZE_IDEA" ? "Scientific Thinking Engine" : routeIntent === "DESIGN_STUDY" ? "Research Design handoff" : "Knowledge Engine")}</p>
+              <h1 className="mt-2 text-4xl font-bold">{ROUTING_INTENT_LABELS[routeIntent]}</h1>
+              <p className="mt-3 text-muted-foreground">Objet central conservé : <strong>{session.scientificContext.centralScientificObject}</strong></p>
+            </div>
+            {activeScenario && routeIntent !== "DOCUMENT" && <button onClick={() => setKnowledgeOpen(true)} className="inline-flex items-center gap-2 rounded-lg border px-4 py-2"><BookOpen className="h-4 w-4" /> Explorer ce concept</button>}
+          </div>
+          <div className="mt-6 flex gap-2 overflow-x-auto pb-2 print:hidden">{(Object.keys(ROUTING_INTENT_LABELS) as RoutingIntent[]).map((route) => <button key={route} disabled={(route === "DESIGN_STUDY" && routeIntent === "FORMALIZE_IDEA" && session.scientificThinking?.output.handoff.status !== "AUTHORIZED") || (route === "DOCUMENT" && session.projectConstruction?.result.documentHandoff.status !== "AUTHORIZED")} aria-pressed={routeIntent === route} onClick={() => transitionJourney(route, `Transition depuis ${ROUTING_INTENT_LABELS[routeIntent]}`)} className={`min-w-fit rounded-full border px-3 py-2 text-sm disabled:opacity-50 ${routeIntent === route ? "border-primary bg-primary text-primary-foreground" : "bg-background"}`}>{ROUTING_INTENT_LABELS[route]}</button>)}</div>
 
           {routeIntent === "UNDERSTAND" && knowledgeResult && <>
             <KnowledgeUnderstandView
@@ -488,6 +527,7 @@ export default function ProtocolDesignerDemo() {
             onReturnToScientificThinking={() => transitionJourney("FORMALIZE_IDEA", "Retour Project Construction vers Scientific Thinking pour rouvrir l’amont")}
             onReturnToImaging={requiresImaging && session.imagingDesign ? () => setSession((current) => ({ ...current, scientificContext: { ...current.scientificContext, activeDesignSurface: "IMAGING" }, updatedAt: new Date().toISOString() })) : undefined}
             onExploreKnowledge={activeScenario ? () => setKnowledgeOpen(true) : undefined}
+            onOpenDocument={() => transitionJourney("DOCUMENT", "Handoff Document autorisé depuis le Research Project gelé")}
           />}
 
           {routeIntent === "DESIGN_STUDY" && session.scientificContext.activeDesignSurface === "IMAGING" && (session.imagingDesign ? <ImagingStudyDesignerView
@@ -502,6 +542,14 @@ export default function ProtocolDesignerDemo() {
               updatedAt: new Date().toISOString(),
             } : current)}
           /> : requiresImaging ? <Panel className="mt-8" role="status" aria-live="polite"><LoaderCircle className="h-5 w-5 animate-spin" /><p className="mt-3">NOXIA construit la stratégie Imaging structurée…</p><p className="sr-only">{IMAGING_PROTOCOL_BOUNDARY}. {IMAGING_GENERATION_BOUNDARY}</p></Panel> : <Panel className="mt-8" role="status" aria-live="polite"><LoaderCircle className="h-5 w-5 animate-spin" /><p className="mt-3">NOXIA construit le projet sans composante Imaging requise…</p></Panel>)}
+
+          {routeIntent === "DOCUMENT" && currentDocumentProjection && <DocumentProjectionView
+            projection={currentDocumentProjection}
+            history={documentProjections}
+            onReturnToProject={() => setSession((current) => ({ ...current, scientificContext: { ...current.scientificContext, routeIntent: "DESIGN_STUDY", activeDesignSurface: "PROJECT_CONSTRUCTION" }, updatedAt: new Date().toISOString() }))}
+          />}
+
+          {routeIntent === "DOCUMENT" && !currentDocumentProjection && <Panel className="mt-8" role="status" aria-live="polite"><LoaderCircle className="h-5 w-5 animate-spin" /><p className="mt-3">NOXIA vérifie la version gelée et compose la projection déclarative…</p></Panel>}
         </div>}
 
         {step === 4 && <div className="mx-auto max-w-3xl"><h1 className="text-4xl font-bold">Décision humaine</h1><p className="mt-3 text-muted-foreground">NOXIA documente la décision ; il ne la prend pas.</p><Panel className="mt-6"><label className="block font-semibold" htmlFor="author">Auteur de session</label><input id="author" value={decisionForm.author} onChange={(event) => setDecisionForm((current) => ({ ...current, author: event.target.value.slice(0, 80) }))} className="mt-2 w-full rounded-lg border bg-background px-3 py-2 focus-visible:ring-2 focus-visible:ring-ring" /><label className="mt-4 block font-semibold" htmlFor="outcome">Décision</label><select id="outcome" value={decisionForm.outcome} onChange={(event) => setDecisionForm((current) => ({ ...current, outcome: event.target.value as typeof current.outcome }))} className="mt-2 w-full rounded-lg border bg-background px-3 py-2"><option value="CONFIRM_ORIENTATION">Confirmer l’orientation</option><option value="DEFER">Différer</option><option value="REFUSE">Refuser</option></select><label className="mt-4 block font-semibold" htmlFor="justification">Justification</label><textarea id="justification" value={decisionForm.justification} onChange={(event) => setDecisionForm((current) => ({ ...current, justification: event.target.value.slice(0, 500) }))} className="mt-2 min-h-24 w-full rounded-lg border bg-background p-3 focus-visible:ring-2 focus-visible:ring-ring" /><label className="mt-4 block font-semibold" htmlFor="reservations">Réserves</label><textarea id="reservations" value={decisionForm.reservations} onChange={(event) => setDecisionForm((current) => ({ ...current, reservations: event.target.value.slice(0, 500) }))} className="mt-2 min-h-20 w-full rounded-lg border bg-background p-3 focus-visible:ring-2 focus-visible:ring-ring" /></Panel><div className="mt-6 flex flex-wrap justify-between gap-3 print:hidden"><button onClick={() => { setReportMode("PROVISIONAL"); setSession((current) => ({ ...current, reportStatus: "PROVISIONAL", currentStep: 5 })); }} className="rounded-lg border px-4 py-3">Générer un rapport provisoire</button><button disabled={!decisionForm.author.trim() || !decisionForm.justification.trim() || !session.confirmedScenarioId} onClick={recordDecision} className="rounded-lg bg-primary px-5 py-3 font-semibold text-primary-foreground disabled:opacity-50">Enregistrer et générer le rapport final</button></div></div>}

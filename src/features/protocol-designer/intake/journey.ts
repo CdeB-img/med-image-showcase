@@ -10,6 +10,7 @@ export const ROUTING_INTENT_LABELS: Record<RoutingIntent, string> = {
   UNDERSTAND: "Comprendre une question scientifique",
   FORMALIZE_IDEA: "Transformer une idée en question scientifique",
   DESIGN_STUDY: "Construire un projet de recherche",
+  DOCUMENT: "Composer un document de recherche",
 };
 
 export const PROJECT_STAGES = [
@@ -67,8 +68,8 @@ export const deriveRoutingIntent = (intent: ValidatedScientificIntent): {
   reasons: string[];
 } => {
   const corpus = normalized(`${intent.originalQuestion} ${intent.validatedReformulation} ${fieldValues(intent, "scientificPurpose").join(" ")}`);
-  const scores: Record<RoutingIntent, number> = { UNDERSTAND: 0, FORMALIZE_IDEA: 0, DESIGN_STUDY: 0 };
-  const reasons: Record<RoutingIntent, string[]> = { UNDERSTAND: [], FORMALIZE_IDEA: [], DESIGN_STUDY: [] };
+  const scores: Record<RoutingIntent, number> = { UNDERSTAND: 0, FORMALIZE_IDEA: 0, DESIGN_STUDY: 0, DOCUMENT: Number.NEGATIVE_INFINITY };
+  const reasons: Record<RoutingIntent, string[]> = { UNDERSTAND: [], FORMALIZE_IDEA: [], DESIGN_STUDY: [], DOCUMENT: [] };
   const add = (route: RoutingIntent, pattern: RegExp, reason: string, weight = 1) => {
     if (pattern.test(corpus)) {
       scores[route] += weight;
