@@ -1,0 +1,290 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://noxia.local/schemas/reg-000.schema.json",
+  "title": "REG-000 Regulatory & Funding Knowledge Corpus",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "corpus",
+    "controlledVocabularies",
+    "objectCatalog",
+    "authorities",
+    "requirementProfiles",
+    "requirements",
+    "requirementRevisions",
+    "requirementConditions",
+    "requirementSources",
+    "requirementEvidence",
+    "fundingPrograms",
+    "programEditions",
+    "submissionRequirements",
+    "documentRequirements",
+    "sectionRequirements",
+    "fieldRequirements",
+    "annexRequirements",
+    "approvalRequirements",
+    "reviewRequirements",
+    "applicabilityRules",
+    "verificationRecords",
+    "competencyQueries",
+    "coverageLimitations"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "corpus": { "$ref": "#/$defs/corpusMetadata" },
+    "controlledVocabularies": { "$ref": "#/$defs/controlledVocabularies" },
+    "objectCatalog": { "$ref": "#/$defs/nonEmptyObjectArray" },
+    "authorities": { "$ref": "#/$defs/nonEmptyObjectArray" },
+    "requirementProfiles": { "$ref": "#/$defs/nonEmptyObjectArray" },
+    "requirements": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/requirement" }
+    },
+    "requirementRevisions": { "$ref": "#/$defs/nonEmptyObjectArray" },
+    "requirementConditions": { "$ref": "#/$defs/nonEmptyObjectArray" },
+    "requirementSources": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/requirementSource" }
+    },
+    "requirementEvidence": { "$ref": "#/$defs/nonEmptyObjectArray" },
+    "fundingPrograms": { "$ref": "#/$defs/nonEmptyObjectArray" },
+    "programEditions": { "$ref": "#/$defs/nonEmptyObjectArray" },
+    "submissionRequirements": { "$ref": "#/$defs/nonEmptyObjectArray" },
+    "documentRequirements": { "$ref": "#/$defs/nonEmptyObjectArray" },
+    "sectionRequirements": { "$ref": "#/$defs/nonEmptyObjectArray" },
+    "fieldRequirements": { "$ref": "#/$defs/nonEmptyObjectArray" },
+    "annexRequirements": { "$ref": "#/$defs/nonEmptyObjectArray" },
+    "approvalRequirements": { "$ref": "#/$defs/nonEmptyObjectArray" },
+    "reviewRequirements": { "$ref": "#/$defs/nonEmptyObjectArray" },
+    "applicabilityRules": { "$ref": "#/$defs/nonEmptyObjectArray" },
+    "verificationRecords": { "$ref": "#/$defs/nonEmptyObjectArray" },
+    "competencyQueries": { "$ref": "#/$defs/nonEmptyObjectArray" },
+    "coverageLimitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  },
+  "$defs": {
+    "nonEmptyObjectArray": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "object" }
+    },
+    "temporalStatus": {
+      "enum": ["CURRENT", "UPCOMING", "SUPERSEDED", "ARCHIVED", "UNKNOWN_CURRENTNESS"]
+    },
+    "normativeStrength": {
+      "enum": [
+        "LEGAL_MANDATORY",
+        "REGULATORY_MANDATORY",
+        "PROGRAM_MANDATORY",
+        "CONDITIONAL_MANDATORY",
+        "OFFICIAL_RECOMMENDATION",
+        "METHODOLOGICAL_GUIDANCE",
+        "REPORTING_GUIDANCE",
+        "INFORMATIONAL_ONLY"
+      ]
+    },
+    "documentQualificationStatus": {
+      "enum": [
+        "MANDATORY",
+        "CONDITIONAL_MANDATORY",
+        "RECOMMENDED",
+        "OPTIONAL",
+        "NOT_APPLICABLE",
+        "PROHIBITED_IF_EXPLICIT",
+        "UNKNOWN",
+        "SUPERSEDED"
+      ]
+    },
+    "temporalEnvelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "publishedAt",
+        "effectiveFrom",
+        "effectiveUntil",
+        "verifiedAt",
+        "sourceRevision",
+        "programEdition",
+        "supersedes",
+        "supersededBy",
+        "status"
+      ],
+      "properties": {
+        "publishedAt": { "type": ["string", "null"], "format": "date" },
+        "effectiveFrom": { "type": ["string", "null"], "format": "date" },
+        "effectiveUntil": { "type": ["string", "null"], "format": "date" },
+        "verifiedAt": { "type": "string", "format": "date" },
+        "sourceRevision": { "type": "string", "minLength": 1 },
+        "programEdition": { "type": ["string", "null"] },
+        "supersedes": { "type": "array", "items": { "type": "string" } },
+        "supersededBy": { "type": "array", "items": { "type": "string" } },
+        "status": { "$ref": "#/$defs/temporalStatus" }
+      }
+    },
+    "corpusMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "identifier",
+        "title",
+        "version",
+        "documentLevel",
+        "admissionStatus",
+        "masterFormat",
+        "createdAt",
+        "verifiedAt",
+        "authorityBoundary",
+        "queryability",
+        "governanceContradictions"
+      ],
+      "properties": {
+        "identifier": { "const": "REG-000" },
+        "title": { "type": "string" },
+        "version": { "type": "string" },
+        "documentLevel": { "const": "NIVEAU_2_CANDIDATE" },
+        "admissionStatus": { "const": "CANDIDATE_NOT_ADMITTED" },
+        "masterFormat": { "const": "JSON" },
+        "createdAt": { "type": "string", "format": "date" },
+        "verifiedAt": { "type": "string", "format": "date" },
+        "authorityBoundary": { "type": "string" },
+        "queryability": { "type": "string" },
+        "governanceContradictions": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+      }
+    },
+    "controlledVocabularies": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "temporalStatuses",
+        "normativeStrengths",
+        "documentQualificationStatuses",
+        "unknownQualificationReason",
+        "ruleRelations",
+        "qualificationAxes"
+      ],
+      "properties": {
+        "temporalStatuses": { "type": "array", "items": { "$ref": "#/$defs/temporalStatus" } },
+        "normativeStrengths": { "type": "array", "items": { "$ref": "#/$defs/normativeStrength" } },
+        "documentQualificationStatuses": { "type": "array", "items": { "$ref": "#/$defs/documentQualificationStatus" } },
+        "unknownQualificationReason": { "const": "UNKNOWN_REQUIRES_QUALIFICATION" },
+        "ruleRelations": {
+          "type": "array",
+          "items": { "enum": ["appliesIf", "doesNotApplyIf", "requires", "dependsOn", "conflictsWith", "supersedes", "jurisdiction", "effectivePeriod"] }
+        },
+        "qualificationAxes": {
+          "type": "array",
+          "items": { "enum": ["REGULATORY_FRAMEWORK", "SCIENTIFIC_DESIGN", "FUNDING_PROGRAM", "DATA_SOURCES", "PROJECT_NATURE"] }
+        }
+      }
+    },
+    "requirementSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceId",
+        "title",
+        "authority",
+        "authorityType",
+        "sourceType",
+        "jurisdiction",
+        "applicabilityBasis",
+        "normativeStrength",
+        "officialURL",
+        "locator",
+        "temporal"
+      ],
+      "properties": {
+        "sourceId": { "type": "string", "minLength": 1 },
+        "title": { "type": "string", "minLength": 1 },
+        "authority": { "type": "string", "minLength": 1 },
+        "authorityType": { "type": "string", "minLength": 1 },
+        "sourceType": { "type": "string", "minLength": 1 },
+        "jurisdiction": { "type": "string", "minLength": 1 },
+        "applicabilityBasis": { "type": "string", "minLength": 1 },
+        "normativeStrength": { "$ref": "#/$defs/normativeStrength" },
+        "officialURL": { "type": "string", "format": "uri" },
+        "locator": { "type": "string", "minLength": 1 },
+        "temporal": { "$ref": "#/$defs/temporalEnvelope" }
+      }
+    },
+    "requirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "identifier",
+        "title",
+        "authority",
+        "authorityType",
+        "sourceType",
+        "jurisdiction",
+        "applicabilityBasis",
+        "source",
+        "version",
+        "revision",
+        "publishedAt",
+        "effectiveFrom",
+        "effectiveUntil",
+        "verifiedAt",
+        "sourceRevision",
+        "programEdition",
+        "supersedes",
+        "supersededBy",
+        "studyTypes",
+        "fundingPrograms",
+        "requiredDocuments",
+        "requiredSections",
+        "requiredFields",
+        "requiredAnnexes",
+        "submissionWorkflow",
+        "deadlines",
+        "constraints",
+        "conditions",
+        "references",
+        "officialURL",
+        "verificationDate",
+        "normativeStrength",
+        "status"
+      ],
+      "properties": {
+        "identifier": { "type": "string", "minLength": 1 },
+        "title": { "type": "string", "minLength": 1 },
+        "authority": { "type": "string", "minLength": 1 },
+        "authorityType": { "type": "string", "minLength": 1 },
+        "sourceType": { "type": "string", "minLength": 1 },
+        "jurisdiction": { "type": "string", "minLength": 1 },
+        "applicabilityBasis": { "type": "string", "minLength": 1 },
+        "source": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "version": { "type": "string", "minLength": 1 },
+        "revision": { "type": "string", "minLength": 1 },
+        "publishedAt": { "type": ["string", "null"], "format": "date" },
+        "effectiveFrom": { "type": ["string", "null"], "format": "date" },
+        "effectiveUntil": { "type": ["string", "null"], "format": "date" },
+        "verifiedAt": { "type": "string", "format": "date" },
+        "sourceRevision": { "type": "string", "minLength": 1 },
+        "programEdition": { "type": ["string", "null"] },
+        "supersedes": { "type": "array", "items": { "type": "string" } },
+        "supersededBy": { "type": "array", "items": { "type": "string" } },
+        "studyTypes": { "type": "array", "items": { "type": "string" } },
+        "fundingPrograms": { "type": "array", "items": { "type": "string" } },
+        "requiredDocuments": { "type": "array", "items": { "type": "string" } },
+        "requiredSections": { "type": "array", "items": { "type": "string" } },
+        "requiredFields": { "type": "array", "items": { "type": "string" } },
+        "requiredAnnexes": { "type": "array", "items": { "type": "string" } },
+        "submissionWorkflow": { "type": "array", "items": { "type": "string" } },
+        "deadlines": { "type": "array", "items": { "type": "string" } },
+        "constraints": { "type": "array", "items": { "type": "string" } },
+        "conditions": { "type": "array", "items": { "type": "string" } },
+        "references": { "type": "array", "items": { "type": "string" } },
+        "officialURL": { "type": "string", "format": "uri" },
+        "verificationDate": { "type": "string", "format": "date" },
+        "normativeStrength": { "$ref": "#/$defs/normativeStrength" },
+        "status": { "$ref": "#/$defs/temporalStatus" }
+      }
+    }
+  }
+}

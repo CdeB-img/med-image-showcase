@@ -1,0 +1,733 @@
+{
+  "$schema": "./reg-000.schema.json",
+  "corpus": {
+    "identifier": "REG-000",
+    "title": "Regulatory & Funding Knowledge Corpus",
+    "version": "1.0.0",
+    "documentLevel": "NIVEAU_2_CANDIDATE",
+    "admissionStatus": "CANDIDATE_NOT_ADMITTED",
+    "masterFormat": "JSON",
+    "createdAt": "2026-08-10",
+    "verifiedAt": "2026-08-10",
+    "authorityBoundary": "External official sources remain authoritative. REG-000 only references, structures, qualifies, versions, links and makes them queryable.",
+    "queryability": "Stable identifiers, typed references, five-axis applicability rules and competency queries; no runtime engine is created.",
+    "governanceContradictions": [
+      "The mission requests an official NIVEAU_2 corpus while forbidding modification of any authority. SOURCE-OF-TRUTH-INDEX section 12 requires atomic index admission for a new official level-2 corpus; REG-000 therefore remains CANDIDATE_NOT_ADMITTED.",
+      "DOC-000A, DOC-000B, DOC-000B-R1 and DOC-000C are mandatory consultation inputs in the mission but do not exist in the checkout or Git history inspected on 2026-08-10; no content or authority was invented for them."
+    ]
+  },
+  "controlledVocabularies": {
+    "temporalStatuses": ["CURRENT", "UPCOMING", "SUPERSEDED", "ARCHIVED", "UNKNOWN_CURRENTNESS"],
+    "normativeStrengths": [
+      "LEGAL_MANDATORY",
+      "REGULATORY_MANDATORY",
+      "PROGRAM_MANDATORY",
+      "CONDITIONAL_MANDATORY",
+      "OFFICIAL_RECOMMENDATION",
+      "METHODOLOGICAL_GUIDANCE",
+      "REPORTING_GUIDANCE",
+      "INFORMATIONAL_ONLY"
+    ],
+    "documentQualificationStatuses": [
+      "MANDATORY",
+      "CONDITIONAL_MANDATORY",
+      "RECOMMENDED",
+      "OPTIONAL",
+      "NOT_APPLICABLE",
+      "PROHIBITED_IF_EXPLICIT",
+      "UNKNOWN",
+      "SUPERSEDED"
+    ],
+    "unknownQualificationReason": "UNKNOWN_REQUIRES_QUALIFICATION",
+    "ruleRelations": ["appliesIf", "doesNotApplyIf", "requires", "dependsOn", "conflictsWith", "supersedes", "jurisdiction", "effectivePeriod"],
+    "qualificationAxes": ["REGULATORY_FRAMEWORK", "SCIENTIFIC_DESIGN", "FUNDING_PROGRAM", "DATA_SOURCES", "PROJECT_NATURE"]
+  },
+  "objectCatalog": [
+    { "type": "Authority", "collection": "authorities", "purpose": "Identity and scope of an external official issuer or institutional operator." },
+    { "type": "RequirementProfile", "collection": "requirementProfiles", "purpose": "Composable profile grouping requirements without flattening applicability." },
+    { "type": "Requirement", "collection": "requirements", "purpose": "Versioned atomic regulatory, program, methodological or informational statement." },
+    { "type": "RequirementRevision", "collection": "requirementRevisions", "purpose": "Immutable lifecycle record for a requirement version." },
+    { "type": "RequirementCondition", "collection": "requirementConditions", "purpose": "Explicit conditionality, exclusion or dependency." },
+    { "type": "RequirementSource", "collection": "requirementSources", "purpose": "Primary official source and temporal envelope." },
+    { "type": "RequirementEvidence", "collection": "requirementEvidence", "purpose": "Verifiable source locator supporting an exact requirement." },
+    { "type": "FundingProgram", "collection": "fundingPrograms", "purpose": "Stable funding-program identity distinct from editions." },
+    { "type": "ProgramEdition", "collection": "programEditions", "purpose": "Edition-specific dates, status and source." },
+    { "type": "SubmissionRequirement", "collection": "submissionRequirements", "purpose": "Workflow-stage submission contract." },
+    { "type": "DocumentRequirement", "collection": "documentRequirements", "purpose": "Document qualification in an exact context." },
+    { "type": "SectionRequirement", "collection": "sectionRequirements", "purpose": "Required or guided document section." },
+    { "type": "FieldRequirement", "collection": "fieldRequirements", "purpose": "Required or guided structured field." },
+    { "type": "AnnexRequirement", "collection": "annexRequirements", "purpose": "Annex identity, qualification and constraints." },
+    { "type": "ApprovalRequirement", "collection": "approvalRequirements", "purpose": "Human or authority approval required before an effect." },
+    { "type": "ReviewRequirement", "collection": "reviewRequirements", "purpose": "Review action and responsible authority or jury." },
+    { "type": "ApplicabilityRule", "collection": "applicabilityRules", "purpose": "Five-axis rule with explicit relations and unknown handling." },
+    { "type": "VerificationRecord", "collection": "verificationRecords", "purpose": "Dated verification of primary authority, revision and currentness." }
+  ],
+  "fundingPrograms": [
+    { "programId": "FUND_PHRC_N", "title": "Programme hospitalier de recherche clinique national", "authority": "AUTH_FR_DGOS", "jurisdiction": "FR", "officialURL": "https://sante.gouv.fr/systeme-de-sante/innovation-et-recherche/l-innovation-et-la-recherche-clinique/appels-a-projets/innovarc", "knownEditionIds": ["ED_PHRC_2025_2026"] },
+    { "programId": "FUND_RHU", "title": "Recherche hospitalo-universitaire en santé", "authority": "AUTH_FR_ANR", "jurisdiction": "FR", "officialURL": "https://anr.fr/fr/france-2030/france2030/call/recherche-hospitalo-universitaire-en-sante-rhu-appel-a-projets-vague-6-edition-2023/", "knownEditionIds": ["ED_RHU_V6_2023"] },
+    { "programId": "FUND_NIH", "title": "NIH-funded clinical research", "authority": "AUTH_US_NIH", "jurisdiction": "US", "officialURL": "https://grants.nih.gov/policy-and-compliance/policy-topics/clinical-trials/reporting/nih-policy", "knownEditionIds": [] },
+    { "programId": "FUND_HORIZON_EUROPE_CANDIDATE", "title": "Horizon Europe - unqualified program candidate", "authority": "AUTH_EU_COMMISSION", "jurisdiction": "EU_EEA", "officialURL": "https://commission.europa.eu/funding-tenders/opportunities/portal/screen/programmes/horizon", "knownEditionIds": [], "qualificationStatus": "UNKNOWN", "qualificationReasonCode": "UNKNOWN_REQUIRES_QUALIFICATION" }
+  ],
+  "programEditions": [
+    { "editionId": "ED_PHRC_2025_2026", "programId": "FUND_PHRC_N", "title": "PHRC-N campaign 2025-2026", "status": "ARCHIVED", "effectiveFrom": "2025-07-02", "effectiveUntil": "2026-06-16", "sourceIds": ["SRC_DGOS_PHRC_2025_2026", "SRC_DGOS_NOTE_2025_90"], "stages": [{ "stage": "LETTER_OF_INTENT", "deadline": "2025-12-09T20:00:00+01:00" }, { "stage": "COMPLETE_DOSSIER", "deadline": "2026-06-16T20:00:00+02:00" }] },
+    { "editionId": "ED_RHU_V6_2023", "programId": "FUND_RHU", "title": "RHU wave 6 - 2023", "status": "ARCHIVED", "effectiveFrom": "2023-01-02", "effectiveUntil": "2023-04-13", "sourceIds": ["SRC_ANR_RHU_V6_2023"], "stages": [{ "stage": "COMPLETE_DOSSIER", "deadline": "2023-04-13T11:00:00+02:00" }] }
+  ],
+  "submissionRequirements": [
+    { "submissionId": "SUB_CPP_FR_RIPH", "title": "French CPP application", "requirementIds": ["REQ_FR_CPP_OPINION", "REQ_FR_CPP_PROTOCOL"], "workflow": ["QUALIFY_RIPH_CATEGORY", "SUBMIT_SIRIPH", "CPP_REVIEW"], "applicabilityRuleId": "AR_FR_RIPH" },
+    { "submissionId": "SUB_CNIL_MR", "title": "CNIL MR conformity or authorisation route", "requirementIds": ["REQ_CNIL_MR_ROUTE", "REQ_CNIL_MR_ANNEXES"], "workflow": ["QUALIFY_MR_SCOPE", "DECLARE_CONFORMITY_OR_REQUEST_AUTHORIZATION"], "applicabilityRuleId": "AR_CNIL_MR" },
+    { "submissionId": "SUB_CTR_INITIAL", "title": "CTIS initial application", "requirementIds": ["REQ_EU_CTR_CTIS", "REQ_EU_CTR_APPLICATION_DOSSIER"], "workflow": ["COMPILE_CTIS_APPLICATION", "SUBMIT_CTIS"], "applicabilityRuleId": "AR_EU_CTR" },
+    { "submissionId": "SUB_PHRC_STAGE1", "title": "PHRC-N 2025-2026 letter of intent", "requirementIds": ["REQ_PHRC_STAGE1"], "workflow": ["INNOVARC_STAGE1"], "applicabilityRuleId": "AR_PHRC_STAGE" },
+    { "submissionId": "SUB_PHRC_STAGE2", "title": "PHRC-N 2025-2026 complete dossier", "requirementIds": ["REQ_PHRC_STAGE2"], "workflow": ["INNOVARC_STAGE2"], "applicabilityRuleId": "AR_PHRC_STAGE" },
+    { "submissionId": "SUB_RHU_V6", "title": "RHU V6 2023 complete dossier", "requirementIds": ["REQ_RHU_V6_COMPLETE_DOSSIER", "REQ_RHU_V6_ANNEXES"], "workflow": ["ANR_ELECTRONIC_SUBMISSION"], "applicabilityRuleId": "AR_RHU_EDITION" }
+  ],
+  "documentRequirements": [
+    { "documentRequirementId": "DOCREQ_CPP_PROTOCOL", "documentId": "DOC_RESEARCH_PROTOCOL", "context": "CPP_APPLICATION", "qualificationStatus": "MANDATORY", "qualificationReasonCode": null, "justification": "R1123-20 requires a dated protocol in the CPP dossier.", "applicabilityRuleId": "AR_FR_RIPH", "sourceIds": ["SRC_FR_CSP_R1123_20"] },
+    { "documentRequirementId": "DOCREQ_PHRC_STAGE1_PROTOCOL", "documentId": "DOC_RESEARCH_PROTOCOL", "context": "PHRC_N_2025_2026_STAGE1", "qualificationStatus": "NOT_APPLICABLE", "qualificationReasonCode": null, "justification": "The official stage-1 list does not request a protocol upload.", "applicabilityRuleId": "AR_PHRC_STAGE", "sourceIds": ["SRC_DGOS_PHRC_2025_2026"] },
+    { "documentRequirementId": "DOCREQ_PHRC_STAGE2_PROTOCOL", "documentId": "DOC_RESEARCH_PROTOCOL", "context": "PHRC_N_2025_2026_STAGE2", "qualificationStatus": "MANDATORY", "qualificationReasonCode": null, "justification": "The complete dossier requires the detailed protocol.", "applicabilityRuleId": "AR_PHRC_STAGE", "sourceIds": ["SRC_DGOS_PHRC_2025_2026"] },
+    { "documentRequirementId": "DOCREQ_RHU_SCIENTIFIC", "documentId": "DOC_RHU_SCIENTIFIC", "context": "RHU_V6_2023", "qualificationStatus": "MANDATORY", "qualificationReasonCode": null, "justification": "The complete RHU V6 dossier requires the scientific document.", "applicabilityRuleId": "AR_RHU_EDITION", "sourceIds": ["SRC_ANR_RHU_V6_2023"] },
+    { "documentRequirementId": "DOCREQ_RHU_ADMIN_FINANCIAL", "documentId": "DOC_RHU_ADMIN_FINANCIAL", "context": "RHU_V6_2023", "qualificationStatus": "MANDATORY", "qualificationReasonCode": null, "justification": "The complete RHU V6 dossier requires the administrative-financial document.", "applicabilityRuleId": "AR_RHU_EDITION", "sourceIds": ["SRC_ANR_RHU_V6_2023"] },
+    { "documentRequirementId": "DOCREQ_RHU_COMMITMENT", "documentId": "DOC_RHU_COMMITMENT_LETTERS", "context": "RHU_V6_2023", "qualificationStatus": "MANDATORY", "qualificationReasonCode": null, "justification": "Signed commitment letters are part of the complete dossier.", "applicabilityRuleId": "AR_RHU_EDITION", "sourceIds": ["SRC_ANR_RHU_V6_2023"] },
+    { "documentRequirementId": "DOCREQ_SPIRIT_PROTOCOL", "documentId": "DOC_RESEARCH_PROTOCOL", "context": "RANDOMISED_TRIAL_PROTOCOL_REPORTING", "qualificationStatus": "RECOMMENDED", "qualificationReasonCode": null, "justification": "SPIRIT is reporting guidance unless explicitly incorporated.", "applicabilityRuleId": "AR_METHOD_GUIDANCE", "sourceIds": ["SRC_SPIRIT_CONSORT_2025"] },
+    { "documentRequirementId": "DOCREQ_UNQUALIFIED_FUNDING_TEMPLATE", "documentId": "DOC_UNQUALIFIED_FUNDING_TEMPLATE", "context": "UNQUALIFIED_PROGRAM_EDITION", "qualificationStatus": "UNKNOWN", "qualificationReasonCode": "UNKNOWN_REQUIRES_QUALIFICATION", "justification": "No primary current program edition has been selected.", "applicabilityRuleId": "AR_UNKNOWN_PROGRAM", "sourceIds": [] }
+  ],
+  "sectionRequirements": [
+    { "sectionRequirementId": "SEC_PROTOCOL_OBJECTIVES", "documentId": "DOC_RESEARCH_PROTOCOL", "title": "Objectives", "qualificationStatus": "MANDATORY", "sourceIds": ["SRC_FR_CSP_R1123_20"] },
+    { "sectionRequirementId": "SEC_PROTOCOL_DESIGN", "documentId": "DOC_RESEARCH_PROTOCOL", "title": "Design", "qualificationStatus": "MANDATORY", "sourceIds": ["SRC_FR_CSP_R1123_20"] },
+    { "sectionRequirementId": "SEC_PROTOCOL_METHOD", "documentId": "DOC_RESEARCH_PROTOCOL", "title": "Method", "qualificationStatus": "MANDATORY", "sourceIds": ["SRC_FR_CSP_R1123_20"] },
+    { "sectionRequirementId": "SEC_PROTOCOL_STATISTICS", "documentId": "DOC_RESEARCH_PROTOCOL", "title": "Statistical organisation", "qualificationStatus": "MANDATORY", "sourceIds": ["SRC_FR_CSP_R1123_20"] },
+    { "sectionRequirementId": "SEC_PROTOCOL_ORGANISATION", "documentId": "DOC_RESEARCH_PROTOCOL", "title": "Study organisation", "qualificationStatus": "MANDATORY", "sourceIds": ["SRC_FR_CSP_R1123_20"] }
+  ],
+  "fieldRequirements": [
+    { "fieldRequirementId": "FIELD_RIPH_CATEGORY", "title": "RIPH category", "qualificationStatus": "CONDITIONAL_MANDATORY", "conditionId": "COND_FR_HUMAN_RESEARCH_SCOPE", "sourceIds": ["SRC_FR_CSP_L1121_1"] },
+    { "fieldRequirementId": "FIELD_PROTOCOL_DATE", "title": "Protocol date", "qualificationStatus": "MANDATORY", "conditionId": "COND_FR_RIPH_CONFIRMED", "sourceIds": ["SRC_FR_CSP_R1123_20"] },
+    { "fieldRequirementId": "FIELD_PROTOCOL_VERSION", "title": "Protocol version and modifications", "qualificationStatus": "MANDATORY", "conditionId": "COND_FR_RIPH_CONFIRMED", "sourceIds": ["SRC_FR_CSP_R1123_20"] },
+    { "fieldRequirementId": "FIELD_PARTICIPANT_AGREEMENT_MODEL", "title": "Consent, express consent or non-opposition model", "qualificationStatus": "CONDITIONAL_MANDATORY", "conditionId": "COND_RIPH_CATEGORY_KNOWN", "sourceIds": ["SRC_FR_CSP_L1122_1_1"] },
+    { "fieldRequirementId": "FIELD_MR_CONFORMITY", "title": "MR-001/MR-003 conformity basis", "qualificationStatus": "CONDITIONAL_MANDATORY", "conditionId": "COND_MR_SCOPE_QUALIFIED", "sourceIds": ["SRC_CNIL_MR001_2026", "SRC_CNIL_MR003_2026"] },
+    { "fieldRequirementId": "FIELD_DATA_PROCESSING_CONSENT_CONTEXT", "title": "Consent context for health-data processing", "qualificationStatus": "CONDITIONAL_MANDATORY", "conditionId": "COND_HEALTH_PERSONAL_DATA", "sourceIds": ["SRC_CNIL_MR001_2026", "SRC_CNIL_MR003_2026"] }
+  ],
+  "annexRequirements": [
+    { "annexRequirementId": "ANNEX_PHRC_ENVIRONMENTAL_IMPACT_STAGE1", "title": "Environmental-impact annex - stage 1", "qualificationStatus": "MANDATORY", "limits": [], "sourceIds": ["SRC_DGOS_PHRC_2025_2026"] },
+    { "annexRequirementId": "ANNEX_PHRC_FEASIBILITY", "title": "Feasibility annex - stage 2", "qualificationStatus": "MANDATORY", "limits": [], "sourceIds": ["SRC_DGOS_PHRC_2025_2026"] },
+    { "annexRequirementId": "ANNEX_PHRC_ENVIRONMENTAL_IMPACT_STAGE2", "title": "Environmental-impact annex - stage 2", "qualificationStatus": "MANDATORY", "limits": [], "sourceIds": ["SRC_DGOS_PHRC_2025_2026"] },
+    { "annexRequirementId": "ANNEX_RHU_CONCEPT", "title": "Concept, preliminary data and publications", "qualificationStatus": "MANDATORY", "limits": ["MAX_5_PAGES"], "sourceIds": ["SRC_ANR_RHU_V6_2023"] },
+    { "annexRequirementId": "ANNEX_RHU_METHODOLOGY", "title": "Methodology of planned preclinical and clinical trials", "qualificationStatus": "MANDATORY", "limits": ["MAX_1_PAGE_PER_PLANNED_CLINICAL_TRIAL", "COMPILED_IN_ONE_ANNEX"], "sourceIds": ["SRC_ANR_RHU_V6_2023"] },
+    { "annexRequirementId": "ANNEX_RHU_IMPACT", "title": "Impact, intellectual property and return-sharing principles", "qualificationStatus": "MANDATORY", "limits": ["MAX_3_PAGES"], "sourceIds": ["SRC_ANR_RHU_V6_2023"] },
+    { "annexRequirementId": "ANNEX_CNIL_SECURITY", "title": "MR security annex", "qualificationStatus": "CONDITIONAL_MANDATORY", "limits": [], "sourceIds": ["SRC_CNIL_MR_UPDATE_2026"] },
+    { "annexRequirementId": "ANNEX_CNIL_QUALITY_CONTROL", "title": "MR quality-control annex", "qualificationStatus": "CONDITIONAL_MANDATORY", "limits": [], "sourceIds": ["SRC_CNIL_MR_UPDATE_2026"] }
+  ],
+  "approvalRequirements": [
+    { "approvalRequirementId": "APR_CPP_ALL_RIPH", "authority": "AUTH_FR_CPP", "appliesTo": ["RIPH_1", "RIPH_2", "RIPH_3"], "requirementIds": ["REQ_FR_CPP_OPINION"], "resultRequired": "FAVOURABLE_OPINION", "sourceIds": ["SRC_FR_CSP_L1121_4", "SRC_FR_CSP_L1123_6"] },
+    { "approvalRequirementId": "APR_ANSM_RIPH1", "authority": "AUTH_FR_ANSM", "appliesTo": ["RIPH_1"], "requirementIds": ["REQ_FR_ANSM_RIPH1_AUTHORIZATION"], "resultRequired": "AUTHORIZATION", "sourceIds": ["SRC_FR_CSP_L1121_4"] },
+    { "approvalRequirementId": "APR_CNIL_NONCONFORMING", "authority": "AUTH_FR_CNIL", "appliesTo": ["HEALTH_RESEARCH_NONCONFORMING_TO_MR"], "requirementIds": ["REQ_CNIL_MR_ROUTE"], "resultRequired": "AUTHORIZATION_AFTER_COMPETENT_ETHICS_OPINION", "sourceIds": ["SRC_CNIL_MR003_2026"] },
+    { "approvalRequirementId": "APR_CTR_MEMBER_STATE", "authority": "AUTH_EU_MEMBER_STATE", "appliesTo": ["MEDICINAL_PRODUCT_CLINICAL_TRIAL"], "requirementIds": ["REQ_EU_CTR_CTIS"], "resultRequired": "MEMBER_STATE_DECISION", "sourceIds": ["SRC_EU_CTR_536_2014"] }
+  ],
+  "reviewRequirements": [
+    { "reviewRequirementId": "REVIEW_CPP", "reviewerType": "ETHICS_COMMITTEE", "authority": "AUTH_FR_CPP", "trigger": "FR_RIPH", "sourceIds": ["SRC_FR_CSP_L1123_6"] },
+    { "reviewRequirementId": "REVIEW_ANSM", "reviewerType": "COMPETENT_AUTHORITY", "authority": "AUTH_FR_ANSM", "trigger": "FR_RIPH1_OR_SPECIFIC_ROUTE", "sourceIds": ["SRC_FR_CSP_L1121_4"] },
+    { "reviewRequirementId": "REVIEW_CNIL", "reviewerType": "DATA_PROTECTION_AUTHORITY", "authority": "AUTH_FR_CNIL", "trigger": "NONCONFORMING_OR_OUT_OF_SCOPE_HEALTH_DATA_PROCESSING", "sourceIds": ["SRC_CNIL_MR003_2026"] },
+    { "reviewRequirementId": "REVIEW_DGOS", "reviewerType": "FUNDER", "authority": "AUTH_FR_DGOS", "trigger": "PHRC_EDITION_SUBMISSION", "sourceIds": ["SRC_DGOS_PHRC_2025_2026"] },
+    { "reviewRequirementId": "REVIEW_ANR", "reviewerType": "FUNDING_OPERATOR", "authority": "AUTH_FR_ANR", "trigger": "RHU_EDITION_SUBMISSION", "sourceIds": ["SRC_ANR_RHU_V6_2023"] },
+    { "reviewRequirementId": "REVIEW_HUMAN_QUALIFICATION", "reviewerType": "HUMAN_REGULATORY_OR_FUNDING_EXPERT", "authority": null, "trigger": "UNKNOWN_REQUIRES_QUALIFICATION", "sourceIds": [] }
+  ],
+  "applicabilityRules": [
+    { "ruleId": "AR_FR_RIPH", "title": "French RIPH qualification", "axes": { "REGULATORY_FRAMEWORK": ["FR_CSP_RIPH"], "SCIENTIFIC_DESIGN": ["HUMAN_HEALTH_RESEARCH"], "FUNDING_PROGRAM": [], "DATA_SOURCES": ["HUMAN_PARTICIPANT_DATA"], "PROJECT_NATURE": ["RESEARCH_INVOLVING_HUMAN_PERSONS"] }, "relations": { "appliesIf": ["COND_FR_HUMAN_RESEARCH_SCOPE"], "doesNotApplyIf": ["OUTSIDE_RIPH_SCOPE_CONFIRMED"], "requires": ["REQ_FR_RIPH_CLASSIFICATION"], "dependsOn": ["HUMAN_LEGAL_QUALIFICATION"], "conflictsWith": [], "supersedes": [], "jurisdiction": ["FR"], "effectivePeriod": ["2022-07-31/OPEN"] }, "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "ruleId": "AR_CNIL_MR", "title": "French health-data MR route", "axes": { "REGULATORY_FRAMEWORK": ["GDPR_FR_DATA_PROTECTION"], "SCIENTIFIC_DESIGN": ["HEALTH_RESEARCH"], "FUNDING_PROGRAM": [], "DATA_SOURCES": ["PERSONAL_HEALTH_DATA"], "PROJECT_NATURE": ["RESEARCH_DATA_PROCESSING"] }, "relations": { "appliesIf": ["COND_HEALTH_PERSONAL_DATA", "COND_MR_SCOPE_QUALIFIED"], "doesNotApplyIf": ["NO_PERSONAL_DATA_CONFIRMED"], "requires": ["REQ_CNIL_MR_ROUTE"], "dependsOn": ["MR_SCOPE_AND_CONFORMITY_ASSESSMENT"], "conflictsWith": [], "supersedes": ["MR_2018_ROUTE_WHERE_2026_APPLIES"], "jurisdiction": ["FR"], "effectivePeriod": ["2026-05-23/OPEN"] }, "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "ruleId": "AR_EU_CTR", "title": "EU medicinal-product clinical-trial route", "axes": { "REGULATORY_FRAMEWORK": ["EU_CTR_536_2014"], "SCIENTIFIC_DESIGN": ["INTERVENTIONAL_TRIAL"], "FUNDING_PROGRAM": [], "DATA_SOURCES": ["TRIAL_DATA"], "PROJECT_NATURE": ["MEDICINAL_PRODUCT_CLINICAL_TRIAL"] }, "relations": { "appliesIf": ["COND_EU_EEA_MEDICINAL_TRIAL"], "doesNotApplyIf": ["NON_MEDICINAL_STUDY_CONFIRMED"], "requires": ["REQ_EU_CTR_CTIS", "REQ_EU_CTR_APPLICATION_DOSSIER"], "dependsOn": ["CTR_SCOPE_QUALIFICATION"], "conflictsWith": [], "supersedes": ["DIRECTIVE_TRANSITION_ROUTE"], "jurisdiction": ["EU_EEA"], "effectivePeriod": ["2025-01-31/OPEN"] }, "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "ruleId": "AR_PHRC_STAGE", "title": "PHRC-N edition and stage", "axes": { "REGULATORY_FRAMEWORK": [], "SCIENTIFIC_DESIGN": ["CLINICAL_RESEARCH_PROJECT"], "FUNDING_PROGRAM": ["FUND_PHRC_N", "ED_PHRC_2025_2026"], "DATA_SOURCES": [], "PROJECT_NATURE": ["PUBLIC_HOSPITAL_RESEARCH_FUNDING_APPLICATION"] }, "relations": { "appliesIf": ["EDITION_AND_STAGE_MATCH"], "doesNotApplyIf": ["OTHER_PROGRAM_OR_EDITION"], "requires": ["REQ_PHRC_STAGE1", "REQ_PHRC_STAGE2"], "dependsOn": ["PROGRAM_EDITION", "SUBMISSION_STAGE"], "conflictsWith": [], "supersedes": [], "jurisdiction": ["FR"], "effectivePeriod": ["2025-07-02/2026-06-16"] }, "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "ruleId": "AR_RHU_EDITION", "title": "RHU V6 2023 edition", "axes": { "REGULATORY_FRAMEWORK": [], "SCIENTIFIC_DESIGN": ["TRANSLATIONAL_HEALTH_RESEARCH"], "FUNDING_PROGRAM": ["FUND_RHU", "ED_RHU_V6_2023"], "DATA_SOURCES": [], "PROJECT_NATURE": ["FRANCE_2030_FUNDING_APPLICATION"] }, "relations": { "appliesIf": ["COND_RHU_V6_2023"], "doesNotApplyIf": ["OTHER_RHU_EDITION"], "requires": ["REQ_RHU_V6_COMPLETE_DOSSIER", "REQ_RHU_V6_ANNEXES"], "dependsOn": ["PROGRAM_EDITION"], "conflictsWith": [], "supersedes": ["RHU_V5_2021_FOR_V6_EDITION_ONLY"], "jurisdiction": ["FR"], "effectivePeriod": ["2023-01-02/2023-04-13"] }, "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "ruleId": "AR_METHOD_GUIDANCE", "title": "Methodological and reporting guidance", "axes": { "REGULATORY_FRAMEWORK": ["GUIDANCE_ONLY_UNLESS_INCORPORATED"], "SCIENTIFIC_DESIGN": ["DESIGN_OR_REPORT_TYPE_MATCH"], "FUNDING_PROGRAM": [], "DATA_SOURCES": [], "PROJECT_NATURE": ["PROTOCOL_OR_RESULTS_REPORT"] }, "relations": { "appliesIf": ["GUIDELINE_SCOPE_MATCH"], "doesNotApplyIf": ["SCOPE_MISMATCH"], "requires": ["NO_SILENT_NORMATIVE_PROMOTION"], "dependsOn": ["EXPLICIT_INCORPORATION_CHECK"], "conflictsWith": ["AUTOMATIC_LEGAL_PROMOTION"], "supersedes": [], "jurisdiction": ["INTERNATIONAL"], "effectivePeriod": ["VERSION_SPECIFIC"] }, "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "ruleId": "AR_US_ACT", "title": "US applicable clinical trial", "axes": { "REGULATORY_FRAMEWORK": ["FDAAA_801_42_CFR_PART_11"], "SCIENTIFIC_DESIGN": ["CLINICAL_TRIAL"], "FUNDING_PROGRAM": [], "DATA_SOURCES": ["TRIAL_REGISTRATION_AND_RESULTS"], "PROJECT_NATURE": ["US_APPLICABLE_CLINICAL_TRIAL"] }, "relations": { "appliesIf": ["COND_US_APPLICABLE_CLINICAL_TRIAL"], "doesNotApplyIf": ["ACT_DEFINITION_NOT_MET"], "requires": ["REQ_US_ACT_REGISTRATION_RESULTS"], "dependsOn": ["US_STATUTORY_QUALIFICATION"], "conflictsWith": [], "supersedes": [], "jurisdiction": ["US"], "effectivePeriod": ["2017-01-18/OPEN"] }, "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "ruleId": "AR_NIH", "title": "NIH-funded clinical-trial dissemination", "axes": { "REGULATORY_FRAMEWORK": ["NIH_POLICY"], "SCIENTIFIC_DESIGN": ["CLINICAL_TRIAL"], "FUNDING_PROGRAM": ["FUND_NIH"], "DATA_SOURCES": ["TRIAL_REGISTRATION_AND_RESULTS"], "PROJECT_NATURE": ["NIH_FUNDED_CLINICAL_TRIAL"] }, "relations": { "appliesIf": ["COND_NIH_FUNDED_CLINICAL_TRIAL"], "doesNotApplyIf": ["NO_NIH_FUNDING_OR_POLICY_SCOPE"], "requires": ["REQ_NIH_TRIAL_DISSEMINATION"], "dependsOn": ["FUNDER_AND_POLICY_SCOPE"], "conflictsWith": [], "supersedes": [], "jurisdiction": ["US"], "effectivePeriod": ["2017-01-18/OPEN"] }, "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "ruleId": "AR_ECRIN", "title": "ECRIN RED discovery aid", "axes": { "REGULATORY_FRAMEWORK": ["INFORMATIONAL_ONLY"], "SCIENTIFIC_DESIGN": ["MULTINATIONAL_RESEARCH"], "FUNDING_PROGRAM": [], "DATA_SOURCES": ["INSTITUTIONAL_COMPARISON_DATABASE"], "PROJECT_NATURE": ["CROSS_COUNTRY_DISCOVERY"] }, "relations": { "appliesIf": ["COND_MULTICOUNTRY_DISCOVERY"], "doesNotApplyIf": ["PRIMARY_AUTHORITY_ALREADY_IDENTIFIED"], "requires": ["PRIMARY_SOURCE_REVERIFICATION"], "dependsOn": ["COUNTRY_SELECTION"], "conflictsWith": ["TREAT_AS_LAW"], "supersedes": [], "jurisdiction": ["EU_EEA"], "effectivePeriod": ["PORTAL_CURRENTNESS_UNKNOWN_PER_COUNTRY"] }, "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "ruleId": "AR_UNKNOWN_PROGRAM", "title": "Unqualified funding edition", "axes": { "REGULATORY_FRAMEWORK": [], "SCIENTIFIC_DESIGN": [], "FUNDING_PROGRAM": ["UNKNOWN"], "DATA_SOURCES": [], "PROJECT_NATURE": ["FUNDING_APPLICATION"] }, "relations": { "appliesIf": ["NO_PRIMARY_PROGRAM_EDITION_SELECTED"], "doesNotApplyIf": ["PRIMARY_EDITION_VERIFIED"], "requires": ["HUMAN_PROGRAM_QUALIFICATION"], "dependsOn": ["CURRENT_PRIMARY_CALL"], "conflictsWith": ["INFERRED_DOCUMENT_REQUIREMENTS"], "supersedes": [], "jurisdiction": ["UNKNOWN"], "effectivePeriod": ["UNKNOWN"] }, "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" }
+  ],
+  "authorities": [
+    { "authorityId": "AUTH_FR_LEGISLATOR", "name": "République française - Légifrance", "authorityType": "NATIONAL_LEGISLATOR", "jurisdiction": "FR", "officialDomain": "legifrance.gouv.fr" },
+    { "authorityId": "AUTH_FR_CPP", "name": "Comités de protection des personnes", "authorityType": "ETHICS_REVIEW_AUTHORITY", "jurisdiction": "FR", "officialDomain": "sante.gouv.fr" },
+    { "authorityId": "AUTH_FR_ANSM", "name": "Agence nationale de sécurité du médicament et des produits de santé", "authorityType": "NATIONAL_REGULATOR", "jurisdiction": "FR", "officialDomain": "ansm.sante.fr" },
+    { "authorityId": "AUTH_FR_CNIL", "name": "Commission nationale de l'informatique et des libertés", "authorityType": "NATIONAL_DATA_PROTECTION_AUTHORITY", "jurisdiction": "FR", "officialDomain": "cnil.fr" },
+    { "authorityId": "AUTH_FR_DGOS", "name": "Direction générale de l'offre de soins", "authorityType": "NATIONAL_FUNDING_AUTHORITY", "jurisdiction": "FR", "officialDomain": "sante.gouv.fr" },
+    { "authorityId": "AUTH_EU_LEGISLATOR", "name": "European Parliament and Council - EUR-Lex", "authorityType": "SUPRANATIONAL_LEGISLATOR", "jurisdiction": "EU_EEA", "officialDomain": "eur-lex.europa.eu" },
+    { "authorityId": "AUTH_EU_COMMISSION", "name": "European Commission - DG SANTE", "authorityType": "SUPRANATIONAL_REGULATORY_AUTHORITY", "jurisdiction": "EU_EEA", "officialDomain": "health.ec.europa.eu" },
+    { "authorityId": "AUTH_EU_EMA", "name": "European Medicines Agency", "authorityType": "SUPRANATIONAL_REGULATORY_AGENCY", "jurisdiction": "EU_EEA", "officialDomain": "ema.europa.eu" },
+    { "authorityId": "AUTH_FR_ANR", "name": "Agence nationale de la recherche", "authorityType": "NATIONAL_FUNDING_OPERATOR", "jurisdiction": "FR", "officialDomain": "anr.fr" },
+    { "authorityId": "AUTH_ICH", "name": "International Council for Harmonisation", "authorityType": "INTERNATIONAL_STANDARDS_BODY", "jurisdiction": "INTERNATIONAL", "officialDomain": "ich.org" },
+    { "authorityId": "AUTH_SPIRIT_CONSORT", "name": "SPIRIT-CONSORT Group", "authorityType": "METHODOLOGICAL_GUIDELINE_GROUP", "jurisdiction": "INTERNATIONAL", "officialDomain": "consort-spirit.org" },
+    { "authorityId": "AUTH_EQUATOR", "name": "EQUATOR Network", "authorityType": "REPORTING_GUIDELINE_CATALOG", "jurisdiction": "INTERNATIONAL", "officialDomain": "equator-network.org" },
+    { "authorityId": "AUTH_PRISMA", "name": "PRISMA Executive", "authorityType": "REPORTING_GUIDELINE_GROUP", "jurisdiction": "INTERNATIONAL", "officialDomain": "prisma-statement.org" },
+    { "authorityId": "AUTH_US_NIH", "name": "National Institutes of Health", "authorityType": "NATIONAL_FUNDING_AUTHORITY", "jurisdiction": "US", "officialDomain": "nih.gov" },
+    { "authorityId": "AUTH_US_CLINICALTRIALS", "name": "ClinicalTrials.gov - National Library of Medicine", "authorityType": "NATIONAL_TRIAL_REGISTRY", "jurisdiction": "US", "officialDomain": "clinicaltrials.gov" },
+    { "authorityId": "AUTH_ECRIN", "name": "European Clinical Research Infrastructure Network", "authorityType": "RESEARCH_INFRASTRUCTURE", "jurisdiction": "EU_EEA", "officialDomain": "ecrin.org" }
+  ],
+  "requirementProfiles": [
+    { "profileId": "PROFILE_FR_RIPH", "title": "French RIPH qualification and submissions", "requirementIds": ["REQ_FR_RIPH_CLASSIFICATION", "REQ_FR_CPP_OPINION", "REQ_FR_ANSM_RIPH1_AUTHORIZATION", "REQ_FR_CPP_PROTOCOL", "REQ_FR_RIPH_CONSENT_OR_OPPOSITION"] },
+    { "profileId": "PROFILE_FR_HEALTH_DATA", "title": "French health-research data processing", "requirementIds": ["REQ_CNIL_MR_ROUTE", "REQ_CNIL_MR_ANNEXES"] },
+    { "profileId": "PROFILE_EU_MEDICINAL_TRIAL", "title": "EU/EEA medicinal-product clinical trial", "requirementIds": ["REQ_EU_CTR_CTIS", "REQ_EU_CTR_APPLICATION_DOSSIER"] },
+    { "profileId": "PROFILE_DGOS_PHRC_2025_2026", "title": "PHRC-N campaign 2025-2026", "requirementIds": ["REQ_PHRC_STAGE1", "REQ_PHRC_STAGE2"] },
+    { "profileId": "PROFILE_ANR_RHU_V6", "title": "RHU wave 6 - 2023", "requirementIds": ["REQ_RHU_V6_COMPLETE_DOSSIER", "REQ_RHU_V6_ANNEXES"] },
+    { "profileId": "PROFILE_METHOD_REPORTING", "title": "Methodological and reporting guidance", "requirementIds": ["REQ_ICH_E6_R3", "REQ_SPIRIT_2025", "REQ_CONSORT_2025", "REQ_STROBE", "REQ_RECORD", "REQ_TRIPOD", "REQ_STARD", "REQ_PRISMA_2020"] },
+    { "profileId": "PROFILE_US_REGISTRY", "title": "US legal and NIH-funded trial dissemination", "requirementIds": ["REQ_US_ACT_REGISTRATION_RESULTS", "REQ_NIH_TRIAL_DISSEMINATION"] },
+    { "profileId": "PROFILE_INSTITUTIONAL_DISCOVERY", "title": "Institutional discovery aids", "requirementIds": ["REQ_ECRIN_RED_INFORMATIONAL"] }
+  ],
+  "requirementSources": [
+    {
+      "sourceId": "SRC_FR_CSP_L1121_1",
+      "title": "Code de la santé publique - article L1121-1",
+      "authority": "AUTH_FR_LEGISLATOR",
+      "authorityType": "NATIONAL_LEGISLATOR",
+      "sourceType": "LEGISLATIVE_CODE",
+      "jurisdiction": "FR",
+      "applicabilityBasis": "LEGAL_CLASSIFICATION",
+      "normativeStrength": "LEGAL_MANDATORY",
+      "officialURL": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000046125746/",
+      "locator": "Article L1121-1, paragraphs defining categories 1°, 2° and 3°",
+      "temporal": { "publishedAt": "2022-07-29", "effectiveFrom": "2022-07-31", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "LEGIARTI000046125746", "programEdition": null, "supersedes": [], "supersededBy": [], "status": "CURRENT" }
+    },
+    {
+      "sourceId": "SRC_FR_CSP_L1121_4",
+      "title": "Code de la santé publique - article L1121-4",
+      "authority": "AUTH_FR_LEGISLATOR",
+      "authorityType": "NATIONAL_LEGISLATOR",
+      "sourceType": "LEGISLATIVE_CODE",
+      "jurisdiction": "FR",
+      "applicabilityBasis": "RIPH_CATEGORY",
+      "normativeStrength": "LEGAL_MANDATORY",
+      "officialURL": "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072665/LEGISCTA000006170998/",
+      "locator": "Article L1121-4: CPP and competent-authority prerequisites by RIPH category",
+      "temporal": { "publishedAt": "2016-06-16", "effectiveFrom": "2016-12-31", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "Ordonnance 2016-800 article 1", "programEdition": null, "supersedes": [], "supersededBy": [], "status": "CURRENT" }
+    },
+    {
+      "sourceId": "SRC_FR_CSP_L1122_1_1",
+      "title": "Code de la santé publique - article L1122-1-1",
+      "authority": "AUTH_FR_LEGISLATOR",
+      "authorityType": "NATIONAL_LEGISLATOR",
+      "sourceType": "LEGISLATIVE_CODE",
+      "jurisdiction": "FR",
+      "applicabilityBasis": "RIPH_CATEGORY_AND_PARTICIPANT_PROTECTION",
+      "normativeStrength": "LEGAL_MANDATORY",
+      "officialURL": "https://www.legifrance.gouv.fr/codes/id/LEGISCTA000025457387",
+      "locator": "Article L1122-1-1: written consent for category 1; free, informed and express consent for category 2; absence of opposition for category 3",
+      "temporal": { "publishedAt": "2016-06-16", "effectiveFrom": "2016-12-31", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "Ordonnance 2016-800 article 2", "programEdition": null, "supersedes": [], "supersededBy": [], "status": "CURRENT" }
+    },
+    {
+      "sourceId": "SRC_FR_CSP_L1123_6",
+      "title": "Code de la santé publique - article L1123-6",
+      "authority": "AUTH_FR_LEGISLATOR",
+      "authorityType": "NATIONAL_LEGISLATOR",
+      "sourceType": "LEGISLATIVE_CODE",
+      "jurisdiction": "FR",
+      "applicabilityBasis": "ETHICS_REVIEW",
+      "normativeStrength": "LEGAL_MANDATORY",
+      "officialURL": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037504414/",
+      "locator": "Article L1123-6 I: one randomly designated competent CPP opinion before an RIPH",
+      "temporal": { "publishedAt": "2018-10-17", "effectiveFrom": "2018-10-19", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "LEGIARTI000037504414", "programEdition": null, "supersedes": [], "supersededBy": [], "status": "CURRENT" }
+    },
+    {
+      "sourceId": "SRC_FR_CSP_R1123_20",
+      "title": "Code de la santé publique - article R1123-20",
+      "authority": "AUTH_FR_LEGISLATOR",
+      "authorityType": "NATIONAL_LEGISLATOR",
+      "sourceType": "REGULATORY_CODE",
+      "jurisdiction": "FR",
+      "applicabilityBasis": "CPP_APPLICATION_DOSSIER",
+      "normativeStrength": "REGULATORY_MANDATORY",
+      "officialURL": "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072665/LEGISCTA000006196869/",
+      "locator": "Article R1123-20 I 1°-2°: administrative dossier and dated protocol describing objectives, design, method, statistics and organisation",
+      "temporal": { "publishedAt": "2022-03-04", "effectiveFrom": "2022-03-07", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "Décret 2022-323 article 1", "programEdition": null, "supersedes": [], "supersededBy": [], "status": "CURRENT" }
+    },
+    {
+      "sourceId": "SRC_CNIL_MR001_2026",
+      "title": "Méthodologie de référence MR-001 - version avril 2026",
+      "authority": "AUTH_FR_CNIL",
+      "authorityType": "NATIONAL_DATA_PROTECTION_AUTHORITY",
+      "sourceType": "REGULATORY_REFERENCE_METHODOLOGY",
+      "jurisdiction": "FR",
+      "applicabilityBasis": "HEALTH_RESEARCH_WITH_RESEARCH_CONSENT_OR_SPECIFIC_ACT",
+      "normativeStrength": "CONDITIONAL_MANDATORY",
+      "officialURL": "https://www.cnil.fr/fr/methodologie-de-reference-mr-001-recherches-sante-avec-recueil-du-consentement",
+      "locator": "Scope and CNIL formalities; official PDF version April 2026",
+      "temporal": { "publishedAt": "2026-05-26", "effectiveFrom": "2026-05-23", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "MR-001 April 2026", "programEdition": null, "supersedes": ["MR-001 2018"], "supersededBy": [], "status": "CURRENT" }
+    },
+    {
+      "sourceId": "SRC_CNIL_MR003_2026",
+      "title": "Méthodologie de référence MR-003 - version avril 2026",
+      "authority": "AUTH_FR_CNIL",
+      "authorityType": "NATIONAL_DATA_PROTECTION_AUTHORITY",
+      "sourceType": "REGULATORY_REFERENCE_METHODOLOGY",
+      "jurisdiction": "FR",
+      "applicabilityBasis": "HEALTH_RESEARCH_WITHOUT_RESEARCH_CONSENT_OR_SPECIFIC_ACT",
+      "normativeStrength": "CONDITIONAL_MANDATORY",
+      "officialURL": "https://www.cnil.fr/fr/methodologie-de-reference-mr-003-recherches-dans-le-domaine-de-la-sante-sans-recueil-du-consentement",
+      "locator": "Scope; strict conformity declaration; authorisation request if non-conforming",
+      "temporal": { "publishedAt": "2026-05-26", "effectiveFrom": "2026-05-23", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "MR-003 April 2026", "programEdition": null, "supersedes": ["MR-003 2018"], "supersededBy": [], "status": "CURRENT" }
+    },
+    {
+      "sourceId": "SRC_CNIL_MR_UPDATE_2026",
+      "title": "CNIL - Mise à jour 2026 des MR-001 et MR-003",
+      "authority": "AUTH_FR_CNIL",
+      "authorityType": "NATIONAL_DATA_PROTECTION_AUTHORITY",
+      "sourceType": "OFFICIAL_REGULATORY_NOTICE",
+      "jurisdiction": "FR",
+      "applicabilityBasis": "MR_VERSION_AND_TRANSITION",
+      "normativeStrength": "OFFICIAL_RECOMMENDATION",
+      "officialURL": "https://www.cnil.fr/fr/recherche-en-sante-la-cnil-met-jour-et-elargit-le-champ-des-methodologies-de-reference-001-et-003",
+      "locator": "Sections on effectivity, security annex, quality-control annex and transitional measures",
+      "temporal": { "publishedAt": "2026-05-26", "effectiveFrom": "2026-05-23", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "CNIL notice 2026-05-26", "programEdition": null, "supersedes": [], "supersededBy": [], "status": "CURRENT" }
+    },
+    {
+      "sourceId": "SRC_EU_CTR_536_2014",
+      "title": "Regulation (EU) No 536/2014 on clinical trials on medicinal products",
+      "authority": "AUTH_EU_LEGISLATOR",
+      "authorityType": "SUPRANATIONAL_LEGISLATOR",
+      "sourceType": "EU_REGULATION",
+      "jurisdiction": "EU_EEA",
+      "applicabilityBasis": "MEDICINAL_PRODUCT_CLINICAL_TRIAL",
+      "normativeStrength": "LEGAL_MANDATORY",
+      "officialURL": "https://eur-lex.europa.eu/eli/reg/2014/536/oj?locale=fr",
+      "locator": "Articles 5-7 and Annex I - initial application dossier",
+      "temporal": { "publishedAt": "2014-05-27", "effectiveFrom": "2022-01-31", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "CELEX 32014R0536", "programEdition": null, "supersedes": ["Directive 2001/20/EC for applicable trials"], "supersededBy": [], "status": "CURRENT" }
+    },
+    {
+      "sourceId": "SRC_EC_CTR_CTIS_2025",
+      "title": "European Commission - Clinical trials regulatory transition",
+      "authority": "AUTH_EU_COMMISSION",
+      "authorityType": "SUPRANATIONAL_REGULATORY_AUTHORITY",
+      "sourceType": "OFFICIAL_REGULATORY_PORTAL",
+      "jurisdiction": "EU_EEA",
+      "applicabilityBasis": "CTR_TRANSITION_AND_CTIS_USE",
+      "normativeStrength": "REGULATORY_MANDATORY",
+      "officialURL": "https://health.ec.europa.eu/medicinal-products/clinical-trials_en",
+      "locator": "Transition statement: from 31 January 2025 all EU/EEA clinical trials must follow CTR using CTIS",
+      "temporal": { "publishedAt": null, "effectiveFrom": "2025-01-31", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "Portal checked 2026-08-10", "programEdition": null, "supersedes": ["Clinical Trials Directive transition route"], "supersededBy": [], "status": "CURRENT" }
+    },
+    {
+      "sourceId": "SRC_EMA_CTIS_2026",
+      "title": "EMA - Clinical Trials Information System",
+      "authority": "AUTH_EU_EMA",
+      "authorityType": "SUPRANATIONAL_REGULATORY_AGENCY",
+      "sourceType": "OFFICIAL_SUBMISSION_PORTAL_GUIDANCE",
+      "jurisdiction": "EU_EEA",
+      "applicabilityBasis": "CTIS_SPONSOR_WORKSPACE",
+      "normativeStrength": "OFFICIAL_RECOMMENDATION",
+      "officialURL": "https://www.ema.europa.eu/en/human-regulatory-overview/research-development/clinical-trials-human-medicines/clinical-trials-information-system",
+      "locator": "Sponsor workspace functions and application lifecycle",
+      "temporal": { "publishedAt": "2022-01-31", "effectiveFrom": "2022-01-31", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "EMA portal checked 2026-08-10", "programEdition": null, "supersedes": [], "supersededBy": [], "status": "CURRENT" }
+    },
+    {
+      "sourceId": "SRC_DGOS_PHRC_2025_2026",
+      "title": "DGOS - Innovarc 3, campaign 2025-2026",
+      "authority": "AUTH_FR_DGOS",
+      "authorityType": "NATIONAL_FUNDING_AUTHORITY",
+      "sourceType": "OFFICIAL_FUNDING_PORTAL",
+      "jurisdiction": "FR",
+      "applicabilityBasis": "PROGRAM_EDITION_AND_SUBMISSION_STAGE",
+      "normativeStrength": "PROGRAM_MANDATORY",
+      "officialURL": "https://sante.gouv.fr/systeme-de-sante/innovation-et-recherche/l-innovation-et-la-recherche-clinique/appels-a-projets/innovarc",
+      "locator": "Constitution des dossiers - letter of intent and complete dossier; updated 23 April 2026",
+      "temporal": { "publishedAt": "2025-07-02", "effectiveFrom": "2025-07-02", "effectiveUntil": "2026-06-16", "verifiedAt": "2026-08-10", "sourceRevision": "Page updated 2026-04-23", "programEdition": "ED_PHRC_2025_2026", "supersedes": [], "supersededBy": [], "status": "ARCHIVED" }
+    },
+    {
+      "sourceId": "SRC_DGOS_NOTE_2025_90",
+      "title": "Note d'information DGOS/RI1/2025/90 du 2 juillet 2025",
+      "authority": "AUTH_FR_DGOS",
+      "authorityType": "NATIONAL_FUNDING_AUTHORITY",
+      "sourceType": "OFFICIAL_PROGRAM_NOTICE",
+      "jurisdiction": "FR",
+      "applicabilityBasis": "PROGRAM_EDITION",
+      "normativeStrength": "PROGRAM_MANDATORY",
+      "officialURL": "https://sante.gouv.fr/IMG/pdf/2025_90.pdf",
+      "locator": "Campaign 2025-2026 program rules and annex II letter-of-intent model",
+      "temporal": { "publishedAt": "2025-07-02", "effectiveFrom": "2025-07-02", "effectiveUntil": "2026-06-16", "verifiedAt": "2026-08-10", "sourceRevision": "DGOS/RI1/2025/90", "programEdition": "ED_PHRC_2025_2026", "supersedes": [], "supersededBy": [], "status": "ARCHIVED" }
+    },
+    {
+      "sourceId": "SRC_ANR_RHU_V6_2023",
+      "title": "ANR - RHU wave 6, 2023 call for proposals",
+      "authority": "AUTH_FR_ANR",
+      "authorityType": "NATIONAL_FUNDING_OPERATOR",
+      "sourceType": "OFFICIAL_CALL_FOR_PROPOSALS",
+      "jurisdiction": "FR",
+      "applicabilityBasis": "PROGRAM_EDITION",
+      "normativeStrength": "PROGRAM_MANDATORY",
+      "officialURL": "https://anr.fr/fileadmin/aap/2023/france2030-aap-RHU-V6-2023.pdf",
+      "locator": "Sections 3.2 points 1-2 and 5.1-5.2; pages 8-9 and 13-14",
+      "temporal": { "publishedAt": "2022-12-31", "effectiveFrom": "2023-01-02", "effectiveUntil": "2023-04-13", "verifiedAt": "2026-08-10", "sourceRevision": "RHU V6 call dated 2022-12-31", "programEdition": "ED_RHU_V6_2023", "supersedes": ["RHU V5 2021"], "supersededBy": [], "status": "ARCHIVED" }
+    },
+    {
+      "sourceId": "SRC_ICH_E6_R3_2025",
+      "title": "ICH E6(R3) Guideline for Good Clinical Practice - Step 4",
+      "authority": "AUTH_ICH",
+      "authorityType": "INTERNATIONAL_STANDARDS_BODY",
+      "sourceType": "METHODOLOGICAL_STANDARD",
+      "jurisdiction": "INTERNATIONAL",
+      "applicabilityBasis": "INTERVENTIONAL_TRIAL_OF_INVESTIGATIONAL_PRODUCT",
+      "normativeStrength": "METHODOLOGICAL_GUIDANCE",
+      "officialURL": "https://database.ich.org/sites/default/files/ICH_E6%28R3%29_Step4_FinalGuideline_2025_0106.pdf",
+      "locator": "Introduction, principles and Annex 1",
+      "temporal": { "publishedAt": "2025-01-06", "effectiveFrom": "2025-01-06", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "E6(R3) Step 4 2025-01-06", "programEdition": null, "supersedes": ["ICH E6(R2) as ICH guideline version"], "supersededBy": [], "status": "CURRENT" }
+    },
+    {
+      "sourceId": "SRC_SPIRIT_CONSORT_2025",
+      "title": "SPIRIT 2025 and CONSORT 2025 published statements",
+      "authority": "AUTH_SPIRIT_CONSORT",
+      "authorityType": "METHODOLOGICAL_GUIDELINE_GROUP",
+      "sourceType": "REPORTING_GUIDELINE",
+      "jurisdiction": "INTERNATIONAL",
+      "applicabilityBasis": "RANDOMISED_TRIAL_PROTOCOL_OR_RESULTS_REPORT",
+      "normativeStrength": "REPORTING_GUIDANCE",
+      "officialURL": "https://www.consort-spirit.org/published-statements",
+      "locator": "SPIRIT 2025 and CONSORT 2025 statement citations and versions",
+      "temporal": { "publishedAt": "2025-04-01", "effectiveFrom": "2025-04-01", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "SPIRIT 2025 / CONSORT 2025", "programEdition": null, "supersedes": ["SPIRIT 2013", "CONSORT 2010"], "supersededBy": [], "status": "CURRENT" }
+    },
+    {
+      "sourceId": "SRC_EQUATOR_STROBE",
+      "title": "EQUATOR - STROBE Statement",
+      "authority": "AUTH_EQUATOR",
+      "authorityType": "REPORTING_GUIDELINE_CATALOG",
+      "sourceType": "REPORTING_GUIDELINE_CATALOG_ENTRY",
+      "jurisdiction": "INTERNATIONAL",
+      "applicabilityBasis": "OBSERVATIONAL_STUDY_REPORT",
+      "normativeStrength": "REPORTING_GUIDANCE",
+      "officialURL": "https://www.equator-network.org/reporting-guidelines/strobe/",
+      "locator": "STROBE reporting guideline and checklist; record updated 2026-06-08",
+      "temporal": { "publishedAt": "2007-10-01", "effectiveFrom": "2007-10-01", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "STROBE 2007, EQUATOR record 2026-06-08", "programEdition": null, "supersedes": [], "supersededBy": [], "status": "CURRENT" }
+    },
+    {
+      "sourceId": "SRC_EQUATOR_RECORD",
+      "title": "EQUATOR - RECORD Statement",
+      "authority": "AUTH_EQUATOR",
+      "authorityType": "REPORTING_GUIDELINE_CATALOG",
+      "sourceType": "REPORTING_GUIDELINE_CATALOG_ENTRY",
+      "jurisdiction": "INTERNATIONAL",
+      "applicabilityBasis": "OBSERVATIONAL_ROUTINELY_COLLECTED_HEALTH_DATA_REPORT",
+      "normativeStrength": "REPORTING_GUIDANCE",
+      "officialURL": "https://www.equator-network.org/reporting-guidelines/record/",
+      "locator": "RECORD Statement 2015 and checklist",
+      "temporal": { "publishedAt": "2015-10-06", "effectiveFrom": "2015-10-06", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "RECORD 2015", "programEdition": null, "supersedes": [], "supersededBy": [], "status": "CURRENT" }
+    },
+    {
+      "sourceId": "SRC_EQUATOR_TRIPOD",
+      "title": "EQUATOR - TRIPOD Statement",
+      "authority": "AUTH_EQUATOR",
+      "authorityType": "REPORTING_GUIDELINE_CATALOG",
+      "sourceType": "REPORTING_GUIDELINE_CATALOG_ENTRY",
+      "jurisdiction": "INTERNATIONAL",
+      "applicabilityBasis": "PREDICTION_MODEL_REPORT",
+      "normativeStrength": "REPORTING_GUIDANCE",
+      "officialURL": "https://www.equator-network.org/2015/01/06/tripod/",
+      "locator": "TRIPOD 22-item reporting checklist; explicit statement that it does not prescribe development or validation",
+      "temporal": { "publishedAt": "2015-01-06", "effectiveFrom": "2015-01-06", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "TRIPOD 2015 general statement", "programEdition": null, "supersedes": [], "supersededBy": [], "status": "CURRENT" }
+    },
+    {
+      "sourceId": "SRC_EQUATOR_STARD",
+      "title": "EQUATOR - STARD 2015",
+      "authority": "AUTH_EQUATOR",
+      "authorityType": "REPORTING_GUIDELINE_CATALOG",
+      "sourceType": "REPORTING_GUIDELINE_CATALOG_ENTRY",
+      "jurisdiction": "INTERNATIONAL",
+      "applicabilityBasis": "DIAGNOSTIC_ACCURACY_REPORT",
+      "normativeStrength": "REPORTING_GUIDANCE",
+      "officialURL": "https://www.equator-network.org/reporting-guidelines/stard/",
+      "locator": "STARD 2015 checklist and flow diagram",
+      "temporal": { "publishedAt": "2015-10-28", "effectiveFrom": "2015-10-28", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "STARD 2015", "programEdition": null, "supersedes": ["STARD 2003"], "supersededBy": [], "status": "CURRENT" }
+    },
+    {
+      "sourceId": "SRC_PRISMA_2020",
+      "title": "PRISMA 2020 Statement",
+      "authority": "AUTH_PRISMA",
+      "authorityType": "REPORTING_GUIDELINE_GROUP",
+      "sourceType": "REPORTING_GUIDELINE",
+      "jurisdiction": "INTERNATIONAL",
+      "applicabilityBasis": "SYSTEMATIC_REVIEW_REPORT",
+      "normativeStrength": "REPORTING_GUIDANCE",
+      "officialURL": "https://www.prisma-statement.org/prisma-2020",
+      "locator": "Statement, checklist, expanded checklist and flow diagrams",
+      "temporal": { "publishedAt": "2021-03-29", "effectiveFrom": "2021-03-29", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "PRISMA 2020", "programEdition": null, "supersedes": ["PRISMA 2009"], "supersededBy": [], "status": "CURRENT" }
+    },
+    {
+      "sourceId": "SRC_CLINICALTRIALS_FINAL_RULE",
+      "title": "ClinicalTrials.gov - FDAAA 801 and 42 CFR Part 11",
+      "authority": "AUTH_US_CLINICALTRIALS",
+      "authorityType": "NATIONAL_TRIAL_REGISTRY",
+      "sourceType": "OFFICIAL_LEGAL_POLICY_SUMMARY",
+      "jurisdiction": "US",
+      "applicabilityBasis": "US_APPLICABLE_CLINICAL_TRIAL",
+      "normativeStrength": "LEGAL_MANDATORY",
+      "officialURL": "https://clinicaltrials.gov/policy/fdaaa-801-final-rule",
+      "locator": "Who must register, which trials, registration and results deadlines",
+      "temporal": { "publishedAt": "2016-09-21", "effectiveFrom": "2017-01-18", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "42 CFR Part 11 with 2024 technical amendment noted", "programEdition": null, "supersedes": [], "supersededBy": [], "status": "CURRENT" }
+    },
+    {
+      "sourceId": "SRC_NIH_DISSEMINATION_POLICY",
+      "title": "NIH Policy on Dissemination of NIH-Funded Clinical Trial Information",
+      "authority": "AUTH_US_NIH",
+      "authorityType": "NATIONAL_FUNDING_AUTHORITY",
+      "sourceType": "OFFICIAL_FUNDING_POLICY",
+      "jurisdiction": "US",
+      "applicabilityBasis": "NIH_FUNDED_CLINICAL_TRIAL",
+      "normativeStrength": "PROGRAM_MANDATORY",
+      "officialURL": "https://grants.nih.gov/policy-and-compliance/policy-topics/clinical-trials/reporting/nih-policy",
+      "locator": "Policy purpose, scope, registration and results expectations; effective date",
+      "temporal": { "publishedAt": "2016-09-16", "effectiveFrom": "2017-01-18", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "NOT-OD-16-149; page updated 2024-09-09", "programEdition": null, "supersedes": [], "supersededBy": [], "status": "CURRENT" }
+    },
+    {
+      "sourceId": "SRC_ECRIN_RED",
+      "title": "ECRIN Regulatory & Ethical Database",
+      "authority": "AUTH_ECRIN",
+      "authorityType": "RESEARCH_INFRASTRUCTURE",
+      "sourceType": "INSTITUTIONAL_DATABASE",
+      "jurisdiction": "EU_EEA",
+      "applicabilityBasis": "DISCOVERY_AND_COUNTRY_COMPARISON",
+      "normativeStrength": "INFORMATIONAL_ONLY",
+      "officialURL": "https://red.ecrin.org/en/about",
+      "locator": "Database scope and country-specific regulatory/ethical information",
+      "temporal": { "publishedAt": "2015-12-01", "effectiveFrom": null, "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "RED portal checked 2026-08-10", "programEdition": null, "supersedes": [], "supersededBy": [], "status": "CURRENT" }
+    }
+  ],
+  "requirements": [
+    {
+      "identifier": "REQ_FR_RIPH_CLASSIFICATION", "title": "Qualify the French RIPH category before deriving obligations", "authority": "AUTH_FR_LEGISLATOR", "jurisdiction": "FR", "source": ["SRC_FR_CSP_L1121_1"], "version": "1.0.0", "revision": "2026-08-10",
+      "authorityType": "NATIONAL_LEGISLATOR", "sourceType": "LEGAL_REQUIREMENT", "applicabilityBasis": "LEGAL_CLASSIFICATION", "publishedAt": "2022-07-29", "effectiveFrom": "2022-07-31", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "LEGIARTI000046125746", "programEdition": null, "supersedes": [], "supersededBy": [],
+      "studyTypes": ["HUMAN_HEALTH_RESEARCH"], "fundingPrograms": [], "requiredDocuments": [], "requiredSections": [], "requiredFields": ["FIELD_RIPH_CATEGORY"], "requiredAnnexes": [], "submissionWorkflow": ["QUALIFY_RIPH_CATEGORY"], "deadlines": ["BEFORE_ANY_RIPH_SUBMISSION_OR_IMPLEMENTATION"], "constraints": ["No category may be inferred from a project label alone"], "conditions": ["COND_FR_HUMAN_RESEARCH_SCOPE"], "references": ["EVD_FR_RIPH_CATEGORIES"], "officialURL": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000046125746/", "verificationDate": "2026-08-10", "normativeStrength": "LEGAL_MANDATORY", "status": "CURRENT"
+    },
+    {
+      "identifier": "REQ_FR_CPP_OPINION", "title": "Obtain a favourable CPP opinion before implementing an RIPH", "authority": "AUTH_FR_CPP", "jurisdiction": "FR", "source": ["SRC_FR_CSP_L1121_4", "SRC_FR_CSP_L1123_6"], "version": "1.0.0", "revision": "2026-08-10",
+      "authorityType": "ETHICS_REVIEW_AUTHORITY", "sourceType": "APPROVAL_REQUIREMENT", "applicabilityBasis": "RIPH_CATEGORY", "publishedAt": "2016-06-16", "effectiveFrom": "2016-12-31", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "L1121-4 and LEGIARTI000037504414", "programEdition": null, "supersedes": [], "supersededBy": [],
+      "studyTypes": ["RIPH_1", "RIPH_2", "RIPH_3"], "fundingPrograms": [], "requiredDocuments": ["DOC_CPP_APPLICATION_DOSSIER", "DOC_RESEARCH_PROTOCOL"], "requiredSections": [], "requiredFields": [], "requiredAnnexes": [], "submissionWorkflow": ["SUBMIT_SIRIPH", "CPP_REVIEW", "FAVOURABLE_OPINION_REQUIRED"], "deadlines": ["BEFORE_STUDY_IMPLEMENTATION"], "constraints": ["Only one CPP opinion request per project except the statutory second-examination route"], "conditions": ["COND_FR_RIPH_CONFIRMED"], "references": ["EVD_FR_CPP_ALL_RIPH"], "officialURL": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037504414/", "verificationDate": "2026-08-10", "normativeStrength": "LEGAL_MANDATORY", "status": "CURRENT"
+    },
+    {
+      "identifier": "REQ_FR_ANSM_RIPH1_AUTHORIZATION", "title": "Obtain competent-authority authorisation for RIPH category 1", "authority": "AUTH_FR_ANSM", "jurisdiction": "FR", "source": ["SRC_FR_CSP_L1121_4"], "version": "1.0.0", "revision": "2026-08-10",
+      "authorityType": "NATIONAL_REGULATOR", "sourceType": "APPROVAL_REQUIREMENT", "applicabilityBasis": "RIPH_CATEGORY_1", "publishedAt": "2016-06-16", "effectiveFrom": "2016-12-31", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "Ordonnance 2016-800 article 1", "programEdition": null, "supersedes": [], "supersededBy": [],
+      "studyTypes": ["RIPH_1"], "fundingPrograms": [], "requiredDocuments": ["DOC_ANSM_AUTHORIZATION_APPLICATION"], "requiredSections": [], "requiredFields": [], "requiredAnnexes": [], "submissionWorkflow": ["ANSM_AUTHORIZATION_APPLICATION", "AUTHORIZATION_REQUIRED"], "deadlines": ["BEFORE_STUDY_IMPLEMENTATION"], "constraints": ["For medicinal-product clinical trials within CTR scope, the applicable EU/CTIS route must be qualified separately"], "conditions": ["COND_RIPH1", "COND_NOT_REPLACED_BY_MORE_SPECIFIC_EU_ROUTE"], "references": ["EVD_FR_ANSM_RIPH1_ONLY"], "officialURL": "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072665/LEGISCTA000006170998/", "verificationDate": "2026-08-10", "normativeStrength": "LEGAL_MANDATORY", "status": "CURRENT"
+    },
+    {
+      "identifier": "REQ_FR_CPP_PROTOCOL", "title": "Include a dated research protocol in the CPP application dossier", "authority": "AUTH_FR_CPP", "jurisdiction": "FR", "source": ["SRC_FR_CSP_R1123_20"], "version": "1.0.0", "revision": "2026-08-10",
+      "authorityType": "ETHICS_REVIEW_AUTHORITY", "sourceType": "SUBMISSION_REQUIREMENT", "applicabilityBasis": "CPP_APPLICATION_DOSSIER", "publishedAt": "2022-03-04", "effectiveFrom": "2022-03-07", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "Décret 2022-323 article 1", "programEdition": null, "supersedes": [], "supersededBy": [],
+      "studyTypes": ["RIPH_1", "RIPH_2", "RIPH_3"], "fundingPrograms": [], "requiredDocuments": ["DOC_RESEARCH_PROTOCOL"], "requiredSections": ["SEC_PROTOCOL_OBJECTIVES", "SEC_PROTOCOL_DESIGN", "SEC_PROTOCOL_METHOD", "SEC_PROTOCOL_STATISTICS", "SEC_PROTOCOL_ORGANISATION"], "requiredFields": ["FIELD_PROTOCOL_DATE", "FIELD_PROTOCOL_VERSION"], "requiredAnnexes": [], "submissionWorkflow": ["CPP_APPLICATION_DOSSIER"], "deadlines": ["AT_CPP_SUBMISSION"], "constraints": ["Protocol must incorporate successive modifications when applicable"], "conditions": ["COND_FR_RIPH_CONFIRMED"], "references": ["EVD_FR_CPP_PROTOCOL"], "officialURL": "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072665/LEGISCTA000006196869/", "verificationDate": "2026-08-10", "normativeStrength": "REGULATORY_MANDATORY", "status": "CURRENT"
+    },
+    {
+      "identifier": "REQ_FR_RIPH_CONSENT_OR_OPPOSITION", "title": "Apply the participant agreement model corresponding to the RIPH category", "authority": "AUTH_FR_LEGISLATOR", "jurisdiction": "FR", "source": ["SRC_FR_CSP_L1122_1_1"], "version": "1.0.0", "revision": "2026-08-10",
+      "authorityType": "NATIONAL_LEGISLATOR", "sourceType": "LEGAL_REQUIREMENT", "applicabilityBasis": "RIPH_CATEGORY_AND_PARTICIPANT_PROTECTION", "publishedAt": "2016-06-16", "effectiveFrom": "2016-12-31", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "Ordonnance 2016-800 article 2", "programEdition": null, "supersedes": [], "supersededBy": [],
+      "studyTypes": ["RIPH_1", "RIPH_2", "RIPH_3"], "fundingPrograms": [], "requiredDocuments": ["DOC_PARTICIPANT_INFORMATION", "DOC_PARTICIPANT_AGREEMENT_RECORD"], "requiredSections": [], "requiredFields": ["FIELD_PARTICIPANT_AGREEMENT_MODEL"], "requiredAnnexes": [], "submissionWorkflow": ["QUALIFY_PARTICIPANT_PROTECTION_MODEL"], "deadlines": ["BEFORE_PARTICIPATION"], "constraints": ["Category 1: free and informed written consent; category 2: free, informed and express consent; category 3: no participation after opposition"], "conditions": ["COND_RIPH_CATEGORY_KNOWN"], "references": ["EVD_FR_RIPH_AGREEMENT"], "officialURL": "https://www.legifrance.gouv.fr/codes/id/LEGISCTA000025457387", "verificationDate": "2026-08-10", "normativeStrength": "LEGAL_MANDATORY", "status": "CURRENT"
+    },
+    {
+      "identifier": "REQ_CNIL_MR_ROUTE", "title": "Qualify MR-001 or MR-003 and declaration-versus-authorisation route", "authority": "AUTH_FR_CNIL", "jurisdiction": "FR", "source": ["SRC_CNIL_MR001_2026", "SRC_CNIL_MR003_2026"], "version": "1.0.0", "revision": "2026-08-10",
+      "authorityType": "NATIONAL_DATA_PROTECTION_AUTHORITY", "sourceType": "REGULATORY_REQUIREMENT", "applicabilityBasis": "HEALTH_RESEARCH_DATA_PROCESSING_AND_MR_SCOPE", "publishedAt": "2026-05-26", "effectiveFrom": "2026-05-23", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "MR-001 and MR-003 April 2026", "programEdition": null, "supersedes": ["MR-001 2018", "MR-003 2018"], "supersededBy": [],
+      "studyTypes": ["HEALTH_RESEARCH_WITH_PERSONAL_DATA"], "fundingPrograms": [], "requiredDocuments": ["DOC_CNIL_CONFORMITY_RECORD"], "requiredSections": [], "requiredFields": ["FIELD_DATA_PROCESSING_CONSENT_CONTEXT", "FIELD_MR_CONFORMITY"], "requiredAnnexes": ["ANNEX_CNIL_SECURITY", "ANNEX_CNIL_QUALITY_CONTROL"], "submissionWorkflow": ["QUALIFY_MR_SCOPE", "ASSESS_FULL_CONFORMITY", "DECLARE_CONFORMITY_OR_REQUEST_AUTHORIZATION"], "deadlines": ["BEFORE_PROCESSING_IMPLEMENTATION"], "constraints": ["A research protocol category does not alone determine MR applicability", "If not fully conforming, a research authorisation request is required after the legally competent ethics opinion"], "conditions": ["COND_HEALTH_PERSONAL_DATA", "COND_MR_SCOPE_QUALIFIED"], "references": ["EVD_CNIL_MR_ROUTE"], "officialURL": "https://www.cnil.fr/fr/methodologies-de-reference-pour-les-recherches-en-sante-verifier-sa-conformite-aux-mr-001-et-mr-003", "verificationDate": "2026-08-10", "normativeStrength": "CONDITIONAL_MANDATORY", "status": "CURRENT"
+    },
+    {
+      "identifier": "REQ_CNIL_MR_ANNEXES", "title": "Apply the 2026 MR security and quality-control annexes when using the 2026 conformity route", "authority": "AUTH_FR_CNIL", "jurisdiction": "FR", "source": ["SRC_CNIL_MR_UPDATE_2026"], "version": "1.0.0", "revision": "2026-08-10",
+      "authorityType": "NATIONAL_DATA_PROTECTION_AUTHORITY", "sourceType": "REGULATORY_REQUIREMENT", "applicabilityBasis": "MR_VERSION_AND_TRANSITION", "publishedAt": "2026-05-26", "effectiveFrom": "2026-05-23", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "CNIL notice 2026-05-26", "programEdition": null, "supersedes": ["MR 2018 annex model where 2026 route applies"], "supersededBy": [],
+      "studyTypes": ["HEALTH_RESEARCH_WITH_PERSONAL_DATA"], "fundingPrograms": [], "requiredDocuments": [], "requiredSections": [], "requiredFields": [], "requiredAnnexes": ["ANNEX_CNIL_SECURITY", "ANNEX_CNIL_QUALITY_CONTROL"], "submissionWorkflow": ["MR_CONFORMITY_ASSESSMENT"], "deadlines": ["RESEARCH_INITIATED_FROM_2026_05_23", "WEB_MFA_FROM_2027_01_01", "OTHER_MFA_FROM_2028_01_01"], "constraints": ["Transition rules differ for research already in progress on 23 May 2026"], "conditions": ["COND_MR_2026_ROUTE"], "references": ["EVD_CNIL_2026_ANNEXES"], "officialURL": "https://www.cnil.fr/fr/recherche-en-sante-la-cnil-met-jour-et-elargit-le-champ-des-methodologies-de-reference-001-et-003", "verificationDate": "2026-08-10", "normativeStrength": "CONDITIONAL_MANDATORY", "status": "CURRENT"
+    },
+    {
+      "identifier": "REQ_EU_CTR_CTIS", "title": "Use CTR and CTIS for EU/EEA medicinal-product clinical trials", "authority": "AUTH_EU_LEGISLATOR", "jurisdiction": "EU_EEA", "source": ["SRC_EU_CTR_536_2014", "SRC_EC_CTR_CTIS_2025"], "version": "1.0.0", "revision": "2026-08-10",
+      "authorityType": "SUPRANATIONAL_LEGISLATOR", "sourceType": "SUBMISSION_REQUIREMENT", "applicabilityBasis": "MEDICINAL_PRODUCT_CLINICAL_TRIAL", "publishedAt": "2014-05-27", "effectiveFrom": "2025-01-31", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "CELEX 32014R0536 and CTIS transition checked 2026-08-10", "programEdition": null, "supersedes": ["Clinical Trials Directive transition route"], "supersededBy": [],
+      "studyTypes": ["MEDICINAL_PRODUCT_CLINICAL_TRIAL"], "fundingPrograms": [], "requiredDocuments": ["DOC_CTR_INITIAL_APPLICATION"], "requiredSections": [], "requiredFields": [], "requiredAnnexes": [], "submissionWorkflow": ["CTIS_INITIAL_APPLICATION", "MEMBER_STATE_ASSESSMENT"], "deadlines": ["ALL_EU_EEA_TRIALS_FROM_2025_01_31"], "constraints": ["Do not apply this route to non-medicinal studies without a separate applicability basis"], "conditions": ["COND_EU_EEA_MEDICINAL_TRIAL"], "references": ["EVD_EU_CTR_CTIS"], "officialURL": "https://health.ec.europa.eu/medicinal-products/clinical-trials_en", "verificationDate": "2026-08-10", "normativeStrength": "LEGAL_MANDATORY", "status": "CURRENT"
+    },
+    {
+      "identifier": "REQ_EU_CTR_APPLICATION_DOSSIER", "title": "Compile the CTR initial application dossier under Annex I", "authority": "AUTH_EU_LEGISLATOR", "jurisdiction": "EU_EEA", "source": ["SRC_EU_CTR_536_2014", "SRC_EMA_CTIS_2026"], "version": "1.0.0", "revision": "2026-08-10",
+      "authorityType": "SUPRANATIONAL_LEGISLATOR", "sourceType": "SUBMISSION_REQUIREMENT", "applicabilityBasis": "CTR_INITIAL_APPLICATION", "publishedAt": "2014-05-27", "effectiveFrom": "2022-01-31", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "CELEX 32014R0536 Annex I; EMA portal checked 2026-08-10", "programEdition": null, "supersedes": [], "supersededBy": [],
+      "studyTypes": ["MEDICINAL_PRODUCT_CLINICAL_TRIAL"], "fundingPrograms": [], "requiredDocuments": ["DOC_CTR_INITIAL_APPLICATION", "DOC_RESEARCH_PROTOCOL"], "requiredSections": [], "requiredFields": [], "requiredAnnexes": [], "submissionWorkflow": ["COMPILE_CTIS_APPLICATION", "SUBMIT_CTIS"], "deadlines": ["AT_INITIAL_APPLICATION"], "constraints": ["Exact Part I and Part II items depend on the application context and Member State"], "conditions": ["COND_EU_EEA_MEDICINAL_TRIAL"], "references": ["EVD_EU_CTR_ANNEX_I"], "officialURL": "https://eur-lex.europa.eu/eli/reg/2014/536/oj?locale=fr", "verificationDate": "2026-08-10", "normativeStrength": "LEGAL_MANDATORY", "status": "CURRENT"
+    },
+    {
+      "identifier": "REQ_PHRC_STAGE1", "title": "Submit the PHRC-N 2025-2026 letter-of-intent package", "authority": "AUTH_FR_DGOS", "jurisdiction": "FR", "source": ["SRC_DGOS_PHRC_2025_2026", "SRC_DGOS_NOTE_2025_90"], "version": "1.0.0", "revision": "2026-08-10",
+      "authorityType": "NATIONAL_FUNDING_AUTHORITY", "sourceType": "APPLICATION_REQUIREMENT", "applicabilityBasis": "PROGRAM_EDITION_AND_SUBMISSION_STAGE", "publishedAt": "2025-07-02", "effectiveFrom": "2025-07-02", "effectiveUntil": "2025-12-09", "verifiedAt": "2026-08-10", "sourceRevision": "DGOS/RI1/2025/90; page updated 2026-04-23", "programEdition": "ED_PHRC_2025_2026", "supersedes": [], "supersededBy": [],
+      "studyTypes": ["CLINICAL_RESEARCH_PROJECT"], "fundingPrograms": ["FUND_PHRC_N"], "requiredDocuments": ["DOC_PHRC_LETTER_OF_INTENT", "DOC_PHRC_CENTRE_LIST"], "requiredSections": [], "requiredFields": [], "requiredAnnexes": ["ANNEX_PHRC_ENVIRONMENTAL_IMPACT_STAGE1"], "submissionWorkflow": ["INNOVARC_STAGE1"], "deadlines": ["2025-12-09T20:00:00+01:00"], "constraints": ["PHRC-N letter of intent and listed supporting files in English", "No other submission mode accepted"], "conditions": ["COND_PHRC_2025_2026_STAGE1"], "references": ["EVD_PHRC_STAGE1"], "officialURL": "https://sante.gouv.fr/systeme-de-sante/innovation-et-recherche/l-innovation-et-la-recherche-clinique/appels-a-projets/innovarc", "verificationDate": "2026-08-10", "normativeStrength": "PROGRAM_MANDATORY", "status": "ARCHIVED"
+    },
+    {
+      "identifier": "REQ_PHRC_STAGE2", "title": "Submit the PHRC-N 2025-2026 complete dossier including a detailed protocol", "authority": "AUTH_FR_DGOS", "jurisdiction": "FR", "source": ["SRC_DGOS_PHRC_2025_2026", "SRC_DGOS_NOTE_2025_90"], "version": "1.0.0", "revision": "2026-08-10",
+      "authorityType": "NATIONAL_FUNDING_AUTHORITY", "sourceType": "APPLICATION_REQUIREMENT", "applicabilityBasis": "PROGRAM_EDITION_AND_SUBMISSION_STAGE", "publishedAt": "2025-07-02", "effectiveFrom": "2025-12-10", "effectiveUntil": "2026-06-16", "verifiedAt": "2026-08-10", "sourceRevision": "DGOS/RI1/2025/90; page updated 2026-04-23", "programEdition": "ED_PHRC_2025_2026", "supersedes": [], "supersededBy": [],
+      "studyTypes": ["CLINICAL_RESEARCH_PROJECT"], "fundingPrograms": ["FUND_PHRC_N"], "requiredDocuments": ["DOC_PHRC_COMPLETED_LETTER_OF_INTENT", "DOC_PHRC_CENTRE_LIST", "DOC_RESEARCH_PROTOCOL", "DOC_PHRC_BUDGET", "DOC_PHRC_DEPOSIT_ATTESTATION", "DOC_PHRC_TIMELINE"], "requiredSections": [], "requiredFields": [], "requiredAnnexes": ["ANNEX_PHRC_FEASIBILITY", "ANNEX_PHRC_ENVIRONMENTAL_IMPACT_STAGE2"], "submissionWorkflow": ["INNOVARC_STAGE2"], "deadlines": ["2026-06-16T20:00:00+02:00"], "constraints": ["Detailed protocol maximum 6 MB, DOC/DOCX/RTF/ODT", "PHRC-N protocol and specified supporting documents in English", "Incomplete or non-conforming dossier is inadmissible"], "conditions": ["COND_PHRC_2025_2026_SELECTED_STAGE2"], "references": ["EVD_PHRC_PROTOCOL_STAGE2"], "officialURL": "https://sante.gouv.fr/systeme-de-sante/innovation-et-recherche/l-innovation-et-la-recherche-clinique/appels-a-projets/innovarc", "verificationDate": "2026-08-10", "normativeStrength": "PROGRAM_MANDATORY", "status": "ARCHIVED"
+    },
+    {
+      "identifier": "REQ_RHU_V6_COMPLETE_DOSSIER", "title": "Submit the complete RHU V6 dossier", "authority": "AUTH_FR_ANR", "jurisdiction": "FR", "source": ["SRC_ANR_RHU_V6_2023"], "version": "1.0.0", "revision": "2026-08-10",
+      "authorityType": "NATIONAL_FUNDING_OPERATOR", "sourceType": "APPLICATION_REQUIREMENT", "applicabilityBasis": "PROGRAM_EDITION", "publishedAt": "2022-12-31", "effectiveFrom": "2023-01-02", "effectiveUntil": "2023-04-13", "verifiedAt": "2026-08-10", "sourceRevision": "RHU V6 call dated 2022-12-31", "programEdition": "ED_RHU_V6_2023", "supersedes": ["RHU V5 2021 for this edition"], "supersededBy": [],
+      "studyTypes": ["TRANSLATIONAL_HEALTH_RESEARCH", "CLINICAL_RESEARCH_PROJECT"], "fundingPrograms": ["FUND_RHU"], "requiredDocuments": ["DOC_RHU_SCIENTIFIC", "DOC_RHU_ADMIN_FINANCIAL", "DOC_RHU_COMMITMENT_LETTERS"], "requiredSections": [], "requiredFields": [], "requiredAnnexes": ["ANNEX_RHU_CONCEPT", "ANNEX_RHU_METHODOLOGY", "ANNEX_RHU_IMPACT"], "submissionWorkflow": ["ANR_ELECTRONIC_SUBMISSION", "SIGNED_SCANNED_SUBMISSION"], "deadlines": ["2023-04-13T11:00:00+02:00"], "constraints": ["Complete at closure; no complementary item accepted after closure", "Scientific document PDF unprotected, maximum 40 pages", "Admin-financial document and commitment letters signed and scanned"], "conditions": ["COND_RHU_V6_2023"], "references": ["EVD_RHU_V6_DOSSIER"], "officialURL": "https://anr.fr/fileadmin/aap/2023/france2030-aap-RHU-V6-2023.pdf", "verificationDate": "2026-08-10", "normativeStrength": "PROGRAM_MANDATORY", "status": "ARCHIVED"
+    },
+    {
+      "identifier": "REQ_RHU_V6_ANNEXES", "title": "Attach the three mandatory RHU V6 scientific annexes", "authority": "AUTH_FR_ANR", "jurisdiction": "FR", "source": ["SRC_ANR_RHU_V6_2023"], "version": "1.0.0", "revision": "2026-08-10",
+      "authorityType": "NATIONAL_FUNDING_OPERATOR", "sourceType": "APPLICATION_REQUIREMENT", "applicabilityBasis": "PROGRAM_EDITION", "publishedAt": "2022-12-31", "effectiveFrom": "2023-01-02", "effectiveUntil": "2023-04-13", "verifiedAt": "2026-08-10", "sourceRevision": "RHU V6 call dated 2022-12-31", "programEdition": "ED_RHU_V6_2023", "supersedes": ["RHU V5 2021 for this edition"], "supersededBy": [],
+      "studyTypes": ["TRANSLATIONAL_HEALTH_RESEARCH", "CLINICAL_RESEARCH_PROJECT"], "fundingPrograms": ["FUND_RHU"], "requiredDocuments": ["DOC_RHU_SCIENTIFIC"], "requiredSections": [], "requiredFields": [], "requiredAnnexes": ["ANNEX_RHU_CONCEPT", "ANNEX_RHU_METHODOLOGY", "ANNEX_RHU_IMPACT"], "submissionWorkflow": ["ANR_ELECTRONIC_SUBMISSION"], "deadlines": ["2023-04-13T11:00:00+02:00"], "constraints": ["Concept annex maximum 5 pages", "Methodology annex: maximum one page per planned clinical trial, compiled in one annex", "Impact annex maximum 3 pages"], "conditions": ["COND_RHU_V6_2023"], "references": ["EVD_RHU_V6_ANNEXES"], "officialURL": "https://anr.fr/fileadmin/aap/2023/france2030-aap-RHU-V6-2023.pdf", "verificationDate": "2026-08-10", "normativeStrength": "PROGRAM_MANDATORY", "status": "ARCHIVED"
+    },
+    {
+      "identifier": "REQ_ICH_E6_R3", "title": "Use ICH E6(R3) as methodological GCP guidance when applicable", "authority": "AUTH_ICH", "jurisdiction": "INTERNATIONAL", "source": ["SRC_ICH_E6_R3_2025"], "version": "1.0.0", "revision": "2026-08-10",
+      "authorityType": "INTERNATIONAL_STANDARDS_BODY", "sourceType": "METHODOLOGICAL_GUIDANCE", "applicabilityBasis": "INTERVENTIONAL_TRIAL_OF_INVESTIGATIONAL_PRODUCT", "publishedAt": "2025-01-06", "effectiveFrom": "2025-01-06", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "E6(R3) Step 4 2025-01-06", "programEdition": null, "supersedes": ["ICH E6(R2) as ICH guideline version"], "supersededBy": [],
+      "studyTypes": ["INTERVENTIONAL_TRIAL_OF_INVESTIGATIONAL_PRODUCT"], "fundingPrograms": [], "requiredDocuments": [], "requiredSections": [], "requiredFields": [], "requiredAnnexes": [], "submissionWorkflow": [], "deadlines": [], "constraints": ["ICH publication alone is not a legal or program requirement", "Mandatory effect requires explicit incorporation by applicable law, regulator, contract or program"], "conditions": ["COND_ICH_APPLICABILITY", "COND_NO_SILENT_NORMATIVE_PROMOTION"], "references": ["EVD_ICH_E6_R3_SCOPE"], "officialURL": "https://database.ich.org/sites/default/files/ICH_E6%28R3%29_Step4_FinalGuideline_2025_0106.pdf", "verificationDate": "2026-08-10", "normativeStrength": "METHODOLOGICAL_GUIDANCE", "status": "CURRENT"
+    },
+    {
+      "identifier": "REQ_SPIRIT_2025", "title": "Use SPIRIT 2025 to report a randomised-trial protocol when applicable", "authority": "AUTH_SPIRIT_CONSORT", "jurisdiction": "INTERNATIONAL", "source": ["SRC_SPIRIT_CONSORT_2025"], "version": "1.0.0", "revision": "2026-08-10",
+      "authorityType": "METHODOLOGICAL_GUIDELINE_GROUP", "sourceType": "DOCUMENTATION_GUIDANCE", "applicabilityBasis": "RANDOMISED_TRIAL_PROTOCOL", "publishedAt": "2025-04-01", "effectiveFrom": "2025-04-01", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "SPIRIT 2025", "programEdition": null, "supersedes": ["SPIRIT 2013"], "supersededBy": [],
+      "studyTypes": ["RANDOMISED_TRIAL_PROTOCOL"], "fundingPrograms": [], "requiredDocuments": ["DOC_RESEARCH_PROTOCOL"], "requiredSections": [], "requiredFields": [], "requiredAnnexes": [], "submissionWorkflow": [], "deadlines": [], "constraints": ["Reporting guidance only unless explicitly incorporated"], "conditions": ["COND_RANDOMISED_TRIAL_PROTOCOL", "COND_NO_SILENT_NORMATIVE_PROMOTION"], "references": ["EVD_SPIRIT_2025"], "officialURL": "https://www.consort-spirit.org/published-statements", "verificationDate": "2026-08-10", "normativeStrength": "REPORTING_GUIDANCE", "status": "CURRENT"
+    },
+    {
+      "identifier": "REQ_CONSORT_2025", "title": "Use CONSORT 2025 to report randomised-trial results when applicable", "authority": "AUTH_SPIRIT_CONSORT", "jurisdiction": "INTERNATIONAL", "source": ["SRC_SPIRIT_CONSORT_2025"], "version": "1.0.0", "revision": "2026-08-10",
+      "authorityType": "METHODOLOGICAL_GUIDELINE_GROUP", "sourceType": "REPORTING_GUIDANCE", "applicabilityBasis": "RANDOMISED_TRIAL_RESULTS_REPORT", "publishedAt": "2025-04-01", "effectiveFrom": "2025-04-01", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "CONSORT 2025", "programEdition": null, "supersedes": ["CONSORT 2010"], "supersededBy": [],
+      "studyTypes": ["RANDOMISED_TRIAL_RESULTS_REPORT"], "fundingPrograms": [], "requiredDocuments": ["DOC_RESULTS_REPORT"], "requiredSections": [], "requiredFields": [], "requiredAnnexes": [], "submissionWorkflow": [], "deadlines": [], "constraints": ["Reporting guidance only unless explicitly incorporated"], "conditions": ["COND_RANDOMISED_TRIAL_RESULTS", "COND_NO_SILENT_NORMATIVE_PROMOTION"], "references": ["EVD_CONSORT_2025"], "officialURL": "https://www.consort-spirit.org/published-statements", "verificationDate": "2026-08-10", "normativeStrength": "REPORTING_GUIDANCE", "status": "CURRENT"
+    },
+    {
+      "identifier": "REQ_STROBE", "title": "Use STROBE for observational-study reporting when applicable", "authority": "AUTH_EQUATOR", "jurisdiction": "INTERNATIONAL", "source": ["SRC_EQUATOR_STROBE"], "version": "1.0.0", "revision": "2026-08-10",
+      "authorityType": "REPORTING_GUIDELINE_CATALOG", "sourceType": "REPORTING_GUIDANCE", "applicabilityBasis": "OBSERVATIONAL_STUDY_REPORT", "publishedAt": "2007-10-01", "effectiveFrom": "2007-10-01", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "STROBE 2007, EQUATOR record 2026-06-08", "programEdition": null, "supersedes": [], "supersededBy": [],
+      "studyTypes": ["OBSERVATIONAL_STUDY_REPORT"], "fundingPrograms": [], "requiredDocuments": ["DOC_RESULTS_REPORT"], "requiredSections": [], "requiredFields": [], "requiredAnnexes": [], "submissionWorkflow": [], "deadlines": [], "constraints": ["Not a tool for evaluating study quality", "Reporting guidance only unless explicitly incorporated"], "conditions": ["COND_OBSERVATIONAL_REPORT", "COND_NO_SILENT_NORMATIVE_PROMOTION"], "references": ["EVD_STROBE"], "officialURL": "https://www.equator-network.org/reporting-guidelines/strobe/", "verificationDate": "2026-08-10", "normativeStrength": "REPORTING_GUIDANCE", "status": "CURRENT"
+    },
+    {
+      "identifier": "REQ_RECORD", "title": "Use RECORD for observational routinely collected health-data reporting when applicable", "authority": "AUTH_EQUATOR", "jurisdiction": "INTERNATIONAL", "source": ["SRC_EQUATOR_RECORD"], "version": "1.0.0", "revision": "2026-08-10",
+      "authorityType": "REPORTING_GUIDELINE_CATALOG", "sourceType": "REPORTING_GUIDANCE", "applicabilityBasis": "OBSERVATIONAL_ROUTINELY_COLLECTED_HEALTH_DATA_REPORT", "publishedAt": "2015-10-06", "effectiveFrom": "2015-10-06", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "RECORD 2015", "programEdition": null, "supersedes": [], "supersededBy": [],
+      "studyTypes": ["ROUTINELY_COLLECTED_HEALTH_DATA_REPORT"], "fundingPrograms": [], "requiredDocuments": ["DOC_RESULTS_REPORT"], "requiredSections": [], "requiredFields": [], "requiredAnnexes": [], "submissionWorkflow": [], "deadlines": [], "constraints": ["Reporting guidance only unless explicitly incorporated"], "conditions": ["COND_ROUTINELY_COLLECTED_DATA_REPORT", "COND_NO_SILENT_NORMATIVE_PROMOTION"], "references": ["EVD_RECORD"], "officialURL": "https://www.equator-network.org/reporting-guidelines/record/", "verificationDate": "2026-08-10", "normativeStrength": "REPORTING_GUIDANCE", "status": "CURRENT"
+    },
+    {
+      "identifier": "REQ_TRIPOD", "title": "Use TRIPOD for prediction-model study reporting when applicable", "authority": "AUTH_EQUATOR", "jurisdiction": "INTERNATIONAL", "source": ["SRC_EQUATOR_TRIPOD"], "version": "1.0.0", "revision": "2026-08-10",
+      "authorityType": "REPORTING_GUIDELINE_CATALOG", "sourceType": "REPORTING_GUIDANCE", "applicabilityBasis": "PREDICTION_MODEL_REPORT", "publishedAt": "2015-01-06", "effectiveFrom": "2015-01-06", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "TRIPOD 2015 general statement", "programEdition": null, "supersedes": [], "supersededBy": [],
+      "studyTypes": ["PREDICTION_MODEL_REPORT"], "fundingPrograms": [], "requiredDocuments": ["DOC_RESULTS_REPORT"], "requiredSections": [], "requiredFields": [], "requiredAnnexes": [], "submissionWorkflow": [], "deadlines": [], "constraints": ["Does not prescribe how to develop or validate a prediction model", "Reporting guidance only unless explicitly incorporated"], "conditions": ["COND_PREDICTION_MODEL_REPORT", "COND_NO_SILENT_NORMATIVE_PROMOTION"], "references": ["EVD_TRIPOD"], "officialURL": "https://www.equator-network.org/2015/01/06/tripod/", "verificationDate": "2026-08-10", "normativeStrength": "REPORTING_GUIDANCE", "status": "CURRENT"
+    },
+    {
+      "identifier": "REQ_STARD", "title": "Use STARD 2015 for diagnostic-accuracy reporting when applicable", "authority": "AUTH_EQUATOR", "jurisdiction": "INTERNATIONAL", "source": ["SRC_EQUATOR_STARD"], "version": "1.0.0", "revision": "2026-08-10",
+      "authorityType": "REPORTING_GUIDELINE_CATALOG", "sourceType": "REPORTING_GUIDANCE", "applicabilityBasis": "DIAGNOSTIC_ACCURACY_REPORT", "publishedAt": "2015-10-28", "effectiveFrom": "2015-10-28", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "STARD 2015", "programEdition": null, "supersedes": ["STARD 2003"], "supersededBy": [],
+      "studyTypes": ["DIAGNOSTIC_ACCURACY_REPORT"], "fundingPrograms": [], "requiredDocuments": ["DOC_RESULTS_REPORT"], "requiredSections": [], "requiredFields": [], "requiredAnnexes": [], "submissionWorkflow": [], "deadlines": [], "constraints": ["Reporting guidance only unless explicitly incorporated"], "conditions": ["COND_DIAGNOSTIC_ACCURACY_REPORT", "COND_NO_SILENT_NORMATIVE_PROMOTION"], "references": ["EVD_STARD"], "officialURL": "https://www.equator-network.org/reporting-guidelines/stard/", "verificationDate": "2026-08-10", "normativeStrength": "REPORTING_GUIDANCE", "status": "CURRENT"
+    },
+    {
+      "identifier": "REQ_PRISMA_2020", "title": "Use PRISMA 2020 for systematic-review reporting when applicable", "authority": "AUTH_PRISMA", "jurisdiction": "INTERNATIONAL", "source": ["SRC_PRISMA_2020"], "version": "1.0.0", "revision": "2026-08-10",
+      "authorityType": "REPORTING_GUIDELINE_GROUP", "sourceType": "REPORTING_GUIDANCE", "applicabilityBasis": "SYSTEMATIC_REVIEW_REPORT", "publishedAt": "2021-03-29", "effectiveFrom": "2021-03-29", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "PRISMA 2020", "programEdition": null, "supersedes": ["PRISMA 2009"], "supersededBy": [],
+      "studyTypes": ["SYSTEMATIC_REVIEW_REPORT"], "fundingPrograms": [], "requiredDocuments": ["DOC_RESULTS_REPORT"], "requiredSections": [], "requiredFields": [], "requiredAnnexes": [], "submissionWorkflow": [], "deadlines": [], "constraints": ["Reporting guidance only unless explicitly incorporated"], "conditions": ["COND_SYSTEMATIC_REVIEW_REPORT", "COND_NO_SILENT_NORMATIVE_PROMOTION"], "references": ["EVD_PRISMA"], "officialURL": "https://www.prisma-statement.org/prisma-2020", "verificationDate": "2026-08-10", "normativeStrength": "REPORTING_GUIDANCE", "status": "CURRENT"
+    },
+    {
+      "identifier": "REQ_US_ACT_REGISTRATION_RESULTS", "title": "Register and report results for US applicable clinical trials under FDAAA 801 / 42 CFR Part 11", "authority": "AUTH_US_CLINICALTRIALS", "jurisdiction": "US", "source": ["SRC_CLINICALTRIALS_FINAL_RULE"], "version": "1.0.0", "revision": "2026-08-10",
+      "authorityType": "NATIONAL_TRIAL_REGISTRY", "sourceType": "LEGAL_REQUIREMENT", "applicabilityBasis": "US_APPLICABLE_CLINICAL_TRIAL", "publishedAt": "2016-09-21", "effectiveFrom": "2017-01-18", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "42 CFR Part 11 with 2024 technical amendment noted", "programEdition": null, "supersedes": [], "supersededBy": [],
+      "studyTypes": ["US_APPLICABLE_CLINICAL_TRIAL"], "fundingPrograms": [], "requiredDocuments": ["DOC_CLINICALTRIALS_REGISTRATION", "DOC_CLINICALTRIALS_RESULTS"], "requiredSections": [], "requiredFields": [], "requiredAnnexes": [], "submissionWorkflow": ["CLINICALTRIALS_GOV_PRS"], "deadlines": ["REGISTRATION_GENERALLY_WITHIN_21_DAYS_AFTER_FIRST_PARTICIPANT_ENROLMENT", "RESULTS_GENERALLY_WITHIN_12_MONTHS_AFTER_PRIMARY_COMPLETION"], "constraints": ["Applicability is defined by US law and cannot be inferred from the word clinical alone"], "conditions": ["COND_US_APPLICABLE_CLINICAL_TRIAL"], "references": ["EVD_US_ACT"], "officialURL": "https://clinicaltrials.gov/policy/fdaaa-801-final-rule", "verificationDate": "2026-08-10", "normativeStrength": "LEGAL_MANDATORY", "status": "CURRENT"
+    },
+    {
+      "identifier": "REQ_NIH_TRIAL_DISSEMINATION", "title": "Register and report results for NIH-funded clinical trials", "authority": "AUTH_US_NIH", "jurisdiction": "US", "source": ["SRC_NIH_DISSEMINATION_POLICY"], "version": "1.0.0", "revision": "2026-08-10",
+      "authorityType": "NATIONAL_FUNDING_AUTHORITY", "sourceType": "FUNDING_REQUIREMENT", "applicabilityBasis": "NIH_FUNDED_CLINICAL_TRIAL", "publishedAt": "2016-09-16", "effectiveFrom": "2017-01-18", "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "NOT-OD-16-149; page updated 2024-09-09", "programEdition": null, "supersedes": [], "supersededBy": [],
+      "studyTypes": ["NIH_FUNDED_CLINICAL_TRIAL"], "fundingPrograms": ["FUND_NIH"], "requiredDocuments": ["DOC_CLINICALTRIALS_REGISTRATION", "DOC_CLINICALTRIALS_RESULTS"], "requiredSections": [], "requiredFields": [], "requiredAnnexes": [], "submissionWorkflow": ["CLINICALTRIALS_GOV_PRS"], "deadlines": ["FOLLOW_42_CFR_PART_11_TIMEFRAMES_AS_POLICY_EXPECTATION"], "constraints": ["Program obligation is independent from whether the trial is an applicable clinical trial under FDAAA"], "conditions": ["COND_NIH_FUNDED_CLINICAL_TRIAL"], "references": ["EVD_NIH_POLICY"], "officialURL": "https://grants.nih.gov/policy-and-compliance/policy-topics/clinical-trials/reporting/nih-policy", "verificationDate": "2026-08-10", "normativeStrength": "PROGRAM_MANDATORY", "status": "CURRENT"
+    },
+    {
+      "identifier": "REQ_ECRIN_RED_INFORMATIONAL", "title": "Use ECRIN RED only as an institutional discovery and comparison aid", "authority": "AUTH_ECRIN", "jurisdiction": "EU_EEA", "source": ["SRC_ECRIN_RED"], "version": "1.0.0", "revision": "2026-08-10",
+      "authorityType": "RESEARCH_INFRASTRUCTURE", "sourceType": "INFORMATIONAL_ONLY", "applicabilityBasis": "DISCOVERY_AND_COUNTRY_COMPARISON", "publishedAt": "2015-12-01", "effectiveFrom": null, "effectiveUntil": null, "verifiedAt": "2026-08-10", "sourceRevision": "RED portal checked 2026-08-10", "programEdition": null, "supersedes": [], "supersededBy": [],
+      "studyTypes": ["MULTINATIONAL_CLINICAL_RESEARCH"], "fundingPrograms": ["FUND_HORIZON_EUROPE_CANDIDATE"], "requiredDocuments": [], "requiredSections": [], "requiredFields": [], "requiredAnnexes": [], "submissionWorkflow": ["DISCOVERY_ONLY"], "deadlines": [], "constraints": ["Database, FAQ, portal or comparison output never automatically becomes law", "Primary national and EU sources must be verified before positive use"], "conditions": ["COND_MULTICOUNTRY_DISCOVERY"], "references": ["EVD_ECRIN_RED_SCOPE"], "officialURL": "https://red.ecrin.org/en/about", "verificationDate": "2026-08-10", "normativeStrength": "INFORMATIONAL_ONLY", "status": "CURRENT"
+    }
+  ],
+  "requirementRevisions": [
+    { "revisionId": "REV_REQ_FR_RIPH_CLASSIFICATION_1", "requirementId": "REQ_FR_RIPH_CLASSIFICATION", "version": "1.0.0", "createdAt": "2026-08-10", "changeType": "INITIAL_EXTRACTION", "sourceIds": ["SRC_FR_CSP_L1121_1"] },
+    { "revisionId": "REV_REQ_FR_CPP_OPINION_1", "requirementId": "REQ_FR_CPP_OPINION", "version": "1.0.0", "createdAt": "2026-08-10", "changeType": "INITIAL_EXTRACTION", "sourceIds": ["SRC_FR_CSP_L1121_4", "SRC_FR_CSP_L1123_6"] },
+    { "revisionId": "REV_REQ_FR_ANSM_RIPH1_1", "requirementId": "REQ_FR_ANSM_RIPH1_AUTHORIZATION", "version": "1.0.0", "createdAt": "2026-08-10", "changeType": "INITIAL_EXTRACTION", "sourceIds": ["SRC_FR_CSP_L1121_4"] },
+    { "revisionId": "REV_REQ_FR_CPP_PROTOCOL_1", "requirementId": "REQ_FR_CPP_PROTOCOL", "version": "1.0.0", "createdAt": "2026-08-10", "changeType": "INITIAL_EXTRACTION", "sourceIds": ["SRC_FR_CSP_R1123_20"] },
+    { "revisionId": "REV_REQ_FR_RIPH_AGREEMENT_1", "requirementId": "REQ_FR_RIPH_CONSENT_OR_OPPOSITION", "version": "1.0.0", "createdAt": "2026-08-10", "changeType": "INITIAL_EXTRACTION", "sourceIds": ["SRC_FR_CSP_L1122_1_1"] },
+    { "revisionId": "REV_REQ_CNIL_ROUTE_1", "requirementId": "REQ_CNIL_MR_ROUTE", "version": "1.0.0", "createdAt": "2026-08-10", "changeType": "INITIAL_EXTRACTION", "sourceIds": ["SRC_CNIL_MR001_2026", "SRC_CNIL_MR003_2026"] },
+    { "revisionId": "REV_REQ_CNIL_ANNEXES_1", "requirementId": "REQ_CNIL_MR_ANNEXES", "version": "1.0.0", "createdAt": "2026-08-10", "changeType": "INITIAL_EXTRACTION", "sourceIds": ["SRC_CNIL_MR_UPDATE_2026"] },
+    { "revisionId": "REV_REQ_EU_CTR_CTIS_1", "requirementId": "REQ_EU_CTR_CTIS", "version": "1.0.0", "createdAt": "2026-08-10", "changeType": "INITIAL_EXTRACTION", "sourceIds": ["SRC_EU_CTR_536_2014", "SRC_EC_CTR_CTIS_2025"] },
+    { "revisionId": "REV_REQ_EU_CTR_DOSSIER_1", "requirementId": "REQ_EU_CTR_APPLICATION_DOSSIER", "version": "1.0.0", "createdAt": "2026-08-10", "changeType": "INITIAL_EXTRACTION", "sourceIds": ["SRC_EU_CTR_536_2014", "SRC_EMA_CTIS_2026"] },
+    { "revisionId": "REV_REQ_PHRC_STAGE1_1", "requirementId": "REQ_PHRC_STAGE1", "version": "1.0.0", "createdAt": "2026-08-10", "changeType": "INITIAL_EXTRACTION", "sourceIds": ["SRC_DGOS_PHRC_2025_2026", "SRC_DGOS_NOTE_2025_90"] },
+    { "revisionId": "REV_REQ_PHRC_STAGE2_1", "requirementId": "REQ_PHRC_STAGE2", "version": "1.0.0", "createdAt": "2026-08-10", "changeType": "INITIAL_EXTRACTION", "sourceIds": ["SRC_DGOS_PHRC_2025_2026", "SRC_DGOS_NOTE_2025_90"] },
+    { "revisionId": "REV_REQ_RHU_DOSSIER_1", "requirementId": "REQ_RHU_V6_COMPLETE_DOSSIER", "version": "1.0.0", "createdAt": "2026-08-10", "changeType": "INITIAL_EXTRACTION", "sourceIds": ["SRC_ANR_RHU_V6_2023"] },
+    { "revisionId": "REV_REQ_RHU_ANNEXES_1", "requirementId": "REQ_RHU_V6_ANNEXES", "version": "1.0.0", "createdAt": "2026-08-10", "changeType": "INITIAL_EXTRACTION", "sourceIds": ["SRC_ANR_RHU_V6_2023"] },
+    { "revisionId": "REV_REQ_ICH_1", "requirementId": "REQ_ICH_E6_R3", "version": "1.0.0", "createdAt": "2026-08-10", "changeType": "INITIAL_EXTRACTION", "sourceIds": ["SRC_ICH_E6_R3_2025"] },
+    { "revisionId": "REV_REQ_SPIRIT_1", "requirementId": "REQ_SPIRIT_2025", "version": "1.0.0", "createdAt": "2026-08-10", "changeType": "INITIAL_EXTRACTION", "sourceIds": ["SRC_SPIRIT_CONSORT_2025"] },
+    { "revisionId": "REV_REQ_CONSORT_1", "requirementId": "REQ_CONSORT_2025", "version": "1.0.0", "createdAt": "2026-08-10", "changeType": "INITIAL_EXTRACTION", "sourceIds": ["SRC_SPIRIT_CONSORT_2025"] },
+    { "revisionId": "REV_REQ_STROBE_1", "requirementId": "REQ_STROBE", "version": "1.0.0", "createdAt": "2026-08-10", "changeType": "INITIAL_EXTRACTION", "sourceIds": ["SRC_EQUATOR_STROBE"] },
+    { "revisionId": "REV_REQ_RECORD_1", "requirementId": "REQ_RECORD", "version": "1.0.0", "createdAt": "2026-08-10", "changeType": "INITIAL_EXTRACTION", "sourceIds": ["SRC_EQUATOR_RECORD"] },
+    { "revisionId": "REV_REQ_TRIPOD_1", "requirementId": "REQ_TRIPOD", "version": "1.0.0", "createdAt": "2026-08-10", "changeType": "INITIAL_EXTRACTION", "sourceIds": ["SRC_EQUATOR_TRIPOD"] },
+    { "revisionId": "REV_REQ_STARD_1", "requirementId": "REQ_STARD", "version": "1.0.0", "createdAt": "2026-08-10", "changeType": "INITIAL_EXTRACTION", "sourceIds": ["SRC_EQUATOR_STARD"] },
+    { "revisionId": "REV_REQ_PRISMA_1", "requirementId": "REQ_PRISMA_2020", "version": "1.0.0", "createdAt": "2026-08-10", "changeType": "INITIAL_EXTRACTION", "sourceIds": ["SRC_PRISMA_2020"] },
+    { "revisionId": "REV_REQ_US_ACT_1", "requirementId": "REQ_US_ACT_REGISTRATION_RESULTS", "version": "1.0.0", "createdAt": "2026-08-10", "changeType": "INITIAL_EXTRACTION", "sourceIds": ["SRC_CLINICALTRIALS_FINAL_RULE"] },
+    { "revisionId": "REV_REQ_NIH_1", "requirementId": "REQ_NIH_TRIAL_DISSEMINATION", "version": "1.0.0", "createdAt": "2026-08-10", "changeType": "INITIAL_EXTRACTION", "sourceIds": ["SRC_NIH_DISSEMINATION_POLICY"] },
+    { "revisionId": "REV_REQ_ECRIN_1", "requirementId": "REQ_ECRIN_RED_INFORMATIONAL", "version": "1.0.0", "createdAt": "2026-08-10", "changeType": "INITIAL_EXTRACTION", "sourceIds": ["SRC_ECRIN_RED"] }
+  ],
+  "requirementConditions": [
+    { "conditionId": "COND_FR_HUMAN_RESEARCH_SCOPE", "expression": "project.jurisdiction includes FR and project may be research organised and practised on humans for biological or medical knowledge", "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "conditionId": "COND_FR_RIPH_CONFIRMED", "expression": "qualification.riphCategory in [RIPH_1,RIPH_2,RIPH_3]", "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "conditionId": "COND_RIPH1", "expression": "qualification.riphCategory == RIPH_1", "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "conditionId": "COND_NOT_REPLACED_BY_MORE_SPECIFIC_EU_ROUTE", "expression": "no more specific directly applicable EU submission route has been established", "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "conditionId": "COND_RIPH_CATEGORY_KNOWN", "expression": "qualification.riphCategory is known", "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "conditionId": "COND_HEALTH_PERSONAL_DATA", "expression": "project processes personal data for health research", "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "conditionId": "COND_MR_SCOPE_QUALIFIED", "expression": "MR-001 or MR-003 scope and exclusions have been assessed", "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "conditionId": "COND_MR_2026_ROUTE", "expression": "research uses the 2026 MR conformity route and relevant transition conditions", "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "conditionId": "COND_EU_EEA_MEDICINAL_TRIAL", "expression": "jurisdiction includes EU/EEA and project is a clinical trial of medicinal products within Regulation 536/2014 scope", "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "conditionId": "COND_PHRC_2025_2026_STAGE1", "expression": "fundingProgram == PHRC_N and edition == 2025_2026 and stage == LETTER_OF_INTENT", "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "conditionId": "COND_PHRC_2025_2026_SELECTED_STAGE2", "expression": "fundingProgram == PHRC_N and edition == 2025_2026 and stage == COMPLETE_DOSSIER and project was selected after stage 1", "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "conditionId": "COND_RHU_V6_2023", "expression": "fundingProgram == RHU and edition == V6_2023", "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "conditionId": "COND_ICH_APPLICABILITY", "expression": "study is an interventional clinical trial of investigational products within ICH E6(R3) scope or local incorporation", "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "conditionId": "COND_NO_SILENT_NORMATIVE_PROMOTION", "expression": "no applicable law, regulator, contract, funder or journal has explicitly incorporated the guidance as mandatory", "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "conditionId": "COND_RANDOMISED_TRIAL_PROTOCOL", "expression": "document is a protocol for a randomised trial", "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "conditionId": "COND_RANDOMISED_TRIAL_RESULTS", "expression": "document reports results of a randomised trial", "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "conditionId": "COND_OBSERVATIONAL_REPORT", "expression": "document reports an observational study", "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "conditionId": "COND_ROUTINELY_COLLECTED_DATA_REPORT", "expression": "observational report uses routinely collected health data", "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "conditionId": "COND_PREDICTION_MODEL_REPORT", "expression": "document reports development, validation or updating of a prediction model", "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "conditionId": "COND_DIAGNOSTIC_ACCURACY_REPORT", "expression": "document reports a diagnostic-accuracy study", "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "conditionId": "COND_SYSTEMATIC_REVIEW_REPORT", "expression": "document reports a systematic review", "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "conditionId": "COND_US_APPLICABLE_CLINICAL_TRIAL", "expression": "trial satisfies the statutory definition of an applicable clinical trial under FDAAA 801 / 42 CFR Part 11", "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "conditionId": "COND_NIH_FUNDED_CLINICAL_TRIAL", "expression": "clinical trial is funded wholly or partly by NIH and falls within policy effective scope", "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" },
+    { "conditionId": "COND_MULTICOUNTRY_DISCOVERY", "expression": "project needs discovery or comparison of national requirements across Europe", "unknownResult": "UNKNOWN_REQUIRES_QUALIFICATION" }
+  ],
+  "requirementEvidence": [
+    { "evidenceId": "EVD_FR_RIPH_CATEGORIES", "sourceId": "SRC_FR_CSP_L1121_1", "locator": "Article L1121-1, 1°-3°", "supports": ["REQ_FR_RIPH_CLASSIFICATION"], "evidenceType": "PRIMARY_LEGAL_TEXT" },
+    { "evidenceId": "EVD_FR_CPP_ALL_RIPH", "sourceId": "SRC_FR_CSP_L1121_4", "locator": "Article L1121-4, first and third paragraphs", "supports": ["REQ_FR_CPP_OPINION"], "evidenceType": "PRIMARY_LEGAL_TEXT" },
+    { "evidenceId": "EVD_FR_ANSM_RIPH1_ONLY", "sourceId": "SRC_FR_CSP_L1121_4", "locator": "Article L1121-4, first paragraph", "supports": ["REQ_FR_ANSM_RIPH1_AUTHORIZATION"], "evidenceType": "PRIMARY_LEGAL_TEXT" },
+    { "evidenceId": "EVD_FR_CPP_PROTOCOL", "sourceId": "SRC_FR_CSP_R1123_20", "locator": "Article R1123-20 I 2°", "supports": ["REQ_FR_CPP_PROTOCOL"], "evidenceType": "PRIMARY_REGULATORY_TEXT" },
+    { "evidenceId": "EVD_FR_RIPH_AGREEMENT", "sourceId": "SRC_FR_CSP_L1122_1_1", "locator": "Article L1122-1-1, category-specific paragraphs", "supports": ["REQ_FR_RIPH_CONSENT_OR_OPPOSITION"], "evidenceType": "PRIMARY_LEGAL_TEXT" },
+    { "evidenceId": "EVD_CNIL_MR_ROUTE", "sourceId": "SRC_CNIL_MR003_2026", "locator": "Démarches auprès de la CNIL, lines describing conformity declaration and authorisation request", "supports": ["REQ_CNIL_MR_ROUTE"], "evidenceType": "PRIMARY_REGULATORY_AUTHORITY_PAGE" },
+    { "evidenceId": "EVD_CNIL_2026_ANNEXES", "sourceId": "SRC_CNIL_MR_UPDATE_2026", "locator": "Sections on security and quality-control annexes, effect from 23 May 2026", "supports": ["REQ_CNIL_MR_ANNEXES"], "evidenceType": "PRIMARY_REGULATORY_AUTHORITY_NOTICE" },
+    { "evidenceId": "EVD_EU_CTR_CTIS", "sourceId": "SRC_EC_CTR_CTIS_2025", "locator": "From 31 January 2025 all EU/EEA trials under CTR using CTIS", "supports": ["REQ_EU_CTR_CTIS"], "evidenceType": "PRIMARY_SUPRANATIONAL_AUTHORITY_PAGE" },
+    { "evidenceId": "EVD_EU_CTR_ANNEX_I", "sourceId": "SRC_EU_CTR_536_2014", "locator": "Annex I - Application dossier for the initial application", "supports": ["REQ_EU_CTR_APPLICATION_DOSSIER"], "evidenceType": "PRIMARY_LEGAL_TEXT" },
+    { "evidenceId": "EVD_PHRC_STAGE1", "sourceId": "SRC_DGOS_PHRC_2025_2026", "locator": "Constitution des dossiers - Au stade de la lettre d'intention", "supports": ["REQ_PHRC_STAGE1"], "evidenceType": "PRIMARY_FUNDING_PORTAL" },
+    { "evidenceId": "EVD_PHRC_PROTOCOL_STAGE2", "sourceId": "SRC_DGOS_PHRC_2025_2026", "locator": "Constitution des dossiers - Au stade du dossier complet - Protocole", "supports": ["REQ_PHRC_STAGE2"], "evidenceType": "PRIMARY_FUNDING_PORTAL" },
+    { "evidenceId": "EVD_RHU_V6_DOSSIER", "sourceId": "SRC_ANR_RHU_V6_2023", "locator": "Section 5.1, page 14 - complete submission dossier", "supports": ["REQ_RHU_V6_COMPLETE_DOSSIER"], "evidenceType": "PRIMARY_CALL_FOR_PROPOSALS" },
+    { "evidenceId": "EVD_RHU_V6_ANNEXES", "sourceId": "SRC_ANR_RHU_V6_2023", "locator": "Section 3.2 point 2, page 9 and section 5.1, page 14", "supports": ["REQ_RHU_V6_ANNEXES"], "evidenceType": "PRIMARY_CALL_FOR_PROPOSALS" },
+    { "evidenceId": "EVD_ICH_E6_R3_SCOPE", "sourceId": "SRC_ICH_E6_R3_2025", "locator": "Introduction and Guideline Scope", "supports": ["REQ_ICH_E6_R3"], "evidenceType": "PRIMARY_METHODOLOGICAL_STANDARD" },
+    { "evidenceId": "EVD_SPIRIT_2025", "sourceId": "SRC_SPIRIT_CONSORT_2025", "locator": "SPIRIT 2025 statement listing", "supports": ["REQ_SPIRIT_2025"], "evidenceType": "PRIMARY_REPORTING_GUIDELINE_SITE" },
+    { "evidenceId": "EVD_CONSORT_2025", "sourceId": "SRC_SPIRIT_CONSORT_2025", "locator": "CONSORT 2025 statement listing", "supports": ["REQ_CONSORT_2025"], "evidenceType": "PRIMARY_REPORTING_GUIDELINE_SITE" },
+    { "evidenceId": "EVD_STROBE", "sourceId": "SRC_EQUATOR_STROBE", "locator": "STROBE statement record", "supports": ["REQ_STROBE"], "evidenceType": "OFFICIAL_REPORTING_GUIDELINE_CATALOG" },
+    { "evidenceId": "EVD_RECORD", "sourceId": "SRC_EQUATOR_RECORD", "locator": "RECORD statement record", "supports": ["REQ_RECORD"], "evidenceType": "OFFICIAL_REPORTING_GUIDELINE_CATALOG" },
+    { "evidenceId": "EVD_TRIPOD", "sourceId": "SRC_EQUATOR_TRIPOD", "locator": "TRIPOD statement and reporting-only boundary", "supports": ["REQ_TRIPOD"], "evidenceType": "OFFICIAL_REPORTING_GUIDELINE_CATALOG" },
+    { "evidenceId": "EVD_STARD", "sourceId": "SRC_EQUATOR_STARD", "locator": "STARD 2015 record", "supports": ["REQ_STARD"], "evidenceType": "OFFICIAL_REPORTING_GUIDELINE_CATALOG" },
+    { "evidenceId": "EVD_PRISMA", "sourceId": "SRC_PRISMA_2020", "locator": "PRISMA 2020 statement, checklist and flow diagrams", "supports": ["REQ_PRISMA_2020"], "evidenceType": "PRIMARY_REPORTING_GUIDELINE_SITE" },
+    { "evidenceId": "EVD_US_ACT", "sourceId": "SRC_CLINICALTRIALS_FINAL_RULE", "locator": "Who is responsible; which trials; when to register and submit results", "supports": ["REQ_US_ACT_REGISTRATION_RESULTS"], "evidenceType": "PRIMARY_GOVERNMENT_POLICY_PAGE" },
+    { "evidenceId": "EVD_NIH_POLICY", "sourceId": "SRC_NIH_DISSEMINATION_POLICY", "locator": "Policy purpose, scope and effective date", "supports": ["REQ_NIH_TRIAL_DISSEMINATION"], "evidenceType": "PRIMARY_FUNDER_POLICY" },
+    { "evidenceId": "EVD_ECRIN_RED_SCOPE", "sourceId": "SRC_ECRIN_RED", "locator": "About RED", "supports": ["REQ_ECRIN_RED_INFORMATIONAL"], "evidenceType": "INSTITUTIONAL_INFORMATION" }
+  ],
+  "verificationRecords": [
+    { "verificationId": "VER_SRC_FR_CSP_L1121_1", "sourceId": "SRC_FR_CSP_L1121_1", "verifiedAt": "2026-08-10", "verifier": "REG-000_BUILD", "outcome": "VERIFIED_CURRENT", "checkedSignals": ["primaryAuthority", "effectiveStatus", "sourceRevision"] },
+    { "verificationId": "VER_SRC_FR_CSP_L1121_4", "sourceId": "SRC_FR_CSP_L1121_4", "verifiedAt": "2026-08-10", "verifier": "REG-000_BUILD", "outcome": "VERIFIED_CURRENT", "checkedSignals": ["primaryAuthority", "effectiveStatus", "sourceRevision"] },
+    { "verificationId": "VER_SRC_FR_CSP_L1122_1_1", "sourceId": "SRC_FR_CSP_L1122_1_1", "verifiedAt": "2026-08-10", "verifier": "REG-000_BUILD", "outcome": "VERIFIED_CURRENT", "checkedSignals": ["primaryAuthority", "effectiveStatus", "sourceRevision"] },
+    { "verificationId": "VER_SRC_FR_CSP_L1123_6", "sourceId": "SRC_FR_CSP_L1123_6", "verifiedAt": "2026-08-10", "verifier": "REG-000_BUILD", "outcome": "VERIFIED_CURRENT", "checkedSignals": ["primaryAuthority", "effectiveStatus", "sourceRevision"] },
+    { "verificationId": "VER_SRC_FR_CSP_R1123_20", "sourceId": "SRC_FR_CSP_R1123_20", "verifiedAt": "2026-08-10", "verifier": "REG-000_BUILD", "outcome": "VERIFIED_CURRENT", "checkedSignals": ["primaryAuthority", "effectiveStatus", "sourceRevision"] },
+    { "verificationId": "VER_SRC_CNIL_MR001_2026", "sourceId": "SRC_CNIL_MR001_2026", "verifiedAt": "2026-08-10", "verifier": "REG-000_BUILD", "outcome": "VERIFIED_CURRENT", "checkedSignals": ["primaryAuthority", "effectiveStatus", "sourceRevision"] },
+    { "verificationId": "VER_SRC_CNIL_MR003_2026", "sourceId": "SRC_CNIL_MR003_2026", "verifiedAt": "2026-08-10", "verifier": "REG-000_BUILD", "outcome": "VERIFIED_CURRENT", "checkedSignals": ["primaryAuthority", "effectiveStatus", "sourceRevision"] },
+    { "verificationId": "VER_SRC_CNIL_MR_UPDATE_2026", "sourceId": "SRC_CNIL_MR_UPDATE_2026", "verifiedAt": "2026-08-10", "verifier": "REG-000_BUILD", "outcome": "VERIFIED_CURRENT", "checkedSignals": ["primaryAuthority", "effectiveStatus", "sourceRevision"] },
+    { "verificationId": "VER_SRC_EU_CTR_536_2014", "sourceId": "SRC_EU_CTR_536_2014", "verifiedAt": "2026-08-10", "verifier": "REG-000_BUILD", "outcome": "VERIFIED_CURRENT", "checkedSignals": ["primaryAuthority", "effectiveStatus", "sourceRevision"] },
+    { "verificationId": "VER_SRC_EC_CTR_CTIS_2025", "sourceId": "SRC_EC_CTR_CTIS_2025", "verifiedAt": "2026-08-10", "verifier": "REG-000_BUILD", "outcome": "VERIFIED_CURRENT", "checkedSignals": ["primaryAuthority", "effectiveStatus", "sourceRevision"] },
+    { "verificationId": "VER_SRC_EMA_CTIS_2026", "sourceId": "SRC_EMA_CTIS_2026", "verifiedAt": "2026-08-10", "verifier": "REG-000_BUILD", "outcome": "VERIFIED_CURRENT", "checkedSignals": ["primaryAuthority", "effectiveStatus", "sourceRevision"] },
+    { "verificationId": "VER_SRC_DGOS_PHRC_2025_2026", "sourceId": "SRC_DGOS_PHRC_2025_2026", "verifiedAt": "2026-08-10", "verifier": "REG-000_BUILD", "outcome": "VERIFIED_HISTORICAL_EDITION", "checkedSignals": ["primaryAuthority", "effectiveStatus", "programEdition", "deadline"] },
+    { "verificationId": "VER_SRC_DGOS_NOTE_2025_90", "sourceId": "SRC_DGOS_NOTE_2025_90", "verifiedAt": "2026-08-10", "verifier": "REG-000_BUILD", "outcome": "VERIFIED_HISTORICAL_EDITION", "checkedSignals": ["primaryAuthority", "effectiveStatus", "programEdition", "deadline"] },
+    { "verificationId": "VER_SRC_ANR_RHU_V6_2023", "sourceId": "SRC_ANR_RHU_V6_2023", "verifiedAt": "2026-08-10", "verifier": "REG-000_BUILD", "outcome": "VERIFIED_HISTORICAL_EDITION", "checkedSignals": ["primaryAuthority", "effectiveStatus", "programEdition", "deadline", "officialPDF"] },
+    { "verificationId": "VER_SRC_ICH_E6_R3_2025", "sourceId": "SRC_ICH_E6_R3_2025", "verifiedAt": "2026-08-10", "verifier": "REG-000_BUILD", "outcome": "VERIFIED_CURRENT", "checkedSignals": ["primaryAuthority", "effectiveStatus", "sourceRevision", "guidanceBoundary"] },
+    { "verificationId": "VER_SRC_SPIRIT_CONSORT_2025", "sourceId": "SRC_SPIRIT_CONSORT_2025", "verifiedAt": "2026-08-10", "verifier": "REG-000_BUILD", "outcome": "VERIFIED_CURRENT", "checkedSignals": ["primaryAuthority", "effectiveStatus", "sourceRevision", "guidanceBoundary"] },
+    { "verificationId": "VER_SRC_EQUATOR_STROBE", "sourceId": "SRC_EQUATOR_STROBE", "verifiedAt": "2026-08-10", "verifier": "REG-000_BUILD", "outcome": "VERIFIED_CURRENT", "checkedSignals": ["primaryAuthority", "effectiveStatus", "sourceRevision", "guidanceBoundary"] },
+    { "verificationId": "VER_SRC_EQUATOR_RECORD", "sourceId": "SRC_EQUATOR_RECORD", "verifiedAt": "2026-08-10", "verifier": "REG-000_BUILD", "outcome": "VERIFIED_CURRENT", "checkedSignals": ["primaryAuthority", "effectiveStatus", "sourceRevision", "guidanceBoundary"] },
+    { "verificationId": "VER_SRC_EQUATOR_TRIPOD", "sourceId": "SRC_EQUATOR_TRIPOD", "verifiedAt": "2026-08-10", "verifier": "REG-000_BUILD", "outcome": "VERIFIED_CURRENT", "checkedSignals": ["primaryAuthority", "effectiveStatus", "sourceRevision", "guidanceBoundary"] },
+    { "verificationId": "VER_SRC_EQUATOR_STARD", "sourceId": "SRC_EQUATOR_STARD", "verifiedAt": "2026-08-10", "verifier": "REG-000_BUILD", "outcome": "VERIFIED_CURRENT", "checkedSignals": ["primaryAuthority", "effectiveStatus", "sourceRevision", "guidanceBoundary"] },
+    { "verificationId": "VER_SRC_PRISMA_2020", "sourceId": "SRC_PRISMA_2020", "verifiedAt": "2026-08-10", "verifier": "REG-000_BUILD", "outcome": "VERIFIED_CURRENT", "checkedSignals": ["primaryAuthority", "effectiveStatus", "sourceRevision", "guidanceBoundary"] },
+    { "verificationId": "VER_SRC_CLINICALTRIALS_FINAL_RULE", "sourceId": "SRC_CLINICALTRIALS_FINAL_RULE", "verifiedAt": "2026-08-10", "verifier": "REG-000_BUILD", "outcome": "VERIFIED_CURRENT", "checkedSignals": ["primaryAuthority", "effectiveStatus", "sourceRevision"] },
+    { "verificationId": "VER_SRC_NIH_DISSEMINATION_POLICY", "sourceId": "SRC_NIH_DISSEMINATION_POLICY", "verifiedAt": "2026-08-10", "verifier": "REG-000_BUILD", "outcome": "VERIFIED_CURRENT", "checkedSignals": ["primaryAuthority", "effectiveStatus", "sourceRevision"] },
+    { "verificationId": "VER_SRC_ECRIN_RED", "sourceId": "SRC_ECRIN_RED", "verifiedAt": "2026-08-10", "verifier": "REG-000_BUILD", "outcome": "VERIFIED_CURRENT", "checkedSignals": ["primaryAuthority", "effectiveStatus", "informationalBoundary"] }
+  ],
+  "competencyQueries": [
+    { "queryId": "CQ_PHRC_PROTOCOL", "question": "Un PHRC exige-t-il un protocole ?", "answer": "Pour l'édition PHRC-N 2025-2026, le stade 1 exigeait une lettre d'intention et ses pièces listées, sans dépôt de protocole; le protocole détaillé devenait obligatoire au stade 2 du dossier complet. Cette édition est clôturée et ne doit pas être transposée à une autre édition.", "expectedRequirementIds": ["REQ_PHRC_STAGE1", "REQ_PHRC_STAGE2"], "expectedSourceIds": ["SRC_DGOS_PHRC_2025_2026", "SRC_DGOS_NOTE_2025_90"], "provenanceRequired": true },
+    { "queryId": "CQ_RHU_ANNEXES", "question": "Quelles annexes étaient obligatoires pour RHU V6 ?", "answer": "Pour RHU V6 2023, trois annexes étaient obligatoires: concept/données préliminaires/publications (5 pages maximum); méthodologie des études précliniques et essais cliniques prévus (1 page maximum par essai clinique, réunies dans une annexe); impact, propriété intellectuelle et principes de partage du retour (3 pages maximum). L'édition est clôturée.", "expectedRequirementIds": ["REQ_RHU_V6_COMPLETE_DOSSIER", "REQ_RHU_V6_ANNEXES"], "expectedSourceIds": ["SRC_ANR_RHU_V6_2023"], "expectedAnnexIds": ["ANNEX_RHU_CONCEPT", "ANNEX_RHU_METHODOLOGY", "ANNEX_RHU_IMPACT"], "provenanceRequired": true },
+    { "queryId": "CQ_RIPH1_VS_RIPH3", "question": "Quelles différences structurantes entre RIPH 1 et RIPH 3 ?", "answer": "Les deux catégories requièrent un avis favorable du CPP et un dossier comprenant un protocole. La RIPH 1 requiert en plus l'autorisation préalable de l'autorité compétente et un consentement libre, éclairé et écrit. En RIPH 3, l'article L1121-4 ne pose pas cette autorisation préalable; l'avis du CPP et un résumé sont transmis à l'autorité compétente, et la participation est exclue en cas d'opposition. Toute catégorie doit être qualifiée humainement.", "expectedRequirementIds": ["REQ_FR_RIPH_CLASSIFICATION", "REQ_FR_CPP_OPINION", "REQ_FR_CPP_PROTOCOL", "REQ_FR_ANSM_RIPH1_AUTHORIZATION", "REQ_FR_RIPH_CONSENT_OR_OPPOSITION"], "expectedSourceIds": ["SRC_FR_CSP_L1121_1", "SRC_FR_CSP_L1121_4", "SRC_FR_CSP_L1122_1_1", "SRC_FR_CSP_L1123_6", "SRC_FR_CSP_R1123_20"], "provenanceRequired": true },
+    { "queryId": "CQ_CNIL", "question": "Quand une exigence CNIL est-elle dérivée ?", "answer": "Seulement après qualification du traitement de données personnelles de santé, du périmètre MR-001/MR-003 et de la conformité intégrale. La conformité stricte ouvre la déclaration; une non-conformité impose une demande d'autorisation après l'avis éthique compétent. Les annexes sécurité et contrôle qualité de la version 2026 restent conditionnelles à cette route.", "expectedRequirementIds": ["REQ_CNIL_MR_ROUTE", "REQ_CNIL_MR_ANNEXES"], "expectedSourceIds": ["SRC_CNIL_MR001_2026", "SRC_CNIL_MR003_2026", "SRC_CNIL_MR_UPDATE_2026"], "provenanceRequired": true },
+    { "queryId": "CQ_ANSM", "question": "Quand l'autorisation ANSM est-elle requise dans ce corpus ?", "answer": "Dans le noyau français modélisé, la RIPH 1 requiert l'autorisation préalable de l'autorité compétente. Pour un essai clinique de médicament dans le champ du règlement européen, la route CTIS doit être qualifiée séparément; aucune extension silencieuse à RIPH 2 ou RIPH 3 n'est autorisée.", "expectedRequirementIds": ["REQ_FR_ANSM_RIPH1_AUTHORIZATION", "REQ_EU_CTR_CTIS"], "expectedSourceIds": ["SRC_FR_CSP_L1121_4", "SRC_EU_CTR_536_2014", "SRC_EC_CTR_CTIS_2025"], "provenanceRequired": true },
+    { "queryId": "CQ_CPP", "question": "Qu'exige le CPP dans le périmètre français modélisé ?", "answer": "Un avis favorable du CPP est requis avant une RIPH 1, 2 ou 3. Le dossier comprend une partie administrative et un protocole daté décrivant objectifs, conception, méthode, statistiques et organisation.", "expectedRequirementIds": ["REQ_FR_CPP_OPINION", "REQ_FR_CPP_PROTOCOL"], "expectedSourceIds": ["SRC_FR_CSP_L1121_4", "SRC_FR_CSP_L1123_6", "SRC_FR_CSP_R1123_20"], "provenanceRequired": true },
+    { "queryId": "CQ_DGOS", "question": "Quelles exigences DGOS sont modélisées ?", "answer": "Uniquement la campagne PHRC-N 2025-2026 et ses deux stades, désormais archivés: lettre d'intention au stade 1, puis dossier complet avec protocole et pièces listées au stade 2. Aucune règle n'est projetée sur une campagne future.", "expectedRequirementIds": ["REQ_PHRC_STAGE1", "REQ_PHRC_STAGE2"], "expectedSourceIds": ["SRC_DGOS_PHRC_2025_2026", "SRC_DGOS_NOTE_2025_90"], "provenanceRequired": true },
+    { "queryId": "CQ_STANDARDS_ONLY", "question": "Les standards ICH, SPIRIT, CONSORT, STROBE, RECORD, TRIPOD, STARD et PRISMA sont-ils des obligations réglementaires ?", "answer": "Non par leur seule publication. Ils sont classés comme guides méthodologiques ou de reporting. Ils ne deviennent obligatoires dans un projet que si une loi, une autorité, un contrat, un financeur ou une politique éditoriale applicable les incorpore explicitement.", "expectedRequirementIds": ["REQ_ICH_E6_R3", "REQ_SPIRIT_2025", "REQ_CONSORT_2025", "REQ_STROBE", "REQ_RECORD", "REQ_TRIPOD", "REQ_STARD", "REQ_PRISMA_2020"], "expectedSourceIds": ["SRC_ICH_E6_R3_2025", "SRC_SPIRIT_CONSORT_2025", "SRC_EQUATOR_STROBE", "SRC_EQUATOR_RECORD", "SRC_EQUATOR_TRIPOD", "SRC_EQUATOR_STARD", "SRC_PRISMA_2020"], "provenanceRequired": true }
+  ],
+  "coverageLimitations": [
+    "REG-000 v1 is a bounded seed corpus, not an exhaustive statement of French, European, US or international research law.",
+    "The RIPH category, CNIL methodology, CTR scope, US applicable-clinical-trial status and funder-edition applicability require human qualification before any engaging decision.",
+    "The corpus is decision support and traceability material, not legal advice or authority approval.",
+    "Only PHRC-N 2025-2026 and RHU V6 2023 are decomposed as funding editions; both are archived and cannot establish current submission rules.",
+    "Future France 2030, ANR, DGOS, Horizon Europe and NIH editions require primary-source admission before use.",
+    "Device, in-vitro diagnostic, performance-study, non-medicinal interventional and every national CTR Part II subroute are not exhaustively decomposed.",
+    "DOC-000A, DOC-000B, DOC-000B-R1 and DOC-000C were absent from the checkout and Git history and therefore could not govern this build.",
+    "REG-000 remains a NIVEAU_2_CANDIDATE because admission would require a forbidden modification of SOURCE-OF-TRUTH-INDEX.",
+    "Legal and regulatory CURRENT sources require re-verification at least every 30 days and before an engaging use; open funding calls weekly and daily during the final week; methodological and institutional sources quarterly; any authority notice triggers event-driven verification."
+  ]
+}
