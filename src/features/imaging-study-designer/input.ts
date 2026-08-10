@@ -1,4 +1,5 @@
 import { logicalDigest, normalizeScientificText, uniqueSorted } from "@/features/knowledge-engine/canonical";
+import { resolveGovernedConceptsFromProviderReferences } from "@/features/knowledge-engine/concept-resolver";
 import type { KnowledgeResult } from "@/features/knowledge-engine/types";
 import type { InterpretedFieldKey, ValidatedScientificIntent } from "@/features/protocol-designer/intake/types";
 import type { ScientificThinkingSession } from "@/features/scientific-thinking/types";
@@ -115,20 +116,24 @@ export const buildImagingDesignInput = (
     ...(knowledgeResult?.sources.map((item) => item.sourceId) ?? []),
     ...(thinkingOutput?.handoff.provenanceRefs ?? []),
   ]);
+  const governedConcepts = knowledgeResult ? [
+    ...knowledgeResult.resolvedConcepts,
+    ...resolveGovernedConceptsFromProviderReferences(knowledgeResult.applicableAssertions.map((item) => ({ providerId: item.providerId, conceptIds: item.conceptIds }))),
+  ].filter((item, index, all) => all.findIndex((candidate) => candidate.conceptId === item.conceptId) === index) : [];
   const canonicalConceptIdsFor = (item: KnowledgeResult["applicableAssertions"][number]) => uniqueSorted([
     ...item.conceptIds,
-    ...(knowledgeResult?.resolvedConcepts.filter((concept) => {
+    ...governedConcepts.filter((concept) => {
       const providerIds = Object.values(concept.providerConcepts).flat();
       return item.conceptIds.includes(concept.conceptId)
         || providerIds.some((id) => item.conceptIds.includes(id))
         || Boolean(item.modality && concept.preferredLabel.toLocaleLowerCase("fr-FR").includes(item.modality.toLocaleLowerCase("fr-FR")));
-    }).map((concept) => concept.conceptId) ?? []),
+    }).map((concept) => concept.conceptId),
   ]);
   const knowledge = {
     resultId: knowledgeResult?.resultId ?? null,
     resultDigest: knowledgeResult?.resultDigest ?? null,
     coverageStatus: knowledgeResult?.coverageStatus ?? "NOT_REQUESTED_OR_UNAVAILABLE",
-    concepts: knowledgeResult?.resolvedConcepts.map((item) => ({ conceptId: item.conceptId, label: item.preferredLabel, objectType: item.objectType, resolutionKind: item.kind, originalTerms: uniqueSorted(item.originalTerms) })) ?? [],
+    concepts: governedConcepts.map((item) => ({ conceptId: item.conceptId, label: item.preferredLabel, objectType: item.objectType, resolutionKind: item.kind, originalTerms: uniqueSorted(item.originalTerms) })),
     assertions: knowledgeResult?.applicableAssertions.map((item) => ({ ...projectedStatement(item), conceptIds: canonicalConceptIdsFor(item) })) ?? [],
     documentaryStatements: knowledgeResult?.documentaryStatements.map(projectedDocumentaryStatement) ?? [],
     gaps: knowledgeResult?.gaps.map((item) => ({ code: item.code, explanation: item.explanation, affectedConceptIds: uniqueSorted(item.affectedConceptIds), resumeCondition: item.resumeCondition })) ?? [],
@@ -153,16 +158,16 @@ export const buildImagingDesignInput = (
     researchProjectId: runtime.researchProjectId ?? thinking?.input.researchContext.researchProjectId ?? null,
     strategyVersion: runtime.strategyVersion ?? `context-${runtime.contextVersion}`,
     sourceHandoff: handoffAuthorized ? {
-      kind: "AUTHORIZED_ST_HANDOFF", stOutputRef: thinkingOutput?.outputId ?? null, status: "AUTHORIZED", boundary: "NO_PROTOCOL_NO_METHOD_SELECTION_NO_STATISTICAL_PLAN",
+      kind: "AUTHORIZED_ST_HANDOFF", stOutputRef: thinkingOutput?.outputId ?? null, status: "AUTHORIZED", boundary: "NO_PROTOCOL_NO_METHOD_SELECTION_NO_STATISTICAL_PLAN", humanDecisions: thinkingOutput?.handoff.humanDecisions ?? thinking?.decisionHistory ?? [],
     } : {
-      kind: "VALIDATED_DESIGN_CONTEXT", stOutputRef: thinkingOutput?.outputId ?? null, status: "VALIDATED_WITHOUT_ST_HANDOFF", boundary: "NO_PROTOCOL_NO_METHOD_SELECTION_NO_STATISTICAL_PLAN",
+      kind: "VALIDATED_DESIGN_CONTEXT", stOutputRef: thinkingOutput?.outputId ?? null, status: "VALIDATED_WITHOUT_ST_HANDOFF", boundary: "NO_PROTOCOL_NO_METHOD_SELECTION_NO_STATISTICAL_PLAN", humanDecisions: thinkingOutput?.handoff.humanDecisions ?? thinking?.decisionHistory ?? [],
     },
     originalExpression: normalizeScientificText(intent.originalQuestion),
     confirmedScientificQuestion: { questionId, text: questionText, confirmation: selectedQuestion?.reviewState === "ADOPTED" ? "HUMAN_CONFIRMED" : "VALIDATED_CONTEXT" },
     objectives: thinkingOutput?.objectives.filter((item) => thinkingOutput.handoff.objectiveIds.includes(item.objectiveId)).map((item) => ({ objectiveId: item.objectiveId, text: item.text, level: item.level, reviewState: item.reviewState })) ?? [],
     hypotheses: thinkingOutput?.hypotheses.filter((item) => thinkingOutput.handoff.hypothesisIds.includes(item.hypothesisId)).map((item) => ({ hypothesisId: item.hypothesisId, text: item.text, kind: item.kind, reviewState: item.reviewState })) ?? [],
     mechanisms: thinkingOutput?.handoff.mechanisms.map((item) => ({ mechanismId: item.mechanismId, text: item.text, support: item.support })) ?? [],
-    centralScientificObject: normalizeScientificText(scientificObjectTerms[0] ?? intent.validatedReformulation),
+    centralScientificObject: normalizeScientificText(thinkingOutput?.centralScientificObject ?? scientificObjectTerms[0] ?? fields.phenomena[0] ?? intent.validatedReformulation),
     scientificObjectTerms: uniqueSorted(scientificObjectTerms.map(normalizeScientificText).filter(Boolean)),
     pathologyOrCondition: fields.pathology,
     populationContext: fields.population,

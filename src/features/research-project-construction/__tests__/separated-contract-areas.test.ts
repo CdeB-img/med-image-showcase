@@ -57,9 +57,9 @@ describe("PRJ-001 — réouverture de décision", () => {
   it("réouvre la porte concernée après confirmation d’un changement", () => {
     let session = createResearchProjectConstructionSession(makeProjectInput());
     session = proposeStudyDesign(session, session.result.studyDesignCandidates[0].designId);
-    session = decideProjectGate(session, "PRJ-GATE-STUDY-DESIGN", "APPROVED", "Plan adopté.", "Investigateur");
+    session = decideProjectGate(session, "PRJ-GATE-STUDY-DESIGN", "APPROVED", "Plan adopté.", "Investigateur", "mandate:project-test");
     session = requestProjectChange(session, { eventType: "StudyDesignChanged", description: "Plan rouvert.", sourceIds: [session.result.studyDesignCandidates[0].designId] });
-    session = decideProjectChange(session, session.result.impactGraph.changes[0].changeId, "CONFIRMED");
+    session = decideProjectChange(session, session.result.impactGraph.changes[0].changeId, "CONFIRMED", "Investigateur", "mandate:project-test");
     expect(session.result.decisionsRequired.find((item) => item.gateId === "PRJ-GATE-STUDY-DESIGN")?.status).toBe("PENDING");
   });
 });

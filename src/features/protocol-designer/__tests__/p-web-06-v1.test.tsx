@@ -23,14 +23,24 @@ const makeIntent = (question: string, domain: string, purpose: string) => {
   return buildValidatedIntent(interpretation, reviews, question, "2026-08-08T00:00:00Z");
 };
 
-const storeWorkspace = (routeIntent: RoutingIntent) => {
-  const question = "Quelle différence faut-il conserver entre l’OEF et le CMRO₂ en imagerie cérébrale ?";
+const storeWorkspace = (routeIntent: RoutingIntent, readyForImaging = false) => {
+  const question = readyForImaging
+    ? "Comparer l’OEF et le CMRO₂ en imagerie cérébrale."
+    : "Quelle différence faut-il conserver entre l’OEF et le CMRO₂ en imagerie cérébrale ?";
   const intent = makeIntent(question, "OEF et CMRO₂", "comprendre");
-  delete intent.reviews.scientificPurpose;
-  delete intent.reviews.phenomenaOfInterest;
+  if (!readyForImaging) {
+    delete intent.reviews.scientificPurpose;
+    delete intent.reviews.phenomenaOfInterest;
+  }
   const matches = matchScenarios(intent);
   const session = createProtocolDesignerSession("2026-08-08T00:00:00Z");
-  const context = { ...buildScientificSessionContext(intent), routeIntent, centralScientificObject: "OEF et CMRO₂", workingHypotheses: [] };
+  const context = {
+    ...buildScientificSessionContext(intent),
+    routeIntent,
+    centralScientificObject: "OEF et CMRO₂",
+    workingHypotheses: [],
+    activeDesignSurface: readyForImaging ? "IMAGING" as const : "PROJECT_CONSTRUCTION" as const,
+  };
   persistSession(window.localStorage, {
     ...session, currentStep: 3, originalQuestion: question, validatedIntent: intent,
     scenarioMatches: matches.map((match) => match.scenarioId === "neuro" ? { ...match, status: "MATCH_CONFIRMED" as const } : match),
@@ -129,8 +139,8 @@ describe("P-WEB-06 — Protocol Designer V1", () => {
     expect(screen.getAllByText(/OEF|CMRO₂/).length).toBeGreaterThan(0);
   });
 
-  it("exposes all eight Imaging stages without pretending they are complete", async () => {
-    storeWorkspace("DESIGN_STUDY");
+  it("exposes all eight Imaging stages when the scientific guard allows the direct Imaging route", async () => {
+    storeWorkspace("DESIGN_STUDY", true);
     await resume();
     expect(await screen.findByText("Étape 1 sur environ 8")).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: "8. Stratégie Imaging" }));

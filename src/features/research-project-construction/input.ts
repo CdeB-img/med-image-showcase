@@ -83,6 +83,12 @@ export const buildResearchProjectConstructionInput = (
     contextVersion: runtime.contextVersion,
   };
   const inputDigest = logicalDigest(material);
+  const existingDecisionRecords = [
+    ...(thinking?.decisionHistory ?? []),
+    ...(imaging?.input.sourceHandoff.humanDecisions ?? []),
+    ...(imaging?.decisionHistory ?? []),
+    ...(imaging?.result.projectConstructionHandoff.humanDecisions ?? []),
+  ].filter((item, index, all) => all.findIndex((candidate) => candidate.decisionId === item.decisionId && candidate.version === item.version) === index);
   const input: ResearchProjectConstructionInput = {
     contractVersion: RESEARCH_PROJECT_CONSTRUCTION_VERSION,
     inputId: `research-project-construction-input:${inputDigest}`,
@@ -103,7 +109,7 @@ export const buildResearchProjectConstructionInput = (
     hypotheses: thinkingOutput?.hypotheses.filter((item) => thinkingOutput.handoff.hypothesisIds.includes(item.hypothesisId)).map((item) => ({ hypothesisId: item.hypothesisId, text: item.text, kind: item.kind, reviewState: item.reviewState })) ?? [],
     mechanisms: thinkingOutput?.handoff.mechanisms.map((item) => ({ mechanismId: item.mechanismId, text: item.text, support: item.support })) ?? [],
     scientificContext: {
-      centralScientificObject: normalizeScientificText(thinkingOutput?.centralScientificObject ?? thinking?.input.scientificObjectTerms[0] ?? intent.validatedReformulation),
+      centralScientificObject: normalizeScientificText(thinkingOutput?.centralScientificObject ?? thinking?.input.scientificObjectTerms[0] ?? valuesFor(intent, "phenomenaOfInterest")[0] ?? intent.validatedReformulation),
       pathologyOrCondition: valuesFor(intent, "pathologyOrCondition"),
       phenomena: uniqueSorted([...(thinking?.input.phenomena ?? []), ...valuesFor(intent, "phenomenaOfInterest")]),
       outcomes: valuesFor(intent, "outcomesMentioned"),
@@ -119,6 +125,7 @@ export const buildResearchProjectConstructionInput = (
     knownTemporalInformation: valuesFor(intent, "declaredTimings"),
     knownConstraints: uniqueSorted(valuesFor(intent, "constraints")),
     existingDecisions: uniqueSorted([...(thinking?.decisionHistory.map((item) => item.decisionId) ?? []), ...(imaging?.decisionHistory.map((item) => item.decisionId) ?? [])]),
+    existingDecisionRecords,
     uncertainties: uniqueSorted([...(thinkingOutput?.handoff.unresolvedUnknowns ?? []), ...intent.interpretation.missingInformation]),
     contradictions: uniqueSorted([...(thinkingOutput?.handoff.contradictions ?? []), ...intent.interpretation.contradictions]),
     userProvidedInformation: userInformation(intent),

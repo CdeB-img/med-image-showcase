@@ -42,7 +42,8 @@ describe("SYS-001 — end-to-end A à D", () => {
     expect(imaging.input.knownConstraints).toContain("comparaison explicitement demandée");
     expect(imaging.result.modalityCandidates.map((item) => item.reviewState)).toEqual(["PENDING", "PENDING"]);
     expect(imaging.result.projectConstructionHandoff.status).toBe("NOT_READY");
-    expect(imaging.result.acquisitionStrategies).toEqual([]);
+    expect(imaging.result.acquisitionStrategies.map((item) => item.modalityId)).toEqual(expect.arrayContaining(["IMG-MODALITY:modality:ct", "IMG-MODALITY:modality:mri"]));
+    expect(imaging.result.acquisitionStrategies.every((item) => item.level3.status === "NOT_GENERATABLE_WITH_CURRENT_EXECUTABLE_KNOWLEDGE")).toBe(true);
   });
 
   it("CAS F — une incompatibilité déclarée reste un blocage ciblé", () => {

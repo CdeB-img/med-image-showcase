@@ -58,7 +58,9 @@ describe("DOC-001 — Projection Protocol", () => {
     const session = makeAuthorizedProject();
     const decisionsRequired = session.result.decisionsRequired.map((item, index) => index === 0 ? { ...item, status: "PENDING" as const } : item);
     const project = reviseProject(session.result, { decisionsRequired });
-    const projection = projectionFrom(requestFor(session, { project }));
+    const firstGateId = decisionsRequired[0].gateId;
+    const decisionRecords = session.decisionHistory.map((item) => item.gateId === firstGateId ? { ...item, status: "PENDING" as const, actor: null, mandate: null, timestamp: null } : item);
+    const projection = projectionFrom(requestFor(session, { project, decisionRecords }));
     expect(projection.sections.find((item) => item.sectionId === "open-elements")).toMatchObject({ status: "PARTIALLY_GENERATABLE" });
     expect(projection.humanDecisions).toContainEqual(expect.objectContaining({ status: "PENDING" }));
   });

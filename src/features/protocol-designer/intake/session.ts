@@ -6,7 +6,7 @@ import { hasSensitiveData } from "./privacy.js";
 import { parseScientificIntakeInterpretation } from "./schema.js";
 import { INTAKE_FIXTURE_SET_VERSION, INTAKE_SESSION_SCHEMA_VERSION, type HumanFieldReview, type InterpretedFieldKey, type ProtocolDesignerSession, type ScientificIntakeInterpretation, type ValidatedScientificIntent } from "./types.js";
 
-export const INTAKE_SESSION_KEY = "noxia-guided-intake-session-v9";
+export const INTAKE_SESSION_KEY = "noxia-guided-intake-session-v10";
 
 const storedSessionSchema = z.object({
   sessionSchemaVersion: z.literal(INTAKE_SESSION_SCHEMA_VERSION),
@@ -23,7 +23,7 @@ const storedSessionSchema = z.object({
     routeReasons: z.array(z.string()), centralScientificObject: z.string(), preservedScientificTerms: z.array(z.string()),
     detectedRelationships: z.array(z.string()), workingHypotheses: z.array(z.string()), missingInformation: z.array(z.string()),
     contextVersion: z.number().int().min(0), transitions: z.array(z.unknown()), currentProjectStage: z.number().int().min(1).max(8),
-    activeDesignSurface: z.enum(["IMAGING", "PROJECT_CONSTRUCTION", "DOCUMENT_PROJECTION"]),
+    activeDesignSurface: z.enum(["SCIENTIFIC_THINKING", "IMAGING", "PROJECT_CONSTRUCTION", "DOCUMENT_PROJECTION"]),
   }).passthrough(),
   scientificThinking: scientificThinkingSessionSchema.nullable(),
   scientificThinkingHistory: z.array(z.object({
@@ -51,7 +51,7 @@ export const createProtocolDesignerSession = (now = new Date().toISOString()): P
   scientificContext: {
     routeIntent: null, routeConfidence: "UNKNOWN", routeReasons: [], centralScientificObject: "",
     preservedScientificTerms: [], detectedRelationships: [], workingHypotheses: [], missingInformation: [],
-    contextVersion: 0, transitions: [], currentProjectStage: 1, activeDesignSurface: "IMAGING",
+    contextVersion: 0, transitions: [], currentProjectStage: 1, activeDesignSurface: "SCIENTIFIC_THINKING",
   },
   scientificThinking: null,
   scientificThinkingHistory: [],
@@ -102,7 +102,7 @@ export const invalidateDownstream = (session: ProtocolDesignerSession, reason: s
     invalidatedReason: reason,
   }] : session.projectConstructionHistory,
   projectConstruction: null,
-  scientificContext: { ...session.scientificContext, activeDesignSurface: "IMAGING" },
+  scientificContext: { ...session.scientificContext, activeDesignSurface: "SCIENTIFIC_THINKING" },
   invalidatedDownstream: [...session.invalidatedDownstream, reason],
 });
 

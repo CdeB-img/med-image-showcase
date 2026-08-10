@@ -27,6 +27,9 @@ const reviewLabel: Record<CandidateReviewState, string> = { PENDING: "À revoir"
 
 export default function ScientificThinkingView({ session, onChange, onReturnToUnderstand, onExploreKnowledge, onEnterResearchDesign, onEditOriginalIdea }: Props) {
   const [drafts, setDrafts] = useState<Record<string, string>>({});
+  const [decisionActor, setDecisionActor] = useState("");
+  const [decisionMandate, setDecisionMandate] = useState("");
+  const decisionAuthorityReady = Boolean(decisionActor.trim() && decisionMandate.trim());
   const output = session.output;
   const applyAnswer = (questionId: string, value: string) => onChange(answerScientificThinkingQuestion(session, questionId, value));
   const keyboardActivate = (event: React.KeyboardEvent<HTMLButtonElement>, action: () => void) => {
@@ -75,6 +78,12 @@ export default function ScientificThinkingView({ session, onChange, onReturnToUn
       </div></div>
     </Box>}
 
+    <Box>
+      <h2 className="font-semibold">Autorité des décisions engageantes</h2>
+      <p className="mt-2 text-sm text-muted-foreground">Les portes candidates peuvent rester en attente sans identité attribuée. Pour adopter, rejeter, abandonner une branche ou autoriser un handoff, l’acteur et son mandat deviennent obligatoires.</p>
+      <div className="mt-4 grid gap-4 md:grid-cols-2"><div><label htmlFor="st-decision-actor" className="text-sm font-medium">Acteur humain</label><input id="st-decision-actor" value={decisionActor} onChange={(event) => setDecisionActor(event.target.value.slice(0, 100))} className="mt-2 w-full rounded-lg border bg-background px-3 py-2" /></div><div><label htmlFor="st-decision-mandate" className="text-sm font-medium">Mandat</label><input id="st-decision-mandate" value={decisionMandate} onChange={(event) => setDecisionMandate(event.target.value.slice(0, 160))} className="mt-2 w-full rounded-lg border bg-background px-3 py-2" /></div></div>
+    </Box>
+
     {output.knowledgeRequest && <Box className="border-amber-500/40 bg-amber-500/5">
       <div className="flex flex-wrap items-center gap-2"><Badge tone="warning">{output.knowledgeRequest.status}</Badge><h2 className="font-semibold">Connaissance insuffisante ou non disponible</h2></div>
       <p className="mt-2 text-sm">{output.knowledgeRequest.reason}</p>
@@ -90,8 +99,8 @@ export default function ScientificThinkingView({ session, onChange, onReturnToUn
         <p className="mt-4 text-lg font-semibold">{question.text}</p>
         <p className="mt-3 text-sm text-muted-foreground">{question.rationale}</p>
         <div className="mt-4 flex flex-wrap items-center gap-2"><Badge tone={question.reviewState === "ADOPTED" ? "good" : "neutral"}>{reviewLabel[question.reviewState]}</Badge>
-          <button disabled={question.testability !== "TESTABLE_CANDIDATE" || question.reviewState === "ADOPTED"} onClick={() => onChange(selectScientificQuestion(session, question.questionId))} onKeyDown={(event) => keyboardActivate(event, () => onChange(selectScientificQuestion(session, question.questionId)))} className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground disabled:opacity-50">Confirmer cette question</button>
-          {question.kind === "METHODOLOGICAL_BRANCH" && <button onClick={() => onChange(decideScientificThinkingBranch(session, [question.questionId]))} className="rounded-lg border px-4 py-2 text-sm">Abandonner cette branche</button>}
+          <button disabled={!decisionAuthorityReady || question.testability !== "TESTABLE_CANDIDATE" || question.reviewState === "ADOPTED"} onClick={() => onChange(selectScientificQuestion(session, question.questionId, decisionActor, decisionMandate))} onKeyDown={(event) => keyboardActivate(event, () => onChange(selectScientificQuestion(session, question.questionId, decisionActor, decisionMandate)))} className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground disabled:opacity-50">Confirmer cette question</button>
+          {question.kind === "METHODOLOGICAL_BRANCH" && <button disabled={!decisionAuthorityReady} onClick={() => onChange(decideScientificThinkingBranch(session, [question.questionId], decisionActor, decisionMandate))} className="rounded-lg border px-4 py-2 text-sm disabled:opacity-50">Abandonner cette branche</button>}
         </div>
       </Box>)}</div>
     </section>
@@ -115,7 +124,7 @@ export default function ScientificThinkingView({ session, onChange, onReturnToUn
       <div className="mt-4 grid gap-4 md:grid-cols-2">{output.hypotheses.map((hypothesis) => <Box key={hypothesis.hypothesisId}>
         <div className="flex flex-wrap gap-2"><Badge tone="warning">{hypothesis.kind}</Badge><Badge>{hypothesis.falsifiability}</Badge><Badge tone={hypothesis.support === "SUPPORTED" ? "good" : "warning"}>{supportLabel(hypothesis.support)}</Badge></div>
         <p className="mt-4 font-semibold">{hypothesis.text}</p><p className="mt-3 text-sm text-muted-foreground">Condition de réfutation : {hypothesis.observableCondition}</p>
-        <div className="mt-4 flex flex-wrap gap-2"><button aria-pressed={hypothesis.reviewState === "ADOPTED"} onClick={() => onChange(reviewScientificHypothesis(session, hypothesis.hypothesisId, "ADOPTED"))} className="rounded-lg bg-primary px-3 py-2 text-sm text-primary-foreground">Adopter comme hypothèse de travail</button><button aria-pressed={hypothesis.reviewState === "REJECTED"} onClick={() => onChange(reviewScientificHypothesis(session, hypothesis.hypothesisId, "REJECTED"))} className="rounded-lg border px-3 py-2 text-sm">Rejeter</button></div>
+        <div className="mt-4 flex flex-wrap gap-2"><button disabled={!decisionAuthorityReady} aria-pressed={hypothesis.reviewState === "ADOPTED"} onClick={() => onChange(reviewScientificHypothesis(session, hypothesis.hypothesisId, "ADOPTED", decisionActor, decisionMandate))} className="rounded-lg bg-primary px-3 py-2 text-sm text-primary-foreground disabled:opacity-50">Adopter comme hypothèse de travail</button><button disabled={!decisionAuthorityReady} aria-pressed={hypothesis.reviewState === "REJECTED"} onClick={() => onChange(reviewScientificHypothesis(session, hypothesis.hypothesisId, "REJECTED", decisionActor, decisionMandate))} className="rounded-lg border px-3 py-2 text-sm disabled:opacity-50">Rejeter</button></div>
       </Box>)}</div>
     </section>}
 
@@ -123,7 +132,7 @@ export default function ScientificThinkingView({ session, onChange, onReturnToUn
       <p className="text-xs font-semibold uppercase tracking-[.18em] text-primary">3 · Hiérarchiser sans verrouiller</p><h2 id="st-objectives-title" className="mt-2 text-2xl font-bold">Objectifs proposés pour revue</h2>
       <div className="mt-4 grid gap-4 md:grid-cols-2">{output.objectives.map((objective) => <Box key={objective.objectiveId}>
         <div className="flex flex-wrap gap-2"><Badge>{objective.level}</Badge><Badge tone={objective.reviewState === "ADOPTED" ? "good" : "neutral"}>{reviewLabel[objective.reviewState]}</Badge></div><p className="mt-4">{objective.text}</p>
-        <div className="mt-4 flex flex-wrap gap-2"><button onClick={() => onChange(reviewScientificObjective(session, objective.objectiveId, "ADOPTED"))} className="rounded-lg bg-primary px-3 py-2 text-sm text-primary-foreground">Retenir dans la hiérarchie</button><button onClick={() => onChange(reviewScientificObjective(session, objective.objectiveId, "REJECTED"))} className="rounded-lg border px-3 py-2 text-sm">Écarter</button></div>
+        <div className="mt-4 flex flex-wrap gap-2"><button disabled={!decisionAuthorityReady} onClick={() => onChange(reviewScientificObjective(session, objective.objectiveId, "ADOPTED", decisionActor, decisionMandate))} className="rounded-lg bg-primary px-3 py-2 text-sm text-primary-foreground disabled:opacity-50">Retenir dans la hiérarchie</button><button disabled={!decisionAuthorityReady} onClick={() => onChange(reviewScientificObjective(session, objective.objectiveId, "REJECTED", decisionActor, decisionMandate))} className="rounded-lg border px-3 py-2 text-sm disabled:opacity-50">Écarter</button></div>
       </Box>)}</div>
     </section>}
 
@@ -152,14 +161,14 @@ export default function ScientificThinkingView({ session, onChange, onReturnToUn
     <details className="rounded-2xl border bg-card p-5">
       <summary className="cursor-pointer text-lg font-semibold">Décisions humaines et historique</summary>
       <h3 className="mt-5 font-semibold">Portes de décision</h3><div className="mt-3 grid gap-2 md:grid-cols-2">{output.humanGates.map((gate) => <div key={gate.gateId} className="rounded-lg border p-3 text-sm"><div className="flex flex-wrap justify-between gap-2"><strong>{gate.label}</strong><Badge tone={gate.status === "APPROVED" ? "good" : gate.status === "PENDING" ? "warning" : "neutral"}>{gate.status}</Badge></div><p className="mt-2 text-xs text-muted-foreground">{gate.reason}</p></div>)}</div>
-      <h3 className="mt-6 font-semibold">Décisions enregistrées</h3>{session.decisionHistory.length ? session.decisionHistory.map((decision) => <p className="mt-2 text-xs" key={decision.decisionId}>{decision.decidedAt} · {decision.gate} · {decision.decision} · {decision.reason}</p>) : <p className="mt-2 text-sm text-muted-foreground">Aucune décision structurante n’a encore été enregistrée.</p>}
+      <h3 className="mt-6 font-semibold">Décisions enregistrées</h3>{session.decisionHistory.length ? session.decisionHistory.map((decision) => <p className="mt-2 text-xs" key={`${decision.decisionId}:v${decision.version}`}>{decision.timestamp ?? "non engageante"} · {decision.gateId} · {decision.status} · {decision.reason ?? "raison non renseignée"}</p>) : <p className="mt-2 text-sm text-muted-foreground">Aucune décision structurante n’a encore été enregistrée.</p>}
     </details>
 
     <Box className={output.handoff.status === "NOT_READY" ? "border-amber-500/40" : "border-primary/50"}>
       <div className="flex flex-wrap items-center gap-2"><Badge tone={output.handoff.status === "NOT_READY" ? "warning" : "good"}>{output.handoff.status}</Badge><h2 className="text-xl font-semibold">Passage vers Research Design</h2></div>
       <p className="mt-3 text-sm">Ce passage ne contient ni protocole, ni sélection de modalité, ni acquisition, ni plan statistique.</p>
       {output.handoff.blockedBy.length > 0 && <div className="mt-4 rounded-lg bg-muted p-4"><p className="font-semibold">Encore requis :</p>{output.handoff.blockedBy.map((item) => <p className="mt-1 text-sm" key={item}>• {item}</p>)}</div>}
-      {output.handoff.status === "READY_FOR_HUMAN_AUTHORIZATION" && <button onClick={() => onChange(authorizeResearchDesignHandoff(session))} className="mt-5 rounded-lg bg-primary px-5 py-3 font-semibold text-primary-foreground">Autoriser le handoff vers la conception d’étude</button>}
+      {output.handoff.status === "READY_FOR_HUMAN_AUTHORIZATION" && <button disabled={!decisionAuthorityReady} onClick={() => onChange(authorizeResearchDesignHandoff(session, decisionActor, decisionMandate))} className="mt-5 rounded-lg bg-primary px-5 py-3 font-semibold text-primary-foreground disabled:opacity-50">Autoriser le handoff vers la conception d’étude</button>}
       {output.handoff.status === "AUTHORIZED" && <button onClick={onEnterResearchDesign} className="mt-5 rounded-lg bg-primary px-5 py-3 font-semibold text-primary-foreground">Entrer dans la conception d’étude</button>}
     </Box>
 

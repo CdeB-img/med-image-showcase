@@ -53,13 +53,13 @@ export const authorizeSystemThinking = (intent: ValidatedScientificIntent): { se
   });
   let session = createScientificThinkingSession(input);
   const question = session.output.questions.find((item) => item.testability === "TESTABLE_CANDIDATE");
-  if (question) session = selectScientificQuestion(session, question.questionId, SYS_TIME);
+  if (question) session = selectScientificQuestion(session, question.questionId, "Responsable scientifique SYS-001", "mandate:sys-001", SYS_TIME);
   session.output.hypotheses.forEach((item, index) => {
-    session = reviewScientificHypothesis(session, item.hypothesisId, index === 0 ? "ADOPTED" : "REJECTED", SYS_TIME);
+    session = reviewScientificHypothesis(session, item.hypothesisId, index === 0 ? "ADOPTED" : "REJECTED", "Responsable scientifique SYS-001", "mandate:sys-001", SYS_TIME);
   });
   const primary = session.output.objectives.find((item) => item.level === "PRIMARY");
-  if (primary) session = reviewScientificObjective(session, primary.objectiveId, "ADOPTED", SYS_TIME);
-  session = authorizeResearchDesignHandoff(session, SYS_TIME);
+  if (primary) session = reviewScientificObjective(session, primary.objectiveId, "ADOPTED", "Responsable scientifique SYS-001", "mandate:sys-001", SYS_TIME);
+  session = authorizeResearchDesignHandoff(session, "Responsable scientifique SYS-001", "mandate:sys-001", SYS_TIME);
   return { session, knowledge };
 };
 
@@ -85,7 +85,7 @@ export const freezeSystemImaging = (intent: ValidatedScientificIntent): ImagingD
   for (let index = 0; index < 40; index += 1) {
     const gate = session.result.decisionsRequired.find((item) => item.status === "PENDING");
     if (!gate) break;
-    session = decideImagingGate(session, gate.gateId, "APPROVED", "Décision humaine explicite du scénario SYS-001.", `2026-08-10T16:${String(index).padStart(2, "0")}:00.000Z`);
+    session = decideImagingGate(session, gate.gateId, "APPROVED", "Décision humaine explicite du scénario SYS-001.", "Responsable Imaging SYS-001", "mandate:sys-001", `2026-08-10T16:${String(index).padStart(2, "0")}:00.000Z`);
   }
   return session;
 };

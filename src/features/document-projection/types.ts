@@ -1,6 +1,7 @@
 import type { ProjectDecisionRecord, ResearchProjectDesignResult } from "@/features/research-project-construction/types";
+import type { HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
 
-export const DOCUMENT_PROJECTION_ENGINE_VERSION = "1.0.0" as const;
+export const DOCUMENT_PROJECTION_ENGINE_VERSION = "1.1.0" as const;
 
 export type ProjectionType = string;
 
@@ -140,19 +141,7 @@ export type CompositionPlan = {
   sourceProjectId: string;
   sourceProjectVersion: string;
   sourceProjectDigest: string;
-  humanDecisions: Array<{
-    decisionId: string;
-    gateId: string;
-    label: string;
-    status: "PENDING" | "APPROVED" | "REJECTED";
-    reason: string;
-    actor: string | null;
-    mandate: string | null;
-    scope: string[];
-    version: string;
-    timestamp: string | null;
-    impact: string | null;
-  }>;
+  humanDecisions: HumanDecisionEnvelope[];
 };
 
 export type DocumentBlock = {

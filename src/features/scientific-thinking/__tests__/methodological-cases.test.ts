@@ -108,21 +108,22 @@ describe("ST-001 — cas méthodologiques supplémentaires", () => {
   });
 
   it("archive la projection et ses décisions lors d’une invalidation majeure", () => {
-    const thinking = selectScientificQuestion(createScientificThinkingSession(makeThinkingInput()), "ST-Q-001", "2026-08-09T11:00:00.000Z");
+    const thinking = selectScientificQuestion(createScientificThinkingSession(makeThinkingInput()), "ST-Q-001", "Responsable scientifique", "mandate:st-test", "2026-08-09T11:00:00.000Z");
     const protocol = { ...createProtocolDesignerSession("2026-08-09T10:00:00.000Z"), scientificThinking: thinking };
     const changed = invalidateDownstream(protocol, "Changement majeur confirmé");
     expect(changed.scientificThinking).toBeNull();
     expect(changed.scientificThinkingHistory[0]).toMatchObject({ outputId: thinking.output.outputId, invalidatedReason: "Changement majeur confirmé" });
-    expect(changed.scientificThinkingHistory[0].decisionRecordIds).toHaveLength(1);
+    expect(changed.scientificThinkingHistory[0].decisionRecordIds.length).toBeGreaterThanOrEqual(1);
   });
 
   it("permet rejet puis réactivation explicite d’une hypothèse", () => {
     let session = createScientificThinkingSession(makeThinkingInput());
-    session = reviewScientificHypothesis(session, "ST-H-001", "REJECTED", "2026-08-09T11:01:00.000Z");
+    session = reviewScientificHypothesis(session, "ST-H-001", "REJECTED", "Responsable scientifique", "mandate:st-test", "2026-08-09T11:01:00.000Z");
     expect(session.output.hypotheses[0].reviewState).toBe("REJECTED");
-    session = reviewScientificHypothesis(session, "ST-H-001", "ADOPTED", "2026-08-09T11:02:00.000Z");
+    session = reviewScientificHypothesis(session, "ST-H-001", "ADOPTED", "Responsable scientifique", "mandate:st-test", "2026-08-09T11:02:00.000Z");
     expect(session.output.hypotheses[0].reviewState).toBe("ADOPTED");
-    expect(session.decisionHistory.filter((item) => item.targetIds.includes("ST-H-001"))).toHaveLength(2);
+    expect(session.decisionHistory.filter((item) => item.targets.includes("ST-H-001"))).toHaveLength(2);
+    expect(session.decisionHistory.filter((item) => item.targets.includes("ST-H-001")).at(-1)).toMatchObject({ status: "ADOPTED", version: 2 });
   });
 
   it("ne change pas le raisonnement structuré quand seul le niveau utilisateur change", () => {

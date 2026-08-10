@@ -64,11 +64,11 @@ export const makeImagingIntent = (options: IntentOptions = {}): { intent: Valida
 const authorizeThinking = (intent: ValidatedScientificIntent, terms: string[], knowledge: ReturnType<typeof executeKnowledgeEngine>) => {
   const input = buildScientificThinkingInput(intent, terms, ["relation scientifique à examiner"], knowledge, { sessionId: "IMG-TEST-SESSION", contextVersion: 1, sourceJourney: "FORMALIZE_IDEA" });
   let session = createScientificThinkingSession(input);
-  session = selectScientificQuestion(session, "ST-Q-001", FIXED_TIME);
-  session.output.hypotheses.forEach((item, index) => { session = reviewScientificHypothesis(session, item.hypothesisId, index === 0 ? "ADOPTED" : "REJECTED", FIXED_TIME); });
+  session = selectScientificQuestion(session, "ST-Q-001", "Responsable scientifique", "mandate:img-fixture", FIXED_TIME);
+  session.output.hypotheses.forEach((item, index) => { session = reviewScientificHypothesis(session, item.hypothesisId, index === 0 ? "ADOPTED" : "REJECTED", "Responsable scientifique", "mandate:img-fixture", FIXED_TIME); });
   const primary = session.output.objectives.find((item) => item.level === "PRIMARY");
-  if (primary) session = reviewScientificObjective(session, primary.objectiveId, "ADOPTED", FIXED_TIME);
-  return authorizeResearchDesignHandoff(session, FIXED_TIME);
+  if (primary) session = reviewScientificObjective(session, primary.objectiveId, "ADOPTED", "Responsable scientifique", "mandate:img-fixture", FIXED_TIME);
+  return authorizeResearchDesignHandoff(session, "Responsable scientifique", "mandate:img-fixture", FIXED_TIME);
 };
 
 export const makeImagingInput = (options: IntentOptions = {}): ImagingDesignInput => {

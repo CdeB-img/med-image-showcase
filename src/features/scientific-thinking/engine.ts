@@ -1,4 +1,5 @@
 import { logicalDigest, normalizeScientificText, uniqueSorted } from "@/features/knowledge-engine/canonical";
+import type { HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
 import {
   SCIENTIFIC_THINKING_ENGINE_VERSION,
   SCIENTIFIC_THINKING_OPERATIONS,
@@ -34,6 +35,7 @@ export type ScientificThinkingControls = {
   acceptedUnknowns?: string[];
   changes?: ChangeEvent[];
   decisionRecordIds?: string[];
+  decisionRecords?: HumanDecisionEnvelope[];
 };
 
 const lower = (value: string) => normalizeScientificText(value)
@@ -436,7 +438,7 @@ const buildHandoff = (
   const ready = blockedBy.length === 0;
   const transitionApproved = controls.gateStatuses?.DESIGN_TRANSITION === "APPROVED";
   return {
-    handoffVersion: "1.0",
+    handoffVersion: "1.1",
     status: ready ? transitionApproved ? "AUTHORIZED" : "READY_FOR_HUMAN_AUTHORIZATION" : "NOT_READY",
     questionId: selected?.questionId ?? null,
     hypothesisIds: adoptedHypotheses.map((item) => item.hypothesisId),
@@ -447,6 +449,7 @@ const buildHandoff = (
     unresolvedUnknowns,
     contradictions: input.contradictions,
     decisionRecordIds: unique(controls.decisionRecordIds ?? []),
+    humanDecisions: controls.decisionRecords ?? [],
     alternativesNotSelected: alternatives,
     limitations: input.knowledge.limitations,
     provenanceRefs: unique([input.requestId, ...(input.knowledge.resultId ? [input.knowledge.resultId] : []), ...input.knowledge.sourceIds]),

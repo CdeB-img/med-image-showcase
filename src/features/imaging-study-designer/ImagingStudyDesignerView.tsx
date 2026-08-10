@@ -5,6 +5,7 @@ import {
   decideImagingGate,
   requestImagingChange,
   reviewImagingCandidate,
+  setImagingDecisionAuthority,
 } from "./session";
 import type { HumanReviewState, ImagingDesignSession, SupportState } from "./types";
 
@@ -32,6 +33,8 @@ type Props = {
 export default function ImagingStudyDesignerView({ session, onChange, onReturnToScientificThinking, onExploreKnowledge, onProjectConstructionHandoff }: Props) {
   const [stage, setStage] = useState(0);
   const [drafts, setDrafts] = useState<Record<string, string>>({});
+  const [decisionActor, setDecisionActor] = useState("");
+  const [decisionMandate, setDecisionMandate] = useState("");
   const result = session.result;
   const pendingChange = result.changes.find((item) => item.status === "PENDING_CONFIRMATION");
   const currentDecision = result.decisionsRequired.find((item) => item.status === "PENDING");
@@ -78,6 +81,14 @@ export default function ImagingStudyDesignerView({ session, onChange, onReturnTo
         <ol className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
           {STAGES.map((label, index) => <li key={label}><button type="button" onClick={() => setStage(index)} aria-current={stage === index ? "step" : undefined} className={`w-full rounded-lg border px-3 py-2 text-left text-sm ${stage === index ? "border-primary bg-primary text-primary-foreground" : "bg-background"}`}>{index + 1}. {label}</button></li>)}
         </ol>
+      </div>
+    </Card>
+    <Card className="mt-5">
+      <h3 className="font-semibold">Autorité des décisions engageantes</h3>
+      <p className="mt-2 text-sm text-muted-foreground">Une porte Imaging peut rester candidate sans acteur attribué. L’adoption, le refus, le gel du handoff ou la réouverture exigent l’acteur et son mandat.</p>
+      <div className="mt-4 grid gap-4 md:grid-cols-2">
+        <div><label htmlFor="img-decision-actor" className="text-sm font-medium">Acteur humain</label><input id="img-decision-actor" value={decisionActor} onChange={(event) => { const value = event.target.value.slice(0, 100); setDecisionActor(value); onChange(setImagingDecisionAuthority(session, value, decisionMandate)); }} className="mt-2 w-full rounded-lg border bg-background px-3 py-2" /></div>
+        <div><label htmlFor="img-decision-mandate" className="text-sm font-medium">Mandat</label><input id="img-decision-mandate" value={decisionMandate} onChange={(event) => { const value = event.target.value.slice(0, 160); setDecisionMandate(value); onChange(setImagingDecisionAuthority(session, decisionActor, value)); }} className="mt-2 w-full rounded-lg border bg-background px-3 py-2" /></div>
       </div>
     </Card>
 

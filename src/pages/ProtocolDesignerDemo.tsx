@@ -7,9 +7,10 @@ import DocumentProjectionView from "@/features/document-projection/DocumentProje
 import { projectDocument, type DocumentProjection } from "@/features/document-projection";
 import { buildImagingDesignInput, createImagingDesignSession } from "@/features/imaging-study-designer";
 import ResearchProjectConstructionView from "@/features/research-project-construction/ResearchProjectConstructionView";
-import { buildResearchProjectConstructionInput, createResearchProjectConstructionSession, questionRequiresImaging } from "@/features/research-project-construction";
+import { buildResearchProjectConstructionInput, createResearchProjectConstructionSession } from "@/features/research-project-construction";
 import { IntakeClientError, requestScientificInterpretation } from "@/features/protocol-designer/intake/client";
 import { assessQuestionChange, buildScientificSessionContext, ROUTING_INTENT_LABELS } from "@/features/protocol-designer/intake/journey";
+import { assessScientificReadiness } from "@/features/protocol-designer/intake/scientific-readiness";
 import { detectSensitiveData } from "@/features/protocol-designer/intake/privacy";
 import { selectAdaptiveQuestions } from "@/features/protocol-designer/intake/questions";
 import { canGenerateFinalReport, generateContextualReport, reportToMarkdown } from "@/features/protocol-designer/intake/report";
@@ -174,14 +175,19 @@ export default function ProtocolDesignerDemo() {
   const allAdaptiveQuestions = useMemo(() => intent ? selectAdaptiveQuestions(intent, session.scenarioMatches.map((match) => match.scenarioId)) : [], [intent, session.scenarioMatches]);
   const routeIntent = session.scientificContext.routeIntent;
   const journeyQuestions = useMemo(() => routeIntent === "UNDERSTAND" ? allAdaptiveQuestions.filter((item) => ["Q-PHENOMENON", "Q-PURPOSE"].includes(item.questionId)) : routeIntent === "FORMALIZE_IDEA" ? allAdaptiveQuestions.filter((item) => ["Q-PHENOMENON", "Q-PURPOSE", "Q-CONTEXT"].includes(item.questionId)) : allAdaptiveQuestions, [allAdaptiveQuestions, routeIntent]);
-  const requiresImaging = useMemo(() => intent ? questionRequiresImaging(intent, session.scientificThinking) : false, [intent, session.scientificThinking]);
+  const scientificReadiness = useMemo(() => intent ? assessScientificReadiness(intent, session.scientificThinking) : null, [intent, session.scientificThinking]);
+  const requiresImaging = scientificReadiness?.imagingRequired ?? false;
+  const scientificObjectTermsForEngines = useMemo(() => [...new Set([
+    session.scientificContext.centralScientificObject,
+    ...session.scientificContext.preservedScientificTerms,
+  ].map((term) => term.trim()).filter(Boolean))], [session.scientificContext.centralScientificObject, session.scientificContext.preservedScientificTerms]);
   const knowledgeResult = useMemo(() => intent && routeIntent && routeIntent !== "DOCUMENT" ? executeKnowledgeEngine({
     originalQuestion: intent.originalQuestion,
     scientificObjectTerms: session.scientificContext.preservedScientificTerms.map((term, index) => ({ term, role: index === 0 ? "SUBJECT" as const : index === 1 ? "COMPARATOR" as const : "CONTEXT" as const })),
     relations: session.scientificContext.detectedRelationships,
     context: { ...buildKnowledgeContext(intent), ...knowledgeContextOverrides },
     unknowns: session.scientificContext.missingInformation,
-    consumer: routeIntent === "FORMALIZE_IDEA"
+    consumer: routeIntent === "FORMALIZE_IDEA" || routeIntent === "DESIGN_STUDY" && scientificReadiness?.scientificThinkingRequired
       ? "SCIENTIFIC_THINKING_ENGINE"
       : routeIntent === "DESIGN_STUDY" && requiresImaging
         ? "IMAGING_STUDY_DESIGNER"
@@ -190,28 +196,28 @@ export default function ProtocolDesignerDemo() {
           : "PROTOCOL_DESIGNER_UNDERSTAND",
     createdAt: session.createdAt,
     strategyVersion: routeIntent === "DESIGN_STUDY" ? `context-${session.scientificContext.contextVersion}` : undefined,
-  }) : null, [intent, knowledgeContextOverrides, requiresImaging, routeIntent, session.createdAt, session.scientificContext.contextVersion, session.scientificContext.detectedRelationships, session.scientificContext.missingInformation, session.scientificContext.preservedScientificTerms]);
-  const scientificThinkingInput = useMemo(() => intent && routeIntent === "FORMALIZE_IDEA" ? buildScientificThinkingInput(
+  }) : null, [intent, knowledgeContextOverrides, requiresImaging, routeIntent, scientificReadiness?.scientificThinkingRequired, session.createdAt, session.scientificContext.contextVersion, session.scientificContext.detectedRelationships, session.scientificContext.missingInformation, session.scientificContext.preservedScientificTerms]);
+  const scientificThinkingInput = useMemo(() => intent && (routeIntent === "FORMALIZE_IDEA" || routeIntent === "DESIGN_STUDY" && scientificReadiness?.scientificThinkingRequired) ? buildScientificThinkingInput(
     intent,
-    session.scientificContext.preservedScientificTerms.length ? session.scientificContext.preservedScientificTerms : [session.scientificContext.centralScientificObject],
+    scientificObjectTermsForEngines,
     session.scientificContext.detectedRelationships,
     knowledgeResult,
     {
       sessionId: session.sessionId,
       contextVersion: session.scientificContext.contextVersion,
       previousDecisionIds: session.scientificThinking?.decisionHistory.map((item) => item.decisionId) ?? [],
-      sourceJourney: "FORMALIZE_IDEA",
+      sourceJourney: routeIntent === "DESIGN_STUDY" ? "DESIGN_STUDY" : "FORMALIZE_IDEA",
     },
-  ) : null, [intent, knowledgeResult, routeIntent, session.scientificContext.centralScientificObject, session.scientificContext.contextVersion, session.scientificContext.detectedRelationships, session.scientificContext.preservedScientificTerms, session.scientificThinking?.decisionHistory, session.sessionId]);
-  const imagingDesignInput = useMemo(() => intent && routeIntent === "DESIGN_STUDY" && requiresImaging && (session.scientificThinking?.output.handoff.status === "AUTHORIZED" || session.confirmedScenarioId) ? buildImagingDesignInput(
+  ) : null, [intent, knowledgeResult, routeIntent, scientificObjectTermsForEngines, scientificReadiness?.scientificThinkingRequired, session.scientificContext.contextVersion, session.scientificContext.detectedRelationships, session.scientificThinking?.decisionHistory, session.sessionId]);
+  const imagingDesignInput = useMemo(() => intent && routeIntent === "DESIGN_STUDY" && scientificReadiness?.status === "READY_FOR_NEXT_ENGINE" && requiresImaging ? buildImagingDesignInput(
     intent,
-    session.scientificContext.preservedScientificTerms.length ? session.scientificContext.preservedScientificTerms : [session.scientificContext.centralScientificObject],
+    scientificObjectTermsForEngines,
     session.scientificContext.detectedRelationships,
     knowledgeResult,
     session.scientificThinking,
     { sessionId: session.sessionId, contextVersion: session.scientificContext.contextVersion, strategyVersion: `context-${session.scientificContext.contextVersion}` },
-  ) : null, [intent, knowledgeResult, requiresImaging, routeIntent, session.confirmedScenarioId, session.scientificContext.centralScientificObject, session.scientificContext.contextVersion, session.scientificContext.detectedRelationships, session.scientificContext.preservedScientificTerms, session.scientificThinking, session.sessionId]);
-  const projectConstructionInput = useMemo(() => intent && routeIntent === "DESIGN_STUDY" ? buildResearchProjectConstructionInput(
+  ) : null, [intent, knowledgeResult, requiresImaging, routeIntent, scientificObjectTermsForEngines, scientificReadiness?.status, session.scientificContext.contextVersion, session.scientificContext.detectedRelationships, session.scientificThinking, session.sessionId]);
+  const projectConstructionInput = useMemo(() => intent && routeIntent === "DESIGN_STUDY" && scientificReadiness?.status === "READY_FOR_NEXT_ENGINE" ? buildResearchProjectConstructionInput(
     intent,
     knowledgeResult,
     session.scientificThinking,
@@ -222,7 +228,7 @@ export default function ProtocolDesignerDemo() {
       projectId: session.projectConstruction?.input.projectId,
       strategyVersion: session.projectConstruction?.input.strategyVersion ?? `context-${session.scientificContext.contextVersion}`,
     },
-  ) : null, [intent, knowledgeResult, routeIntent, session.imagingDesign, session.projectConstruction?.input.projectId, session.projectConstruction?.input.strategyVersion, session.scientificContext.contextVersion, session.scientificThinking, session.sessionId]);
+  ) : null, [intent, knowledgeResult, routeIntent, scientificReadiness?.status, session.imagingDesign, session.projectConstruction?.input.projectId, session.projectConstruction?.input.strategyVersion, session.scientificContext.contextVersion, session.scientificThinking, session.sessionId]);
   const report = useMemo(() => generateContextualReport(session, allAdaptiveQuestions, reportMode), [session, allAdaptiveQuestions, reportMode]);
   const currentDocumentProjection = useMemo(() => {
     const project = session.projectConstruction?.result;
@@ -254,6 +260,15 @@ export default function ProtocolDesignerDemo() {
       return { ...current, scientificThinking: createScientificThinkingSession(scientificThinkingInput), updatedAt: new Date().toISOString() };
     });
   }, [scientificThinkingInput]);
+
+  useEffect(() => {
+    if (routeIntent !== "DESIGN_STUDY" || !scientificReadiness?.scientificThinkingRequired) return;
+    setSession((current) => current.scientificContext.activeDesignSurface === "SCIENTIFIC_THINKING" ? current : ({
+      ...current,
+      scientificContext: { ...current.scientificContext, activeDesignSurface: "SCIENTIFIC_THINKING" },
+      updatedAt: new Date().toISOString(),
+    }));
+  }, [routeIntent, scientificReadiness?.scientificThinkingRequired]);
 
   useEffect(() => {
     if (!imagingDesignInput) return;
@@ -439,7 +454,12 @@ export default function ProtocolDesignerDemo() {
     if (next === "DOCUMENT" && current.projectConstruction?.result.documentHandoff.status !== "AUTHORIZED") return current;
     const previous = current.scientificContext.routeIntent;
     const transitions = previous && previous !== next ? [...current.scientificContext.transitions, { from: previous, to: next, reason, changedAt: new Date().toISOString() }] : current.scientificContext.transitions;
-    const nextSurface = next === "DESIGN_STUDY" && current.validatedIntent && !questionRequiresImaging(current.validatedIntent, current.scientificThinking) ? "PROJECT_CONSTRUCTION" as const : "IMAGING" as const;
+    const readiness = current.validatedIntent ? assessScientificReadiness(current.validatedIntent, current.scientificThinking) : null;
+    const nextSurface = next === "DESIGN_STUDY" && readiness?.scientificThinkingRequired
+      ? "SCIENTIFIC_THINKING" as const
+      : next === "DESIGN_STUDY" && readiness?.imagingRequired
+        ? "IMAGING" as const
+        : "PROJECT_CONSTRUCTION" as const;
     return { ...current, currentStep: moveToWorkspace ? 3 : current.currentStep, scientificContext: { ...current.scientificContext, routeIntent: next, transitions, activeDesignSurface: next === "DOCUMENT" ? "DOCUMENT_PROJECTION" : next === "DESIGN_STUDY" ? nextSurface : current.scientificContext.activeDesignSurface, contextVersion: previous === next ? current.scientificContext.contextVersion : current.scientificContext.contextVersion + 1 }, updatedAt: new Date().toISOString() };
   });
   const clarifyKnowledge = (dimension: ContextDimensionName, value: string | null) => {
@@ -498,7 +518,9 @@ export default function ProtocolDesignerDemo() {
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-primary">Contexte v{session.scientificContext.contextVersion} · {routeIntent === "DOCUMENT" ? "Document Projection Engine" : activeScenario?.shortLabel ?? (routeIntent === "FORMALIZE_IDEA" ? "Scientific Thinking Engine" : routeIntent === "DESIGN_STUDY" ? "Research Design handoff" : "Knowledge Engine")}</p>
               <h1 className="mt-2 text-4xl font-bold">{ROUTING_INTENT_LABELS[routeIntent]}</h1>
-              <p className="mt-3 text-muted-foreground">Objet central conservé : <strong>{session.scientificContext.centralScientificObject}</strong></p>
+              {routeIntent === "DESIGN_STUDY"
+                ? <p className="mt-3 text-muted-foreground"><strong>Scientific object / phenomenon candidate:</strong> {session.scientificContext.centralScientificObject}, à confirmer selon les objets et connaissances applicables. Ce libellé n’est pas promu automatiquement en phénomène biologique canonique confirmé.</p>
+                : <p className="mt-3 text-muted-foreground">Objet central conservé : <strong>{session.scientificContext.centralScientificObject}</strong></p>}
             </div>
             {activeScenario && routeIntent !== "DOCUMENT" && <button onClick={() => setKnowledgeOpen(true)} className="inline-flex items-center gap-2 rounded-lg border px-4 py-2"><BookOpen className="h-4 w-4" /> Explorer ce concept</button>}
           </div>
@@ -527,10 +549,22 @@ export default function ProtocolDesignerDemo() {
             onEditOriginalIdea={() => { setQuestion(session.originalQuestion); updateStep(0); }}
           /> : <Panel className="mt-8"><LoaderCircle className="h-5 w-5 animate-spin" /><p className="mt-3">NOXIA construit la projection de raisonnement…</p></Panel>)}
 
+          {routeIntent === "DESIGN_STUDY" && session.scientificContext.activeDesignSurface === "SCIENTIFIC_THINKING" && (session.scientificThinking ? <>
+            <Panel className="mt-8 border-amber-500/40"><Tag tone="warning">Porte scientifique déterministe</Tag><h2 className="mt-3 text-xl font-semibold">Scientific Thinking requis avant Imaging</h2><p className="mt-2 text-sm text-muted-foreground">La demande décrit le phénomène candidat « {session.scientificContext.centralScientificObject} », mais l’observable ou le biomarqueur à défendre n’est pas encore stabilisé. NOXIA conserve CT et IRM comme préférences méthodologiques ; il ne les transforme pas en choix.</p>{scientificReadiness?.reasons.map((reason) => <p key={reason} className="mt-2 text-xs">• {reason}</p>)}</Panel>
+            <ScientificThinkingView
+              session={session.scientificThinking}
+              onChange={(scientificThinking) => setSession((current) => ({ ...current, scientificThinking, scientificContext: { ...current.scientificContext, workingHypotheses: scientificThinking.output.hypotheses.filter((item) => item.reviewState === "ADOPTED").map((item) => item.text) }, updatedAt: new Date().toISOString() }))}
+              onReturnToUnderstand={() => transitionJourney("UNDERSTAND", "Revenir à la compréhension du concept")}
+              onExploreKnowledge={activeScenario ? () => setKnowledgeOpen(true) : undefined}
+              onEnterResearchDesign={() => setSession((current) => ({ ...current, scientificContext: { ...current.scientificContext, activeDesignSurface: requiresImaging ? "IMAGING" : "PROJECT_CONSTRUCTION" }, updatedAt: new Date().toISOString() }))}
+              onEditOriginalIdea={() => { setQuestion(session.originalQuestion); updateStep(0); }}
+            />
+          </> : <Panel className="mt-8"><LoaderCircle className="h-5 w-5 animate-spin" /><p className="mt-3">NOXIA construit la projection Scientific Thinking requise avant Imaging…</p></Panel>)}
+
           {routeIntent === "DESIGN_STUDY" && session.scientificContext.activeDesignSurface === "PROJECT_CONSTRUCTION" && session.projectConstruction && <ResearchProjectConstructionView
             session={session.projectConstruction}
             onChange={(projectConstruction) => setSession((current) => ({ ...current, projectConstruction, updatedAt: new Date().toISOString() }))}
-            onReturnToScientificThinking={() => transitionJourney("FORMALIZE_IDEA", "Retour Project Construction vers Scientific Thinking pour rouvrir l’amont")}
+            onReturnToScientificThinking={() => setSession((current) => current.scientificThinking ? ({ ...current, scientificContext: { ...current.scientificContext, activeDesignSurface: "SCIENTIFIC_THINKING" }, updatedAt: new Date().toISOString() }) : current)}
             onReturnToImaging={requiresImaging && session.imagingDesign ? () => setSession((current) => ({ ...current, scientificContext: { ...current.scientificContext, activeDesignSurface: "IMAGING" }, updatedAt: new Date().toISOString() })) : undefined}
             onExploreKnowledge={activeScenario ? () => setKnowledgeOpen(true) : undefined}
             onOpenDocument={() => transitionJourney("DOCUMENT", "Handoff Document autorisé depuis le Research Project gelé")}
@@ -539,7 +573,7 @@ export default function ProtocolDesignerDemo() {
           {routeIntent === "DESIGN_STUDY" && session.scientificContext.activeDesignSurface === "IMAGING" && (session.imagingDesign ? <ImagingStudyDesignerView
             session={session.imagingDesign}
             onChange={(imagingDesign) => setSession((current) => ({ ...current, imagingDesign, updatedAt: new Date().toISOString() }))}
-            onReturnToScientificThinking={() => transitionJourney("FORMALIZE_IDEA", "Retour Imaging vers Scientific Thinking pour rouvrir l’amont")}
+            onReturnToScientificThinking={() => setSession((current) => current.scientificThinking ? ({ ...current, scientificContext: { ...current.scientificContext, activeDesignSurface: "SCIENTIFIC_THINKING" }, updatedAt: new Date().toISOString() }) : current)}
             onExploreKnowledge={activeScenario ? () => setKnowledgeOpen(true) : undefined}
             onProjectConstructionHandoff={() => setSession((current) => projectConstructionInput?.sourceHandoffs.imaging.status === "FROZEN_BY_HUMAN" ? {
               ...current,

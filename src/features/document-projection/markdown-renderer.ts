@@ -31,7 +31,7 @@ export const renderProjectionMarkdown = (projection: Readonly<DocumentProjection
     lines.push("", "### Provenance", "", bulletList(section.provenanceRefs));
   });
   lines.push("", "## Registre des décisions humaines", "");
-  lines.push(projection.humanDecisions.length ? bulletList(projection.humanDecisions.map((item) => `${item.status} — ${item.label} — ${item.actor ?? "acteur non enregistré"} — mandat ${item.mandate ?? "non enregistré"} — version ${item.version} — ${item.reason}`)) : "- Aucune décision transportée.");
+  lines.push(projection.humanDecisions.length ? bulletList(projection.humanDecisions.map((item) => `${item.status} — ${item.gateId} — ${item.actor ?? "acteur non attribué"} — mandat ${item.mandate ?? "non attribué"} — version ${item.version} — ${item.reason ?? "raison non renseignée"}`)) : "- Aucune décision transportée.");
   lines.push("", `Digest de projection : ${projection.projectionDigest}`, "");
   return lines.join("\n");
 };

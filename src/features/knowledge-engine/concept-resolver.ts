@@ -40,6 +40,20 @@ const rules: ConceptRule[] = [
 
 const matchRule = (rule: ConceptRule, text: string) => rule.patterns.some((pattern) => pattern.test(text));
 
+export const resolveGovernedConceptsFromProviderReferences = (
+  references: Array<{ providerId: string; conceptIds: string[] }>,
+): ResolvedConcept[] => rules.filter((rule) => references.some((reference) => {
+  const governedIds = rule.providerConcepts[reference.providerId] ?? [];
+  return reference.conceptIds.includes(rule.conceptId) || governedIds.some((id) => reference.conceptIds.includes(id));
+})).map((rule) => ({
+  conceptId: rule.conceptId,
+  preferredLabel: rule.preferredLabel,
+  originalTerms: [],
+  kind: "DOCUMENT_BOUND_CONCEPT",
+  objectType: rule.objectType,
+  providerConcepts: rule.providerConcepts,
+}));
+
 export const extractScientificObjectTerms = (question: string): Array<{ term: string; role: ScientificObjectRef["role"] }> => {
   const normalized = comparableScientificText(question);
   const matches = rules.flatMap((rule) => {

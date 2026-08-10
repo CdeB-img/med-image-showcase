@@ -21,6 +21,8 @@ describe("ST-001 — projection UX", () => {
     const view = render(<ScientificThinkingView session={current} onChange={(next) => { current = next; }} onReturnToUnderstand={() => undefined} onEnterResearchDesign={() => undefined} />);
     const button = screen.getByRole("button", { name: "Confirmer cette question" });
     expect(button.tagName).toBe("BUTTON");
+    fireEvent.change(screen.getByLabelText("Acteur humain"), { target: { value: "Responsable scientifique" } });
+    fireEvent.change(screen.getByLabelText("Mandat"), { target: { value: "mandate:st-ui-test" } });
     fireEvent.click(button);
     expect(current.selectedQuestionId).toBe("ST-Q-001");
     view.unmount();

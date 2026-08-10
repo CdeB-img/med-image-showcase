@@ -44,7 +44,7 @@ describe("IMG-001 — analyse d’image, Variables, Critères, Core Lab et alter
     expect(session.result.projectConstructionHandoff.excludedSections).toContain("STATISTICAL_SIZING");
     expect(session.result.projectConstructionHandoff.status).toBe("NOT_READY");
     const gate = session.result.decisionsRequired[0];
-    session = decideImagingGate(session, gate.gateId, "APPROVED", "Décision humaine testée.", "2026-08-09T12:00:00.000Z");
-    expect(session.decisionHistory).toHaveLength(1);
+    session = decideImagingGate(session, gate.gateId, "APPROVED", "Décision humaine testée.", "Responsable Imaging", "mandate:img-test", "2026-08-09T12:00:00.000Z");
+    expect(session.decisionHistory.find((item) => item.gateId === gate.gateId)?.status).toBe("ADOPTED");
   });
 });

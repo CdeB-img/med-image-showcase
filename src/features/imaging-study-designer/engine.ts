@@ -200,7 +200,8 @@ const modalityFamily = (value: string) => /irm|mri|mr\b/i.test(value) ? "MR" : /
 
 const buildEquipment = (input: ImagingDesignInput, acquisitions: AcquisitionStrategy[], modalities: ModalityCandidate[]): ImagingDesignResult["equipmentAssessment"] => acquisitions.flatMap((acquisition) => {
   const modality = modalities.find((item) => item.modalityId === acquisition.modalityId)!;
-  const equipment = input.declaredEquipment.length ? input.declaredEquipment : [{
+  const matchingEquipment = input.declaredEquipment.filter((item) => !item.modality || modalityFamily(item.modality) === modalityFamily(modality.label));
+  const equipment = matchingEquipment.length ? matchingEquipment : input.declaredEquipment.length ? input.declaredEquipment : [{
     equipmentId: "IMG-EQUIPMENT:UNDECLARED", siteLabel: "Site non déclaré", modality: null, manufacturer: null, model: null,
     fieldStrength: null, softwareVersion: null, options: [], availability: "UNKNOWN" as const, period: null, provenanceRef: input.inputId,
   }];
@@ -558,7 +559,7 @@ export const executeImagingStudyDesigner = (rawInput: ImagingDesignInput, contro
     graph,
     knowledgeHandoff: { requestRef: input.knowledge.resultId ? `request-of:${input.knowledge.resultId}` : null, resultRef: input.knowledge.resultId, resultDigest: input.knowledge.resultDigest, coverageStatus: input.knowledge.coverageStatus, gapCodes: uniqueSorted(input.knowledge.gaps.map((item) => item.code)), noClosestCorpusFallback: true },
     projectConstructionHandoff: {
-      handoffVersion: "1.1",
+      handoffVersion: "1.2",
       status: frozen ? "FROZEN_BY_HUMAN" : readyForFreeze ? "READY_FOR_HUMAN_FREEZE" : "NOT_READY",
       imagingStrategyVersion,
       humanDecision: { status: frozen ? "ADOPTED" : "PENDING", decisionRecordId: frozen ? controls.handoffDecisionRecordId ?? null : null },
@@ -570,6 +571,7 @@ export const executeImagingStudyDesigner = (rawInput: ImagingDesignInput, contro
       includedSections: ["Question", "Objectives", "Hypotheses", "Phenomena", "Biomarkers", "Modalities", "AcquisitionStrategy", "Timing", "Equipment", "Harmonization", "Quality", "ImageAnalysis", "Variables", "EndpointContributions", "CoreLabAssessment", "NonEvaluability", "Risks", "Limitations", "KnowledgeGaps", "Alternatives", "HumanDecisions", "Provenance"],
       excludedSections: ["STATISTICAL_SIZING", "COMPLETE_BUDGET", "FINAL_CRF", "REGULATORY_PLAN", "COMPLETE_OPERATIONAL_PLAN", "FINAL_SUBMISSION_PROTOCOL"],
       decisionRecordIds: uniqueSorted(controls.decisionRecordIds ?? []),
+      humanDecisions: controls.decisionRecords ?? [],
       blockedBy: uniqueSorted([...freezeBlockers, ...(handoffDecisionPending ? ["HUMAN_HANDOFF_FREEZE_DECISION_PENDING"] : [])]),
       unknowns: uniqueSorted([
         ...equipmentAssessment.filter((item) => item.compatibility === "UNKNOWN_COMPATIBILITY").flatMap((item) => item.gaps),

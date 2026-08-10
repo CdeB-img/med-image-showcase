@@ -13,10 +13,9 @@ describe("SYS-001 — versions", () => {
     const before = freezeSnapshot(frozen);
     session = requestProjectChange(session, { eventType: "PopulationChanged", description: "Population élargie.", sourceIds: [frozen.versionId] });
     const change = session.result.impactGraph.changes.at(-1)!;
-    session = decideProjectChange(session, change.changeId, "CONFIRMED");
+    session = decideProjectChange(session, change.changeId, "CONFIRMED", "Responsable scientifique SYS-001", "mandate:sys-001");
     expect(freezeSnapshot(frozen)).toBe(before);
     expect(session.result.candidateVersion.versionId).not.toBe(frozen.versionId);
     expect(session.versionHistory.some((item) => item.versionId === frozen.versionId)).toBe(true);
   });
 });
-

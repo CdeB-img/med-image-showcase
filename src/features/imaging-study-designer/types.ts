@@ -1,6 +1,7 @@
 import { z } from "zod";
+import { humanDecisionEnvelopeSchema, type HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
 
-export const IMAGING_STUDY_DESIGNER_VERSION = "1.1.0" as const;
+export const IMAGING_STUDY_DESIGNER_VERSION = "1.2.0" as const;
 
 export type SupportState = "SUPPORTED" | "PARTIALLY_SUPPORTED" | "UNKNOWN" | "NOT_APPLICABLE" | "CONFLICTING";
 export type HumanReviewState = "PENDING" | "ADOPTED" | "REJECTED";
@@ -36,6 +37,7 @@ export type ImagingDesignInput = {
     stOutputRef: string | null;
     status: "AUTHORIZED" | "VALIDATED_WITHOUT_ST_HANDOFF";
     boundary: "NO_PROTOCOL_NO_METHOD_SELECTION_NO_STATISTICAL_PLAN";
+    humanDecisions: HumanDecisionEnvelope[];
   };
   originalExpression: string;
   confirmedScientificQuestion: { questionId: string; text: string; confirmation: "HUMAN_CONFIRMED" | "VALIDATED_CONTEXT" };
@@ -318,7 +320,7 @@ export type ImagingDesignResult = {
   graph: ImagingDecisionGraph;
   knowledgeHandoff: { requestRef: string | null; resultRef: string | null; resultDigest: string | null; coverageStatus: string; gapCodes: string[]; noClosestCorpusFallback: true };
   projectConstructionHandoff: {
-    handoffVersion: "1.1";
+    handoffVersion: "1.2";
     status: "NOT_READY" | "READY_FOR_HUMAN_FREEZE" | "FROZEN_BY_HUMAN";
     imagingStrategyVersion: string;
     humanDecision: {
@@ -333,6 +335,7 @@ export type ImagingDesignResult = {
     includedSections: string[];
     excludedSections: ["STATISTICAL_SIZING", "COMPLETE_BUDGET", "FINAL_CRF", "REGULATORY_PLAN", "COMPLETE_OPERATIONAL_PLAN", "FINAL_SUBMISSION_PROTOCOL"];
     decisionRecordIds: string[];
+    humanDecisions: HumanDecisionEnvelope[];
     blockedBy: string[];
     unknowns: string[];
     limitations: string[];
@@ -358,6 +361,8 @@ export type ImagingDesignControls = {
   changes?: ImagingDesignResult["changes"];
   impacts?: ImagingDesignResult["impacts"];
   decisionRecordIds?: string[];
+  decisionRecords?: HumanDecisionEnvelope[];
+  decisionAuthority?: { actor: string; mandate: string } | null;
   handoffDecisionRecordId?: string | null;
 };
 
@@ -365,7 +370,7 @@ export type ImagingDesignSession = {
   input: ImagingDesignInput;
   result: ImagingDesignResult;
   controls: ImagingDesignControls;
-  decisionHistory: Array<{ decisionId: string; gateId: string; decision: "APPROVED" | "REJECTED"; targetIds: string[]; reason: string; decidedAt: string }>;
+  decisionHistory: HumanDecisionEnvelope[];
   handoffHistory: ImagingDesignResult["projectConstructionHandoff"][];
   revisions: number;
 };
@@ -377,7 +382,7 @@ const knowledgeStatementSchema = z.object({
 }).strict();
 
 const projectConstructionHandoffSchema = z.object({
-  handoffVersion: z.literal("1.1"),
+  handoffVersion: z.literal("1.2"),
   status: z.enum(["NOT_READY", "READY_FOR_HUMAN_FREEZE", "FROZEN_BY_HUMAN"]),
   imagingStrategyVersion: z.string(),
   humanDecision: z.object({ status: z.enum(["PENDING", "ADOPTED"]), decisionRecordId: z.string().nullable() }).strict(),
@@ -389,6 +394,7 @@ const projectConstructionHandoffSchema = z.object({
   includedSections: stringArray,
   excludedSections: z.tuple([z.literal("STATISTICAL_SIZING"), z.literal("COMPLETE_BUDGET"), z.literal("FINAL_CRF"), z.literal("REGULATORY_PLAN"), z.literal("COMPLETE_OPERATIONAL_PLAN"), z.literal("FINAL_SUBMISSION_PROTOCOL")]),
   decisionRecordIds: stringArray,
+  humanDecisions: z.array(humanDecisionEnvelopeSchema),
   blockedBy: stringArray,
   unknowns: stringArray,
   limitations: stringArray,
@@ -400,7 +406,7 @@ const projectConstructionHandoffSchema = z.object({
 
 export const imagingDesignInputSchema = z.object({
   contractVersion: z.literal(IMAGING_STUDY_DESIGNER_VERSION), inputId: z.string(), researchProjectId: z.string().nullable(), strategyVersion: z.string(),
-  sourceHandoff: z.object({ kind: z.enum(["AUTHORIZED_ST_HANDOFF", "VALIDATED_DESIGN_CONTEXT"]), stOutputRef: z.string().nullable(), status: z.enum(["AUTHORIZED", "VALIDATED_WITHOUT_ST_HANDOFF"]), boundary: z.literal("NO_PROTOCOL_NO_METHOD_SELECTION_NO_STATISTICAL_PLAN") }).strict(),
+  sourceHandoff: z.object({ kind: z.enum(["AUTHORIZED_ST_HANDOFF", "VALIDATED_DESIGN_CONTEXT"]), stOutputRef: z.string().nullable(), status: z.enum(["AUTHORIZED", "VALIDATED_WITHOUT_ST_HANDOFF"]), boundary: z.literal("NO_PROTOCOL_NO_METHOD_SELECTION_NO_STATISTICAL_PLAN"), humanDecisions: z.array(humanDecisionEnvelopeSchema) }).strict(),
   originalExpression: z.string().min(3).max(4_000),
   confirmedScientificQuestion: z.object({ questionId: z.string(), text: z.string(), confirmation: z.enum(["HUMAN_CONFIRMED", "VALIDATED_CONTEXT"]) }).strict(),
   objectives: z.array(z.object({ objectiveId: z.string(), text: z.string(), level: z.enum(["PRIMARY", "SECONDARY", "EXPLORATORY"]), reviewState: z.enum(["PENDING", "ADOPTED", "REJECTED"]) }).strict()),
@@ -441,9 +447,9 @@ export const imagingDesignSessionSchema = z.object({
     acquisitionReviews: z.record(z.enum(["PENDING", "ADOPTED", "REJECTED"])).optional(),
     analysisReviews: z.record(z.enum(["PENDING", "ADOPTED", "REJECTED"])).optional(),
     answers: z.record(z.string()).optional(), gateStatuses: z.record(z.enum(["PENDING", "APPROVED", "REJECTED"])).optional(),
-    changes: z.array(z.unknown()).optional(), impacts: z.array(z.unknown()).optional(), decisionRecordIds: stringArray.optional(), handoffDecisionRecordId: z.string().nullable().optional(),
+    changes: z.array(z.unknown()).optional(), impacts: z.array(z.unknown()).optional(), decisionRecordIds: stringArray.optional(), decisionRecords: z.array(humanDecisionEnvelopeSchema).optional(), decisionAuthority: z.object({ actor: z.string(), mandate: z.string() }).strict().nullable().optional(), handoffDecisionRecordId: z.string().nullable().optional(),
   }).strict(),
-  decisionHistory: z.array(z.object({ decisionId: z.string(), gateId: z.string(), decision: z.enum(["APPROVED", "REJECTED"]), targetIds: stringArray, reason: z.string(), decidedAt: z.string() }).strict()),
+  decisionHistory: z.array(humanDecisionEnvelopeSchema),
   handoffHistory: z.array(projectConstructionHandoffSchema),
   revisions: z.number().int().positive(),
 }).strict();

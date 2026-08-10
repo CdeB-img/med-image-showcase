@@ -50,7 +50,7 @@ export const buildScientificThinkingInput = (
   const material = {
     source,
     reformulation: normalizeScientificText(intent.validatedReformulation),
-    terms: uniqueSorted(scientificObjectTerms.map(normalizeScientificText).filter(Boolean)),
+    terms: [...new Set(scientificObjectTerms.map(normalizeScientificText).filter(Boolean))],
     contextVersion: runtime.contextVersion ?? 0,
   };
   const information = INTERPRETED_FIELD_KEYS.flatMap((key) => {

@@ -120,6 +120,8 @@ export const preservedScientificTerms = (intent: ValidatedScientificIntent) => {
 };
 
 export const centralScientificObject = (intent: ValidatedScientificIntent) => {
+  const declaredPhenomena = fieldValues(intent, "phenomenaOfInterest");
+  if (declaredPhenomena.length) return declaredPhenomena[0];
   const terms = preservedScientificTerms(intent);
   const exactTerms = terms.filter((term) => SCIENTIFIC_TERMS.some((candidate) => normalized(candidate) === normalized(term)));
   return exactTerms.length > 1 ? `${exactTerms[0]} et ${exactTerms[1]}` : exactTerms[0] ?? terms[0] ?? fieldValues(intent, "phenomenaOfInterest")[0] ?? fieldValues(intent, "scientificDomain")[0] ?? intent.validatedReformulation;
@@ -151,7 +153,7 @@ export const buildScientificSessionContext = (
     contextVersion: (previous?.contextVersion ?? 0) + 1,
     transitions: previous?.transitions ?? [],
     currentProjectStage: previous?.currentProjectStage ?? 1,
-    activeDesignSurface: previous?.activeDesignSurface ?? "IMAGING",
+    activeDesignSurface: previous?.activeDesignSurface ?? "SCIENTIFIC_THINKING",
   };
 };
 

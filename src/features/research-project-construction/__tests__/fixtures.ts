@@ -76,6 +76,7 @@ export const makeProjectInput = (options: ProjectFixtureOptions = {}): ResearchP
     knownTemporalInformation: options.timings ?? [],
     knownConstraints: options.constraints ?? [],
     existingDecisions: ["scientific-thinking-decision:test"],
+    existingDecisionRecords: [],
     uncertainties: options.uncertainties ?? [],
     contradictions: [],
     userProvidedInformation: [
@@ -104,7 +105,7 @@ export const makeFrozenImagingResult = (): ImagingDesignResult => {
   for (let index = 0; index < 30; index += 1) {
     const gate = session.result.decisionsRequired.find((item) => item.status === "PENDING");
     if (!gate) break;
-    session = decideImagingGate(session, gate.gateId, "APPROVED", "Décision humaine explicite pour fixture PRJ-001.", `2026-08-10T10:${String(index).padStart(2, "0")}:00.000Z`);
+    session = decideImagingGate(session, gate.gateId, "APPROVED", "Décision humaine explicite pour fixture PRJ-001.", "Responsable Imaging", "mandate:prj-001-fixture", `2026-08-10T10:${String(index).padStart(2, "0")}:00.000Z`);
   }
   if (session.result.projectConstructionHandoff.status !== "FROZEN_BY_HUMAN") throw new Error("IMG_001B_LIVE_HANDOFF_NOT_FROZEN");
   return session.result;

@@ -15,7 +15,7 @@ const freezeProjectHandoff = (input: ImagingDesignInput): ImagingDesignSession =
   for (let index = 0; index < 30; index += 1) {
     const gate = session.result.decisionsRequired.find((item) => item.status === "PENDING");
     if (!gate) break;
-    const next = decideImagingGate(session, gate.gateId, "APPROVED", "Décision humaine IMG-001B explicitement tracée.", `2026-08-10T12:${String(index).padStart(2, "0")}:00.000Z`);
+    const next = decideImagingGate(session, gate.gateId, "APPROVED", "Décision humaine IMG-001B explicitement tracée.", "Responsable Imaging", "mandate:img-001b", `2026-08-10T12:${String(index).padStart(2, "0")}:00.000Z`);
     if (next === session) break;
     session = next;
   }
@@ -114,7 +114,7 @@ describe("IMG-001B — fermeture du handoff Imaging vers Research Project", () =
     expect(change.status).toBe("PENDING_CONFIRMATION");
     expect(session.result.projectConstructionHandoff.status).toBe("FROZEN_BY_HUMAN");
 
-    session = decideImagingChange(session, change.changeId, "CONFIRMED");
+    session = decideImagingChange(session, change.changeId, "CONFIRMED", "Responsable Imaging", "mandate:img-001b");
     expect(session.result.projectConstructionHandoff.status).not.toBe("FROZEN_BY_HUMAN");
     expect(session.handoffHistory.map((item) => item.imagingStrategyVersion)).toContain(frozenVersion);
     expect(session.result.impacts.some((item) => item.changeId === change.changeId && item.state === "REVIEW_REQUIRED")).toBe(true);

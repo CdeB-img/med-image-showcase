@@ -9,7 +9,7 @@ const approveProject = () => {
   for (let index = 0; index < 30; index += 1) {
     const gate = session.result.decisionsRequired.find((item) => item.status === "PENDING" && item.gateId !== "PRJ-GATE-DOCUMENT-HANDOFF");
     if (!gate) break;
-    session = decideProjectGate(session, gate.gateId, "APPROVED", "Décision humaine justifiée dans le test.", "Investigateur responsable", null, `2026-08-10T12:${String(index).padStart(2, "0")}:00.000Z`);
+    session = decideProjectGate(session, gate.gateId, "APPROVED", "Décision humaine justifiée dans le test.", "Investigateur responsable", "mandate:project-test", `2026-08-10T12:${String(index).padStart(2, "0")}:00.000Z`);
   }
   return session;
 };
@@ -23,7 +23,7 @@ describe("PRJ-001 — décisions humaines, versioning et propagation", () => {
     session = decideProjectGate(session, "PRJ-GATE-STUDY-DESIGN", "APPROVED", "Ce plan répond à la Question sous les limites affichées.", "Responsable scientifique", "mandat:test", "2026-08-10T12:00:00.000Z");
     expect(session.result.selectedStudyDesignCandidate).toEqual(expect.objectContaining({ designId, humanSelected: true }));
     expect(session.result.selectedStudyDesignCandidate?.decisionRecordId).toBe(session.controls.studyDesignDecisionId);
-    expect(session.decisionHistory.at(-1)).toEqual(expect.objectContaining({ actor: "Responsable scientifique", mandateRef: "mandat:test" }));
+    expect(session.decisionHistory.find((item) => item.gateId === "PRJ-GATE-STUDY-DESIGN")).toEqual(expect.objectContaining({ actor: "Responsable scientifique", mandate: "mandat:test", status: "ADOPTED" }));
   });
 
   it("gèle une version seulement après toutes les portes structurantes puis autorise un handoff Document distinct", () => {
@@ -32,7 +32,7 @@ describe("PRJ-001 — décisions humaines, versioning et propagation", () => {
     expect(session.versionHistory).toHaveLength(1);
     expect(session.result.documentHandoff.status).toBe("READY_FOR_HUMAN_AUTHORIZATION");
     const frozenId = session.result.candidateVersion.versionId;
-    session = decideProjectGate(session, "PRJ-GATE-DOCUMENT-HANDOFF", "APPROVED", "Projection documentaire autorisée depuis la version gelée.", "Investigateur responsable", null, "2026-08-10T13:00:00.000Z");
+    session = decideProjectGate(session, "PRJ-GATE-DOCUMENT-HANDOFF", "APPROVED", "Projection documentaire autorisée depuis la version gelée.", "Investigateur responsable", "mandate:project-test", "2026-08-10T13:00:00.000Z");
     expect(session.result.documentHandoff.status).toBe("AUTHORIZED");
     expect(session.result.candidateVersion.versionId).toBe(frozenId);
     expect(session.versionHistory).toHaveLength(1);
@@ -45,7 +45,7 @@ describe("PRJ-001 — décisions humaines, versioning et propagation", () => {
     session = requestProjectChange(session, { eventType: "EndpointChanged", description: "Réouverture du Critère candidat.", sourceIds: [endpointId], targetIds: [endpointId] });
     const changeId = session.result.impactGraph.changes[0].changeId;
     expect(session.result.candidateVersion.status).toBe("FROZEN_BY_HUMAN");
-    session = decideProjectChange(session, changeId, "CONFIRMED");
+    session = decideProjectChange(session, changeId, "CONFIRMED", "Investigateur responsable", "mandate:project-test");
     expect(session.result.candidateVersion.status).toBe("CANDIDATE_NOT_FROZEN");
     expect(session.result.candidateVersion.priorVersion).toBe(frozenId);
     expect(session.result.candidateVersion.versionId).not.toBe(frozenId);

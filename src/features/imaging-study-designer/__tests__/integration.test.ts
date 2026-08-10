@@ -24,9 +24,9 @@ describe("IMG-001 — intégrations Knowledge, ST, humain, trace et déterminism
     let session = createImagingDesignSession(makeImagingInput());
     expect(session.result.decisionsRequired).toContainEqual(expect.objectContaining({ gateId: "IMG-GATE-HANDOFF-FREEZE", status: "PENDING" }));
     const first = session.result.decisionsRequired[0];
-    session = decideImagingGate(session, first.gateId, "APPROVED", "Décision explicite.", "2026-08-09T12:00:00.000Z");
+    session = decideImagingGate(session, first.gateId, "APPROVED", "Décision explicite.", "Responsable Imaging", "mandate:img-test", "2026-08-09T12:00:00.000Z");
     expect(session.result.decisionsRequired.find((item) => item.gateId === first.gateId)?.status).toBe("APPROVED");
-    expect(session.decisionHistory[0].targetIds).toEqual(first.targetIds);
+    expect(session.decisionHistory.find((item) => item.gateId === first.gateId)?.targets).toEqual(first.targetIds);
   });
 
   it("refuse le patient-level sans recommandation clinique", () => {

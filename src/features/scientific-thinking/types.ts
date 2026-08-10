@@ -1,6 +1,7 @@
 import { z } from "zod";
+import { humanDecisionEnvelopeSchema, type HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
 
-export const SCIENTIFIC_THINKING_ENGINE_VERSION = "1.0.0" as const;
+export const SCIENTIFIC_THINKING_ENGINE_VERSION = "1.1.0" as const;
 
 export const SEMANTIC_TYPES = [
   "OBSERVATION",
@@ -224,7 +225,7 @@ export type ScientificThinkingTraceEvent = {
 };
 
 export type ResearchDesignHandoff = {
-  handoffVersion: "1.0";
+  handoffVersion: "1.1";
   status: "NOT_READY" | "READY_FOR_HUMAN_AUTHORIZATION" | "AUTHORIZED";
   questionId: string | null;
   hypothesisIds: string[];
@@ -235,6 +236,7 @@ export type ResearchDesignHandoff = {
   unresolvedUnknowns: string[];
   contradictions: string[];
   decisionRecordIds: string[];
+  humanDecisions: HumanDecisionEnvelope[];
   alternativesNotSelected: string[];
   limitations: string[];
   provenanceRefs: string[];
@@ -297,14 +299,7 @@ export type ScientificThinkingSession = {
   gateStatuses: Partial<Record<HumanGateType, HumanGateStatus>>;
   acceptedUnknowns: string[];
   changes: ChangeEvent[];
-  decisionHistory: Array<{
-    decisionId: string;
-    gate: HumanGateType;
-    decision: HumanGateStatus;
-    targetIds: string[];
-    reason: string;
-    decidedAt: string;
-  }>;
+  decisionHistory: HumanDecisionEnvelope[];
   revisions: number;
 };
 
@@ -379,7 +374,7 @@ export const scientificThinkingOutputSchema = z.object({
   proposedNextAction: z.enum(["CLARIFY", "REVIEW_CANDIDATES", "REQUEST_KNOWLEDGE", "REQUEST_HUMAN_DECISION", "HANDOFF_TO_RESEARCH_DESIGN", "STOP"]), humanDecisionRequired: z.boolean(),
   provenance: z.object({ engineVersion: z.literal(SCIENTIFIC_THINKING_ENGINE_VERSION), inputRef: z.string(), knowledgeResultRef: z.string().nullable(), sourceRefs: stringArray, policyRefs: z.tuple([z.literal("RDE-001"), z.literal("RDE-002"), z.literal("PD-003"), z.literal("PD-009"), z.literal("KE-001")]), llmContributionStatus: z.literal("UPSTREAM_LANGUAGE_INTERPRETATION_CANDIDATE_ONLY") }).strict(),
   graph: z.object({ projectionVersion: z.literal("RUNTIME_PROJECTION_1.0"), ontologyStatus: z.literal("NO_NEW_ONTOLOGY"), nodes: z.array(z.unknown()), edges: z.array(z.unknown()) }).strict(),
-  handoff: z.object({ handoffVersion: z.literal("1.0"), status: z.enum(["NOT_READY", "READY_FOR_HUMAN_AUTHORIZATION", "AUTHORIZED"]), questionId: z.string().nullable(), hypothesisIds: stringArray, objectiveIds: stringArray, mechanisms: z.array(mechanismCandidateSchema), knownInformation: stringArray, acceptedUnknowns: stringArray, unresolvedUnknowns: stringArray, contradictions: stringArray, decisionRecordIds: stringArray, alternativesNotSelected: stringArray, limitations: stringArray, provenanceRefs: stringArray, knowledgeResultRef: z.string().nullable(), blockedBy: stringArray, boundary: z.literal("NO_PROTOCOL_NO_METHOD_SELECTION_NO_STATISTICAL_PLAN") }).strict(),
+  handoff: z.object({ handoffVersion: z.literal("1.1"), status: z.enum(["NOT_READY", "READY_FOR_HUMAN_AUTHORIZATION", "AUTHORIZED"]), questionId: z.string().nullable(), hypothesisIds: stringArray, objectiveIds: stringArray, mechanisms: z.array(mechanismCandidateSchema), knownInformation: stringArray, acceptedUnknowns: stringArray, unresolvedUnknowns: stringArray, contradictions: stringArray, decisionRecordIds: stringArray, humanDecisions: z.array(humanDecisionEnvelopeSchema), alternativesNotSelected: stringArray, limitations: stringArray, provenanceRefs: stringArray, knowledgeResultRef: z.string().nullable(), blockedBy: stringArray, boundary: z.literal("NO_PROTOCOL_NO_METHOD_SELECTION_NO_STATISTICAL_PLAN") }).strict(),
   trace: z.array(z.object({ sequence: z.number().int(), operation: z.union([z.enum(SCIENTIFIC_THINKING_OPERATIONS), z.enum(["CLASSIFY_INPUT", "BUILD_GRAPH", "ASSESS_HANDOFF"])]), mode: z.enum(["DETERMINISTIC", "HUMAN_REQUIRED"]), decision: z.string(), inputDigest: z.string(), outputDigest: z.string() }).strict()),
 }).strict();
 
@@ -393,7 +388,7 @@ export const scientificThinkingSessionSchema = z.object({
   gateStatuses: z.record(z.enum(["PENDING", "APPROVED", "REJECTED", "NOT_REQUIRED"])),
   acceptedUnknowns: stringArray,
   changes: z.array(z.unknown()),
-  decisionHistory: z.array(z.unknown()),
+  decisionHistory: z.array(humanDecisionEnvelopeSchema),
   revisions: z.number().int().min(1),
 }).strict();
 
