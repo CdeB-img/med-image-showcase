@@ -1,10 +1,72 @@
 import { describe, expect, it } from "vitest";
-import { invalidateDownstream, createProtocolDesignerSession } from "@/features/protocol-designer/intake/session";
+import { buildValidatedIntent, createProtocolDesignerSession, invalidateDownstream } from "@/features/protocol-designer/intake/session";
+import { createEmptyInterpretation } from "@/features/protocol-designer/intake/schema";
+import { INTERPRETED_FIELD_KEYS, type HumanFieldReview, type InterpretedFieldKey } from "@/features/protocol-designer/intake/types";
 import { executeScientificThinkingEngine } from "../engine";
+import { buildScientificThinkingInput } from "../input";
 import { answerScientificThinkingQuestion, createScientificThinkingSession, reviewScientificHypothesis, selectScientificQuestion } from "../session";
 import { makeThinkingInput } from "./fixtures";
 
 describe("ST-001 — cas méthodologiques supplémentaires", () => {
+  it("préserve CT et IRM comme méthodes explicites sans inventer une association cardiologie-imagerie", () => {
+    const input = makeThinkingInput({
+      originalExpression: "Je cherche à comprendre comment comparer CT et IRM cardiaque.",
+      validatedReformulation: "Je cherche à comprendre comment comparer CT et IRM cardiaque.",
+      scientificObjectTerms: ["cardiologie", "imagerie médicale"],
+      resolvedConcepts: [], relations: ["comparaison méthodologique"], population: [], pathologyOrCondition: [], phenomena: [], outcomes: [],
+      methodsMentioned: ["CT", "IRM"], scientificPurpose: ["comparer des modalités"], context: ["cardiologie"],
+      knowledge: { ...makeThinkingInput().knowledge, unresolvedConcepts: ["cardiologie", "imagerie médicale"] },
+    });
+    const output = executeScientificThinkingEngine(input);
+
+    expect(output.methodPreferences).toEqual(["CT", "IRM"]);
+    expect(output.status).toBe("CLARIFICATION_REQUIRED");
+    expect(output.questions).toHaveLength(1);
+    expect(output.questions[0]).toMatchObject({ kind: "PRIMARY", testability: "NEEDS_CLARIFICATION", scope: "TOO_NARROW" });
+    expect(output.questions[0].text).toMatch(/comparer entre CT et IRM/);
+    expect(output.questions[0].text).not.toMatch(/association entre cardiologie et imagerie médicale/i);
+    expect(output.adaptiveQuestions.map((item) => item.questionId)).toEqual(["ST-AQ-COMPARISON-TARGET", "ST-AQ-COMPARISON-CRITERION"]);
+    expect(output.hypotheses).toHaveLength(0);
+    expect(output.objectives).toHaveLength(0);
+    expect(output.mechanisms).toHaveLength(0);
+    expect(output.assumptions).toHaveLength(1);
+    expect(output.assumptions[0].text).toMatch(/CT et IRM/);
+    expect(output.handoff.status).toBe("NOT_READY");
+  });
+
+  it("détecte CT avec des frontières lexicales et ne le perd pas avant le moteur", () => {
+    const question = "Je cherche à comprendre comment comparer CT et IRM cardiaque.";
+    const interpretation = createEmptyInterpretation({ question, language: "fr", schemaVersion: "1.0" });
+    interpretation.reformulatedQuestion = question;
+    const reviewedAt = "2026-08-10T12:00:00.000Z";
+    const reviews = Object.fromEntries(INTERPRETED_FIELD_KEYS.map((key) => [key, { state: "UNKNOWN", reviewedAt }])) as Partial<Record<InterpretedFieldKey, HumanFieldReview>>;
+    const intent = buildValidatedIntent(interpretation, reviews, question, reviewedAt);
+    const input = buildScientificThinkingInput(intent, ["cardiologie", "imagerie médicale"], ["comparaison méthodologique"], null);
+
+    expect(input.methodsMentioned).toEqual(["CT", "IRM"]);
+  });
+
+  it("ne rend la comparaison CT/IRM testable qu’après explicitation de l’objet et du critère", () => {
+    let session = createScientificThinkingSession(makeThinkingInput({
+      originalExpression: "Je cherche à comprendre comment comparer CT et IRM cardiaque.",
+      validatedReformulation: "Je cherche à comprendre comment comparer CT et IRM cardiaque.",
+      scientificObjectTerms: ["cardiologie", "imagerie médicale"], relations: ["comparaison méthodologique"],
+      population: [], pathologyOrCondition: [], phenomena: [], outcomes: [], methodsMentioned: ["CT", "IRM"],
+      scientificPurpose: ["comparer des modalités"], context: ["cardiologie"],
+    }));
+    session = answerScientificThinkingQuestion(session, "ST-AQ-COMPARISON-TARGET", "la quantification de la fibrose myocardique");
+    expect(session.output.questions[0].testability).toBe("NEEDS_CLARIFICATION");
+    session = answerScientificThinkingQuestion(session, "ST-AQ-COMPARISON-CRITERION", "l’accord entre les mesures");
+
+    expect(session.output.questions[0].testability).toBe("TESTABLE_CANDIDATE");
+    expect(session.output.questions[0].text).toMatch(/fibrose myocardique/);
+    expect(session.output.questions[0].text).toMatch(/accord entre les mesures/);
+    expect(session.output.adaptiveQuestions).toHaveLength(0);
+    expect(session.output.hypotheses).toHaveLength(2);
+    expect(session.output.mechanisms).toHaveLength(0);
+    expect(session.output.reasoningIssues).not.toContain("HYPOTHESIS_WITHOUT_MECHANISM");
+  });
+
   it("détecte une question trop large et garde la réduction de portée disponible", () => {
     const output = executeScientificThinkingEngine(makeThinkingInput({ originalExpression: "Je veux étudier toute l’imagerie médicale de façon générale.", validatedReformulation: "Je veux étudier toute l’imagerie médicale de façon générale.", scientificObjectTerms: ["imagerie médicale"], phenomena: [], scientificPurpose: [], relations: [] }));
     expect(output.reasoningIssues).toContain("QUESTION_SCOPE_TOO_BROAD");

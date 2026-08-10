@@ -60,8 +60,29 @@ const hasTime = (input: ScientificThinkingInput) => has(input.originalExpression
 const hasPrediction = (text: string) => has(text, /\b(predit|predire|pronostic|evenements?)\b/);
 const hasMethodComparison = (input: ScientificThinkingInput) => {
   const methods = input.methodsMentioned.map(lower);
-  return (methods.includes("molli") && methods.includes("sasha")) || (methods.length >= 2 && has(input.originalExpression, /\b(vs|versus|ou|compar)\b/));
+  return (methods.includes("molli") && methods.includes("sasha")) || (methods.length >= 2 && has(input.originalExpression, /\b(vs|versus|ou|compar\w*)\b/));
 };
+const isBroadDomainLabel = (value: string) => has(value, /^(cardiologie|imagerie medicale|radiologie|neurologie|oncologie)$/);
+const hasSpecificScientificComparisonTarget = (input: ScientificThinkingInput) =>
+  [...input.phenomena, ...input.outcomes, ...input.pathologyOrCondition].some((item) => !isBroadDomainLabel(item));
+const isMethodOnlyComparison = (input: ScientificThinkingInput) => hasMethodComparison(input) && !hasSpecificScientificComparisonTarget(input);
+const methodComparisonLabels = (input: ScientificThinkingInput) => unique(input.methodsMentioned).join(" et ");
+const methodComparisonContext = (input: ScientificThinkingInput) => unique([
+  ...input.context,
+  ...input.pathologyOrCondition,
+  ...input.scientificObjectTerms.filter((item) => !input.methodsMentioned.some((method) => lower(method) === lower(item)) && !has(item, /^imagerie medicale$/)),
+])[0] ?? "un contexte scientifique à préciser";
+const comparisonAnswerLabel = (value: string | undefined) => ({
+  "same-phenomenon": "un même phénomène biologique à préciser",
+  "same-measure": "une même mesure quantitative à préciser",
+  "same-outcome": "un même résultat scientifique à préciser",
+  agreement: "l’accord entre les mesures",
+  reproducibility: "la reproductibilité",
+  characterization: "la capacité à caractériser le phénomène retenu",
+}[value ?? ""] ?? value ?? null);
+const unresolvedComparisonTargets = new Set(["same-phenomenon", "same-measure", "same-outcome", "unknown"]);
+const resolvedComparisonTarget = (value: string | undefined) => Boolean(value && !unresolvedComparisonTargets.has(value));
+const resolvedComparisonCriterion = (value: string | undefined) => Boolean(value && value !== "unknown");
 
 const conciseObject = (value: string) => {
   const cleaned = sentence(value)
@@ -108,11 +129,32 @@ const buildQuestionCandidates = (input: ScientificThinkingInput, controls: Scien
   const answeredFinality = controls.answers?.["ST-AQ-FINALITY"];
   const answeredRelation = controls.answers?.["ST-AQ-RELATION"];
   const answeredOutcome = controls.answers?.["ST-AQ-OUTCOME"];
+  const answeredComparisonTarget = controls.answers?.["ST-AQ-COMPARISON-TARGET"];
+  const answeredComparisonCriterion = controls.answers?.["ST-AQ-COMPARISON-CRITERION"];
   const { first, second } = relationTerms(input);
+  const methodOnlyComparison = isMethodOnlyComparison(input);
   const completeExistingQuestion = hasQuestionForm(source) && hasRelation(source) && (hasPopulation(input) || hasTime(input) || hasOutcome(input)) && !hasMethodComparison(input);
   const candidates: Omit<QuestionCandidate, "reviewState">[] = [];
 
-  if (completeExistingQuestion) {
+  if (methodOnlyComparison) {
+    const labels = methodComparisonLabels(input);
+    const target = comparisonAnswerLabel(answeredComparisonTarget);
+    const criterion = comparisonAnswerLabel(answeredComparisonCriterion);
+    const clarified = resolvedComparisonTarget(answeredComparisonTarget) && resolvedComparisonCriterion(answeredComparisonCriterion);
+    candidates.push({
+      questionId: "ST-Q-001",
+      text: clarified
+        ? `Comment comparer ${labels} pour « ${target} », selon « ${criterion} », ${populationLabel(input)} ?`
+        : `Quel phénomène, quelle mesure ou quel résultat scientifique souhaitez-vous comparer entre ${labels} dans le contexte « ${methodComparisonContext(input)} » ?`,
+      kind: "PRIMARY",
+      rationale: "La comparaison de modalités est conservée comme intention méthodologique, mais elle ne devient pas une association artificielle entre un domaine et l’imagerie. L’objet et le critère de comparaison doivent être explicités.",
+      testability: clarified ? "TESTABLE_CANDIDATE" : "NEEDS_CLARIFICATION",
+      scope: "TOO_NARROW",
+      support,
+      linkedAssumptionIds: ["ST-A-001"],
+      sourceTerms: unique([labels, methodComparisonContext(input), ...(target ? [target] : []), ...(criterion ? [criterion] : [])]),
+    });
+  } else if (completeExistingQuestion) {
     candidates.push({
       questionId: "ST-Q-001", text: source.trim().replace(/\?*$/, "?"), kind: "PRIMARY",
       rationale: "La formulation contient déjà un objet, une relation et un élément de contexte ou de temporalité ; elle est conservée avec une normalisation minimale.",
@@ -163,7 +205,7 @@ const buildQuestionCandidates = (input: ScientificThinkingInput, controls: Scien
     });
   }
 
-  if (hasMethodComparison(input)) {
+  if (hasMethodComparison(input) && !methodOnlyComparison) {
     const compared = methods.filter((item) => ["molli", "sasha"].includes(lower(item)));
     const labels = compared.length >= 2 ? compared.join(" et ") : methods.join(" et ");
     candidates.push({
@@ -179,7 +221,7 @@ const buildQuestionCandidates = (input: ScientificThinkingInput, controls: Scien
 const buildAssumptions = (input: ScientificThinkingInput): AssumptionCandidate[] => {
   const assumptions: AssumptionCandidate[] = [];
   const { first, second } = relationTerms(input);
-  if (hasRelation(input.originalExpression)) assumptions.push({
+  if (hasRelation(input.originalExpression) && !isMethodOnlyComparison(input)) assumptions.push({
     assumptionId: "ST-A-001",
     text: second ? `La relation exprimée entre ${first} et ${second} est supposée avant d’être démontrée.` : `La relation exprimée autour de ${first} est supposée avant d’être démontrée.`,
     challenge: "Distinguer association, prédiction, temporalité et causalité ; rechercher une explication concurrente.",
@@ -188,7 +230,7 @@ const buildAssumptions = (input: ScientificThinkingInput): AssumptionCandidate[]
   });
   if (input.methodsMentioned.length) assumptions.push({
     assumptionId: assumptions.length ? "ST-A-002" : "ST-A-001",
-    text: `${input.methodsMentioned.join(" ou ")} est présumé pertinent avant confirmation de la finalité scientifique.`,
+    text: `La pertinence de ${input.methodsMentioned.join(" et ")} est présumée avant confirmation de la finalité scientifique.`,
     challenge: "Conserver cette mention comme préférence ou branche méthodologique, sans sélectionner de modalité ni de technique.",
     support: input.knowledge.support,
     status: "CHALLENGED",
@@ -234,7 +276,7 @@ const buildObjectives = (input: ScientificThinkingInput, questions: QuestionCand
 };
 
 const buildMechanisms = (input: ScientificThinkingInput, hypotheses: HypothesisCandidate[]): MechanismCandidate[] => {
-  if (!hasRelation(input.originalExpression) || !hypotheses.length) return [];
+  if (isMethodOnlyComparison(input) || !hasRelation(input.originalExpression) || !hypotheses.length) return [];
   const { first, second } = relationTerms(input);
   return [{
     mechanismId: "ST-M-001",
@@ -249,7 +291,31 @@ const buildAdaptiveQuestions = (input: ScientificThinkingInput, questions: Quest
   const complete = questions[0]?.testability === "TESTABLE_CANDIDATE" && hasPopulation(input) && (hasOutcome(input) || hasTime(input) || input.relations.length > 0);
   if (complete) return [];
   const proposed: ScientificThinkingAdaptiveQuestion[] = [];
-  if (isNonTestable(input.originalExpression) || isVagueIdea(input.originalExpression) || (!input.scientificPurpose.length && !hasRelation(input.originalExpression) && !hasPrediction(input.originalExpression))) proposed.push({
+  const methodOnlyComparison = isMethodOnlyComparison(input);
+  const methods = methodComparisonLabels(input);
+  if (methodOnlyComparison && !resolvedComparisonTarget(answers["ST-AQ-COMPARISON-TARGET"])) proposed.push({
+    questionId: "ST-AQ-COMPARISON-TARGET", label: `Quel phénomène, quelle mesure ou quel résultat scientifique souhaitez-vous comparer entre ${methods} ?`,
+    whyAsked: "Deux modalités ne constituent pas à elles seules une question scientifique : elles doivent être reliées au même objet mesurable ou observable.",
+    decisionImpact: "La réponse définira l’objet scientifique de la comparaison sans sélectionner CT ni IRM.",
+    decisionBlock: "TESTABILITY", blocking: true,
+    suggestedAnswers: [
+      { value: "same-phenomenon", label: "Un même phénomène biologique", consequence: "Le phénomène devra ensuite être nommé explicitement." },
+      { value: "same-measure", label: "Une même mesure quantitative", consequence: "La mesure devra ensuite être nommée explicitement." },
+      { value: "same-outcome", label: "Un même résultat scientifique", consequence: "Le résultat devra ensuite être nommé explicitement." },
+    ], acceptsFreeText: true, acceptsUnknown: true, answeredValue: answers["ST-AQ-COMPARISON-TARGET"] ?? null,
+  });
+  if (methodOnlyComparison && !resolvedComparisonCriterion(answers["ST-AQ-COMPARISON-CRITERION"])) proposed.push({
+    questionId: "ST-AQ-COMPARISON-CRITERION", label: `Selon quel critère scientifique souhaitez-vous comparer ${methods} ?`,
+    whyAsked: "Une comparaison n’est interprétable que si sa dimension est explicite.",
+    decisionImpact: "La réponse précisera ce qui peut différer, sans présumer qu’une modalité est supérieure.",
+    decisionBlock: "TESTABILITY", blocking: true,
+    suggestedAnswers: [
+      { value: "agreement", label: "Accord entre les mesures", consequence: "La question restera centrée sur la concordance des mesures." },
+      { value: "reproducibility", label: "Reproductibilité", consequence: "La question restera centrée sur la stabilité des mesures." },
+      { value: "characterization", label: "Caractérisation du phénomène", consequence: "Le phénomène cible devra rester explicite." },
+    ], acceptsFreeText: true, acceptsUnknown: true, answeredValue: answers["ST-AQ-COMPARISON-CRITERION"] ?? null,
+  });
+  if (!methodOnlyComparison && (isNonTestable(input.originalExpression) || isVagueIdea(input.originalExpression) || (!input.scientificPurpose.length && !hasRelation(input.originalExpression) && !hasPrediction(input.originalExpression)))) proposed.push({
     questionId: "ST-AQ-FINALITY", label: `Que cherchez-vous d’abord à comprendre à propos de ${objectLabel(input)} ?`,
     whyAsked: "Une méthode ou un thème ne suffit pas à constituer une question scientifique testable.",
     decisionImpact: "Votre réponse déterminera la relation centrale et permettra, ou non, de proposer une question testable.",
@@ -260,7 +326,7 @@ const buildAdaptiveQuestions = (input: ScientificThinkingInput, questions: Quest
       { value: "quantify", label: "Quantifier ou suivre", consequence: "La grandeur et la temporalité devront être explicitées." },
     ], acceptsFreeText: true, acceptsUnknown: true, answeredValue: answers["ST-AQ-FINALITY"] ?? null,
   });
-  if (!hasRelation(input.originalExpression) && !isNonTestable(input.originalExpression)) proposed.push({
+  if (!methodOnlyComparison && !hasRelation(input.originalExpression) && !isNonTestable(input.originalExpression)) proposed.push({
     questionId: "ST-AQ-RELATION", label: "Quelle relation souhaitez-vous examiner ?",
     whyAsked: "La relation distingue une intuition thématique d’une question réfutable.",
     decisionImpact: "Elle structure la question principale et les hypothèses concurrentes.", decisionBlock: "RELATION", blocking: true,
@@ -418,7 +484,7 @@ export const executeScientificThinkingEngine = (
   const semanticElements: IdeaElement[] = [{
     elementId: "ST-I-001", type: baseSemanticType, text: source, source: "USER_EXPLICIT", confidence: "HIGH", support: input.knowledge.support,
   }];
-  if (hasRelation(source) && baseSemanticType !== "SCIENTIFIC_QUESTION") semanticElements.push({
+  if (hasRelation(source) && !isMethodOnlyComparison(input) && baseSemanticType !== "SCIENTIFIC_QUESTION") semanticElements.push({
     elementId: "ST-I-002", type: "ASSUMPTION", text: "La relation exprimée est traitée comme une supposition à examiner, non comme un résultat.", source: "NOXIA_CANDIDATE", confidence: "MEDIUM", support: input.knowledge.support,
   });
 
@@ -430,6 +496,8 @@ export const executeScientificThinkingEngine = (
   const mechanisms = refusal ? [] : buildMechanisms(input, hypotheses);
   const adaptiveQuestions = refusal && refusal.code !== "NON_TESTABLE" ? [] : buildAdaptiveQuestions(input, questions, answers);
   const ambiguities = unique([
+    ...(isMethodOnlyComparison(input) && !resolvedComparisonTarget(answers["ST-AQ-COMPARISON-TARGET"]) ? ["OBJET_DE_COMPARAISON_NON_PRÉCISÉ"] : []),
+    ...(isMethodOnlyComparison(input) && !resolvedComparisonCriterion(answers["ST-AQ-COMPARISON-CRITERION"]) ? ["CRITÈRE_DE_COMPARAISON_NON_PRÉCISÉ"] : []),
     ...(!hasRelation(source) ? ["RELATION_SCIENTIFIQUE_NON_PRÉCISÉE"] : []),
     ...(!input.scientificPurpose.length ? ["FINALITÉ_SCIENTIFIQUE_NON_CONFIRMÉE"] : []),
     ...input.knowledge.unresolvedConcepts.map((item) => `CONCEPT_NON_RÉSOLU:${item}`),
@@ -450,7 +518,7 @@ export const executeScientificThinkingEngine = (
     ...(questions.some((item) => item.scope === "TOO_BROAD") ? ["QUESTION_SCOPE_TOO_BROAD"] : []),
     ...(questions.some((item) => item.scope === "TOO_NARROW") ? ["QUESTION_SCOPE_TOO_NARROW"] : []),
     ...(hypotheses.length > 0 && !objectives.length ? ["HYPOTHESIS_WITHOUT_OBJECTIVE"] : []),
-    ...(hypotheses.length > 0 && !mechanisms.length ? ["HYPOTHESIS_WITHOUT_MECHANISM"] : []),
+    ...(hypotheses.length > 0 && !mechanisms.length && !isMethodOnlyComparison(input) ? ["HYPOTHESIS_WITHOUT_MECHANISM"] : []),
     ...(objectives.length > 0 && !questions.length ? ["OBJECTIVE_WITHOUT_QUESTION"] : []),
     ...(mechanisms.some((item) => !item.linkedHypothesisIds.length) ? ["ORPHAN_MECHANISM"] : []),
     ...(questions.length > 1 && controls.gateStatuses?.BRANCH_ABANDONMENT !== "APPROVED" ? ["COMPETING_BRANCH_NOT_ARBITRATED"] : []),

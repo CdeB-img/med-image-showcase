@@ -14,13 +14,16 @@ const asValues = (intent: ValidatedScientificIntent, key: InterpretedFieldKey): 
 };
 
 const METHOD_PATTERNS = [
-  "T1 mapping", "T2 mapping", "ECV", "LGE", "IRM", "MRI", "CT spectral", "scanner spectral",
+  "T1 mapping", "T2 mapping", "ECV", "LGE", "IRM", "MRI", "CT", "CT spectral", "scanner spectral",
   "MOLLI", "SASHA", "dual energy", "double énergie", "photon counting", "K-edge", "PET", "échographie",
 ] as const;
 
-const methodsFromText = (text: string) => METHOD_PATTERNS.filter((term) =>
-  text.toLocaleLowerCase("fr-FR").includes(term.toLocaleLowerCase("fr-FR")),
-);
+const methodsFromText = (text: string) => {
+  const detected = METHOD_PATTERNS.filter((term) => term === "CT"
+    ? /\bct\b/i.test(text)
+    : text.toLocaleLowerCase("fr-FR").includes(term.toLocaleLowerCase("fr-FR")));
+  return detected.filter((term) => term !== "CT" || !detected.includes("CT spectral"));
+};
 
 const supportFromKnowledge = (result: KnowledgeResult | null): KnowledgeSupport => {
   if (!result) return "UNAVAILABLE";
@@ -40,7 +43,7 @@ export const buildScientificThinkingInput = (
     contextVersion?: number;
     researchProjectId?: string | null;
     previousDecisionIds?: string[];
-    sourceJourney?: RoutingIntent;
+    sourceJourney?: Exclude<RoutingIntent, "DOCUMENT">;
   } = {},
 ): ScientificThinkingInput => {
   const source = normalizeScientificText(intent.originalQuestion);
