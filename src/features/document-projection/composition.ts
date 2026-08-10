@@ -14,7 +14,11 @@ const allHumanDecisions = (project: Readonly<ResearchProjectDesignResult>, recor
       status: gate.status,
       reason: record?.reason ?? gate.reason,
       actor: record?.actor ?? null,
-      decidedAt: record?.decidedAt ?? null,
+      mandate: record?.mandateRef ?? null,
+      scope: record?.targetIds ?? gate.targetIds,
+      version: project.candidateVersion.versionId,
+      timestamp: record?.decidedAt ?? null,
+      impact: record?.targetIds.length ? `TARGETS:${record.targetIds.join(",")}` : null,
     };
   });
   const currentGateIds = new Set(current.map((item) => item.gateId));
@@ -25,7 +29,11 @@ const allHumanDecisions = (project: Readonly<ResearchProjectDesignResult>, recor
     status: record.decision,
     reason: record.reason,
     actor: record.actor,
-    decidedAt: record.decidedAt,
+    mandate: record.mandateRef,
+    scope: record.targetIds,
+    version: project.candidateVersion.versionId,
+    timestamp: record.decidedAt,
+    impact: record.targetIds.length ? `TARGETS:${record.targetIds.join(",")}` : null,
   }));
   return [...current, ...historical];
 };
@@ -47,4 +55,3 @@ export const planComposition = (
 };
 
 export const createCompositionEngine = () => planComposition;
-

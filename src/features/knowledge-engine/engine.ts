@@ -4,6 +4,7 @@ import { analyzeConflicts, analyzeGaps, determineCoverage } from "./conflict-gap
 import { buildCoverageMap } from "./coverage-map";
 import { extractScientificObjectTerms, resolveConcepts } from "./concept-resolver";
 import { createKnowledgeRequest, type KnowledgeRequestInput } from "./knowledge-request";
+import { comparableScientificText } from "./canonical";
 import { createKnowledgeResult } from "./knowledge-result";
 import { minimizeKnowledgeContext } from "./privacy";
 import { KNOWLEDGE_PROVIDER_REGISTRY } from "./provider-registry";
@@ -20,7 +21,9 @@ export type ExecuteKnowledgeInput = Omit<KnowledgeRequestInput, "scientificObjec
 
 export const executeKnowledgeEngine = (input: ExecuteKnowledgeInput): KnowledgeResult => {
   const trace = new KnowledgeTraceBuilder();
-  const terms = input.scientificObjectTerms?.length ? input.scientificObjectTerms : extractScientificObjectTerms(input.originalQuestion);
+  const declaredTerms = input.scientificObjectTerms ?? [];
+  const extractedTerms = extractScientificObjectTerms(input.originalQuestion);
+  const terms = [...declaredTerms, ...extractedTerms].filter((item, index, values) => values.findIndex((candidate) => comparableScientificText(candidate.term) === comparableScientificText(item.term)) === index);
   const request = createKnowledgeRequest({ ...input, scientificObjectTerms: terms });
   trace.add("BUILD_REQUEST", "Entrée validée et séparée du plan exécutable.", input, { requestId: request.requestId, contextId: request.context.contextId });
   const minimized = minimizeKnowledgeContext(request);

@@ -174,16 +174,23 @@ export default function ProtocolDesignerDemo() {
   const allAdaptiveQuestions = useMemo(() => intent ? selectAdaptiveQuestions(intent, session.scenarioMatches.map((match) => match.scenarioId)) : [], [intent, session.scenarioMatches]);
   const routeIntent = session.scientificContext.routeIntent;
   const journeyQuestions = useMemo(() => routeIntent === "UNDERSTAND" ? allAdaptiveQuestions.filter((item) => ["Q-PHENOMENON", "Q-PURPOSE"].includes(item.questionId)) : routeIntent === "FORMALIZE_IDEA" ? allAdaptiveQuestions.filter((item) => ["Q-PHENOMENON", "Q-PURPOSE", "Q-CONTEXT"].includes(item.questionId)) : allAdaptiveQuestions, [allAdaptiveQuestions, routeIntent]);
+  const requiresImaging = useMemo(() => intent ? questionRequiresImaging(intent, session.scientificThinking) : false, [intent, session.scientificThinking]);
   const knowledgeResult = useMemo(() => intent && routeIntent && routeIntent !== "DOCUMENT" ? executeKnowledgeEngine({
     originalQuestion: intent.originalQuestion,
     scientificObjectTerms: session.scientificContext.preservedScientificTerms.map((term, index) => ({ term, role: index === 0 ? "SUBJECT" as const : index === 1 ? "COMPARATOR" as const : "CONTEXT" as const })),
     relations: session.scientificContext.detectedRelationships,
     context: { ...buildKnowledgeContext(intent), ...knowledgeContextOverrides },
     unknowns: session.scientificContext.missingInformation,
-    consumer: routeIntent === "FORMALIZE_IDEA" ? "SCIENTIFIC_THINKING_ENGINE" : routeIntent === "DESIGN_STUDY" ? "IMAGING_STUDY_DESIGNER" : "PROTOCOL_DESIGNER_UNDERSTAND",
+    consumer: routeIntent === "FORMALIZE_IDEA"
+      ? "SCIENTIFIC_THINKING_ENGINE"
+      : routeIntent === "DESIGN_STUDY" && requiresImaging
+        ? "IMAGING_STUDY_DESIGNER"
+        : routeIntent === "DESIGN_STUDY"
+          ? "RESEARCH_PROJECT_CONSTRUCTION"
+          : "PROTOCOL_DESIGNER_UNDERSTAND",
     createdAt: session.createdAt,
-    strategyVersion: `context-${session.scientificContext.contextVersion}`,
-  }) : null, [intent, knowledgeContextOverrides, routeIntent, session.createdAt, session.scientificContext.contextVersion, session.scientificContext.detectedRelationships, session.scientificContext.missingInformation, session.scientificContext.preservedScientificTerms]);
+    strategyVersion: routeIntent === "DESIGN_STUDY" ? `context-${session.scientificContext.contextVersion}` : undefined,
+  }) : null, [intent, knowledgeContextOverrides, requiresImaging, routeIntent, session.createdAt, session.scientificContext.contextVersion, session.scientificContext.detectedRelationships, session.scientificContext.missingInformation, session.scientificContext.preservedScientificTerms]);
   const scientificThinkingInput = useMemo(() => intent && routeIntent === "FORMALIZE_IDEA" ? buildScientificThinkingInput(
     intent,
     session.scientificContext.preservedScientificTerms.length ? session.scientificContext.preservedScientificTerms : [session.scientificContext.centralScientificObject],
@@ -196,7 +203,6 @@ export default function ProtocolDesignerDemo() {
       sourceJourney: "FORMALIZE_IDEA",
     },
   ) : null, [intent, knowledgeResult, routeIntent, session.scientificContext.centralScientificObject, session.scientificContext.contextVersion, session.scientificContext.detectedRelationships, session.scientificContext.preservedScientificTerms, session.scientificThinking?.decisionHistory, session.sessionId]);
-  const requiresImaging = useMemo(() => intent ? questionRequiresImaging(intent, session.scientificThinking) : false, [intent, session.scientificThinking]);
   const imagingDesignInput = useMemo(() => intent && routeIntent === "DESIGN_STUDY" && requiresImaging && (session.scientificThinking?.output.handoff.status === "AUTHORIZED" || session.confirmedScenarioId) ? buildImagingDesignInput(
     intent,
     session.scientificContext.preservedScientificTerms.length ? session.scientificContext.preservedScientificTerms : [session.scientificContext.centralScientificObject],

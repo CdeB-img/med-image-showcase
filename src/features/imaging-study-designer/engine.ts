@@ -129,7 +129,6 @@ const buildBiomarkerComparison = (candidates: BiomarkerCandidate[]): ImagingDesi
 }];
 
 const buildModalities = (input: ImagingDesignInput, biomarkers: BiomarkerCandidate[], controls: ImagingDesignControls): ModalityCandidate[] => {
-  if (!biomarkers.length) return [];
   const governed = input.knowledge.concepts.filter((item) => ["MODALITY", "MODALITY_TECHNOLOGY", "DETECTOR_TECHNOLOGY"].includes(item.objectType))
     .map((item) => ({ conceptId: item.conceptId, label: item.label }));
   const asserted = input.knowledge.assertions.filter((item) => item.modality).map((item) => ({ conceptId: `governed-modality:${logicalDigest(item.modality!)}`, label: displayModality(item.modality!) }));
@@ -149,7 +148,11 @@ const buildModalities = (input: ImagingDesignInput, biomarkers: BiomarkerCandida
       support: linked.length ? state : "UNKNOWN",
       dimensions: Object.fromEntries(["resolution", "repeatability", "reproducibility", "invasiveness", "irradiation", "contrast", "accessibility", "duration", "artefacts", "equipment", "multicenter", "quality", "analysis", "scientificCoverage"].map((dimension) => [dimension, dimension === "scientificCoverage" ? (linked.length ? state : "UNKNOWN") : "UNKNOWN"])) as Record<string, SupportState>,
       dependencies: uniqueSorted(statements.flatMap((item) => item.conceptIds).filter((id) => id !== option.conceptId)),
-      limitations: uniqueSorted([...statements.flatMap((item) => item.limitations), ...(linked.length ? [] : ["BRANCH_PRESERVED_WITH_INSUFFICIENT_GOVERNED_RELATION_TO_BIOMARKER"])]),
+      limitations: uniqueSorted([
+        ...statements.flatMap((item) => item.limitations),
+        ...(linked.length ? [] : ["BRANCH_PRESERVED_WITH_INSUFFICIENT_GOVERNED_RELATION_TO_BIOMARKER"]),
+        ...(!biomarkers.length ? ["NO_BIOMARKER_LINK_NO_ACQUISITION_STRATEGY_GENERATED"] : []),
+      ]),
       risks: [],
       evidenceRefs: uniqueSorted(statements.map((item) => `${item.sourceId}#${item.locator}`)),
       reviewState: review(controls.modalityReviews, candidateId),
@@ -160,12 +163,12 @@ const buildModalities = (input: ImagingDesignInput, biomarkers: BiomarkerCandida
 const buildModalityComparison = (modalities: ModalityCandidate[], biomarkers: BiomarkerCandidate[]): ImagingDesignResult["modalityComparison"] => modalities.length < 2 ? [] : [{
   comparisonId: `IMG-MODALITY-COMPARISON:${logicalDigest(modalities.map((item) => item.modalityId))}`,
   candidateIds: modalities.map((item) => item.modalityId),
-  scientificNeed: biomarkers.map((item) => item.label).join(" / "),
+  scientificNeed: biomarkers.map((item) => item.label).join(" / ") || "relation phénomène–biomarqueur à qualifier",
   dimensions: Object.fromEntries(Object.keys(modalities[0]?.dimensions ?? {}).map((dimension) => [dimension, Object.fromEntries(modalities.map((item) => [item.modalityId, item.dimensions[dimension] ?? "UNKNOWN"]))])),
   notice: "NO_AUTOMATIC_RANKING",
 }];
 
-const buildAcquisitions = (modalities: ModalityCandidate[], biomarkers: BiomarkerCandidate[], controls: ImagingDesignControls): AcquisitionStrategy[] => modalities.map((modality, index) => {
+const buildAcquisitions = (modalities: ModalityCandidate[], biomarkers: BiomarkerCandidate[], controls: ImagingDesignControls): AcquisitionStrategy[] => modalities.filter((modality) => modality.biomarkerIds.length > 0).map((modality, index) => {
   const linked = biomarkers.filter((item) => modality.biomarkerIds.includes(item.biomarkerId));
   const id = `IMG-ACQUISITION:${logicalDigest({ modality: modality.modalityId, biomarkers: linked.map((item) => item.biomarkerId) })}`;
   return {

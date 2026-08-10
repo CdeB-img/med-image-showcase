@@ -88,7 +88,7 @@ export type KnowledgeRequest = {
   normalizedQuestion: string;
   requestType: KnowledgeRequestType;
   knowledgePurpose: KnowledgePurpose;
-  consumer: "PROTOCOL_DESIGNER_UNDERSTAND" | "SCIENTIFIC_THINKING_ENGINE" | "IMAGING_STUDY_DESIGNER" | "KNOWLEDGE_ENGINE_TEST";
+  consumer: "PROTOCOL_DESIGNER_UNDERSTAND" | "SCIENTIFIC_THINKING_ENGINE" | "IMAGING_STUDY_DESIGNER" | "RESEARCH_PROJECT_CONSTRUCTION" | "KNOWLEDGE_ENGINE_TEST";
   scientificObjects: ScientificObjectRef[];
   relations: string[];
   requestedClaimType: "DEFINITION" | "COMPARISON" | "APPLICABILITY" | "BEST_OPTION" | "GAP";

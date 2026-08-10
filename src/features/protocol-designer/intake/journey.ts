@@ -81,6 +81,10 @@ export const deriveRoutingIntent = (intent: ValidatedScientificIntent): {
   add("FORMALIZE_IDEA", /\b(je voudrais [ée]tudier|je cherche [àa] [ée]tudier|voir si|est-(?:il|elle) associ[ée]e?|pr[ée]dit)\b/, "La demande cherche à transformer une relation ou une finalité encore ouverte en question scientifique.", 3);
   add("DESIGN_STUDY", /\b(construire|concevoir|protocole|[ée]tude|projet de recherche|multicentrique|reproduire|auditer)\b/, "La demande vise explicitement un projet ou une étude.", 3);
   add("DESIGN_STUDY", /\b(comparer|mesurer|quantifier|[ée]valuer|suivre|d[ée]tecter)\b/, "La demande porte une action de recherche à cadrer.", 2);
+  if (/\b(comparer|comparaison|diff[ée]rence|versus|vs\.?)(?:\b|\s)/.test(corpus) && !/\b(construire|concevoir|protocole|[ée]tude|projet de recherche|multicentrique|reproduire|auditer)\b/.test(corpus)) {
+    scores.UNDERSTAND += 3;
+    reasons.UNDERSTAND.push("La comparaison demande d’abord une compréhension structurée, sans construction de projet explicite.");
+  }
   const ordered = (Object.keys(scores) as RoutingIntent[]).sort((a, b) => scores[b] - scores[a]);
   const routeIntent = ordered[0];
   const margin = scores[ordered[0]] - scores[ordered[1]];
@@ -100,12 +104,19 @@ export const preservedScientificTerms = (intent: ValidatedScientificIntent) => {
     const match = source.match(new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i"));
     return [{ value: match?.[0] ?? term, index }];
   }).sort((a, b) => a.index - b.index).map((item) => item.value);
+  const modalityExpressions = [
+    /\bCT(?:\s+cardiaque)?\b/gi,
+    /\bIRM(?:\s+cardiaque)?\b/gi,
+  ].flatMap((pattern) => [...source.matchAll(pattern)].map((match) => ({ value: match[0], index: match.index ?? Number.MAX_SAFE_INTEGER })));
   const interpreted = [
     ...fieldValues(intent, "phenomenaOfInterest"),
     ...fieldValues(intent, "pathologyOrCondition"),
     ...fieldValues(intent, "scientificDomain"),
   ];
-  return [...new Set([...exact, ...interpreted].map((item) => item.trim()).filter(Boolean))].slice(0, 8);
+  const orderedExplicit = [...exact.map((value) => ({ value, index: normalized(source).indexOf(normalized(value)) })), ...modalityExpressions]
+    .sort((left, right) => left.index - right.index)
+    .map((item) => item.value);
+  return [...new Set([...orderedExplicit, ...interpreted].map((item) => item.trim()).filter(Boolean))].slice(0, 8);
 };
 
 export const centralScientificObject = (intent: ValidatedScientificIntent) => {
@@ -117,7 +128,7 @@ export const centralScientificObject = (intent: ValidatedScientificIntent) => {
 export const detectedRelationships = (intent: ValidatedScientificIntent) => {
   const corpus = normalized(`${intent.originalQuestion} ${intent.validatedReformulation}`);
   const relationships: string[] = [];
-  if (/\b(comparer|diff[ée]rence|versus|vs\.? )\b/.test(corpus)) relationships.push("comparaison explicitement demandée");
+  if (/\b(compar\w*|diff[ée]rence|versus|vs\.?)\b/.test(corpus)) relationships.push("comparaison explicitement demandée");
   if (/\b(effet|impact|influence|d[ée]pend|associ[ée])\b/.test(corpus)) relationships.push("relation ou dépendance à examiner");
   if (/\b(apr[èe]s|avant|pendant|suivi|[ée]volution)\b/.test(corpus)) relationships.push("relation temporelle déclarée");
   return relationships;

@@ -147,7 +147,11 @@ export type CompositionPlan = {
     status: "PENDING" | "APPROVED" | "REJECTED";
     reason: string;
     actor: string | null;
-    decidedAt: string | null;
+    mandate: string | null;
+    scope: string[];
+    version: string;
+    timestamp: string | null;
+    impact: string | null;
   }>;
 };
 

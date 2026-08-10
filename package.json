@@ -16,6 +16,7 @@
     "test:img": "vitest run src/features/imaging-study-designer/__tests__",
     "test:img001b": "vitest run src/features/imaging-study-designer/__tests__/img-001b-project-handoff.test.ts",
     "test:prj": "vitest run src/features/research-project-construction/__tests__",
+    "test:system-integration": "vitest run src/features/system-integration/__tests__",
     "test:knowledge:external:manual": "node scripts/manual-test-eng-003-pubmed.mjs",
     "audit:seo": "node scripts/audit-seo-pages.mjs",
     "validate:editorial-pilot": "node scripts/validate-editorial-pilot.mjs",

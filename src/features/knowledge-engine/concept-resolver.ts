@@ -11,8 +11,8 @@ type ConceptRule = {
 };
 
 const rules: ConceptRule[] = [
-  { conceptId: "modality:mri", preferredLabel: "IRM", objectType: "MODALITY", patterns: [/\birm\b/, /\bmri\b/, /\bcmr\b/], providerConcepts: { "p4r-ecv-t1": ["noxia:radiology:modality:irm"], "p5-multidomain": ["MR"], "rb-004": ["IRM cardiaque"], "rb-005": ["IRM"] } },
-  { conceptId: "modality:ct", preferredLabel: "CT", objectType: "MODALITY", patterns: [/\bct\b/, /scanner/, /tomodensitometr/], providerConcepts: { "p4r-ecv-t1": ["noxia:radiology:modality:ct"], "p5-multidomain": ["CT"], "rb-003": ["CT spectral"], "rb-005": ["CT"] } },
+  { conceptId: "modality:mri", preferredLabel: "IRM", objectType: "MODALITY", patterns: [/\birm(?:\s+cardiaque)?\b/, /\bmri\b/, /\bcmr\b/], providerConcepts: { "p4r-ecv-t1": ["noxia:radiology:modality:irm"], "p5-multidomain": ["MR"], "rb-004": ["IRM cardiaque"], "rb-005": ["IRM"] } },
+  { conceptId: "modality:ct", preferredLabel: "CT", objectType: "MODALITY", patterns: [/\bct(?:\s+cardiaque)?\b/, /scanner/, /tomodensitometr/], providerConcepts: { "p4r-ecv-t1": ["noxia:radiology:modality:ct"], "p5-multidomain": ["CT"], "rb-003": ["CT spectral"], "rb-005": ["CT"] } },
   { conceptId: "modality:pet", preferredLabel: "PET", objectType: "MODALITY", patterns: [/\bpet\b/, /\btep\b/], providerConcepts: { "rb-005": ["PET"] } },
   { conceptId: "phenomenon:myocardial-fibrosis", preferredLabel: "fibrose myocardique", objectType: "PHENOMENON", patterns: [/fibrose myocard/, /myocardial fibrosis/], providerConcepts: { "p4r-ecv-t1": ["noxia:radiology:finding:diffuse-myocardial-fibrosis"], "rb-004": ["caractérisation tissulaire"] } },
   { conceptId: "pathology:fabry-disease", preferredLabel: "maladie de Fabry", objectType: "PATHOLOGY", patterns: [/maladie de fabry/, /fabry disease/], providerConcepts: {} },

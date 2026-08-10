@@ -20,7 +20,7 @@ export const knowledgeRequestSchema = z.object({
   normalizedQuestion: z.string().min(3).max(4_000),
   requestType: z.enum(["EXPLAIN", "COMPARE", "SUPPORT_REASONING", "CHECK_APPLICABILITY", "IDENTIFY_GAP"]),
   knowledgePurpose: z.enum(["UNDERSTAND", "COMPARE", "CLARIFY_SELECTION", "CHECK_APPLICABILITY", "IDENTIFY_GAP"]),
-  consumer: z.enum(["PROTOCOL_DESIGNER_UNDERSTAND", "SCIENTIFIC_THINKING_ENGINE", "IMAGING_STUDY_DESIGNER", "KNOWLEDGE_ENGINE_TEST"]),
+  consumer: z.enum(["PROTOCOL_DESIGNER_UNDERSTAND", "SCIENTIFIC_THINKING_ENGINE", "IMAGING_STUDY_DESIGNER", "RESEARCH_PROJECT_CONSTRUCTION", "KNOWLEDGE_ENGINE_TEST"]),
   scientificObjects: z.array(scientificObjectSchema).min(1).max(30),
   relations: z.array(z.string().min(1).max(200)).max(30),
   requestedClaimType: z.enum(["DEFINITION", "COMPARISON", "APPLICABILITY", "BEST_OPTION", "GAP"]),
