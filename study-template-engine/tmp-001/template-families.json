@@ -1,0 +1,211 @@
+{
+  "catalogId": "TMP-CATALOG:E2451B76EB3D",
+  "contractVersion": "1.0.0",
+  "dataStatus": "ILLUSTRATIVE_TECHNICAL_FIXTURE_NOT_SCIENTIFIC_CORPUS",
+  "families": [
+    {
+      "axis": "STUDY",
+      "description": "Axe structurel Clinical Study ; sa sélection reste fondée sur les entrées gouvernées et ne constitue pas une qualification par TMP-001.",
+      "familyId": "CLINICAL_STUDY",
+      "label": "Clinical Study",
+      "provenance": [
+        "TMP-001:Study Template Engine",
+        "PD-003:Research Object Model",
+        "RDE-001:Research Design Engine"
+      ],
+      "resolver": "ALWAYS",
+      "resolverTokens": []
+    },
+    {
+      "axis": "DESIGN",
+      "description": "Axe structurel Interventional ; sa sélection reste fondée sur les entrées gouvernées et ne constitue pas une qualification par TMP-001.",
+      "familyId": "INTERVENTIONAL",
+      "label": "Interventional",
+      "provenance": [
+        "TMP-001:Study Template Engine",
+        "PD-003:Research Object Model",
+        "RDE-001:Research Design Engine"
+      ],
+      "resolver": "REGULATORY_TOKEN",
+      "resolverTokens": [
+        "interventional",
+        "intervention"
+      ]
+    },
+    {
+      "axis": "DESIGN",
+      "description": "Axe structurel Observational ; sa sélection reste fondée sur les entrées gouvernées et ne constitue pas une qualification par TMP-001.",
+      "familyId": "OBSERVATIONAL",
+      "label": "Observational",
+      "provenance": [
+        "TMP-001:Study Template Engine",
+        "PD-003:Research Object Model",
+        "RDE-001:Research Design Engine"
+      ],
+      "resolver": "PROJECT_DESIGN",
+      "resolverTokens": [
+        "observational",
+        "cohort",
+        "case control"
+      ]
+    },
+    {
+      "axis": "DATA_SOURCE",
+      "description": "Axe structurel Registry ; sa sélection reste fondée sur les entrées gouvernées et ne constitue pas une qualification par TMP-001.",
+      "familyId": "REGISTRY",
+      "label": "Registry",
+      "provenance": [
+        "TMP-001:Study Template Engine",
+        "PD-003:Research Object Model",
+        "RDE-001:Research Design Engine"
+      ],
+      "resolver": "REGULATORY_TOKEN",
+      "resolverTokens": [
+        "registry",
+        "registre"
+      ]
+    },
+    {
+      "axis": "DATA_SOURCE",
+      "description": "Axe structurel SNDS ; sa sélection reste fondée sur les entrées gouvernées et ne constitue pas une qualification par TMP-001.",
+      "familyId": "SNDS",
+      "label": "SNDS",
+      "provenance": [
+        "TMP-001:Study Template Engine",
+        "PD-003:Research Object Model",
+        "RDE-001:Research Design Engine"
+      ],
+      "resolver": "REGULATORY_TOKEN",
+      "resolverTokens": [
+        "snds"
+      ]
+    },
+    {
+      "axis": "JURISDICTION",
+      "description": "Axe structurel RIPH ; sa sélection reste fondée sur les entrées gouvernées et ne constitue pas une qualification par TMP-001.",
+      "familyId": "RIPH",
+      "label": "RIPH",
+      "provenance": [
+        "TMP-001:Study Template Engine",
+        "PD-003:Research Object Model",
+        "RDE-001:Research Design Engine"
+      ],
+      "resolver": "REGULATORY_TOKEN",
+      "resolverTokens": [
+        "riph"
+      ]
+    },
+    {
+      "axis": "FUNDING",
+      "description": "Axe structurel PHRC ; sa sélection reste fondée sur les entrées gouvernées et ne constitue pas une qualification par TMP-001.",
+      "familyId": "PHRC",
+      "label": "PHRC",
+      "provenance": [
+        "TMP-001:Study Template Engine",
+        "PD-003:Research Object Model",
+        "RDE-001:Research Design Engine"
+      ],
+      "resolver": "FUNDING_PROGRAM",
+      "resolverTokens": [
+        "phrc"
+      ]
+    },
+    {
+      "axis": "FUNDING",
+      "description": "Axe structurel RHU ; sa sélection reste fondée sur les entrées gouvernées et ne constitue pas une qualification par TMP-001.",
+      "familyId": "RHU",
+      "label": "RHU",
+      "provenance": [
+        "TMP-001:Study Template Engine",
+        "PD-003:Research Object Model",
+        "RDE-001:Research Design Engine"
+      ],
+      "resolver": "FUNDING_PROGRAM",
+      "resolverTokens": [
+        "rhu"
+      ]
+    },
+    {
+      "axis": "FUNDING",
+      "description": "Axe structurel ANR ; sa sélection reste fondée sur les entrées gouvernées et ne constitue pas une qualification par TMP-001.",
+      "familyId": "ANR",
+      "label": "ANR",
+      "provenance": [
+        "TMP-001:Study Template Engine",
+        "PD-003:Research Object Model",
+        "RDE-001:Research Design Engine"
+      ],
+      "resolver": "FUNDING_PROGRAM",
+      "resolverTokens": [
+        "anr"
+      ]
+    },
+    {
+      "axis": "FUNDING",
+      "description": "Axe structurel France 2030 ; sa sélection reste fondée sur les entrées gouvernées et ne constitue pas une qualification par TMP-001.",
+      "familyId": "FRANCE_2030",
+      "label": "France 2030",
+      "provenance": [
+        "TMP-001:Study Template Engine",
+        "PD-003:Research Object Model",
+        "RDE-001:Research Design Engine"
+      ],
+      "resolver": "FUNDING_PROGRAM",
+      "resolverTokens": [
+        "france 2030",
+        "france_2030"
+      ]
+    },
+    {
+      "axis": "PRODUCT",
+      "description": "Axe structurel Device ; sa sélection reste fondée sur les entrées gouvernées et ne constitue pas une qualification par TMP-001.",
+      "familyId": "DEVICE",
+      "label": "Device",
+      "provenance": [
+        "TMP-001:Study Template Engine",
+        "PD-003:Research Object Model",
+        "RDE-001:Research Design Engine"
+      ],
+      "resolver": "REGULATORY_TOKEN",
+      "resolverTokens": [
+        "medical device",
+        "dispositif medical",
+        "mdr"
+      ]
+    },
+    {
+      "axis": "PRODUCT",
+      "description": "Axe structurel Drug ; sa sélection reste fondée sur les entrées gouvernées et ne constitue pas une qualification par TMP-001.",
+      "familyId": "DRUG",
+      "label": "Drug",
+      "provenance": [
+        "TMP-001:Study Template Engine",
+        "PD-003:Research Object Model",
+        "RDE-001:Research Design Engine"
+      ],
+      "resolver": "REGULATORY_TOKEN",
+      "resolverTokens": [
+        "medicinal product",
+        "medicament",
+        "drug trial",
+        "ctr"
+      ]
+    },
+    {
+      "axis": "METHOD",
+      "description": "Axe structurel Imaging ; sa sélection reste fondée sur les entrées gouvernées et ne constitue pas une qualification par TMP-001.",
+      "familyId": "IMAGING",
+      "label": "Imaging",
+      "provenance": [
+        "TMP-001:Study Template Engine",
+        "PD-003:Research Object Model",
+        "RDE-001:Research Design Engine"
+      ],
+      "resolver": "PROJECT_IMAGING",
+      "resolverTokens": [
+        "imaging"
+      ]
+    }
+  ],
+  "notice": "Ces instances prouvent les contrats TMP-001. Elles ne décrivent aucune étude réelle et ne valent ni protocole, ni recommandation, ni qualification réglementaire."
+}

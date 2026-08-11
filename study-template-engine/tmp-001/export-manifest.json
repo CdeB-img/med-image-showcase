@@ -1,0 +1,59 @@
+{
+  "boundary": "MACHINE_READABLE_LOGICAL_STRUCTURE_ONLY_NO_DOCUMENT",
+  "contractVersion": "1.0.0",
+  "dataStatus": "ILLUSTRATIVE_TECHNICAL_FIXTURE_NOT_SCIENTIFIC_CORPUS",
+  "engineVersion": "1.0.0",
+  "files": [
+    {
+      "digest": "tmp1-a5134123ce7b9a6f",
+      "path": "dependency-graph.json"
+    },
+    {
+      "digest": "tmp1-6c19cd78cbaba934",
+      "path": "document-mapping.json"
+    },
+    {
+      "digest": "tmp1-0062fe41c2f2bfe5",
+      "path": "pattern-mapping.json"
+    },
+    {
+      "digest": "tmp1-2dcbe68893f42414",
+      "path": "readiness-graph.json"
+    },
+    {
+      "digest": "tmp1-51ea3f1a07586e26",
+      "path": "requirement-mapping.json"
+    },
+    {
+      "digest": "tmp1-0add1497fbe2aaeb",
+      "path": "structured-export.json"
+    },
+    {
+      "digest": "tmp1-e1e341de9d692352",
+      "path": "study-template-catalog.json"
+    },
+    {
+      "digest": "tmp1-c5302a66baf8492a",
+      "path": "template-audit.json"
+    },
+    {
+      "digest": "tmp1-45b7eacd69fcb059",
+      "path": "template-families.json"
+    },
+    {
+      "digest": "tmp1-313d599f3239285b",
+      "path": "template-graph.json"
+    },
+    {
+      "digest": "tmp1-fd9d0c00e7f0da8c",
+      "path": "template-instances.json"
+    },
+    {
+      "digest": "tmp1-69f85e25d89306a9",
+      "path": "template-statistics.json"
+    }
+  ],
+  "generatedAt": "2026-08-11T12:00:00.000Z",
+  "nextArchitecturalStep": "VAL-001_NOT_IMPLEMENTED",
+  "notice": "Ces instances prouvent les contrats TMP-001. Elles ne décrivent aucune étude réelle et ne valent ni protocole, ni recommandation, ni qualification réglementaire."
+}

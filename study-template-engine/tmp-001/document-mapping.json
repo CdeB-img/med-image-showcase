@@ -1,0 +1,2658 @@
+{
+  "dataStatus": "ILLUSTRATIVE_TECHNICAL_FIXTURE_NOT_SCIENTIFIC_CORPUS",
+  "instances": [
+    {
+      "instanceId": "TMP-INSTANCE:E4531747151A",
+      "mappings": [
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:ARCHIVE_MANIFEST:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "ARCHIVE_MANIFEST",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:ARCHIVE_MANIFEST",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:ARCHIVE_MANIFEST:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:BUDGET:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "BUDGET",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:BUDGET",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:BUDGET:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:CONSENT:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "CONSENT",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:CONSENT",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:CONSENT:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:CORE_LAB_MANUAL:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "CORE_LAB_MANUAL",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:CORE_LAB_MANUAL",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:CORE_LAB_MANUAL:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:CRF_SPECIFICATION:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "CRF_SPECIFICATION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:CRF_SPECIFICATION",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:CRF_SPECIFICATION:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:DATA_DICTIONARY:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "DATA_DICTIONARY",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:DATA_DICTIONARY",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:DATA_DICTIONARY:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:DATA_MANAGEMENT_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "DATA_MANAGEMENT_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:DATA_MANAGEMENT_PLAN",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:DATA_MANAGEMENT_PLAN:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:FUNDING_APPLICATION:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "FUNDING_APPLICATION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:FUNDING_APPLICATION",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:FUNDING_APPLICATION:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:IMAGING_CHARTER:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "IMAGING_CHARTER",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:IMAGING_CHARTER",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:IMAGING_CHARTER:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:INVESTIGATOR_BROCHURE:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "INVESTIGATOR_BROCHURE",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:INVESTIGATOR_BROCHURE",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:INVESTIGATOR_BROCHURE:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:MONITORING_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "MONITORING_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:MONITORING_PLAN",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:MONITORING_PLAN:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PATIENT_INFORMATION:SPECIFIC",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "PATIENT_INFORMATION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:PATIENT_INFORMATION",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:PATIENT_INFORMATION:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROTOCOL:SPECIFIC",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "PROTOCOL",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:PROTOCOL",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:PROTOCOL:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:PUBLICATION_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "PUBLICATION_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:PUBLICATION_PLAN",
+          "readiness": "PARTIAL",
+          "sectionIds": [
+            "TMP-SECTION-DEF:PUBLICATION_PLAN:PRIMARY"
+          ],
+          "status": "CONDITIONAL"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:QUALITY_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "QUALITY_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:QUALITY_PLAN",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:QUALITY_PLAN:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:REGISTRY_SUBMISSION:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "REGISTRY_SUBMISSION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:REGISTRY_SUBMISSION",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:REGISTRY_SUBMISSION:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:REGULATORY_SUBMISSION:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "REGULATORY_SUBMISSION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:REGULATORY_SUBMISSION",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:REGULATORY_SUBMISSION:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:RISK_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "RISK_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:RISK_PLAN",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:RISK_PLAN:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SAP:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "SAP",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:SAP",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:SAP:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:SITE_DOCUMENTS:SPECIFIC",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "SITE_DOCUMENTS",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:SITE_DOCUMENTS",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:SITE_DOCUMENTS:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:STUDY_REPORT:SPECIFIC",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "STUDY_REPORT",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:STUDY_REPORT",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:STUDY_REPORT:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:SYNOPSIS:SPECIFIC",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "SYNOPSIS",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:SYNOPSIS",
+          "readiness": "PARTIAL",
+          "sectionIds": [
+            "TMP-SECTION-DEF:SYNOPSIS:PRIMARY"
+          ],
+          "status": "CONDITIONAL"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:TRAINING_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "TRAINING_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:TRAINING_PLAN",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:TRAINING_PLAN:PRIMARY"
+          ],
+          "status": "FUTURE"
+        }
+      ]
+    },
+    {
+      "instanceId": "TMP-INSTANCE:6DEFEDAD4CF7",
+      "mappings": [
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:ARCHIVE_MANIFEST:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "ARCHIVE_MANIFEST",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:ARCHIVE_MANIFEST",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:ARCHIVE_MANIFEST:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:BUDGET:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "BUDGET",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:BUDGET",
+          "readiness": "BLOCKED",
+          "sectionIds": [
+            "TMP-SECTION-DEF:BUDGET:PRIMARY"
+          ],
+          "status": "BLOCKED"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:CONSENT:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "CONSENT",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:CONSENT",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:CONSENT:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:CORE_LAB_MANUAL:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "CORE_LAB_MANUAL",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:CORE_LAB_MANUAL",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:CORE_LAB_MANUAL:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:CRF_SPECIFICATION:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "CRF_SPECIFICATION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:CRF_SPECIFICATION",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:CRF_SPECIFICATION:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:DATA_DICTIONARY:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "DATA_DICTIONARY",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:DATA_DICTIONARY",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:DATA_DICTIONARY:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:DATA_MANAGEMENT_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "DATA_MANAGEMENT_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:DATA_MANAGEMENT_PLAN",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:DATA_MANAGEMENT_PLAN:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:FUNDING_APPLICATION:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "FUNDING_APPLICATION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:FUNDING_APPLICATION",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:FUNDING_APPLICATION:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:IMAGING_CHARTER:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "IMAGING_CHARTER",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:IMAGING_CHARTER",
+          "readiness": "PARTIAL",
+          "sectionIds": [
+            "TMP-SECTION-DEF:IMAGING_CHARTER:PRIMARY"
+          ],
+          "status": "CONDITIONAL"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:INVESTIGATOR_BROCHURE:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "INVESTIGATOR_BROCHURE",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:INVESTIGATOR_BROCHURE",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:INVESTIGATOR_BROCHURE:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:MONITORING_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "MONITORING_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:MONITORING_PLAN",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:MONITORING_PLAN:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PATIENT_INFORMATION:SPECIFIC",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "PATIENT_INFORMATION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:PATIENT_INFORMATION",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:PATIENT_INFORMATION:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROTOCOL:SPECIFIC",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "PROTOCOL",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:PROTOCOL",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:PROTOCOL:PRIMARY"
+          ],
+          "status": "REQUIRED"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:PUBLICATION_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "PUBLICATION_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:PUBLICATION_PLAN",
+          "readiness": "PARTIAL",
+          "sectionIds": [
+            "TMP-SECTION-DEF:PUBLICATION_PLAN:PRIMARY"
+          ],
+          "status": "CONDITIONAL"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:QUALITY_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "QUALITY_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:QUALITY_PLAN",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:QUALITY_PLAN:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:REGISTRY_SUBMISSION:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "REGISTRY_SUBMISSION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:REGISTRY_SUBMISSION",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:REGISTRY_SUBMISSION:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:REGULATORY_SUBMISSION:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "REGULATORY_SUBMISSION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:REGULATORY_SUBMISSION",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:REGULATORY_SUBMISSION:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:RISK_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "RISK_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:RISK_PLAN",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:RISK_PLAN:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SAP:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "SAP",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:SAP",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:SAP:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:SITE_DOCUMENTS:SPECIFIC",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "SITE_DOCUMENTS",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:SITE_DOCUMENTS",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:SITE_DOCUMENTS:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:STUDY_REPORT:SPECIFIC",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "STUDY_REPORT",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:STUDY_REPORT",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:STUDY_REPORT:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:SYNOPSIS:SPECIFIC",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "SYNOPSIS",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:SYNOPSIS",
+          "readiness": "PARTIAL",
+          "sectionIds": [
+            "TMP-SECTION-DEF:SYNOPSIS:PRIMARY"
+          ],
+          "status": "CONDITIONAL"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:TRAINING_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "TRAINING_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:TRAINING_PLAN",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:TRAINING_PLAN:PRIMARY"
+          ],
+          "status": "FUTURE"
+        }
+      ]
+    },
+    {
+      "instanceId": "TMP-INSTANCE:0DCAC27D4EFA",
+      "mappings": [
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:ARCHIVE_MANIFEST:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "ARCHIVE_MANIFEST",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:ARCHIVE_MANIFEST",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:ARCHIVE_MANIFEST:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:BUDGET:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "BUDGET",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:BUDGET",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:BUDGET:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:CONSENT:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "CONSENT",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:CONSENT",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:CONSENT:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:CORE_LAB_MANUAL:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "CORE_LAB_MANUAL",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:CORE_LAB_MANUAL",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:CORE_LAB_MANUAL:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:CRF_SPECIFICATION:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "CRF_SPECIFICATION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:CRF_SPECIFICATION",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:CRF_SPECIFICATION:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:DATA_DICTIONARY:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "DATA_DICTIONARY",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:DATA_DICTIONARY",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:DATA_DICTIONARY:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:DATA_MANAGEMENT_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "DATA_MANAGEMENT_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:DATA_MANAGEMENT_PLAN",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:DATA_MANAGEMENT_PLAN:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:FUNDING_APPLICATION:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "FUNDING_APPLICATION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:FUNDING_APPLICATION",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:FUNDING_APPLICATION:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:IMAGING_CHARTER:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "IMAGING_CHARTER",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:IMAGING_CHARTER",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:IMAGING_CHARTER:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:INVESTIGATOR_BROCHURE:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "INVESTIGATOR_BROCHURE",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:INVESTIGATOR_BROCHURE",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:INVESTIGATOR_BROCHURE:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:MONITORING_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "MONITORING_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:MONITORING_PLAN",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:MONITORING_PLAN:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PATIENT_INFORMATION:SPECIFIC",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "PATIENT_INFORMATION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:PATIENT_INFORMATION",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:PATIENT_INFORMATION:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROTOCOL:SPECIFIC",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "PROTOCOL",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:PROTOCOL",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:PROTOCOL:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:PUBLICATION_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "PUBLICATION_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:PUBLICATION_PLAN",
+          "readiness": "PARTIAL",
+          "sectionIds": [
+            "TMP-SECTION-DEF:PUBLICATION_PLAN:PRIMARY"
+          ],
+          "status": "CONDITIONAL"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:QUALITY_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "QUALITY_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:QUALITY_PLAN",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:QUALITY_PLAN:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:REGISTRY_SUBMISSION:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "REGISTRY_SUBMISSION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:REGISTRY_SUBMISSION",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:REGISTRY_SUBMISSION:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:REGULATORY_SUBMISSION:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "REGULATORY_SUBMISSION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:REGULATORY_SUBMISSION",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:REGULATORY_SUBMISSION:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:RISK_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "RISK_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:RISK_PLAN",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:RISK_PLAN:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SAP:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "SAP",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:SAP",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:SAP:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:SITE_DOCUMENTS:SPECIFIC",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "SITE_DOCUMENTS",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:SITE_DOCUMENTS",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:SITE_DOCUMENTS:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:STUDY_REPORT:SPECIFIC",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "STUDY_REPORT",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:STUDY_REPORT",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:STUDY_REPORT:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:SYNOPSIS:SPECIFIC",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "SYNOPSIS",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:SYNOPSIS",
+          "readiness": "PARTIAL",
+          "sectionIds": [
+            "TMP-SECTION-DEF:SYNOPSIS:PRIMARY"
+          ],
+          "status": "CONDITIONAL"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:TRAINING_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "TRAINING_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:TRAINING_PLAN",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:TRAINING_PLAN:PRIMARY"
+          ],
+          "status": "FUTURE"
+        }
+      ]
+    },
+    {
+      "instanceId": "TMP-INSTANCE:19299CD14C0E",
+      "mappings": [
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:ARCHIVE_MANIFEST:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "ARCHIVE_MANIFEST",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:ARCHIVE_MANIFEST",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:ARCHIVE_MANIFEST:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:BUDGET:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "BUDGET",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:BUDGET",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:BUDGET:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:CONSENT:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "CONSENT",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:CONSENT",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:CONSENT:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:CORE_LAB_MANUAL:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "CORE_LAB_MANUAL",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:CORE_LAB_MANUAL",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:CORE_LAB_MANUAL:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:CRF_SPECIFICATION:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "CRF_SPECIFICATION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:CRF_SPECIFICATION",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:CRF_SPECIFICATION:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:DATA_DICTIONARY:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "DATA_DICTIONARY",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:DATA_DICTIONARY",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:DATA_DICTIONARY:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:DATA_MANAGEMENT_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "DATA_MANAGEMENT_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:DATA_MANAGEMENT_PLAN",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:DATA_MANAGEMENT_PLAN:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:FUNDING_APPLICATION:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "FUNDING_APPLICATION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:FUNDING_APPLICATION",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:FUNDING_APPLICATION:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:IMAGING_CHARTER:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "IMAGING_CHARTER",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:IMAGING_CHARTER",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:IMAGING_CHARTER:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:INVESTIGATOR_BROCHURE:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "INVESTIGATOR_BROCHURE",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:INVESTIGATOR_BROCHURE",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:INVESTIGATOR_BROCHURE:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:MONITORING_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "MONITORING_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:MONITORING_PLAN",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:MONITORING_PLAN:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PATIENT_INFORMATION:SPECIFIC",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "PATIENT_INFORMATION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:PATIENT_INFORMATION",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:PATIENT_INFORMATION:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROTOCOL:SPECIFIC",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "PROTOCOL",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:PROTOCOL",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:PROTOCOL:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:PUBLICATION_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "PUBLICATION_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:PUBLICATION_PLAN",
+          "readiness": "PARTIAL",
+          "sectionIds": [
+            "TMP-SECTION-DEF:PUBLICATION_PLAN:PRIMARY"
+          ],
+          "status": "CONDITIONAL"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:QUALITY_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "QUALITY_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:QUALITY_PLAN",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:QUALITY_PLAN:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:REGISTRY_SUBMISSION:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "REGISTRY_SUBMISSION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:REGISTRY_SUBMISSION",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:REGISTRY_SUBMISSION:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:REGULATORY_SUBMISSION:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "REGULATORY_SUBMISSION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:REGULATORY_SUBMISSION",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:REGULATORY_SUBMISSION:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:RISK_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "RISK_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:RISK_PLAN",
+          "readiness": "CONFLICTING",
+          "sectionIds": [
+            "TMP-SECTION-DEF:RISK_PLAN:PRIMARY"
+          ],
+          "status": "CONFLICTING"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SAP:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "SAP",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:SAP",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:SAP:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:SITE_DOCUMENTS:SPECIFIC",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "SITE_DOCUMENTS",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:SITE_DOCUMENTS",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:SITE_DOCUMENTS:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:STUDY_REPORT:SPECIFIC",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "STUDY_REPORT",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:STUDY_REPORT",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:STUDY_REPORT:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:SYNOPSIS:SPECIFIC",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "SYNOPSIS",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:SYNOPSIS",
+          "readiness": "PARTIAL",
+          "sectionIds": [
+            "TMP-SECTION-DEF:SYNOPSIS:PRIMARY"
+          ],
+          "status": "CONDITIONAL"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:TRAINING_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "TRAINING_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:TRAINING_PLAN",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:TRAINING_PLAN:PRIMARY"
+          ],
+          "status": "FUTURE"
+        }
+      ]
+    },
+    {
+      "instanceId": "TMP-INSTANCE:F68B1E216B6C",
+      "mappings": [
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:ARCHIVE_MANIFEST:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "ARCHIVE_MANIFEST",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:ARCHIVE_MANIFEST",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:ARCHIVE_MANIFEST:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:BUDGET:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "BUDGET",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:BUDGET",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:BUDGET:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:CONSENT:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "CONSENT",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:CONSENT",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:CONSENT:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:CORE_LAB_MANUAL:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "CORE_LAB_MANUAL",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:CORE_LAB_MANUAL",
+          "readiness": "BLOCKED",
+          "sectionIds": [
+            "TMP-SECTION-DEF:CORE_LAB_MANUAL:PRIMARY"
+          ],
+          "status": "BLOCKED"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:CRF_SPECIFICATION:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "CRF_SPECIFICATION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:CRF_SPECIFICATION",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:CRF_SPECIFICATION:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:DATA_DICTIONARY:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "DATA_DICTIONARY",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:DATA_DICTIONARY",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:DATA_DICTIONARY:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:DATA_MANAGEMENT_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "DATA_MANAGEMENT_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:DATA_MANAGEMENT_PLAN",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:DATA_MANAGEMENT_PLAN:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:FUNDING_APPLICATION:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "FUNDING_APPLICATION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:FUNDING_APPLICATION",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:FUNDING_APPLICATION:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:IMAGING_CHARTER:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "IMAGING_CHARTER",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:IMAGING_CHARTER",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:IMAGING_CHARTER:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:INVESTIGATOR_BROCHURE:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "INVESTIGATOR_BROCHURE",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:INVESTIGATOR_BROCHURE",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:INVESTIGATOR_BROCHURE:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:MONITORING_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "MONITORING_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:MONITORING_PLAN",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:MONITORING_PLAN:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PATIENT_INFORMATION:SPECIFIC",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "PATIENT_INFORMATION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:PATIENT_INFORMATION",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:PATIENT_INFORMATION:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROTOCOL:SPECIFIC",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "PROTOCOL",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:PROTOCOL",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:PROTOCOL:PRIMARY"
+          ],
+          "status": "REQUIRED"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:PUBLICATION_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "PUBLICATION_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:PUBLICATION_PLAN",
+          "readiness": "PARTIAL",
+          "sectionIds": [
+            "TMP-SECTION-DEF:PUBLICATION_PLAN:PRIMARY"
+          ],
+          "status": "CONDITIONAL"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:QUALITY_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "QUALITY_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:QUALITY_PLAN",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:QUALITY_PLAN:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:REGISTRY_SUBMISSION:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "REGISTRY_SUBMISSION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:REGISTRY_SUBMISSION",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:REGISTRY_SUBMISSION:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:REGULATORY_SUBMISSION:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "REGULATORY_SUBMISSION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:REGULATORY_SUBMISSION",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:REGULATORY_SUBMISSION:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:RISK_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "RISK_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:RISK_PLAN",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:RISK_PLAN:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SAP:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "SAP",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:SAP",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:SAP:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:SITE_DOCUMENTS:SPECIFIC",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "SITE_DOCUMENTS",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:SITE_DOCUMENTS",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:SITE_DOCUMENTS:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:STUDY_REPORT:SPECIFIC",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "STUDY_REPORT",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:STUDY_REPORT",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:STUDY_REPORT:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:SYNOPSIS:SPECIFIC",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "SYNOPSIS",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:SYNOPSIS",
+          "readiness": "PARTIAL",
+          "sectionIds": [
+            "TMP-SECTION-DEF:SYNOPSIS:PRIMARY"
+          ],
+          "status": "CONDITIONAL"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:TRAINING_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "TRAINING_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:TRAINING_PLAN",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:TRAINING_PLAN:PRIMARY"
+          ],
+          "status": "FUTURE"
+        }
+      ]
+    },
+    {
+      "instanceId": "TMP-INSTANCE:650D89A94EB5",
+      "mappings": [
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:ARCHIVE_MANIFEST:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "ARCHIVE_MANIFEST",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:ARCHIVE_MANIFEST",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:ARCHIVE_MANIFEST:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:BUDGET:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "BUDGET",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:BUDGET",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:BUDGET:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:CONSENT:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "CONSENT",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:CONSENT",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:CONSENT:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:CORE_LAB_MANUAL:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "CORE_LAB_MANUAL",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:CORE_LAB_MANUAL",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:CORE_LAB_MANUAL:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:CRF_SPECIFICATION:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "CRF_SPECIFICATION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:CRF_SPECIFICATION",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:CRF_SPECIFICATION:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:DATA_DICTIONARY:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "DATA_DICTIONARY",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:DATA_DICTIONARY",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:DATA_DICTIONARY:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:DATA_MANAGEMENT_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "DATA_MANAGEMENT_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:DATA_MANAGEMENT_PLAN",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:DATA_MANAGEMENT_PLAN:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:FUNDING_APPLICATION:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "FUNDING_APPLICATION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:FUNDING_APPLICATION",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:FUNDING_APPLICATION:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:IMAGING_CHARTER:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "IMAGING_CHARTER",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:IMAGING_CHARTER",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:IMAGING_CHARTER:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:INVESTIGATOR_BROCHURE:SPECIFIC",
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "INVESTIGATOR_BROCHURE",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:INVESTIGATOR_BROCHURE",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:INVESTIGATOR_BROCHURE:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:MONITORING_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "MONITORING_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:MONITORING_PLAN",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:MONITORING_PLAN:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PATIENT_INFORMATION:SPECIFIC",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "PATIENT_INFORMATION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:PATIENT_INFORMATION",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:PATIENT_INFORMATION:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROTOCOL:SPECIFIC",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "PROTOCOL",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:PROTOCOL",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:PROTOCOL:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:PUBLICATION_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "PUBLICATION_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:PUBLICATION_PLAN",
+          "readiness": "PARTIAL",
+          "sectionIds": [
+            "TMP-SECTION-DEF:PUBLICATION_PLAN:PRIMARY"
+          ],
+          "status": "CONDITIONAL"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:QUALITY_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "QUALITY_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:QUALITY_PLAN",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:QUALITY_PLAN:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:REGISTRY_SUBMISSION:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "REGISTRY_SUBMISSION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:REGISTRY_SUBMISSION",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:REGISTRY_SUBMISSION:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:REGULATORY_SUBMISSION:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "REGULATORY_SUBMISSION",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:REGULATORY_SUBMISSION",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:REGULATORY_SUBMISSION:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:RISK_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "RISK_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:RISK_PLAN",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:RISK_PLAN:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SAP:SPECIFIC",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "SAP",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:SAP",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:SAP:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:SITE_DOCUMENTS:SPECIFIC",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "SITE_DOCUMENTS",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:SITE_DOCUMENTS",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:SITE_DOCUMENTS:PRIMARY"
+          ],
+          "status": "FUTURE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:STUDY_REPORT:SPECIFIC",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "STUDY_REPORT",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:STUDY_REPORT",
+          "readiness": "COMPLETE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:STUDY_REPORT:PRIMARY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:SYNOPSIS:SPECIFIC",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "SYNOPSIS",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:SYNOPSIS",
+          "readiness": "PARTIAL",
+          "sectionIds": [
+            "TMP-SECTION-DEF:SYNOPSIS:PRIMARY"
+          ],
+          "status": "CONDITIONAL"
+        },
+        {
+          "blockIds": [
+            "TMP-BLOCK-DEF:LIMITATIONS",
+            "TMP-BLOCK-DEF:PROJECT_IDENTITY",
+            "TMP-BLOCK-DEF:PROVENANCE",
+            "TMP-BLOCK-DEF:SCIENTIFIC_QUESTION",
+            "TMP-BLOCK-DEF:TRAINING_PLAN:SPECIFIC",
+            "TMP-BLOCK-DEF:UNKNOWNS"
+          ],
+          "boundary": "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION",
+          "documentId": "TRAINING_PLAN",
+          "futureConsumer": "DOC-001",
+          "nodeId": "TMP-DOC:TRAINING_PLAN",
+          "readiness": "FUTURE",
+          "sectionIds": [
+            "TMP-SECTION-DEF:TRAINING_PLAN:PRIMARY"
+          ],
+          "status": "FUTURE"
+        }
+      ]
+    }
+  ],
+  "notice": "Ces instances prouvent les contrats TMP-001. Elles ne décrivent aucune étude réelle et ne valent ni protocole, ni recommandation, ni qualification réglementaire."
+}

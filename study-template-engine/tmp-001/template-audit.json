@@ -1,0 +1,91 @@
+{
+  "auditVersion": "TMP-001-AUDIT-1.0.0",
+  "boundary": "DETECTION_ONLY_NO_AUTOMATIC_FIX",
+  "catalogAudit": {
+    "auditVersion": "TMP-001-AUDIT-1.0.0",
+    "boundary": "DETECTION_ONLY_NO_AUTOMATIC_FIX",
+    "counts": {
+      "ERROR": 0,
+      "INFORMATION": 0,
+      "WARNING": 0
+    },
+    "findings": [],
+    "passed": true,
+    "subjectId": "TMP-STUDY:CLINICAL-STUDY"
+  },
+  "instanceAudits": [
+    {
+      "auditVersion": "TMP-001-AUDIT-1.0.0",
+      "boundary": "DETECTION_ONLY_NO_AUTOMATIC_FIX",
+      "counts": {
+        "ERROR": 0,
+        "INFORMATION": 0,
+        "WARNING": 0
+      },
+      "findings": [],
+      "passed": true,
+      "subjectId": "TMP-INSTANCE:E4531747151A"
+    },
+    {
+      "auditVersion": "TMP-001-AUDIT-1.0.0",
+      "boundary": "DETECTION_ONLY_NO_AUTOMATIC_FIX",
+      "counts": {
+        "ERROR": 0,
+        "INFORMATION": 0,
+        "WARNING": 0
+      },
+      "findings": [],
+      "passed": true,
+      "subjectId": "TMP-INSTANCE:6DEFEDAD4CF7"
+    },
+    {
+      "auditVersion": "TMP-001-AUDIT-1.0.0",
+      "boundary": "DETECTION_ONLY_NO_AUTOMATIC_FIX",
+      "counts": {
+        "ERROR": 0,
+        "INFORMATION": 0,
+        "WARNING": 0
+      },
+      "findings": [],
+      "passed": true,
+      "subjectId": "TMP-INSTANCE:0DCAC27D4EFA"
+    },
+    {
+      "auditVersion": "TMP-001-AUDIT-1.0.0",
+      "boundary": "DETECTION_ONLY_NO_AUTOMATIC_FIX",
+      "counts": {
+        "ERROR": 0,
+        "INFORMATION": 0,
+        "WARNING": 0
+      },
+      "findings": [],
+      "passed": true,
+      "subjectId": "TMP-INSTANCE:19299CD14C0E"
+    },
+    {
+      "auditVersion": "TMP-001-AUDIT-1.0.0",
+      "boundary": "DETECTION_ONLY_NO_AUTOMATIC_FIX",
+      "counts": {
+        "ERROR": 0,
+        "INFORMATION": 0,
+        "WARNING": 0
+      },
+      "findings": [],
+      "passed": true,
+      "subjectId": "TMP-INSTANCE:F68B1E216B6C"
+    },
+    {
+      "auditVersion": "TMP-001-AUDIT-1.0.0",
+      "boundary": "DETECTION_ONLY_NO_AUTOMATIC_FIX",
+      "counts": {
+        "ERROR": 0,
+        "INFORMATION": 0,
+        "WARNING": 0
+      },
+      "findings": [],
+      "passed": true,
+      "subjectId": "TMP-INSTANCE:650D89A94EB5"
+    }
+  ],
+  "passed": true
+}
