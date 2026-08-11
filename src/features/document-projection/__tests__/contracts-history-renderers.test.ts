@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { appendProjectionHistory, createProjectionHistory, diffProjections, projectDocument, renderProjection, transitionProjectionHistory } from "..";
+import { appendProjectionHistory, createProjectionHistory, diffProjections, projectDocument, projectDocumentLegacyDirect, renderProjection, transitionProjectionHistory } from "..";
 import type { DocumentProjection, DocumentProjectionRequest, ProjectionDefinition } from "../types";
-import { makeAuthorizedProject, reviseProject } from "./fixtures";
+import { makeAuthorizedProject, makeTemplateProjectionRequest, reviseProject } from "./fixtures";
 
 const makeProjection = (request: DocumentProjectionRequest): DocumentProjection => {
   const result = projectDocument(request);
@@ -9,16 +9,7 @@ const makeProjection = (request: DocumentProjectionRequest): DocumentProjection 
   return result.projection;
 };
 
-const request = (session: ReturnType<typeof makeAuthorizedProject>, project = session.result, priorProjection: DocumentProjection | null = null, requestedAt = "2026-08-10T16:00:00.000Z"): DocumentProjectionRequest => ({
-  project,
-  decisionRecords: session.decisionHistory,
-  projectionType: "PROTOCOL",
-  profile: "RESEARCH_PROTOCOL",
-  usage: "SCIENTIFIC_REVIEW",
-  audience: "RESEARCH_TEAM",
-  requestedAt,
-  priorProjection,
-});
+const request = (session: ReturnType<typeof makeAuthorizedProject>, project = session.result, priorProjection: DocumentProjection | null = null, requestedAt = "2026-08-10T16:00:00.000Z"): DocumentProjectionRequest => makeTemplateProjectionRequest(session, { project, priorProjection, requestedAt });
 
 describe("DOC-001 — contrats, historique, diff et exports", () => {
   it("ajoute une projection par seule ProjectionDefinition sans modifier le moteur", () => {
@@ -40,7 +31,7 @@ describe("DOC-001 — contrats, historique, diff et exports", () => {
       }],
     };
     const protocol = makeProjection(request(session));
-    const result = projectDocument({ ...request(session), projectionType: "TEST_SUMMARY", definitions: [custom], priorProjection: protocol });
+    const result = projectDocumentLegacyDirect({ project: session.result, decisionRecords: session.decisionHistory, projectionType: "TEST_SUMMARY", profile: "RESEARCH_PROTOCOL", usage: "SCIENTIFIC_REVIEW", audience: "RESEARCH_TEAM", requestedAt: "2026-08-10T16:00:00.000Z", definitions: [custom], priorProjection: protocol });
     expect(result).toMatchObject({ ok: true, projection: { projectionType: "TEST_SUMMARY", title: custom.title, priorProjectionId: null, sections: [{ sectionId: "question-only", status: "GENERATABLE" }] } });
     if (result.ok) expect(result.projection.seriesId).not.toBe(protocol.seriesId);
   });

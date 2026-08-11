@@ -138,6 +138,17 @@ export const planSection = (project: Readonly<ResearchProjectDesignResult>, defi
     contradictions,
     humanDecisionIds: linkedDecisions(project, definition).map((decision) => decision.gateId).sort(),
     provenanceRefs: uniqueSorted([...commonProvenance, ...facts.map((item) => item.sourceRef)]),
+    templateNodeIds: [],
+    templateSectionIds: [],
+    templateBlockIds: [],
+    projectObjectIds: uniqueSorted(facts.map((item) => item.sourceRef)),
+    requirementIds: [],
+    patternIds: [],
+    sourceEngine: definition.specializedEngine ?? "PRJ-001",
+    templateStatus: null,
+    templateReadiness: null,
+    futureReason: null,
+    conflicts: [],
   };
 };
 

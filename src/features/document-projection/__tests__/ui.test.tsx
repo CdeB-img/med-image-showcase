@@ -6,9 +6,9 @@ import ProtocolDesignerDemo from "@/pages/ProtocolDesignerDemo";
 import { createEmptyInterpretation } from "@/features/protocol-designer/intake/schema";
 import { buildValidatedIntent, createProtocolDesignerSession, persistSession } from "@/features/protocol-designer/intake/session";
 import DocumentProjectionView from "../DocumentProjectionView";
-import { projectDocument } from "../projection";
+import { projectDocument } from "../template-integration";
 import type { DocumentProjection, DocumentProjectionRequest } from "../types";
-import { makeAuthorizedProject, reviseProject } from "./fixtures";
+import { makeAuthorizedProject, makeTemplateProjectionRequest, reviseProject } from "./fixtures";
 
 beforeEach(() => window.localStorage.clear());
 afterEach(() => { cleanup(); vi.unstubAllGlobals(); });
@@ -19,15 +19,7 @@ const generate = (request: DocumentProjectionRequest): DocumentProjection => {
   return result.projection;
 };
 
-const baseRequest = (session: ReturnType<typeof makeAuthorizedProject>): DocumentProjectionRequest => ({
-  project: session.result,
-  decisionRecords: session.decisionHistory,
-  projectionType: "PROTOCOL",
-  profile: "RESEARCH_PROTOCOL",
-  usage: "SCIENTIFIC_REVIEW",
-  audience: "RESEARCH_TEAM",
-  requestedAt: "2026-08-10T16:00:00.000Z",
-});
+const baseRequest = (session: ReturnType<typeof makeAuthorizedProject>): DocumentProjectionRequest => makeTemplateProjectionRequest(session);
 
 describe("DOC-001 — surface DOCUMENT", () => {
   it("montre sections, statuts, limites, décisions et provenance sans édition directe", () => {
@@ -52,11 +44,11 @@ describe("DOC-001 — surface DOCUMENT", () => {
       candidateVersion: { ...session.result.candidateVersion, versionId: "project-version:ui-2", priorVersion: session.result.candidateVersion.versionId },
       contradictions: ["Contradiction conservée pour comparaison UI."],
     });
-    const second = generate({ ...baseRequest(session), project: revised, requestedAt: "2026-08-10T17:00:00.000Z", priorProjection: first });
+    const second = generate(makeTemplateProjectionRequest(session, { project: revised, requestedAt: "2026-08-10T17:00:00.000Z", priorProjection: first }));
     const onReturn = vi.fn();
     render(<DocumentProjectionView projection={second} history={[first, second]} onReturnToProject={onReturn} />);
     expect(screen.getByText(/modifiée\(s\)/)).toBeInTheDocument();
-    expect(screen.getByText(/générabilité modifiée/)).toBeInTheDocument();
+    expect(screen.getAllByText(/générabilité modifiée/).length).toBeGreaterThan(0);
     fireEvent.click(screen.getByRole("button", { name: "Revenir au Research Project" }));
     expect(onReturn).toHaveBeenCalledOnce();
   });

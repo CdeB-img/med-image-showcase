@@ -16,7 +16,9 @@ export const nextProjectionVersion = (
   const technicalChange = prior.versions.engine !== versions.engine
     || prior.versions.template !== versions.template
     || prior.versions.pattern !== versions.pattern
-    || prior.versions.compositionPolicy !== versions.compositionPolicy;
+    || prior.versions.compositionPolicy !== versions.compositionPolicy
+    || prior.versions.projectionDefinition !== versions.projectionDefinition
+    || prior.versions.renderer !== versions.renderer;
   return technicalChange ? bump(prior.projectionVersion, "patch") : prior.projectionVersion;
 };
 
@@ -35,6 +37,8 @@ export const isDeterministicReplay = (
   && prior.versions.template === versions.template
   && prior.versions.pattern === versions.pattern
   && prior.versions.compositionPolicy === versions.compositionPolicy
+  && prior.versions.projectionDefinition === versions.projectionDefinition
+  && prior.versions.renderer === versions.renderer
   && prior.profile === profile
   && prior.usage === usage
   && prior.audience === audience);
