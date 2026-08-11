@@ -1,0 +1,59 @@
+{
+  "blockCount": 43,
+  "byBlockStatus": {
+    "BLOCKED": 4,
+    "CONDITIONAL": 116,
+    "CONFLICTING": 1,
+    "FUTURE": 275,
+    "NOT_APPLICABLE": 108,
+    "OPTIONAL": 1,
+    "REQUIRED": 46,
+    "UNKNOWN": 1
+  },
+  "byNodeKind": {
+    "ANNEX": 1,
+    "BLOCK": 6,
+    "CONDITIONAL_BLOCK": 4,
+    "DECISION": 1,
+    "DOCUMENT": 23,
+    "FUTURE_BLOCK": 19,
+    "OPTIONAL_BLOCK": 1,
+    "REFERENCE": 4,
+    "REQUIRED_BLOCK": 7,
+    "SECTION": 23,
+    "SUBSECTION": 1,
+    "TABLE": 1,
+    "WORKFLOW": 1
+  },
+  "byReadiness": {
+    "BLOCKED": 4,
+    "COMPLETE": 155,
+    "CONFLICTING": 1,
+    "FUTURE": 275,
+    "PARTIAL": 116,
+    "UNKNOWN": 1
+  },
+  "byRelationType": {
+    "CONTAINS": 132,
+    "DEPENDS_ON": 20,
+    "FOLLOWS": 1,
+    "GENERALIZES": 1,
+    "GENERATES": 23,
+    "OPTIONALLY_REQUIRES": 2,
+    "PRECEDES": 1,
+    "REQUIRES": 2,
+    "SPECIALIZES": 1,
+    "USES_PATTERN": 23,
+    "USES_PROJECT_OBJECT": 23,
+    "USES_REQUIREMENT": 23
+  },
+  "documentCount": 23,
+  "familyCount": 13,
+  "instanceCount": 6,
+  "nodeCount": 92,
+  "provenanceCoveragePercent": 100,
+  "relationCount": 252,
+  "reusableBlockCount": 20,
+  "sectionCount": 23,
+  "templateCount": 1
+}

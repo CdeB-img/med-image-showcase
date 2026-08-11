@@ -1,0 +1,2163 @@
+{
+  "dataStatus": "ILLUSTRATIVE_TECHNICAL_FIXTURE_NOT_SCIENTIFIC_CORPUS",
+  "instances": [
+    {
+      "instanceId": "TMP-INSTANCE:E4531747151A",
+      "mappings": [
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucune donnée personnelle de santé dans le scénario de base.",
+          "requirementId": "REQ_CNIL_MR_ANNEXES",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_CNIL_MR_ANNEXES",
+            "SRC_CNIL_MR_UPDATE_2026"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucune donnée personnelle de santé dans le scénario de base.",
+          "requirementId": "REQ_CNIL_MR_ROUTE",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_CNIL_MR_ROUTE",
+            "SRC_CNIL_MR001_2026",
+            "SRC_CNIL_MR003_2026"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucune randomisation déclarée.",
+          "requirementId": "REQ_CONSORT_2025",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_CONSORT_2025",
+            "SRC_SPIRIT_CONSORT_2025"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction EU_EEA n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_ECRIN_RED_INFORMATIONAL",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_ECRIN_RED_INFORMATIONAL",
+            "SRC_ECRIN_RED"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction EU_EEA n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_EU_CTR_APPLICATION_DOSSIER",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_EU_CTR_APPLICATION_DOSSIER",
+            "SRC_EMA_CTIS_2026",
+            "SRC_EU_CTR_536_2014"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction EU_EEA n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_EU_CTR_CTIS",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_EU_CTR_CTIS",
+            "SRC_EC_CTR_CTIS_2025",
+            "SRC_EU_CTR_536_2014"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_ANSM_RIPH1_AUTHORIZATION",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_FR_ANSM_RIPH1_AUTHORIZATION",
+            "SRC_FR_CSP_L1121_4"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_CPP_OPINION",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_FR_CPP_OPINION",
+            "SRC_FR_CSP_L1121_4",
+            "SRC_FR_CSP_L1123_6"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:PROTOCOL:SPECIFIC",
+            "TMP-DOC:PROTOCOL",
+            "TMP-SECTION:PROTOCOL:PRIMARY"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_CPP_PROTOCOL",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_FR_CPP_PROTOCOL",
+            "SRC_FR_CSP_R1123_20"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_RIPH_CLASSIFICATION",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_FR_RIPH_CLASSIFICATION",
+            "SRC_FR_CSP_L1121_1"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:CONSENT:SPECIFIC",
+            "TMP-DOC:CONSENT",
+            "TMP-SECTION:CONSENT:PRIMARY"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
+            "SRC_FR_CSP_L1122_1_1"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Absence d’intervention explicitement déclarée.",
+          "requirementId": "REQ_ICH_E6_R3",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_ICH_E6_R3",
+            "SRC_ICH_E6_R3_2025"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction US n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_NIH_TRIAL_DISSEMINATION",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_NIH_TRIAL_DISSEMINATION",
+            "SRC_NIH_DISSEMINATION_POLICY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La date 2026-08-10 est hors de la période 2025-07-02/2025-12-09.",
+          "requirementId": "REQ_PHRC_STAGE1",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_PHRC_STAGE1",
+            "SRC_DGOS_NOTE_2025_90",
+            "SRC_DGOS_PHRC_2025_2026"
+          ],
+          "status": "OUTSIDE_EFFECTIVE_PERIOD"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:PROTOCOL:SPECIFIC",
+            "TMP-DOC:PROTOCOL",
+            "TMP-SECTION:PROTOCOL:PRIMARY"
+          ],
+          "reason": "La date 2026-08-10 est hors de la période 2025-12-10/2026-06-16.",
+          "requirementId": "REQ_PHRC_STAGE2",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_PHRC_STAGE2",
+            "SRC_DGOS_NOTE_2025_90",
+            "SRC_DGOS_PHRC_2025_2026"
+          ],
+          "status": "OUTSIDE_EFFECTIVE_PERIOD"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucun type de rapport déclaré.",
+          "requirementId": "REQ_PRISMA_2020",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_PRISMA_2020",
+            "SRC_PRISMA_2020"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucune donnée courante déclarée.",
+          "requirementId": "REQ_RECORD",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_RECORD",
+            "SRC_EQUATOR_RECORD"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La date 2026-08-10 est hors de la période 2023-01-02/2023-04-13.",
+          "requirementId": "REQ_RHU_V6_ANNEXES",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_RHU_V6_ANNEXES",
+            "SRC_ANR_RHU_V6_2023"
+          ],
+          "status": "OUTSIDE_EFFECTIVE_PERIOD"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La date 2026-08-10 est hors de la période 2023-01-02/2023-04-13.",
+          "requirementId": "REQ_RHU_V6_COMPLETE_DOSSIER",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_RHU_V6_COMPLETE_DOSSIER",
+            "SRC_ANR_RHU_V6_2023"
+          ],
+          "status": "OUTSIDE_EFFECTIVE_PERIOD"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:PROTOCOL:SPECIFIC",
+            "TMP-DOC:PROTOCOL",
+            "TMP-SECTION:PROTOCOL:PRIMARY"
+          ],
+          "reason": "Aucune randomisation déclarée.",
+          "requirementId": "REQ_SPIRIT_2025",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_SPIRIT_2025",
+            "SRC_SPIRIT_CONSORT_2025"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucun type de rapport déclaré.",
+          "requirementId": "REQ_STARD",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_STARD",
+            "SRC_EQUATOR_STARD"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:STUDY_REPORT:SPECIFIC",
+            "TMP-DOC:STUDY_REPORT",
+            "TMP-SECTION:STUDY_REPORT:PRIMARY"
+          ],
+          "reason": "Aucun livrable documentaire n’est demandé dans le scénario de base.",
+          "requirementId": "REQ_STROBE",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_STROBE",
+            "SRC_EQUATOR_STROBE"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:STUDY_REPORT:SPECIFIC",
+            "TMP-DOC:STUDY_REPORT",
+            "TMP-SECTION:STUDY_REPORT:PRIMARY"
+          ],
+          "reason": "Aucun type de rapport déclaré.",
+          "requirementId": "REQ_TRIPOD",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_TRIPOD",
+            "SRC_EQUATOR_TRIPOD"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction US n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_US_ACT_REGISTRATION_RESULTS",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_US_ACT_REGISTRATION_RESULTS",
+            "SRC_CLINICALTRIALS_FINAL_RULE"
+          ],
+          "status": "NOT_APPLICABLE"
+        }
+      ]
+    },
+    {
+      "instanceId": "TMP-INSTANCE:6DEFEDAD4CF7",
+      "mappings": [
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La date 2026-01-15 est hors de la période 2026-05-23/OPEN.",
+          "requirementId": "REQ_CNIL_MR_ANNEXES",
+          "sourceRefs": [
+            "ke1-40ba687c4aefa298",
+            "ke1-4c6e2f78e5d86c14",
+            "REQ_CNIL_MR_ANNEXES",
+            "SRC_CNIL_MR_UPDATE_2026"
+          ],
+          "status": "OUTSIDE_EFFECTIVE_PERIOD"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La date 2026-01-15 est hors de la période 2026-05-23/OPEN.",
+          "requirementId": "REQ_CNIL_MR_ROUTE",
+          "sourceRefs": [
+            "ke1-40ba687c4aefa298",
+            "ke1-4c6e2f78e5d86c14",
+            "REQ_CNIL_MR_ROUTE",
+            "SRC_CNIL_MR001_2026",
+            "SRC_CNIL_MR003_2026"
+          ],
+          "status": "OUTSIDE_EFFECTIVE_PERIOD"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucune randomisation déclarée.",
+          "requirementId": "REQ_CONSORT_2025",
+          "sourceRefs": [
+            "ke1-40ba687c4aefa298",
+            "ke1-4c6e2f78e5d86c14",
+            "REQ_CONSORT_2025",
+            "SRC_SPIRIT_CONSORT_2025"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction EU_EEA n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_ECRIN_RED_INFORMATIONAL",
+          "sourceRefs": [
+            "ke1-40ba687c4aefa298",
+            "ke1-4c6e2f78e5d86c14",
+            "REQ_ECRIN_RED_INFORMATIONAL",
+            "SRC_ECRIN_RED"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction EU_EEA n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_EU_CTR_APPLICATION_DOSSIER",
+          "sourceRefs": [
+            "ke1-40ba687c4aefa298",
+            "ke1-4c6e2f78e5d86c14",
+            "REQ_EU_CTR_APPLICATION_DOSSIER",
+            "SRC_EMA_CTIS_2026",
+            "SRC_EU_CTR_536_2014"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction EU_EEA n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_EU_CTR_CTIS",
+          "sourceRefs": [
+            "ke1-40ba687c4aefa298",
+            "ke1-4c6e2f78e5d86c14",
+            "REQ_EU_CTR_CTIS",
+            "SRC_EC_CTR_CTIS_2025",
+            "SRC_EU_CTR_536_2014"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_ANSM_RIPH1_AUTHORIZATION",
+          "sourceRefs": [
+            "ke1-40ba687c4aefa298",
+            "ke1-4c6e2f78e5d86c14",
+            "REQ_FR_ANSM_RIPH1_AUTHORIZATION",
+            "SRC_FR_CSP_L1121_4"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_CPP_OPINION",
+          "sourceRefs": [
+            "ke1-40ba687c4aefa298",
+            "ke1-4c6e2f78e5d86c14",
+            "REQ_FR_CPP_OPINION",
+            "SRC_FR_CSP_L1121_4",
+            "SRC_FR_CSP_L1123_6"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:PROTOCOL:SPECIFIC",
+            "TMP-DOC:PROTOCOL",
+            "TMP-SECTION:PROTOCOL:PRIMARY"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_CPP_PROTOCOL",
+          "sourceRefs": [
+            "ke1-40ba687c4aefa298",
+            "ke1-4c6e2f78e5d86c14",
+            "REQ_FR_CPP_PROTOCOL",
+            "SRC_FR_CSP_R1123_20"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_RIPH_CLASSIFICATION",
+          "sourceRefs": [
+            "ke1-40ba687c4aefa298",
+            "ke1-4c6e2f78e5d86c14",
+            "REQ_FR_RIPH_CLASSIFICATION",
+            "SRC_FR_CSP_L1121_1"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:CONSENT:SPECIFIC",
+            "TMP-DOC:CONSENT",
+            "TMP-SECTION:CONSENT:PRIMARY"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
+          "sourceRefs": [
+            "ke1-40ba687c4aefa298",
+            "ke1-4c6e2f78e5d86c14",
+            "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
+            "SRC_FR_CSP_L1122_1_1"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Absence d’intervention explicitement déclarée.",
+          "requirementId": "REQ_ICH_E6_R3",
+          "sourceRefs": [
+            "ke1-40ba687c4aefa298",
+            "ke1-4c6e2f78e5d86c14",
+            "REQ_ICH_E6_R3",
+            "SRC_ICH_E6_R3_2025"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction US n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_NIH_TRIAL_DISSEMINATION",
+          "sourceRefs": [
+            "ke1-40ba687c4aefa298",
+            "ke1-4c6e2f78e5d86c14",
+            "REQ_NIH_TRIAL_DISSEMINATION",
+            "SRC_NIH_DISSEMINATION_POLICY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La date 2026-01-15 est hors de la période 2025-07-02/2025-12-09.",
+          "requirementId": "REQ_PHRC_STAGE1",
+          "sourceRefs": [
+            "ke1-40ba687c4aefa298",
+            "ke1-4c6e2f78e5d86c14",
+            "REQ_PHRC_STAGE1",
+            "SRC_DGOS_NOTE_2025_90",
+            "SRC_DGOS_PHRC_2025_2026"
+          ],
+          "status": "OUTSIDE_EFFECTIVE_PERIOD"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:BUDGET:SPECIFIC",
+            "TMP-BLOCK:PROTOCOL:SPECIFIC",
+            "TMP-DOC:BUDGET",
+            "TMP-DOC:PROTOCOL",
+            "TMP-SECTION:BUDGET:PRIMARY",
+            "TMP-SECTION:PROTOCOL:PRIMARY"
+          ],
+          "reason": "Exigence de financement FUND_PHRC_N.",
+          "requirementId": "REQ_PHRC_STAGE2",
+          "sourceRefs": [
+            "ke1-40ba687c4aefa298",
+            "ke1-4c6e2f78e5d86c14",
+            "REQ_PHRC_STAGE2",
+            "SRC_DGOS_NOTE_2025_90",
+            "SRC_DGOS_PHRC_2025_2026"
+          ],
+          "status": "APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucun type de rapport déclaré.",
+          "requirementId": "REQ_PRISMA_2020",
+          "sourceRefs": [
+            "ke1-40ba687c4aefa298",
+            "ke1-4c6e2f78e5d86c14",
+            "REQ_PRISMA_2020",
+            "SRC_PRISMA_2020"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucune donnée courante déclarée.",
+          "requirementId": "REQ_RECORD",
+          "sourceRefs": [
+            "ke1-40ba687c4aefa298",
+            "ke1-4c6e2f78e5d86c14",
+            "REQ_RECORD",
+            "SRC_EQUATOR_RECORD"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La date 2026-01-15 est hors de la période 2023-01-02/2023-04-13.",
+          "requirementId": "REQ_RHU_V6_ANNEXES",
+          "sourceRefs": [
+            "ke1-40ba687c4aefa298",
+            "ke1-4c6e2f78e5d86c14",
+            "REQ_RHU_V6_ANNEXES",
+            "SRC_ANR_RHU_V6_2023"
+          ],
+          "status": "OUTSIDE_EFFECTIVE_PERIOD"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La date 2026-01-15 est hors de la période 2023-01-02/2023-04-13.",
+          "requirementId": "REQ_RHU_V6_COMPLETE_DOSSIER",
+          "sourceRefs": [
+            "ke1-40ba687c4aefa298",
+            "ke1-4c6e2f78e5d86c14",
+            "REQ_RHU_V6_COMPLETE_DOSSIER",
+            "SRC_ANR_RHU_V6_2023"
+          ],
+          "status": "OUTSIDE_EFFECTIVE_PERIOD"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:PROTOCOL:SPECIFIC",
+            "TMP-DOC:PROTOCOL",
+            "TMP-SECTION:PROTOCOL:PRIMARY"
+          ],
+          "reason": "Aucune randomisation déclarée.",
+          "requirementId": "REQ_SPIRIT_2025",
+          "sourceRefs": [
+            "ke1-40ba687c4aefa298",
+            "ke1-4c6e2f78e5d86c14",
+            "REQ_SPIRIT_2025",
+            "SRC_SPIRIT_CONSORT_2025"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucun type de rapport déclaré.",
+          "requirementId": "REQ_STARD",
+          "sourceRefs": [
+            "ke1-40ba687c4aefa298",
+            "ke1-4c6e2f78e5d86c14",
+            "REQ_STARD",
+            "SRC_EQUATOR_STARD"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:STUDY_REPORT:SPECIFIC",
+            "TMP-DOC:STUDY_REPORT",
+            "TMP-SECTION:STUDY_REPORT:PRIMARY"
+          ],
+          "reason": "Aucun livrable documentaire n’est demandé dans le scénario de base.",
+          "requirementId": "REQ_STROBE",
+          "sourceRefs": [
+            "ke1-40ba687c4aefa298",
+            "ke1-4c6e2f78e5d86c14",
+            "REQ_STROBE",
+            "SRC_EQUATOR_STROBE"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:STUDY_REPORT:SPECIFIC",
+            "TMP-DOC:STUDY_REPORT",
+            "TMP-SECTION:STUDY_REPORT:PRIMARY"
+          ],
+          "reason": "Aucun type de rapport déclaré.",
+          "requirementId": "REQ_TRIPOD",
+          "sourceRefs": [
+            "ke1-40ba687c4aefa298",
+            "ke1-4c6e2f78e5d86c14",
+            "REQ_TRIPOD",
+            "SRC_EQUATOR_TRIPOD"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction US n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_US_ACT_REGISTRATION_RESULTS",
+          "sourceRefs": [
+            "ke1-40ba687c4aefa298",
+            "ke1-4c6e2f78e5d86c14",
+            "REQ_US_ACT_REGISTRATION_RESULTS",
+            "SRC_CLINICALTRIALS_FINAL_RULE"
+          ],
+          "status": "NOT_APPLICABLE"
+        }
+      ]
+    },
+    {
+      "instanceId": "TMP-INSTANCE:0DCAC27D4EFA",
+      "mappings": [
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucune donnée personnelle de santé dans le scénario de base.",
+          "requirementId": "REQ_CNIL_MR_ANNEXES",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_CNIL_MR_ANNEXES",
+            "SRC_CNIL_MR_UPDATE_2026"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucune donnée personnelle de santé dans le scénario de base.",
+          "requirementId": "REQ_CNIL_MR_ROUTE",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_CNIL_MR_ROUTE",
+            "SRC_CNIL_MR001_2026",
+            "SRC_CNIL_MR003_2026"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucune randomisation déclarée.",
+          "requirementId": "REQ_CONSORT_2025",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_CONSORT_2025",
+            "SRC_SPIRIT_CONSORT_2025"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction EU_EEA n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_ECRIN_RED_INFORMATIONAL",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_ECRIN_RED_INFORMATIONAL",
+            "SRC_ECRIN_RED"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction EU_EEA n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_EU_CTR_APPLICATION_DOSSIER",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_EU_CTR_APPLICATION_DOSSIER",
+            "SRC_EMA_CTIS_2026",
+            "SRC_EU_CTR_536_2014"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction EU_EEA n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_EU_CTR_CTIS",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_EU_CTR_CTIS",
+            "SRC_EC_CTR_CTIS_2025",
+            "SRC_EU_CTR_536_2014"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_ANSM_RIPH1_AUTHORIZATION",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_FR_ANSM_RIPH1_AUTHORIZATION",
+            "SRC_FR_CSP_L1121_4"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_CPP_OPINION",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_FR_CPP_OPINION",
+            "SRC_FR_CSP_L1121_4",
+            "SRC_FR_CSP_L1123_6"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:PROTOCOL:SPECIFIC",
+            "TMP-DOC:PROTOCOL",
+            "TMP-SECTION:PROTOCOL:PRIMARY"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_CPP_PROTOCOL",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_FR_CPP_PROTOCOL",
+            "SRC_FR_CSP_R1123_20"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_RIPH_CLASSIFICATION",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_FR_RIPH_CLASSIFICATION",
+            "SRC_FR_CSP_L1121_1"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:CONSENT:SPECIFIC",
+            "TMP-DOC:CONSENT",
+            "TMP-SECTION:CONSENT:PRIMARY"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
+            "SRC_FR_CSP_L1122_1_1"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Absence d’intervention explicitement déclarée.",
+          "requirementId": "REQ_ICH_E6_R3",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_ICH_E6_R3",
+            "SRC_ICH_E6_R3_2025"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction US n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_NIH_TRIAL_DISSEMINATION",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_NIH_TRIAL_DISSEMINATION",
+            "SRC_NIH_DISSEMINATION_POLICY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La date 2026-08-10 est hors de la période 2025-07-02/2025-12-09.",
+          "requirementId": "REQ_PHRC_STAGE1",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_PHRC_STAGE1",
+            "SRC_DGOS_NOTE_2025_90",
+            "SRC_DGOS_PHRC_2025_2026"
+          ],
+          "status": "OUTSIDE_EFFECTIVE_PERIOD"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:PROTOCOL:SPECIFIC",
+            "TMP-DOC:PROTOCOL",
+            "TMP-SECTION:PROTOCOL:PRIMARY"
+          ],
+          "reason": "La date 2026-08-10 est hors de la période 2025-12-10/2026-06-16.",
+          "requirementId": "REQ_PHRC_STAGE2",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_PHRC_STAGE2",
+            "SRC_DGOS_NOTE_2025_90",
+            "SRC_DGOS_PHRC_2025_2026"
+          ],
+          "status": "OUTSIDE_EFFECTIVE_PERIOD"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucun type de rapport déclaré.",
+          "requirementId": "REQ_PRISMA_2020",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_PRISMA_2020",
+            "SRC_PRISMA_2020"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucune donnée courante déclarée.",
+          "requirementId": "REQ_RECORD",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_RECORD",
+            "SRC_EQUATOR_RECORD"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La date 2026-08-10 est hors de la période 2023-01-02/2023-04-13.",
+          "requirementId": "REQ_RHU_V6_ANNEXES",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_RHU_V6_ANNEXES",
+            "SRC_ANR_RHU_V6_2023"
+          ],
+          "status": "OUTSIDE_EFFECTIVE_PERIOD"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La date 2026-08-10 est hors de la période 2023-01-02/2023-04-13.",
+          "requirementId": "REQ_RHU_V6_COMPLETE_DOSSIER",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_RHU_V6_COMPLETE_DOSSIER",
+            "SRC_ANR_RHU_V6_2023"
+          ],
+          "status": "OUTSIDE_EFFECTIVE_PERIOD"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:PROTOCOL:SPECIFIC",
+            "TMP-DOC:PROTOCOL",
+            "TMP-SECTION:PROTOCOL:PRIMARY"
+          ],
+          "reason": "Aucune randomisation déclarée.",
+          "requirementId": "REQ_SPIRIT_2025",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_SPIRIT_2025",
+            "SRC_SPIRIT_CONSORT_2025"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucun type de rapport déclaré.",
+          "requirementId": "REQ_STARD",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_STARD",
+            "SRC_EQUATOR_STARD"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:STUDY_REPORT:SPECIFIC",
+            "TMP-DOC:STUDY_REPORT",
+            "TMP-SECTION:STUDY_REPORT:PRIMARY"
+          ],
+          "reason": "Aucun livrable documentaire n’est demandé dans le scénario de base.",
+          "requirementId": "REQ_STROBE",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_STROBE",
+            "SRC_EQUATOR_STROBE"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:STUDY_REPORT:SPECIFIC",
+            "TMP-DOC:STUDY_REPORT",
+            "TMP-SECTION:STUDY_REPORT:PRIMARY"
+          ],
+          "reason": "Aucun type de rapport déclaré.",
+          "requirementId": "REQ_TRIPOD",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_TRIPOD",
+            "SRC_EQUATOR_TRIPOD"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction US n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_US_ACT_REGISTRATION_RESULTS",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_US_ACT_REGISTRATION_RESULTS",
+            "SRC_CLINICALTRIALS_FINAL_RULE"
+          ],
+          "status": "NOT_APPLICABLE"
+        }
+      ]
+    },
+    {
+      "instanceId": "TMP-INSTANCE:19299CD14C0E",
+      "mappings": [
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucune donnée personnelle de santé dans le scénario de base.",
+          "requirementId": "REQ_CNIL_MR_ANNEXES",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_CNIL_MR_ANNEXES",
+            "SRC_CNIL_MR_UPDATE_2026"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucune donnée personnelle de santé dans le scénario de base.",
+          "requirementId": "REQ_CNIL_MR_ROUTE",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_CNIL_MR_ROUTE",
+            "SRC_CNIL_MR001_2026",
+            "SRC_CNIL_MR003_2026"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucune randomisation déclarée.",
+          "requirementId": "REQ_CONSORT_2025",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_CONSORT_2025",
+            "SRC_SPIRIT_CONSORT_2025"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction EU_EEA n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_ECRIN_RED_INFORMATIONAL",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_ECRIN_RED_INFORMATIONAL",
+            "SRC_ECRIN_RED"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction EU_EEA n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_EU_CTR_APPLICATION_DOSSIER",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_EU_CTR_APPLICATION_DOSSIER",
+            "SRC_EMA_CTIS_2026",
+            "SRC_EU_CTR_536_2014"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction EU_EEA n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_EU_CTR_CTIS",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_EU_CTR_CTIS",
+            "SRC_EC_CTR_CTIS_2025",
+            "SRC_EU_CTR_536_2014"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_ANSM_RIPH1_AUTHORIZATION",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_FR_ANSM_RIPH1_AUTHORIZATION",
+            "SRC_FR_CSP_L1121_4"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_CPP_OPINION",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_FR_CPP_OPINION",
+            "SRC_FR_CSP_L1121_4",
+            "SRC_FR_CSP_L1123_6"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:PROTOCOL:SPECIFIC",
+            "TMP-DOC:PROTOCOL",
+            "TMP-SECTION:PROTOCOL:PRIMARY"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_CPP_PROTOCOL",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_FR_CPP_PROTOCOL",
+            "SRC_FR_CSP_R1123_20"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_RIPH_CLASSIFICATION",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_FR_RIPH_CLASSIFICATION",
+            "SRC_FR_CSP_L1121_1"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:CONSENT:SPECIFIC",
+            "TMP-DOC:CONSENT",
+            "TMP-SECTION:CONSENT:PRIMARY"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
+            "SRC_FR_CSP_L1122_1_1"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Absence d’intervention explicitement déclarée.",
+          "requirementId": "REQ_ICH_E6_R3",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_ICH_E6_R3",
+            "SRC_ICH_E6_R3_2025"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction US n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_NIH_TRIAL_DISSEMINATION",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_NIH_TRIAL_DISSEMINATION",
+            "SRC_NIH_DISSEMINATION_POLICY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La date 2026-08-10 est hors de la période 2025-07-02/2025-12-09.",
+          "requirementId": "REQ_PHRC_STAGE1",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_PHRC_STAGE1",
+            "SRC_DGOS_NOTE_2025_90",
+            "SRC_DGOS_PHRC_2025_2026"
+          ],
+          "status": "OUTSIDE_EFFECTIVE_PERIOD"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:PROTOCOL:SPECIFIC",
+            "TMP-DOC:PROTOCOL",
+            "TMP-SECTION:PROTOCOL:PRIMARY"
+          ],
+          "reason": "La date 2026-08-10 est hors de la période 2025-12-10/2026-06-16.",
+          "requirementId": "REQ_PHRC_STAGE2",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_PHRC_STAGE2",
+            "SRC_DGOS_NOTE_2025_90",
+            "SRC_DGOS_PHRC_2025_2026"
+          ],
+          "status": "OUTSIDE_EFFECTIVE_PERIOD"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucun type de rapport déclaré.",
+          "requirementId": "REQ_PRISMA_2020",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_PRISMA_2020",
+            "SRC_PRISMA_2020"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucune donnée courante déclarée.",
+          "requirementId": "REQ_RECORD",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_RECORD",
+            "SRC_EQUATOR_RECORD"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La date 2026-08-10 est hors de la période 2023-01-02/2023-04-13.",
+          "requirementId": "REQ_RHU_V6_ANNEXES",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_RHU_V6_ANNEXES",
+            "SRC_ANR_RHU_V6_2023"
+          ],
+          "status": "OUTSIDE_EFFECTIVE_PERIOD"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La date 2026-08-10 est hors de la période 2023-01-02/2023-04-13.",
+          "requirementId": "REQ_RHU_V6_COMPLETE_DOSSIER",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_RHU_V6_COMPLETE_DOSSIER",
+            "SRC_ANR_RHU_V6_2023"
+          ],
+          "status": "OUTSIDE_EFFECTIVE_PERIOD"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:PROTOCOL:SPECIFIC",
+            "TMP-DOC:PROTOCOL",
+            "TMP-SECTION:PROTOCOL:PRIMARY"
+          ],
+          "reason": "Aucune randomisation déclarée.",
+          "requirementId": "REQ_SPIRIT_2025",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_SPIRIT_2025",
+            "SRC_SPIRIT_CONSORT_2025"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucun type de rapport déclaré.",
+          "requirementId": "REQ_STARD",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_STARD",
+            "SRC_EQUATOR_STARD"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:STUDY_REPORT:SPECIFIC",
+            "TMP-DOC:STUDY_REPORT",
+            "TMP-SECTION:STUDY_REPORT:PRIMARY"
+          ],
+          "reason": "Aucun livrable documentaire n’est demandé dans le scénario de base.",
+          "requirementId": "REQ_STROBE",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_STROBE",
+            "SRC_EQUATOR_STROBE"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:STUDY_REPORT:SPECIFIC",
+            "TMP-DOC:STUDY_REPORT",
+            "TMP-SECTION:STUDY_REPORT:PRIMARY"
+          ],
+          "reason": "Aucun type de rapport déclaré.",
+          "requirementId": "REQ_TRIPOD",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_TRIPOD",
+            "SRC_EQUATOR_TRIPOD"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction US n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_US_ACT_REGISTRATION_RESULTS",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_US_ACT_REGISTRATION_RESULTS",
+            "SRC_CLINICALTRIALS_FINAL_RULE"
+          ],
+          "status": "NOT_APPLICABLE"
+        }
+      ]
+    },
+    {
+      "instanceId": "TMP-INSTANCE:F68B1E216B6C",
+      "mappings": [
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucune donnée personnelle de santé dans le scénario de base.",
+          "requirementId": "REQ_CNIL_MR_ANNEXES",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_CNIL_MR_ANNEXES",
+            "SRC_CNIL_MR_UPDATE_2026"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucune donnée personnelle de santé dans le scénario de base.",
+          "requirementId": "REQ_CNIL_MR_ROUTE",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_CNIL_MR_ROUTE",
+            "SRC_CNIL_MR001_2026",
+            "SRC_CNIL_MR003_2026"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucune randomisation déclarée.",
+          "requirementId": "REQ_CONSORT_2025",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_CONSORT_2025",
+            "SRC_SPIRIT_CONSORT_2025"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction EU_EEA n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_ECRIN_RED_INFORMATIONAL",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_ECRIN_RED_INFORMATIONAL",
+            "SRC_ECRIN_RED"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction EU_EEA n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_EU_CTR_APPLICATION_DOSSIER",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_EU_CTR_APPLICATION_DOSSIER",
+            "SRC_EMA_CTIS_2026",
+            "SRC_EU_CTR_536_2014"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction EU_EEA n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_EU_CTR_CTIS",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_EU_CTR_CTIS",
+            "SRC_EC_CTR_CTIS_2025",
+            "SRC_EU_CTR_536_2014"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_ANSM_RIPH1_AUTHORIZATION",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_FR_ANSM_RIPH1_AUTHORIZATION",
+            "SRC_FR_CSP_L1121_4"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_CPP_OPINION",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_FR_CPP_OPINION",
+            "SRC_FR_CSP_L1121_4",
+            "SRC_FR_CSP_L1123_6"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:PROTOCOL:SPECIFIC",
+            "TMP-DOC:PROTOCOL",
+            "TMP-SECTION:PROTOCOL:PRIMARY"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_CPP_PROTOCOL",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_FR_CPP_PROTOCOL",
+            "SRC_FR_CSP_R1123_20"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_RIPH_CLASSIFICATION",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_FR_RIPH_CLASSIFICATION",
+            "SRC_FR_CSP_L1121_1"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:CONSENT:SPECIFIC",
+            "TMP-DOC:CONSENT",
+            "TMP-SECTION:CONSENT:PRIMARY"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
+            "SRC_FR_CSP_L1122_1_1"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Absence d’intervention explicitement déclarée.",
+          "requirementId": "REQ_ICH_E6_R3",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_ICH_E6_R3",
+            "SRC_ICH_E6_R3_2025"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction US n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_NIH_TRIAL_DISSEMINATION",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_NIH_TRIAL_DISSEMINATION",
+            "SRC_NIH_DISSEMINATION_POLICY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La date 2026-08-10 est hors de la période 2025-07-02/2025-12-09.",
+          "requirementId": "REQ_PHRC_STAGE1",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_PHRC_STAGE1",
+            "SRC_DGOS_NOTE_2025_90",
+            "SRC_DGOS_PHRC_2025_2026"
+          ],
+          "status": "OUTSIDE_EFFECTIVE_PERIOD"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:PROTOCOL:SPECIFIC",
+            "TMP-DOC:PROTOCOL",
+            "TMP-SECTION:PROTOCOL:PRIMARY"
+          ],
+          "reason": "La date 2026-08-10 est hors de la période 2025-12-10/2026-06-16.",
+          "requirementId": "REQ_PHRC_STAGE2",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_PHRC_STAGE2",
+            "SRC_DGOS_NOTE_2025_90",
+            "SRC_DGOS_PHRC_2025_2026"
+          ],
+          "status": "OUTSIDE_EFFECTIVE_PERIOD"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucun type de rapport déclaré.",
+          "requirementId": "REQ_PRISMA_2020",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_PRISMA_2020",
+            "SRC_PRISMA_2020"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucune donnée courante déclarée.",
+          "requirementId": "REQ_RECORD",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_RECORD",
+            "SRC_EQUATOR_RECORD"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La date 2026-08-10 est hors de la période 2023-01-02/2023-04-13.",
+          "requirementId": "REQ_RHU_V6_ANNEXES",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_RHU_V6_ANNEXES",
+            "SRC_ANR_RHU_V6_2023"
+          ],
+          "status": "OUTSIDE_EFFECTIVE_PERIOD"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La date 2026-08-10 est hors de la période 2023-01-02/2023-04-13.",
+          "requirementId": "REQ_RHU_V6_COMPLETE_DOSSIER",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_RHU_V6_COMPLETE_DOSSIER",
+            "SRC_ANR_RHU_V6_2023"
+          ],
+          "status": "OUTSIDE_EFFECTIVE_PERIOD"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:PROTOCOL:SPECIFIC",
+            "TMP-DOC:PROTOCOL",
+            "TMP-SECTION:PROTOCOL:PRIMARY"
+          ],
+          "reason": "Aucune randomisation déclarée.",
+          "requirementId": "REQ_SPIRIT_2025",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_SPIRIT_2025",
+            "SRC_SPIRIT_CONSORT_2025"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucun type de rapport déclaré.",
+          "requirementId": "REQ_STARD",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_STARD",
+            "SRC_EQUATOR_STARD"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:STUDY_REPORT:SPECIFIC",
+            "TMP-DOC:STUDY_REPORT",
+            "TMP-SECTION:STUDY_REPORT:PRIMARY"
+          ],
+          "reason": "Aucun livrable documentaire n’est demandé dans le scénario de base.",
+          "requirementId": "REQ_STROBE",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_STROBE",
+            "SRC_EQUATOR_STROBE"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:STUDY_REPORT:SPECIFIC",
+            "TMP-DOC:STUDY_REPORT",
+            "TMP-SECTION:STUDY_REPORT:PRIMARY"
+          ],
+          "reason": "Aucun type de rapport déclaré.",
+          "requirementId": "REQ_TRIPOD",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_TRIPOD",
+            "SRC_EQUATOR_TRIPOD"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction US n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_US_ACT_REGISTRATION_RESULTS",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_US_ACT_REGISTRATION_RESULTS",
+            "SRC_CLINICALTRIALS_FINAL_RULE"
+          ],
+          "status": "NOT_APPLICABLE"
+        }
+      ]
+    },
+    {
+      "instanceId": "TMP-INSTANCE:650D89A94EB5",
+      "mappings": [
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucune donnée personnelle de santé dans le scénario de base.",
+          "requirementId": "REQ_CNIL_MR_ANNEXES",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_CNIL_MR_ANNEXES",
+            "SRC_CNIL_MR_UPDATE_2026"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucune donnée personnelle de santé dans le scénario de base.",
+          "requirementId": "REQ_CNIL_MR_ROUTE",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_CNIL_MR_ROUTE",
+            "SRC_CNIL_MR001_2026",
+            "SRC_CNIL_MR003_2026"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucune randomisation déclarée.",
+          "requirementId": "REQ_CONSORT_2025",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_CONSORT_2025",
+            "SRC_SPIRIT_CONSORT_2025"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction EU_EEA n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_ECRIN_RED_INFORMATIONAL",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_ECRIN_RED_INFORMATIONAL",
+            "SRC_ECRIN_RED"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction EU_EEA n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_EU_CTR_APPLICATION_DOSSIER",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_EU_CTR_APPLICATION_DOSSIER",
+            "SRC_EMA_CTIS_2026",
+            "SRC_EU_CTR_536_2014"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction EU_EEA n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_EU_CTR_CTIS",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_EU_CTR_CTIS",
+            "SRC_EC_CTR_CTIS_2025",
+            "SRC_EU_CTR_536_2014"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_ANSM_RIPH1_AUTHORIZATION",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_FR_ANSM_RIPH1_AUTHORIZATION",
+            "SRC_FR_CSP_L1121_4"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_CPP_OPINION",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_FR_CPP_OPINION",
+            "SRC_FR_CSP_L1121_4",
+            "SRC_FR_CSP_L1123_6"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:PROTOCOL:SPECIFIC",
+            "TMP-DOC:PROTOCOL",
+            "TMP-SECTION:PROTOCOL:PRIMARY"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_CPP_PROTOCOL",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_FR_CPP_PROTOCOL",
+            "SRC_FR_CSP_R1123_20"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_RIPH_CLASSIFICATION",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_FR_RIPH_CLASSIFICATION",
+            "SRC_FR_CSP_L1121_1"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:CONSENT:SPECIFIC",
+            "TMP-DOC:CONSENT",
+            "TMP-SECTION:CONSENT:PRIMARY"
+          ],
+          "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
+          "requirementId": "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
+            "SRC_FR_CSP_L1122_1_1"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Absence d’intervention explicitement déclarée.",
+          "requirementId": "REQ_ICH_E6_R3",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_ICH_E6_R3",
+            "SRC_ICH_E6_R3_2025"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction US n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_NIH_TRIAL_DISSEMINATION",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_NIH_TRIAL_DISSEMINATION",
+            "SRC_NIH_DISSEMINATION_POLICY"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La date 2026-08-10 est hors de la période 2025-07-02/2025-12-09.",
+          "requirementId": "REQ_PHRC_STAGE1",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_PHRC_STAGE1",
+            "SRC_DGOS_NOTE_2025_90",
+            "SRC_DGOS_PHRC_2025_2026"
+          ],
+          "status": "OUTSIDE_EFFECTIVE_PERIOD"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:PROTOCOL:SPECIFIC",
+            "TMP-DOC:PROTOCOL",
+            "TMP-SECTION:PROTOCOL:PRIMARY"
+          ],
+          "reason": "La date 2026-08-10 est hors de la période 2025-12-10/2026-06-16.",
+          "requirementId": "REQ_PHRC_STAGE2",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_PHRC_STAGE2",
+            "SRC_DGOS_NOTE_2025_90",
+            "SRC_DGOS_PHRC_2025_2026"
+          ],
+          "status": "OUTSIDE_EFFECTIVE_PERIOD"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucun type de rapport déclaré.",
+          "requirementId": "REQ_PRISMA_2020",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_PRISMA_2020",
+            "SRC_PRISMA_2020"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucune donnée courante déclarée.",
+          "requirementId": "REQ_RECORD",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_RECORD",
+            "SRC_EQUATOR_RECORD"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La date 2026-08-10 est hors de la période 2023-01-02/2023-04-13.",
+          "requirementId": "REQ_RHU_V6_ANNEXES",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_RHU_V6_ANNEXES",
+            "SRC_ANR_RHU_V6_2023"
+          ],
+          "status": "OUTSIDE_EFFECTIVE_PERIOD"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La date 2026-08-10 est hors de la période 2023-01-02/2023-04-13.",
+          "requirementId": "REQ_RHU_V6_COMPLETE_DOSSIER",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_RHU_V6_COMPLETE_DOSSIER",
+            "SRC_ANR_RHU_V6_2023"
+          ],
+          "status": "OUTSIDE_EFFECTIVE_PERIOD"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:PROTOCOL:SPECIFIC",
+            "TMP-DOC:PROTOCOL",
+            "TMP-SECTION:PROTOCOL:PRIMARY"
+          ],
+          "reason": "Aucune randomisation déclarée.",
+          "requirementId": "REQ_SPIRIT_2025",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_SPIRIT_2025",
+            "SRC_SPIRIT_CONSORT_2025"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "Aucun type de rapport déclaré.",
+          "requirementId": "REQ_STARD",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_STARD",
+            "SRC_EQUATOR_STARD"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:STUDY_REPORT:SPECIFIC",
+            "TMP-DOC:STUDY_REPORT",
+            "TMP-SECTION:STUDY_REPORT:PRIMARY"
+          ],
+          "reason": "Aucun livrable documentaire n’est demandé dans le scénario de base.",
+          "requirementId": "REQ_STROBE",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_STROBE",
+            "SRC_EQUATOR_STROBE"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-BLOCK:STUDY_REPORT:SPECIFIC",
+            "TMP-DOC:STUDY_REPORT",
+            "TMP-SECTION:STUDY_REPORT:PRIMARY"
+          ],
+          "reason": "Aucun type de rapport déclaré.",
+          "requirementId": "REQ_TRIPOD",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_TRIPOD",
+            "SRC_EQUATOR_TRIPOD"
+          ],
+          "status": "NOT_APPLICABLE"
+        },
+        {
+          "nodeIds": [
+            "TMP-NODE:REQUIREMENT_REGISTER"
+          ],
+          "reason": "La juridiction US n’est pas déclarée pour le projet ou ses centres.",
+          "requirementId": "REQ_US_ACT_REGISTRATION_RESULTS",
+          "sourceRefs": [
+            "ke1-011ec3ac86e623d8",
+            "ke1-40ba687c4aefa298",
+            "REQ_US_ACT_REGISTRATION_RESULTS",
+            "SRC_CLINICALTRIALS_FINAL_RULE"
+          ],
+          "status": "NOT_APPLICABLE"
+        }
+      ]
+    }
+  ],
+  "notice": "Ces instances prouvent les contrats TMP-001. Elles ne décrivent aucune étude réelle et ne valent ni protocole, ni recommandation, ni qualification réglementaire."
+}

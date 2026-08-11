@@ -1,0 +1,2100 @@
+{
+  "dataStatus": "ILLUSTRATIVE_TECHNICAL_FIXTURE_NOT_SCIENTIFIC_CORPUS",
+  "instances": [
+    {
+      "graph": {
+        "digest": "tmp1-efa43d7c4da9e998",
+        "edges": [
+          {
+            "fromId": "TMP-DOC:INVESTIGATOR_BROCHURE",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:18522315E928",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-NODE:ENDPOINTS",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La structure des critères conserve sa dépendance aux objectifs.",
+            "relationId": "TMP-REL:19DAFF4751B4",
+            "toId": "TMP-NODE:OBJECTIVES",
+            "type": "REQUIRES"
+          },
+          {
+            "fromId": "TMP-DOC:PATIENT_INFORMATION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:1C4A1ECBC23B",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:FUNDING_APPLICATION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Funding.",
+            "relationId": "TMP-REL:375B9CF7BB10",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:CONSENT",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Une exigence de consentement conserve son lien structurel avec l’information participant.",
+            "relationId": "TMP-REL:4527249BC68C",
+            "toId": "TMP-DOC:PATIENT_INFORMATION",
+            "type": "REQUIRES"
+          },
+          {
+            "fromId": "TMP-DOC:REGISTRY_SUBMISSION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:4F0DB403CF3D",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:CONSENT",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:53DB303124DB",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:CORE_LAB_MANUAL",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:5C6DC89DC484",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:DATA_DICTIONARY",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Data Management.",
+            "relationId": "TMP-REL:75EBF8F221D5",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:REGULATORY_SUBMISSION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:7662C2E475A9",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-NODE:OBJECTIVES",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Les objectifs structurés dépendent de la question gouvernée.",
+            "relationId": "TMP-REL:7D5C486C0B5C",
+            "toId": "TMP-NODE:SCIENTIFIC_QUESTION",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:ARCHIVE_MANIFEST",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:7EDC4D7D2945",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:SAP",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Biostatistics.",
+            "relationId": "TMP-REL:89F52C3F98E6",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:SITE_DOCUMENTS",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:9E96C5114D29",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:STUDY_REPORT",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Le rapport d’étude suit logiquement le protocole.",
+            "relationId": "TMP-REL:9F54A1A34945",
+            "toId": "TMP-DOC:PROTOCOL",
+            "type": "FOLLOWS"
+          },
+          {
+            "fromId": "TMP-DOC:CRF_SPECIFICATION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Data Management.",
+            "relationId": "TMP-REL:A4E1D29C8E41",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:BUDGET",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Economics.",
+            "relationId": "TMP-REL:A83D3EEE2F1F",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:SITE_DOCUMENTS",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Le besoin de formation doit rester conditionnel à une exigence ou décision explicite.",
+            "relationId": "TMP-REL:AA09EEC3CD4F",
+            "toId": "TMP-DOC:TRAINING_PLAN",
+            "type": "OPTIONALLY_REQUIRES"
+          },
+          {
+            "fromId": "TMP-NODE:HYPOTHESES",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Les hypothèses structurées dépendent de la question gouvernée.",
+            "relationId": "TMP-REL:AB6E43063BAC",
+            "toId": "TMP-NODE:SCIENTIFIC_QUESTION",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:TRAINING_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:B55C0DC31673",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:MONITORING_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:C171E9FF77D8",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:DATA_MANAGEMENT_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Data Management.",
+            "relationId": "TMP-REL:CE9D48DB50C8",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-NODE:REVIEW_NOTES",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Les notes de revue n’existent que sur décision humaine explicite.",
+            "relationId": "TMP-REL:D6485A0EEA93",
+            "toId": "TMP-NODE:HUMAN_DECISIONS",
+            "type": "OPTIONALLY_REQUIRES"
+          },
+          {
+            "fromId": "TMP-DOC:RISK_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Quality.",
+            "relationId": "TMP-REL:F32741FCE459",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:PROTOCOL",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Le rapport d’étude est logiquement postérieur au protocole.",
+            "relationId": "TMP-REL:F4FC0C485C3C",
+            "toId": "TMP-DOC:STUDY_REPORT",
+            "type": "PRECEDES"
+          },
+          {
+            "fromId": "TMP-DOC:QUALITY_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Quality.",
+            "relationId": "TMP-REL:F8B1F6FEE211",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          }
+        ],
+        "nodes": [
+          "TMP-DOC:ARCHIVE_MANIFEST",
+          "TMP-DOC:BUDGET",
+          "TMP-DOC:CONSENT",
+          "TMP-DOC:CORE_LAB_MANUAL",
+          "TMP-DOC:CRF_SPECIFICATION",
+          "TMP-DOC:DATA_DICTIONARY",
+          "TMP-DOC:DATA_MANAGEMENT_PLAN",
+          "TMP-DOC:FUNDING_APPLICATION",
+          "TMP-DOC:INVESTIGATOR_BROCHURE",
+          "TMP-DOC:MONITORING_PLAN",
+          "TMP-DOC:PATIENT_INFORMATION",
+          "TMP-DOC:PROTOCOL",
+          "TMP-DOC:QUALITY_PLAN",
+          "TMP-DOC:REGISTRY_SUBMISSION",
+          "TMP-DOC:REGULATORY_SUBMISSION",
+          "TMP-DOC:RISK_PLAN",
+          "TMP-DOC:SAP",
+          "TMP-DOC:SITE_DOCUMENTS",
+          "TMP-DOC:STUDY_REPORT",
+          "TMP-DOC:TRAINING_PLAN",
+          "TMP-NODE:ENDPOINTS",
+          "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+          "TMP-NODE:HUMAN_DECISIONS",
+          "TMP-NODE:HYPOTHESES",
+          "TMP-NODE:OBJECTIVES",
+          "TMP-NODE:REVIEW_NOTES",
+          "TMP-NODE:SCIENTIFIC_QUESTION"
+        ]
+      },
+      "instanceId": "TMP-INSTANCE:E4531747151A"
+    },
+    {
+      "graph": {
+        "digest": "tmp1-efa43d7c4da9e998",
+        "edges": [
+          {
+            "fromId": "TMP-DOC:INVESTIGATOR_BROCHURE",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:18522315E928",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-NODE:ENDPOINTS",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La structure des critères conserve sa dépendance aux objectifs.",
+            "relationId": "TMP-REL:19DAFF4751B4",
+            "toId": "TMP-NODE:OBJECTIVES",
+            "type": "REQUIRES"
+          },
+          {
+            "fromId": "TMP-DOC:PATIENT_INFORMATION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:1C4A1ECBC23B",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:FUNDING_APPLICATION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Funding.",
+            "relationId": "TMP-REL:375B9CF7BB10",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:CONSENT",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Une exigence de consentement conserve son lien structurel avec l’information participant.",
+            "relationId": "TMP-REL:4527249BC68C",
+            "toId": "TMP-DOC:PATIENT_INFORMATION",
+            "type": "REQUIRES"
+          },
+          {
+            "fromId": "TMP-DOC:REGISTRY_SUBMISSION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:4F0DB403CF3D",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:CONSENT",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:53DB303124DB",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:CORE_LAB_MANUAL",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:5C6DC89DC484",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:DATA_DICTIONARY",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Data Management.",
+            "relationId": "TMP-REL:75EBF8F221D5",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:REGULATORY_SUBMISSION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:7662C2E475A9",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-NODE:OBJECTIVES",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Les objectifs structurés dépendent de la question gouvernée.",
+            "relationId": "TMP-REL:7D5C486C0B5C",
+            "toId": "TMP-NODE:SCIENTIFIC_QUESTION",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:ARCHIVE_MANIFEST",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:7EDC4D7D2945",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:SAP",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Biostatistics.",
+            "relationId": "TMP-REL:89F52C3F98E6",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:SITE_DOCUMENTS",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:9E96C5114D29",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:STUDY_REPORT",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Le rapport d’étude suit logiquement le protocole.",
+            "relationId": "TMP-REL:9F54A1A34945",
+            "toId": "TMP-DOC:PROTOCOL",
+            "type": "FOLLOWS"
+          },
+          {
+            "fromId": "TMP-DOC:CRF_SPECIFICATION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Data Management.",
+            "relationId": "TMP-REL:A4E1D29C8E41",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:BUDGET",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Economics.",
+            "relationId": "TMP-REL:A83D3EEE2F1F",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:SITE_DOCUMENTS",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Le besoin de formation doit rester conditionnel à une exigence ou décision explicite.",
+            "relationId": "TMP-REL:AA09EEC3CD4F",
+            "toId": "TMP-DOC:TRAINING_PLAN",
+            "type": "OPTIONALLY_REQUIRES"
+          },
+          {
+            "fromId": "TMP-NODE:HYPOTHESES",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Les hypothèses structurées dépendent de la question gouvernée.",
+            "relationId": "TMP-REL:AB6E43063BAC",
+            "toId": "TMP-NODE:SCIENTIFIC_QUESTION",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:TRAINING_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:B55C0DC31673",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:MONITORING_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:C171E9FF77D8",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:DATA_MANAGEMENT_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Data Management.",
+            "relationId": "TMP-REL:CE9D48DB50C8",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-NODE:REVIEW_NOTES",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Les notes de revue n’existent que sur décision humaine explicite.",
+            "relationId": "TMP-REL:D6485A0EEA93",
+            "toId": "TMP-NODE:HUMAN_DECISIONS",
+            "type": "OPTIONALLY_REQUIRES"
+          },
+          {
+            "fromId": "TMP-DOC:RISK_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Quality.",
+            "relationId": "TMP-REL:F32741FCE459",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:PROTOCOL",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Le rapport d’étude est logiquement postérieur au protocole.",
+            "relationId": "TMP-REL:F4FC0C485C3C",
+            "toId": "TMP-DOC:STUDY_REPORT",
+            "type": "PRECEDES"
+          },
+          {
+            "fromId": "TMP-DOC:QUALITY_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Quality.",
+            "relationId": "TMP-REL:F8B1F6FEE211",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          }
+        ],
+        "nodes": [
+          "TMP-DOC:ARCHIVE_MANIFEST",
+          "TMP-DOC:BUDGET",
+          "TMP-DOC:CONSENT",
+          "TMP-DOC:CORE_LAB_MANUAL",
+          "TMP-DOC:CRF_SPECIFICATION",
+          "TMP-DOC:DATA_DICTIONARY",
+          "TMP-DOC:DATA_MANAGEMENT_PLAN",
+          "TMP-DOC:FUNDING_APPLICATION",
+          "TMP-DOC:INVESTIGATOR_BROCHURE",
+          "TMP-DOC:MONITORING_PLAN",
+          "TMP-DOC:PATIENT_INFORMATION",
+          "TMP-DOC:PROTOCOL",
+          "TMP-DOC:QUALITY_PLAN",
+          "TMP-DOC:REGISTRY_SUBMISSION",
+          "TMP-DOC:REGULATORY_SUBMISSION",
+          "TMP-DOC:RISK_PLAN",
+          "TMP-DOC:SAP",
+          "TMP-DOC:SITE_DOCUMENTS",
+          "TMP-DOC:STUDY_REPORT",
+          "TMP-DOC:TRAINING_PLAN",
+          "TMP-NODE:ENDPOINTS",
+          "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+          "TMP-NODE:HUMAN_DECISIONS",
+          "TMP-NODE:HYPOTHESES",
+          "TMP-NODE:OBJECTIVES",
+          "TMP-NODE:REVIEW_NOTES",
+          "TMP-NODE:SCIENTIFIC_QUESTION"
+        ]
+      },
+      "instanceId": "TMP-INSTANCE:6DEFEDAD4CF7"
+    },
+    {
+      "graph": {
+        "digest": "tmp1-efa43d7c4da9e998",
+        "edges": [
+          {
+            "fromId": "TMP-DOC:INVESTIGATOR_BROCHURE",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:18522315E928",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-NODE:ENDPOINTS",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La structure des critères conserve sa dépendance aux objectifs.",
+            "relationId": "TMP-REL:19DAFF4751B4",
+            "toId": "TMP-NODE:OBJECTIVES",
+            "type": "REQUIRES"
+          },
+          {
+            "fromId": "TMP-DOC:PATIENT_INFORMATION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:1C4A1ECBC23B",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:FUNDING_APPLICATION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Funding.",
+            "relationId": "TMP-REL:375B9CF7BB10",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:CONSENT",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Une exigence de consentement conserve son lien structurel avec l’information participant.",
+            "relationId": "TMP-REL:4527249BC68C",
+            "toId": "TMP-DOC:PATIENT_INFORMATION",
+            "type": "REQUIRES"
+          },
+          {
+            "fromId": "TMP-DOC:REGISTRY_SUBMISSION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:4F0DB403CF3D",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:CONSENT",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:53DB303124DB",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:CORE_LAB_MANUAL",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:5C6DC89DC484",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:DATA_DICTIONARY",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Data Management.",
+            "relationId": "TMP-REL:75EBF8F221D5",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:REGULATORY_SUBMISSION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:7662C2E475A9",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-NODE:OBJECTIVES",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Les objectifs structurés dépendent de la question gouvernée.",
+            "relationId": "TMP-REL:7D5C486C0B5C",
+            "toId": "TMP-NODE:SCIENTIFIC_QUESTION",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:ARCHIVE_MANIFEST",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:7EDC4D7D2945",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:SAP",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Biostatistics.",
+            "relationId": "TMP-REL:89F52C3F98E6",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:SITE_DOCUMENTS",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:9E96C5114D29",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:STUDY_REPORT",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Le rapport d’étude suit logiquement le protocole.",
+            "relationId": "TMP-REL:9F54A1A34945",
+            "toId": "TMP-DOC:PROTOCOL",
+            "type": "FOLLOWS"
+          },
+          {
+            "fromId": "TMP-DOC:CRF_SPECIFICATION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Data Management.",
+            "relationId": "TMP-REL:A4E1D29C8E41",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:BUDGET",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Economics.",
+            "relationId": "TMP-REL:A83D3EEE2F1F",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:SITE_DOCUMENTS",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Le besoin de formation doit rester conditionnel à une exigence ou décision explicite.",
+            "relationId": "TMP-REL:AA09EEC3CD4F",
+            "toId": "TMP-DOC:TRAINING_PLAN",
+            "type": "OPTIONALLY_REQUIRES"
+          },
+          {
+            "fromId": "TMP-NODE:HYPOTHESES",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Les hypothèses structurées dépendent de la question gouvernée.",
+            "relationId": "TMP-REL:AB6E43063BAC",
+            "toId": "TMP-NODE:SCIENTIFIC_QUESTION",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:TRAINING_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:B55C0DC31673",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:MONITORING_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:C171E9FF77D8",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:DATA_MANAGEMENT_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Data Management.",
+            "relationId": "TMP-REL:CE9D48DB50C8",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-NODE:REVIEW_NOTES",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Les notes de revue n’existent que sur décision humaine explicite.",
+            "relationId": "TMP-REL:D6485A0EEA93",
+            "toId": "TMP-NODE:HUMAN_DECISIONS",
+            "type": "OPTIONALLY_REQUIRES"
+          },
+          {
+            "fromId": "TMP-DOC:RISK_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Quality.",
+            "relationId": "TMP-REL:F32741FCE459",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:PROTOCOL",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Le rapport d’étude est logiquement postérieur au protocole.",
+            "relationId": "TMP-REL:F4FC0C485C3C",
+            "toId": "TMP-DOC:STUDY_REPORT",
+            "type": "PRECEDES"
+          },
+          {
+            "fromId": "TMP-DOC:QUALITY_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Quality.",
+            "relationId": "TMP-REL:F8B1F6FEE211",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          }
+        ],
+        "nodes": [
+          "TMP-DOC:ARCHIVE_MANIFEST",
+          "TMP-DOC:BUDGET",
+          "TMP-DOC:CONSENT",
+          "TMP-DOC:CORE_LAB_MANUAL",
+          "TMP-DOC:CRF_SPECIFICATION",
+          "TMP-DOC:DATA_DICTIONARY",
+          "TMP-DOC:DATA_MANAGEMENT_PLAN",
+          "TMP-DOC:FUNDING_APPLICATION",
+          "TMP-DOC:INVESTIGATOR_BROCHURE",
+          "TMP-DOC:MONITORING_PLAN",
+          "TMP-DOC:PATIENT_INFORMATION",
+          "TMP-DOC:PROTOCOL",
+          "TMP-DOC:QUALITY_PLAN",
+          "TMP-DOC:REGISTRY_SUBMISSION",
+          "TMP-DOC:REGULATORY_SUBMISSION",
+          "TMP-DOC:RISK_PLAN",
+          "TMP-DOC:SAP",
+          "TMP-DOC:SITE_DOCUMENTS",
+          "TMP-DOC:STUDY_REPORT",
+          "TMP-DOC:TRAINING_PLAN",
+          "TMP-NODE:ENDPOINTS",
+          "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+          "TMP-NODE:HUMAN_DECISIONS",
+          "TMP-NODE:HYPOTHESES",
+          "TMP-NODE:OBJECTIVES",
+          "TMP-NODE:REVIEW_NOTES",
+          "TMP-NODE:SCIENTIFIC_QUESTION"
+        ]
+      },
+      "instanceId": "TMP-INSTANCE:0DCAC27D4EFA"
+    },
+    {
+      "graph": {
+        "digest": "tmp1-efa43d7c4da9e998",
+        "edges": [
+          {
+            "fromId": "TMP-DOC:INVESTIGATOR_BROCHURE",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:18522315E928",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-NODE:ENDPOINTS",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La structure des critères conserve sa dépendance aux objectifs.",
+            "relationId": "TMP-REL:19DAFF4751B4",
+            "toId": "TMP-NODE:OBJECTIVES",
+            "type": "REQUIRES"
+          },
+          {
+            "fromId": "TMP-DOC:PATIENT_INFORMATION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:1C4A1ECBC23B",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:FUNDING_APPLICATION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Funding.",
+            "relationId": "TMP-REL:375B9CF7BB10",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:CONSENT",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Une exigence de consentement conserve son lien structurel avec l’information participant.",
+            "relationId": "TMP-REL:4527249BC68C",
+            "toId": "TMP-DOC:PATIENT_INFORMATION",
+            "type": "REQUIRES"
+          },
+          {
+            "fromId": "TMP-DOC:REGISTRY_SUBMISSION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:4F0DB403CF3D",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:CONSENT",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:53DB303124DB",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:CORE_LAB_MANUAL",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:5C6DC89DC484",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:DATA_DICTIONARY",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Data Management.",
+            "relationId": "TMP-REL:75EBF8F221D5",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:REGULATORY_SUBMISSION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:7662C2E475A9",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-NODE:OBJECTIVES",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Les objectifs structurés dépendent de la question gouvernée.",
+            "relationId": "TMP-REL:7D5C486C0B5C",
+            "toId": "TMP-NODE:SCIENTIFIC_QUESTION",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:ARCHIVE_MANIFEST",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:7EDC4D7D2945",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:SAP",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Biostatistics.",
+            "relationId": "TMP-REL:89F52C3F98E6",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:SITE_DOCUMENTS",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:9E96C5114D29",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:STUDY_REPORT",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Le rapport d’étude suit logiquement le protocole.",
+            "relationId": "TMP-REL:9F54A1A34945",
+            "toId": "TMP-DOC:PROTOCOL",
+            "type": "FOLLOWS"
+          },
+          {
+            "fromId": "TMP-DOC:CRF_SPECIFICATION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Data Management.",
+            "relationId": "TMP-REL:A4E1D29C8E41",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:BUDGET",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Economics.",
+            "relationId": "TMP-REL:A83D3EEE2F1F",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:SITE_DOCUMENTS",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Le besoin de formation doit rester conditionnel à une exigence ou décision explicite.",
+            "relationId": "TMP-REL:AA09EEC3CD4F",
+            "toId": "TMP-DOC:TRAINING_PLAN",
+            "type": "OPTIONALLY_REQUIRES"
+          },
+          {
+            "fromId": "TMP-NODE:HYPOTHESES",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Les hypothèses structurées dépendent de la question gouvernée.",
+            "relationId": "TMP-REL:AB6E43063BAC",
+            "toId": "TMP-NODE:SCIENTIFIC_QUESTION",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:TRAINING_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:B55C0DC31673",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:MONITORING_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:C171E9FF77D8",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:DATA_MANAGEMENT_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Data Management.",
+            "relationId": "TMP-REL:CE9D48DB50C8",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-NODE:REVIEW_NOTES",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Les notes de revue n’existent que sur décision humaine explicite.",
+            "relationId": "TMP-REL:D6485A0EEA93",
+            "toId": "TMP-NODE:HUMAN_DECISIONS",
+            "type": "OPTIONALLY_REQUIRES"
+          },
+          {
+            "fromId": "TMP-DOC:RISK_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Quality.",
+            "relationId": "TMP-REL:F32741FCE459",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:PROTOCOL",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Le rapport d’étude est logiquement postérieur au protocole.",
+            "relationId": "TMP-REL:F4FC0C485C3C",
+            "toId": "TMP-DOC:STUDY_REPORT",
+            "type": "PRECEDES"
+          },
+          {
+            "fromId": "TMP-DOC:QUALITY_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Quality.",
+            "relationId": "TMP-REL:F8B1F6FEE211",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          }
+        ],
+        "nodes": [
+          "TMP-DOC:ARCHIVE_MANIFEST",
+          "TMP-DOC:BUDGET",
+          "TMP-DOC:CONSENT",
+          "TMP-DOC:CORE_LAB_MANUAL",
+          "TMP-DOC:CRF_SPECIFICATION",
+          "TMP-DOC:DATA_DICTIONARY",
+          "TMP-DOC:DATA_MANAGEMENT_PLAN",
+          "TMP-DOC:FUNDING_APPLICATION",
+          "TMP-DOC:INVESTIGATOR_BROCHURE",
+          "TMP-DOC:MONITORING_PLAN",
+          "TMP-DOC:PATIENT_INFORMATION",
+          "TMP-DOC:PROTOCOL",
+          "TMP-DOC:QUALITY_PLAN",
+          "TMP-DOC:REGISTRY_SUBMISSION",
+          "TMP-DOC:REGULATORY_SUBMISSION",
+          "TMP-DOC:RISK_PLAN",
+          "TMP-DOC:SAP",
+          "TMP-DOC:SITE_DOCUMENTS",
+          "TMP-DOC:STUDY_REPORT",
+          "TMP-DOC:TRAINING_PLAN",
+          "TMP-NODE:ENDPOINTS",
+          "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+          "TMP-NODE:HUMAN_DECISIONS",
+          "TMP-NODE:HYPOTHESES",
+          "TMP-NODE:OBJECTIVES",
+          "TMP-NODE:REVIEW_NOTES",
+          "TMP-NODE:SCIENTIFIC_QUESTION"
+        ]
+      },
+      "instanceId": "TMP-INSTANCE:19299CD14C0E"
+    },
+    {
+      "graph": {
+        "digest": "tmp1-efa43d7c4da9e998",
+        "edges": [
+          {
+            "fromId": "TMP-DOC:INVESTIGATOR_BROCHURE",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:18522315E928",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-NODE:ENDPOINTS",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La structure des critères conserve sa dépendance aux objectifs.",
+            "relationId": "TMP-REL:19DAFF4751B4",
+            "toId": "TMP-NODE:OBJECTIVES",
+            "type": "REQUIRES"
+          },
+          {
+            "fromId": "TMP-DOC:PATIENT_INFORMATION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:1C4A1ECBC23B",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:FUNDING_APPLICATION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Funding.",
+            "relationId": "TMP-REL:375B9CF7BB10",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:CONSENT",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Une exigence de consentement conserve son lien structurel avec l’information participant.",
+            "relationId": "TMP-REL:4527249BC68C",
+            "toId": "TMP-DOC:PATIENT_INFORMATION",
+            "type": "REQUIRES"
+          },
+          {
+            "fromId": "TMP-DOC:REGISTRY_SUBMISSION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:4F0DB403CF3D",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:CONSENT",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:53DB303124DB",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:CORE_LAB_MANUAL",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:5C6DC89DC484",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:DATA_DICTIONARY",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Data Management.",
+            "relationId": "TMP-REL:75EBF8F221D5",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:REGULATORY_SUBMISSION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:7662C2E475A9",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-NODE:OBJECTIVES",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Les objectifs structurés dépendent de la question gouvernée.",
+            "relationId": "TMP-REL:7D5C486C0B5C",
+            "toId": "TMP-NODE:SCIENTIFIC_QUESTION",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:ARCHIVE_MANIFEST",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:7EDC4D7D2945",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:SAP",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Biostatistics.",
+            "relationId": "TMP-REL:89F52C3F98E6",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:SITE_DOCUMENTS",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:9E96C5114D29",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:STUDY_REPORT",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Le rapport d’étude suit logiquement le protocole.",
+            "relationId": "TMP-REL:9F54A1A34945",
+            "toId": "TMP-DOC:PROTOCOL",
+            "type": "FOLLOWS"
+          },
+          {
+            "fromId": "TMP-DOC:CRF_SPECIFICATION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Data Management.",
+            "relationId": "TMP-REL:A4E1D29C8E41",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:BUDGET",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Economics.",
+            "relationId": "TMP-REL:A83D3EEE2F1F",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:SITE_DOCUMENTS",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Le besoin de formation doit rester conditionnel à une exigence ou décision explicite.",
+            "relationId": "TMP-REL:AA09EEC3CD4F",
+            "toId": "TMP-DOC:TRAINING_PLAN",
+            "type": "OPTIONALLY_REQUIRES"
+          },
+          {
+            "fromId": "TMP-NODE:HYPOTHESES",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Les hypothèses structurées dépendent de la question gouvernée.",
+            "relationId": "TMP-REL:AB6E43063BAC",
+            "toId": "TMP-NODE:SCIENTIFIC_QUESTION",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:TRAINING_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:B55C0DC31673",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:MONITORING_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:C171E9FF77D8",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:DATA_MANAGEMENT_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Data Management.",
+            "relationId": "TMP-REL:CE9D48DB50C8",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-NODE:REVIEW_NOTES",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Les notes de revue n’existent que sur décision humaine explicite.",
+            "relationId": "TMP-REL:D6485A0EEA93",
+            "toId": "TMP-NODE:HUMAN_DECISIONS",
+            "type": "OPTIONALLY_REQUIRES"
+          },
+          {
+            "fromId": "TMP-DOC:RISK_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Quality.",
+            "relationId": "TMP-REL:F32741FCE459",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:PROTOCOL",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Le rapport d’étude est logiquement postérieur au protocole.",
+            "relationId": "TMP-REL:F4FC0C485C3C",
+            "toId": "TMP-DOC:STUDY_REPORT",
+            "type": "PRECEDES"
+          },
+          {
+            "fromId": "TMP-DOC:QUALITY_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Quality.",
+            "relationId": "TMP-REL:F8B1F6FEE211",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          }
+        ],
+        "nodes": [
+          "TMP-DOC:ARCHIVE_MANIFEST",
+          "TMP-DOC:BUDGET",
+          "TMP-DOC:CONSENT",
+          "TMP-DOC:CORE_LAB_MANUAL",
+          "TMP-DOC:CRF_SPECIFICATION",
+          "TMP-DOC:DATA_DICTIONARY",
+          "TMP-DOC:DATA_MANAGEMENT_PLAN",
+          "TMP-DOC:FUNDING_APPLICATION",
+          "TMP-DOC:INVESTIGATOR_BROCHURE",
+          "TMP-DOC:MONITORING_PLAN",
+          "TMP-DOC:PATIENT_INFORMATION",
+          "TMP-DOC:PROTOCOL",
+          "TMP-DOC:QUALITY_PLAN",
+          "TMP-DOC:REGISTRY_SUBMISSION",
+          "TMP-DOC:REGULATORY_SUBMISSION",
+          "TMP-DOC:RISK_PLAN",
+          "TMP-DOC:SAP",
+          "TMP-DOC:SITE_DOCUMENTS",
+          "TMP-DOC:STUDY_REPORT",
+          "TMP-DOC:TRAINING_PLAN",
+          "TMP-NODE:ENDPOINTS",
+          "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+          "TMP-NODE:HUMAN_DECISIONS",
+          "TMP-NODE:HYPOTHESES",
+          "TMP-NODE:OBJECTIVES",
+          "TMP-NODE:REVIEW_NOTES",
+          "TMP-NODE:SCIENTIFIC_QUESTION"
+        ]
+      },
+      "instanceId": "TMP-INSTANCE:F68B1E216B6C"
+    },
+    {
+      "graph": {
+        "digest": "tmp1-efa43d7c4da9e998",
+        "edges": [
+          {
+            "fromId": "TMP-DOC:INVESTIGATOR_BROCHURE",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:18522315E928",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-NODE:ENDPOINTS",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La structure des critères conserve sa dépendance aux objectifs.",
+            "relationId": "TMP-REL:19DAFF4751B4",
+            "toId": "TMP-NODE:OBJECTIVES",
+            "type": "REQUIRES"
+          },
+          {
+            "fromId": "TMP-DOC:PATIENT_INFORMATION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:1C4A1ECBC23B",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:FUNDING_APPLICATION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Funding.",
+            "relationId": "TMP-REL:375B9CF7BB10",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:CONSENT",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Une exigence de consentement conserve son lien structurel avec l’information participant.",
+            "relationId": "TMP-REL:4527249BC68C",
+            "toId": "TMP-DOC:PATIENT_INFORMATION",
+            "type": "REQUIRES"
+          },
+          {
+            "fromId": "TMP-DOC:REGISTRY_SUBMISSION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:4F0DB403CF3D",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:CONSENT",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:53DB303124DB",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:CORE_LAB_MANUAL",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:5C6DC89DC484",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:DATA_DICTIONARY",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Data Management.",
+            "relationId": "TMP-REL:75EBF8F221D5",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:REGULATORY_SUBMISSION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Regulatory.",
+            "relationId": "TMP-REL:7662C2E475A9",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-NODE:OBJECTIVES",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Les objectifs structurés dépendent de la question gouvernée.",
+            "relationId": "TMP-REL:7D5C486C0B5C",
+            "toId": "TMP-NODE:SCIENTIFIC_QUESTION",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:ARCHIVE_MANIFEST",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:7EDC4D7D2945",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:SAP",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Biostatistics.",
+            "relationId": "TMP-REL:89F52C3F98E6",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:SITE_DOCUMENTS",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:9E96C5114D29",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:STUDY_REPORT",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Le rapport d’étude suit logiquement le protocole.",
+            "relationId": "TMP-REL:9F54A1A34945",
+            "toId": "TMP-DOC:PROTOCOL",
+            "type": "FOLLOWS"
+          },
+          {
+            "fromId": "TMP-DOC:CRF_SPECIFICATION",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Data Management.",
+            "relationId": "TMP-REL:A4E1D29C8E41",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:BUDGET",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Economics.",
+            "relationId": "TMP-REL:A83D3EEE2F1F",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:SITE_DOCUMENTS",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Le besoin de formation doit rester conditionnel à une exigence ou décision explicite.",
+            "relationId": "TMP-REL:AA09EEC3CD4F",
+            "toId": "TMP-DOC:TRAINING_PLAN",
+            "type": "OPTIONALLY_REQUIRES"
+          },
+          {
+            "fromId": "TMP-NODE:HYPOTHESES",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Les hypothèses structurées dépendent de la question gouvernée.",
+            "relationId": "TMP-REL:AB6E43063BAC",
+            "toId": "TMP-NODE:SCIENTIFIC_QUESTION",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:TRAINING_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:B55C0DC31673",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:MONITORING_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Clinical Operations.",
+            "relationId": "TMP-REL:C171E9FF77D8",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:DATA_MANAGEMENT_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Data Management.",
+            "relationId": "TMP-REL:CE9D48DB50C8",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-NODE:REVIEW_NOTES",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Les notes de revue n’existent que sur décision humaine explicite.",
+            "relationId": "TMP-REL:D6485A0EEA93",
+            "toId": "TMP-NODE:HUMAN_DECISIONS",
+            "type": "OPTIONALLY_REQUIRES"
+          },
+          {
+            "fromId": "TMP-DOC:RISK_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Quality.",
+            "relationId": "TMP-REL:F32741FCE459",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          },
+          {
+            "fromId": "TMP-DOC:PROTOCOL",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "Le rapport d’étude est logiquement postérieur au protocole.",
+            "relationId": "TMP-REL:F4FC0C485C3C",
+            "toId": "TMP-DOC:STUDY_REPORT",
+            "type": "PRECEDES"
+          },
+          {
+            "fromId": "TMP-DOC:QUALITY_PLAN",
+            "provenance": [
+              "TMP-001:Study Template Engine",
+              "PD-003:Research Object Model",
+              "RDE-001:Research Design Engine"
+            ],
+            "reason": "La complétude dépend du futur moteur Quality.",
+            "relationId": "TMP-REL:F8B1F6FEE211",
+            "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "type": "DEPENDS_ON"
+          }
+        ],
+        "nodes": [
+          "TMP-DOC:ARCHIVE_MANIFEST",
+          "TMP-DOC:BUDGET",
+          "TMP-DOC:CONSENT",
+          "TMP-DOC:CORE_LAB_MANUAL",
+          "TMP-DOC:CRF_SPECIFICATION",
+          "TMP-DOC:DATA_DICTIONARY",
+          "TMP-DOC:DATA_MANAGEMENT_PLAN",
+          "TMP-DOC:FUNDING_APPLICATION",
+          "TMP-DOC:INVESTIGATOR_BROCHURE",
+          "TMP-DOC:MONITORING_PLAN",
+          "TMP-DOC:PATIENT_INFORMATION",
+          "TMP-DOC:PROTOCOL",
+          "TMP-DOC:QUALITY_PLAN",
+          "TMP-DOC:REGISTRY_SUBMISSION",
+          "TMP-DOC:REGULATORY_SUBMISSION",
+          "TMP-DOC:RISK_PLAN",
+          "TMP-DOC:SAP",
+          "TMP-DOC:SITE_DOCUMENTS",
+          "TMP-DOC:STUDY_REPORT",
+          "TMP-DOC:TRAINING_PLAN",
+          "TMP-NODE:ENDPOINTS",
+          "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+          "TMP-NODE:HUMAN_DECISIONS",
+          "TMP-NODE:HYPOTHESES",
+          "TMP-NODE:OBJECTIVES",
+          "TMP-NODE:REVIEW_NOTES",
+          "TMP-NODE:SCIENTIFIC_QUESTION"
+        ]
+      },
+      "instanceId": "TMP-INSTANCE:650D89A94EB5"
+    }
+  ],
+  "notice": "Ces instances prouvent les contrats TMP-001. Elles ne décrivent aucune étude réelle et ne valent ni protocole, ni recommandation, ni qualification réglementaire."
+}
