@@ -1,0 +1,12 @@
+import type { ValidationCheckpoint } from "./types";
+
+export const VALIDATION_CHECKPOINTS: readonly ValidationCheckpoint[] = Object.freeze([
+  { checkpointId: "A", label: "SEM → ST", validatorId: "VAL-SEM-ST-001", sourceTypes: ["SEMANTIC_MODEL"], targetTypes: ["SCIENTIFIC_THINKING_OUTPUT"], comparedElements: ["semantic objects", "relations", "intent", "unknowns", "ambiguities", "corrections", "route"], status: "PENDING_SEM_QUALIFICATION", boundary: "FUTURE_ONLY_NO_TRUSTED_SEM_INPUT" },
+  { checkpointId: "B", label: "ST → IMG", validatorId: "VAL-ST-IMG-001", sourceTypes: ["SCIENTIFIC_THINKING_OUTPUT"], targetTypes: ["IMAGING_DESIGN_RESULT"], comparedElements: ["question", "phenomena", "objectives", "hypotheses", "unknowns", "contradictions", "comparison context"], status: "EXPERIMENTAL", boundary: "DIAGNOSTIC_HANDOFF_ONLY" },
+  { checkpointId: "C", label: "IMG → PRJ", validatorId: "VAL-IMG-PRJ-001", sourceTypes: ["IMAGING_DESIGN_RESULT"], targetTypes: ["RESEARCH_PROJECT_RESULT"], comparedElements: ["phenomena", "biomarkers", "modalities", "alternatives", "technical compatibility", "unknowns", "limitations"], status: "EXPERIMENTAL", boundary: "DIAGNOSTIC_HANDOFF_ONLY" },
+  { checkpointId: "D", label: "PRJ → REG", validatorId: "VAL-PRJ-REG-001", sourceTypes: ["RESEARCH_PROJECT_RESULT"], targetTypes: ["REGULATORY_RESOLUTION_RESULT"], comparedElements: ["project facts consumed", "no qualification invented", "unknown facts preserved"], status: "EXPERIMENTAL", boundary: "NO_REGULATORY_QUALIFICATION" },
+  { checkpointId: "E", label: "PRJ/REG/DOC-002 → TMP", validatorId: "VAL-TMP-001", sourceTypes: ["COMPOSITE_SOURCE"], targetTypes: ["STUDY_TEMPLATE_INSTANCE"], comparedElements: ["structure only", "requirements", "patterns", "unknowns", "conflicts"], status: "EXPERIMENTAL", boundary: "NO_TEMPLATE_MUTATION" },
+  { checkpointId: "F", label: "TMP/PRJ → DOC", validatorId: "VAL-DOC-001", sourceTypes: ["COMPOSITE_SOURCE"], targetTypes: ["DOCUMENT_PROJECTION"], comparedElements: ["structure from TMP", "content from Project", "requirements from REG", "patterns from DOC-002", "no strengthening"], status: "EXPERIMENTAL", boundary: "NO_DOCUMENT_CORRECTION" },
+  { checkpointId: "G", label: "DOC → Renderers", validatorId: "VAL-CROSS-PROJECTION-001", sourceTypes: ["DOCUMENT_PROJECTION"], targetTypes: ["RENDERER_OUTPUT"], comparedElements: ["same projection", "same scientific content", "renderer-only differences"], status: "EXPERIMENTAL", boundary: "PASSIVE_RENDERER_COMPARISON" },
+]);
+
