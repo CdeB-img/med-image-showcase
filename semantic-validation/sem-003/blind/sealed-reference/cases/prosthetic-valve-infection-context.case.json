@@ -1,0 +1,133 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003C_BLIND_BENCHMARK_CASE",
+  "purpose": "BLIND_QUALIFICATION_AUTHORING",
+  "caseId": "SEM3-BLIND-PROSTHETIC-VALVE-INFECTION-CONTEXT",
+  "version": "1.0.0",
+  "title": "Contexte infectieux sur prothèse valvulaire",
+  "createdAt": "2026-08-14T10:00:00.000Z",
+  "authorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
+  "reviewStatus": "SIMULATED_REFERENCE_REVIEW_PENDING",
+  "source": {
+    "sourceRequest": "Tour 1: On inclut des patients avec suspicion d'infection de prothèse valvulaire.\nTour 2: La TEP-TDM au FDG doit décrire le signal autour de la prothèse.\nTour 3: Les hémocultures peuvent être négatives.\nTour 4: Je veux voir si le signal métabolique accompagne le tableau clinique, sans dire qu'il prouve à lui seul l'infection ni qu'il cause les événements.\nTour 5: Les événements emboliques seront décrits séparément.\nTour 6: Le délai entre le début des antibiotiques et la TEP n'est pas encore fixé.",
+    "language": "fr-FR",
+    "conversationTurns": [
+      {
+        "turnId": "turn-1",
+        "role": "USER",
+        "text": "On inclut des patients avec suspicion d'infection de prothèse valvulaire."
+      },
+      {
+        "turnId": "turn-2",
+        "role": "USER",
+        "text": "La TEP-TDM au FDG doit décrire le signal autour de la prothèse."
+      },
+      {
+        "turnId": "turn-3",
+        "role": "USER",
+        "text": "Les hémocultures peuvent être négatives."
+      },
+      {
+        "turnId": "turn-4",
+        "role": "USER",
+        "text": "Je veux voir si le signal métabolique accompagne le tableau clinique, sans dire qu'il prouve à lui seul l'infection ni qu'il cause les événements."
+      },
+      {
+        "turnId": "turn-5",
+        "role": "USER",
+        "text": "Les événements emboliques seront décrits séparément."
+      },
+      {
+        "turnId": "turn-6",
+        "role": "USER",
+        "text": "Le délai entre le début des antibiotiques et la TEP n'est pas encore fixé."
+      }
+    ],
+    "sourceContext": "Conversation synthétique indépendante de cardiologie infectieuse et imagerie métabolique; aucun output SEM ou provider n'a été utilisé.",
+    "provenance": {
+      "originType": "SYNTHETIC_AUTHORED",
+      "originalSource": "Original independent SEM-003C blind authoring; not translated, paraphrased, adapted or generated from SEM output.",
+      "author": "Codex acting as documentary blind benchmark author, not as human scientific reviewer",
+      "createdAt": "2026-08-14T10:00:00.000Z",
+      "inspirationRefs": [
+        "docs/sem-002-scientific-understanding-competence-contract.md",
+        "docs/sem-003-independent-scientific-understanding-benchmark-architecture.md"
+      ]
+    }
+  },
+  "scientificScope": {
+    "domainGroup": "CARDIOVASCULAR_IMAGING",
+    "domain": "cardiologie infectieuse et imagerie métabolique",
+    "scenarioCategory": "STRONG_CONTEXTUAL_IMPLICIT",
+    "secondaryCategories": [
+      "NEGATION_AND_NON_CAUSALITY",
+      "UNDER_SPECIFIED_REQUEST"
+    ],
+    "difficultyTarget": "COMPOSITIONAL",
+    "intentionallyMissingInformation": [
+      {
+        "informationId": "missing-1",
+        "description": "Délai entre antibiothérapie et TEP-TDM.",
+        "intentional": true
+      }
+    ]
+  },
+  "exposure": {
+    "exposureStatus": "BLIND_DESIGN_ONLY",
+    "exposureHistory": [
+      {
+        "eventId": "exposure-prosthetic-valve-infection-context-authored",
+        "fromStatus": null,
+        "toStatus": "BLIND_DESIGN_ONLY",
+        "occurredAt": "2026-08-14T10:00:00.000Z",
+        "actorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
+        "reason": "Independent authoring before parentage review, reference review and sealing."
+      }
+    ],
+    "parentageStatus": "REQUIRES_PARENTAGE_REVIEW",
+    "contaminationReview": {
+      "status": "NOT_REVIEWED",
+      "reviewedAt": null,
+      "reviewerRole": null,
+      "notes": "Parentage and contamination review must complete before sealing."
+    },
+    "eligibleForBlindQualification": false
+  },
+  "reference": {
+    "acceptanceEnvelopeId": "SEM3-AE-BLIND-PROSTHETIC-VALVE-INFECTION-CONTEXT",
+    "applicableSEM002Properties": [
+      "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+      "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+      "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+      "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+      "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+      "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+    ],
+    "adjudicationRequirements": [
+      {
+        "expertise": "SCIENTIFIC_DOMAIN",
+        "rationale": "Review the scientific obligations without inventing human authority.",
+        "mandatory": true
+      },
+      {
+        "expertise": "METHODOLOGICAL_SEM",
+        "rationale": "Review semantic equivalence, epistemic status, ownership and evaluability.",
+        "mandatory": true
+      },
+      {
+        "expertise": "INDEPENDENT_ADJUDICATION",
+        "rationale": "Preserve unresolved limitations for future PD-011 review.",
+        "mandatory": true
+      }
+    ]
+  }
+}

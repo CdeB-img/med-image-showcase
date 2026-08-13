@@ -1,0 +1,128 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003C_BLIND_BENCHMARK_CASE",
+  "purpose": "BLIND_QUALIFICATION_AUTHORING",
+  "caseId": "SEM3-BLIND-MICROBIOME-ANTIBIOTIC-CANDIDATES",
+  "version": "1.0.0",
+  "title": "Microbiome après antibiothérapie et candidats contextuels",
+  "createdAt": "2026-08-14T10:00:00.000Z",
+  "authorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
+  "reviewStatus": "SIMULATED_REFERENCE_REVIEW_PENDING",
+  "source": {
+    "sourceRequest": "Tour 1: Je veux décrire le microbiome avant puis après une antibiothérapie courte.\nTour 2: Les prélèvements de selles seront faits au départ et après la fin du traitement.\nTour 3: Le régime alimentaire n'a pas été recueilli de façon fiable.\nTour 4: Des fonctions microbiennes ou des groupes taxonomiques peuvent être proposés comme candidats, pas comme faits déjà observés.\nTour 5: Je ne veux pas conclure que l'antibiotique cause tout changement observé.",
+    "language": "fr-FR",
+    "conversationTurns": [
+      {
+        "turnId": "turn-1",
+        "role": "USER",
+        "text": "Je veux décrire le microbiome avant puis après une antibiothérapie courte."
+      },
+      {
+        "turnId": "turn-2",
+        "role": "USER",
+        "text": "Les prélèvements de selles seront faits au départ et après la fin du traitement."
+      },
+      {
+        "turnId": "turn-3",
+        "role": "USER",
+        "text": "Le régime alimentaire n'a pas été recueilli de façon fiable."
+      },
+      {
+        "turnId": "turn-4",
+        "role": "USER",
+        "text": "Des fonctions microbiennes ou des groupes taxonomiques peuvent être proposés comme candidats, pas comme faits déjà observés."
+      },
+      {
+        "turnId": "turn-5",
+        "role": "USER",
+        "text": "Je ne veux pas conclure que l'antibiotique cause tout changement observé."
+      }
+    ],
+    "sourceContext": "Conversation synthétique indépendante de microbiome clinique longitudinal; aucun output SEM ou provider n'a été utilisé.",
+    "provenance": {
+      "originType": "SYNTHETIC_AUTHORED",
+      "originalSource": "Original independent SEM-003C blind authoring; not translated, paraphrased, adapted or generated from SEM output.",
+      "author": "Codex acting as documentary blind benchmark author, not as human scientific reviewer",
+      "createdAt": "2026-08-14T10:00:00.000Z",
+      "inspirationRefs": [
+        "docs/sem-002-scientific-understanding-competence-contract.md",
+        "docs/sem-003-independent-scientific-understanding-benchmark-architecture.md"
+      ]
+    }
+  },
+  "scientificScope": {
+    "domainGroup": "TRANSVERSAL_CLINICAL_BIOMEDICAL_RESEARCH",
+    "domain": "microbiome clinique longitudinal",
+    "scenarioCategory": "KNOWLEDGE_CANDIDATE",
+    "secondaryCategories": [
+      "COMPARISON_AND_TIMING",
+      "STRONG_CONTEXTUAL_IMPLICIT"
+    ],
+    "difficultyTarget": "ADVANCED",
+    "intentionallyMissingInformation": [
+      {
+        "informationId": "missing-1",
+        "description": "Information alimentaire fiable pendant le suivi.",
+        "intentional": true
+      }
+    ]
+  },
+  "exposure": {
+    "exposureStatus": "BLIND_DESIGN_ONLY",
+    "exposureHistory": [
+      {
+        "eventId": "exposure-microbiome-antibiotic-candidates-authored",
+        "fromStatus": null,
+        "toStatus": "BLIND_DESIGN_ONLY",
+        "occurredAt": "2026-08-14T10:00:00.000Z",
+        "actorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
+        "reason": "Independent authoring before parentage review, reference review and sealing."
+      }
+    ],
+    "parentageStatus": "REQUIRES_PARENTAGE_REVIEW",
+    "contaminationReview": {
+      "status": "NOT_REVIEWED",
+      "reviewedAt": null,
+      "reviewerRole": null,
+      "notes": "Parentage and contamination review must complete before sealing."
+    },
+    "eligibleForBlindQualification": false
+  },
+  "reference": {
+    "acceptanceEnvelopeId": "SEM3-AE-BLIND-MICROBIOME-ANTIBIOTIC-CANDIDATES",
+    "applicableSEM002Properties": [
+      "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+      "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+      "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+      "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+      "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+      "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+    ],
+    "adjudicationRequirements": [
+      {
+        "expertise": "SCIENTIFIC_DOMAIN",
+        "rationale": "Review the scientific obligations without inventing human authority.",
+        "mandatory": true
+      },
+      {
+        "expertise": "METHODOLOGICAL_SEM",
+        "rationale": "Review semantic equivalence, epistemic status, ownership and evaluability.",
+        "mandatory": true
+      },
+      {
+        "expertise": "INDEPENDENT_ADJUDICATION",
+        "rationale": "Preserve unresolved limitations for future PD-011 review.",
+        "mandatory": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003C_BLIND_RUNTIME_INPUT",
+  "caseId": "SEM3-BLIND-TRANSPLANT-REJECTION-TIMING",
+  "version": "1.0.0",
+  "language": "fr-FR",
+  "sourceRequest": "Tour 1: Après greffe cardiaque, nous voulons mettre en regard l'IRM et la biopsie de surveillance.\nTour 2: En IRM, la relaxation T2 myocardique est la mesure quantitative retenue.\nTour 3: La biopsie conserve son grade histologique propre; ce n'est pas une mesure IRM.\nTour 4: Les deux examens ne seront pas toujours faits le même jour.\nTour 5: Je ne veux pas appeler toute élévation de T2 un rejet.\nTour 6: Il faut conserver séparément le délai entre les deux examens.\nTour 7: La fenêtre temporelle acceptable reste à définir.",
+  "conversationTurns": [
+    {
+      "turnId": "turn-1",
+      "role": "USER",
+      "text": "Après greffe cardiaque, nous voulons mettre en regard l'IRM et la biopsie de surveillance."
+    },
+    {
+      "turnId": "turn-2",
+      "role": "USER",
+      "text": "En IRM, la relaxation T2 myocardique est la mesure quantitative retenue."
+    },
+    {
+      "turnId": "turn-3",
+      "role": "USER",
+      "text": "La biopsie conserve son grade histologique propre; ce n'est pas une mesure IRM."
+    },
+    {
+      "turnId": "turn-4",
+      "role": "USER",
+      "text": "Les deux examens ne seront pas toujours faits le même jour."
+    },
+    {
+      "turnId": "turn-5",
+      "role": "USER",
+      "text": "Je ne veux pas appeler toute élévation de T2 un rejet."
+    },
+    {
+      "turnId": "turn-6",
+      "role": "USER",
+      "text": "Il faut conserver séparément le délai entre les deux examens."
+    },
+    {
+      "turnId": "turn-7",
+      "role": "USER",
+      "text": "La fenêtre temporelle acceptable reste à définir."
+    }
+  ]
+}

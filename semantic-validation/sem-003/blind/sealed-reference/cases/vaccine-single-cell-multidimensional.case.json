@@ -1,0 +1,139 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003C_BLIND_BENCHMARK_CASE",
+  "purpose": "BLIND_QUALIFICATION_AUTHORING",
+  "caseId": "SEM3-BLIND-VACCINE-SINGLE-CELL-MULTIDIMENSIONAL",
+  "version": "1.0.0",
+  "title": "Réponse vaccinale en single-cell",
+  "createdAt": "2026-08-14T10:00:00.000Z",
+  "authorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
+  "reviewStatus": "SIMULATED_REFERENCE_REVIEW_PENDING",
+  "source": {
+    "sourceRequest": "Tour 1: Après vaccination, je veux caractériser la réponse immunitaire précoce.\nTour 2: Nous aurons des prélèvements avant vaccination, puis deux temps après.\nTour 3: Le single-cell RNA-seq décrira à la fois des proportions cellulaires et des états transcriptionnels.\nTour 4: Une variation de proportion ne doit pas être confondue avec un changement d'état dans une cellule.\nTour 5: La réponse d'anticorps sera mesurée plus tard.\nTour 6: Je veux explorer leurs relations, sans transformer l'association en mécanisme.\nTour 7: Les effets de lot restent un candidat méthodologique à vérifier, pas une explication acquise.",
+    "language": "fr-FR",
+    "conversationTurns": [
+      {
+        "turnId": "turn-1",
+        "role": "USER",
+        "text": "Après vaccination, je veux caractériser la réponse immunitaire précoce."
+      },
+      {
+        "turnId": "turn-2",
+        "role": "USER",
+        "text": "Nous aurons des prélèvements avant vaccination, puis deux temps après."
+      },
+      {
+        "turnId": "turn-3",
+        "role": "USER",
+        "text": "Le single-cell RNA-seq décrira à la fois des proportions cellulaires et des états transcriptionnels."
+      },
+      {
+        "turnId": "turn-4",
+        "role": "USER",
+        "text": "Une variation de proportion ne doit pas être confondue avec un changement d'état dans une cellule."
+      },
+      {
+        "turnId": "turn-5",
+        "role": "USER",
+        "text": "La réponse d'anticorps sera mesurée plus tard."
+      },
+      {
+        "turnId": "turn-6",
+        "role": "USER",
+        "text": "Je veux explorer leurs relations, sans transformer l'association en mécanisme."
+      },
+      {
+        "turnId": "turn-7",
+        "role": "USER",
+        "text": "Les effets de lot restent un candidat méthodologique à vérifier, pas une explication acquise."
+      }
+    ],
+    "sourceContext": "Conversation synthétique indépendante de immunologie translationnelle et single-cell; aucun output SEM ou provider n'a été utilisé.",
+    "provenance": {
+      "originType": "SYNTHETIC_AUTHORED",
+      "originalSource": "Original independent SEM-003C blind authoring; not translated, paraphrased, adapted or generated from SEM output.",
+      "author": "Codex acting as documentary blind benchmark author, not as human scientific reviewer",
+      "createdAt": "2026-08-14T10:00:00.000Z",
+      "inspirationRefs": [
+        "docs/sem-002-scientific-understanding-competence-contract.md",
+        "docs/sem-003-independent-scientific-understanding-benchmark-architecture.md"
+      ]
+    }
+  },
+  "scientificScope": {
+    "domainGroup": "TRANSVERSAL_CLINICAL_BIOMEDICAL_RESEARCH",
+    "domain": "immunologie translationnelle et single-cell",
+    "scenarioCategory": "MULTIDIMENSIONAL_REQUEST",
+    "secondaryCategories": [
+      "PHENOMENON_VERSUS_OBSERVABLE",
+      "KNOWLEDGE_CANDIDATE"
+    ],
+    "difficultyTarget": "COMPOSITIONAL",
+    "intentionallyMissingInformation": [
+      {
+        "informationId": "missing-1",
+        "description": "Définition opérationnelle de la réponse immunitaire précoce.",
+        "intentional": true
+      }
+    ]
+  },
+  "exposure": {
+    "exposureStatus": "BLIND_DESIGN_ONLY",
+    "exposureHistory": [
+      {
+        "eventId": "exposure-vaccine-single-cell-multidimensional-authored",
+        "fromStatus": null,
+        "toStatus": "BLIND_DESIGN_ONLY",
+        "occurredAt": "2026-08-14T10:00:00.000Z",
+        "actorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
+        "reason": "Independent authoring before parentage review, reference review and sealing."
+      }
+    ],
+    "parentageStatus": "REQUIRES_PARENTAGE_REVIEW",
+    "contaminationReview": {
+      "status": "NOT_REVIEWED",
+      "reviewedAt": null,
+      "reviewerRole": null,
+      "notes": "Parentage and contamination review must complete before sealing."
+    },
+    "eligibleForBlindQualification": false
+  },
+  "reference": {
+    "acceptanceEnvelopeId": "SEM3-AE-BLIND-VACCINE-SINGLE-CELL-MULTIDIMENSIONAL",
+    "applicableSEM002Properties": [
+      "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+      "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+      "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+      "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+      "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+      "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+      "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+    ],
+    "adjudicationRequirements": [
+      {
+        "expertise": "SCIENTIFIC_DOMAIN",
+        "rationale": "Review the scientific obligations without inventing human authority.",
+        "mandatory": true
+      },
+      {
+        "expertise": "METHODOLOGICAL_SEM",
+        "rationale": "Review semantic equivalence, epistemic status, ownership and evaluability.",
+        "mandatory": true
+      },
+      {
+        "expertise": "INDEPENDENT_ADJUDICATION",
+        "rationale": "Preserve unresolved limitations for future PD-011 review.",
+        "mandatory": true
+      }
+    ]
+  }
+}

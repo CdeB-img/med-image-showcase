@@ -1,0 +1,153 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003C_BLIND_BENCHMARK_CASE",
+  "purpose": "BLIND_QUALIFICATION_AUTHORING",
+  "caseId": "SEM3-BLIND-POSTPARTUM-MYOCARDIAL-WORK-NONCAUSAL",
+  "version": "1.0.0",
+  "title": "Adaptation cardiovasculaire postpartum sans causalité ajoutée",
+  "createdAt": "2026-08-14T10:00:00.000Z",
+  "authorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
+  "reviewStatus": "SIMULATED_REFERENCE_REVIEW_PENDING",
+  "source": {
+    "sourceRequest": "Tour 1: Je veux étudier l'adaptation cardiovasculaire après une grossesse compliquée d'hypertension.\nTour 2: Une échocardiographie avec estimation du travail myocardique est prévue à six semaines.\nTour 3: La pression artérielle sera mesurée au même temps.\nTour 4: Au départ, je voulais écrire que l'hypertension expliquait les changements de travail myocardique.\nTour 5: Je retire cette interprétation causale: l'étude doit seulement décrire leur relation.\nTour 6: Une seconde visite à six mois est envisagée.\nTour 7: Le groupe de comparaison n'est pas encore choisi.\nTour 8: Les traitements antihypertenseurs devront rester un contexte non établi s'ils ne sont pas documentés.\nTour 9: Aucun effet thérapeutique ne doit être déduit.",
+    "language": "fr-FR",
+    "conversationTurns": [
+      {
+        "turnId": "turn-1",
+        "role": "USER",
+        "text": "Je veux étudier l'adaptation cardiovasculaire après une grossesse compliquée d'hypertension."
+      },
+      {
+        "turnId": "turn-2",
+        "role": "USER",
+        "text": "Une échocardiographie avec estimation du travail myocardique est prévue à six semaines."
+      },
+      {
+        "turnId": "turn-3",
+        "role": "USER",
+        "text": "La pression artérielle sera mesurée au même temps."
+      },
+      {
+        "turnId": "turn-4",
+        "role": "USER",
+        "text": "Au départ, je voulais écrire que l'hypertension expliquait les changements de travail myocardique."
+      },
+      {
+        "turnId": "turn-5",
+        "role": "USER",
+        "text": "Je retire cette interprétation causale: l'étude doit seulement décrire leur relation."
+      },
+      {
+        "turnId": "turn-6",
+        "role": "USER",
+        "text": "Une seconde visite à six mois est envisagée."
+      },
+      {
+        "turnId": "turn-7",
+        "role": "USER",
+        "text": "Le groupe de comparaison n'est pas encore choisi."
+      },
+      {
+        "turnId": "turn-8",
+        "role": "USER",
+        "text": "Les traitements antihypertenseurs devront rester un contexte non établi s'ils ne sont pas documentés."
+      },
+      {
+        "turnId": "turn-9",
+        "role": "USER",
+        "text": "Aucun effet thérapeutique ne doit être déduit."
+      }
+    ],
+    "sourceContext": "Conversation synthétique indépendante de cardiologie obstétricale et échocardiographie longitudinale; aucun output SEM ou provider n'a été utilisé.",
+    "provenance": {
+      "originType": "SYNTHETIC_AUTHORED",
+      "originalSource": "Original independent SEM-003C blind authoring; not translated, paraphrased, adapted or generated from SEM output.",
+      "author": "Codex acting as documentary blind benchmark author, not as human scientific reviewer",
+      "createdAt": "2026-08-14T10:00:00.000Z",
+      "inspirationRefs": [
+        "docs/sem-002-scientific-understanding-competence-contract.md",
+        "docs/sem-003-independent-scientific-understanding-benchmark-architecture.md"
+      ]
+    }
+  },
+  "scientificScope": {
+    "domainGroup": "CARDIOVASCULAR_IMAGING",
+    "domain": "cardiologie obstétricale et échocardiographie longitudinale",
+    "scenarioCategory": "NEGATION_AND_NON_CAUSALITY",
+    "secondaryCategories": [
+      "MULTI_TURN_CORRECTION",
+      "COMPARISON_AND_TIMING"
+    ],
+    "difficultyTarget": "COMPOSITIONAL",
+    "intentionallyMissingInformation": [
+      {
+        "informationId": "missing-1",
+        "description": "Groupe de comparaison.",
+        "intentional": true
+      },
+      {
+        "informationId": "missing-2",
+        "description": "Documentation des traitements antihypertenseurs.",
+        "intentional": true
+      }
+    ]
+  },
+  "exposure": {
+    "exposureStatus": "BLIND_DESIGN_ONLY",
+    "exposureHistory": [
+      {
+        "eventId": "exposure-postpartum-myocardial-work-noncausal-authored",
+        "fromStatus": null,
+        "toStatus": "BLIND_DESIGN_ONLY",
+        "occurredAt": "2026-08-14T10:00:00.000Z",
+        "actorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
+        "reason": "Independent authoring before parentage review, reference review and sealing."
+      }
+    ],
+    "parentageStatus": "REQUIRES_PARENTAGE_REVIEW",
+    "contaminationReview": {
+      "status": "NOT_REVIEWED",
+      "reviewedAt": null,
+      "reviewerRole": null,
+      "notes": "Parentage and contamination review must complete before sealing."
+    },
+    "eligibleForBlindQualification": false
+  },
+  "reference": {
+    "acceptanceEnvelopeId": "SEM3-AE-BLIND-POSTPARTUM-MYOCARDIAL-WORK-NONCAUSAL",
+    "applicableSEM002Properties": [
+      "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+      "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+      "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+      "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+      "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+      "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+    ],
+    "adjudicationRequirements": [
+      {
+        "expertise": "SCIENTIFIC_DOMAIN",
+        "rationale": "Review the scientific obligations without inventing human authority.",
+        "mandatory": true
+      },
+      {
+        "expertise": "METHODOLOGICAL_SEM",
+        "rationale": "Review semantic equivalence, epistemic status, ownership and evaluability.",
+        "mandatory": true
+      },
+      {
+        "expertise": "INDEPENDENT_ADJUDICATION",
+        "rationale": "Preserve unresolved limitations for future PD-011 review.",
+        "mandatory": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003C_BLIND_RUNTIME_INPUT",
+  "caseId": "SEM3-BLIND-PROSTHETIC-VALVE-INFECTION-CONTEXT",
+  "version": "1.0.0",
+  "language": "fr-FR",
+  "sourceRequest": "Tour 1: On inclut des patients avec suspicion d'infection de prothèse valvulaire.\nTour 2: La TEP-TDM au FDG doit décrire le signal autour de la prothèse.\nTour 3: Les hémocultures peuvent être négatives.\nTour 4: Je veux voir si le signal métabolique accompagne le tableau clinique, sans dire qu'il prouve à lui seul l'infection ni qu'il cause les événements.\nTour 5: Les événements emboliques seront décrits séparément.\nTour 6: Le délai entre le début des antibiotiques et la TEP n'est pas encore fixé.",
+  "conversationTurns": [
+    {
+      "turnId": "turn-1",
+      "role": "USER",
+      "text": "On inclut des patients avec suspicion d'infection de prothèse valvulaire."
+    },
+    {
+      "turnId": "turn-2",
+      "role": "USER",
+      "text": "La TEP-TDM au FDG doit décrire le signal autour de la prothèse."
+    },
+    {
+      "turnId": "turn-3",
+      "role": "USER",
+      "text": "Les hémocultures peuvent être négatives."
+    },
+    {
+      "turnId": "turn-4",
+      "role": "USER",
+      "text": "Je veux voir si le signal métabolique accompagne le tableau clinique, sans dire qu'il prouve à lui seul l'infection ni qu'il cause les événements."
+    },
+    {
+      "turnId": "turn-5",
+      "role": "USER",
+      "text": "Les événements emboliques seront décrits séparément."
+    },
+    {
+      "turnId": "turn-6",
+      "role": "USER",
+      "text": "Le délai entre le début des antibiotiques et la TEP n'est pas encore fixé."
+    }
+  ]
+}

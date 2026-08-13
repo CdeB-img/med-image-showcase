@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003C_BLIND_RUNTIME_INPUT",
+  "caseId": "SEM3-BLIND-LAA-CLOSURE-SEAL-ASSESSMENT",
+  "version": "1.0.0",
+  "language": "fr-FR",
+  "sourceRequest": "Tour 1: Je veux vérifier la fermeture de l'auricule après implantation du dispositif.\nTour 2: Le scanner cardiaque est prévu à trois mois et la fuite péri-dispositif est la mesure principale.\nTour 3: L'échographie transœsophagienne ne sera faite que si le scanner n'est pas concluant, pas comme comparateur systématique.\nTour 4: Le thrombus sur dispositif reste exploratoire et le calendrier éventuel de l'échographie n'est pas encore fixé.",
+  "conversationTurns": [
+    {
+      "turnId": "turn-1",
+      "role": "USER",
+      "text": "Je veux vérifier la fermeture de l'auricule après implantation du dispositif."
+    },
+    {
+      "turnId": "turn-2",
+      "role": "USER",
+      "text": "Le scanner cardiaque est prévu à trois mois et la fuite péri-dispositif est la mesure principale."
+    },
+    {
+      "turnId": "turn-3",
+      "role": "USER",
+      "text": "L'échographie transœsophagienne ne sera faite que si le scanner n'est pas concluant, pas comme comparateur systématique."
+    },
+    {
+      "turnId": "turn-4",
+      "role": "USER",
+      "text": "Le thrombus sur dispositif reste exploratoire et le calendrier éventuel de l'échographie n'est pas encore fixé."
+    }
+  ]
+}

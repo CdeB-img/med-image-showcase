@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003C_BLIND_RUNTIME_INPUT",
+  "caseId": "SEM3-BLIND-FOCUSED-ULTRASOUND-BBB-MRI",
+  "version": "1.0.0",
+  "language": "fr-FR",
+  "sourceRequest": "Tour 1: Je veux étudier l'ouverture de la barrière hémato-encéphalique par ultrasons focalisés et le rehaussement de contraste à l'IRM juste après; ce rehaussement est un observable de perméabilité, pas la preuve d'un bénéfice thérapeutique.",
+  "conversationTurns": [
+    {
+      "turnId": "turn-1",
+      "role": "USER",
+      "text": "Je veux étudier l'ouverture de la barrière hémato-encéphalique par ultrasons focalisés et le rehaussement de contraste à l'IRM juste après; ce rehaussement est un observable de perméabilité, pas la preuve d'un bénéfice thérapeutique."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003C_BLIND_RUNTIME_INPUT",
+  "caseId": "SEM3-BLIND-CORNEAL-NERVE-METHOD-MEASURE",
+  "version": "1.0.0",
+  "language": "fr-FR",
+  "sourceRequest": "Tour 1: Après chirurgie cornéenne, je veux utiliser la microscopie confocale pour quantifier la densité des fibres nerveuses; la densité est la mesure, la microscopie est la méthode et la régénération nerveuse reste le phénomène étudié.",
+  "conversationTurns": [
+    {
+      "turnId": "turn-1",
+      "role": "USER",
+      "text": "Après chirurgie cornéenne, je veux utiliser la microscopie confocale pour quantifier la densité des fibres nerveuses; la densité est la mesure, la microscopie est la méthode et la régénération nerveuse reste le phénomène étudié."
+    }
+  ]
+}

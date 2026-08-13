@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003C_BLIND_RUNTIME_INPUT",
+  "caseId": "SEM3-BLIND-AMYLOID-ECV-PURPOSE-GAP",
+  "version": "1.0.0",
+  "language": "fr-FR",
+  "sourceRequest": "Tour 1: Pour l'amylose cardiaque traitée, je veux suivre l'ECV myocardique, mais je n'ai pas encore décidé si la question porte sur la charge amyloïde, une réponse tissulaire ou seulement la reproductibilité de la mesure, ni à quel moment le répéter.",
+  "conversationTurns": [
+    {
+      "turnId": "turn-1",
+      "role": "USER",
+      "text": "Pour l'amylose cardiaque traitée, je veux suivre l'ECV myocardique, mais je n'ai pas encore décidé si la question porte sur la charge amyloïde, une réponse tissulaire ou seulement la reproductibilité de la mesure, ni à quel moment le répéter."
+    }
+  ]
+}

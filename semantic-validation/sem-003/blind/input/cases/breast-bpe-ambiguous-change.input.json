@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003C_BLIND_RUNTIME_INPUT",
+  "caseId": "SEM3-BLIND-BREAST-BPE-AMBIGUOUS-CHANGE",
+  "version": "1.0.0",
+  "language": "fr-FR",
+  "sourceRequest": "Tour 1: Je veux étudier une augmentation du rehaussement parenchymateux de fond en IRM mammaire.\nTour 2: On a des examens avant et après une modification hormonale.\nTour 3: Par augmentation, je peux parler d'une hausse dans le temps ou d'un niveau plus élevé entre groupes.\nTour 4: Je n'ai pas encore choisi laquelle de ces deux comparaisons est la question principale.",
+  "conversationTurns": [
+    {
+      "turnId": "turn-1",
+      "role": "USER",
+      "text": "Je veux étudier une augmentation du rehaussement parenchymateux de fond en IRM mammaire."
+    },
+    {
+      "turnId": "turn-2",
+      "role": "USER",
+      "text": "On a des examens avant et après une modification hormonale."
+    },
+    {
+      "turnId": "turn-3",
+      "role": "USER",
+      "text": "Par augmentation, je peux parler d'une hausse dans le temps ou d'un niveau plus élevé entre groupes."
+    },
+    {
+      "turnId": "turn-4",
+      "role": "USER",
+      "text": "Je n'ai pas encore choisi laquelle de ces deux comparaisons est la question principale."
+    }
+  ]
+}

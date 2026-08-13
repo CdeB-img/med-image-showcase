@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003C_BLIND_RUNTIME_INPUT",
+  "caseId": "SEM3-BLIND-ORTHODONTIC-CBCT-OUTCOME-CORRECTION",
+  "version": "1.0.0",
+  "language": "fr-FR",
+  "sourceRequest": "Tour 1: Pendant le traitement orthodontique, un CBCT sera disponible au début et à la fin.\nTour 2: Je pensais d'abord retenir la résorption radiculaire comme outcome principal.\nTour 3: On mesurera aussi l'épaisseur de l'os cortical.\nTour 4: Correction: l'épaisseur corticale devient principale et la résorption reste exploratoire.\nTour 5: Les paramètres d'acquisition ne sont pas définis et ne doivent pas être inventés.",
+  "conversationTurns": [
+    {
+      "turnId": "turn-1",
+      "role": "USER",
+      "text": "Pendant le traitement orthodontique, un CBCT sera disponible au début et à la fin."
+    },
+    {
+      "turnId": "turn-2",
+      "role": "USER",
+      "text": "Je pensais d'abord retenir la résorption radiculaire comme outcome principal."
+    },
+    {
+      "turnId": "turn-3",
+      "role": "USER",
+      "text": "On mesurera aussi l'épaisseur de l'os cortical."
+    },
+    {
+      "turnId": "turn-4",
+      "role": "USER",
+      "text": "Correction: l'épaisseur corticale devient principale et la résorption reste exploratoire."
+    },
+    {
+      "turnId": "turn-5",
+      "role": "USER",
+      "text": "Les paramètres d'acquisition ne sont pas définis et ne doivent pas être inventés."
+    }
+  ]
+}

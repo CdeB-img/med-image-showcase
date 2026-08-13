@@ -1,0 +1,104 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003C_BLIND_BENCHMARK_CASE",
+  "purpose": "BLIND_QUALIFICATION_AUTHORING",
+  "caseId": "SEM3-BLIND-CORNEAL-NERVE-METHOD-MEASURE",
+  "version": "1.0.0",
+  "title": "Microscopie confocale et régénération cornéenne",
+  "createdAt": "2026-08-14T10:00:00.000Z",
+  "authorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
+  "reviewStatus": "SIMULATED_REFERENCE_REVIEW_PENDING",
+  "source": {
+    "sourceRequest": "Tour 1: Après chirurgie cornéenne, je veux utiliser la microscopie confocale pour quantifier la densité des fibres nerveuses; la densité est la mesure, la microscopie est la méthode et la régénération nerveuse reste le phénomène étudié.",
+    "language": "fr-FR",
+    "conversationTurns": [
+      {
+        "turnId": "turn-1",
+        "role": "USER",
+        "text": "Après chirurgie cornéenne, je veux utiliser la microscopie confocale pour quantifier la densité des fibres nerveuses; la densité est la mesure, la microscopie est la méthode et la régénération nerveuse reste le phénomène étudié."
+      }
+    ],
+    "sourceContext": "Conversation synthétique indépendante de imagerie cornéenne quantitative; aucun output SEM ou provider n'a été utilisé.",
+    "provenance": {
+      "originType": "SYNTHETIC_AUTHORED",
+      "originalSource": "Original independent SEM-003C blind authoring; not translated, paraphrased, adapted or generated from SEM output.",
+      "author": "Codex acting as documentary blind benchmark author, not as human scientific reviewer",
+      "createdAt": "2026-08-14T10:00:00.000Z",
+      "inspirationRefs": [
+        "docs/sem-002-scientific-understanding-competence-contract.md",
+        "docs/sem-003-independent-scientific-understanding-benchmark-architecture.md"
+      ]
+    }
+  },
+  "scientificScope": {
+    "domainGroup": "OTHER_MEDICAL_IMAGING",
+    "domain": "imagerie cornéenne quantitative",
+    "scenarioCategory": "METHOD_VERSUS_MEASUREMENT",
+    "secondaryCategories": [
+      "PHENOMENON_VERSUS_OBSERVABLE"
+    ],
+    "difficultyTarget": "INTERMEDIATE",
+    "intentionallyMissingInformation": [
+      {
+        "informationId": "missing-1",
+        "description": "Moment de la mesure après chirurgie.",
+        "intentional": true
+      }
+    ]
+  },
+  "exposure": {
+    "exposureStatus": "BLIND_DESIGN_ONLY",
+    "exposureHistory": [
+      {
+        "eventId": "exposure-corneal-nerve-method-measure-authored",
+        "fromStatus": null,
+        "toStatus": "BLIND_DESIGN_ONLY",
+        "occurredAt": "2026-08-14T10:00:00.000Z",
+        "actorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
+        "reason": "Independent authoring before parentage review, reference review and sealing."
+      }
+    ],
+    "parentageStatus": "REQUIRES_PARENTAGE_REVIEW",
+    "contaminationReview": {
+      "status": "NOT_REVIEWED",
+      "reviewedAt": null,
+      "reviewerRole": null,
+      "notes": "Parentage and contamination review must complete before sealing."
+    },
+    "eligibleForBlindQualification": false
+  },
+  "reference": {
+    "acceptanceEnvelopeId": "SEM3-AE-BLIND-CORNEAL-NERVE-METHOD-MEASURE",
+    "applicableSEM002Properties": [
+      "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+      "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+      "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+      "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+    ],
+    "adjudicationRequirements": [
+      {
+        "expertise": "SCIENTIFIC_DOMAIN",
+        "rationale": "Review the scientific obligations without inventing human authority.",
+        "mandatory": true
+      },
+      {
+        "expertise": "METHODOLOGICAL_SEM",
+        "rationale": "Review semantic equivalence, epistemic status, ownership and evaluability.",
+        "mandatory": true
+      },
+      {
+        "expertise": "INDEPENDENT_ADJUDICATION",
+        "rationale": "Preserve unresolved limitations for future PD-011 review.",
+        "mandatory": true
+      }
+    ]
+  }
+}

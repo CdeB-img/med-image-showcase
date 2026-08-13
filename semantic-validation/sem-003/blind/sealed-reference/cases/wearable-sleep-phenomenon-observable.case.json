@@ -1,0 +1,136 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003C_BLIND_BENCHMARK_CASE",
+  "purpose": "BLIND_QUALIFICATION_AUTHORING",
+  "caseId": "SEM3-BLIND-WEARABLE-SLEEP-PHENOMENON-OBSERVABLE",
+  "version": "1.0.0",
+  "title": "Sommeil, algorithme wearable et propriété observée",
+  "createdAt": "2026-08-14T10:00:00.000Z",
+  "authorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
+  "reviewStatus": "SIMULATED_REFERENCE_REVIEW_PENDING",
+  "source": {
+    "sourceRequest": "Tour 1: Dans l'essai décentralisé, je veux étudier l'amélioration du sommeil.\nTour 2: Le bracelet fournit une durée de sommeil estimée par son algorithme.\nTour 3: La durée estimée n'est pas à elle seule le phénomène global d'amélioration du sommeil.\nTour 4: Un questionnaire hebdomadaire est aussi prévu.\nTour 5: Je n'ai pas encore choisi quelle propriété observée portera l'outcome principal.\nTour 6: L'adhérence au port du bracelet doit rester une information manquante si elle n'est pas fournie.",
+    "language": "fr-FR",
+    "conversationTurns": [
+      {
+        "turnId": "turn-1",
+        "role": "USER",
+        "text": "Dans l'essai décentralisé, je veux étudier l'amélioration du sommeil."
+      },
+      {
+        "turnId": "turn-2",
+        "role": "USER",
+        "text": "Le bracelet fournit une durée de sommeil estimée par son algorithme."
+      },
+      {
+        "turnId": "turn-3",
+        "role": "USER",
+        "text": "La durée estimée n'est pas à elle seule le phénomène global d'amélioration du sommeil."
+      },
+      {
+        "turnId": "turn-4",
+        "role": "USER",
+        "text": "Un questionnaire hebdomadaire est aussi prévu."
+      },
+      {
+        "turnId": "turn-5",
+        "role": "USER",
+        "text": "Je n'ai pas encore choisi quelle propriété observée portera l'outcome principal."
+      },
+      {
+        "turnId": "turn-6",
+        "role": "USER",
+        "text": "L'adhérence au port du bracelet doit rester une information manquante si elle n'est pas fournie."
+      }
+    ],
+    "sourceContext": "Conversation synthétique indépendante de essai décentralisé et mesure par wearable; aucun output SEM ou provider n'a été utilisé.",
+    "provenance": {
+      "originType": "SYNTHETIC_AUTHORED",
+      "originalSource": "Original independent SEM-003C blind authoring; not translated, paraphrased, adapted or generated from SEM output.",
+      "author": "Codex acting as documentary blind benchmark author, not as human scientific reviewer",
+      "createdAt": "2026-08-14T10:00:00.000Z",
+      "inspirationRefs": [
+        "docs/sem-002-scientific-understanding-competence-contract.md",
+        "docs/sem-003-independent-scientific-understanding-benchmark-architecture.md"
+      ]
+    }
+  },
+  "scientificScope": {
+    "domainGroup": "TRANSVERSAL_CLINICAL_BIOMEDICAL_RESEARCH",
+    "domain": "essai décentralisé et mesure par wearable",
+    "scenarioCategory": "PHENOMENON_VERSUS_OBSERVABLE",
+    "secondaryCategories": [
+      "METHOD_VERSUS_MEASUREMENT",
+      "UNDER_SPECIFIED_REQUEST"
+    ],
+    "difficultyTarget": "ADVANCED",
+    "intentionallyMissingInformation": [
+      {
+        "informationId": "missing-1",
+        "description": "Propriété observable principale.",
+        "intentional": true
+      },
+      {
+        "informationId": "missing-2",
+        "description": "Adhérence au port du bracelet.",
+        "intentional": true
+      }
+    ]
+  },
+  "exposure": {
+    "exposureStatus": "BLIND_DESIGN_ONLY",
+    "exposureHistory": [
+      {
+        "eventId": "exposure-wearable-sleep-phenomenon-observable-authored",
+        "fromStatus": null,
+        "toStatus": "BLIND_DESIGN_ONLY",
+        "occurredAt": "2026-08-14T10:00:00.000Z",
+        "actorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
+        "reason": "Independent authoring before parentage review, reference review and sealing."
+      }
+    ],
+    "parentageStatus": "REQUIRES_PARENTAGE_REVIEW",
+    "contaminationReview": {
+      "status": "NOT_REVIEWED",
+      "reviewedAt": null,
+      "reviewerRole": null,
+      "notes": "Parentage and contamination review must complete before sealing."
+    },
+    "eligibleForBlindQualification": false
+  },
+  "reference": {
+    "acceptanceEnvelopeId": "SEM3-AE-BLIND-WEARABLE-SLEEP-PHENOMENON-OBSERVABLE",
+    "applicableSEM002Properties": [
+      "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+      "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+      "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+      "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+    ],
+    "adjudicationRequirements": [
+      {
+        "expertise": "SCIENTIFIC_DOMAIN",
+        "rationale": "Review the scientific obligations without inventing human authority.",
+        "mandatory": true
+      },
+      {
+        "expertise": "METHODOLOGICAL_SEM",
+        "rationale": "Review semantic equivalence, epistemic status, ownership and evaluability.",
+        "mandatory": true
+      },
+      {
+        "expertise": "INDEPENDENT_ADJUDICATION",
+        "rationale": "Preserve unresolved limitations for future PD-011 review.",
+        "mandatory": true
+      }
+    ]
+  }
+}

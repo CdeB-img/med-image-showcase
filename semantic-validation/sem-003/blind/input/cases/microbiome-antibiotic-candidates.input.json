@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003C_BLIND_RUNTIME_INPUT",
+  "caseId": "SEM3-BLIND-MICROBIOME-ANTIBIOTIC-CANDIDATES",
+  "version": "1.0.0",
+  "language": "fr-FR",
+  "sourceRequest": "Tour 1: Je veux décrire le microbiome avant puis après une antibiothérapie courte.\nTour 2: Les prélèvements de selles seront faits au départ et après la fin du traitement.\nTour 3: Le régime alimentaire n'a pas été recueilli de façon fiable.\nTour 4: Des fonctions microbiennes ou des groupes taxonomiques peuvent être proposés comme candidats, pas comme faits déjà observés.\nTour 5: Je ne veux pas conclure que l'antibiotique cause tout changement observé.",
+  "conversationTurns": [
+    {
+      "turnId": "turn-1",
+      "role": "USER",
+      "text": "Je veux décrire le microbiome avant puis après une antibiothérapie courte."
+    },
+    {
+      "turnId": "turn-2",
+      "role": "USER",
+      "text": "Les prélèvements de selles seront faits au départ et après la fin du traitement."
+    },
+    {
+      "turnId": "turn-3",
+      "role": "USER",
+      "text": "Le régime alimentaire n'a pas été recueilli de façon fiable."
+    },
+    {
+      "turnId": "turn-4",
+      "role": "USER",
+      "text": "Des fonctions microbiennes ou des groupes taxonomiques peuvent être proposés comme candidats, pas comme faits déjà observés."
+    },
+    {
+      "turnId": "turn-5",
+      "role": "USER",
+      "text": "Je ne veux pas conclure que l'antibiotique cause tout changement observé."
+    }
+  ]
+}
