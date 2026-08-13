@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003B4_UNCERTAINTY_AND_LIMITATIONS",
+  "deterministicTechnicalUncertainty": "No replay divergence was observed in a deterministic local instrument; this does not estimate future SEM or provider variability.",
+  "limitations": [
+    "REAL_HUMAN_REFERENCE_REVIEW = NOT_PERFORMED.",
+    "FINAL_PD011_REFERENCE_ELIGIBILITY = NO.",
+    "BLIND_ELIGIBILITY = NO.",
+    "P13-P18 decision agreement measures decision-record consumption, not independent scientific judgment accuracy.",
+    "N = 1 per deterministic fixture is technical and supplies no population-level competence estimate.",
+    "No threshold is admitted for P13-P18.",
+    "No SEM runtime, provider, LLM, browser, downstream, H29, Holdout, or blind package was executed.",
+    "A synthetic provider-failure fixture tests disposition separation only; provider reliability is not measured.",
+    "The Calibration-visible corpus cannot serve as future independent blind evidence."
+  ],
+  "residualUncertainty": [
+    "Independent expert reference validity remains open.",
+    "Evaluator performance on unexposed blind scientific content remains unknown.",
+    "Future runtime adapter fidelity and provider execution reliability remain outside B4."
+  ]
+}

@@ -33,6 +33,8 @@
     "check:sem003-calibration:b4-freeze": "node semantic-validation/sem-003/calibration/restart-v1.1.0/tools/freeze-precommitment.mjs --check",
     "test:sem003-calibration:b4-precommitment": "node --test semantic-validation/sem-003/calibration/restart-v1.1.0/validator/precommitment.test.mjs",
     "execute:sem003-calibration:b4": "node semantic-validation/sem-003/calibration/restart-v1.1.0/tools/execute-calibration.mjs",
+    "validate:sem003-calibration:b4-restart": "node semantic-validation/sem-003/calibration/restart-v1.1.0/validator/validate.mjs",
+    "test:sem003-calibration:b4-restart": "node --test semantic-validation/sem-003/calibration/restart-v1.1.0/validator/calibration.test.mjs",
     "test:semantic:live": "vite-node src/features/scientific-semantic-reconstruction/manual/live-competence-campaign.manual.ts",
     "test:semantic:r3:development": "vite-node src/features/scientific-semantic-reconstruction/manual/live-competence-campaign-r3.manual.ts --development",
     "test:semantic:r3:holdout": "vite-node src/features/scientific-semantic-reconstruction/manual/live-competence-campaign-r3.manual.ts --holdout",

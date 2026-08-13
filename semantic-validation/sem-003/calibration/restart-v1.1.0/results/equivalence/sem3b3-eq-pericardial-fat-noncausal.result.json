@@ -1,0 +1,574 @@
+{
+  "schemaVersion": "1.1.0",
+  "contractType": "BENCHMARK_EVALUATION_RESULT",
+  "evaluationId": "SEM3-EVAL-PERICARDIAL-FAT-NONCAUSAL-DISTRIBUTED",
+  "evaluatorIdentity": {
+    "version": "1.1.0",
+    "configurationDigest": "b05bc0ac66cb3e4dc5f135ba278cac8cadebe7443e57b1003dca580c9bd0e9bd"
+  },
+  "mode": "DEVELOPMENT_SYNTHETIC",
+  "caseId": "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL",
+  "candidateId": "SEM3-EVAL-CAND-PERICARDIAL-FAT-NONCAUSAL-DISTRIBUTED",
+  "disposition": "ACCEPTABLE_SEMANTIC_EQUIVALENT",
+  "level1": {
+    "status": "PASS",
+    "checkCount": 0,
+    "criticalVector": [
+      {
+        "propertyId": "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "judgment": "NOT_APPLICABLE"
+      },
+      {
+        "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "judgment": "SATISFIED"
+      },
+      {
+        "propertyId": "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "judgment": "NOT_APPLICABLE"
+      },
+      {
+        "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "judgment": "SATISFIED"
+      },
+      {
+        "propertyId": "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "judgment": "SATISFIED"
+      },
+      {
+        "propertyId": "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+        "judgment": "SATISFIED"
+      },
+      {
+        "propertyId": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+        "judgment": "NOT_APPLICABLE"
+      },
+      {
+        "propertyId": "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+        "judgment": "NOT_APPLICABLE"
+      },
+      {
+        "propertyId": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "judgment": "NOT_APPLICABLE"
+      },
+      {
+        "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "judgment": "SATISFIED"
+      },
+      {
+        "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "judgment": "SATISFIED"
+      },
+      {
+        "propertyId": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "judgment": "SATISFIED"
+      }
+    ]
+  },
+  "level2": {
+    "status": "ADJUDICATION_DECISION_APPLIED",
+    "adjudicationPackets": [
+      {
+        "schemaVersion": "1.0.0",
+        "contractType": "BENCHMARK_EVALUATION_ADJUDICATION_PACKET",
+        "packetId": "SEM3-ADJ-PERICARDIAL-FAT-NONCAUSAL-DISTRIBUTED-P15",
+        "caseId": "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL",
+        "candidateId": "SEM3-EVAL-CAND-PERICARDIAL-FAT-NONCAUSAL-DISTRIBUTED",
+        "propertyIds": [
+          "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+        ],
+        "reason": "The contractual mappings do not establish the non-trivial scientific judgment required by this property.",
+        "sourceRequestRef": "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL.source.sourceRequest",
+        "obligationRefs": [],
+        "candidateEvidenceRefs": [
+          "SEM3-AE-DEV-PERICARDIAL-FAT-NONCAUSAL.acceptableSemanticVariants.variant-obligation-vector",
+          "SEM3-AE-DEV-PERICARDIAL-FAT-NONCAUSAL.evaluationDemonstrations.representation-b"
+        ],
+        "decisionRequested": "Judge the property against the Acceptance Envelope without changing the reference or promoting candidate content.",
+        "permittedDecisions": [
+          "EQUIVALENT",
+          "ACCEPTABLE_WITH_RESERVE",
+          "NON_EQUIVALENT",
+          "NOT_ADJUDICABLE"
+        ],
+        "potentialFailureClasses": [
+          "SEMANTIC_EQUIVALENCE_EVALUATION_FAILURE"
+        ],
+        "status": "RESOLVED",
+        "decisionRecordId": "SEM3-ADR-PERICARDIAL-FAT-NONCAUSAL-SIMULATED-EQUIVALENCE"
+      },
+      {
+        "schemaVersion": "1.0.0",
+        "contractType": "BENCHMARK_EVALUATION_ADJUDICATION_PACKET",
+        "packetId": "SEM3-ADJ-PERICARDIAL-FAT-NONCAUSAL-DISTRIBUTED-P16",
+        "caseId": "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL",
+        "candidateId": "SEM3-EVAL-CAND-PERICARDIAL-FAT-NONCAUSAL-DISTRIBUTED",
+        "propertyIds": [
+          "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE"
+        ],
+        "reason": "The contractual mappings do not establish the non-trivial scientific judgment required by this property.",
+        "sourceRequestRef": "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL.source.sourceRequest",
+        "obligationRefs": [],
+        "candidateEvidenceRefs": [],
+        "decisionRequested": "Judge the property against the Acceptance Envelope without changing the reference or promoting candidate content.",
+        "permittedDecisions": [
+          "SATISFIED",
+          "VIOLATED",
+          "NOT_ADJUDICABLE"
+        ],
+        "potentialFailureClasses": [
+          "CLARIFICATION_FAILURE"
+        ],
+        "status": "RESOLVED",
+        "decisionRecordId": "SEM3-ADR-PERICARDIAL-FAT-NONCAUSAL-SIMULATED-EQUIVALENCE"
+      },
+      {
+        "schemaVersion": "1.0.0",
+        "contractType": "BENCHMARK_EVALUATION_ADJUDICATION_PACKET",
+        "packetId": "SEM3-ADJ-PERICARDIAL-FAT-NONCAUSAL-DISTRIBUTED-P17",
+        "caseId": "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL",
+        "candidateId": "SEM3-EVAL-CAND-PERICARDIAL-FAT-NONCAUSAL-DISTRIBUTED",
+        "propertyIds": [
+          "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED"
+        ],
+        "reason": "The contractual mappings do not establish the non-trivial scientific judgment required by this property.",
+        "sourceRequestRef": "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL.source.sourceRequest",
+        "obligationRefs": [],
+        "candidateEvidenceRefs": [
+          "SEM3-AE-DEV-PERICARDIAL-FAT-NONCAUSAL.acceptableSemanticVariants.variant-obligation-vector",
+          "SEM3-AE-DEV-PERICARDIAL-FAT-NONCAUSAL.evaluationDemonstrations.representation-b"
+        ],
+        "decisionRequested": "Judge the property against the Acceptance Envelope without changing the reference or promoting candidate content.",
+        "permittedDecisions": [
+          "EQUIVALENT",
+          "ACCEPTABLE_WITH_RESERVE",
+          "NON_EQUIVALENT",
+          "NOT_ADJUDICABLE"
+        ],
+        "potentialFailureClasses": [
+          "SEMANTIC_EQUIVALENCE_EVALUATION_FAILURE"
+        ],
+        "status": "RESOLVED",
+        "decisionRecordId": "SEM3-ADR-PERICARDIAL-FAT-NONCAUSAL-SIMULATED-EQUIVALENCE"
+      }
+    ],
+    "appliedDecisions": [
+      {
+        "recordId": "SEM3-ADR-PERICARDIAL-FAT-NONCAUSAL-SIMULATED-EQUIVALENCE",
+        "packetId": "SEM3-ADJ-PERICARDIAL-FAT-NONCAUSAL-DISTRIBUTED-P15",
+        "decision": "EQUIVALENT",
+        "authorityClass": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+        "evidenceBasis": "SIMULATED_EXPERT_REVIEW_EVIDENCE",
+        "sourceDecisionId": "SEM3B3-SIMDEC-PERICARDIAL-FAT-NONCAUSAL-SEMANTIC-EQUIVALENCE",
+        "reviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+        "eligibility": {
+          "developmentEvaluatorTesting": true,
+          "developmentCalibration": true,
+          "formalIndependentQualification": false,
+          "blindReferenceAdmission": false,
+          "pd011FinalEvidence": false
+        },
+        "provenance": {
+          "sourceRecordRef": "semantic-validation/sem-003/review/artifacts/equivalence-review-status.json#SEM3B3-EQ-PERICARDIAL-FAT-NONCAUSAL",
+          "recordedAt": "2026-08-13T20:24:00.000Z",
+          "realHumanReview": false
+        }
+      },
+      {
+        "recordId": "SEM3-ADR-PERICARDIAL-FAT-NONCAUSAL-SIMULATED-EQUIVALENCE",
+        "packetId": "SEM3-ADJ-PERICARDIAL-FAT-NONCAUSAL-DISTRIBUTED-P16",
+        "decision": "EQUIVALENT",
+        "authorityClass": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+        "evidenceBasis": "SIMULATED_EXPERT_REVIEW_EVIDENCE",
+        "sourceDecisionId": "SEM3B3-SIMDEC-PERICARDIAL-FAT-NONCAUSAL-SEMANTIC-EQUIVALENCE",
+        "reviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+        "eligibility": {
+          "developmentEvaluatorTesting": true,
+          "developmentCalibration": true,
+          "formalIndependentQualification": false,
+          "blindReferenceAdmission": false,
+          "pd011FinalEvidence": false
+        },
+        "provenance": {
+          "sourceRecordRef": "semantic-validation/sem-003/review/artifacts/equivalence-review-status.json#SEM3B3-EQ-PERICARDIAL-FAT-NONCAUSAL",
+          "recordedAt": "2026-08-13T20:24:00.000Z",
+          "realHumanReview": false
+        }
+      },
+      {
+        "recordId": "SEM3-ADR-PERICARDIAL-FAT-NONCAUSAL-SIMULATED-EQUIVALENCE",
+        "packetId": "SEM3-ADJ-PERICARDIAL-FAT-NONCAUSAL-DISTRIBUTED-P17",
+        "decision": "EQUIVALENT",
+        "authorityClass": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+        "evidenceBasis": "SIMULATED_EXPERT_REVIEW_EVIDENCE",
+        "sourceDecisionId": "SEM3B3-SIMDEC-PERICARDIAL-FAT-NONCAUSAL-SEMANTIC-EQUIVALENCE",
+        "reviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+        "eligibility": {
+          "developmentEvaluatorTesting": true,
+          "developmentCalibration": true,
+          "formalIndependentQualification": false,
+          "blindReferenceAdmission": false,
+          "pd011FinalEvidence": false
+        },
+        "provenance": {
+          "sourceRecordRef": "semantic-validation/sem-003/review/artifacts/equivalence-review-status.json#SEM3B3-EQ-PERICARDIAL-FAT-NONCAUSAL",
+          "recordedAt": "2026-08-13T20:24:00.000Z",
+          "realHumanReview": false
+        }
+      }
+    ]
+  },
+  "propertyJudgments": [
+    {
+      "propertyId": "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "alias": "P01",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "checkType": "DETERMINISTIC_CHECK",
+      "judgment": "NOT_APPLICABLE",
+      "applicable": false,
+      "compensable": false,
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [],
+      "downstreamFindings": [],
+      "adjudicationPacketId": null
+    },
+    {
+      "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "alias": "P02",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "checkType": "REFERENCE_DECLARED_CHECK",
+      "judgment": "SATISFIED",
+      "applicable": true,
+      "compensable": false,
+      "failureClass": "RELATION_SEMANTICS_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-3-paired-observations"
+      ],
+      "downstreamFindings": [],
+      "adjudicationPacketId": null
+    },
+    {
+      "propertyId": "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+      "alias": "P03",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "checkType": "DETERMINISTIC_CHECK",
+      "judgment": "NOT_APPLICABLE",
+      "applicable": false,
+      "compensable": false,
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [],
+      "downstreamFindings": [],
+      "adjudicationPacketId": null
+    },
+    {
+      "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "alias": "P04",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "checkType": "REFERENCE_DECLARED_CHECK",
+      "judgment": "SATISFIED",
+      "applicable": true,
+      "compensable": false,
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-3-paired-observations"
+      ],
+      "downstreamFindings": [],
+      "adjudicationPacketId": null
+    },
+    {
+      "propertyId": "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+      "alias": "P05",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "checkType": "REFERENCE_DECLARED_CHECK",
+      "judgment": "SATISFIED",
+      "applicable": true,
+      "compensable": false,
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-1-current-association",
+        "acceptanceEnvelope.required.req-2-historical-causal-wording",
+        "acceptanceEnvelope.required.req-4-current-state",
+        "acceptanceEnvelope.required.req-5-historical-state",
+        "acceptanceEnvelope.prohibited.pro-1-retain-causal-claim"
+      ],
+      "downstreamFindings": [],
+      "adjudicationPacketId": null
+    },
+    {
+      "propertyId": "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+      "alias": "P06",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "checkType": "REFERENCE_DECLARED_CHECK",
+      "judgment": "SATISFIED",
+      "applicable": true,
+      "compensable": false,
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-1-current-association",
+        "acceptanceEnvelope.prohibited.pro-1-retain-causal-claim"
+      ],
+      "downstreamFindings": [],
+      "adjudicationPacketId": null
+    },
+    {
+      "propertyId": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+      "alias": "P07",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "checkType": "DETERMINISTIC_CHECK",
+      "judgment": "NOT_APPLICABLE",
+      "applicable": false,
+      "compensable": false,
+      "failureClass": "EPISTEMIC_PROMOTION_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [],
+      "downstreamFindings": [],
+      "adjudicationPacketId": null
+    },
+    {
+      "propertyId": "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+      "alias": "P08",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "checkType": "DETERMINISTIC_CHECK",
+      "judgment": "NOT_APPLICABLE",
+      "applicable": false,
+      "compensable": false,
+      "failureClass": "EPISTEMIC_PROMOTION_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [],
+      "downstreamFindings": [],
+      "adjudicationPacketId": null
+    },
+    {
+      "propertyId": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "alias": "P09",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "checkType": "DETERMINISTIC_CHECK",
+      "judgment": "NOT_APPLICABLE",
+      "applicable": false,
+      "compensable": false,
+      "failureClass": "MISSING_INFORMATION_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [],
+      "downstreamFindings": [],
+      "adjudicationPacketId": null
+    },
+    {
+      "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "alias": "P10",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "checkType": "REFERENCE_DECLARED_CHECK",
+      "judgment": "SATISFIED",
+      "applicable": true,
+      "compensable": false,
+      "failureClass": "UNSUPPORTED_INVENTION_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [
+        "acceptanceEnvelope.prohibited.pro-2-invent-measurement-definition"
+      ],
+      "downstreamFindings": [],
+      "adjudicationPacketId": null
+    },
+    {
+      "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "alias": "P11",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "checkType": "REFERENCE_DECLARED_CHECK",
+      "judgment": "SATISFIED",
+      "applicable": true,
+      "compensable": false,
+      "failureClass": "OWNERSHIP_BOUNDARY_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [
+        "acceptanceEnvelope.prohibited.pro-2-invent-measurement-definition"
+      ],
+      "downstreamFindings": [],
+      "adjudicationPacketId": null
+    },
+    {
+      "propertyId": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "alias": "P12",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "checkType": "REFERENCE_DECLARED_CHECK",
+      "judgment": "SATISFIED",
+      "applicable": true,
+      "compensable": false,
+      "failureClass": "PROVENANCE_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-2-historical-causal-wording",
+        "acceptanceEnvelope.required.req-5-historical-state"
+      ],
+      "downstreamFindings": [],
+      "adjudicationPacketId": null
+    },
+    {
+      "propertyId": "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+      "alias": "P13",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "checkType": "DETERMINISTIC_CHECK",
+      "judgment": "NOT_APPLICABLE",
+      "applicable": false,
+      "compensable": false,
+      "failureClass": "MISSING_INFORMATION_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [],
+      "downstreamFindings": [],
+      "adjudicationPacketId": null
+    },
+    {
+      "propertyId": "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+      "alias": "P14",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "checkType": "DETERMINISTIC_CHECK",
+      "judgment": "NOT_APPLICABLE",
+      "applicable": false,
+      "compensable": false,
+      "failureClass": "CONCEPTUAL_PLAN_COLLAPSE",
+      "firstCause": null,
+      "evidenceTrace": [],
+      "downstreamFindings": [],
+      "adjudicationPacketId": null
+    },
+    {
+      "propertyId": "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED",
+      "alias": "P15",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "checkType": "REFERENCE_DECLARED_CHECK",
+      "judgment": "SATISFIED",
+      "applicable": true,
+      "compensable": false,
+      "failureClass": "SEMANTIC_EQUIVALENCE_EVALUATION_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [
+        "SEM3-AE-DEV-PERICARDIAL-FAT-NONCAUSAL.acceptableSemanticVariants.variant-obligation-vector",
+        "SEM3-AE-DEV-PERICARDIAL-FAT-NONCAUSAL.evaluationDemonstrations.representation-b",
+        "adjudicationDecision:SEM3B3-SIMDEC-PERICARDIAL-FAT-NONCAUSAL-SEMANTIC-EQUIVALENCE"
+      ],
+      "downstreamFindings": [],
+      "adjudicationPacketId": "SEM3-ADJ-PERICARDIAL-FAT-NONCAUSAL-DISTRIBUTED-P15"
+    },
+    {
+      "propertyId": "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "alias": "P16",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "checkType": "ADJUDICATION_CHECK",
+      "judgment": "SATISFIED",
+      "applicable": true,
+      "compensable": false,
+      "failureClass": "CLARIFICATION_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [
+        "adjudicationDecision:SEM3B3-SIMDEC-PERICARDIAL-FAT-NONCAUSAL-SEMANTIC-EQUIVALENCE"
+      ],
+      "downstreamFindings": [],
+      "adjudicationPacketId": "SEM3-ADJ-PERICARDIAL-FAT-NONCAUSAL-DISTRIBUTED-P16"
+    },
+    {
+      "propertyId": "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "alias": "P17",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "checkType": "REFERENCE_DECLARED_CHECK",
+      "judgment": "SATISFIED",
+      "applicable": true,
+      "compensable": false,
+      "failureClass": "SEMANTIC_EQUIVALENCE_EVALUATION_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [
+        "SEM3-AE-DEV-PERICARDIAL-FAT-NONCAUSAL.acceptableSemanticVariants.variant-obligation-vector",
+        "SEM3-AE-DEV-PERICARDIAL-FAT-NONCAUSAL.evaluationDemonstrations.representation-b",
+        "adjudicationDecision:SEM3B3-SIMDEC-PERICARDIAL-FAT-NONCAUSAL-SEMANTIC-EQUIVALENCE"
+      ],
+      "downstreamFindings": [],
+      "adjudicationPacketId": "SEM3-ADJ-PERICARDIAL-FAT-NONCAUSAL-DISTRIBUTED-P17"
+    },
+    {
+      "propertyId": "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+      "alias": "P18",
+      "family": "CONTEXTUAL_ENRICHMENT",
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "checkType": "DETERMINISTIC_CHECK",
+      "judgment": "NOT_APPLICABLE",
+      "applicable": false,
+      "compensable": false,
+      "failureClass": "CONTEXTUAL_UNDERSTANDING_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [],
+      "downstreamFindings": [],
+      "adjudicationPacketId": null
+    }
+  ],
+  "criticalViolations": [],
+  "findings": [],
+  "firstCause": null,
+  "equivalence": {
+    "classification": "DECLARED_EQUIVALENT",
+    "structureProfile": "DISTRIBUTED_EQUIVALENT",
+    "referenceVariantId": "variant-obligation-vector",
+    "requiresHumanDecision": false,
+    "requiresIndependentQualificationEvidence": true
+  },
+  "clarification": {
+    "status": "PRESERVED",
+    "evidenceRefs": [
+      "adjudicationDecision:SEM3B3-SIMDEC-PERICARDIAL-FAT-NONCAUSAL-SEMANTIC-EQUIVALENCE"
+    ],
+    "adjudicationRequired": false
+  },
+  "enrichment": {
+    "status": "NOT_APPLICABLE",
+    "evidenceRefs": [],
+    "adjudicationRequired": false
+  },
+  "ownership": {
+    "status": "PRESERVED",
+    "evidenceRefs": [
+      "acceptanceEnvelope.prohibited.pro-2-invent-measurement-definition"
+    ],
+    "adjudicationRequired": false
+  },
+  "provenance": {
+    "status": "PRESERVED",
+    "evidenceRefs": [
+      "acceptanceEnvelope.required.req-2-historical-causal-wording",
+      "acceptanceEnvelope.required.req-5-historical-state"
+    ],
+    "adjudicationRequired": false
+  },
+  "evidenceTrace": [
+    "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL@1.0.0",
+    "SEM3-AE-DEV-PERICARDIAL-FAT-NONCAUSAL@1.0.0",
+    "SEM3-EVAL-CAND-PERICARDIAL-FAT-NONCAUSAL-DISTRIBUTED@1.0.0",
+    "adjudicationDecision:SEM3B3-SIMDEC-PERICARDIAL-FAT-NONCAUSAL-SEMANTIC-EQUIVALENCE",
+    "acceptanceEnvelope.required.req-3-paired-observations",
+    "acceptanceEnvelope.required.req-1-current-association",
+    "acceptanceEnvelope.required.req-2-historical-causal-wording",
+    "acceptanceEnvelope.required.req-4-current-state",
+    "acceptanceEnvelope.required.req-5-historical-state",
+    "acceptanceEnvelope.prohibited.pro-1-retain-causal-claim",
+    "acceptanceEnvelope.prohibited.pro-2-invent-measurement-definition",
+    "SEM3-AE-DEV-PERICARDIAL-FAT-NONCAUSAL.acceptableSemanticVariants.variant-obligation-vector",
+    "SEM3-AE-DEV-PERICARDIAL-FAT-NONCAUSAL.evaluationDemonstrations.representation-b"
+  ]
+}

@@ -1,0 +1,601 @@
+{
+  "schemaVersion": "1.1.0",
+  "contractType": "BENCHMARK_EVALUATION_RESULT",
+  "evaluationId": "SEM3-EVAL-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE",
+  "evaluatorIdentity": {
+    "version": "1.1.0",
+    "configurationDigest": "b05bc0ac66cb3e4dc5f135ba278cac8cadebe7443e57b1003dca580c9bd0e9bd"
+  },
+  "mode": "CALIBRATION_SYNTHETIC",
+  "caseId": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+  "candidateId": "SEM3-EVAL-CAND-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE",
+  "disposition": "ACCEPTABLE_SEMANTIC_EQUIVALENT",
+  "level1": {
+    "status": "PASS",
+    "checkCount": 0,
+    "criticalVector": [
+      {
+        "propertyId": "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "judgment": "SATISFIED"
+      },
+      {
+        "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "judgment": "NOT_APPLICABLE"
+      },
+      {
+        "propertyId": "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "judgment": "NOT_APPLICABLE"
+      },
+      {
+        "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "judgment": "NOT_APPLICABLE"
+      },
+      {
+        "propertyId": "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "judgment": "NOT_APPLICABLE"
+      },
+      {
+        "propertyId": "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+        "judgment": "NOT_APPLICABLE"
+      },
+      {
+        "propertyId": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+        "judgment": "NOT_APPLICABLE"
+      },
+      {
+        "propertyId": "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+        "judgment": "NOT_APPLICABLE"
+      },
+      {
+        "propertyId": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "judgment": "SATISFIED"
+      },
+      {
+        "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "judgment": "SATISFIED"
+      },
+      {
+        "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "judgment": "SATISFIED"
+      },
+      {
+        "propertyId": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "judgment": "NOT_APPLICABLE"
+      }
+    ]
+  },
+  "level2": {
+    "status": "ADJUDICATION_DECISION_APPLIED",
+    "adjudicationPackets": [
+      {
+        "schemaVersion": "1.0.0",
+        "contractType": "BENCHMARK_EVALUATION_ADJUDICATION_PACKET",
+        "packetId": "SEM3-ADJ-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P14",
+        "caseId": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+        "candidateId": "SEM3-EVAL-CAND-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE",
+        "propertyIds": [
+          "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+        ],
+        "reason": "The contractual mappings do not establish the non-trivial scientific judgment required by this property.",
+        "sourceRequestRef": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY.source.sourceRequest",
+        "obligationRefs": [
+          "req-1-three-open-purposes"
+        ],
+        "candidateEvidenceRefs": [
+          "acceptanceEnvelope.required.req-1-three-open-purposes"
+        ],
+        "decisionRequested": "Judge the property against the Acceptance Envelope without changing the reference or promoting candidate content.",
+        "permittedDecisions": [
+          "SATISFIED",
+          "VIOLATED",
+          "NOT_ADJUDICABLE"
+        ],
+        "potentialFailureClasses": [
+          "CONCEPTUAL_PLAN_COLLAPSE"
+        ],
+        "status": "RESOLVED",
+        "decisionRecordId": "SEM3-ADR-B4-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P14"
+      },
+      {
+        "schemaVersion": "1.0.0",
+        "contractType": "BENCHMARK_EVALUATION_ADJUDICATION_PACKET",
+        "packetId": "SEM3-ADJ-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P15",
+        "caseId": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+        "candidateId": "SEM3-EVAL-CAND-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE",
+        "propertyIds": [
+          "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+        ],
+        "reason": "The contractual mappings do not establish the non-trivial scientific judgment required by this property.",
+        "sourceRequestRef": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY.source.sourceRequest",
+        "obligationRefs": [],
+        "candidateEvidenceRefs": [],
+        "decisionRequested": "Judge the property against the Acceptance Envelope without changing the reference or promoting candidate content.",
+        "permittedDecisions": [
+          "EQUIVALENT",
+          "ACCEPTABLE_WITH_RESERVE",
+          "NON_EQUIVALENT",
+          "NOT_ADJUDICABLE"
+        ],
+        "potentialFailureClasses": [
+          "SEMANTIC_EQUIVALENCE_EVALUATION_FAILURE"
+        ],
+        "status": "RESOLVED",
+        "decisionRecordId": "SEM3-ADR-B4-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P15"
+      },
+      {
+        "schemaVersion": "1.0.0",
+        "contractType": "BENCHMARK_EVALUATION_ADJUDICATION_PACKET",
+        "packetId": "SEM3-ADJ-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P16",
+        "caseId": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+        "candidateId": "SEM3-EVAL-CAND-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE",
+        "propertyIds": [
+          "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE"
+        ],
+        "reason": "The contractual mappings do not establish the non-trivial scientific judgment required by this property.",
+        "sourceRequestRef": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY.source.sourceRequest",
+        "obligationRefs": [],
+        "candidateEvidenceRefs": [],
+        "decisionRequested": "Judge the property against the Acceptance Envelope without changing the reference or promoting candidate content.",
+        "permittedDecisions": [
+          "SATISFIED",
+          "VIOLATED",
+          "NOT_ADJUDICABLE"
+        ],
+        "potentialFailureClasses": [
+          "CLARIFICATION_FAILURE"
+        ],
+        "status": "RESOLVED",
+        "decisionRecordId": "SEM3-ADR-B4-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P16"
+      },
+      {
+        "schemaVersion": "1.0.0",
+        "contractType": "BENCHMARK_EVALUATION_ADJUDICATION_PACKET",
+        "packetId": "SEM3-ADJ-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P17",
+        "caseId": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+        "candidateId": "SEM3-EVAL-CAND-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE",
+        "propertyIds": [
+          "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED"
+        ],
+        "reason": "The contractual mappings do not establish the non-trivial scientific judgment required by this property.",
+        "sourceRequestRef": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY.source.sourceRequest",
+        "obligationRefs": [],
+        "candidateEvidenceRefs": [],
+        "decisionRequested": "Judge the property against the Acceptance Envelope without changing the reference or promoting candidate content.",
+        "permittedDecisions": [
+          "EQUIVALENT",
+          "ACCEPTABLE_WITH_RESERVE",
+          "NON_EQUIVALENT",
+          "NOT_ADJUDICABLE"
+        ],
+        "potentialFailureClasses": [
+          "SEMANTIC_EQUIVALENCE_EVALUATION_FAILURE"
+        ],
+        "status": "RESOLVED",
+        "decisionRecordId": "SEM3-ADR-B4-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P17"
+      }
+    ],
+    "appliedDecisions": [
+      {
+        "recordId": "SEM3-ADR-B4-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P14",
+        "packetId": "SEM3-ADJ-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P14",
+        "decision": "SATISFIED",
+        "authorityClass": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+        "evidenceBasis": "SIMULATED_EXPERT_REVIEW_EVIDENCE",
+        "sourceDecisionId": "SEM3B4-PRECOMMIT-SEM3-EVAL-CAND-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P14",
+        "reviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+        "eligibility": {
+          "developmentEvaluatorTesting": true,
+          "developmentCalibration": true,
+          "formalIndependentQualification": false,
+          "blindReferenceAdmission": false,
+          "pd011FinalEvidence": false
+        },
+        "provenance": {
+          "sourceRecordRef": "semantic-validation/sem-003/review/artifacts/calibration-reference-set.json#SEM3B3-RU-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+          "recordedAt": "2026-08-13T22:00:00.000Z",
+          "realHumanReview": false
+        }
+      },
+      {
+        "recordId": "SEM3-ADR-B4-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P15",
+        "packetId": "SEM3-ADJ-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P15",
+        "decision": "EQUIVALENT",
+        "authorityClass": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+        "evidenceBasis": "SIMULATED_EXPERT_REVIEW_EVIDENCE",
+        "sourceDecisionId": "SEM3B4-PRECOMMIT-SEM3-EVAL-CAND-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P15",
+        "reviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+        "eligibility": {
+          "developmentEvaluatorTesting": true,
+          "developmentCalibration": true,
+          "formalIndependentQualification": false,
+          "blindReferenceAdmission": false,
+          "pd011FinalEvidence": false
+        },
+        "provenance": {
+          "sourceRecordRef": "semantic-validation/sem-003/review/artifacts/calibration-reference-set.json#SEM3B3-RU-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+          "recordedAt": "2026-08-13T22:00:00.000Z",
+          "realHumanReview": false
+        }
+      },
+      {
+        "recordId": "SEM3-ADR-B4-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P16",
+        "packetId": "SEM3-ADJ-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P16",
+        "decision": "SATISFIED",
+        "authorityClass": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+        "evidenceBasis": "SIMULATED_EXPERT_REVIEW_EVIDENCE",
+        "sourceDecisionId": "SEM3B4-PRECOMMIT-SEM3-EVAL-CAND-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P16",
+        "reviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+        "eligibility": {
+          "developmentEvaluatorTesting": true,
+          "developmentCalibration": true,
+          "formalIndependentQualification": false,
+          "blindReferenceAdmission": false,
+          "pd011FinalEvidence": false
+        },
+        "provenance": {
+          "sourceRecordRef": "semantic-validation/sem-003/review/artifacts/calibration-reference-set.json#SEM3B3-RU-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+          "recordedAt": "2026-08-13T22:00:00.000Z",
+          "realHumanReview": false
+        }
+      },
+      {
+        "recordId": "SEM3-ADR-B4-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P17",
+        "packetId": "SEM3-ADJ-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P17",
+        "decision": "EQUIVALENT",
+        "authorityClass": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+        "evidenceBasis": "SIMULATED_EXPERT_REVIEW_EVIDENCE",
+        "sourceDecisionId": "SEM3B4-PRECOMMIT-SEM3-EVAL-CAND-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P17",
+        "reviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+        "eligibility": {
+          "developmentEvaluatorTesting": true,
+          "developmentCalibration": true,
+          "formalIndependentQualification": false,
+          "blindReferenceAdmission": false,
+          "pd011FinalEvidence": false
+        },
+        "provenance": {
+          "sourceRecordRef": "semantic-validation/sem-003/review/artifacts/calibration-reference-set.json#SEM3B3-RU-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+          "recordedAt": "2026-08-13T22:00:00.000Z",
+          "realHumanReview": false
+        }
+      }
+    ]
+  },
+  "propertyJudgments": [
+    {
+      "propertyId": "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "alias": "P01",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "checkType": "DETERMINISTIC_CHECK",
+      "judgment": "SATISFIED",
+      "applicable": true,
+      "compensable": false,
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-2-ultrasound-explicit"
+      ],
+      "downstreamFindings": [],
+      "adjudicationPacketId": null
+    },
+    {
+      "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "alias": "P02",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "checkType": "DETERMINISTIC_CHECK",
+      "judgment": "NOT_APPLICABLE",
+      "applicable": false,
+      "compensable": false,
+      "failureClass": "RELATION_SEMANTICS_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [],
+      "downstreamFindings": [],
+      "adjudicationPacketId": null
+    },
+    {
+      "propertyId": "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+      "alias": "P03",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "checkType": "DETERMINISTIC_CHECK",
+      "judgment": "NOT_APPLICABLE",
+      "applicable": false,
+      "compensable": false,
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [],
+      "downstreamFindings": [],
+      "adjudicationPacketId": null
+    },
+    {
+      "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "alias": "P04",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "checkType": "DETERMINISTIC_CHECK",
+      "judgment": "NOT_APPLICABLE",
+      "applicable": false,
+      "compensable": false,
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [],
+      "downstreamFindings": [],
+      "adjudicationPacketId": null
+    },
+    {
+      "propertyId": "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+      "alias": "P05",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "checkType": "DETERMINISTIC_CHECK",
+      "judgment": "NOT_APPLICABLE",
+      "applicable": false,
+      "compensable": false,
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [],
+      "downstreamFindings": [],
+      "adjudicationPacketId": null
+    },
+    {
+      "propertyId": "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+      "alias": "P06",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "checkType": "DETERMINISTIC_CHECK",
+      "judgment": "NOT_APPLICABLE",
+      "applicable": false,
+      "compensable": false,
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [],
+      "downstreamFindings": [],
+      "adjudicationPacketId": null
+    },
+    {
+      "propertyId": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+      "alias": "P07",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "checkType": "DETERMINISTIC_CHECK",
+      "judgment": "NOT_APPLICABLE",
+      "applicable": false,
+      "compensable": false,
+      "failureClass": "EPISTEMIC_PROMOTION_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [],
+      "downstreamFindings": [],
+      "adjudicationPacketId": null
+    },
+    {
+      "propertyId": "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+      "alias": "P08",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "checkType": "DETERMINISTIC_CHECK",
+      "judgment": "NOT_APPLICABLE",
+      "applicable": false,
+      "compensable": false,
+      "failureClass": "EPISTEMIC_PROMOTION_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [],
+      "downstreamFindings": [],
+      "adjudicationPacketId": null
+    },
+    {
+      "propertyId": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "alias": "P09",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "checkType": "DETERMINISTIC_CHECK",
+      "judgment": "SATISFIED",
+      "applicable": true,
+      "compensable": false,
+      "failureClass": "MISSING_INFORMATION_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-1-three-open-purposes",
+        "acceptanceEnvelope.prohibited.pro-1-select-purpose"
+      ],
+      "downstreamFindings": [],
+      "adjudicationPacketId": null
+    },
+    {
+      "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "alias": "P10",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "checkType": "DETERMINISTIC_CHECK",
+      "judgment": "SATISFIED",
+      "applicable": true,
+      "compensable": false,
+      "failureClass": "UNSUPPORTED_INVENTION_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [
+        "acceptanceEnvelope.prohibited.pro-2-invent-measurement"
+      ],
+      "downstreamFindings": [],
+      "adjudicationPacketId": null
+    },
+    {
+      "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "alias": "P11",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "checkType": "DETERMINISTIC_CHECK",
+      "judgment": "SATISFIED",
+      "applicable": true,
+      "compensable": false,
+      "failureClass": "OWNERSHIP_BOUNDARY_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [
+        "acceptanceEnvelope.prohibited.pro-1-select-purpose"
+      ],
+      "downstreamFindings": [],
+      "adjudicationPacketId": null
+    },
+    {
+      "propertyId": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "alias": "P12",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "checkType": "DETERMINISTIC_CHECK",
+      "judgment": "NOT_APPLICABLE",
+      "applicable": false,
+      "compensable": false,
+      "failureClass": "PROVENANCE_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [],
+      "downstreamFindings": [],
+      "adjudicationPacketId": null
+    },
+    {
+      "propertyId": "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+      "alias": "P13",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "checkType": "DETERMINISTIC_CHECK",
+      "judgment": "NOT_APPLICABLE",
+      "applicable": false,
+      "compensable": false,
+      "failureClass": "MISSING_INFORMATION_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [],
+      "downstreamFindings": [],
+      "adjudicationPacketId": null
+    },
+    {
+      "propertyId": "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+      "alias": "P14",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "checkType": "ADJUDICATION_CHECK",
+      "judgment": "SATISFIED",
+      "applicable": true,
+      "compensable": false,
+      "failureClass": "CONCEPTUAL_PLAN_COLLAPSE",
+      "firstCause": null,
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-1-three-open-purposes",
+        "adjudicationDecision:SEM3B4-PRECOMMIT-SEM3-EVAL-CAND-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P14"
+      ],
+      "downstreamFindings": [],
+      "adjudicationPacketId": "SEM3-ADJ-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P14"
+    },
+    {
+      "propertyId": "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED",
+      "alias": "P15",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "checkType": "ADJUDICATION_CHECK",
+      "judgment": "SATISFIED",
+      "applicable": true,
+      "compensable": false,
+      "failureClass": "SEMANTIC_EQUIVALENCE_EVALUATION_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [
+        "adjudicationDecision:SEM3B4-PRECOMMIT-SEM3-EVAL-CAND-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P15"
+      ],
+      "downstreamFindings": [],
+      "adjudicationPacketId": "SEM3-ADJ-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P15"
+    },
+    {
+      "propertyId": "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "alias": "P16",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "checkType": "ADJUDICATION_CHECK",
+      "judgment": "SATISFIED",
+      "applicable": true,
+      "compensable": false,
+      "failureClass": "CLARIFICATION_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [
+        "adjudicationDecision:SEM3B4-PRECOMMIT-SEM3-EVAL-CAND-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P16"
+      ],
+      "downstreamFindings": [],
+      "adjudicationPacketId": "SEM3-ADJ-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P16"
+    },
+    {
+      "propertyId": "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "alias": "P17",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "checkType": "ADJUDICATION_CHECK",
+      "judgment": "SATISFIED",
+      "applicable": true,
+      "compensable": false,
+      "failureClass": "SEMANTIC_EQUIVALENCE_EVALUATION_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [
+        "adjudicationDecision:SEM3B4-PRECOMMIT-SEM3-EVAL-CAND-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P17"
+      ],
+      "downstreamFindings": [],
+      "adjudicationPacketId": "SEM3-ADJ-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P17"
+    },
+    {
+      "propertyId": "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+      "alias": "P18",
+      "family": "CONTEXTUAL_ENRICHMENT",
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "checkType": "DETERMINISTIC_CHECK",
+      "judgment": "NOT_APPLICABLE",
+      "applicable": false,
+      "compensable": false,
+      "failureClass": "CONTEXTUAL_UNDERSTANDING_FAILURE",
+      "firstCause": null,
+      "evidenceTrace": [],
+      "downstreamFindings": [],
+      "adjudicationPacketId": null
+    }
+  ],
+  "criticalViolations": [],
+  "findings": [],
+  "firstCause": null,
+  "equivalence": {
+    "classification": "NONCRITICAL_FORM_VARIATION",
+    "structureProfile": "CONSOLIDATED",
+    "referenceVariantId": null,
+    "requiresHumanDecision": false,
+    "requiresIndependentQualificationEvidence": true
+  },
+  "clarification": {
+    "status": "PRESERVED",
+    "evidenceRefs": [
+      "adjudicationDecision:SEM3B4-PRECOMMIT-SEM3-EVAL-CAND-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P16"
+    ],
+    "adjudicationRequired": false
+  },
+  "enrichment": {
+    "status": "NOT_APPLICABLE",
+    "evidenceRefs": [],
+    "adjudicationRequired": false
+  },
+  "ownership": {
+    "status": "PRESERVED",
+    "evidenceRefs": [
+      "acceptanceEnvelope.prohibited.pro-1-select-purpose"
+    ],
+    "adjudicationRequired": false
+  },
+  "provenance": {
+    "status": "NOT_APPLICABLE",
+    "evidenceRefs": [],
+    "adjudicationRequired": false
+  },
+  "evidenceTrace": [
+    "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY@1.0.1",
+    "SEM3-AE-CAL-OVARIAN-ULTRASOUND-AMBIGUITY@1.0.1",
+    "SEM3-EVAL-CAND-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE@1.1.0",
+    "adjudicationDecision:SEM3B4-PRECOMMIT-SEM3-EVAL-CAND-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P14",
+    "adjudicationDecision:SEM3B4-PRECOMMIT-SEM3-EVAL-CAND-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P15",
+    "adjudicationDecision:SEM3B4-PRECOMMIT-SEM3-EVAL-CAND-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P16",
+    "adjudicationDecision:SEM3B4-PRECOMMIT-SEM3-EVAL-CAND-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE-P17",
+    "acceptanceEnvelope.required.req-2-ultrasound-explicit",
+    "acceptanceEnvelope.required.req-1-three-open-purposes",
+    "acceptanceEnvelope.prohibited.pro-1-select-purpose",
+    "acceptanceEnvelope.prohibited.pro-2-invent-measurement"
+  ]
+}

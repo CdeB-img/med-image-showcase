@@ -1,0 +1,337 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003B4_PROPERTY_LEVEL_RESULTS",
+  "evaluatorVersion": "1.1.0",
+  "evaluatorConfigurationDigest": "b05bc0ac66cb3e4dc5f135ba278cac8cadebe7443e57b1003dca580c9bd0e9bd",
+  "observationCount": 38,
+  "properties": [
+    {
+      "propertyId": "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "alias": "P01",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "absolute": true,
+      "compensable": false,
+      "applicableObservationCount": 34,
+      "judgments": {
+        "satisfied": 30,
+        "violated": 2,
+        "notApplicable": 4,
+        "notEvaluable": 2,
+        "adjudicationRequired": 0
+      },
+      "targetedProbeCount": 1,
+      "targetedExpectationAgreementCount": 1,
+      "threshold": "ABSOLUTE_NONCOMPENSABLE"
+    },
+    {
+      "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "alias": "P02",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "absolute": true,
+      "compensable": false,
+      "applicableObservationCount": 13,
+      "judgments": {
+        "satisfied": 12,
+        "violated": 1,
+        "notApplicable": 25,
+        "notEvaluable": 0,
+        "adjudicationRequired": 0
+      },
+      "targetedProbeCount": 1,
+      "targetedExpectationAgreementCount": 1,
+      "threshold": "ABSOLUTE_NONCOMPENSABLE"
+    },
+    {
+      "propertyId": "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+      "alias": "P03",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "absolute": true,
+      "compensable": false,
+      "applicableObservationCount": 32,
+      "judgments": {
+        "satisfied": 28,
+        "violated": 2,
+        "notApplicable": 6,
+        "notEvaluable": 2,
+        "adjudicationRequired": 0
+      },
+      "targetedProbeCount": 1,
+      "targetedExpectationAgreementCount": 1,
+      "threshold": "ABSOLUTE_NONCOMPENSABLE"
+    },
+    {
+      "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "alias": "P04",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "absolute": true,
+      "compensable": false,
+      "applicableObservationCount": 37,
+      "judgments": {
+        "satisfied": 32,
+        "violated": 3,
+        "notApplicable": 1,
+        "notEvaluable": 2,
+        "adjudicationRequired": 0
+      },
+      "targetedProbeCount": 1,
+      "targetedExpectationAgreementCount": 1,
+      "threshold": "ABSOLUTE_NONCOMPENSABLE"
+    },
+    {
+      "propertyId": "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+      "alias": "P05",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "absolute": true,
+      "compensable": false,
+      "applicableObservationCount": 8,
+      "judgments": {
+        "satisfied": 7,
+        "violated": 1,
+        "notApplicable": 30,
+        "notEvaluable": 0,
+        "adjudicationRequired": 0
+      },
+      "targetedProbeCount": 1,
+      "targetedExpectationAgreementCount": 1,
+      "threshold": "ABSOLUTE_NONCOMPENSABLE"
+    },
+    {
+      "propertyId": "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+      "alias": "P06",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "absolute": true,
+      "compensable": false,
+      "applicableObservationCount": 28,
+      "judgments": {
+        "satisfied": 23,
+        "violated": 3,
+        "notApplicable": 10,
+        "notEvaluable": 2,
+        "adjudicationRequired": 0
+      },
+      "targetedProbeCount": 1,
+      "targetedExpectationAgreementCount": 1,
+      "threshold": "ABSOLUTE_NONCOMPENSABLE"
+    },
+    {
+      "propertyId": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+      "alias": "P07",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "absolute": true,
+      "compensable": false,
+      "applicableObservationCount": 27,
+      "judgments": {
+        "satisfied": 23,
+        "violated": 2,
+        "notApplicable": 11,
+        "notEvaluable": 2,
+        "adjudicationRequired": 0
+      },
+      "targetedProbeCount": 1,
+      "targetedExpectationAgreementCount": 1,
+      "threshold": "ABSOLUTE_NONCOMPENSABLE"
+    },
+    {
+      "propertyId": "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+      "alias": "P08",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "absolute": true,
+      "compensable": false,
+      "applicableObservationCount": 3,
+      "judgments": {
+        "satisfied": 2,
+        "violated": 1,
+        "notApplicable": 35,
+        "notEvaluable": 0,
+        "adjudicationRequired": 0
+      },
+      "targetedProbeCount": 1,
+      "targetedExpectationAgreementCount": 1,
+      "threshold": "ABSOLUTE_NONCOMPENSABLE"
+    },
+    {
+      "propertyId": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "alias": "P09",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "absolute": true,
+      "compensable": false,
+      "applicableObservationCount": 31,
+      "judgments": {
+        "satisfied": 28,
+        "violated": 1,
+        "notApplicable": 7,
+        "notEvaluable": 2,
+        "adjudicationRequired": 0
+      },
+      "targetedProbeCount": 1,
+      "targetedExpectationAgreementCount": 1,
+      "threshold": "ABSOLUTE_NONCOMPENSABLE"
+    },
+    {
+      "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "alias": "P10",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "absolute": true,
+      "compensable": false,
+      "applicableObservationCount": 36,
+      "judgments": {
+        "satisfied": 32,
+        "violated": 2,
+        "notApplicable": 2,
+        "notEvaluable": 2,
+        "adjudicationRequired": 0
+      },
+      "targetedProbeCount": 1,
+      "targetedExpectationAgreementCount": 1,
+      "threshold": "ABSOLUTE_NONCOMPENSABLE"
+    },
+    {
+      "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "alias": "P11",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "absolute": true,
+      "compensable": false,
+      "applicableObservationCount": 33,
+      "judgments": {
+        "satisfied": 29,
+        "violated": 2,
+        "notApplicable": 5,
+        "notEvaluable": 2,
+        "adjudicationRequired": 0
+      },
+      "targetedProbeCount": 1,
+      "targetedExpectationAgreementCount": 1,
+      "threshold": "ABSOLUTE_NONCOMPENSABLE"
+    },
+    {
+      "propertyId": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "alias": "P12",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "absolute": true,
+      "compensable": false,
+      "applicableObservationCount": 34,
+      "judgments": {
+        "satisfied": 30,
+        "violated": 2,
+        "notApplicable": 4,
+        "notEvaluable": 2,
+        "adjudicationRequired": 0
+      },
+      "targetedProbeCount": 1,
+      "targetedExpectationAgreementCount": 1,
+      "threshold": "ABSOLUTE_NONCOMPENSABLE"
+    },
+    {
+      "propertyId": "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+      "alias": "P13",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "absolute": false,
+      "compensable": false,
+      "applicableObservationCount": 6,
+      "judgments": {
+        "satisfied": 5,
+        "violated": 1,
+        "notApplicable": 32,
+        "notEvaluable": 0,
+        "adjudicationRequired": 0
+      },
+      "targetedProbeCount": 2,
+      "targetedExpectationAgreementCount": 2,
+      "threshold": "THRESHOLD_NOT_YET_ADMITTED"
+    },
+    {
+      "propertyId": "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+      "alias": "P14",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "absolute": false,
+      "compensable": false,
+      "applicableObservationCount": 34,
+      "judgments": {
+        "satisfied": 18,
+        "violated": 3,
+        "notApplicable": 4,
+        "notEvaluable": 13,
+        "adjudicationRequired": 0
+      },
+      "targetedProbeCount": 2,
+      "targetedExpectationAgreementCount": 2,
+      "threshold": "THRESHOLD_NOT_YET_ADMITTED"
+    },
+    {
+      "propertyId": "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED",
+      "alias": "P15",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "absolute": false,
+      "compensable": false,
+      "applicableObservationCount": 38,
+      "judgments": {
+        "satisfied": 22,
+        "violated": 1,
+        "notApplicable": 0,
+        "notEvaluable": 15,
+        "adjudicationRequired": 0
+      },
+      "targetedProbeCount": 2,
+      "targetedExpectationAgreementCount": 2,
+      "threshold": "THRESHOLD_NOT_YET_ADMITTED"
+    },
+    {
+      "propertyId": "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "alias": "P16",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "absolute": false,
+      "compensable": false,
+      "applicableObservationCount": 38,
+      "judgments": {
+        "satisfied": 22,
+        "violated": 1,
+        "notApplicable": 0,
+        "notEvaluable": 15,
+        "adjudicationRequired": 0
+      },
+      "targetedProbeCount": 2,
+      "targetedExpectationAgreementCount": 2,
+      "threshold": "THRESHOLD_NOT_YET_ADMITTED"
+    },
+    {
+      "propertyId": "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "alias": "P17",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "absolute": false,
+      "compensable": false,
+      "applicableObservationCount": 38,
+      "judgments": {
+        "satisfied": 22,
+        "violated": 1,
+        "notApplicable": 0,
+        "notEvaluable": 15,
+        "adjudicationRequired": 0
+      },
+      "targetedProbeCount": 3,
+      "targetedExpectationAgreementCount": 3,
+      "threshold": "THRESHOLD_NOT_YET_ADMITTED"
+    },
+    {
+      "propertyId": "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+      "alias": "P18",
+      "family": "CONTEXTUAL_ENRICHMENT",
+      "absolute": false,
+      "compensable": false,
+      "applicableObservationCount": 27,
+      "judgments": {
+        "satisfied": 13,
+        "violated": 1,
+        "notApplicable": 11,
+        "notEvaluable": 13,
+        "adjudicationRequired": 0
+      },
+      "targetedProbeCount": 2,
+      "targetedExpectationAgreementCount": 2,
+      "threshold": "THRESHOLD_NOT_YET_ADMITTED"
+    }
+  ],
+  "interpretation": {
+    "p01ToP12": "Absolute, non-compensable targeted detection and preservation checks.",
+    "p13ToP18": "Technical agreement with precommitted simulated Level 2 records only; no scientific threshold or PD-011 qualification is inferred."
+  }
+}

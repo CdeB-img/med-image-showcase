@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003B4_ANTI_OVERFITTING_AUDIT",
+  "freezeCommit": "872b4b51f30d5f137d3aa920d689286626aa5dc7",
+  "worktreeCleanBeforeFirstObservation": true,
+  "precommitmentStatus": "COMMITTED_BEFORE_FIRST_OBSERVATION",
+  "frozenFixtureCount": 38,
+  "frozenExpectationCount": 38,
+  "frozenDecisionRecordCount": 108,
+  "evaluatorModifiedDuringCalibration": "NO",
+  "postObservationRepairPerformed": false,
+  "semRuntimeModified": false,
+  "goldModified": false,
+  "acceptanceEnvelopeModified": false,
+  "metricModifiedAfterObservation": false,
+  "decisionRuleModifiedAfterObservation": false,
+  "blindContentAccessedOrCreated": false,
+  "resultSelection": "ALL_RESULTS_COUNTED_NO_BEST_RUN_SELECTION",
+  "llmProviderCalls": 0
+}
