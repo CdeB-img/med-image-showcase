@@ -1,0 +1,217 @@
+{
+  "schemaVersion": "1.1.0",
+  "contractType": "BENCHMARK_EVALUATION_CANDIDATE",
+  "purpose": "SCIENTIFIC_UNDERSTANDING_EVALUATOR_CALIBRATION",
+  "candidateId": "SEM3-EVAL-CAND-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT-NEGATIVE-P08",
+  "caseId": "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+  "caseVersion": "1.0.0",
+  "envelopeId": "SEM3-AE-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+  "envelopeVersion": "1.0.0",
+  "evaluationMode": "CALIBRATION_SYNTHETIC",
+  "sourceType": "B4_SYNTHETIC_CALIBRATION",
+  "structureProfile": "NEAR_REFERENCE_WITH_SEMANTIC_DEFECT",
+  "executionStatus": "COMPLETED",
+  "semanticElements": [
+    {
+      "elementId": "element-1-resolve-histology-pronoun",
+      "semanticKey": "sem3-cal-organoid-live-signal-measurement.resolve-histology-pronoun",
+      "elementType": "OTHER",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "B4_SYNTHETIC_CALIBRATION_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[4]"
+      ],
+      "provenanceRefs": [
+        "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-2-phenomenon-signal-measure",
+      "semanticKey": "sem3-cal-organoid-live-signal-measurement.phenomenon-signal-measure",
+      "elementType": "RELATION",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "B4_SYNTHETIC_CALIBRATION_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[7]"
+      ],
+      "provenanceRefs": [
+        "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-3-terminal-histology-timing",
+      "semanticKey": "sem3-cal-organoid-live-signal-measurement.terminal-histology-timing",
+      "elementType": "TIMING",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "B4_SYNTHETIC_CALIBRATION_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[2]"
+      ],
+      "provenanceRefs": [
+        "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-4-direct-measurement-not-assumed",
+      "semanticKey": "sem3-cal-organoid-live-signal-measurement.direct-measurement-not-assumed",
+      "elementType": "POLARITY",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "B4_SYNTHETIC_CALIBRATION_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[5]"
+      ],
+      "provenanceRefs": [
+        "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-5-current-state",
+      "semanticKey": "sem3-cal-organoid-live-signal-measurement.current-state",
+      "elementType": "CORRECTION",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "B4_SYNTHETIC_CALIBRATION_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[8]"
+      ],
+      "provenanceRefs": [
+        "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-6-historical-state",
+      "semanticKey": "sem3-cal-organoid-live-signal-measurement.historical-state",
+      "elementType": "PROVENANCE",
+      "state": "HISTORICAL",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "B4_SYNTHETIC_CALIBRATION_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[8]"
+      ],
+      "provenanceRefs": [
+        "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT.source.provenance"
+      ]
+    }
+  ],
+  "obligationMappings": [
+    {
+      "obligationId": "req-1-resolve-histology-pronoun",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-1-resolve-histology-pronoun"
+      ]
+    },
+    {
+      "obligationId": "req-2-phenomenon-signal-measure",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-2-phenomenon-signal-measure"
+      ]
+    },
+    {
+      "obligationId": "req-3-terminal-histology-timing",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-3-terminal-histology-timing"
+      ]
+    },
+    {
+      "obligationId": "req-4-direct-measurement-not-assumed",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-4-direct-measurement-not-assumed"
+      ]
+    },
+    {
+      "obligationId": "req-5-current-state",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-5-current-state"
+      ]
+    },
+    {
+      "obligationId": "req-6-historical-state",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-6-historical-state"
+      ]
+    }
+  ],
+  "prohibitionSignals": [
+    {
+      "prohibitionId": "pro-1-signal-equals-proliferation",
+      "status": "PRESENT",
+      "evidenceRefs": [
+        "SEM3-AE-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT.prohibited.pro-1-signal-equals-proliferation",
+        "b4-precommit.target.PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH"
+      ]
+    },
+    {
+      "prohibitionId": "pro-2-adopt-relation-model",
+      "status": "ABSENT",
+      "evidenceRefs": [
+        "SEM3-AE-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT.prohibited.pro-2-adopt-relation-model"
+      ]
+    }
+  ],
+  "optionalCandidateMappings": [
+    {
+      "candidateId": "opt-1-candidate-relation-models",
+      "status": "ABSENT",
+      "epistemicStatus": "NOT_APPLICABLE",
+      "evidenceRefs": [
+        "SEM3-AE-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT.optionalRelevant.opt-1-candidate-relation-models"
+      ]
+    }
+  ],
+  "ambiguityMappings": [],
+  "clarificationMapping": {
+    "status": "ABSENT",
+    "decisionImpactMapping": "REQUIRES_HUMAN_ADJUDICATION",
+    "evidenceRefs": [
+      "SEM3-AE-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT.expectedClarification"
+    ]
+  },
+  "ownershipMappings": [
+    {
+      "boundaryId": "own-sem-project",
+      "status": "PRESERVED",
+      "evidenceRefs": [
+        "SEM3-AE-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT.ownershipBoundaries.own-sem-project"
+      ]
+    },
+    {
+      "boundaryId": "own-knowledge-specialists",
+      "status": "PRESERVED",
+      "evidenceRefs": [
+        "SEM3-AE-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT.ownershipBoundaries.own-knowledge-specialists"
+      ]
+    }
+  ],
+  "provenanceSummary": {
+    "status": "RECONSTRUCTIBLE",
+    "sourceRequestReconstructible": true,
+    "historyReconstructible": true,
+    "evidenceRefs": [
+      "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT.source.sourceRequest",
+      "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT.source.provenance"
+    ]
+  },
+  "adjudicationClaims": []
+}

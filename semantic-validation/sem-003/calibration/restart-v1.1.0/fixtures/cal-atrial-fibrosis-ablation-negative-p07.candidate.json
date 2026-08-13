@@ -1,0 +1,156 @@
+{
+  "schemaVersion": "1.1.0",
+  "contractType": "BENCHMARK_EVALUATION_CANDIDATE",
+  "purpose": "SCIENTIFIC_UNDERSTANDING_EVALUATOR_CALIBRATION",
+  "candidateId": "SEM3-EVAL-CAND-CAL-ATRIAL-FIBROSIS-ABLATION-NEGATIVE-P07",
+  "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
+  "caseVersion": "1.0.0",
+  "envelopeId": "SEM3-AE-CAL-ATRIAL-FIBROSIS-ABLATION",
+  "envelopeVersion": "1.0.0",
+  "evaluationMode": "CALIBRATION_SYNTHETIC",
+  "sourceType": "B4_SYNTHETIC_CALIBRATION",
+  "structureProfile": "NEAR_REFERENCE_WITH_SEMANTIC_DEFECT",
+  "executionStatus": "COMPLETED",
+  "semanticElements": [
+    {
+      "elementId": "element-1-preprocedure-imaging",
+      "semanticKey": "sem3-cal-atrial-fibrosis-ablation.preprocedure-imaging",
+      "elementType": "TIMING",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "B4_SYNTHETIC_CALIBRATION_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[1]"
+      ],
+      "provenanceRefs": [
+        "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-2-objective-ambiguity",
+      "semanticKey": "sem3-cal-atrial-fibrosis-ablation.objective-ambiguity",
+      "elementType": "AMBIGUITY",
+      "state": "OPEN_AMBIGUITY",
+      "epistemicStatus": "AMBIGUOUS",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "B4_SYNTHETIC_CALIBRATION_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[2]"
+      ],
+      "provenanceRefs": [
+        "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-3-procedural-data-conditional",
+      "semanticKey": "sem3-cal-atrial-fibrosis-ablation.procedural-data-conditional",
+      "elementType": "POLARITY",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "B4_SYNTHETIC_CALIBRATION_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[4]"
+      ],
+      "provenanceRefs": [
+        "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION.source.provenance"
+      ]
+    }
+  ],
+  "obligationMappings": [
+    {
+      "obligationId": "req-1-preprocedure-imaging",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-1-preprocedure-imaging"
+      ]
+    },
+    {
+      "obligationId": "req-2-objective-ambiguity",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-2-objective-ambiguity"
+      ]
+    },
+    {
+      "obligationId": "req-3-procedural-data-conditional",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-3-procedural-data-conditional"
+      ]
+    }
+  ],
+  "prohibitionSignals": [
+    {
+      "prohibitionId": "pro-1-invent-prediction-endpoint",
+      "status": "ABSENT",
+      "evidenceRefs": [
+        "SEM3-AE-CAL-ATRIAL-FIBROSIS-ABLATION.prohibited.pro-1-invent-prediction-endpoint"
+      ]
+    },
+    {
+      "prohibitionId": "pro-2-invent-causal-procedure-feature",
+      "status": "PRESENT",
+      "evidenceRefs": [
+        "SEM3-AE-CAL-ATRIAL-FIBROSIS-ABLATION.prohibited.pro-2-invent-causal-procedure-feature",
+        "b4-precommit.target.PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT"
+      ]
+    }
+  ],
+  "optionalCandidateMappings": [
+    {
+      "candidateId": "opt-1-candidate-procedural-context",
+      "status": "ABSENT",
+      "epistemicStatus": "NOT_APPLICABLE",
+      "evidenceRefs": [
+        "SEM3-AE-CAL-ATRIAL-FIBROSIS-ABLATION.optionalRelevant.opt-1-candidate-procedural-context"
+      ]
+    }
+  ],
+  "ambiguityMappings": [
+    {
+      "ambiguityId": "amb-1-descriptive-predictive",
+      "status": "PRESERVED_OPEN",
+      "evidenceRefs": [
+        "SEM3-AE-CAL-ATRIAL-FIBROSIS-ABLATION.admissibleAmbiguities.amb-1-descriptive-predictive"
+      ]
+    }
+  ],
+  "clarificationMapping": {
+    "status": "PRESENT",
+    "decisionImpactMapping": "REQUIRES_HUMAN_ADJUDICATION",
+    "evidenceRefs": [
+      "SEM3-AE-CAL-ATRIAL-FIBROSIS-ABLATION.expectedClarification"
+    ]
+  },
+  "ownershipMappings": [
+    {
+      "boundaryId": "own-sem-project",
+      "status": "PRESERVED",
+      "evidenceRefs": [
+        "SEM3-AE-CAL-ATRIAL-FIBROSIS-ABLATION.ownershipBoundaries.own-sem-project"
+      ]
+    },
+    {
+      "boundaryId": "own-knowledge-specialists",
+      "status": "PRESERVED",
+      "evidenceRefs": [
+        "SEM3-AE-CAL-ATRIAL-FIBROSIS-ABLATION.ownershipBoundaries.own-knowledge-specialists"
+      ]
+    }
+  ],
+  "provenanceSummary": {
+    "status": "RECONSTRUCTIBLE",
+    "sourceRequestReconstructible": true,
+    "historyReconstructible": true,
+    "evidenceRefs": [
+      "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION.source.sourceRequest",
+      "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION.source.provenance"
+    ]
+  },
+  "adjudicationClaims": []
+}

@@ -1,0 +1,193 @@
+{
+  "schemaVersion": "1.1.0",
+  "contractType": "BENCHMARK_EVALUATION_CANDIDATE",
+  "purpose": "SCIENTIFIC_UNDERSTANDING_EVALUATOR_CALIBRATION",
+  "candidateId": "SEM3-EVAL-CAND-CAL-CARDIO-RHYTHM-REMODELING-BASELINE",
+  "caseId": "SEM3-CAL-CARDIO-RHYTHM-REMODELING",
+  "caseVersion": "1.0.0",
+  "envelopeId": "SEM3-AE-CAL-CARDIO-RHYTHM-REMODELING",
+  "envelopeVersion": "1.0.0",
+  "evaluationMode": "CALIBRATION_SYNTHETIC",
+  "sourceType": "B4_SYNTHETIC_CALIBRATION",
+  "structureProfile": "CONSOLIDATED",
+  "executionStatus": "COMPLETED",
+  "semanticElements": [
+    {
+      "elementId": "element-1-rhythm-volume-association",
+      "semanticKey": "sem3-cal-cardio-rhythm-remodeling.rhythm-volume-association",
+      "elementType": "RELATION",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "B4_SYNTHETIC_CALIBRATION_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[3]"
+      ],
+      "provenanceRefs": [
+        "SEM3-CAL-CARDIO-RHYTHM-REMODELING.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-2-causal-explanation-rejected",
+      "semanticKey": "sem3-cal-cardio-rhythm-remodeling.causal-explanation-rejected",
+      "elementType": "CORRECTION",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "B4_SYNTHETIC_CALIBRATION_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[2]"
+      ],
+      "provenanceRefs": [
+        "SEM3-CAL-CARDIO-RHYTHM-REMODELING.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-3-methods-separate",
+      "semanticKey": "sem3-cal-cardio-rhythm-remodeling.methods-separate",
+      "elementType": "OWNERSHIP",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "B4_SYNTHETIC_CALIBRATION_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[4]"
+      ],
+      "provenanceRefs": [
+        "SEM3-CAL-CARDIO-RHYTHM-REMODELING.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-4-current-state",
+      "semanticKey": "sem3-cal-cardio-rhythm-remodeling.current-state",
+      "elementType": "CORRECTION",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "B4_SYNTHETIC_CALIBRATION_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[4]"
+      ],
+      "provenanceRefs": [
+        "SEM3-CAL-CARDIO-RHYTHM-REMODELING.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-5-historical-state",
+      "semanticKey": "sem3-cal-cardio-rhythm-remodeling.historical-state",
+      "elementType": "PROVENANCE",
+      "state": "HISTORICAL",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "B4_SYNTHETIC_CALIBRATION_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[4]"
+      ],
+      "provenanceRefs": [
+        "SEM3-CAL-CARDIO-RHYTHM-REMODELING.source.provenance"
+      ]
+    }
+  ],
+  "obligationMappings": [
+    {
+      "obligationId": "req-1-rhythm-volume-association",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-1-rhythm-volume-association"
+      ]
+    },
+    {
+      "obligationId": "req-2-causal-explanation-rejected",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-2-causal-explanation-rejected"
+      ]
+    },
+    {
+      "obligationId": "req-3-methods-separate",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-3-methods-separate"
+      ]
+    },
+    {
+      "obligationId": "req-4-current-state",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-4-current-state"
+      ]
+    },
+    {
+      "obligationId": "req-5-historical-state",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-5-historical-state"
+      ]
+    }
+  ],
+  "prohibitionSignals": [
+    {
+      "prohibitionId": "pro-1-retain-causal-remodeling",
+      "status": "ABSENT",
+      "evidenceRefs": [
+        "SEM3-AE-CAL-CARDIO-RHYTHM-REMODELING.prohibited.pro-1-retain-causal-remodeling"
+      ]
+    },
+    {
+      "prohibitionId": "pro-2-invent-measurement-method",
+      "status": "ABSENT",
+      "evidenceRefs": [
+        "SEM3-AE-CAL-CARDIO-RHYTHM-REMODELING.prohibited.pro-2-invent-measurement-method"
+      ]
+    }
+  ],
+  "optionalCandidateMappings": [
+    {
+      "candidateId": "opt-1-candidate-associated-observations",
+      "status": "ABSENT",
+      "epistemicStatus": "NOT_APPLICABLE",
+      "evidenceRefs": [
+        "SEM3-AE-CAL-CARDIO-RHYTHM-REMODELING.optionalRelevant.opt-1-candidate-associated-observations"
+      ]
+    }
+  ],
+  "ambiguityMappings": [],
+  "clarificationMapping": {
+    "status": "ABSENT",
+    "decisionImpactMapping": "REQUIRES_HUMAN_ADJUDICATION",
+    "evidenceRefs": [
+      "SEM3-AE-CAL-CARDIO-RHYTHM-REMODELING.expectedClarification"
+    ]
+  },
+  "ownershipMappings": [
+    {
+      "boundaryId": "own-sem-project",
+      "status": "PRESERVED",
+      "evidenceRefs": [
+        "SEM3-AE-CAL-CARDIO-RHYTHM-REMODELING.ownershipBoundaries.own-sem-project"
+      ]
+    },
+    {
+      "boundaryId": "own-knowledge-specialists",
+      "status": "PRESERVED",
+      "evidenceRefs": [
+        "SEM3-AE-CAL-CARDIO-RHYTHM-REMODELING.ownershipBoundaries.own-knowledge-specialists"
+      ]
+    }
+  ],
+  "provenanceSummary": {
+    "status": "RECONSTRUCTIBLE",
+    "sourceRequestReconstructible": true,
+    "historyReconstructible": true,
+    "evidenceRefs": [
+      "SEM3-CAL-CARDIO-RHYTHM-REMODELING.source.sourceRequest",
+      "SEM3-CAL-CARDIO-RHYTHM-REMODELING.source.provenance"
+    ]
+  },
+  "adjudicationClaims": []
+}

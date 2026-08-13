@@ -1,0 +1,116 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003B4_MEASUREMENT_PROTOCOL",
+  "protocolId": "SEM003B4-MEASUREMENT-PROTOCOL-EVALUATOR-1-1-0",
+  "version": "1.0.0",
+  "status": "FROZEN_BEFORE_FIRST_CALIBRATION_OBSERVATION",
+  "frozenAt": "2026-08-13T22:00:00.000Z",
+  "evaluator": {
+    "version": "1.1.0",
+    "configurationDigest": "b05bc0ac66cb3e4dc5f135ba278cac8cadebe7443e57b1003dca580c9bd0e9bd",
+    "deterministicInThisCalibration": true,
+    "repetitionsPerFixture": 1,
+    "repetitionRationale": "The calibrated component is deterministic and each repeated execution would be information-identical."
+  },
+  "unitOfJudgment": "CANDIDATE_AGAINST_FROZEN_ACCEPTANCE_ENVELOPE",
+  "families": {
+    "safetyFidelity": {
+      "properties": [
+        "P01",
+        "P02",
+        "P03",
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P09",
+        "P10",
+        "P11",
+        "P12"
+      ],
+      "rule": "ABSOLUTE_NONCOMPENSABLE",
+      "measures": [
+        "targetedCriticalViolationDetection",
+        "absoluteInvariantFalsePassCount",
+        "referenceConformantAbsolutePreservation"
+      ]
+    },
+    "scientificUnderstanding": {
+      "properties": [
+        "P13",
+        "P14",
+        "P15",
+        "P16",
+        "P17"
+      ],
+      "rule": "SIMULATED_LEVEL2_MECHANIC_ONLY",
+      "threshold": "THRESHOLD_NOT_YET_ADMITTED",
+      "measures": [
+        "precommittedDecisionConsumptionAgreement",
+        "openPacketCount"
+      ]
+    },
+    "contextualEnrichment": {
+      "properties": [
+        "P18"
+      ],
+      "rule": "SIMULATED_LEVEL2_MECHANIC_ONLY",
+      "threshold": "THRESHOLD_NOT_YET_ADMITTED",
+      "measures": [
+        "precommittedDecisionConsumptionAgreement",
+        "epistemicBoundaryPreservation"
+      ]
+    }
+  },
+  "equivalence": {
+    "source": "noxia-dev/semantic-validation/sem-003/review/artifacts/equivalence-review-status.json",
+    "pairCount": 5,
+    "requiredDisposition": "ACCEPTABLE_SEMANTIC_EQUIVALENT",
+    "authorityClass": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+    "humanEvidence": false
+  },
+  "dispositions": {
+    "registry": "noxia-dev/semantic-validation/sem-003/evaluator/registry/failure-disposition-registry.json",
+    "measuredSeparately": true,
+    "providerFailure": "Synthetic boundary-contract exercise only; no provider is invoked and no provider reliability rate is inferred.",
+    "notEvaluable": "Never counted as PASS or removed from denominators.",
+    "safeFailClosed": "Reported separately and never counted as scientific understanding success."
+  },
+  "metrics": {
+    "noCompositeScore": true,
+    "allFixturesCounted": true,
+    "denominatorsFrozenByFixtureRole": true,
+    "nonEvaluableVisible": true,
+    "deterministicStability": "Verified by replay digest equality, not by duplicated observations."
+  },
+  "terminalRule": {
+    "readyForIndependentBlindConstructionRequires": [
+      "all frozen bindings and digests valid",
+      "all P01-P12 targeted negatives detected",
+      "zero false PASS on P01-P12 targeted negatives",
+      "all reference-conformant absolute mappings preserved",
+      "all simulated Level 2 decisions consumed as precommitted",
+      "all five B3 equivalence decisions accepted without structural-form rejection",
+      "NOT_EVALUABLE remains distinct from PASS",
+      "all disposition boundary probes remain distinct",
+      "no post-observation mutation",
+      "no open evaluator repair"
+    ],
+    "positiveDecision": "SEM003B4_EVALUATOR_CALIBRATED_READY_FOR_INDEPENDENT_BLIND_CONSTRUCTION",
+    "evaluatorDefectDecision": "SEM003B4_EVALUATOR_REPAIR_REQUIRED",
+    "insufficientProtocolDecision": "SEM003B4_MEASUREMENT_PROTOCOL_NOT_READY",
+    "normativeConflictDecision": "SEM003B4_REQUIRES_NORMATIVE_ARBITRATION"
+  },
+  "boundaries": {
+    "executionMode": "CALIBRATION_SYNTHETIC",
+    "candidateSourceType": "B4_SYNTHETIC_CALIBRATION",
+    "llmProviderCalls": 0,
+    "semRuntimeExecuted": false,
+    "blindCreated": false,
+    "realHumanReferenceReview": "NOT_PERFORMED",
+    "finalPD011ReferenceEligibility": "NO",
+    "blindEligibility": "NO",
+    "semQualification": "NOT_CLAIMED"
+  }
+}

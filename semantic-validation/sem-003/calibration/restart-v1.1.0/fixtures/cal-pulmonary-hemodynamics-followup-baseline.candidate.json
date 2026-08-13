@@ -1,0 +1,170 @@
+{
+  "schemaVersion": "1.1.0",
+  "contractType": "BENCHMARK_EVALUATION_CANDIDATE",
+  "purpose": "SCIENTIFIC_UNDERSTANDING_EVALUATOR_CALIBRATION",
+  "candidateId": "SEM3-EVAL-CAND-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP-BASELINE",
+  "caseId": "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
+  "caseVersion": "1.0.0",
+  "envelopeId": "SEM3-AE-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
+  "envelopeVersion": "1.0.0",
+  "evaluationMode": "CALIBRATION_SYNTHETIC",
+  "sourceType": "B4_SYNTHETIC_CALIBRATION",
+  "structureProfile": "CONSOLIDATED",
+  "executionStatus": "COMPLETED",
+  "semanticElements": [
+    {
+      "elementId": "element-1-six-month-noninvasive",
+      "semanticKey": "sem3-cal-pulmonary-hemodynamics-followup.six-month-noninvasive",
+      "elementType": "TIMING",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "B4_SYNTHETIC_CALIBRATION_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[3]"
+      ],
+      "provenanceRefs": [
+        "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-2-invasive-subset",
+      "semanticKey": "sem3-cal-pulmonary-hemodynamics-followup.invasive-subset",
+      "elementType": "PROVENANCE",
+      "state": "HISTORICAL",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "B4_SYNTHETIC_CALIBRATION_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[2]"
+      ],
+      "provenanceRefs": [
+        "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-3-sources-not-equivalent",
+      "semanticKey": "sem3-cal-pulmonary-hemodynamics-followup.sources-not-equivalent",
+      "elementType": "POLARITY",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "B4_SYNTHETIC_CALIBRATION_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[4]"
+      ],
+      "provenanceRefs": [
+        "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-4-phenomenon-observable-method",
+      "semanticKey": "sem3-cal-pulmonary-hemodynamics-followup.phenomenon-observable-method",
+      "elementType": "RELATION",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "B4_SYNTHETIC_CALIBRATION_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[6]"
+      ],
+      "provenanceRefs": [
+        "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP.source.provenance"
+      ]
+    }
+  ],
+  "obligationMappings": [
+    {
+      "obligationId": "req-1-six-month-noninvasive",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-1-six-month-noninvasive"
+      ]
+    },
+    {
+      "obligationId": "req-2-invasive-subset",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-2-invasive-subset"
+      ]
+    },
+    {
+      "obligationId": "req-3-sources-not-equivalent",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-3-sources-not-equivalent"
+      ]
+    },
+    {
+      "obligationId": "req-4-phenomenon-observable-method",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-4-phenomenon-observable-method"
+      ]
+    }
+  ],
+  "prohibitionSignals": [
+    {
+      "prohibitionId": "pro-1-merge-hemodynamic-sources",
+      "status": "ABSENT",
+      "evidenceRefs": [
+        "SEM3-AE-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP.prohibited.pro-1-merge-hemodynamic-sources"
+      ]
+    },
+    {
+      "prohibitionId": "pro-2-make-invasive-required",
+      "status": "ABSENT",
+      "evidenceRefs": [
+        "SEM3-AE-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP.prohibited.pro-2-make-invasive-required"
+      ]
+    }
+  ],
+  "optionalCandidateMappings": [
+    {
+      "candidateId": "opt-1-candidate-rv-function",
+      "status": "ABSENT",
+      "epistemicStatus": "NOT_APPLICABLE",
+      "evidenceRefs": [
+        "SEM3-AE-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP.optionalRelevant.opt-1-candidate-rv-function"
+      ]
+    }
+  ],
+  "ambiguityMappings": [],
+  "clarificationMapping": {
+    "status": "ABSENT",
+    "decisionImpactMapping": "REQUIRES_HUMAN_ADJUDICATION",
+    "evidenceRefs": [
+      "SEM3-AE-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP.expectedClarification"
+    ]
+  },
+  "ownershipMappings": [
+    {
+      "boundaryId": "own-sem-project",
+      "status": "PRESERVED",
+      "evidenceRefs": [
+        "SEM3-AE-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP.ownershipBoundaries.own-sem-project"
+      ]
+    },
+    {
+      "boundaryId": "own-knowledge-specialists",
+      "status": "PRESERVED",
+      "evidenceRefs": [
+        "SEM3-AE-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP.ownershipBoundaries.own-knowledge-specialists"
+      ]
+    }
+  ],
+  "provenanceSummary": {
+    "status": "RECONSTRUCTIBLE",
+    "sourceRequestReconstructible": true,
+    "historyReconstructible": true,
+    "evidenceRefs": [
+      "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP.source.sourceRequest",
+      "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP.source.provenance"
+    ]
+  },
+  "adjudicationClaims": []
+}

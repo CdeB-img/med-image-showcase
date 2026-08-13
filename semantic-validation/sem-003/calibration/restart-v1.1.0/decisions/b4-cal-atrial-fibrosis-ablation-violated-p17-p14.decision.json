@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "BENCHMARK_EVALUATION_ADJUDICATION_DECISION_RECORD",
+  "recordId": "SEM3-ADR-B4-CAL-ATRIAL-FIBROSIS-ABLATION-VIOLATED-P17-P14",
+  "decision": "SATISFIED",
+  "rationale": "Precommitted simulated calibration classification derived from the frozen Acceptance Envelope; this tests governed Level 2 decision consumption and is not a human or PD-011 judgment.",
+  "authorityClass": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+  "evidenceBasis": "SIMULATED_EXPERT_REVIEW_EVIDENCE",
+  "sourceDecisionId": "SEM3B4-PRECOMMIT-SEM3-EVAL-CAND-CAL-ATRIAL-FIBROSIS-ABLATION-VIOLATED-P17-P14",
+  "reviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+  "eligibility": {
+    "developmentEvaluatorTesting": true,
+    "developmentCalibration": true,
+    "formalIndependentQualification": false,
+    "blindReferenceAdmission": false,
+    "pd011FinalEvidence": false
+  },
+  "provenance": {
+    "sourceRecordRef": "noxia-dev/semantic-validation/sem-003/review/artifacts/calibration-reference-set.json#SEM3B3-RU-CAL-ATRIAL-FIBROSIS-ABLATION",
+    "recordedAt": "2026-08-13T22:00:00.000Z",
+    "realHumanReview": false
+  },
+  "target": {
+    "scope": "ADJUDICATION_PACKET",
+    "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
+    "candidateIds": [
+      "SEM3-EVAL-CAND-CAL-ATRIAL-FIBROSIS-ABLATION-VIOLATED-P17"
+    ],
+    "packetIds": [
+      "SEM3-ADJ-CAL-ATRIAL-FIBROSIS-ABLATION-VIOLATED-P17-P14"
+    ],
+    "propertyIds": [
+      "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+    ]
+  },
+  "status": "FINAL"
+}
