@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
+import { canonicalizeSemanticReconstruction } from "../canonical";
 import { buildSemanticCoverage } from "../coverage";
 import { GeminiScientificSemanticProvider, SemanticProviderError } from "../provider";
 import { SEMANTIC_CRITIC_CHECKS, type SemanticCriticRepair, type SemanticCriticResult } from "../types";
@@ -19,6 +20,50 @@ const invalidSourceCandidate = () => {
   const candidate = comparisonCandidate();
   candidate.semanticInventory.explicitRelations[0].sourceText = "comparer CT ... IRM";
   return candidate;
+};
+
+const ungroundedPriorReemission = (changedMeaning = false) => {
+  const firstRequest = makeSemanticRequest();
+  const firstCandidate = comparisonCandidate();
+  const previousModel = canonicalizeSemanticReconstruction({
+    request: firstRequest,
+    candidate: firstCandidate,
+    critic: acceptedCritic(firstCandidate),
+    metadata: { provider: "TEST", model: "test", temperature: null },
+    reconstructionCallId: "prior-reconstruction",
+    criticCallId: "prior-critic",
+    now: "2026-08-13T08:00:00.000Z",
+  });
+  const priorCt = previousModel.elements.find((element) => element.canonicalMeaning === "CT")!;
+  const priorMri = previousModel.elements.find((element) => element.canonicalMeaning === "IRM")!;
+  const nextRequest = makeSemanticRequest([
+    ...firstRequest.messages,
+    { messageId: "user-2", role: "USER", content: "Ajoutez l'échographie.", createdAt: "2026-08-13T08:01:00.000Z" },
+  ], previousModel);
+  const raw = comparisonCandidate() as unknown as Record<string, unknown>;
+  raw.candidateId = "candidate-prior-reemission";
+  raw.normalizedMeaning = "Ajout de l'échographie avec conservation déterministe du contexte antérieur.";
+  raw.summaryForUser = "L'échographie est ajoutée.";
+  raw.semanticInventory = {
+    explicitFragments: [{ inventoryItemId: "i-us", sourceMessageId: "user-2", sourceText: "échographie", normalizedLabel: "échographie", localRole: "modalité ajoutée", polarity: "AFFIRMED", modifiers: [], linkedInventoryItemIds: [] }],
+    explicitRelations: [],
+  };
+  raw.elements = [
+    { clientElementId: "e-us", type: "MODALITY", canonicalMeaning: "échographie", studyRole: "SUBJECT", polarity: "AFFIRMED", inventoryItemIds: ["i-us"], sourceMessageId: "user-2", sourceText: "échographie", epistemicStatus: "EXPLICIT_USER_STATED", confidence: 1, inferenceReason: null, requiresConfirmation: false, supersedesElementIds: [] },
+    { clientElementId: "e-retained-ct", type: priorCt.type, canonicalMeaning: changedMeaning ? "CT amélioré" : priorCt.canonicalMeaning, studyRole: priorCt.studyRole, polarity: priorCt.polarity, inventoryItemIds: [], sourceMessageId: null, sourceText: null, epistemicStatus: "EXPLICIT_USER_STATED", confidence: 1, inferenceReason: "Carried forward from previous model", requiresConfirmation: false, supersedesElementIds: [priorCt.semanticElementId] },
+    { clientElementId: "e-retained-mri", type: priorMri.type, canonicalMeaning: priorMri.canonicalMeaning, studyRole: priorMri.studyRole, polarity: priorMri.polarity, inventoryItemIds: [], sourceMessageId: null, sourceText: null, epistemicStatus: "EXPLICIT_USER_STATED", confidence: 1, inferenceReason: "Carried forward from previous model", requiresConfirmation: false, supersedesElementIds: [priorMri.semanticElementId] },
+  ];
+  raw.relations = [{ clientRelationId: "r-retained", sourceClientElementId: "e-retained-ct", targetClientElementId: "e-retained-mri", relationType: "COMPARES_WITH", polarity: "AFFIRMED", inventoryRelationIds: [], epistemicStatus: "EXPLICIT_USER_STATED", confidence: 1, inferenceReason: "Carried forward relation", requiresConfirmation: false }];
+  raw.missingConcepts = [];
+  raw.ellipses = [];
+  raw.ambiguities = [];
+  raw.unknowns = [];
+  raw.contradictions = [];
+  raw.knowledgeRequests = [];
+  raw.clarificationCandidates = [];
+  raw.routeProposal = { route: "DESIGN_STUDY", confidence: 1, reason: "Une modalité est ajoutée.", expectedCapabilities: ["SCIENTIFIC_THINKING"] };
+  raw.semanticWarnings = [];
+  return { nextRequest, raw };
 };
 
 const emptyRepairFields = (): Omit<SemanticCriticRepair, "repairId" | "action" | "reason" | "sourceInventoryItemIds" | "sourceInventoryRelationIds"> => ({
@@ -103,6 +148,23 @@ const invalidRepairCritic = (): SemanticCriticResult => ({
 });
 
 describe("SEM generic provider structured-contract validation", () => {
+  it("deduplicates exact ungrounded prior-state reemission and leaves carry-forward to the canonicalizer", async () => {
+    const { nextRequest, raw } = ungroundedPriorReemission();
+    const fetchImpl = vi.fn(async () => response(raw)) as unknown as typeof fetch;
+    const result = await provider(fetchImpl).reconstruct(nextRequest);
+    expect(result.candidate.elements.map((element) => element.clientElementId)).toEqual(["e-us"]);
+    expect(result.candidate.relations).toEqual([]);
+    expect(result.candidate.semanticWarnings).toContain("DETERMINISTIC_PRIOR_STATE_REEMISSION_DEDUPLICATED:2:1");
+    expect(fetchImpl).toHaveBeenCalledTimes(1);
+  });
+
+  it("fails closed when an ungrounded item changes prior scientific meaning", async () => {
+    const { nextRequest, raw } = ungroundedPriorReemission(true);
+    const fetchImpl = vi.fn(async () => response(raw)) as unknown as typeof fetch;
+    await expect(provider(fetchImpl).reconstruct(nextRequest)).rejects.toMatchObject({ category: "INVALID_STRUCTURED_OUTPUT" });
+    expect(fetchImpl).toHaveBeenCalledTimes(3);
+  });
+
   it("regenerates a reconstruction whose explicit relation source is not an exact USER substring", async () => {
     const fetchImpl = vi.fn()
       .mockResolvedValueOnce(response(invalidSourceCandidate()))
