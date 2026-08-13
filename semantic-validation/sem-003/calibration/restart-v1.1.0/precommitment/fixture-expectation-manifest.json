@@ -8,7 +8,7 @@
   "calibrationFixtureCount": 38,
   "rows": [
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-baseline.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-baseline.candidate.json",
       "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
       "candidateId": "SEM3-EVAL-CAND-CAL-ATRIAL-FIBROSIS-ABLATION-BASELINE",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -21,15 +21,15 @@
         "openAdjudicationPacketCount": 0
       },
       "decisionRecords": [
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-baseline-p14.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-baseline-p15.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-baseline-p16.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-baseline-p17.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-baseline-p18.decision.json"
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-baseline-p14.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-baseline-p15.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-baseline-p16.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-baseline-p17.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-baseline-p18.decision.json"
       ]
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-cardio-rhythm-remodeling-baseline.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-cardio-rhythm-remodeling-baseline.candidate.json",
       "caseId": "SEM3-CAL-CARDIO-RHYTHM-REMODELING",
       "candidateId": "SEM3-EVAL-CAND-CAL-CARDIO-RHYTHM-REMODELING-BASELINE",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -42,14 +42,14 @@
         "openAdjudicationPacketCount": 0
       },
       "decisionRecords": [
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-cardio-rhythm-remodeling-baseline-p14.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-cardio-rhythm-remodeling-baseline-p15.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-cardio-rhythm-remodeling-baseline-p16.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-cardio-rhythm-remodeling-baseline-p17.decision.json"
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-cardio-rhythm-remodeling-baseline-p14.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-cardio-rhythm-remodeling-baseline-p15.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-cardio-rhythm-remodeling-baseline-p16.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-cardio-rhythm-remodeling-baseline-p17.decision.json"
       ]
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-congenital-flow-ellipsis-baseline.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-congenital-flow-ellipsis-baseline.candidate.json",
       "caseId": "SEM3-CAL-CONGENITAL-FLOW-ELLIPSIS",
       "candidateId": "SEM3-EVAL-CAND-CAL-CONGENITAL-FLOW-ELLIPSIS-BASELINE",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -62,14 +62,14 @@
         "openAdjudicationPacketCount": 0
       },
       "decisionRecords": [
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-congenital-flow-ellipsis-baseline-p13.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-congenital-flow-ellipsis-baseline-p15.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-congenital-flow-ellipsis-baseline-p16.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-congenital-flow-ellipsis-baseline-p17.decision.json"
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-congenital-flow-ellipsis-baseline-p13.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-congenital-flow-ellipsis-baseline-p15.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-congenital-flow-ellipsis-baseline-p16.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-congenital-flow-ellipsis-baseline-p17.decision.json"
       ]
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-cortisol-sampling-summary-baseline.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-cortisol-sampling-summary-baseline.candidate.json",
       "caseId": "SEM3-CAL-CORTISOL-SAMPLING-SUMMARY",
       "candidateId": "SEM3-EVAL-CAND-CAL-CORTISOL-SAMPLING-SUMMARY-BASELINE",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -82,15 +82,15 @@
         "openAdjudicationPacketCount": 0
       },
       "decisionRecords": [
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-cortisol-sampling-summary-baseline-p13.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-cortisol-sampling-summary-baseline-p14.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-cortisol-sampling-summary-baseline-p15.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-cortisol-sampling-summary-baseline-p16.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-cortisol-sampling-summary-baseline-p17.decision.json"
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-cortisol-sampling-summary-baseline-p13.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-cortisol-sampling-summary-baseline-p14.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-cortisol-sampling-summary-baseline-p15.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-cortisol-sampling-summary-baseline-p16.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-cortisol-sampling-summary-baseline-p17.decision.json"
       ]
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-msk-inflammation-response-baseline.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-msk-inflammation-response-baseline.candidate.json",
       "caseId": "SEM3-CAL-MSK-INFLAMMATION-RESPONSE",
       "candidateId": "SEM3-EVAL-CAND-CAL-MSK-INFLAMMATION-RESPONSE-BASELINE",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -103,15 +103,15 @@
         "openAdjudicationPacketCount": 0
       },
       "decisionRecords": [
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-msk-inflammation-response-baseline-p13.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-msk-inflammation-response-baseline-p15.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-msk-inflammation-response-baseline-p16.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-msk-inflammation-response-baseline-p17.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-msk-inflammation-response-baseline-p18.decision.json"
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-msk-inflammation-response-baseline-p13.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-msk-inflammation-response-baseline-p15.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-msk-inflammation-response-baseline-p16.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-msk-inflammation-response-baseline-p17.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-msk-inflammation-response-baseline-p18.decision.json"
       ]
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-neurodegeneration-progression-baseline.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-neurodegeneration-progression-baseline.candidate.json",
       "caseId": "SEM3-CAL-NEURODEGENERATION-PROGRESSION",
       "candidateId": "SEM3-EVAL-CAND-CAL-NEURODEGENERATION-PROGRESSION-BASELINE",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -124,14 +124,14 @@
         "openAdjudicationPacketCount": 0
       },
       "decisionRecords": [
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-neurodegeneration-progression-baseline-p14.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-neurodegeneration-progression-baseline-p15.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-neurodegeneration-progression-baseline-p16.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-neurodegeneration-progression-baseline-p17.decision.json"
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-neurodegeneration-progression-baseline-p14.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-neurodegeneration-progression-baseline-p15.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-neurodegeneration-progression-baseline-p16.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-neurodegeneration-progression-baseline-p17.decision.json"
       ]
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-organoid-live-signal-measurement-baseline.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-organoid-live-signal-measurement-baseline.candidate.json",
       "caseId": "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
       "candidateId": "SEM3-EVAL-CAND-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT-BASELINE",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -144,15 +144,15 @@
         "openAdjudicationPacketCount": 0
       },
       "decisionRecords": [
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-organoid-live-signal-measurement-baseline-p14.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-organoid-live-signal-measurement-baseline-p15.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-organoid-live-signal-measurement-baseline-p16.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-organoid-live-signal-measurement-baseline-p17.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-organoid-live-signal-measurement-baseline-p18.decision.json"
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-organoid-live-signal-measurement-baseline-p14.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-organoid-live-signal-measurement-baseline-p15.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-organoid-live-signal-measurement-baseline-p16.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-organoid-live-signal-measurement-baseline-p17.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-organoid-live-signal-measurement-baseline-p18.decision.json"
       ]
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-ovarian-ultrasound-ambiguity-baseline.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-ovarian-ultrasound-ambiguity-baseline.candidate.json",
       "caseId": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
       "candidateId": "SEM3-EVAL-CAND-CAL-OVARIAN-ULTRASOUND-AMBIGUITY-BASELINE",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -165,14 +165,14 @@
         "openAdjudicationPacketCount": 0
       },
       "decisionRecords": [
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-ovarian-ultrasound-ambiguity-baseline-p14.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-ovarian-ultrasound-ambiguity-baseline-p15.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-ovarian-ultrasound-ambiguity-baseline-p16.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-ovarian-ultrasound-ambiguity-baseline-p17.decision.json"
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-ovarian-ultrasound-ambiguity-baseline-p14.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-ovarian-ultrasound-ambiguity-baseline-p15.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-ovarian-ultrasound-ambiguity-baseline-p16.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-ovarian-ultrasound-ambiguity-baseline-p17.decision.json"
       ]
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-pulmonary-hemodynamics-followup-baseline.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-pulmonary-hemodynamics-followup-baseline.candidate.json",
       "caseId": "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
       "candidateId": "SEM3-EVAL-CAND-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP-BASELINE",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -185,14 +185,14 @@
         "openAdjudicationPacketCount": 0
       },
       "decisionRecords": [
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-pulmonary-hemodynamics-followup-baseline-p14.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-pulmonary-hemodynamics-followup-baseline-p15.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-pulmonary-hemodynamics-followup-baseline-p16.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-pulmonary-hemodynamics-followup-baseline-p17.decision.json"
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-pulmonary-hemodynamics-followup-baseline-p14.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-pulmonary-hemodynamics-followup-baseline-p15.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-pulmonary-hemodynamics-followup-baseline-p16.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-pulmonary-hemodynamics-followup-baseline-p17.decision.json"
       ]
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-trial-comparator-decision-baseline.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-trial-comparator-decision-baseline.candidate.json",
       "caseId": "SEM3-CAL-TRIAL-COMPARATOR-DECISION",
       "candidateId": "SEM3-EVAL-CAND-CAL-TRIAL-COMPARATOR-DECISION-BASELINE",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -205,15 +205,15 @@
         "openAdjudicationPacketCount": 0
       },
       "decisionRecords": [
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-trial-comparator-decision-baseline-p13.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-trial-comparator-decision-baseline-p14.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-trial-comparator-decision-baseline-p15.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-trial-comparator-decision-baseline-p16.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-trial-comparator-decision-baseline-p17.decision.json"
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-trial-comparator-decision-baseline-p13.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-trial-comparator-decision-baseline-p14.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-trial-comparator-decision-baseline-p15.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-trial-comparator-decision-baseline-p16.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-trial-comparator-decision-baseline-p17.decision.json"
       ]
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-negative-p01.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-negative-p01.candidate.json",
       "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
       "candidateId": "SEM3-EVAL-CAND-CAL-ATRIAL-FIBROSIS-ABLATION-NEGATIVE-P01",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -228,7 +228,7 @@
       "decisionRecords": []
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-cardio-rhythm-remodeling-negative-p02.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-cardio-rhythm-remodeling-negative-p02.candidate.json",
       "caseId": "SEM3-CAL-CARDIO-RHYTHM-REMODELING",
       "candidateId": "SEM3-EVAL-CAND-CAL-CARDIO-RHYTHM-REMODELING-NEGATIVE-P02",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -243,7 +243,7 @@
       "decisionRecords": []
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-negative-p03.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-negative-p03.candidate.json",
       "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
       "candidateId": "SEM3-EVAL-CAND-CAL-ATRIAL-FIBROSIS-ABLATION-NEGATIVE-P03",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -258,7 +258,7 @@
       "decisionRecords": []
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-negative-p04.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-negative-p04.candidate.json",
       "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
       "candidateId": "SEM3-EVAL-CAND-CAL-ATRIAL-FIBROSIS-ABLATION-NEGATIVE-P04",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -273,7 +273,7 @@
       "decisionRecords": []
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-cardio-rhythm-remodeling-negative-p05.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-cardio-rhythm-remodeling-negative-p05.candidate.json",
       "caseId": "SEM3-CAL-CARDIO-RHYTHM-REMODELING",
       "candidateId": "SEM3-EVAL-CAND-CAL-CARDIO-RHYTHM-REMODELING-NEGATIVE-P05",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -288,7 +288,7 @@
       "decisionRecords": []
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-negative-p06.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-negative-p06.candidate.json",
       "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
       "candidateId": "SEM3-EVAL-CAND-CAL-ATRIAL-FIBROSIS-ABLATION-NEGATIVE-P06",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -303,7 +303,7 @@
       "decisionRecords": []
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-negative-p07.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-negative-p07.candidate.json",
       "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
       "candidateId": "SEM3-EVAL-CAND-CAL-ATRIAL-FIBROSIS-ABLATION-NEGATIVE-P07",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -318,7 +318,7 @@
       "decisionRecords": []
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-organoid-live-signal-measurement-negative-p08.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-organoid-live-signal-measurement-negative-p08.candidate.json",
       "caseId": "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
       "candidateId": "SEM3-EVAL-CAND-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT-NEGATIVE-P08",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -333,7 +333,7 @@
       "decisionRecords": []
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-negative-p09.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-negative-p09.candidate.json",
       "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
       "candidateId": "SEM3-EVAL-CAND-CAL-ATRIAL-FIBROSIS-ABLATION-NEGATIVE-P09",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -348,7 +348,7 @@
       "decisionRecords": []
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-negative-p10.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-negative-p10.candidate.json",
       "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
       "candidateId": "SEM3-EVAL-CAND-CAL-ATRIAL-FIBROSIS-ABLATION-NEGATIVE-P10",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -363,7 +363,7 @@
       "decisionRecords": []
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-negative-p11.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-negative-p11.candidate.json",
       "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
       "candidateId": "SEM3-EVAL-CAND-CAL-ATRIAL-FIBROSIS-ABLATION-NEGATIVE-P11",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -378,7 +378,7 @@
       "decisionRecords": []
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-negative-p12.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-negative-p12.candidate.json",
       "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
       "candidateId": "SEM3-EVAL-CAND-CAL-ATRIAL-FIBROSIS-ABLATION-NEGATIVE-P12",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -393,7 +393,7 @@
       "decisionRecords": []
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-congenital-flow-ellipsis-satisfied-p13.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-congenital-flow-ellipsis-satisfied-p13.candidate.json",
       "caseId": "SEM3-CAL-CONGENITAL-FLOW-ELLIPSIS",
       "candidateId": "SEM3-EVAL-CAND-CAL-CONGENITAL-FLOW-ELLIPSIS-SATISFIED-P13",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -407,14 +407,14 @@
         "openAdjudicationPacketCount": 0
       },
       "decisionRecords": [
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-congenital-flow-ellipsis-satisfied-p13-p13.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-congenital-flow-ellipsis-satisfied-p13-p15.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-congenital-flow-ellipsis-satisfied-p13-p16.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-congenital-flow-ellipsis-satisfied-p13-p17.decision.json"
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-congenital-flow-ellipsis-satisfied-p13-p13.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-congenital-flow-ellipsis-satisfied-p13-p15.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-congenital-flow-ellipsis-satisfied-p13-p16.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-congenital-flow-ellipsis-satisfied-p13-p17.decision.json"
       ]
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-congenital-flow-ellipsis-violated-p13.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-congenital-flow-ellipsis-violated-p13.candidate.json",
       "caseId": "SEM3-CAL-CONGENITAL-FLOW-ELLIPSIS",
       "candidateId": "SEM3-EVAL-CAND-CAL-CONGENITAL-FLOW-ELLIPSIS-VIOLATED-P13",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -428,14 +428,14 @@
         "openAdjudicationPacketCount": 0
       },
       "decisionRecords": [
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-congenital-flow-ellipsis-violated-p13-p13.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-congenital-flow-ellipsis-violated-p13-p15.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-congenital-flow-ellipsis-violated-p13-p16.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-congenital-flow-ellipsis-violated-p13-p17.decision.json"
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-congenital-flow-ellipsis-violated-p13-p13.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-congenital-flow-ellipsis-violated-p13-p15.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-congenital-flow-ellipsis-violated-p13-p16.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-congenital-flow-ellipsis-violated-p13-p17.decision.json"
       ]
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-satisfied-p14.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-satisfied-p14.candidate.json",
       "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
       "candidateId": "SEM3-EVAL-CAND-CAL-ATRIAL-FIBROSIS-ABLATION-SATISFIED-P14",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -449,15 +449,15 @@
         "openAdjudicationPacketCount": 0
       },
       "decisionRecords": [
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p14-p14.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p14-p15.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p14-p16.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p14-p17.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p14-p18.decision.json"
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p14-p14.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p14-p15.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p14-p16.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p14-p17.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p14-p18.decision.json"
       ]
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-violated-p14.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-violated-p14.candidate.json",
       "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
       "candidateId": "SEM3-EVAL-CAND-CAL-ATRIAL-FIBROSIS-ABLATION-VIOLATED-P14",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -471,15 +471,15 @@
         "openAdjudicationPacketCount": 0
       },
       "decisionRecords": [
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p14-p14.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p14-p15.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p14-p16.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p14-p17.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p14-p18.decision.json"
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p14-p14.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p14-p15.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p14-p16.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p14-p17.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p14-p18.decision.json"
       ]
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-satisfied-p15.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-satisfied-p15.candidate.json",
       "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
       "candidateId": "SEM3-EVAL-CAND-CAL-ATRIAL-FIBROSIS-ABLATION-SATISFIED-P15",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -493,15 +493,15 @@
         "openAdjudicationPacketCount": 0
       },
       "decisionRecords": [
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p15-p14.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p15-p15.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p15-p16.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p15-p17.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p15-p18.decision.json"
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p15-p14.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p15-p15.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p15-p16.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p15-p17.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p15-p18.decision.json"
       ]
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-violated-p15.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-violated-p15.candidate.json",
       "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
       "candidateId": "SEM3-EVAL-CAND-CAL-ATRIAL-FIBROSIS-ABLATION-VIOLATED-P15",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -515,15 +515,15 @@
         "openAdjudicationPacketCount": 0
       },
       "decisionRecords": [
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p15-p14.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p15-p15.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p15-p16.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p15-p17.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p15-p18.decision.json"
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p15-p14.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p15-p15.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p15-p16.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p15-p17.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p15-p18.decision.json"
       ]
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-satisfied-p16.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-satisfied-p16.candidate.json",
       "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
       "candidateId": "SEM3-EVAL-CAND-CAL-ATRIAL-FIBROSIS-ABLATION-SATISFIED-P16",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -537,15 +537,15 @@
         "openAdjudicationPacketCount": 0
       },
       "decisionRecords": [
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p16-p14.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p16-p15.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p16-p16.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p16-p17.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p16-p18.decision.json"
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p16-p14.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p16-p15.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p16-p16.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p16-p17.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p16-p18.decision.json"
       ]
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-violated-p16.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-violated-p16.candidate.json",
       "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
       "candidateId": "SEM3-EVAL-CAND-CAL-ATRIAL-FIBROSIS-ABLATION-VIOLATED-P16",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -559,15 +559,15 @@
         "openAdjudicationPacketCount": 0
       },
       "decisionRecords": [
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p16-p14.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p16-p15.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p16-p16.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p16-p17.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p16-p18.decision.json"
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p16-p14.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p16-p15.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p16-p16.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p16-p17.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p16-p18.decision.json"
       ]
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-satisfied-p17.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-satisfied-p17.candidate.json",
       "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
       "candidateId": "SEM3-EVAL-CAND-CAL-ATRIAL-FIBROSIS-ABLATION-SATISFIED-P17",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -581,15 +581,15 @@
         "openAdjudicationPacketCount": 0
       },
       "decisionRecords": [
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p17-p14.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p17-p15.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p17-p16.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p17-p17.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p17-p18.decision.json"
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p17-p14.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p17-p15.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p17-p16.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p17-p17.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p17-p18.decision.json"
       ]
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-violated-p17.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-violated-p17.candidate.json",
       "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
       "candidateId": "SEM3-EVAL-CAND-CAL-ATRIAL-FIBROSIS-ABLATION-VIOLATED-P17",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -603,15 +603,15 @@
         "openAdjudicationPacketCount": 0
       },
       "decisionRecords": [
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p17-p14.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p17-p15.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p17-p16.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p17-p17.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p17-p18.decision.json"
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p17-p14.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p17-p15.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p17-p16.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p17-p17.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p17-p18.decision.json"
       ]
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-satisfied-p18.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-satisfied-p18.candidate.json",
       "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
       "candidateId": "SEM3-EVAL-CAND-CAL-ATRIAL-FIBROSIS-ABLATION-SATISFIED-P18",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -625,15 +625,15 @@
         "openAdjudicationPacketCount": 0
       },
       "decisionRecords": [
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p18-p14.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p18-p15.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p18-p16.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p18-p17.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p18-p18.decision.json"
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p18-p14.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p18-p15.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p18-p16.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p18-p17.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-satisfied-p18-p18.decision.json"
       ]
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-violated-p18.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-violated-p18.candidate.json",
       "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
       "candidateId": "SEM3-EVAL-CAND-CAL-ATRIAL-FIBROSIS-ABLATION-VIOLATED-P18",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -647,15 +647,15 @@
         "openAdjudicationPacketCount": 0
       },
       "decisionRecords": [
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p18-p14.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p18-p15.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p18-p16.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p18-p17.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p18-p18.decision.json"
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p18-p14.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p18-p15.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p18-p16.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p18-p17.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-violated-p18-p18.decision.json"
       ]
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-reserve-p17.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-reserve-p17.candidate.json",
       "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
       "candidateId": "SEM3-EVAL-CAND-CAL-ATRIAL-FIBROSIS-ABLATION-RESERVE-P17",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -669,15 +669,15 @@
         "openAdjudicationPacketCount": 0
       },
       "decisionRecords": [
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-reserve-p17-p14.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-reserve-p17-p15.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-reserve-p17-p16.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-reserve-p17-p17.decision.json",
-        "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-reserve-p17-p18.decision.json"
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-reserve-p17-p14.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-reserve-p17-p15.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-reserve-p17-p16.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-reserve-p17-p17.decision.json",
+        "semantic-validation/sem-003/calibration/restart-v1.1.0/decisions/b4-cal-atrial-fibrosis-ablation-reserve-p17-p18.decision.json"
       ]
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-safe-fail-closed.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-safe-fail-closed.candidate.json",
       "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
       "candidateId": "SEM3-EVAL-CAND-CAL-ATRIAL-FIBROSIS-ABLATION-SAFE-FAIL-CLOSED",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -690,7 +690,7 @@
       "decisionRecords": []
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-provider-failure.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-provider-failure.candidate.json",
       "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
       "candidateId": "SEM3-EVAL-CAND-CAL-ATRIAL-FIBROSIS-ABLATION-PROVIDER-FAILURE",
       "evaluationMode": "CALIBRATION_SYNTHETIC",
@@ -703,7 +703,7 @@
       "decisionRecords": []
     },
     {
-      "fixture": "noxia-dev/semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-not-evaluable.candidate.json",
+      "fixture": "semantic-validation/sem-003/calibration/restart-v1.1.0/fixtures/cal-atrial-fibrosis-ablation-not-evaluable.candidate.json",
       "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
       "candidateId": "SEM3-EVAL-CAND-CAL-ATRIAL-FIBROSIS-ABLATION-NOT-EVALUABLE",
       "evaluationMode": "CALIBRATION_SYNTHETIC",

@@ -64,14 +64,14 @@
     }
   },
   "equivalence": {
-    "source": "noxia-dev/semantic-validation/sem-003/review/artifacts/equivalence-review-status.json",
+    "source": "semantic-validation/sem-003/review/artifacts/equivalence-review-status.json",
     "pairCount": 5,
     "requiredDisposition": "ACCEPTABLE_SEMANTIC_EQUIVALENT",
     "authorityClass": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
     "humanEvidence": false
   },
   "dispositions": {
-    "registry": "noxia-dev/semantic-validation/sem-003/evaluator/registry/failure-disposition-registry.json",
+    "registry": "semantic-validation/sem-003/evaluator/registry/failure-disposition-registry.json",
     "measuredSeparately": true,
     "providerFailure": "Synthetic boundary-contract exercise only; no provider is invoked and no provider reliability rate is inferred.",
     "notEvaluable": "Never counted as PASS or removed from denominators.",

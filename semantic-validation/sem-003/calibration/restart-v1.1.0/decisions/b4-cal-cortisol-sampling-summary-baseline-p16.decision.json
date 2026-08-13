@@ -16,7 +16,7 @@
     "pd011FinalEvidence": false
   },
   "provenance": {
-    "sourceRecordRef": "noxia-dev/semantic-validation/sem-003/review/artifacts/calibration-reference-set.json#SEM3B3-RU-CAL-CORTISOL-SAMPLING-SUMMARY",
+    "sourceRecordRef": "semantic-validation/sem-003/review/artifacts/calibration-reference-set.json#SEM3B3-RU-CAL-CORTISOL-SAMPLING-SUMMARY",
     "recordedAt": "2026-08-13T22:00:00.000Z",
     "realHumanReview": false
   },

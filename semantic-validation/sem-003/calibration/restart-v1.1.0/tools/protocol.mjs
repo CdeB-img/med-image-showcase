@@ -7,7 +7,7 @@ const TOOL_ROOT = path.dirname(fileURLToPath(import.meta.url));
 
 export const RESTART_ROOT = path.resolve(TOOL_ROOT, "..");
 export const SEM003_ROOT = path.resolve(RESTART_ROOT, "../..");
-export const REPOSITORY_ROOT = path.resolve(SEM003_ROOT, "../../..");
+export const REPOSITORY_ROOT = path.resolve(SEM003_ROOT, "../..");
 export const CALIBRATION_CORPUS_ROOT = path.resolve(SEM003_ROOT, "corpus/calibration");
 export const EVALUATOR_ROOT = path.resolve(SEM003_ROOT, "evaluator");
 export const REVIEW_ROOT = path.resolve(SEM003_ROOT, "review");
@@ -571,6 +571,14 @@ export const buildFrozenArtifacts = () => {
       decision: "SEM003B4_EVALUATOR_REPAIR_REQUIRED",
       preservedAt: "semantic-validation/sem-003/calibration",
       activeCalibrationEvidence: false,
+    },
+    preObservationHarnessCorrection: {
+      issue: "The first launch resolved the parent of the NOXIA Git root while checking worktree cleanliness.",
+      effect: "STOPPED_BEFORE_FIRST_CANDIDATE_EVALUATION",
+      calibrationResultProduced: false,
+      calibrationResultObserved: false,
+      evaluatorModified: false,
+      resolution: "Repository-root resolution corrected and the precommitment refrozen before execution.",
     },
     activeEvaluator: {
       version: EVALUATOR_VERSION,
