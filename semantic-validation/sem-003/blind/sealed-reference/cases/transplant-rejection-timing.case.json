@@ -7,7 +7,7 @@
   "title": "Rejet de greffe cardiaque et alignement temporel",
   "createdAt": "2026-08-14T10:00:00.000Z",
   "authorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
-  "reviewStatus": "SIMULATED_REFERENCE_REVIEW_PENDING",
+  "reviewStatus": "SIMULATED_REFERENCE_REVIEW_COMPLETE",
   "source": {
     "sourceRequest": "Tour 1: Après greffe cardiaque, nous voulons mettre en regard l'IRM et la biopsie de surveillance.\nTour 2: En IRM, la relaxation T2 myocardique est la mesure quantitative retenue.\nTour 3: La biopsie conserve son grade histologique propre; ce n'est pas une mesure IRM.\nTour 4: Les deux examens ne seront pas toujours faits le même jour.\nTour 5: Je ne veux pas appeler toute élévation de T2 un rejet.\nTour 6: Il faut conserver séparément le délai entre les deux examens.\nTour 7: La fenêtre temporelle acceptable reste à définir.",
     "language": "fr-FR",
@@ -89,14 +89,14 @@
         "reason": "Independent authoring before parentage review, reference review and sealing."
       }
     ],
-    "parentageStatus": "REQUIRES_PARENTAGE_REVIEW",
+    "parentageStatus": "BLIND_PARENTAGE_CLEAR",
     "contaminationReview": {
-      "status": "NOT_REVIEWED",
-      "reviewedAt": null,
-      "reviewerRole": null,
-      "notes": "Parentage and contamination review must complete before sealing."
+      "status": "CLEAR",
+      "reviewedAt": "2026-08-14T10:00:00.000Z",
+      "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+      "notes": "Simulated parentage review found no translation, paraphrase, discriminating-fact reuse, superficial domain swap or recombination; no human independence is claimed."
     },
-    "eligibleForBlindQualification": false
+    "eligibleForBlindQualification": true
   },
   "reference": {
     "acceptanceEnvelopeId": "SEM3-AE-BLIND-TRANSPLANT-REJECTION-TIMING",

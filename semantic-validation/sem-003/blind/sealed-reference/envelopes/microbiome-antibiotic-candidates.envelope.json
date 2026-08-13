@@ -1,0 +1,345 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003C_BLIND_ACCEPTANCE_ENVELOPE",
+  "envelopeId": "SEM3-AE-BLIND-MICROBIOME-ANTIBIOTIC-CANDIDATES",
+  "version": "1.0.0",
+  "caseId": "SEM3-BLIND-MICROBIOME-ANTIBIOTIC-CANDIDATES",
+  "reviewStatus": "SIMULATED_REFERENCE_STABLE_FOR_BLIND_CONSTRUCTION",
+  "required": [
+    {
+      "obligationId": "req-1-microbiome-before-after",
+      "semanticKey": "sem3-blind-microbiome-antibiotic-candidates.microbiome-before-after",
+      "kind": "COMPARISON",
+      "description": "Conserver la description du microbiome avant et après l'antibiothérapie.",
+      "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+      "sourceLocator": "source.conversationTurns[0]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-2-sampling-times",
+      "semanticKey": "sem3-blind-microbiome-antibiotic-candidates.sampling-times",
+      "kind": "TIMING",
+      "description": "Relier les prélèvements au départ et après la fin du traitement.",
+      "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+      "sourceLocator": "source.conversationTurns[1]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-3-diet-unreliable",
+      "semanticKey": "sem3-blind-microbiome-antibiotic-candidates.diet-unreliable",
+      "kind": "UNKNOWN",
+      "description": "Conserver le régime alimentaire comme information non fiable, sans le compléter.",
+      "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+      "sourceLocator": "source.conversationTurns[2]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-4-candidates-not-observed",
+      "semanticKey": "sem3-blind-microbiome-antibiotic-candidates.candidates-not-observed",
+      "kind": "PROVENANCE",
+      "description": "Conserver fonctions microbiennes et groupes taxonomiques comme candidats optionnels, non comme observations.",
+      "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+      "sourceLocator": "source.conversationTurns[3]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-5-no-global-causality",
+      "semanticKey": "sem3-blind-microbiome-antibiotic-candidates.no-global-causality",
+      "kind": "POLARITY",
+      "description": "Conserver l'interdiction d'attribuer causalement tout changement à l'antibiotique.",
+      "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+      "sourceLocator": "source.conversationTurns[4]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    }
+  ],
+  "prohibited": [
+    {
+      "prohibitionId": "pro-1-candidate-as-observation",
+      "semanticKey": "sem3-blind-microbiome-antibiotic-candidates.forbidden-candidate-as-observation",
+      "description": "Présenter un candidat microbien ou un support Knowledge comme fait observé, déclaration utilisateur ou vérité Project.",
+      "rationale": "Cette erreur changerait le sens, le statut épistémique, la provenance ou l'ownership de la demande.",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION"
+      ],
+      "failureClass": "EPISTEMIC_PROMOTION_FAILURE"
+    },
+    {
+      "prohibitionId": "pro-2-diet-completed",
+      "semanticKey": "sem3-blind-microbiome-antibiotic-candidates.forbidden-diet-completed",
+      "description": "Inventer ou normaliser silencieusement le régime alimentaire.",
+      "rationale": "Cette erreur changerait le sens, le statut épistémique, la provenance ou l'ownership de la demande.",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION"
+      ],
+      "failureClass": "UNSUPPORTED_INVENTION_FAILURE"
+    },
+    {
+      "prohibitionId": "pro-3-all-change-caused",
+      "semanticKey": "sem3-blind-microbiome-antibiotic-candidates.forbidden-all-change-caused",
+      "description": "Attribuer causalement tout changement à l'antibiothérapie.",
+      "rationale": "Cette erreur changerait le sens, le statut épistémique, la provenance ou l'ownership de la demande.",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION"
+      ],
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE"
+    }
+  ],
+  "acceptableSemanticVariants": [
+    {
+      "variantId": "variant-distributed-obligation-graph",
+      "label": "Composition distribuée",
+      "structureSynopsis": "Plusieurs objets et relations peuvent porter le vecteur d'obligations si leurs statuts, polarités, temporalités, provenance et ownership restent reconstructibles.",
+      "preservedObligationIds": [
+        "req-1-microbiome-before-after",
+        "req-2-sampling-times",
+        "req-3-diet-unreliable",
+        "req-4-candidates-not-observed",
+        "req-5-no-global-causality"
+      ],
+      "caveats": [
+        "Aucune équivalence n'est accordée par simple proximité lexicale.",
+        "Le Level 1 critique reste obligatoire."
+      ]
+    },
+    {
+      "variantId": "variant-compact-relation-preserving",
+      "label": "Composition compacte",
+      "structureSynopsis": "Une représentation plus compacte peut être recevable si elle conserve toutes les obligations et n'ajoute aucune promotion ou décision.",
+      "preservedObligationIds": [
+        "req-1-microbiome-before-after",
+        "req-2-sampling-times",
+        "req-3-diet-unreliable",
+        "req-4-candidates-not-observed",
+        "req-5-no-global-causality"
+      ],
+      "caveats": [
+        "La compacité ne permet ni omission critique ni fusion de plans conceptuels.",
+        "La topologie n'est pas le critère principal."
+      ]
+    }
+  ],
+  "optionalRelevant": [
+    {
+      "candidateId": "opt-1-functional-pathways",
+      "semanticKey": "sem3-blind-microbiome-antibiotic-candidates.optional-functional-pathways",
+      "description": "Fonctions microbiennes pertinentes à proposer comme candidats non exhaustifs.",
+      "epistemicStatus": "CONTEXTUAL_CANDIDATE",
+      "rationale": "La demande autorise explicitement des candidats fonctionnels sans les déclarer observés.",
+      "absenceIsBlocking": false,
+      "envelopeIsNonExhaustive": true
+    },
+    {
+      "candidateId": "opt-2-taxonomic-groups",
+      "semanticKey": "sem3-blind-microbiome-antibiotic-candidates.optional-taxonomic-groups",
+      "description": "Groupes taxonomiques pertinents à proposer comme candidats non exhaustifs.",
+      "epistemicStatus": "CONTEXTUAL_CANDIDATE",
+      "rationale": "La demande autorise explicitement des candidats taxonomiques sans fixer une liste.",
+      "absenceIsBlocking": false,
+      "envelopeIsNonExhaustive": true
+    }
+  ],
+  "admissibleAmbiguities": [],
+  "expectedClarification": {
+    "status": "OPTIONAL",
+    "decisionImpact": "L'information alimentaire peut rester inconnue; elle doit être visible dans les limites de l'interprétation.",
+    "acceptableQuestionClasses": [
+      "Disponibilité d'une information alimentaire exploitable"
+    ],
+    "exactWordingRequired": false
+  },
+  "ownershipBoundaries": [
+    {
+      "boundaryId": "own-sem-project",
+      "sourceOwner": "SEM",
+      "targetOwner": "Research Project / human decision",
+      "description": "SEM peut préserver l'intention, les inconnues, ambiguïtés et candidats; il n'adopte pas une décision de projet.",
+      "forbiddenPromotion": "Inference, option or contextual candidate to adopted Project decision",
+      "adoptionRequiresHumanDecision": true
+    },
+    {
+      "boundaryId": "own-knowledge-specialists",
+      "sourceOwner": "Knowledge / OBS / Imaging / Scientific Thinking",
+      "targetOwner": "SEM benchmark reference",
+      "description": "Les owners spécialisés qualifient preuves, mesures, acquisitions et hypothèses sans devenir la voix de l'utilisateur.",
+      "forbiddenPromotion": "Specialist support to explicit user fact, automatic endpoint or Project truth",
+      "adoptionRequiresHumanDecision": true
+    }
+  ],
+  "properties": [
+    {
+      "propertyId": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+      "family": "CONTEXTUAL_ENRICHMENT",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    }
+  ],
+  "adjudication": {
+    "requiredExpertise": [
+      "SCIENTIFIC_DOMAIN",
+      "METHODOLOGICAL_SEM",
+      "INDEPENDENT_ADJUDICATION"
+    ],
+    "notes": "Référence établie avant toute sortie SEM par revue simulée plurifonctionnelle; aucune revue humaine réelle ni éligibilité finale PD-011 n'est revendiquée.",
+    "humanAdjudicationPoints": [
+      "Confirmer ultérieurement la recevabilité scientifique de REQUIRED et PROHIBITED.",
+      "Adjuger les équivalences complexes sans modifier rétroactivement l'enveloppe pendant une campagne.",
+      "Conserver les candidats optionnels comme enveloppe non exhaustive."
+    ],
+    "status": "SIMULATED_REVIEW_COMPLETE_NOT_PD011_ELIGIBLE"
+  },
+  "evaluationDemonstrations": []
+}

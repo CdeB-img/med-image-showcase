@@ -7,7 +7,7 @@
   "title": "Microscopie confocale et régénération cornéenne",
   "createdAt": "2026-08-14T10:00:00.000Z",
   "authorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
-  "reviewStatus": "SIMULATED_REFERENCE_REVIEW_PENDING",
+  "reviewStatus": "SIMULATED_REFERENCE_REVIEW_COMPLETE",
   "source": {
     "sourceRequest": "Tour 1: Après chirurgie cornéenne, je veux utiliser la microscopie confocale pour quantifier la densité des fibres nerveuses; la densité est la mesure, la microscopie est la méthode et la régénération nerveuse reste le phénomène étudié.",
     "language": "fr-FR",
@@ -58,26 +58,28 @@
         "reason": "Independent authoring before parentage review, reference review and sealing."
       }
     ],
-    "parentageStatus": "REQUIRES_PARENTAGE_REVIEW",
+    "parentageStatus": "BLIND_PARENTAGE_CLEAR",
     "contaminationReview": {
-      "status": "NOT_REVIEWED",
-      "reviewedAt": null,
-      "reviewerRole": null,
-      "notes": "Parentage and contamination review must complete before sealing."
+      "status": "CLEAR",
+      "reviewedAt": "2026-08-14T10:00:00.000Z",
+      "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+      "notes": "Simulated parentage review found no translation, paraphrase, discriminating-fact reuse, superficial domain swap or recombination; no human independence is claimed."
     },
-    "eligibleForBlindQualification": false
+    "eligibleForBlindQualification": true
   },
   "reference": {
     "acceptanceEnvelopeId": "SEM3-AE-BLIND-CORNEAL-NERVE-METHOD-MEASURE",
     "applicableSEM002Properties": [
       "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
       "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
       "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
       "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
       "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
       "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
       "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
       "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
       "PROPERTY_NO_UNSUPPORTED_INVENTION",
       "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
       "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",

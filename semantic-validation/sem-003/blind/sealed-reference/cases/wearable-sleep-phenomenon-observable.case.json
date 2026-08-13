@@ -7,7 +7,7 @@
   "title": "Sommeil, algorithme wearable et propriété observée",
   "createdAt": "2026-08-14T10:00:00.000Z",
   "authorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
-  "reviewStatus": "SIMULATED_REFERENCE_REVIEW_PENDING",
+  "reviewStatus": "SIMULATED_REFERENCE_REVIEW_COMPLETE",
   "source": {
     "sourceRequest": "Tour 1: Dans l'essai décentralisé, je veux étudier l'amélioration du sommeil.\nTour 2: Le bracelet fournit une durée de sommeil estimée par son algorithme.\nTour 3: La durée estimée n'est pas à elle seule le phénomène global d'amélioration du sommeil.\nTour 4: Un questionnaire hebdomadaire est aussi prévu.\nTour 5: Je n'ai pas encore choisi quelle propriété observée portera l'outcome principal.\nTour 6: L'adhérence au port du bracelet doit rester une information manquante si elle n'est pas fournie.",
     "language": "fr-FR",
@@ -89,14 +89,14 @@
         "reason": "Independent authoring before parentage review, reference review and sealing."
       }
     ],
-    "parentageStatus": "REQUIRES_PARENTAGE_REVIEW",
+    "parentageStatus": "BLIND_PARENTAGE_CLEAR",
     "contaminationReview": {
-      "status": "NOT_REVIEWED",
-      "reviewedAt": null,
-      "reviewerRole": null,
-      "notes": "Parentage and contamination review must complete before sealing."
+      "status": "CLEAR",
+      "reviewedAt": "2026-08-14T10:00:00.000Z",
+      "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+      "notes": "Simulated parentage review found no translation, paraphrase, discriminating-fact reuse, superficial domain swap or recombination; no human independence is claimed."
     },
-    "eligibleForBlindQualification": false
+    "eligibleForBlindQualification": true
   },
   "reference": {
     "acceptanceEnvelopeId": "SEM3-AE-BLIND-WEARABLE-SLEEP-PHENOMENON-OBSERVABLE",
@@ -112,6 +112,7 @@
       "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
       "PROPERTY_NO_UNSUPPORTED_INVENTION",
       "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
       "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
       "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
     ],

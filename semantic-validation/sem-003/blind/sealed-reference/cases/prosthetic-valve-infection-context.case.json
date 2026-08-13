@@ -7,7 +7,7 @@
   "title": "Contexte infectieux sur prothèse valvulaire",
   "createdAt": "2026-08-14T10:00:00.000Z",
   "authorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
-  "reviewStatus": "SIMULATED_REFERENCE_REVIEW_PENDING",
+  "reviewStatus": "SIMULATED_REFERENCE_REVIEW_COMPLETE",
   "source": {
     "sourceRequest": "Tour 1: On inclut des patients avec suspicion d'infection de prothèse valvulaire.\nTour 2: La TEP-TDM au FDG doit décrire le signal autour de la prothèse.\nTour 3: Les hémocultures peuvent être négatives.\nTour 4: Je veux voir si le signal métabolique accompagne le tableau clinique, sans dire qu'il prouve à lui seul l'infection ni qu'il cause les événements.\nTour 5: Les événements emboliques seront décrits séparément.\nTour 6: Le délai entre le début des antibiotiques et la TEP n'est pas encore fixé.",
     "language": "fr-FR",
@@ -84,14 +84,14 @@
         "reason": "Independent authoring before parentage review, reference review and sealing."
       }
     ],
-    "parentageStatus": "REQUIRES_PARENTAGE_REVIEW",
+    "parentageStatus": "BLIND_PARENTAGE_CLEAR",
     "contaminationReview": {
-      "status": "NOT_REVIEWED",
-      "reviewedAt": null,
-      "reviewerRole": null,
-      "notes": "Parentage and contamination review must complete before sealing."
+      "status": "CLEAR",
+      "reviewedAt": "2026-08-14T10:00:00.000Z",
+      "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+      "notes": "Simulated parentage review found no translation, paraphrase, discriminating-fact reuse, superficial domain swap or recombination; no human independence is claimed."
     },
-    "eligibleForBlindQualification": false
+    "eligibleForBlindQualification": true
   },
   "reference": {
     "acceptanceEnvelopeId": "SEM3-AE-BLIND-PROSTHETIC-VALVE-INFECTION-CONTEXT",
@@ -99,10 +99,12 @@
       "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
       "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
       "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
       "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
       "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
       "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
       "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
       "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
       "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
       "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",

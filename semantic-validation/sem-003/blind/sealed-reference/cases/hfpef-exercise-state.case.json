@@ -7,7 +7,7 @@
   "title": "Dyspnée d'effort et état hémodynamique",
   "createdAt": "2026-08-14T10:00:00.000Z",
   "authorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
-  "reviewStatus": "SIMULATED_REFERENCE_REVIEW_PENDING",
+  "reviewStatus": "SIMULATED_REFERENCE_REVIEW_COMPLETE",
   "source": {
     "sourceRequest": "Tour 1: Chez les patients avec dyspnée et suspicion d'HFpEF, je veux étudier ce qui se passe à l'effort.\nTour 2: On aura une pression de remplissage invasive et une échographie d'effort.\nTour 3: Le strain atrial est une mesure possible, pas le phénomène de dyspnée lui-même.\nTour 4: Je veux comparer repos et effort dans la même personne.\nTour 5: Le type exact d'effort n'est pas choisi.\nTour 6: Ne transformez pas la coexistence des mesures en mécanisme causal.",
     "language": "fr-FR",
@@ -84,14 +84,14 @@
         "reason": "Independent authoring before parentage review, reference review and sealing."
       }
     ],
-    "parentageStatus": "REQUIRES_PARENTAGE_REVIEW",
+    "parentageStatus": "BLIND_PARENTAGE_CLEAR",
     "contaminationReview": {
-      "status": "NOT_REVIEWED",
-      "reviewedAt": null,
-      "reviewerRole": null,
-      "notes": "Parentage and contamination review must complete before sealing."
+      "status": "CLEAR",
+      "reviewedAt": "2026-08-14T10:00:00.000Z",
+      "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+      "notes": "Simulated parentage review found no translation, paraphrase, discriminating-fact reuse, superficial domain swap or recombination; no human independence is claimed."
     },
-    "eligibleForBlindQualification": false
+    "eligibleForBlindQualification": true
   },
   "reference": {
     "acceptanceEnvelopeId": "SEM3-AE-BLIND-HFPEF-EXERCISE-STATE",

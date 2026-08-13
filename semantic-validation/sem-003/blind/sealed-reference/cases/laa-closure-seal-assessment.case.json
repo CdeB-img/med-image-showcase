@@ -7,7 +7,7 @@
   "title": "Fermeture de l'auricule et fuite péri-dispositif",
   "createdAt": "2026-08-14T10:00:00.000Z",
   "authorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
-  "reviewStatus": "SIMULATED_REFERENCE_REVIEW_PENDING",
+  "reviewStatus": "SIMULATED_REFERENCE_REVIEW_COMPLETE",
   "source": {
     "sourceRequest": "Tour 1: Je veux vérifier la fermeture de l'auricule après implantation du dispositif.\nTour 2: Le scanner cardiaque est prévu à trois mois et la fuite péri-dispositif est la mesure principale.\nTour 3: L'échographie transœsophagienne ne sera faite que si le scanner n'est pas concluant, pas comme comparateur systématique.\nTour 4: Le thrombus sur dispositif reste exploratoire et le calendrier éventuel de l'échographie n'est pas encore fixé.",
     "language": "fr-FR",
@@ -74,14 +74,14 @@
         "reason": "Independent authoring before parentage review, reference review and sealing."
       }
     ],
-    "parentageStatus": "REQUIRES_PARENTAGE_REVIEW",
+    "parentageStatus": "BLIND_PARENTAGE_CLEAR",
     "contaminationReview": {
-      "status": "NOT_REVIEWED",
-      "reviewedAt": null,
-      "reviewerRole": null,
-      "notes": "Parentage and contamination review must complete before sealing."
+      "status": "CLEAR",
+      "reviewedAt": "2026-08-14T10:00:00.000Z",
+      "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+      "notes": "Simulated parentage review found no translation, paraphrase, discriminating-fact reuse, superficial domain swap or recombination; no human independence is claimed."
     },
-    "eligibleForBlindQualification": false
+    "eligibleForBlindQualification": true
   },
   "reference": {
     "acceptanceEnvelopeId": "SEM3-AE-BLIND-LAA-CLOSURE-SEAL-ASSESSMENT",
@@ -97,6 +97,7 @@
       "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
       "PROPERTY_NO_UNSUPPORTED_INVENTION",
       "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
       "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
       "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
     ],

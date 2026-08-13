@@ -1,0 +1,345 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003C_BLIND_ACCEPTANCE_ENVELOPE",
+  "envelopeId": "SEM3-AE-BLIND-HFPEF-EXERCISE-STATE",
+  "version": "1.0.0",
+  "caseId": "SEM3-BLIND-HFPEF-EXERCISE-STATE",
+  "reviewStatus": "SIMULATED_REFERENCE_STABLE_FOR_BLIND_CONSTRUCTION",
+  "required": [
+    {
+      "obligationId": "req-1-hfpef-dyspnea-context",
+      "semanticKey": "sem3-blind-hfpef-exercise-state.hfpef-dyspnea-context",
+      "kind": "EXPLICIT_CONCEPT",
+      "description": "Conserver la dyspnée et la suspicion d'HFpEF comme contexte clinique.",
+      "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+      "sourceLocator": "source.conversationTurns[0]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-2-exercise-state",
+      "semanticKey": "sem3-blind-hfpef-exercise-state.exercise-state",
+      "kind": "TIMING",
+      "description": "Comprendre que l'étude porte sur un état d'effort distinct du repos.",
+      "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+      "sourceLocator": "source.conversationTurns[0]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-3-invasive-pressure-and-echo",
+      "semanticKey": "sem3-blind-hfpef-exercise-state.invasive-pressure-and-echo",
+      "kind": "RELATION",
+      "description": "Conserver pression de remplissage invasive et échographie d'effort comme sources distinctes.",
+      "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+      "sourceLocator": "source.conversationTurns[1]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-4-strain-measure-not-phenomenon",
+      "semanticKey": "sem3-blind-hfpef-exercise-state.strain-measure-not-phenomenon",
+      "kind": "OTHER",
+      "description": "Distinguer le strain atrial mesuré du phénomène de dyspnée.",
+      "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+      "sourceLocator": "source.conversationTurns[2]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-5-within-person-comparison",
+      "semanticKey": "sem3-blind-hfpef-exercise-state.within-person-comparison",
+      "kind": "COMPARISON",
+      "description": "Conserver la comparaison repos-effort intra-sujet.",
+      "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+      "sourceLocator": "source.conversationTurns[3]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-6-exercise-type-unknown",
+      "semanticKey": "sem3-blind-hfpef-exercise-state.exercise-type-unknown",
+      "kind": "UNKNOWN",
+      "description": "Maintenir inconnu le type exact d'effort.",
+      "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+      "sourceLocator": "source.conversationTurns[4]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-7-no-causal-mechanism",
+      "semanticKey": "sem3-blind-hfpef-exercise-state.no-causal-mechanism",
+      "kind": "POLARITY",
+      "description": "Ne pas transformer la coexistence des mesures en mécanisme causal.",
+      "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+      "sourceLocator": "source.conversationTurns[5]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    }
+  ],
+  "prohibited": [
+    {
+      "prohibitionId": "pro-1-strain-equals-dyspnea",
+      "semanticKey": "sem3-blind-hfpef-exercise-state.forbidden-strain-equals-dyspnea",
+      "description": "Confondre le strain atrial avec la dyspnée ou l'amélioration clinique.",
+      "rationale": "Cette erreur changerait le sens, le statut épistémique, la provenance ou l'ownership de la demande.",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+      ],
+      "failureClass": "CONCEPTUAL_PLAN_COLLAPSE"
+    },
+    {
+      "prohibitionId": "pro-2-measurements-causal",
+      "semanticKey": "sem3-blind-hfpef-exercise-state.forbidden-measurements-causal",
+      "description": "Créer une causalité entre pression, strain et symptômes.",
+      "rationale": "Cette erreur changerait le sens, le statut épistémique, la provenance ou l'ownership de la demande.",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION"
+      ],
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE"
+    },
+    {
+      "prohibitionId": "pro-3-invent-exercise",
+      "semanticKey": "sem3-blind-hfpef-exercise-state.forbidden-invent-exercise",
+      "description": "Choisir un protocole d'effort non fourni.",
+      "rationale": "Cette erreur changerait le sens, le statut épistémique, la provenance ou l'ownership de la demande.",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_NO_UNSUPPORTED_INVENTION"
+      ],
+      "failureClass": "UNSUPPORTED_INVENTION_FAILURE"
+    }
+  ],
+  "acceptableSemanticVariants": [
+    {
+      "variantId": "variant-distributed-obligation-graph",
+      "label": "Composition distribuée",
+      "structureSynopsis": "Plusieurs objets et relations peuvent porter le vecteur d'obligations si leurs statuts, polarités, temporalités, provenance et ownership restent reconstructibles.",
+      "preservedObligationIds": [
+        "req-1-hfpef-dyspnea-context",
+        "req-2-exercise-state",
+        "req-3-invasive-pressure-and-echo",
+        "req-4-strain-measure-not-phenomenon",
+        "req-5-within-person-comparison",
+        "req-6-exercise-type-unknown",
+        "req-7-no-causal-mechanism"
+      ],
+      "caveats": [
+        "Aucune équivalence n'est accordée par simple proximité lexicale.",
+        "Le Level 1 critique reste obligatoire."
+      ]
+    },
+    {
+      "variantId": "variant-compact-relation-preserving",
+      "label": "Composition compacte",
+      "structureSynopsis": "Une représentation plus compacte peut être recevable si elle conserve toutes les obligations et n'ajoute aucune promotion ou décision.",
+      "preservedObligationIds": [
+        "req-1-hfpef-dyspnea-context",
+        "req-2-exercise-state",
+        "req-3-invasive-pressure-and-echo",
+        "req-4-strain-measure-not-phenomenon",
+        "req-5-within-person-comparison",
+        "req-6-exercise-type-unknown",
+        "req-7-no-causal-mechanism"
+      ],
+      "caveats": [
+        "La compacité ne permet ni omission critique ni fusion de plans conceptuels.",
+        "La topologie n'est pas le critère principal."
+      ]
+    }
+  ],
+  "optionalRelevant": [],
+  "admissibleAmbiguities": [],
+  "expectedClarification": {
+    "status": "REQUIRED",
+    "decisionImpact": "Le type et la charge d'effort changent la comparaison et l'interprétation.",
+    "acceptableQuestionClasses": [
+      "Type d'effort",
+      "Charge ou niveau d'effort"
+    ],
+    "exactWordingRequired": false
+  },
+  "ownershipBoundaries": [
+    {
+      "boundaryId": "own-sem-project",
+      "sourceOwner": "SEM",
+      "targetOwner": "Research Project / human decision",
+      "description": "SEM peut préserver l'intention, les inconnues, ambiguïtés et candidats; il n'adopte pas une décision de projet.",
+      "forbiddenPromotion": "Inference, option or contextual candidate to adopted Project decision",
+      "adoptionRequiresHumanDecision": true
+    },
+    {
+      "boundaryId": "own-knowledge-specialists",
+      "sourceOwner": "Knowledge / OBS / Imaging / Scientific Thinking",
+      "targetOwner": "SEM benchmark reference",
+      "description": "Les owners spécialisés qualifient preuves, mesures, acquisitions et hypothèses sans devenir la voix de l'utilisateur.",
+      "forbiddenPromotion": "Specialist support to explicit user fact, automatic endpoint or Project truth",
+      "adoptionRequiresHumanDecision": true
+    }
+  ],
+  "properties": [
+    {
+      "propertyId": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    }
+  ],
+  "adjudication": {
+    "requiredExpertise": [
+      "SCIENTIFIC_DOMAIN",
+      "METHODOLOGICAL_SEM",
+      "INDEPENDENT_ADJUDICATION"
+    ],
+    "notes": "Référence établie avant toute sortie SEM par revue simulée plurifonctionnelle; aucune revue humaine réelle ni éligibilité finale PD-011 n'est revendiquée.",
+    "humanAdjudicationPoints": [
+      "Confirmer ultérieurement la recevabilité scientifique de REQUIRED et PROHIBITED.",
+      "Adjuger les équivalences complexes sans modifier rétroactivement l'enveloppe pendant une campagne.",
+      "Conserver les candidats optionnels comme enveloppe non exhaustive."
+    ],
+    "status": "SIMULATED_REVIEW_COMPLETE_NOT_PD011_ELIGIBLE"
+  },
+  "evaluationDemonstrations": []
+}

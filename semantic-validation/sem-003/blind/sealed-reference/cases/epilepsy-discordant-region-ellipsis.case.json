@@ -7,7 +7,7 @@
   "title": "Épilepsie et région discordante",
   "createdAt": "2026-08-14T10:00:00.000Z",
   "authorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
-  "reviewStatus": "SIMULATED_REFERENCE_REVIEW_PENDING",
+  "reviewStatus": "SIMULATED_REFERENCE_REVIEW_COMPLETE",
   "source": {
     "sourceRequest": "Tour 1: Je veux localiser le réseau épileptogène avant discussion chirurgicale.\nTour 2: Nous aurons une TEP intercritique et une magnétoencéphalographie.\nTour 3: Les deux peuvent désigner des régions différentes.\nTour 4: Je veux garder la région concordante comme candidate principale, sans la déclarer foyer certain.\nTour 5: Et la discordante aussi, mais séparément.",
     "language": "fr-FR",
@@ -79,14 +79,14 @@
         "reason": "Independent authoring before parentage review, reference review and sealing."
       }
     ],
-    "parentageStatus": "REQUIRES_PARENTAGE_REVIEW",
+    "parentageStatus": "BLIND_PARENTAGE_CLEAR",
     "contaminationReview": {
-      "status": "NOT_REVIEWED",
-      "reviewedAt": null,
-      "reviewerRole": null,
-      "notes": "Parentage and contamination review must complete before sealing."
+      "status": "CLEAR",
+      "reviewedAt": "2026-08-14T10:00:00.000Z",
+      "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+      "notes": "Simulated parentage review found no translation, paraphrase, discriminating-fact reuse, superficial domain swap or recombination; no human independence is claimed."
     },
-    "eligibleForBlindQualification": false
+    "eligibleForBlindQualification": true
   },
   "reference": {
     "acceptanceEnvelopeId": "SEM3-AE-BLIND-EPILEPSY-DISCORDANT-REGION-ELLIPSIS",
@@ -98,6 +98,7 @@
       "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
       "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
       "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
       "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
       "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
       "PROPERTY_NO_UNSUPPORTED_INVENTION",

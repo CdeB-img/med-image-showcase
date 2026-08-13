@@ -7,7 +7,7 @@
   "title": "Adaptation cardiovasculaire postpartum sans causalité ajoutée",
   "createdAt": "2026-08-14T10:00:00.000Z",
   "authorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
-  "reviewStatus": "SIMULATED_REFERENCE_REVIEW_PENDING",
+  "reviewStatus": "SIMULATED_REFERENCE_REVIEW_COMPLETE",
   "source": {
     "sourceRequest": "Tour 1: Je veux étudier l'adaptation cardiovasculaire après une grossesse compliquée d'hypertension.\nTour 2: Une échocardiographie avec estimation du travail myocardique est prévue à six semaines.\nTour 3: La pression artérielle sera mesurée au même temps.\nTour 4: Au départ, je voulais écrire que l'hypertension expliquait les changements de travail myocardique.\nTour 5: Je retire cette interprétation causale: l'étude doit seulement décrire leur relation.\nTour 6: Une seconde visite à six mois est envisagée.\nTour 7: Le groupe de comparaison n'est pas encore choisi.\nTour 8: Les traitements antihypertenseurs devront rester un contexte non établi s'ils ne sont pas documentés.\nTour 9: Aucun effet thérapeutique ne doit être déduit.",
     "language": "fr-FR",
@@ -104,14 +104,14 @@
         "reason": "Independent authoring before parentage review, reference review and sealing."
       }
     ],
-    "parentageStatus": "REQUIRES_PARENTAGE_REVIEW",
+    "parentageStatus": "BLIND_PARENTAGE_CLEAR",
     "contaminationReview": {
-      "status": "NOT_REVIEWED",
-      "reviewedAt": null,
-      "reviewerRole": null,
-      "notes": "Parentage and contamination review must complete before sealing."
+      "status": "CLEAR",
+      "reviewedAt": "2026-08-14T10:00:00.000Z",
+      "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+      "notes": "Simulated parentage review found no translation, paraphrase, discriminating-fact reuse, superficial domain swap or recombination; no human independence is claimed."
     },
-    "eligibleForBlindQualification": false
+    "eligibleForBlindQualification": true
   },
   "reference": {
     "acceptanceEnvelopeId": "SEM3-AE-BLIND-POSTPARTUM-MYOCARDIAL-WORK-NONCAUSAL",

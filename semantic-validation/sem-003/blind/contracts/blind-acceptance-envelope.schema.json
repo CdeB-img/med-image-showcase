@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://noxia.local/sem-003/blind/blind-acceptance-envelope.schema.json",
+  "title": "SEM-003C Blind Acceptance Envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "contractType", "envelopeId", "version", "caseId", "reviewStatus", "required", "prohibited", "acceptableSemanticVariants", "optionalRelevant", "admissibleAmbiguities", "expectedClarification", "ownershipBoundaries", "properties", "adjudication", "evaluationDemonstrations"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "contractType": { "const": "SEM003C_BLIND_ACCEPTANCE_ENVELOPE" },
+    "envelopeId": { "type": "string", "pattern": "^SEM3-AE-BLIND-[A-Z0-9][A-Z0-9-]{2,79}$" },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "caseId": { "type": "string", "pattern": "^SEM3-BLIND-[A-Z0-9][A-Z0-9-]{2,79}$" },
+    "reviewStatus": { "const": "SIMULATED_REFERENCE_STABLE_FOR_BLIND_CONSTRUCTION" },
+    "required": { "type": "array", "minItems": 1 },
+    "prohibited": { "type": "array", "minItems": 1 },
+    "acceptableSemanticVariants": { "type": "array", "minItems": 2 },
+    "optionalRelevant": { "type": "array" },
+    "admissibleAmbiguities": { "type": "array" },
+    "expectedClarification": { "type": "object", "required": ["status", "decisionImpact", "acceptableQuestionClasses", "exactWordingRequired"] },
+    "ownershipBoundaries": { "type": "array", "minItems": 1 },
+    "properties": { "type": "array", "minItems": 1 },
+    "adjudication": { "type": "object", "required": ["requiredExpertise", "notes", "humanAdjudicationPoints", "status"] },
+    "evaluationDemonstrations": { "type": "array", "maxItems": 0 }
+  }
+}

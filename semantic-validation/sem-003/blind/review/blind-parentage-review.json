@@ -1,0 +1,446 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003C_BLIND_PARENTAGE_REVIEW",
+  "reviewedAt": "2026-08-14T10:00:00.000Z",
+  "reviewMethod": "Compare source requests, discriminating facts, relations, ambiguities and reasoning chains; do not inspect SEM outputs or Gold Frames.",
+  "comparedCorpusIdentity": {
+    "visibleCaseRequestDigest": "ad2ef6b5fa1d6a7bcc872d9fc8559bfb3342d7987ac8fae38564dde3b5d1a801",
+    "historicalOriginalRequestDigest": "57278e1352ad5a7d785f00c07ebd96185d9ac54e6ead9e058adcdc1c43efe236",
+    "visibleCases": [
+      "SEM3-DEV-BODY-COMPOSITION-AMBIGUITY",
+      "SEM3-DEV-CARDIAC-AGING-TRAJECTORY",
+      "SEM3-DEV-CORONARY-PERFUSION-PRIORITY",
+      "SEM3-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
+      "SEM3-DEV-INFLAMMATION-MULTIDIMENSIONAL",
+      "SEM3-DEV-INTESTINAL-MOTILITY-METHOD",
+      "SEM3-DEV-OUTCOME-PRIORITY-CHANGE",
+      "SEM3-DEV-PANCREATIC-COMPOSITION-LONGITUDINAL",
+      "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL",
+      "SEM3-DEV-PLAQUE-INTERVENTION-CONTEXT",
+      "SEM3-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
+      "SEM3-DEV-ROUTINE-DATA-COMPARATOR-GAP",
+      "SEM3-DEV-TRANSLATIONAL-HYPOXIA-CANDIDATES",
+      "SEM3-DEV-TRIAL-IMAGING-OUTCOME-CORRECTION",
+      "SEM3-DEV-VALVE-HEMODYNAMICS-MULTIMODAL",
+      "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
+      "SEM3-CAL-CARDIO-RHYTHM-REMODELING",
+      "SEM3-CAL-CONGENITAL-FLOW-ELLIPSIS",
+      "SEM3-CAL-CORTISOL-SAMPLING-SUMMARY",
+      "SEM3-CAL-MSK-INFLAMMATION-RESPONSE",
+      "SEM3-CAL-NEURODEGENERATION-PROGRESSION",
+      "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+      "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+      "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
+      "SEM3-CAL-TRIAL-COMPARATOR-DECISION"
+    ],
+    "historicalCases": [
+      "SEM-H01",
+      "SEM-H02",
+      "SEM-H03",
+      "SEM-H04",
+      "SEM-H05",
+      "SEM-H06",
+      "SEM-H07",
+      "SEM-H08",
+      "SEM-H09",
+      "SEM-H10",
+      "SEM-H11",
+      "SEM-H12",
+      "SEM-H13",
+      "SEM-H14",
+      "SEM-H15",
+      "SEM-H16",
+      "SEM-H17",
+      "SEM-H18",
+      "SEM-H19",
+      "SEM-H20",
+      "SEM-H21",
+      "SEM-H22",
+      "SEM-H23",
+      "SEM-H24",
+      "SEM-H25",
+      "SEM-H26",
+      "SEM-H27",
+      "SEM-H28",
+      "SEM-H29",
+      "SEM-H30"
+    ]
+  },
+  "reviewUnits": [
+    {
+      "caseId": "SEM3-BLIND-LAA-CLOSURE-SEAL-ASSESSMENT",
+      "status": "BLIND_PARENTAGE_CLEAR",
+      "comparedAgainst": {
+        "developmentCases": 15,
+        "calibrationCases": 10,
+        "historicalLegacyCases": 30,
+        "sem002AndSem003Examples": true,
+        "otherBlindCandidates": 14
+      },
+      "nearestVisibleCases": [
+        "SEM3-DEV-PLAQUE-INTERVENTION-CONTEXT",
+        "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION"
+      ],
+      "nearestHistoricalCases": [
+        "SEM-H13"
+      ],
+      "discriminatingReason": "Dispositif de fermeture, examen conditionnel et fuite péri-dispositif; ni revascularisation, ablation, embolisation ni volume perfusé.",
+      "translationOrParaphrase": false,
+      "superficialPathologySwap": false,
+      "exposedScenarioRecombination": false,
+      "peerBlindDistinct": true,
+      "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+      "realHumanIndependenceClaimed": false
+    },
+    {
+      "caseId": "SEM3-BLIND-PROSTHETIC-VALVE-INFECTION-CONTEXT",
+      "status": "BLIND_PARENTAGE_CLEAR",
+      "comparedAgainst": {
+        "developmentCases": 15,
+        "calibrationCases": 10,
+        "historicalLegacyCases": 30,
+        "sem002AndSem003Examples": true,
+        "otherBlindCandidates": 14
+      },
+      "nearestVisibleCases": [
+        "SEM3-DEV-VALVE-HEMODYNAMICS-MULTIMODAL"
+      ],
+      "nearestHistoricalCases": [
+        "SEM-H17"
+      ],
+      "discriminatingReason": "Suspicion infectieuse, signal péri-prothétique, cultures négatives possibles et événements emboliques séparés; aucune hémodynamique valvulaire ni no-reflow.",
+      "translationOrParaphrase": false,
+      "superficialPathologySwap": false,
+      "exposedScenarioRecombination": false,
+      "peerBlindDistinct": true,
+      "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+      "realHumanIndependenceClaimed": false
+    },
+    {
+      "caseId": "SEM3-BLIND-AMYLOID-ECV-PURPOSE-GAP",
+      "status": "BLIND_PARENTAGE_CLEAR",
+      "comparedAgainst": {
+        "developmentCases": 15,
+        "calibrationCases": 10,
+        "historicalLegacyCases": 30,
+        "sem002AndSem003Examples": true,
+        "otherBlindCandidates": 14
+      },
+      "nearestVisibleCases": [
+        "SEM3-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE"
+      ],
+      "nearestHistoricalCases": [
+        "SEM-H07",
+        "SEM-H27"
+      ],
+      "discriminatingReason": "Finalité scientifique indécise d'une mesure ECV dans l'amylose traitée; ni mapping natif comparé au strain, ni changement logiciel T1, ni estimation CT.",
+      "translationOrParaphrase": false,
+      "superficialPathologySwap": false,
+      "exposedScenarioRecombination": false,
+      "peerBlindDistinct": true,
+      "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+      "realHumanIndependenceClaimed": false
+    },
+    {
+      "caseId": "SEM3-BLIND-TRANSPLANT-REJECTION-TIMING",
+      "status": "BLIND_PARENTAGE_CLEAR",
+      "comparedAgainst": {
+        "developmentCases": 15,
+        "calibrationCases": 10,
+        "historicalLegacyCases": 30,
+        "sem002AndSem003Examples": true,
+        "otherBlindCandidates": 14
+      },
+      "nearestVisibleCases": [
+        "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP"
+      ],
+      "nearestHistoricalCases": [
+        "SEM-H19",
+        "SEM-H23"
+      ],
+      "discriminatingReason": "Alignement temporel entre relaxation T2 myocardique et grade histologique de surveillance de greffe; ni radiomique prostate, ni test-retest ADC.",
+      "translationOrParaphrase": false,
+      "superficialPathologySwap": false,
+      "exposedScenarioRecombination": false,
+      "peerBlindDistinct": true,
+      "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+      "realHumanIndependenceClaimed": false
+    },
+    {
+      "caseId": "SEM3-BLIND-HFPEF-EXERCISE-STATE",
+      "status": "BLIND_PARENTAGE_CLEAR",
+      "comparedAgainst": {
+        "developmentCases": 15,
+        "calibrationCases": 10,
+        "historicalLegacyCases": 30,
+        "sem002AndSem003Examples": true,
+        "otherBlindCandidates": 14
+      },
+      "nearestVisibleCases": [
+        "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP"
+      ],
+      "nearestHistoricalCases": [
+        "SEM-H10",
+        "SEM-H26"
+      ],
+      "discriminatingReason": "État repos-effort intra-sujet, pression de remplissage et strain atrial dans l'HFpEF; ni récupération énergétique musculaire, ni récupération d'oxygénation.",
+      "translationOrParaphrase": false,
+      "superficialPathologySwap": false,
+      "exposedScenarioRecombination": false,
+      "peerBlindDistinct": true,
+      "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+      "realHumanIndependenceClaimed": false
+    },
+    {
+      "caseId": "SEM3-BLIND-POSTPARTUM-MYOCARDIAL-WORK-NONCAUSAL",
+      "status": "BLIND_PARENTAGE_CLEAR",
+      "comparedAgainst": {
+        "developmentCases": 15,
+        "calibrationCases": 10,
+        "historicalLegacyCases": 30,
+        "sem002AndSem003Examples": true,
+        "otherBlindCandidates": 14
+      },
+      "nearestVisibleCases": [
+        "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL"
+      ],
+      "nearestHistoricalCases": [
+        "SEM-H24"
+      ],
+      "discriminatingReason": "Correction d'une causalité postpartum entre pression artérielle et travail myocardique avec comparateur ouvert; ni graisse péricardique, ni placenta/fœtus.",
+      "translationOrParaphrase": false,
+      "superficialPathologySwap": false,
+      "exposedScenarioRecombination": false,
+      "peerBlindDistinct": true,
+      "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+      "realHumanIndependenceClaimed": false
+    },
+    {
+      "caseId": "SEM3-BLIND-EPILEPSY-DISCORDANT-REGION-ELLIPSIS",
+      "status": "BLIND_PARENTAGE_CLEAR",
+      "comparedAgainst": {
+        "developmentCases": 15,
+        "calibrationCases": 10,
+        "historicalLegacyCases": 30,
+        "sem002AndSem003Examples": true,
+        "otherBlindCandidates": 14
+      },
+      "nearestVisibleCases": [
+        "SEM3-CAL-CONGENITAL-FLOW-ELLIPSIS"
+      ],
+      "nearestHistoricalCases": [
+        "SEM-H22"
+      ],
+      "discriminatingReason": "Ellipse rattachée à une région discordante entre TEP intercritique et MEG avant décision chirurgicale; ni flux congénital, ni pseudoprogression tumorale.",
+      "translationOrParaphrase": false,
+      "superficialPathologySwap": false,
+      "exposedScenarioRecombination": false,
+      "peerBlindDistinct": true,
+      "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+      "realHumanIndependenceClaimed": false
+    },
+    {
+      "caseId": "SEM3-BLIND-CORNEAL-NERVE-METHOD-MEASURE",
+      "status": "BLIND_PARENTAGE_CLEAR",
+      "comparedAgainst": {
+        "developmentCases": 15,
+        "calibrationCases": 10,
+        "historicalLegacyCases": 30,
+        "sem002AndSem003Examples": true,
+        "otherBlindCandidates": 14
+      },
+      "nearestVisibleCases": [
+        "SEM3-DEV-INTESTINAL-MOTILITY-METHOD"
+      ],
+      "nearestHistoricalCases": [
+        "SEM-H16"
+      ],
+      "discriminatingReason": "Séparation méthode microscopique, densité nerveuse et régénération cornéenne; ni motilité intestinale, ni séquence osseuse ultracourte.",
+      "translationOrParaphrase": false,
+      "superficialPathologySwap": false,
+      "exposedScenarioRecombination": false,
+      "peerBlindDistinct": true,
+      "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+      "realHumanIndependenceClaimed": false
+    },
+    {
+      "caseId": "SEM3-BLIND-BREAST-BPE-AMBIGUOUS-CHANGE",
+      "status": "BLIND_PARENTAGE_CLEAR",
+      "comparedAgainst": {
+        "developmentCases": 15,
+        "calibrationCases": 10,
+        "historicalLegacyCases": 30,
+        "sem002AndSem003Examples": true,
+        "otherBlindCandidates": 14
+      },
+      "nearestVisibleCases": [
+        "SEM3-DEV-BODY-COMPOSITION-AMBIGUITY",
+        "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY"
+      ],
+      "nearestHistoricalCases": [
+        "SEM-H02"
+      ],
+      "discriminatingReason": "Ambiguïté entre axe longitudinal et inter-groupes du rehaussement parenchymateux après changement hormonal; ni compartiment corporel, ni indication ovarienne, ni réponse T2* d'endométriose.",
+      "translationOrParaphrase": false,
+      "superficialPathologySwap": false,
+      "exposedScenarioRecombination": false,
+      "peerBlindDistinct": true,
+      "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+      "realHumanIndependenceClaimed": false
+    },
+    {
+      "caseId": "SEM3-BLIND-ORTHODONTIC-CBCT-OUTCOME-CORRECTION",
+      "status": "BLIND_PARENTAGE_CLEAR",
+      "comparedAgainst": {
+        "developmentCases": 15,
+        "calibrationCases": 10,
+        "historicalLegacyCases": 30,
+        "sem002AndSem003Examples": true,
+        "otherBlindCandidates": 14
+      },
+      "nearestVisibleCases": [
+        "SEM3-DEV-TRIAL-IMAGING-OUTCOME-CORRECTION"
+      ],
+      "nearestHistoricalCases": [
+        "SEM-H16"
+      ],
+      "discriminatingReason": "Hiérarchie corrigée entre épaisseur corticale et résorption radiculaire dans un suivi orthodontique CBCT; ni essai traitement-contrôle, ni visibilité du cortex osseux.",
+      "translationOrParaphrase": false,
+      "superficialPathologySwap": false,
+      "exposedScenarioRecombination": false,
+      "peerBlindDistinct": true,
+      "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+      "realHumanIndependenceClaimed": false
+    },
+    {
+      "caseId": "SEM3-BLIND-RARE-DISEASE-CONTROL-CHANGE",
+      "status": "BLIND_PARENTAGE_CLEAR",
+      "comparedAgainst": {
+        "developmentCases": 15,
+        "calibrationCases": 10,
+        "historicalLegacyCases": 30,
+        "sem002AndSem003Examples": true,
+        "otherBlindCandidates": 14
+      },
+      "nearestVisibleCases": [
+        "SEM3-DEV-OUTCOME-PRIORITY-CHANGE",
+        "SEM3-CAL-TRIAL-COMPARATOR-DECISION"
+      ],
+      "nearestHistoricalCases": [
+        "SEM-H30"
+      ],
+      "discriminatingReason": "Changement de comparateur vers trajectoire intra-patient avec temps zéro inconnu dans un registre; ni hiérarchie d'outcomes, ni consentement multicentrique.",
+      "translationOrParaphrase": false,
+      "superficialPathologySwap": false,
+      "exposedScenarioRecombination": false,
+      "peerBlindDistinct": true,
+      "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+      "realHumanIndependenceClaimed": false
+    },
+    {
+      "caseId": "SEM3-BLIND-MICROBIOME-ANTIBIOTIC-CANDIDATES",
+      "status": "BLIND_PARENTAGE_CLEAR",
+      "comparedAgainst": {
+        "developmentCases": 15,
+        "calibrationCases": 10,
+        "historicalLegacyCases": 30,
+        "sem002AndSem003Examples": true,
+        "otherBlindCandidates": 14
+      },
+      "nearestVisibleCases": [
+        "SEM3-DEV-TRANSLATIONAL-HYPOXIA-CANDIDATES"
+      ],
+      "nearestHistoricalCases": [
+        "SEM-H18"
+      ],
+      "discriminatingReason": "Candidats taxonomiques/fonctionnels non observés, régime non fiable et non-causalité antibiotique; ni hypoxie translationnelle, ni fibrose pulmonaire CT.",
+      "translationOrParaphrase": false,
+      "superficialPathologySwap": false,
+      "exposedScenarioRecombination": false,
+      "peerBlindDistinct": true,
+      "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+      "realHumanIndependenceClaimed": false
+    },
+    {
+      "caseId": "SEM3-BLIND-VACCINE-SINGLE-CELL-MULTIDIMENSIONAL",
+      "status": "BLIND_PARENTAGE_CLEAR",
+      "comparedAgainst": {
+        "developmentCases": 15,
+        "calibrationCases": 10,
+        "historicalLegacyCases": 30,
+        "sem002AndSem003Examples": true,
+        "otherBlindCandidates": 14
+      },
+      "nearestVisibleCases": [
+        "SEM3-DEV-INFLAMMATION-MULTIDIMENSIONAL",
+        "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT"
+      ],
+      "nearestHistoricalCases": [
+        "SEM-H12"
+      ],
+      "discriminatingReason": "Séparation proportions/états single-cell, temps vaccinaux, anticorps tardifs et effets de lot candidats; ni inflammation multimodale générique, ni organoïde, ni delta-radiomics.",
+      "translationOrParaphrase": false,
+      "superficialPathologySwap": false,
+      "exposedScenarioRecombination": false,
+      "peerBlindDistinct": true,
+      "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+      "realHumanIndependenceClaimed": false
+    },
+    {
+      "caseId": "SEM3-BLIND-WEARABLE-SLEEP-PHENOMENON-OBSERVABLE",
+      "status": "BLIND_PARENTAGE_CLEAR",
+      "comparedAgainst": {
+        "developmentCases": 15,
+        "calibrationCases": 10,
+        "historicalLegacyCases": 30,
+        "sem002AndSem003Examples": true,
+        "otherBlindCandidates": 14
+      },
+      "nearestVisibleCases": [
+        "SEM3-CAL-CORTISOL-SAMPLING-SUMMARY"
+      ],
+      "nearestHistoricalCases": [
+        "SEM-H15"
+      ],
+      "discriminatingReason": "Séparation amélioration du sommeil, durée algorithmique, questionnaire et adhérence; ni prélèvement hormonal, ni complétude DICOM multicentrique.",
+      "translationOrParaphrase": false,
+      "superficialPathologySwap": false,
+      "exposedScenarioRecombination": false,
+      "peerBlindDistinct": true,
+      "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+      "realHumanIndependenceClaimed": false
+    },
+    {
+      "caseId": "SEM3-BLIND-FOCUSED-ULTRASOUND-BBB-MRI",
+      "status": "BLIND_PARENTAGE_CLEAR",
+      "comparedAgainst": {
+        "developmentCases": 15,
+        "calibrationCases": 10,
+        "historicalLegacyCases": 30,
+        "sem002AndSem003Examples": true,
+        "otherBlindCandidates": 14
+      },
+      "nearestVisibleCases": [
+        "SEM3-DEV-PLAQUE-INTERVENTION-CONTEXT"
+      ],
+      "nearestHistoricalCases": [
+        "SEM-H13",
+        "SEM-H25"
+      ],
+      "discriminatingReason": "Intervention par ultrasons focalisés et observable de perméabilité IRM sans bénéfice thérapeutique; ni plaque, embolisation cone-beam CT, ni agents K-edge.",
+      "translationOrParaphrase": false,
+      "superficialPathologySwap": false,
+      "exposedScenarioRecombination": false,
+      "peerBlindDistinct": true,
+      "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+      "realHumanIndependenceClaimed": false
+    }
+  ],
+  "summary": {
+    "blindParentageClear": 15,
+    "relatedVisibleCase": 0,
+    "blindContaminationRisk": 0,
+    "requiresParentageReview": 0
+  },
+  "realHumanIndependenceClaimed": false
+}

@@ -1,0 +1,511 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003C_BLIND_REFERENCE_REVIEW",
+  "reviewedAt": "2026-08-14T10:00:00.000Z",
+  "reviewBasis": "SIMULATED_PLURALISTIC_REFERENCE_REVIEW_BEFORE_SEM_OUTPUT",
+  "reviewerRoles": [
+    "REVIEWER_SIM_SCIENTIFIC",
+    "REVIEWER_SIM_METHOD_OBS",
+    "REVIEWER_SIM_BENCHMARK_GOVERNANCE"
+  ],
+  "reviewUnits": [
+    {
+      "caseId": "SEM3-BLIND-LAA-CLOSURE-SEAL-ASSESSMENT",
+      "caseVersion": "1.0.0",
+      "envelopeId": "SEM3-AE-BLIND-LAA-CLOSURE-SEAL-ASSESSMENT",
+      "envelopeVersion": "1.0.0",
+      "reviewedBeforeAnySEMOutput": true,
+      "reviewerDecisions": [
+        {
+          "reviewerRole": "REVIEWER_SIM_SCIENTIFIC",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_METHOD_OBS",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        }
+      ],
+      "simulatedConcordance": "THREE_SIMULATED_ROLES_CONCUR",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    },
+    {
+      "caseId": "SEM3-BLIND-PROSTHETIC-VALVE-INFECTION-CONTEXT",
+      "caseVersion": "1.0.0",
+      "envelopeId": "SEM3-AE-BLIND-PROSTHETIC-VALVE-INFECTION-CONTEXT",
+      "envelopeVersion": "1.0.0",
+      "reviewedBeforeAnySEMOutput": true,
+      "reviewerDecisions": [
+        {
+          "reviewerRole": "REVIEWER_SIM_SCIENTIFIC",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_METHOD_OBS",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        }
+      ],
+      "simulatedConcordance": "THREE_SIMULATED_ROLES_CONCUR",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    },
+    {
+      "caseId": "SEM3-BLIND-AMYLOID-ECV-PURPOSE-GAP",
+      "caseVersion": "1.0.0",
+      "envelopeId": "SEM3-AE-BLIND-AMYLOID-ECV-PURPOSE-GAP",
+      "envelopeVersion": "1.0.0",
+      "reviewedBeforeAnySEMOutput": true,
+      "reviewerDecisions": [
+        {
+          "reviewerRole": "REVIEWER_SIM_SCIENTIFIC",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_METHOD_OBS",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        }
+      ],
+      "simulatedConcordance": "THREE_SIMULATED_ROLES_CONCUR",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    },
+    {
+      "caseId": "SEM3-BLIND-TRANSPLANT-REJECTION-TIMING",
+      "caseVersion": "1.0.0",
+      "envelopeId": "SEM3-AE-BLIND-TRANSPLANT-REJECTION-TIMING",
+      "envelopeVersion": "1.0.0",
+      "reviewedBeforeAnySEMOutput": true,
+      "reviewerDecisions": [
+        {
+          "reviewerRole": "REVIEWER_SIM_SCIENTIFIC",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_METHOD_OBS",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        }
+      ],
+      "simulatedConcordance": "THREE_SIMULATED_ROLES_CONCUR",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    },
+    {
+      "caseId": "SEM3-BLIND-HFPEF-EXERCISE-STATE",
+      "caseVersion": "1.0.0",
+      "envelopeId": "SEM3-AE-BLIND-HFPEF-EXERCISE-STATE",
+      "envelopeVersion": "1.0.0",
+      "reviewedBeforeAnySEMOutput": true,
+      "reviewerDecisions": [
+        {
+          "reviewerRole": "REVIEWER_SIM_SCIENTIFIC",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_METHOD_OBS",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        }
+      ],
+      "simulatedConcordance": "THREE_SIMULATED_ROLES_CONCUR",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    },
+    {
+      "caseId": "SEM3-BLIND-POSTPARTUM-MYOCARDIAL-WORK-NONCAUSAL",
+      "caseVersion": "1.0.0",
+      "envelopeId": "SEM3-AE-BLIND-POSTPARTUM-MYOCARDIAL-WORK-NONCAUSAL",
+      "envelopeVersion": "1.0.0",
+      "reviewedBeforeAnySEMOutput": true,
+      "reviewerDecisions": [
+        {
+          "reviewerRole": "REVIEWER_SIM_SCIENTIFIC",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_METHOD_OBS",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        }
+      ],
+      "simulatedConcordance": "THREE_SIMULATED_ROLES_CONCUR",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    },
+    {
+      "caseId": "SEM3-BLIND-EPILEPSY-DISCORDANT-REGION-ELLIPSIS",
+      "caseVersion": "1.0.0",
+      "envelopeId": "SEM3-AE-BLIND-EPILEPSY-DISCORDANT-REGION-ELLIPSIS",
+      "envelopeVersion": "1.0.0",
+      "reviewedBeforeAnySEMOutput": true,
+      "reviewerDecisions": [
+        {
+          "reviewerRole": "REVIEWER_SIM_SCIENTIFIC",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_METHOD_OBS",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        }
+      ],
+      "simulatedConcordance": "THREE_SIMULATED_ROLES_CONCUR",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    },
+    {
+      "caseId": "SEM3-BLIND-CORNEAL-NERVE-METHOD-MEASURE",
+      "caseVersion": "1.0.0",
+      "envelopeId": "SEM3-AE-BLIND-CORNEAL-NERVE-METHOD-MEASURE",
+      "envelopeVersion": "1.0.0",
+      "reviewedBeforeAnySEMOutput": true,
+      "reviewerDecisions": [
+        {
+          "reviewerRole": "REVIEWER_SIM_SCIENTIFIC",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_METHOD_OBS",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        }
+      ],
+      "simulatedConcordance": "THREE_SIMULATED_ROLES_CONCUR",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    },
+    {
+      "caseId": "SEM3-BLIND-BREAST-BPE-AMBIGUOUS-CHANGE",
+      "caseVersion": "1.0.0",
+      "envelopeId": "SEM3-AE-BLIND-BREAST-BPE-AMBIGUOUS-CHANGE",
+      "envelopeVersion": "1.0.0",
+      "reviewedBeforeAnySEMOutput": true,
+      "reviewerDecisions": [
+        {
+          "reviewerRole": "REVIEWER_SIM_SCIENTIFIC",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_METHOD_OBS",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        }
+      ],
+      "simulatedConcordance": "THREE_SIMULATED_ROLES_CONCUR",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    },
+    {
+      "caseId": "SEM3-BLIND-ORTHODONTIC-CBCT-OUTCOME-CORRECTION",
+      "caseVersion": "1.0.0",
+      "envelopeId": "SEM3-AE-BLIND-ORTHODONTIC-CBCT-OUTCOME-CORRECTION",
+      "envelopeVersion": "1.0.0",
+      "reviewedBeforeAnySEMOutput": true,
+      "reviewerDecisions": [
+        {
+          "reviewerRole": "REVIEWER_SIM_SCIENTIFIC",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_METHOD_OBS",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        }
+      ],
+      "simulatedConcordance": "THREE_SIMULATED_ROLES_CONCUR",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    },
+    {
+      "caseId": "SEM3-BLIND-RARE-DISEASE-CONTROL-CHANGE",
+      "caseVersion": "1.0.0",
+      "envelopeId": "SEM3-AE-BLIND-RARE-DISEASE-CONTROL-CHANGE",
+      "envelopeVersion": "1.0.0",
+      "reviewedBeforeAnySEMOutput": true,
+      "reviewerDecisions": [
+        {
+          "reviewerRole": "REVIEWER_SIM_SCIENTIFIC",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_METHOD_OBS",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        }
+      ],
+      "simulatedConcordance": "THREE_SIMULATED_ROLES_CONCUR",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    },
+    {
+      "caseId": "SEM3-BLIND-MICROBIOME-ANTIBIOTIC-CANDIDATES",
+      "caseVersion": "1.0.0",
+      "envelopeId": "SEM3-AE-BLIND-MICROBIOME-ANTIBIOTIC-CANDIDATES",
+      "envelopeVersion": "1.0.0",
+      "reviewedBeforeAnySEMOutput": true,
+      "reviewerDecisions": [
+        {
+          "reviewerRole": "REVIEWER_SIM_SCIENTIFIC",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_METHOD_OBS",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        }
+      ],
+      "simulatedConcordance": "THREE_SIMULATED_ROLES_CONCUR",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    },
+    {
+      "caseId": "SEM3-BLIND-VACCINE-SINGLE-CELL-MULTIDIMENSIONAL",
+      "caseVersion": "1.0.0",
+      "envelopeId": "SEM3-AE-BLIND-VACCINE-SINGLE-CELL-MULTIDIMENSIONAL",
+      "envelopeVersion": "1.0.0",
+      "reviewedBeforeAnySEMOutput": true,
+      "reviewerDecisions": [
+        {
+          "reviewerRole": "REVIEWER_SIM_SCIENTIFIC",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_METHOD_OBS",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        }
+      ],
+      "simulatedConcordance": "THREE_SIMULATED_ROLES_CONCUR",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    },
+    {
+      "caseId": "SEM3-BLIND-WEARABLE-SLEEP-PHENOMENON-OBSERVABLE",
+      "caseVersion": "1.0.0",
+      "envelopeId": "SEM3-AE-BLIND-WEARABLE-SLEEP-PHENOMENON-OBSERVABLE",
+      "envelopeVersion": "1.0.0",
+      "reviewedBeforeAnySEMOutput": true,
+      "reviewerDecisions": [
+        {
+          "reviewerRole": "REVIEWER_SIM_SCIENTIFIC",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_METHOD_OBS",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        }
+      ],
+      "simulatedConcordance": "THREE_SIMULATED_ROLES_CONCUR",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    },
+    {
+      "caseId": "SEM3-BLIND-FOCUSED-ULTRASOUND-BBB-MRI",
+      "caseVersion": "1.0.0",
+      "envelopeId": "SEM3-AE-BLIND-FOCUSED-ULTRASOUND-BBB-MRI",
+      "envelopeVersion": "1.0.0",
+      "reviewedBeforeAnySEMOutput": true,
+      "reviewerDecisions": [
+        {
+          "reviewerRole": "REVIEWER_SIM_SCIENTIFIC",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_METHOD_OBS",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        },
+        {
+          "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+          "reviewerType": "SIMULATED_REVIEW_ROLE",
+          "realHumanReviewer": false,
+          "decision": "ACCEPT_FOR_BLIND_CONSTRUCTION",
+          "conflictStatus": "SIMULATED_ROLE_NO_REAL_HUMAN_INDEPENDENCE"
+        }
+      ],
+      "simulatedConcordance": "THREE_SIMULATED_ROLES_CONCUR",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    }
+  ],
+  "realHumanReferenceReview": "NOT_PERFORMED",
+  "finalPD011ReferenceEligibility": "NO",
+  "semOutputObserved": false
+}

@@ -7,7 +7,7 @@
   "title": "Registre de maladie rare et changement de comparateur",
   "createdAt": "2026-08-14T10:00:00.000Z",
   "authorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
-  "reviewStatus": "SIMULATED_REFERENCE_REVIEW_PENDING",
+  "reviewStatus": "SIMULATED_REFERENCE_REVIEW_COMPLETE",
   "source": {
     "sourceRequest": "Tour 1: Nous préparons une étude d'histoire naturelle à partir d'un registre de maladie rare.\nTour 2: Je pensais comparer les patients à des contrôles externes.\nTour 3: Les dates d'entrée ne sont pas alignées entre les sources.\nTour 4: On peut aussi comparer chaque patient à sa trajectoire antérieure.\nTour 5: Les contrôles externes risquent d'être difficiles à rendre comparables.\nTour 6: Je change d'avis: la comparaison intra-patient devient l'analyse principale.\nTour 7: Les contrôles externes restent seulement exploratoires.\nTour 8: Le temps zéro de la trajectoire n'est pas encore défini.\nTour 9: Aucune conclusion causale sur un traitement ne doit être ajoutée.",
     "language": "fr-FR",
@@ -99,14 +99,14 @@
         "reason": "Independent authoring before parentage review, reference review and sealing."
       }
     ],
-    "parentageStatus": "REQUIRES_PARENTAGE_REVIEW",
+    "parentageStatus": "BLIND_PARENTAGE_CLEAR",
     "contaminationReview": {
-      "status": "NOT_REVIEWED",
-      "reviewedAt": null,
-      "reviewerRole": null,
-      "notes": "Parentage and contamination review must complete before sealing."
+      "status": "CLEAR",
+      "reviewedAt": "2026-08-14T10:00:00.000Z",
+      "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+      "notes": "Simulated parentage review found no translation, paraphrase, discriminating-fact reuse, superficial domain swap or recombination; no human independence is claimed."
     },
-    "eligibleForBlindQualification": false
+    "eligibleForBlindQualification": true
   },
   "reference": {
     "acceptanceEnvelopeId": "SEM3-AE-BLIND-RARE-DISEASE-CONTROL-CHANGE",

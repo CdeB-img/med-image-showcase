@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://noxia.local/sem-003/blind/blind-case.schema.json",
+  "title": "SEM-003C Blind Benchmark Case",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "contractType", "purpose", "caseId", "version", "title", "createdAt", "authorRole", "reviewStatus", "source", "scientificScope", "exposure", "reference"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "contractType": { "const": "SEM003C_BLIND_BENCHMARK_CASE" },
+    "purpose": { "const": "BLIND_QUALIFICATION_AUTHORING" },
+    "caseId": { "type": "string", "pattern": "^SEM3-BLIND-[A-Z0-9][A-Z0-9-]{2,79}$" },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "title": { "type": "string", "minLength": 1 },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "authorRole": { "type": "string", "minLength": 1 },
+    "reviewStatus": { "enum": ["SIMULATED_REFERENCE_REVIEW_PENDING", "SIMULATED_REFERENCE_REVIEW_COMPLETE"] },
+    "source": {
+      "type": "object",
+      "required": ["sourceRequest", "language", "conversationTurns", "sourceContext", "provenance"],
+      "properties": {
+        "sourceRequest": { "type": "string", "minLength": 1 },
+        "language": { "const": "fr-FR" },
+        "conversationTurns": { "type": "array", "minItems": 1 },
+        "sourceContext": { "type": "string", "minLength": 1 },
+        "provenance": { "type": "object", "required": ["originType", "originalSource", "author", "createdAt", "inspirationRefs"] }
+      }
+    },
+    "scientificScope": {
+      "type": "object",
+      "required": ["domainGroup", "domain", "scenarioCategory", "secondaryCategories", "difficultyTarget", "intentionallyMissingInformation"]
+    },
+    "exposure": {
+      "type": "object",
+      "required": ["exposureStatus", "exposureHistory", "parentageStatus", "contaminationReview", "eligibleForBlindQualification"],
+      "properties": {
+        "exposureStatus": { "enum": ["BLIND_DESIGN_ONLY", "BLIND_SEALED"] },
+        "exposureHistory": { "type": "array", "minItems": 1 },
+        "parentageStatus": { "enum": ["REQUIRES_PARENTAGE_REVIEW", "BLIND_PARENTAGE_CLEAR", "RELATED_VISIBLE_CASE", "BLIND_CONTAMINATION_RISK"] },
+        "contaminationReview": { "type": "object", "required": ["status", "reviewedAt", "reviewerRole", "notes"] },
+        "eligibleForBlindQualification": { "type": "boolean" }
+      }
+    },
+    "reference": {
+      "type": "object",
+      "required": ["acceptanceEnvelopeId", "applicableSEM002Properties", "adjudicationRequirements"],
+      "properties": {
+        "acceptanceEnvelopeId": { "type": "string", "pattern": "^SEM3-AE-BLIND-[A-Z0-9][A-Z0-9-]{2,79}$" },
+        "applicableSEM002Properties": { "type": "array", "minItems": 1, "uniqueItems": true },
+        "adjudicationRequirements": { "type": "array", "minItems": 1 }
+      }
+    }
+  }
+}
+

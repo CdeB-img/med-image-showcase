@@ -1,0 +1,322 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003C_BLIND_ACCEPTANCE_ENVELOPE",
+  "envelopeId": "SEM3-AE-BLIND-LAA-CLOSURE-SEAL-ASSESSMENT",
+  "version": "1.0.0",
+  "caseId": "SEM3-BLIND-LAA-CLOSURE-SEAL-ASSESSMENT",
+  "reviewStatus": "SIMULATED_REFERENCE_STABLE_FOR_BLIND_CONSTRUCTION",
+  "required": [
+    {
+      "obligationId": "req-1-closure-objective",
+      "semanticKey": "sem3-blind-laa-closure-seal-assessment.closure-objective",
+      "kind": "EXPLICIT_CONCEPT",
+      "description": "Préserver l'objectif de vérification après implantation du dispositif.",
+      "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+      "sourceLocator": "source.conversationTurns[0]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-2-ct-three-months",
+      "semanticKey": "sem3-blind-laa-closure-seal-assessment.ct-three-months",
+      "kind": "TIMING",
+      "description": "Relier le scanner cardiaque à l'évaluation prévue à trois mois.",
+      "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+      "sourceLocator": "source.conversationTurns[1]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-3-leak-primary",
+      "semanticKey": "sem3-blind-laa-closure-seal-assessment.leak-primary",
+      "kind": "RELATION",
+      "description": "Conserver la fuite péri-dispositif comme mesure principale.",
+      "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+      "sourceLocator": "source.conversationTurns[1]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-4-tee-conditional",
+      "semanticKey": "sem3-blind-laa-closure-seal-assessment.tee-conditional",
+      "kind": "POLARITY",
+      "description": "Conserver l'échographie transœsophagienne comme examen conditionnel uniquement si le scanner est non concluant.",
+      "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+      "sourceLocator": "source.conversationTurns[2]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-5-thrombus-exploratory",
+      "semanticKey": "sem3-blind-laa-closure-seal-assessment.thrombus-exploratory",
+      "kind": "OWNERSHIP",
+      "description": "Conserver le thrombus sur dispositif comme élément exploratoire, non principal.",
+      "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+      "sourceLocator": "source.conversationTurns[3]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-6-tee-schedule-unknown",
+      "semanticKey": "sem3-blind-laa-closure-seal-assessment.tee-schedule-unknown",
+      "kind": "UNKNOWN",
+      "description": "Maintenir inconnu le calendrier de l'échographie conditionnelle.",
+      "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+      "sourceLocator": "source.conversationTurns[3]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    }
+  ],
+  "prohibited": [
+    {
+      "prohibitionId": "pro-1-tee-systematic-comparator",
+      "semanticKey": "sem3-blind-laa-closure-seal-assessment.forbidden-tee-systematic-comparator",
+      "description": "Transformer l'échographie en comparateur systématique du scanner.",
+      "rationale": "Cette erreur changerait le sens, le statut épistémique, la provenance ou l'ownership de la demande.",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION"
+      ],
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE"
+    },
+    {
+      "prohibitionId": "pro-2-thrombus-primary",
+      "semanticKey": "sem3-blind-laa-closure-seal-assessment.forbidden-thrombus-primary",
+      "description": "Promouvoir le thrombus exploratoire en mesure principale.",
+      "rationale": "Cette erreur changerait le sens, le statut épistémique, la provenance ou l'ownership de la demande.",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+      ],
+      "failureClass": "OWNERSHIP_BOUNDARY_FAILURE"
+    },
+    {
+      "prohibitionId": "pro-3-invent-imaging-protocol",
+      "semanticKey": "sem3-blind-laa-closure-seal-assessment.forbidden-invent-imaging-protocol",
+      "description": "Inventer un protocole ou des paramètres d'acquisition.",
+      "rationale": "Cette erreur changerait le sens, le statut épistémique, la provenance ou l'ownership de la demande.",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_NO_UNSUPPORTED_INVENTION"
+      ],
+      "failureClass": "UNSUPPORTED_INVENTION_FAILURE"
+    }
+  ],
+  "acceptableSemanticVariants": [
+    {
+      "variantId": "variant-distributed-obligation-graph",
+      "label": "Composition distribuée",
+      "structureSynopsis": "Plusieurs objets et relations peuvent porter le vecteur d'obligations si leurs statuts, polarités, temporalités, provenance et ownership restent reconstructibles.",
+      "preservedObligationIds": [
+        "req-1-closure-objective",
+        "req-2-ct-three-months",
+        "req-3-leak-primary",
+        "req-4-tee-conditional",
+        "req-5-thrombus-exploratory",
+        "req-6-tee-schedule-unknown"
+      ],
+      "caveats": [
+        "Aucune équivalence n'est accordée par simple proximité lexicale.",
+        "Le Level 1 critique reste obligatoire."
+      ]
+    },
+    {
+      "variantId": "variant-compact-relation-preserving",
+      "label": "Composition compacte",
+      "structureSynopsis": "Une représentation plus compacte peut être recevable si elle conserve toutes les obligations et n'ajoute aucune promotion ou décision.",
+      "preservedObligationIds": [
+        "req-1-closure-objective",
+        "req-2-ct-three-months",
+        "req-3-leak-primary",
+        "req-4-tee-conditional",
+        "req-5-thrombus-exploratory",
+        "req-6-tee-schedule-unknown"
+      ],
+      "caveats": [
+        "La compacité ne permet ni omission critique ni fusion de plans conceptuels.",
+        "La topologie n'est pas le critère principal."
+      ]
+    }
+  ],
+  "optionalRelevant": [],
+  "admissibleAmbiguities": [],
+  "expectedClarification": {
+    "status": "OPTIONAL",
+    "decisionImpact": "Le calendrier conditionnel n'empêche pas de préserver l'intention actuelle, mais affectera l'organisation temporelle.",
+    "acceptableQuestionClasses": [
+      "Calendrier de l'échographie si le scanner est non concluant"
+    ],
+    "exactWordingRequired": false
+  },
+  "ownershipBoundaries": [
+    {
+      "boundaryId": "own-sem-project",
+      "sourceOwner": "SEM",
+      "targetOwner": "Research Project / human decision",
+      "description": "SEM peut préserver l'intention, les inconnues, ambiguïtés et candidats; il n'adopte pas une décision de projet.",
+      "forbiddenPromotion": "Inference, option or contextual candidate to adopted Project decision",
+      "adoptionRequiresHumanDecision": true
+    },
+    {
+      "boundaryId": "own-knowledge-specialists",
+      "sourceOwner": "Knowledge / OBS / Imaging / Scientific Thinking",
+      "targetOwner": "SEM benchmark reference",
+      "description": "Les owners spécialisés qualifient preuves, mesures, acquisitions et hypothèses sans devenir la voix de l'utilisateur.",
+      "forbiddenPromotion": "Specialist support to explicit user fact, automatic endpoint or Project truth",
+      "adoptionRequiresHumanDecision": true
+    }
+  ],
+  "properties": [
+    {
+      "propertyId": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    }
+  ],
+  "adjudication": {
+    "requiredExpertise": [
+      "SCIENTIFIC_DOMAIN",
+      "METHODOLOGICAL_SEM",
+      "INDEPENDENT_ADJUDICATION"
+    ],
+    "notes": "Référence établie avant toute sortie SEM par revue simulée plurifonctionnelle; aucune revue humaine réelle ni éligibilité finale PD-011 n'est revendiquée.",
+    "humanAdjudicationPoints": [
+      "Confirmer ultérieurement la recevabilité scientifique de REQUIRED et PROHIBITED.",
+      "Adjuger les équivalences complexes sans modifier rétroactivement l'enveloppe pendant une campagne.",
+      "Conserver les candidats optionnels comme enveloppe non exhaustive."
+    ],
+    "status": "SIMULATED_REVIEW_COMPLETE_NOT_PD011_ELIGIBLE"
+  },
+  "evaluationDemonstrations": []
+}

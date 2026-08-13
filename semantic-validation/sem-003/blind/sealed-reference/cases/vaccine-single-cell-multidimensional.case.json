@@ -7,7 +7,7 @@
   "title": "Réponse vaccinale en single-cell",
   "createdAt": "2026-08-14T10:00:00.000Z",
   "authorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
-  "reviewStatus": "SIMULATED_REFERENCE_REVIEW_PENDING",
+  "reviewStatus": "SIMULATED_REFERENCE_REVIEW_COMPLETE",
   "source": {
     "sourceRequest": "Tour 1: Après vaccination, je veux caractériser la réponse immunitaire précoce.\nTour 2: Nous aurons des prélèvements avant vaccination, puis deux temps après.\nTour 3: Le single-cell RNA-seq décrira à la fois des proportions cellulaires et des états transcriptionnels.\nTour 4: Une variation de proportion ne doit pas être confondue avec un changement d'état dans une cellule.\nTour 5: La réponse d'anticorps sera mesurée plus tard.\nTour 6: Je veux explorer leurs relations, sans transformer l'association en mécanisme.\nTour 7: Les effets de lot restent un candidat méthodologique à vérifier, pas une explication acquise.",
     "language": "fr-FR",
@@ -89,14 +89,14 @@
         "reason": "Independent authoring before parentage review, reference review and sealing."
       }
     ],
-    "parentageStatus": "REQUIRES_PARENTAGE_REVIEW",
+    "parentageStatus": "BLIND_PARENTAGE_CLEAR",
     "contaminationReview": {
-      "status": "NOT_REVIEWED",
-      "reviewedAt": null,
-      "reviewerRole": null,
-      "notes": "Parentage and contamination review must complete before sealing."
+      "status": "CLEAR",
+      "reviewedAt": "2026-08-14T10:00:00.000Z",
+      "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+      "notes": "Simulated parentage review found no translation, paraphrase, discriminating-fact reuse, superficial domain swap or recombination; no human independence is claimed."
     },
-    "eligibleForBlindQualification": false
+    "eligibleForBlindQualification": true
   },
   "reference": {
     "acceptanceEnvelopeId": "SEM3-AE-BLIND-VACCINE-SINGLE-CELL-MULTIDIMENSIONAL",
@@ -109,6 +109,7 @@
       "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
       "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
       "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
       "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
       "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
       "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
