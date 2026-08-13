@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "1.0.0",
+  "freezeId": "SEM003C1-COMPARATIVE-BASELINES-FREEZE-01",
+  "createdAt": "2026-08-14T00:00:00+02:00",
+  "baselineCount": 6,
+  "baselineManifests": [
+    {
+      "baselineId": "SEM003C1-SEM-CURRENT-01",
+      "manifestDigest": "4adab31a99376bb68a3ab9766075975f9b5e2749c8f90b9ef9dc7e8c891f3a38"
+    },
+    {
+      "baselineId": "SEM003C1-INSTRUCTOR-PYDANTIC-01",
+      "manifestDigest": "30a0d0dc92e7945f7e8da0d34e5cd7363deb624cc5b704988a92b240ebf676d7"
+    },
+    {
+      "baselineId": "SEM003C1-PYDANTICAI-01",
+      "manifestDigest": "1e281361303ce2278420122d0f228b5f57e10e12cdfd6b3551e83f42baad8cb8"
+    },
+    {
+      "baselineId": "SEM003C1-DSPY-01",
+      "manifestDigest": "fb7ee95f90be1e158da3e67bec7769e8fa6ef0133434b5fe0ca6eef054984962"
+    },
+    {
+      "baselineId": "SEM003C1-LANGEXTRACT-01",
+      "manifestDigest": "12f150af3873ec3574c51dd24790b8cb2728fe46cc1132dc1ba7acb03a4f7ae0"
+    },
+    {
+      "baselineId": "SEM003C1-OUTLINES-01",
+      "manifestDigest": "0ff4085d68ce8402ef7e4e36fa51bd63260c54ee68586e929d44cb86a24b000f"
+    }
+  ],
+  "comparativeProtocolDigest": "f62a36c2de78d525a57f3eb5a93ba959e7662a0a491a24ca49163383866baecf",
+  "normalizedOutputSchemaDigest": "44a9298ba94a85a778418d790270cf320147d755383088ae66cbc398b61dbdd0",
+  "evaluatorBridgeDigest": "2e426626adc8e15a3bfeac9950c570768435f701052ee5dad5bc76a5651acac1",
+  "dependencyLockDigest": "b41c132189f42c60c02fadb5a38715dc473c63db6fac797ccbed87c3c0139c87",
+  "targetEvaluator": {
+    "version": "1.1.0",
+    "configurationDigest": "b05bc0ac66cb3e4dc5f135ba278cac8cadebe7443e57b1003dca580c9bd0e9bd"
+  },
+  "blindAccessed": false,
+  "sealedReferenceAccessed": false,
+  "blindExecuted": false,
+  "resultsCreated": false,
+  "commonCampaignGate": "EVALUATOR_1_1_0_QUALIFICATION_PURPOSE_ENUM_REQUIRES_GOVERNED_RESOLUTION",
+  "decision": "SEM003C1_COMPARATIVE_BASELINES_PARTIAL",
+  "freezeDigest": "6373b7b04838e75582048becb2efdf075b644740f1d3f6bbb381809ecdc010f1"
+}

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "baselineId": "SEM003C1-OUTLINES-01",
+  "freezeStatus": "FROZEN_PRE_BLIND_EVALUATOR_GATE_OPEN",
+  "framework": "Outlines",
+  "frameworkVersion": "1.3.3",
+  "provider": "GOOGLE_GEMINI",
+  "model": "gemini-3.5-flash-lite",
+  "configuration": {
+    "adapter": "outlines.from_gemini",
+    "generator": "outlines.Generator",
+    "providerAttempts": 1,
+    "temperature": null,
+    "normalization": "LOSSLESS_REFERENCE_BLIND_1.0.0"
+  },
+  "promptTemplateDigest": "bce111f91b83928d1f5081a5a6e0f5da8f0c9d1134ae2b4f17aad879a98f63c7",
+  "adapterDigest": "95ca2b4ffc6c2bf836f6444e991b4c785db33044e342dd6cb8c2ad06841e6a77",
+  "outputSchemaDigest": "c2e3008122ee1b39d8666edfb57bcd8b299dc21f5fd2c872b29628b97746b01b",
+  "dependencyLockDigest": "b41c132189f42c60c02fadb5a38715dc473c63db6fac797ccbed87c3c0139c87",
+  "codeDigest": "0b3f79fc75f9010ecf412b028ef30bf8574dd11d6f9994d6c403fca11c59deac",
+  "createdAt": "2026-08-14T00:00:00+02:00",
+  "blindAccessed": false,
+  "sealedReferenceAccessed": false,
+  "blindExecuted": false,
+  "resultCount": 0,
+  "manifestDigest": "0ff4085d68ce8402ef7e4e36fa51bd63260c54ee68586e929d44cb86a24b000f"
+}

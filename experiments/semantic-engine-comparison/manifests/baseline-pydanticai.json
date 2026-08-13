@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "baselineId": "SEM003C1-PYDANTICAI-01",
+  "freezeStatus": "FROZEN_PRE_BLIND_EVALUATOR_GATE_OPEN",
+  "framework": "PydanticAI",
+  "frameworkVersion": "2.29.0",
+  "provider": "GOOGLE_GEMINI",
+  "model": "gemini-3.5-flash-lite",
+  "configuration": {
+    "agentRetries": 0,
+    "providerAttempts": 1,
+    "temperature": null,
+    "tools": [],
+    "normalization": "LOSSLESS_REFERENCE_BLIND_1.0.0"
+  },
+  "promptTemplateDigest": "bce111f91b83928d1f5081a5a6e0f5da8f0c9d1134ae2b4f17aad879a98f63c7",
+  "adapterDigest": "95ca2b4ffc6c2bf836f6444e991b4c785db33044e342dd6cb8c2ad06841e6a77",
+  "outputSchemaDigest": "c2e3008122ee1b39d8666edfb57bcd8b299dc21f5fd2c872b29628b97746b01b",
+  "dependencyLockDigest": "b41c132189f42c60c02fadb5a38715dc473c63db6fac797ccbed87c3c0139c87",
+  "codeDigest": "860acddd86aa7f6080cfb19ea5aad16364ef8eed25220737ec868c969f796ab4",
+  "createdAt": "2026-08-14T00:00:00+02:00",
+  "blindAccessed": false,
+  "sealedReferenceAccessed": false,
+  "blindExecuted": false,
+  "resultCount": 0,
+  "manifestDigest": "1e281361303ce2278420122d0f228b5f57e10e12cdfd6b3551e83f42baad8cb8"
+}

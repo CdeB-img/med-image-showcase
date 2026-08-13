@@ -1,0 +1,4 @@
+.venv/
+semantic-alternatives/
+**/__pycache__/
+*.pyc

@@ -1,0 +1,107 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "extractions"
+  ],
+  "properties": {
+    "extractions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "extraction_class",
+          "extraction_text",
+          "attributes"
+        ],
+        "properties": {
+          "extraction_class": {
+            "type": "string",
+            "enum": [
+              "concept",
+              "relation",
+              "unknown",
+              "ambiguity",
+              "optional_candidate",
+              "clarification",
+              "correction"
+            ]
+          },
+          "extraction_text": {
+            "type": "string"
+          },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "item_id": {
+                "type": "string"
+              },
+              "semantic_key": {
+                "type": "string"
+              },
+              "normalized_label": {
+                "type": "string"
+              },
+              "concept_type": {
+                "type": "string"
+              },
+              "study_role": {
+                "type": "string"
+              },
+              "polarity": {
+                "type": "string"
+              },
+              "epistemic_status": {
+                "type": "string"
+              },
+              "adoption_status": {
+                "type": "string"
+              },
+              "inference_reason": {
+                "type": "string"
+              },
+              "requires_confirmation": {
+                "type": "string"
+              },
+              "confidence": {
+                "type": "string"
+              },
+              "source_message_id": {
+                "type": "string"
+              },
+              "source_quote": {
+                "type": "string"
+              },
+              "source_item_id": {
+                "type": "string"
+              },
+              "target_item_id": {
+                "type": "string"
+              },
+              "predicate": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "question": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              },
+              "resolves_semantic_keys": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

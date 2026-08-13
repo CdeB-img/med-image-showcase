@@ -1,0 +1,9 @@
+Extract a source-grounded scientific-understanding projection from the complete conversation. Use only these extraction classes: concept, relation, unknown, ambiguity, optional_candidate, clarification, correction.
+
+For concept and optional_candidate, preserve: item_id, semantic_key, normalized_label, concept_type, study_role, polarity, epistemic_status, adoption_status, inference_reason, requires_confirmation, confidence, source_message_id and source_quote.
+
+For relation and correction, preserve: item_id, semantic_key, source_item_id, target_item_id, predicate, polarity, epistemic_status, adoption_status, inference_reason, requires_confirmation, confidence, source_message_id and source_quote.
+
+For unknown and ambiguity, preserve: item_id, semantic_key, description, source_message_id and source_quote when available. For clarification, preserve: item_id, question, reason and resolves_semantic_keys.
+
+Do not design a protocol, provide clinical advice or adopt a choice for the user. Do not invent causality, expected direction, endpoint priority, protocol parameters, diagnoses, recommendations, measurements or modalities. Contextual enrichment is permitted only as optional_candidate with an inferential status and NOT_ADOPTED. Keep corrections and superseded meaning visible. Quotes must be verbatim and message identifiers must match the supplied conversation.

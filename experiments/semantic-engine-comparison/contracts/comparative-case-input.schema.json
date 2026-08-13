@@ -1,0 +1,87 @@
+{
+  "$defs": {
+    "ConversationTurn": {
+      "additionalProperties": false,
+      "properties": {
+        "messageId": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Messageid",
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "USER",
+            "NOXIA"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "content": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "title": "Content",
+          "type": "string"
+        }
+      },
+      "required": [
+        "messageId",
+        "role",
+        "content"
+      ],
+      "title": "ConversationTurn",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0",
+      "default": "1.0.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "contractType": {
+      "const": "COMPARATIVE_SCIENTIFIC_CONVERSATION",
+      "default": "COMPARATIVE_SCIENTIFIC_CONVERSATION",
+      "title": "Contracttype",
+      "type": "string"
+    },
+    "caseId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "title": "Caseid",
+      "type": "string"
+    },
+    "caseVersion": {
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "title": "Caseversion",
+      "type": "string"
+    },
+    "language": {
+      "enum": [
+        "fr",
+        "en"
+      ],
+      "title": "Language",
+      "type": "string"
+    },
+    "conversationTurns": {
+      "items": {
+        "$ref": "#/$defs/ConversationTurn"
+      },
+      "maxItems": 20,
+      "minItems": 1,
+      "title": "Conversationturns",
+      "type": "array"
+    }
+  },
+  "required": [
+    "caseId",
+    "caseVersion",
+    "language",
+    "conversationTurns"
+  ],
+  "title": "ComparativeCaseInput",
+  "type": "object"
+}

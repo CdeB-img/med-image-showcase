@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "1.0.0",
+  "baselineId": "SEM003C1-DSPY-01",
+  "freezeStatus": "FROZEN_PRE_BLIND_EVALUATOR_GATE_OPEN",
+  "framework": "DSPy",
+  "frameworkVersion": "3.3.0",
+  "provider": "GOOGLE_GEMINI",
+  "model": "gemini-3.5-flash-lite",
+  "configuration": {
+    "module": "dspy.Predict",
+    "optimizer": null,
+    "demonstrations": [],
+    "cache": false,
+    "numRetries": 0,
+    "temperature": null,
+    "normalization": "LOSSLESS_REFERENCE_BLIND_1.0.0"
+  },
+  "promptTemplateDigest": "bce111f91b83928d1f5081a5a6e0f5da8f0c9d1134ae2b4f17aad879a98f63c7",
+  "adapterDigest": "95ca2b4ffc6c2bf836f6444e991b4c785db33044e342dd6cb8c2ad06841e6a77",
+  "outputSchemaDigest": "c2e3008122ee1b39d8666edfb57bcd8b299dc21f5fd2c872b29628b97746b01b",
+  "dependencyLockDigest": "b41c132189f42c60c02fadb5a38715dc473c63db6fac797ccbed87c3c0139c87",
+  "codeDigest": "d8d8f0549a4e4b2bcb5d6f66544317dc1c20a18b1287e1b80ac6093e8578f7ce",
+  "createdAt": "2026-08-14T00:00:00+02:00",
+  "blindAccessed": false,
+  "sealedReferenceAccessed": false,
+  "blindExecuted": false,
+  "resultCount": 0,
+  "manifestDigest": "fb7ee95f90be1e158da3e67bec7769e8fa6ef0133434b5fe0ca6eef054984962"
+}

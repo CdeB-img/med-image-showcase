@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "1.0.0",
+  "classifiedAt": "2026-08-14",
+  "directComparativeBaselines": [
+    "SEM003C1-SEM-CURRENT-01",
+    "SEM003C1-INSTRUCTOR-PYDANTIC-01",
+    "SEM003C1-PYDANTICAI-01",
+    "SEM003C1-DSPY-01",
+    "SEM003C1-LANGEXTRACT-01",
+    "SEM003C1-OUTLINES-01"
+  ],
+  "excluded": [
+    {
+      "candidate": "Guidance",
+      "installedVersion": "0.3.1",
+      "classification": "NOT_COMPARABLE_WITH_FROZEN_PROVIDER_WITHOUT_CUSTOM_BRIDGE",
+      "reason": "The installed model adapters expose OpenAI, local Transformers, LlamaCpp and ONNX paths but no native Gemini adapter. A custom provider bridge would add artificial orchestration unique to this candidate."
+    },
+    {
+      "candidate": "Graphiti Core",
+      "installedVersion": "0.29.3",
+      "classification": "MEMORY_GRAPH_COMPONENT_NOT_DIRECT_UNDERSTANDING_ENGINE",
+      "reason": "Its durable graph and memory responsibilities do not constitute a like-for-like single-conversation scientific-understanding projection baseline."
+    },
+    {
+      "candidate": "Guardrails AI",
+      "installedVersion": "0.10.2",
+      "classification": "VALIDATION_LAYER_NOT_DIRECT_UNDERSTANDING_ENGINE",
+      "reason": "Its validation and corrective control responsibilities wrap another generator rather than supplying an independent understanding strategy."
+    }
+  ]
+}

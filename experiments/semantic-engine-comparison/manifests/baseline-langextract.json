@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0.0",
+  "baselineId": "SEM003C1-LANGEXTRACT-01",
+  "freezeStatus": "FROZEN_PRE_BLIND_EVALUATOR_GATE_OPEN",
+  "framework": "LangExtract",
+  "frameworkVersion": "1.6.0",
+  "provider": "GOOGLE_GEMINI",
+  "model": "gemini-3.5-flash-lite",
+  "configuration": {
+    "examples": [],
+    "extractionPasses": 1,
+    "batchLength": 1,
+    "maxWorkers": 1,
+    "maxCharBuffer": 20000,
+    "fetchUrls": false,
+    "maxRetries": 0,
+    "temperature": null,
+    "normalization": "LOSSLESS_REFERENCE_BLIND_1.0.0"
+  },
+  "promptTemplateDigest": "8a324e0553054623fbf759cc3032a1ae92035434efbd8bf4b52b17739fa9bf49",
+  "adapterDigest": "124423bff0686b243177a961830827210c76208ae47444961af35195a1429cce",
+  "outputSchemaDigest": "071e9eb667628ad1366085a3e0aa38688b672c64db0217c37e63168a4e70f4f9",
+  "dependencyLockDigest": "b41c132189f42c60c02fadb5a38715dc473c63db6fac797ccbed87c3c0139c87",
+  "codeDigest": "fe7be87a9ce916f2795d3bd639a5ceda1acce977d07dd8d60082164f1bd9bcc0",
+  "createdAt": "2026-08-14T00:00:00+02:00",
+  "blindAccessed": false,
+  "sealedReferenceAccessed": false,
+  "blindExecuted": false,
+  "resultCount": 0,
+  "manifestDigest": "12f150af3873ec3574c51dd24790b8cb2728fe46cc1132dc1ba7acb03a4f7ae0"
+}

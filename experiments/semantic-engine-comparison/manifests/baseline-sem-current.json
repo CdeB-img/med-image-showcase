@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "baselineId": "SEM003C1-SEM-CURRENT-01",
+  "freezeStatus": "FROZEN_PRE_BLIND_EVALUATOR_GATE_OPEN",
+  "framework": "NOXIA_SEM",
+  "frameworkVersion": "SEM-001-1.1 / SEM_LEGACY_R5P",
+  "provider": "GOOGLE_GEMINI",
+  "model": "gemini-3.5-flash-lite",
+  "configuration": {
+    "strategy": "NATIVE_SEM_RECONSTRUCTION_CRITIC_DETERMINISTIC_CANONICALIZATION",
+    "temperature": null,
+    "maxAttemptsPerProviderOperation": 1,
+    "previousModel": null,
+    "normalization": "LOSSLESS_REFERENCE_BLIND_1.0.0"
+  },
+  "promptTemplateDigest": "3deb21983708ebece6de18ff36f903c084ee286cbb701bc58aad98bd4d77a78e",
+  "adapterDigest": "b52ef47147a605a31a20e606d1157fcca302bf71ef745559be461b526e4b1a12",
+  "outputSchemaDigest": "cc24f49e4258c266e652631d0b3f6642b2efb4890714127317b4a34cf7ef6a41",
+  "dependencyLockDigest": "b41c132189f42c60c02fadb5a38715dc473c63db6fac797ccbed87c3c0139c87",
+  "codeDigest": "53e250517275b817b85628780c9d131c0b9b21b313be6a1655a71503bbcbcb11",
+  "createdAt": "2026-08-14T00:00:00+02:00",
+  "blindAccessed": false,
+  "sealedReferenceAccessed": false,
+  "blindExecuted": false,
+  "resultCount": 0,
+  "manifestDigest": "4adab31a99376bb68a3ab9766075975f9b5e2749c8f90b9ef9dc7e8c891f3a38"
+}

@@ -1,0 +1,74 @@
+{
+  "schemaVersion": "1.0.0",
+  "protocolId": "SEM003C1-COMPARATIVE-BLIND-PROTOCOL-01",
+  "status": "PRECOMMITTED_BEFORE_BLIND_OBSERVATION",
+  "blindSet": {
+    "blindSetId": "SEM003C-BLIND-QUALIFICATION-SET-01",
+    "version": "1.0.0",
+    "caseCount": 15,
+    "accessedDuringFreeze": false,
+    "executedDuringFreeze": false
+  },
+  "evaluator": {
+    "id": "SEM003_EVALUATOR",
+    "version": "1.1.0",
+    "configurationDigest": "b05bc0ac66cb3e4dc5f135ba278cac8cadebe7443e57b1003dca580c9bd0e9bd",
+    "mode": "FUTURE_SEM_RUNTIME",
+    "bridge": "adapters/evaluator_bridge.py",
+    "bindingPolicy": "TRUSTED_EVALUATOR_SIDE_EXACT_DECLARED_KEYS_ONLY",
+    "knownPreExecutionGate": "PURPOSE_ENUM_DOES_NOT_DECLARE_BLIND_QUALIFICATION"
+  },
+  "providerConfiguration": {
+    "provider": "GOOGLE_GEMINI",
+    "model": "gemini-3.5-flash-lite",
+    "temperature": null,
+    "samplingParameters": "OMITTED_PROVIDER_DEFAULT",
+    "frameworkRetryAttempts": 1,
+    "concurrencyPerBaseline": 1,
+    "secrets": "RUNTIME_ENVIRONMENT_ONLY_NEVER_PERSISTED"
+  },
+  "baselines": [
+    "SEM003C1-SEM-CURRENT-01",
+    "SEM003C1-INSTRUCTOR-PYDANTIC-01",
+    "SEM003C1-PYDANTICAI-01",
+    "SEM003C1-DSPY-01",
+    "SEM003C1-LANGEXTRACT-01",
+    "SEM003C1-OUTLINES-01"
+  ],
+  "executionDesign": {
+    "runsPerCasePerBaseline": 1,
+    "interpretation": "COMPARATIVE_TECHNICAL_SNAPSHOT_NOT_VARIABILITY_QUALIFICATION",
+    "sameConversationForAllBaselines": true,
+    "noBestRunSelection": true,
+    "allRunsCounted": true,
+    "providerFailuresSeparateFromSemanticFailures": true,
+    "roundRobinPolicy": "CASE_MAJOR_WITH_BASELINE_ORDER_ROTATED_BY_CASE_ORDINAL",
+    "baselineResultsHiddenUntilAllBaselineRunsForCaseComplete": true,
+    "noRepairDuringCampaign": true,
+    "noTuningAfterObservation": true,
+    "stopOnConfigurationDrift": true,
+    "resultDecision": "COMPARATIVE_SNAPSHOT_ONLY_NO_PD011_PASS"
+  },
+  "fairnessControls": {
+    "blindExamples": "FORBIDDEN",
+    "acceptanceEnvelopeAccessByBaseline": "FORBIDDEN",
+    "sealedReferenceAccessByBaseline": "FORBIDDEN",
+    "crossCandidateResultAccessBeforeCompletion": "FORBIDDEN",
+    "semNativePipelinePreserved": true,
+    "otherStructuredBaselinesShareInstructionAndNativeSchema": true,
+    "langExtractKeepsExtractionNativeShape": true,
+    "normalizationAddsUnderstanding": false,
+    "llmOperationCountMustBeReportedPerBaseline": true,
+    "tokenAndLatencyAccountingMustBeReportedWhenProviderExposesIt": true
+  },
+  "antiOverfitting": {
+    "blindResultsExistAtFreeze": false,
+    "blindInputExecutedAtFreeze": false,
+    "sealedReferenceReadAtFreeze": false,
+    "promptsFrozenBeforeObservation": true,
+    "adaptersFrozenBeforeObservation": true,
+    "codeFrozenBeforeObservation": true,
+    "dependencyLockFrozenBeforeObservation": true,
+    "futureChangeInvalidatesBaselineIdentity": true
+  }
+}

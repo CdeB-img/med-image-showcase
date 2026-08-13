@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "baselineId": "SEM003C1-INSTRUCTOR-PYDANTIC-01",
+  "freezeStatus": "FROZEN_PRE_BLIND_EVALUATOR_GATE_OPEN",
+  "framework": "Instructor + Pydantic",
+  "frameworkVersion": "Instructor 1.15.4 / Pydantic 2.13.4",
+  "provider": "GOOGLE_GEMINI",
+  "model": "gemini-3.5-flash-lite",
+  "configuration": {
+    "mode": "Instructor.Mode.JSON",
+    "strict": true,
+    "maxRetries": 0,
+    "temperature": null,
+    "normalization": "LOSSLESS_REFERENCE_BLIND_1.0.0"
+  },
+  "promptTemplateDigest": "bce111f91b83928d1f5081a5a6e0f5da8f0c9d1134ae2b4f17aad879a98f63c7",
+  "adapterDigest": "95ca2b4ffc6c2bf836f6444e991b4c785db33044e342dd6cb8c2ad06841e6a77",
+  "outputSchemaDigest": "c2e3008122ee1b39d8666edfb57bcd8b299dc21f5fd2c872b29628b97746b01b",
+  "dependencyLockDigest": "b41c132189f42c60c02fadb5a38715dc473c63db6fac797ccbed87c3c0139c87",
+  "codeDigest": "0896bda6d19f0adb017cb324493c3f2feb7c9ada01e1a5feb647464e7a31e783",
+  "createdAt": "2026-08-14T00:00:00+02:00",
+  "blindAccessed": false,
+  "sealedReferenceAccessed": false,
+  "blindExecuted": false,
+  "resultCount": 0,
+  "manifestDigest": "30a0d0dc92e7945f7e8da0d34e5cd7363deb624cc5b704988a92b240ebf676d7"
+}

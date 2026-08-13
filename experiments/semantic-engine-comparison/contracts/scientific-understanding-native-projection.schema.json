@@ -1,0 +1,431 @@
+{
+  "$defs": {
+    "NativeClarification": {
+      "additionalProperties": false,
+      "properties": {
+        "clarificationId": {
+          "pattern": "^[a-z0-9][a-z0-9-]{0,95}$",
+          "title": "Clarificationid",
+          "type": "string"
+        },
+        "question": {
+          "maxLength": 1000,
+          "minLength": 1,
+          "title": "Question",
+          "type": "string"
+        },
+        "reason": {
+          "maxLength": 1000,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        },
+        "resolvesSemanticKeys": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 30,
+          "title": "Resolvessemantickeys",
+          "type": "array"
+        }
+      },
+      "required": [
+        "clarificationId",
+        "question",
+        "reason"
+      ],
+      "title": "NativeClarification",
+      "type": "object"
+    },
+    "NativeConcept": {
+      "additionalProperties": false,
+      "properties": {
+        "conceptId": {
+          "pattern": "^[a-z0-9][a-z0-9-]{0,95}$",
+          "title": "Conceptid",
+          "type": "string"
+        },
+        "semanticKey": {
+          "pattern": "^[a-z0-9][a-z0-9.-]{1,95}$",
+          "title": "Semantickey",
+          "type": "string"
+        },
+        "label": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "conceptType": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Concepttype",
+          "type": "string"
+        },
+        "studyRole": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Studyrole",
+          "type": "string"
+        },
+        "polarity": {
+          "enum": [
+            "AFFIRMED",
+            "NEGATED",
+            "UNCERTAIN",
+            "CONDITIONAL"
+          ],
+          "title": "Polarity",
+          "type": "string"
+        },
+        "epistemicStatus": {
+          "enum": [
+            "EXPLICIT_USER_STATED",
+            "INFERRED_HIGH_CONFIDENCE",
+            "INFERRED_CANDIDATE",
+            "SUPPORTED_CANDIDATE",
+            "UNSUPPORTED_CANDIDATE",
+            "CONFIRMED_BY_USER",
+            "REJECTED_BY_USER",
+            "UNKNOWN",
+            "AMBIGUOUS"
+          ],
+          "title": "Epistemicstatus",
+          "type": "string"
+        },
+        "adoptionStatus": {
+          "default": "NOT_ADOPTED",
+          "enum": [
+            "NOT_ADOPTED",
+            "CANDIDATE",
+            "ADOPTED_BY_HUMAN",
+            "REJECTED",
+            "NOT_APPLICABLE"
+          ],
+          "title": "Adoptionstatus",
+          "type": "string"
+        },
+        "sourceEvidence": {
+          "items": {
+            "$ref": "#/$defs/SourceEvidence"
+          },
+          "maxItems": 20,
+          "title": "Sourceevidence",
+          "type": "array"
+        },
+        "inferenceReason": {
+          "anyOf": [
+            {
+              "maxLength": 1000,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Inferencereason"
+        },
+        "requiresConfirmation": {
+          "default": false,
+          "title": "Requiresconfirmation",
+          "type": "boolean"
+        },
+        "confidence": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "supersedesConceptIds": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 20,
+          "title": "Supersedesconceptids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "conceptId",
+        "semanticKey",
+        "label",
+        "conceptType",
+        "studyRole",
+        "polarity",
+        "epistemicStatus",
+        "confidence"
+      ],
+      "title": "NativeConcept",
+      "type": "object"
+    },
+    "NativeOpenIssue": {
+      "additionalProperties": false,
+      "properties": {
+        "issueId": {
+          "pattern": "^[a-z0-9][a-z0-9-]{0,95}$",
+          "title": "Issueid",
+          "type": "string"
+        },
+        "semanticKey": {
+          "pattern": "^[a-z0-9][a-z0-9.-]{1,95}$",
+          "title": "Semantickey",
+          "type": "string"
+        },
+        "description": {
+          "maxLength": 1000,
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "sourceEvidence": {
+          "items": {
+            "$ref": "#/$defs/SourceEvidence"
+          },
+          "maxItems": 20,
+          "title": "Sourceevidence",
+          "type": "array"
+        }
+      },
+      "required": [
+        "issueId",
+        "semanticKey",
+        "description"
+      ],
+      "title": "NativeOpenIssue",
+      "type": "object"
+    },
+    "NativeRelation": {
+      "additionalProperties": false,
+      "properties": {
+        "relationId": {
+          "pattern": "^[a-z0-9][a-z0-9-]{0,95}$",
+          "title": "Relationid",
+          "type": "string"
+        },
+        "semanticKey": {
+          "pattern": "^[a-z0-9][a-z0-9.-]{1,95}$",
+          "title": "Semantickey",
+          "type": "string"
+        },
+        "sourceConceptId": {
+          "title": "Sourceconceptid",
+          "type": "string"
+        },
+        "targetConceptId": {
+          "title": "Targetconceptid",
+          "type": "string"
+        },
+        "predicate": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Predicate",
+          "type": "string"
+        },
+        "polarity": {
+          "enum": [
+            "AFFIRMED",
+            "NEGATED",
+            "UNCERTAIN",
+            "CONDITIONAL"
+          ],
+          "title": "Polarity",
+          "type": "string"
+        },
+        "epistemicStatus": {
+          "enum": [
+            "EXPLICIT_USER_STATED",
+            "INFERRED_HIGH_CONFIDENCE",
+            "INFERRED_CANDIDATE",
+            "SUPPORTED_CANDIDATE",
+            "UNSUPPORTED_CANDIDATE",
+            "CONFIRMED_BY_USER",
+            "REJECTED_BY_USER",
+            "UNKNOWN",
+            "AMBIGUOUS"
+          ],
+          "title": "Epistemicstatus",
+          "type": "string"
+        },
+        "adoptionStatus": {
+          "default": "NOT_ADOPTED",
+          "enum": [
+            "NOT_ADOPTED",
+            "CANDIDATE",
+            "ADOPTED_BY_HUMAN",
+            "REJECTED",
+            "NOT_APPLICABLE"
+          ],
+          "title": "Adoptionstatus",
+          "type": "string"
+        },
+        "sourceEvidence": {
+          "items": {
+            "$ref": "#/$defs/SourceEvidence"
+          },
+          "maxItems": 20,
+          "title": "Sourceevidence",
+          "type": "array"
+        },
+        "inferenceReason": {
+          "anyOf": [
+            {
+              "maxLength": 1000,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Inferencereason"
+        },
+        "requiresConfirmation": {
+          "default": false,
+          "title": "Requiresconfirmation",
+          "type": "boolean"
+        },
+        "confidence": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Confidence",
+          "type": "number"
+        }
+      },
+      "required": [
+        "relationId",
+        "semanticKey",
+        "sourceConceptId",
+        "targetConceptId",
+        "predicate",
+        "polarity",
+        "epistemicStatus",
+        "confidence"
+      ],
+      "title": "NativeRelation",
+      "type": "object"
+    },
+    "SourceEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "messageId": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Messageid",
+          "type": "string"
+        },
+        "quote": {
+          "maxLength": 1000,
+          "minLength": 1,
+          "title": "Quote",
+          "type": "string"
+        }
+      },
+      "required": [
+        "messageId",
+        "quote"
+      ],
+      "title": "SourceEvidence",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0",
+      "default": "1.0.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "contractType": {
+      "const": "SCIENTIFIC_UNDERSTANDING_NATIVE_PROJECTION",
+      "default": "SCIENTIFIC_UNDERSTANDING_NATIVE_PROJECTION",
+      "title": "Contracttype",
+      "type": "string"
+    },
+    "language": {
+      "enum": [
+        "fr",
+        "en"
+      ],
+      "title": "Language",
+      "type": "string"
+    },
+    "normalizedMeaning": {
+      "maxLength": 4000,
+      "minLength": 1,
+      "title": "Normalizedmeaning",
+      "type": "string"
+    },
+    "concepts": {
+      "items": {
+        "$ref": "#/$defs/NativeConcept"
+      },
+      "maxItems": 100,
+      "title": "Concepts",
+      "type": "array"
+    },
+    "relations": {
+      "items": {
+        "$ref": "#/$defs/NativeRelation"
+      },
+      "maxItems": 150,
+      "title": "Relations",
+      "type": "array"
+    },
+    "unknowns": {
+      "items": {
+        "$ref": "#/$defs/NativeOpenIssue"
+      },
+      "maxItems": 50,
+      "title": "Unknowns",
+      "type": "array"
+    },
+    "ambiguities": {
+      "items": {
+        "$ref": "#/$defs/NativeOpenIssue"
+      },
+      "maxItems": 50,
+      "title": "Ambiguities",
+      "type": "array"
+    },
+    "optionalCandidates": {
+      "items": {
+        "$ref": "#/$defs/NativeConcept"
+      },
+      "maxItems": 50,
+      "title": "Optionalcandidates",
+      "type": "array"
+    },
+    "clarifications": {
+      "items": {
+        "$ref": "#/$defs/NativeClarification"
+      },
+      "maxItems": 20,
+      "title": "Clarifications",
+      "type": "array"
+    },
+    "corrections": {
+      "items": {
+        "$ref": "#/$defs/NativeRelation"
+      },
+      "maxItems": 50,
+      "title": "Corrections",
+      "type": "array"
+    },
+    "warnings": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 50,
+      "title": "Warnings",
+      "type": "array"
+    }
+  },
+  "required": [
+    "language",
+    "normalizedMeaning"
+  ],
+  "title": "ScientificUnderstandingProjection",
+  "type": "object"
+}
