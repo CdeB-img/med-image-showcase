@@ -1,5 +1,10 @@
 import { comparableScientificText, logicalDigest } from "@/features/knowledge-engine/canonical";
 import { parseSemanticReconstructionCandidate } from "./schema";
+import {
+  relationAllowsReversedInventoryEndpoints,
+  semanticRelationFamily,
+  stabilizeRelationOwnership,
+} from "./relation-ownership";
 import type {
   ExplicitCoverageReport,
   RelationCoverageReport,
@@ -70,27 +75,6 @@ const exactUserSpan = (request: SemanticReconstructionRequest, messageId: string
   return Boolean(message && message.content.includes(sourceText));
 };
 
-const integrityRelationFamily = (value: string) => {
-  const normalized = normalizedTaxonomyText(value).replace(/[^a-z0-9]+/g, "_");
-  if (/compar|versus|oppos/.test(normalized)) return "COMPARISON";
-  if (/associ|relat|link/.test(normalized)) return "ASSOCIATION";
-  if (/distingu|differentiat/.test(normalized)) return "DISTINCTION";
-  if (/locali|register|fusion|align|co_locat/.test(normalized)) return "LOCALIZATION";
-  if (/measur|quantif|observ|detect|evaluat/.test(normalized)) return "MEASUREMENT";
-  if (/repeat|retest/.test(normalized)) return "REPETITION";
-  if (/recover|return/.test(normalized)) return "RECOVERY";
-  if (/deriv/.test(normalized)) return "DERIVATION";
-  return normalized;
-};
-
-const inverseRelationOrientation = (inventoryLabel: string, relationLabel: string) => {
-  const inventoryPassive = /MEASURED_BY|OBSERVED_BY|DETECTED_BY|QUANTIFIED_BY/i.test(inventoryLabel);
-  const relationPassive = /MEASURED_BY|OBSERVED_BY|DETECTED_BY|QUANTIFIED_BY/i.test(relationLabel);
-  const inventoryActive = /^(MEASURES|OBSERVES|DETECTS|QUANTIFIES)$/i.test(inventoryLabel.replace(/[^A-Za-z_]+/g, "_"));
-  const relationActive = /^(MEASURES|OBSERVES|DETECTS|QUANTIFIES)$/i.test(relationLabel.replace(/[^A-Za-z_]+/g, "_"));
-  return inventoryPassive && relationActive || inventoryActive && relationPassive;
-};
-
 export const buildSemanticIntegrityReport = (
   request: SemanticReconstructionRequest,
   candidate: SemanticReconstructionCandidate,
@@ -139,11 +123,9 @@ export const buildSemanticIntegrityReport = (
     relation.inventoryRelationIds.forEach((inventoryRelationId) => {
       const inventoryRelation = candidate.semanticInventory.explicitRelations.find((item) => item.inventoryRelationId === inventoryRelationId);
       if (!inventoryRelation) return;
-      const family = integrityRelationFamily(relation.relationType);
-      const symmetric = ["COMPARISON", "ASSOCIATION", "DISTINCTION", "LOCALIZATION"].includes(family);
       const direct = sourceInventoryIds.has(inventoryRelation.sourceInventoryItemId) && targetInventoryIds.has(inventoryRelation.targetInventoryItemId);
       const reversed = sourceInventoryIds.has(inventoryRelation.targetInventoryItemId) && targetInventoryIds.has(inventoryRelation.sourceInventoryItemId);
-      const endpointsCompatible = direct || reversed && (symmetric || inverseRelationOrientation(inventoryRelation.normalizedRelation, relation.relationType));
+      const endpointsCompatible = direct || reversed && relationAllowsReversedInventoryEndpoints(inventoryRelation.normalizedRelation, relation.relationType);
       if (!endpointsCompatible) findings.push({
         code: "RELATION_INVENTORY_ENDPOINT_MISMATCH",
         inventoryItemId: null,
@@ -168,7 +150,7 @@ export const buildSemanticIntegrityReport = (
       && toolTypes.has(source.type) && measurementTargetTypes.has(target.type);
     const activeMeasurementInverted = /^(MEASURES|OBSERVES|DETECTS|QUANTIFIES)$/i.test(relation.relationType)
       && measurementTargetTypes.has(source.type) && toolTypes.has(target.type);
-    const repetitionAnchorInvalid = integrityRelationFamily(relation.relationType) === "REPETITION"
+    const repetitionAnchorInvalid = semanticRelationFamily(relation.relationType) === "REPETITION"
       && (["STUDY_DESIGN", "SCIENTIFIC_INTENT", "OPERATION"].includes(source.type) || target.type !== "TIMING");
     if (passiveMeasurementInverted || activeMeasurementInverted || repetitionAnchorInvalid) findings.push({
       code: "RELATION_DIRECTION_OR_ROLE_MISMATCH",
@@ -871,7 +853,7 @@ export const applyCriticRepairs = (
     }
   }
 
-  return { candidate: repaired, diagnostics };
+  return { candidate: stabilizeRelationOwnership(repaired).candidate, diagnostics };
 };
 
 export const criticAcceptIsConsistent = (
@@ -903,7 +885,7 @@ export const runSemanticCriticCycles = async (
   request: SemanticReconstructionRequest,
   initialCandidate: SemanticReconstructionCandidate,
 ): Promise<SemanticCriticCycleResult> => {
-  let candidate = preserveContextualMeasurementAmbiguities(request, initialCandidate);
+  let candidate = stabilizeRelationOwnership(preserveContextualMeasurementAmbiguities(request, initialCandidate)).candidate;
   const critics: SemanticCriticResult[] = [];
   const callIds: string[] = [];
   const attempts: SemanticProviderAttempt[] = [];

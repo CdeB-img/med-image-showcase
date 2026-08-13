@@ -17,6 +17,7 @@ import {
   type SemanticProviderAttempt,
 } from "./types";
 import { buildSemanticCoverage } from "./coverage";
+import { stabilizeRelationOwnership } from "./relation-ownership";
 
 export class SemanticCanonicalizationError extends Error {
   constructor(public readonly reason: string) {
@@ -101,7 +102,7 @@ export const canonicalizeSemanticReconstruction = (input: {
   now?: string;
 }): ScientificSemanticModel => {
   const now = input.now ?? new Date().toISOString();
-  const candidate = input.candidate;
+  const candidate = stabilizeRelationOwnership(input.candidate).candidate;
   const coverage = buildSemanticCoverage(input.request, candidate);
   const clientToCanonical = new Map(candidate.elements.map((element) => [element.clientElementId, canonicalElementId(element)]));
   const currentElements = candidate.elements.map((element): SemanticElement => {
@@ -211,7 +212,7 @@ export const canonicalizeSemanticReconstruction = (input: {
     criticCallIds: input.criticCallIds ?? [input.criticCallId],
     reconstructionAttempts: input.reconstructionAttempts ?? [],
     criticAttempts: input.criticAttempts ?? [],
-    rawReconstruction: input.candidate,
+    rawReconstruction: candidate,
     rawCritic: input.critic,
     rawCritics: input.critics ?? [input.critic],
     temperature: input.metadata.temperature,
