@@ -12,7 +12,7 @@ describe("SYS-001 — contracts", () => {
       imaging: IMAGING_STUDY_DESIGNER_VERSION,
       project: RESEARCH_PROJECT_CONSTRUCTION_VERSION,
       document: DOCUMENT_PROJECTION_ENGINE_VERSION,
-    }).toEqual({ scientificThinking: "1.1.0", imaging: "1.2.0", project: "1.1.0", document: "1.1.0" });
+    }).toEqual({ scientificThinking: "1.1.0", imaging: "1.2.1", project: "1.1.0", document: "1.1.0" });
   });
 
   it("identifie le consommateur Project Construction sans le présenter comme Imaging", () => {

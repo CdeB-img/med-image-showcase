@@ -64,6 +64,8 @@ export type ScientificThinkingInput = {
     intentRef: string;
     userExpertise: string;
     sourceJourney: "UNDERSTAND" | "FORMALIZE_IDEA" | "DESIGN_STUDY";
+    semanticModelRef?: string;
+    semanticModelDigest?: string;
   };
   researchContext: {
     sessionId: string;
@@ -310,7 +312,7 @@ export const scientificThinkingInputSchema = z.object({
   originalExpression: z.string().min(3).max(4_000),
   validatedReformulation: z.string().min(3).max(4_000),
   language: z.enum(["fr", "en"]),
-  scientificIntent: z.object({ intentRef: z.string(), userExpertise: z.string(), sourceJourney: z.enum(["UNDERSTAND", "FORMALIZE_IDEA", "DESIGN_STUDY"]) }).strict(),
+  scientificIntent: z.object({ intentRef: z.string(), userExpertise: z.string(), sourceJourney: z.enum(["UNDERSTAND", "FORMALIZE_IDEA", "DESIGN_STUDY"]), semanticModelRef: z.string().optional(), semanticModelDigest: z.string().optional() }).strict(),
   researchContext: z.object({ sessionId: z.string(), contextVersion: z.number().int().min(0), researchProjectId: z.string().nullable(), previousDecisionIds: stringArray }).strict(),
   scientificObjectTerms: stringArray,
   resolvedConcepts: z.array(z.object({ conceptId: z.string(), label: z.string(), status: z.enum(["RESOLVED", "UNRESOLVED"]) }).strict()),

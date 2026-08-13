@@ -18,6 +18,8 @@ import { createEmptyInterpretation } from "@/features/protocol-designer/intake/s
 import { confirmScenario, matchScenarios, scenarioDetails } from "@/features/protocol-designer/intake/scenarios";
 import { buildValidatedIntent, createProtocolDesignerSession, deleteSession, invalidateDownstream, loadSessionCandidate, persistSession } from "@/features/protocol-designer/intake/session";
 import { INTERPRETED_FIELD_KEYS, type AdaptiveQuestion, type HumanFieldReview, type HumanValidationState, type InterpretedFieldKey, type ProtocolDesignerSession, type QuestionChangeKind, type RoutingIntent, type ScientificIntakeInterpretation } from "@/features/protocol-designer/intake/types";
+import SemanticConversationalWorkspace from "@/features/scientific-semantic-reconstruction/SemanticConversationalWorkspace";
+import { semanticModelToScientificSessionContext, semanticModelToValidatedIntent, type ScientificSemanticModel } from "@/features/scientific-semantic-reconstruction";
 import ScientificThinkingView from "@/features/scientific-thinking/ScientificThinkingView";
 import { buildScientificThinkingInput, createScientificThinkingSession } from "@/features/scientific-thinking";
 import { ArrowLeft, ArrowRight, BookOpen, CircleAlert, Compass, Copy, Info, LoaderCircle, MessageCircle, Printer, RotateCcw, ShieldCheck, X } from "lucide-react";
@@ -140,6 +142,7 @@ const QuestionCard = ({ item, index, total, answer, draft, onDraft, onAnswer }: 
 </Panel>;
 
 export default function ProtocolDesignerDemo() {
+  const [experienceMode, setExperienceMode] = useState<"CONVERSATION" | "EXPERT">("CONVERSATION");
   const [session, setSession] = useState<ProtocolDesignerSession>(() => createProtocolDesignerSession());
   const [candidate, setCandidate] = useState<ProtocolDesignerSession | null>(null);
   const [question, setQuestion] = useState("");
@@ -484,6 +487,39 @@ export default function ProtocolDesignerDemo() {
   const reset = () => {
     deleteSession(window.localStorage); deleteKnowledgeSnapshots(window.localStorage); setCandidate(null); setSession(createProtocolDesignerSession()); setDocumentProjections([]); setQuestion(""); setInterpretation(null); setReviews({}); setCorrections({}); setReformulation(""); setAmbiguityResolutions({}); setContradictionResolutions({}); setAnswerDrafts({}); setError(null); setBusy(false); setLocalFallbackAvailable(false); setPendingChangeKind("NONE"); setMajorChange(null); setKnowledgeOpen(false); setKnowledgeContextOverrides({}); setKnowledgeContextRevision(0);
   };
+  const openStructuredProject = (model: ScientificSemanticModel) => {
+    const now = new Date().toISOString();
+    const validated = semanticModelToValidatedIntent(model);
+    const matches = matchScenarios(validated);
+    const base = createProtocolDesignerSession(now);
+    const scientificContext = semanticModelToScientificSessionContext(model, base.scientificContext);
+    setSession({
+      ...base,
+      originalQuestion: validated.originalQuestion,
+      validatedIntent: validated,
+      scenarioMatches: matches,
+      scientificContext,
+      interfaceState: "INTERPRETATION_CONFIRMED",
+      currentStep: 3,
+      updatedAt: now,
+    });
+    setQuestion(validated.originalQuestion);
+    setInterpretation(validated.interpretation);
+    setReformulation(validated.validatedReformulation);
+    setReviews(validated.reviews);
+    setExperienceMode("EXPERT");
+  };
+  const resumeStructuredProject = candidate ? () => {
+    setSession(candidate);
+    setQuestion(candidate.originalQuestion);
+    setInterpretation(candidate.validatedIntent?.interpretation ?? null);
+    setReformulation(candidate.validatedIntent?.validatedReformulation ?? "");
+    setReviews(candidate.validatedIntent?.reviews ?? {});
+    setAmbiguityResolutions(candidate.validatedIntent?.ambiguityResolutions ?? {});
+    setContradictionResolutions(candidate.validatedIntent?.contradictionResolutions ?? {});
+    setCandidate(null);
+    setExperienceMode("EXPERT");
+  } : undefined;
   const copyReport = async () => navigator.clipboard?.writeText(reportToMarkdown(report));
   const downloadMarkdown = () => {
     const url = URL.createObjectURL(new Blob([reportToMarkdown(report)], { type: "text/markdown;charset=utf-8" }));
@@ -492,11 +528,19 @@ export default function ProtocolDesignerDemo() {
 
   const renderQuestions = (questions: AdaptiveQuestion[]) => questions.length ? <div className="mt-6 grid gap-4">{questions.map((item) => <QuestionCard key={item.questionId} item={item} index={journeyQuestions.findIndex((questionItem) => questionItem.questionId === item.questionId)} total={journeyQuestions.length} answer={session.adaptiveAnswers.find((answer) => answer.questionId === item.questionId)} draft={answerDrafts[item.questionId] ?? ""} onDraft={(value) => setAnswerDrafts((current) => ({ ...current, [item.questionId]: value }))} onAnswer={(value, label, consequence, status) => answerQuestion(item, value, label, consequence, status)} />)}</div> : <Panel className="mt-6"><p>Les informations utiles dans ce bloc ont déjà été confirmées. NOXIA ne vous les redemande pas.</p></Panel>;
 
+  const pageHead = <Helmet><title>{experienceMode === "CONVERSATION" ? "Protocol Designer — espace scientifique conversationnel | NOXIA" : "Protocol Designer — assistant scientifique | NOXIA"}</title><meta name="description" content={experienceMode === "CONVERSATION" ? "Espace conversationnel NOXIA pour reconstruire et structurer une question scientifique sans effacer l’incertitude." : "Démonstrateur conversationnel NOXIA pour comprendre, formaliser ou construire un projet de recherche en imagerie médicale."} /><meta name="robots" content="noindex, follow" /><link rel="canonical" href={CANONICAL} /></Helmet>;
+
+  if (experienceMode === "CONVERSATION") return <>
+    {pageHead}
+    <SemanticConversationalWorkspace onOpenStructuredProject={openStructuredProject} onResumeStructuredProject={resumeStructuredProject} />
+    <div className="print:hidden"><Footer /></div>
+  </>;
+
   return <>
-    <Helmet><title>Protocol Designer — assistant scientifique | NOXIA</title><meta name="description" content="Démonstrateur conversationnel NOXIA pour comprendre, formaliser ou construire un projet de recherche en imagerie médicale." /><meta name="robots" content="noindex, follow" /><link rel="canonical" href={CANONICAL} /></Helmet>
+    {pageHead}
     <main id="demo-main" className="min-h-screen bg-background text-foreground">
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mb-7 flex flex-wrap items-center justify-between gap-3 print:hidden"><Link to="/protocol-designer" className="text-sm text-muted-foreground hover:text-foreground">← Protocol Designer</Link><div className="flex gap-2">{session.confirmedScenarioId && <button onClick={() => setKnowledgeOpen(true)} className="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm"><BookOpen className="h-4 w-4" /> Explorer le concept</button>}<AlertDialog><AlertDialogTrigger asChild><button className="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm"><RotateCcw className="h-4 w-4" /> Réinitialiser</button></AlertDialogTrigger><AlertDialogContent><AlertDialogHeader><AlertDialogTitle>Réinitialiser cette session ?</AlertDialogTitle><AlertDialogDescription>La question, les validations, les réponses, la décision et le rapport local seront supprimés. Les autres données du navigateur ne seront pas touchées.</AlertDialogDescription></AlertDialogHeader><AlertDialogFooter><AlertDialogCancel>Annuler</AlertDialogCancel><AlertDialogAction onClick={reset}>Supprimer cette session</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog></div></div>
+        <div className="mb-7 flex flex-wrap items-center justify-between gap-3 print:hidden"><Link to="/protocol-designer" className="text-sm text-muted-foreground hover:text-foreground">← Protocol Designer</Link><div className="flex gap-2"><button onClick={() => setExperienceMode("CONVERSATION")} className="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm"><MessageCircle className="h-4 w-4" /> Retour à la conversation</button>{session.confirmedScenarioId && <button onClick={() => setKnowledgeOpen(true)} className="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm"><BookOpen className="h-4 w-4" /> Explorer le concept</button>}<AlertDialog><AlertDialogTrigger asChild><button className="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm"><RotateCcw className="h-4 w-4" /> Réinitialiser</button></AlertDialogTrigger><AlertDialogContent><AlertDialogHeader><AlertDialogTitle>Réinitialiser cette session ?</AlertDialogTitle><AlertDialogDescription>La question, les validations, les réponses, la décision et le rapport local seront supprimés. Les autres données du navigateur ne seront pas touchées.</AlertDialogDescription></AlertDialogHeader><AlertDialogFooter><AlertDialogCancel>Annuler</AlertDialogCancel><AlertDialogAction onClick={reset}>Supprimer cette session</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog></div></div>
 
         {candidate && candidate.sessionId !== session.sessionId && <Panel className="mb-6 border-primary/40 print:hidden"><p className="font-semibold">Une session précédente est disponible.</p><p className="mt-1 text-sm text-muted-foreground">Elle ne sera jamais reprise automatiquement.</p><p className="mt-2 text-xs text-muted-foreground">Dernière activité : {new Date(candidate.updatedAt).toLocaleString("fr-FR")} · {ROUTING_INTENT_LABELS[candidate.scientificContext.routeIntent ?? "UNDERSTAND"]}</p><div className="mt-4 flex flex-wrap gap-2"><button className="rounded-lg bg-primary px-4 py-2 text-sm text-primary-foreground" onClick={() => { setSession(candidate); setQuestion(candidate.originalQuestion); setInterpretation(candidate.validatedIntent?.interpretation ?? null); setReformulation(candidate.validatedIntent?.validatedReformulation ?? ""); setReviews(candidate.validatedIntent?.reviews ?? {}); setAmbiguityResolutions(candidate.validatedIntent?.ambiguityResolutions ?? {}); setContradictionResolutions(candidate.validatedIntent?.contradictionResolutions ?? {}); setCandidate(null); }}>Reprendre</button><button className="rounded-lg border px-4 py-2 text-sm" onClick={() => setCandidate(null)}>Commencer une nouvelle session</button><button className="rounded-lg border px-4 py-2 text-sm text-destructive" onClick={() => { deleteSession(window.localStorage); setCandidate(null); }}>Supprimer</button></div></Panel>}
 

@@ -39,7 +39,7 @@ describe("SYS-001 — end-to-end A à D", () => {
       { stage: "Imaging", values: [...imaging.result.modalityCandidates.map((item) => item.label), ...imaging.result.phenomena.map((item) => item.label)] },
     ]);
     expect(findings).toEqual([]);
-    expect(imaging.input.knownConstraints).toContain("comparaison explicitement demandée");
+    expect(imaging.input.scientificRelationships).toContain("comparaison explicitement demandée");
     expect(imaging.result.modalityCandidates.map((item) => item.reviewState)).toEqual(["PENDING", "PENDING"]);
     expect(imaging.result.projectConstructionHandoff.status).toBe("NOT_READY");
     expect(imaging.result.acquisitionStrategies.map((item) => item.modalityId)).toEqual(expect.arrayContaining(["IMG-MODALITY:modality:ct", "IMG-MODALITY:modality:mri"]));

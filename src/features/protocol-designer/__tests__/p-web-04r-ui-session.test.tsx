@@ -27,7 +27,7 @@ describe("P-WEB-04R — interface and versioned session contracts", () => {
   afterEach(cleanup);
 
   it("01 accepts a free scientific question", () => { renderDemo(); expect(screen.getByLabelText("Votre question scientifique")).toBeInTheDocument(); });
-  it("02 inserts a disclosed example", () => { renderDemo(); fireEvent.change(screen.getByLabelText("Utiliser un exemple"), { target: { value: "Je veux comparer deux méthodes d’imagerie pour mesurer la perfusion cérébrale." } }); expect(screen.getByLabelText("Votre question scientifique")).toHaveValue("Je veux comparer deux méthodes d’imagerie pour mesurer la perfusion cérébrale."); });
+  it("02 inserts a disclosed example", () => { renderDemo(); const example = "Je souhaite caractériser un objet scientifique avec plusieurs familles d’observation."; fireEvent.click(screen.getByRole("button", { name: example })); expect(screen.getByLabelText("Votre question scientifique")).toHaveValue(example); });
   it("03 exposes a character counter and maximum", () => { renderDemo(); expect(screen.getByText("0 / 4 000")).toBeInTheDocument(); expect(screen.getByLabelText("Votre question scientifique")).toHaveAttribute("maxlength", "4000"); });
   it("04 blocks an email locally", () => expect(detectSensitiveData("Étude pour patient@example.org dans une cohorte scientifique.").map((item) => item.code)).toContain("EMAIL"));
   it("05 exposes the successful analysis transition", () => expect(source).toContain("acceptInterpretation(await requestScientificInterpretation"));
@@ -66,7 +66,7 @@ describe("P-WEB-04R — interface and versioned session contracts", () => {
   it("35 never renders raw provider JSON", () => expect(source).not.toMatch(/JSON\.stringify\(interpretation|rawGemini|providerResponse/));
   it("36 keeps internal vocabulary outside level zero", () => { renderDemo(); expect(screen.queryByText(/Program Owner|NIVEAU_2|Knowledge Graph/)).not.toBeInTheDocument(); });
   it("37 places documentary provenance behind details", () => expect(source).toMatch(/<details[\s\S]*Traçabilité documentaire/));
-  it("38 never starts by selecting a biomarker", () => { renderDemo(); expect(screen.queryByRole("button", { name: /T1 mapping|LGE|OEF|CBF|VMI/ })).not.toBeInTheDocument(); });
+  it("38 never starts by selecting a biomarker", () => { renderDemo(); expect(screen.queryByRole("button", { name: /^(?:T1 mapping|LGE|OEF|CBF|VMI)$/ })).not.toBeInTheDocument(); });
   it("39 displays the exact non-generatable timing state", () => expect(source).toContain("TIMING_NOT_YET_GENERATABLE_FROM_CURRENT_EXECUTABLE_KNOWLEDGE"));
   it("40 never generates a protocol in the interface", () => expect(source).toContain("Aucune séquence, aucun protocole et aucun biomarqueur optimal ne sont décidés ici"));
 

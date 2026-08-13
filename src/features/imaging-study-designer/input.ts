@@ -79,11 +79,23 @@ const equipmentProjection = (intent: ValidatedScientificIntent): ImagingDesignIn
   });
 };
 
-const preferencesFrom = (intent: ValidatedScientificIntent, thinking: ScientificThinkingSession | null): string[] => {
-  if (thinking) return uniqueSorted(thinking.input.methodsMentioned);
+const preferencesFrom = (
+  intent: ValidatedScientificIntent,
+  thinking: ScientificThinkingSession | null,
+  scientificObjectTerms: string[],
+  relations: string[],
+): string[] => {
+  const relatedTerms = scientificObjectTerms.filter((term) => relations.some((relation) =>
+    normalizeScientificText(relation).toLocaleLowerCase("fr-FR").includes(normalizeScientificText(term).toLocaleLowerCase("fr-FR"))));
+  const declaredEquipment = valuesFor(intent, "availableEquipment");
+  if (thinking) return uniqueSorted([...thinking.input.methodsMentioned, ...declaredEquipment, ...relatedTerms]);
   const source = `${intent.originalQuestion} ${intent.validatedReformulation}`;
   const patterns = ["T1 mapping", "T2 mapping", "ECV", "LGE", "IRM", "MRI", "CT spectral", "scanner spectral", "dual energy", "photon counting", "PET", "SPECT", "échographie"];
-  return patterns.filter((item) => source.toLocaleLowerCase("fr-FR").includes(item.toLocaleLowerCase("fr-FR")));
+  return uniqueSorted([
+    ...declaredEquipment,
+    ...relatedTerms,
+    ...patterns.filter((item) => source.toLocaleLowerCase("fr-FR").includes(item.toLocaleLowerCase("fr-FR"))),
+  ]);
 };
 
 export const buildImagingDesignInput = (
@@ -141,6 +153,8 @@ export const buildImagingDesignInput = (
     sourceIds: sourceRefs,
     matchingSemantics: knowledgeResult ? "EXACT_FIRST_NO_IMPLICIT_FALLBACK" as const : "NO_RESULT" as const,
   };
+  const methodPreferences = preferencesFrom(intent, thinking, scientificObjectTerms, relations);
+  const scientificRelationships = uniqueSorted(relations.map(normalizeScientificText).filter(Boolean));
   const material = {
     sessionId: runtime.sessionId,
     contextVersion: runtime.contextVersion,
@@ -150,6 +164,9 @@ export const buildImagingDesignInput = (
     hypotheses: thinkingOutput?.handoff.hypothesisIds ?? [],
     knowledgeDigest: knowledge.resultDigest,
     equipment,
+    methodPreferences,
+    scientificRelationships,
+    knownConstraints: fields.constraints,
   };
   const inputDigest = logicalDigest(material);
   const result: ImagingDesignInput = {
@@ -174,8 +191,9 @@ export const buildImagingDesignInput = (
     temporalContext: fields.timing,
     phenomenaDeclared: uniqueSorted([...(thinking?.input.phenomena ?? []), ...fields.phenomena]),
     outcomesDeclared: fields.outcomes,
-    methodPreferences: preferencesFrom(intent, thinking),
-    knownConstraints: uniqueSorted([...fields.constraints, ...relations]),
+    methodPreferences,
+    scientificRelationships,
+    knownConstraints: uniqueSorted(fields.constraints),
     declaredEquipment: equipment,
     centerContext: { mode: centerMode(fields.centers, fields.fields, fields.manufacturers, fields.models), declarations: fields.centers },
     knowledge,

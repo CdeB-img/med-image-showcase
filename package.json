@@ -15,6 +15,8 @@
     "test:watch": "vitest",
     "test:semantic": "vitest run src/features/scientific-semantic-reconstruction/__tests__",
     "test:semantic:live": "vite-node src/features/scientific-semantic-reconstruction/manual/live-competence-campaign.manual.ts",
+    "test:semantic:r3:development": "vite-node src/features/scientific-semantic-reconstruction/manual/live-competence-campaign-r3.manual.ts --development",
+    "test:semantic:r3:holdout": "vite-node src/features/scientific-semantic-reconstruction/manual/live-competence-campaign-r3.manual.ts --holdout",
     "test:knowledge": "vitest run src/features/knowledge-engine/__tests__",
     "test:img": "vitest run src/features/imaging-study-designer/__tests__",
     "test:img001b": "vitest run src/features/imaging-study-designer/__tests__/img-001b-project-handoff.test.ts",

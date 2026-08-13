@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { humanDecisionEnvelopeSchema, type HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
 
-export const IMAGING_STUDY_DESIGNER_VERSION = "1.2.0" as const;
+export const IMAGING_STUDY_DESIGNER_VERSION = "1.2.1" as const;
 
 export type SupportState = "SUPPORTED" | "PARTIALLY_SUPPORTED" | "UNKNOWN" | "NOT_APPLICABLE" | "CONFLICTING";
 export type HumanReviewState = "PENDING" | "ADOPTED" | "REJECTED";
@@ -52,6 +52,7 @@ export type ImagingDesignInput = {
   phenomenaDeclared: string[];
   outcomesDeclared: string[];
   methodPreferences: string[];
+  scientificRelationships: string[];
   knownConstraints: string[];
   declaredEquipment: Array<{
     equipmentId: string;
@@ -413,7 +414,7 @@ export const imagingDesignInputSchema = z.object({
   hypotheses: z.array(z.object({ hypothesisId: z.string(), text: z.string(), kind: z.enum(["PRIMARY", "ALTERNATIVE", "NULL_OR_COMPETING"]), reviewState: z.enum(["PENDING", "ADOPTED", "REJECTED"]) }).strict()),
   mechanisms: z.array(z.object({ mechanismId: z.string(), text: z.string(), support: z.string() }).strict()),
   centralScientificObject: z.string(), scientificObjectTerms: stringArray, pathologyOrCondition: stringArray, populationContext: stringArray,
-  temporalContext: stringArray, phenomenaDeclared: stringArray, outcomesDeclared: stringArray, methodPreferences: stringArray, knownConstraints: stringArray,
+  temporalContext: stringArray, phenomenaDeclared: stringArray, outcomesDeclared: stringArray, methodPreferences: stringArray, scientificRelationships: stringArray, knownConstraints: stringArray,
   declaredEquipment: z.array(z.object({ equipmentId: z.string(), siteLabel: z.string(), modality: z.string().nullable(), manufacturer: z.string().nullable(), model: z.string().nullable(), fieldStrength: z.string().nullable(), softwareVersion: z.string().nullable(), options: stringArray, availability: z.enum(["KNOWN_AVAILABLE", "DECLARED_AVAILABLE", "UNKNOWN", "KNOWN_UNAVAILABLE"]), period: z.string().nullable(), provenanceRef: z.string() }).strict()),
   centerContext: z.object({ mode: z.enum(["MONOCENTRIC", "MULTICENTRIC_HOMOGENEOUS", "MULTICENTRIC_HETEROGENEOUS", "MULTICENTRIC_HETEROGENEITY_UNKNOWN", "UNKNOWN"]), declarations: stringArray }).strict(),
   knowledge: z.object({ resultId: z.string().nullable(), resultDigest: z.string().nullable(), coverageStatus: z.string(), concepts: z.array(z.object({ conceptId: z.string(), label: z.string(), objectType: z.string(), resolutionKind: z.string(), originalTerms: stringArray }).strict()), assertions: z.array(knowledgeStatementSchema), documentaryStatements: z.array(knowledgeStatementSchema), gaps: z.array(z.object({ code: z.string(), explanation: z.string(), affectedConceptIds: stringArray, resumeCondition: z.string() }).strict()), limitations: stringArray, sourceIds: stringArray, matchingSemantics: z.enum(["EXACT_FIRST_NO_IMPLICIT_FALLBACK", "NO_RESULT"]) }).strict(),

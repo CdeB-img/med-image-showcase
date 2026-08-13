@@ -22,7 +22,7 @@ describe("P-WEB-02 — preserved demonstrator foundations after P-WEB-04R", () =
   });
   it("starts from the scientific question instead of an internal corpus", () => {
     renderDemo();
-    expect(screen.getByRole("heading", { name: "Décrivez votre question scientifique" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Construisons votre projet scientifique" })).toBeInTheDocument();
     expect(screen.queryByText("RB-003")).not.toBeInTheDocument();
   });
   it("retains the public landing and private demo routes", () => {
@@ -45,6 +45,6 @@ describe("P-WEB-02 — preserved demonstrator foundations after P-WEB-04R", () =
   it("keeps the external Editorial Engine out of the guided page", () => expect(read("src/pages/ProtocolDesignerDemo.tsx")).not.toContain("@editorial-engine"));
   it("keeps the reset confirmation", () => {
     renderDemo();
-    expect(screen.getByRole("button", { name: /Réinitialiser/ })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Réinitialiser la conversation/ })).toBeInTheDocument();
   });
 });

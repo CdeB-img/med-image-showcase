@@ -114,6 +114,16 @@ export type ValidatedScientificIntent = {
   ambiguityResolutions: Record<string, string>;
   contradictionResolutions: Record<string, "RESOLVED" | "KEPT_FOR_HUMAN_REVIEW">;
   confirmedAt: string | null;
+  semanticSnapshot?: {
+    semanticModelId: string;
+    semanticModelVersion: string;
+    semanticModelRevision: number;
+    semanticModelDigest: string;
+    provider: string;
+    model: string;
+    promptVersion: string;
+    schemaVersion: string;
+  };
 };
 
 export type AdaptiveQuestionImplementationStatus =
