@@ -81,37 +81,6 @@ export const stabilizeRelationOwnership = (
   const adjustments: RelationOwnershipAdjustment[] = [];
   const removedRelationIds: string[] = [];
 
-  const functionalElements = stabilized.elements.filter((element) => ["SCIENTIFIC_INTENT", "OPERATION"].includes(element.type));
-  functionalElements.forEach((functional) => {
-    const incident = stabilized.relations.filter((relation) => relation.epistemicStatus === "EXPLICIT_USER_STATED"
-      && [relation.sourceClientElementId, relation.targetClientElementId].includes(functional.clientElementId));
-    incident.forEach((left, index) => incident.slice(index + 1).forEach((right) => {
-      if (semanticRelationFamily(left.relationType) !== semanticRelationFamily(right.relationType) || left.polarity !== right.polarity) return;
-      const leftNeighborId = left.sourceClientElementId === functional.clientElementId ? left.targetClientElementId : left.sourceClientElementId;
-      const rightNeighborId = right.sourceClientElementId === functional.clientElementId ? right.targetClientElementId : right.sourceClientElementId;
-      if (leftNeighborId === rightNeighborId) return;
-      const leftNeighbor = elementsById.get(leftNeighborId);
-      const rightNeighbor = elementsById.get(rightNeighborId);
-      if (!leftNeighbor || !rightNeighbor || [leftNeighbor.type, rightNeighbor.type].some((type) => ["SCIENTIFIC_INTENT", "OPERATION"].includes(type))) return;
-      const existing = stabilized.relations.some((relation) => semanticRelationFamily(relation.relationType) === semanticRelationFamily(left.relationType)
-        && new Set([relation.sourceClientElementId, relation.targetClientElementId]).has(leftNeighborId)
-        && new Set([relation.sourceClientElementId, relation.targetClientElementId]).has(rightNeighborId));
-      if (existing) return;
-      stabilized.relations.push({
-        clientRelationId: `relation-ownership-direct:${[left.clientRelationId, right.clientRelationId].sort().join(":")}`,
-        sourceClientElementId: leftNeighborId,
-        targetClientElementId: rightNeighborId,
-        relationType: left.relationType,
-        polarity: left.polarity,
-        inventoryRelationIds: [...new Set([...left.inventoryRelationIds, ...right.inventoryRelationIds])].sort(),
-        epistemicStatus: "EXPLICIT_USER_STATED",
-        confidence: Math.min(left.confidence, right.confidence),
-        inferenceReason: null,
-        requiresConfirmation: left.requiresConfirmation || right.requiresConfirmation,
-      });
-    }));
-  });
-
   stabilized.relations.forEach((semanticRelation) => {
     const source = elementsById.get(semanticRelation.sourceClientElementId);
     const target = elementsById.get(semanticRelation.targetClientElementId);
