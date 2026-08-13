@@ -525,10 +525,20 @@ export const buildSemanticTaxonomyReport = (
     });
     const directlyMeasured = candidate.relations.some((relation) => relation.sourceClientElementId === element.clientElementId && /measured.?by|observed.?by|quantif/i.test(relation.relationType));
     const usedAsQuantitativeObservable = relationUsesElementAsQuantitativeObservable(candidate, element.clientElementId);
-    const selectedAsJudgingVariable = ["BIOMARKER", "OUTCOME", "SCIENTIFIC_OBJECT"].includes(element.type)
-      && normalizedLiteral.length > 0
+    const explicitEndpointSelection = normalizedLiteral.length > 0
       && normalizedMessage.includes(normalizedLiteral)
       && /(?:doit|devrait|shall|should|must)\s+(?:compter|count)|(?:retenu|retenue|selected|chosen)\s+(?:comme|as)\s+(?:critere|endpoint)|(?:critere|endpoint)\s+(?:principal|primary)/i.test(normalizedMessage);
+    const comparedArms = candidate.elements.filter((item) => ["INTERVENTION_ARM", "COMPARATOR_ARM"].includes(item.studyRole));
+    const comparedArmIds = new Set(comparedArms.map((item) => item.clientElementId));
+    const directArmComparison = comparisonRelations.some((relation) => comparedArmIds.has(relation.sourceClientElementId) && comparedArmIds.has(relation.targetClientElementId));
+    const armStarts = comparedArms.flatMap((item) => item.sourceMessageId === element.sourceMessageId && item.sourceText ? [normalizedMessage.indexOf(normalizedTaxonomyText(item.sourceText))] : []).filter((index) => index >= 0);
+    const intentStarts = candidate.elements.filter((item) => ["SCIENTIFIC_INTENT", "OPERATION"].includes(item.type) && item.sourceMessageId === element.sourceMessageId && item.sourceText)
+      .map((item) => normalizedMessage.indexOf(normalizedTaxonomyText(item.sourceText!))).filter((index) => index >= 0);
+    const elementStart = normalizedLiteral ? normalizedMessage.indexOf(normalizedLiteral) : -1;
+    const unambiguouslyPlacedAsArmJudgingVariable = directArmComparison && armStarts.length > 1 && intentStarts.length > 0
+      && elementStart > Math.min(...intentStarts) && elementStart < Math.min(...armStarts);
+    const supersedesPriorEndpoint = element.supersedesElementIds.some((semanticElementId) => request.previousModel?.elements.some((prior) => prior.semanticElementId === semanticElementId && prior.type === "ENDPOINT"));
+    const selectedAsJudgingVariable = ["BIOMARKER", "OUTCOME", "SCIENTIFIC_OBJECT"].includes(element.type) && explicitEndpointSelection;
     if (selectedAsJudgingVariable) findings.push({
       code: "SELECTED_JUDGING_VARIABLE_NOT_ENDPOINT",
       clientElementId: element.clientElementId,
@@ -536,6 +546,16 @@ export const buildSemanticTaxonomyReport = (
       expectedType: "ENDPOINT",
       expectedStudyRole: "OUTCOME_ROLE",
       reason: "A variable explicitly selected as what must count to judge the study is an ENDPOINT role in this context; its underlying observable nature must not erase that expressed project role.",
+    });
+    const outcomeLikeInventoryRole = inventoryRoles.some((role) => /outcome|result|response|resultat|reponse/.test(normalizedTaxonomyText(role)));
+    if (element.type === "ENDPOINT" && element.epistemicStatus === "EXPLICIT_USER_STATED" && element.studyRole === "OUTCOME_ROLE"
+      && outcomeLikeInventoryRole && !explicitEndpointSelection && !unambiguouslyPlacedAsArmJudgingVariable && !supersedesPriorEndpoint) findings.push({
+      code: "UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+      clientElementId: element.clientElementId,
+      currentType: element.type,
+      expectedType: "OUTCOME",
+      expectedStudyRole: "OUTCOME_ROLE",
+      reason: "A result mentioned while methods, modalities or other study components are compared remains OUTCOME unless the user explicitly selects it as the criterion by which the comparison or objective will be judged.",
     });
     const settingOnly = /^(?:(?:un|une|deux|trois|quatre|plusieurs|multiple|one|two|three|four|several|\d+)\s+)?(?:sites?|centres?|centers?|hopitaux|hospitals?|cliniques?|clinics?|institutions?|laboratoires?|laboratories)$/i.test(normalizedLiteral);
     if (element.type === "POPULATION" && settingOnly) findings.push({

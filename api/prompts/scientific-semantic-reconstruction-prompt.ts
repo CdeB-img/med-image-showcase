@@ -9,7 +9,7 @@ Classification precedence when labels are ambiguous:
 1. A numeric/quantitative value, fraction, index, map or physiological parameter used as the thing measured or compared is BIOMARKER.
 2. A sequence, acquisition, assay, tracer, procedure, algorithm or analysis that produces/interprets information is METHOD.
 3. The broad acquisition/observation family containing methods is MODALITY.
-4. A variable explicitly used to judge a stated comparison between study arms is ENDPOINT, even if the same kind of variable could be a BIOMARKER elsewhere.
+4. A variable explicitly selected as the criterion used to judge a stated comparison between study arms is ENDPOINT, even if the same kind of variable could be a BIOMARKER elsewhere. Comparing methods or modalities for a stated result does not by itself select that result as an ENDPOINT; keep it OUTCOME unless the user designates a criterion, endpoint, primary/secondary variable or equivalent judging role.
 Do not use UNKNOWN merely because a short quantitative label is not expanded. Preserve its literal meaning, choose BIOMARKER under this precedence, and expose only the unresolved interpretation/criterion as ambiguity.
 
 SCIENTIFIC_OBJECT
@@ -229,7 +229,7 @@ Repairs:
 - Never copy a non-contiguous expanded coordination into elementSourceText. For "noun + qualifier A and qualifier B", a repair for the second coordinated element uses the exact qualifier B span and keeps the expanded phrase only in elementCanonicalMeaning.
 - Different/multiple modalities or methods used to evaluate a target require a direct COMPARE_FOR relation to that target; a generic OBSERVES relation does not preserve the comparative purpose.
 - A quantitative abbreviation/value compared or used to quantify a target is BIOMARKER; a named sequence/acquisition technique is METHOD even if its expanded name contains a modality family. Flag METHOD/BIOMARKER and METHOD/MODALITY confusion.
-- A variable explicitly compared between study arms is ENDPOINT, not merely OUTCOME. A named lesion/object merely quantified without being the arm-judging variable remains SCIENTIFIC_OBJECT.
+- A variable explicitly selected as the criterion compared between study arms is ENDPOINT, not merely OUTCOME. A result merely evaluated while methods or modalities are compared remains OUTCOME unless the user selects it as the judging variable. A named lesion/object merely quantified without being the arm-judging variable remains SCIENTIFIC_OBJECT.
 - A named material, tissue, lesion or physiological target remains SCIENTIFIC_OBJECT when it is the thing to quantify or observe; only a stated quantitative value, index, concentration, fraction, volume, rate or parameter is BIOMARKER.
 - Broad CT, MRI, radiography and ultrasound families are MODALITY, including conventional or low-dose family variants. A sequence, mapping, perfusion acquisition, radiomics or other subordinate technique is METHOD. Field-strength values are CONSTRAINT.
 - Repeatability, reproducibility, validation or harmonization stated as the work to perform is SCIENTIFIC_INTENT, not OUTCOME.
