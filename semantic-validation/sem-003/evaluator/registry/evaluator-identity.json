@@ -1,0 +1,88 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003_EVALUATOR_IDENTITY",
+  "version": "1.0.0",
+  "configurationDigest": "13f2e4d0b57e200b53e3db52a4fa74cc346a0b65e82b96ac12ca82ba435767b5",
+  "authorityVersions": {
+    "SEM002": "1.0",
+    "SEM003": "1.0",
+    "acceptanceEnvelopeContract": "1.0.0",
+    "candidateSemanticRepresentationContract": "1.0.0",
+    "adjudicationContract": "1.0.0"
+  },
+  "coveredComponents": [
+    "evaluator core code",
+    "six evaluator schemas",
+    "derived SEM-002 property registry",
+    "normalized candidate contract",
+    "adjudication contract",
+    "failure/disposition mapping",
+    "SEM-002, SEM-003, and Acceptance Envelope contract versions"
+  ],
+  "files": [
+    {
+      "path": "docs/sem-003-independent-scientific-understanding-benchmark-architecture.md",
+      "sha256": "bbe18dd5e79c800dfd96dee572286c56e84847c8db451f5874a682f70866b312"
+    },
+    {
+      "path": "semantic-validation/sem-002/scientific-understanding-competence-contract.json",
+      "sha256": "5b5a19baf114b26412054ec307a36b6ae286224077fe8a51295f1f3f1f57d7bb"
+    },
+    {
+      "path": "semantic-validation/sem-003/authoring/acceptance-envelope.schema.json",
+      "sha256": "16561f4d47e5c9575ae26acda02a2dfc75b262d8b26866c09f22976f000c1dc3"
+    },
+    {
+      "path": "semantic-validation/sem-003/evaluator/contracts/adjudication-packet.schema.json",
+      "sha256": "de632bfe4d03ece08ba40f36b2ff01cc4701e48c6bedb030112d833d99c8a422"
+    },
+    {
+      "path": "semantic-validation/sem-003/evaluator/contracts/candidate-semantic-representation.schema.json",
+      "sha256": "eb5d3c032969f830fb559b8ac084993e2287cf1e739f80860a80b1582de99d15"
+    },
+    {
+      "path": "semantic-validation/sem-003/evaluator/contracts/evaluation-input.schema.json",
+      "sha256": "ac4e8244d0b9920656d7a58344a5b9bec0ea9477e288f9e41269a494e6a581eb"
+    },
+    {
+      "path": "semantic-validation/sem-003/evaluator/contracts/evaluation-result.schema.json",
+      "sha256": "ce7223a6c73d79541e03f44dd6ef81e053e5741e4518de5d19e07b445aa505b2"
+    },
+    {
+      "path": "semantic-validation/sem-003/evaluator/contracts/human-decision-record.schema.json",
+      "sha256": "7d8895b259abe34fafc5411d251de4adac506c7b9ec5531f9ea57617ce016474"
+    },
+    {
+      "path": "semantic-validation/sem-003/evaluator/contracts/property-judgment.schema.json",
+      "sha256": "93d965bca6994981852c76fa03aaa912ad63745be7c75a79a41ac924e47afb80"
+    },
+    {
+      "path": "semantic-validation/sem-003/evaluator/core/contracts.mjs",
+      "sha256": "2b6f3b25f86390e05c62b079b98044a751997aac7a8ee37a46780e4712e973d1"
+    },
+    {
+      "path": "semantic-validation/sem-003/evaluator/core/evaluator.mjs",
+      "sha256": "3ab51c26e2e241e9365524fdea90df9663a5797f3e1e3e208d4c4361f0e3e711"
+    },
+    {
+      "path": "semantic-validation/sem-003/evaluator/core/identity.mjs",
+      "sha256": "f3834ec2a064d3cfffd5046c145756a90da09c0895df8dfb39d7ffcf864cc66e"
+    },
+    {
+      "path": "semantic-validation/sem-003/evaluator/core/registry.mjs",
+      "sha256": "23cf9f6767a3d284931aa9c6a6d2f5ed656280ea016d7d15d885c72a4f12541b"
+    },
+    {
+      "path": "semantic-validation/sem-003/evaluator/core/versioning.mjs",
+      "sha256": "d9b83d06236793e34c32e9ab639682aaa6dca95e94e4ddbf212c255e00d93cf8"
+    },
+    {
+      "path": "semantic-validation/sem-003/evaluator/registry/failure-disposition-registry.json",
+      "sha256": "a5e45a03676b049c8a6478c66dfbd218fcd29954e48e38cc74ab850b6a950e2b"
+    },
+    {
+      "path": "semantic-validation/sem-003/evaluator/registry/property-registry.json",
+      "sha256": "f0db9a687df425fd844c80580914bb91b3c5382663307fa9aea696015c876a70"
+    }
+  ]
+}
