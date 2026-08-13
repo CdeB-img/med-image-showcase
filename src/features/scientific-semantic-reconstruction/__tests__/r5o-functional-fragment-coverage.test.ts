@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
+import { canonicalizeSemanticReconstruction } from "../canonical";
 import { buildExplicitCoverageReport } from "../coverage";
 import { stabilizeRelationOwnership } from "../relation-ownership";
-import { comparisonCandidate, makeSemanticRequest } from "./fixtures";
+import { acceptedCritic, comparisonCandidate, makeSemanticRequest } from "./fixtures";
 
 describe("SEM-001R5O functional fragment and repetition ownership", () => {
   it("covers an exact functional predicate through the explicit relation it expresses", () => {
@@ -66,5 +67,51 @@ describe("SEM-001R5O functional fragment and repetition ownership", () => {
     candidate.elements[2] = { ...candidate.elements[2], type: "TIMING" };
     candidate.relations = [{ ...candidate.relations[0], sourceClientElementId: "e-operation", targetClientElementId: "e-mri", relationType: "REPEATED_AT", inventoryRelationIds: ["ir-repeat"] }];
     expect(stabilizeRelationOwnership(candidate).candidate.relations[0].sourceClientElementId).toBe("e-operation");
+  });
+
+  it("preserves prior explicit provenance for an unchanged ungrounded historical endpoint", () => {
+    const firstCandidate = comparisonCandidate();
+    const firstRequest = makeSemanticRequest();
+    const firstModel = canonicalizeSemanticReconstruction({
+      request: firstRequest,
+      candidate: firstCandidate,
+      critic: acceptedCritic(firstCandidate),
+      metadata: { provider: "TEST", model: "deterministic", temperature: null },
+      reconstructionCallId: "reconstruct-1",
+      criticCallId: "critic-1",
+      now: "2026-08-13T00:00:00.000Z",
+    });
+    const prior = firstModel.elements.find((element) => element.type === "MODALITY" && element.canonicalMeaning === "CT")!;
+    const carryCandidate = comparisonCandidate();
+    carryCandidate.semanticInventory = { explicitFragments: [], explicitRelations: [] };
+    carryCandidate.elements = [{
+      ...carryCandidate.elements[1],
+      clientElementId: prior.semanticElementId,
+      inventoryItemIds: [],
+      sourceMessageId: null,
+      sourceText: null,
+      epistemicStatus: "INFERRED_HIGH_CONFIDENCE",
+      inferenceReason: "Carried from prior context",
+      requiresConfirmation: true,
+      supersedesElementIds: [prior.semanticElementId],
+    }];
+    carryCandidate.relations = [];
+    const secondRequest = makeSemanticRequest([{ messageId: "user-2", role: "USER", content: "Ajoutez un autre élément.", createdAt: "2026-08-13T00:01:00.000Z" }], firstModel);
+    const secondModel = canonicalizeSemanticReconstruction({
+      request: secondRequest,
+      candidate: carryCandidate,
+      critic: acceptedCritic(carryCandidate),
+      metadata: { provider: "TEST", model: "deterministic", temperature: null },
+      reconstructionCallId: "reconstruct-2",
+      criticCallId: "critic-2",
+      now: "2026-08-13T00:01:00.000Z",
+    });
+    expect(secondModel.elements.find((element) => element.semanticElementId === prior.semanticElementId)).toMatchObject({
+      epistemicStatus: "EXPLICIT_USER_STATED",
+      sourceSpan: prior.sourceSpan,
+      inventoryItemIds: prior.inventoryItemIds,
+      supersedesElementIds: [],
+      provenance: { source: "DETERMINISTIC_CARRY_FORWARD" },
+    });
   });
 });
