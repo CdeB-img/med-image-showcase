@@ -534,8 +534,13 @@ export const buildSemanticTaxonomyReport = (
       reason: "A variable explicitly selected as what must count to judge the study is an ENDPOINT role in this context; its underlying observable nature must not erase that expressed project role.",
     });
     const outcomeLikeInventoryRole = inventoryRoles.some((role) => /outcome|result|response|resultat|reponse/.test(normalizedTaxonomyText(role)));
+    const resultContextOfArmComparison = directArmComparison
+      && !comparisonElementIds.has(element.clientElementId)
+      && candidate.relations.some((relation) => comparedArmIds.has(relation.sourceClientElementId)
+        && relation.targetClientElementId === element.clientElementId
+        && /observ|evaluat|measur|quantif|assess/i.test(relation.relationType));
     if (element.type === "ENDPOINT" && element.epistemicStatus === "EXPLICIT_USER_STATED" && element.studyRole === "OUTCOME_ROLE"
-      && outcomeLikeInventoryRole && !explicitEndpointSelection && !unambiguouslyPlacedAsArmJudgingVariable && !supersedesPriorEndpoint) findings.push({
+      && (outcomeLikeInventoryRole || resultContextOfArmComparison) && !explicitEndpointSelection && !unambiguouslyPlacedAsArmJudgingVariable && !supersedesPriorEndpoint) findings.push({
       code: "UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
       clientElementId: element.clientElementId,
       currentType: element.type,
