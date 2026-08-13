@@ -82,6 +82,35 @@ export const stabilizeRelationOwnership = (
   const removedRelationIds: string[] = [];
 
   stabilized.relations.forEach((semanticRelation) => {
+    if (semanticRelationFamily(semanticRelation.relationType) !== "REPETITION") return;
+    const source = elementsById.get(semanticRelation.sourceClientElementId);
+    const target = elementsById.get(semanticRelation.targetClientElementId);
+    if (!source || !target || !["STUDY_DESIGN", "SCIENTIFIC_INTENT", "OPERATION"].includes(source.type)
+      || !["TIMING", "STUDY_DESIGN"].includes(target.type)) return;
+    const sourceFragments = stabilized.semanticInventory.explicitFragments.filter((fragment) => source.inventoryItemIds.includes(fragment.inventoryItemId));
+    const linkedInventoryIds = new Set(sourceFragments.flatMap((fragment) => fragment.linkedInventoryItemIds));
+    const observableCandidates = stabilized.elements.filter((element) => element.epistemicStatus === "EXPLICIT_USER_STATED"
+      && !["STUDY_DESIGN", "SCIENTIFIC_INTENT", "OPERATION"].includes(element.type)
+      && element.inventoryItemIds.some((inventoryItemId) => linkedInventoryIds.has(inventoryItemId)));
+    if (observableCandidates.length !== 1) return;
+    const observable = observableCandidates[0];
+    const groundedObservableInventoryIds = observable.inventoryItemIds.filter((inventoryItemId) => linkedInventoryIds.has(inventoryItemId));
+    if (groundedObservableInventoryIds.length !== 1) return;
+    const projectedInventoryId = groundedObservableInventoryIds[0];
+    semanticRelation.sourceClientElementId = observable.clientElementId;
+    semanticRelation.inventoryRelationIds.forEach((inventoryRelationId) => {
+      const inventoryRelation = relationsById.get(inventoryRelationId);
+      if (!inventoryRelation) return;
+      if (source.inventoryItemIds.includes(inventoryRelation.sourceInventoryItemId)) inventoryRelation.sourceInventoryItemId = projectedInventoryId;
+      if (source.inventoryItemIds.includes(inventoryRelation.targetInventoryItemId)) inventoryRelation.targetInventoryItemId = projectedInventoryId;
+    });
+    stabilized.semanticWarnings = [...new Set([
+      ...stabilized.semanticWarnings,
+      `RELATION_OWNERSHIP_REPETITION_WRAPPER_PROJECTED:${semanticRelation.clientRelationId}`,
+    ])];
+  });
+
+  stabilized.relations.forEach((semanticRelation) => {
     const source = elementsById.get(semanticRelation.sourceClientElementId);
     const target = elementsById.get(semanticRelation.targetClientElementId);
     if (!source || !target) return;

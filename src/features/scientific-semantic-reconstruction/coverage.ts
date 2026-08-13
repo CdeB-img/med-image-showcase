@@ -189,20 +189,14 @@ const relationIdsCoveringFunctionalFragment = (
   candidate: SemanticReconstructionCandidate,
   fragment: SemanticReconstructionCandidate["semanticInventory"]["explicitFragments"][number],
 ) => {
-  const functionalRole = /action|operation|predicate|verb|relation|operator|op[ée]rateur|connector|connecteur|comparison|comparaison|comparator.?marker/i.test(fragment.localRole);
+  const functionalRole = /action|operation|predicate|verb|relation|operator|op[ée]rateur|connector|connecteur|comparison|comparaison|comparator/i.test(fragment.localRole);
   if (!functionalRole) return [];
 
-  const linkedIds = new Set(fragment.linkedInventoryItemIds);
-  const purelyRelationalRole = /relation|operator|op[ée]rateur|connector|connecteur|comparison|comparaison|comparator.?marker/i.test(fragment.localRole);
   const fragmentText = fragment.sourceText.toLocaleLowerCase("fr-FR");
   return [...new Set(candidate.semanticInventory.explicitRelations.flatMap((inventoryRelation) => {
     const sameSource = inventoryRelation.sourceMessageId === fragment.sourceMessageId;
     const exactFragmentInsideRelation = inventoryRelation.sourceText.toLocaleLowerCase("fr-FR").includes(fragmentText);
-    const linkedToEndpoint = linkedIds.has(inventoryRelation.sourceInventoryItemId)
-      || linkedIds.has(inventoryRelation.targetInventoryItemId)
-      || inventoryRelation.sourceInventoryItemId === fragment.inventoryItemId
-      || inventoryRelation.targetInventoryItemId === fragment.inventoryItemId;
-    if (!sameSource || !exactFragmentInsideRelation || (!linkedToEndpoint && !purelyRelationalRole)) return [];
+    if (!sameSource || !exactFragmentInsideRelation) return [];
     return candidate.relations
       .filter((relation) => relation.inventoryRelationIds.includes(inventoryRelation.inventoryRelationId)
         && relation.epistemicStatus === "EXPLICIT_USER_STATED"
@@ -215,7 +209,7 @@ const relationIdsCoveringLinkedRelationalFragment = (
   candidate: SemanticReconstructionCandidate,
   fragment: SemanticReconstructionCandidate["semanticInventory"]["explicitFragments"][number],
 ) => {
-  const relationalRole = /relation|link|connector|connecteur|operator|op[ée]rateur|association|comparison|comparaison/i.test(`${fragment.localRole} ${fragment.normalizedLabel}`);
+  const relationalRole = /relation|link|connector|connecteur|operator|op[ée]rateur|association|comparison|comparaison|comparator/i.test(`${fragment.localRole} ${fragment.normalizedLabel}`);
   if (!relationalRole || fragment.linkedInventoryItemIds.length < 2) return [];
   const linkedIds = new Set(fragment.linkedInventoryItemIds);
   return candidate.relations.filter((relation) => relation.epistemicStatus === "EXPLICIT_USER_STATED" && relation.polarity === fragment.polarity).filter((relation) => {
