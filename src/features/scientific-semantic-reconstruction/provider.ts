@@ -1,6 +1,6 @@
 import { SCIENTIFIC_SEMANTIC_CRITIC_PROMPT, SCIENTIFIC_SEMANTIC_RECONSTRUCTION_PROMPT } from "../../../api/prompts/scientific-semantic-reconstruction-prompt.js";
 import { SCIENTIFIC_SEMANTIC_ATOMIC_COMPOSITION_AUDIT_PROMPT } from "../../../api/prompts/scientific-semantic-atomic-composition-prompt.js";
-import { logicalDigest } from "@/features/knowledge-engine/canonical";
+import { comparableScientificText, logicalDigest } from "@/features/knowledge-engine/canonical";
 import {
   makeAtomicCompositionAuditContext,
   parseSemanticAtomicCompositionAudit,
@@ -221,11 +221,94 @@ const schemaDiagnostic = (
 
 const structuredContractFailure = (issues: Array<{ path: Array<string | number>; code: string; message: string }>) => ({ issues });
 
+type RawReconstructionCandidate = {
+  elements?: Array<Record<string, unknown>>;
+  relations?: Array<Record<string, unknown>>;
+  semanticWarnings?: unknown[];
+  [key: string]: unknown;
+};
+
+const stringArray = (value: unknown) => Array.isArray(value) && value.every((item) => typeof item === "string") ? value : null;
+
+const normalizeDeterministicPriorStateReemission = (
+  request: SemanticReconstructionRequest,
+  value: unknown,
+): unknown => {
+  if (!request.previousModel || !value || typeof value !== "object") return value;
+  const candidate = value as RawReconstructionCandidate;
+  if (!Array.isArray(candidate.elements) || !Array.isArray(candidate.relations)) return value;
+
+  const previousElements = new Map(request.previousModel.elements.map((element) => [element.semanticElementId, element]));
+  const previousIdByClientId = new Map<string, string>();
+  const duplicatedClientIds = new Set<string>();
+
+  candidate.elements.forEach((element) => {
+    const clientElementId = typeof element.clientElementId === "string" ? element.clientElementId : null;
+    const inventoryItemIds = stringArray(element.inventoryItemIds);
+    const supersedesElementIds = stringArray(element.supersedesElementIds);
+    if (!clientElementId || !inventoryItemIds || !supersedesElementIds || supersedesElementIds.length !== 1) return;
+    const previous = previousElements.get(supersedesElementIds[0]);
+    if (!previous) return;
+    const sameIdentity = element.type === previous.type
+      && element.studyRole === previous.studyRole
+      && element.polarity === previous.polarity
+      && typeof element.canonicalMeaning === "string"
+      && comparableScientificText(element.canonicalMeaning) === comparableScientificText(previous.canonicalMeaning);
+    if (sameIdentity) previousIdByClientId.set(clientElementId, previous.semanticElementId);
+    const ungroundedHistoricalDuplicate = sameIdentity
+      && element.epistemicStatus === "EXPLICIT_USER_STATED"
+      && inventoryItemIds.length === 0
+      && element.sourceMessageId === null
+      && element.sourceText === null;
+    if (ungroundedHistoricalDuplicate) duplicatedClientIds.add(clientElementId);
+  });
+  if (duplicatedClientIds.size === 0) return value;
+
+  const duplicatedRelationIds = new Set<string>();
+  candidate.relations.forEach((relation) => {
+    const clientRelationId = typeof relation.clientRelationId === "string" ? relation.clientRelationId : null;
+    const sourceClientElementId = typeof relation.sourceClientElementId === "string" ? relation.sourceClientElementId : null;
+    const targetClientElementId = typeof relation.targetClientElementId === "string" ? relation.targetClientElementId : null;
+    const inventoryRelationIds = stringArray(relation.inventoryRelationIds);
+    if (!clientRelationId || !sourceClientElementId || !targetClientElementId || !inventoryRelationIds
+      || relation.epistemicStatus !== "EXPLICIT_USER_STATED" || inventoryRelationIds.length !== 0) return;
+    const sourceElementId = previousIdByClientId.get(sourceClientElementId);
+    const targetElementId = previousIdByClientId.get(targetClientElementId);
+    if (!sourceElementId || !targetElementId || typeof relation.relationType !== "string") return;
+    const exactPreviousRelation = request.previousModel!.relations.some((previous) => previous.sourceElementId === sourceElementId
+      && previous.targetElementId === targetElementId
+      && previous.polarity === relation.polarity
+      && comparableScientificText(previous.relationType) === comparableScientificText(relation.relationType as string));
+    if (exactPreviousRelation) duplicatedRelationIds.add(clientRelationId);
+  });
+
+  const remainingRelations = candidate.relations.filter((relation) => {
+    const source = typeof relation.sourceClientElementId === "string" ? relation.sourceClientElementId : "";
+    const target = typeof relation.targetClientElementId === "string" ? relation.targetClientElementId : "";
+    const touchesRemovedElement = duplicatedClientIds.has(source) || duplicatedClientIds.has(target);
+    const relationId = typeof relation.clientRelationId === "string" ? relation.clientRelationId : "";
+    return !touchesRemovedElement || !duplicatedRelationIds.has(relationId);
+  });
+  const relationsStillUsingRemovedElement = remainingRelations.some((relation) => duplicatedClientIds.has(String(relation.sourceClientElementId ?? ""))
+    || duplicatedClientIds.has(String(relation.targetClientElementId ?? "")));
+  if (relationsStillUsingRemovedElement) return value;
+
+  return {
+    ...candidate,
+    elements: candidate.elements.filter((element) => !duplicatedClientIds.has(String(element.clientElementId ?? ""))),
+    relations: remainingRelations,
+    semanticWarnings: [
+      ...(Array.isArray(candidate.semanticWarnings) ? candidate.semanticWarnings : []),
+      `DETERMINISTIC_PRIOR_STATE_REEMISSION_DEDUPLICATED:${duplicatedClientIds.size}:${duplicatedRelationIds.size}`,
+    ],
+  };
+};
+
 const parseSourceGroundedReconstruction = (
   request: SemanticReconstructionRequest,
   value: unknown,
 ) => {
-  const candidate = parseSemanticReconstructionCandidate(value);
+  const candidate = parseSemanticReconstructionCandidate(normalizeDeterministicPriorStateReemission(request, value));
   const sourceGroundingCodes = new Set([
     "INVENTORY_FRAGMENT_SOURCE_NOT_CONTIGUOUS",
     "INVENTORY_RELATION_SOURCE_NOT_CONTIGUOUS",
