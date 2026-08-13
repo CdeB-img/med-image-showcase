@@ -201,6 +201,49 @@ const invalidRepairCritic = (): SemanticCriticResult => ({
 });
 
 describe("SEM generic provider structured-contract validation", () => {
+  it("binds exact canonical client IDs to prior identities before replacement grounding", async () => {
+    const { nextRequest, raw } = inferredReplacementTopology();
+    const elements = raw.elements as Array<Record<string, unknown>>;
+    const relations = raw.relations as Array<Record<string, unknown>>;
+    const retained = elements.find((element) => element.clientElementId === "e-mri-current")!;
+    const rejected = elements.find((element) => element.clientElementId === "e-ct-rejected")!;
+    const retainedPriorId = (retained.supersedesElementIds as string[])[0];
+    const rejectedPriorId = (rejected.supersedesElementIds as string[])[0];
+    retained.clientElementId = retainedPriorId;
+    rejected.clientElementId = rejectedPriorId;
+    retained.supersedesElementIds = [];
+    rejected.supersedesElementIds = [];
+    relations[0].targetClientElementId = retainedPriorId;
+    const fetchImpl = vi.fn(async () => response(raw)) as unknown as typeof fetch;
+    const result = await provider(fetchImpl).reconstruct(nextRequest);
+    expect(result.candidate.elements.find((element) => element.clientElementId === retainedPriorId)?.supersedesElementIds).toEqual([retainedPriorId]);
+    expect(result.candidate.elements.find((element) => element.clientElementId === rejectedPriorId)?.supersedesElementIds).toEqual([rejectedPriorId]);
+    expect(result.candidate.relations[0].epistemicStatus).toBe("EXPLICIT_USER_STATED");
+    expect(result.candidate.semanticWarnings).toContain("DETERMINISTIC_CANONICAL_CLIENT_ID_BOUND_TO_PRIOR_STATE:2");
+  });
+
+  it("deduplicates exact prior-state reemission expressed with canonical client IDs", async () => {
+    const { nextRequest, raw } = ungroundedPriorReemission();
+    const elements = raw.elements as Array<Record<string, unknown>>;
+    const relations = raw.relations as Array<Record<string, unknown>>;
+    const remap = new Map<string, string>();
+    elements.filter((element) => String(element.clientElementId).startsWith("e-retained")).forEach((element) => {
+      const priorId = (element.supersedesElementIds as string[])[0];
+      remap.set(String(element.clientElementId), priorId);
+      element.clientElementId = priorId;
+      element.supersedesElementIds = [];
+    });
+    relations.forEach((relation) => {
+      relation.sourceClientElementId = remap.get(String(relation.sourceClientElementId)) ?? relation.sourceClientElementId;
+      relation.targetClientElementId = remap.get(String(relation.targetClientElementId)) ?? relation.targetClientElementId;
+    });
+    const fetchImpl = vi.fn(async () => response(raw)) as unknown as typeof fetch;
+    const result = await provider(fetchImpl).reconstruct(nextRequest);
+    expect(result.candidate.elements.map((element) => element.clientElementId)).toEqual(["e-us"]);
+    expect(result.candidate.relations).toEqual([]);
+    expect(result.candidate.semanticWarnings).toContain("DETERMINISTIC_PRIOR_STATE_REEMISSION_DEDUPLICATED:2:1");
+  });
+
   it("grounds a unique same-role replacement in the explicit prior relation topology", async () => {
     const { nextRequest, raw } = inferredReplacementTopology();
     const fetchImpl = vi.fn(async () => response(raw)) as unknown as typeof fetch;
