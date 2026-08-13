@@ -125,7 +125,7 @@ describe("SEM generic provider structured-contract validation", () => {
     expect(fetchImpl).toHaveBeenCalledTimes(2);
   });
 
-  it("fails closed when bounded regeneration still violates exact source grounding", async () => {
+  it("uses at most two new generations before failing closed on exact source grounding", async () => {
     const fetchImpl = vi.fn(async () => response(invalidSourceCandidate())) as unknown as typeof fetch;
     try {
       await provider(fetchImpl).reconstruct(makeSemanticRequest());
@@ -135,6 +135,6 @@ describe("SEM generic provider structured-contract validation", () => {
       expect(caught).toMatchObject({ category: "INVALID_STRUCTURED_OUTPUT" });
       expect((caught as SemanticProviderError).diagnostic?.validationIssues).toContainEqual(expect.objectContaining({ code: "INVENTORY_RELATION_SOURCE_NOT_CONTIGUOUS" }));
     }
-    expect(fetchImpl).toHaveBeenCalledTimes(2);
+    expect(fetchImpl).toHaveBeenCalledTimes(3);
   });
 });

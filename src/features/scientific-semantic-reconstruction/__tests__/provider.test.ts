@@ -107,11 +107,11 @@ describe("GeminiScientificSemanticProvider failure taxonomy and retries", () => 
     const fetchImpl = vi.fn(async () => googleResponse(200, successfulBody({ candidateId: "incomplete" }))) as unknown as typeof fetch;
     const caught = await captureProviderError(providerWith(fetchImpl).reconstruct(makeSemanticRequest()));
     expect(caught.category).toBe("INVALID_STRUCTURED_OUTPUT");
-    expect(caught.attempts).toHaveLength(2);
+    expect(caught.attempts).toHaveLength(3);
     expect(caught.attempts.at(-1)).toMatchObject({ outcome: "FAILED", category: "INVALID_STRUCTURED_OUTPUT", retryable: false });
     expect(caught.diagnostic?.rawProviderOutput).toContain("incomplete");
     expect(caught.diagnostic?.validationIssues.some((issue) => issue.path === "language")).toBe(true);
-    expect(fetchImpl).toHaveBeenCalledTimes(2);
+    expect(fetchImpl).toHaveBeenCalledTimes(3);
   });
 
   it("performs one bounded correction when a reconstruction violates the local structured contract", async () => {

@@ -443,8 +443,19 @@ export class GeminiScientificSemanticProvider implements ScientificSemanticProvi
         return { callId: retried.callId, candidate: parseSourceGroundedReconstruction(request, retried.json), attempts: [...(result.attempts ?? []), ...(retried.attempts ?? [])] };
       } catch (retryCaught) {
         const retryDiagnostic = schemaDiagnostic(retryCaught, retried.rawProviderOutput);
-        const failure = invalidOutputFailure(diagnosticSummary("Structured reconstruction did not satisfy the SEM contract after one bounded correction attempt.", retryDiagnostic));
-        throw new SemanticProviderError(failure.category, structuredFailureAttempts([...(result.attempts ?? []), ...(retried.attempts ?? [])], failure), failure, retryDiagnostic);
+        const secondCorrection = diagnosticSummary("The prior bounded correction still violated the structured SEM reconstruction contract. This is the final permitted regeneration: preserve the same scientific meaning, use only exact original USER substrings for sourceText, and satisfy every reported issue without filling or deleting content silently.", retryDiagnostic);
+        const secondRetried = await this.generate(SCIENTIFIC_SEMANTIC_RECONSTRUCTION_PROMPT, { ...context, structuredValidationCorrection: secondCorrection }, SEMANTIC_RECONSTRUCTION_JSON_SCHEMA);
+        try {
+          return {
+            callId: secondRetried.callId,
+            candidate: parseSourceGroundedReconstruction(request, secondRetried.json),
+            attempts: [...(result.attempts ?? []), ...(retried.attempts ?? []), ...(secondRetried.attempts ?? [])],
+          };
+        } catch (secondRetryCaught) {
+          const secondRetryDiagnostic = schemaDiagnostic(secondRetryCaught, secondRetried.rawProviderOutput);
+          const failure = invalidOutputFailure(diagnosticSummary("Structured reconstruction did not satisfy the SEM contract after two bounded correction attempts.", secondRetryDiagnostic));
+          throw new SemanticProviderError(failure.category, structuredFailureAttempts([...(result.attempts ?? []), ...(retried.attempts ?? []), ...(secondRetried.attempts ?? [])], failure), failure, secondRetryDiagnostic);
+        }
       }
     }
   }
@@ -477,8 +488,19 @@ export class GeminiScientificSemanticProvider implements ScientificSemanticProvi
         return { callId: retried.callId, critic: parseApplicableCritic(request, candidate, retried.json), attempts: [...(result.attempts ?? []), ...(retried.attempts ?? [])] };
       } catch (retryCaught) {
         const retryDiagnostic = schemaDiagnostic(retryCaught, retried.rawProviderOutput);
-        const failure = invalidOutputFailure(diagnosticSummary("Structured critic output did not satisfy the SEM contract after one bounded correction attempt.", retryDiagnostic));
-        throw new SemanticProviderError(failure.category, structuredFailureAttempts([...(result.attempts ?? []), ...(retried.attempts ?? [])], failure), failure, retryDiagnostic);
+        const secondCorrection = diagnosticSummary("The prior bounded correction still violated the structured SEM critic contract. This is the final permitted regeneration: return one applicable action per repair, preserve exact original USER grounding, and satisfy every reported issue.", retryDiagnostic);
+        const secondRetried = await this.generate(SCIENTIFIC_SEMANTIC_CRITIC_PROMPT, { ...criticPayload, structuredValidationCorrection: secondCorrection }, SEMANTIC_CRITIC_JSON_SCHEMA);
+        try {
+          return {
+            callId: secondRetried.callId,
+            critic: parseApplicableCritic(request, candidate, secondRetried.json),
+            attempts: [...(result.attempts ?? []), ...(retried.attempts ?? []), ...(secondRetried.attempts ?? [])],
+          };
+        } catch (secondRetryCaught) {
+          const secondRetryDiagnostic = schemaDiagnostic(secondRetryCaught, secondRetried.rawProviderOutput);
+          const failure = invalidOutputFailure(diagnosticSummary("Structured critic output did not satisfy the SEM contract after two bounded correction attempts.", secondRetryDiagnostic));
+          throw new SemanticProviderError(failure.category, structuredFailureAttempts([...(result.attempts ?? []), ...(retried.attempts ?? []), ...(secondRetried.attempts ?? [])], failure), failure, secondRetryDiagnostic);
+        }
       }
     }
   }
