@@ -1,0 +1,87 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "B4_CALIBRATION_BASELINE_MANIFEST",
+  "baselineId": "SEM003B4-CALIBRATION-BASELINE-20260813-01",
+  "createdAt": "2026-08-13T21:14:11.000Z",
+  "status": "FROZEN_PRE_EXECUTION",
+  "git": {
+    "repository": "noxia-dev",
+    "branch": "main",
+    "head": "bec2662448644f5643536e649645de976fe2d0d5"
+  },
+  "evaluator": {
+    "version": "1.0.0",
+    "configurationDigest": "13f2e4d0b57e200b53e3db52a4fa74cc346a0b65e82b96ac12ca82ba435767b5",
+    "codeDigest": "1e1f6cb95b2a17ed8f30db426c27d80f231cf281c7756813e2239edfe85ae0ff",
+    "schemasDigest": "7bb4499025a5bf85e35545bc6f017e87b78fca65ebee8c7136888f63f10f6eb9",
+    "propertyRegistryDigest": "f0db9a687df425fd844c80580914bb91b3c5382663307fa9aea696015c876a70",
+    "failureTaxonomyDigest": "a5e45a03676b049c8a6478c66dfbd218fcd29954e48e38cc74ab850b6a950e2b",
+    "identityPath": "semantic-validation/sem-003/evaluator/registry/evaluator-identity.json",
+    "modifiedForB4": false
+  },
+  "calibrationReferenceSet": {
+    "path": "semantic-validation/sem-003/review/artifacts/calibration-reference-set.json",
+    "sha256": "e1823212a23f1aee60bc62bd0c0e73ff13ffa63b042f3211b6a9e4793698cbf6",
+    "referenceSetId": "SEM3-CALIBRATION-REFERENCE-SET-SIMULATED-1",
+    "version": "1.0.0",
+    "status": "READY_FOR_B4_DEVELOPMENT_CALIBRATION",
+    "referenceReviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+    "realHumanReferenceReview": "NOT_PERFORMED",
+    "finalPD011ReferenceEligibility": "NO",
+    "blindEligibility": "NO",
+    "caseCount": 10,
+    "cases": [
+      { "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION", "caseVersion": "1.0.0", "envelopeVersion": "1.0.0", "pairSha256": "c1cd867d868857f9ca9efed5131283da41030124df0ed0a53a2ccf73d63f7af1" },
+      { "caseId": "SEM3-CAL-CARDIO-RHYTHM-REMODELING", "caseVersion": "1.0.0", "envelopeVersion": "1.0.0", "pairSha256": "1df00581ffaacd270454c1ecc4789d5c867cf719179f8c9662af150d24e8dcc6" },
+      { "caseId": "SEM3-CAL-CONGENITAL-FLOW-ELLIPSIS", "caseVersion": "1.0.0", "envelopeVersion": "1.0.0", "pairSha256": "424c475d0ce348d21b8c5965a13a1f74c12968a1601139a53c23cff8f25d1add" },
+      { "caseId": "SEM3-CAL-CORTISOL-SAMPLING-SUMMARY", "caseVersion": "1.0.0", "envelopeVersion": "1.0.0", "pairSha256": "193076f26c6be3a8a880262132140cad00c2c16225dff459faeeed5905ea5207" },
+      { "caseId": "SEM3-CAL-MSK-INFLAMMATION-RESPONSE", "caseVersion": "1.0.0", "envelopeVersion": "1.0.0", "pairSha256": "e9f38d34c61f7eb27a24735212f1a76f2871cb924057e8f352d27c57e28e64f1" },
+      { "caseId": "SEM3-CAL-NEURODEGENERATION-PROGRESSION", "caseVersion": "1.0.0", "envelopeVersion": "1.0.0", "pairSha256": "7e03a795977e32fadfd62f2f4e3e3c4d979460cbfdb18ab30ed72865f53904cd" },
+      { "caseId": "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT", "caseVersion": "1.0.0", "envelopeVersion": "1.0.0", "pairSha256": "640747f1bf5e01368db1285ae201f9df603f79c1059222b4b83d4b1c1f4ccab6" },
+      { "caseId": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY", "caseVersion": "1.0.1", "envelopeVersion": "1.0.1", "pairSha256": "eb4a1024101480efbd8bfb35ba05f3130fbed67c2a7a6e398fe8cb45160f3103" },
+      { "caseId": "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP", "caseVersion": "1.0.0", "envelopeVersion": "1.0.0", "pairSha256": "07ba35e34dff8d20d6bbcc050d0f5cf707c03c5966deafdc31485127d0bfed62" },
+      { "caseId": "SEM3-CAL-TRIAL-COMPARATOR-DECISION", "caseVersion": "1.0.0", "envelopeVersion": "1.0.0", "pairSha256": "ba03b37fb8cf74873549b183980abe92c87c9d4cac7b03cc711e71abd4a29da1" }
+    ]
+  },
+  "developmentReferenceSet": {
+    "corpusRegistryPath": "semantic-validation/sem-003/corpus/registry/corpus-registry.json",
+    "corpusRegistryDigest": "08656c35469cfd6a2c43fbc12555d05b4f3c38e1e865ad224da43c89ca6934a2",
+    "corpusManifestPath": "semantic-validation/sem-003/corpus/registry/corpus-manifest.json",
+    "corpusManifestDigest": "049928137a4a696df97262e35ee4f9b421e485c676048c0d1f6dceb55c76ec7a",
+    "evaluatorTestMatrixDigest": "7b8e9494838a39bd6bd178ab2a1ae20852b2e566b0d5919601b67813f288b01e",
+    "evaluatorCoverageDigest": "c659c809ef21508a77836ee30824aa9cd984afa9c2920716b54f4710124b5ef0",
+    "caseCount": 15,
+    "caseIds": [
+      "SEM3-DEV-BODY-COMPOSITION-AMBIGUITY",
+      "SEM3-DEV-CARDIAC-AGING-TRAJECTORY",
+      "SEM3-DEV-CORONARY-PERFUSION-PRIORITY",
+      "SEM3-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
+      "SEM3-DEV-INFLAMMATION-MULTIDIMENSIONAL",
+      "SEM3-DEV-INTESTINAL-MOTILITY-METHOD",
+      "SEM3-DEV-OUTCOME-PRIORITY-CHANGE",
+      "SEM3-DEV-PANCREATIC-COMPOSITION-LONGITUDINAL",
+      "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL",
+      "SEM3-DEV-PLAQUE-INTERVENTION-CONTEXT",
+      "SEM3-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
+      "SEM3-DEV-ROUTINE-DATA-COMPARATOR-GAP",
+      "SEM3-DEV-TRANSLATIONAL-HYPOXIA-CANDIDATES",
+      "SEM3-DEV-TRIAL-IMAGING-OUTCOME-CORRECTION",
+      "SEM3-DEV-VALVE-HEMODYNAMICS-MULTIMODAL"
+    ]
+  },
+  "softwareEnvironment": {
+    "platform": "darwin",
+    "architecture": "arm64",
+    "nodeVersion": "v24.19.0",
+    "packageJsonDigest": "0d2e47156927df15bf3bdac02d8577647db6ed89d01df862bf8c47fa74f98cb6",
+    "packageLockDigest": "bbe99080afa6c3bcccd287e707d945e36e0fd6f985a092c899a71da2e484b2a3"
+  },
+  "freezeRules": {
+    "calibrationObserved": false,
+    "evaluatorModificationAfterFreezeAllowed": false,
+    "referenceModificationAfterFreezeAllowed": false,
+    "expectationModificationAfterObservationAllowed": false,
+    "llmProviderCallsAllowed": false,
+    "semRuntimeExecutionAllowed": false
+  }
+}

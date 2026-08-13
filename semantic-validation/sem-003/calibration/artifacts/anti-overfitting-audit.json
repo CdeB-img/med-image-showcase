@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003B4_ANTI_OVERFITTING_AUDIT",
+  "createdAt": "2026-08-13T21:14:11.000Z",
+  "status": "PASS_PREFLIGHT_STOPPED_BEFORE_CALIBRATION",
+  "calibrationReferenceContentUsedToTuneEvaluator": false,
+  "calibrationCaseIdsFoundInEvaluatorCore": 0,
+  "calibrationSemanticKeysFoundInEvaluatorCore": 0,
+  "referencesChangedAfterExecution": false,
+  "expectationsCreatedOrChangedAfterObservation": false,
+  "thresholdSelectedFromObservedResults": false,
+  "bestRunSelectionPerformed": false,
+  "calibrationResultsObserved": false,
+  "evaluatorConfigurationDigestBefore": "13f2e4d0b57e200b53e3db52a4fa74cc346a0b65e82b96ac12ca82ba435767b5",
+  "evaluatorConfigurationDigestAfter": "13f2e4d0b57e200b53e3db52a4fa74cc346a0b65e82b96ac12ca82ba435767b5",
+  "stopReason": "No truthful frozen evaluator mode exists for B4 synthetic Calibration candidates, and B3 simulated equivalence evidence cannot be consumed without false human attribution."
+}

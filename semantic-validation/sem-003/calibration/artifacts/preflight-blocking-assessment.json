@@ -1,0 +1,74 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003B4_PREFLIGHT_BLOCKING_ASSESSMENT",
+  "assessmentId": "SEM003B4-PREFLIGHT-20260813-01",
+  "createdAt": "2026-08-13T21:14:11.000Z",
+  "decision": "SEM003B4_EVALUATOR_REPAIR_REQUIRED",
+  "calibrationExecutionStarted": false,
+  "calibrationOutputObserved": false,
+  "fixtureCount": 0,
+  "expectationCount": 0,
+  "resultCount": 0,
+  "blockers": [
+    {
+      "blockerId": "B4-BLOCKER-01-CALIBRATION-SYNTHETIC-MODE-ABSENT",
+      "owner": "SEM003_EVALUATOR_CONTRACT",
+      "classification": "EVALUATOR_PROBLEM",
+      "generic": true,
+      "summary": "The frozen evaluator has no truthful mode/source binding for synthetic candidates evaluated against CALIBRATION_VISIBLE references.",
+      "evidence": [
+        "semantic-validation/sem-003/evaluator/contracts/candidate-semantic-representation.schema.json#/properties/sourceType",
+        "semantic-validation/sem-003/evaluator/contracts/candidate-semantic-representation.schema.json#/definitions/evaluationMode",
+        "semantic-validation/sem-003/evaluator/core/evaluator.mjs#assertEvaluationBindings",
+        "semantic-validation/sem-003/corpus/calibration/atrial-fibrosis-ablation.case.json#/purpose",
+        "semantic-validation/sem-003/corpus/calibration/atrial-fibrosis-ablation.case.json#/exposure/exposureStatus"
+      ],
+      "rejectedWorkarounds": [
+        "DEVELOPMENT_SYNTHETIC would require relabeling Calibration references as DEVELOPMENT_AUTHORING and DEVELOPMENT_VISIBLE.",
+        "FUTURE_SEM_RUNTIME would falsely label B4 synthetic candidates as SEM runtime output.",
+        "HUMAN_ADJUDICATION would falsely label synthetic candidates and simulated decisions as human-adjudicated evidence."
+      ],
+      "minimalRepairRequired": "In a separate Development-only repair mission, add a generic calibration-synthetic binding and provenance contract, update the evaluator identity, revalidate on Development, create a new freeze, and restart B4 from zero."
+    },
+    {
+      "blockerId": "B4-BLOCKER-02-SIMULATED-ADJUDICATION-ADAPTER-ABSENT",
+      "owner": "SEM003_EVALUATOR_LEVEL_2_CONTRACT",
+      "classification": "EVALUATOR_PROBLEM",
+      "generic": true,
+      "summary": "The five B3 simulated equivalence dispositions cannot be consumed by the frozen Level 2 contract without misrepresenting them as real human decisions.",
+      "evidence": [
+        "semantic-validation/sem-003/review/artifacts/equivalence-review-status.json",
+        "semantic-validation/sem-003/evaluator/contracts/human-decision-record.schema.json#/properties/authority",
+        "semantic-validation/sem-003/evaluator/core/evaluator.mjs#humanDecisions"
+      ],
+      "minimalRepairRequired": "In the same separate repair mission, add a provenance-preserving adjudication evidence adapter that keeps SIMULATED_PLURALISTIC_EXPERT_REVIEW distinct from HUMAN_ADJUDICATION."
+    }
+  ],
+  "controlStatus": {
+    "PASS_PREFLIGHT": ["B4-C01", "B4-C02", "B4-C04", "B4-C05", "B4-C06", "B4-C07", "B4-C27", "B4-C28", "B4-C29", "B4-C30"],
+    "BLOCKING_FAILURE": ["B4-C10"],
+    "NOT_EXECUTED_AFTER_STOP": ["B4-C03", "B4-C08", "B4-C09", "B4-C11", "B4-C12", "B4-C13", "B4-C14", "B4-C15", "B4-C16", "B4-C17", "B4-C18", "B4-C19", "B4-C20", "B4-C21", "B4-C22", "B4-C23", "B4-C24", "B4-C25", "B4-C26"]
+  },
+  "prohibitedArtifactsNotProduced": [
+    "calibration fixtures",
+    "precommitted expectations",
+    "calibration results",
+    "property metrics",
+    "disposition confusion matrix",
+    "failure-class coverage measurements",
+    "measurement protocol admission",
+    "evaluator calibrated freeze manifest"
+  ],
+  "boundaries": {
+    "semModified": false,
+    "semExecuted": false,
+    "llmProviderCalls": 0,
+    "browserExecuted": false,
+    "downstreamExecuted": false,
+    "blindCreated": false,
+    "qualificationPerformed": false,
+    "calibrationUsedToTuneEvaluator": false,
+    "referencesChangedAfterFreeze": false,
+    "expectationsChangedPostHoc": false
+  }
+}

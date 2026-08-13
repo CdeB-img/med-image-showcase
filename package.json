@@ -25,6 +25,8 @@
     "generate:sem003-review": "node semantic-validation/sem-003/review/tools/generate-review-packet.mjs",
     "validate:sem003-review": "node semantic-validation/sem-003/review/validator/validate.mjs",
     "test:sem003-review": "node --test semantic-validation/sem-003/review/validator/review-workflow.test.mjs",
+    "validate:sem003-calibration": "node semantic-validation/sem-003/calibration/validator/validate.mjs",
+    "test:sem003-calibration": "node --test semantic-validation/sem-003/calibration/validator/preflight.test.mjs",
     "test:semantic:live": "vite-node src/features/scientific-semantic-reconstruction/manual/live-competence-campaign.manual.ts",
     "test:semantic:r3:development": "vite-node src/features/scientific-semantic-reconstruction/manual/live-competence-campaign-r3.manual.ts --development",
     "test:semantic:r3:holdout": "vite-node src/features/scientific-semantic-reconstruction/manual/live-competence-campaign-r3.manual.ts --holdout",
