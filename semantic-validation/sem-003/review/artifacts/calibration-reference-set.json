@@ -1,0 +1,253 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003B3_DEVELOPMENT_CALIBRATION_REFERENCE_SET",
+  "referenceSetId": "SEM3-CALIBRATION-REFERENCE-SET-SIMULATED-1",
+  "version": "1.0.0",
+  "generatedAt": "2026-08-13T20:24:00.000Z",
+  "status": "READY_FOR_B4_DEVELOPMENT_CALIBRATION",
+  "referenceReviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+  "simulatedReferenceReview": "COMPLETE",
+  "realHumanReferenceReview": "NOT_PERFORMED",
+  "finalPD011ReferenceEligibility": "NO",
+  "blindEligibility": "NO",
+  "eligibleForFormalIndependentQualification": false,
+  "calibrationExecutionAuthorizedInB3": false,
+  "cases": [
+    {
+      "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
+      "caseVersion": "1.0.0",
+      "envelopeVersion": "1.0.0",
+      "exposureStatus": "CALIBRATION_VISIBLE",
+      "eligibleForDevelopmentCalibration": true,
+      "eligibleForFormalIndependentQualification": false,
+      "eligibleForBlindQualification": false,
+      "reviewUnitId": "SEM3B3-RU-CAL-ATRIAL-FIBROSIS-ABLATION",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "simulatedDecisionIds": [
+        "SEM3B3-SIMDEC-ATRIAL-FIBROSIS-ABLATION-AMBIGUITY",
+        "SEM3B3-SIMDEC-ATRIAL-FIBROSIS-ABLATION-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-ATRIAL-FIBROSIS-ABLATION-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-ATRIAL-FIBROSIS-ABLATION-PARENTAGE",
+        "SEM3B3-SIMDEC-ATRIAL-FIBROSIS-ABLATION-SCIENTIFIC-REFERENCE"
+      ],
+      "digests": {
+        "caseSha256": "db4cf85f64019a68ef47eaa7ce5faee7acbe945721ba22af0aafb44b22203cd9",
+        "acceptanceEnvelopeSha256": "726ff43336c037f0da8513b0b9e587016227392b39140d02ec068e82aa504286",
+        "pairSha256": "c1cd867d868857f9ca9efed5131283da41030124df0ed0a53a2ccf73d63f7af1"
+      }
+    },
+    {
+      "caseId": "SEM3-CAL-CARDIO-RHYTHM-REMODELING",
+      "caseVersion": "1.0.0",
+      "envelopeVersion": "1.0.0",
+      "exposureStatus": "CALIBRATION_VISIBLE",
+      "eligibleForDevelopmentCalibration": true,
+      "eligibleForFormalIndependentQualification": false,
+      "eligibleForBlindQualification": false,
+      "reviewUnitId": "SEM3B3-RU-CAL-CARDIO-RHYTHM-REMODELING",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "simulatedDecisionIds": [
+        "SEM3B3-SIMDEC-CARDIO-RHYTHM-REMODELING-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-CARDIO-RHYTHM-REMODELING-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-CARDIO-RHYTHM-REMODELING-PARENTAGE",
+        "SEM3B3-SIMDEC-CARDIO-RHYTHM-REMODELING-SCIENTIFIC-REFERENCE"
+      ],
+      "digests": {
+        "caseSha256": "616e95e4a54f0ff2f9c321b04821810642f9e7750da23ad88bd415bbf4445f94",
+        "acceptanceEnvelopeSha256": "54ab48c0c30b5e06256b4cee8ecbf213c46c90d5444377810726524b5f5be222",
+        "pairSha256": "1df00581ffaacd270454c1ecc4789d5c867cf719179f8c9662af150d24e8dcc6"
+      }
+    },
+    {
+      "caseId": "SEM3-CAL-CONGENITAL-FLOW-ELLIPSIS",
+      "caseVersion": "1.0.0",
+      "envelopeVersion": "1.0.0",
+      "exposureStatus": "CALIBRATION_VISIBLE",
+      "eligibleForDevelopmentCalibration": true,
+      "eligibleForFormalIndependentQualification": false,
+      "eligibleForBlindQualification": false,
+      "reviewUnitId": "SEM3B3-RU-CAL-CONGENITAL-FLOW-ELLIPSIS",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "simulatedDecisionIds": [
+        "SEM3B3-SIMDEC-CONGENITAL-FLOW-ELLIPSIS-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-CONGENITAL-FLOW-ELLIPSIS-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-CONGENITAL-FLOW-ELLIPSIS-PARENTAGE",
+        "SEM3B3-SIMDEC-CONGENITAL-FLOW-ELLIPSIS-SCIENTIFIC-REFERENCE"
+      ],
+      "digests": {
+        "caseSha256": "204d9c9f4c0d88234f9bb8e07f40eec243932eeabc8d2c1dcd923e163501cb1a",
+        "acceptanceEnvelopeSha256": "176e7dfba9bb60c82f459c1f2e46cdbfc2e307bdad579f5bbb2bd3f9f64f731b",
+        "pairSha256": "424c475d0ce348d21b8c5965a13a1f74c12968a1601139a53c23cff8f25d1add"
+      }
+    },
+    {
+      "caseId": "SEM3-CAL-CORTISOL-SAMPLING-SUMMARY",
+      "caseVersion": "1.0.0",
+      "envelopeVersion": "1.0.0",
+      "exposureStatus": "CALIBRATION_VISIBLE",
+      "eligibleForDevelopmentCalibration": true,
+      "eligibleForFormalIndependentQualification": false,
+      "eligibleForBlindQualification": false,
+      "reviewUnitId": "SEM3B3-RU-CAL-CORTISOL-SAMPLING-SUMMARY",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "simulatedDecisionIds": [
+        "SEM3B3-SIMDEC-CORTISOL-SAMPLING-SUMMARY-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-CORTISOL-SAMPLING-SUMMARY-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-CORTISOL-SAMPLING-SUMMARY-PARENTAGE",
+        "SEM3B3-SIMDEC-CORTISOL-SAMPLING-SUMMARY-SCIENTIFIC-REFERENCE"
+      ],
+      "digests": {
+        "caseSha256": "c2cfc56a212769c835fd0f6e68c6ddb018e66b8033a62c5b42be0addee619c58",
+        "acceptanceEnvelopeSha256": "baf379d02aa5f76d711361a39b12bb4ab34202266e4553b3b94edf0d01e6fb69",
+        "pairSha256": "193076f26c6be3a8a880262132140cad00c2c16225dff459faeeed5905ea5207"
+      }
+    },
+    {
+      "caseId": "SEM3-CAL-MSK-INFLAMMATION-RESPONSE",
+      "caseVersion": "1.0.0",
+      "envelopeVersion": "1.0.0",
+      "exposureStatus": "CALIBRATION_VISIBLE",
+      "eligibleForDevelopmentCalibration": true,
+      "eligibleForFormalIndependentQualification": false,
+      "eligibleForBlindQualification": false,
+      "reviewUnitId": "SEM3B3-RU-CAL-MSK-INFLAMMATION-RESPONSE",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "simulatedDecisionIds": [
+        "SEM3B3-SIMDEC-MSK-INFLAMMATION-RESPONSE-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-MSK-INFLAMMATION-RESPONSE-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-MSK-INFLAMMATION-RESPONSE-PARENTAGE",
+        "SEM3B3-SIMDEC-MSK-INFLAMMATION-RESPONSE-SCIENTIFIC-REFERENCE"
+      ],
+      "digests": {
+        "caseSha256": "16e86f3fe97a9411a64cc069beffdfde0590d4a957251f618edce44048218410",
+        "acceptanceEnvelopeSha256": "b05f560a8ad588ad4b7a67eba7843bc1f8d5e60bb0330c3f25598432e7477cbf",
+        "pairSha256": "e9f38d34c61f7eb27a24735212f1a76f2871cb924057e8f352d27c57e28e64f1"
+      }
+    },
+    {
+      "caseId": "SEM3-CAL-NEURODEGENERATION-PROGRESSION",
+      "caseVersion": "1.0.0",
+      "envelopeVersion": "1.0.0",
+      "exposureStatus": "CALIBRATION_VISIBLE",
+      "eligibleForDevelopmentCalibration": true,
+      "eligibleForFormalIndependentQualification": false,
+      "eligibleForBlindQualification": false,
+      "reviewUnitId": "SEM3B3-RU-CAL-NEURODEGENERATION-PROGRESSION",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "simulatedDecisionIds": [
+        "SEM3B3-SIMDEC-NEURODEGENERATION-PROGRESSION-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-NEURODEGENERATION-PROGRESSION-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-NEURODEGENERATION-PROGRESSION-PARENTAGE",
+        "SEM3B3-SIMDEC-NEURODEGENERATION-PROGRESSION-SCIENTIFIC-REFERENCE"
+      ],
+      "digests": {
+        "caseSha256": "487f54444666204f7ad93ed5b3f1e8f345a1ab78ce1c902c7f7361cb504d6cbf",
+        "acceptanceEnvelopeSha256": "300a7a6a85568b5fee06eb6c3ac44957d19759bd937d8c349831d27b791bd576",
+        "pairSha256": "7e03a795977e32fadfd62f2f4e3e3c4d979460cbfdb18ab30ed72865f53904cd"
+      }
+    },
+    {
+      "caseId": "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+      "caseVersion": "1.0.0",
+      "envelopeVersion": "1.0.0",
+      "exposureStatus": "CALIBRATION_VISIBLE",
+      "eligibleForDevelopmentCalibration": true,
+      "eligibleForFormalIndependentQualification": false,
+      "eligibleForBlindQualification": false,
+      "reviewUnitId": "SEM3B3-RU-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "simulatedDecisionIds": [
+        "SEM3B3-SIMDEC-ORGANOID-LIVE-SIGNAL-MEASUREMENT-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-ORGANOID-LIVE-SIGNAL-MEASUREMENT-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-ORGANOID-LIVE-SIGNAL-MEASUREMENT-PARENTAGE",
+        "SEM3B3-SIMDEC-ORGANOID-LIVE-SIGNAL-MEASUREMENT-SCIENTIFIC-REFERENCE"
+      ],
+      "digests": {
+        "caseSha256": "65d2d270a6c7a2460aed21dc5600d81b91e1923abf49ef69cd76d38f72d46468",
+        "acceptanceEnvelopeSha256": "7f0e07a251cf343fea1ebc03db59f1e47f49c2c9dbe377b2afc905750fc4a09c",
+        "pairSha256": "640747f1bf5e01368db1285ae201f9df603f79c1059222b4b83d4b1c1f4ccab6"
+      }
+    },
+    {
+      "caseId": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+      "caseVersion": "1.0.1",
+      "envelopeVersion": "1.0.1",
+      "exposureStatus": "CALIBRATION_VISIBLE",
+      "eligibleForDevelopmentCalibration": true,
+      "eligibleForFormalIndependentQualification": false,
+      "eligibleForBlindQualification": false,
+      "reviewUnitId": "SEM3B3-RU-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "simulatedDecisionIds": [
+        "SEM3B3-SIMDEC-OVARIAN-ULTRASOUND-AMBIGUITY-AMBIGUITY",
+        "SEM3B3-SIMDEC-OVARIAN-ULTRASOUND-AMBIGUITY-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-OVARIAN-ULTRASOUND-AMBIGUITY-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-OVARIAN-ULTRASOUND-AMBIGUITY-PARENTAGE",
+        "SEM3B3-SIMDEC-OVARIAN-ULTRASOUND-AMBIGUITY-SCIENTIFIC-REFERENCE"
+      ],
+      "digests": {
+        "caseSha256": "869f1f9d26ddc43d0120233cafd647227ee1b704e0c15e508f0cc73911b177c4",
+        "acceptanceEnvelopeSha256": "a0456b9a01f6a7798231459b401813db3a66dece97c8a2f5f33b7dd5c383478f",
+        "pairSha256": "eb4a1024101480efbd8bfb35ba05f3130fbed67c2a7a6e398fe8cb45160f3103"
+      }
+    },
+    {
+      "caseId": "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
+      "caseVersion": "1.0.0",
+      "envelopeVersion": "1.0.0",
+      "exposureStatus": "CALIBRATION_VISIBLE",
+      "eligibleForDevelopmentCalibration": true,
+      "eligibleForFormalIndependentQualification": false,
+      "eligibleForBlindQualification": false,
+      "reviewUnitId": "SEM3B3-RU-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "simulatedDecisionIds": [
+        "SEM3B3-SIMDEC-PULMONARY-HEMODYNAMICS-FOLLOWUP-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-PULMONARY-HEMODYNAMICS-FOLLOWUP-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-PULMONARY-HEMODYNAMICS-FOLLOWUP-PARENTAGE",
+        "SEM3B3-SIMDEC-PULMONARY-HEMODYNAMICS-FOLLOWUP-SCIENTIFIC-REFERENCE"
+      ],
+      "digests": {
+        "caseSha256": "4835cb0157392bd2d857323897762844e9f3a6022a47150a8c1239fa4ded11b7",
+        "acceptanceEnvelopeSha256": "c2c8f6d535ecd8ea3117db9ec09744c5adc800a7f8a821d0aafc6203ee2fa3e1",
+        "pairSha256": "07ba35e34dff8d20d6bbcc050d0f5cf707c03c5966deafdc31485127d0bfed62"
+      }
+    },
+    {
+      "caseId": "SEM3-CAL-TRIAL-COMPARATOR-DECISION",
+      "caseVersion": "1.0.0",
+      "envelopeVersion": "1.0.0",
+      "exposureStatus": "CALIBRATION_VISIBLE",
+      "eligibleForDevelopmentCalibration": true,
+      "eligibleForFormalIndependentQualification": false,
+      "eligibleForBlindQualification": false,
+      "reviewUnitId": "SEM3B3-RU-CAL-TRIAL-COMPARATOR-DECISION",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "simulatedDecisionIds": [
+        "SEM3B3-SIMDEC-TRIAL-COMPARATOR-DECISION-AMBIGUITY",
+        "SEM3B3-SIMDEC-TRIAL-COMPARATOR-DECISION-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-TRIAL-COMPARATOR-DECISION-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-TRIAL-COMPARATOR-DECISION-PARENTAGE",
+        "SEM3B3-SIMDEC-TRIAL-COMPARATOR-DECISION-SCIENTIFIC-REFERENCE"
+      ],
+      "digests": {
+        "caseSha256": "14568a28f37a1e3c88aa275b09e4a1a0e884610a3f6ce32f033828889904e399",
+        "acceptanceEnvelopeSha256": "f7dcc70787456305815e5b6efeb2dafd5baab70e635f84c6dddda3bd95aeda00",
+        "pairSha256": "ba03b37fb8cf74873549b183980abe92c87c9d4cac7b03cc711e71abd4a29da1"
+      }
+    }
+  ],
+  "evaluator": {
+    "version": "1.0.0",
+    "configurationDigest": "13f2e4d0b57e200b53e3db52a4fa74cc346a0b65e82b96ac12ca82ba435767b5",
+    "modifiedFromCalibrationEvidence": false
+  },
+  "exclusions": [
+    "No Calibration B4 execution",
+    "No SEM execution",
+    "No LLM/provider call",
+    "No formal independent qualification evidence",
+    "No blind eligibility",
+    "No PD-011 PASS/FAIL decision"
+  ]
+}

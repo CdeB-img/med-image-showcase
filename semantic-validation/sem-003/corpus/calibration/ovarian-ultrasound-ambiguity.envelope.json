@@ -2,9 +2,9 @@
   "schemaVersion": "1.0.0",
   "contractType": "BENCHMARK_AUTHORING_ACCEPTANCE_ENVELOPE",
   "envelopeId": "SEM3-AE-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "caseId": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
-  "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+  "reviewStatus": "APPROVED_FOR_CALIBRATION",
   "required": [
     {
       "obligationId": "req-1-three-open-purposes",
@@ -88,7 +88,7 @@
   "admissibleAmbiguities": [
     {
       "ambiguityId": "amb-1-purpose",
-      "description": "L'usage scientifique de l'IRM est indécis.",
+      "description": "L'usage scientifique de l'échographie ovarienne est indécis.",
       "competingInterpretations": [
         "détection",
         "caractérisation",
@@ -198,13 +198,13 @@
       "SCIENTIFIC_DOMAIN",
       "METHODOLOGICAL_SEM"
     ],
-    "notes": "Référence candidate préparée sans exécution SEM, sans provider et sans approbation humaine inventée.",
+    "notes": "Référence revue par trois personas expertes simulées pour développement/calibration uniquement ; aucune revue humaine indépendante n'est revendiquée.",
     "humanAdjudicationPoints": [
       "Confirmer que REQUIRED contient uniquement les obligations nécessaires.",
       "Confirmer la plausibilité et le caractère non exhaustif des candidats optionnels.",
       "Confirmer les équivalences sémantiques au-delà des contrôles structurels."
     ],
-    "status": "REVIEW_REQUIRED"
+    "status": "REFERENCE_STABLE_FOR_VISIBLE_USE"
   },
   "evaluationDemonstrations": []
 }

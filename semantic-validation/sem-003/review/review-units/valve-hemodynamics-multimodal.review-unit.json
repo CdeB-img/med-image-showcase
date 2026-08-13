@@ -1,11 +1,11 @@
 {
   "schemaVersion": "1.0.0",
-  "contractType": "SEM003B3_HUMAN_REVIEW_UNIT",
+  "contractType": "SEM003B3_SIMULATED_REVIEW_UNIT",
   "reviewUnitId": "SEM3B3-RU-DEV-VALVE-HEMODYNAMICS-MULTIMODAL",
   "caseId": "SEM3-DEV-VALVE-HEMODYNAMICS-MULTIMODAL",
   "candidateSet": "DEVELOPMENT",
   "priority": "DEVELOPMENT_EQUIVALENCE",
-  "state": "HUMAN_REVIEW_REQUIRED",
+  "state": "SIMULATED_EQUIVALENCE_RECORDED",
   "identity": {
     "title": "Valvulopathie, hémodynamique et priorité multimodale",
     "domain": "valvulopathies et imagerie cardiovasculaire multimodale",
@@ -338,7 +338,7 @@
   "humanSheetPath": "semantic-validation/sem-003/review/review-units/valve-hemodynamics-multimodal.review.md",
   "equivalencePair": {
     "pairId": "SEM3B3-EQ-VALVE-HEMODYNAMICS-MULTIMODAL",
-    "status": "ADJUDICATION_REQUIRED",
+    "status": "SIMULATED_EXPERT_CONSENSUS_RECORDED",
     "candidateA": {
       "candidateId": "SEM3-EVAL-CAND-VALVE-HEMODYNAMICS-MULTIMODAL-BASELINE",
       "path": "semantic-validation/sem-003/evaluator/fixtures/development/valve-hemodynamics-multimodal-baseline.candidate.json",
@@ -395,9 +395,50 @@
     ]
   },
   "humanDecisionRecords": [],
+  "simulatedReviewRecord": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+  "simulatedRoleOpinions": [
+    {
+      "reviewerId": "REVIEWER_SIM_1",
+      "disposition": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+      "analysis": "Both candidates preserve valve hemodynamics, multimodal observations and their non-interchangeability.",
+      "reservation": null
+    },
+    {
+      "reviewerId": "REVIEWER_SIM_2",
+      "disposition": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+      "analysis": "Modality-specific observations and temporal relations remain unchanged across topologies.",
+      "reservation": null
+    },
+    {
+      "reviewerId": "REVIEWER_SIM_3",
+      "disposition": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+      "analysis": "No modality is promoted to canonical truth and provenance remains reconstructible.",
+      "reservation": null
+    }
+  ],
+  "simulatedDisagreements": [],
+  "simulatedConsensus": {
+    "status": "SIMULATED_EXPERT_CONSENSUS",
+    "rationale": "The distributed representation has the same scientific consequences and ownership constraints.",
+    "decisions": {
+      "SEMANTIC_EQUIVALENCE": "SIMULATED_SEMANTICALLY_EQUIVALENT"
+    },
+    "evaluatorUse": "DEVELOPMENT_ONLY",
+    "independentQualificationEvidence": false
+  },
+  "simulatedDecisions": [
+    {
+      "decisionId": "SEM3B3-SIMDEC-VALVE-HEMODYNAMICS-MULTIMODAL-SEMANTIC-EQUIVALENCE",
+      "reviewType": "SEMANTIC_EQUIVALENCE",
+      "decision": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+      "recommendedDisposition": null,
+      "revisionRef": null
+    }
+  ],
   "limits": [
-    "Codex prepared this unit but is not the human reviewer.",
-    "No scientific, methodological, ambiguity, parentage, equivalence or admission decision is inferred.",
-    "All parentage comparisons are REVIEW_ASSISTANCE_ONLY."
+    "All three reviewer roles are simulated personas, never human reviewers.",
+    "The simulated consensus is usable only for benchmark development and calibration preparation.",
+    "All parentage comparisons are REVIEW_ASSISTANCE_ONLY.",
+    "REAL_HUMAN_REFERENCE_REVIEW is NOT_PERFORMED and FINAL_PD011_REFERENCE_ELIGIBILITY is NO."
   ]
 }

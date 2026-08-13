@@ -1,6 +1,6 @@
 # SEM3B3-RU-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE — Estimation fonctionnelle dérivée du CT, représentation et valeur
 
-**Statut :** `HUMAN_REVIEW_REQUIRED`
+**Statut :** `SIMULATED_EQUIVALENCE_RECORDED`
 
 **Set :** `DEVELOPMENT` · **Priorité :** `DEVELOPMENT_EQUIVALENCE`
 
@@ -98,7 +98,7 @@ Ambiguïtés candidates :
 - `PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED` — `SAFETY_FIDELITY_INVARIANT`, absolue : oui
 - `PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED` — `SCIENTIFIC_UNDERSTANDING_COMPETENCE`, absolue : non
 
-## Open review points
+## Review points hérités de la queue B1
 
 ### `SEM3B1-REVIEW-003` — `SCIENTIFIC_REVIEW_REQUIRED`
 
@@ -144,7 +144,7 @@ Exemples exposés : SEM-002/SEM-003 exposed examples remain ineligible as Calibr
 
 ## Paire d’équivalence B2
 
-**Pair ID :** `SEM3B3-EQ-CT-FUNCTIONAL-ESTIMATE-ROLE` · **État :** `ADJUDICATION_REQUIRED`
+**Pair ID :** `SEM3B3-EQ-CT-FUNCTIONAL-ESTIMATE-ROLE` · **État :** `SIMULATED_EXPERT_CONSENSUS_RECORDED`
 
 - Candidate A : `SEM3-EVAL-CAND-CT-FUNCTIONAL-ESTIMATE-ROLE-BASELINE` — profil `CONSOLIDATED`.
 - Candidate B : `SEM3-EVAL-CAND-CT-FUNCTIONAL-ESTIMATE-ROLE-DISTRIBUTED` — profil `DISTRIBUTED_EQUIVALENT`.
@@ -160,54 +160,29 @@ Contrôles Level 1 observés : les deux candidats déclarent les mêmes obligati
 
 **Limite :** cette égalité contractuelle ne prouve pas l’équivalence scientifique. L’humain doit comparer conséquences scientifiques, statuts épistémiques, unknowns, clarification, ownership et provenance.
 
-## Decision form
+## Revue et disposition
 
-**SCIENTIFIC_REFERENCE**
+### Avis séparés des trois personas
 
-- [ ] `ACCEPT`
-- [ ] `ACCEPT_WITH_REVISION`
-- [ ] `REJECT`
-- [ ] `NEEDS_SPECIALIST_REVIEW`
+- **REVIEWER_SIM_1** — `SIMULATED_SEMANTICALLY_EQUIVALENT` — Both candidates preserve the distinction between a CT-derived functional estimate, its role and the underlying phenomenon.
+- **REVIEWER_SIM_2** — `SIMULATED_SEMANTICALLY_EQUIVALENT` — The distributed representation changes topology but not method, measure, unknowns or admissible clarification.
+- **REVIEWER_SIM_3** — `SIMULATED_SEMANTICALLY_EQUIVALENT` — Critical obligations, prohibitions, provenance and ownership consequences are identical.
 
-**AMBIGUITY**
+### Désaccords et résolution
 
-- [ ] `AMBIGUITY_CONFIRMED`
-- [ ] `AMBIGUITY_REVISED`
-- [ ] `NOT_ACTUALLY_AMBIGUOUS`
-- [ ] `SPECIALIST_REVIEW_REQUIRED`
+- Aucun désaccord non résolu.
 
-**METHODOLOGICAL_REFERENCE**
+### Consensus simulé
 
-- [ ] `ACCEPT`
-- [ ] `ACCEPT_WITH_REVISION`
-- [ ] `REJECT`
-- [ ] `NEEDS_SPECIALIST_REVIEW`
-- [ ] `NOT_REQUIRED`
+The structural difference is non-semantic for the complete obligation vector.
 
-**SEMANTIC_EQUIVALENCE**
-
-- [ ] `SEMANTICALLY_EQUIVALENT`
-- [ ] `NONCRITICAL_VARIATION`
-- [ ] `NOT_EQUIVALENT`
-- [ ] `NOT_ADJUDICABLE`
-
-**Rationale :**
-
-**Reviewer reference (pseudonyme stable accepté) :**
-
-**Reviewer role / compétence :**
-
-**Indépendance pour le périmètre déclaré :** `INDEPENDENT_FOR_STATED_SCOPE` / `NOT_INDEPENDENT`
-
-**Conflit :** `NO_CONFLICT_DECLARED` / `CONFLICT_DECLARED_AND_MANAGED` / `CONFLICT_REQUIRES_SECOND_REVIEW`
-
-**Date :**
+- `SEMANTIC_EQUIVALENCE` → `SIMULATED_SEMANTICALLY_EQUIVALENT` (SEM3B3-SIMDEC-CT-FUNCTIONAL-ESTIMATE-ROLE-SEMANTIC-EQUIVALENCE)
 
 **Impact d’exposition :** `DEVELOPMENT_VISIBLE_UNCHANGED` ; aucune promotion Calibration ou blind n’est possible depuis cette fiche.
 
 ## Règles de preuve
 
-- Au moins trois évaluateurs indépendants doivent établir une référence experte critique conformément à PD-011.
-- Codex n’est pas reviewer humain et n’enregistre aucune décision dans cette phase.
+- Les trois rôles enregistrés ici sont des personas simulées et ne valent jamais revue humaine.
+- La revue simulée peut rendre une référence visible pour la calibration de développement, sans satisfaire la preuve confirmatoire PD-011.
 - Toute révision doit préciser le delta ; toute décision incomplète reste ouverte.
-- La décision structurée future doit respecter `semantic-validation/sem-003/review/contracts/human-decision-record.schema.json`.
+- La trace structurée respecte `semantic-validation/sem-003/review/contracts/simulated-pluralistic-review-record.schema.json`.

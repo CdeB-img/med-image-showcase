@@ -1,11 +1,11 @@
 {
   "schemaVersion": "1.0.0",
-  "contractType": "SEM003B3_HUMAN_REVIEW_UNIT",
+  "contractType": "SEM003B3_SIMULATED_REVIEW_UNIT",
   "reviewUnitId": "SEM3B3-RU-CAL-CONGENITAL-FLOW-ELLIPSIS",
   "caseId": "SEM3-CAL-CONGENITAL-FLOW-ELLIPSIS",
   "candidateSet": "CALIBRATION",
   "priority": "CALIBRATION_GATE",
-  "state": "HUMAN_REVIEW_REQUIRED",
+  "state": "CALIBRATION_VISIBLE_SIMULATED_REVIEW",
   "identity": {
     "title": "Flux cardiovasculaire congénital et ellipses tardives",
     "domain": "cardiologie congénitale et imagerie de flux",
@@ -23,9 +23,9 @@
     "acceptanceEnvelope": "1.0.0"
   },
   "sourceDigests": {
-    "caseSha256": "459dd2949f7b828d05614910665a6ac15d68f49edfbdefa3985bb4c988b0da10",
-    "acceptanceEnvelopeSha256": "d89950581dca659b9803914cc394ea1691ded61da95c4e062f074248bfb5ba51",
-    "pairSha256": "bbd26d462451ba45c7e733211a6525854cb0fde97f27a4846b2c62de1c79f1f9"
+    "caseSha256": "204d9c9f4c0d88234f9bb8e07f40eec243932eeabc8d2c1dcd923e163501cb1a",
+    "acceptanceEnvelopeSha256": "176e7dfba9bb60c82f459c1f2e46cdbfc2e307bdad579f5bbb2bd3f9f64f731b",
+    "pairSha256": "424c475d0ce348d21b8c5965a13a1f74c12968a1601139a53c23cff8f25d1add"
   },
   "scientificRequest": {
     "sourceRequest": "Tour 1: Je veux comparer le flux avant et après correction chirurgicale.\nTour 2: La cohorte concerne des adultes avec une cardiopathie congénitale.\nTour 3: On a deux régions vasculaires d'intérêt.\nTour 4: La première est bien couverte, la seconde seulement chez certains.\nTour 5: Et pour ceux-là, au suivi tardif ?\nTour 6: Je parle des patients qui ont les deux régions mesurées.\nTour 7: Finalement la seconde région reste exploratoire.\nTour 8: La comparaison principale porte sur la première, avec l'historique de cette correction.",
@@ -255,7 +255,7 @@
     "PARENTAGE"
   ],
   "exposureImpact": {
-    "currentStatus": "DESIGN_ONLY",
+    "currentStatus": "CALIBRATION_VISIBLE",
     "acceptedAfterAllApplicableGates": "CALIBRATION_VISIBLE",
     "rejected": "REJECTED_WITH_HISTORY_PRESERVED",
     "specialistReview": "HUMAN_REVIEW_REQUIRED_AND_NO_PROMOTION",
@@ -413,10 +413,13 @@
     ],
     "b1HistoricalAudit": {
       "caseId": "SEM3-CAL-CONGENITAL-FLOW-ELLIPSIS",
-      "disposition": "PARENTAGE_REVIEW_REQUIRED",
+      "disposition": "SIMULATED_PARENTAGE_CLEAR",
       "independenceNote": "Ellipses sur sous-groupe et régions de flux avec correction de priorité ; structure non dérivée des cas Development.",
       "obviousContaminationIdentified": false,
-      "eligibleForCalibrationBeforeReview": false
+      "eligibleForCalibrationBeforeReview": false,
+      "eligibleForDevelopmentCalibrationAfterSimulatedReview": true,
+      "eligibleForFormalIndependentQualification": false,
+      "reviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW"
     },
     "exposedExampleComparison": "SEM-002/SEM-003 exposed examples remain ineligible as Calibration sources; no reuse was declared by B1.",
     "historicalComparison": "B1 compared originalRequest only across H01-H30 and reported no source reuse; this is not an independent human conclusion.",
@@ -426,9 +429,77 @@
   "humanSheetPath": "semantic-validation/sem-003/review/review-units/congenital-flow-ellipsis.review.md",
   "equivalencePair": null,
   "humanDecisionRecords": [],
+  "simulatedReviewRecord": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+  "simulatedRoleOpinions": [
+    {
+      "reviewerId": "REVIEWER_SIM_1",
+      "disposition": "SIMULATED_ACCEPT",
+      "analysis": "The elliptical continuation remains anchored to congenital flow while the missing anatomical and measurement details stay unknown.",
+      "reservation": null
+    },
+    {
+      "reviewerId": "REVIEWER_SIM_2",
+      "disposition": "SIMULATED_ACCEPT",
+      "analysis": "The reference does not infer a specific observable or acquisition and correctly requests clarification only where decisionally useful.",
+      "reservation": null
+    },
+    {
+      "reviewerId": "REVIEWER_SIM_3",
+      "disposition": "SIMULATED_ACCEPT",
+      "analysis": "Provenance across turns and ownership boundaries remain reconstructible; no Development source is reused.",
+      "reservation": null
+    }
+  ],
+  "simulatedDisagreements": [],
+  "simulatedConsensus": {
+    "status": "SIMULATED_EXPERT_CONSENSUS",
+    "rationale": "The multi-turn reference is stable because it preserves the ellipse without silently completing it.",
+    "decisions": {
+      "SCIENTIFIC_REFERENCE": "SIMULATED_ACCEPT",
+      "METHODOLOGICAL_REFERENCE": "SIMULATED_ACCEPT",
+      "PARENTAGE": "SIMULATED_PARENTAGE_CLEAR",
+      "CALIBRATION_ADMISSION": "SIMULATED_APPROVE_FOR_CALIBRATION"
+    },
+    "referenceDisposition": "CALIBRATION_VISIBLE",
+    "referenceReviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+    "eligibleForFormalIndependentQualification": false,
+    "eligibleForBlindQualification": false,
+    "revision": null
+  },
+  "simulatedDecisions": [
+    {
+      "decisionId": "SEM3B3-SIMDEC-CONGENITAL-FLOW-ELLIPSIS-CALIBRATION-ADMISSION",
+      "reviewType": "CALIBRATION_ADMISSION",
+      "decision": "SIMULATED_APPROVE_FOR_CALIBRATION",
+      "recommendedDisposition": "CALIBRATION_VISIBLE",
+      "revisionRef": null
+    },
+    {
+      "decisionId": "SEM3B3-SIMDEC-CONGENITAL-FLOW-ELLIPSIS-METHODOLOGICAL-REFERENCE",
+      "reviewType": "METHODOLOGICAL_REFERENCE",
+      "decision": "SIMULATED_ACCEPT",
+      "recommendedDisposition": null,
+      "revisionRef": null
+    },
+    {
+      "decisionId": "SEM3B3-SIMDEC-CONGENITAL-FLOW-ELLIPSIS-PARENTAGE",
+      "reviewType": "PARENTAGE",
+      "decision": "SIMULATED_PARENTAGE_CLEAR",
+      "recommendedDisposition": null,
+      "revisionRef": null
+    },
+    {
+      "decisionId": "SEM3B3-SIMDEC-CONGENITAL-FLOW-ELLIPSIS-SCIENTIFIC-REFERENCE",
+      "reviewType": "SCIENTIFIC_REFERENCE",
+      "decision": "SIMULATED_ACCEPT",
+      "recommendedDisposition": null,
+      "revisionRef": null
+    }
+  ],
   "limits": [
-    "Codex prepared this unit but is not the human reviewer.",
-    "No scientific, methodological, ambiguity, parentage, equivalence or admission decision is inferred.",
-    "All parentage comparisons are REVIEW_ASSISTANCE_ONLY."
+    "All three reviewer roles are simulated personas, never human reviewers.",
+    "The simulated consensus is usable only for benchmark development and calibration preparation.",
+    "All parentage comparisons are REVIEW_ASSISTANCE_ONLY.",
+    "REAL_HUMAN_REFERENCE_REVIEW is NOT_PERFORMED and FINAL_PD011_REFERENCE_ELIGIBILITY is NO."
   ]
 }

@@ -1,19 +1,22 @@
 {
   "schemaVersion": "1.0.0",
   "contractType": "SEM003B3_REVIEW_UNIT_MANIFEST",
-  "packetId": "SEM-003B3-HUMAN-REFERENCE-REVIEW-PACKET",
+  "packetId": "SEM-003B3-SIMULATED-PLURALISTIC-EXPERT-REVIEW",
   "version": "1.0.0",
-  "generatedAt": "2026-08-13T19:05:53.000Z",
-  "status": "HUMAN_REVIEW_REQUIRED",
-  "decision": "SEM003B3_HUMAN_REVIEW_PACKET_READY_DECISIONS_REQUIRED",
+  "generatedAt": "2026-08-13T20:24:00.000Z",
+  "status": "SIMULATED_CALIBRATION_REFERENCE_SET_READY",
+  "decision": "SEM003B3_SIMULATED_CALIBRATION_REFERENCE_SET_READY",
   "counts": {
     "reviewUnits": 25,
-    "priorityHumanSheets": 15,
+    "priorityReviewSheets": 15,
     "calibrationReviewUnits": 10,
     "equivalenceReviewUnits": 5,
     "nonblockingDevelopmentUnits": 10,
     "originalReviewQueueItems": 62,
-    "humanDecisionsRecorded": 0
+    "simulatedReviewerPersonas": 3,
+    "simulatedDecisionsRecorded": 48,
+    "realHumanDecisionsRecorded": 0,
+    "calibrationVisible": 10
   },
   "units": [
     {
@@ -33,7 +36,8 @@
         "PARENTAGE",
         "AMBIGUITY"
       ],
-      "humanSheetPath": "semantic-validation/sem-003/review/review-units/atrial-fibrosis-ablation.review.md"
+      "reviewSheetPath": "semantic-validation/sem-003/review/review-units/atrial-fibrosis-ablation.review.md",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1"
     },
     {
       "reviewUnitId": "SEM3B3-RU-CAL-CARDIO-RHYTHM-REMODELING",
@@ -52,7 +56,8 @@
         "PARENTAGE",
         "METHODOLOGICAL_REFERENCE"
       ],
-      "humanSheetPath": "semantic-validation/sem-003/review/review-units/cardio-rhythm-remodeling.review.md"
+      "reviewSheetPath": "semantic-validation/sem-003/review/review-units/cardio-rhythm-remodeling.review.md",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1"
     },
     {
       "reviewUnitId": "SEM3B3-RU-CAL-CONGENITAL-FLOW-ELLIPSIS",
@@ -69,7 +74,8 @@
         "CALIBRATION_ADMISSION",
         "PARENTAGE"
       ],
-      "humanSheetPath": "semantic-validation/sem-003/review/review-units/congenital-flow-ellipsis.review.md"
+      "reviewSheetPath": "semantic-validation/sem-003/review/review-units/congenital-flow-ellipsis.review.md",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1"
     },
     {
       "reviewUnitId": "SEM3B3-RU-CAL-CORTISOL-SAMPLING-SUMMARY",
@@ -88,7 +94,8 @@
         "PARENTAGE",
         "METHODOLOGICAL_REFERENCE"
       ],
-      "humanSheetPath": "semantic-validation/sem-003/review/review-units/cortisol-sampling-summary.review.md"
+      "reviewSheetPath": "semantic-validation/sem-003/review/review-units/cortisol-sampling-summary.review.md",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1"
     },
     {
       "reviewUnitId": "SEM3B3-RU-CAL-MSK-INFLAMMATION-RESPONSE",
@@ -105,7 +112,8 @@
         "CALIBRATION_ADMISSION",
         "PARENTAGE"
       ],
-      "humanSheetPath": "semantic-validation/sem-003/review/review-units/msk-inflammation-response.review.md"
+      "reviewSheetPath": "semantic-validation/sem-003/review/review-units/msk-inflammation-response.review.md",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1"
     },
     {
       "reviewUnitId": "SEM3B3-RU-CAL-NEURODEGENERATION-PROGRESSION",
@@ -124,7 +132,8 @@
         "PARENTAGE",
         "METHODOLOGICAL_REFERENCE"
       ],
-      "humanSheetPath": "semantic-validation/sem-003/review/review-units/neurodegeneration-progression.review.md"
+      "reviewSheetPath": "semantic-validation/sem-003/review/review-units/neurodegeneration-progression.review.md",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1"
     },
     {
       "reviewUnitId": "SEM3B3-RU-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
@@ -143,7 +152,8 @@
         "PARENTAGE",
         "METHODOLOGICAL_REFERENCE"
       ],
-      "humanSheetPath": "semantic-validation/sem-003/review/review-units/organoid-live-signal-measurement.review.md"
+      "reviewSheetPath": "semantic-validation/sem-003/review/review-units/organoid-live-signal-measurement.review.md",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1"
     },
     {
       "reviewUnitId": "SEM3B3-RU-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
@@ -164,7 +174,8 @@
         "AMBIGUITY",
         "METHODOLOGICAL_REFERENCE"
       ],
-      "humanSheetPath": "semantic-validation/sem-003/review/review-units/ovarian-ultrasound-ambiguity.review.md"
+      "reviewSheetPath": "semantic-validation/sem-003/review/review-units/ovarian-ultrasound-ambiguity.review.md",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1"
     },
     {
       "reviewUnitId": "SEM3B3-RU-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
@@ -183,7 +194,8 @@
         "PARENTAGE",
         "METHODOLOGICAL_REFERENCE"
       ],
-      "humanSheetPath": "semantic-validation/sem-003/review/review-units/pulmonary-hemodynamics-followup.review.md"
+      "reviewSheetPath": "semantic-validation/sem-003/review/review-units/pulmonary-hemodynamics-followup.review.md",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1"
     },
     {
       "reviewUnitId": "SEM3B3-RU-CAL-TRIAL-COMPARATOR-DECISION",
@@ -202,7 +214,8 @@
         "PARENTAGE",
         "AMBIGUITY"
       ],
-      "humanSheetPath": "semantic-validation/sem-003/review/review-units/trial-comparator-decision.review.md"
+      "reviewSheetPath": "semantic-validation/sem-003/review/review-units/trial-comparator-decision.review.md",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1"
     },
     {
       "reviewUnitId": "SEM3B3-RU-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
@@ -220,7 +233,8 @@
         "METHODOLOGICAL_REFERENCE",
         "SEMANTIC_EQUIVALENCE"
       ],
-      "humanSheetPath": "semantic-validation/sem-003/review/review-units/ct-functional-estimate-role.review.md"
+      "reviewSheetPath": "semantic-validation/sem-003/review/review-units/ct-functional-estimate-role.review.md",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1"
     },
     {
       "reviewUnitId": "SEM3B3-RU-DEV-OUTCOME-PRIORITY-CHANGE",
@@ -234,7 +248,8 @@
         "SCIENTIFIC_REFERENCE",
         "SEMANTIC_EQUIVALENCE"
       ],
-      "humanSheetPath": "semantic-validation/sem-003/review/review-units/outcome-priority-change.review.md"
+      "reviewSheetPath": "semantic-validation/sem-003/review/review-units/outcome-priority-change.review.md",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1"
     },
     {
       "reviewUnitId": "SEM3B3-RU-DEV-PERICARDIAL-FAT-NONCAUSAL",
@@ -248,7 +263,8 @@
         "SCIENTIFIC_REFERENCE",
         "SEMANTIC_EQUIVALENCE"
       ],
-      "humanSheetPath": "semantic-validation/sem-003/review/review-units/pericardial-fat-noncausal.review.md"
+      "reviewSheetPath": "semantic-validation/sem-003/review/review-units/pericardial-fat-noncausal.review.md",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1"
     },
     {
       "reviewUnitId": "SEM3B3-RU-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
@@ -264,7 +280,8 @@
         "AMBIGUITY",
         "SEMANTIC_EQUIVALENCE"
       ],
-      "humanSheetPath": "semantic-validation/sem-003/review/review-units/retinal-vascular-outcome-unknown.review.md"
+      "reviewSheetPath": "semantic-validation/sem-003/review/review-units/retinal-vascular-outcome-unknown.review.md",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1"
     },
     {
       "reviewUnitId": "SEM3B3-RU-DEV-VALVE-HEMODYNAMICS-MULTIMODAL",
@@ -278,7 +295,8 @@
         "SCIENTIFIC_REFERENCE",
         "SEMANTIC_EQUIVALENCE"
       ],
-      "humanSheetPath": "semantic-validation/sem-003/review/review-units/valve-hemodynamics-multimodal.review.md"
+      "reviewSheetPath": "semantic-validation/sem-003/review/review-units/valve-hemodynamics-multimodal.review.md",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1"
     },
     {
       "reviewUnitId": "SEM3B3-RU-DEV-BODY-COMPOSITION-AMBIGUITY",
@@ -295,7 +313,8 @@
         "AMBIGUITY",
         "METHODOLOGICAL_REFERENCE"
       ],
-      "humanSheetPath": null
+      "reviewSheetPath": null,
+      "simulatedReviewId": null
     },
     {
       "reviewUnitId": "SEM3B3-RU-DEV-CARDIAC-AGING-TRAJECTORY",
@@ -308,7 +327,8 @@
       "decisionRequirements": [
         "SCIENTIFIC_REFERENCE"
       ],
-      "humanSheetPath": null
+      "reviewSheetPath": null,
+      "simulatedReviewId": null
     },
     {
       "reviewUnitId": "SEM3B3-RU-DEV-CORONARY-PERFUSION-PRIORITY",
@@ -321,7 +341,8 @@
       "decisionRequirements": [
         "SCIENTIFIC_REFERENCE"
       ],
-      "humanSheetPath": null
+      "reviewSheetPath": null,
+      "simulatedReviewId": null
     },
     {
       "reviewUnitId": "SEM3B3-RU-DEV-INFLAMMATION-MULTIDIMENSIONAL",
@@ -334,7 +355,8 @@
       "decisionRequirements": [
         "SCIENTIFIC_REFERENCE"
       ],
-      "humanSheetPath": null
+      "reviewSheetPath": null,
+      "simulatedReviewId": null
     },
     {
       "reviewUnitId": "SEM3B3-RU-DEV-INTESTINAL-MOTILITY-METHOD",
@@ -351,7 +373,8 @@
         "AMBIGUITY",
         "METHODOLOGICAL_REFERENCE"
       ],
-      "humanSheetPath": null
+      "reviewSheetPath": null,
+      "simulatedReviewId": null
     },
     {
       "reviewUnitId": "SEM3B3-RU-DEV-PANCREATIC-COMPOSITION-LONGITUDINAL",
@@ -364,7 +387,8 @@
       "decisionRequirements": [
         "SCIENTIFIC_REFERENCE"
       ],
-      "humanSheetPath": null
+      "reviewSheetPath": null,
+      "simulatedReviewId": null
     },
     {
       "reviewUnitId": "SEM3B3-RU-DEV-PLAQUE-INTERVENTION-CONTEXT",
@@ -377,7 +401,8 @@
       "decisionRequirements": [
         "SCIENTIFIC_REFERENCE"
       ],
-      "humanSheetPath": null
+      "reviewSheetPath": null,
+      "simulatedReviewId": null
     },
     {
       "reviewUnitId": "SEM3B3-RU-DEV-ROUTINE-DATA-COMPARATOR-GAP",
@@ -392,7 +417,8 @@
         "SCIENTIFIC_REFERENCE",
         "AMBIGUITY"
       ],
-      "humanSheetPath": null
+      "reviewSheetPath": null,
+      "simulatedReviewId": null
     },
     {
       "reviewUnitId": "SEM3B3-RU-DEV-TRANSLATIONAL-HYPOXIA-CANDIDATES",
@@ -405,7 +431,8 @@
       "decisionRequirements": [
         "SCIENTIFIC_REFERENCE"
       ],
-      "humanSheetPath": null
+      "reviewSheetPath": null,
+      "simulatedReviewId": null
     },
     {
       "reviewUnitId": "SEM3B3-RU-DEV-TRIAL-IMAGING-OUTCOME-CORRECTION",
@@ -418,7 +445,8 @@
       "decisionRequirements": [
         "SCIENTIFIC_REFERENCE"
       ],
-      "humanSheetPath": null
+      "reviewSheetPath": null,
+      "simulatedReviewId": null
     }
   ],
   "evaluator": {
@@ -428,216 +456,236 @@
   },
   "inventory": [
     {
-      "path": "docs/sem-003b3-human-reference-review-packet.md",
-      "sha256": "32d90b9c0f09955beb60be0d7adac0aabe72ea1ef44970fbb8537cd4238ce6d4"
+      "path": "docs/sem-003b3-simulated-pluralistic-expert-review-record.md",
+      "sha256": "2196ab43d80088340eaf0b44e6c973207e553fac9904e06286ed67751686305e"
     },
     {
       "path": "semantic-validation/sem-003/review/artifacts/anti-overfitting-audit.json",
-      "sha256": "014d30de82cadc7395afdf30cebd75904f7d8f74514152fbf2ea38db78b4ec3c"
+      "sha256": "fc740d1844a2e81f3ef03232d1d675c9f489e0b062fbd76ca3071c6d9314a5f3"
     },
     {
       "path": "semantic-validation/sem-003/review/artifacts/calibration-gate-status.json",
-      "sha256": "de004a65c32ab82c707c86bd7a41c62a0befb8f0c390ba3286cbe73143d3c82b"
+      "sha256": "37d468939835540c1c74dfe693edcbb45ffc93bb073fbd10ddb6dac2a2decd9a"
+    },
+    {
+      "path": "semantic-validation/sem-003/review/artifacts/calibration-reference-set.json",
+      "sha256": "e1823212a23f1aee60bc62bd0c0e73ff13ffa63b042f3211b6a9e4793698cbf6"
     },
     {
       "path": "semantic-validation/sem-003/review/artifacts/decision-table.json",
-      "sha256": "a4c07397a78fe7d44781620ccebfa5bf90ad72d4792c602b70c9859d25427c85"
+      "sha256": "7a2601731c34aeb70c2906637d8732f26af4fb8a78f0e5548178639c979046e9"
     },
     {
       "path": "semantic-validation/sem-003/review/artifacts/equivalence-review-status.json",
-      "sha256": "3589fba3c9fda8aaf294485dc07b180de650af18a58cdb28a280eae44e8c0fe6"
+      "sha256": "d389cf630da5dde5481c21f6b02aaf3cafb02b2e4acdb0c39f1adc4a670ab824"
     },
     {
       "path": "semantic-validation/sem-003/review/artifacts/human-decision-import-template.json",
       "sha256": "5c8867b5d3d2b6b773efa180dde0c2d0bf0d0a9c53f2f83c4415fb9da05ee291"
     },
     {
+      "path": "semantic-validation/sem-003/review/artifacts/reference-revision-lineage.json",
+      "sha256": "a20266146f58d1b6d4d9495959673eb5276d14dbca0eb21d8b1777fbdd2408d2"
+    },
+    {
       "path": "semantic-validation/sem-003/review/artifacts/reference-version-registry.json",
-      "sha256": "a2238cb0161998be89f4f1e0c455034b269a90403a186733fefd754597f47df2"
+      "sha256": "dacb49c41d4c40b96d4e0cf45d64f665e416fd8a1246f4060a171ac41df0ecf3"
     },
     {
       "path": "semantic-validation/sem-003/review/artifacts/review-progress.json",
-      "sha256": "b12ec96894b08137edf0dad208d0a1cb43bb40a5268188139ff8d8062a0888e5"
+      "sha256": "5b271c70b38cd507ff475daa9d3dd596ea82f008d049ef7cc76e3c6b8450f277"
     },
     {
       "path": "semantic-validation/sem-003/review/contracts/human-decision-record.schema.json",
       "sha256": "9fa3450edf08db8f3e329e8532f394d1f17ac9f31d201c8082f9658631e59c21"
     },
     {
+      "path": "semantic-validation/sem-003/review/contracts/simulated-pluralistic-review-record.schema.json",
+      "sha256": "5b01e23a5c6ece952c9b3422d96afe541c10ebb2066d950e3b41a8c65efc64af"
+    },
+    {
       "path": "semantic-validation/sem-003/review/decision-records/README.md",
-      "sha256": "22e2d8954e626c6a86f981b217f21b3c961be4a5cd82071b27199820ef80c293"
+      "sha256": "4747e5f173925e3db31aeae6ec25e5b130f5084230478e581299351c1791d3b2"
+    },
+    {
+      "path": "semantic-validation/sem-003/review/decision-records/sem003b3-simulated-pluralistic-expert-review.json",
+      "sha256": "a48ca63d5e7ed25064f7a78a4ad626e01b117c2b4f466fad7652005e7123362e"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/atrial-fibrosis-ablation.review-unit.json",
-      "sha256": "94eb3068522ae64fc3b40f9419127943ddcef9213b817352f1054dca8adf8ff7"
+      "sha256": "1bdce6b3119a3ae4783bd76ff2fd7b47079e2ae229ab52b63d3ae395e7306456"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/atrial-fibrosis-ablation.review.md",
-      "sha256": "fc61f16ae263df66b07c330619c894003ed09fb993dbd3d1611aa4df3cb27cbe"
+      "sha256": "32bb6883a3e84040504f42d41ffa7087cd6cffb99fab8c2f69630cbb7b0297fd"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/body-composition-ambiguity.review-unit.json",
-      "sha256": "596074752fcfbd968d8d1f5d60abdb4100d28663163048f5dd6e9481b991a0d6"
+      "sha256": "e220e1da81ff54bd76592b18696868c70702965b3b7519c6f2a9ade5aaef8e34"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/cardiac-aging-trajectory.review-unit.json",
-      "sha256": "cf6e8083a520742f1706b9680a2bac0325d831f592c1485de74669526fd20b25"
+      "sha256": "8e07f5d759ad0ece7204960fa3c8a7e5f23a935c146bed6537d2d591580d1992"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/cardio-rhythm-remodeling.review-unit.json",
-      "sha256": "c43c31a6cf4617e5ae730ad86c0eb661b6c85411272630d973110a793749e411"
+      "sha256": "23c46abad2e0afb074bccdc5d58b7e0b1434202d6637a40713a0755305bd2b10"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/cardio-rhythm-remodeling.review.md",
-      "sha256": "53b962d058c046a1ad1001e3740cefdee5713c0cb07d79c64d6153f06f4f2371"
+      "sha256": "8931fd7a0b3f6ad7f38f4b0ba5bc5e21b2de5814bfb891c22a7f6e16bbe8f01e"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/congenital-flow-ellipsis.review-unit.json",
-      "sha256": "ebe0d4815147656dd56bb72443a25dc32ef985d999074553c84c9fcb6331c92b"
+      "sha256": "767bd695b068d0fa6bbcf36adf3304d795d07c902aa90729078704dc539c656f"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/congenital-flow-ellipsis.review.md",
-      "sha256": "59beeee11129576b776c2cf76187cd46eb15099179cd5c398299c6f609b62f4d"
+      "sha256": "a15ed9c65ba330ec8d272ba46e3282cd9691049876eb3e803f8be41259ee6b3e"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/coronary-perfusion-priority.review-unit.json",
-      "sha256": "4242723decc36eed748e93ae9030fa5f47ede7b63a623b82053fc650af40f727"
+      "sha256": "8dc95c5232857c52f38cdb1f2844e4233947ac3a8b4e01935c540618cfe2bba1"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/cortisol-sampling-summary.review-unit.json",
-      "sha256": "5c4c5003803e9963bb1dc9e6b18634c04eee16d3ed2065a2d928393a984346db"
+      "sha256": "a1c9efe0512d7be4bf73f74436146f6614322db63cecde2fd9dbf5f0d203bd58"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/cortisol-sampling-summary.review.md",
-      "sha256": "79548594af3a15033bc551a8945cdd0a5dba16b99b03a7a0216710db30269954"
+      "sha256": "56b4588ad57180f82c81d9970ad67a843c070c7b12202b5affa83435e791c92a"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/ct-functional-estimate-role.review-unit.json",
-      "sha256": "2fa88698dd0b47f7dc852733152820251cc5601263e33e33a99d521a6b7bb281"
+      "sha256": "2721173e5246f24e94d73760f052c09f7230f5d96432f1fe5de6096e62c803a8"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/ct-functional-estimate-role.review.md",
-      "sha256": "a227ddf6e53737969f421409444f15b87a736c45a3eeaac51b6260331c3db700"
+      "sha256": "e27dcd12624247d71e1b648bf4e6e9b59f8636597a9f71335942870aa504d594"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/inflammation-multidimensional.review-unit.json",
-      "sha256": "f1fe5e2b959447b982124921beaa96a57dd4c5dcd86cffa687f9d1639225f90c"
+      "sha256": "d823a5a8c7a05d933b1c2d6cef654c6de096d7037bd70871e76c9aaf4ef9511d"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/intestinal-motility-method.review-unit.json",
-      "sha256": "fd1911a708746e80d28df77d7b265af5f6fcb4e3d40cc6d4539ae5283c4ec011"
+      "sha256": "496dd8e84c5228ba7f226089b004ad85807c715e91de69a6abd875aa3267801e"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/msk-inflammation-response.review-unit.json",
-      "sha256": "a87f0d3e88ccc2f58dc0bfe4b3f392a8ee77f4f61b3b2d2d19e4392a11248479"
+      "sha256": "f17610244d19c7d027a8711846b2b99db5a636bc6017b994909ac58aa9eb93dc"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/msk-inflammation-response.review.md",
-      "sha256": "a213d9b81e9969e95f8cd86528849914be4863eaf003229f1d2cb680a2d38899"
+      "sha256": "1ebfe8c598e4c6dee485a18fb2a5a28324a57a609d595969cfa14b3b93bbee77"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/neurodegeneration-progression.review-unit.json",
-      "sha256": "949bb9156176c577f21603a096d77f0c65461bb7b02c4449e2d88f65e1fb2a29"
+      "sha256": "1abc4b259c5fc056dd2b0e94498a858a89d7c558cad0af7643d1b9834dd268c0"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/neurodegeneration-progression.review.md",
-      "sha256": "98622325df91aac2ef879f00285082593fc96bb15470eca4d8638d540d821e91"
+      "sha256": "79b2a8f48a91468360c47e2cb45b7def0e7c903ba421e5f55dc2834baeb2f9a6"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/organoid-live-signal-measurement.review-unit.json",
-      "sha256": "ac143ed0dbe8997568781674f175dfac232bec5a931d08109b0b2ad432b21eb9"
+      "sha256": "c26a8df3a5abdd75f2978c3a60af52897f309c1fed79f27805730350e5e516bf"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/organoid-live-signal-measurement.review.md",
-      "sha256": "497d4424822678aefe58b224781adb0c62ae3fdda9f0289464ac05a6032a1b21"
+      "sha256": "0338a41d5314d8e47189c25de122365e8f85534a75cc703faddcec02e5f363fc"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/outcome-priority-change.review-unit.json",
-      "sha256": "385c7ebd719620fe53822b0c808be6491950190005386a38280fec60f4892d8a"
+      "sha256": "16437453ecd8c90922c95953d4b022909bffb50c41aef733e7ffa28cc2ee73b0"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/outcome-priority-change.review.md",
-      "sha256": "2c289816aa127c46ba997cae2daa184c47eb30bdf62521fbd9952ed91c85a1ba"
+      "sha256": "8d573a9fdbc4852950583f7ff5bf842aec74e8c7e46e84c73c126c629d7ebdca"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/ovarian-ultrasound-ambiguity.review-unit.json",
-      "sha256": "3edcd50145ed03a44cd668f44365e75394fd31fc1f0eb21281d0c8f70b55155d"
+      "sha256": "675c5573db1f9993c90347bcc0cb4c6fb5653c6d7373cc5aa1070997c7a42abe"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/ovarian-ultrasound-ambiguity.review.md",
-      "sha256": "34abc6cae975473af27e280f31159ec3bc19eef032ceb8af6daf969284aef149"
+      "sha256": "58b9a23274475b4f57be9c22f04bd379569de376dc2b8077e476b6c41512ce95"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/pancreatic-composition-longitudinal.review-unit.json",
-      "sha256": "59d19b880ea285a109bbe8d69f9b81fba58c7ded1b9efc0489a46f7815e6662c"
+      "sha256": "3ed10c8bc59435baeddb8d23561488eeda3d2fb33e48e58da321c042b3ab2a85"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/pericardial-fat-noncausal.review-unit.json",
-      "sha256": "d5dafc5972dcbbc12bdfcd225d111d4290a4e6115b16261310b005273bd2d10c"
+      "sha256": "6a316cee3be5563e6860f0d75b8e2bbeb66b38bc318cc3692d74835b0f27f19a"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/pericardial-fat-noncausal.review.md",
-      "sha256": "aa320a30d87ffa452dbb4306de2333b506eb873c60ea58b931e16a95c8201306"
+      "sha256": "04aec4bceb4110365f65bcec345e82e15806cbb20f8ba2948ca68be71202c53d"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/plaque-intervention-context.review-unit.json",
-      "sha256": "c678387eccfd4d6b66492b601816254ed33f3ee8e020a9896383ee75cf7ca7ea"
+      "sha256": "f4c127d8c0066923f42b8dc3c844755e1020288efa0110de0d786431276ced9e"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/pulmonary-hemodynamics-followup.review-unit.json",
-      "sha256": "3b042ffbdf07b0f98cd42eb9044fb7417e6a2bb76ba2a979cf6bcdf75c1d6334"
+      "sha256": "20f73cd267d10e3eaecf3b670773c5b93651a8e7ce96943d5a13fd1e4b60a095"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/pulmonary-hemodynamics-followup.review.md",
-      "sha256": "3023055d97e320acf7556552a808cf743be77eb75b24783a82fdb6cf3cd2561b"
+      "sha256": "5c98d6e1c684ced3cf76229531c3de4a30cccea1dc03d00ef9b15f7df1a9db74"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/retinal-vascular-outcome-unknown.review-unit.json",
-      "sha256": "8a6080de8fed2ee7c343ab999c34e81f7c7c8882afae3d760128ae101f8a1ba0"
+      "sha256": "b8982624efbf7911647a30f939b3eaa45497b4d359890e828477363a9567ae3f"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/retinal-vascular-outcome-unknown.review.md",
-      "sha256": "e90a0761ea4278e49d6de4b3ee6480a28e6d509b15c29488f96f717100863f4b"
+      "sha256": "a0a98fd263c1b10a9f34d422ad6ac37293f54bd72372296bc33d9ca4d8b8043c"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/routine-data-comparator-gap.review-unit.json",
-      "sha256": "3cf3c28e30024f2e0790ee781061639f9987bffde08b0379dd08450925369fa3"
+      "sha256": "6df559624e4d0aad51b5fc1c0ab41729d2260f40bcb831957005afe57891136f"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/translational-hypoxia-candidates.review-unit.json",
-      "sha256": "42850d3b7f5b357dcc8f339c5e285df2ebedf08b54b542fb4c0dc9c67818f633"
+      "sha256": "a248c9ffcf96b8e6941b50323f05acee5364199a5457bd4e3d409ad35c0bf1b3"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/trial-comparator-decision.review-unit.json",
-      "sha256": "288e3d344147eb915aef1ed200a08237004c93a7bc00eb676a8a745845429c22"
+      "sha256": "99d81417b0efdd194f0a0b0d7aaca4a2c795aa171a6edc73791041c26bebae82"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/trial-comparator-decision.review.md",
-      "sha256": "43a5230ca04e9311fb4125bc9aaf02aaac3d76ad2639605fc717745cd8508d0d"
+      "sha256": "e04639f1d2f4b626568d65ea6cbc4108064ce37e5352bf765dd9b0729d927683"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/trial-imaging-outcome-correction.review-unit.json",
-      "sha256": "3537225288d01bed30b56c018b5d0a4bd5e667fa0a67388757faa70515adbb6c"
+      "sha256": "77c19d8c6d60426e581511f11acd214a7f9c1ca0566c3cf0e60071d546028995"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/valve-hemodynamics-multimodal.review-unit.json",
-      "sha256": "270354d7acbbaabd56ed89a6e144a860081285fc8b16aeb25e1665053d605260"
+      "sha256": "b1e2c58be62b8d090d9f75e671b79b7cfc3c00f5edc5ecfe95bcf755f355ed60"
     },
     {
       "path": "semantic-validation/sem-003/review/review-units/valve-hemodynamics-multimodal.review.md",
-      "sha256": "9b4999381187a1987ae03c4aa9be0cf5c35613f927c0d9e2fe41f96813170f88"
+      "sha256": "09c5a561811a0fe1ef8b4ed51d2ce8dac8e87bf3a736f0e9ef4dc255a750d719"
     },
     {
       "path": "semantic-validation/sem-003/review/tools/generate-review-packet.mjs",
-      "sha256": "2e9883d05003cfdf74047782b1018b6af64c90e2abe300a1f5388069b0d06866"
+      "sha256": "a13293678e6dbbaff7846ae0c7499ff4e57b443d2c5cb60f2dfcb10f7c3dfcd5"
+    },
+    {
+      "path": "semantic-validation/sem-003/review/tools/simulated-review-source.mjs",
+      "sha256": "f7eb8381a137585ca396c6512bb24712353e6e92407d58c95b50ea5fe5390adf"
     },
     {
       "path": "semantic-validation/sem-003/review/validator/review-workflow.mjs",
-      "sha256": "1d25202c1efc2d636619cc4fbb58f27eb158dc89ea32cff23448af581e19152c"
+      "sha256": "9ecd494a444c0500143143e1e52282270b9ff6fca287303dbcfddeb91e94c7d5"
     },
     {
       "path": "semantic-validation/sem-003/review/validator/review-workflow.test.mjs",
-      "sha256": "293ebcdc484dcc65995eecda692c40ee03d3008c8b20d5777ce93d595fc5811b"
+      "sha256": "175ccc7cdf38cd229a6d11f848ee60e5d65d4e5ae3ed3faf594d7298c478adec"
     },
     {
       "path": "semantic-validation/sem-003/review/validator/validate.mjs",
@@ -645,9 +693,8 @@
     }
   ],
   "exclusions": [
-    "No human decision record",
-    "No Calibration promotion",
-    "No Calibration Reference Set manifest",
+    "No real human decision record",
+    "No formal independent qualification evidence",
     "No evaluator modification",
     "No SEM execution",
     "No LLM/provider call",

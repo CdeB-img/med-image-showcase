@@ -1,127 +1,218 @@
 {
   "schemaVersion": "1.0.0",
   "contractType": "SEM003B3_REFERENCE_VERSION_REGISTRY",
-  "generatedAt": "2026-08-13T19:05:53.000Z",
+  "generatedAt": "2026-08-13T20:24:00.000Z",
   "references": [
     {
       "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
       "currentCaseVersion": "1.0.0",
       "currentEnvelopeVersion": "1.0.0",
-      "caseSha256": "a70533d22b4aaba8d291ec55ab8193639c6b68f251197e0ae1f9827f2aa622c8",
-      "envelopeSha256": "dbfad83bdff14c24117d009e794522d9b31545c61c06aebb01d5679326e64939",
-      "pairSha256": "cc9d53f4bb8499cb9c49889b332390fe19b68eb1dd8f93a7b52e3971c1a9ebb9",
+      "caseSha256": "db4cf85f64019a68ef47eaa7ce5faee7acbe945721ba22af0aafb44b22203cd9",
+      "envelopeSha256": "726ff43336c037f0da8513b0b9e587016227392b39140d02ec068e82aa504286",
+      "pairSha256": "c1cd867d868857f9ca9efed5131283da41030124df0ed0a53a2ccf73d63f7af1",
       "previousVersions": [],
       "resultingVersions": [],
-      "humanDecisionIds": [],
-      "modifiedInB3PacketPreparation": false
+      "simulatedDecisionIds": [
+        "SEM3B3-SIMDEC-ATRIAL-FIBROSIS-ABLATION-AMBIGUITY",
+        "SEM3B3-SIMDEC-ATRIAL-FIBROSIS-ABLATION-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-ATRIAL-FIBROSIS-ABLATION-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-ATRIAL-FIBROSIS-ABLATION-PARENTAGE",
+        "SEM3B3-SIMDEC-ATRIAL-FIBROSIS-ABLATION-SCIENTIFIC-REFERENCE"
+      ],
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "modifiedInB3PacketPreparation": false,
+      "modifiedInSimulatedReview": false
     },
     {
       "caseId": "SEM3-CAL-CARDIO-RHYTHM-REMODELING",
       "currentCaseVersion": "1.0.0",
       "currentEnvelopeVersion": "1.0.0",
-      "caseSha256": "d0983d80ab51554cb59361fb394c78caa6af7dd506e725972cadbdc56dacf929",
-      "envelopeSha256": "249e193ae951eb44c639ecce5ddfaf9f9d27d6d675996993a4cf23171e9878de",
-      "pairSha256": "d1f84fd76de584d542c157cf9075548fc2fb3cc6fd18eebb94bc20af67c0545e",
+      "caseSha256": "616e95e4a54f0ff2f9c321b04821810642f9e7750da23ad88bd415bbf4445f94",
+      "envelopeSha256": "54ab48c0c30b5e06256b4cee8ecbf213c46c90d5444377810726524b5f5be222",
+      "pairSha256": "1df00581ffaacd270454c1ecc4789d5c867cf719179f8c9662af150d24e8dcc6",
       "previousVersions": [],
       "resultingVersions": [],
-      "humanDecisionIds": [],
-      "modifiedInB3PacketPreparation": false
+      "simulatedDecisionIds": [
+        "SEM3B3-SIMDEC-CARDIO-RHYTHM-REMODELING-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-CARDIO-RHYTHM-REMODELING-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-CARDIO-RHYTHM-REMODELING-PARENTAGE",
+        "SEM3B3-SIMDEC-CARDIO-RHYTHM-REMODELING-SCIENTIFIC-REFERENCE"
+      ],
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "modifiedInB3PacketPreparation": false,
+      "modifiedInSimulatedReview": false
     },
     {
       "caseId": "SEM3-CAL-CONGENITAL-FLOW-ELLIPSIS",
       "currentCaseVersion": "1.0.0",
       "currentEnvelopeVersion": "1.0.0",
-      "caseSha256": "459dd2949f7b828d05614910665a6ac15d68f49edfbdefa3985bb4c988b0da10",
-      "envelopeSha256": "d89950581dca659b9803914cc394ea1691ded61da95c4e062f074248bfb5ba51",
-      "pairSha256": "bbd26d462451ba45c7e733211a6525854cb0fde97f27a4846b2c62de1c79f1f9",
+      "caseSha256": "204d9c9f4c0d88234f9bb8e07f40eec243932eeabc8d2c1dcd923e163501cb1a",
+      "envelopeSha256": "176e7dfba9bb60c82f459c1f2e46cdbfc2e307bdad579f5bbb2bd3f9f64f731b",
+      "pairSha256": "424c475d0ce348d21b8c5965a13a1f74c12968a1601139a53c23cff8f25d1add",
       "previousVersions": [],
       "resultingVersions": [],
-      "humanDecisionIds": [],
-      "modifiedInB3PacketPreparation": false
+      "simulatedDecisionIds": [
+        "SEM3B3-SIMDEC-CONGENITAL-FLOW-ELLIPSIS-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-CONGENITAL-FLOW-ELLIPSIS-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-CONGENITAL-FLOW-ELLIPSIS-PARENTAGE",
+        "SEM3B3-SIMDEC-CONGENITAL-FLOW-ELLIPSIS-SCIENTIFIC-REFERENCE"
+      ],
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "modifiedInB3PacketPreparation": false,
+      "modifiedInSimulatedReview": false
     },
     {
       "caseId": "SEM3-CAL-CORTISOL-SAMPLING-SUMMARY",
       "currentCaseVersion": "1.0.0",
       "currentEnvelopeVersion": "1.0.0",
-      "caseSha256": "8b548aaf65904294fdb7bf6856b1b66666d6b17a834a480d0bc06afaf1b6dace",
-      "envelopeSha256": "598a761174337f184802ffe016f3e9751d2d64918f3ac8d8e7aac9466a3d633d",
-      "pairSha256": "0fb85248d35aa18231dceba32103a79c0b319362fac9acb0237ec815fbb71086",
+      "caseSha256": "c2cfc56a212769c835fd0f6e68c6ddb018e66b8033a62c5b42be0addee619c58",
+      "envelopeSha256": "baf379d02aa5f76d711361a39b12bb4ab34202266e4553b3b94edf0d01e6fb69",
+      "pairSha256": "193076f26c6be3a8a880262132140cad00c2c16225dff459faeeed5905ea5207",
       "previousVersions": [],
       "resultingVersions": [],
-      "humanDecisionIds": [],
-      "modifiedInB3PacketPreparation": false
+      "simulatedDecisionIds": [
+        "SEM3B3-SIMDEC-CORTISOL-SAMPLING-SUMMARY-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-CORTISOL-SAMPLING-SUMMARY-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-CORTISOL-SAMPLING-SUMMARY-PARENTAGE",
+        "SEM3B3-SIMDEC-CORTISOL-SAMPLING-SUMMARY-SCIENTIFIC-REFERENCE"
+      ],
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "modifiedInB3PacketPreparation": false,
+      "modifiedInSimulatedReview": false
     },
     {
       "caseId": "SEM3-CAL-MSK-INFLAMMATION-RESPONSE",
       "currentCaseVersion": "1.0.0",
       "currentEnvelopeVersion": "1.0.0",
-      "caseSha256": "863c10469d69d70ccf4a37fb92c2a4f9156a001caae7f51eff184e20165c2660",
-      "envelopeSha256": "42ecb8ba23d1abda54105798bf9b1ffa9e0f9052c11e97f4a88b6611d0f7d616",
-      "pairSha256": "8e7c6546f9d6837790c477f3f20abaac9fbb74cbb1cfce04dadfbd9a64c10ccf",
+      "caseSha256": "16e86f3fe97a9411a64cc069beffdfde0590d4a957251f618edce44048218410",
+      "envelopeSha256": "b05f560a8ad588ad4b7a67eba7843bc1f8d5e60bb0330c3f25598432e7477cbf",
+      "pairSha256": "e9f38d34c61f7eb27a24735212f1a76f2871cb924057e8f352d27c57e28e64f1",
       "previousVersions": [],
       "resultingVersions": [],
-      "humanDecisionIds": [],
-      "modifiedInB3PacketPreparation": false
+      "simulatedDecisionIds": [
+        "SEM3B3-SIMDEC-MSK-INFLAMMATION-RESPONSE-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-MSK-INFLAMMATION-RESPONSE-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-MSK-INFLAMMATION-RESPONSE-PARENTAGE",
+        "SEM3B3-SIMDEC-MSK-INFLAMMATION-RESPONSE-SCIENTIFIC-REFERENCE"
+      ],
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "modifiedInB3PacketPreparation": false,
+      "modifiedInSimulatedReview": false
     },
     {
       "caseId": "SEM3-CAL-NEURODEGENERATION-PROGRESSION",
       "currentCaseVersion": "1.0.0",
       "currentEnvelopeVersion": "1.0.0",
-      "caseSha256": "20b93a500c3a3790753f5cdb114910c9c8f30612db17ed47647bc49920592713",
-      "envelopeSha256": "67377da31474d4816de96a26149c980a7af8dc14f5a6be79caada1ff139478eb",
-      "pairSha256": "ef3b6e72f5f14f72b4fc019450f85a026e793b963a91d2bd6946f4f99844fe77",
+      "caseSha256": "487f54444666204f7ad93ed5b3f1e8f345a1ab78ce1c902c7f7361cb504d6cbf",
+      "envelopeSha256": "300a7a6a85568b5fee06eb6c3ac44957d19759bd937d8c349831d27b791bd576",
+      "pairSha256": "7e03a795977e32fadfd62f2f4e3e3c4d979460cbfdb18ab30ed72865f53904cd",
       "previousVersions": [],
       "resultingVersions": [],
-      "humanDecisionIds": [],
-      "modifiedInB3PacketPreparation": false
+      "simulatedDecisionIds": [
+        "SEM3B3-SIMDEC-NEURODEGENERATION-PROGRESSION-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-NEURODEGENERATION-PROGRESSION-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-NEURODEGENERATION-PROGRESSION-PARENTAGE",
+        "SEM3B3-SIMDEC-NEURODEGENERATION-PROGRESSION-SCIENTIFIC-REFERENCE"
+      ],
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "modifiedInB3PacketPreparation": false,
+      "modifiedInSimulatedReview": false
     },
     {
       "caseId": "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
       "currentCaseVersion": "1.0.0",
       "currentEnvelopeVersion": "1.0.0",
-      "caseSha256": "fc26f8761d591de9942e8f2dce53d581838a95e7c8d3d94ab78313138f01feee",
-      "envelopeSha256": "6a179cd0b1033bb22a7b3de2279087dbe1749f4a14e524689d2aab45e5507496",
-      "pairSha256": "5431058892524022da656522bf9d29fa0b9c7f97419c5b86368d0a9add028e04",
+      "caseSha256": "65d2d270a6c7a2460aed21dc5600d81b91e1923abf49ef69cd76d38f72d46468",
+      "envelopeSha256": "7f0e07a251cf343fea1ebc03db59f1e47f49c2c9dbe377b2afc905750fc4a09c",
+      "pairSha256": "640747f1bf5e01368db1285ae201f9df603f79c1059222b4b83d4b1c1f4ccab6",
       "previousVersions": [],
       "resultingVersions": [],
-      "humanDecisionIds": [],
-      "modifiedInB3PacketPreparation": false
+      "simulatedDecisionIds": [
+        "SEM3B3-SIMDEC-ORGANOID-LIVE-SIGNAL-MEASUREMENT-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-ORGANOID-LIVE-SIGNAL-MEASUREMENT-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-ORGANOID-LIVE-SIGNAL-MEASUREMENT-PARENTAGE",
+        "SEM3B3-SIMDEC-ORGANOID-LIVE-SIGNAL-MEASUREMENT-SCIENTIFIC-REFERENCE"
+      ],
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "modifiedInB3PacketPreparation": false,
+      "modifiedInSimulatedReview": false
     },
     {
       "caseId": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
-      "currentCaseVersion": "1.0.0",
-      "currentEnvelopeVersion": "1.0.0",
-      "caseSha256": "607a9e1bcd206d0df6ca9118efd8dbb74822f9427cce921d959a84861406eee6",
-      "envelopeSha256": "677ebcfee9b54a537bcfe926986f866951a1bd89c0fac20acb1aedbe469fb185",
-      "pairSha256": "a174a9f6802e66dbedb53e0c818d5d568133065d228e1681b49adae3e4428ef1",
-      "previousVersions": [],
-      "resultingVersions": [],
-      "humanDecisionIds": [],
-      "modifiedInB3PacketPreparation": false
+      "currentCaseVersion": "1.0.1",
+      "currentEnvelopeVersion": "1.0.1",
+      "caseSha256": "869f1f9d26ddc43d0120233cafd647227ee1b704e0c15e508f0cc73911b177c4",
+      "envelopeSha256": "a0456b9a01f6a7798231459b401813db3a66dece97c8a2f5f33b7dd5c383478f",
+      "pairSha256": "eb4a1024101480efbd8bfb35ba05f3130fbed67c2a7a6e398fe8cb45160f3103",
+      "previousVersions": [
+        {
+          "caseVersion": "1.0.0",
+          "envelopeVersion": "1.0.0",
+          "caseSha256": "607a9e1bcd206d0df6ca9118efd8dbb74822f9427cce921d959a84861406eee6",
+          "envelopeSha256": "677ebcfee9b54a537bcfe926986f866951a1bd89c0fac20acb1aedbe469fb185",
+          "pairSha256": "a174a9f6802e66dbedb53e0c818d5d568133065d228e1681b49adae3e4428ef1",
+          "sourceGitCommit": "8aad0e7"
+        }
+      ],
+      "resultingVersions": [
+        {
+          "caseVersion": "1.0.1",
+          "envelopeVersion": "1.0.1",
+          "caseSha256": "869f1f9d26ddc43d0120233cafd647227ee1b704e0c15e508f0cc73911b177c4",
+          "envelopeSha256": "a0456b9a01f6a7798231459b401813db3a66dece97c8a2f5f33b7dd5c383478f",
+          "pairSha256": "eb4a1024101480efbd8bfb35ba05f3130fbed67c2a7a6e398fe8cb45160f3103",
+          "revisionId": "SEM3B3-REV-OVARIAN-ULTRASOUND-1-0-1"
+        }
+      ],
+      "simulatedDecisionIds": [
+        "SEM3B3-SIMDEC-OVARIAN-ULTRASOUND-AMBIGUITY-AMBIGUITY",
+        "SEM3B3-SIMDEC-OVARIAN-ULTRASOUND-AMBIGUITY-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-OVARIAN-ULTRASOUND-AMBIGUITY-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-OVARIAN-ULTRASOUND-AMBIGUITY-PARENTAGE",
+        "SEM3B3-SIMDEC-OVARIAN-ULTRASOUND-AMBIGUITY-SCIENTIFIC-REFERENCE"
+      ],
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "modifiedInB3PacketPreparation": false,
+      "modifiedInSimulatedReview": true
     },
     {
       "caseId": "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
       "currentCaseVersion": "1.0.0",
       "currentEnvelopeVersion": "1.0.0",
-      "caseSha256": "0273fb277160b5402ad41f5a05b73c675128a67a43ad28d6a6367f5f5678fe85",
-      "envelopeSha256": "4f21e78ee2317371b73580243f09bd9b14b2c6b9a0d851bcc5f12e6ab9667517",
-      "pairSha256": "ff7f24a6a854faaddbbdfcddbcb316d697f6cdaa34c968c339157efdbed86e1e",
+      "caseSha256": "4835cb0157392bd2d857323897762844e9f3a6022a47150a8c1239fa4ded11b7",
+      "envelopeSha256": "c2c8f6d535ecd8ea3117db9ec09744c5adc800a7f8a821d0aafc6203ee2fa3e1",
+      "pairSha256": "07ba35e34dff8d20d6bbcc050d0f5cf707c03c5966deafdc31485127d0bfed62",
       "previousVersions": [],
       "resultingVersions": [],
-      "humanDecisionIds": [],
-      "modifiedInB3PacketPreparation": false
+      "simulatedDecisionIds": [
+        "SEM3B3-SIMDEC-PULMONARY-HEMODYNAMICS-FOLLOWUP-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-PULMONARY-HEMODYNAMICS-FOLLOWUP-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-PULMONARY-HEMODYNAMICS-FOLLOWUP-PARENTAGE",
+        "SEM3B3-SIMDEC-PULMONARY-HEMODYNAMICS-FOLLOWUP-SCIENTIFIC-REFERENCE"
+      ],
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "modifiedInB3PacketPreparation": false,
+      "modifiedInSimulatedReview": false
     },
     {
       "caseId": "SEM3-CAL-TRIAL-COMPARATOR-DECISION",
       "currentCaseVersion": "1.0.0",
       "currentEnvelopeVersion": "1.0.0",
-      "caseSha256": "7fa62aca71c6d657a4ad8ef26d01ccf56409a31c1729e4addfd4ef8de57e61ab",
-      "envelopeSha256": "cd3eb477c3132e68e906a41b3b507e325ca82c161176c36bc6011f0ffa991f73",
-      "pairSha256": "1651ac51511789d6bcee42261aaea5819ce089a992ad84d115f6b9084f4c32be",
+      "caseSha256": "14568a28f37a1e3c88aa275b09e4a1a0e884610a3f6ce32f033828889904e399",
+      "envelopeSha256": "f7dcc70787456305815e5b6efeb2dafd5baab70e635f84c6dddda3bd95aeda00",
+      "pairSha256": "ba03b37fb8cf74873549b183980abe92c87c9d4cac7b03cc711e71abd4a29da1",
       "previousVersions": [],
       "resultingVersions": [],
-      "humanDecisionIds": [],
-      "modifiedInB3PacketPreparation": false
+      "simulatedDecisionIds": [
+        "SEM3B3-SIMDEC-TRIAL-COMPARATOR-DECISION-AMBIGUITY",
+        "SEM3B3-SIMDEC-TRIAL-COMPARATOR-DECISION-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-TRIAL-COMPARATOR-DECISION-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-TRIAL-COMPARATOR-DECISION-PARENTAGE",
+        "SEM3B3-SIMDEC-TRIAL-COMPARATOR-DECISION-SCIENTIFIC-REFERENCE"
+      ],
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "modifiedInB3PacketPreparation": false,
+      "modifiedInSimulatedReview": false
     },
     {
       "caseId": "SEM3-DEV-BODY-COMPOSITION-AMBIGUITY",
@@ -132,8 +223,10 @@
       "pairSha256": "cf2d7723e194fc05f71c4e788fdff94b1fe51b814cb9c73623da33d127af73a7",
       "previousVersions": [],
       "resultingVersions": [],
-      "humanDecisionIds": [],
-      "modifiedInB3PacketPreparation": false
+      "simulatedDecisionIds": [],
+      "simulatedReviewId": null,
+      "modifiedInB3PacketPreparation": false,
+      "modifiedInSimulatedReview": false
     },
     {
       "caseId": "SEM3-DEV-CARDIAC-AGING-TRAJECTORY",
@@ -144,8 +237,10 @@
       "pairSha256": "c555c849c5f46c8c2eef2efd8fc972bb8e593e88c1060456da20146f663b43ef",
       "previousVersions": [],
       "resultingVersions": [],
-      "humanDecisionIds": [],
-      "modifiedInB3PacketPreparation": false
+      "simulatedDecisionIds": [],
+      "simulatedReviewId": null,
+      "modifiedInB3PacketPreparation": false,
+      "modifiedInSimulatedReview": false
     },
     {
       "caseId": "SEM3-DEV-CORONARY-PERFUSION-PRIORITY",
@@ -156,8 +251,10 @@
       "pairSha256": "a5b5f9a58f47b8b2de5be1bd97e77ce340d7ad0fe0c6b2d474a1ce53ac5f47ff",
       "previousVersions": [],
       "resultingVersions": [],
-      "humanDecisionIds": [],
-      "modifiedInB3PacketPreparation": false
+      "simulatedDecisionIds": [],
+      "simulatedReviewId": null,
+      "modifiedInB3PacketPreparation": false,
+      "modifiedInSimulatedReview": false
     },
     {
       "caseId": "SEM3-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
@@ -168,8 +265,12 @@
       "pairSha256": "20c5a0ea4fdaef690fc9c92ed6ee0a33f3596d2d1bf2aefd57877b8d31a5fedd",
       "previousVersions": [],
       "resultingVersions": [],
-      "humanDecisionIds": [],
-      "modifiedInB3PacketPreparation": false
+      "simulatedDecisionIds": [
+        "SEM3B3-SIMDEC-CT-FUNCTIONAL-ESTIMATE-ROLE-SEMANTIC-EQUIVALENCE"
+      ],
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "modifiedInB3PacketPreparation": false,
+      "modifiedInSimulatedReview": false
     },
     {
       "caseId": "SEM3-DEV-INFLAMMATION-MULTIDIMENSIONAL",
@@ -180,8 +281,10 @@
       "pairSha256": "12750ac0451d46dcabcd4f9f1181bf77e5b48be0f65bc4ed84037405c911860a",
       "previousVersions": [],
       "resultingVersions": [],
-      "humanDecisionIds": [],
-      "modifiedInB3PacketPreparation": false
+      "simulatedDecisionIds": [],
+      "simulatedReviewId": null,
+      "modifiedInB3PacketPreparation": false,
+      "modifiedInSimulatedReview": false
     },
     {
       "caseId": "SEM3-DEV-INTESTINAL-MOTILITY-METHOD",
@@ -192,8 +295,10 @@
       "pairSha256": "8a825e21d8dcf271c53f73223d89217439975e9ed77f924b9475d5830d49eac2",
       "previousVersions": [],
       "resultingVersions": [],
-      "humanDecisionIds": [],
-      "modifiedInB3PacketPreparation": false
+      "simulatedDecisionIds": [],
+      "simulatedReviewId": null,
+      "modifiedInB3PacketPreparation": false,
+      "modifiedInSimulatedReview": false
     },
     {
       "caseId": "SEM3-DEV-OUTCOME-PRIORITY-CHANGE",
@@ -204,8 +309,12 @@
       "pairSha256": "1b3336bc2d397b80d1f025ea6367f1c947ffb0fdec8073a3044bc9c5ca213f25",
       "previousVersions": [],
       "resultingVersions": [],
-      "humanDecisionIds": [],
-      "modifiedInB3PacketPreparation": false
+      "simulatedDecisionIds": [
+        "SEM3B3-SIMDEC-OUTCOME-PRIORITY-CHANGE-SEMANTIC-EQUIVALENCE"
+      ],
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "modifiedInB3PacketPreparation": false,
+      "modifiedInSimulatedReview": false
     },
     {
       "caseId": "SEM3-DEV-PANCREATIC-COMPOSITION-LONGITUDINAL",
@@ -216,8 +325,10 @@
       "pairSha256": "c92a1679cfb1d3a14bd563a15f943bbcb2f0220d269e2778f4c0090296dbef71",
       "previousVersions": [],
       "resultingVersions": [],
-      "humanDecisionIds": [],
-      "modifiedInB3PacketPreparation": false
+      "simulatedDecisionIds": [],
+      "simulatedReviewId": null,
+      "modifiedInB3PacketPreparation": false,
+      "modifiedInSimulatedReview": false
     },
     {
       "caseId": "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL",
@@ -228,8 +339,12 @@
       "pairSha256": "599e88b7a10b84472810c01fbba206945a3d4f59f17e376a8c298ef2ed95634d",
       "previousVersions": [],
       "resultingVersions": [],
-      "humanDecisionIds": [],
-      "modifiedInB3PacketPreparation": false
+      "simulatedDecisionIds": [
+        "SEM3B3-SIMDEC-PERICARDIAL-FAT-NONCAUSAL-SEMANTIC-EQUIVALENCE"
+      ],
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "modifiedInB3PacketPreparation": false,
+      "modifiedInSimulatedReview": false
     },
     {
       "caseId": "SEM3-DEV-PLAQUE-INTERVENTION-CONTEXT",
@@ -240,8 +355,10 @@
       "pairSha256": "1b084a063f778c7a8ca94b2d60c72dfb3101b308679e2bcaabd383fd6bbb5617",
       "previousVersions": [],
       "resultingVersions": [],
-      "humanDecisionIds": [],
-      "modifiedInB3PacketPreparation": false
+      "simulatedDecisionIds": [],
+      "simulatedReviewId": null,
+      "modifiedInB3PacketPreparation": false,
+      "modifiedInSimulatedReview": false
     },
     {
       "caseId": "SEM3-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
@@ -252,8 +369,12 @@
       "pairSha256": "f22cd74cadd3d630e70071fbeabc9501dcb577381393a13e38d91cfe57788fe0",
       "previousVersions": [],
       "resultingVersions": [],
-      "humanDecisionIds": [],
-      "modifiedInB3PacketPreparation": false
+      "simulatedDecisionIds": [
+        "SEM3B3-SIMDEC-RETINAL-VASCULAR-OUTCOME-UNKNOWN-SEMANTIC-EQUIVALENCE"
+      ],
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "modifiedInB3PacketPreparation": false,
+      "modifiedInSimulatedReview": false
     },
     {
       "caseId": "SEM3-DEV-ROUTINE-DATA-COMPARATOR-GAP",
@@ -264,8 +385,10 @@
       "pairSha256": "db30483a04acbfcee726a0fbcd1997499037bb0607f02dd2b799eb4c81fe4128",
       "previousVersions": [],
       "resultingVersions": [],
-      "humanDecisionIds": [],
-      "modifiedInB3PacketPreparation": false
+      "simulatedDecisionIds": [],
+      "simulatedReviewId": null,
+      "modifiedInB3PacketPreparation": false,
+      "modifiedInSimulatedReview": false
     },
     {
       "caseId": "SEM3-DEV-TRANSLATIONAL-HYPOXIA-CANDIDATES",
@@ -276,8 +399,10 @@
       "pairSha256": "93dadf7cb8617751c804bdc64a3fdde6399ccb5ef64f0ae3083af2c2a7baa400",
       "previousVersions": [],
       "resultingVersions": [],
-      "humanDecisionIds": [],
-      "modifiedInB3PacketPreparation": false
+      "simulatedDecisionIds": [],
+      "simulatedReviewId": null,
+      "modifiedInB3PacketPreparation": false,
+      "modifiedInSimulatedReview": false
     },
     {
       "caseId": "SEM3-DEV-TRIAL-IMAGING-OUTCOME-CORRECTION",
@@ -288,8 +413,10 @@
       "pairSha256": "6f8be1d62d0cb0a9578703c757311621eeea7c1a7b8558d3ad55dd36e1e182ca",
       "previousVersions": [],
       "resultingVersions": [],
-      "humanDecisionIds": [],
-      "modifiedInB3PacketPreparation": false
+      "simulatedDecisionIds": [],
+      "simulatedReviewId": null,
+      "modifiedInB3PacketPreparation": false,
+      "modifiedInSimulatedReview": false
     },
     {
       "caseId": "SEM3-DEV-VALVE-HEMODYNAMICS-MULTIMODAL",
@@ -300,8 +427,12 @@
       "pairSha256": "9e79e37aa8ec99e2066a32badc9a64b0829bb4ad06a4108603423fdefd5cb4ec",
       "previousVersions": [],
       "resultingVersions": [],
-      "humanDecisionIds": [],
-      "modifiedInB3PacketPreparation": false
+      "simulatedDecisionIds": [
+        "SEM3B3-SIMDEC-VALVE-HEMODYNAMICS-MULTIMODAL-SEMANTIC-EQUIVALENCE"
+      ],
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "modifiedInB3PacketPreparation": false,
+      "modifiedInSimulatedReview": false
     }
   ]
 }

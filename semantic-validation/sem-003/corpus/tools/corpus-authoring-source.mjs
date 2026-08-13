@@ -734,6 +734,7 @@ export const corpusSpecs = [
   {
     set: "CALIBRATION",
     slug: "OVARIAN-ULTRASOUND-AMBIGUITY",
+    version: "1.0.1",
     title: "Échographie ovarienne et ambiguïté d'usage",
     domain: "imagerie gynécologique et échographie",
     category: "SCIENTIFIC_AMBIGUITY",
@@ -751,7 +752,7 @@ export const corpusSpecs = [
       pro("invent-measurement", "Inventer une mesure ou un endpoint correspondant.", [P.invention], "UNSUPPORTED_INVENTION_FAILURE"),
     ],
     optional: [opt("candidate-purpose-specific-measures", "Mesures propres à chaque finalité comme candidats ultérieurs, non comme exigences.")],
-    ambiguities: [amb("purpose", "L'usage scientifique de l'IRM est indécis.", ["détection", "caractérisation", "suivi"], ["question prioritaire", "population et moment clinique"])],
+    ambiguities: [amb("purpose", "L'usage scientifique de l'échographie ovarienne est indécis.", ["détection", "caractérisation", "suivi"], ["question prioritaire", "population et moment clinique"])],
     clarification: ["REQUIRED", "La finalité détermine la population, les mesures et l'analyse.", ["Finalité scientifique prioritaire"]],
     features: ["AMBIGUITY", "MISSING_INFORMATION", "METHOD_MEASUREMENT", "OWNERSHIP"],
     contextClass: "CONTEXT_REQUIRED_FOR_BASIC_UNDERSTANDING",

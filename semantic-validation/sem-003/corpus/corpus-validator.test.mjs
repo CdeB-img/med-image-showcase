@@ -42,10 +42,14 @@ describe("SEM-003B1 corpus validator", () => {
     assert(resultCodes.has("DEVELOPMENT_EXPOSURE_INVALID"));
   });
 
-  test("keeps Calibration candidates DESIGN_ONLY pending human review", () => {
+  test("keeps simulated Calibration references visible but blind-ineligible", () => {
     const corpus = cloneCorpus();
-    corpus.calibration.cases[0].exposure.eligibleForCalibration = true;
-    assert(codes(validateCorpus(corpus)).has("CALIBRATION_CANDIDATE_GATE_INVALID"));
+    corpus.calibration.cases[0].exposure.eligibleForCalibration = false;
+    assert(
+      codes(validateCorpus(corpus)).has(
+        "CALIBRATION_DEVELOPMENT_REFERENCE_GATE_INVALID",
+      ),
+    );
   });
 
   test("rejects H01-H30 as source material", () => {

@@ -1,0 +1,622 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003B3_SIMULATED_PLURALISTIC_EXPERT_REVIEW_RECORD",
+  "reviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+  "recordedAt": "2026-08-13T20:24:00.000Z",
+  "roles": [
+    {
+      "reviewerId": "REVIEWER_SIM_1",
+      "role": "SCIENTIFIC_DOMAIN_SPECIALIST",
+      "responsibility": "Scientific coherence, REQUIRED, PROHIBITED, OPTIONAL_RELEVANT, plausibility and domain ambiguities."
+    },
+    {
+      "reviewerId": "REVIEWER_SIM_2",
+      "role": "METHODOLOGY_AND_OBS_SPECIALIST",
+      "responsibility": "Method versus measurement, phenomenon versus observable, timing, comparators, clarification and OBS boundaries."
+    },
+    {
+      "reviewerId": "REVIEWER_SIM_3",
+      "role": "SEMANTIC_BENCHMARK_AND_GOVERNANCE_SPECIALIST",
+      "responsibility": "Epistemic status, ownership, semantic equivalence, parentage, contamination and SEM-002/SEM-003 governance."
+    }
+  ],
+  "reviewUnits": [
+    {
+      "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
+      "candidateSet": "CALIBRATION",
+      "roleOpinions": [
+        {
+          "reviewerId": "REVIEWER_SIM_1",
+          "disposition": "SIMULATED_ACCEPT",
+          "analysis": "The scenario preserves atrial fibrosis, ablation and the deliberately open scientific role without creating an outcome.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_2",
+          "disposition": "SIMULATED_ACCEPT",
+          "analysis": "The competing predictive and response-assessment roles remain non-equivalent and require clarification before Project adoption.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_3",
+          "disposition": "SIMULATED_ACCEPT",
+          "analysis": "Optional candidates remain non-user facts; parentage assistance reveals no source reuse and blind eligibility stays forbidden.",
+          "reservation": null
+        }
+      ],
+      "disagreements": [],
+      "consensus": {
+        "status": "SIMULATED_EXPERT_CONSENSUS",
+        "rationale": "The reference is internally coherent and the unresolved role is intentionally represented rather than completed.",
+        "decisions": {
+          "SCIENTIFIC_REFERENCE": "SIMULATED_ACCEPT",
+          "METHODOLOGICAL_REFERENCE": "SIMULATED_ACCEPT",
+          "AMBIGUITY": "SIMULATED_AMBIGUITY_CONFIRMED",
+          "PARENTAGE": "SIMULATED_PARENTAGE_CLEAR",
+          "CALIBRATION_ADMISSION": "SIMULATED_APPROVE_FOR_CALIBRATION"
+        },
+        "referenceDisposition": "CALIBRATION_VISIBLE",
+        "referenceReviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+        "eligibleForFormalIndependentQualification": false,
+        "eligibleForBlindQualification": false,
+        "revision": null
+      }
+    },
+    {
+      "caseId": "SEM3-CAL-CARDIO-RHYTHM-REMODELING",
+      "candidateSet": "CALIBRATION",
+      "roleOpinions": [
+        {
+          "reviewerId": "REVIEWER_SIM_1",
+          "disposition": "SIMULATED_ACCEPT",
+          "analysis": "Rhythm, structural remodeling and their longitudinal association remain distinct scientific constructs.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_2",
+          "disposition": "SIMULATED_ACCEPT",
+          "analysis": "Timing and measurement ownership are preserved without treating a method as the measured phenomenon.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_3",
+          "disposition": "SIMULATED_ACCEPT",
+          "analysis": "The envelope forbids causal promotion and Project adoption of contextual candidates; parentage is sufficiently distinct for development calibration.",
+          "reservation": null
+        }
+      ],
+      "disagreements": [],
+      "consensus": {
+        "status": "SIMULATED_EXPERT_CONSENSUS",
+        "rationale": "The reference separates phenomenon, observation and association with adequate prohibitions.",
+        "decisions": {
+          "SCIENTIFIC_REFERENCE": "SIMULATED_ACCEPT",
+          "METHODOLOGICAL_REFERENCE": "SIMULATED_ACCEPT",
+          "PARENTAGE": "SIMULATED_PARENTAGE_CLEAR",
+          "CALIBRATION_ADMISSION": "SIMULATED_APPROVE_FOR_CALIBRATION"
+        },
+        "referenceDisposition": "CALIBRATION_VISIBLE",
+        "referenceReviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+        "eligibleForFormalIndependentQualification": false,
+        "eligibleForBlindQualification": false,
+        "revision": null
+      }
+    },
+    {
+      "caseId": "SEM3-CAL-CONGENITAL-FLOW-ELLIPSIS",
+      "candidateSet": "CALIBRATION",
+      "roleOpinions": [
+        {
+          "reviewerId": "REVIEWER_SIM_1",
+          "disposition": "SIMULATED_ACCEPT",
+          "analysis": "The elliptical continuation remains anchored to congenital flow while the missing anatomical and measurement details stay unknown.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_2",
+          "disposition": "SIMULATED_ACCEPT",
+          "analysis": "The reference does not infer a specific observable or acquisition and correctly requests clarification only where decisionally useful.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_3",
+          "disposition": "SIMULATED_ACCEPT",
+          "analysis": "Provenance across turns and ownership boundaries remain reconstructible; no Development source is reused.",
+          "reservation": null
+        }
+      ],
+      "disagreements": [],
+      "consensus": {
+        "status": "SIMULATED_EXPERT_CONSENSUS",
+        "rationale": "The multi-turn reference is stable because it preserves the ellipse without silently completing it.",
+        "decisions": {
+          "SCIENTIFIC_REFERENCE": "SIMULATED_ACCEPT",
+          "METHODOLOGICAL_REFERENCE": "SIMULATED_ACCEPT",
+          "PARENTAGE": "SIMULATED_PARENTAGE_CLEAR",
+          "CALIBRATION_ADMISSION": "SIMULATED_APPROVE_FOR_CALIBRATION"
+        },
+        "referenceDisposition": "CALIBRATION_VISIBLE",
+        "referenceReviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+        "eligibleForFormalIndependentQualification": false,
+        "eligibleForBlindQualification": false,
+        "revision": null
+      }
+    },
+    {
+      "caseId": "SEM3-CAL-CORTISOL-SAMPLING-SUMMARY",
+      "candidateSet": "CALIBRATION",
+      "roleOpinions": [
+        {
+          "reviewerId": "REVIEWER_SIM_1",
+          "disposition": "SIMULATED_ACCEPT",
+          "analysis": "The cortisol series and the desire for a quantitative summary are preserved without inventing a biological interpretation.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_2",
+          "disposition": "SIMULATED_ACCEPT",
+          "analysis": "Sampling times, summary choice and measurement definition remain separate, with the summary explicitly unresolved.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_3",
+          "disposition": "SIMULATED_ACCEPT",
+          "analysis": "Candidate summaries are not promoted to user decisions and the case has no material parentage with visible examples.",
+          "reservation": null
+        }
+      ],
+      "disagreements": [],
+      "consensus": {
+        "status": "SIMULATED_EXPERT_CONSENSUS",
+        "rationale": "The reference is suitable for calibration of under-specification and method-versus-measurement handling.",
+        "decisions": {
+          "SCIENTIFIC_REFERENCE": "SIMULATED_ACCEPT",
+          "METHODOLOGICAL_REFERENCE": "SIMULATED_ACCEPT",
+          "PARENTAGE": "SIMULATED_PARENTAGE_CLEAR",
+          "CALIBRATION_ADMISSION": "SIMULATED_APPROVE_FOR_CALIBRATION"
+        },
+        "referenceDisposition": "CALIBRATION_VISIBLE",
+        "referenceReviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+        "eligibleForFormalIndependentQualification": false,
+        "eligibleForBlindQualification": false,
+        "revision": null
+      }
+    },
+    {
+      "caseId": "SEM3-CAL-MSK-INFLAMMATION-RESPONSE",
+      "candidateSet": "CALIBRATION",
+      "roleOpinions": [
+        {
+          "reviewerId": "REVIEWER_SIM_1",
+          "disposition": "SIMULATED_ACCEPT",
+          "analysis": "Inflammatory response, musculoskeletal context and longitudinal comparison remain explicit without unsupported treatment effect.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_2",
+          "disposition": "SIMULATED_ACCEPT",
+          "analysis": "The response construct and candidate observables remain separated; missing operational measures are visible.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_3",
+          "disposition": "SIMULATED_ACCEPT",
+          "analysis": "Causal and adoption prohibitions are explicit, while parentage metadata does not indicate derivation.",
+          "reservation": null
+        }
+      ],
+      "disagreements": [],
+      "consensus": {
+        "status": "SIMULATED_EXPERT_CONSENSUS",
+        "rationale": "The envelope preserves the scientific response question while preventing unsupported measurement and causal promotion.",
+        "decisions": {
+          "SCIENTIFIC_REFERENCE": "SIMULATED_ACCEPT",
+          "METHODOLOGICAL_REFERENCE": "SIMULATED_ACCEPT",
+          "PARENTAGE": "SIMULATED_PARENTAGE_CLEAR",
+          "CALIBRATION_ADMISSION": "SIMULATED_APPROVE_FOR_CALIBRATION"
+        },
+        "referenceDisposition": "CALIBRATION_VISIBLE",
+        "referenceReviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+        "eligibleForFormalIndependentQualification": false,
+        "eligibleForBlindQualification": false,
+        "revision": null
+      }
+    },
+    {
+      "caseId": "SEM3-CAL-NEURODEGENERATION-PROGRESSION",
+      "candidateSet": "CALIBRATION",
+      "roleOpinions": [
+        {
+          "reviewerId": "REVIEWER_SIM_1",
+          "disposition": "SIMULATED_ACCEPT",
+          "analysis": "Progression is preserved as the scientific phenomenon and is not collapsed into a single imaging or clinical marker.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_2",
+          "disposition": "SIMULATED_ACCEPT",
+          "analysis": "Longitudinal timing and the distinction between progression and its observables are correctly represented.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_3",
+          "disposition": "SIMULATED_ACCEPT",
+          "analysis": "Unknown marker choice and ownership remain open; the scenario is original relative to Development and legacy material.",
+          "reservation": null
+        }
+      ],
+      "disagreements": [],
+      "consensus": {
+        "status": "SIMULATED_EXPERT_CONSENSUS",
+        "rationale": "The reference is stable for testing phenomenon-versus-observable separation.",
+        "decisions": {
+          "SCIENTIFIC_REFERENCE": "SIMULATED_ACCEPT",
+          "METHODOLOGICAL_REFERENCE": "SIMULATED_ACCEPT",
+          "PARENTAGE": "SIMULATED_PARENTAGE_CLEAR",
+          "CALIBRATION_ADMISSION": "SIMULATED_APPROVE_FOR_CALIBRATION"
+        },
+        "referenceDisposition": "CALIBRATION_VISIBLE",
+        "referenceReviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+        "eligibleForFormalIndependentQualification": false,
+        "eligibleForBlindQualification": false,
+        "revision": null
+      }
+    },
+    {
+      "caseId": "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+      "candidateSet": "CALIBRATION",
+      "roleOpinions": [
+        {
+          "reviewerId": "REVIEWER_SIM_1",
+          "disposition": "SIMULATED_ACCEPT",
+          "analysis": "Biological response, live signal and terminal histology are distinct, and the reference avoids claiming that signal directly measures proliferation.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_2",
+          "disposition": "SIMULATED_ACCEPT",
+          "analysis": "The pronoun correction, terminal timing and hypothesis-only relation models are methodologically evaluable without selecting a quantitative model.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_3",
+          "disposition": "SIMULATED_ACCEPT",
+          "analysis": "The specialist relationship remains an explicit downstream unknown; this does not prevent calibration of semantic preservation and ownership boundaries.",
+          "reservation": null
+        }
+      ],
+      "disagreements": [
+        {
+          "subject": "Need for an additional organoid specialist before development calibration",
+          "positions": {
+            "REVIEWER_SIM_1": "Useful for future scientific enrichment, but not required to judge the explicit semantic separations.",
+            "REVIEWER_SIM_2": "Not required because the relation model is deliberately unselected and non-promoted.",
+            "REVIEWER_SIM_3": "May remain a final-qualification limitation but does not block a simulated calibration reference."
+          },
+          "resolution": "Admit for development calibration only; preserve the specialist limitation and prohibit formal qualification use."
+        }
+      ],
+      "consensus": {
+        "status": "SIMULATED_EXPERT_CONSENSUS",
+        "rationale": "No unresolved biological assertion is required for the benchmark judgment; specialized model selection remains outside the reference.",
+        "decisions": {
+          "SCIENTIFIC_REFERENCE": "SIMULATED_ACCEPT",
+          "METHODOLOGICAL_REFERENCE": "SIMULATED_ACCEPT",
+          "PARENTAGE": "SIMULATED_PARENTAGE_CLEAR",
+          "CALIBRATION_ADMISSION": "SIMULATED_APPROVE_FOR_CALIBRATION"
+        },
+        "referenceDisposition": "CALIBRATION_VISIBLE",
+        "referenceReviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+        "eligibleForFormalIndependentQualification": false,
+        "eligibleForBlindQualification": false,
+        "revision": null
+      }
+    },
+    {
+      "caseId": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+      "candidateSet": "CALIBRATION",
+      "roleOpinions": [
+        {
+          "reviewerId": "REVIEWER_SIM_1",
+          "disposition": "SIMULATED_ACCEPT_WITH_REVISION",
+          "analysis": "The intended modality is ovarian ultrasound; MRI is an objective documentary error, while detection, characterization and follow-up remain the real ambiguity.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_2",
+          "disposition": "SIMULATED_ACCEPT_WITH_REVISION",
+          "analysis": "Correcting the modality does not resolve the scientific-purpose alternatives or alter the expected clarification.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_3",
+          "disposition": "SIMULATED_ACCEPT_WITH_REVISION",
+          "analysis": "A bounded versioned correction with before/after digests is required; no other reference content may change.",
+          "reservation": null
+        }
+      ],
+      "disagreements": [],
+      "consensus": {
+        "status": "SIMULATED_EXPERT_CONSENSUS",
+        "rationale": "After the objective modality correction, the reference is coherent and retains all three admissible scientific-purpose interpretations.",
+        "decisions": {
+          "SCIENTIFIC_REFERENCE": "SIMULATED_ACCEPT_WITH_REVISION",
+          "METHODOLOGICAL_REFERENCE": "SIMULATED_ACCEPT_WITH_REVISION",
+          "AMBIGUITY": "SIMULATED_AMBIGUITY_REVISED",
+          "PARENTAGE": "SIMULATED_PARENTAGE_CLEAR",
+          "CALIBRATION_ADMISSION": "SIMULATED_APPROVE_FOR_CALIBRATION"
+        },
+        "referenceDisposition": "CALIBRATION_VISIBLE",
+        "referenceReviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+        "eligibleForFormalIndependentQualification": false,
+        "eligibleForBlindQualification": false,
+        "revision": {
+          "revisionId": "SEM3B3-REV-OVARIAN-ULTRASOUND-1-0-1",
+          "previousVersion": "1.0.0",
+          "resultingVersion": "1.0.1",
+          "change": "Replace MRI with ovarian ultrasound in the ambiguity description only."
+        }
+      }
+    },
+    {
+      "caseId": "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
+      "candidateSet": "CALIBRATION",
+      "roleOpinions": [
+        {
+          "reviewerId": "REVIEWER_SIM_1",
+          "disposition": "SIMULATED_ACCEPT",
+          "analysis": "Pulmonary hemodynamics and follow-up remain explicit without presuming a disease mechanism or endpoint hierarchy.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_2",
+          "disposition": "SIMULATED_ACCEPT",
+          "analysis": "Partial modality availability and follow-up timing remain reconstructible and do not become inclusion requirements.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_3",
+          "disposition": "SIMULATED_ACCEPT",
+          "analysis": "The reference preserves conditionality, provenance and ownership; parentage is sufficiently distinct.",
+          "reservation": null
+        }
+      ],
+      "disagreements": [],
+      "consensus": {
+        "status": "SIMULATED_EXPERT_CONSENSUS",
+        "rationale": "The case is stable for calibration of timing, partial availability and non-promotion.",
+        "decisions": {
+          "SCIENTIFIC_REFERENCE": "SIMULATED_ACCEPT",
+          "METHODOLOGICAL_REFERENCE": "SIMULATED_ACCEPT",
+          "PARENTAGE": "SIMULATED_PARENTAGE_CLEAR",
+          "CALIBRATION_ADMISSION": "SIMULATED_APPROVE_FOR_CALIBRATION"
+        },
+        "referenceDisposition": "CALIBRATION_VISIBLE",
+        "referenceReviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+        "eligibleForFormalIndependentQualification": false,
+        "eligibleForBlindQualification": false,
+        "revision": null
+      }
+    },
+    {
+      "caseId": "SEM3-CAL-TRIAL-COMPARATOR-DECISION",
+      "candidateSet": "CALIBRATION",
+      "roleOpinions": [
+        {
+          "reviewerId": "REVIEWER_SIM_1",
+          "disposition": "SIMULATED_ACCEPT",
+          "analysis": "The six-month utilization outcome candidate is preserved while the comparator remains genuinely undecided.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_2",
+          "disposition": "SIMULATED_ACCEPT",
+          "analysis": "Contemporary usual care and a pre-deployment period imply different designs and temporal references and must remain open.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_3",
+          "disposition": "SIMULATED_ACCEPT",
+          "analysis": "The benchmark permits data inventory to proceed but forbids adopting a comparator; parentage does not show reuse.",
+          "reservation": null
+        }
+      ],
+      "disagreements": [],
+      "consensus": {
+        "status": "SIMULATED_EXPERT_CONSENSUS",
+        "rationale": "The reference correctly captures partial progress and a high-value clarification without choosing the comparative design.",
+        "decisions": {
+          "SCIENTIFIC_REFERENCE": "SIMULATED_ACCEPT",
+          "METHODOLOGICAL_REFERENCE": "SIMULATED_ACCEPT",
+          "AMBIGUITY": "SIMULATED_AMBIGUITY_CONFIRMED",
+          "PARENTAGE": "SIMULATED_PARENTAGE_CLEAR",
+          "CALIBRATION_ADMISSION": "SIMULATED_APPROVE_FOR_CALIBRATION"
+        },
+        "referenceDisposition": "CALIBRATION_VISIBLE",
+        "referenceReviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+        "eligibleForFormalIndependentQualification": false,
+        "eligibleForBlindQualification": false,
+        "revision": null
+      }
+    },
+    {
+      "caseId": "SEM3-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
+      "candidateSet": "DEVELOPMENT",
+      "roleOpinions": [
+        {
+          "reviewerId": "REVIEWER_SIM_1",
+          "disposition": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+          "analysis": "Both candidates preserve the distinction between a CT-derived functional estimate, its role and the underlying phenomenon.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_2",
+          "disposition": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+          "analysis": "The distributed representation changes topology but not method, measure, unknowns or admissible clarification.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_3",
+          "disposition": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+          "analysis": "Critical obligations, prohibitions, provenance and ownership consequences are identical.",
+          "reservation": null
+        }
+      ],
+      "disagreements": [],
+      "consensus": {
+        "status": "SIMULATED_EXPERT_CONSENSUS",
+        "rationale": "The structural difference is non-semantic for the complete obligation vector.",
+        "decisions": {
+          "SEMANTIC_EQUIVALENCE": "SIMULATED_SEMANTICALLY_EQUIVALENT"
+        },
+        "evaluatorUse": "DEVELOPMENT_ONLY",
+        "independentQualificationEvidence": false
+      }
+    },
+    {
+      "caseId": "SEM3-DEV-OUTCOME-PRIORITY-CHANGE",
+      "candidateSet": "DEVELOPMENT",
+      "roleOpinions": [
+        {
+          "reviewerId": "REVIEWER_SIM_1",
+          "disposition": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+          "analysis": "Both candidates retain the active outcome priority and the superseded historical priority.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_2",
+          "disposition": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+          "analysis": "The correction chronology and downstream consequence are unchanged despite distributed nodes.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_3",
+          "disposition": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+          "analysis": "No historical state is reactivated and provenance remains reconstructible in both forms.",
+          "reservation": null
+        }
+      ],
+      "disagreements": [],
+      "consensus": {
+        "status": "SIMULATED_EXPERT_CONSENSUS",
+        "rationale": "Both representations encode the same corrected active state and history.",
+        "decisions": {
+          "SEMANTIC_EQUIVALENCE": "SIMULATED_SEMANTICALLY_EQUIVALENT"
+        },
+        "evaluatorUse": "DEVELOPMENT_ONLY",
+        "independentQualificationEvidence": false
+      }
+    },
+    {
+      "caseId": "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL",
+      "candidateSet": "DEVELOPMENT",
+      "roleOpinions": [
+        {
+          "reviewerId": "REVIEWER_SIM_1",
+          "disposition": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+          "analysis": "Both candidates preserve association without converting pericardial fat into a causal determinant.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_2",
+          "disposition": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+          "analysis": "Observable and explanatory roles remain distinct and no endpoint or method is added.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_3",
+          "disposition": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+          "analysis": "The non-causal polarity, ownership and provenance vector is unchanged.",
+          "reservation": null
+        }
+      ],
+      "disagreements": [],
+      "consensus": {
+        "status": "SIMULATED_EXPERT_CONSENSUS",
+        "rationale": "The alternative structure preserves the same scientific and epistemic consequences.",
+        "decisions": {
+          "SEMANTIC_EQUIVALENCE": "SIMULATED_SEMANTICALLY_EQUIVALENT"
+        },
+        "evaluatorUse": "DEVELOPMENT_ONLY",
+        "independentQualificationEvidence": false
+      }
+    },
+    {
+      "caseId": "SEM3-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
+      "candidateSet": "DEVELOPMENT",
+      "roleOpinions": [
+        {
+          "reviewerId": "REVIEWER_SIM_1",
+          "disposition": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+          "analysis": "Both candidates keep the retinal vascular outcome unresolved while preserving the explicit scientific context.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_2",
+          "disposition": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+          "analysis": "Neither representation invents a measurement definition and both retain the same clarification need.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_3",
+          "disposition": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+          "analysis": "Unknown status and owner boundaries are identical; extra structure does not promote a candidate.",
+          "reservation": null
+        }
+      ],
+      "disagreements": [],
+      "consensus": {
+        "status": "SIMULATED_EXPERT_CONSENSUS",
+        "rationale": "The two forms are semantically equivalent across explicit, unknown and ownership obligations.",
+        "decisions": {
+          "SEMANTIC_EQUIVALENCE": "SIMULATED_SEMANTICALLY_EQUIVALENT"
+        },
+        "evaluatorUse": "DEVELOPMENT_ONLY",
+        "independentQualificationEvidence": false
+      }
+    },
+    {
+      "caseId": "SEM3-DEV-VALVE-HEMODYNAMICS-MULTIMODAL",
+      "candidateSet": "DEVELOPMENT",
+      "roleOpinions": [
+        {
+          "reviewerId": "REVIEWER_SIM_1",
+          "disposition": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+          "analysis": "Both candidates preserve valve hemodynamics, multimodal observations and their non-interchangeability.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_2",
+          "disposition": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+          "analysis": "Modality-specific observations and temporal relations remain unchanged across topologies.",
+          "reservation": null
+        },
+        {
+          "reviewerId": "REVIEWER_SIM_3",
+          "disposition": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+          "analysis": "No modality is promoted to canonical truth and provenance remains reconstructible.",
+          "reservation": null
+        }
+      ],
+      "disagreements": [],
+      "consensus": {
+        "status": "SIMULATED_EXPERT_CONSENSUS",
+        "rationale": "The distributed representation has the same scientific consequences and ownership constraints.",
+        "decisions": {
+          "SEMANTIC_EQUIVALENCE": "SIMULATED_SEMANTICALLY_EQUIVALENT"
+        },
+        "evaluatorUse": "DEVELOPMENT_ONLY",
+        "independentQualificationEvidence": false
+      }
+    }
+  ],
+  "evidenceClass": "SIMULATED_EXPERT_REVIEW_EVIDENCE",
+  "simulatedExpertConsensus": true,
+  "realHumanReviewPerformed": false,
+  "pd011IndependentReferencePanelSatisfied": false,
+  "finalQualificationEligibility": false,
+  "blindEligibility": false,
+  "calibrationExecutionAuthorized": false,
+  "semExecutionAuthorized": false,
+  "status": "FINAL_FOR_DEVELOPMENT_CALIBRATION_REFERENCE_AUTHORING"
+}

@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003B3_REFERENCE_REVISION_LINEAGE",
+  "generatedAt": "2026-08-13T20:24:00.000Z",
+  "revisions": [
+    {
+      "revisionId": "SEM3B3-REV-OVARIAN-ULTRASOUND-1-0-1",
+      "caseId": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "decisionIds": [
+        "SEM3B3-SIMDEC-OVARIAN-ULTRASOUND-AMBIGUITY-SCIENTIFIC-REFERENCE",
+        "SEM3B3-SIMDEC-OVARIAN-ULTRASOUND-AMBIGUITY-AMBIGUITY",
+        "SEM3B3-SIMDEC-OVARIAN-ULTRASOUND-AMBIGUITY-METHODOLOGICAL-REFERENCE"
+      ],
+      "sourceGitCommit": "8aad0e7",
+      "previous": {
+        "caseVersion": "1.0.0",
+        "envelopeVersion": "1.0.0",
+        "caseSha256": "607a9e1bcd206d0df6ca9118efd8dbb74822f9427cce921d959a84861406eee6",
+        "envelopeSha256": "677ebcfee9b54a537bcfe926986f866951a1bd89c0fac20acb1aedbe469fb185",
+        "pairSha256": "a174a9f6802e66dbedb53e0c818d5d568133065d228e1681b49adae3e4428ef1"
+      },
+      "resulting": {
+        "caseVersion": "1.0.1",
+        "envelopeVersion": "1.0.1",
+        "caseSha256": "869f1f9d26ddc43d0120233cafd647227ee1b704e0c15e508f0cc73911b177c4",
+        "envelopeSha256": "a0456b9a01f6a7798231459b401813db3a66dece97c8a2f5f33b7dd5c383478f",
+        "pairSha256": "eb4a1024101480efbd8bfb35ba05f3130fbed67c2a7a6e398fe8cb45160f3103"
+      },
+      "changes": [
+        {
+          "target": "CASE",
+          "jsonPointer": "/exposure/parentageAssessment/ambiguities/0",
+          "from": "L'usage scientifique de l'IRM est indécis.",
+          "to": "L'usage scientifique de l'échographie ovarienne est indécis."
+        },
+        {
+          "target": "ACCEPTANCE_ENVELOPE",
+          "jsonPointer": "/admissibleAmbiguities/0/description",
+          "from": "L'usage scientifique de l'IRM est indécis.",
+          "to": "L'usage scientifique de l'échographie ovarienne est indécis."
+        }
+      ],
+      "semanticScopePreserved": [
+        "détection",
+        "caractérisation",
+        "suivi"
+      ],
+      "reason": "Explicit simulated pluralistic review correction of an objective modality wording error; no scientific scope was added or removed."
+    }
+  ]
+}

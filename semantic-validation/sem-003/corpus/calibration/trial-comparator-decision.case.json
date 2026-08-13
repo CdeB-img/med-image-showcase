@@ -7,7 +7,7 @@
   "title": "Essai pragmatique avec comparateur encore indécis",
   "createdAt": "2026-08-13T12:00:00.000Z",
   "authorRole": "CODEX_DOCUMENTARY_AUTHOR",
-  "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+  "reviewStatus": "APPROVED_FOR_CALIBRATION",
   "source": {
     "sourceRequest": "Tour 1: Nous voulons évaluer une nouvelle stratégie de suivi.\nTour 2: Le résultat principal devrait refléter l'utilisation des soins sur six mois.\nTour 3: Je ne sais pas si le comparateur sera le suivi habituel ou la période avant déploiement.\nTour 4: Les deux options n'ont pas la même temporalité.\nTour 5: On peut commencer l'inventaire des données.\nTour 6: Mais le dessin comparatif ne doit pas être choisi automatiquement.\nTour 7: La prochaine question utile porte bien sur le comparateur et la période de référence.",
     "language": "fr-FR",
@@ -83,7 +83,7 @@
     ]
   },
   "exposure": {
-    "exposureStatus": "DESIGN_ONLY",
+    "exposureStatus": "CALIBRATION_VISIBLE",
     "exposureHistory": [
       {
         "eventId": "exposure-sem3-cal-trial-comparator-decision-created",
@@ -91,10 +91,18 @@
         "toStatus": "DESIGN_ONLY",
         "occurredAt": "2026-08-13T12:00:00.000Z",
         "actorRole": "CODEX_DOCUMENTARY_AUTHOR",
-        "reason": "Authored as a Calibration candidate; human review gate not yet satisfied, therefore DESIGN_ONLY."
+        "reason": "Authored as a Calibration candidate; the development-calibration review gate was not yet satisfied."
+      },
+      {
+        "eventId": "exposure-sem3-cal-trial-comparator-decision-simulated-review-admission",
+        "fromStatus": "DESIGN_ONLY",
+        "toStatus": "CALIBRATION_VISIBLE",
+        "occurredAt": "2026-08-13T20:24:00.000Z",
+        "actorRole": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+        "reason": "Admitted for development calibration only on explicitly simulated pluralistic review evidence; no formal independent or blind eligibility."
       }
     ],
-    "parentageStatus": "PARENTAGE_REVIEW_REQUIRED",
+    "parentageStatus": "PARENTAGE_CLEAR",
     "parentageAssessment": {
       "discriminatingConcepts": [
         "Essai pragmatique avec comparateur encore indécis",
@@ -117,12 +125,12 @@
       }
     },
     "contaminationReview": {
-      "status": "REVIEW_REQUIRED",
-      "reviewedAt": null,
-      "reviewerRole": null,
-      "notes": "No obvious inter-set duplication was identified during authoring; independent human parentage review remains required before Calibration use."
+      "status": "CLEAR",
+      "reviewedAt": "2026-08-13T20:24:00.000Z",
+      "reviewerRole": "REVIEWER_SIM_3 — SEMANTIC_BENCHMARK_AND_GOVERNANCE_SPECIALIST",
+      "notes": "Simulated parentage review found no material derivation or contamination. This is not independent human evidence and grants no formal qualification or blind eligibility."
     },
-    "eligibleForCalibration": false,
+    "eligibleForCalibration": true,
     "eligibleForBlindQualification": false
   },
   "reference": {

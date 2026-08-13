@@ -7,7 +7,7 @@
   "title": "Charge rythmique et structure atriale sans promotion causale",
   "createdAt": "2026-08-13T12:00:00.000Z",
   "authorRole": "CODEX_DOCUMENTARY_AUTHOR",
-  "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+  "reviewStatus": "APPROVED_FOR_CALIBRATION",
   "source": {
     "sourceRequest": "Tour 1: Je veux suivre la charge d'arythmie et le volume atrial au cours du temps.\nTour 2: Au début je pensais dire que la charge rythmique expliquait le remodelage.\nTour 3: Ce n'est pas ce que je veux finalement.\nTour 4: Je veux étudier leur association, sans causalité automatique.\nTour 5: La méthode de mesure du rythme et celle du volume devront être qualifiées séparément.",
     "language": "fr-FR",
@@ -68,7 +68,7 @@
     ]
   },
   "exposure": {
-    "exposureStatus": "DESIGN_ONLY",
+    "exposureStatus": "CALIBRATION_VISIBLE",
     "exposureHistory": [
       {
         "eventId": "exposure-sem3-cal-cardio-rhythm-remodeling-created",
@@ -76,10 +76,18 @@
         "toStatus": "DESIGN_ONLY",
         "occurredAt": "2026-08-13T12:00:00.000Z",
         "actorRole": "CODEX_DOCUMENTARY_AUTHOR",
-        "reason": "Authored as a Calibration candidate; human review gate not yet satisfied, therefore DESIGN_ONLY."
+        "reason": "Authored as a Calibration candidate; the development-calibration review gate was not yet satisfied."
+      },
+      {
+        "eventId": "exposure-sem3-cal-cardio-rhythm-remodeling-simulated-review-admission",
+        "fromStatus": "DESIGN_ONLY",
+        "toStatus": "CALIBRATION_VISIBLE",
+        "occurredAt": "2026-08-13T20:24:00.000Z",
+        "actorRole": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+        "reason": "Admitted for development calibration only on explicitly simulated pluralistic review evidence; no formal independent or blind eligibility."
       }
     ],
-    "parentageStatus": "PARENTAGE_REVIEW_REQUIRED",
+    "parentageStatus": "PARENTAGE_CLEAR",
     "parentageAssessment": {
       "discriminatingConcepts": [
         "Charge rythmique et structure atriale sans promotion causale",
@@ -99,12 +107,12 @@
       }
     },
     "contaminationReview": {
-      "status": "REVIEW_REQUIRED",
-      "reviewedAt": null,
-      "reviewerRole": null,
-      "notes": "No obvious inter-set duplication was identified during authoring; independent human parentage review remains required before Calibration use."
+      "status": "CLEAR",
+      "reviewedAt": "2026-08-13T20:24:00.000Z",
+      "reviewerRole": "REVIEWER_SIM_3 — SEMANTIC_BENCHMARK_AND_GOVERNANCE_SPECIALIST",
+      "notes": "Simulated parentage review found no material derivation or contamination. This is not independent human evidence and grants no formal qualification or blind eligibility."
     },
-    "eligibleForCalibration": false,
+    "eligibleForCalibration": true,
     "eligibleForBlindQualification": false
   },
   "reference": {

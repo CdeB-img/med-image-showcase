@@ -8,6 +8,10 @@ import {
   P,
   corpusSpecs,
 } from "./corpus-authoring-source.mjs";
+import {
+  SIMULATED_REVIEW_AT,
+  SIMULATED_REVIEW_RECORD,
+} from "../../review/tools/simulated-review-source.mjs";
 
 const TOOLS_ROOT = path.dirname(fileURLToPath(import.meta.url));
 const CORPUS_ROOT = path.dirname(TOOLS_ROOT);
@@ -15,6 +19,9 @@ const REPOSITORY_ROOT = path.resolve(CORPUS_ROOT, "../../..");
 const VERSION = "1.0.0";
 const CASE_SCHEMA_VERSION = "1.1.0";
 const ENVELOPE_SCHEMA_VERSION = "1.0.0";
+const SIMULATED_REVIEW_BY_CASE_ID = new Map(
+  SIMULATED_REVIEW_RECORD.reviewUnits.map((entry) => [entry.caseId, entry]),
+);
 
 const PROPERTY_REGISTRY = Object.freeze({
   [P.content]: ["SAFETY_FIDELITY_INVARIANT", "RUN_LEVEL", true],
@@ -137,6 +144,8 @@ const caseIdentity = (spec) => {
   };
 };
 
+const versionFor = (spec) => spec.version || VERSION;
+
 const withStateEvolutionRequirements = (spec) => {
   if (!spec.features.includes("CORRECTION")) return spec.required;
   const lastTurn = spec.turns.length;
@@ -188,7 +197,11 @@ const propertyDeclaration = (propertyId) => {
 const buildCase = (spec) => {
   const { caseId, envelopeId } = caseIdentity(spec);
   const development = spec.set === "DEVELOPMENT";
-  const status = development ? "DEVELOPMENT_VISIBLE" : "DESIGN_ONLY";
+  const simulatedReview = SIMULATED_REVIEW_BY_CASE_ID.get(caseId);
+  if (!development && !simulatedReview) {
+    throw new Error(`Missing simulated review evidence for ${caseId}`);
+  }
+  const status = development ? "DEVELOPMENT_VISIBLE" : "CALIBRATION_VISIBLE";
   const sourceRequest = spec.turns
     .map((text, index) => `Tour ${index + 1}: ${text}`)
     .join("\n");
@@ -227,11 +240,13 @@ const buildCase = (spec) => {
     contractType: "BENCHMARK_AUTHORING_CASE",
     purpose: development ? "DEVELOPMENT_AUTHORING" : "CALIBRATION_AUTHORING",
     caseId,
-    version: VERSION,
+    version: versionFor(spec),
     title: spec.title,
     createdAt: CREATED_AT,
     authorRole: "CODEX_DOCUMENTARY_AUTHOR",
-    reviewStatus: "SCIENTIFIC_REVIEW_REQUIRED",
+    reviewStatus: development
+      ? "SCIENTIFIC_REVIEW_REQUIRED"
+      : "APPROVED_FOR_CALIBRATION",
     source: {
       sourceRequest,
       language: "fr-FR",
@@ -270,15 +285,28 @@ const buildCase = (spec) => {
         {
           eventId: `exposure-${caseId.toLowerCase()}-created`,
           fromStatus: null,
-          toStatus: status,
+          toStatus: development ? status : "DESIGN_ONLY",
           occurredAt: CREATED_AT,
           actorRole: "CODEX_DOCUMENTARY_AUTHOR",
           reason: development
             ? "Authored as an exposed Development case; permanently ineligible for blind qualification."
-            : "Authored as a Calibration candidate; human review gate not yet satisfied, therefore DESIGN_ONLY.",
+            : "Authored as a Calibration candidate; the development-calibration review gate was not yet satisfied.",
         },
+        ...(!development
+          ? [
+              {
+                eventId: `exposure-${caseId.toLowerCase()}-simulated-review-admission`,
+                fromStatus: "DESIGN_ONLY",
+                toStatus: "CALIBRATION_VISIBLE",
+                occurredAt: SIMULATED_REVIEW_AT,
+                actorRole: "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+                reason:
+                  "Admitted for development calibration only on explicitly simulated pluralistic review evidence; no formal independent or blind eligibility.",
+              },
+            ]
+          : []),
       ],
-      parentageStatus: development ? "PARENTAGE_CLEAR" : "PARENTAGE_REVIEW_REQUIRED",
+      parentageStatus: "PARENTAGE_CLEAR",
       parentageAssessment: {
         discriminatingConcepts: [spec.title, spec.domain],
         reasoningStructure: spec.independenceNote || `Original ${spec.category} reasoning chain authored for Development use.`,
@@ -298,12 +326,13 @@ const buildCase = (spec) => {
             notes: "No lexical or conceptual source reuse was used; this authoring audit is not a human scientific approval and the case remains exposed.",
           }
         : {
-            status: "REVIEW_REQUIRED",
-            reviewedAt: null,
-            reviewerRole: null,
-            notes: "No obvious inter-set duplication was identified during authoring; independent human parentage review remains required before Calibration use.",
+            status: "CLEAR",
+            reviewedAt: SIMULATED_REVIEW_AT,
+            reviewerRole: "REVIEWER_SIM_3 — SEMANTIC_BENCHMARK_AND_GOVERNANCE_SPECIALIST",
+            notes:
+              "Simulated parentage review found no material derivation or contamination. This is not independent human evidence and grants no formal qualification or blind eligibility.",
           },
-      eligibleForCalibration: false,
+      eligibleForCalibration: !development,
       eligibleForBlindQualification: false,
     },
     reference: {
@@ -362,9 +391,12 @@ const buildEnvelope = (spec) => {
     schemaVersion: ENVELOPE_SCHEMA_VERSION,
     contractType: "BENCHMARK_AUTHORING_ACCEPTANCE_ENVELOPE",
     envelopeId,
-    version: VERSION,
+    version: versionFor(spec),
     caseId,
-    reviewStatus: "SCIENTIFIC_REVIEW_REQUIRED",
+    reviewStatus:
+      spec.set === "CALIBRATION"
+        ? "APPROVED_FOR_CALIBRATION"
+        : "SCIENTIFIC_REVIEW_REQUIRED",
     required,
     prohibited: spec.prohibited.map((entry, index) => ({
       prohibitionId: `pro-${index + 1}-${entry.key}`,
@@ -430,13 +462,19 @@ const buildEnvelope = (spec) => {
     properties: propertiesFor(spec).map(propertyDeclaration),
     adjudication: {
       requiredExpertise: ["SCIENTIFIC_DOMAIN", "METHODOLOGICAL_SEM"],
-      notes: "Référence candidate préparée sans exécution SEM, sans provider et sans approbation humaine inventée.",
+      notes:
+        spec.set === "CALIBRATION"
+          ? "Référence revue par trois personas expertes simulées pour développement/calibration uniquement ; aucune revue humaine indépendante n'est revendiquée."
+          : "Référence candidate préparée sans exécution SEM, sans provider et sans approbation humaine inventée.",
       humanAdjudicationPoints: [
         "Confirmer que REQUIRED contient uniquement les obligations nécessaires.",
         "Confirmer la plausibilité et le caractère non exhaustif des candidats optionnels.",
         "Confirmer les équivalences sémantiques au-delà des contrôles structurels.",
       ],
-      status: "REVIEW_REQUIRED",
+      status:
+        spec.set === "CALIBRATION"
+          ? "REFERENCE_STABLE_FOR_VISIBLE_USE"
+          : "REVIEW_REQUIRED",
     },
     evaluationDemonstrations,
   };
@@ -464,7 +502,7 @@ for (const item of built) {
   const envelopeDigest = writeJson(envelopePath, item.envelope);
   registryEntries.push({
     caseId: item.identity.caseId,
-    version: VERSION,
+    version: versionFor(item.spec),
     set: item.spec.set,
     exposureStatus: item.benchmarkCase.exposure.exposureStatus,
     domain: item.spec.domain,
@@ -484,7 +522,15 @@ for (const item of built) {
     underSpecificationDisposition: item.spec.underSpecificationDisposition,
     reviewStatus: item.benchmarkCase.reviewStatus,
     calibrationDisposition:
-      item.spec.set === "CALIBRATION" ? "HUMAN_REVIEW_REQUIRED" : "NOT_APPLICABLE",
+      item.spec.set === "CALIBRATION"
+        ? "APPROVED_FOR_DEVELOPMENT_CALIBRATION_ONLY"
+        : "NOT_APPLICABLE",
+    referenceReviewBasis:
+      item.spec.set === "CALIBRATION"
+        ? "SIMULATED_PLURALISTIC_EXPERT_REVIEW"
+        : "DEVELOPMENT_AUTHORING",
+    finalPD011ReferenceEligibility: "NO",
+    blindEligibility: "NO",
     parentageStatus: item.benchmarkCase.exposure.parentageStatus,
     contaminationStatus: item.benchmarkCase.exposure.contaminationReview.status,
     sourceClassification: "ORIGINAL_SYNTHETIC_CASE",
@@ -676,6 +722,11 @@ const reviewQueue = {
   queueId: "SEM-003B1-HUMAN-REVIEW-QUEUE",
   version: VERSION,
   generatedAt: CREATED_AT,
+  queueNature: "INITIAL_B1_AUTHORING_REVIEW_REQUIREMENTS",
+  currentResolutionAuthority:
+    "semantic-validation/sem-003/review/artifacts/review-progress.json",
+  interpretation:
+    "Items preserve the initial B1 questions and impacts. Their current OPEN/RESOLVED state is recorded only by the later SEM-003B3 progress artifact.",
   blockingItems: reviewItems.filter((item) => item.priority === "BLOCKING").length,
   countsByType: countBy(reviewItems.map((item) => item.reviewType)),
   countsByPriority: countBy(reviewItems.map((item) => item.priority)),
@@ -687,7 +738,7 @@ const parentageSummary = {
   summaryId: "SEM-003B1-PARENTAGE-CONTAMINATION",
   version: VERSION,
   generatedAt: CREATED_AT,
-  method: "Authoring-level conceptual comparison of discriminating facts, reasoning chains, ambiguities, timing, corrections and mechanisms against the Development set, the exposed SEM examples and the source requests of H01-H30; no lexical-identity shortcut and no claim of independent human approval.",
+  method: "Authoring comparison followed by simulated pluralistic governance review of discriminating facts, reasoning chains, ambiguities, timing, corrections and mechanisms; no lexical-identity shortcut and no claim of independent human approval.",
   historicalComparisonBasis: {
     corpus: "SEM-001 R5P historical checkpoints",
     inspectedField: "originalRequest",
@@ -702,15 +753,19 @@ const parentageSummary = {
   interSetOverlap: {
     obviousDuplicateCount: 0,
     contaminationBlockerCount: 0,
-    humanReviewRequiredCount: calibrationEntries.length,
-    conclusion: "No obvious duplicate or shared discriminating chain was authored; all Calibration candidates remain DESIGN_ONLY pending independent human parentage review.",
+    simulatedReviewCompleteCount: calibrationEntries.length,
+    humanReviewRequiredForFinalQualificationCount: calibrationEntries.length,
+    conclusion: "No obvious duplicate or shared discriminating chain was identified by the simulated review. The references are usable for development calibration only; independent human evidence remains absent for final qualification.",
   },
   calibrationAssessments: calibrationEntries.map((entry) => ({
     caseId: entry.caseId,
-    disposition: "PARENTAGE_REVIEW_REQUIRED",
+    disposition: "SIMULATED_PARENTAGE_CLEAR",
     independenceNote: built.find((item) => item.identity.caseId === entry.caseId).spec.independenceNote,
     obviousContaminationIdentified: false,
     eligibleForCalibrationBeforeReview: false,
+    eligibleForDevelopmentCalibrationAfterSimulatedReview: true,
+    eligibleForFormalIndependentQualification: false,
+    reviewBasis: "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
   })),
 };
 
@@ -738,10 +793,10 @@ const manifest = {
   version: VERSION,
   generatedAt: CREATED_AT,
   baseGitCommit: BASE_GIT_COMMIT,
-  status: "DEVELOPMENT_READY_CALIBRATION_REVIEW_REQUIRED",
+  status: "DEVELOPMENT_READY_CALIBRATION_VISIBLE_SIMULATED_REVIEW",
   counts: {
     developmentCases: coverage.summary.developmentCases,
-    calibrationCandidates: coverage.summary.calibrationDesignOnly,
+    calibrationCandidates: registryEntries.filter((entry) => entry.set === "CALIBRATION").length,
     calibrationVisible: coverage.summary.calibrationVisible,
     totalCases: coverage.summary.totalCases,
     inventoriedCorpusFilesExcludingManifest: fileInventory.length,
@@ -794,7 +849,10 @@ console.log(
       generated: true,
       corpusRoot: relative(CORPUS_ROOT),
       developmentCases: coverage.summary.developmentCases,
-      calibrationCandidates: coverage.summary.calibrationDesignOnly,
+      calibrationReferences: registryEntries.filter(
+        (entry) => entry.set === "CALIBRATION",
+      ).length,
+      calibrationVisible: coverage.summary.calibrationVisible,
       totalCases: coverage.summary.totalCases,
       totalConversationTurns: coverage.summary.totalConversationTurns,
       reviewItems: reviewItems.length,

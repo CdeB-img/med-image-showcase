@@ -8,6 +8,7 @@ import {
   promoteCalibrationCaseAtomically,
   validateHumanDecisionRecord,
   validateReviewPackage,
+  validateSimulatedReviewRecord,
 } from "./review-workflow.mjs";
 
 const review = loadReviewPackage();
@@ -124,7 +125,13 @@ test("B3-C03 — the five B2 equivalence pairs have an adjudication Review Unit"
         entry.equivalencePair.level1Observation.candidateB === "PASS",
     ),
   );
-  assert.ok(units.every((entry) => entry.equivalencePair.status === "ADJUDICATION_REQUIRED"));
+  assert.ok(
+    units.every(
+      (entry) =>
+        entry.equivalencePair.status ===
+        "SIMULATED_EXPERT_CONSENSUS_RECORDED",
+    ),
+  );
 });
 
 test("B3-C04 — a human decision records reviewer provenance, scope and rationale", () => {
@@ -345,16 +352,25 @@ test("B3-C21 — every resolved queue item cites its human decision", () => {
   );
 });
 
-test("B3-C22 — Level 1 PASS never infers human semantic equivalence", () => {
+test("B3-C22 — Level 1 PASS never infers the simulated semantic disposition", () => {
   assert.equal(review.equivalenceStatus.pairs.length, 5);
-  assert.ok(review.equivalenceStatus.pairs.every((entry) => entry.status === "ADJUDICATION_REQUIRED"));
-  assert.equal(review.equivalenceStatus.resolved, 0);
+  assert.ok(
+    review.equivalenceStatus.pairs.every(
+      (entry) =>
+        entry.status === "SIMULATED_EXPERT_CONSENSUS_RECORDED" &&
+        entry.disposition === "SIMULATED_SEMANTICALLY_EQUIVALENT" &&
+        entry.independentQualificationEvidence === false,
+    ),
+  );
+  assert.equal(review.equivalenceStatus.resolved, 5);
 });
 
-test("B3-C23 — packet generation performs no automatic human approval", () => {
+test("B3-C23 — simulated review is never recorded as human approval", () => {
   assert.equal(review.decisions.length, 0);
-  assert.equal(review.progress.counts.humanDecisionsRecorded, 0);
-  assert.equal(review.manifest.counts.humanDecisionsRecorded, 0);
+  assert.equal(review.simulatedReviews.length, 1);
+  assert.equal(review.progress.counts.realHumanDecisionsRecorded, 0);
+  assert.equal(review.manifest.counts.realHumanDecisionsRecorded, 0);
+  assert.equal(review.simulatedReviews[0].realHumanReviewPerformed, false);
 });
 
 test("B3-C24 — Calibration content was not used to tune the evaluator", () => {
@@ -367,4 +383,59 @@ test("B3-C25 — packet preparation invokes neither SEM runtime nor provider", (
   assert.equal(review.antiOverfitting.semModified, false);
   assert.equal(review.antiOverfitting.semExecuted, false);
   assert.equal(review.antiOverfitting.llmProviderCalls, 0);
+});
+
+test("B3-C26 — all three simulated roles review every priority unit separately", () => {
+  const record = review.simulatedReviews[0];
+  const result = validateSimulatedReviewRecord(record, review);
+  assert.equal(result.valid, true, JSON.stringify(result.errors, null, 2));
+  assert.equal(record.roles.length, 3);
+  assert.equal(record.reviewUnits.length, 15);
+  assert.ok(
+    record.reviewUnits.every(
+      (unit) =>
+        unit.roleOpinions.length === 3 &&
+        new Set(unit.roleOpinions.map((entry) => entry.reviewerId)).size === 3,
+    ),
+  );
+});
+
+test("B3-C27 — all ten Calibration references are visible only for development calibration", () => {
+  assert.equal(review.calibrationGates.calibrationVisible, 10);
+  assert.equal(review.calibrationGates.designOnly, 0);
+  assert.ok(
+    review.calibrationGates.cases.every(
+      (entry) =>
+        entry.referenceReviewBasis ===
+          "SIMULATED_PLURALISTIC_EXPERT_REVIEW" &&
+        entry.realHumanReferenceReview === "NOT_PERFORMED" &&
+        entry.finalPD011ReferenceEligibility === "NO" &&
+        entry.eligibleForBlindQualification === false,
+    ),
+  );
+});
+
+test("B3-C28 — ovarian ultrasound correction is the only versioned reference revision", () => {
+  assert.equal(review.revisionLineage.revisions.length, 1);
+  const revision = review.revisionLineage.revisions[0];
+  assert.equal(revision.caseId, "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY");
+  assert.equal(revision.previous.caseVersion, "1.0.0");
+  assert.equal(revision.resulting.caseVersion, "1.0.1");
+  assert.deepEqual(revision.semanticScopePreserved, [
+    "détection",
+    "caractérisation",
+    "suivi",
+  ]);
+});
+
+test("B3-C29 — B3 prepares but does not execute B4 Calibration", () => {
+  assert.equal(
+    review.calibrationReferenceSet.status,
+    "READY_FOR_B4_DEVELOPMENT_CALIBRATION",
+  );
+  assert.equal(
+    review.calibrationReferenceSet.calibrationExecutionAuthorizedInB3,
+    false,
+  );
+  assert.equal(review.antiOverfitting.calibrationExecuted, false);
 });

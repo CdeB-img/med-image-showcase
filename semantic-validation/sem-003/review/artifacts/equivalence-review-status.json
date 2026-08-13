@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0.0",
   "contractType": "SEM003B3_EQUIVALENCE_REVIEW_STATUS",
-  "generatedAt": "2026-08-13T19:05:53.000Z",
-  "resolved": 0,
-  "open": 5,
+  "generatedAt": "2026-08-13T20:24:00.000Z",
+  "resolved": 5,
+  "open": 0,
   "pairs": [
     {
       "pairId": "SEM3B3-EQ-CT-FUNCTIONAL-ESTIMATE-ROLE",
@@ -13,8 +13,11 @@
       "candidateB": "SEM3-EVAL-CAND-CT-FUNCTIONAL-ESTIMATE-ROLE-DISTRIBUTED",
       "level1A": "PASS",
       "level1B": "PASS",
-      "status": "ADJUDICATION_REQUIRED",
-      "humanDecisionId": null
+      "status": "SIMULATED_EXPERT_CONSENSUS_RECORDED",
+      "simulatedDecisionId": "SEM3B3-SIMDEC-CT-FUNCTIONAL-ESTIMATE-ROLE-SEMANTIC-EQUIVALENCE",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "disposition": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+      "independentQualificationEvidence": false
     },
     {
       "pairId": "SEM3B3-EQ-OUTCOME-PRIORITY-CHANGE",
@@ -24,8 +27,11 @@
       "candidateB": "SEM3-EVAL-CAND-OUTCOME-PRIORITY-CHANGE-DISTRIBUTED",
       "level1A": "PASS",
       "level1B": "PASS",
-      "status": "ADJUDICATION_REQUIRED",
-      "humanDecisionId": null
+      "status": "SIMULATED_EXPERT_CONSENSUS_RECORDED",
+      "simulatedDecisionId": "SEM3B3-SIMDEC-OUTCOME-PRIORITY-CHANGE-SEMANTIC-EQUIVALENCE",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "disposition": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+      "independentQualificationEvidence": false
     },
     {
       "pairId": "SEM3B3-EQ-PERICARDIAL-FAT-NONCAUSAL",
@@ -35,8 +41,11 @@
       "candidateB": "SEM3-EVAL-CAND-PERICARDIAL-FAT-NONCAUSAL-DISTRIBUTED",
       "level1A": "PASS",
       "level1B": "PASS",
-      "status": "ADJUDICATION_REQUIRED",
-      "humanDecisionId": null
+      "status": "SIMULATED_EXPERT_CONSENSUS_RECORDED",
+      "simulatedDecisionId": "SEM3B3-SIMDEC-PERICARDIAL-FAT-NONCAUSAL-SEMANTIC-EQUIVALENCE",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "disposition": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+      "independentQualificationEvidence": false
     },
     {
       "pairId": "SEM3B3-EQ-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
@@ -46,8 +55,11 @@
       "candidateB": "SEM3-EVAL-CAND-RETINAL-VASCULAR-OUTCOME-UNKNOWN-DISTRIBUTED",
       "level1A": "PASS",
       "level1B": "PASS",
-      "status": "ADJUDICATION_REQUIRED",
-      "humanDecisionId": null
+      "status": "SIMULATED_EXPERT_CONSENSUS_RECORDED",
+      "simulatedDecisionId": "SEM3B3-SIMDEC-RETINAL-VASCULAR-OUTCOME-UNKNOWN-SEMANTIC-EQUIVALENCE",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "disposition": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+      "independentQualificationEvidence": false
     },
     {
       "pairId": "SEM3B3-EQ-VALVE-HEMODYNAMICS-MULTIMODAL",
@@ -57,9 +69,12 @@
       "candidateB": "SEM3-EVAL-CAND-VALVE-HEMODYNAMICS-MULTIMODAL-DISTRIBUTED",
       "level1A": "PASS",
       "level1B": "PASS",
-      "status": "ADJUDICATION_REQUIRED",
-      "humanDecisionId": null
+      "status": "SIMULATED_EXPERT_CONSENSUS_RECORDED",
+      "simulatedDecisionId": "SEM3B3-SIMDEC-VALVE-HEMODYNAMICS-MULTIMODAL-SEMANTIC-EQUIVALENCE",
+      "simulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "disposition": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+      "independentQualificationEvidence": false
     }
   ],
-  "rule": "Level 1 PASS does not establish semantic equivalence."
+  "rule": "The five equivalences are adjudicated by three distinct simulated roles, not inferred from Level 1. They are usable for Development evaluator tests but are not independent qualification evidence."
 }

@@ -1,216 +1,308 @@
 {
   "schemaVersion": "1.0.0",
   "contractType": "SEM003B3_CALIBRATION_GATE_STATUS",
-  "generatedAt": "2026-08-13T19:05:53.000Z",
-  "status": "HUMAN_REVIEW_REQUIRED",
+  "generatedAt": "2026-08-13T20:24:00.000Z",
+  "status": "SIMULATED_CALIBRATION_REFERENCE_SET_READY",
   "candidatesInitial": 10,
-  "admitted": 0,
-  "designOnly": 10,
+  "admitted": 10,
+  "designOnly": 0,
   "rejected": 0,
   "specialistReview": 0,
-  "calibrationVisible": 0,
+  "calibrationVisible": 10,
   "cases": [
     {
       "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
       "reviewUnitId": "SEM3B3-RU-CAL-ATRIAL-FIBROSIS-ABLATION",
-      "status": "HUMAN_REVIEW_REQUIRED",
-      "exposureStatus": "DESIGN_ONLY",
-      "promotionApplied": false,
-      "eligibleForCalibration": false,
+      "status": "CALIBRATION_VISIBLE_SIMULATED_REVIEW",
+      "exposureStatus": "CALIBRATION_VISIBLE",
+      "promotionApplied": true,
+      "eligibleForCalibration": true,
       "eligibleForBlindQualification": false,
+      "eligibleForFormalIndependentQualification": false,
+      "referenceReviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+      "simulatedReferenceReview": "COMPLETE",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO",
       "requiredDecisionTypes": [
         "SCIENTIFIC_REFERENCE",
         "CALIBRATION_ADMISSION",
         "PARENTAGE",
         "AMBIGUITY"
       ],
+      "recordedSimulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "recordedSimulatedDecisionIds": [
+        "SEM3B3-SIMDEC-ATRIAL-FIBROSIS-ABLATION-AMBIGUITY",
+        "SEM3B3-SIMDEC-ATRIAL-FIBROSIS-ABLATION-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-ATRIAL-FIBROSIS-ABLATION-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-ATRIAL-FIBROSIS-ABLATION-PARENTAGE",
+        "SEM3B3-SIMDEC-ATRIAL-FIBROSIS-ABLATION-SCIENTIFIC-REFERENCE"
+      ],
+      "simulatedReviewerPersonaCount": 3,
       "recommendedReviewerCompetencies": [
         "SCIENTIFIC_DOMAIN",
         "METHODOLOGICAL_SEM",
         "PD009_CLARIFICATION"
       ],
-      "unmetGates": [
-        "PLURALISTIC_SCIENTIFIC_REFERENCE_REVIEW_REQUIRED",
-        "AMBIGUITY_DISPOSITION_REQUIRED",
-        "PARENTAGE_REVIEW_REQUIRED",
-        "CONTAMINATION_REVIEW_REQUIRED",
-        "CALIBRATION_APPROVAL_REQUIRED",
-        "REVIEWER_CONFLICT_INFORMATION_REQUIRED"
+      "unmetDevelopmentCalibrationGates": [],
+      "unmetFinalQualificationGates": [
+        "REAL_HUMAN_REFERENCE_REVIEW_REQUIRED",
+        "PD011_INDEPENDENT_REFERENCE_PANEL_REQUIRED",
+        "FORMAL_QUALIFICATION_PROTOCOL_REQUIRED",
+        "BLIND_PACKAGE_REQUIRED"
       ]
     },
     {
       "caseId": "SEM3-CAL-CARDIO-RHYTHM-REMODELING",
       "reviewUnitId": "SEM3B3-RU-CAL-CARDIO-RHYTHM-REMODELING",
-      "status": "HUMAN_REVIEW_REQUIRED",
-      "exposureStatus": "DESIGN_ONLY",
-      "promotionApplied": false,
-      "eligibleForCalibration": false,
+      "status": "CALIBRATION_VISIBLE_SIMULATED_REVIEW",
+      "exposureStatus": "CALIBRATION_VISIBLE",
+      "promotionApplied": true,
+      "eligibleForCalibration": true,
       "eligibleForBlindQualification": false,
+      "eligibleForFormalIndependentQualification": false,
+      "referenceReviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+      "simulatedReferenceReview": "COMPLETE",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO",
       "requiredDecisionTypes": [
         "SCIENTIFIC_REFERENCE",
         "CALIBRATION_ADMISSION",
         "PARENTAGE",
         "METHODOLOGICAL_REFERENCE"
       ],
+      "recordedSimulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "recordedSimulatedDecisionIds": [
+        "SEM3B3-SIMDEC-CARDIO-RHYTHM-REMODELING-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-CARDIO-RHYTHM-REMODELING-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-CARDIO-RHYTHM-REMODELING-PARENTAGE",
+        "SEM3B3-SIMDEC-CARDIO-RHYTHM-REMODELING-SCIENTIFIC-REFERENCE"
+      ],
+      "simulatedReviewerPersonaCount": 3,
       "recommendedReviewerCompetencies": [
         "SCIENTIFIC_DOMAIN",
         "METHODOLOGICAL_SEM",
         "OBS_MEASUREMENT"
       ],
-      "unmetGates": [
-        "PLURALISTIC_SCIENTIFIC_REFERENCE_REVIEW_REQUIRED",
-        "METHODOLOGICAL_REVIEW_REQUIRED",
-        "PARENTAGE_REVIEW_REQUIRED",
-        "CONTAMINATION_REVIEW_REQUIRED",
-        "CALIBRATION_APPROVAL_REQUIRED",
-        "REVIEWER_CONFLICT_INFORMATION_REQUIRED"
+      "unmetDevelopmentCalibrationGates": [],
+      "unmetFinalQualificationGates": [
+        "REAL_HUMAN_REFERENCE_REVIEW_REQUIRED",
+        "PD011_INDEPENDENT_REFERENCE_PANEL_REQUIRED",
+        "FORMAL_QUALIFICATION_PROTOCOL_REQUIRED",
+        "BLIND_PACKAGE_REQUIRED"
       ]
     },
     {
       "caseId": "SEM3-CAL-CONGENITAL-FLOW-ELLIPSIS",
       "reviewUnitId": "SEM3B3-RU-CAL-CONGENITAL-FLOW-ELLIPSIS",
-      "status": "HUMAN_REVIEW_REQUIRED",
-      "exposureStatus": "DESIGN_ONLY",
-      "promotionApplied": false,
-      "eligibleForCalibration": false,
+      "status": "CALIBRATION_VISIBLE_SIMULATED_REVIEW",
+      "exposureStatus": "CALIBRATION_VISIBLE",
+      "promotionApplied": true,
+      "eligibleForCalibration": true,
       "eligibleForBlindQualification": false,
+      "eligibleForFormalIndependentQualification": false,
+      "referenceReviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+      "simulatedReferenceReview": "COMPLETE",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO",
       "requiredDecisionTypes": [
         "SCIENTIFIC_REFERENCE",
         "CALIBRATION_ADMISSION",
         "PARENTAGE"
       ],
+      "recordedSimulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "recordedSimulatedDecisionIds": [
+        "SEM3B3-SIMDEC-CONGENITAL-FLOW-ELLIPSIS-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-CONGENITAL-FLOW-ELLIPSIS-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-CONGENITAL-FLOW-ELLIPSIS-PARENTAGE",
+        "SEM3B3-SIMDEC-CONGENITAL-FLOW-ELLIPSIS-SCIENTIFIC-REFERENCE"
+      ],
+      "simulatedReviewerPersonaCount": 3,
       "recommendedReviewerCompetencies": [
         "SCIENTIFIC_DOMAIN",
         "METHODOLOGICAL_SEM",
         "PD009_CLARIFICATION"
       ],
-      "unmetGates": [
-        "PLURALISTIC_SCIENTIFIC_REFERENCE_REVIEW_REQUIRED",
-        "PARENTAGE_REVIEW_REQUIRED",
-        "CONTAMINATION_REVIEW_REQUIRED",
-        "CALIBRATION_APPROVAL_REQUIRED",
-        "REVIEWER_CONFLICT_INFORMATION_REQUIRED"
+      "unmetDevelopmentCalibrationGates": [],
+      "unmetFinalQualificationGates": [
+        "REAL_HUMAN_REFERENCE_REVIEW_REQUIRED",
+        "PD011_INDEPENDENT_REFERENCE_PANEL_REQUIRED",
+        "FORMAL_QUALIFICATION_PROTOCOL_REQUIRED",
+        "BLIND_PACKAGE_REQUIRED"
       ]
     },
     {
       "caseId": "SEM3-CAL-CORTISOL-SAMPLING-SUMMARY",
       "reviewUnitId": "SEM3B3-RU-CAL-CORTISOL-SAMPLING-SUMMARY",
-      "status": "HUMAN_REVIEW_REQUIRED",
-      "exposureStatus": "DESIGN_ONLY",
-      "promotionApplied": false,
-      "eligibleForCalibration": false,
+      "status": "CALIBRATION_VISIBLE_SIMULATED_REVIEW",
+      "exposureStatus": "CALIBRATION_VISIBLE",
+      "promotionApplied": true,
+      "eligibleForCalibration": true,
       "eligibleForBlindQualification": false,
+      "eligibleForFormalIndependentQualification": false,
+      "referenceReviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+      "simulatedReferenceReview": "COMPLETE",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO",
       "requiredDecisionTypes": [
         "SCIENTIFIC_REFERENCE",
         "CALIBRATION_ADMISSION",
         "PARENTAGE",
         "METHODOLOGICAL_REFERENCE"
       ],
+      "recordedSimulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "recordedSimulatedDecisionIds": [
+        "SEM3B3-SIMDEC-CORTISOL-SAMPLING-SUMMARY-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-CORTISOL-SAMPLING-SUMMARY-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-CORTISOL-SAMPLING-SUMMARY-PARENTAGE",
+        "SEM3B3-SIMDEC-CORTISOL-SAMPLING-SUMMARY-SCIENTIFIC-REFERENCE"
+      ],
+      "simulatedReviewerPersonaCount": 3,
       "recommendedReviewerCompetencies": [
         "SCIENTIFIC_DOMAIN",
         "METHODOLOGICAL_SEM",
         "PD009_CLARIFICATION",
         "OBS_MEASUREMENT"
       ],
-      "unmetGates": [
-        "PLURALISTIC_SCIENTIFIC_REFERENCE_REVIEW_REQUIRED",
-        "METHODOLOGICAL_REVIEW_REQUIRED",
-        "PARENTAGE_REVIEW_REQUIRED",
-        "CONTAMINATION_REVIEW_REQUIRED",
-        "CALIBRATION_APPROVAL_REQUIRED",
-        "REVIEWER_CONFLICT_INFORMATION_REQUIRED"
+      "unmetDevelopmentCalibrationGates": [],
+      "unmetFinalQualificationGates": [
+        "REAL_HUMAN_REFERENCE_REVIEW_REQUIRED",
+        "PD011_INDEPENDENT_REFERENCE_PANEL_REQUIRED",
+        "FORMAL_QUALIFICATION_PROTOCOL_REQUIRED",
+        "BLIND_PACKAGE_REQUIRED"
       ]
     },
     {
       "caseId": "SEM3-CAL-MSK-INFLAMMATION-RESPONSE",
       "reviewUnitId": "SEM3B3-RU-CAL-MSK-INFLAMMATION-RESPONSE",
-      "status": "HUMAN_REVIEW_REQUIRED",
-      "exposureStatus": "DESIGN_ONLY",
-      "promotionApplied": false,
-      "eligibleForCalibration": false,
+      "status": "CALIBRATION_VISIBLE_SIMULATED_REVIEW",
+      "exposureStatus": "CALIBRATION_VISIBLE",
+      "promotionApplied": true,
+      "eligibleForCalibration": true,
       "eligibleForBlindQualification": false,
+      "eligibleForFormalIndependentQualification": false,
+      "referenceReviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+      "simulatedReferenceReview": "COMPLETE",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO",
       "requiredDecisionTypes": [
         "SCIENTIFIC_REFERENCE",
         "CALIBRATION_ADMISSION",
         "PARENTAGE"
       ],
+      "recordedSimulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "recordedSimulatedDecisionIds": [
+        "SEM3B3-SIMDEC-MSK-INFLAMMATION-RESPONSE-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-MSK-INFLAMMATION-RESPONSE-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-MSK-INFLAMMATION-RESPONSE-PARENTAGE",
+        "SEM3B3-SIMDEC-MSK-INFLAMMATION-RESPONSE-SCIENTIFIC-REFERENCE"
+      ],
+      "simulatedReviewerPersonaCount": 3,
       "recommendedReviewerCompetencies": [
         "SCIENTIFIC_DOMAIN",
         "METHODOLOGICAL_SEM",
         "PD009_CLARIFICATION"
       ],
-      "unmetGates": [
-        "PLURALISTIC_SCIENTIFIC_REFERENCE_REVIEW_REQUIRED",
-        "PARENTAGE_REVIEW_REQUIRED",
-        "CONTAMINATION_REVIEW_REQUIRED",
-        "CALIBRATION_APPROVAL_REQUIRED",
-        "REVIEWER_CONFLICT_INFORMATION_REQUIRED"
+      "unmetDevelopmentCalibrationGates": [],
+      "unmetFinalQualificationGates": [
+        "REAL_HUMAN_REFERENCE_REVIEW_REQUIRED",
+        "PD011_INDEPENDENT_REFERENCE_PANEL_REQUIRED",
+        "FORMAL_QUALIFICATION_PROTOCOL_REQUIRED",
+        "BLIND_PACKAGE_REQUIRED"
       ]
     },
     {
       "caseId": "SEM3-CAL-NEURODEGENERATION-PROGRESSION",
       "reviewUnitId": "SEM3B3-RU-CAL-NEURODEGENERATION-PROGRESSION",
-      "status": "HUMAN_REVIEW_REQUIRED",
-      "exposureStatus": "DESIGN_ONLY",
-      "promotionApplied": false,
-      "eligibleForCalibration": false,
+      "status": "CALIBRATION_VISIBLE_SIMULATED_REVIEW",
+      "exposureStatus": "CALIBRATION_VISIBLE",
+      "promotionApplied": true,
+      "eligibleForCalibration": true,
       "eligibleForBlindQualification": false,
+      "eligibleForFormalIndependentQualification": false,
+      "referenceReviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+      "simulatedReferenceReview": "COMPLETE",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO",
       "requiredDecisionTypes": [
         "SCIENTIFIC_REFERENCE",
         "CALIBRATION_ADMISSION",
         "PARENTAGE",
         "METHODOLOGICAL_REFERENCE"
       ],
+      "recordedSimulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "recordedSimulatedDecisionIds": [
+        "SEM3B3-SIMDEC-NEURODEGENERATION-PROGRESSION-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-NEURODEGENERATION-PROGRESSION-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-NEURODEGENERATION-PROGRESSION-PARENTAGE",
+        "SEM3B3-SIMDEC-NEURODEGENERATION-PROGRESSION-SCIENTIFIC-REFERENCE"
+      ],
+      "simulatedReviewerPersonaCount": 3,
       "recommendedReviewerCompetencies": [
         "SCIENTIFIC_DOMAIN",
         "METHODOLOGICAL_SEM",
         "OBS_MEASUREMENT"
       ],
-      "unmetGates": [
-        "PLURALISTIC_SCIENTIFIC_REFERENCE_REVIEW_REQUIRED",
-        "METHODOLOGICAL_REVIEW_REQUIRED",
-        "PARENTAGE_REVIEW_REQUIRED",
-        "CONTAMINATION_REVIEW_REQUIRED",
-        "CALIBRATION_APPROVAL_REQUIRED",
-        "REVIEWER_CONFLICT_INFORMATION_REQUIRED"
+      "unmetDevelopmentCalibrationGates": [],
+      "unmetFinalQualificationGates": [
+        "REAL_HUMAN_REFERENCE_REVIEW_REQUIRED",
+        "PD011_INDEPENDENT_REFERENCE_PANEL_REQUIRED",
+        "FORMAL_QUALIFICATION_PROTOCOL_REQUIRED",
+        "BLIND_PACKAGE_REQUIRED"
       ]
     },
     {
       "caseId": "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
       "reviewUnitId": "SEM3B3-RU-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
-      "status": "HUMAN_REVIEW_REQUIRED",
-      "exposureStatus": "DESIGN_ONLY",
-      "promotionApplied": false,
-      "eligibleForCalibration": false,
+      "status": "CALIBRATION_VISIBLE_SIMULATED_REVIEW",
+      "exposureStatus": "CALIBRATION_VISIBLE",
+      "promotionApplied": true,
+      "eligibleForCalibration": true,
       "eligibleForBlindQualification": false,
+      "eligibleForFormalIndependentQualification": false,
+      "referenceReviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+      "simulatedReferenceReview": "COMPLETE",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO",
       "requiredDecisionTypes": [
         "SCIENTIFIC_REFERENCE",
         "CALIBRATION_ADMISSION",
         "PARENTAGE",
         "METHODOLOGICAL_REFERENCE"
       ],
+      "recordedSimulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "recordedSimulatedDecisionIds": [
+        "SEM3B3-SIMDEC-ORGANOID-LIVE-SIGNAL-MEASUREMENT-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-ORGANOID-LIVE-SIGNAL-MEASUREMENT-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-ORGANOID-LIVE-SIGNAL-MEASUREMENT-PARENTAGE",
+        "SEM3B3-SIMDEC-ORGANOID-LIVE-SIGNAL-MEASUREMENT-SCIENTIFIC-REFERENCE"
+      ],
+      "simulatedReviewerPersonaCount": 3,
       "recommendedReviewerCompetencies": [
         "SCIENTIFIC_DOMAIN",
         "METHODOLOGICAL_SEM",
         "OBS_MEASUREMENT"
       ],
-      "unmetGates": [
-        "PLURALISTIC_SCIENTIFIC_REFERENCE_REVIEW_REQUIRED",
-        "METHODOLOGICAL_REVIEW_REQUIRED",
-        "PARENTAGE_REVIEW_REQUIRED",
-        "CONTAMINATION_REVIEW_REQUIRED",
-        "CALIBRATION_APPROVAL_REQUIRED",
-        "REVIEWER_CONFLICT_INFORMATION_REQUIRED"
+      "unmetDevelopmentCalibrationGates": [],
+      "unmetFinalQualificationGates": [
+        "REAL_HUMAN_REFERENCE_REVIEW_REQUIRED",
+        "PD011_INDEPENDENT_REFERENCE_PANEL_REQUIRED",
+        "FORMAL_QUALIFICATION_PROTOCOL_REQUIRED",
+        "BLIND_PACKAGE_REQUIRED"
       ]
     },
     {
       "caseId": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
       "reviewUnitId": "SEM3B3-RU-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
-      "status": "HUMAN_REVIEW_REQUIRED",
-      "exposureStatus": "DESIGN_ONLY",
-      "promotionApplied": false,
-      "eligibleForCalibration": false,
+      "status": "CALIBRATION_VISIBLE_SIMULATED_REVIEW",
+      "exposureStatus": "CALIBRATION_VISIBLE",
+      "promotionApplied": true,
+      "eligibleForCalibration": true,
       "eligibleForBlindQualification": false,
+      "eligibleForFormalIndependentQualification": false,
+      "referenceReviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+      "simulatedReferenceReview": "COMPLETE",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO",
       "requiredDecisionTypes": [
         "SCIENTIFIC_REFERENCE",
         "CALIBRATION_ADMISSION",
@@ -218,78 +310,118 @@
         "AMBIGUITY",
         "METHODOLOGICAL_REFERENCE"
       ],
+      "recordedSimulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "recordedSimulatedDecisionIds": [
+        "SEM3B3-SIMDEC-OVARIAN-ULTRASOUND-AMBIGUITY-AMBIGUITY",
+        "SEM3B3-SIMDEC-OVARIAN-ULTRASOUND-AMBIGUITY-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-OVARIAN-ULTRASOUND-AMBIGUITY-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-OVARIAN-ULTRASOUND-AMBIGUITY-PARENTAGE",
+        "SEM3B3-SIMDEC-OVARIAN-ULTRASOUND-AMBIGUITY-SCIENTIFIC-REFERENCE"
+      ],
+      "simulatedReviewerPersonaCount": 3,
       "recommendedReviewerCompetencies": [
         "SCIENTIFIC_DOMAIN",
         "METHODOLOGICAL_SEM",
         "PD009_CLARIFICATION",
         "OBS_MEASUREMENT"
       ],
-      "unmetGates": [
-        "PLURALISTIC_SCIENTIFIC_REFERENCE_REVIEW_REQUIRED",
-        "METHODOLOGICAL_REVIEW_REQUIRED",
-        "AMBIGUITY_DISPOSITION_REQUIRED",
-        "PARENTAGE_REVIEW_REQUIRED",
-        "CONTAMINATION_REVIEW_REQUIRED",
-        "CALIBRATION_APPROVAL_REQUIRED",
-        "REVIEWER_CONFLICT_INFORMATION_REQUIRED"
+      "unmetDevelopmentCalibrationGates": [],
+      "unmetFinalQualificationGates": [
+        "REAL_HUMAN_REFERENCE_REVIEW_REQUIRED",
+        "PD011_INDEPENDENT_REFERENCE_PANEL_REQUIRED",
+        "FORMAL_QUALIFICATION_PROTOCOL_REQUIRED",
+        "BLIND_PACKAGE_REQUIRED"
       ]
     },
     {
       "caseId": "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
       "reviewUnitId": "SEM3B3-RU-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
-      "status": "HUMAN_REVIEW_REQUIRED",
-      "exposureStatus": "DESIGN_ONLY",
-      "promotionApplied": false,
-      "eligibleForCalibration": false,
+      "status": "CALIBRATION_VISIBLE_SIMULATED_REVIEW",
+      "exposureStatus": "CALIBRATION_VISIBLE",
+      "promotionApplied": true,
+      "eligibleForCalibration": true,
       "eligibleForBlindQualification": false,
+      "eligibleForFormalIndependentQualification": false,
+      "referenceReviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+      "simulatedReferenceReview": "COMPLETE",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO",
       "requiredDecisionTypes": [
         "SCIENTIFIC_REFERENCE",
         "CALIBRATION_ADMISSION",
         "PARENTAGE",
         "METHODOLOGICAL_REFERENCE"
       ],
+      "recordedSimulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "recordedSimulatedDecisionIds": [
+        "SEM3B3-SIMDEC-PULMONARY-HEMODYNAMICS-FOLLOWUP-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-PULMONARY-HEMODYNAMICS-FOLLOWUP-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-PULMONARY-HEMODYNAMICS-FOLLOWUP-PARENTAGE",
+        "SEM3B3-SIMDEC-PULMONARY-HEMODYNAMICS-FOLLOWUP-SCIENTIFIC-REFERENCE"
+      ],
+      "simulatedReviewerPersonaCount": 3,
       "recommendedReviewerCompetencies": [
         "SCIENTIFIC_DOMAIN",
         "METHODOLOGICAL_SEM",
         "OBS_MEASUREMENT"
       ],
-      "unmetGates": [
-        "PLURALISTIC_SCIENTIFIC_REFERENCE_REVIEW_REQUIRED",
-        "METHODOLOGICAL_REVIEW_REQUIRED",
-        "PARENTAGE_REVIEW_REQUIRED",
-        "CONTAMINATION_REVIEW_REQUIRED",
-        "CALIBRATION_APPROVAL_REQUIRED",
-        "REVIEWER_CONFLICT_INFORMATION_REQUIRED"
+      "unmetDevelopmentCalibrationGates": [],
+      "unmetFinalQualificationGates": [
+        "REAL_HUMAN_REFERENCE_REVIEW_REQUIRED",
+        "PD011_INDEPENDENT_REFERENCE_PANEL_REQUIRED",
+        "FORMAL_QUALIFICATION_PROTOCOL_REQUIRED",
+        "BLIND_PACKAGE_REQUIRED"
       ]
     },
     {
       "caseId": "SEM3-CAL-TRIAL-COMPARATOR-DECISION",
       "reviewUnitId": "SEM3B3-RU-CAL-TRIAL-COMPARATOR-DECISION",
-      "status": "HUMAN_REVIEW_REQUIRED",
-      "exposureStatus": "DESIGN_ONLY",
-      "promotionApplied": false,
-      "eligibleForCalibration": false,
+      "status": "CALIBRATION_VISIBLE_SIMULATED_REVIEW",
+      "exposureStatus": "CALIBRATION_VISIBLE",
+      "promotionApplied": true,
+      "eligibleForCalibration": true,
       "eligibleForBlindQualification": false,
+      "eligibleForFormalIndependentQualification": false,
+      "referenceReviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+      "simulatedReferenceReview": "COMPLETE",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO",
       "requiredDecisionTypes": [
         "SCIENTIFIC_REFERENCE",
         "CALIBRATION_ADMISSION",
         "PARENTAGE",
         "AMBIGUITY"
       ],
+      "recordedSimulatedReviewId": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+      "recordedSimulatedDecisionIds": [
+        "SEM3B3-SIMDEC-TRIAL-COMPARATOR-DECISION-AMBIGUITY",
+        "SEM3B3-SIMDEC-TRIAL-COMPARATOR-DECISION-CALIBRATION-ADMISSION",
+        "SEM3B3-SIMDEC-TRIAL-COMPARATOR-DECISION-METHODOLOGICAL-REFERENCE",
+        "SEM3B3-SIMDEC-TRIAL-COMPARATOR-DECISION-PARENTAGE",
+        "SEM3B3-SIMDEC-TRIAL-COMPARATOR-DECISION-SCIENTIFIC-REFERENCE"
+      ],
+      "simulatedReviewerPersonaCount": 3,
       "recommendedReviewerCompetencies": [
         "SCIENTIFIC_DOMAIN",
         "METHODOLOGICAL_SEM",
         "PD009_CLARIFICATION"
       ],
-      "unmetGates": [
-        "PLURALISTIC_SCIENTIFIC_REFERENCE_REVIEW_REQUIRED",
-        "AMBIGUITY_DISPOSITION_REQUIRED",
-        "PARENTAGE_REVIEW_REQUIRED",
-        "CONTAMINATION_REVIEW_REQUIRED",
-        "CALIBRATION_APPROVAL_REQUIRED",
-        "REVIEWER_CONFLICT_INFORMATION_REQUIRED"
+      "unmetDevelopmentCalibrationGates": [],
+      "unmetFinalQualificationGates": [
+        "REAL_HUMAN_REFERENCE_REVIEW_REQUIRED",
+        "PD011_INDEPENDENT_REFERENCE_PANEL_REQUIRED",
+        "FORMAL_QUALIFICATION_PROTOCOL_REQUIRED",
+        "BLIND_PACKAGE_REQUIRED"
       ]
     }
+  ],
+  "calibrationEntryRequirements": [],
+  "futureIndependentQualificationRequirements": [
+    "Evaluator calibration under PD-011",
+    "Pre-specified N, metrics and thresholds",
+    "A separately constructed and sealed blind package",
+    "An independent immutable qualification campaign",
+    "A distinct PD-011 campaign decision"
   ],
   "calibrationPerformed": false,
   "metricsComputed": false,

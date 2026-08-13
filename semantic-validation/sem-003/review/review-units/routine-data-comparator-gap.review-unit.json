@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "contractType": "SEM003B3_HUMAN_REVIEW_UNIT",
+  "contractType": "SEM003B3_SIMULATED_REVIEW_UNIT",
   "reviewUnitId": "SEM3B3-RU-DEV-ROUTINE-DATA-COMPARATOR-GAP",
   "caseId": "SEM3-DEV-ROUTINE-DATA-COMPARATOR-GAP",
   "candidateSet": "DEVELOPMENT",
@@ -314,9 +314,15 @@
   "humanSheetPath": null,
   "equivalencePair": null,
   "humanDecisionRecords": [],
+  "simulatedReviewRecord": null,
+  "simulatedRoleOpinions": [],
+  "simulatedDisagreements": [],
+  "simulatedConsensus": null,
+  "simulatedDecisions": [],
   "limits": [
-    "Codex prepared this unit but is not the human reviewer.",
-    "No scientific, methodological, ambiguity, parentage, equivalence or admission decision is inferred.",
-    "All parentage comparisons are REVIEW_ASSISTANCE_ONLY."
+    "All three reviewer roles are simulated personas, never human reviewers.",
+    "The simulated consensus is usable only for benchmark development and calibration preparation.",
+    "All parentage comparisons are REVIEW_ASSISTANCE_ONLY.",
+    "REAL_HUMAN_REFERENCE_REVIEW is NOT_PERFORMED and FINAL_PD011_REFERENCE_ELIGIBILITY is NO."
   ]
 }

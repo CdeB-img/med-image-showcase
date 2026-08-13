@@ -2,13 +2,17 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  SIMULATED_REVIEW_AT,
+  SIMULATED_REVIEW_RECORD,
+} from "./simulated-review-source.mjs";
 
 const TOOLS_ROOT = path.dirname(fileURLToPath(import.meta.url));
 const REVIEW_ROOT = path.resolve(TOOLS_ROOT, "..");
 const REPOSITORY_ROOT = path.resolve(REVIEW_ROOT, "../../..");
 const CORPUS_ROOT = path.resolve(REVIEW_ROOT, "../corpus");
 const EVALUATOR_ROOT = path.resolve(REVIEW_ROOT, "../evaluator");
-const GENERATED_AT = "2026-08-13T19:05:53.000Z";
+const GENERATED_AT = SIMULATED_REVIEW_AT;
 
 const readJson = (filePath) => JSON.parse(fs.readFileSync(filePath, "utf8"));
 const writeJson = (filePath, value) =>
@@ -57,11 +61,65 @@ const decisionRecordDir = path.join(REVIEW_ROOT, "decision-records");
 const artifactDir = path.join(REVIEW_ROOT, "artifacts");
 const docsPacketPath = path.join(
   REPOSITORY_ROOT,
-  "docs/sem-003b3-human-reference-review-packet.md",
+  "docs/sem-003b3-simulated-pluralistic-expert-review-record.md",
 );
 for (const directory of [reviewUnitDir, decisionRecordDir, artifactDir]) {
   fs.mkdirSync(directory, { recursive: true });
 }
+
+const REVIEW_TYPE_TO_QUEUE_TYPE = Object.freeze({
+  SCIENTIFIC_REFERENCE: "SCIENTIFIC_REVIEW_REQUIRED",
+  METHODOLOGICAL_REFERENCE: "METHODOLOGICAL_REVIEW_REQUIRED",
+  AMBIGUITY: "AMBIGUITY_ADJUDICATION_REQUIRED",
+  PARENTAGE: "PARENTAGE_REVIEW_REQUIRED",
+  CALIBRATION_ADMISSION: "CALIBRATION_REVIEW_REQUIRED",
+});
+const simulatedDecisions = SIMULATED_REVIEW_RECORD.reviewUnits.flatMap((unit) =>
+  Object.entries(unit.consensus.decisions).map(([reviewType, decision]) => ({
+    decisionId: `SEM3B3-SIMDEC-${unit.caseId.replace(/^SEM3-(CAL|DEV)-/, "")}-${reviewType.replaceAll("_", "-")}`,
+    caseId: unit.caseId,
+    reviewUnitId: unitIdForCase(unit.caseId),
+    reviewType,
+    decision,
+    recommendedDisposition:
+      reviewType === "CALIBRATION_ADMISSION" ? "CALIBRATION_VISIBLE" : null,
+    rationale: unit.consensus.rationale,
+    reviewItemIds: reviewQueue.items
+      .filter(
+        (item) =>
+          item.caseId === unit.caseId &&
+          item.reviewType === REVIEW_TYPE_TO_QUEUE_TYPE[reviewType],
+      )
+      .map((item) => item.reviewId),
+    simulatedReviewId: SIMULATED_REVIEW_RECORD.reviewId,
+    simulatedReviewerRefs: SIMULATED_REVIEW_RECORD.roles.map((role) => role.reviewerId),
+    recordedAt: SIMULATED_REVIEW_RECORD.recordedAt,
+    sourceCaseVersion:
+      unit.caseId === "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY" ? "1.0.0" : "1.0.0",
+    sourceEnvelopeVersion:
+      unit.caseId === "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY" ? "1.0.0" : "1.0.0",
+    revisionRef: unit.consensus.revision?.revisionId || null,
+  })),
+);
+const simulatedDecisionsByCaseId = new Map();
+for (const decision of simulatedDecisions) {
+  const values = simulatedDecisionsByCaseId.get(decision.caseId) || [];
+  values.push(decision);
+  simulatedDecisionsByCaseId.set(decision.caseId, values);
+}
+const simulatedDecisionByReviewItemId = new Map();
+for (const decision of simulatedDecisions) {
+  for (const reviewItemId of decision.reviewItemIds) {
+    simulatedDecisionByReviewItemId.set(reviewItemId, decision);
+  }
+}
+const simulatedReviewUnitByCaseId = new Map(
+  SIMULATED_REVIEW_RECORD.reviewUnits.map((entry) => [entry.caseId, entry]),
+);
+writeJson(
+  path.join(decisionRecordDir, "sem003b3-simulated-pluralistic-expert-review.json"),
+  SIMULATED_REVIEW_RECORD,
+);
 
 const queueByCaseId = new Map();
 for (const item of reviewQueue.items) {
@@ -169,16 +227,18 @@ const loadEquivalencePair = (row) => {
   };
 };
 
-const assistanceFlags = {
-  "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY": [
-    {
-      code: "DOCUMENTARY_MODALITY_TERM_MISMATCH_TO_REVIEW",
-      observation:
-        "The source request names ovarian ultrasound while the current ambiguity description says MRI. This is an objective documentary inconsistency to adjudicate; no correction is applied in B3 packet preparation.",
-      disposition: "OPEN_HUMAN_REVIEW_POINT",
-    },
-  ],
-};
+const assistanceFlagsFor = (benchmarkCase, envelope) =>
+  benchmarkCase.caseId === "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY" &&
+  envelope.admissibleAmbiguities.some((entry) => /IRM/.test(entry.description))
+    ? [
+        {
+          code: "DOCUMENTARY_MODALITY_TERM_MISMATCH_TO_REVIEW",
+          observation:
+            "The source request names ovarian ultrasound while the current ambiguity description says MRI.",
+          disposition: "OPEN_HUMAN_REVIEW_POINT",
+        },
+      ]
+    : [];
 
 const decisionTypesFor = (items, hasEquivalence) => {
   const mapping = {
@@ -202,6 +262,10 @@ const reviewUnits = cases
       a.reviewId.localeCompare(b.reviewId),
     );
     const equivalenceRow = equivalenceByCaseId.get(benchmarkCase.caseId);
+    const caseSimulatedDecisions = (
+      simulatedDecisionsByCaseId.get(benchmarkCase.caseId) || []
+    ).sort((left, right) => left.decisionId.localeCompare(right.decisionId));
+    const simulatedReviewUnit = simulatedReviewUnitByCaseId.get(benchmarkCase.caseId) || null;
     const priority =
       benchmarkCase.purpose === "CALIBRATION_AUTHORING"
         ? "CALIBRATION_GATE"
@@ -214,13 +278,18 @@ const reviewUnits = cases
         : relative(path.join(reviewUnitDir, `${slugForCase(benchmarkCase.caseId)}.review.md`));
     return {
       schemaVersion: "1.0.0",
-      contractType: "SEM003B3_HUMAN_REVIEW_UNIT",
+      contractType: "SEM003B3_SIMULATED_REVIEW_UNIT",
       reviewUnitId: unitIdForCase(benchmarkCase.caseId),
       caseId: benchmarkCase.caseId,
       candidateSet:
         benchmarkCase.purpose === "CALIBRATION_AUTHORING" ? "CALIBRATION" : "DEVELOPMENT",
       priority,
-      state: "HUMAN_REVIEW_REQUIRED",
+      state:
+        caseSimulatedDecisions.length === 0
+          ? "HUMAN_REVIEW_REQUIRED"
+          : benchmarkCase.purpose === "CALIBRATION_AUTHORING"
+            ? "CALIBRATION_VISIBLE_SIMULATED_REVIEW"
+            : "SIMULATED_EQUIVALENCE_RECORDED",
       identity: {
         title: benchmarkCase.title,
         domain: benchmarkCase.scientificScope.domain,
@@ -315,14 +384,36 @@ const reviewUnits = cases
       })),
       adjudicationRequirements: benchmarkCase.reference.adjudicationRequirements,
       parentageReviewAssistance: relationAssistance(benchmarkCase),
-      assistanceFlags: assistanceFlags[benchmarkCase.caseId] || [],
+      assistanceFlags: assistanceFlagsFor(benchmarkCase, envelope),
       humanSheetPath,
-      equivalencePair: equivalenceRow ? loadEquivalencePair(equivalenceRow) : null,
+      equivalencePair: equivalenceRow
+        ? {
+            ...loadEquivalencePair(equivalenceRow),
+            status: caseSimulatedDecisions.some(
+              (entry) => entry.reviewType === "SEMANTIC_EQUIVALENCE",
+            )
+              ? "SIMULATED_EXPERT_CONSENSUS_RECORDED"
+              : "ADJUDICATION_REQUIRED",
+          }
+        : null,
       humanDecisionRecords: [],
+      simulatedReviewRecord:
+        caseSimulatedDecisions.length > 0 ? SIMULATED_REVIEW_RECORD.reviewId : null,
+      simulatedRoleOpinions: simulatedReviewUnit?.roleOpinions || [],
+      simulatedDisagreements: simulatedReviewUnit?.disagreements || [],
+      simulatedConsensus: simulatedReviewUnit?.consensus || null,
+      simulatedDecisions: caseSimulatedDecisions.map((entry) => ({
+        decisionId: entry.decisionId,
+        reviewType: entry.reviewType,
+        decision: entry.decision,
+        recommendedDisposition: entry.recommendedDisposition,
+        revisionRef: entry.revisionRef,
+      })),
       limits: [
-        "Codex prepared this unit but is not the human reviewer.",
-        "No scientific, methodological, ambiguity, parentage, equivalence or admission decision is inferred.",
+        "All three reviewer roles are simulated personas, never human reviewers.",
+        "The simulated consensus is usable only for benchmark development and calibration preparation.",
         "All parentage comparisons are REVIEW_ASSISTANCE_ONLY.",
+        "REAL_HUMAN_REFERENCE_REVIEW is NOT_PERFORMED and FINAL_PD011_REFERENCE_ELIGIBILITY is NO.",
       ],
     };
   })
@@ -381,6 +472,29 @@ const renderParentage = (unit) => {
 };
 
 const renderDecisionForm = (unit) => {
+  if (unit.simulatedConsensus) {
+    const opinions = unit.simulatedRoleOpinions
+      .map(
+        (entry) =>
+          `- **${entry.reviewerId}** — \`${entry.disposition}\` — ${entry.analysis}${entry.reservation ? ` Réserve : ${entry.reservation}` : ""}`,
+      )
+      .join("\n");
+    const disagreements = unit.simulatedDisagreements.length
+      ? unit.simulatedDisagreements
+          .map(
+            (entry) =>
+              `- **${entry.subject}** — ${entry.resolution}`,
+          )
+          .join("\n")
+      : "- Aucun désaccord non résolu.";
+    const decisions = unit.simulatedDecisions
+      .map(
+        (entry) =>
+          `- \`${entry.reviewType}\` → \`${entry.decision}\` (${entry.decisionId})`,
+      )
+      .join("\n");
+    return `### Avis séparés des trois personas\n\n${opinions}\n\n### Désaccords et résolution\n\n${disagreements}\n\n### Consensus simulé\n\n${unit.simulatedConsensus.rationale}\n\n${decisions}`;
+  }
   const sections = [];
   for (const type of unit.decisionRequirements) {
     const options = {
@@ -443,7 +557,7 @@ const renderUnitMarkdown = (unit) => {
   const envelope = unit.acceptanceEnvelope;
   return `# ${unit.reviewUnitId} — ${unit.identity.title}
 
-**Statut :** \`HUMAN_REVIEW_REQUIRED\`
+**Statut :** \`${unit.state}\`
 
 **Set :** \`${unit.candidateSet}\` · **Priorité :** \`${unit.priority}\`
 
@@ -512,7 +626,7 @@ ${bulletList(envelope.ownershipBoundaries, (entry) => `${entry.sourceOwner} → 
 
 ${bulletList(unit.properties, (entry) => `\`${entry.propertyId}\` — \`${entry.family}\`, absolue : ${entry.absolute ? "oui" : "non"}`)}
 
-## Open review points
+## Review points hérités de la queue B1
 
 ${unit.openReviewPoints.map((entry) => `### \`${entry.reviewId}\` — \`${entry.reviewType}\`
 
@@ -532,7 +646,7 @@ ${renderParentage(unit)}
 
 ${renderEquivalence(unit)}
 
-## Decision form
+## Revue et disposition
 
 ${renderDecisionForm(unit)}
 
@@ -544,10 +658,10 @@ ${unit.candidateSet === "CALIBRATION" ? `**Recommended disposition — à rensei
 
 ## Règles de preuve
 
-- Au moins trois évaluateurs indépendants doivent établir une référence experte critique conformément à PD-011.
-- Codex n’est pas reviewer humain et n’enregistre aucune décision dans cette phase.
+- Les trois rôles enregistrés ici sont des personas simulées et ne valent jamais revue humaine.
+- La revue simulée peut rendre une référence visible pour la calibration de développement, sans satisfaire la preuve confirmatoire PD-011.
 - Toute révision doit préciser le delta ; toute décision incomplète reste ouverte.
-- La décision structurée future doit respecter \`semantic-validation/sem-003/review/contracts/human-decision-record.schema.json\`.
+- La trace structurée respecte \`semantic-validation/sem-003/review/contracts/simulated-pluralistic-review-record.schema.json\`.
 `;
 };
 
@@ -559,15 +673,43 @@ for (const unit of priorityUnits) {
 }
 
 const decisionsTable = priorityUnits.flatMap((unit) =>
-  unit.decisionRequirements.map((reviewType) => ({
-    reviewUnitId: unit.reviewUnitId,
-    caseId: unit.caseId,
-    candidateSet: unit.candidateSet,
-    reviewType,
-    status: "OPEN",
-    humanDecisionId: null,
-  })),
+  unit.decisionRequirements.map((reviewType) => {
+    const decision = (simulatedDecisionsByCaseId.get(unit.caseId) || []).find(
+      (entry) => entry.reviewType === reviewType,
+    );
+    return {
+      reviewUnitId: unit.reviewUnitId,
+      caseId: unit.caseId,
+      candidateSet: unit.candidateSet,
+      reviewType,
+      status: decision ? "SIMULATED_EXPERT_CONSENSUS_RECORDED" : "OPEN",
+      simulatedDecisionId: decision?.decisionId || null,
+      simulatedReviewId: decision?.simulatedReviewId || null,
+      disposition: decision?.decision || null,
+    };
+  }),
 );
+
+const progressItems = reviewQueue.items.map((item) => {
+  const decision = simulatedDecisionByReviewItemId.get(item.reviewId);
+  return {
+    reviewId: item.reviewId,
+    caseId: item.caseId,
+    reviewType: item.reviewType,
+    priority: item.priority,
+    status: decision ? "RESOLVED" : "OPEN",
+    reviewUnitId: unitIdForCase(item.caseId),
+    decisionId: decision?.decisionId || null,
+    simulatedReviewId: decision?.simulatedReviewId || null,
+    disposition: decision?.decision || null,
+    resultingVersion:
+      item.caseId === "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY" && decision
+        ? "1.0.1"
+        : null,
+  };
+});
+const progressCount = (status) =>
+  progressItems.filter((item) => item.status === status).length;
 
 const reviewProgress = {
   schemaVersion: "1.0.0",
@@ -577,65 +719,78 @@ const reviewProgress = {
   sourceQueueVersion: reviewQueue.version,
   counts: {
     originalReviewQueueItems: reviewQueue.items.length,
-    open: reviewQueue.items.length,
-    resolved: 0,
+    open: progressCount("OPEN"),
+    resolved: progressCount("RESOLVED"),
     deferred: 0,
     rejected: 0,
     superseded: 0,
-    humanDecisionsRecorded: 0,
-    openEquivalenceAdjudications: equivalenceRows.length,
+    simulatedReviewRecords: 1,
+    simulatedReviewerPersonas: SIMULATED_REVIEW_RECORD.roles.length,
+    simulatedDecisionsRecorded: simulatedDecisions.length,
+    realHumanDecisionsRecorded: 0,
+    openEquivalenceAdjudications: equivalenceRows.filter(
+      (row) =>
+        !(simulatedDecisionsByCaseId.get(row.caseId) || []).some(
+          (entry) => entry.reviewType === "SEMANTIC_EQUIVALENCE",
+        ),
+    ).length,
   },
-  items: reviewQueue.items.map((item) => ({
-    reviewId: item.reviewId,
-    caseId: item.caseId,
-    reviewType: item.reviewType,
-    priority: item.priority,
-    status: "OPEN",
-    reviewUnitId: unitIdForCase(item.caseId),
-    decisionId: null,
-  })),
-  note: "No original Review Queue item is deleted, closed or deferred during packet preparation.",
+  items: progressItems,
+  note:
+    "The original B1 Review Queue remains immutable. This derived view records simulated review only: 39 Calibration queue items are resolved for development calibration, while 23 nonblocking Development items remain open.",
 };
 
 const calibrationGateStatus = {
   schemaVersion: "1.0.0",
   contractType: "SEM003B3_CALIBRATION_GATE_STATUS",
   generatedAt: GENERATED_AT,
-  status: "HUMAN_REVIEW_REQUIRED",
+  status: "SIMULATED_CALIBRATION_REFERENCE_SET_READY",
   candidatesInitial: calibration.cases.length,
-  admitted: 0,
-  designOnly: calibration.cases.length,
+  admitted: calibration.cases.length,
+  designOnly: 0,
   rejected: 0,
   specialistReview: 0,
-  calibrationVisible: 0,
+  calibrationVisible: calibration.cases.length,
   cases: reviewUnits
     .filter((unit) => unit.candidateSet === "CALIBRATION")
     .map((unit) => ({
       caseId: unit.caseId,
       reviewUnitId: unit.reviewUnitId,
-      status: "HUMAN_REVIEW_REQUIRED",
-      exposureStatus: "DESIGN_ONLY",
-      promotionApplied: false,
-      eligibleForCalibration: false,
+      status: "CALIBRATION_VISIBLE_SIMULATED_REVIEW",
+      exposureStatus: "CALIBRATION_VISIBLE",
+      promotionApplied: true,
+      eligibleForCalibration: true,
       eligibleForBlindQualification: false,
+      eligibleForFormalIndependentQualification: false,
+      referenceReviewBasis: "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+      simulatedReferenceReview: "COMPLETE",
+      realHumanReferenceReview: "NOT_PERFORMED",
+      finalPD011ReferenceEligibility: "NO",
       requiredDecisionTypes: unit.decisionRequirements,
+      recordedSimulatedReviewId: SIMULATED_REVIEW_RECORD.reviewId,
+      recordedSimulatedDecisionIds: unit.simulatedDecisions.map(
+        (entry) => entry.decisionId,
+      ),
+      simulatedReviewerPersonaCount: SIMULATED_REVIEW_RECORD.roles.length,
       recommendedReviewerCompetencies: unit.adjudicationRequirements
         .filter((entry) => entry.mandatory)
         .map((entry) => entry.expertise),
-      unmetGates: [
-        "PLURALISTIC_SCIENTIFIC_REFERENCE_REVIEW_REQUIRED",
-        ...(unit.reviewTypes.includes("METHODOLOGICAL_REVIEW_REQUIRED")
-          ? ["METHODOLOGICAL_REVIEW_REQUIRED"]
-          : []),
-        ...(unit.reviewTypes.includes("AMBIGUITY_ADJUDICATION_REQUIRED")
-          ? ["AMBIGUITY_DISPOSITION_REQUIRED"]
-          : []),
-        "PARENTAGE_REVIEW_REQUIRED",
-        "CONTAMINATION_REVIEW_REQUIRED",
-        "CALIBRATION_APPROVAL_REQUIRED",
-        "REVIEWER_CONFLICT_INFORMATION_REQUIRED",
+      unmetDevelopmentCalibrationGates: [],
+      unmetFinalQualificationGates: [
+        "REAL_HUMAN_REFERENCE_REVIEW_REQUIRED",
+        "PD011_INDEPENDENT_REFERENCE_PANEL_REQUIRED",
+        "FORMAL_QUALIFICATION_PROTOCOL_REQUIRED",
+        "BLIND_PACKAGE_REQUIRED",
       ],
     })),
+  calibrationEntryRequirements: [],
+  futureIndependentQualificationRequirements: [
+    "Evaluator calibration under PD-011",
+    "Pre-specified N, metrics and thresholds",
+    "A separately constructed and sealed blind package",
+    "An independent immutable qualification campaign",
+    "A distinct PD-011 campaign decision",
+  ],
   calibrationPerformed: false,
   metricsComputed: false,
   thresholdsFixed: false,
@@ -646,8 +801,17 @@ const equivalenceReviewStatus = {
   schemaVersion: "1.0.0",
   contractType: "SEM003B3_EQUIVALENCE_REVIEW_STATUS",
   generatedAt: GENERATED_AT,
-  resolved: 0,
-  open: equivalenceRows.length,
+  resolved: equivalenceRows.filter((row) =>
+    (simulatedDecisionsByCaseId.get(row.caseId) || []).some(
+      (entry) => entry.reviewType === "SEMANTIC_EQUIVALENCE",
+    ),
+  ).length,
+  open: equivalenceRows.filter(
+    (row) =>
+      !(simulatedDecisionsByCaseId.get(row.caseId) || []).some(
+        (entry) => entry.reviewType === "SEMANTIC_EQUIVALENCE",
+      ),
+  ).length,
   pairs: reviewUnits
     .filter((unit) => unit.equivalencePair)
     .map((unit) => ({
@@ -658,10 +822,20 @@ const equivalenceReviewStatus = {
       candidateB: unit.equivalencePair.candidateB.candidateId,
       level1A: "PASS",
       level1B: "PASS",
-      status: "ADJUDICATION_REQUIRED",
-      humanDecisionId: null,
+      status: unit.equivalencePair.status,
+      simulatedDecisionId:
+        unit.simulatedDecisions.find(
+          (entry) => entry.reviewType === "SEMANTIC_EQUIVALENCE",
+        )?.decisionId || null,
+      simulatedReviewId: unit.simulatedReviewRecord,
+      disposition:
+        unit.simulatedDecisions.find(
+          (entry) => entry.reviewType === "SEMANTIC_EQUIVALENCE",
+        )?.decision || null,
+      independentQualificationEvidence: false,
     })),
-  rule: "Level 1 PASS does not establish semantic equivalence.",
+  rule:
+    "The five equivalences are adjudicated by three distinct simulated roles, not inferred from Level 1. They are usable for Development evaluator tests but are not independent qualification evidence.",
 };
 
 const versionRegistry = {
@@ -672,6 +846,9 @@ const versionRegistry = {
     .map((benchmarkCase) => {
       const envelope = envelopeByCaseId.get(benchmarkCase.caseId);
       const registryEntry = registryByCaseId.get(benchmarkCase.caseId);
+      const caseDecisions = simulatedDecisionsByCaseId.get(benchmarkCase.caseId) || [];
+      const ovarianRevision =
+        benchmarkCase.caseId === "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY";
       return {
         caseId: benchmarkCase.caseId,
         currentCaseVersion: benchmarkCase.version,
@@ -679,13 +856,97 @@ const versionRegistry = {
         caseSha256: registryEntry.digests.caseSha256,
         envelopeSha256: registryEntry.digests.acceptanceEnvelopeSha256,
         pairSha256: registryEntry.digests.pairSha256,
-        previousVersions: [],
-        resultingVersions: [],
-        humanDecisionIds: [],
+        previousVersions: ovarianRevision
+          ? [
+              {
+                caseVersion: "1.0.0",
+                envelopeVersion: "1.0.0",
+                caseSha256:
+                  "607a9e1bcd206d0df6ca9118efd8dbb74822f9427cce921d959a84861406eee6",
+                envelopeSha256:
+                  "677ebcfee9b54a537bcfe926986f866951a1bd89c0fac20acb1aedbe469fb185",
+                pairSha256:
+                  "a174a9f6802e66dbedb53e0c818d5d568133065d228e1681b49adae3e4428ef1",
+                sourceGitCommit: "8aad0e7",
+              },
+            ]
+          : [],
+        resultingVersions: ovarianRevision
+          ? [
+              {
+                caseVersion: benchmarkCase.version,
+                envelopeVersion: envelope.version,
+                caseSha256: registryEntry.digests.caseSha256,
+                envelopeSha256: registryEntry.digests.acceptanceEnvelopeSha256,
+                pairSha256: registryEntry.digests.pairSha256,
+                revisionId: "SEM3B3-REV-OVARIAN-ULTRASOUND-1-0-1",
+              },
+            ]
+          : [],
+        simulatedDecisionIds: caseDecisions.map((entry) => entry.decisionId).sort(),
+        simulatedReviewId:
+          caseDecisions.length > 0 ? SIMULATED_REVIEW_RECORD.reviewId : null,
         modifiedInB3PacketPreparation: false,
+        modifiedInSimulatedReview: ovarianRevision,
       };
     })
     .sort((left, right) => left.caseId.localeCompare(right.caseId)),
+};
+
+const ovarianRegistryEntry = registryByCaseId.get(
+  "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+);
+const referenceRevisionLineage = {
+  schemaVersion: "1.0.0",
+  contractType: "SEM003B3_REFERENCE_REVISION_LINEAGE",
+  generatedAt: GENERATED_AT,
+  revisions: [
+    {
+      revisionId: "SEM3B3-REV-OVARIAN-ULTRASOUND-1-0-1",
+      caseId: "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+      simulatedReviewId: SIMULATED_REVIEW_RECORD.reviewId,
+      decisionIds: [
+        "SEM3B3-SIMDEC-OVARIAN-ULTRASOUND-AMBIGUITY-SCIENTIFIC-REFERENCE",
+        "SEM3B3-SIMDEC-OVARIAN-ULTRASOUND-AMBIGUITY-AMBIGUITY",
+        "SEM3B3-SIMDEC-OVARIAN-ULTRASOUND-AMBIGUITY-METHODOLOGICAL-REFERENCE",
+      ],
+      sourceGitCommit: "8aad0e7",
+      previous: {
+        caseVersion: "1.0.0",
+        envelopeVersion: "1.0.0",
+        caseSha256:
+          "607a9e1bcd206d0df6ca9118efd8dbb74822f9427cce921d959a84861406eee6",
+        envelopeSha256:
+          "677ebcfee9b54a537bcfe926986f866951a1bd89c0fac20acb1aedbe469fb185",
+        pairSha256:
+          "a174a9f6802e66dbedb53e0c818d5d568133065d228e1681b49adae3e4428ef1",
+      },
+      resulting: {
+        caseVersion: "1.0.1",
+        envelopeVersion: "1.0.1",
+        caseSha256: ovarianRegistryEntry.digests.caseSha256,
+        envelopeSha256: ovarianRegistryEntry.digests.acceptanceEnvelopeSha256,
+        pairSha256: ovarianRegistryEntry.digests.pairSha256,
+      },
+      changes: [
+        {
+          target: "CASE",
+          jsonPointer: "/exposure/parentageAssessment/ambiguities/0",
+          from: "L'usage scientifique de l'IRM est indécis.",
+          to: "L'usage scientifique de l'échographie ovarienne est indécis.",
+        },
+        {
+          target: "ACCEPTANCE_ENVELOPE",
+          jsonPointer: "/admissibleAmbiguities/0/description",
+          from: "L'usage scientifique de l'IRM est indécis.",
+          to: "L'usage scientifique de l'échographie ovarienne est indécis.",
+        },
+      ],
+      semanticScopePreserved: ["détection", "caractérisation", "suivi"],
+      reason:
+        "Explicit simulated pluralistic review correction of an objective modality wording error; no scientific scope was added or removed.",
+    },
+  ],
 };
 
 const antiOverfitting = {
@@ -705,6 +966,57 @@ const antiOverfitting = {
   calibrationExecuted: false,
   blindSetCreated: false,
   qualificationDecisionProduced: false,
+};
+
+const calibrationReferenceSet = {
+  schemaVersion: "1.0.0",
+  contractType: "SEM003B3_DEVELOPMENT_CALIBRATION_REFERENCE_SET",
+  referenceSetId: "SEM3-CALIBRATION-REFERENCE-SET-SIMULATED-1",
+  version: "1.0.0",
+  generatedAt: GENERATED_AT,
+  status: "READY_FOR_B4_DEVELOPMENT_CALIBRATION",
+  referenceReviewBasis: "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+  simulatedReferenceReview: "COMPLETE",
+  realHumanReferenceReview: "NOT_PERFORMED",
+  finalPD011ReferenceEligibility: "NO",
+  blindEligibility: "NO",
+  eligibleForFormalIndependentQualification: false,
+  calibrationExecutionAuthorizedInB3: false,
+  cases: calibration.cases
+    .map((benchmarkCase) => {
+      const registryEntry = registryByCaseId.get(benchmarkCase.caseId);
+      const envelope = envelopeByCaseId.get(benchmarkCase.caseId);
+      const reviewUnit = reviewUnits.find((unit) => unit.caseId === benchmarkCase.caseId);
+      return {
+        caseId: benchmarkCase.caseId,
+        caseVersion: benchmarkCase.version,
+        envelopeVersion: envelope.version,
+        exposureStatus: benchmarkCase.exposure.exposureStatus,
+        eligibleForDevelopmentCalibration: benchmarkCase.exposure.eligibleForCalibration,
+        eligibleForFormalIndependentQualification: false,
+        eligibleForBlindQualification: false,
+        reviewUnitId: reviewUnit.reviewUnitId,
+        simulatedReviewId: SIMULATED_REVIEW_RECORD.reviewId,
+        simulatedDecisionIds: reviewUnit.simulatedDecisions.map(
+          (entry) => entry.decisionId,
+        ),
+        digests: registryEntry.digests,
+      };
+    })
+    .sort((left, right) => left.caseId.localeCompare(right.caseId)),
+  evaluator: {
+    version: evaluatorIdentity.version,
+    configurationDigest: evaluatorIdentity.configurationDigest,
+    modifiedFromCalibrationEvidence: false,
+  },
+  exclusions: [
+    "No Calibration B4 execution",
+    "No SEM execution",
+    "No LLM/provider call",
+    "No formal independent qualification evidence",
+    "No blind eligibility",
+    "No PD-011 PASS/FAIL decision",
+  ],
 };
 
 const decisionImportTemplate = {
@@ -747,6 +1059,8 @@ writeJson(path.join(artifactDir, "review-progress.json"), reviewProgress);
 writeJson(path.join(artifactDir, "calibration-gate-status.json"), calibrationGateStatus);
 writeJson(path.join(artifactDir, "equivalence-review-status.json"), equivalenceReviewStatus);
 writeJson(path.join(artifactDir, "reference-version-registry.json"), versionRegistry);
+writeJson(path.join(artifactDir, "reference-revision-lineage.json"), referenceRevisionLineage);
+writeJson(path.join(artifactDir, "calibration-reference-set.json"), calibrationReferenceSet);
 writeJson(path.join(artifactDir, "decision-table.json"), {
   schemaVersion: "1.0.0",
   contractType: "SEM003B3_CONSOLIDATED_DECISION_TABLE",
@@ -758,7 +1072,7 @@ writeJson(path.join(artifactDir, "anti-overfitting-audit.json"), antiOverfitting
 
 fs.writeFileSync(
   path.join(decisionRecordDir, "README.md"),
-  `# SEM-003B3 Human Decision Records\n\nNo human decision is recorded in the packet-preparation phase.\n\nA future record belongs here only after a real reviewer has supplied the decision, rationale, competence, scope, date and conflict declaration. It must validate against \`../contracts/human-decision-record.schema.json\`. A draft or template must never be placed in this directory as if it were evidence.\n`,
+  `# SEM-003B3 Review Records\n\n\`sem003b3-simulated-pluralistic-expert-review.json\` is explicitly SIMULATED_EXPERT_REVIEW_EVIDENCE. Its three personas are not human reviewers, do not satisfy the PD-011 independent panel and grant no formal or blind qualification eligibility.\n\nA future real human decision belongs here only after a real reviewer has supplied provenance, rationale, competence, scope, date and conflict declaration. It must validate against \`../contracts/human-decision-record.schema.json\` and must never reuse a simulated reviewer identity.\n`,
 );
 
 const renderCompactUnit = (unit) => {
@@ -791,16 +1105,16 @@ ${bulletList(envelope.admissibleAmbiguities, (entry) => `${entry.description} �
 
 - Clarification : \`${envelope.expectedClarification.status}\` — ${envelope.expectedClarification.decisionImpact}
 
-**Points ouverts**
+**Points de revue B1**
 
 ${bulletList(unit.openReviewPoints, (entry) => `\`${entry.reviewType}\` — ${entry.subject}`)}
 ${unit.assistanceFlags.length ? `\n${bulletList(unit.assistanceFlags, (entry) => `**À arbitrer :** ${entry.observation}`)}\n` : ""}
 **Parenté — assistance only**
 
 - Development à comparer : ${parentageLines.join(" ; ") || "sans objet"}.
-- Conclusion humaine : requise. L’audit B1 ciblé H01–H30 ne vaut pas indépendance humaine.
+- Conclusion simulée : \`${unit.simulatedConsensus?.status || "NOT_REVIEWED"}\`. Cette conclusion ne vaut jamais indépendance humaine.
 
-**Décisions à fournir :** ${unit.decisionRequirements.map((entry) => `\`${entry}\``).join(" ; ")}.
+**Décisions enregistrées :** ${unit.simulatedDecisions.length ? unit.simulatedDecisions.map((entry) => `\`${entry.reviewType}=${entry.decision}\``).join(" ; ") : "aucune"}.
 
 Fiche détaillée : \`${unit.humanSheetPath}\`.
 `;
@@ -811,87 +1125,51 @@ const developmentEquivalenceUnits = priorityUnits.filter(
   (unit) => unit.priority === "DEVELOPMENT_EQUIVALENCE",
 );
 
-const packet = `# SEM-003B3 — Human Reference Review Packet
+const packet = `# SEM-003B3 — Simulated Pluralistic Expert Review Record
 
 | Champ | Valeur |
 |---|---|
-| Statut | \`HUMAN_REVIEW_REQUIRED\` |
-| Nature | Dossier humain de niveau 3, sans autorité scientifique autonome |
+| Statut | \`SIMULATED_CALIBRATION_REFERENCE_SET_READY\` |
+| Nature | Revue pluraliste simulée pour développement et préparation Calibration uniquement |
 | Baseline | SEM-003B1 corpus 1.0.0 ; évaluateur SEM-003 v${evaluatorIdentity.version} |
 | Evaluator digest | \`${evaluatorIdentity.configurationDigest}\` |
 | Review Units | ${reviewUnits.length} total ; ${priorityUnits.length} prioritaires |
-| Décisions humaines enregistrées | 0 |
-| Calibration visible | 0 |
-| Date de préparation | 13 août 2026 |
+| Personas simulées | 3 rôles distincts |
+| Décisions simulées | ${simulatedDecisions.length} |
+| Décisions humaines réelles | 0 |
+| Calibration visible | ${calibrationUnits.length} |
+| Date d’état | 13 août 2026 |
 
-## A. Instructions de revue
+## A. Frontière de preuve
 
-Le reviewer doit répondre à deux questions : « Est-ce bien ce que cette conversation signifie scientifiquement ? » et « L’espace des réponses acceptables est-il correctement défini ? » Il ne valide ni JSON, ni performance de SEM.
+Les trois rôles \`REVIEWER_SIM_1\`, \`REVIEWER_SIM_2\` et \`REVIEWER_SIM_3\` sont des personas de simulation. Ils ne sont ni des humains, ni un panel indépendant, ni une preuve confirmatoire PD-011. Leur consensus rend les références utilisables pour tester et calibrer l’instrument de mesure en B4 ; il n’autorise ni qualification finale, ni blind set, ni exécution dans B3.
 
-Pour chaque cas, examiner séparément \`REQUIRED\`, \`PROHIBITED\`, \`OPTIONAL_RELEVANT\`, ambiguïtés, clarification, ownership et parenté. Une décision \`ACCEPT_WITH_REVISION\` doit décrire le delta exact. Une compétence insuffisante conduit à \`NEEDS_SPECIALIST_REVIEW\`, jamais à une approbation forcée.
+## B. Dix références Calibration
 
-PD-011 impose au moins trois évaluateurs indépendants couvrant les compétences pertinentes pour établir une référence experte critique. Chaque reviewer conserve un identifiant stable, son rôle, ses compétences, sa déclaration de conflit, sa rationale et sa date. Codex n’est pas reviewer humain.
-
-## B. Vue synthétique des dix candidats Calibration
-
-| Case | Domaine | Difficulté | Revues ouvertes | Parenté | Exposition |
-|---|---|---|---:|---|---|
-${calibrationUnits.map((unit) => `| \`${unit.caseId}\` | ${unit.identity.domain} | \`${unit.identity.difficulty}\` | ${unit.reviewItemIds.length} | \`PARENTAGE_REVIEW_REQUIRED\` | \`DESIGN_ONLY\` |`).join("\n")}
-
-## C. Review Units Calibration
+| Case | Domaine | Disposition | Base | Formal/Blind |
+|---|---|---|---|---|
+${calibrationUnits.map((unit) => `| \`${unit.caseId}\` | ${unit.identity.domain} | \`CALIBRATION_VISIBLE\` | \`SIMULATED_PLURALISTIC_EXPERT_REVIEW\` | \`NO / NO\` |`).join("\n")}
 
 ${calibrationUnits.map(renderCompactUnit).join("\n\n---\n\n")}
 
-## D. Cinq équivalences Development
+## C. Cinq équivalences Development
 
-Ces paires ont toutes obtenu Level 1 vert sur le même vecteur critique. Cela ne constitue aucune équivalence humaine. Comparer explicitement obligations, relations, polarité, timing, provenance, unknowns, ambiguïtés, ownership et conséquences scientifiques.
+Le Level 1 n’établit aucune équivalence à lui seul. Les dispositions ci-dessous proviennent des trois avis simulés séparés et de leur consensus ; elles peuvent servir aux tests Development de l’évaluateur, jamais comme preuve indépendante finale.
 
 ${developmentEquivalenceUnits.map((unit) => `${renderCompactUnit(unit)}\n\n${renderEquivalence(unit)}`).join("\n\n---\n\n")}
 
-## E. Décisions transversales
+## D. Correction versionnée
 
-- Panel : au moins trois évaluateurs indépendants pour toute référence critique.
-- Conflits : aucune indépendance organisationnelle n’est présumée ; une déclaration est obligatoire.
-- Parenté : les comparaisons calculées ne sont que \`REVIEW_ASSISTANCE_ONLY\`.
-- Versionnement : toute révision crée une nouvelle version et conserve l’ancienne avec lineage et digest.
-- Calibration : aucune sortie d’évaluateur ne doit être présentée aux reviewers des candidats Calibration.
+\`SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY\` passe de 1.0.0 à 1.0.1. La seule correction scientifique documentaire est « IRM » → « échographie ovarienne » dans l’ambiguïté. Détection, caractérisation et suivi restent ouverts. L’ancienne version, les anciens digests, le commit source et les nouveaux digests sont conservés dans \`reference-revision-lineage.json\`.
 
-## F. Table consolidée des décisions
+## E. État et limites
 
-| Review Unit | Case | Set | Décision requise | État |
-|---|---|---|---|---|
-${decisionsTable.map((entry) => `| \`${entry.reviewUnitId}\` | \`${entry.caseId}\` | ${entry.candidateSet} | \`${entry.reviewType}\` | \`OPEN\` |`).join("\n")}
-
-Les formulaires détaillés sont intégrés à chaque fiche sous \`semantic-validation/sem-003/review/review-units/\`. Le contrat d’import machine se trouve sous \`semantic-validation/sem-003/review/contracts/\` et son template sous \`semantic-validation/sem-003/review/artifacts/human-decision-import-template.json\`.
-
-## G. Conséquences des décisions
-
-- \`ACCEPT\` documente une revue ; il ne suffit pas seul à satisfaire le panel PD-011.
-- \`ACCEPT_WITH_REVISION\` exige une révision bornée, une nouvelle version, un lineage et de nouveaux digests.
-- \`REJECT\` conserve l’historique et exclut le cas ; aucun remplaçant n’est créé automatiquement.
-- \`NEEDS_SPECIALIST_REVIEW\` ou une ambiguïté/parenté non résolue maintient le cas \`DESIGN_ONLY\`.
-- Une admission Calibration exige toutes les gates applicables et reste distincte d’une calibration, d’une qualification ou d’un PASS.
-
-## H. Éléments restant ouverts
-
-- 62/62 items de la Review Queue sont \`OPEN\` ; 0 résolu, 0 différé, 0 rejeté.
-- 10/10 candidats Calibration restent \`DESIGN_ONLY\`.
-- 5/5 équivalences Development restent \`ADJUDICATION_REQUIRED\`.
-- 0 décision humaine est enregistrée.
-- L’incohérence « échographie ovarienne » / « IRM » est exposée au reviewer, sans correction.
-- Les 10 autres unités Development restent ouvertes et non bloquantes ; elles sont présentes dans le manifeste machine mais ne sont pas reproduites ici.
-
-## Formulaire minimal de reprise
-
-Pour chaque reviewer et type de revue :
-
-1. sélectionner exactement une disposition dans la fiche ;
-2. fournir rationale, rôle, compétences, identifiant reviewer stable, date et conflit ;
-3. préciser tout delta si révision ;
-4. convertir la décision dans le contrat machine ;
-5. relancer SEM-003B3 pour validation et application déterministe.
-
-**STOP :** aucune décision, promotion, calibration, exécution SEM, sortie provider ou création blind n’appartient à cette phase.
+- 39/62 items de la queue B1 sont résolus par la revue simulée ; 23/62 Development non bloquants restent ouverts.
+- 10/10 références sont \`CALIBRATION_VISIBLE\` et 0 reste \`DESIGN_ONLY\`.
+- 5/5 équivalences Development portent une disposition simulée.
+- \`REAL_HUMAN_REFERENCE_REVIEW = NOT_PERFORMED\`.
+- \`FINAL_PD011_REFERENCE_ELIGIBILITY = NO\` et \`BLIND_ELIGIBILITY = NO\`.
+- Aucune Calibration B4, aucun SEM, aucun provider, aucun blind set et aucune décision PASS/FAIL n’ont été exécutés.
 `;
 fs.writeFileSync(docsPacketPath, packet);
 
@@ -919,21 +1197,24 @@ const inventory = [
 const manifest = {
   schemaVersion: "1.0.0",
   contractType: "SEM003B3_REVIEW_UNIT_MANIFEST",
-  packetId: "SEM-003B3-HUMAN-REFERENCE-REVIEW-PACKET",
+  packetId: "SEM-003B3-SIMULATED-PLURALISTIC-EXPERT-REVIEW",
   version: "1.0.0",
   generatedAt: GENERATED_AT,
-  status: "HUMAN_REVIEW_REQUIRED",
-  decision: "SEM003B3_HUMAN_REVIEW_PACKET_READY_DECISIONS_REQUIRED",
+  status: "SIMULATED_CALIBRATION_REFERENCE_SET_READY",
+  decision: "SEM003B3_SIMULATED_CALIBRATION_REFERENCE_SET_READY",
   counts: {
     reviewUnits: reviewUnits.length,
-    priorityHumanSheets: priorityUnits.length,
+    priorityReviewSheets: priorityUnits.length,
     calibrationReviewUnits: calibrationUnits.length,
     equivalenceReviewUnits: developmentEquivalenceUnits.length,
     nonblockingDevelopmentUnits: reviewUnits.filter(
       (unit) => unit.priority === "NONBLOCKING_DEVELOPMENT_REFERENCE",
     ).length,
     originalReviewQueueItems: reviewQueue.items.length,
-    humanDecisionsRecorded: 0,
+    simulatedReviewerPersonas: SIMULATED_REVIEW_RECORD.roles.length,
+    simulatedDecisionsRecorded: simulatedDecisions.length,
+    realHumanDecisionsRecorded: 0,
+    calibrationVisible: calibrationUnits.length,
   },
   units: reviewUnits.map((unit) => ({
     reviewUnitId: unit.reviewUnitId,
@@ -942,7 +1223,8 @@ const manifest = {
     priority: unit.priority,
     reviewItemIds: unit.reviewItemIds,
     decisionRequirements: unit.decisionRequirements,
-    humanSheetPath: unit.humanSheetPath,
+    reviewSheetPath: unit.humanSheetPath,
+    simulatedReviewId: unit.simulatedReviewRecord,
   })),
   evaluator: {
     version: evaluatorIdentity.version,
@@ -954,9 +1236,8 @@ const manifest = {
     sha256: sha256File(filePath),
   })),
   exclusions: [
-    "No human decision record",
-    "No Calibration promotion",
-    "No Calibration Reference Set manifest",
+    "No real human decision record",
+    "No formal independent qualification evidence",
     "No evaluator modification",
     "No SEM execution",
     "No LLM/provider call",
@@ -972,11 +1253,12 @@ console.log(
     {
       generated: true,
       reviewUnits: reviewUnits.length,
-      priorityHumanSheets: priorityUnits.length,
+      priorityReviewSheets: priorityUnits.length,
       calibrationReviewUnits: calibrationUnits.length,
       equivalenceReviewUnits: developmentEquivalenceUnits.length,
       queueItemsLinked: reviewQueue.items.length,
-      humanDecisionsRecorded: 0,
+      simulatedDecisionsRecorded: simulatedDecisions.length,
+      calibrationVisible: calibrationUnits.length,
       packet: relative(docsPacketPath),
     },
     null,

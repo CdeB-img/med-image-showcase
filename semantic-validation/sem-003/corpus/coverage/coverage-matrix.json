@@ -5,8 +5,8 @@
   "summary": {
     "totalCases": 25,
     "developmentCases": 15,
-    "calibrationDesignOnly": 10,
-    "calibrationVisible": 0,
+    "calibrationDesignOnly": 0,
+    "calibrationVisible": 10,
     "totalConversationTurns": 134,
     "singleTurnCases": 5,
     "multiTurnCases": 20,

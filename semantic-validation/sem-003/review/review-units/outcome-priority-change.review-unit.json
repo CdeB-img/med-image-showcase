@@ -1,11 +1,11 @@
 {
   "schemaVersion": "1.0.0",
-  "contractType": "SEM003B3_HUMAN_REVIEW_UNIT",
+  "contractType": "SEM003B3_SIMULATED_REVIEW_UNIT",
   "reviewUnitId": "SEM3B3-RU-DEV-OUTCOME-PRIORITY-CHANGE",
   "caseId": "SEM3-DEV-OUTCOME-PRIORITY-CHANGE",
   "candidateSet": "DEVELOPMENT",
   "priority": "DEVELOPMENT_EQUIVALENCE",
-  "state": "HUMAN_REVIEW_REQUIRED",
+  "state": "SIMULATED_EQUIVALENCE_RECORDED",
   "identity": {
     "title": "Changement de priorité entre biomarqueur et résultat rapporté",
     "domain": "méthodologie de recherche clinique",
@@ -321,7 +321,7 @@
   "humanSheetPath": "semantic-validation/sem-003/review/review-units/outcome-priority-change.review.md",
   "equivalencePair": {
     "pairId": "SEM3B3-EQ-OUTCOME-PRIORITY-CHANGE",
-    "status": "ADJUDICATION_REQUIRED",
+    "status": "SIMULATED_EXPERT_CONSENSUS_RECORDED",
     "candidateA": {
       "candidateId": "SEM3-EVAL-CAND-OUTCOME-PRIORITY-CHANGE-BASELINE",
       "path": "semantic-validation/sem-003/evaluator/fixtures/development/outcome-priority-change-baseline.candidate.json",
@@ -380,9 +380,50 @@
     ]
   },
   "humanDecisionRecords": [],
+  "simulatedReviewRecord": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+  "simulatedRoleOpinions": [
+    {
+      "reviewerId": "REVIEWER_SIM_1",
+      "disposition": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+      "analysis": "Both candidates retain the active outcome priority and the superseded historical priority.",
+      "reservation": null
+    },
+    {
+      "reviewerId": "REVIEWER_SIM_2",
+      "disposition": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+      "analysis": "The correction chronology and downstream consequence are unchanged despite distributed nodes.",
+      "reservation": null
+    },
+    {
+      "reviewerId": "REVIEWER_SIM_3",
+      "disposition": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+      "analysis": "No historical state is reactivated and provenance remains reconstructible in both forms.",
+      "reservation": null
+    }
+  ],
+  "simulatedDisagreements": [],
+  "simulatedConsensus": {
+    "status": "SIMULATED_EXPERT_CONSENSUS",
+    "rationale": "Both representations encode the same corrected active state and history.",
+    "decisions": {
+      "SEMANTIC_EQUIVALENCE": "SIMULATED_SEMANTICALLY_EQUIVALENT"
+    },
+    "evaluatorUse": "DEVELOPMENT_ONLY",
+    "independentQualificationEvidence": false
+  },
+  "simulatedDecisions": [
+    {
+      "decisionId": "SEM3B3-SIMDEC-OUTCOME-PRIORITY-CHANGE-SEMANTIC-EQUIVALENCE",
+      "reviewType": "SEMANTIC_EQUIVALENCE",
+      "decision": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+      "recommendedDisposition": null,
+      "revisionRef": null
+    }
+  ],
   "limits": [
-    "Codex prepared this unit but is not the human reviewer.",
-    "No scientific, methodological, ambiguity, parentage, equivalence or admission decision is inferred.",
-    "All parentage comparisons are REVIEW_ASSISTANCE_ONLY."
+    "All three reviewer roles are simulated personas, never human reviewers.",
+    "The simulated consensus is usable only for benchmark development and calibration preparation.",
+    "All parentage comparisons are REVIEW_ASSISTANCE_ONLY.",
+    "REAL_HUMAN_REFERENCE_REVIEW is NOT_PERFORMED and FINAL_PD011_REFERENCE_ELIGIBILITY is NO."
   ]
 }

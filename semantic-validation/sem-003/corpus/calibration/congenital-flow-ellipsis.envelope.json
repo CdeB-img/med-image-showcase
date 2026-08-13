@@ -4,7 +4,7 @@
   "envelopeId": "SEM3-AE-CAL-CONGENITAL-FLOW-ELLIPSIS",
   "version": "1.0.0",
   "caseId": "SEM3-CAL-CONGENITAL-FLOW-ELLIPSIS",
-  "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+  "reviewStatus": "APPROVED_FOR_CALIBRATION",
   "required": [
     {
       "obligationId": "req-1-resolve-those-patients",
@@ -275,13 +275,13 @@
       "SCIENTIFIC_DOMAIN",
       "METHODOLOGICAL_SEM"
     ],
-    "notes": "Référence candidate préparée sans exécution SEM, sans provider et sans approbation humaine inventée.",
+    "notes": "Référence revue par trois personas expertes simulées pour développement/calibration uniquement ; aucune revue humaine indépendante n'est revendiquée.",
     "humanAdjudicationPoints": [
       "Confirmer que REQUIRED contient uniquement les obligations nécessaires.",
       "Confirmer la plausibilité et le caractère non exhaustif des candidats optionnels.",
       "Confirmer les équivalences sémantiques au-delà des contrôles structurels."
     ],
-    "status": "REVIEW_REQUIRED"
+    "status": "REFERENCE_STABLE_FOR_VISIBLE_USE"
   },
   "evaluationDemonstrations": []
 }

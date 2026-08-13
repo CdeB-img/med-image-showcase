@@ -1,11 +1,11 @@
 {
   "schemaVersion": "1.0.0",
-  "contractType": "SEM003B3_HUMAN_REVIEW_UNIT",
+  "contractType": "SEM003B3_SIMULATED_REVIEW_UNIT",
   "reviewUnitId": "SEM3B3-RU-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
   "caseId": "SEM3-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
   "candidateSet": "DEVELOPMENT",
   "priority": "DEVELOPMENT_EQUIVALENCE",
-  "state": "HUMAN_REVIEW_REQUIRED",
+  "state": "SIMULATED_EQUIVALENCE_RECORDED",
   "identity": {
     "title": "Imagerie vasculaire rétinienne avec référentiel fonctionnel incomplet",
     "domain": "imagerie rétinienne vasculaire",
@@ -366,7 +366,7 @@
   "humanSheetPath": "semantic-validation/sem-003/review/review-units/retinal-vascular-outcome-unknown.review.md",
   "equivalencePair": {
     "pairId": "SEM3B3-EQ-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
-    "status": "ADJUDICATION_REQUIRED",
+    "status": "SIMULATED_EXPERT_CONSENSUS_RECORDED",
     "candidateA": {
       "candidateId": "SEM3-EVAL-CAND-RETINAL-VASCULAR-OUTCOME-UNKNOWN-BASELINE",
       "path": "semantic-validation/sem-003/evaluator/fixtures/development/retinal-vascular-outcome-unknown-baseline.candidate.json",
@@ -427,9 +427,50 @@
     ]
   },
   "humanDecisionRecords": [],
+  "simulatedReviewRecord": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+  "simulatedRoleOpinions": [
+    {
+      "reviewerId": "REVIEWER_SIM_1",
+      "disposition": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+      "analysis": "Both candidates keep the retinal vascular outcome unresolved while preserving the explicit scientific context.",
+      "reservation": null
+    },
+    {
+      "reviewerId": "REVIEWER_SIM_2",
+      "disposition": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+      "analysis": "Neither representation invents a measurement definition and both retain the same clarification need.",
+      "reservation": null
+    },
+    {
+      "reviewerId": "REVIEWER_SIM_3",
+      "disposition": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+      "analysis": "Unknown status and owner boundaries are identical; extra structure does not promote a candidate.",
+      "reservation": null
+    }
+  ],
+  "simulatedDisagreements": [],
+  "simulatedConsensus": {
+    "status": "SIMULATED_EXPERT_CONSENSUS",
+    "rationale": "The two forms are semantically equivalent across explicit, unknown and ownership obligations.",
+    "decisions": {
+      "SEMANTIC_EQUIVALENCE": "SIMULATED_SEMANTICALLY_EQUIVALENT"
+    },
+    "evaluatorUse": "DEVELOPMENT_ONLY",
+    "independentQualificationEvidence": false
+  },
+  "simulatedDecisions": [
+    {
+      "decisionId": "SEM3B3-SIMDEC-RETINAL-VASCULAR-OUTCOME-UNKNOWN-SEMANTIC-EQUIVALENCE",
+      "reviewType": "SEMANTIC_EQUIVALENCE",
+      "decision": "SIMULATED_SEMANTICALLY_EQUIVALENT",
+      "recommendedDisposition": null,
+      "revisionRef": null
+    }
+  ],
   "limits": [
-    "Codex prepared this unit but is not the human reviewer.",
-    "No scientific, methodological, ambiguity, parentage, equivalence or admission decision is inferred.",
-    "All parentage comparisons are REVIEW_ASSISTANCE_ONLY."
+    "All three reviewer roles are simulated personas, never human reviewers.",
+    "The simulated consensus is usable only for benchmark development and calibration preparation.",
+    "All parentage comparisons are REVIEW_ASSISTANCE_ONLY.",
+    "REAL_HUMAN_REFERENCE_REVIEW is NOT_PERFORMED and FINAL_PD011_REFERENCE_ELIGIBILITY is NO."
   ]
 }

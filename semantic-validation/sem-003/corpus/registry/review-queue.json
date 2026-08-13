@@ -2,6 +2,9 @@
   "queueId": "SEM-003B1-HUMAN-REVIEW-QUEUE",
   "version": "1.0.0",
   "generatedAt": "2026-08-13T12:00:00.000Z",
+  "queueNature": "INITIAL_B1_AUTHORING_REVIEW_REQUIREMENTS",
+  "currentResolutionAuthority": "semantic-validation/sem-003/review/artifacts/review-progress.json",
+  "interpretation": "Items preserve the initial B1 questions and impacts. Their current OPEN/RESOLVED state is recorded only by the later SEM-003B3 progress artifact.",
   "blockingItems": 0,
   "countsByType": {
     "AMBIGUITY_ADJUDICATION_REQUIRED": 8,

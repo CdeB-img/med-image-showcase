@@ -1,6 +1,6 @@
 # SEM3B3-RU-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT — Signal vivant d'organoïde, phénomène et mesure terminale
 
-**Statut :** `HUMAN_REVIEW_REQUIRED`
+**Statut :** `CALIBRATION_VISIBLE_SIMULATED_REVIEW`
 
 **Set :** `CALIBRATION` · **Priorité :** `CALIBRATION_GATE`
 
@@ -109,7 +109,7 @@ Ambiguïtés candidates :
 - `PROPERTY_PROVENANCE_RECONSTRUCTIBLE` — `SAFETY_FIDELITY_INVARIANT`, absolue : oui
 - `PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED` — `SCIENTIFIC_UNDERSTANDING_COMPETENCE`, absolue : non
 
-## Open review points
+## Review points hérités de la queue B1
 
 ### `SEM3B1-REVIEW-059` — `SCIENTIFIC_REVIEW_REQUIRED`
 
@@ -160,7 +160,7 @@ Autres candidats Calibration à comparer en priorité :
 - `SEM3-CAL-CORTISOL-SAMPLING-SUMMARY` — catégories communes : METHOD_VERSUS_MEASUREMENT ; caractéristiques communes : METHOD_MEASUREMENT, MISSING_INFORMATION, MULTI_TURN_CONTEXT_DEPENDENT, OWNERSHIP.
 - `SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP` — catégories communes : MULTIDIMENSIONAL_REQUEST, PHENOMENON_VERSUS_OBSERVABLE ; caractéristiques communes : MISSING_INFORMATION, MULTI_TURN_CONTEXT_DEPENDENT, OWNERSHIP, PHENOMENON_OBSERVABLE.
 
-Conclusion candidate B1, non humaine : `PARENTAGE_REVIEW_REQUIRED` ; Modèle d'organoïde, signal vivant et mesure histologique terminale ; aucune question ni chaîne factuelle reprise de H01-H30. Contamination évidente identifiée : non.
+Conclusion candidate B1, non humaine : `SIMULATED_PARENTAGE_CLEAR` ; Modèle d'organoïde, signal vivant et mesure histologique terminale ; aucune question ni chaîne factuelle reprise de H01-H30. Contamination évidente identifiée : non.
 
 Historique H01–H30 : B1 compared originalRequest only across H01-H30 and reported no source reuse; this is not an independent human conclusion.
 
@@ -171,57 +171,36 @@ Exemples exposés : SEM-002/SEM-003 exposed examples remain ineligible as Calibr
 
 
 
-## Decision form
+## Revue et disposition
 
-**SCIENTIFIC_REFERENCE**
+### Avis séparés des trois personas
 
-- [ ] `ACCEPT`
-- [ ] `ACCEPT_WITH_REVISION`
-- [ ] `REJECT`
-- [ ] `NEEDS_SPECIALIST_REVIEW`
+- **REVIEWER_SIM_1** — `SIMULATED_ACCEPT` — Biological response, live signal and terminal histology are distinct, and the reference avoids claiming that signal directly measures proliferation.
+- **REVIEWER_SIM_2** — `SIMULATED_ACCEPT` — The pronoun correction, terminal timing and hypothesis-only relation models are methodologically evaluable without selecting a quantitative model.
+- **REVIEWER_SIM_3** — `SIMULATED_ACCEPT` — The specialist relationship remains an explicit downstream unknown; this does not prevent calibration of semantic preservation and ownership boundaries.
 
-**CALIBRATION_ADMISSION**
+### Désaccords et résolution
 
-- [ ] `APPROVE`
-- [ ] `DO_NOT_APPROVE`
-- [ ] `DEFER`
+- **Need for an additional organoid specialist before development calibration** — Admit for development calibration only; preserve the specialist limitation and prohibit formal qualification use.
 
-**PARENTAGE**
+### Consensus simulé
 
-- [ ] `PARENTAGE_CLEAR`
-- [ ] `RELATED_VISIBLE_CASE`
-- [ ] `CONTAMINATED_FOR_CALIBRATION`
-- [ ] `PARENTAGE_REVIEW_UNRESOLVED`
+No unresolved biological assertion is required for the benchmark judgment; specialized model selection remains outside the reference.
 
-**METHODOLOGICAL_REFERENCE**
-
-- [ ] `ACCEPT`
-- [ ] `ACCEPT_WITH_REVISION`
-- [ ] `REJECT`
-- [ ] `NEEDS_SPECIALIST_REVIEW`
-- [ ] `NOT_REQUIRED`
-
-**Rationale :**
-
-**Reviewer reference (pseudonyme stable accepté) :**
-
-**Reviewer role / compétence :**
-
-**Indépendance pour le périmètre déclaré :** `INDEPENDENT_FOR_STATED_SCOPE` / `NOT_INDEPENDENT`
-
-**Conflit :** `NO_CONFLICT_DECLARED` / `CONFLICT_DECLARED_AND_MANAGED` / `CONFLICT_REQUIRES_SECOND_REVIEW`
-
-**Date :**
+- `CALIBRATION_ADMISSION` → `SIMULATED_APPROVE_FOR_CALIBRATION` (SEM3B3-SIMDEC-ORGANOID-LIVE-SIGNAL-MEASUREMENT-CALIBRATION-ADMISSION)
+- `METHODOLOGICAL_REFERENCE` → `SIMULATED_ACCEPT` (SEM3B3-SIMDEC-ORGANOID-LIVE-SIGNAL-MEASUREMENT-METHODOLOGICAL-REFERENCE)
+- `PARENTAGE` → `SIMULATED_PARENTAGE_CLEAR` (SEM3B3-SIMDEC-ORGANOID-LIVE-SIGNAL-MEASUREMENT-PARENTAGE)
+- `SCIENTIFIC_REFERENCE` → `SIMULATED_ACCEPT` (SEM3B3-SIMDEC-ORGANOID-LIVE-SIGNAL-MEASUREMENT-SCIENTIFIC-REFERENCE)
 
 **Recommended disposition — à renseigner par l’humain :**
 
 `CALIBRATION_VISIBLE` / `REJECTED` / `NEEDS_SPECIALIST_REVIEW`
 
-**Impact d’exposition :** état courant `DESIGN_ONLY` ; aucune décision isolée ne promeut le cas ; le blind reste inéligible.
+**Impact d’exposition :** état courant `CALIBRATION_VISIBLE` ; aucune décision isolée ne promeut le cas ; le blind reste inéligible.
 
 ## Règles de preuve
 
-- Au moins trois évaluateurs indépendants doivent établir une référence experte critique conformément à PD-011.
-- Codex n’est pas reviewer humain et n’enregistre aucune décision dans cette phase.
+- Les trois rôles enregistrés ici sont des personas simulées et ne valent jamais revue humaine.
+- La revue simulée peut rendre une référence visible pour la calibration de développement, sans satisfaire la preuve confirmatoire PD-011.
 - Toute révision doit préciser le delta ; toute décision incomplète reste ouverte.
-- La décision structurée future doit respecter `semantic-validation/sem-003/review/contracts/human-decision-record.schema.json`.
+- La trace structurée respecte `semantic-validation/sem-003/review/contracts/simulated-pluralistic-review-record.schema.json`.

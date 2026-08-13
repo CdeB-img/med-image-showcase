@@ -1,6 +1,6 @@
 # SEM3B3-RU-DEV-VALVE-HEMODYNAMICS-MULTIMODAL — Valvulopathie, hémodynamique et priorité multimodale
 
-**Statut :** `HUMAN_REVIEW_REQUIRED`
+**Statut :** `SIMULATED_EQUIVALENCE_RECORDED`
 
 **Set :** `DEVELOPMENT` · **Priorité :** `DEVELOPMENT_EQUIVALENCE`
 
@@ -104,7 +104,7 @@ Ambiguïtés candidates :
 - `PROPERTY_PROVENANCE_RECONSTRUCTIBLE` — `SAFETY_FIDELITY_INVARIANT`, absolue : oui
 - `PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED` — `SCIENTIFIC_UNDERSTANDING_COMPETENCE`, absolue : non
 
-## Open review points
+## Review points hérités de la queue B1
 
 ### `SEM3B1-REVIEW-006` — `SCIENTIFIC_REVIEW_REQUIRED`
 
@@ -134,7 +134,7 @@ Exemples exposés : SEM-002/SEM-003 exposed examples remain ineligible as Calibr
 
 ## Paire d’équivalence B2
 
-**Pair ID :** `SEM3B3-EQ-VALVE-HEMODYNAMICS-MULTIMODAL` · **État :** `ADJUDICATION_REQUIRED`
+**Pair ID :** `SEM3B3-EQ-VALVE-HEMODYNAMICS-MULTIMODAL` · **État :** `SIMULATED_EXPERT_CONSENSUS_RECORDED`
 
 - Candidate A : `SEM3-EVAL-CAND-VALVE-HEMODYNAMICS-MULTIMODAL-BASELINE` — profil `CONSOLIDATED`.
 - Candidate B : `SEM3-EVAL-CAND-VALVE-HEMODYNAMICS-MULTIMODAL-DISTRIBUTED` — profil `DISTRIBUTED_EQUIVALENT`.
@@ -150,39 +150,29 @@ Contrôles Level 1 observés : les deux candidats déclarent les mêmes obligati
 
 **Limite :** cette égalité contractuelle ne prouve pas l’équivalence scientifique. L’humain doit comparer conséquences scientifiques, statuts épistémiques, unknowns, clarification, ownership et provenance.
 
-## Decision form
+## Revue et disposition
 
-**SCIENTIFIC_REFERENCE**
+### Avis séparés des trois personas
 
-- [ ] `ACCEPT`
-- [ ] `ACCEPT_WITH_REVISION`
-- [ ] `REJECT`
-- [ ] `NEEDS_SPECIALIST_REVIEW`
+- **REVIEWER_SIM_1** — `SIMULATED_SEMANTICALLY_EQUIVALENT` — Both candidates preserve valve hemodynamics, multimodal observations and their non-interchangeability.
+- **REVIEWER_SIM_2** — `SIMULATED_SEMANTICALLY_EQUIVALENT` — Modality-specific observations and temporal relations remain unchanged across topologies.
+- **REVIEWER_SIM_3** — `SIMULATED_SEMANTICALLY_EQUIVALENT` — No modality is promoted to canonical truth and provenance remains reconstructible.
 
-**SEMANTIC_EQUIVALENCE**
+### Désaccords et résolution
 
-- [ ] `SEMANTICALLY_EQUIVALENT`
-- [ ] `NONCRITICAL_VARIATION`
-- [ ] `NOT_EQUIVALENT`
-- [ ] `NOT_ADJUDICABLE`
+- Aucun désaccord non résolu.
 
-**Rationale :**
+### Consensus simulé
 
-**Reviewer reference (pseudonyme stable accepté) :**
+The distributed representation has the same scientific consequences and ownership constraints.
 
-**Reviewer role / compétence :**
-
-**Indépendance pour le périmètre déclaré :** `INDEPENDENT_FOR_STATED_SCOPE` / `NOT_INDEPENDENT`
-
-**Conflit :** `NO_CONFLICT_DECLARED` / `CONFLICT_DECLARED_AND_MANAGED` / `CONFLICT_REQUIRES_SECOND_REVIEW`
-
-**Date :**
+- `SEMANTIC_EQUIVALENCE` → `SIMULATED_SEMANTICALLY_EQUIVALENT` (SEM3B3-SIMDEC-VALVE-HEMODYNAMICS-MULTIMODAL-SEMANTIC-EQUIVALENCE)
 
 **Impact d’exposition :** `DEVELOPMENT_VISIBLE_UNCHANGED` ; aucune promotion Calibration ou blind n’est possible depuis cette fiche.
 
 ## Règles de preuve
 
-- Au moins trois évaluateurs indépendants doivent établir une référence experte critique conformément à PD-011.
-- Codex n’est pas reviewer humain et n’enregistre aucune décision dans cette phase.
+- Les trois rôles enregistrés ici sont des personas simulées et ne valent jamais revue humaine.
+- La revue simulée peut rendre une référence visible pour la calibration de développement, sans satisfaire la preuve confirmatoire PD-011.
 - Toute révision doit préciser le delta ; toute décision incomplète reste ouverte.
-- La décision structurée future doit respecter `semantic-validation/sem-003/review/contracts/human-decision-record.schema.json`.
+- La trace structurée respecte `semantic-validation/sem-003/review/contracts/simulated-pluralistic-review-record.schema.json`.

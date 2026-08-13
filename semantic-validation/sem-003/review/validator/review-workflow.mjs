@@ -58,10 +58,17 @@ export const loadReviewPackage = (root = REVIEW_ROOT) => {
     evaluatorIdentity: readJson(path.join(EVALUATOR_ROOT, "registry/evaluator-identity.json")),
     evaluatorTestMatrix: readJson(path.join(EVALUATOR_ROOT, "artifacts/test-matrix.json")),
     units: listJson(path.join(root, "review-units")).filter(
-      (entry) => entry.contractType === "SEM003B3_HUMAN_REVIEW_UNIT",
+      (entry) =>
+        entry.contractType === "SEM003B3_HUMAN_REVIEW_UNIT" ||
+        entry.contractType === "SEM003B3_SIMULATED_REVIEW_UNIT",
     ),
     decisions: listJson(path.join(root, "decision-records")).filter(
       (entry) => entry.contractType === "SEM003B3_HUMAN_REFERENCE_DECISION_RECORD",
+    ),
+    simulatedReviews: listJson(path.join(root, "decision-records")).filter(
+      (entry) =>
+        entry.contractType ===
+        "SEM003B3_SIMULATED_PLURALISTIC_EXPERT_REVIEW_RECORD",
     ),
     manifest: readJson(path.join(root, "artifacts/review-unit-manifest.json")),
     progress: readJson(path.join(root, "artifacts/review-progress.json")),
@@ -74,6 +81,12 @@ export const loadReviewPackage = (root = REVIEW_ROOT) => {
     versionRegistry: readJson(
       path.join(root, "artifacts/reference-version-registry.json"),
     ),
+    revisionLineage: readJson(
+      path.join(root, "artifacts/reference-revision-lineage.json"),
+    ),
+    calibrationReferenceSet: readJson(
+      path.join(root, "artifacts/calibration-reference-set.json"),
+    ),
     antiOverfitting: readJson(
       path.join(root, "artifacts/anti-overfitting-audit.json"),
     ),
@@ -85,6 +98,13 @@ const decisionSchema = readJson(
 );
 const ajv = new Ajv({ allErrors: true, jsonPointers: true });
 const validateDecisionSchema = ajv.compile(decisionSchema);
+const simulatedReviewSchema = readJson(
+  path.join(
+    REVIEW_ROOT,
+    "contracts/simulated-pluralistic-review-record.schema.json",
+  ),
+);
+const validateSimulatedReviewSchema = ajv.compile(simulatedReviewSchema);
 
 const ALLOWED_DECISIONS = {
   SCIENTIFIC_REFERENCE: new Set([
@@ -326,6 +346,184 @@ export const validateHumanDecisionRecord = (record, review = loadReviewPackage()
         "HUMAN_DECISION_INDEPENDENCE_INFORMATION_MISSING",
         record.decisionId,
         "reviewer independence for the stated scope must be recorded",
+      ),
+    );
+  }
+
+  return { valid: errors.length === 0, errors };
+};
+
+const SIMULATED_ALLOWED_DECISIONS = Object.freeze({
+  SCIENTIFIC_REFERENCE: new Set([
+    "SIMULATED_ACCEPT",
+    "SIMULATED_ACCEPT_WITH_REVISION",
+    "SIMULATED_REJECT",
+    "SIMULATED_SPECIALIST_UNCERTAINTY",
+  ]),
+  METHODOLOGICAL_REFERENCE: new Set([
+    "SIMULATED_ACCEPT",
+    "SIMULATED_ACCEPT_WITH_REVISION",
+    "SIMULATED_REJECT",
+    "SIMULATED_SPECIALIST_UNCERTAINTY",
+  ]),
+  AMBIGUITY: new Set([
+    "SIMULATED_AMBIGUITY_CONFIRMED",
+    "SIMULATED_AMBIGUITY_REVISED",
+    "SIMULATED_NOT_ACTUALLY_AMBIGUOUS",
+  ]),
+  PARENTAGE: new Set([
+    "SIMULATED_PARENTAGE_CLEAR",
+    "SIMULATED_RELATED_VISIBLE_CASE",
+    "SIMULATED_CONTAMINATED",
+    "SIMULATED_PARENTAGE_UNRESOLVED",
+  ]),
+  CALIBRATION_ADMISSION: new Set([
+    "SIMULATED_APPROVE_FOR_CALIBRATION",
+    "SIMULATED_REJECT",
+    "SIMULATED_SPECIALIST_UNCERTAINTY",
+  ]),
+  SEMANTIC_EQUIVALENCE: new Set([
+    "SIMULATED_SEMANTICALLY_EQUIVALENT",
+    "SIMULATED_NONCRITICAL_VARIATION",
+    "SIMULATED_NOT_EQUIVALENT",
+    "SIMULATED_NOT_ADJUDICABLE",
+  ]),
+});
+
+export const validateSimulatedReviewRecord = (
+  record,
+  review = loadReviewPackage(),
+) => {
+  const errors = [];
+  if (!validateSimulatedReviewSchema(record)) {
+    errors.push(
+      ...validateSimulatedReviewSchema.errors.map((entry) =>
+        error(
+          "SIMULATED_REVIEW_SCHEMA_INVALID",
+          entry.dataPath || "/",
+          entry.message,
+        ),
+      ),
+    );
+    return { valid: false, errors };
+  }
+
+  const roleIds = record.roles.map((entry) => entry.reviewerId);
+  if (new Set(roleIds).size !== 3) {
+    errors.push(
+      error(
+        "SIMULATED_REVIEW_ROLE_DUPLICATION",
+        record.reviewId,
+        "the three simulated roles must be distinct",
+      ),
+    );
+  }
+  if (
+    record.realHumanReviewPerformed ||
+    record.pd011IndependentReferencePanelSatisfied ||
+    record.finalQualificationEligibility ||
+    record.blindEligibility
+  ) {
+    errors.push(
+      error(
+        "SIMULATED_EVIDENCE_PROMOTION_FORBIDDEN",
+        record.reviewId,
+        "simulated evidence cannot become human, formal independent or blind evidence",
+      ),
+    );
+  }
+
+  const caseById = new Map(review.cases.map((entry) => [entry.caseId, entry]));
+  const reviewedCaseIds = new Set();
+  for (const unit of record.reviewUnits) {
+    if (reviewedCaseIds.has(unit.caseId)) {
+      errors.push(
+        error(
+          "SIMULATED_REVIEW_DUPLICATE_CASE",
+          unit.caseId,
+          "a Case may appear only once in the simulated review",
+        ),
+      );
+    }
+    reviewedCaseIds.add(unit.caseId);
+    const benchmarkCase = caseById.get(unit.caseId);
+    if (!benchmarkCase) {
+      errors.push(
+        error("SIMULATED_REVIEW_UNKNOWN_CASE", unit.caseId, "unknown Case"),
+      );
+      continue;
+    }
+    if (
+      new Set(unit.roleOpinions.map((entry) => entry.reviewerId)).size !== 3 ||
+      !roleIds.every((reviewerId) =>
+        unit.roleOpinions.some((entry) => entry.reviewerId === reviewerId),
+      )
+    ) {
+      errors.push(
+        error(
+          "SIMULATED_REVIEW_ROLE_COVERAGE_INVALID",
+          unit.caseId,
+          "every Review Unit needs one separate opinion from each simulated role",
+        ),
+      );
+    }
+    if (
+      new Set(unit.roleOpinions.map((entry) => entry.analysis)).size !== 3
+    ) {
+      errors.push(
+        error(
+          "SIMULATED_REVIEW_ANALYSIS_DUPLICATION",
+          unit.caseId,
+          "pluralistic review requires three role-specific analyses, not duplicated text",
+        ),
+      );
+    }
+    for (const [reviewType, decision] of Object.entries(
+      unit.consensus.decisions,
+    )) {
+      if (!SIMULATED_ALLOWED_DECISIONS[reviewType]?.has(decision)) {
+        errors.push(
+          error(
+            "SIMULATED_REVIEW_DISPOSITION_INVALID",
+            `${unit.caseId}.${reviewType}`,
+            decision,
+          ),
+        );
+      }
+    }
+    if (
+      unit.candidateSet === "CALIBRATION" &&
+      (unit.consensus.referenceDisposition !== "CALIBRATION_VISIBLE" ||
+        unit.consensus.referenceReviewBasis !==
+          "SIMULATED_PLURALISTIC_EXPERT_REVIEW" ||
+        unit.consensus.eligibleForFormalIndependentQualification ||
+        unit.consensus.eligibleForBlindQualification)
+    ) {
+      errors.push(
+        error(
+          "SIMULATED_CALIBRATION_DISPOSITION_INVALID",
+          unit.caseId,
+          "development-calibration visibility must retain formal and blind ineligibility",
+        ),
+      );
+    }
+  }
+
+  const expectedCases = new Set([
+    ...review.calibration.cases.map((entry) => entry.caseId),
+    ...review.evaluatorTestMatrix.rows
+      .filter((entry) => entry.fixture.includes("-distributed.candidate.json"))
+      .map((entry) => entry.caseId),
+  ]);
+  if (
+    expectedCases.size !== reviewedCaseIds.size ||
+    [...expectedCases].some((caseId) => !reviewedCaseIds.has(caseId))
+  ) {
+    errors.push(
+      error(
+        "SIMULATED_REVIEW_SCOPE_INCOMPLETE",
+        record.reviewId,
+        "the review must cover all ten Calibration references and five Development equivalence pairs",
       ),
     );
   }
@@ -665,12 +863,55 @@ export const validateReviewPackage = (review = loadReviewPackage()) => {
     errors.push(...validateHumanDecisionRecord(decision, review).errors);
   }
 
-  const expectedOpenQueueItems = review.reviewQueue.items.length;
+  if (review.decisions.length !== 0) {
+    errors.push(
+      error(
+        "REAL_HUMAN_DECISION_UNEXPECTED",
+        "decision-records",
+        "this operation records simulated review evidence only",
+      ),
+    );
+  }
+  if (review.simulatedReviews.length !== 1) {
+    errors.push(
+      error(
+        "SIMULATED_REVIEW_RECORD_COUNT_INVALID",
+        "decision-records",
+        "exactly one simulated pluralistic review record is required",
+      ),
+    );
+  } else {
+    errors.push(
+      ...validateSimulatedReviewRecord(review.simulatedReviews[0], review).errors,
+    );
+  }
+
+  const simulatedDecisionCount = review.simulatedReviews.reduce(
+    (sum, record) =>
+      sum +
+      record.reviewUnits.reduce(
+        (unitSum, unit) =>
+          unitSum + Object.keys(unit.consensus.decisions).length,
+        0,
+      ),
+    0,
+  );
+
+  const progressCounts = Object.fromEntries(
+    ["OPEN", "RESOLVED", "DEFERRED", "REJECTED", "SUPERSEDED"].map(
+      (status) => [
+        status.toLowerCase(),
+        review.progress.items.filter((entry) => entry.status === status).length,
+      ],
+    ),
+  );
   if (
-    review.progress.counts.open !== expectedOpenQueueItems ||
-    review.progress.counts.resolved !== 0 ||
-    review.progress.counts.deferred !== 0 ||
-    review.progress.counts.humanDecisionsRecorded !== review.decisions.length
+    review.progress.counts.open !== progressCounts.open ||
+    review.progress.counts.resolved !== progressCounts.resolved ||
+    review.progress.counts.deferred !== progressCounts.deferred ||
+    review.progress.counts.simulatedDecisionsRecorded !==
+      simulatedDecisionCount ||
+    review.progress.counts.realHumanDecisionsRecorded !== 0
   ) {
     errors.push(
       error("REVIEW_PROGRESS_COUNT_MISMATCH", "review-progress", "progress counts are stale"),
@@ -680,7 +921,9 @@ export const validateReviewPackage = (review = loadReviewPackage()) => {
     review.manifest.counts.reviewUnits !== review.units.length ||
     review.manifest.counts.calibrationReviewUnits !== review.calibration.cases.length ||
     review.manifest.counts.equivalenceReviewUnits !== equivalenceRows.length ||
-    review.manifest.counts.originalReviewQueueItems !== review.reviewQueue.items.length
+    review.manifest.counts.originalReviewQueueItems !== review.reviewQueue.items.length ||
+    review.manifest.counts.simulatedDecisionsRecorded !== simulatedDecisionCount ||
+    review.manifest.counts.calibrationVisible !== review.calibration.cases.length
   ) {
     errors.push(
       error("REVIEW_UNIT_MANIFEST_COUNT_MISMATCH", "review-unit-manifest", "manifest counts are stale"),
@@ -691,19 +934,40 @@ export const validateReviewPackage = (review = loadReviewPackage()) => {
     const benchmarkCase = caseById.get(gate.caseId);
     if (
       !benchmarkCase ||
-      benchmarkCase.exposure.exposureStatus !== "DESIGN_ONLY" ||
-      benchmarkCase.exposure.eligibleForCalibration ||
-      gate.status !== "HUMAN_REVIEW_REQUIRED" ||
-      gate.promotionApplied
+      benchmarkCase.exposure.exposureStatus !== "CALIBRATION_VISIBLE" ||
+      !benchmarkCase.exposure.eligibleForCalibration ||
+      benchmarkCase.exposure.eligibleForBlindQualification ||
+      gate.status !== "CALIBRATION_VISIBLE_SIMULATED_REVIEW" ||
+      !gate.promotionApplied ||
+      gate.referenceReviewBasis !==
+        "SIMULATED_PLURALISTIC_EXPERT_REVIEW" ||
+      gate.realHumanReferenceReview !== "NOT_PERFORMED" ||
+      gate.finalPD011ReferenceEligibility !== "NO" ||
+      gate.unmetDevelopmentCalibrationGates.length !== 0
     ) {
       errors.push(
-        error("CALIBRATION_GATE_STATE_INVALID", gate.caseId, "packet-only run cannot promote Calibration"),
+        error(
+          "CALIBRATION_GATE_STATE_INVALID",
+          gate.caseId,
+          "simulated review may open development calibration only and must preserve formal and blind exclusions",
+        ),
       );
     }
   }
-  if (review.equivalenceStatus.pairs.some((pair) => pair.status !== "ADJUDICATION_REQUIRED")) {
+  if (
+    review.equivalenceStatus.pairs.some(
+      (pair) =>
+        pair.status !== "SIMULATED_EXPERT_CONSENSUS_RECORDED" ||
+        pair.disposition !== "SIMULATED_SEMANTICALLY_EQUIVALENT" ||
+        pair.independentQualificationEvidence,
+    )
+  ) {
     errors.push(
-      error("EQUIVALENCE_ADJUDICATION_INFERRED", "equivalence-status", "Level 1 PASS cannot close equivalence"),
+      error(
+        "EQUIVALENCE_SIMULATED_ADJUDICATION_INVALID",
+        "equivalence-status",
+        "Level 1 cannot infer equivalence; the simulated disposition must remain non-independent Development evidence",
+      ),
     );
   }
   if (review.antiOverfitting.calibrationContentUsedForEvaluatorTuning !== false) {
@@ -723,12 +987,17 @@ export const validateReviewPackage = (review = loadReviewPackage()) => {
   if (
     review.calibration.cases.some(
       (entry) =>
-        entry.exposure.exposureStatus !== "DESIGN_ONLY" ||
+        entry.exposure.exposureStatus !== "CALIBRATION_VISIBLE" ||
+        !entry.exposure.eligibleForCalibration ||
         entry.exposure.eligibleForBlindQualification,
     )
   ) {
     errors.push(
-      error("CALIBRATION_OR_BLIND_PROMOTION_FORBIDDEN", "calibration", "packet-only state must remain DESIGN_ONLY"),
+      error(
+        "CALIBRATION_REFERENCE_EXPOSURE_INVALID",
+        "calibration",
+        "simulated references must be CALIBRATION_VISIBLE while remaining blind-ineligible",
+      ),
     );
   }
 
@@ -742,12 +1011,59 @@ export const validateReviewPackage = (review = loadReviewPackage()) => {
       entry.currentEnvelopeVersion !== envelopeByCaseId.get(benchmarkCase.caseId).version ||
       entry.caseSha256 !== registryEntry.digests.caseSha256 ||
       entry.envelopeSha256 !== registryEntry.digests.acceptanceEnvelopeSha256 ||
-      entry.resultingVersions.length !== 0
+      (benchmarkCase.caseId ===
+      "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY"
+        ? entry.resultingVersions.length !== 1 ||
+          entry.previousVersions.length !== 1 ||
+          entry.currentCaseVersion !== "1.0.1" ||
+          entry.currentEnvelopeVersion !== "1.0.1"
+        : entry.resultingVersions.length !== 0)
     ) {
       errors.push(
         error("REFERENCE_VERSION_REGISTRY_MISMATCH", benchmarkCase.caseId, "version registry is stale"),
       );
     }
+  }
+
+  if (
+    review.revisionLineage.revisions.length !== 1 ||
+    review.revisionLineage.revisions[0].caseId !==
+      "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY" ||
+    review.revisionLineage.revisions[0].resulting.caseSha256 !==
+      registryById.get("SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY")?.digests
+        .caseSha256 ||
+    review.revisionLineage.revisions[0].resulting.envelopeSha256 !==
+      registryById.get("SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY")?.digests
+        .acceptanceEnvelopeSha256
+  ) {
+    errors.push(
+      error(
+        "REFERENCE_REVISION_LINEAGE_INVALID",
+        "reference-revision-lineage",
+        "the ovarian-ultrasound correction needs one complete before/after lineage",
+      ),
+    );
+  }
+
+  if (
+    review.calibrationReferenceSet.cases.length !== review.calibration.cases.length ||
+    review.calibrationReferenceSet.status !==
+      "READY_FOR_B4_DEVELOPMENT_CALIBRATION" ||
+    review.calibrationReferenceSet.referenceReviewBasis !==
+      "SIMULATED_PLURALISTIC_EXPERT_REVIEW" ||
+    review.calibrationReferenceSet.realHumanReferenceReview !==
+      "NOT_PERFORMED" ||
+    review.calibrationReferenceSet.finalPD011ReferenceEligibility !== "NO" ||
+    review.calibrationReferenceSet.blindEligibility !== "NO" ||
+    review.calibrationReferenceSet.calibrationExecutionAuthorizedInB3
+  ) {
+    errors.push(
+      error(
+        "CALIBRATION_REFERENCE_SET_INVALID",
+        "calibration-reference-set",
+        "the set must be B4-ready only and remain outside formal independent and blind qualification",
+      ),
+    );
   }
 
   return {
@@ -758,16 +1074,21 @@ export const validateReviewPackage = (review = loadReviewPackage()) => {
       calibrationReviewUnits: review.calibration.cases.length,
       equivalenceReviewUnits: equivalenceRows.length,
       originalReviewQueueItems: review.reviewQueue.items.length,
-      humanDecisionsRecorded: review.decisions.length,
-      queueOpen: review.reviewQueue.items.length,
-      queueResolved: 0,
-      queueDeferred: 0,
+      simulatedReviewRecords: review.simulatedReviews.length,
+      simulatedReviewerPersonas:
+        review.simulatedReviews[0]?.roles.length || 0,
+      simulatedDecisionsRecorded: simulatedDecisionCount,
+      realHumanDecisionsRecorded: review.decisions.length,
+      queueOpen: progressCounts.open,
+      queueResolved: progressCounts.resolved,
+      queueDeferred: progressCounts.deferred,
       calibrationVisible: review.calibration.cases.filter(
         (entry) => entry.exposure.exposureStatus === "CALIBRATION_VISIBLE",
       ).length,
     },
     scope: "STRUCTURE_TRACEABILITY_AND_GATE_CONSISTENCY_ONLY",
-    scientificJudgmentPerformed: false,
+    simulatedScientificJudgmentPerformed: true,
+    realHumanScientificJudgmentPerformed: false,
     calibrationPerformed: false,
     semRuntimeExecuted: false,
     providerCalls: 0,

@@ -1,11 +1,11 @@
 {
   "schemaVersion": "1.0.0",
-  "contractType": "SEM003B3_HUMAN_REVIEW_UNIT",
+  "contractType": "SEM003B3_SIMULATED_REVIEW_UNIT",
   "reviewUnitId": "SEM3B3-RU-CAL-CORTISOL-SAMPLING-SUMMARY",
   "caseId": "SEM3-CAL-CORTISOL-SAMPLING-SUMMARY",
   "candidateSet": "CALIBRATION",
   "priority": "CALIBRATION_GATE",
-  "state": "HUMAN_REVIEW_REQUIRED",
+  "state": "CALIBRATION_VISIBLE_SIMULATED_REVIEW",
   "identity": {
     "title": "Profil de cortisol, méthode de prélèvement et mesure dérivée",
     "domain": "physiologie et mesures longitudinales",
@@ -23,9 +23,9 @@
     "acceptanceEnvelope": "1.0.0"
   },
   "sourceDigests": {
-    "caseSha256": "8b548aaf65904294fdb7bf6856b1b66666d6b17a834a480d0bc06afaf1b6dace",
-    "acceptanceEnvelopeSha256": "598a761174337f184802ffe016f3e9751d2d64918f3ac8d8e7aac9466a3d633d",
-    "pairSha256": "0fb85248d35aa18231dceba32103a79c0b319362fac9acb0237ec815fbb71086"
+    "caseSha256": "c2cfc56a212769c835fd0f6e68c6ddb018e66b8033a62c5b42be0addee619c58",
+    "acceptanceEnvelopeSha256": "baf379d02aa5f76d711361a39b12bb4ab34202266e4553b3b94edf0d01e6fb69",
+    "pairSha256": "193076f26c6be3a8a880262132140cad00c2c16225dff459faeeed5905ea5207"
   },
   "scientificRequest": {
     "sourceRequest": "Tour 1: Je veux étudier le profil de cortisol après le réveil.\nTour 2: Plusieurs prélèvements sont prévus dans la matinée.\nTour 3: Le calendrier de prélèvement fait partie de la méthode.\nTour 4: Je ne sais pas encore si la mesure d'intérêt sera un temps précis, une pente ou une aire sous la courbe.\nTour 5: Il faut distinguer l'analyte, le protocole de prélèvement, les valeurs observées et la mesure dérivée.",
@@ -224,7 +224,7 @@
     "METHODOLOGICAL_REFERENCE"
   ],
   "exposureImpact": {
-    "currentStatus": "DESIGN_ONLY",
+    "currentStatus": "CALIBRATION_VISIBLE",
     "acceptedAfterAllApplicableGates": "CALIBRATION_VISIBLE",
     "rejected": "REJECTED_WITH_HISTORY_PRESERVED",
     "specialistReview": "HUMAN_REVIEW_REQUIRED_AND_NO_PROMOTION",
@@ -403,10 +403,13 @@
     ],
     "b1HistoricalAudit": {
       "caseId": "SEM3-CAL-CORTISOL-SAMPLING-SUMMARY",
-      "disposition": "PARENTAGE_REVIEW_REQUIRED",
+      "disposition": "SIMULATED_PARENTAGE_CLEAR",
       "independenceNote": "Série de cortisol et choix d'un résumé quantitatif, sans changement d'appareil ou de méthode historique apparenté à H01-H30.",
       "obviousContaminationIdentified": false,
-      "eligibleForCalibrationBeforeReview": false
+      "eligibleForCalibrationBeforeReview": false,
+      "eligibleForDevelopmentCalibrationAfterSimulatedReview": true,
+      "eligibleForFormalIndependentQualification": false,
+      "reviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW"
     },
     "exposedExampleComparison": "SEM-002/SEM-003 exposed examples remain ineligible as Calibration sources; no reuse was declared by B1.",
     "historicalComparison": "B1 compared originalRequest only across H01-H30 and reported no source reuse; this is not an independent human conclusion.",
@@ -416,9 +419,77 @@
   "humanSheetPath": "semantic-validation/sem-003/review/review-units/cortisol-sampling-summary.review.md",
   "equivalencePair": null,
   "humanDecisionRecords": [],
+  "simulatedReviewRecord": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1",
+  "simulatedRoleOpinions": [
+    {
+      "reviewerId": "REVIEWER_SIM_1",
+      "disposition": "SIMULATED_ACCEPT",
+      "analysis": "The cortisol series and the desire for a quantitative summary are preserved without inventing a biological interpretation.",
+      "reservation": null
+    },
+    {
+      "reviewerId": "REVIEWER_SIM_2",
+      "disposition": "SIMULATED_ACCEPT",
+      "analysis": "Sampling times, summary choice and measurement definition remain separate, with the summary explicitly unresolved.",
+      "reservation": null
+    },
+    {
+      "reviewerId": "REVIEWER_SIM_3",
+      "disposition": "SIMULATED_ACCEPT",
+      "analysis": "Candidate summaries are not promoted to user decisions and the case has no material parentage with visible examples.",
+      "reservation": null
+    }
+  ],
+  "simulatedDisagreements": [],
+  "simulatedConsensus": {
+    "status": "SIMULATED_EXPERT_CONSENSUS",
+    "rationale": "The reference is suitable for calibration of under-specification and method-versus-measurement handling.",
+    "decisions": {
+      "SCIENTIFIC_REFERENCE": "SIMULATED_ACCEPT",
+      "METHODOLOGICAL_REFERENCE": "SIMULATED_ACCEPT",
+      "PARENTAGE": "SIMULATED_PARENTAGE_CLEAR",
+      "CALIBRATION_ADMISSION": "SIMULATED_APPROVE_FOR_CALIBRATION"
+    },
+    "referenceDisposition": "CALIBRATION_VISIBLE",
+    "referenceReviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+    "eligibleForFormalIndependentQualification": false,
+    "eligibleForBlindQualification": false,
+    "revision": null
+  },
+  "simulatedDecisions": [
+    {
+      "decisionId": "SEM3B3-SIMDEC-CORTISOL-SAMPLING-SUMMARY-CALIBRATION-ADMISSION",
+      "reviewType": "CALIBRATION_ADMISSION",
+      "decision": "SIMULATED_APPROVE_FOR_CALIBRATION",
+      "recommendedDisposition": "CALIBRATION_VISIBLE",
+      "revisionRef": null
+    },
+    {
+      "decisionId": "SEM3B3-SIMDEC-CORTISOL-SAMPLING-SUMMARY-METHODOLOGICAL-REFERENCE",
+      "reviewType": "METHODOLOGICAL_REFERENCE",
+      "decision": "SIMULATED_ACCEPT",
+      "recommendedDisposition": null,
+      "revisionRef": null
+    },
+    {
+      "decisionId": "SEM3B3-SIMDEC-CORTISOL-SAMPLING-SUMMARY-PARENTAGE",
+      "reviewType": "PARENTAGE",
+      "decision": "SIMULATED_PARENTAGE_CLEAR",
+      "recommendedDisposition": null,
+      "revisionRef": null
+    },
+    {
+      "decisionId": "SEM3B3-SIMDEC-CORTISOL-SAMPLING-SUMMARY-SCIENTIFIC-REFERENCE",
+      "reviewType": "SCIENTIFIC_REFERENCE",
+      "decision": "SIMULATED_ACCEPT",
+      "recommendedDisposition": null,
+      "revisionRef": null
+    }
+  ],
   "limits": [
-    "Codex prepared this unit but is not the human reviewer.",
-    "No scientific, methodological, ambiguity, parentage, equivalence or admission decision is inferred.",
-    "All parentage comparisons are REVIEW_ASSISTANCE_ONLY."
+    "All three reviewer roles are simulated personas, never human reviewers.",
+    "The simulated consensus is usable only for benchmark development and calibration preparation.",
+    "All parentage comparisons are REVIEW_ASSISTANCE_ONLY.",
+    "REAL_HUMAN_REFERENCE_REVIEW is NOT_PERFORMED and FINAL_PD011_REFERENCE_ELIGIBILITY is NO."
   ]
 }

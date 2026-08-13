@@ -1,0 +1,130 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://noxia.local/sem-003/review/simulated-pluralistic-review-record.schema.json",
+  "title": "SEM-003B3 Simulated Pluralistic Expert Review Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "contractType",
+    "reviewId",
+    "recordedAt",
+    "roles",
+    "reviewUnits",
+    "evidenceClass",
+    "simulatedExpertConsensus",
+    "realHumanReviewPerformed",
+    "pd011IndependentReferencePanelSatisfied",
+    "finalQualificationEligibility",
+    "blindEligibility",
+    "calibrationExecutionAuthorized",
+    "semExecutionAuthorized",
+    "status"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "contractType": { "const": "SEM003B3_SIMULATED_PLURALISTIC_EXPERT_REVIEW_RECORD" },
+    "reviewId": { "const": "SEM3B3-SIMULATED-PLURALISTIC-REVIEW-1" },
+    "recordedAt": { "type": "string", "format": "date-time" },
+    "roles": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["reviewerId", "role", "responsibility"],
+        "properties": {
+          "reviewerId": { "enum": ["REVIEWER_SIM_1", "REVIEWER_SIM_2", "REVIEWER_SIM_3"] },
+          "role": { "type": "string", "minLength": 1 },
+          "responsibility": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "reviewUnits": {
+      "type": "array",
+      "minItems": 15,
+      "maxItems": 15,
+      "items": { "$ref": "#/definitions/reviewUnit" }
+    },
+    "evidenceClass": { "const": "SIMULATED_EXPERT_REVIEW_EVIDENCE" },
+    "simulatedExpertConsensus": { "const": true },
+    "realHumanReviewPerformed": { "const": false },
+    "pd011IndependentReferencePanelSatisfied": { "const": false },
+    "finalQualificationEligibility": { "const": false },
+    "blindEligibility": { "const": false },
+    "calibrationExecutionAuthorized": { "const": false },
+    "semExecutionAuthorized": { "const": false },
+    "status": { "const": "FINAL_FOR_DEVELOPMENT_CALIBRATION_REFERENCE_AUTHORING" }
+  },
+  "definitions": {
+    "roleOpinion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reviewerId", "disposition", "analysis", "reservation"],
+      "properties": {
+        "reviewerId": { "enum": ["REVIEWER_SIM_1", "REVIEWER_SIM_2", "REVIEWER_SIM_3"] },
+        "disposition": { "type": "string", "pattern": "^SIMULATED_[A-Z_]+$" },
+        "analysis": { "type": "string", "minLength": 1 },
+        "reservation": { "type": ["string", "null"] }
+      }
+    },
+    "reviewUnit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["caseId", "candidateSet", "roleOpinions", "disagreements", "consensus"],
+      "properties": {
+        "caseId": { "type": "string", "pattern": "^SEM3-(CAL|DEV)-[A-Z0-9-]+$" },
+        "candidateSet": { "enum": ["CALIBRATION", "DEVELOPMENT"] },
+        "roleOpinions": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": { "$ref": "#/definitions/roleOpinion" }
+        },
+        "disagreements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["subject", "positions", "resolution"],
+            "properties": {
+              "subject": { "type": "string", "minLength": 1 },
+              "positions": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["REVIEWER_SIM_1", "REVIEWER_SIM_2", "REVIEWER_SIM_3"],
+                "properties": {
+                  "REVIEWER_SIM_1": { "type": "string", "minLength": 1 },
+                  "REVIEWER_SIM_2": { "type": "string", "minLength": 1 },
+                  "REVIEWER_SIM_3": { "type": "string", "minLength": 1 }
+                }
+              },
+              "resolution": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        "consensus": {
+          "type": "object",
+          "required": ["status", "rationale", "decisions"],
+          "properties": {
+            "status": { "const": "SIMULATED_EXPERT_CONSENSUS" },
+            "rationale": { "type": "string", "minLength": 1 },
+            "decisions": {
+              "type": "object",
+              "minProperties": 1,
+              "additionalProperties": { "type": "string", "pattern": "^SIMULATED_[A-Z_]+$" }
+            },
+            "referenceDisposition": { "enum": ["CALIBRATION_VISIBLE"] },
+            "referenceReviewBasis": { "enum": ["SIMULATED_PLURALISTIC_EXPERT_REVIEW"] },
+            "eligibleForFormalIndependentQualification": { "type": "boolean" },
+            "eligibleForBlindQualification": { "type": "boolean" },
+            "revision": { "type": ["object", "null"] },
+            "evaluatorUse": { "enum": ["DEVELOPMENT_ONLY"] },
+            "independentQualificationEvidence": { "type": "boolean" }
+          }
+        }
+      }
+    }
+  }
+}

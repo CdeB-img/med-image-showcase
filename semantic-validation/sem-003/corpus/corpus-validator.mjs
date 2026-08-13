@@ -159,16 +159,38 @@ export const validateCorpus = (corpus = loadCorpus()) => {
 
     if (
       benchmarkCase.purpose === "CALIBRATION_AUTHORING" &&
-      (benchmarkCase.exposure.exposureStatus !== "DESIGN_ONLY" ||
-        benchmarkCase.exposure.eligibleForCalibration ||
+      (benchmarkCase.exposure.exposureStatus !== "CALIBRATION_VISIBLE" ||
+        !benchmarkCase.exposure.eligibleForCalibration ||
         benchmarkCase.exposure.eligibleForBlindQualification ||
-        registryEntry.calibrationDisposition !== "HUMAN_REVIEW_REQUIRED")
+        benchmarkCase.reviewStatus !== "APPROVED_FOR_CALIBRATION" ||
+        benchmarkCase.exposure.parentageStatus !== "PARENTAGE_CLEAR" ||
+        benchmarkCase.exposure.contaminationReview.status !== "CLEAR" ||
+        registryEntry.calibrationDisposition !==
+          "APPROVED_FOR_DEVELOPMENT_CALIBRATION_ONLY" ||
+        registryEntry.referenceReviewBasis !==
+          "SIMULATED_PLURALISTIC_EXPERT_REVIEW" ||
+        registryEntry.finalPD011ReferenceEligibility !== "NO" ||
+        registryEntry.blindEligibility !== "NO")
     ) {
       errors.push(
         error(
-          "CALIBRATION_CANDIDATE_GATE_INVALID",
+          "CALIBRATION_DEVELOPMENT_REFERENCE_GATE_INVALID",
           benchmarkCase.caseId,
-          "Calibration candidates must remain DESIGN_ONLY pending human review",
+          "Calibration references admitted from simulated review must be visible only for development calibration and remain ineligible for formal independent or blind qualification",
+        ),
+      );
+    }
+
+    if (
+      benchmarkCase.purpose === "CALIBRATION_AUTHORING" &&
+      envelopeByCaseId.get(benchmarkCase.caseId)?.reviewStatus !==
+        "APPROVED_FOR_CALIBRATION"
+    ) {
+      errors.push(
+        error(
+          "CALIBRATION_ENVELOPE_REVIEW_STATUS_INVALID",
+          benchmarkCase.caseId,
+          "Calibration Case and Acceptance Envelope must share the admitted development-calibration review status",
         ),
       );
     }
