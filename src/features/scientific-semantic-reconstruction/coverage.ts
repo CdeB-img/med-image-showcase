@@ -211,6 +211,29 @@ const relationIdsCoveringFunctionalFragment = (
   }))].sort();
 };
 
+const unaryStateTransitionIds = (
+  candidate: SemanticReconstructionCandidate,
+  fragment: SemanticReconstructionCandidate["semanticInventory"]["explicitFragments"][number] | undefined,
+) => {
+  if (!fragment) return [];
+  const action = `${fragment.localRole} ${fragment.normalizedLabel} ${fragment.sourceText}`
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .toLocaleLowerCase("fr-FR");
+  const retention = /retain|keep|preserv|maintain|conserv|gard/.test(action);
+  const addition = /\badd|ajout|include|inclu|insert/.test(action);
+  const removal = /remov|retir|exclud|exclu|reject|supprim|drop|withdraw/.test(action);
+  if (!retention && !addition && !removal) return [];
+  const linkedIds = new Set(fragment.linkedInventoryItemIds);
+  return candidate.elements.filter((element) => element.epistemicStatus === "EXPLICIT_USER_STATED"
+    && element.inventoryItemIds.some((inventoryItemId) => linkedIds.has(inventoryItemId))
+    && (retention ? element.polarity === "AFFIRMED" && element.supersedesElementIds.length > 0 : true)
+    && (addition ? element.polarity === "AFFIRMED" && element.supersedesElementIds.length === 0 : true)
+    && (removal ? element.polarity === "NEGATED" && element.supersedesElementIds.length > 0 : true))
+    .map((element) => `state-transition:${element.clientElementId}`)
+    .sort();
+};
+
 const relationIdsCarryingFramedFunctionalEndpoint = (
   candidate: SemanticReconstructionCandidate,
   inventoryRelation: SemanticReconstructionCandidate["semanticInventory"]["explicitRelations"][number],
@@ -265,7 +288,7 @@ export const buildExplicitCoverageReport = (
       .map((element) => element.clientElementId)
       .sort();
     const mappedClientRelationIds = mappedClientElementIds.length === 0
-      ? relationIdsCoveringFunctionalFragment(candidate, fragment)
+      ? [...new Set([...relationIdsCoveringFunctionalFragment(candidate, fragment), ...unaryStateTransitionIds(candidate, fragment)])].sort()
       : [];
     const mapped = mappedClientElementIds.length > 0 || mappedClientRelationIds.length > 0;
     return {
@@ -362,7 +385,14 @@ export const buildRelationCoverageReport = (
       relationSourceElements,
       relationTargetElements,
     );
-    const mappedClientRelationIds = [...new Set([...coalescedElementIds, ...supersededEndpointIds, ...directlyMappedClientRelationIds, ...bridgedClientRelationIds, ...directComparisonFromIntentTargetIds, ...actionBridgeIds, ...framedFunctionalCarrierIds])].sort();
+    const sourceFragment = candidate.semanticInventory.explicitFragments.find((fragment) => fragment.inventoryItemId === inventoryRelation.sourceInventoryItemId);
+    const targetFragment = candidate.semanticInventory.explicitFragments.find((fragment) => fragment.inventoryItemId === inventoryRelation.targetInventoryItemId);
+    const unaryTransitionIds = relationSourceElements.size === 0 && relationTargetElements.size > 0
+      ? unaryStateTransitionIds(candidate, sourceFragment)
+      : relationTargetElements.size === 0 && relationSourceElements.size > 0
+        ? unaryStateTransitionIds(candidate, targetFragment)
+        : [];
+    const mappedClientRelationIds = [...new Set([...coalescedElementIds, ...supersededEndpointIds, ...directlyMappedClientRelationIds, ...bridgedClientRelationIds, ...directComparisonFromIntentTargetIds, ...actionBridgeIds, ...framedFunctionalCarrierIds, ...unaryTransitionIds])].sort();
     return {
       inventoryRelationId: inventoryRelation.inventoryRelationId,
       sourceInventoryItemId: inventoryRelation.sourceInventoryItemId,
@@ -377,6 +407,8 @@ export const buildRelationCoverageReport = (
           ? "Both inventory fragments are explicitly preserved inside one typed Semantic Element; a redundant self-relation is not required."
           : framedFunctionalCarrierIds.length && directlyMappedClientRelationIds.length === 0
           ? "The framing intent-to-functional-operator construction is preserved by the source-grounded direct scientific relation between its explicit endpoints; a redundant relation-as-node edge is not required."
+          : unaryTransitionIds.length && directlyMappedClientRelationIds.length === 0
+          ? "The unary retain/add/remove construction is preserved by the explicit state transition of its uniquely linked scientific object; a redundant self-relation is forbidden."
           : (bridgedClientRelationIds.length || directComparisonFromIntentTargetIds.length || actionBridgeIds.length) && directlyMappedClientRelationIds.length === 0
           ? "The action spokes are semantically preserved by a direct explicit relation between their scientific endpoints."
           : inventorySpanExact
