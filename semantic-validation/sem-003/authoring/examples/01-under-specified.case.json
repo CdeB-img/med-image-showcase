@@ -1,0 +1,114 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "BENCHMARK_AUTHORING_CASE",
+  "purpose": "AUTHORING_PROTOCOL_VALIDATION_ONLY",
+  "caseId": "SEM3-EX-UNDER-SPECIFIED",
+  "version": "1.0.0",
+  "title": "Comparaison avant-après sous-spécifiée",
+  "createdAt": "2026-08-13T12:00:00.000Z",
+  "authorRole": "SEM-003B synthetic example author",
+  "reviewStatus": "APPROVED_FOR_DEVELOPMENT",
+  "source": {
+    "sourceRequest": "Je veux étudier la mise en place avant/après.",
+    "language": "fr-FR",
+    "conversationTurns": [],
+    "sourceContext": "Exemple déjà exposé dans SEM-003 ; aucune information supplémentaire n'est fournie.",
+    "provenance": {
+      "originType": "ADAPTED_EXPOSED",
+      "originalSource": "docs/sem-003-independent-scientific-understanding-benchmark-architecture.md#91-exemple-a--sous-spécification",
+      "author": "NOXIA Project Governance",
+      "createdAt": "2026-08-13T12:00:00.000Z",
+      "inspirationRefs": [
+        "docs/sem-003-independent-scientific-understanding-benchmark-architecture.md"
+      ]
+    }
+  },
+  "scientificScope": {
+    "domain": "transversal scientific study design",
+    "scenarioCategory": "UNDER_SPECIFIED_REQUEST",
+    "secondaryCategories": [
+      "COMPARISON_AND_TIMING",
+      "SCIENTIFIC_AMBIGUITY"
+    ],
+    "difficultyTarget": "FOUNDATIONAL",
+    "intentionallyMissingInformation": [
+      {
+        "informationId": "missing-implementation-object",
+        "description": "L'objet de la mise en place n'est pas indiqué.",
+        "intentional": true
+      },
+      {
+        "informationId": "missing-before-after-reference",
+        "description": "Le référentiel exact de la comparaison avant/après n'est pas indiqué.",
+        "intentional": true
+      }
+    ]
+  },
+  "exposure": {
+    "exposureStatus": "DEVELOPMENT_VISIBLE",
+    "exposureHistory": [
+      {
+        "eventId": "exposure-under-specified-visible",
+        "fromStatus": null,
+        "toStatus": "DEVELOPMENT_VISIBLE",
+        "occurredAt": "2026-08-13T12:00:00.000Z",
+        "actorRole": "SEM-003B governance",
+        "reason": "Fixture synthétique de validation du protocole d'authoring uniquement."
+      }
+    ],
+    "parentageStatus": "RELATED_VISIBLE_CASE",
+    "parentageAssessment": {
+      "discriminatingConcepts": [
+        "mise en place",
+        "avant/après"
+      ],
+      "reasoningStructure": "Intention comparative temporelle avec objet et référentiel manquants.",
+      "criticalRelations": [
+        "comparaison temporelle entre deux états non encore ancrés"
+      ],
+      "ambiguities": [
+        "objet de la mise en place",
+        "référentiel temporel"
+      ],
+      "knownSimilarities": {
+        "development": [
+          "Exemple A exposé dans SEM-003"
+        ],
+        "calibration": [],
+        "historicalLegacy": []
+      }
+    },
+    "contaminationReview": {
+      "status": "CONTAMINATED_FOR_BLIND_USE",
+      "reviewedAt": "2026-08-13T12:00:00.000Z",
+      "reviewerRole": "SEM-003B methodological reviewer",
+      "notes": "Exemple public et exposé ; usage aveugle définitivement interdit."
+    },
+    "eligibleForCalibration": false,
+    "eligibleForBlindQualification": false
+  },
+  "reference": {
+    "acceptanceEnvelopeId": "SEM3-AE-UNDER-SPECIFIED",
+    "applicableSEM002Properties": [
+      "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+      "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED"
+    ],
+    "adjudicationRequirements": [
+      {
+        "expertise": "METHODOLOGICAL_SEM",
+        "rationale": "Vérifier la distinction entre compréhension bornée et complétion arbitraire.",
+        "mandatory": true
+      },
+      {
+        "expertise": "PD009_CLARIFICATION",
+        "rationale": "Vérifier la valeur décisionnelle de la clarification sans imposer une phrase exacte.",
+        "mandatory": true
+      }
+    ]
+  }
+}

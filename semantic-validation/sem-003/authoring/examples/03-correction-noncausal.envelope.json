@@ -1,0 +1,304 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "BENCHMARK_AUTHORING_ACCEPTANCE_ENVELOPE",
+  "envelopeId": "SEM3-AE-CORRECTION-NONCAUSAL",
+  "version": "1.0.0",
+  "caseId": "SEM3-EX-CORRECTION-NONCAUSAL",
+  "reviewStatus": "APPROVED_FOR_DEVELOPMENT",
+  "required": [
+    {
+      "obligationId": "req-current-association",
+      "semanticKey": "current.delta-epsilon-association",
+      "kind": "RELATION",
+      "description": "Représenter l'association Delta-Epsilon comme relation courante.",
+      "rationale": "Le second tour remplace l'intention causale par une intention associative.",
+      "sourceLocator": "conversationTurns.turn-2: seulement leur association",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-noncausal-polarity",
+      "semanticKey": "polarity.noncausal-current-state",
+      "kind": "POLARITY",
+      "description": "Conserver explicitement le refus de tester une causalité.",
+      "rationale": "La négation causale est une correction structurante.",
+      "sourceLocator": "conversationTurns.turn-2: je ne veux pas tester une causalité",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-temporal-order",
+      "semanticKey": "timing.delta-before-epsilon",
+      "kind": "TIMING",
+      "description": "Préserver que Delta est mesuré avant Epsilon.",
+      "rationale": "L'ordre temporel est explicite et distinct de la causalité.",
+      "sourceLocator": "conversationTurns.turn-2: Delta mesuré avant Epsilon",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-history-preserved",
+      "semanticKey": "history.causal-intent-superseded",
+      "kind": "CORRECTION",
+      "description": "Conserver l'intention causale initiale comme état historique remplacé, non courant.",
+      "rationale": "La correction ne doit ni effacer l'historique ni laisser l'ancien état actif.",
+      "sourceLocator": "conversationTurns.turn-1 and turn-2",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-method-unknown",
+      "semanticKey": "unknown.association-method",
+      "kind": "UNKNOWN",
+      "description": "Conserver comme inconnue la méthode d'étude de l'association.",
+      "rationale": "Aucune méthode n'est fournie dans les tours.",
+      "sourceLocator": "scientificScope.intentionallyMissingInformation: missing-association-method",
+      "criticality": "MAJOR",
+      "propertyIds": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    }
+  ],
+  "prohibited": [
+    {
+      "prohibitionId": "pro-restore-causality",
+      "semanticKey": "prohibition.restore-causal-current-state",
+      "description": "Présenter Delta comme cause courante d'Epsilon.",
+      "rationale": "Cette relation a été explicitement retirée.",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"
+      ],
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE"
+    },
+    {
+      "prohibitionId": "pro-erase-history",
+      "semanticKey": "prohibition.erase-correction-history",
+      "description": "Effacer toute trace de l'intention causale initiale.",
+      "rationale": "La correction doit rester reconstructible avec sa provenance.",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      ],
+      "failureClass": "PROVENANCE_FAILURE"
+    },
+    {
+      "prohibitionId": "pro-invent-mechanism",
+      "semanticKey": "prohibition.invent-association-mechanism",
+      "description": "Inventer un mécanisme expliquant l'association Delta-Epsilon.",
+      "rationale": "Aucun mécanisme n'est fourni par le cas synthétique.",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION"
+      ],
+      "failureClass": "UNSUPPORTED_INVENTION_FAILURE"
+    }
+  ],
+  "acceptableSemanticVariants": [
+    {
+      "variantId": "variant-versioned-relation",
+      "label": "Relations versionnées",
+      "structureSynopsis": "Relation causale historique remplacée par une relation associative courante avec ordre temporel séparé.",
+      "preservedObligationIds": [
+        "req-current-association",
+        "req-noncausal-polarity",
+        "req-temporal-order",
+        "req-history-preserved",
+        "req-method-unknown"
+      ],
+      "caveats": []
+    },
+    {
+      "variantId": "variant-correction-event",
+      "label": "Événement de correction",
+      "structureSynopsis": "Un événement de correction porte le remplacement et relie les états antérieur et courant, avec timing distinct.",
+      "preservedObligationIds": [
+        "req-current-association",
+        "req-noncausal-polarity",
+        "req-temporal-order",
+        "req-history-preserved",
+        "req-method-unknown"
+      ],
+      "caveats": [
+        "L'état causatif antérieur ne doit pas rester actif."
+      ]
+    }
+  ],
+  "optionalRelevant": [
+    {
+      "candidateId": "opt-association-analysis-review",
+      "semanticKey": "optional.association-analysis-review",
+      "description": "Proposer une revue ultérieure des méthodes adaptées à une association temporelle.",
+      "epistemicStatus": "OPTION",
+      "rationale": "Une telle revue peut devenir utile, mais aucune méthode particulière n'est impliquée par la demande.",
+      "absenceIsBlocking": false,
+      "envelopeIsNonExhaustive": true
+    }
+  ],
+  "admissibleAmbiguities": [
+    {
+      "ambiguityId": "amb-association-method",
+      "description": "La méthode d'étude de l'association reste indéterminée.",
+      "competingInterpretations": [
+        "analyse descriptive de l'association",
+        "modèle associatif à définir ultérieurement"
+      ],
+      "resolutionInformation": [
+        "objectif analytique",
+        "structure et source des données"
+      ],
+      "mustRemainOpen": true
+    }
+  ],
+  "expectedClarification": {
+    "status": "OPTIONAL",
+    "decisionImpact": "La méthode analytique peut être clarifiée plus tard sans modifier la correction de causalité ni le timing explicite.",
+    "acceptableQuestionClasses": [
+      "demander l'objectif analytique de l'association"
+    ],
+    "exactWordingRequired": false
+  },
+  "ownershipBoundaries": [
+    {
+      "boundaryId": "own-user-correction-current-state",
+      "sourceOwner": "User contribution history",
+      "targetOwner": "ResearchProject current intent",
+      "description": "La correction utilisateur détermine la contribution courante ; l'adoption Project reste une décision explicite.",
+      "forbiddenPromotion": "Restaurer automatiquement l'intention causale ou adopter une méthode analytique.",
+      "adoptionRequiresHumanDecision": true
+    }
+  ],
+  "properties": [
+    {
+      "propertyId": "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "MAJOR",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MODERATE",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+      "family": "CONTEXTUAL_ENRICHMENT",
+      "criticality": "MODERATE",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    }
+  ],
+  "adjudication": {
+    "requiredExpertise": [
+      "multi-turn semantic correction",
+      "scientific causality and timing"
+    ],
+    "notes": "Le contenu est synthétique ; le jugement porte sur la structure de correction déclarée par la référence.",
+    "humanAdjudicationPoints": [
+      "Vérifier que l'ordre temporel n'est pas interprété comme causalité.",
+      "Vérifier que l'état historique est conservé mais non actif."
+    ],
+    "status": "REFERENCE_STABLE_FOR_VISIBLE_USE"
+  },
+  "evaluationDemonstrations": []
+}

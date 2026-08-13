@@ -1,0 +1,308 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "BENCHMARK_AUTHORING_ACCEPTANCE_ENVELOPE",
+  "envelopeId": "SEM3-AE-METHOD-MEASUREMENT",
+  "version": "1.0.0",
+  "caseId": "SEM3-EX-METHOD-MEASUREMENT",
+  "reviewStatus": "APPROVED_FOR_DEVELOPMENT",
+  "required": [
+    {
+      "obligationId": "req-atlas-method",
+      "semanticKey": "explicit.atlas-method",
+      "kind": "EXPLICIT_CONCEPT",
+      "description": "Représenter Atlas comme la méthode explicitement nommée.",
+      "rationale": "La phrase attribue à Atlas la production de la carte.",
+      "sourceLocator": "sourceRequest: méthode synthétique Atlas",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-q-map",
+      "semanticKey": "explicit.q-quantitative-image",
+      "kind": "EXPLICIT_CONCEPT",
+      "description": "Représenter la carte Q comme la sortie quantitative produite par Atlas.",
+      "rationale": "La carte est distincte de la méthode et de la valeur moyenne.",
+      "sourceLocator": "sourceRequest: produit une carte Q",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-q-mean",
+      "semanticKey": "explicit.q-mean-measurement",
+      "kind": "EXPLICIT_CONCEPT",
+      "description": "Représenter la valeur moyenne Q comme une mesure extraite de la carte.",
+      "rationale": "La valeur mesurée n'est ni la méthode ni l'image quantitative.",
+      "sourceLocator": "sourceRequest: valeur moyenne Q extraite de cette carte",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-project-role-open",
+      "semanticKey": "unknown.project-role-not-adopted",
+      "kind": "OWNERSHIP",
+      "description": "Conserver le rôle de la valeur Q dans le Project comme non décidé.",
+      "rationale": "L'utilisateur exclut explicitement une décision de rôle à ce stade.",
+      "sourceLocator": "sourceRequest: sans encore décider de son rôle dans l'étude",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    }
+  ],
+  "prohibited": [
+    {
+      "prohibitionId": "pro-collapse-method-measurement",
+      "semanticKey": "prohibition.collapse-method-image-measurement",
+      "description": "Fusionner Atlas, la carte Q et la valeur moyenne Q en un seul concept indistinct.",
+      "rationale": "La fusion détruit les plans conceptuels explicitement reliés.",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      ],
+      "failureClass": "CONCEPTUAL_PLAN_COLLAPSE"
+    },
+    {
+      "prohibitionId": "pro-adopt-project-role",
+      "semanticKey": "prohibition.adopt-project-role",
+      "description": "Attribuer automatiquement un rôle de biomarqueur ou d'endpoint à la valeur Q.",
+      "rationale": "Le rôle Project est explicitement non décidé et nécessite une décision humaine.",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+      ],
+      "failureClass": "OWNERSHIP_BOUNDARY_FAILURE"
+    },
+    {
+      "prohibitionId": "pro-invent-performance",
+      "semanticKey": "prohibition.invent-atlas-performance",
+      "description": "Inventer une performance, une validité ou une applicabilité de la méthode Atlas.",
+      "rationale": "La phrase synthétique ne fournit aucune connaissance de performance.",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_NO_UNSUPPORTED_INVENTION"
+      ],
+      "failureClass": "UNSUPPORTED_INVENTION_FAILURE"
+    }
+  ],
+  "acceptableSemanticVariants": [
+    {
+      "variantId": "variant-three-nodes",
+      "label": "Trois objets reliés",
+      "structureSynopsis": "Atlas, carte Q et valeur moyenne Q sont trois unités avec relations produit et extrait-de.",
+      "preservedObligationIds": [
+        "req-atlas-method",
+        "req-q-map",
+        "req-q-mean",
+        "req-project-role-open"
+      ],
+      "caveats": []
+    },
+    {
+      "variantId": "variant-composed-measurement",
+      "label": "Définition de mesure composée",
+      "structureSynopsis": "Une définition de méthode contient deux rôles de sortie distincts : image quantitative puis valeur extraite, sans les fusionner.",
+      "preservedObligationIds": [
+        "req-atlas-method",
+        "req-q-map",
+        "req-q-mean",
+        "req-project-role-open"
+      ],
+      "caveats": [
+        "Les rôles internes doivent rester adressables et leur provenance reconstructible."
+      ]
+    }
+  ],
+  "optionalRelevant": [
+    {
+      "candidateId": "opt-future-role-review",
+      "semanticKey": "optional.future-project-role-review",
+      "description": "Proposer ultérieurement une revue du rôle possible de la valeur Q dans le Project.",
+      "epistemicStatus": "OPTION",
+      "rationale": "La décision est pertinente pour une étape future mais n'est ni fournie ni nécessaire à la reconstruction courante.",
+      "absenceIsBlocking": false,
+      "envelopeIsNonExhaustive": true
+    }
+  ],
+  "admissibleAmbiguities": [
+    {
+      "ambiguityId": "amb-future-project-role",
+      "description": "Le rôle futur de la valeur Q dans l'étude reste ouvert.",
+      "competingInterpretations": [
+        "mesure descriptive",
+        "candidat de critère ou autre rôle à évaluer"
+      ],
+      "resolutionInformation": [
+        "objectif scientifique du projet",
+        "décision humaine sur le rôle"
+      ],
+      "mustRemainOpen": true
+    }
+  ],
+  "expectedClarification": {
+    "status": "OPTIONAL",
+    "decisionImpact": "La clarification du rôle peut orienter une étape future mais ne bloque pas la compréhension de la distinction méthode-image-mesure.",
+    "acceptableQuestionClasses": [
+      "demander l'usage scientifique futur de la valeur Q"
+    ],
+    "exactWordingRequired": false
+  },
+  "ownershipBoundaries": [
+    {
+      "boundaryId": "own-obs-project-role",
+      "sourceOwner": "OBS measurement contribution",
+      "targetOwner": "ResearchProject",
+      "description": "La distinction de mesure peut contribuer au Project sans adopter un rôle de biomarqueur ou d'endpoint.",
+      "forbiddenPromotion": "MeasurementDefinition ou valeur candidate vers décision Project.",
+      "adoptionRequiresHumanDecision": true
+    }
+  ],
+  "properties": [
+    {
+      "propertyId": "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MODERATE",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+      "family": "CONTEXTUAL_ENRICHMENT",
+      "criticality": "MODERATE",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    }
+  ],
+  "adjudication": {
+    "requiredExpertise": [
+      "OBS measurement semantics",
+      "ResearchProject ownership",
+      "semantic equivalence methodology"
+    ],
+    "notes": "Les dispositions A/B/C sont des déclarations de référence synthétiques ; le validateur ne les calcule pas.",
+    "humanAdjudicationPoints": [
+      "Vérifier que la composition interne de la représentation B conserve des unités adressables.",
+      "Vérifier que tout candidat de rôle reste optionnel et non adopté."
+    ],
+    "status": "REFERENCE_STABLE_FOR_VISIBLE_USE"
+  },
+  "evaluationDemonstrations": [
+    {
+      "representationId": "representation-a",
+      "label": "Sortie A — structure à trois unités",
+      "structureSynopsis": "METHOD Atlas -> PRODUCES -> QUANTITATIVE_IMAGE carte Q -> YIELDS -> MEASUREMENT valeur moyenne Q ; rôle Project UNKNOWN.",
+      "declaredDisposition": "ACCEPTABLE_SEMANTIC_EQUIVALENT",
+      "declarationBasis": "Tous les concepts, relations et statuts épistémiques exigés sont conservés.",
+      "notAutomaticallyEvaluated": true
+    },
+    {
+      "representationId": "representation-b",
+      "label": "Sortie B — composition structurée",
+      "structureSynopsis": "MeasurementDefinition Atlas avec sortie image carte Q et sous-sortie mesure moyenne Q explicitement distinctes ; rôle Project UNKNOWN.",
+      "declaredDisposition": "ACCEPTABLE_SEMANTIC_EQUIVALENT",
+      "declarationBasis": "La topologie diffère mais le vecteur d'obligations et les conséquences scientifiques sont conservés.",
+      "notAutomaticallyEvaluated": true
+    },
+    {
+      "representationId": "representation-c",
+      "label": "Sortie C — fusion scientifiquement fausse",
+      "structureSynopsis": "Un seul BIOMARKER Atlas-Q adopté comme endpoint, sans distinction entre méthode, carte et valeur.",
+      "declaredDisposition": "SEMANTIC_FAILURE",
+      "declarationBasis": "La structure proche fusionne les plans et fabrique une adoption Project interdite.",
+      "notAutomaticallyEvaluated": true
+    }
+  ]
+}

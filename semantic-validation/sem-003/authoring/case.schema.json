@@ -1,0 +1,382 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://noxia.local/sem-003/authoring/case.schema.json",
+  "title": "SEM-003 Benchmark Authoring Case",
+  "description": "Structural authoring contract. This is not a PD-003 object and contains no scientific validation logic.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "contractType",
+    "purpose",
+    "caseId",
+    "version",
+    "title",
+    "createdAt",
+    "authorRole",
+    "reviewStatus",
+    "source",
+    "scientificScope",
+    "exposure",
+    "reference"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "contractType": { "const": "BENCHMARK_AUTHORING_CASE" },
+    "purpose": {
+      "enum": [
+        "AUTHORING_PROTOCOL_VALIDATION_ONLY",
+        "DEVELOPMENT_AUTHORING",
+        "CALIBRATION_AUTHORING"
+      ]
+    },
+    "caseId": {
+      "type": "string",
+      "pattern": "^SEM3-(EX|DEV|CAL)-[A-Z0-9][A-Z0-9-]{2,63}$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "title": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "authorRole": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "reviewStatus": {
+      "enum": [
+        "DRAFT",
+        "SCIENTIFIC_REVIEW_REQUIRED",
+        "METHODOLOGICAL_REVIEW_REQUIRED",
+        "CONTAMINATION_REVIEW_REQUIRED",
+        "APPROVED_FOR_DEVELOPMENT",
+        "APPROVED_FOR_CALIBRATION"
+      ]
+    },
+    "source": { "$ref": "#/definitions/source" },
+    "scientificScope": { "$ref": "#/definitions/scientificScope" },
+    "exposure": { "$ref": "#/definitions/exposure" },
+    "reference": { "$ref": "#/definitions/reference" }
+  },
+  "definitions": {
+    "nonEmptyString": { "type": "string", "minLength": 1 },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceRequest",
+        "language",
+        "conversationTurns",
+        "sourceContext",
+        "provenance"
+      ],
+      "properties": {
+        "sourceRequest": { "$ref": "#/definitions/nonEmptyString" },
+        "language": {
+          "type": "string",
+          "pattern": "^[a-z]{2,3}(-[A-Z]{2})?$"
+        },
+        "conversationTurns": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/conversationTurn" },
+          "uniqueItems": true
+        },
+        "sourceContext": { "$ref": "#/definitions/nonEmptyString" },
+        "provenance": { "$ref": "#/definitions/provenance" }
+      }
+    },
+    "conversationTurn": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["turnId", "role", "text"],
+      "properties": {
+        "turnId": { "type": "string", "pattern": "^turn-[0-9]+$" },
+        "role": { "enum": ["USER", "ASSISTANT"] },
+        "text": { "$ref": "#/definitions/nonEmptyString" }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "originType",
+        "originalSource",
+        "author",
+        "createdAt",
+        "inspirationRefs"
+      ],
+      "properties": {
+        "originType": {
+          "enum": ["SYNTHETIC_AUTHORED", "REAL_GOVERNED", "ADAPTED_EXPOSED"]
+        },
+        "originalSource": { "$ref": "#/definitions/nonEmptyString" },
+        "author": { "$ref": "#/definitions/nonEmptyString" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "inspirationRefs": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/nonEmptyString" },
+          "uniqueItems": true
+        }
+      }
+    },
+    "scenarioCategory": {
+      "enum": [
+        "COMPLETE_SCIENTIFIC_REQUEST",
+        "UNDER_SPECIFIED_REQUEST",
+        "ELLIPSIS",
+        "NECESSARY_IMPLICIT",
+        "STRONG_CONTEXTUAL_IMPLICIT",
+        "KNOWLEDGE_CANDIDATE",
+        "SCIENTIFIC_AMBIGUITY",
+        "COMPARISON_AND_TIMING",
+        "NEGATION_AND_NON_CAUSALITY",
+        "MULTI_TURN_CORRECTION",
+        "CHANGE_OF_MIND",
+        "METHOD_VERSUS_MEASUREMENT",
+        "PHENOMENON_VERSUS_OBSERVABLE",
+        "INTERVENTION_AND_IMAGING",
+        "MULTIDIMENSIONAL_REQUEST"
+      ]
+    },
+    "scientificScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "domain",
+        "scenarioCategory",
+        "secondaryCategories",
+        "difficultyTarget",
+        "intentionallyMissingInformation"
+      ],
+      "properties": {
+        "domain": { "$ref": "#/definitions/nonEmptyString" },
+        "scenarioCategory": { "$ref": "#/definitions/scenarioCategory" },
+        "secondaryCategories": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/scenarioCategory" },
+          "uniqueItems": true
+        },
+        "difficultyTarget": {
+          "enum": ["FOUNDATIONAL", "COMPOSITE", "COMPLEX"]
+        },
+        "intentionallyMissingInformation": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/missingInformation" },
+          "uniqueItems": true
+        }
+      }
+    },
+    "missingInformation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["informationId", "description", "intentional"],
+      "properties": {
+        "informationId": { "type": "string", "pattern": "^missing-[a-z0-9-]+$" },
+        "description": { "$ref": "#/definitions/nonEmptyString" },
+        "intentional": { "const": true }
+      }
+    },
+    "exposureStatus": {
+      "enum": ["DESIGN_ONLY", "DEVELOPMENT_VISIBLE", "CALIBRATION_VISIBLE"]
+    },
+    "exposure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "exposureStatus",
+        "exposureHistory",
+        "parentageStatus",
+        "parentageAssessment",
+        "contaminationReview",
+        "eligibleForCalibration",
+        "eligibleForBlindQualification"
+      ],
+      "properties": {
+        "exposureStatus": { "$ref": "#/definitions/exposureStatus" },
+        "exposureHistory": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/definitions/exposureEvent" }
+        },
+        "parentageStatus": {
+          "enum": [
+            "PARENTAGE_CLEAR",
+            "PARENTAGE_REVIEW_REQUIRED",
+            "RELATED_VISIBLE_CASE",
+            "CONTAMINATED_FOR_BLIND_USE"
+          ]
+        },
+        "parentageAssessment": { "$ref": "#/definitions/parentageAssessment" },
+        "contaminationReview": { "$ref": "#/definitions/contaminationReview" },
+        "eligibleForCalibration": { "type": "boolean" },
+        "eligibleForBlindQualification": { "const": false }
+      }
+    },
+    "exposureEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "fromStatus",
+        "toStatus",
+        "occurredAt",
+        "actorRole",
+        "reason"
+      ],
+      "properties": {
+        "eventId": { "type": "string", "pattern": "^exposure-[a-z0-9-]+$" },
+        "fromStatus": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/definitions/exposureStatus" }
+          ]
+        },
+        "toStatus": { "$ref": "#/definitions/exposureStatus" },
+        "occurredAt": { "type": "string", "format": "date-time" },
+        "actorRole": { "$ref": "#/definitions/nonEmptyString" },
+        "reason": { "$ref": "#/definitions/nonEmptyString" }
+      }
+    },
+    "parentageAssessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "discriminatingConcepts",
+        "reasoningStructure",
+        "criticalRelations",
+        "ambiguities",
+        "knownSimilarities"
+      ],
+      "properties": {
+        "discriminatingConcepts": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/nonEmptyString" },
+          "uniqueItems": true
+        },
+        "reasoningStructure": { "$ref": "#/definitions/nonEmptyString" },
+        "criticalRelations": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/nonEmptyString" },
+          "uniqueItems": true
+        },
+        "ambiguities": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/nonEmptyString" },
+          "uniqueItems": true
+        },
+        "knownSimilarities": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["development", "calibration", "historicalLegacy"],
+          "properties": {
+            "development": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/nonEmptyString" },
+              "uniqueItems": true
+            },
+            "calibration": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/nonEmptyString" },
+              "uniqueItems": true
+            },
+            "historicalLegacy": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/nonEmptyString" },
+              "uniqueItems": true
+            }
+          }
+        }
+      }
+    },
+    "contaminationReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "reviewedAt", "reviewerRole", "notes"],
+      "properties": {
+        "status": {
+          "enum": ["NOT_REVIEWED", "CLEAR", "REVIEW_REQUIRED", "CONTAMINATED_FOR_BLIND_USE"]
+        },
+        "reviewedAt": {
+          "oneOf": [
+            { "type": "null" },
+            { "type": "string", "format": "date-time" }
+          ]
+        },
+        "reviewerRole": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/definitions/nonEmptyString" }
+          ]
+        },
+        "notes": { "$ref": "#/definitions/nonEmptyString" }
+      }
+    },
+    "sem002Property": {
+      "enum": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+        "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE"
+      ]
+    },
+    "reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "acceptanceEnvelopeId",
+        "applicableSEM002Properties",
+        "adjudicationRequirements"
+      ],
+      "properties": {
+        "acceptanceEnvelopeId": {
+          "type": "string",
+          "pattern": "^SEM3-AE-[A-Z0-9][A-Z0-9-]{2,63}$"
+        },
+        "applicableSEM002Properties": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/definitions/sem002Property" },
+          "uniqueItems": true
+        },
+        "adjudicationRequirements": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/definitions/adjudicationRequirement" },
+          "uniqueItems": true
+        }
+      }
+    },
+    "adjudicationRequirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["expertise", "rationale", "mandatory"],
+      "properties": {
+        "expertise": {
+          "enum": [
+            "SCIENTIFIC_DOMAIN",
+            "METHODOLOGICAL_SEM",
+            "OBS_MEASUREMENT",
+            "KNOWLEDGE_EVIDENCE",
+            "PROJECT_OWNERSHIP",
+            "PD009_CLARIFICATION",
+            "INDEPENDENT_ADJUDICATION"
+          ]
+        },
+        "rationale": { "$ref": "#/definitions/nonEmptyString" },
+        "mandatory": { "type": "boolean" }
+      }
+    }
+  }
+}

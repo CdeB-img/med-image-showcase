@@ -1,0 +1,414 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://noxia.local/sem-003/authoring/acceptance-envelope.schema.json",
+  "title": "SEM-003 Acceptance Envelope",
+  "description": "Structural expert-reference contract. It records expert judgments but does not compute scientific truth or semantic equivalence.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "contractType",
+    "envelopeId",
+    "version",
+    "caseId",
+    "reviewStatus",
+    "required",
+    "prohibited",
+    "acceptableSemanticVariants",
+    "optionalRelevant",
+    "admissibleAmbiguities",
+    "expectedClarification",
+    "ownershipBoundaries",
+    "properties",
+    "adjudication",
+    "evaluationDemonstrations"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "contractType": { "const": "BENCHMARK_AUTHORING_ACCEPTANCE_ENVELOPE" },
+    "envelopeId": {
+      "type": "string",
+      "pattern": "^SEM3-AE-[A-Z0-9][A-Z0-9-]{2,63}$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "caseId": {
+      "type": "string",
+      "pattern": "^SEM3-(EX|DEV|CAL)-[A-Z0-9][A-Z0-9-]{2,63}$"
+    },
+    "reviewStatus": {
+      "enum": [
+        "DRAFT",
+        "SCIENTIFIC_REVIEW_REQUIRED",
+        "METHODOLOGICAL_REVIEW_REQUIRED",
+        "APPROVED_FOR_DEVELOPMENT",
+        "APPROVED_FOR_CALIBRATION"
+      ]
+    },
+    "required": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/definitions/requiredObligation" }
+    },
+    "prohibited": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/definitions/prohibitedObligation" }
+    },
+    "acceptableSemanticVariants": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/semanticVariant" }
+    },
+    "optionalRelevant": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/optionalCandidate" }
+    },
+    "admissibleAmbiguities": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/ambiguity" }
+    },
+    "expectedClarification": { "$ref": "#/definitions/clarification" },
+    "ownershipBoundaries": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/definitions/ownershipBoundary" }
+    },
+    "properties": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/definitions/propertyDeclaration" }
+    },
+    "adjudication": { "$ref": "#/definitions/adjudication" },
+    "evaluationDemonstrations": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/evaluationDemonstration" }
+    }
+  },
+  "definitions": {
+    "nonEmptyString": { "type": "string", "minLength": 1 },
+    "semanticKey": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9.-]{2,95}$"
+    },
+    "criticality": {
+      "enum": ["CRITICAL", "MAJOR", "MODERATE", "MINOR"]
+    },
+    "obligationKind": {
+      "enum": [
+        "EXPLICIT_CONCEPT",
+        "RELATION",
+        "COMPARISON",
+        "TIMING",
+        "POLARITY",
+        "UNKNOWN",
+        "AMBIGUITY",
+        "CORRECTION",
+        "PROVENANCE",
+        "OWNERSHIP",
+        "OTHER"
+      ]
+    },
+    "sem002Property": {
+      "enum": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+        "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE"
+      ]
+    },
+    "failureClass": {
+      "enum": [
+        "EXPLICIT_FIDELITY_FAILURE",
+        "RELATION_SEMANTICS_FAILURE",
+        "POLARITY_OR_CAUSALITY_FAILURE",
+        "CONTEXTUAL_UNDERSTANDING_FAILURE",
+        "EPISTEMIC_PROMOTION_FAILURE",
+        "UNSUPPORTED_INVENTION_FAILURE",
+        "MISSING_INFORMATION_FAILURE",
+        "CLARIFICATION_FAILURE",
+        "CONCEPTUAL_PLAN_COLLAPSE",
+        "PROVENANCE_FAILURE",
+        "OWNERSHIP_BOUNDARY_FAILURE",
+        "SEMANTIC_EQUIVALENCE_EVALUATION_FAILURE",
+        "GENERATIVE_INSTABILITY_FAILURE",
+        "PROVIDER_EXECUTION_FAILURE",
+        "QUALIFICATION_PROTOCOL_FAILURE"
+      ]
+    },
+    "requiredObligation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "obligationId",
+        "semanticKey",
+        "kind",
+        "description",
+        "rationale",
+        "sourceLocator",
+        "criticality",
+        "propertyIds",
+        "sourceClassification"
+      ],
+      "properties": {
+        "obligationId": { "type": "string", "pattern": "^req-[a-z0-9-]+$" },
+        "semanticKey": { "$ref": "#/definitions/semanticKey" },
+        "kind": { "$ref": "#/definitions/obligationKind" },
+        "description": { "$ref": "#/definitions/nonEmptyString" },
+        "rationale": { "$ref": "#/definitions/nonEmptyString" },
+        "sourceLocator": { "$ref": "#/definitions/nonEmptyString" },
+        "criticality": { "$ref": "#/definitions/criticality" },
+        "propertyIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/definitions/sem002Property" },
+          "uniqueItems": true
+        },
+        "sourceClassification": {
+          "enum": ["INHERENTLY_REQUIRED", "PROMOTED_FROM_OPTIONAL"]
+        },
+        "promotionJustification": { "$ref": "#/definitions/nonEmptyString" }
+      }
+    },
+    "prohibitedObligation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "prohibitionId",
+        "semanticKey",
+        "description",
+        "rationale",
+        "criticality",
+        "propertyIds",
+        "failureClass"
+      ],
+      "properties": {
+        "prohibitionId": { "type": "string", "pattern": "^pro-[a-z0-9-]+$" },
+        "semanticKey": { "$ref": "#/definitions/semanticKey" },
+        "description": { "$ref": "#/definitions/nonEmptyString" },
+        "rationale": { "$ref": "#/definitions/nonEmptyString" },
+        "criticality": { "$ref": "#/definitions/criticality" },
+        "propertyIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/definitions/sem002Property" },
+          "uniqueItems": true
+        },
+        "failureClass": { "$ref": "#/definitions/failureClass" }
+      }
+    },
+    "semanticVariant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "variantId",
+        "label",
+        "structureSynopsis",
+        "preservedObligationIds",
+        "caveats"
+      ],
+      "properties": {
+        "variantId": { "type": "string", "pattern": "^variant-[a-z0-9-]+$" },
+        "label": { "$ref": "#/definitions/nonEmptyString" },
+        "structureSynopsis": { "$ref": "#/definitions/nonEmptyString" },
+        "preservedObligationIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "pattern": "^req-[a-z0-9-]+$" },
+          "uniqueItems": true
+        },
+        "caveats": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/nonEmptyString" },
+          "uniqueItems": true
+        }
+      }
+    },
+    "optionalCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidateId",
+        "semanticKey",
+        "description",
+        "epistemicStatus",
+        "rationale",
+        "absenceIsBlocking",
+        "envelopeIsNonExhaustive"
+      ],
+      "properties": {
+        "candidateId": { "type": "string", "pattern": "^opt-[a-z0-9-]+$" },
+        "semanticKey": { "$ref": "#/definitions/semanticKey" },
+        "description": { "$ref": "#/definitions/nonEmptyString" },
+        "epistemicStatus": {
+          "enum": ["CONTEXTUAL_CANDIDATE", "INFERENCE", "HYPOTHESIS", "OPTION"]
+        },
+        "rationale": { "$ref": "#/definitions/nonEmptyString" },
+        "absenceIsBlocking": { "const": false },
+        "envelopeIsNonExhaustive": { "const": true }
+      }
+    },
+    "ambiguity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ambiguityId",
+        "description",
+        "competingInterpretations",
+        "resolutionInformation",
+        "mustRemainOpen"
+      ],
+      "properties": {
+        "ambiguityId": { "type": "string", "pattern": "^amb-[a-z0-9-]+$" },
+        "description": { "$ref": "#/definitions/nonEmptyString" },
+        "competingInterpretations": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "$ref": "#/definitions/nonEmptyString" },
+          "uniqueItems": true
+        },
+        "resolutionInformation": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/definitions/nonEmptyString" },
+          "uniqueItems": true
+        },
+        "mustRemainOpen": { "const": true }
+      }
+    },
+    "clarification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "decisionImpact",
+        "acceptableQuestionClasses",
+        "exactWordingRequired"
+      ],
+      "properties": {
+        "status": { "enum": ["REQUIRED", "OPTIONAL", "NOT_EXPECTED"] },
+        "decisionImpact": { "$ref": "#/definitions/nonEmptyString" },
+        "acceptableQuestionClasses": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/nonEmptyString" },
+          "uniqueItems": true
+        },
+        "exactWordingRequired": { "const": false }
+      }
+    },
+    "ownershipBoundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "boundaryId",
+        "sourceOwner",
+        "targetOwner",
+        "description",
+        "forbiddenPromotion",
+        "adoptionRequiresHumanDecision"
+      ],
+      "properties": {
+        "boundaryId": { "type": "string", "pattern": "^own-[a-z0-9-]+$" },
+        "sourceOwner": { "$ref": "#/definitions/nonEmptyString" },
+        "targetOwner": { "$ref": "#/definitions/nonEmptyString" },
+        "description": { "$ref": "#/definitions/nonEmptyString" },
+        "forbiddenPromotion": { "$ref": "#/definitions/nonEmptyString" },
+        "adoptionRequiresHumanDecision": { "type": "boolean" }
+      }
+    },
+    "propertyDeclaration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "propertyId",
+        "family",
+        "criticality",
+        "evaluationMode",
+        "absolute",
+        "compensable"
+      ],
+      "properties": {
+        "propertyId": { "$ref": "#/definitions/sem002Property" },
+        "family": {
+          "enum": [
+            "SAFETY_FIDELITY_INVARIANT",
+            "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+            "CONTEXTUAL_ENRICHMENT"
+          ]
+        },
+        "criticality": { "$ref": "#/definitions/criticality" },
+        "evaluationMode": { "enum": ["RUN_LEVEL", "DISTRIBUTION"] },
+        "absolute": { "type": "boolean" },
+        "compensable": { "type": "boolean" }
+      }
+    },
+    "adjudication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requiredExpertise",
+        "notes",
+        "humanAdjudicationPoints",
+        "status"
+      ],
+      "properties": {
+        "requiredExpertise": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/definitions/nonEmptyString" },
+          "uniqueItems": true
+        },
+        "notes": { "$ref": "#/definitions/nonEmptyString" },
+        "humanAdjudicationPoints": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/nonEmptyString" },
+          "uniqueItems": true
+        },
+        "status": {
+          "enum": ["DRAFT", "REVIEW_REQUIRED", "REFERENCE_STABLE_FOR_VISIBLE_USE"]
+        }
+      }
+    },
+    "evaluationDemonstration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "representationId",
+        "label",
+        "structureSynopsis",
+        "declaredDisposition",
+        "declarationBasis",
+        "notAutomaticallyEvaluated"
+      ],
+      "properties": {
+        "representationId": { "type": "string", "pattern": "^representation-[a-z0-9-]+$" },
+        "label": { "$ref": "#/definitions/nonEmptyString" },
+        "structureSynopsis": { "$ref": "#/definitions/nonEmptyString" },
+        "declaredDisposition": {
+          "enum": [
+            "ACCEPTABLE_SEMANTIC_EQUIVALENT",
+            "ACCEPTABLE_NONCRITICAL_VARIATION",
+            "SEMANTIC_FAILURE"
+          ]
+        },
+        "declarationBasis": { "$ref": "#/definitions/nonEmptyString" },
+        "notAutomaticallyEvaluated": { "const": true }
+      }
+    }
+  }
+}
