@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "BENCHMARK_EVALUATION_ADJUDICATION_DECISION_RECORD",
+  "recordId": "SEM3-ADR-CT-FUNCTIONAL-ESTIMATE-ROLE-SIMULATED-EQUIVALENCE",
+  "decision": "EQUIVALENT",
+  "rationale": "B3 simulated pluralistic review adjudicated the baseline and distributed Development representations as semantically equivalent across the recorded Level 2 scope.",
+  "authorityClass": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+  "evidenceBasis": "SIMULATED_EXPERT_REVIEW_EVIDENCE",
+  "sourceDecisionId": "SEM3B3-SIMDEC-CT-FUNCTIONAL-ESTIMATE-ROLE-SEMANTIC-EQUIVALENCE",
+  "reviewBasis": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+  "eligibility": {
+    "developmentEvaluatorTesting": true,
+    "developmentCalibration": true,
+    "formalIndependentQualification": false,
+    "blindReferenceAdmission": false,
+    "pd011FinalEvidence": false
+  },
+  "provenance": {
+    "sourceRecordRef": "semantic-validation/sem-003/review/artifacts/equivalence-review-status.json#SEM3B3-EQ-CT-FUNCTIONAL-ESTIMATE-ROLE",
+    "recordedAt": "2026-08-13T20:24:00.000Z",
+    "realHumanReview": false
+  },
+  "target": {
+    "scope": "SEMANTIC_EQUIVALENCE_PAIR",
+    "caseId": "SEM3-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
+    "candidateIds": [
+      "SEM3-EVAL-CAND-CT-FUNCTIONAL-ESTIMATE-ROLE-BASELINE",
+      "SEM3-EVAL-CAND-CT-FUNCTIONAL-ESTIMATE-ROLE-DISTRIBUTED"
+    ],
+    "packetIds": [
+      "SEM3-ADJ-CT-FUNCTIONAL-ESTIMATE-ROLE-DISTRIBUTED-P14",
+      "SEM3-ADJ-CT-FUNCTIONAL-ESTIMATE-ROLE-DISTRIBUTED-P15",
+      "SEM3-ADJ-CT-FUNCTIONAL-ESTIMATE-ROLE-DISTRIBUTED-P16",
+      "SEM3-ADJ-CT-FUNCTIONAL-ESTIMATE-ROLE-DISTRIBUTED-P17"
+    ],
+    "propertyIds": [
+      "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+      "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED",
+      "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED"
+    ]
+  },
+  "status": "FINAL"
+}

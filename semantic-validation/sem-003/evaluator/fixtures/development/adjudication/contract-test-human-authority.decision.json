@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "BENCHMARK_EVALUATION_ADJUDICATION_DECISION_RECORD",
+  "recordId": "SEM3-ADR-CONTRACT-TEST-HUMAN-AUTHORITY",
+  "decision": "EQUIVALENT",
+  "rationale": "Pure contract fixture proving that human authority remains structurally distinct; it records no real review.",
+  "authorityClass": "HUMAN_ADJUDICATION",
+  "evidenceBasis": "CONTRACT_TEST_ONLY",
+  "sourceDecisionId": "CONTRACT-TEST-ONLY-NO-HUMAN-DECISION",
+  "reviewBasis": "CONTRACT_TEST_ONLY",
+  "eligibility": {
+    "developmentEvaluatorTesting": false,
+    "developmentCalibration": false,
+    "formalIndependentQualification": false,
+    "blindReferenceAdmission": false,
+    "pd011FinalEvidence": false
+  },
+  "provenance": {
+    "sourceRecordRef": "synthetic-contract-fixture",
+    "recordedAt": "2026-08-13T20:24:00.000Z",
+    "realHumanReview": false
+  },
+  "target": {
+    "scope": "ADJUDICATION_PACKET",
+    "caseId": "SEM3-EX-CONTRACT-AUTHORITY",
+    "candidateIds": [
+      "SEM3-EVAL-CAND-CONTRACT-AUTHORITY"
+    ],
+    "packetIds": [
+      "SEM3-ADJ-CONTRACT-AUTHORITY-P15"
+    ],
+    "propertyIds": [
+      "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+    ]
+  },
+  "status": "FINAL"
+}

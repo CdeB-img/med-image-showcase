@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://noxia.local/sem-003/evaluator/adjudication-packet.schema.json",
-  "title": "SEM-003 Human Adjudication Packet",
-  "description": "Open benchmark review packet. It requests a human judgment and never constitutes that judgment.",
+  "title": "SEM-003 Governed Adjudication Packet",
+  "description": "Open benchmark review packet. It requests a governed judgment and never constitutes that judgment or its authority.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -44,6 +44,10 @@
     "humanDecisionRecordId": {
       "type": "string",
       "pattern": "^SEM3-HDR-[A-Z0-9][A-Z0-9-]{2,127}$"
+    },
+    "decisionRecordId": {
+      "type": "string",
+      "pattern": "^SEM3-(ADR|HDR)-[A-Z0-9][A-Z0-9-]{2,127}$"
     }
   }
 }

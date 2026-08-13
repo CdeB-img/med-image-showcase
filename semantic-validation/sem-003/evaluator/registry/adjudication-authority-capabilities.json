@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003_ADJUDICATION_AUTHORITY_CAPABILITY_MATRIX",
+  "authorities": [
+    {
+      "authorityClass": "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+      "evidenceBasis": "SIMULATED_EXPERT_REVIEW_EVIDENCE",
+      "allowedOperationalUses": [
+        "DEVELOPMENT_EVALUATOR_TESTING",
+        "DEVELOPMENT_CALIBRATION"
+      ],
+      "independentQualificationEvidence": false,
+      "blindReferenceEvidence": false,
+      "pd011FinalEvidence": false,
+      "realHumanReview": false
+    },
+    {
+      "authorityClass": "HUMAN_ADJUDICATION",
+      "evidenceBasis": "HUMAN_REVIEW_EVIDENCE",
+      "allowedOperationalUses": [
+        "GOVERNED_HUMAN_ADJUDICATION"
+      ],
+      "independentUsesRequireRecordEligibility": [
+        "FORMAL_INDEPENDENT_QUALIFICATION",
+        "BLIND_REFERENCE_ADMISSION",
+        "PD011_FINAL_EVIDENCE"
+      ],
+      "realHumanReviewRequired": true
+    }
+  ],
+  "rule": "Decision semantics and evidence eligibility are separate. Capability never upgrades the eligibility declared by a decision record."
+}

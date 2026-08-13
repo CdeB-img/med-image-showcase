@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-export const SEM003_EVALUATOR_VERSION = "1.0.0";
+export const SEM003_EVALUATOR_VERSION = "1.1.0";
 
 const CORE_ROOT = path.dirname(fileURLToPath(import.meta.url));
 const IDENTITY_PATH = path.resolve(CORE_ROOT, "../registry/evaluator-identity.json");

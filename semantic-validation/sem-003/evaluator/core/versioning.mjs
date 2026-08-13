@@ -27,6 +27,7 @@ export const evaluatorConfigurationFiles = () => {
   files.push(
     path.resolve(EVALUATOR_ROOT, "registry/property-registry.json"),
     path.resolve(EVALUATOR_ROOT, "registry/failure-disposition-registry.json"),
+    path.resolve(EVALUATOR_ROOT, "registry/adjudication-authority-capabilities.json"),
     path.resolve(
       REPOSITORY_ROOT,
       "semantic-validation/sem-002/scientific-understanding-competence-contract.json",
@@ -52,8 +53,8 @@ export const computeEvaluatorIdentity = () => {
     SEM002: "1.0",
     SEM003: "1.0",
     acceptanceEnvelopeContract: "1.0.0",
-    candidateSemanticRepresentationContract: "1.0.0",
-    adjudicationContract: "1.0.0",
+    candidateSemanticRepresentationContract: "1.1.0",
+    adjudicationContract: "1.1.0",
   };
   const configurationDigest = sha256(
     stableJson({
@@ -70,10 +71,11 @@ export const computeEvaluatorIdentity = () => {
     authorityVersions,
     coveredComponents: [
       "evaluator core code",
-      "six evaluator schemas",
+      "seven evaluator schemas",
       "derived SEM-002 property registry",
       "normalized candidate contract",
       "adjudication contract",
+      "adjudication authority capability matrix",
       "failure/disposition mapping",
       "SEM-002, SEM-003, and Acceptance Envelope contract versions",
     ],

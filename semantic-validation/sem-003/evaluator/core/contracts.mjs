@@ -13,6 +13,7 @@ const schemas = Object.freeze({
   candidate: readJson("candidate-semantic-representation.schema.json"),
   propertyJudgment: readJson("property-judgment.schema.json"),
   adjudicationPacket: readJson("adjudication-packet.schema.json"),
+  adjudicationDecisionRecord: readJson("adjudication-decision-record.schema.json"),
   humanDecisionRecord: readJson("human-decision-record.schema.json"),
   evaluationInput: readJson("evaluation-input.schema.json"),
   evaluationResult: readJson("evaluation-result.schema.json"),

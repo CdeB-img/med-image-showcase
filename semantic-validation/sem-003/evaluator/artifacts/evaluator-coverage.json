@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0.0",
   "contractType": "SEM003_EVALUATOR_DEVELOPMENT_COVERAGE",
-  "evaluatorVersion": "1.0.0",
-  "evaluatorConfigurationDigest": "13f2e4d0b57e200b53e3db52a4fa74cc346a0b65e82b96ac12ca82ba435767b5",
+  "evaluatorVersion": "1.1.0",
+  "evaluatorConfigurationDigest": "b05bc0ac66cb3e4dc5f135ba278cac8cadebe7443e57b1003dca580c9bd0e9bd",
   "modeExecuted": "DEVELOPMENT_SYNTHETIC",
   "calibrationCaseContentAccessedForEvaluatorTuning": false,
   "calibrationExecuted": false,
@@ -117,7 +117,7 @@
   "gaps": [
     "Human scientific reference review remains required.",
     "Human methodological review remains required.",
-    "The five declared equivalence pairs remain open for human adjudication.",
+    "The five declared equivalence pairs have simulated B3 decisions usable only for Development evaluator testing and development calibration.",
     "The evaluator has not been calibrated or qualified under PD-011.",
     "FUTURE_SEM_RUNTIME and HUMAN_ADJUDICATION modes are implemented as contracts but were not executed.",
     "No threshold, N value, aggregate score, blind package, or qualification decision exists."

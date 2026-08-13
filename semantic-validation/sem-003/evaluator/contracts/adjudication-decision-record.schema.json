@@ -1,0 +1,149 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://noxia.local/sem-003/evaluator/adjudication-decision-record.schema.json",
+  "title": "SEM-003 Adjudication Decision Record",
+  "description": "Governed adjudication decision separated from its authority and evidence eligibility. A conforming structure does not prove that a human review occurred.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "contractType",
+    "recordId",
+    "decision",
+    "rationale",
+    "authorityClass",
+    "evidenceBasis",
+    "sourceDecisionId",
+    "reviewBasis",
+    "eligibility",
+    "provenance",
+    "target",
+    "status"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "contractType": { "const": "BENCHMARK_EVALUATION_ADJUDICATION_DECISION_RECORD" },
+    "recordId": { "type": "string", "pattern": "^SEM3-ADR-[A-Z0-9][A-Z0-9-]{2,127}$" },
+    "decision": { "enum": ["SATISFIED", "VIOLATED", "EQUIVALENT", "ACCEPTABLE_WITH_RESERVE", "NON_EQUIVALENT", "NOT_ADJUDICABLE"] },
+    "rationale": { "type": "string", "minLength": 1 },
+    "authorityClass": { "enum": ["HUMAN_ADJUDICATION", "SIMULATED_PLURALISTIC_EXPERT_REVIEW"] },
+    "evidenceBasis": { "enum": ["HUMAN_REVIEW_EVIDENCE", "SIMULATED_EXPERT_REVIEW_EVIDENCE", "CONTRACT_TEST_ONLY"] },
+    "sourceDecisionId": { "type": "string", "minLength": 1 },
+    "reviewBasis": { "enum": ["HUMAN_ADJUDICATION", "SIMULATED_PLURALISTIC_EXPERT_REVIEW", "CONTRACT_TEST_ONLY"] },
+    "eligibility": { "$ref": "#/definitions/eligibility" },
+    "provenance": { "$ref": "#/definitions/provenance" },
+    "target": { "$ref": "#/definitions/target" },
+    "status": { "const": "FINAL" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "authorityClass": { "const": "SIMULATED_PLURALISTIC_EXPERT_REVIEW" } } },
+      "then": {
+        "properties": {
+          "evidenceBasis": { "const": "SIMULATED_EXPERT_REVIEW_EVIDENCE" },
+          "reviewBasis": { "const": "SIMULATED_PLURALISTIC_EXPERT_REVIEW" },
+          "eligibility": {
+            "properties": {
+              "developmentEvaluatorTesting": { "const": true },
+              "developmentCalibration": { "const": true },
+              "formalIndependentQualification": { "const": false },
+              "blindReferenceAdmission": { "const": false },
+              "pd011FinalEvidence": { "const": false }
+            }
+          },
+          "provenance": { "properties": { "realHumanReview": { "const": false } } }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "evidenceBasis": { "const": "CONTRACT_TEST_ONLY" } } },
+      "then": {
+        "properties": {
+          "reviewBasis": { "const": "CONTRACT_TEST_ONLY" },
+          "eligibility": {
+            "properties": {
+              "developmentEvaluatorTesting": { "const": false },
+              "developmentCalibration": { "const": false },
+              "formalIndependentQualification": { "const": false },
+              "blindReferenceAdmission": { "const": false },
+              "pd011FinalEvidence": { "const": false }
+            }
+          },
+          "provenance": { "properties": { "realHumanReview": { "const": false } } }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "authorityClass": { "const": "HUMAN_ADJUDICATION" },
+          "evidenceBasis": { "const": "HUMAN_REVIEW_EVIDENCE" }
+        },
+        "required": ["authorityClass", "evidenceBasis"]
+      },
+      "then": {
+        "properties": {
+          "reviewBasis": { "const": "HUMAN_ADJUDICATION" },
+          "provenance": { "properties": { "realHumanReview": { "const": true } } }
+        }
+      }
+    }
+  ],
+  "definitions": {
+    "eligibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "developmentEvaluatorTesting",
+        "developmentCalibration",
+        "formalIndependentQualification",
+        "blindReferenceAdmission",
+        "pd011FinalEvidence"
+      ],
+      "properties": {
+        "developmentEvaluatorTesting": { "type": "boolean" },
+        "developmentCalibration": { "type": "boolean" },
+        "formalIndependentQualification": { "type": "boolean" },
+        "blindReferenceAdmission": { "type": "boolean" },
+        "pd011FinalEvidence": { "type": "boolean" }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sourceRecordRef", "recordedAt", "realHumanReview"],
+      "properties": {
+        "sourceRecordRef": { "type": "string", "minLength": 1 },
+        "recordedAt": { "type": "string", "format": "date-time" },
+        "realHumanReview": { "type": "boolean" }
+      }
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scope", "caseId", "candidateIds", "packetIds", "propertyIds"],
+      "properties": {
+        "scope": { "enum": ["ADJUDICATION_PACKET", "SEMANTIC_EQUIVALENCE_PAIR"] },
+        "caseId": { "type": "string", "pattern": "^SEM3-(EX|DEV|CAL)-[A-Z0-9][A-Z0-9-]{2,63}$" },
+        "candidateIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "pattern": "^SEM3-EVAL-CAND-[A-Z0-9][A-Z0-9-]{2,95}$" },
+          "uniqueItems": true
+        },
+        "packetIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "pattern": "^SEM3-ADJ-[A-Z0-9][A-Z0-9-]{2,127}$" },
+          "uniqueItems": true
+        },
+        "propertyIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "pattern": "^PROPERTY_[A-Z0-9_]+$" },
+          "uniqueItems": true
+        }
+      }
+    }
+  }
+}

@@ -15,10 +15,10 @@
     "candidateOutput"
   ],
   "properties": {
-    "schemaVersion": { "const": "1.0.0" },
+    "schemaVersion": { "enum": ["1.0.0", "1.1.0"] },
     "contractType": { "const": "BENCHMARK_EVALUATION_INPUT" },
     "evaluationId": { "type": "string", "pattern": "^SEM3-EVAL-[A-Z0-9][A-Z0-9-]{2,127}$" },
-    "evaluationMode": { "enum": ["DEVELOPMENT_SYNTHETIC", "FUTURE_SEM_RUNTIME", "HUMAN_ADJUDICATION"] },
+    "evaluationMode": { "enum": ["DEVELOPMENT_SYNTHETIC", "CALIBRATION_SYNTHETIC", "FUTURE_SEM_RUNTIME", "HUMAN_ADJUDICATION"] },
     "benchmarkCase": {
       "type": "object",
       "required": ["contractType", "caseId", "version", "source", "reference"],
@@ -47,12 +47,24 @@
     "humanDecisionRecords": {
       "type": "array",
       "items": { "$ref": "human-decision-record.schema.json" }
+    },
+    "adjudicationDecisionRecords": {
+      "type": "array",
+      "items": { "$ref": "adjudication-decision-record.schema.json" }
     }
   },
   "allOf": [
     {
       "if": { "properties": { "evaluationMode": { "const": "HUMAN_ADJUDICATION" } } },
-      "then": { "required": ["humanDecisionRecords"] }
+      "then": {
+        "anyOf": [
+          { "required": ["humanDecisionRecords"] },
+          { "required": ["adjudicationDecisionRecords"] }
+        ]
+      }
+    },
+    {
+      "not": { "required": ["humanDecisionRecords", "adjudicationDecisionRecords"] }
     }
   ]
 }

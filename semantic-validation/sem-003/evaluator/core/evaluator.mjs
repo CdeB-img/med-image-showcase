@@ -6,6 +6,10 @@ import {
   PROPERTY_REGISTRY,
 } from "./registry.mjs";
 import { validateAuthoringPackage } from "../../authoring/validator.mjs";
+import {
+  applyAdjudicationDecision,
+  prepareAdjudicationDecisions,
+} from "./adjudication.mjs";
 
 const STATISTICAL_PROPERTIES = new Set(
   PROPERTY_ORDER.filter((propertyId) => !PROPERTY_REGISTRY[propertyId].absolute),
@@ -84,6 +88,20 @@ const assertEvaluationBindings = (input) => {
     throw contractError(
       "DEVELOPMENT_MODE_BOUNDARY_VIOLATION",
       "DEVELOPMENT_SYNTHETIC accepts only exposed Development cases and synthetic evaluator candidates",
+    );
+  }
+  if (
+    evaluationMode === "CALIBRATION_SYNTHETIC" &&
+    (candidateOutput.sourceType !== "B4_SYNTHETIC_CALIBRATION" ||
+      candidateOutput.purpose !== "SCIENTIFIC_UNDERSTANDING_EVALUATOR_CALIBRATION" ||
+      benchmarkCase.purpose !== "CALIBRATION_AUTHORING" ||
+      benchmarkCase.exposure.exposureStatus !== "CALIBRATION_VISIBLE" ||
+      benchmarkCase.exposure.eligibleForCalibration !== true ||
+      benchmarkCase.exposure.eligibleForBlindQualification !== false)
+  ) {
+    throw contractError(
+      "CALIBRATION_MODE_BOUNDARY_VIOLATION",
+      "CALIBRATION_SYNTHETIC accepts only visible Calibration references and explicitly synthetic B4 candidates",
     );
   }
   if (
@@ -181,9 +199,14 @@ export const evaluateScientificUnderstanding = (input) => {
     "boundaryId",
     "ownership",
   );
-  const humanDecisions = new Map(
-    (input.humanDecisionRecords || []).map((record) => [record.packetId, record]),
-  );
+  const preparedDecisions = prepareAdjudicationDecisions({
+    adjudicationDecisionRecords: input.adjudicationDecisionRecords || [],
+    humanDecisionRecords: input.humanDecisionRecords || [],
+    evaluationMode,
+    benchmarkCase,
+    candidateOutput,
+  });
+  const appliedDecisions = [];
 
   let findingSequence = 0;
   const findings = [];
@@ -478,11 +501,16 @@ export const evaluateScientificUnderstanding = (input) => {
           ...(explicitAdjudicationClaim?.evidenceRefs || []),
         ],
       });
-      const humanDecision = humanDecisions.get(packet.packetId);
-      if (evaluationMode === "HUMAN_ADJUDICATION" && humanDecision) {
-        judgment = decisionToJudgment(humanDecision.decision);
+      const appliedDecision = applyAdjudicationDecision({
+        prepared: preparedDecisions,
+        packet,
+        propertyId,
+      });
+      if (appliedDecision) {
+        judgment = decisionToJudgment(appliedDecision.decision);
         packet.status = "RESOLVED";
-        packet.humanDecisionRecordId = humanDecision.recordId;
+        packet.decisionRecordId = appliedDecision.recordId;
+        appliedDecisions.push(appliedDecision);
       } else {
         judgment = "ADJUDICATION_REQUIRED";
       }
@@ -505,14 +533,14 @@ export const evaluateScientificUnderstanding = (input) => {
         : "DETERMINISTIC_CHECK";
     }
 
-    if (judgment === "VIOLATED" && evaluationMode === "HUMAN_ADJUDICATION" && packet) {
+    if (judgment === "VIOLATED" && packet?.decisionRecordId) {
       addFinding({
         stage: "LEVEL_2",
-        code: "HUMAN_ADJUDICATION_PROPERTY_VIOLATION",
+        code: "ADJUDICATION_PROPERTY_VIOLATION",
         failureClass: property.failureClass,
         propertyIds: [propertyId],
-        referenceId: packet.humanDecisionRecordId,
-        message: "A governed human decision records this property as violated.",
+        referenceId: packet.decisionRecordId,
+        message: "A governed adjudication decision records this property as violated.",
       });
     }
 
@@ -537,6 +565,9 @@ export const evaluateScientificUnderstanding = (input) => {
       evidenceTrace: unique([
         ...evidenceTrace,
         ...(explicitAdjudicationClaim?.evidenceRefs || []),
+        ...appliedDecisions
+          .filter((entry) => entry.packetId === packet?.packetId)
+          .map((entry) => `adjudicationDecision:${entry.sourceDecisionId}`),
       ]),
       downstreamFindings: propertyFindings
         .filter((finding) => finding !== violation)
@@ -544,6 +575,8 @@ export const evaluateScientificUnderstanding = (input) => {
       adjudicationPacketId: packet?.packetId || null,
     });
   }
+
+  preparedDecisions.assertAllConsumed();
 
   let firstCause = findings[0] || null;
   if (firstCause) {
@@ -560,8 +593,8 @@ export const evaluateScientificUnderstanding = (input) => {
   const hasViolation = propertyJudgments.some((entry) => entry.judgment === "VIOLATED");
   const hasNotEvaluable = propertyJudgments.some((entry) => entry.judgment === "NOT_EVALUABLE");
   const openPackets = adjudicationPackets.filter((packet) => packet.status === "OPEN");
-  const appliedHumanDecisions = adjudicationPackets.filter(
-    (packet) => packet.status === "RESOLVED",
+  const appliedHumanDecisions = appliedDecisions.filter(
+    (decision) => decision.authorityClass === "HUMAN_ADJUDICATION",
   );
 
   let disposition;
@@ -576,10 +609,7 @@ export const evaluateScientificUnderstanding = (input) => {
   } else if (hasNotEvaluable || openPackets.length > 0) {
     disposition = "NOT_EVALUABLE";
   } else if (
-    evaluationMode === "HUMAN_ADJUDICATION" &&
-    (input.humanDecisionRecords || []).some(
-      (record) => record.decision === "ACCEPTABLE_WITH_RESERVE",
-    )
+    appliedDecisions.some((record) => record.decision === "ACCEPTABLE_WITH_RESERVE")
   ) {
     disposition = "ACCEPTABLE_NONCRITICAL_VARIATION";
   } else {
@@ -598,8 +628,10 @@ export const evaluateScientificUnderstanding = (input) => {
         : "PASS";
   const level2Status = openPackets.length > 0
     ? "ADJUDICATION_REQUIRED"
-    : appliedHumanDecisions.length > 0
+    : appliedDecisions.length > 0 && appliedHumanDecisions.length === appliedDecisions.length
       ? "HUMAN_DECISION_APPLIED"
+      : appliedDecisions.length > 0
+        ? "ADJUDICATION_DECISION_APPLIED"
       : hasNotEvaluable
         ? "NOT_EVALUABLE"
         : "ADJUDICATION_NOT_REQUIRED";
@@ -627,7 +659,7 @@ export const evaluateScientificUnderstanding = (input) => {
   }
 
   const result = {
-    schemaVersion: "1.0.0",
+    schemaVersion: "1.1.0",
     contractType: "BENCHMARK_EVALUATION_RESULT",
     evaluationId: input.evaluationId,
     evaluatorIdentity: {
@@ -646,6 +678,7 @@ export const evaluateScientificUnderstanding = (input) => {
     level2: {
       status: level2Status,
       adjudicationPackets,
+      appliedDecisions,
     },
     propertyJudgments,
     criticalViolations,
@@ -656,6 +689,9 @@ export const evaluateScientificUnderstanding = (input) => {
       structureProfile: candidateOutput.structureProfile,
       referenceVariantId: candidateOutput.declaredVariantId || null,
       requiresHumanDecision: openPackets.length > 0,
+      requiresIndependentQualificationEvidence: appliedDecisions.some(
+        (decision) => !decision.eligibility.formalIndependentQualification,
+      ),
     },
     clarification: summaryFromJudgment(
       propertyJudgment("PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE"),
@@ -677,6 +713,9 @@ export const evaluateScientificUnderstanding = (input) => {
       `${benchmarkCase.caseId}@${benchmarkCase.version}`,
       `${acceptanceEnvelope.envelopeId}@${acceptanceEnvelope.version}`,
       `${candidateOutput.candidateId}@${candidateOutput.schemaVersion}`,
+      ...appliedDecisions.map(
+        (decision) => `adjudicationDecision:${decision.sourceDecisionId}`,
+      ),
       ...propertyJudgments.flatMap((entry) => entry.evidenceTrace),
     ]),
   };

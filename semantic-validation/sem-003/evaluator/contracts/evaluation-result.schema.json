@@ -28,7 +28,7 @@
     "evidenceTrace"
   ],
   "properties": {
-    "schemaVersion": { "const": "1.0.0" },
+    "schemaVersion": { "const": "1.1.0" },
     "contractType": { "const": "BENCHMARK_EVALUATION_RESULT" },
     "evaluationId": { "type": "string", "pattern": "^SEM3-EVAL-[A-Z0-9][A-Z0-9-]{2,127}$" },
     "evaluatorIdentity": {
@@ -40,7 +40,7 @@
         "configurationDigest": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
       }
     },
-    "mode": { "enum": ["DEVELOPMENT_SYNTHETIC", "FUTURE_SEM_RUNTIME", "HUMAN_ADJUDICATION"] },
+    "mode": { "enum": ["DEVELOPMENT_SYNTHETIC", "CALIBRATION_SYNTHETIC", "FUTURE_SEM_RUNTIME", "HUMAN_ADJUDICATION"] },
     "caseId": { "type": "string" },
     "candidateId": { "type": "string" },
     "disposition": {
@@ -77,10 +77,11 @@
     "level2": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["status", "adjudicationPackets"],
+      "required": ["status", "adjudicationPackets", "appliedDecisions"],
       "properties": {
-        "status": { "enum": ["ADJUDICATION_NOT_REQUIRED", "ADJUDICATION_REQUIRED", "HUMAN_DECISION_APPLIED", "NOT_EVALUABLE"] },
-        "adjudicationPackets": { "type": "array", "items": { "$ref": "adjudication-packet.schema.json" } }
+        "status": { "enum": ["ADJUDICATION_NOT_REQUIRED", "ADJUDICATION_REQUIRED", "ADJUDICATION_DECISION_APPLIED", "HUMAN_DECISION_APPLIED", "NOT_EVALUABLE"] },
+        "adjudicationPackets": { "type": "array", "items": { "$ref": "adjudication-packet.schema.json" } },
+        "appliedDecisions": { "type": "array", "items": { "$ref": "#/definitions/appliedDecision" } }
       }
     },
     "propertyJudgments": { "type": "array", "minItems": 1, "items": { "$ref": "property-judgment.schema.json" } },
@@ -95,12 +96,13 @@
     "equivalence": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["classification", "structureProfile", "referenceVariantId", "requiresHumanDecision"],
+      "required": ["classification", "structureProfile", "referenceVariantId", "requiresHumanDecision", "requiresIndependentQualificationEvidence"],
       "properties": {
         "classification": { "enum": ["DECLARED_EQUIVALENT", "NONCRITICAL_FORM_VARIATION", "REQUIRES_ADJUDICATION", "NOT_EQUIVALENT", "NOT_ASSESSED"] },
         "structureProfile": { "type": "string" },
         "referenceVariantId": { "oneOf": [{ "type": "null" }, { "type": "string" }] },
-        "requiresHumanDecision": { "type": "boolean" }
+        "requiresHumanDecision": { "type": "boolean" },
+        "requiresIndependentQualificationEvidence": { "type": "boolean" }
       }
     },
     "clarification": { "$ref": "#/definitions/domainSummary" },
@@ -110,6 +112,52 @@
     "evidenceTrace": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }
   },
   "definitions": {
+    "appliedDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "recordId",
+        "packetId",
+        "decision",
+        "authorityClass",
+        "evidenceBasis",
+        "sourceDecisionId",
+        "reviewBasis",
+        "eligibility",
+        "provenance"
+      ],
+      "properties": {
+        "recordId": { "type": "string", "minLength": 1 },
+        "packetId": { "type": "string", "pattern": "^SEM3-ADJ-[A-Z0-9][A-Z0-9-]{2,127}$" },
+        "decision": { "enum": ["SATISFIED", "VIOLATED", "EQUIVALENT", "ACCEPTABLE_WITH_RESERVE", "NON_EQUIVALENT", "NOT_ADJUDICABLE"] },
+        "authorityClass": { "enum": ["HUMAN_ADJUDICATION", "SIMULATED_PLURALISTIC_EXPERT_REVIEW"] },
+        "evidenceBasis": { "enum": ["HUMAN_REVIEW_EVIDENCE", "SIMULATED_EXPERT_REVIEW_EVIDENCE", "CONTRACT_TEST_ONLY"] },
+        "sourceDecisionId": { "type": "string", "minLength": 1 },
+        "reviewBasis": { "enum": ["HUMAN_ADJUDICATION", "SIMULATED_PLURALISTIC_EXPERT_REVIEW", "CONTRACT_TEST_ONLY"] },
+        "eligibility": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["developmentEvaluatorTesting", "developmentCalibration", "formalIndependentQualification", "blindReferenceAdmission", "pd011FinalEvidence"],
+          "properties": {
+            "developmentEvaluatorTesting": { "type": "boolean" },
+            "developmentCalibration": { "type": "boolean" },
+            "formalIndependentQualification": { "type": "boolean" },
+            "blindReferenceAdmission": { "type": "boolean" },
+            "pd011FinalEvidence": { "type": "boolean" }
+          }
+        },
+        "provenance": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["sourceRecordRef", "recordedAt", "realHumanReview"],
+          "properties": {
+            "sourceRecordRef": { "type": "string", "minLength": 1 },
+            "recordedAt": { "type": "string", "format": "date-time" },
+            "realHumanReview": { "type": "boolean" }
+          }
+        }
+      }
+    },
     "finding": {
       "type": "object",
       "additionalProperties": false,

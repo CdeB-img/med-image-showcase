@@ -8,14 +8,19 @@ const EVALUATOR_ROOT = path.resolve(TOOL_ROOT, "..");
 const REPOSITORY_ROOT = path.resolve(EVALUATOR_ROOT, "../../..");
 const DEVELOPMENT_ROOT = path.resolve(EVALUATOR_ROOT, "../corpus/development");
 const FIXTURE_ROOT = path.resolve(EVALUATOR_ROOT, "fixtures/development");
+const DECISION_FIXTURE_ROOT = path.resolve(FIXTURE_ROOT, "adjudication");
 const REGISTRY_ROOT = path.resolve(EVALUATOR_ROOT, "registry");
 const ARTIFACT_ROOT = path.resolve(EVALUATOR_ROOT, "artifacts");
 const SEM002_PATH = path.resolve(
   EVALUATOR_ROOT,
   "../../sem-002/scientific-understanding-competence-contract.json",
 );
+const B3_EQUIVALENCE_PATH = path.resolve(
+  EVALUATOR_ROOT,
+  "../review/artifacts/equivalence-review-status.json",
+);
 
-const EVALUATOR_VERSION = "1.0.0";
+const EVALUATOR_VERSION = "1.1.0";
 const CHECK_ONLY = process.argv.includes("--check");
 
 const SEM003_PROPERTY_ORDER = Object.freeze([
@@ -341,6 +346,9 @@ const buildAdjudicationCandidate = (pair, property) => {
 const fixtureFileName = (candidate) =>
   `${candidate.candidateId.replace("SEM3-EVAL-CAND-", "").toLowerCase()}.candidate.json`;
 
+const decisionFixtureFileName = (record) =>
+  `${record.recordId.replace("SEM3-ADR-", "").toLowerCase()}.decision.json`;
+
 const buildFixtures = (pairs, propertyRegistry) => {
   const fixtures = [];
   const matrix = [];
@@ -562,12 +570,115 @@ const buildCoverage = async ({ pairs, fixtures, matrix, propertyRegistry }) => {
     gaps: [
       "Human scientific reference review remains required.",
       "Human methodological review remains required.",
-      "The five declared equivalence pairs remain open for human adjudication.",
+      "The five declared equivalence pairs have simulated B3 decisions usable only for Development evaluator testing and development calibration.",
       "The evaluator has not been calibrated or qualified under PD-011.",
       "FUTURE_SEM_RUNTIME and HUMAN_ADJUDICATION modes are implemented as contracts but were not executed.",
       "No threshold, N value, aggregate score, blind package, or qualification decision exists.",
     ],
   };
+};
+
+const buildAdjudicationDecisionFixtures = async ({ pairs, fixtures }) => {
+  const { evaluateScientificUnderstanding } = await import("../core/evaluator.mjs");
+  const equivalenceStatus = readJson(B3_EQUIVALENCE_PATH);
+  if (equivalenceStatus.resolved !== 5 || equivalenceStatus.pairs.length !== 5) {
+    throw new Error("B4R requires exactly five resolved B3 Development equivalence decisions");
+  }
+  const pairByCaseId = new Map(
+    pairs.map((pair) => [pair.benchmarkCase.caseId, pair]),
+  );
+  const candidateById = new Map(
+    fixtures.map(({ candidate }) => [candidate.candidateId, candidate]),
+  );
+  const decisions = equivalenceStatus.pairs.map((reviewedPair) => {
+    const pair = pairByCaseId.get(reviewedPair.caseId);
+    const candidate = candidateById.get(reviewedPair.candidateB);
+    if (
+      !pair ||
+      !candidate ||
+      reviewedPair.disposition !== "SIMULATED_SEMANTICALLY_EQUIVALENT" ||
+      reviewedPair.independentQualificationEvidence !== false
+    ) {
+      throw new Error(`Invalid B3 Development equivalence binding: ${reviewedPair.pairId}`);
+    }
+    const result = evaluateScientificUnderstanding({
+      schemaVersion: "1.0.0",
+      contractType: "BENCHMARK_EVALUATION_INPUT",
+      evaluationId: `SEM3-EVAL-${candidate.candidateId.replace("SEM3-EVAL-CAND-", "")}`,
+      evaluationMode: "DEVELOPMENT_SYNTHETIC",
+      benchmarkCase: pair.benchmarkCase,
+      acceptanceEnvelope: pair.envelope,
+      candidateOutput: candidate,
+    });
+    const packets = result.level2.adjudicationPackets;
+    if (packets.length === 0 || packets.some((packet) => packet.status !== "OPEN")) {
+      throw new Error(`Expected open Development adjudication packets: ${reviewedPair.pairId}`);
+    }
+    return {
+      schemaVersion: "1.0.0",
+      contractType: "BENCHMARK_EVALUATION_ADJUDICATION_DECISION_RECORD",
+      recordId: `SEM3-ADR-${reviewedPair.caseId.replace("SEM3-DEV-", "")}-SIMULATED-EQUIVALENCE`,
+      decision: "EQUIVALENT",
+      rationale:
+        "B3 simulated pluralistic review adjudicated the baseline and distributed Development representations as semantically equivalent across the recorded Level 2 scope.",
+      authorityClass: "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+      evidenceBasis: "SIMULATED_EXPERT_REVIEW_EVIDENCE",
+      sourceDecisionId: reviewedPair.simulatedDecisionId,
+      reviewBasis: "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+      eligibility: {
+        developmentEvaluatorTesting: true,
+        developmentCalibration: true,
+        formalIndependentQualification: false,
+        blindReferenceAdmission: false,
+        pd011FinalEvidence: false,
+      },
+      provenance: {
+        sourceRecordRef: `${relative(B3_EQUIVALENCE_PATH)}#${reviewedPair.pairId}`,
+        recordedAt: equivalenceStatus.generatedAt,
+        realHumanReview: false,
+      },
+      target: {
+        scope: "SEMANTIC_EQUIVALENCE_PAIR",
+        caseId: reviewedPair.caseId,
+        candidateIds: [reviewedPair.candidateA, reviewedPair.candidateB],
+        packetIds: packets.map((packet) => packet.packetId),
+        propertyIds: [...new Set(packets.flatMap((packet) => packet.propertyIds))],
+      },
+      status: "FINAL",
+    };
+  });
+  decisions.push({
+    schemaVersion: "1.0.0",
+    contractType: "BENCHMARK_EVALUATION_ADJUDICATION_DECISION_RECORD",
+    recordId: "SEM3-ADR-CONTRACT-TEST-HUMAN-AUTHORITY",
+    decision: "EQUIVALENT",
+    rationale: "Pure contract fixture proving that human authority remains structurally distinct; it records no real review.",
+    authorityClass: "HUMAN_ADJUDICATION",
+    evidenceBasis: "CONTRACT_TEST_ONLY",
+    sourceDecisionId: "CONTRACT-TEST-ONLY-NO-HUMAN-DECISION",
+    reviewBasis: "CONTRACT_TEST_ONLY",
+    eligibility: {
+      developmentEvaluatorTesting: false,
+      developmentCalibration: false,
+      formalIndependentQualification: false,
+      blindReferenceAdmission: false,
+      pd011FinalEvidence: false,
+    },
+    provenance: {
+      sourceRecordRef: "synthetic-contract-fixture",
+      recordedAt: equivalenceStatus.generatedAt,
+      realHumanReview: false,
+    },
+    target: {
+      scope: "ADJUDICATION_PACKET",
+      caseId: "SEM3-EX-CONTRACT-AUTHORITY",
+      candidateIds: ["SEM3-EVAL-CAND-CONTRACT-AUTHORITY"],
+      packetIds: ["SEM3-ADJ-CONTRACT-AUTHORITY-P15"],
+      propertyIds: ["PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"],
+    },
+    status: "FINAL",
+  });
+  return decisions;
 };
 
 const main = async () => {
@@ -598,6 +709,23 @@ const main = async () => {
 
   const identity = computeEvaluatorIdentity();
   writeOrCheck(path.resolve(REGISTRY_ROOT, "evaluator-identity.json"), identity);
+  const decisionFixtures = await buildAdjudicationDecisionFixtures({ pairs, fixtures });
+  const expectedDecisionFiles = new Set(
+    decisionFixtures.map((record) => decisionFixtureFileName(record)),
+  );
+  if (!CHECK_ONLY && fs.existsSync(DECISION_FIXTURE_ROOT)) {
+    for (const file of fs.readdirSync(DECISION_FIXTURE_ROOT)) {
+      if (file.endsWith(".decision.json") && !expectedDecisionFiles.has(file)) {
+        fs.unlinkSync(path.resolve(DECISION_FIXTURE_ROOT, file));
+      }
+    }
+  }
+  for (const record of decisionFixtures) {
+    writeOrCheck(
+      path.resolve(DECISION_FIXTURE_ROOT, decisionFixtureFileName(record)),
+      record,
+    );
+  }
   const coverage = await buildCoverage({ pairs, fixtures, matrix, propertyRegistry });
   writeOrCheck(path.resolve(ARTIFACT_ROOT, "evaluator-coverage.json"), coverage);
 
