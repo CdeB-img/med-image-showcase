@@ -106,32 +106,47 @@ export const canonicalizeSemanticReconstruction = (input: {
   const coverage = buildSemanticCoverage(input.request, candidate);
   const clientToCanonical = new Map(candidate.elements.map((element) => [element.clientElementId, canonicalElementId(element)]));
   const currentElements = candidate.elements.map((element): SemanticElement => {
-    const sourceSpan = sourceSpanFor(element, input.request);
+    const reconstructedSourceSpan = sourceSpanFor(element, input.request);
     const semanticElementId = clientToCanonical.get(element.clientElementId)!;
     const previous = input.request.previousModel?.elements.find((item) => item.semanticElementId === semanticElementId);
+    const deterministicHistoricalCarryForward = Boolean(previous
+      && reconstructedSourceSpan === null
+      && element.inventoryItemIds.length === 0
+      && element.type === previous.type
+      && element.studyRole === previous.studyRole
+      && element.polarity === previous.polarity);
+    const sourceSpan = deterministicHistoricalCarryForward ? previous!.sourceSpan : reconstructedSourceSpan;
     const explicitlyRejectsPriorIdentity = element.polarity === "NEGATED" && element.supersedesElementIds.includes(semanticElementId);
-    const epistemicStatus: SemanticEpistemicStatus = explicitlyRejectsPriorIdentity ? "REJECTED_BY_USER" : element.epistemicStatus;
+    const epistemicStatus: SemanticEpistemicStatus = deterministicHistoricalCarryForward
+      ? previous!.epistemicStatus
+      : explicitlyRejectsPriorIdentity ? "REJECTED_BY_USER" : element.epistemicStatus;
     return {
       semanticElementId,
       type: element.type,
       canonicalMeaning: normalizeScientificText(element.canonicalMeaning),
       studyRole: element.studyRole,
       polarity: element.polarity,
-      inventoryItemIds: uniqueSorted(element.inventoryItemIds),
+      inventoryItemIds: deterministicHistoricalCarryForward ? previous!.inventoryItemIds : uniqueSorted(element.inventoryItemIds),
       sourceSpan,
       epistemicStatus,
-      confidence: element.confidence,
+      confidence: deterministicHistoricalCarryForward ? previous!.confidence : element.confidence,
       relationships: [],
-      inferenceReason: epistemicStatus === "EXPLICIT_USER_STATED" || epistemicStatus === "REJECTED_BY_USER" ? null : element.inferenceReason,
+      inferenceReason: deterministicHistoricalCarryForward
+        ? previous!.inferenceReason
+        : epistemicStatus === "EXPLICIT_USER_STATED" || epistemicStatus === "REJECTED_BY_USER" ? null : element.inferenceReason,
       knowledgeSupport: previous?.knowledgeSupport ?? emptyKnowledgeSupport(),
-      requiresConfirmation: epistemicStatus === "EXPLICIT_USER_STATED" || epistemicStatus === "REJECTED_BY_USER" ? false : true,
+      requiresConfirmation: deterministicHistoricalCarryForward
+        ? previous!.requiresConfirmation
+        : epistemicStatus === "EXPLICIT_USER_STATED" || epistemicStatus === "REJECTED_BY_USER" ? false : true,
       provenance: {
-        source: explicitlyRejectsPriorIdentity || element.supersedesElementIds.length ? "USER_CORRECTION" : element.epistemicStatus === "EXPLICIT_USER_STATED" ? "USER_LANGUAGE" : "LLM_INFERENCE",
-        messageId: element.sourceMessageId,
-        providerCallId: input.reconstructionCallId,
-        rawElementId: element.clientElementId,
+        source: deterministicHistoricalCarryForward
+          ? "DETERMINISTIC_CARRY_FORWARD"
+          : explicitlyRejectsPriorIdentity || element.supersedesElementIds.length ? "USER_CORRECTION" : element.epistemicStatus === "EXPLICIT_USER_STATED" ? "USER_LANGUAGE" : "LLM_INFERENCE",
+        messageId: deterministicHistoricalCarryForward ? previous!.provenance.messageId : element.sourceMessageId,
+        providerCallId: deterministicHistoricalCarryForward ? previous!.provenance.providerCallId : input.reconstructionCallId,
+        rawElementId: deterministicHistoricalCarryForward ? previous!.provenance.rawElementId : element.clientElementId,
       },
-      supersedesElementIds: uniqueSorted(element.supersedesElementIds),
+      supersedesElementIds: deterministicHistoricalCarryForward ? [] : uniqueSorted(element.supersedesElementIds),
       version: previous ? previous.version + 1 : 1,
     };
   });
