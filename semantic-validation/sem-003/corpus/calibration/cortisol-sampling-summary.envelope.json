@@ -1,0 +1,251 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "BENCHMARK_AUTHORING_ACCEPTANCE_ENVELOPE",
+  "envelopeId": "SEM3-AE-CAL-CORTISOL-SAMPLING-SUMMARY",
+  "version": "1.0.0",
+  "caseId": "SEM3-CAL-CORTISOL-SAMPLING-SUMMARY",
+  "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+  "required": [
+    {
+      "obligationId": "req-1-morning-sampling-series",
+      "semanticKey": "sem3-cal-cortisol-sampling-summary.morning-sampling-series",
+      "kind": "TIMING",
+      "description": "Conserver plusieurs prélèvements après le réveil.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[1]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-2-sampling-protocol-method",
+      "semanticKey": "sem3-cal-cortisol-sampling-summary.sampling-protocol-method",
+      "kind": "RELATION",
+      "description": "Le calendrier de prélèvement appartient à la méthode.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[2]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-3-derived-measure-open",
+      "semanticKey": "sem3-cal-cortisol-sampling-summary.derived-measure-open",
+      "kind": "UNKNOWN",
+      "description": "La mesure d'intérêt entre temps précis, pente et aire sous la courbe reste ouverte.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[3]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-4-analyte-method-value-summary-separate",
+      "semanticKey": "sem3-cal-cortisol-sampling-summary.analyte-method-value-summary-separate",
+      "kind": "RELATION",
+      "description": "Distinguer analyte, protocole, valeurs observées et mesure dérivée.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[4]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    }
+  ],
+  "prohibited": [
+    {
+      "prohibitionId": "pro-1-select-derived-measure",
+      "semanticKey": "sem3-cal-cortisol-sampling-summary.forbidden-select-derived-measure",
+      "description": "Choisir une mesure dérivée sans décision.",
+      "rationale": "Cette erreur modifierait une obligation scientifique, une provenance, une polarité ou une frontière d'ownership.",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+      ],
+      "failureClass": "OWNERSHIP_BOUNDARY_FAILURE"
+    },
+    {
+      "prohibitionId": "pro-2-collapse-series-summary",
+      "semanticKey": "sem3-cal-cortisol-sampling-summary.forbidden-collapse-series-summary",
+      "description": "Confondre les valeurs temporelles avec la mesure dérivée.",
+      "rationale": "Cette erreur modifierait une obligation scientifique, une provenance, une polarité ou une frontière d'ownership.",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+      ],
+      "failureClass": "CONCEPTUAL_PLAN_COLLAPSE"
+    }
+  ],
+  "acceptableSemanticVariants": [
+    {
+      "variantId": "variant-obligation-vector",
+      "label": "Vecteur d'obligations indépendant de la topologie",
+      "structureSynopsis": "Les obligations peuvent être portées par un objet composé ou par plusieurs objets reliés si leur sens, provenance, polarité et ownership sont préservés.",
+      "preservedObligationIds": [
+        "req-1-morning-sampling-series",
+        "req-2-sampling-protocol-method",
+        "req-3-derived-measure-open",
+        "req-4-analyte-method-value-summary-separate"
+      ],
+      "caveats": [
+        "Aucune variante n'est acceptée par simple similarité lexicale.",
+        "Toute équivalence scientifique complexe reste soumise à adjudication humaine."
+      ]
+    }
+  ],
+  "optionalRelevant": [
+    {
+      "candidateId": "opt-1-candidate-summary-methods",
+      "semanticKey": "sem3-cal-cortisol-sampling-summary.optional-candidate-summary-methods",
+      "description": "Méthodes de résumé temporel comme options méthodologiques à qualifier.",
+      "epistemicStatus": "OPTION",
+      "rationale": "Candidat contextualisé à examiner sans attribution à l'utilisateur ni adoption par le Project.",
+      "absenceIsBlocking": false,
+      "envelopeIsNonExhaustive": true
+    }
+  ],
+  "admissibleAmbiguities": [],
+  "expectedClarification": {
+    "status": "REQUIRED",
+    "decisionImpact": "La mesure dérivée change l'objet évalué et l'analyse longitudinale.",
+    "acceptableQuestionClasses": [
+      "Mesure dérivée d'intérêt",
+      "Calendrier de prélèvement"
+    ],
+    "exactWordingRequired": false
+  },
+  "ownershipBoundaries": [
+    {
+      "boundaryId": "own-sem-project",
+      "sourceOwner": "SEM",
+      "targetOwner": "Research Project / human decision",
+      "description": "SEM peut préserver et structurer l'intention, les unknowns et les candidats ; il n'adopte pas une décision de projet.",
+      "forbiddenPromotion": "Inference, option or contextual candidate to adopted Project decision",
+      "adoptionRequiresHumanDecision": true
+    },
+    {
+      "boundaryId": "own-knowledge-specialists",
+      "sourceOwner": "Knowledge / OBS / Imaging / Scientific Thinking",
+      "targetOwner": "SEM benchmark reference",
+      "description": "Les owners spécialisés qualifient preuves, mesures, acquisition ou hypothèses ; leur support n'est pas une déclaration utilisateur.",
+      "forbiddenPromotion": "Specialist support to explicit user fact or automatic endpoint",
+      "adoptionRequiresHumanDecision": true
+    }
+  ],
+  "properties": [
+    {
+      "propertyId": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    }
+  ],
+  "adjudication": {
+    "requiredExpertise": [
+      "SCIENTIFIC_DOMAIN",
+      "METHODOLOGICAL_SEM"
+    ],
+    "notes": "Référence candidate préparée sans exécution SEM, sans provider et sans approbation humaine inventée.",
+    "humanAdjudicationPoints": [
+      "Confirmer que REQUIRED contient uniquement les obligations nécessaires.",
+      "Confirmer la plausibilité et le caractère non exhaustif des candidats optionnels.",
+      "Confirmer les équivalences sémantiques au-delà des contrôles structurels."
+    ],
+    "status": "REVIEW_REQUIRED"
+  },
+  "evaluationDemonstrations": []
+}

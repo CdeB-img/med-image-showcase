@@ -1,0 +1,305 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "BENCHMARK_AUTHORING_ACCEPTANCE_ENVELOPE",
+  "envelopeId": "SEM3-AE-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+  "version": "1.0.0",
+  "caseId": "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+  "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+  "required": [
+    {
+      "obligationId": "req-1-resolve-histology-pronoun",
+      "semanticKey": "sem3-cal-organoid-live-signal-measurement.resolve-histology-pronoun",
+      "kind": "OTHER",
+      "description": "Rattacher 'ça' à la mesure histologique après correction.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[4]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-2-phenomenon-signal-measure",
+      "semanticKey": "sem3-cal-organoid-live-signal-measurement.phenomenon-signal-measure",
+      "kind": "RELATION",
+      "description": "Distinguer réponse biologique, signal vivant et mesure histologique.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[7]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-3-terminal-histology-timing",
+      "semanticKey": "sem3-cal-organoid-live-signal-measurement.terminal-histology-timing",
+      "kind": "TIMING",
+      "description": "La mesure histologique n'existe qu'au dernier temps.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[2]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-4-direct-measurement-not-assumed",
+      "semanticKey": "sem3-cal-organoid-live-signal-measurement.direct-measurement-not-assumed",
+      "kind": "POLARITY",
+      "description": "Le signal n'est pas présenté comme mesure directe de la prolifération.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[5]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-5-current-state",
+      "semanticKey": "sem3-cal-organoid-live-signal-measurement.current-state",
+      "kind": "CORRECTION",
+      "description": "L'état scientifique courant, tel que défini après la dernière correction, doit rester actif.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[8]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-6-historical-state",
+      "semanticKey": "sem3-cal-organoid-live-signal-measurement.historical-state",
+      "kind": "PROVENANCE",
+      "description": "Les formulations corrigées ou abandonnées restent reconstructibles comme historique sans rester actives.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[8]",
+      "criticality": "MAJOR",
+      "propertyIds": [
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    }
+  ],
+  "prohibited": [
+    {
+      "prohibitionId": "pro-1-signal-equals-proliferation",
+      "semanticKey": "sem3-cal-organoid-live-signal-measurement.forbidden-signal-equals-proliferation",
+      "description": "Assimiler automatiquement le signal à la prolifération.",
+      "rationale": "Cette erreur modifierait une obligation scientifique, une provenance, une polarité ou une frontière d'ownership.",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH"
+      ],
+      "failureClass": "CONCEPTUAL_PLAN_COLLAPSE"
+    },
+    {
+      "prohibitionId": "pro-2-adopt-relation-model",
+      "semanticKey": "sem3-cal-organoid-live-signal-measurement.forbidden-adopt-relation-model",
+      "description": "Adopter une hypothèse de relation comme vérité du projet.",
+      "rationale": "Cette erreur modifierait une obligation scientifique, une provenance, une polarité ou une frontière d'ownership.",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+      ],
+      "failureClass": "EPISTEMIC_PROMOTION_FAILURE"
+    }
+  ],
+  "acceptableSemanticVariants": [
+    {
+      "variantId": "variant-obligation-vector",
+      "label": "Vecteur d'obligations indépendant de la topologie",
+      "structureSynopsis": "Les obligations peuvent être portées par un objet composé ou par plusieurs objets reliés si leur sens, provenance, polarité et ownership sont préservés.",
+      "preservedObligationIds": [
+        "req-1-resolve-histology-pronoun",
+        "req-2-phenomenon-signal-measure",
+        "req-3-terminal-histology-timing",
+        "req-4-direct-measurement-not-assumed",
+        "req-5-current-state",
+        "req-6-historical-state"
+      ],
+      "caveats": [
+        "Aucune variante n'est acceptée par simple similarité lexicale.",
+        "Toute équivalence scientifique complexe reste soumise à adjudication humaine."
+      ]
+    }
+  ],
+  "optionalRelevant": [
+    {
+      "candidateId": "opt-1-candidate-relation-models",
+      "semanticKey": "sem3-cal-organoid-live-signal-measurement.optional-candidate-relation-models",
+      "description": "Modèles de relation signal vivant-mesure terminale comme hypothèses candidates soumises à revue.",
+      "epistemicStatus": "HYPOTHESIS",
+      "rationale": "Candidat contextualisé à examiner sans attribution à l'utilisateur ni adoption par le Project.",
+      "absenceIsBlocking": false,
+      "envelopeIsNonExhaustive": true
+    }
+  ],
+  "admissibleAmbiguities": [],
+  "expectedClarification": {
+    "status": "OPTIONAL",
+    "decisionImpact": "La structure scientifique est compréhensible ; la relation quantitative relève de la revue spécialisée.",
+    "acceptableQuestionClasses": [
+      "Nature du signal",
+      "Définition de la mesure histologique"
+    ],
+    "exactWordingRequired": false
+  },
+  "ownershipBoundaries": [
+    {
+      "boundaryId": "own-sem-project",
+      "sourceOwner": "SEM",
+      "targetOwner": "Research Project / human decision",
+      "description": "SEM peut préserver et structurer l'intention, les unknowns et les candidats ; il n'adopte pas une décision de projet.",
+      "forbiddenPromotion": "Inference, option or contextual candidate to adopted Project decision",
+      "adoptionRequiresHumanDecision": true
+    },
+    {
+      "boundaryId": "own-knowledge-specialists",
+      "sourceOwner": "Knowledge / OBS / Imaging / Scientific Thinking",
+      "targetOwner": "SEM benchmark reference",
+      "description": "Les owners spécialisés qualifient preuves, mesures, acquisition ou hypothèses ; leur support n'est pas une déclaration utilisateur.",
+      "forbiddenPromotion": "Specialist support to explicit user fact or automatic endpoint",
+      "adoptionRequiresHumanDecision": true
+    }
+  ],
+  "properties": [
+    {
+      "propertyId": "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+      "family": "CONTEXTUAL_ENRICHMENT",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    }
+  ],
+  "adjudication": {
+    "requiredExpertise": [
+      "SCIENTIFIC_DOMAIN",
+      "METHODOLOGICAL_SEM"
+    ],
+    "notes": "Référence candidate préparée sans exécution SEM, sans provider et sans approbation humaine inventée.",
+    "humanAdjudicationPoints": [
+      "Confirmer que REQUIRED contient uniquement les obligations nécessaires.",
+      "Confirmer la plausibilité et le caractère non exhaustif des candidats optionnels.",
+      "Confirmer les équivalences sémantiques au-delà des contrôles structurels."
+    ],
+    "status": "REVIEW_REQUIRED"
+  },
+  "evaluationDemonstrations": []
+}

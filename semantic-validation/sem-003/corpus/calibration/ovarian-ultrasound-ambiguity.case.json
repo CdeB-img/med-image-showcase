@@ -1,0 +1,126 @@
+{
+  "schemaVersion": "1.1.0",
+  "contractType": "BENCHMARK_AUTHORING_CASE",
+  "purpose": "CALIBRATION_AUTHORING",
+  "caseId": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+  "version": "1.0.0",
+  "title": "Échographie ovarienne et ambiguïté d'usage",
+  "createdAt": "2026-08-13T12:00:00.000Z",
+  "authorRole": "CODEX_DOCUMENTARY_AUTHOR",
+  "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+  "source": {
+    "sourceRequest": "Tour 1: Je veux exploiter l'échographie ovarienne, mais je n'ai pas encore décidé si la question porte sur la détection, la caractérisation ou le suivi ; je ne veux pas que le choix soit fait à ma place.",
+    "language": "fr-FR",
+    "conversationTurns": [
+      {
+        "turnId": "turn-1",
+        "role": "USER",
+        "text": "Je veux exploiter l'échographie ovarienne, mais je n'ai pas encore décidé si la question porte sur la détection, la caractérisation ou le suivi ; je ne veux pas que le choix soit fait à ma place."
+      }
+    ],
+    "sourceContext": "Candidat Calibration original où une même modalité peut servir plusieurs finalités non interchangeables.",
+    "provenance": {
+      "originType": "SYNTHETIC_AUTHORED",
+      "originalSource": "Original synthetic scientific conversation authored for SEM-003B1; no SEM or provider output was used.",
+      "author": "Codex acting as documentary benchmark author, not as human scientific reviewer",
+      "createdAt": "2026-08-13T12:00:00.000Z",
+      "inspirationRefs": [
+        "docs/sem-002-scientific-understanding-competence-contract.md",
+        "docs/sem-003-independent-scientific-understanding-benchmark-architecture.md",
+        "docs/sem-003b-benchmark-case-authoring-protocol.md"
+      ]
+    }
+  },
+  "scientificScope": {
+    "domain": "imagerie gynécologique et échographie",
+    "scenarioCategory": "SCIENTIFIC_AMBIGUITY",
+    "secondaryCategories": [
+      "METHOD_VERSUS_MEASUREMENT",
+      "UNDER_SPECIFIED_REQUEST"
+    ],
+    "difficultyTarget": "BASIC",
+    "intentionallyMissingInformation": [
+      {
+        "informationId": "missing-1",
+        "description": "La finalité scientifique et la population de référence restent indécises.",
+        "intentional": true
+      }
+    ]
+  },
+  "exposure": {
+    "exposureStatus": "DESIGN_ONLY",
+    "exposureHistory": [
+      {
+        "eventId": "exposure-sem3-cal-ovarian-ultrasound-ambiguity-created",
+        "fromStatus": null,
+        "toStatus": "DESIGN_ONLY",
+        "occurredAt": "2026-08-13T12:00:00.000Z",
+        "actorRole": "CODEX_DOCUMENTARY_AUTHOR",
+        "reason": "Authored as a Calibration candidate; human review gate not yet satisfied, therefore DESIGN_ONLY."
+      }
+    ],
+    "parentageStatus": "PARENTAGE_REVIEW_REQUIRED",
+    "parentageAssessment": {
+      "discriminatingConcepts": [
+        "Échographie ovarienne et ambiguïté d'usage",
+        "imagerie gynécologique et échographie"
+      ],
+      "reasoningStructure": "Ambiguïté d'usage d'une modalité gynécologique, sans reprise d'une question, d'une pathologie ou d'une chaîne H01-H30.",
+      "criticalRelations": [
+        "Conserver ouvertes détection, caractérisation et suivi.",
+        "Préserver l'échographie ovarienne comme modalité explicitement citée."
+      ],
+      "ambiguities": [
+        "L'usage scientifique de l'IRM est indécis."
+      ],
+      "knownSimilarities": {
+        "development": [],
+        "calibration": [],
+        "historicalLegacy": []
+      }
+    },
+    "contaminationReview": {
+      "status": "REVIEW_REQUIRED",
+      "reviewedAt": null,
+      "reviewerRole": null,
+      "notes": "No obvious inter-set duplication was identified during authoring; independent human parentage review remains required before Calibration use."
+    },
+    "eligibleForCalibration": false,
+    "eligibleForBlindQualification": false
+  },
+  "reference": {
+    "acceptanceEnvelopeId": "SEM3-AE-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+    "applicableSEM002Properties": [
+      "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+      "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+    ],
+    "adjudicationRequirements": [
+      {
+        "expertise": "SCIENTIFIC_DOMAIN",
+        "rationale": "Confirmer la lisibilité scientifique des obligations candidates sans inventer une approbation.",
+        "mandatory": true
+      },
+      {
+        "expertise": "METHODOLOGICAL_SEM",
+        "rationale": "Vérifier équivalence, failure classes, statut épistémique et absence de Gold structurel caché.",
+        "mandatory": true
+      },
+      {
+        "expertise": "PD009_CLARIFICATION",
+        "rationale": "Confirmer la valeur décisionnelle de la clarification candidate sans imposer sa formulation.",
+        "mandatory": true
+      },
+      {
+        "expertise": "OBS_MEASUREMENT",
+        "rationale": "Vérifier la séparation méthode, observable, image quantitative, mesure et rôle de biomarqueur.",
+        "mandatory": true
+      }
+    ]
+  }
+}

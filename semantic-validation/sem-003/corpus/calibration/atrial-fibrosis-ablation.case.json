@@ -1,0 +1,163 @@
+{
+  "schemaVersion": "1.1.0",
+  "contractType": "BENCHMARK_AUTHORING_CASE",
+  "purpose": "CALIBRATION_AUTHORING",
+  "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
+  "version": "1.0.0",
+  "title": "Fibrose atriale autour d'une intervention",
+  "createdAt": "2026-08-13T12:00:00.000Z",
+  "authorRole": "CODEX_DOCUMENTARY_AUTHOR",
+  "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+  "source": {
+    "sourceRequest": "Tour 1: Je veux étudier la fibrose atriale chez des patients ayant une ablation.\nTour 2: Il y a une imagerie avant le geste, mais le contrôle n'est pas uniforme.\nTour 3: Je ne sais pas encore si l'objectif est de décrire le substrat ou de prédire une récidive.\nTour 4: Ne choisissons pas silencieusement l'un des deux.\nTour 5: Les paramètres procéduraux peuvent être du contexte s'ils sont réellement disponibles.\nTour 6: Aucun paramètre ne doit devenir un mécanisme causal par défaut.",
+    "language": "fr-FR",
+    "conversationTurns": [
+      {
+        "turnId": "turn-1",
+        "role": "USER",
+        "text": "Je veux étudier la fibrose atriale chez des patients ayant une ablation."
+      },
+      {
+        "turnId": "turn-2",
+        "role": "USER",
+        "text": "Il y a une imagerie avant le geste, mais le contrôle n'est pas uniforme."
+      },
+      {
+        "turnId": "turn-3",
+        "role": "USER",
+        "text": "Je ne sais pas encore si l'objectif est de décrire le substrat ou de prédire une récidive."
+      },
+      {
+        "turnId": "turn-4",
+        "role": "USER",
+        "text": "Ne choisissons pas silencieusement l'un des deux."
+      },
+      {
+        "turnId": "turn-5",
+        "role": "USER",
+        "text": "Les paramètres procéduraux peuvent être du contexte s'ils sont réellement disponibles."
+      },
+      {
+        "turnId": "turn-6",
+        "role": "USER",
+        "text": "Aucun paramètre ne doit devenir un mécanisme causal par défaut."
+      }
+    ],
+    "sourceContext": "Candidat Calibration original sur une ambiguïté d'objectif autour d'une intervention d'électrophysiologie.",
+    "provenance": {
+      "originType": "SYNTHETIC_AUTHORED",
+      "originalSource": "Original synthetic scientific conversation authored for SEM-003B1; no SEM or provider output was used.",
+      "author": "Codex acting as documentary benchmark author, not as human scientific reviewer",
+      "createdAt": "2026-08-13T12:00:00.000Z",
+      "inspirationRefs": [
+        "docs/sem-002-scientific-understanding-competence-contract.md",
+        "docs/sem-003-independent-scientific-understanding-benchmark-architecture.md",
+        "docs/sem-003b-benchmark-case-authoring-protocol.md"
+      ]
+    }
+  },
+  "scientificScope": {
+    "domain": "électrophysiologie et imagerie cardiaque",
+    "scenarioCategory": "INTERVENTION_AND_IMAGING",
+    "secondaryCategories": [
+      "KNOWLEDGE_CANDIDATE",
+      "SCIENTIFIC_AMBIGUITY"
+    ],
+    "difficultyTarget": "ADVANCED",
+    "intentionallyMissingInformation": [
+      {
+        "informationId": "missing-1",
+        "description": "L'objectif descriptif ou prédictif reste indécis.",
+        "intentional": true
+      },
+      {
+        "informationId": "missing-2",
+        "description": "Le calendrier du contrôle n'est pas uniforme.",
+        "intentional": true
+      },
+      {
+        "informationId": "missing-3",
+        "description": "Les données procédurales disponibles ne sont pas listées.",
+        "intentional": true
+      }
+    ]
+  },
+  "exposure": {
+    "exposureStatus": "DESIGN_ONLY",
+    "exposureHistory": [
+      {
+        "eventId": "exposure-sem3-cal-atrial-fibrosis-ablation-created",
+        "fromStatus": null,
+        "toStatus": "DESIGN_ONLY",
+        "occurredAt": "2026-08-13T12:00:00.000Z",
+        "actorRole": "CODEX_DOCUMENTARY_AUTHOR",
+        "reason": "Authored as a Calibration candidate; human review gate not yet satisfied, therefore DESIGN_ONLY."
+      }
+    ],
+    "parentageStatus": "PARENTAGE_REVIEW_REQUIRED",
+    "parentageAssessment": {
+      "discriminatingConcepts": [
+        "Fibrose atriale autour d'une intervention",
+        "électrophysiologie et imagerie cardiaque"
+      ],
+      "reasoningStructure": "Ambiguïté descriptive/prédictive et contexte d'électrophysiologie distincts des scénarios interventionnels Development.",
+      "criticalRelations": [
+        "L'imagerie disponible est antérieure au geste.",
+        "Conserver ouvertes les finalités descriptive et prédictive.",
+        "Les données procédurales ne sont recevables que si leur disponibilité est prouvée."
+      ],
+      "ambiguities": [
+        "La finalité scientifique n'est pas arrêtée."
+      ],
+      "knownSimilarities": {
+        "development": [],
+        "calibration": [],
+        "historicalLegacy": []
+      }
+    },
+    "contaminationReview": {
+      "status": "REVIEW_REQUIRED",
+      "reviewedAt": null,
+      "reviewerRole": null,
+      "notes": "No obvious inter-set duplication was identified during authoring; independent human parentage review remains required before Calibration use."
+    },
+    "eligibleForCalibration": false,
+    "eligibleForBlindQualification": false
+  },
+  "reference": {
+    "acceptanceEnvelopeId": "SEM3-AE-CAL-ATRIAL-FIBROSIS-ABLATION",
+    "applicableSEM002Properties": [
+      "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+      "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+      "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+      "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+      "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+      "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+    ],
+    "adjudicationRequirements": [
+      {
+        "expertise": "SCIENTIFIC_DOMAIN",
+        "rationale": "Confirmer la lisibilité scientifique des obligations candidates sans inventer une approbation.",
+        "mandatory": true
+      },
+      {
+        "expertise": "METHODOLOGICAL_SEM",
+        "rationale": "Vérifier équivalence, failure classes, statut épistémique et absence de Gold structurel caché.",
+        "mandatory": true
+      },
+      {
+        "expertise": "PD009_CLARIFICATION",
+        "rationale": "Confirmer la valeur décisionnelle de la clarification candidate sans imposer sa formulation.",
+        "mandatory": true
+      }
+    ]
+  }
+}

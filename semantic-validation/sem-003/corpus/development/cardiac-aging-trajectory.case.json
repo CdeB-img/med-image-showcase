@@ -1,0 +1,159 @@
+{
+  "schemaVersion": "1.1.0",
+  "contractType": "BENCHMARK_AUTHORING_CASE",
+  "purpose": "DEVELOPMENT_AUTHORING",
+  "caseId": "SEM3-DEV-CARDIAC-AGING-TRAJECTORY",
+  "version": "1.0.0",
+  "title": "Vieillissement cardiaque et priorité tardivement révisée",
+  "createdAt": "2026-08-13T12:00:00.000Z",
+  "authorRole": "CODEX_DOCUMENTARY_AUTHOR",
+  "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+  "source": {
+    "sourceRequest": "Tour 1: Je voudrais suivre les changements cardiaques dans une cohorte de vieillissement.\nTour 2: On a une échographie initiale et une autre prévue à cinq ans.\nTour 3: Au départ je pensais comparer les volumes ventriculaires.\nTour 4: Ajoutons aussi la géométrie atriale, si les données le permettent.\nTour 5: Je ne veux pas dire que la géométrie atriale cause le déclin fonctionnel, seulement étudier leur association.\nTour 6: Chez ces participants, la mesure à cinq ans est la plus importante.\nTour 7: Finalement la fonction devient secondaire.\nTour 8: La question principale porte sur l'évolution de la géométrie atriale entre l'inclusion et cinq ans, tout en gardant l'historique de la fonction.",
+    "language": "fr-FR",
+    "conversationTurns": [
+      {
+        "turnId": "turn-1",
+        "role": "USER",
+        "text": "Je voudrais suivre les changements cardiaques dans une cohorte de vieillissement."
+      },
+      {
+        "turnId": "turn-2",
+        "role": "USER",
+        "text": "On a une échographie initiale et une autre prévue à cinq ans."
+      },
+      {
+        "turnId": "turn-3",
+        "role": "USER",
+        "text": "Au départ je pensais comparer les volumes ventriculaires."
+      },
+      {
+        "turnId": "turn-4",
+        "role": "USER",
+        "text": "Ajoutons aussi la géométrie atriale, si les données le permettent."
+      },
+      {
+        "turnId": "turn-5",
+        "role": "USER",
+        "text": "Je ne veux pas dire que la géométrie atriale cause le déclin fonctionnel, seulement étudier leur association."
+      },
+      {
+        "turnId": "turn-6",
+        "role": "USER",
+        "text": "Chez ces participants, la mesure à cinq ans est la plus importante."
+      },
+      {
+        "turnId": "turn-7",
+        "role": "USER",
+        "text": "Finalement la fonction devient secondaire."
+      },
+      {
+        "turnId": "turn-8",
+        "role": "USER",
+        "text": "La question principale porte sur l'évolution de la géométrie atriale entre l'inclusion et cinq ans, tout en gardant l'historique de la fonction."
+      }
+    ],
+    "sourceContext": "Conversation synthétique sur une cohorte de vieillissement ; aucune relation causale ni mesure particulière n'est validée par le cas.",
+    "provenance": {
+      "originType": "SYNTHETIC_AUTHORED",
+      "originalSource": "Original synthetic scientific conversation authored for SEM-003B1; no SEM or provider output was used.",
+      "author": "Codex acting as documentary benchmark author, not as human scientific reviewer",
+      "createdAt": "2026-08-13T12:00:00.000Z",
+      "inspirationRefs": [
+        "docs/sem-002-scientific-understanding-competence-contract.md",
+        "docs/sem-003-independent-scientific-understanding-benchmark-architecture.md",
+        "docs/sem-003b-benchmark-case-authoring-protocol.md"
+      ]
+    }
+  },
+  "scientificScope": {
+    "domain": "cardiologie et imagerie cardiovasculaire",
+    "scenarioCategory": "CHANGE_OF_MIND",
+    "secondaryCategories": [
+      "MULTI_TURN_CORRECTION",
+      "COMPARISON_AND_TIMING",
+      "MULTIDIMENSIONAL_REQUEST"
+    ],
+    "difficultyTarget": "COMPOSITIONAL",
+    "intentionallyMissingInformation": [
+      {
+        "informationId": "missing-1",
+        "description": "La mesure de géométrie atriale et sa définition spécialisée restent à choisir.",
+        "intentional": true
+      }
+    ]
+  },
+  "exposure": {
+    "exposureStatus": "DEVELOPMENT_VISIBLE",
+    "exposureHistory": [
+      {
+        "eventId": "exposure-sem3-dev-cardiac-aging-trajectory-created",
+        "fromStatus": null,
+        "toStatus": "DEVELOPMENT_VISIBLE",
+        "occurredAt": "2026-08-13T12:00:00.000Z",
+        "actorRole": "CODEX_DOCUMENTARY_AUTHOR",
+        "reason": "Authored as an exposed Development case; permanently ineligible for blind qualification."
+      }
+    ],
+    "parentageStatus": "PARENTAGE_CLEAR",
+    "parentageAssessment": {
+      "discriminatingConcepts": [
+        "Vieillissement cardiaque et priorité tardivement révisée",
+        "cardiologie et imagerie cardiovasculaire"
+      ],
+      "reasoningStructure": "Original CHANGE_OF_MIND reasoning chain authored for Development use.",
+      "criticalRelations": [
+        "L'état actif porte sur l'évolution de la géométrie atriale entre l'inclusion et cinq ans.",
+        "L'ancien objectif fonctionnel reste historique mais n'est plus prioritaire.",
+        "La relation géométrie-fonction est demandée comme association et non comme causalité.",
+        "La mesure de géométrie spécialisée reste inconnue et appartient à une étape aval."
+      ],
+      "ambiguities": [],
+      "knownSimilarities": {
+        "development": [],
+        "calibration": [],
+        "historicalLegacy": []
+      }
+    },
+    "contaminationReview": {
+      "status": "CLEAR",
+      "reviewedAt": "2026-08-13T12:00:00.000Z",
+      "reviewerRole": "CODEX_DOCUMENTARY_PARENTAGE_AUDIT",
+      "notes": "No lexical or conceptual source reuse was used; this authoring audit is not a human scientific approval and the case remains exposed."
+    },
+    "eligibleForCalibration": false,
+    "eligibleForBlindQualification": false
+  },
+  "reference": {
+    "acceptanceEnvelopeId": "SEM3-AE-DEV-CARDIAC-AGING-TRAJECTORY",
+    "applicableSEM002Properties": [
+      "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+      "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+      "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+      "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+    ],
+    "adjudicationRequirements": [
+      {
+        "expertise": "SCIENTIFIC_DOMAIN",
+        "rationale": "Confirmer la lisibilité scientifique des obligations candidates sans inventer une approbation.",
+        "mandatory": true
+      },
+      {
+        "expertise": "METHODOLOGICAL_SEM",
+        "rationale": "Vérifier équivalence, failure classes, statut épistémique et absence de Gold structurel caché.",
+        "mandatory": true
+      },
+      {
+        "expertise": "PD009_CLARIFICATION",
+        "rationale": "Confirmer la valeur décisionnelle de la clarification candidate sans imposer sa formulation.",
+        "mandatory": false
+      }
+    ]
+  }
+}

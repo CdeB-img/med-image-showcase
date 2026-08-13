@@ -1,0 +1,161 @@
+{
+  "schemaVersion": "1.1.0",
+  "contractType": "BENCHMARK_AUTHORING_CASE",
+  "purpose": "DEVELOPMENT_AUTHORING",
+  "caseId": "SEM3-DEV-CORONARY-PERFUSION-PRIORITY",
+  "version": "1.0.0",
+  "title": "Perfusion coronaire, ellipse et modalité ajoutée",
+  "createdAt": "2026-08-13T12:00:00.000Z",
+  "authorRole": "CODEX_DOCUMENTARY_AUTHOR",
+  "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+  "source": {
+    "sourceRequest": "Tour 1: Je veux comparer la perfusion avant et après revascularisation.\nTour 2: La population sera celle adressée pour maladie coronaire stable.\nTour 3: On dispose déjà du CT initial.\nTour 4: L'IRM n'est pas systématique, elle ne doit pas être considérée comme acquise.\nTour 5: Et à douze mois ?\nTour 6: Oui, ce suivi-là concerne les mêmes patients.\nTour 7: Je voudrais surtout savoir si la comparaison temporelle reste interprétable quand les modalités diffèrent.",
+    "language": "fr-FR",
+    "conversationTurns": [
+      {
+        "turnId": "turn-1",
+        "role": "USER",
+        "text": "Je veux comparer la perfusion avant et après revascularisation."
+      },
+      {
+        "turnId": "turn-2",
+        "role": "USER",
+        "text": "La population sera celle adressée pour maladie coronaire stable."
+      },
+      {
+        "turnId": "turn-3",
+        "role": "USER",
+        "text": "On dispose déjà du CT initial."
+      },
+      {
+        "turnId": "turn-4",
+        "role": "USER",
+        "text": "L'IRM n'est pas systématique, elle ne doit pas être considérée comme acquise."
+      },
+      {
+        "turnId": "turn-5",
+        "role": "USER",
+        "text": "Et à douze mois ?"
+      },
+      {
+        "turnId": "turn-6",
+        "role": "USER",
+        "text": "Oui, ce suivi-là concerne les mêmes patients."
+      },
+      {
+        "turnId": "turn-7",
+        "role": "USER",
+        "text": "Je voudrais surtout savoir si la comparaison temporelle reste interprétable quand les modalités diffèrent."
+      }
+    ],
+    "sourceContext": "Conversation synthétique sur une comparaison temporelle et multimodale sans supposer l'équivalence des mesures.",
+    "provenance": {
+      "originType": "SYNTHETIC_AUTHORED",
+      "originalSource": "Original synthetic scientific conversation authored for SEM-003B1; no SEM or provider output was used.",
+      "author": "Codex acting as documentary benchmark author, not as human scientific reviewer",
+      "createdAt": "2026-08-13T12:00:00.000Z",
+      "inspirationRefs": [
+        "docs/sem-002-scientific-understanding-competence-contract.md",
+        "docs/sem-003-independent-scientific-understanding-benchmark-architecture.md",
+        "docs/sem-003b-benchmark-case-authoring-protocol.md"
+      ]
+    }
+  },
+  "scientificScope": {
+    "domain": "cardiologie coronaire et imagerie cardiovasculaire",
+    "scenarioCategory": "ELLIPSIS",
+    "secondaryCategories": [
+      "NECESSARY_IMPLICIT",
+      "COMPARISON_AND_TIMING",
+      "INTERVENTION_AND_IMAGING"
+    ],
+    "difficultyTarget": "ADVANCED",
+    "intentionallyMissingInformation": [
+      {
+        "informationId": "missing-1",
+        "description": "La modalité réellement disponible à douze mois n'est pas établie.",
+        "intentional": true
+      },
+      {
+        "informationId": "missing-2",
+        "description": "La comparabilité métrologique entre modalités n'est pas établie.",
+        "intentional": true
+      }
+    ]
+  },
+  "exposure": {
+    "exposureStatus": "DEVELOPMENT_VISIBLE",
+    "exposureHistory": [
+      {
+        "eventId": "exposure-sem3-dev-coronary-perfusion-priority-created",
+        "fromStatus": null,
+        "toStatus": "DEVELOPMENT_VISIBLE",
+        "occurredAt": "2026-08-13T12:00:00.000Z",
+        "actorRole": "CODEX_DOCUMENTARY_AUTHOR",
+        "reason": "Authored as an exposed Development case; permanently ineligible for blind qualification."
+      }
+    ],
+    "parentageStatus": "PARENTAGE_CLEAR",
+    "parentageAssessment": {
+      "discriminatingConcepts": [
+        "Perfusion coronaire, ellipse et modalité ajoutée",
+        "cardiologie coronaire et imagerie cardiovasculaire"
+      ],
+      "reasoningStructure": "Original ELLIPSIS reasoning chain authored for Development use.",
+      "criticalRelations": [
+        "Préserver la comparaison avant/après revascularisation dans la même population.",
+        "Rattacher l'ellipse de douze mois au suivi de la population déjà définie.",
+        "Conserver que l'IRM n'est pas systématiquement disponible.",
+        "L'interprétabilité entre modalités reste une question ouverte spécialisée."
+      ],
+      "ambiguities": [],
+      "knownSimilarities": {
+        "development": [],
+        "calibration": [],
+        "historicalLegacy": []
+      }
+    },
+    "contaminationReview": {
+      "status": "CLEAR",
+      "reviewedAt": "2026-08-13T12:00:00.000Z",
+      "reviewerRole": "CODEX_DOCUMENTARY_PARENTAGE_AUDIT",
+      "notes": "No lexical or conceptual source reuse was used; this authoring audit is not a human scientific approval and the case remains exposed."
+    },
+    "eligibleForCalibration": false,
+    "eligibleForBlindQualification": false
+  },
+  "reference": {
+    "acceptanceEnvelopeId": "SEM3-AE-DEV-CORONARY-PERFUSION-PRIORITY",
+    "applicableSEM002Properties": [
+      "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+      "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+      "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+      "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+    ],
+    "adjudicationRequirements": [
+      {
+        "expertise": "SCIENTIFIC_DOMAIN",
+        "rationale": "Confirmer la lisibilité scientifique des obligations candidates sans inventer une approbation.",
+        "mandatory": true
+      },
+      {
+        "expertise": "METHODOLOGICAL_SEM",
+        "rationale": "Vérifier équivalence, failure classes, statut épistémique et absence de Gold structurel caché.",
+        "mandatory": true
+      },
+      {
+        "expertise": "PD009_CLARIFICATION",
+        "rationale": "Confirmer la valeur décisionnelle de la clarification candidate sans imposer sa formulation.",
+        "mandatory": true
+      }
+    ]
+  }
+}

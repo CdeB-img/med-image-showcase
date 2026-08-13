@@ -1,0 +1,155 @@
+{
+  "schemaVersion": "1.1.0",
+  "contractType": "BENCHMARK_AUTHORING_CASE",
+  "purpose": "CALIBRATION_AUTHORING",
+  "caseId": "SEM3-CAL-MSK-INFLAMMATION-RESPONSE",
+  "version": "1.0.0",
+  "title": "Inflammation musculosquelettique et réponse au traitement",
+  "createdAt": "2026-08-13T12:00:00.000Z",
+  "authorRole": "CODEX_DOCUMENTARY_AUTHOR",
+  "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+  "source": {
+    "sourceRequest": "Tour 1: Je veux suivre une inflammation articulaire avant et après traitement.\nTour 2: L'échographie est disponible à chaque visite.\nTour 3: Une IRM existe seulement au départ pour une partie de la cohorte.\nTour 4: Je veux comprendre l'évolution sans transformer l'IRM de départ en référence obligatoire.\nTour 5: Des signes d'activité peuvent être proposés comme candidats s'ils restent correctement étiquetés.\nTour 6: La réponse clinique n'est pas encore définie.",
+    "language": "fr-FR",
+    "conversationTurns": [
+      {
+        "turnId": "turn-1",
+        "role": "USER",
+        "text": "Je veux suivre une inflammation articulaire avant et après traitement."
+      },
+      {
+        "turnId": "turn-2",
+        "role": "USER",
+        "text": "L'échographie est disponible à chaque visite."
+      },
+      {
+        "turnId": "turn-3",
+        "role": "USER",
+        "text": "Une IRM existe seulement au départ pour une partie de la cohorte."
+      },
+      {
+        "turnId": "turn-4",
+        "role": "USER",
+        "text": "Je veux comprendre l'évolution sans transformer l'IRM de départ en référence obligatoire."
+      },
+      {
+        "turnId": "turn-5",
+        "role": "USER",
+        "text": "Des signes d'activité peuvent être proposés comme candidats s'ils restent correctement étiquetés."
+      },
+      {
+        "turnId": "turn-6",
+        "role": "USER",
+        "text": "La réponse clinique n'est pas encore définie."
+      }
+    ],
+    "sourceContext": "Candidat Calibration original sur suivi échographique, IRM partielle et enrichissement contextuel.",
+    "provenance": {
+      "originType": "SYNTHETIC_AUTHORED",
+      "originalSource": "Original synthetic scientific conversation authored for SEM-003B1; no SEM or provider output was used.",
+      "author": "Codex acting as documentary benchmark author, not as human scientific reviewer",
+      "createdAt": "2026-08-13T12:00:00.000Z",
+      "inspirationRefs": [
+        "docs/sem-002-scientific-understanding-competence-contract.md",
+        "docs/sem-003-independent-scientific-understanding-benchmark-architecture.md",
+        "docs/sem-003b-benchmark-case-authoring-protocol.md"
+      ]
+    }
+  },
+  "scientificScope": {
+    "domain": "imagerie musculosquelettique et inflammation",
+    "scenarioCategory": "STRONG_CONTEXTUAL_IMPLICIT",
+    "secondaryCategories": [
+      "KNOWLEDGE_CANDIDATE",
+      "COMPARISON_AND_TIMING"
+    ],
+    "difficultyTarget": "ADVANCED",
+    "intentionallyMissingInformation": [
+      {
+        "informationId": "missing-1",
+        "description": "La définition de réponse clinique manque.",
+        "intentional": true
+      },
+      {
+        "informationId": "missing-2",
+        "description": "Les signes d'activité précis restent à qualifier.",
+        "intentional": true
+      }
+    ]
+  },
+  "exposure": {
+    "exposureStatus": "DESIGN_ONLY",
+    "exposureHistory": [
+      {
+        "eventId": "exposure-sem3-cal-msk-inflammation-response-created",
+        "fromStatus": null,
+        "toStatus": "DESIGN_ONLY",
+        "occurredAt": "2026-08-13T12:00:00.000Z",
+        "actorRole": "CODEX_DOCUMENTARY_AUTHOR",
+        "reason": "Authored as a Calibration candidate; human review gate not yet satisfied, therefore DESIGN_ONLY."
+      }
+    ],
+    "parentageStatus": "PARENTAGE_REVIEW_REQUIRED",
+    "parentageAssessment": {
+      "discriminatingConcepts": [
+        "Inflammation musculosquelettique et réponse au traitement",
+        "imagerie musculosquelettique et inflammation"
+      ],
+      "reasoningStructure": "Suivi musculosquelettique avec modalité partielle et outcome clinique manquant, sans chaîne équivalente en Development.",
+      "criticalRelations": [
+        "Préserver le suivi échographique avant/après.",
+        "L'IRM de départ n'existe que dans une partie de la cohorte.",
+        "La réponse clinique reste non définie."
+      ],
+      "ambiguities": [],
+      "knownSimilarities": {
+        "development": [],
+        "calibration": [],
+        "historicalLegacy": []
+      }
+    },
+    "contaminationReview": {
+      "status": "REVIEW_REQUIRED",
+      "reviewedAt": null,
+      "reviewerRole": null,
+      "notes": "No obvious inter-set duplication was identified during authoring; independent human parentage review remains required before Calibration use."
+    },
+    "eligibleForCalibration": false,
+    "eligibleForBlindQualification": false
+  },
+  "reference": {
+    "acceptanceEnvelopeId": "SEM3-AE-CAL-MSK-INFLAMMATION-RESPONSE",
+    "applicableSEM002Properties": [
+      "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+      "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+      "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+      "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+      "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+    ],
+    "adjudicationRequirements": [
+      {
+        "expertise": "SCIENTIFIC_DOMAIN",
+        "rationale": "Confirmer la lisibilité scientifique des obligations candidates sans inventer une approbation.",
+        "mandatory": true
+      },
+      {
+        "expertise": "METHODOLOGICAL_SEM",
+        "rationale": "Vérifier équivalence, failure classes, statut épistémique et absence de Gold structurel caché.",
+        "mandatory": true
+      },
+      {
+        "expertise": "PD009_CLARIFICATION",
+        "rationale": "Confirmer la valeur décisionnelle de la clarification candidate sans imposer sa formulation.",
+        "mandatory": true
+      }
+    ]
+  }
+}

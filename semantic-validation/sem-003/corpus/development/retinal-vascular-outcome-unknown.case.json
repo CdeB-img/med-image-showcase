@@ -1,0 +1,166 @@
+{
+  "schemaVersion": "1.1.0",
+  "contractType": "BENCHMARK_AUTHORING_CASE",
+  "purpose": "DEVELOPMENT_AUTHORING",
+  "caseId": "SEM3-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
+  "version": "1.0.0",
+  "title": "Imagerie vasculaire rétinienne avec référentiel fonctionnel incomplet",
+  "createdAt": "2026-08-13T12:00:00.000Z",
+  "authorRole": "CODEX_DOCUMENTARY_AUTHOR",
+  "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+  "source": {
+    "sourceRequest": "Tour 1: Je veux étudier les changements vasculaires rétiniens après traitement.\nTour 2: On a une acquisition initiale et une acquisition de contrôle.\nTour 3: Le contrôle n'est pas toujours fait au même moment.\nTour 4: Je voudrais comparer les patients dont la fonction visuelle reste stable et les autres.\nTour 5: Mais je n'ai pas encore défini ce que veut dire stable.\nTour 6: La technique d'imagerie vasculaire varie aussi selon le centre.\nTour 7: On peut avancer sur l'inventaire, mais pas inventer le critère clinique ni l'équivalence des modalités.",
+    "language": "fr-FR",
+    "conversationTurns": [
+      {
+        "turnId": "turn-1",
+        "role": "USER",
+        "text": "Je veux étudier les changements vasculaires rétiniens après traitement."
+      },
+      {
+        "turnId": "turn-2",
+        "role": "USER",
+        "text": "On a une acquisition initiale et une acquisition de contrôle."
+      },
+      {
+        "turnId": "turn-3",
+        "role": "USER",
+        "text": "Le contrôle n'est pas toujours fait au même moment."
+      },
+      {
+        "turnId": "turn-4",
+        "role": "USER",
+        "text": "Je voudrais comparer les patients dont la fonction visuelle reste stable et les autres."
+      },
+      {
+        "turnId": "turn-5",
+        "role": "USER",
+        "text": "Mais je n'ai pas encore défini ce que veut dire stable."
+      },
+      {
+        "turnId": "turn-6",
+        "role": "USER",
+        "text": "La technique d'imagerie vasculaire varie aussi selon le centre."
+      },
+      {
+        "turnId": "turn-7",
+        "role": "USER",
+        "text": "On peut avancer sur l'inventaire, mais pas inventer le critère clinique ni l'équivalence des modalités."
+      }
+    ],
+    "sourceContext": "Conversation synthétique sur une étude rétinienne multicentrique avec outcome fonctionnel et timing incomplets.",
+    "provenance": {
+      "originType": "SYNTHETIC_AUTHORED",
+      "originalSource": "Original synthetic scientific conversation authored for SEM-003B1; no SEM or provider output was used.",
+      "author": "Codex acting as documentary benchmark author, not as human scientific reviewer",
+      "createdAt": "2026-08-13T12:00:00.000Z",
+      "inspirationRefs": [
+        "docs/sem-002-scientific-understanding-competence-contract.md",
+        "docs/sem-003-independent-scientific-understanding-benchmark-architecture.md",
+        "docs/sem-003b-benchmark-case-authoring-protocol.md"
+      ]
+    }
+  },
+  "scientificScope": {
+    "domain": "imagerie rétinienne vasculaire",
+    "scenarioCategory": "UNDER_SPECIFIED_REQUEST",
+    "secondaryCategories": [
+      "SCIENTIFIC_AMBIGUITY",
+      "COMPARISON_AND_TIMING"
+    ],
+    "difficultyTarget": "COMPOSITIONAL",
+    "intentionallyMissingInformation": [
+      {
+        "informationId": "missing-1",
+        "description": "La définition de la stabilité fonctionnelle manque.",
+        "intentional": true
+      },
+      {
+        "informationId": "missing-2",
+        "description": "La fenêtre de contrôle n'est pas harmonisée.",
+        "intentional": true
+      },
+      {
+        "informationId": "missing-3",
+        "description": "La comparabilité inter-techniques n'est pas établie.",
+        "intentional": true
+      }
+    ]
+  },
+  "exposure": {
+    "exposureStatus": "DEVELOPMENT_VISIBLE",
+    "exposureHistory": [
+      {
+        "eventId": "exposure-sem3-dev-retinal-vascular-outcome-unknown-created",
+        "fromStatus": null,
+        "toStatus": "DEVELOPMENT_VISIBLE",
+        "occurredAt": "2026-08-13T12:00:00.000Z",
+        "actorRole": "CODEX_DOCUMENTARY_AUTHOR",
+        "reason": "Authored as an exposed Development case; permanently ineligible for blind qualification."
+      }
+    ],
+    "parentageStatus": "PARENTAGE_CLEAR",
+    "parentageAssessment": {
+      "discriminatingConcepts": [
+        "Imagerie vasculaire rétinienne avec référentiel fonctionnel incomplet",
+        "imagerie rétinienne vasculaire"
+      ],
+      "reasoningStructure": "Original UNDER_SPECIFIED_REQUEST reasoning chain authored for Development use.",
+      "criticalRelations": [
+        "Préserver la comparaison entre acquisition initiale et contrôle.",
+        "La stabilité fonctionnelle reste inconnue et bloquante pour la stratification.",
+        "Le moment du contrôle varie et doit rester visible.",
+        "L'équivalence entre techniques ne peut être décidée par SEM."
+      ],
+      "ambiguities": [
+        "Le terme stable ne possède pas de définition opérationnelle."
+      ],
+      "knownSimilarities": {
+        "development": [],
+        "calibration": [],
+        "historicalLegacy": []
+      }
+    },
+    "contaminationReview": {
+      "status": "CLEAR",
+      "reviewedAt": "2026-08-13T12:00:00.000Z",
+      "reviewerRole": "CODEX_DOCUMENTARY_PARENTAGE_AUDIT",
+      "notes": "No lexical or conceptual source reuse was used; this authoring audit is not a human scientific approval and the case remains exposed."
+    },
+    "eligibleForCalibration": false,
+    "eligibleForBlindQualification": false
+  },
+  "reference": {
+    "acceptanceEnvelopeId": "SEM3-AE-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
+    "applicableSEM002Properties": [
+      "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+      "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+      "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+    ],
+    "adjudicationRequirements": [
+      {
+        "expertise": "SCIENTIFIC_DOMAIN",
+        "rationale": "Confirmer la lisibilité scientifique des obligations candidates sans inventer une approbation.",
+        "mandatory": true
+      },
+      {
+        "expertise": "METHODOLOGICAL_SEM",
+        "rationale": "Vérifier équivalence, failure classes, statut épistémique et absence de Gold structurel caché.",
+        "mandatory": true
+      },
+      {
+        "expertise": "PD009_CLARIFICATION",
+        "rationale": "Confirmer la valeur décisionnelle de la clarification candidate sans imposer sa formulation.",
+        "mandatory": true
+      }
+    ]
+  }
+}

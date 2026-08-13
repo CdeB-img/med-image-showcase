@@ -1,0 +1,251 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "BENCHMARK_AUTHORING_ACCEPTANCE_ENVELOPE",
+  "envelopeId": "SEM3-AE-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
+  "version": "1.0.0",
+  "caseId": "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
+  "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+  "required": [
+    {
+      "obligationId": "req-1-six-month-noninvasive",
+      "semanticKey": "sem3-cal-pulmonary-hemodynamics-followup.six-month-noninvasive",
+      "kind": "TIMING",
+      "description": "Le suivi à six mois est principalement non invasif.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[3]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-2-invasive-subset",
+      "semanticKey": "sem3-cal-pulmonary-hemodynamics-followup.invasive-subset",
+      "kind": "PROVENANCE",
+      "description": "La source invasive n'existe que dans un sous-ensemble.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[2]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-3-sources-not-equivalent",
+      "semanticKey": "sem3-cal-pulmonary-hemodynamics-followup.sources-not-equivalent",
+      "kind": "POLARITY",
+      "description": "Les sources ne doivent pas être supposées équivalentes.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[4]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-4-phenomenon-observable-method",
+      "semanticKey": "sem3-cal-pulmonary-hemodynamics-followup.phenomenon-observable-method",
+      "kind": "RELATION",
+      "description": "Distinguer phénomène, observables et méthodes.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[6]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    }
+  ],
+  "prohibited": [
+    {
+      "prohibitionId": "pro-1-merge-hemodynamic-sources",
+      "semanticKey": "sem3-cal-pulmonary-hemodynamics-followup.forbidden-merge-hemodynamic-sources",
+      "description": "Fusionner les sources comme une même mesure interchangeable.",
+      "rationale": "Cette erreur modifierait une obligation scientifique, une provenance, une polarité ou une frontière d'ownership.",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH"
+      ],
+      "failureClass": "CONCEPTUAL_PLAN_COLLAPSE"
+    },
+    {
+      "prohibitionId": "pro-2-make-invasive-required",
+      "semanticKey": "sem3-cal-pulmonary-hemodynamics-followup.forbidden-make-invasive-required",
+      "description": "Présenter le cathétérisme comme disponible ou obligatoire pour tous.",
+      "rationale": "Cette erreur modifierait une obligation scientifique, une provenance, une polarité ou une frontière d'ownership.",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION"
+      ],
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE"
+    }
+  ],
+  "acceptableSemanticVariants": [
+    {
+      "variantId": "variant-obligation-vector",
+      "label": "Vecteur d'obligations indépendant de la topologie",
+      "structureSynopsis": "Les obligations peuvent être portées par un objet composé ou par plusieurs objets reliés si leur sens, provenance, polarité et ownership sont préservés.",
+      "preservedObligationIds": [
+        "req-1-six-month-noninvasive",
+        "req-2-invasive-subset",
+        "req-3-sources-not-equivalent",
+        "req-4-phenomenon-observable-method"
+      ],
+      "caveats": [
+        "Aucune variante n'est acceptée par simple similarité lexicale.",
+        "Toute équivalence scientifique complexe reste soumise à adjudication humaine."
+      ]
+    }
+  ],
+  "optionalRelevant": [
+    {
+      "candidateId": "opt-1-candidate-rv-function",
+      "semanticKey": "sem3-cal-pulmonary-hemodynamics-followup.optional-candidate-rv-function",
+      "description": "Fonction ventriculaire droite comme contribution secondaire explicitement non principale.",
+      "epistemicStatus": "CONTEXTUAL_CANDIDATE",
+      "rationale": "Candidat contextualisé à examiner sans attribution à l'utilisateur ni adoption par le Project.",
+      "absenceIsBlocking": false,
+      "envelopeIsNonExhaustive": true
+    }
+  ],
+  "admissibleAmbiguities": [],
+  "expectedClarification": {
+    "status": "OPTIONAL",
+    "decisionImpact": "La définition des observables appartient à OBS et n'empêche pas l'authoring de la structure longitudinale.",
+    "acceptableQuestionClasses": [
+      "Observable hémodynamique prioritaire"
+    ],
+    "exactWordingRequired": false
+  },
+  "ownershipBoundaries": [
+    {
+      "boundaryId": "own-sem-project",
+      "sourceOwner": "SEM",
+      "targetOwner": "Research Project / human decision",
+      "description": "SEM peut préserver et structurer l'intention, les unknowns et les candidats ; il n'adopte pas une décision de projet.",
+      "forbiddenPromotion": "Inference, option or contextual candidate to adopted Project decision",
+      "adoptionRequiresHumanDecision": true
+    },
+    {
+      "boundaryId": "own-knowledge-specialists",
+      "sourceOwner": "Knowledge / OBS / Imaging / Scientific Thinking",
+      "targetOwner": "SEM benchmark reference",
+      "description": "Les owners spécialisés qualifient preuves, mesures, acquisition ou hypothèses ; leur support n'est pas une déclaration utilisateur.",
+      "forbiddenPromotion": "Specialist support to explicit user fact or automatic endpoint",
+      "adoptionRequiresHumanDecision": true
+    }
+  ],
+  "properties": [
+    {
+      "propertyId": "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    }
+  ],
+  "adjudication": {
+    "requiredExpertise": [
+      "SCIENTIFIC_DOMAIN",
+      "METHODOLOGICAL_SEM"
+    ],
+    "notes": "Référence candidate préparée sans exécution SEM, sans provider et sans approbation humaine inventée.",
+    "humanAdjudicationPoints": [
+      "Confirmer que REQUIRED contient uniquement les obligations nécessaires.",
+      "Confirmer la plausibilité et le caractère non exhaustif des candidats optionnels.",
+      "Confirmer les équivalences sémantiques au-delà des contrôles structurels."
+    ],
+    "status": "REVIEW_REQUIRED"
+  },
+  "evaluationDemonstrations": []
+}

@@ -1,0 +1,161 @@
+{
+  "schemaVersion": "1.1.0",
+  "contractType": "BENCHMARK_AUTHORING_CASE",
+  "purpose": "CALIBRATION_AUTHORING",
+  "caseId": "SEM3-CAL-CONGENITAL-FLOW-ELLIPSIS",
+  "version": "1.0.0",
+  "title": "Flux cardiovasculaire congénital et ellipses tardives",
+  "createdAt": "2026-08-13T12:00:00.000Z",
+  "authorRole": "CODEX_DOCUMENTARY_AUTHOR",
+  "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+  "source": {
+    "sourceRequest": "Tour 1: Je veux comparer le flux avant et après correction chirurgicale.\nTour 2: La cohorte concerne des adultes avec une cardiopathie congénitale.\nTour 3: On a deux régions vasculaires d'intérêt.\nTour 4: La première est bien couverte, la seconde seulement chez certains.\nTour 5: Et pour ceux-là, au suivi tardif ?\nTour 6: Je parle des patients qui ont les deux régions mesurées.\nTour 7: Finalement la seconde région reste exploratoire.\nTour 8: La comparaison principale porte sur la première, avec l'historique de cette correction.",
+    "language": "fr-FR",
+    "conversationTurns": [
+      {
+        "turnId": "turn-1",
+        "role": "USER",
+        "text": "Je veux comparer le flux avant et après correction chirurgicale."
+      },
+      {
+        "turnId": "turn-2",
+        "role": "USER",
+        "text": "La cohorte concerne des adultes avec une cardiopathie congénitale."
+      },
+      {
+        "turnId": "turn-3",
+        "role": "USER",
+        "text": "On a deux régions vasculaires d'intérêt."
+      },
+      {
+        "turnId": "turn-4",
+        "role": "USER",
+        "text": "La première est bien couverte, la seconde seulement chez certains."
+      },
+      {
+        "turnId": "turn-5",
+        "role": "USER",
+        "text": "Et pour ceux-là, au suivi tardif ?"
+      },
+      {
+        "turnId": "turn-6",
+        "role": "USER",
+        "text": "Je parle des patients qui ont les deux régions mesurées."
+      },
+      {
+        "turnId": "turn-7",
+        "role": "USER",
+        "text": "Finalement la seconde région reste exploratoire."
+      },
+      {
+        "turnId": "turn-8",
+        "role": "USER",
+        "text": "La comparaison principale porte sur la première, avec l'historique de cette correction."
+      }
+    ],
+    "sourceContext": "Candidat Calibration original où deux ellipses dépendent d'antécédents conversationnels différents.",
+    "provenance": {
+      "originType": "SYNTHETIC_AUTHORED",
+      "originalSource": "Original synthetic scientific conversation authored for SEM-003B1; no SEM or provider output was used.",
+      "author": "Codex acting as documentary benchmark author, not as human scientific reviewer",
+      "createdAt": "2026-08-13T12:00:00.000Z",
+      "inspirationRefs": [
+        "docs/sem-002-scientific-understanding-competence-contract.md",
+        "docs/sem-003-independent-scientific-understanding-benchmark-architecture.md",
+        "docs/sem-003b-benchmark-case-authoring-protocol.md"
+      ]
+    }
+  },
+  "scientificScope": {
+    "domain": "cardiologie congénitale et imagerie de flux",
+    "scenarioCategory": "ELLIPSIS",
+    "secondaryCategories": [
+      "NECESSARY_IMPLICIT",
+      "MULTIDIMENSIONAL_REQUEST",
+      "COMPARISON_AND_TIMING"
+    ],
+    "difficultyTarget": "COMPOSITIONAL",
+    "intentionallyMissingInformation": [
+      {
+        "informationId": "missing-1",
+        "description": "Le temps exact du suivi tardif n'est pas défini.",
+        "intentional": true
+      }
+    ]
+  },
+  "exposure": {
+    "exposureStatus": "DESIGN_ONLY",
+    "exposureHistory": [
+      {
+        "eventId": "exposure-sem3-cal-congenital-flow-ellipsis-created",
+        "fromStatus": null,
+        "toStatus": "DESIGN_ONLY",
+        "occurredAt": "2026-08-13T12:00:00.000Z",
+        "actorRole": "CODEX_DOCUMENTARY_AUTHOR",
+        "reason": "Authored as a Calibration candidate; human review gate not yet satisfied, therefore DESIGN_ONLY."
+      }
+    ],
+    "parentageStatus": "PARENTAGE_REVIEW_REQUIRED",
+    "parentageAssessment": {
+      "discriminatingConcepts": [
+        "Flux cardiovasculaire congénital et ellipses tardives",
+        "cardiologie congénitale et imagerie de flux"
+      ],
+      "reasoningStructure": "Ellipses sur sous-groupe et régions de flux avec correction de priorité ; structure non dérivée des cas Development.",
+      "criticalRelations": [
+        "Rattacher 'ceux-là' au sous-groupe ayant les deux régions mesurées.",
+        "La première région porte la comparaison principale active.",
+        "La seconde région est exploratoire après correction.",
+        "Le suivi tardif reste temporellement indéfini."
+      ],
+      "ambiguities": [],
+      "knownSimilarities": {
+        "development": [],
+        "calibration": [],
+        "historicalLegacy": []
+      }
+    },
+    "contaminationReview": {
+      "status": "REVIEW_REQUIRED",
+      "reviewedAt": null,
+      "reviewerRole": null,
+      "notes": "No obvious inter-set duplication was identified during authoring; independent human parentage review remains required before Calibration use."
+    },
+    "eligibleForCalibration": false,
+    "eligibleForBlindQualification": false
+  },
+  "reference": {
+    "acceptanceEnvelopeId": "SEM3-AE-CAL-CONGENITAL-FLOW-ELLIPSIS",
+    "applicableSEM002Properties": [
+      "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+      "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+      "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+      "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+    ],
+    "adjudicationRequirements": [
+      {
+        "expertise": "SCIENTIFIC_DOMAIN",
+        "rationale": "Confirmer la lisibilité scientifique des obligations candidates sans inventer une approbation.",
+        "mandatory": true
+      },
+      {
+        "expertise": "METHODOLOGICAL_SEM",
+        "rationale": "Vérifier équivalence, failure classes, statut épistémique et absence de Gold structurel caché.",
+        "mandatory": true
+      },
+      {
+        "expertise": "PD009_CLARIFICATION",
+        "rationale": "Confirmer la valeur décisionnelle de la clarification candidate sans imposer sa formulation.",
+        "mandatory": true
+      }
+    ]
+  }
+}

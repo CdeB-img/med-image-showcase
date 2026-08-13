@@ -1,0 +1,142 @@
+{
+  "schemaVersion": "1.1.0",
+  "contractType": "BENCHMARK_AUTHORING_CASE",
+  "purpose": "DEVELOPMENT_AUTHORING",
+  "caseId": "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL",
+  "version": "1.0.0",
+  "title": "Graisse péricardique et fonction atriale sans promotion causale",
+  "createdAt": "2026-08-13T12:00:00.000Z",
+  "authorRole": "CODEX_DOCUMENTARY_AUTHOR",
+  "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+  "source": {
+    "sourceRequest": "Tour 1: Je veux comparer la quantité de graisse péricardique au CT et la fonction atriale mesurée en échographie.\nTour 2: Les deux examens sont disponibles autour de la même visite.\nTour 3: Je pensais écrire que la graisse explique la fonction atriale.\nTour 4: Non, ce serait trop fort.\nTour 5: Je veux seulement étudier leur association, sans hypothèse causale imposée.",
+    "language": "fr-FR",
+    "conversationTurns": [
+      {
+        "turnId": "turn-1",
+        "role": "USER",
+        "text": "Je veux comparer la quantité de graisse péricardique au CT et la fonction atriale mesurée en échographie."
+      },
+      {
+        "turnId": "turn-2",
+        "role": "USER",
+        "text": "Les deux examens sont disponibles autour de la même visite."
+      },
+      {
+        "turnId": "turn-3",
+        "role": "USER",
+        "text": "Je pensais écrire que la graisse explique la fonction atriale."
+      },
+      {
+        "turnId": "turn-4",
+        "role": "USER",
+        "text": "Non, ce serait trop fort."
+      },
+      {
+        "turnId": "turn-5",
+        "role": "USER",
+        "text": "Je veux seulement étudier leur association, sans hypothèse causale imposée."
+      }
+    ],
+    "sourceContext": "Conversation synthétique corrigeant une formulation causale entre deux observations cardiaques vers une association.",
+    "provenance": {
+      "originType": "SYNTHETIC_AUTHORED",
+      "originalSource": "Original synthetic scientific conversation authored for SEM-003B1; no SEM or provider output was used.",
+      "author": "Codex acting as documentary benchmark author, not as human scientific reviewer",
+      "createdAt": "2026-08-13T12:00:00.000Z",
+      "inspirationRefs": [
+        "docs/sem-002-scientific-understanding-competence-contract.md",
+        "docs/sem-003-independent-scientific-understanding-benchmark-architecture.md",
+        "docs/sem-003b-benchmark-case-authoring-protocol.md"
+      ]
+    }
+  },
+  "scientificScope": {
+    "domain": "imagerie cardiaque et physiologie atriale",
+    "scenarioCategory": "NEGATION_AND_NON_CAUSALITY",
+    "secondaryCategories": [
+      "MULTI_TURN_CORRECTION",
+      "STRONG_CONTEXTUAL_IMPLICIT"
+    ],
+    "difficultyTarget": "ADVANCED",
+    "intentionallyMissingInformation": [
+      {
+        "informationId": "missing-1",
+        "description": "Les définitions de quantification de la graisse et de la fonction atriale restent à qualifier.",
+        "intentional": true
+      }
+    ]
+  },
+  "exposure": {
+    "exposureStatus": "DEVELOPMENT_VISIBLE",
+    "exposureHistory": [
+      {
+        "eventId": "exposure-sem3-dev-pericardial-fat-noncausal-created",
+        "fromStatus": null,
+        "toStatus": "DEVELOPMENT_VISIBLE",
+        "occurredAt": "2026-08-13T12:00:00.000Z",
+        "actorRole": "CODEX_DOCUMENTARY_AUTHOR",
+        "reason": "Authored as an exposed Development case; permanently ineligible for blind qualification."
+      }
+    ],
+    "parentageStatus": "PARENTAGE_CLEAR",
+    "parentageAssessment": {
+      "discriminatingConcepts": [
+        "Graisse péricardique et fonction atriale sans promotion causale",
+        "imagerie cardiaque et physiologie atriale"
+      ],
+      "reasoningStructure": "Original NEGATION_AND_NON_CAUSALITY reasoning chain authored for Development use.",
+      "criticalRelations": [
+        "L'état courant demande une association entre graisse péricardique et fonction atriale, non une explication causale.",
+        "La formulation causale initiale reste dans l'historique comme état rejeté.",
+        "Préserver les deux observations distinctes et leur disponibilité autour de la même visite."
+      ],
+      "ambiguities": [],
+      "knownSimilarities": {
+        "development": [],
+        "calibration": [],
+        "historicalLegacy": []
+      }
+    },
+    "contaminationReview": {
+      "status": "CLEAR",
+      "reviewedAt": "2026-08-13T12:00:00.000Z",
+      "reviewerRole": "CODEX_DOCUMENTARY_PARENTAGE_AUDIT",
+      "notes": "No lexical or conceptual source reuse was used; this authoring audit is not a human scientific approval and the case remains exposed."
+    },
+    "eligibleForCalibration": false,
+    "eligibleForBlindQualification": false
+  },
+  "reference": {
+    "acceptanceEnvelopeId": "SEM3-AE-DEV-PERICARDIAL-FAT-NONCAUSAL",
+    "applicableSEM002Properties": [
+      "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+      "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+      "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+    ],
+    "adjudicationRequirements": [
+      {
+        "expertise": "SCIENTIFIC_DOMAIN",
+        "rationale": "Confirmer la lisibilité scientifique des obligations candidates sans inventer une approbation.",
+        "mandatory": true
+      },
+      {
+        "expertise": "METHODOLOGICAL_SEM",
+        "rationale": "Vérifier équivalence, failure classes, statut épistémique et absence de Gold structurel caché.",
+        "mandatory": true
+      },
+      {
+        "expertise": "PD009_CLARIFICATION",
+        "rationale": "Confirmer la valeur décisionnelle de la clarification candidate sans imposer sa formulation.",
+        "mandatory": false
+      }
+    ]
+  }
+}

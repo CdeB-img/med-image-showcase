@@ -1,0 +1,252 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "BENCHMARK_AUTHORING_ACCEPTANCE_ENVELOPE",
+  "envelopeId": "SEM3-AE-CAL-MSK-INFLAMMATION-RESPONSE",
+  "version": "1.0.0",
+  "caseId": "SEM3-CAL-MSK-INFLAMMATION-RESPONSE",
+  "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+  "required": [
+    {
+      "obligationId": "req-1-ultrasound-longitudinal",
+      "semanticKey": "sem3-cal-msk-inflammation-response.ultrasound-longitudinal",
+      "kind": "COMPARISON",
+      "description": "Préserver le suivi échographique avant/après.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[1]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-2-baseline-mri-partial",
+      "semanticKey": "sem3-cal-msk-inflammation-response.baseline-mri-partial",
+      "kind": "PROVENANCE",
+      "description": "L'IRM de départ n'existe que dans une partie de la cohorte.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[2]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-3-clinical-response-unknown",
+      "semanticKey": "sem3-cal-msk-inflammation-response.clinical-response-unknown",
+      "kind": "UNKNOWN",
+      "description": "La réponse clinique reste non définie.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[5]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    }
+  ],
+  "prohibited": [
+    {
+      "prohibitionId": "pro-1-require-baseline-mri",
+      "semanticKey": "sem3-cal-msk-inflammation-response.forbidden-require-baseline-mri",
+      "description": "Faire de l'IRM initiale une référence obligatoire pour tous.",
+      "rationale": "Cette erreur modifierait une obligation scientifique, une provenance, une polarité ou une frontière d'ownership.",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION"
+      ],
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE"
+    },
+    {
+      "prohibitionId": "pro-2-promote-activity-sign",
+      "semanticKey": "sem3-cal-msk-inflammation-response.forbidden-promote-activity-sign",
+      "description": "Attribuer un signe d'activité candidat à l'utilisateur ou au Project.",
+      "rationale": "Cette erreur modifierait une obligation scientifique, une provenance, une polarité ou une frontière d'ownership.",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+      ],
+      "failureClass": "EPISTEMIC_PROMOTION_FAILURE"
+    }
+  ],
+  "acceptableSemanticVariants": [
+    {
+      "variantId": "variant-obligation-vector",
+      "label": "Vecteur d'obligations indépendant de la topologie",
+      "structureSynopsis": "Les obligations peuvent être portées par un objet composé ou par plusieurs objets reliés si leur sens, provenance, polarité et ownership sont préservés.",
+      "preservedObligationIds": [
+        "req-1-ultrasound-longitudinal",
+        "req-2-baseline-mri-partial",
+        "req-3-clinical-response-unknown"
+      ],
+      "caveats": [
+        "Aucune variante n'est acceptée par simple similarité lexicale.",
+        "Toute équivalence scientifique complexe reste soumise à adjudication humaine."
+      ]
+    }
+  ],
+  "optionalRelevant": [
+    {
+      "candidateId": "opt-1-candidate-activity-signs",
+      "semanticKey": "sem3-cal-msk-inflammation-response.optional-candidate-activity-signs",
+      "description": "Signes d'activité scientifiquement plausibles à soumettre à revue, enveloppe non exhaustive.",
+      "epistemicStatus": "CONTEXTUAL_CANDIDATE",
+      "rationale": "Candidat contextualisé à examiner sans attribution à l'utilisateur ni adoption par le Project.",
+      "absenceIsBlocking": false,
+      "envelopeIsNonExhaustive": true
+    }
+  ],
+  "admissibleAmbiguities": [],
+  "expectedClarification": {
+    "status": "REQUIRED",
+    "decisionImpact": "La définition de réponse conditionne l'évaluation clinique.",
+    "acceptableQuestionClasses": [
+      "Définition et moment de la réponse clinique"
+    ],
+    "exactWordingRequired": false
+  },
+  "ownershipBoundaries": [
+    {
+      "boundaryId": "own-sem-project",
+      "sourceOwner": "SEM",
+      "targetOwner": "Research Project / human decision",
+      "description": "SEM peut préserver et structurer l'intention, les unknowns et les candidats ; il n'adopte pas une décision de projet.",
+      "forbiddenPromotion": "Inference, option or contextual candidate to adopted Project decision",
+      "adoptionRequiresHumanDecision": true
+    },
+    {
+      "boundaryId": "own-knowledge-specialists",
+      "sourceOwner": "Knowledge / OBS / Imaging / Scientific Thinking",
+      "targetOwner": "SEM benchmark reference",
+      "description": "Les owners spécialisés qualifient preuves, mesures, acquisition ou hypothèses ; leur support n'est pas une déclaration utilisateur.",
+      "forbiddenPromotion": "Specialist support to explicit user fact or automatic endpoint",
+      "adoptionRequiresHumanDecision": true
+    }
+  ],
+  "properties": [
+    {
+      "propertyId": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+      "family": "CONTEXTUAL_ENRICHMENT",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    }
+  ],
+  "adjudication": {
+    "requiredExpertise": [
+      "SCIENTIFIC_DOMAIN",
+      "METHODOLOGICAL_SEM"
+    ],
+    "notes": "Référence candidate préparée sans exécution SEM, sans provider et sans approbation humaine inventée.",
+    "humanAdjudicationPoints": [
+      "Confirmer que REQUIRED contient uniquement les obligations nécessaires.",
+      "Confirmer la plausibilité et le caractère non exhaustif des candidats optionnels.",
+      "Confirmer les équivalences sémantiques au-delà des contrôles structurels."
+    ],
+    "status": "REVIEW_REQUIRED"
+  },
+  "evaluationDemonstrations": []
+}

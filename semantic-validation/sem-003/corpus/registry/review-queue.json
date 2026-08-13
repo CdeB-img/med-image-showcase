@@ -1,0 +1,1259 @@
+{
+  "queueId": "SEM-003B1-HUMAN-REVIEW-QUEUE",
+  "version": "1.0.0",
+  "generatedAt": "2026-08-13T12:00:00.000Z",
+  "blockingItems": 0,
+  "countsByType": {
+    "AMBIGUITY_ADJUDICATION_REQUIRED": 8,
+    "CALIBRATION_REVIEW_REQUIRED": 10,
+    "METHODOLOGICAL_REVIEW_REQUIRED": 9,
+    "PARENTAGE_REVIEW_REQUIRED": 10,
+    "SCIENTIFIC_REVIEW_REQUIRED": 25
+  },
+  "countsByPriority": {
+    "HIGH": 30,
+    "NORMAL": 32
+  },
+  "items": [
+    {
+      "reviewId": "SEM3B1-REVIEW-001",
+      "reviewType": "SCIENTIFIC_REVIEW_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-DEV-CARDIAC-AGING-TRAJECTORY",
+      "title": "Vieillissement cardiaque et priorité tardivement révisée",
+      "candidateSet": "DEVELOPMENT",
+      "subject": "Scientific readability of REQUIRED, PROHIBITED and OPTIONAL_RELEVANT",
+      "reason": "Codex prepared a candidate reference but cannot invent pluralistic human scientific approval.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Development use remains possible for evaluator development with the limitation visible.",
+      "ownerCompetence": "Scientific domain expert familiar with the scenario",
+      "blocksDevelopment": false,
+      "blocksCalibration": false
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-002",
+      "reviewType": "SCIENTIFIC_REVIEW_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-DEV-CORONARY-PERFUSION-PRIORITY",
+      "title": "Perfusion coronaire, ellipse et modalité ajoutée",
+      "candidateSet": "DEVELOPMENT",
+      "subject": "Scientific readability of REQUIRED, PROHIBITED and OPTIONAL_RELEVANT",
+      "reason": "Codex prepared a candidate reference but cannot invent pluralistic human scientific approval.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Development use remains possible for evaluator development with the limitation visible.",
+      "ownerCompetence": "Scientific domain expert familiar with the scenario",
+      "blocksDevelopment": false,
+      "blocksCalibration": false
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-003",
+      "reviewType": "SCIENTIFIC_REVIEW_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
+      "title": "Estimation fonctionnelle dérivée du CT, représentation et valeur",
+      "candidateSet": "DEVELOPMENT",
+      "subject": "Scientific readability of REQUIRED, PROHIBITED and OPTIONAL_RELEVANT",
+      "reason": "Codex prepared a candidate reference but cannot invent pluralistic human scientific approval.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Development use remains possible for evaluator development with the limitation visible.",
+      "ownerCompetence": "Scientific domain expert familiar with the scenario",
+      "blocksDevelopment": false,
+      "blocksCalibration": false
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-004",
+      "reviewType": "AMBIGUITY_ADJUDICATION_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
+      "title": "Estimation fonctionnelle dérivée du CT, représentation et valeur",
+      "candidateSet": "DEVELOPMENT",
+      "subject": "Competing interpretations and resolution information",
+      "reason": "The Acceptance Envelope deliberately preserves multiple interpretations.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Future evaluator decisions remain provisional until the envelope is adjudicated.",
+      "ownerCompetence": "Scientific domain expert and SEM methodologist",
+      "blocksDevelopment": false,
+      "blocksCalibration": false
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-005",
+      "reviewType": "METHODOLOGICAL_REVIEW_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
+      "title": "Estimation fonctionnelle dérivée du CT, représentation et valeur",
+      "candidateSet": "DEVELOPMENT",
+      "subject": "Conceptual-plan separation and OBS boundary",
+      "reason": "The case distinguishes method, observable, image, measurement or biomarker role.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "The evaluator cannot be trained on this distinction as final before OBS-aware review.",
+      "ownerCompetence": "OBS measurement expert and SEM methodologist",
+      "blocksDevelopment": false,
+      "blocksCalibration": false
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-006",
+      "reviewType": "SCIENTIFIC_REVIEW_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-DEV-VALVE-HEMODYNAMICS-MULTIMODAL",
+      "title": "Valvulopathie, hémodynamique et priorité multimodale",
+      "candidateSet": "DEVELOPMENT",
+      "subject": "Scientific readability of REQUIRED, PROHIBITED and OPTIONAL_RELEVANT",
+      "reason": "Codex prepared a candidate reference but cannot invent pluralistic human scientific approval.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Development use remains possible for evaluator development with the limitation visible.",
+      "ownerCompetence": "Scientific domain expert familiar with the scenario",
+      "blocksDevelopment": false,
+      "blocksCalibration": false
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-007",
+      "reviewType": "SCIENTIFIC_REVIEW_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL",
+      "title": "Graisse péricardique et fonction atriale sans promotion causale",
+      "candidateSet": "DEVELOPMENT",
+      "subject": "Scientific readability of REQUIRED, PROHIBITED and OPTIONAL_RELEVANT",
+      "reason": "Codex prepared a candidate reference but cannot invent pluralistic human scientific approval.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Development use remains possible for evaluator development with the limitation visible.",
+      "ownerCompetence": "Scientific domain expert familiar with the scenario",
+      "blocksDevelopment": false,
+      "blocksCalibration": false
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-008",
+      "reviewType": "SCIENTIFIC_REVIEW_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-DEV-PLAQUE-INTERVENTION-CONTEXT",
+      "title": "Plaque coronaire et contexte interventionnel non adopté",
+      "candidateSet": "DEVELOPMENT",
+      "subject": "Scientific readability of REQUIRED, PROHIBITED and OPTIONAL_RELEVANT",
+      "reason": "Codex prepared a candidate reference but cannot invent pluralistic human scientific approval.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Development use remains possible for evaluator development with the limitation visible.",
+      "ownerCompetence": "Scientific domain expert familiar with the scenario",
+      "blocksDevelopment": false,
+      "blocksCalibration": false
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-009",
+      "reviewType": "SCIENTIFIC_REVIEW_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
+      "title": "Imagerie vasculaire rétinienne avec référentiel fonctionnel incomplet",
+      "candidateSet": "DEVELOPMENT",
+      "subject": "Scientific readability of REQUIRED, PROHIBITED and OPTIONAL_RELEVANT",
+      "reason": "Codex prepared a candidate reference but cannot invent pluralistic human scientific approval.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Development use remains possible for evaluator development with the limitation visible.",
+      "ownerCompetence": "Scientific domain expert familiar with the scenario",
+      "blocksDevelopment": false,
+      "blocksCalibration": false
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-010",
+      "reviewType": "AMBIGUITY_ADJUDICATION_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
+      "title": "Imagerie vasculaire rétinienne avec référentiel fonctionnel incomplet",
+      "candidateSet": "DEVELOPMENT",
+      "subject": "Competing interpretations and resolution information",
+      "reason": "The Acceptance Envelope deliberately preserves multiple interpretations.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Future evaluator decisions remain provisional until the envelope is adjudicated.",
+      "ownerCompetence": "Scientific domain expert and SEM methodologist",
+      "blocksDevelopment": false,
+      "blocksCalibration": false
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-011",
+      "reviewType": "SCIENTIFIC_REVIEW_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-DEV-BODY-COMPOSITION-AMBIGUITY",
+      "title": "Composition musculaire et origine ambiguë d'un changement CT",
+      "candidateSet": "DEVELOPMENT",
+      "subject": "Scientific readability of REQUIRED, PROHIBITED and OPTIONAL_RELEVANT",
+      "reason": "Codex prepared a candidate reference but cannot invent pluralistic human scientific approval.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Development use remains possible for evaluator development with the limitation visible.",
+      "ownerCompetence": "Scientific domain expert familiar with the scenario",
+      "blocksDevelopment": false,
+      "blocksCalibration": false
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-012",
+      "reviewType": "AMBIGUITY_ADJUDICATION_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-DEV-BODY-COMPOSITION-AMBIGUITY",
+      "title": "Composition musculaire et origine ambiguë d'un changement CT",
+      "candidateSet": "DEVELOPMENT",
+      "subject": "Competing interpretations and resolution information",
+      "reason": "The Acceptance Envelope deliberately preserves multiple interpretations.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Future evaluator decisions remain provisional until the envelope is adjudicated.",
+      "ownerCompetence": "Scientific domain expert and SEM methodologist",
+      "blocksDevelopment": false,
+      "blocksCalibration": false
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-013",
+      "reviewType": "METHODOLOGICAL_REVIEW_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-DEV-BODY-COMPOSITION-AMBIGUITY",
+      "title": "Composition musculaire et origine ambiguë d'un changement CT",
+      "candidateSet": "DEVELOPMENT",
+      "subject": "Conceptual-plan separation and OBS boundary",
+      "reason": "The case distinguishes method, observable, image, measurement or biomarker role.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "The evaluator cannot be trained on this distinction as final before OBS-aware review.",
+      "ownerCompetence": "OBS measurement expert and SEM methodologist",
+      "blocksDevelopment": false,
+      "blocksCalibration": false
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-014",
+      "reviewType": "SCIENTIFIC_REVIEW_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-DEV-PANCREATIC-COMPOSITION-LONGITUDINAL",
+      "title": "Composition pancréatique et suivi longitudinal incomplet",
+      "candidateSet": "DEVELOPMENT",
+      "subject": "Scientific readability of REQUIRED, PROHIBITED and OPTIONAL_RELEVANT",
+      "reason": "Codex prepared a candidate reference but cannot invent pluralistic human scientific approval.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Development use remains possible for evaluator development with the limitation visible.",
+      "ownerCompetence": "Scientific domain expert familiar with the scenario",
+      "blocksDevelopment": false,
+      "blocksCalibration": false
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-015",
+      "reviewType": "SCIENTIFIC_REVIEW_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-DEV-INTESTINAL-MOTILITY-METHOD",
+      "title": "Méthode de motilité intestinale et observable recherché",
+      "candidateSet": "DEVELOPMENT",
+      "subject": "Scientific readability of REQUIRED, PROHIBITED and OPTIONAL_RELEVANT",
+      "reason": "Codex prepared a candidate reference but cannot invent pluralistic human scientific approval.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Development use remains possible for evaluator development with the limitation visible.",
+      "ownerCompetence": "Scientific domain expert familiar with the scenario",
+      "blocksDevelopment": false,
+      "blocksCalibration": false
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-016",
+      "reviewType": "AMBIGUITY_ADJUDICATION_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-DEV-INTESTINAL-MOTILITY-METHOD",
+      "title": "Méthode de motilité intestinale et observable recherché",
+      "candidateSet": "DEVELOPMENT",
+      "subject": "Competing interpretations and resolution information",
+      "reason": "The Acceptance Envelope deliberately preserves multiple interpretations.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Future evaluator decisions remain provisional until the envelope is adjudicated.",
+      "ownerCompetence": "Scientific domain expert and SEM methodologist",
+      "blocksDevelopment": false,
+      "blocksCalibration": false
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-017",
+      "reviewType": "METHODOLOGICAL_REVIEW_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-DEV-INTESTINAL-MOTILITY-METHOD",
+      "title": "Méthode de motilité intestinale et observable recherché",
+      "candidateSet": "DEVELOPMENT",
+      "subject": "Conceptual-plan separation and OBS boundary",
+      "reason": "The case distinguishes method, observable, image, measurement or biomarker role.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "The evaluator cannot be trained on this distinction as final before OBS-aware review.",
+      "ownerCompetence": "OBS measurement expert and SEM methodologist",
+      "blocksDevelopment": false,
+      "blocksCalibration": false
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-018",
+      "reviewType": "SCIENTIFIC_REVIEW_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-DEV-OUTCOME-PRIORITY-CHANGE",
+      "title": "Changement de priorité entre biomarqueur et résultat rapporté",
+      "candidateSet": "DEVELOPMENT",
+      "subject": "Scientific readability of REQUIRED, PROHIBITED and OPTIONAL_RELEVANT",
+      "reason": "Codex prepared a candidate reference but cannot invent pluralistic human scientific approval.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Development use remains possible for evaluator development with the limitation visible.",
+      "ownerCompetence": "Scientific domain expert familiar with the scenario",
+      "blocksDevelopment": false,
+      "blocksCalibration": false
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-019",
+      "reviewType": "SCIENTIFIC_REVIEW_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-DEV-TRANSLATIONAL-HYPOXIA-CANDIDATES",
+      "title": "Hypoxie translationnelle et candidats contextuels",
+      "candidateSet": "DEVELOPMENT",
+      "subject": "Scientific readability of REQUIRED, PROHIBITED and OPTIONAL_RELEVANT",
+      "reason": "Codex prepared a candidate reference but cannot invent pluralistic human scientific approval.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Development use remains possible for evaluator development with the limitation visible.",
+      "ownerCompetence": "Scientific domain expert familiar with the scenario",
+      "blocksDevelopment": false,
+      "blocksCalibration": false
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-020",
+      "reviewType": "SCIENTIFIC_REVIEW_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-DEV-ROUTINE-DATA-COMPARATOR-GAP",
+      "title": "Données de routine avec comparateur manquant",
+      "candidateSet": "DEVELOPMENT",
+      "subject": "Scientific readability of REQUIRED, PROHIBITED and OPTIONAL_RELEVANT",
+      "reason": "Codex prepared a candidate reference but cannot invent pluralistic human scientific approval.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Development use remains possible for evaluator development with the limitation visible.",
+      "ownerCompetence": "Scientific domain expert familiar with the scenario",
+      "blocksDevelopment": false,
+      "blocksCalibration": false
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-021",
+      "reviewType": "AMBIGUITY_ADJUDICATION_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-DEV-ROUTINE-DATA-COMPARATOR-GAP",
+      "title": "Données de routine avec comparateur manquant",
+      "candidateSet": "DEVELOPMENT",
+      "subject": "Competing interpretations and resolution information",
+      "reason": "The Acceptance Envelope deliberately preserves multiple interpretations.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Future evaluator decisions remain provisional until the envelope is adjudicated.",
+      "ownerCompetence": "Scientific domain expert and SEM methodologist",
+      "blocksDevelopment": false,
+      "blocksCalibration": false
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-022",
+      "reviewType": "SCIENTIFIC_REVIEW_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-DEV-INFLAMMATION-MULTIDIMENSIONAL",
+      "title": "Inflammation systémique et imagerie sans causalité imposée",
+      "candidateSet": "DEVELOPMENT",
+      "subject": "Scientific readability of REQUIRED, PROHIBITED and OPTIONAL_RELEVANT",
+      "reason": "Codex prepared a candidate reference but cannot invent pluralistic human scientific approval.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Development use remains possible for evaluator development with the limitation visible.",
+      "ownerCompetence": "Scientific domain expert familiar with the scenario",
+      "blocksDevelopment": false,
+      "blocksCalibration": false
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-023",
+      "reviewType": "SCIENTIFIC_REVIEW_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-DEV-TRIAL-IMAGING-OUTCOME-CORRECTION",
+      "title": "Essai interventionnel et outcome d'imagerie corrigé",
+      "candidateSet": "DEVELOPMENT",
+      "subject": "Scientific readability of REQUIRED, PROHIBITED and OPTIONAL_RELEVANT",
+      "reason": "Codex prepared a candidate reference but cannot invent pluralistic human scientific approval.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Development use remains possible for evaluator development with the limitation visible.",
+      "ownerCompetence": "Scientific domain expert familiar with the scenario",
+      "blocksDevelopment": false,
+      "blocksCalibration": false
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-024",
+      "reviewType": "SCIENTIFIC_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
+      "title": "Hémodynamique pulmonaire et suivi multimodal",
+      "candidateSet": "CALIBRATION",
+      "subject": "Scientific readability of REQUIRED, PROHIBITED and OPTIONAL_RELEVANT",
+      "reason": "Codex prepared a candidate reference but cannot invent pluralistic human scientific approval.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Candidate remains DESIGN_ONLY and cannot enter formal Calibration.",
+      "ownerCompetence": "Scientific domain expert familiar with the scenario",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-025",
+      "reviewType": "CALIBRATION_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
+      "title": "Hémodynamique pulmonaire et suivi multimodal",
+      "candidateSet": "CALIBRATION",
+      "subject": "SEM-003B Calibration gate",
+      "reason": "No human approval, reviewer conflict declaration or calibration admission event exists.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "CALIBRATION_VISIBLE is forbidden; candidate remains DESIGN_ONLY.",
+      "ownerCompetence": "PD-011 methodological governance and scientific reviewer",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-026",
+      "reviewType": "PARENTAGE_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
+      "title": "Hémodynamique pulmonaire et suivi multimodal",
+      "candidateSet": "CALIBRATION",
+      "subject": "Independent inter-set parentage review",
+      "reason": "Authoring audit found no obvious duplicate, but independence requires a reviewer distinct from the authoring process.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Candidate cannot be used for formal Calibration until reviewed.",
+      "ownerCompetence": "Independent benchmark methodologist",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-027",
+      "reviewType": "METHODOLOGICAL_REVIEW_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
+      "title": "Hémodynamique pulmonaire et suivi multimodal",
+      "candidateSet": "CALIBRATION",
+      "subject": "Conceptual-plan separation and OBS boundary",
+      "reason": "The case distinguishes method, observable, image, measurement or biomarker role.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "The evaluator cannot be trained on this distinction as final before OBS-aware review.",
+      "ownerCompetence": "OBS measurement expert and SEM methodologist",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-028",
+      "reviewType": "SCIENTIFIC_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
+      "title": "Fibrose atriale autour d'une intervention",
+      "candidateSet": "CALIBRATION",
+      "subject": "Scientific readability of REQUIRED, PROHIBITED and OPTIONAL_RELEVANT",
+      "reason": "Codex prepared a candidate reference but cannot invent pluralistic human scientific approval.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Candidate remains DESIGN_ONLY and cannot enter formal Calibration.",
+      "ownerCompetence": "Scientific domain expert familiar with the scenario",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-029",
+      "reviewType": "CALIBRATION_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
+      "title": "Fibrose atriale autour d'une intervention",
+      "candidateSet": "CALIBRATION",
+      "subject": "SEM-003B Calibration gate",
+      "reason": "No human approval, reviewer conflict declaration or calibration admission event exists.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "CALIBRATION_VISIBLE is forbidden; candidate remains DESIGN_ONLY.",
+      "ownerCompetence": "PD-011 methodological governance and scientific reviewer",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-030",
+      "reviewType": "PARENTAGE_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
+      "title": "Fibrose atriale autour d'une intervention",
+      "candidateSet": "CALIBRATION",
+      "subject": "Independent inter-set parentage review",
+      "reason": "Authoring audit found no obvious duplicate, but independence requires a reviewer distinct from the authoring process.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Candidate cannot be used for formal Calibration until reviewed.",
+      "ownerCompetence": "Independent benchmark methodologist",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-031",
+      "reviewType": "AMBIGUITY_ADJUDICATION_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
+      "title": "Fibrose atriale autour d'une intervention",
+      "candidateSet": "CALIBRATION",
+      "subject": "Competing interpretations and resolution information",
+      "reason": "The Acceptance Envelope deliberately preserves multiple interpretations.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Future evaluator decisions remain provisional until the envelope is adjudicated.",
+      "ownerCompetence": "Scientific domain expert and SEM methodologist",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-032",
+      "reviewType": "SCIENTIFIC_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-CONGENITAL-FLOW-ELLIPSIS",
+      "title": "Flux cardiovasculaire congénital et ellipses tardives",
+      "candidateSet": "CALIBRATION",
+      "subject": "Scientific readability of REQUIRED, PROHIBITED and OPTIONAL_RELEVANT",
+      "reason": "Codex prepared a candidate reference but cannot invent pluralistic human scientific approval.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Candidate remains DESIGN_ONLY and cannot enter formal Calibration.",
+      "ownerCompetence": "Scientific domain expert familiar with the scenario",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-033",
+      "reviewType": "CALIBRATION_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-CONGENITAL-FLOW-ELLIPSIS",
+      "title": "Flux cardiovasculaire congénital et ellipses tardives",
+      "candidateSet": "CALIBRATION",
+      "subject": "SEM-003B Calibration gate",
+      "reason": "No human approval, reviewer conflict declaration or calibration admission event exists.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "CALIBRATION_VISIBLE is forbidden; candidate remains DESIGN_ONLY.",
+      "ownerCompetence": "PD-011 methodological governance and scientific reviewer",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-034",
+      "reviewType": "PARENTAGE_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-CONGENITAL-FLOW-ELLIPSIS",
+      "title": "Flux cardiovasculaire congénital et ellipses tardives",
+      "candidateSet": "CALIBRATION",
+      "subject": "Independent inter-set parentage review",
+      "reason": "Authoring audit found no obvious duplicate, but independence requires a reviewer distinct from the authoring process.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Candidate cannot be used for formal Calibration until reviewed.",
+      "ownerCompetence": "Independent benchmark methodologist",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-035",
+      "reviewType": "SCIENTIFIC_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-CARDIO-RHYTHM-REMODELING",
+      "title": "Charge rythmique et structure atriale sans promotion causale",
+      "candidateSet": "CALIBRATION",
+      "subject": "Scientific readability of REQUIRED, PROHIBITED and OPTIONAL_RELEVANT",
+      "reason": "Codex prepared a candidate reference but cannot invent pluralistic human scientific approval.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Candidate remains DESIGN_ONLY and cannot enter formal Calibration.",
+      "ownerCompetence": "Scientific domain expert familiar with the scenario",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-036",
+      "reviewType": "CALIBRATION_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-CARDIO-RHYTHM-REMODELING",
+      "title": "Charge rythmique et structure atriale sans promotion causale",
+      "candidateSet": "CALIBRATION",
+      "subject": "SEM-003B Calibration gate",
+      "reason": "No human approval, reviewer conflict declaration or calibration admission event exists.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "CALIBRATION_VISIBLE is forbidden; candidate remains DESIGN_ONLY.",
+      "ownerCompetence": "PD-011 methodological governance and scientific reviewer",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-037",
+      "reviewType": "PARENTAGE_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-CARDIO-RHYTHM-REMODELING",
+      "title": "Charge rythmique et structure atriale sans promotion causale",
+      "candidateSet": "CALIBRATION",
+      "subject": "Independent inter-set parentage review",
+      "reason": "Authoring audit found no obvious duplicate, but independence requires a reviewer distinct from the authoring process.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Candidate cannot be used for formal Calibration until reviewed.",
+      "ownerCompetence": "Independent benchmark methodologist",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-038",
+      "reviewType": "METHODOLOGICAL_REVIEW_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-CAL-CARDIO-RHYTHM-REMODELING",
+      "title": "Charge rythmique et structure atriale sans promotion causale",
+      "candidateSet": "CALIBRATION",
+      "subject": "Conceptual-plan separation and OBS boundary",
+      "reason": "The case distinguishes method, observable, image, measurement or biomarker role.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "The evaluator cannot be trained on this distinction as final before OBS-aware review.",
+      "ownerCompetence": "OBS measurement expert and SEM methodologist",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-039",
+      "reviewType": "SCIENTIFIC_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-NEURODEGENERATION-PROGRESSION",
+      "title": "Progression neurodégénérative multimodale",
+      "candidateSet": "CALIBRATION",
+      "subject": "Scientific readability of REQUIRED, PROHIBITED and OPTIONAL_RELEVANT",
+      "reason": "Codex prepared a candidate reference but cannot invent pluralistic human scientific approval.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Candidate remains DESIGN_ONLY and cannot enter formal Calibration.",
+      "ownerCompetence": "Scientific domain expert familiar with the scenario",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-040",
+      "reviewType": "CALIBRATION_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-NEURODEGENERATION-PROGRESSION",
+      "title": "Progression neurodégénérative multimodale",
+      "candidateSet": "CALIBRATION",
+      "subject": "SEM-003B Calibration gate",
+      "reason": "No human approval, reviewer conflict declaration or calibration admission event exists.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "CALIBRATION_VISIBLE is forbidden; candidate remains DESIGN_ONLY.",
+      "ownerCompetence": "PD-011 methodological governance and scientific reviewer",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-041",
+      "reviewType": "PARENTAGE_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-NEURODEGENERATION-PROGRESSION",
+      "title": "Progression neurodégénérative multimodale",
+      "candidateSet": "CALIBRATION",
+      "subject": "Independent inter-set parentage review",
+      "reason": "Authoring audit found no obvious duplicate, but independence requires a reviewer distinct from the authoring process.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Candidate cannot be used for formal Calibration until reviewed.",
+      "ownerCompetence": "Independent benchmark methodologist",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-042",
+      "reviewType": "METHODOLOGICAL_REVIEW_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-CAL-NEURODEGENERATION-PROGRESSION",
+      "title": "Progression neurodégénérative multimodale",
+      "candidateSet": "CALIBRATION",
+      "subject": "Conceptual-plan separation and OBS boundary",
+      "reason": "The case distinguishes method, observable, image, measurement or biomarker role.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "The evaluator cannot be trained on this distinction as final before OBS-aware review.",
+      "ownerCompetence": "OBS measurement expert and SEM methodologist",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-043",
+      "reviewType": "SCIENTIFIC_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+      "title": "Échographie ovarienne et ambiguïté d'usage",
+      "candidateSet": "CALIBRATION",
+      "subject": "Scientific readability of REQUIRED, PROHIBITED and OPTIONAL_RELEVANT",
+      "reason": "Codex prepared a candidate reference but cannot invent pluralistic human scientific approval.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Candidate remains DESIGN_ONLY and cannot enter formal Calibration.",
+      "ownerCompetence": "Scientific domain expert familiar with the scenario",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-044",
+      "reviewType": "CALIBRATION_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+      "title": "Échographie ovarienne et ambiguïté d'usage",
+      "candidateSet": "CALIBRATION",
+      "subject": "SEM-003B Calibration gate",
+      "reason": "No human approval, reviewer conflict declaration or calibration admission event exists.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "CALIBRATION_VISIBLE is forbidden; candidate remains DESIGN_ONLY.",
+      "ownerCompetence": "PD-011 methodological governance and scientific reviewer",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-045",
+      "reviewType": "PARENTAGE_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+      "title": "Échographie ovarienne et ambiguïté d'usage",
+      "candidateSet": "CALIBRATION",
+      "subject": "Independent inter-set parentage review",
+      "reason": "Authoring audit found no obvious duplicate, but independence requires a reviewer distinct from the authoring process.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Candidate cannot be used for formal Calibration until reviewed.",
+      "ownerCompetence": "Independent benchmark methodologist",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-046",
+      "reviewType": "AMBIGUITY_ADJUDICATION_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+      "title": "Échographie ovarienne et ambiguïté d'usage",
+      "candidateSet": "CALIBRATION",
+      "subject": "Competing interpretations and resolution information",
+      "reason": "The Acceptance Envelope deliberately preserves multiple interpretations.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Future evaluator decisions remain provisional until the envelope is adjudicated.",
+      "ownerCompetence": "Scientific domain expert and SEM methodologist",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-047",
+      "reviewType": "METHODOLOGICAL_REVIEW_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+      "title": "Échographie ovarienne et ambiguïté d'usage",
+      "candidateSet": "CALIBRATION",
+      "subject": "Conceptual-plan separation and OBS boundary",
+      "reason": "The case distinguishes method, observable, image, measurement or biomarker role.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "The evaluator cannot be trained on this distinction as final before OBS-aware review.",
+      "ownerCompetence": "OBS measurement expert and SEM methodologist",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-048",
+      "reviewType": "SCIENTIFIC_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-MSK-INFLAMMATION-RESPONSE",
+      "title": "Inflammation musculosquelettique et réponse au traitement",
+      "candidateSet": "CALIBRATION",
+      "subject": "Scientific readability of REQUIRED, PROHIBITED and OPTIONAL_RELEVANT",
+      "reason": "Codex prepared a candidate reference but cannot invent pluralistic human scientific approval.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Candidate remains DESIGN_ONLY and cannot enter formal Calibration.",
+      "ownerCompetence": "Scientific domain expert familiar with the scenario",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-049",
+      "reviewType": "CALIBRATION_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-MSK-INFLAMMATION-RESPONSE",
+      "title": "Inflammation musculosquelettique et réponse au traitement",
+      "candidateSet": "CALIBRATION",
+      "subject": "SEM-003B Calibration gate",
+      "reason": "No human approval, reviewer conflict declaration or calibration admission event exists.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "CALIBRATION_VISIBLE is forbidden; candidate remains DESIGN_ONLY.",
+      "ownerCompetence": "PD-011 methodological governance and scientific reviewer",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-050",
+      "reviewType": "PARENTAGE_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-MSK-INFLAMMATION-RESPONSE",
+      "title": "Inflammation musculosquelettique et réponse au traitement",
+      "candidateSet": "CALIBRATION",
+      "subject": "Independent inter-set parentage review",
+      "reason": "Authoring audit found no obvious duplicate, but independence requires a reviewer distinct from the authoring process.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Candidate cannot be used for formal Calibration until reviewed.",
+      "ownerCompetence": "Independent benchmark methodologist",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-051",
+      "reviewType": "SCIENTIFIC_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-CORTISOL-SAMPLING-SUMMARY",
+      "title": "Profil de cortisol, méthode de prélèvement et mesure dérivée",
+      "candidateSet": "CALIBRATION",
+      "subject": "Scientific readability of REQUIRED, PROHIBITED and OPTIONAL_RELEVANT",
+      "reason": "Codex prepared a candidate reference but cannot invent pluralistic human scientific approval.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Candidate remains DESIGN_ONLY and cannot enter formal Calibration.",
+      "ownerCompetence": "Scientific domain expert familiar with the scenario",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-052",
+      "reviewType": "CALIBRATION_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-CORTISOL-SAMPLING-SUMMARY",
+      "title": "Profil de cortisol, méthode de prélèvement et mesure dérivée",
+      "candidateSet": "CALIBRATION",
+      "subject": "SEM-003B Calibration gate",
+      "reason": "No human approval, reviewer conflict declaration or calibration admission event exists.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "CALIBRATION_VISIBLE is forbidden; candidate remains DESIGN_ONLY.",
+      "ownerCompetence": "PD-011 methodological governance and scientific reviewer",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-053",
+      "reviewType": "PARENTAGE_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-CORTISOL-SAMPLING-SUMMARY",
+      "title": "Profil de cortisol, méthode de prélèvement et mesure dérivée",
+      "candidateSet": "CALIBRATION",
+      "subject": "Independent inter-set parentage review",
+      "reason": "Authoring audit found no obvious duplicate, but independence requires a reviewer distinct from the authoring process.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Candidate cannot be used for formal Calibration until reviewed.",
+      "ownerCompetence": "Independent benchmark methodologist",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-054",
+      "reviewType": "METHODOLOGICAL_REVIEW_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-CAL-CORTISOL-SAMPLING-SUMMARY",
+      "title": "Profil de cortisol, méthode de prélèvement et mesure dérivée",
+      "candidateSet": "CALIBRATION",
+      "subject": "Conceptual-plan separation and OBS boundary",
+      "reason": "The case distinguishes method, observable, image, measurement or biomarker role.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "The evaluator cannot be trained on this distinction as final before OBS-aware review.",
+      "ownerCompetence": "OBS measurement expert and SEM methodologist",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-055",
+      "reviewType": "SCIENTIFIC_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-TRIAL-COMPARATOR-DECISION",
+      "title": "Essai pragmatique avec comparateur encore indécis",
+      "candidateSet": "CALIBRATION",
+      "subject": "Scientific readability of REQUIRED, PROHIBITED and OPTIONAL_RELEVANT",
+      "reason": "Codex prepared a candidate reference but cannot invent pluralistic human scientific approval.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Candidate remains DESIGN_ONLY and cannot enter formal Calibration.",
+      "ownerCompetence": "Scientific domain expert familiar with the scenario",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-056",
+      "reviewType": "CALIBRATION_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-TRIAL-COMPARATOR-DECISION",
+      "title": "Essai pragmatique avec comparateur encore indécis",
+      "candidateSet": "CALIBRATION",
+      "subject": "SEM-003B Calibration gate",
+      "reason": "No human approval, reviewer conflict declaration or calibration admission event exists.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "CALIBRATION_VISIBLE is forbidden; candidate remains DESIGN_ONLY.",
+      "ownerCompetence": "PD-011 methodological governance and scientific reviewer",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-057",
+      "reviewType": "PARENTAGE_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-TRIAL-COMPARATOR-DECISION",
+      "title": "Essai pragmatique avec comparateur encore indécis",
+      "candidateSet": "CALIBRATION",
+      "subject": "Independent inter-set parentage review",
+      "reason": "Authoring audit found no obvious duplicate, but independence requires a reviewer distinct from the authoring process.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Candidate cannot be used for formal Calibration until reviewed.",
+      "ownerCompetence": "Independent benchmark methodologist",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-058",
+      "reviewType": "AMBIGUITY_ADJUDICATION_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-CAL-TRIAL-COMPARATOR-DECISION",
+      "title": "Essai pragmatique avec comparateur encore indécis",
+      "candidateSet": "CALIBRATION",
+      "subject": "Competing interpretations and resolution information",
+      "reason": "The Acceptance Envelope deliberately preserves multiple interpretations.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Future evaluator decisions remain provisional until the envelope is adjudicated.",
+      "ownerCompetence": "Scientific domain expert and SEM methodologist",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-059",
+      "reviewType": "SCIENTIFIC_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+      "title": "Signal vivant d'organoïde, phénomène et mesure terminale",
+      "candidateSet": "CALIBRATION",
+      "subject": "Scientific readability of REQUIRED, PROHIBITED and OPTIONAL_RELEVANT",
+      "reason": "Codex prepared a candidate reference but cannot invent pluralistic human scientific approval.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Candidate remains DESIGN_ONLY and cannot enter formal Calibration.",
+      "ownerCompetence": "Scientific domain expert familiar with the scenario",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-060",
+      "reviewType": "CALIBRATION_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+      "title": "Signal vivant d'organoïde, phénomène et mesure terminale",
+      "candidateSet": "CALIBRATION",
+      "subject": "SEM-003B Calibration gate",
+      "reason": "No human approval, reviewer conflict declaration or calibration admission event exists.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "CALIBRATION_VISIBLE is forbidden; candidate remains DESIGN_ONLY.",
+      "ownerCompetence": "PD-011 methodological governance and scientific reviewer",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-061",
+      "reviewType": "PARENTAGE_REVIEW_REQUIRED",
+      "priority": "HIGH",
+      "caseId": "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+      "title": "Signal vivant d'organoïde, phénomène et mesure terminale",
+      "candidateSet": "CALIBRATION",
+      "subject": "Independent inter-set parentage review",
+      "reason": "Authoring audit found no obvious duplicate, but independence requires a reviewer distinct from the authoring process.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "Candidate cannot be used for formal Calibration until reviewed.",
+      "ownerCompetence": "Independent benchmark methodologist",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-062",
+      "reviewType": "METHODOLOGICAL_REVIEW_REQUIRED",
+      "priority": "NORMAL",
+      "caseId": "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+      "title": "Signal vivant d'organoïde, phénomène et mesure terminale",
+      "candidateSet": "CALIBRATION",
+      "subject": "Conceptual-plan separation and OBS boundary",
+      "reason": "The case distinguishes method, observable, image, measurement or biomarker role.",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "impactIfUnresolved": "The evaluator cannot be trained on this distinction as final before OBS-aware review.",
+      "ownerCompetence": "OBS measurement expert and SEM methodologist",
+      "blocksDevelopment": false,
+      "blocksCalibration": true
+    }
+  ]
+}

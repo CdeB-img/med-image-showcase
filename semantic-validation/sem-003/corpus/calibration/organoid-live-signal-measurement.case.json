@@ -1,0 +1,173 @@
+{
+  "schemaVersion": "1.1.0",
+  "contractType": "BENCHMARK_AUTHORING_CASE",
+  "purpose": "CALIBRATION_AUTHORING",
+  "caseId": "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+  "version": "1.0.0",
+  "title": "Signal vivant d'organoïde, phénomène et mesure terminale",
+  "createdAt": "2026-08-13T12:00:00.000Z",
+  "authorRole": "CODEX_DOCUMENTARY_AUTHOR",
+  "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+  "source": {
+    "sourceRequest": "Tour 1: Je veux étudier la réponse d'organoïdes pendant une exposition expérimentale.\nTour 2: On aura un signal d'imagerie en direct.\nTour 3: Une mesure histologique sera disponible seulement au dernier temps.\nTour 4: Et ça, on peut le relier au signal comment ?\nTour 5: Je parle de la mesure histologique, pas de l'exposition elle-même.\nTour 6: Je ne veux pas supposer que le signal mesure directement la prolifération.\nTour 7: Les modèles de relation peuvent rester des hypothèses candidates.\nTour 8: La priorité est de conserver réponse biologique, signal vivant, mesure terminale et temporalités distincts.\nTour 9: La relation finale devra être revue scientifiquement avant toute calibration.",
+    "language": "fr-FR",
+    "conversationTurns": [
+      {
+        "turnId": "turn-1",
+        "role": "USER",
+        "text": "Je veux étudier la réponse d'organoïdes pendant une exposition expérimentale."
+      },
+      {
+        "turnId": "turn-2",
+        "role": "USER",
+        "text": "On aura un signal d'imagerie en direct."
+      },
+      {
+        "turnId": "turn-3",
+        "role": "USER",
+        "text": "Une mesure histologique sera disponible seulement au dernier temps."
+      },
+      {
+        "turnId": "turn-4",
+        "role": "USER",
+        "text": "Et ça, on peut le relier au signal comment ?"
+      },
+      {
+        "turnId": "turn-5",
+        "role": "USER",
+        "text": "Je parle de la mesure histologique, pas de l'exposition elle-même."
+      },
+      {
+        "turnId": "turn-6",
+        "role": "USER",
+        "text": "Je ne veux pas supposer que le signal mesure directement la prolifération."
+      },
+      {
+        "turnId": "turn-7",
+        "role": "USER",
+        "text": "Les modèles de relation peuvent rester des hypothèses candidates."
+      },
+      {
+        "turnId": "turn-8",
+        "role": "USER",
+        "text": "La priorité est de conserver réponse biologique, signal vivant, mesure terminale et temporalités distincts."
+      },
+      {
+        "turnId": "turn-9",
+        "role": "USER",
+        "text": "La relation finale devra être revue scientifiquement avant toute calibration."
+      }
+    ],
+    "sourceContext": "Candidat Calibration original combinant référence pronominale, correction, plans conceptuels et hypothèses candidates dans un modèle cellulaire.",
+    "provenance": {
+      "originType": "SYNTHETIC_AUTHORED",
+      "originalSource": "Original synthetic scientific conversation authored for SEM-003B1; no SEM or provider output was used.",
+      "author": "Codex acting as documentary benchmark author, not as human scientific reviewer",
+      "createdAt": "2026-08-13T12:00:00.000Z",
+      "inspirationRefs": [
+        "docs/sem-002-scientific-understanding-competence-contract.md",
+        "docs/sem-003-independent-scientific-understanding-benchmark-architecture.md",
+        "docs/sem-003b-benchmark-case-authoring-protocol.md"
+      ]
+    }
+  },
+  "scientificScope": {
+    "domain": "modèles translationnels et imagerie cellulaire",
+    "scenarioCategory": "MULTIDIMENSIONAL_REQUEST",
+    "secondaryCategories": [
+      "PHENOMENON_VERSUS_OBSERVABLE",
+      "METHOD_VERSUS_MEASUREMENT",
+      "KNOWLEDGE_CANDIDATE"
+    ],
+    "difficultyTarget": "COMPOSITIONAL",
+    "intentionallyMissingInformation": [
+      {
+        "informationId": "missing-1",
+        "description": "La nature du signal, la mesure histologique et le modèle de relation restent à qualifier.",
+        "intentional": true
+      }
+    ]
+  },
+  "exposure": {
+    "exposureStatus": "DESIGN_ONLY",
+    "exposureHistory": [
+      {
+        "eventId": "exposure-sem3-cal-organoid-live-signal-measurement-created",
+        "fromStatus": null,
+        "toStatus": "DESIGN_ONLY",
+        "occurredAt": "2026-08-13T12:00:00.000Z",
+        "actorRole": "CODEX_DOCUMENTARY_AUTHOR",
+        "reason": "Authored as a Calibration candidate; human review gate not yet satisfied, therefore DESIGN_ONLY."
+      }
+    ],
+    "parentageStatus": "PARENTAGE_REVIEW_REQUIRED",
+    "parentageAssessment": {
+      "discriminatingConcepts": [
+        "Signal vivant d'organoïde, phénomène et mesure terminale",
+        "modèles translationnels et imagerie cellulaire"
+      ],
+      "reasoningStructure": "Modèle d'organoïde, signal vivant et mesure histologique terminale ; aucune question ni chaîne factuelle reprise de H01-H30.",
+      "criticalRelations": [
+        "Rattacher 'ça' à la mesure histologique après correction.",
+        "Distinguer réponse biologique, signal vivant et mesure histologique.",
+        "La mesure histologique n'existe qu'au dernier temps.",
+        "Le signal n'est pas présenté comme mesure directe de la prolifération."
+      ],
+      "ambiguities": [],
+      "knownSimilarities": {
+        "development": [],
+        "calibration": [],
+        "historicalLegacy": []
+      }
+    },
+    "contaminationReview": {
+      "status": "REVIEW_REQUIRED",
+      "reviewedAt": null,
+      "reviewerRole": null,
+      "notes": "No obvious inter-set duplication was identified during authoring; independent human parentage review remains required before Calibration use."
+    },
+    "eligibleForCalibration": false,
+    "eligibleForBlindQualification": false
+  },
+  "reference": {
+    "acceptanceEnvelopeId": "SEM3-AE-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+    "applicableSEM002Properties": [
+      "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+      "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+      "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+      "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+      "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+      "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+      "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+    ],
+    "adjudicationRequirements": [
+      {
+        "expertise": "SCIENTIFIC_DOMAIN",
+        "rationale": "Confirmer la lisibilité scientifique des obligations candidates sans inventer une approbation.",
+        "mandatory": true
+      },
+      {
+        "expertise": "METHODOLOGICAL_SEM",
+        "rationale": "Vérifier équivalence, failure classes, statut épistémique et absence de Gold structurel caché.",
+        "mandatory": true
+      },
+      {
+        "expertise": "PD009_CLARIFICATION",
+        "rationale": "Confirmer la valeur décisionnelle de la clarification candidate sans imposer sa formulation.",
+        "mandatory": false
+      },
+      {
+        "expertise": "OBS_MEASUREMENT",
+        "rationale": "Vérifier la séparation méthode, observable, image quantitative, mesure et rôle de biomarqueur.",
+        "mandatory": true
+      }
+    ]
+  }
+}

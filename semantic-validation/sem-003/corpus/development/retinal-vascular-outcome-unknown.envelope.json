@@ -1,0 +1,291 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "BENCHMARK_AUTHORING_ACCEPTANCE_ENVELOPE",
+  "envelopeId": "SEM3-AE-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
+  "version": "1.0.0",
+  "caseId": "SEM3-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
+  "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+  "required": [
+    {
+      "obligationId": "req-1-baseline-followup-retinal-imaging",
+      "semanticKey": "sem3-dev-retinal-vascular-outcome-unknown.baseline-followup-retinal-imaging",
+      "kind": "COMPARISON",
+      "description": "Préserver la comparaison entre acquisition initiale et contrôle.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[1]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-2-stability-undefined",
+      "semanticKey": "sem3-dev-retinal-vascular-outcome-unknown.stability-undefined",
+      "kind": "UNKNOWN",
+      "description": "La stabilité fonctionnelle reste inconnue et bloquante pour la stratification.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[4]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-3-followup-timing-variable",
+      "semanticKey": "sem3-dev-retinal-vascular-outcome-unknown.followup-timing-variable",
+      "kind": "TIMING",
+      "description": "Le moment du contrôle varie et doit rester visible.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[2]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-4-technique-equivalence-unproven",
+      "semanticKey": "sem3-dev-retinal-vascular-outcome-unknown.technique-equivalence-unproven",
+      "kind": "OWNERSHIP",
+      "description": "L'équivalence entre techniques ne peut être décidée par SEM.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[5]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    }
+  ],
+  "prohibited": [
+    {
+      "prohibitionId": "pro-1-invent-stability-definition",
+      "semanticKey": "sem3-dev-retinal-vascular-outcome-unknown.forbidden-invent-stability-definition",
+      "description": "Créer arbitrairement un critère de stabilité fonctionnelle.",
+      "rationale": "Cette erreur modifierait une obligation scientifique, une provenance, une polarité ou une frontière d'ownership.",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED"
+      ],
+      "failureClass": "MISSING_INFORMATION_FAILURE"
+    },
+    {
+      "prohibitionId": "pro-2-assume-harmonized-followup",
+      "semanticKey": "sem3-dev-retinal-vascular-outcome-unknown.forbidden-assume-harmonized-followup",
+      "description": "Présenter le timing ou les techniques comme harmonisés.",
+      "rationale": "Cette erreur modifierait une obligation scientifique, une provenance, une polarité ou une frontière d'ownership.",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+      ],
+      "failureClass": "UNSUPPORTED_INVENTION_FAILURE"
+    }
+  ],
+  "acceptableSemanticVariants": [
+    {
+      "variantId": "variant-obligation-vector",
+      "label": "Vecteur d'obligations indépendant de la topologie",
+      "structureSynopsis": "Les obligations peuvent être portées par un objet composé ou par plusieurs objets reliés si leur sens, provenance, polarité et ownership sont préservés.",
+      "preservedObligationIds": [
+        "req-1-baseline-followup-retinal-imaging",
+        "req-2-stability-undefined",
+        "req-3-followup-timing-variable",
+        "req-4-technique-equivalence-unproven"
+      ],
+      "caveats": [
+        "Aucune variante n'est acceptée par simple similarité lexicale.",
+        "Toute équivalence scientifique complexe reste soumise à adjudication humaine."
+      ]
+    }
+  ],
+  "optionalRelevant": [
+    {
+      "candidateId": "opt-1-candidate-harmonization-analysis",
+      "semanticKey": "sem3-dev-retinal-vascular-outcome-unknown.optional-candidate-harmonization-analysis",
+      "description": "Analyses de sensibilité ou harmonisation comme options méthodologiques à revoir.",
+      "epistemicStatus": "OPTION",
+      "rationale": "Candidat contextualisé à examiner sans attribution à l'utilisateur ni adoption par le Project.",
+      "absenceIsBlocking": false,
+      "envelopeIsNonExhaustive": true
+    }
+  ],
+  "admissibleAmbiguities": [
+    {
+      "ambiguityId": "amb-1-functional-stability",
+      "description": "Le terme stable ne possède pas de définition opérationnelle.",
+      "competingInterpretations": [
+        "stabilité d'acuité",
+        "stabilité d'un autre critère fonctionnel",
+        "absence de dégradation au-delà d'une marge"
+      ],
+      "resolutionInformation": [
+        "critère choisi par le projet",
+        "temps de mesure du critère"
+      ],
+      "mustRemainOpen": true
+    }
+  ],
+  "expectedClarification": {
+    "status": "REQUIRED",
+    "decisionImpact": "La définition de stabilité change la constitution des groupes.",
+    "acceptableQuestionClasses": [
+      "Définition et temps d'évaluation de la stabilité fonctionnelle"
+    ],
+    "exactWordingRequired": false
+  },
+  "ownershipBoundaries": [
+    {
+      "boundaryId": "own-sem-project",
+      "sourceOwner": "SEM",
+      "targetOwner": "Research Project / human decision",
+      "description": "SEM peut préserver et structurer l'intention, les unknowns et les candidats ; il n'adopte pas une décision de projet.",
+      "forbiddenPromotion": "Inference, option or contextual candidate to adopted Project decision",
+      "adoptionRequiresHumanDecision": true
+    },
+    {
+      "boundaryId": "own-knowledge-specialists",
+      "sourceOwner": "Knowledge / OBS / Imaging / Scientific Thinking",
+      "targetOwner": "SEM benchmark reference",
+      "description": "Les owners spécialisés qualifient preuves, mesures, acquisition ou hypothèses ; leur support n'est pas une déclaration utilisateur.",
+      "forbiddenPromotion": "Specialist support to explicit user fact or automatic endpoint",
+      "adoptionRequiresHumanDecision": true
+    }
+  ],
+  "properties": [
+    {
+      "propertyId": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    }
+  ],
+  "adjudication": {
+    "requiredExpertise": [
+      "SCIENTIFIC_DOMAIN",
+      "METHODOLOGICAL_SEM"
+    ],
+    "notes": "Référence candidate préparée sans exécution SEM, sans provider et sans approbation humaine inventée.",
+    "humanAdjudicationPoints": [
+      "Confirmer que REQUIRED contient uniquement les obligations nécessaires.",
+      "Confirmer la plausibilité et le caractère non exhaustif des candidats optionnels.",
+      "Confirmer les équivalences sémantiques au-delà des contrôles structurels."
+    ],
+    "status": "REVIEW_REQUIRED"
+  },
+  "evaluationDemonstrations": [
+    {
+      "representationId": "representation-a",
+      "label": "Synthèse structurée par obligations",
+      "structureSynopsis": "Une structure regroupe les concepts et relations tout en conservant toutes les obligations.",
+      "declaredDisposition": "ACCEPTABLE_SEMANTIC_EQUIVALENT",
+      "declarationBasis": "Disposition candidate écrite pour développer le futur évaluateur ; aucune sortie SEM n'est impliquée.",
+      "notAutomaticallyEvaluated": true
+    },
+    {
+      "representationId": "representation-b",
+      "label": "Structure distribuée équivalente",
+      "structureSynopsis": "Une structure différente distribue les mêmes obligations sans changer leur statut, leur provenance ou leur ownership.",
+      "declaredDisposition": "ACCEPTABLE_SEMANTIC_EQUIVALENT",
+      "declarationBasis": "Équivalence déclarée dans la référence candidate et soumise à adjudication humaine.",
+      "notAutomaticallyEvaluated": true
+    },
+    {
+      "representationId": "representation-c",
+      "label": "Violation critique synthétique",
+      "structureSynopsis": "Une structure proche commet la violation suivante : Créer arbitrairement un critère de stabilité fonctionnelle.",
+      "declaredDisposition": "SEMANTIC_FAILURE",
+      "declarationBasis": "La disposition est candidate et illustre une violation PROHIBITED ; elle ne mesure aucun moteur.",
+      "notAutomaticallyEvaluated": true
+    }
+  ]
+}

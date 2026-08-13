@@ -5,6 +5,26 @@
   "description": "Structural authoring contract. This is not a PD-003 object and contains no scientific validation logic.",
   "type": "object",
   "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "scientificScope": {
+            "properties": {
+              "difficultyTarget": {
+                "enum": ["BASIC", "INTERMEDIATE", "ADVANCED", "COMPOSITIONAL"]
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "schemaVersion": { "const": "1.1.0" }
+        }
+      }
+    }
+  ],
   "required": [
     "schemaVersion",
     "contractType",
@@ -21,7 +41,7 @@
     "reference"
   ],
   "properties": {
-    "schemaVersion": { "const": "1.0.0" },
+    "schemaVersion": { "enum": ["1.0.0", "1.1.0"] },
     "contractType": { "const": "BENCHMARK_AUTHORING_CASE" },
     "purpose": {
       "enum": [
@@ -155,7 +175,15 @@
           "uniqueItems": true
         },
         "difficultyTarget": {
-          "enum": ["FOUNDATIONAL", "COMPOSITE", "COMPLEX"]
+          "enum": [
+            "FOUNDATIONAL",
+            "COMPOSITE",
+            "COMPLEX",
+            "BASIC",
+            "INTERMEDIATE",
+            "ADVANCED",
+            "COMPOSITIONAL"
+          ]
         },
         "intentionallyMissingInformation": {
           "type": "array",

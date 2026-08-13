@@ -1,0 +1,161 @@
+{
+  "schemaVersion": "1.1.0",
+  "contractType": "BENCHMARK_AUTHORING_CASE",
+  "purpose": "CALIBRATION_AUTHORING",
+  "caseId": "SEM3-CAL-TRIAL-COMPARATOR-DECISION",
+  "version": "1.0.0",
+  "title": "Essai pragmatique avec comparateur encore indécis",
+  "createdAt": "2026-08-13T12:00:00.000Z",
+  "authorRole": "CODEX_DOCUMENTARY_AUTHOR",
+  "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+  "source": {
+    "sourceRequest": "Tour 1: Nous voulons évaluer une nouvelle stratégie de suivi.\nTour 2: Le résultat principal devrait refléter l'utilisation des soins sur six mois.\nTour 3: Je ne sais pas si le comparateur sera le suivi habituel ou la période avant déploiement.\nTour 4: Les deux options n'ont pas la même temporalité.\nTour 5: On peut commencer l'inventaire des données.\nTour 6: Mais le dessin comparatif ne doit pas être choisi automatiquement.\nTour 7: La prochaine question utile porte bien sur le comparateur et la période de référence.",
+    "language": "fr-FR",
+    "conversationTurns": [
+      {
+        "turnId": "turn-1",
+        "role": "USER",
+        "text": "Nous voulons évaluer une nouvelle stratégie de suivi."
+      },
+      {
+        "turnId": "turn-2",
+        "role": "USER",
+        "text": "Le résultat principal devrait refléter l'utilisation des soins sur six mois."
+      },
+      {
+        "turnId": "turn-3",
+        "role": "USER",
+        "text": "Je ne sais pas si le comparateur sera le suivi habituel ou la période avant déploiement."
+      },
+      {
+        "turnId": "turn-4",
+        "role": "USER",
+        "text": "Les deux options n'ont pas la même temporalité."
+      },
+      {
+        "turnId": "turn-5",
+        "role": "USER",
+        "text": "On peut commencer l'inventaire des données."
+      },
+      {
+        "turnId": "turn-6",
+        "role": "USER",
+        "text": "Mais le dessin comparatif ne doit pas être choisi automatiquement."
+      },
+      {
+        "turnId": "turn-7",
+        "role": "USER",
+        "text": "La prochaine question utile porte bien sur le comparateur et la période de référence."
+      }
+    ],
+    "sourceContext": "Candidat Calibration original sur une décision de comparateur ayant une forte valeur informationnelle.",
+    "provenance": {
+      "originType": "SYNTHETIC_AUTHORED",
+      "originalSource": "Original synthetic scientific conversation authored for SEM-003B1; no SEM or provider output was used.",
+      "author": "Codex acting as documentary benchmark author, not as human scientific reviewer",
+      "createdAt": "2026-08-13T12:00:00.000Z",
+      "inspirationRefs": [
+        "docs/sem-002-scientific-understanding-competence-contract.md",
+        "docs/sem-003-independent-scientific-understanding-benchmark-architecture.md",
+        "docs/sem-003b-benchmark-case-authoring-protocol.md"
+      ]
+    }
+  },
+  "scientificScope": {
+    "domain": "méthodologie d'essai clinique pragmatique",
+    "scenarioCategory": "UNDER_SPECIFIED_REQUEST",
+    "secondaryCategories": [
+      "SCIENTIFIC_AMBIGUITY",
+      "COMPARISON_AND_TIMING"
+    ],
+    "difficultyTarget": "ADVANCED",
+    "intentionallyMissingInformation": [
+      {
+        "informationId": "missing-1",
+        "description": "Le comparateur et la période de référence ne sont pas choisis.",
+        "intentional": true
+      },
+      {
+        "informationId": "missing-2",
+        "description": "La définition opérationnelle de l'utilisation des soins reste à préciser.",
+        "intentional": true
+      }
+    ]
+  },
+  "exposure": {
+    "exposureStatus": "DESIGN_ONLY",
+    "exposureHistory": [
+      {
+        "eventId": "exposure-sem3-cal-trial-comparator-decision-created",
+        "fromStatus": null,
+        "toStatus": "DESIGN_ONLY",
+        "occurredAt": "2026-08-13T12:00:00.000Z",
+        "actorRole": "CODEX_DOCUMENTARY_AUTHOR",
+        "reason": "Authored as a Calibration candidate; human review gate not yet satisfied, therefore DESIGN_ONLY."
+      }
+    ],
+    "parentageStatus": "PARENTAGE_REVIEW_REQUIRED",
+    "parentageAssessment": {
+      "discriminatingConcepts": [
+        "Essai pragmatique avec comparateur encore indécis",
+        "méthodologie d'essai clinique pragmatique"
+      ],
+      "reasoningStructure": "Choix entre comparateur contemporain et période historique dans un essai pragmatique, différent du cas observationnel Development.",
+      "criticalRelations": [
+        "Conserver l'horizon de six mois pour le résultat principal candidat.",
+        "Garder ouverts suivi habituel et période pré-déploiement.",
+        "L'inventaire des données peut avancer malgré la décision ouverte.",
+        "Le besoin d'information sur comparateur et référence est explicitement décisionnel."
+      ],
+      "ambiguities": [
+        "Le comparateur définit deux dessins non équivalents."
+      ],
+      "knownSimilarities": {
+        "development": [],
+        "calibration": [],
+        "historicalLegacy": []
+      }
+    },
+    "contaminationReview": {
+      "status": "REVIEW_REQUIRED",
+      "reviewedAt": null,
+      "reviewerRole": null,
+      "notes": "No obvious inter-set duplication was identified during authoring; independent human parentage review remains required before Calibration use."
+    },
+    "eligibleForCalibration": false,
+    "eligibleForBlindQualification": false
+  },
+  "reference": {
+    "acceptanceEnvelopeId": "SEM3-AE-CAL-TRIAL-COMPARATOR-DECISION",
+    "applicableSEM002Properties": [
+      "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+      "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+      "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+    ],
+    "adjudicationRequirements": [
+      {
+        "expertise": "SCIENTIFIC_DOMAIN",
+        "rationale": "Confirmer la lisibilité scientifique des obligations candidates sans inventer une approbation.",
+        "mandatory": true
+      },
+      {
+        "expertise": "METHODOLOGICAL_SEM",
+        "rationale": "Vérifier équivalence, failure classes, statut épistémique et absence de Gold structurel caché.",
+        "mandatory": true
+      },
+      {
+        "expertise": "PD009_CLARIFICATION",
+        "rationale": "Confirmer la valeur décisionnelle de la clarification candidate sans imposer sa formulation.",
+        "mandatory": true
+      }
+    ]
+  }
+}

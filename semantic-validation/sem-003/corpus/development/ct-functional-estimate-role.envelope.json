@@ -1,0 +1,291 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "BENCHMARK_AUTHORING_ACCEPTANCE_ENVELOPE",
+  "envelopeId": "SEM3-AE-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
+  "version": "1.0.0",
+  "caseId": "SEM3-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
+  "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+  "required": [
+    {
+      "obligationId": "req-1-processing-is-method",
+      "semanticKey": "sem3-dev-ct-functional-estimate-role.processing-is-method",
+      "kind": "RELATION",
+      "description": "Le traitement computationnel est présenté comme méthode de production d'information quantitative.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[4]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-2-representation-is-not-measurement",
+      "semanticKey": "sem3-dev-ct-functional-estimate-role.representation-is-not-measurement",
+      "kind": "RELATION",
+      "description": "La représentation le long du vaisseau est distincte de la valeur extraite.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[1]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-3-measurement-comparison",
+      "semanticKey": "sem3-dev-ct-functional-estimate-role.measurement-comparison",
+      "kind": "COMPARISON",
+      "description": "Une valeur quantitative, encore à définir, doit être comparée entre deux groupes.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[2]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-4-endpoint-role-unadopted",
+      "semanticKey": "sem3-dev-ct-functional-estimate-role.endpoint-role-unadopted",
+      "kind": "OWNERSHIP",
+      "description": "Aucun rôle d'endpoint ne peut être adopté automatiquement.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[4]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    }
+  ],
+  "prohibited": [
+    {
+      "prohibitionId": "pro-1-classify-processing-as-value",
+      "semanticKey": "sem3-dev-ct-functional-estimate-role.forbidden-classify-processing-as-value",
+      "description": "Confondre la méthode computationnelle avec la valeur quantitative mesurée.",
+      "rationale": "Cette erreur modifierait une obligation scientifique, une provenance, une polarité ou une frontière d'ownership.",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+      ],
+      "failureClass": "CONCEPTUAL_PLAN_COLLAPSE"
+    },
+    {
+      "prohibitionId": "pro-2-invent-lesion-endpoint",
+      "semanticKey": "sem3-dev-ct-functional-estimate-role.forbidden-invent-lesion-endpoint",
+      "description": "Choisir une valeur par lésion comme endpoint sans décision du projet.",
+      "rationale": "Cette erreur modifierait une obligation scientifique, une provenance, une polarité ou une frontière d'ownership.",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+      ],
+      "failureClass": "OWNERSHIP_BOUNDARY_FAILURE"
+    }
+  ],
+  "acceptableSemanticVariants": [
+    {
+      "variantId": "variant-obligation-vector",
+      "label": "Vecteur d'obligations indépendant de la topologie",
+      "structureSynopsis": "Les obligations peuvent être portées par un objet composé ou par plusieurs objets reliés si leur sens, provenance, polarité et ownership sont préservés.",
+      "preservedObligationIds": [
+        "req-1-processing-is-method",
+        "req-2-representation-is-not-measurement",
+        "req-3-measurement-comparison",
+        "req-4-endpoint-role-unadopted"
+      ],
+      "caveats": [
+        "Aucune variante n'est acceptée par simple similarité lexicale.",
+        "Toute équivalence scientifique complexe reste soumise à adjudication humaine."
+      ]
+    }
+  ],
+  "optionalRelevant": [
+    {
+      "candidateId": "opt-1-candidate-aggregation-levels",
+      "semanticKey": "sem3-dev-ct-functional-estimate-role.optional-candidate-aggregation-levels",
+      "description": "Agrégations par lésion, vaisseau ou valeur minimale comme options à qualifier, non comme choix acquis.",
+      "epistemicStatus": "OPTION",
+      "rationale": "Candidat contextualisé à examiner sans attribution à l'utilisateur ni adoption par le Project.",
+      "absenceIsBlocking": false,
+      "envelopeIsNonExhaustive": true
+    }
+  ],
+  "admissibleAmbiguities": [
+    {
+      "ambiguityId": "amb-1-aggregation",
+      "description": "L'agrégation de la valeur n'est pas décidée.",
+      "competingInterpretations": [
+        "valeur minimale",
+        "valeur par lésion",
+        "résumé par vaisseau"
+      ],
+      "resolutionInformation": [
+        "objectif scientifique précis",
+        "définition de mesure et unité d'analyse"
+      ],
+      "mustRemainOpen": true
+    }
+  ],
+  "expectedClarification": {
+    "status": "REQUIRED",
+    "decisionImpact": "L'agrégation change la variable et l'interprétation du projet.",
+    "acceptableQuestionClasses": [
+      "Niveau d'agrégation souhaité",
+      "Rôle attendu de la valeur"
+    ],
+    "exactWordingRequired": false
+  },
+  "ownershipBoundaries": [
+    {
+      "boundaryId": "own-sem-project",
+      "sourceOwner": "SEM",
+      "targetOwner": "Research Project / human decision",
+      "description": "SEM peut préserver et structurer l'intention, les unknowns et les candidats ; il n'adopte pas une décision de projet.",
+      "forbiddenPromotion": "Inference, option or contextual candidate to adopted Project decision",
+      "adoptionRequiresHumanDecision": true
+    },
+    {
+      "boundaryId": "own-knowledge-specialists",
+      "sourceOwner": "Knowledge / OBS / Imaging / Scientific Thinking",
+      "targetOwner": "SEM benchmark reference",
+      "description": "Les owners spécialisés qualifient preuves, mesures, acquisition ou hypothèses ; leur support n'est pas une déclaration utilisateur.",
+      "forbiddenPromotion": "Specialist support to explicit user fact or automatic endpoint",
+      "adoptionRequiresHumanDecision": true
+    }
+  ],
+  "properties": [
+    {
+      "propertyId": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    }
+  ],
+  "adjudication": {
+    "requiredExpertise": [
+      "SCIENTIFIC_DOMAIN",
+      "METHODOLOGICAL_SEM"
+    ],
+    "notes": "Référence candidate préparée sans exécution SEM, sans provider et sans approbation humaine inventée.",
+    "humanAdjudicationPoints": [
+      "Confirmer que REQUIRED contient uniquement les obligations nécessaires.",
+      "Confirmer la plausibilité et le caractère non exhaustif des candidats optionnels.",
+      "Confirmer les équivalences sémantiques au-delà des contrôles structurels."
+    ],
+    "status": "REVIEW_REQUIRED"
+  },
+  "evaluationDemonstrations": [
+    {
+      "representationId": "representation-a",
+      "label": "Synthèse structurée par obligations",
+      "structureSynopsis": "Une structure regroupe les concepts et relations tout en conservant toutes les obligations.",
+      "declaredDisposition": "ACCEPTABLE_SEMANTIC_EQUIVALENT",
+      "declarationBasis": "Disposition candidate écrite pour développer le futur évaluateur ; aucune sortie SEM n'est impliquée.",
+      "notAutomaticallyEvaluated": true
+    },
+    {
+      "representationId": "representation-b",
+      "label": "Structure distribuée équivalente",
+      "structureSynopsis": "Une structure différente distribue les mêmes obligations sans changer leur statut, leur provenance ou leur ownership.",
+      "declaredDisposition": "ACCEPTABLE_SEMANTIC_EQUIVALENT",
+      "declarationBasis": "Équivalence déclarée dans la référence candidate et soumise à adjudication humaine.",
+      "notAutomaticallyEvaluated": true
+    },
+    {
+      "representationId": "representation-c",
+      "label": "Violation critique synthétique",
+      "structureSynopsis": "Une structure proche commet la violation suivante : Confondre la méthode computationnelle avec la valeur quantitative mesurée.",
+      "declaredDisposition": "SEMANTIC_FAILURE",
+      "declarationBasis": "La disposition est candidate et illustre une violation PROHIBITED ; elle ne mesure aucun moteur.",
+      "notAutomaticallyEvaluated": true
+    }
+  ]
+}

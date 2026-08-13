@@ -1,0 +1,148 @@
+{
+  "schemaVersion": "1.1.0",
+  "contractType": "BENCHMARK_AUTHORING_CASE",
+  "purpose": "CALIBRATION_AUTHORING",
+  "caseId": "SEM3-CAL-CARDIO-RHYTHM-REMODELING",
+  "version": "1.0.0",
+  "title": "Charge rythmique et structure atriale sans promotion causale",
+  "createdAt": "2026-08-13T12:00:00.000Z",
+  "authorRole": "CODEX_DOCUMENTARY_AUTHOR",
+  "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+  "source": {
+    "sourceRequest": "Tour 1: Je veux suivre la charge d'arythmie et le volume atrial au cours du temps.\nTour 2: Au début je pensais dire que la charge rythmique expliquait le remodelage.\nTour 3: Ce n'est pas ce que je veux finalement.\nTour 4: Je veux étudier leur association, sans causalité automatique.\nTour 5: La méthode de mesure du rythme et celle du volume devront être qualifiées séparément.",
+    "language": "fr-FR",
+    "conversationTurns": [
+      {
+        "turnId": "turn-1",
+        "role": "USER",
+        "text": "Je veux suivre la charge d'arythmie et le volume atrial au cours du temps."
+      },
+      {
+        "turnId": "turn-2",
+        "role": "USER",
+        "text": "Au début je pensais dire que la charge rythmique expliquait le remodelage."
+      },
+      {
+        "turnId": "turn-3",
+        "role": "USER",
+        "text": "Ce n'est pas ce que je veux finalement."
+      },
+      {
+        "turnId": "turn-4",
+        "role": "USER",
+        "text": "Je veux étudier leur association, sans causalité automatique."
+      },
+      {
+        "turnId": "turn-5",
+        "role": "USER",
+        "text": "La méthode de mesure du rythme et celle du volume devront être qualifiées séparément."
+      }
+    ],
+    "sourceContext": "Candidat Calibration original séparant deux observables, leurs méthodes et une interprétation causale rejetée.",
+    "provenance": {
+      "originType": "SYNTHETIC_AUTHORED",
+      "originalSource": "Original synthetic scientific conversation authored for SEM-003B1; no SEM or provider output was used.",
+      "author": "Codex acting as documentary benchmark author, not as human scientific reviewer",
+      "createdAt": "2026-08-13T12:00:00.000Z",
+      "inspirationRefs": [
+        "docs/sem-002-scientific-understanding-competence-contract.md",
+        "docs/sem-003-independent-scientific-understanding-benchmark-architecture.md",
+        "docs/sem-003b-benchmark-case-authoring-protocol.md"
+      ]
+    }
+  },
+  "scientificScope": {
+    "domain": "rythmologie et imagerie cardiaque",
+    "scenarioCategory": "NEGATION_AND_NON_CAUSALITY",
+    "secondaryCategories": [
+      "CHANGE_OF_MIND",
+      "METHOD_VERSUS_MEASUREMENT"
+    ],
+    "difficultyTarget": "ADVANCED",
+    "intentionallyMissingInformation": [
+      {
+        "informationId": "missing-1",
+        "description": "Les temps de mesure et les méthodes de quantification des deux observables ne sont pas définis.",
+        "intentional": true
+      }
+    ]
+  },
+  "exposure": {
+    "exposureStatus": "DESIGN_ONLY",
+    "exposureHistory": [
+      {
+        "eventId": "exposure-sem3-cal-cardio-rhythm-remodeling-created",
+        "fromStatus": null,
+        "toStatus": "DESIGN_ONLY",
+        "occurredAt": "2026-08-13T12:00:00.000Z",
+        "actorRole": "CODEX_DOCUMENTARY_AUTHOR",
+        "reason": "Authored as a Calibration candidate; human review gate not yet satisfied, therefore DESIGN_ONLY."
+      }
+    ],
+    "parentageStatus": "PARENTAGE_REVIEW_REQUIRED",
+    "parentageAssessment": {
+      "discriminatingConcepts": [
+        "Charge rythmique et structure atriale sans promotion causale",
+        "rythmologie et imagerie cardiaque"
+      ],
+      "reasoningStructure": "Association rythme-structure et méthodes de mesure séparées ; aucune chaîne factuelle équivalente en Development ou dans H01-H30.",
+      "criticalRelations": [
+        "L'état actif porte sur l'association entre charge rythmique et volume atrial.",
+        "L'explication causale du remodelage est un état rejeté.",
+        "Les méthodes de mesure du rythme et du volume restent des définitions spécialisées distinctes."
+      ],
+      "ambiguities": [],
+      "knownSimilarities": {
+        "development": [],
+        "calibration": [],
+        "historicalLegacy": []
+      }
+    },
+    "contaminationReview": {
+      "status": "REVIEW_REQUIRED",
+      "reviewedAt": null,
+      "reviewerRole": null,
+      "notes": "No obvious inter-set duplication was identified during authoring; independent human parentage review remains required before Calibration use."
+    },
+    "eligibleForCalibration": false,
+    "eligibleForBlindQualification": false
+  },
+  "reference": {
+    "acceptanceEnvelopeId": "SEM3-AE-CAL-CARDIO-RHYTHM-REMODELING",
+    "applicableSEM002Properties": [
+      "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+      "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+      "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+      "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+    ],
+    "adjudicationRequirements": [
+      {
+        "expertise": "SCIENTIFIC_DOMAIN",
+        "rationale": "Confirmer la lisibilité scientifique des obligations candidates sans inventer une approbation.",
+        "mandatory": true
+      },
+      {
+        "expertise": "METHODOLOGICAL_SEM",
+        "rationale": "Vérifier équivalence, failure classes, statut épistémique et absence de Gold structurel caché.",
+        "mandatory": true
+      },
+      {
+        "expertise": "PD009_CLARIFICATION",
+        "rationale": "Confirmer la valeur décisionnelle de la clarification candidate sans imposer sa formulation.",
+        "mandatory": false
+      },
+      {
+        "expertise": "OBS_MEASUREMENT",
+        "rationale": "Vérifier la séparation méthode, observable, image quantitative, mesure et rôle de biomarqueur.",
+        "mandatory": true
+      }
+    ]
+  }
+}

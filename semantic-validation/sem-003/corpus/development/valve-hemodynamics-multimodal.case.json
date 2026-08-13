@@ -1,0 +1,167 @@
+{
+  "schemaVersion": "1.1.0",
+  "contractType": "BENCHMARK_AUTHORING_CASE",
+  "purpose": "DEVELOPMENT_AUTHORING",
+  "caseId": "SEM3-DEV-VALVE-HEMODYNAMICS-MULTIMODAL",
+  "version": "1.0.0",
+  "title": "Valvulopathie, hémodynamique et priorité multimodale",
+  "createdAt": "2026-08-13T12:00:00.000Z",
+  "authorRole": "CODEX_DOCUMENTARY_AUTHOR",
+  "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+  "source": {
+    "sourceRequest": "Tour 1: On veut étudier l'évolution hémodynamique après l'intervention valvulaire.\nTour 2: L'échographie est disponible en routine avant et après.\nTour 3: Une IRM existe seulement chez une partie des participants.\nTour 4: Je pensais d'abord centrer l'étude sur les volumes.\nTour 5: Mais le gradient et les conséquences sur le ventricule m'intéressent tous les deux.\nTour 6: Finalement ne faisons pas de l'IRM une condition d'inclusion.\nTour 7: Elle peut rester une contribution secondaire si elle existe.\nTour 8: La comparaison principale doit rester portée par les données réellement communes.",
+    "language": "fr-FR",
+    "conversationTurns": [
+      {
+        "turnId": "turn-1",
+        "role": "USER",
+        "text": "On veut étudier l'évolution hémodynamique après l'intervention valvulaire."
+      },
+      {
+        "turnId": "turn-2",
+        "role": "USER",
+        "text": "L'échographie est disponible en routine avant et après."
+      },
+      {
+        "turnId": "turn-3",
+        "role": "USER",
+        "text": "Une IRM existe seulement chez une partie des participants."
+      },
+      {
+        "turnId": "turn-4",
+        "role": "USER",
+        "text": "Je pensais d'abord centrer l'étude sur les volumes."
+      },
+      {
+        "turnId": "turn-5",
+        "role": "USER",
+        "text": "Mais le gradient et les conséquences sur le ventricule m'intéressent tous les deux."
+      },
+      {
+        "turnId": "turn-6",
+        "role": "USER",
+        "text": "Finalement ne faisons pas de l'IRM une condition d'inclusion."
+      },
+      {
+        "turnId": "turn-7",
+        "role": "USER",
+        "text": "Elle peut rester une contribution secondaire si elle existe."
+      },
+      {
+        "turnId": "turn-8",
+        "role": "USER",
+        "text": "La comparaison principale doit rester portée par les données réellement communes."
+      }
+    ],
+    "sourceContext": "Conversation synthétique sur une étude multimodale avec disponibilité asymétrique des modalités.",
+    "provenance": {
+      "originType": "SYNTHETIC_AUTHORED",
+      "originalSource": "Original synthetic scientific conversation authored for SEM-003B1; no SEM or provider output was used.",
+      "author": "Codex acting as documentary benchmark author, not as human scientific reviewer",
+      "createdAt": "2026-08-13T12:00:00.000Z",
+      "inspirationRefs": [
+        "docs/sem-002-scientific-understanding-competence-contract.md",
+        "docs/sem-003-independent-scientific-understanding-benchmark-architecture.md",
+        "docs/sem-003b-benchmark-case-authoring-protocol.md"
+      ]
+    }
+  },
+  "scientificScope": {
+    "domain": "valvulopathies et imagerie cardiovasculaire multimodale",
+    "scenarioCategory": "MULTIDIMENSIONAL_REQUEST",
+    "secondaryCategories": [
+      "NECESSARY_IMPLICIT",
+      "COMPARISON_AND_TIMING",
+      "CHANGE_OF_MIND"
+    ],
+    "difficultyTarget": "COMPOSITIONAL",
+    "intentionallyMissingInformation": [
+      {
+        "informationId": "missing-1",
+        "description": "Le paramètre hémodynamique principal n'est pas adopté.",
+        "intentional": true
+      },
+      {
+        "informationId": "missing-2",
+        "description": "Le rôle analytique de l'IRM partielle reste à définir.",
+        "intentional": true
+      }
+    ]
+  },
+  "exposure": {
+    "exposureStatus": "DEVELOPMENT_VISIBLE",
+    "exposureHistory": [
+      {
+        "eventId": "exposure-sem3-dev-valve-hemodynamics-multimodal-created",
+        "fromStatus": null,
+        "toStatus": "DEVELOPMENT_VISIBLE",
+        "occurredAt": "2026-08-13T12:00:00.000Z",
+        "actorRole": "CODEX_DOCUMENTARY_AUTHOR",
+        "reason": "Authored as an exposed Development case; permanently ineligible for blind qualification."
+      }
+    ],
+    "parentageStatus": "PARENTAGE_CLEAR",
+    "parentageAssessment": {
+      "discriminatingConcepts": [
+        "Valvulopathie, hémodynamique et priorité multimodale",
+        "valvulopathies et imagerie cardiovasculaire multimodale"
+      ],
+      "reasoningStructure": "Original MULTIDIMENSIONAL_REQUEST reasoning chain authored for Development use.",
+      "criticalRelations": [
+        "La comparaison principale repose sur les données communes avant/après.",
+        "L'IRM est secondaire et non obligatoire pour l'inclusion.",
+        "Conserver les deux plans : hémodynamique valvulaire et conséquences ventriculaires.",
+        "La disponibilité partielle de l'IRM doit rester reconstructible."
+      ],
+      "ambiguities": [],
+      "knownSimilarities": {
+        "development": [],
+        "calibration": [],
+        "historicalLegacy": []
+      }
+    },
+    "contaminationReview": {
+      "status": "CLEAR",
+      "reviewedAt": "2026-08-13T12:00:00.000Z",
+      "reviewerRole": "CODEX_DOCUMENTARY_PARENTAGE_AUDIT",
+      "notes": "No lexical or conceptual source reuse was used; this authoring audit is not a human scientific approval and the case remains exposed."
+    },
+    "eligibleForCalibration": false,
+    "eligibleForBlindQualification": false
+  },
+  "reference": {
+    "acceptanceEnvelopeId": "SEM3-AE-DEV-VALVE-HEMODYNAMICS-MULTIMODAL",
+    "applicableSEM002Properties": [
+      "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+      "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+      "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+      "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+    ],
+    "adjudicationRequirements": [
+      {
+        "expertise": "SCIENTIFIC_DOMAIN",
+        "rationale": "Confirmer la lisibilité scientifique des obligations candidates sans inventer une approbation.",
+        "mandatory": true
+      },
+      {
+        "expertise": "METHODOLOGICAL_SEM",
+        "rationale": "Vérifier équivalence, failure classes, statut épistémique et absence de Gold structurel caché.",
+        "mandatory": true
+      },
+      {
+        "expertise": "PD009_CLARIFICATION",
+        "rationale": "Confirmer la valeur décisionnelle de la clarification candidate sans imposer sa formulation.",
+        "mandatory": false
+      }
+    ]
+  }
+}

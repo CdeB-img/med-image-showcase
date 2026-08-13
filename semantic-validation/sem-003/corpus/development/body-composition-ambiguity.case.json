@@ -1,0 +1,128 @@
+{
+  "schemaVersion": "1.1.0",
+  "contractType": "BENCHMARK_AUTHORING_CASE",
+  "purpose": "DEVELOPMENT_AUTHORING",
+  "caseId": "SEM3-DEV-BODY-COMPOSITION-AMBIGUITY",
+  "version": "1.0.0",
+  "title": "Composition musculaire et origine ambiguë d'un changement CT",
+  "createdAt": "2026-08-13T12:00:00.000Z",
+  "authorRole": "CODEX_DOCUMENTARY_AUTHOR",
+  "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+  "source": {
+    "sourceRequest": "Tour 1: Dans un suivi oncologique, je veux étudier une baisse de l'atténuation musculaire au CT, tout en laissant ouverte l'hypothèse d'un changement tissulaire ou d'une différence d'acquisition et de reconstruction.",
+    "language": "fr-FR",
+    "conversationTurns": [
+      {
+        "turnId": "turn-1",
+        "role": "USER",
+        "text": "Dans un suivi oncologique, je veux étudier une baisse de l'atténuation musculaire au CT, tout en laissant ouverte l'hypothèse d'un changement tissulaire ou d'une différence d'acquisition et de reconstruction."
+      }
+    ],
+    "sourceContext": "Demande synthétique à un tour ; une variation quantitative observée conserve une interprétation biologique et une interprétation technique concurrentes.",
+    "provenance": {
+      "originType": "SYNTHETIC_AUTHORED",
+      "originalSource": "Original synthetic scientific conversation authored for SEM-003B1; no SEM or provider output was used.",
+      "author": "Codex acting as documentary benchmark author, not as human scientific reviewer",
+      "createdAt": "2026-08-13T12:00:00.000Z",
+      "inspirationRefs": [
+        "docs/sem-002-scientific-understanding-competence-contract.md",
+        "docs/sem-003-independent-scientific-understanding-benchmark-architecture.md",
+        "docs/sem-003b-benchmark-case-authoring-protocol.md"
+      ]
+    }
+  },
+  "scientificScope": {
+    "domain": "imagerie oncologique et composition corporelle",
+    "scenarioCategory": "SCIENTIFIC_AMBIGUITY",
+    "secondaryCategories": [
+      "KNOWLEDGE_CANDIDATE",
+      "PHENOMENON_VERSUS_OBSERVABLE"
+    ],
+    "difficultyTarget": "INTERMEDIATE",
+    "intentionallyMissingInformation": [
+      {
+        "informationId": "missing-1",
+        "description": "La comparabilité des acquisitions et la signification biologique de la variation ne sont pas établies.",
+        "intentional": true
+      }
+    ]
+  },
+  "exposure": {
+    "exposureStatus": "DEVELOPMENT_VISIBLE",
+    "exposureHistory": [
+      {
+        "eventId": "exposure-sem3-dev-body-composition-ambiguity-created",
+        "fromStatus": null,
+        "toStatus": "DEVELOPMENT_VISIBLE",
+        "occurredAt": "2026-08-13T12:00:00.000Z",
+        "actorRole": "CODEX_DOCUMENTARY_AUTHOR",
+        "reason": "Authored as an exposed Development case; permanently ineligible for blind qualification."
+      }
+    ],
+    "parentageStatus": "PARENTAGE_CLEAR",
+    "parentageAssessment": {
+      "discriminatingConcepts": [
+        "Composition musculaire et origine ambiguë d'un changement CT",
+        "imagerie oncologique et composition corporelle"
+      ],
+      "reasoningStructure": "Original SCIENTIFIC_AMBIGUITY reasoning chain authored for Development use.",
+      "criticalRelations": [
+        "Conserver les interprétations tissulaire et technique comme concurrentes.",
+        "Distinguer la baisse d'atténuation observée de son interprétation biologique ou technique."
+      ],
+      "ambiguities": [
+        "La variation d'atténuation admet au moins deux classes d'interprétation."
+      ],
+      "knownSimilarities": {
+        "development": [],
+        "calibration": [],
+        "historicalLegacy": []
+      }
+    },
+    "contaminationReview": {
+      "status": "CLEAR",
+      "reviewedAt": "2026-08-13T12:00:00.000Z",
+      "reviewerRole": "CODEX_DOCUMENTARY_PARENTAGE_AUDIT",
+      "notes": "No lexical or conceptual source reuse was used; this authoring audit is not a human scientific approval and the case remains exposed."
+    },
+    "eligibleForCalibration": false,
+    "eligibleForBlindQualification": false
+  },
+  "reference": {
+    "acceptanceEnvelopeId": "SEM3-AE-DEV-BODY-COMPOSITION-AMBIGUITY",
+    "applicableSEM002Properties": [
+      "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+      "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+      "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+    ],
+    "adjudicationRequirements": [
+      {
+        "expertise": "SCIENTIFIC_DOMAIN",
+        "rationale": "Confirmer la lisibilité scientifique des obligations candidates sans inventer une approbation.",
+        "mandatory": true
+      },
+      {
+        "expertise": "METHODOLOGICAL_SEM",
+        "rationale": "Vérifier équivalence, failure classes, statut épistémique et absence de Gold structurel caché.",
+        "mandatory": true
+      },
+      {
+        "expertise": "PD009_CLARIFICATION",
+        "rationale": "Confirmer la valeur décisionnelle de la clarification candidate sans imposer sa formulation.",
+        "mandatory": false
+      },
+      {
+        "expertise": "OBS_MEASUREMENT",
+        "rationale": "Vérifier la séparation méthode, observable, image quantitative, mesure et rôle de biomarqueur.",
+        "mandatory": true
+      }
+    ]
+  }
+}

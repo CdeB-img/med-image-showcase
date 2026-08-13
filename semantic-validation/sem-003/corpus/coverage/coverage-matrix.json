@@ -1,0 +1,1036 @@
+{
+  "coverageId": "SEM-003B1-COVERAGE-MATRIX",
+  "version": "1.0.0",
+  "generatedAt": "2026-08-13T12:00:00.000Z",
+  "summary": {
+    "totalCases": 25,
+    "developmentCases": 15,
+    "calibrationDesignOnly": 10,
+    "calibrationVisible": 0,
+    "totalConversationTurns": 134,
+    "singleTurnCases": 5,
+    "multiTurnCases": 20,
+    "multiTurnContextDependentCases": 20,
+    "casesOverSevenTurns": 5
+  },
+  "turnDistribution": {
+    "oneTurn": 5,
+    "twoTurns": 0,
+    "threeToFiveTurns": 5,
+    "sixToSevenTurns": 10,
+    "eightToTenTurns": 5
+  },
+  "domainCounts": {
+    "CT cardiaque et cardiologie interventionnelle": 1,
+    "CT cardiaque et estimation fonctionnelle": 1,
+    "cardiologie congénitale et imagerie de flux": 1,
+    "cardiologie coronaire et imagerie cardiovasculaire": 1,
+    "cardiologie et hypertension pulmonaire": 1,
+    "cardiologie et imagerie cardiovasculaire": 1,
+    "imagerie abdominale et recherche métabolique": 1,
+    "imagerie cardiaque et physiologie atriale": 1,
+    "imagerie digestive quantitative": 1,
+    "imagerie gynécologique et échographie": 1,
+    "imagerie musculosquelettique et inflammation": 1,
+    "imagerie oncologique et composition corporelle": 1,
+    "imagerie rétinienne vasculaire": 1,
+    "modèles translationnels et imagerie cellulaire": 1,
+    "méthodologie d'essai clinique et imagerie": 1,
+    "méthodologie d'essai clinique pragmatique": 1,
+    "méthodologie de recherche clinique": 1,
+    "neuro-imagerie et neurodégénérescence": 1,
+    "physiologie et mesures longitudinales": 1,
+    "recherche biomédicale multimodale": 1,
+    "recherche clinique observationnelle": 1,
+    "recherche translationnelle et imagerie moléculaire": 1,
+    "rythmologie et imagerie cardiaque": 1,
+    "valvulopathies et imagerie cardiovasculaire multimodale": 1,
+    "électrophysiologie et imagerie cardiaque": 1
+  },
+  "domainGroupCounts": {
+    "CARDIOVASCULAR_IMAGING": 10,
+    "OTHER_MEDICAL_IMAGING": 7,
+    "TRANSVERSAL_CLINICAL_BIOMEDICAL_RESEARCH": 8
+  },
+  "categoryCounts": {
+    "COMPLETE_SCIENTIFIC_REQUEST": 2,
+    "UNDER_SPECIFIED_REQUEST": 6,
+    "ELLIPSIS": 2,
+    "NECESSARY_IMPLICIT": 4,
+    "STRONG_CONTEXTUAL_IMPLICIT": 5,
+    "KNOWLEDGE_CANDIDATE": 6,
+    "SCIENTIFIC_AMBIGUITY": 7,
+    "COMPARISON_AND_TIMING": 13,
+    "NEGATION_AND_NON_CAUSALITY": 3,
+    "MULTI_TURN_CORRECTION": 4,
+    "CHANGE_OF_MIND": 5,
+    "METHOD_VERSUS_MEASUREMENT": 6,
+    "PHENOMENON_VERSUS_OBSERVABLE": 6,
+    "INTERVENTION_AND_IMAGING": 4,
+    "MULTIDIMENSIONAL_REQUEST": 8
+  },
+  "uncoveredCategories": [],
+  "propertyCounts": {
+    "PROPERTY_EXPLICIT_CONTENT_PRESERVED": 16,
+    "PROPERTY_EXPLICIT_RELATIONS_PRESERVED": 19,
+    "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED": 13,
+    "PROPERTY_COMPARISON_AND_TIMING_PRESERVED": 21,
+    "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY": 8,
+    "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION": 6,
+    "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT": 5,
+    "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH": 9,
+    "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED": 15,
+    "PROPERTY_NO_UNSUPPORTED_INVENTION": 22,
+    "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED": 21,
+    "PROPERTY_PROVENANCE_RECONSTRUCTIBLE": 17,
+    "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED": 9,
+    "PROPERTY_CONCEPTUAL_PLAN_SEPARATION": 14,
+    "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED": 25,
+    "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE": 25,
+    "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED": 25,
+    "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE": 7
+  },
+  "uncoveredProperties": [],
+  "lowestCoverageProperties": [
+    {
+      "property": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+      "count": 5
+    }
+  ],
+  "featureCounts": {
+    "AMBIGUITY": 8,
+    "CHANGE_OF_MIND": 5,
+    "CONTEXTUAL_ENRICHMENT": 7,
+    "CORRECTION": 7,
+    "ELLIPSIS": 3,
+    "METHOD_MEASUREMENT": 6,
+    "MISSING_INFORMATION": 24,
+    "MULTI_TURN_CONTEXT_DEPENDENT": 20,
+    "NEGATION": 6,
+    "OWNERSHIP": 21,
+    "PHENOMENON_OBSERVABLE": 6
+  },
+  "matrix": [
+    {
+      "caseId": "SEM3-DEV-CARDIAC-AGING-TRAJECTORY",
+      "set": "DEVELOPMENT",
+      "categories": [
+        "CHANGE_OF_MIND",
+        "MULTI_TURN_CORRECTION",
+        "COMPARISON_AND_TIMING",
+        "MULTIDIMENSIONAL_REQUEST"
+      ],
+      "properties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      ],
+      "domain": "cardiologie et imagerie cardiovasculaire",
+      "turnCount": 8,
+      "multiTurnContextDependent": true,
+      "features": [
+        "CORRECTION",
+        "CHANGE_OF_MIND",
+        "NEGATION",
+        "MISSING_INFORMATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ]
+    },
+    {
+      "caseId": "SEM3-DEV-CORONARY-PERFUSION-PRIORITY",
+      "set": "DEVELOPMENT",
+      "categories": [
+        "ELLIPSIS",
+        "NECESSARY_IMPLICIT",
+        "COMPARISON_AND_TIMING",
+        "INTERVENTION_AND_IMAGING"
+      ],
+      "properties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      ],
+      "domain": "cardiologie coronaire et imagerie cardiovasculaire",
+      "turnCount": 7,
+      "multiTurnContextDependent": true,
+      "features": [
+        "ELLIPSIS",
+        "MISSING_INFORMATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ]
+    },
+    {
+      "caseId": "SEM3-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
+      "set": "DEVELOPMENT",
+      "categories": [
+        "METHOD_VERSUS_MEASUREMENT",
+        "PHENOMENON_VERSUS_OBSERVABLE",
+        "SCIENTIFIC_AMBIGUITY"
+      ],
+      "properties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      ],
+      "domain": "CT cardiaque et estimation fonctionnelle",
+      "turnCount": 6,
+      "multiTurnContextDependent": true,
+      "features": [
+        "METHOD_MEASUREMENT",
+        "PHENOMENON_OBSERVABLE",
+        "AMBIGUITY",
+        "MISSING_INFORMATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ]
+    },
+    {
+      "caseId": "SEM3-DEV-VALVE-HEMODYNAMICS-MULTIMODAL",
+      "set": "DEVELOPMENT",
+      "categories": [
+        "MULTIDIMENSIONAL_REQUEST",
+        "NECESSARY_IMPLICIT",
+        "COMPARISON_AND_TIMING",
+        "CHANGE_OF_MIND"
+      ],
+      "properties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED"
+      ],
+      "domain": "valvulopathies et imagerie cardiovasculaire multimodale",
+      "turnCount": 8,
+      "multiTurnContextDependent": true,
+      "features": [
+        "CHANGE_OF_MIND",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ]
+    },
+    {
+      "caseId": "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL",
+      "set": "DEVELOPMENT",
+      "categories": [
+        "NEGATION_AND_NON_CAUSALITY",
+        "MULTI_TURN_CORRECTION",
+        "STRONG_CONTEXTUAL_IMPLICIT"
+      ],
+      "properties": [
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      ],
+      "domain": "imagerie cardiaque et physiologie atriale",
+      "turnCount": 5,
+      "multiTurnContextDependent": true,
+      "features": [
+        "CORRECTION",
+        "NEGATION",
+        "MISSING_INFORMATION",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ]
+    },
+    {
+      "caseId": "SEM3-DEV-PLAQUE-INTERVENTION-CONTEXT",
+      "set": "DEVELOPMENT",
+      "categories": [
+        "INTERVENTION_AND_IMAGING",
+        "KNOWLEDGE_CANDIDATE",
+        "STRONG_CONTEXTUAL_IMPLICIT"
+      ],
+      "properties": [
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      ],
+      "domain": "CT cardiaque et cardiologie interventionnelle",
+      "turnCount": 6,
+      "multiTurnContextDependent": true,
+      "features": [
+        "CONTEXTUAL_ENRICHMENT",
+        "MISSING_INFORMATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ]
+    },
+    {
+      "caseId": "SEM3-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
+      "set": "DEVELOPMENT",
+      "categories": [
+        "UNDER_SPECIFIED_REQUEST",
+        "SCIENTIFIC_AMBIGUITY",
+        "COMPARISON_AND_TIMING"
+      ],
+      "properties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED"
+      ],
+      "domain": "imagerie rétinienne vasculaire",
+      "turnCount": 7,
+      "multiTurnContextDependent": true,
+      "features": [
+        "MISSING_INFORMATION",
+        "AMBIGUITY",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ]
+    },
+    {
+      "caseId": "SEM3-DEV-BODY-COMPOSITION-AMBIGUITY",
+      "set": "DEVELOPMENT",
+      "categories": [
+        "SCIENTIFIC_AMBIGUITY",
+        "KNOWLEDGE_CANDIDATE",
+        "PHENOMENON_VERSUS_OBSERVABLE"
+      ],
+      "properties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      ],
+      "domain": "imagerie oncologique et composition corporelle",
+      "turnCount": 1,
+      "multiTurnContextDependent": false,
+      "features": [
+        "AMBIGUITY",
+        "PHENOMENON_OBSERVABLE",
+        "CONTEXTUAL_ENRICHMENT",
+        "MISSING_INFORMATION"
+      ]
+    },
+    {
+      "caseId": "SEM3-DEV-PANCREATIC-COMPOSITION-LONGITUDINAL",
+      "set": "DEVELOPMENT",
+      "categories": [
+        "COMPLETE_SCIENTIFIC_REQUEST",
+        "COMPARISON_AND_TIMING",
+        "MULTIDIMENSIONAL_REQUEST"
+      ],
+      "properties": [
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+      ],
+      "domain": "imagerie abdominale et recherche métabolique",
+      "turnCount": 5,
+      "multiTurnContextDependent": true,
+      "features": [
+        "MISSING_INFORMATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ]
+    },
+    {
+      "caseId": "SEM3-DEV-INTESTINAL-MOTILITY-METHOD",
+      "set": "DEVELOPMENT",
+      "categories": [
+        "METHOD_VERSUS_MEASUREMENT",
+        "UNDER_SPECIFIED_REQUEST",
+        "PHENOMENON_VERSUS_OBSERVABLE"
+      ],
+      "properties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED"
+      ],
+      "domain": "imagerie digestive quantitative",
+      "turnCount": 1,
+      "multiTurnContextDependent": false,
+      "features": [
+        "METHOD_MEASUREMENT",
+        "PHENOMENON_OBSERVABLE",
+        "AMBIGUITY",
+        "MISSING_INFORMATION",
+        "OWNERSHIP"
+      ]
+    },
+    {
+      "caseId": "SEM3-DEV-OUTCOME-PRIORITY-CHANGE",
+      "set": "DEVELOPMENT",
+      "categories": [
+        "CHANGE_OF_MIND",
+        "MULTI_TURN_CORRECTION",
+        "COMPARISON_AND_TIMING"
+      ],
+      "properties": [
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      ],
+      "domain": "méthodologie de recherche clinique",
+      "turnCount": 6,
+      "multiTurnContextDependent": true,
+      "features": [
+        "CORRECTION",
+        "CHANGE_OF_MIND",
+        "MISSING_INFORMATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ]
+    },
+    {
+      "caseId": "SEM3-DEV-TRANSLATIONAL-HYPOXIA-CANDIDATES",
+      "set": "DEVELOPMENT",
+      "categories": [
+        "KNOWLEDGE_CANDIDATE",
+        "STRONG_CONTEXTUAL_IMPLICIT",
+        "MULTIDIMENSIONAL_REQUEST"
+      ],
+      "properties": [
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+        "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      ],
+      "domain": "recherche translationnelle et imagerie moléculaire",
+      "turnCount": 4,
+      "multiTurnContextDependent": true,
+      "features": [
+        "CONTEXTUAL_ENRICHMENT",
+        "MISSING_INFORMATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ]
+    },
+    {
+      "caseId": "SEM3-DEV-ROUTINE-DATA-COMPARATOR-GAP",
+      "set": "DEVELOPMENT",
+      "categories": [
+        "UNDER_SPECIFIED_REQUEST",
+        "NECESSARY_IMPLICIT",
+        "SCIENTIFIC_AMBIGUITY"
+      ],
+      "properties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+      ],
+      "domain": "recherche clinique observationnelle",
+      "turnCount": 1,
+      "multiTurnContextDependent": false,
+      "features": [
+        "MISSING_INFORMATION",
+        "AMBIGUITY",
+        "OWNERSHIP"
+      ]
+    },
+    {
+      "caseId": "SEM3-DEV-INFLAMMATION-MULTIDIMENSIONAL",
+      "set": "DEVELOPMENT",
+      "categories": [
+        "STRONG_CONTEXTUAL_IMPLICIT",
+        "MULTIDIMENSIONAL_REQUEST",
+        "NEGATION_AND_NON_CAUSALITY"
+      ],
+      "properties": [
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+        "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED"
+      ],
+      "domain": "recherche biomédicale multimodale",
+      "turnCount": 6,
+      "multiTurnContextDependent": true,
+      "features": [
+        "NEGATION",
+        "CONTEXTUAL_ENRICHMENT",
+        "MISSING_INFORMATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ]
+    },
+    {
+      "caseId": "SEM3-DEV-TRIAL-IMAGING-OUTCOME-CORRECTION",
+      "set": "DEVELOPMENT",
+      "categories": [
+        "MULTI_TURN_CORRECTION",
+        "CHANGE_OF_MIND",
+        "INTERVENTION_AND_IMAGING",
+        "COMPARISON_AND_TIMING"
+      ],
+      "properties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"
+      ],
+      "domain": "méthodologie d'essai clinique et imagerie",
+      "turnCount": 8,
+      "multiTurnContextDependent": true,
+      "features": [
+        "CORRECTION",
+        "CHANGE_OF_MIND",
+        "MISSING_INFORMATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ]
+    },
+    {
+      "caseId": "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
+      "set": "CALIBRATION",
+      "categories": [
+        "COMPARISON_AND_TIMING",
+        "PHENOMENON_VERSUS_OBSERVABLE",
+        "MULTIDIMENSIONAL_REQUEST"
+      ],
+      "properties": [
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      ],
+      "domain": "cardiologie et hypertension pulmonaire",
+      "turnCount": 7,
+      "multiTurnContextDependent": true,
+      "features": [
+        "PHENOMENON_OBSERVABLE",
+        "MISSING_INFORMATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ]
+    },
+    {
+      "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
+      "set": "CALIBRATION",
+      "categories": [
+        "INTERVENTION_AND_IMAGING",
+        "KNOWLEDGE_CANDIDATE",
+        "SCIENTIFIC_AMBIGUITY"
+      ],
+      "properties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+        "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+      ],
+      "domain": "électrophysiologie et imagerie cardiaque",
+      "turnCount": 6,
+      "multiTurnContextDependent": true,
+      "features": [
+        "AMBIGUITY",
+        "CONTEXTUAL_ENRICHMENT",
+        "MISSING_INFORMATION",
+        "NEGATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ]
+    },
+    {
+      "caseId": "SEM3-CAL-CONGENITAL-FLOW-ELLIPSIS",
+      "set": "CALIBRATION",
+      "categories": [
+        "ELLIPSIS",
+        "NECESSARY_IMPLICIT",
+        "MULTIDIMENSIONAL_REQUEST",
+        "COMPARISON_AND_TIMING"
+      ],
+      "properties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"
+      ],
+      "domain": "cardiologie congénitale et imagerie de flux",
+      "turnCount": 8,
+      "multiTurnContextDependent": true,
+      "features": [
+        "ELLIPSIS",
+        "CORRECTION",
+        "MISSING_INFORMATION",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ]
+    },
+    {
+      "caseId": "SEM3-CAL-CARDIO-RHYTHM-REMODELING",
+      "set": "CALIBRATION",
+      "categories": [
+        "NEGATION_AND_NON_CAUSALITY",
+        "CHANGE_OF_MIND",
+        "METHOD_VERSUS_MEASUREMENT"
+      ],
+      "properties": [
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"
+      ],
+      "domain": "rythmologie et imagerie cardiaque",
+      "turnCount": 5,
+      "multiTurnContextDependent": true,
+      "features": [
+        "NEGATION",
+        "CORRECTION",
+        "CHANGE_OF_MIND",
+        "METHOD_MEASUREMENT",
+        "MISSING_INFORMATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ]
+    },
+    {
+      "caseId": "SEM3-CAL-NEURODEGENERATION-PROGRESSION",
+      "set": "CALIBRATION",
+      "categories": [
+        "COMPLETE_SCIENTIFIC_REQUEST",
+        "PHENOMENON_VERSUS_OBSERVABLE",
+        "COMPARISON_AND_TIMING"
+      ],
+      "properties": [
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+      ],
+      "domain": "neuro-imagerie et neurodégénérescence",
+      "turnCount": 1,
+      "multiTurnContextDependent": false,
+      "features": [
+        "PHENOMENON_OBSERVABLE",
+        "NEGATION",
+        "MISSING_INFORMATION"
+      ]
+    },
+    {
+      "caseId": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+      "set": "CALIBRATION",
+      "categories": [
+        "SCIENTIFIC_AMBIGUITY",
+        "METHOD_VERSUS_MEASUREMENT",
+        "UNDER_SPECIFIED_REQUEST"
+      ],
+      "properties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      ],
+      "domain": "imagerie gynécologique et échographie",
+      "turnCount": 1,
+      "multiTurnContextDependent": false,
+      "features": [
+        "AMBIGUITY",
+        "MISSING_INFORMATION",
+        "METHOD_MEASUREMENT",
+        "OWNERSHIP"
+      ]
+    },
+    {
+      "caseId": "SEM3-CAL-MSK-INFLAMMATION-RESPONSE",
+      "set": "CALIBRATION",
+      "categories": [
+        "STRONG_CONTEXTUAL_IMPLICIT",
+        "KNOWLEDGE_CANDIDATE",
+        "COMPARISON_AND_TIMING"
+      ],
+      "properties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+        "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      ],
+      "domain": "imagerie musculosquelettique et inflammation",
+      "turnCount": 6,
+      "multiTurnContextDependent": true,
+      "features": [
+        "CONTEXTUAL_ENRICHMENT",
+        "MISSING_INFORMATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ]
+    },
+    {
+      "caseId": "SEM3-CAL-CORTISOL-SAMPLING-SUMMARY",
+      "set": "CALIBRATION",
+      "categories": [
+        "METHOD_VERSUS_MEASUREMENT",
+        "COMPARISON_AND_TIMING",
+        "UNDER_SPECIFIED_REQUEST"
+      ],
+      "properties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+      ],
+      "domain": "physiologie et mesures longitudinales",
+      "turnCount": 5,
+      "multiTurnContextDependent": true,
+      "features": [
+        "METHOD_MEASUREMENT",
+        "MISSING_INFORMATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ]
+    },
+    {
+      "caseId": "SEM3-CAL-TRIAL-COMPARATOR-DECISION",
+      "set": "CALIBRATION",
+      "categories": [
+        "UNDER_SPECIFIED_REQUEST",
+        "SCIENTIFIC_AMBIGUITY",
+        "COMPARISON_AND_TIMING"
+      ],
+      "properties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+      ],
+      "domain": "méthodologie d'essai clinique pragmatique",
+      "turnCount": 7,
+      "multiTurnContextDependent": true,
+      "features": [
+        "MISSING_INFORMATION",
+        "AMBIGUITY",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ]
+    },
+    {
+      "caseId": "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+      "set": "CALIBRATION",
+      "categories": [
+        "MULTIDIMENSIONAL_REQUEST",
+        "PHENOMENON_VERSUS_OBSERVABLE",
+        "METHOD_VERSUS_MEASUREMENT",
+        "KNOWLEDGE_CANDIDATE"
+      ],
+      "properties": [
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+        "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+      ],
+      "domain": "modèles translationnels et imagerie cellulaire",
+      "turnCount": 9,
+      "multiTurnContextDependent": true,
+      "features": [
+        "ELLIPSIS",
+        "CORRECTION",
+        "PHENOMENON_OBSERVABLE",
+        "METHOD_MEASUREMENT",
+        "CONTEXTUAL_ENRICHMENT",
+        "MISSING_INFORMATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1454 @@
+{
+  "registryId": "SEM-003B1-CORPUS-REGISTRY",
+  "version": "1.0.0",
+  "generatedAt": "2026-08-13T12:00:00.000Z",
+  "normativeStatus": "BENCHMARK_ARTIFACT_NON_NORMATIVE",
+  "entries": [
+    {
+      "caseId": "SEM3-DEV-CARDIAC-AGING-TRAJECTORY",
+      "version": "1.0.0",
+      "set": "DEVELOPMENT",
+      "exposureStatus": "DEVELOPMENT_VISIBLE",
+      "domain": "cardiologie et imagerie cardiovasculaire",
+      "domainGroup": "CARDIOVASCULAR_IMAGING",
+      "scenarioCategory": "CHANGE_OF_MIND",
+      "secondaryCategories": [
+        "MULTI_TURN_CORRECTION",
+        "COMPARISON_AND_TIMING",
+        "MULTIDIMENSIONAL_REQUEST"
+      ],
+      "turnCount": 8,
+      "multiTurn": true,
+      "multiTurnContextDependent": true,
+      "difficultyClass": "COMPOSITIONAL",
+      "applicableProperties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      ],
+      "features": [
+        "CORRECTION",
+        "CHANGE_OF_MIND",
+        "NEGATION",
+        "MISSING_INFORMATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ],
+      "contextClass": "CONTEXT_REQUIRED_FOR_BASIC_UNDERSTANDING",
+      "underSpecificationDisposition": "PARTIAL_BRANCHES_CAN_PROCEED",
+      "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+      "calibrationDisposition": "NOT_APPLICABLE",
+      "parentageStatus": "PARENTAGE_CLEAR",
+      "contaminationStatus": "CLEAR",
+      "sourceClassification": "ORIGINAL_SYNTHETIC_CASE",
+      "paths": {
+        "case": "semantic-validation/sem-003/corpus/development/cardiac-aging-trajectory.case.json",
+        "acceptanceEnvelope": "semantic-validation/sem-003/corpus/development/cardiac-aging-trajectory.envelope.json"
+      },
+      "digests": {
+        "caseSha256": "c2a98e22df655d0f43d420330316e1ba2a6ca15041fad88d68104f43f728b8c2",
+        "acceptanceEnvelopeSha256": "c378998a874f6c51bbdb3ba4a336851a310b7ec642b2a82d0de9e765901a84a8",
+        "pairSha256": "c555c849c5f46c8c2eef2efd8fc972bb8e593e88c1060456da20146f663b43ef"
+      }
+    },
+    {
+      "caseId": "SEM3-DEV-CORONARY-PERFUSION-PRIORITY",
+      "version": "1.0.0",
+      "set": "DEVELOPMENT",
+      "exposureStatus": "DEVELOPMENT_VISIBLE",
+      "domain": "cardiologie coronaire et imagerie cardiovasculaire",
+      "domainGroup": "CARDIOVASCULAR_IMAGING",
+      "scenarioCategory": "ELLIPSIS",
+      "secondaryCategories": [
+        "NECESSARY_IMPLICIT",
+        "COMPARISON_AND_TIMING",
+        "INTERVENTION_AND_IMAGING"
+      ],
+      "turnCount": 7,
+      "multiTurn": true,
+      "multiTurnContextDependent": true,
+      "difficultyClass": "ADVANCED",
+      "applicableProperties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      ],
+      "features": [
+        "ELLIPSIS",
+        "MISSING_INFORMATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ],
+      "contextClass": "CONTEXT_REQUIRED_FOR_BASIC_UNDERSTANDING",
+      "underSpecificationDisposition": "CLARIFICATION_REQUIRED",
+      "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+      "calibrationDisposition": "NOT_APPLICABLE",
+      "parentageStatus": "PARENTAGE_CLEAR",
+      "contaminationStatus": "CLEAR",
+      "sourceClassification": "ORIGINAL_SYNTHETIC_CASE",
+      "paths": {
+        "case": "semantic-validation/sem-003/corpus/development/coronary-perfusion-priority.case.json",
+        "acceptanceEnvelope": "semantic-validation/sem-003/corpus/development/coronary-perfusion-priority.envelope.json"
+      },
+      "digests": {
+        "caseSha256": "9c9000504f4175f698ade7af7b1c4885d20c099ec6635696e5ec2bdefcde57c3",
+        "acceptanceEnvelopeSha256": "0249039c74ccf32dbdfa43609a21de80ad4501c6a64dc68172f7238f966b9bd1",
+        "pairSha256": "a5b5f9a58f47b8b2de5be1bd97e77ce340d7ad0fe0c6b2d474a1ce53ac5f47ff"
+      }
+    },
+    {
+      "caseId": "SEM3-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
+      "version": "1.0.0",
+      "set": "DEVELOPMENT",
+      "exposureStatus": "DEVELOPMENT_VISIBLE",
+      "domain": "CT cardiaque et estimation fonctionnelle",
+      "domainGroup": "CARDIOVASCULAR_IMAGING",
+      "scenarioCategory": "METHOD_VERSUS_MEASUREMENT",
+      "secondaryCategories": [
+        "PHENOMENON_VERSUS_OBSERVABLE",
+        "SCIENTIFIC_AMBIGUITY"
+      ],
+      "turnCount": 6,
+      "multiTurn": true,
+      "multiTurnContextDependent": true,
+      "difficultyClass": "ADVANCED",
+      "applicableProperties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      ],
+      "features": [
+        "METHOD_MEASUREMENT",
+        "PHENOMENON_OBSERVABLE",
+        "AMBIGUITY",
+        "MISSING_INFORMATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ],
+      "contextClass": "CONTEXT_REQUIRED_FOR_BASIC_UNDERSTANDING",
+      "underSpecificationDisposition": "CLARIFICATION_REQUIRED",
+      "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+      "calibrationDisposition": "NOT_APPLICABLE",
+      "parentageStatus": "PARENTAGE_CLEAR",
+      "contaminationStatus": "CLEAR",
+      "sourceClassification": "ORIGINAL_SYNTHETIC_CASE",
+      "paths": {
+        "case": "semantic-validation/sem-003/corpus/development/ct-functional-estimate-role.case.json",
+        "acceptanceEnvelope": "semantic-validation/sem-003/corpus/development/ct-functional-estimate-role.envelope.json"
+      },
+      "digests": {
+        "caseSha256": "766463e0cd3a51305be6a4a066d848bb982e56da5627a31b36d57da310cff9af",
+        "acceptanceEnvelopeSha256": "03bd143d18271400e2bfd6bfb0ae936d28a7ee5fa71fc9e854b18a771df80b2c",
+        "pairSha256": "20c5a0ea4fdaef690fc9c92ed6ee0a33f3596d2d1bf2aefd57877b8d31a5fedd"
+      }
+    },
+    {
+      "caseId": "SEM3-DEV-VALVE-HEMODYNAMICS-MULTIMODAL",
+      "version": "1.0.0",
+      "set": "DEVELOPMENT",
+      "exposureStatus": "DEVELOPMENT_VISIBLE",
+      "domain": "valvulopathies et imagerie cardiovasculaire multimodale",
+      "domainGroup": "CARDIOVASCULAR_IMAGING",
+      "scenarioCategory": "MULTIDIMENSIONAL_REQUEST",
+      "secondaryCategories": [
+        "NECESSARY_IMPLICIT",
+        "COMPARISON_AND_TIMING",
+        "CHANGE_OF_MIND"
+      ],
+      "turnCount": 8,
+      "multiTurn": true,
+      "multiTurnContextDependent": true,
+      "difficultyClass": "COMPOSITIONAL",
+      "applicableProperties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED"
+      ],
+      "features": [
+        "CHANGE_OF_MIND",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ],
+      "contextClass": "CONTEXT_REQUIRED_FOR_BASIC_UNDERSTANDING",
+      "underSpecificationDisposition": "PARTIAL_BRANCHES_CAN_PROCEED",
+      "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+      "calibrationDisposition": "NOT_APPLICABLE",
+      "parentageStatus": "PARENTAGE_CLEAR",
+      "contaminationStatus": "CLEAR",
+      "sourceClassification": "ORIGINAL_SYNTHETIC_CASE",
+      "paths": {
+        "case": "semantic-validation/sem-003/corpus/development/valve-hemodynamics-multimodal.case.json",
+        "acceptanceEnvelope": "semantic-validation/sem-003/corpus/development/valve-hemodynamics-multimodal.envelope.json"
+      },
+      "digests": {
+        "caseSha256": "6223398c5bac8e687d5d834324b0b9bbadc0d63f1a33fd3739221ec28786fbfc",
+        "acceptanceEnvelopeSha256": "a8ce90913a3a9639a926fb7a790b3583d5df230bb984f47187917da926d1fccb",
+        "pairSha256": "9e79e37aa8ec99e2066a32badc9a64b0829bb4ad06a4108603423fdefd5cb4ec"
+      }
+    },
+    {
+      "caseId": "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL",
+      "version": "1.0.0",
+      "set": "DEVELOPMENT",
+      "exposureStatus": "DEVELOPMENT_VISIBLE",
+      "domain": "imagerie cardiaque et physiologie atriale",
+      "domainGroup": "CARDIOVASCULAR_IMAGING",
+      "scenarioCategory": "NEGATION_AND_NON_CAUSALITY",
+      "secondaryCategories": [
+        "MULTI_TURN_CORRECTION",
+        "STRONG_CONTEXTUAL_IMPLICIT"
+      ],
+      "turnCount": 5,
+      "multiTurn": true,
+      "multiTurnContextDependent": true,
+      "difficultyClass": "ADVANCED",
+      "applicableProperties": [
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      ],
+      "features": [
+        "CORRECTION",
+        "NEGATION",
+        "MISSING_INFORMATION",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ],
+      "contextClass": "SCIENTIFIC_CONTEXT_STRONGLY_SUGGESTED",
+      "underSpecificationDisposition": "PARTIAL_BRANCHES_CAN_PROCEED",
+      "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+      "calibrationDisposition": "NOT_APPLICABLE",
+      "parentageStatus": "PARENTAGE_CLEAR",
+      "contaminationStatus": "CLEAR",
+      "sourceClassification": "ORIGINAL_SYNTHETIC_CASE",
+      "paths": {
+        "case": "semantic-validation/sem-003/corpus/development/pericardial-fat-noncausal.case.json",
+        "acceptanceEnvelope": "semantic-validation/sem-003/corpus/development/pericardial-fat-noncausal.envelope.json"
+      },
+      "digests": {
+        "caseSha256": "ca84430944c20deb39b68cd2e2d30a49a71a8a07928dfad164185d8516d866bf",
+        "acceptanceEnvelopeSha256": "378b15caa88b7e608b4e59fa590685a8a25ca37c0f4d9f4878ac85ace2ec2bb4",
+        "pairSha256": "599e88b7a10b84472810c01fbba206945a3d4f59f17e376a8c298ef2ed95634d"
+      }
+    },
+    {
+      "caseId": "SEM3-DEV-PLAQUE-INTERVENTION-CONTEXT",
+      "version": "1.0.0",
+      "set": "DEVELOPMENT",
+      "exposureStatus": "DEVELOPMENT_VISIBLE",
+      "domain": "CT cardiaque et cardiologie interventionnelle",
+      "domainGroup": "CARDIOVASCULAR_IMAGING",
+      "scenarioCategory": "INTERVENTION_AND_IMAGING",
+      "secondaryCategories": [
+        "KNOWLEDGE_CANDIDATE",
+        "STRONG_CONTEXTUAL_IMPLICIT"
+      ],
+      "turnCount": 6,
+      "multiTurn": true,
+      "multiTurnContextDependent": true,
+      "difficultyClass": "ADVANCED",
+      "applicableProperties": [
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      ],
+      "features": [
+        "CONTEXTUAL_ENRICHMENT",
+        "MISSING_INFORMATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ],
+      "contextClass": "SCIENTIFIC_CONTEXT_STRONGLY_SUGGESTED",
+      "underSpecificationDisposition": "KNOWLEDGE_FIRST",
+      "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+      "calibrationDisposition": "NOT_APPLICABLE",
+      "parentageStatus": "PARENTAGE_CLEAR",
+      "contaminationStatus": "CLEAR",
+      "sourceClassification": "ORIGINAL_SYNTHETIC_CASE",
+      "paths": {
+        "case": "semantic-validation/sem-003/corpus/development/plaque-intervention-context.case.json",
+        "acceptanceEnvelope": "semantic-validation/sem-003/corpus/development/plaque-intervention-context.envelope.json"
+      },
+      "digests": {
+        "caseSha256": "caef9ecd67aff0f21ac8e49fc3c43925fea515118b33c70724185c7fe9d3bd5f",
+        "acceptanceEnvelopeSha256": "26231fbe218623a2e72ba2d5c42faecb3d0e724b9b93098a5742f688869179fc",
+        "pairSha256": "1b084a063f778c7a8ca94b2d60c72dfb3101b308679e2bcaabd383fd6bbb5617"
+      }
+    },
+    {
+      "caseId": "SEM3-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
+      "version": "1.0.0",
+      "set": "DEVELOPMENT",
+      "exposureStatus": "DEVELOPMENT_VISIBLE",
+      "domain": "imagerie rétinienne vasculaire",
+      "domainGroup": "OTHER_MEDICAL_IMAGING",
+      "scenarioCategory": "UNDER_SPECIFIED_REQUEST",
+      "secondaryCategories": [
+        "SCIENTIFIC_AMBIGUITY",
+        "COMPARISON_AND_TIMING"
+      ],
+      "turnCount": 7,
+      "multiTurn": true,
+      "multiTurnContextDependent": true,
+      "difficultyClass": "COMPOSITIONAL",
+      "applicableProperties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED"
+      ],
+      "features": [
+        "MISSING_INFORMATION",
+        "AMBIGUITY",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ],
+      "contextClass": "CONTEXT_REQUIRED_FOR_BASIC_UNDERSTANDING",
+      "underSpecificationDisposition": "CLARIFICATION_REQUIRED",
+      "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+      "calibrationDisposition": "NOT_APPLICABLE",
+      "parentageStatus": "PARENTAGE_CLEAR",
+      "contaminationStatus": "CLEAR",
+      "sourceClassification": "ORIGINAL_SYNTHETIC_CASE",
+      "paths": {
+        "case": "semantic-validation/sem-003/corpus/development/retinal-vascular-outcome-unknown.case.json",
+        "acceptanceEnvelope": "semantic-validation/sem-003/corpus/development/retinal-vascular-outcome-unknown.envelope.json"
+      },
+      "digests": {
+        "caseSha256": "cf5fd81304e249b037c6f5db025718722551899b18aeccd86faa6572b130964c",
+        "acceptanceEnvelopeSha256": "3fe0fb021c488007689e859bbf6da85aa4135f9f12cb41ff26077a76e31c1cdb",
+        "pairSha256": "f22cd74cadd3d630e70071fbeabc9501dcb577381393a13e38d91cfe57788fe0"
+      }
+    },
+    {
+      "caseId": "SEM3-DEV-BODY-COMPOSITION-AMBIGUITY",
+      "version": "1.0.0",
+      "set": "DEVELOPMENT",
+      "exposureStatus": "DEVELOPMENT_VISIBLE",
+      "domain": "imagerie oncologique et composition corporelle",
+      "domainGroup": "OTHER_MEDICAL_IMAGING",
+      "scenarioCategory": "SCIENTIFIC_AMBIGUITY",
+      "secondaryCategories": [
+        "KNOWLEDGE_CANDIDATE",
+        "PHENOMENON_VERSUS_OBSERVABLE"
+      ],
+      "turnCount": 1,
+      "multiTurn": false,
+      "multiTurnContextDependent": false,
+      "difficultyClass": "INTERMEDIATE",
+      "applicableProperties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      ],
+      "features": [
+        "AMBIGUITY",
+        "PHENOMENON_OBSERVABLE",
+        "CONTEXTUAL_ENRICHMENT",
+        "MISSING_INFORMATION"
+      ],
+      "contextClass": "SCIENTIFIC_CONTEXT_STRONGLY_SUGGESTED",
+      "underSpecificationDisposition": "SPECIALIST_OWNER_REQUIRED",
+      "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+      "calibrationDisposition": "NOT_APPLICABLE",
+      "parentageStatus": "PARENTAGE_CLEAR",
+      "contaminationStatus": "CLEAR",
+      "sourceClassification": "ORIGINAL_SYNTHETIC_CASE",
+      "paths": {
+        "case": "semantic-validation/sem-003/corpus/development/body-composition-ambiguity.case.json",
+        "acceptanceEnvelope": "semantic-validation/sem-003/corpus/development/body-composition-ambiguity.envelope.json"
+      },
+      "digests": {
+        "caseSha256": "f5c080ff7cf631fed6f70afcae1cb01740e5091b77400d81c718437f495282cf",
+        "acceptanceEnvelopeSha256": "b560f3ccf338404f8ff1914c908d6a016a50591ecea1e034239c51d04315bbec",
+        "pairSha256": "cf2d7723e194fc05f71c4e788fdff94b1fe51b814cb9c73623da33d127af73a7"
+      }
+    },
+    {
+      "caseId": "SEM3-DEV-PANCREATIC-COMPOSITION-LONGITUDINAL",
+      "version": "1.0.0",
+      "set": "DEVELOPMENT",
+      "exposureStatus": "DEVELOPMENT_VISIBLE",
+      "domain": "imagerie abdominale et recherche métabolique",
+      "domainGroup": "OTHER_MEDICAL_IMAGING",
+      "scenarioCategory": "COMPLETE_SCIENTIFIC_REQUEST",
+      "secondaryCategories": [
+        "COMPARISON_AND_TIMING",
+        "MULTIDIMENSIONAL_REQUEST"
+      ],
+      "turnCount": 5,
+      "multiTurn": true,
+      "multiTurnContextDependent": true,
+      "difficultyClass": "INTERMEDIATE",
+      "applicableProperties": [
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+      ],
+      "features": [
+        "MISSING_INFORMATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ],
+      "contextClass": "OPTIONAL_SCIENTIFIC_ENRICHMENT",
+      "underSpecificationDisposition": "SPECIALIST_OWNER_REQUIRED",
+      "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+      "calibrationDisposition": "NOT_APPLICABLE",
+      "parentageStatus": "PARENTAGE_CLEAR",
+      "contaminationStatus": "CLEAR",
+      "sourceClassification": "ORIGINAL_SYNTHETIC_CASE",
+      "paths": {
+        "case": "semantic-validation/sem-003/corpus/development/pancreatic-composition-longitudinal.case.json",
+        "acceptanceEnvelope": "semantic-validation/sem-003/corpus/development/pancreatic-composition-longitudinal.envelope.json"
+      },
+      "digests": {
+        "caseSha256": "76ba793db58004091c276a8db7a915745dcfeebd7e8b6bd87cdd298f18820eaa",
+        "acceptanceEnvelopeSha256": "12b1ebc186318f177e0b1b483b2034d1b7e7686a7c1aa2e4b11e6e0b3c3811d3",
+        "pairSha256": "c92a1679cfb1d3a14bd563a15f943bbcb2f0220d269e2778f4c0090296dbef71"
+      }
+    },
+    {
+      "caseId": "SEM3-DEV-INTESTINAL-MOTILITY-METHOD",
+      "version": "1.0.0",
+      "set": "DEVELOPMENT",
+      "exposureStatus": "DEVELOPMENT_VISIBLE",
+      "domain": "imagerie digestive quantitative",
+      "domainGroup": "OTHER_MEDICAL_IMAGING",
+      "scenarioCategory": "METHOD_VERSUS_MEASUREMENT",
+      "secondaryCategories": [
+        "UNDER_SPECIFIED_REQUEST",
+        "PHENOMENON_VERSUS_OBSERVABLE"
+      ],
+      "turnCount": 1,
+      "multiTurn": false,
+      "multiTurnContextDependent": false,
+      "difficultyClass": "BASIC",
+      "applicableProperties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED"
+      ],
+      "features": [
+        "METHOD_MEASUREMENT",
+        "PHENOMENON_OBSERVABLE",
+        "AMBIGUITY",
+        "MISSING_INFORMATION",
+        "OWNERSHIP"
+      ],
+      "contextClass": "CONTEXT_REQUIRED_FOR_BASIC_UNDERSTANDING",
+      "underSpecificationDisposition": "CLARIFICATION_REQUIRED",
+      "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+      "calibrationDisposition": "NOT_APPLICABLE",
+      "parentageStatus": "PARENTAGE_CLEAR",
+      "contaminationStatus": "CLEAR",
+      "sourceClassification": "ORIGINAL_SYNTHETIC_CASE",
+      "paths": {
+        "case": "semantic-validation/sem-003/corpus/development/intestinal-motility-method.case.json",
+        "acceptanceEnvelope": "semantic-validation/sem-003/corpus/development/intestinal-motility-method.envelope.json"
+      },
+      "digests": {
+        "caseSha256": "e178d95250815ce2b3e2042a561530ece5b4ca40a3753e1ec5543c7a0f2830b4",
+        "acceptanceEnvelopeSha256": "9c42339ba4bf588889572a895f028ab399d90d20b832915fca2ddff836e64541",
+        "pairSha256": "8a825e21d8dcf271c53f73223d89217439975e9ed77f924b9475d5830d49eac2"
+      }
+    },
+    {
+      "caseId": "SEM3-DEV-OUTCOME-PRIORITY-CHANGE",
+      "version": "1.0.0",
+      "set": "DEVELOPMENT",
+      "exposureStatus": "DEVELOPMENT_VISIBLE",
+      "domain": "méthodologie de recherche clinique",
+      "domainGroup": "TRANSVERSAL_CLINICAL_BIOMEDICAL_RESEARCH",
+      "scenarioCategory": "CHANGE_OF_MIND",
+      "secondaryCategories": [
+        "MULTI_TURN_CORRECTION",
+        "COMPARISON_AND_TIMING"
+      ],
+      "turnCount": 6,
+      "multiTurn": true,
+      "multiTurnContextDependent": true,
+      "difficultyClass": "COMPOSITIONAL",
+      "applicableProperties": [
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      ],
+      "features": [
+        "CORRECTION",
+        "CHANGE_OF_MIND",
+        "MISSING_INFORMATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ],
+      "contextClass": "CONTEXT_REQUIRED_FOR_BASIC_UNDERSTANDING",
+      "underSpecificationDisposition": "PARTIAL_BRANCHES_CAN_PROCEED",
+      "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+      "calibrationDisposition": "NOT_APPLICABLE",
+      "parentageStatus": "PARENTAGE_CLEAR",
+      "contaminationStatus": "CLEAR",
+      "sourceClassification": "ORIGINAL_SYNTHETIC_CASE",
+      "paths": {
+        "case": "semantic-validation/sem-003/corpus/development/outcome-priority-change.case.json",
+        "acceptanceEnvelope": "semantic-validation/sem-003/corpus/development/outcome-priority-change.envelope.json"
+      },
+      "digests": {
+        "caseSha256": "a638fb9b6bf80147e8559f992ffb4de145fc46b156eb07da5c4f2328d360fc69",
+        "acceptanceEnvelopeSha256": "6384bb452b68a771600de0621523a3c57270858f03bacadd4c887f8a48306be7",
+        "pairSha256": "1b3336bc2d397b80d1f025ea6367f1c947ffb0fdec8073a3044bc9c5ca213f25"
+      }
+    },
+    {
+      "caseId": "SEM3-DEV-TRANSLATIONAL-HYPOXIA-CANDIDATES",
+      "version": "1.0.0",
+      "set": "DEVELOPMENT",
+      "exposureStatus": "DEVELOPMENT_VISIBLE",
+      "domain": "recherche translationnelle et imagerie moléculaire",
+      "domainGroup": "TRANSVERSAL_CLINICAL_BIOMEDICAL_RESEARCH",
+      "scenarioCategory": "KNOWLEDGE_CANDIDATE",
+      "secondaryCategories": [
+        "STRONG_CONTEXTUAL_IMPLICIT",
+        "MULTIDIMENSIONAL_REQUEST"
+      ],
+      "turnCount": 4,
+      "multiTurn": true,
+      "multiTurnContextDependent": true,
+      "difficultyClass": "ADVANCED",
+      "applicableProperties": [
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+        "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      ],
+      "features": [
+        "CONTEXTUAL_ENRICHMENT",
+        "MISSING_INFORMATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ],
+      "contextClass": "OPTIONAL_SCIENTIFIC_ENRICHMENT",
+      "underSpecificationDisposition": "KNOWLEDGE_FIRST",
+      "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+      "calibrationDisposition": "NOT_APPLICABLE",
+      "parentageStatus": "PARENTAGE_CLEAR",
+      "contaminationStatus": "CLEAR",
+      "sourceClassification": "ORIGINAL_SYNTHETIC_CASE",
+      "paths": {
+        "case": "semantic-validation/sem-003/corpus/development/translational-hypoxia-candidates.case.json",
+        "acceptanceEnvelope": "semantic-validation/sem-003/corpus/development/translational-hypoxia-candidates.envelope.json"
+      },
+      "digests": {
+        "caseSha256": "0b9e212970d93529d29aa15c35cb377fe97172ae1cbce889323aaae719971f29",
+        "acceptanceEnvelopeSha256": "ad5b6f2d69b535d69e1776d93fe428ecd9402b8e253ac3bd0b65cef2a05574b7",
+        "pairSha256": "93dadf7cb8617751c804bdc64a3fdde6399ccb5ef64f0ae3083af2c2a7baa400"
+      }
+    },
+    {
+      "caseId": "SEM3-DEV-ROUTINE-DATA-COMPARATOR-GAP",
+      "version": "1.0.0",
+      "set": "DEVELOPMENT",
+      "exposureStatus": "DEVELOPMENT_VISIBLE",
+      "domain": "recherche clinique observationnelle",
+      "domainGroup": "TRANSVERSAL_CLINICAL_BIOMEDICAL_RESEARCH",
+      "scenarioCategory": "UNDER_SPECIFIED_REQUEST",
+      "secondaryCategories": [
+        "NECESSARY_IMPLICIT",
+        "SCIENTIFIC_AMBIGUITY"
+      ],
+      "turnCount": 1,
+      "multiTurn": false,
+      "multiTurnContextDependent": false,
+      "difficultyClass": "BASIC",
+      "applicableProperties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+      ],
+      "features": [
+        "MISSING_INFORMATION",
+        "AMBIGUITY",
+        "OWNERSHIP"
+      ],
+      "contextClass": "CONTEXT_REQUIRED_FOR_BASIC_UNDERSTANDING",
+      "underSpecificationDisposition": "CLARIFICATION_REQUIRED",
+      "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+      "calibrationDisposition": "NOT_APPLICABLE",
+      "parentageStatus": "PARENTAGE_CLEAR",
+      "contaminationStatus": "CLEAR",
+      "sourceClassification": "ORIGINAL_SYNTHETIC_CASE",
+      "paths": {
+        "case": "semantic-validation/sem-003/corpus/development/routine-data-comparator-gap.case.json",
+        "acceptanceEnvelope": "semantic-validation/sem-003/corpus/development/routine-data-comparator-gap.envelope.json"
+      },
+      "digests": {
+        "caseSha256": "ae85f31c0ea66913717470dea1695d55324a70176ad5d18ca85daf1924461b2d",
+        "acceptanceEnvelopeSha256": "8cb684c5e954896577410533d17364bf2e8727036ed8ce1e234dd5f3a4368618",
+        "pairSha256": "db30483a04acbfcee726a0fbcd1997499037bb0607f02dd2b799eb4c81fe4128"
+      }
+    },
+    {
+      "caseId": "SEM3-DEV-INFLAMMATION-MULTIDIMENSIONAL",
+      "version": "1.0.0",
+      "set": "DEVELOPMENT",
+      "exposureStatus": "DEVELOPMENT_VISIBLE",
+      "domain": "recherche biomédicale multimodale",
+      "domainGroup": "TRANSVERSAL_CLINICAL_BIOMEDICAL_RESEARCH",
+      "scenarioCategory": "STRONG_CONTEXTUAL_IMPLICIT",
+      "secondaryCategories": [
+        "MULTIDIMENSIONAL_REQUEST",
+        "NEGATION_AND_NON_CAUSALITY"
+      ],
+      "turnCount": 6,
+      "multiTurn": true,
+      "multiTurnContextDependent": true,
+      "difficultyClass": "ADVANCED",
+      "applicableProperties": [
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+        "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED"
+      ],
+      "features": [
+        "NEGATION",
+        "CONTEXTUAL_ENRICHMENT",
+        "MISSING_INFORMATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ],
+      "contextClass": "SCIENTIFIC_CONTEXT_STRONGLY_SUGGESTED",
+      "underSpecificationDisposition": "PARTIAL_BRANCHES_CAN_PROCEED",
+      "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+      "calibrationDisposition": "NOT_APPLICABLE",
+      "parentageStatus": "PARENTAGE_CLEAR",
+      "contaminationStatus": "CLEAR",
+      "sourceClassification": "ORIGINAL_SYNTHETIC_CASE",
+      "paths": {
+        "case": "semantic-validation/sem-003/corpus/development/inflammation-multidimensional.case.json",
+        "acceptanceEnvelope": "semantic-validation/sem-003/corpus/development/inflammation-multidimensional.envelope.json"
+      },
+      "digests": {
+        "caseSha256": "1cfafe0babf374de22cbdc11f6a73603b8811bb9198bd1272a85753fed7de06a",
+        "acceptanceEnvelopeSha256": "cb57bb1fed2270c8515bb290f451a61bad17da57879bbe94c89e2bc13c25a115",
+        "pairSha256": "12750ac0451d46dcabcd4f9f1181bf77e5b48be0f65bc4ed84037405c911860a"
+      }
+    },
+    {
+      "caseId": "SEM3-DEV-TRIAL-IMAGING-OUTCOME-CORRECTION",
+      "version": "1.0.0",
+      "set": "DEVELOPMENT",
+      "exposureStatus": "DEVELOPMENT_VISIBLE",
+      "domain": "méthodologie d'essai clinique et imagerie",
+      "domainGroup": "TRANSVERSAL_CLINICAL_BIOMEDICAL_RESEARCH",
+      "scenarioCategory": "MULTI_TURN_CORRECTION",
+      "secondaryCategories": [
+        "CHANGE_OF_MIND",
+        "INTERVENTION_AND_IMAGING",
+        "COMPARISON_AND_TIMING"
+      ],
+      "turnCount": 8,
+      "multiTurn": true,
+      "multiTurnContextDependent": true,
+      "difficultyClass": "COMPOSITIONAL",
+      "applicableProperties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"
+      ],
+      "features": [
+        "CORRECTION",
+        "CHANGE_OF_MIND",
+        "MISSING_INFORMATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ],
+      "contextClass": "CONTEXT_REQUIRED_FOR_BASIC_UNDERSTANDING",
+      "underSpecificationDisposition": "CLARIFICATION_REQUIRED",
+      "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+      "calibrationDisposition": "NOT_APPLICABLE",
+      "parentageStatus": "PARENTAGE_CLEAR",
+      "contaminationStatus": "CLEAR",
+      "sourceClassification": "ORIGINAL_SYNTHETIC_CASE",
+      "paths": {
+        "case": "semantic-validation/sem-003/corpus/development/trial-imaging-outcome-correction.case.json",
+        "acceptanceEnvelope": "semantic-validation/sem-003/corpus/development/trial-imaging-outcome-correction.envelope.json"
+      },
+      "digests": {
+        "caseSha256": "b8f981927088836dd576755f5ec666ac174504354a1f05a82a713b53b4706d72",
+        "acceptanceEnvelopeSha256": "5be005001f3583beb7742b2dbe6ca527a32976f8dfec5c90c4e8b318a3bdb765",
+        "pairSha256": "6f8be1d62d0cb0a9578703c757311621eeea7c1a7b8558d3ad55dd36e1e182ca"
+      }
+    },
+    {
+      "caseId": "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
+      "version": "1.0.0",
+      "set": "CALIBRATION",
+      "exposureStatus": "DESIGN_ONLY",
+      "domain": "cardiologie et hypertension pulmonaire",
+      "domainGroup": "CARDIOVASCULAR_IMAGING",
+      "scenarioCategory": "COMPARISON_AND_TIMING",
+      "secondaryCategories": [
+        "PHENOMENON_VERSUS_OBSERVABLE",
+        "MULTIDIMENSIONAL_REQUEST"
+      ],
+      "turnCount": 7,
+      "multiTurn": true,
+      "multiTurnContextDependent": true,
+      "difficultyClass": "ADVANCED",
+      "applicableProperties": [
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      ],
+      "features": [
+        "PHENOMENON_OBSERVABLE",
+        "MISSING_INFORMATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ],
+      "contextClass": "CONTEXT_REQUIRED_FOR_BASIC_UNDERSTANDING",
+      "underSpecificationDisposition": "SPECIALIST_OWNER_REQUIRED",
+      "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+      "calibrationDisposition": "HUMAN_REVIEW_REQUIRED",
+      "parentageStatus": "PARENTAGE_REVIEW_REQUIRED",
+      "contaminationStatus": "REVIEW_REQUIRED",
+      "sourceClassification": "ORIGINAL_SYNTHETIC_CASE",
+      "paths": {
+        "case": "semantic-validation/sem-003/corpus/calibration/pulmonary-hemodynamics-followup.case.json",
+        "acceptanceEnvelope": "semantic-validation/sem-003/corpus/calibration/pulmonary-hemodynamics-followup.envelope.json"
+      },
+      "digests": {
+        "caseSha256": "0273fb277160b5402ad41f5a05b73c675128a67a43ad28d6a6367f5f5678fe85",
+        "acceptanceEnvelopeSha256": "4f21e78ee2317371b73580243f09bd9b14b2c6b9a0d851bcc5f12e6ab9667517",
+        "pairSha256": "ff7f24a6a854faaddbbdfcddbcb316d697f6cdaa34c968c339157efdbed86e1e"
+      }
+    },
+    {
+      "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
+      "version": "1.0.0",
+      "set": "CALIBRATION",
+      "exposureStatus": "DESIGN_ONLY",
+      "domain": "électrophysiologie et imagerie cardiaque",
+      "domainGroup": "CARDIOVASCULAR_IMAGING",
+      "scenarioCategory": "INTERVENTION_AND_IMAGING",
+      "secondaryCategories": [
+        "KNOWLEDGE_CANDIDATE",
+        "SCIENTIFIC_AMBIGUITY"
+      ],
+      "turnCount": 6,
+      "multiTurn": true,
+      "multiTurnContextDependent": true,
+      "difficultyClass": "ADVANCED",
+      "applicableProperties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+        "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+      ],
+      "features": [
+        "AMBIGUITY",
+        "CONTEXTUAL_ENRICHMENT",
+        "MISSING_INFORMATION",
+        "NEGATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ],
+      "contextClass": "SCIENTIFIC_CONTEXT_STRONGLY_SUGGESTED",
+      "underSpecificationDisposition": "CLARIFICATION_REQUIRED",
+      "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+      "calibrationDisposition": "HUMAN_REVIEW_REQUIRED",
+      "parentageStatus": "PARENTAGE_REVIEW_REQUIRED",
+      "contaminationStatus": "REVIEW_REQUIRED",
+      "sourceClassification": "ORIGINAL_SYNTHETIC_CASE",
+      "paths": {
+        "case": "semantic-validation/sem-003/corpus/calibration/atrial-fibrosis-ablation.case.json",
+        "acceptanceEnvelope": "semantic-validation/sem-003/corpus/calibration/atrial-fibrosis-ablation.envelope.json"
+      },
+      "digests": {
+        "caseSha256": "a70533d22b4aaba8d291ec55ab8193639c6b68f251197e0ae1f9827f2aa622c8",
+        "acceptanceEnvelopeSha256": "dbfad83bdff14c24117d009e794522d9b31545c61c06aebb01d5679326e64939",
+        "pairSha256": "cc9d53f4bb8499cb9c49889b332390fe19b68eb1dd8f93a7b52e3971c1a9ebb9"
+      }
+    },
+    {
+      "caseId": "SEM3-CAL-CONGENITAL-FLOW-ELLIPSIS",
+      "version": "1.0.0",
+      "set": "CALIBRATION",
+      "exposureStatus": "DESIGN_ONLY",
+      "domain": "cardiologie congénitale et imagerie de flux",
+      "domainGroup": "CARDIOVASCULAR_IMAGING",
+      "scenarioCategory": "ELLIPSIS",
+      "secondaryCategories": [
+        "NECESSARY_IMPLICIT",
+        "MULTIDIMENSIONAL_REQUEST",
+        "COMPARISON_AND_TIMING"
+      ],
+      "turnCount": 8,
+      "multiTurn": true,
+      "multiTurnContextDependent": true,
+      "difficultyClass": "COMPOSITIONAL",
+      "applicableProperties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"
+      ],
+      "features": [
+        "ELLIPSIS",
+        "CORRECTION",
+        "MISSING_INFORMATION",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ],
+      "contextClass": "CONTEXT_REQUIRED_FOR_BASIC_UNDERSTANDING",
+      "underSpecificationDisposition": "CLARIFICATION_REQUIRED",
+      "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+      "calibrationDisposition": "HUMAN_REVIEW_REQUIRED",
+      "parentageStatus": "PARENTAGE_REVIEW_REQUIRED",
+      "contaminationStatus": "REVIEW_REQUIRED",
+      "sourceClassification": "ORIGINAL_SYNTHETIC_CASE",
+      "paths": {
+        "case": "semantic-validation/sem-003/corpus/calibration/congenital-flow-ellipsis.case.json",
+        "acceptanceEnvelope": "semantic-validation/sem-003/corpus/calibration/congenital-flow-ellipsis.envelope.json"
+      },
+      "digests": {
+        "caseSha256": "459dd2949f7b828d05614910665a6ac15d68f49edfbdefa3985bb4c988b0da10",
+        "acceptanceEnvelopeSha256": "d89950581dca659b9803914cc394ea1691ded61da95c4e062f074248bfb5ba51",
+        "pairSha256": "bbd26d462451ba45c7e733211a6525854cb0fde97f27a4846b2c62de1c79f1f9"
+      }
+    },
+    {
+      "caseId": "SEM3-CAL-CARDIO-RHYTHM-REMODELING",
+      "version": "1.0.0",
+      "set": "CALIBRATION",
+      "exposureStatus": "DESIGN_ONLY",
+      "domain": "rythmologie et imagerie cardiaque",
+      "domainGroup": "CARDIOVASCULAR_IMAGING",
+      "scenarioCategory": "NEGATION_AND_NON_CAUSALITY",
+      "secondaryCategories": [
+        "CHANGE_OF_MIND",
+        "METHOD_VERSUS_MEASUREMENT"
+      ],
+      "turnCount": 5,
+      "multiTurn": true,
+      "multiTurnContextDependent": true,
+      "difficultyClass": "ADVANCED",
+      "applicableProperties": [
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"
+      ],
+      "features": [
+        "NEGATION",
+        "CORRECTION",
+        "CHANGE_OF_MIND",
+        "METHOD_MEASUREMENT",
+        "MISSING_INFORMATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ],
+      "contextClass": "CONTEXT_REQUIRED_FOR_BASIC_UNDERSTANDING",
+      "underSpecificationDisposition": "PARTIAL_BRANCHES_CAN_PROCEED",
+      "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+      "calibrationDisposition": "HUMAN_REVIEW_REQUIRED",
+      "parentageStatus": "PARENTAGE_REVIEW_REQUIRED",
+      "contaminationStatus": "REVIEW_REQUIRED",
+      "sourceClassification": "ORIGINAL_SYNTHETIC_CASE",
+      "paths": {
+        "case": "semantic-validation/sem-003/corpus/calibration/cardio-rhythm-remodeling.case.json",
+        "acceptanceEnvelope": "semantic-validation/sem-003/corpus/calibration/cardio-rhythm-remodeling.envelope.json"
+      },
+      "digests": {
+        "caseSha256": "d0983d80ab51554cb59361fb394c78caa6af7dd506e725972cadbdc56dacf929",
+        "acceptanceEnvelopeSha256": "249e193ae951eb44c639ecce5ddfaf9f9d27d6d675996993a4cf23171e9878de",
+        "pairSha256": "d1f84fd76de584d542c157cf9075548fc2fb3cc6fd18eebb94bc20af67c0545e"
+      }
+    },
+    {
+      "caseId": "SEM3-CAL-NEURODEGENERATION-PROGRESSION",
+      "version": "1.0.0",
+      "set": "CALIBRATION",
+      "exposureStatus": "DESIGN_ONLY",
+      "domain": "neuro-imagerie et neurodégénérescence",
+      "domainGroup": "OTHER_MEDICAL_IMAGING",
+      "scenarioCategory": "COMPLETE_SCIENTIFIC_REQUEST",
+      "secondaryCategories": [
+        "PHENOMENON_VERSUS_OBSERVABLE",
+        "COMPARISON_AND_TIMING"
+      ],
+      "turnCount": 1,
+      "multiTurn": false,
+      "multiTurnContextDependent": false,
+      "difficultyClass": "INTERMEDIATE",
+      "applicableProperties": [
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+      ],
+      "features": [
+        "PHENOMENON_OBSERVABLE",
+        "NEGATION",
+        "MISSING_INFORMATION"
+      ],
+      "contextClass": "CONTEXT_REQUIRED_FOR_BASIC_UNDERSTANDING",
+      "underSpecificationDisposition": "SPECIALIST_OWNER_REQUIRED",
+      "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+      "calibrationDisposition": "HUMAN_REVIEW_REQUIRED",
+      "parentageStatus": "PARENTAGE_REVIEW_REQUIRED",
+      "contaminationStatus": "REVIEW_REQUIRED",
+      "sourceClassification": "ORIGINAL_SYNTHETIC_CASE",
+      "paths": {
+        "case": "semantic-validation/sem-003/corpus/calibration/neurodegeneration-progression.case.json",
+        "acceptanceEnvelope": "semantic-validation/sem-003/corpus/calibration/neurodegeneration-progression.envelope.json"
+      },
+      "digests": {
+        "caseSha256": "20b93a500c3a3790753f5cdb114910c9c8f30612db17ed47647bc49920592713",
+        "acceptanceEnvelopeSha256": "67377da31474d4816de96a26149c980a7af8dc14f5a6be79caada1ff139478eb",
+        "pairSha256": "ef3b6e72f5f14f72b4fc019450f85a026e793b963a91d2bd6946f4f99844fe77"
+      }
+    },
+    {
+      "caseId": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+      "version": "1.0.0",
+      "set": "CALIBRATION",
+      "exposureStatus": "DESIGN_ONLY",
+      "domain": "imagerie gynécologique et échographie",
+      "domainGroup": "OTHER_MEDICAL_IMAGING",
+      "scenarioCategory": "SCIENTIFIC_AMBIGUITY",
+      "secondaryCategories": [
+        "METHOD_VERSUS_MEASUREMENT",
+        "UNDER_SPECIFIED_REQUEST"
+      ],
+      "turnCount": 1,
+      "multiTurn": false,
+      "multiTurnContextDependent": false,
+      "difficultyClass": "BASIC",
+      "applicableProperties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      ],
+      "features": [
+        "AMBIGUITY",
+        "MISSING_INFORMATION",
+        "METHOD_MEASUREMENT",
+        "OWNERSHIP"
+      ],
+      "contextClass": "CONTEXT_REQUIRED_FOR_BASIC_UNDERSTANDING",
+      "underSpecificationDisposition": "CLARIFICATION_REQUIRED",
+      "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+      "calibrationDisposition": "HUMAN_REVIEW_REQUIRED",
+      "parentageStatus": "PARENTAGE_REVIEW_REQUIRED",
+      "contaminationStatus": "REVIEW_REQUIRED",
+      "sourceClassification": "ORIGINAL_SYNTHETIC_CASE",
+      "paths": {
+        "case": "semantic-validation/sem-003/corpus/calibration/ovarian-ultrasound-ambiguity.case.json",
+        "acceptanceEnvelope": "semantic-validation/sem-003/corpus/calibration/ovarian-ultrasound-ambiguity.envelope.json"
+      },
+      "digests": {
+        "caseSha256": "607a9e1bcd206d0df6ca9118efd8dbb74822f9427cce921d959a84861406eee6",
+        "acceptanceEnvelopeSha256": "677ebcfee9b54a537bcfe926986f866951a1bd89c0fac20acb1aedbe469fb185",
+        "pairSha256": "a174a9f6802e66dbedb53e0c818d5d568133065d228e1681b49adae3e4428ef1"
+      }
+    },
+    {
+      "caseId": "SEM3-CAL-MSK-INFLAMMATION-RESPONSE",
+      "version": "1.0.0",
+      "set": "CALIBRATION",
+      "exposureStatus": "DESIGN_ONLY",
+      "domain": "imagerie musculosquelettique et inflammation",
+      "domainGroup": "OTHER_MEDICAL_IMAGING",
+      "scenarioCategory": "STRONG_CONTEXTUAL_IMPLICIT",
+      "secondaryCategories": [
+        "KNOWLEDGE_CANDIDATE",
+        "COMPARISON_AND_TIMING"
+      ],
+      "turnCount": 6,
+      "multiTurn": true,
+      "multiTurnContextDependent": true,
+      "difficultyClass": "ADVANCED",
+      "applicableProperties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+        "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      ],
+      "features": [
+        "CONTEXTUAL_ENRICHMENT",
+        "MISSING_INFORMATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ],
+      "contextClass": "SCIENTIFIC_CONTEXT_STRONGLY_SUGGESTED",
+      "underSpecificationDisposition": "CLARIFICATION_REQUIRED",
+      "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+      "calibrationDisposition": "HUMAN_REVIEW_REQUIRED",
+      "parentageStatus": "PARENTAGE_REVIEW_REQUIRED",
+      "contaminationStatus": "REVIEW_REQUIRED",
+      "sourceClassification": "ORIGINAL_SYNTHETIC_CASE",
+      "paths": {
+        "case": "semantic-validation/sem-003/corpus/calibration/msk-inflammation-response.case.json",
+        "acceptanceEnvelope": "semantic-validation/sem-003/corpus/calibration/msk-inflammation-response.envelope.json"
+      },
+      "digests": {
+        "caseSha256": "863c10469d69d70ccf4a37fb92c2a4f9156a001caae7f51eff184e20165c2660",
+        "acceptanceEnvelopeSha256": "42ecb8ba23d1abda54105798bf9b1ffa9e0f9052c11e97f4a88b6611d0f7d616",
+        "pairSha256": "8e7c6546f9d6837790c477f3f20abaac9fbb74cbb1cfce04dadfbd9a64c10ccf"
+      }
+    },
+    {
+      "caseId": "SEM3-CAL-CORTISOL-SAMPLING-SUMMARY",
+      "version": "1.0.0",
+      "set": "CALIBRATION",
+      "exposureStatus": "DESIGN_ONLY",
+      "domain": "physiologie et mesures longitudinales",
+      "domainGroup": "TRANSVERSAL_CLINICAL_BIOMEDICAL_RESEARCH",
+      "scenarioCategory": "METHOD_VERSUS_MEASUREMENT",
+      "secondaryCategories": [
+        "COMPARISON_AND_TIMING",
+        "UNDER_SPECIFIED_REQUEST"
+      ],
+      "turnCount": 5,
+      "multiTurn": true,
+      "multiTurnContextDependent": true,
+      "difficultyClass": "INTERMEDIATE",
+      "applicableProperties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+      ],
+      "features": [
+        "METHOD_MEASUREMENT",
+        "MISSING_INFORMATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ],
+      "contextClass": "CONTEXT_REQUIRED_FOR_BASIC_UNDERSTANDING",
+      "underSpecificationDisposition": "SPECIALIST_OWNER_REQUIRED",
+      "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+      "calibrationDisposition": "HUMAN_REVIEW_REQUIRED",
+      "parentageStatus": "PARENTAGE_REVIEW_REQUIRED",
+      "contaminationStatus": "REVIEW_REQUIRED",
+      "sourceClassification": "ORIGINAL_SYNTHETIC_CASE",
+      "paths": {
+        "case": "semantic-validation/sem-003/corpus/calibration/cortisol-sampling-summary.case.json",
+        "acceptanceEnvelope": "semantic-validation/sem-003/corpus/calibration/cortisol-sampling-summary.envelope.json"
+      },
+      "digests": {
+        "caseSha256": "8b548aaf65904294fdb7bf6856b1b66666d6b17a834a480d0bc06afaf1b6dace",
+        "acceptanceEnvelopeSha256": "598a761174337f184802ffe016f3e9751d2d64918f3ac8d8e7aac9466a3d633d",
+        "pairSha256": "0fb85248d35aa18231dceba32103a79c0b319362fac9acb0237ec815fbb71086"
+      }
+    },
+    {
+      "caseId": "SEM3-CAL-TRIAL-COMPARATOR-DECISION",
+      "version": "1.0.0",
+      "set": "CALIBRATION",
+      "exposureStatus": "DESIGN_ONLY",
+      "domain": "méthodologie d'essai clinique pragmatique",
+      "domainGroup": "TRANSVERSAL_CLINICAL_BIOMEDICAL_RESEARCH",
+      "scenarioCategory": "UNDER_SPECIFIED_REQUEST",
+      "secondaryCategories": [
+        "SCIENTIFIC_AMBIGUITY",
+        "COMPARISON_AND_TIMING"
+      ],
+      "turnCount": 7,
+      "multiTurn": true,
+      "multiTurnContextDependent": true,
+      "difficultyClass": "ADVANCED",
+      "applicableProperties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+      ],
+      "features": [
+        "MISSING_INFORMATION",
+        "AMBIGUITY",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ],
+      "contextClass": "CONTEXT_REQUIRED_FOR_BASIC_UNDERSTANDING",
+      "underSpecificationDisposition": "PARTIAL_BRANCHES_CAN_PROCEED",
+      "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+      "calibrationDisposition": "HUMAN_REVIEW_REQUIRED",
+      "parentageStatus": "PARENTAGE_REVIEW_REQUIRED",
+      "contaminationStatus": "REVIEW_REQUIRED",
+      "sourceClassification": "ORIGINAL_SYNTHETIC_CASE",
+      "paths": {
+        "case": "semantic-validation/sem-003/corpus/calibration/trial-comparator-decision.case.json",
+        "acceptanceEnvelope": "semantic-validation/sem-003/corpus/calibration/trial-comparator-decision.envelope.json"
+      },
+      "digests": {
+        "caseSha256": "7fa62aca71c6d657a4ad8ef26d01ccf56409a31c1729e4addfd4ef8de57e61ab",
+        "acceptanceEnvelopeSha256": "cd3eb477c3132e68e906a41b3b507e325ca82c161176c36bc6011f0ffa991f73",
+        "pairSha256": "1651ac51511789d6bcee42261aaea5819ce089a992ad84d115f6b9084f4c32be"
+      }
+    },
+    {
+      "caseId": "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+      "version": "1.0.0",
+      "set": "CALIBRATION",
+      "exposureStatus": "DESIGN_ONLY",
+      "domain": "modèles translationnels et imagerie cellulaire",
+      "domainGroup": "TRANSVERSAL_CLINICAL_BIOMEDICAL_RESEARCH",
+      "scenarioCategory": "MULTIDIMENSIONAL_REQUEST",
+      "secondaryCategories": [
+        "PHENOMENON_VERSUS_OBSERVABLE",
+        "METHOD_VERSUS_MEASUREMENT",
+        "KNOWLEDGE_CANDIDATE"
+      ],
+      "turnCount": 9,
+      "multiTurn": true,
+      "multiTurnContextDependent": true,
+      "difficultyClass": "COMPOSITIONAL",
+      "applicableProperties": [
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+        "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ],
+      "majorProperties": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+      ],
+      "features": [
+        "ELLIPSIS",
+        "CORRECTION",
+        "PHENOMENON_OBSERVABLE",
+        "METHOD_MEASUREMENT",
+        "CONTEXTUAL_ENRICHMENT",
+        "MISSING_INFORMATION",
+        "OWNERSHIP",
+        "MULTI_TURN_CONTEXT_DEPENDENT"
+      ],
+      "contextClass": "SCIENTIFIC_CONTEXT_STRONGLY_SUGGESTED",
+      "underSpecificationDisposition": "SPECIALIST_OWNER_REQUIRED",
+      "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+      "calibrationDisposition": "HUMAN_REVIEW_REQUIRED",
+      "parentageStatus": "PARENTAGE_REVIEW_REQUIRED",
+      "contaminationStatus": "REVIEW_REQUIRED",
+      "sourceClassification": "ORIGINAL_SYNTHETIC_CASE",
+      "paths": {
+        "case": "semantic-validation/sem-003/corpus/calibration/organoid-live-signal-measurement.case.json",
+        "acceptanceEnvelope": "semantic-validation/sem-003/corpus/calibration/organoid-live-signal-measurement.envelope.json"
+      },
+      "digests": {
+        "caseSha256": "fc26f8761d591de9942e8f2dce53d581838a95e7c8d3d94ab78313138f01feee",
+        "acceptanceEnvelopeSha256": "6a179cd0b1033bb22a7b3de2279087dbe1749f4a14e524689d2aab45e5507496",
+        "pairSha256": "5431058892524022da656522bf9d29fa0b9c7f97419c5b86368d0a9add028e04"
+      }
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "schemaVersion": "1.1.0",
+  "contractType": "BENCHMARK_AUTHORING_CASE",
+  "purpose": "CALIBRATION_AUTHORING",
+  "caseId": "SEM3-CAL-CORTISOL-SAMPLING-SUMMARY",
+  "version": "1.0.0",
+  "title": "Profil de cortisol, méthode de prélèvement et mesure dérivée",
+  "createdAt": "2026-08-13T12:00:00.000Z",
+  "authorRole": "CODEX_DOCUMENTARY_AUTHOR",
+  "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+  "source": {
+    "sourceRequest": "Tour 1: Je veux étudier le profil de cortisol après le réveil.\nTour 2: Plusieurs prélèvements sont prévus dans la matinée.\nTour 3: Le calendrier de prélèvement fait partie de la méthode.\nTour 4: Je ne sais pas encore si la mesure d'intérêt sera un temps précis, une pente ou une aire sous la courbe.\nTour 5: Il faut distinguer l'analyte, le protocole de prélèvement, les valeurs observées et la mesure dérivée.",
+    "language": "fr-FR",
+    "conversationTurns": [
+      {
+        "turnId": "turn-1",
+        "role": "USER",
+        "text": "Je veux étudier le profil de cortisol après le réveil."
+      },
+      {
+        "turnId": "turn-2",
+        "role": "USER",
+        "text": "Plusieurs prélèvements sont prévus dans la matinée."
+      },
+      {
+        "turnId": "turn-3",
+        "role": "USER",
+        "text": "Le calendrier de prélèvement fait partie de la méthode."
+      },
+      {
+        "turnId": "turn-4",
+        "role": "USER",
+        "text": "Je ne sais pas encore si la mesure d'intérêt sera un temps précis, une pente ou une aire sous la courbe."
+      },
+      {
+        "turnId": "turn-5",
+        "role": "USER",
+        "text": "Il faut distinguer l'analyte, le protocole de prélèvement, les valeurs observées et la mesure dérivée."
+      }
+    ],
+    "sourceContext": "Candidat Calibration original sur une série temporelle dont la méthode et le résumé quantitatif ne doivent pas être confondus.",
+    "provenance": {
+      "originType": "SYNTHETIC_AUTHORED",
+      "originalSource": "Original synthetic scientific conversation authored for SEM-003B1; no SEM or provider output was used.",
+      "author": "Codex acting as documentary benchmark author, not as human scientific reviewer",
+      "createdAt": "2026-08-13T12:00:00.000Z",
+      "inspirationRefs": [
+        "docs/sem-002-scientific-understanding-competence-contract.md",
+        "docs/sem-003-independent-scientific-understanding-benchmark-architecture.md",
+        "docs/sem-003b-benchmark-case-authoring-protocol.md"
+      ]
+    }
+  },
+  "scientificScope": {
+    "domain": "physiologie et mesures longitudinales",
+    "scenarioCategory": "METHOD_VERSUS_MEASUREMENT",
+    "secondaryCategories": [
+      "COMPARISON_AND_TIMING",
+      "UNDER_SPECIFIED_REQUEST"
+    ],
+    "difficultyTarget": "INTERMEDIATE",
+    "intentionallyMissingInformation": [
+      {
+        "informationId": "missing-1",
+        "description": "Les temps de prélèvement et la mesure dérivée d'intérêt ne sont pas arrêtés.",
+        "intentional": true
+      }
+    ]
+  },
+  "exposure": {
+    "exposureStatus": "DESIGN_ONLY",
+    "exposureHistory": [
+      {
+        "eventId": "exposure-sem3-cal-cortisol-sampling-summary-created",
+        "fromStatus": null,
+        "toStatus": "DESIGN_ONLY",
+        "occurredAt": "2026-08-13T12:00:00.000Z",
+        "actorRole": "CODEX_DOCUMENTARY_AUTHOR",
+        "reason": "Authored as a Calibration candidate; human review gate not yet satisfied, therefore DESIGN_ONLY."
+      }
+    ],
+    "parentageStatus": "PARENTAGE_REVIEW_REQUIRED",
+    "parentageAssessment": {
+      "discriminatingConcepts": [
+        "Profil de cortisol, méthode de prélèvement et mesure dérivée",
+        "physiologie et mesures longitudinales"
+      ],
+      "reasoningStructure": "Série de cortisol et choix d'un résumé quantitatif, sans changement d'appareil ou de méthode historique apparenté à H01-H30.",
+      "criticalRelations": [
+        "Conserver plusieurs prélèvements après le réveil.",
+        "Le calendrier de prélèvement appartient à la méthode.",
+        "La mesure d'intérêt entre temps précis, pente et aire sous la courbe reste ouverte.",
+        "Distinguer analyte, protocole, valeurs observées et mesure dérivée."
+      ],
+      "ambiguities": [],
+      "knownSimilarities": {
+        "development": [],
+        "calibration": [],
+        "historicalLegacy": []
+      }
+    },
+    "contaminationReview": {
+      "status": "REVIEW_REQUIRED",
+      "reviewedAt": null,
+      "reviewerRole": null,
+      "notes": "No obvious inter-set duplication was identified during authoring; independent human parentage review remains required before Calibration use."
+    },
+    "eligibleForCalibration": false,
+    "eligibleForBlindQualification": false
+  },
+  "reference": {
+    "acceptanceEnvelopeId": "SEM3-AE-CAL-CORTISOL-SAMPLING-SUMMARY",
+    "applicableSEM002Properties": [
+      "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+      "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+      "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+    ],
+    "adjudicationRequirements": [
+      {
+        "expertise": "SCIENTIFIC_DOMAIN",
+        "rationale": "Confirmer la lisibilité scientifique des obligations candidates sans inventer une approbation.",
+        "mandatory": true
+      },
+      {
+        "expertise": "METHODOLOGICAL_SEM",
+        "rationale": "Vérifier équivalence, failure classes, statut épistémique et absence de Gold structurel caché.",
+        "mandatory": true
+      },
+      {
+        "expertise": "PD009_CLARIFICATION",
+        "rationale": "Confirmer la valeur décisionnelle de la clarification candidate sans imposer sa formulation.",
+        "mandatory": true
+      },
+      {
+        "expertise": "OBS_MEASUREMENT",
+        "rationale": "Vérifier la séparation méthode, observable, image quantitative, mesure et rôle de biomarqueur.",
+        "mandatory": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "schemaVersion": "1.1.0",
+  "contractType": "BENCHMARK_AUTHORING_CASE",
+  "purpose": "DEVELOPMENT_AUTHORING",
+  "caseId": "SEM3-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
+  "version": "1.0.0",
+  "title": "Estimation fonctionnelle dérivée du CT, représentation et valeur",
+  "createdAt": "2026-08-13T12:00:00.000Z",
+  "authorRole": "CODEX_DOCUMENTARY_AUTHOR",
+  "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+  "source": {
+    "sourceRequest": "Tour 1: Je voudrais utiliser une estimation fonctionnelle dérivée d'un CT coronaire.\nTour 2: Ce qui m'intéresse n'est pas seulement la représentation le long du vaisseau.\nTour 3: Je veux comparer une valeur quantitative entre deux groupes.\nTour 4: Je n'ai pas encore décidé si on prendra une valeur minimale, une valeur par lésion ou un résumé par vaisseau.\nTour 5: Le traitement computationnel est donc la méthode, pas l'endpoint en lui-même.\nTour 6: Et la valeur finale devra rester ouverte jusqu'à la définition de mesure.",
+    "language": "fr-FR",
+    "conversationTurns": [
+      {
+        "turnId": "turn-1",
+        "role": "USER",
+        "text": "Je voudrais utiliser une estimation fonctionnelle dérivée d'un CT coronaire."
+      },
+      {
+        "turnId": "turn-2",
+        "role": "USER",
+        "text": "Ce qui m'intéresse n'est pas seulement la représentation le long du vaisseau."
+      },
+      {
+        "turnId": "turn-3",
+        "role": "USER",
+        "text": "Je veux comparer une valeur quantitative entre deux groupes."
+      },
+      {
+        "turnId": "turn-4",
+        "role": "USER",
+        "text": "Je n'ai pas encore décidé si on prendra une valeur minimale, une valeur par lésion ou un résumé par vaisseau."
+      },
+      {
+        "turnId": "turn-5",
+        "role": "USER",
+        "text": "Le traitement computationnel est donc la méthode, pas l'endpoint en lui-même."
+      },
+      {
+        "turnId": "turn-6",
+        "role": "USER",
+        "text": "Et la valeur finale devra rester ouverte jusqu'à la définition de mesure."
+      }
+    ],
+    "sourceContext": "Conversation synthétique illustrant la distinction générique méthode computationnelle, représentation quantitative, mesure et rôle d'endpoint.",
+    "provenance": {
+      "originType": "SYNTHETIC_AUTHORED",
+      "originalSource": "Original synthetic scientific conversation authored for SEM-003B1; no SEM or provider output was used.",
+      "author": "Codex acting as documentary benchmark author, not as human scientific reviewer",
+      "createdAt": "2026-08-13T12:00:00.000Z",
+      "inspirationRefs": [
+        "docs/sem-002-scientific-understanding-competence-contract.md",
+        "docs/sem-003-independent-scientific-understanding-benchmark-architecture.md",
+        "docs/sem-003b-benchmark-case-authoring-protocol.md"
+      ]
+    }
+  },
+  "scientificScope": {
+    "domain": "CT cardiaque et estimation fonctionnelle",
+    "scenarioCategory": "METHOD_VERSUS_MEASUREMENT",
+    "secondaryCategories": [
+      "PHENOMENON_VERSUS_OBSERVABLE",
+      "SCIENTIFIC_AMBIGUITY"
+    ],
+    "difficultyTarget": "ADVANCED",
+    "intentionallyMissingInformation": [
+      {
+        "informationId": "missing-1",
+        "description": "Le niveau d'agrégation de la mesure reste indécis.",
+        "intentional": true
+      },
+      {
+        "informationId": "missing-2",
+        "description": "Le rôle final de la valeur dans le projet reste à adopter.",
+        "intentional": true
+      }
+    ]
+  },
+  "exposure": {
+    "exposureStatus": "DEVELOPMENT_VISIBLE",
+    "exposureHistory": [
+      {
+        "eventId": "exposure-sem3-dev-ct-functional-estimate-role-created",
+        "fromStatus": null,
+        "toStatus": "DEVELOPMENT_VISIBLE",
+        "occurredAt": "2026-08-13T12:00:00.000Z",
+        "actorRole": "CODEX_DOCUMENTARY_AUTHOR",
+        "reason": "Authored as an exposed Development case; permanently ineligible for blind qualification."
+      }
+    ],
+    "parentageStatus": "PARENTAGE_CLEAR",
+    "parentageAssessment": {
+      "discriminatingConcepts": [
+        "Estimation fonctionnelle dérivée du CT, représentation et valeur",
+        "CT cardiaque et estimation fonctionnelle"
+      ],
+      "reasoningStructure": "Original METHOD_VERSUS_MEASUREMENT reasoning chain authored for Development use.",
+      "criticalRelations": [
+        "Le traitement computationnel est présenté comme méthode de production d'information quantitative.",
+        "La représentation le long du vaisseau est distincte de la valeur extraite.",
+        "Une valeur quantitative, encore à définir, doit être comparée entre deux groupes.",
+        "Aucun rôle d'endpoint ne peut être adopté automatiquement."
+      ],
+      "ambiguities": [
+        "L'agrégation de la valeur n'est pas décidée."
+      ],
+      "knownSimilarities": {
+        "development": [],
+        "calibration": [],
+        "historicalLegacy": []
+      }
+    },
+    "contaminationReview": {
+      "status": "CLEAR",
+      "reviewedAt": "2026-08-13T12:00:00.000Z",
+      "reviewerRole": "CODEX_DOCUMENTARY_PARENTAGE_AUDIT",
+      "notes": "No lexical or conceptual source reuse was used; this authoring audit is not a human scientific approval and the case remains exposed."
+    },
+    "eligibleForCalibration": false,
+    "eligibleForBlindQualification": false
+  },
+  "reference": {
+    "acceptanceEnvelopeId": "SEM3-AE-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
+    "applicableSEM002Properties": [
+      "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+      "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+      "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+    ],
+    "adjudicationRequirements": [
+      {
+        "expertise": "SCIENTIFIC_DOMAIN",
+        "rationale": "Confirmer la lisibilité scientifique des obligations candidates sans inventer une approbation.",
+        "mandatory": true
+      },
+      {
+        "expertise": "METHODOLOGICAL_SEM",
+        "rationale": "Vérifier équivalence, failure classes, statut épistémique et absence de Gold structurel caché.",
+        "mandatory": true
+      },
+      {
+        "expertise": "PD009_CLARIFICATION",
+        "rationale": "Confirmer la valeur décisionnelle de la clarification candidate sans imposer sa formulation.",
+        "mandatory": true
+      },
+      {
+        "expertise": "OBS_MEASUREMENT",
+        "rationale": "Vérifier la séparation méthode, observable, image quantitative, mesure et rôle de biomarqueur.",
+        "mandatory": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "summaryId": "SEM-003B1-PARENTAGE-CONTAMINATION",
+  "version": "1.0.0",
+  "generatedAt": "2026-08-13T12:00:00.000Z",
+  "method": "Authoring-level conceptual comparison of discriminating facts, reasoning chains, ambiguities, timing, corrections and mechanisms against the Development set, the exposed SEM examples and the source requests of H01-H30; no lexical-identity shortcut and no claim of independent human approval.",
+  "historicalComparisonBasis": {
+    "corpus": "SEM-001 R5P historical checkpoints",
+    "inspectedField": "originalRequest",
+    "inspectedCaseCount": 30,
+    "limitation": "Targeted contamination review only; historical outputs, Gold structures and evaluator decisions were not used as authoring sources."
+  },
+  "sourceReuse": {
+    "historicalH01H30": false,
+    "sem002OrSem003ExampleAsCalibration": false,
+    "developmentTranslationOrParaphraseAsCalibration": false
+  },
+  "interSetOverlap": {
+    "obviousDuplicateCount": 0,
+    "contaminationBlockerCount": 0,
+    "humanReviewRequiredCount": 10,
+    "conclusion": "No obvious duplicate or shared discriminating chain was authored; all Calibration candidates remain DESIGN_ONLY pending independent human parentage review."
+  },
+  "calibrationAssessments": [
+    {
+      "caseId": "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
+      "disposition": "PARENTAGE_REVIEW_REQUIRED",
+      "independenceNote": "Question hémodynamique pulmonaire, disponibilité invasive partielle et distinction phénomène/observable ; chaîne différente des cas Development valvulaires et perfusionnels.",
+      "obviousContaminationIdentified": false,
+      "eligibleForCalibrationBeforeReview": false
+    },
+    {
+      "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
+      "disposition": "PARENTAGE_REVIEW_REQUIRED",
+      "independenceNote": "Ambiguïté descriptive/prédictive et contexte d'électrophysiologie distincts des scénarios interventionnels Development.",
+      "obviousContaminationIdentified": false,
+      "eligibleForCalibrationBeforeReview": false
+    },
+    {
+      "caseId": "SEM3-CAL-CONGENITAL-FLOW-ELLIPSIS",
+      "disposition": "PARENTAGE_REVIEW_REQUIRED",
+      "independenceNote": "Ellipses sur sous-groupe et régions de flux avec correction de priorité ; structure non dérivée des cas Development.",
+      "obviousContaminationIdentified": false,
+      "eligibleForCalibrationBeforeReview": false
+    },
+    {
+      "caseId": "SEM3-CAL-CARDIO-RHYTHM-REMODELING",
+      "disposition": "PARENTAGE_REVIEW_REQUIRED",
+      "independenceNote": "Association rythme-structure et méthodes de mesure séparées ; aucune chaîne factuelle équivalente en Development ou dans H01-H30.",
+      "obviousContaminationIdentified": false,
+      "eligibleForCalibrationBeforeReview": false
+    },
+    {
+      "caseId": "SEM3-CAL-NEURODEGENERATION-PROGRESSION",
+      "disposition": "PARENTAGE_REVIEW_REQUIRED",
+      "independenceNote": "Deux observables neurodégénératives sur deux ans, distinctes des ambiguïtés neuro-oncologiques Development.",
+      "obviousContaminationIdentified": false,
+      "eligibleForCalibrationBeforeReview": false
+    },
+    {
+      "caseId": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+      "disposition": "PARENTAGE_REVIEW_REQUIRED",
+      "independenceNote": "Ambiguïté d'usage d'une modalité gynécologique, sans reprise d'une question, d'une pathologie ou d'une chaîne H01-H30.",
+      "obviousContaminationIdentified": false,
+      "eligibleForCalibrationBeforeReview": false
+    },
+    {
+      "caseId": "SEM3-CAL-MSK-INFLAMMATION-RESPONSE",
+      "disposition": "PARENTAGE_REVIEW_REQUIRED",
+      "independenceNote": "Suivi musculosquelettique avec modalité partielle et outcome clinique manquant, sans chaîne équivalente en Development.",
+      "obviousContaminationIdentified": false,
+      "eligibleForCalibrationBeforeReview": false
+    },
+    {
+      "caseId": "SEM3-CAL-CORTISOL-SAMPLING-SUMMARY",
+      "disposition": "PARENTAGE_REVIEW_REQUIRED",
+      "independenceNote": "Série de cortisol et choix d'un résumé quantitatif, sans changement d'appareil ou de méthode historique apparenté à H01-H30.",
+      "obviousContaminationIdentified": false,
+      "eligibleForCalibrationBeforeReview": false
+    },
+    {
+      "caseId": "SEM3-CAL-TRIAL-COMPARATOR-DECISION",
+      "disposition": "PARENTAGE_REVIEW_REQUIRED",
+      "independenceNote": "Choix entre comparateur contemporain et période historique dans un essai pragmatique, différent du cas observationnel Development.",
+      "obviousContaminationIdentified": false,
+      "eligibleForCalibrationBeforeReview": false
+    },
+    {
+      "caseId": "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+      "disposition": "PARENTAGE_REVIEW_REQUIRED",
+      "independenceNote": "Modèle d'organoïde, signal vivant et mesure histologique terminale ; aucune question ni chaîne factuelle reprise de H01-H30.",
+      "obviousContaminationIdentified": false,
+      "eligibleForCalibrationBeforeReview": false
+    }
+  ]
+}

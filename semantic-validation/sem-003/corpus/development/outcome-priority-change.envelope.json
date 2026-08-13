@@ -1,0 +1,273 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "BENCHMARK_AUTHORING_ACCEPTANCE_ENVELOPE",
+  "envelopeId": "SEM3-AE-DEV-OUTCOME-PRIORITY-CHANGE",
+  "version": "1.0.0",
+  "caseId": "SEM3-DEV-OUTCOME-PRIORITY-CHANGE",
+  "reviewStatus": "SCIENTIFIC_REVIEW_REQUIRED",
+  "required": [
+    {
+      "obligationId": "req-1-change-primary-endpoint",
+      "semanticKey": "sem3-dev-outcome-priority-change.change-primary-endpoint",
+      "kind": "CORRECTION",
+      "description": "Le score de fatigue devient l'objectif principal actif.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[3]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-2-biomarker-secondary",
+      "semanticKey": "sem3-dev-outcome-priority-change.biomarker-secondary",
+      "kind": "CORRECTION",
+      "description": "Le biomarqueur reste un résultat secondaire.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[4]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-3-historical-endpoint",
+      "semanticKey": "sem3-dev-outcome-priority-change.historical-endpoint",
+      "kind": "PROVENANCE",
+      "description": "Le choix initial du biomarqueur principal reste historique et reconstructible.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[1]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-4-current-state",
+      "semanticKey": "sem3-dev-outcome-priority-change.current-state",
+      "kind": "CORRECTION",
+      "description": "L'état scientifique courant, tel que défini après la dernière correction, doit rester actif.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[5]",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    },
+    {
+      "obligationId": "req-5-historical-state",
+      "semanticKey": "sem3-dev-outcome-priority-change.historical-state",
+      "kind": "PROVENANCE",
+      "description": "Les formulations corrigées ou abandonnées restent reconstructibles comme historique sans rester actives.",
+      "rationale": "Cette obligation modifie le sens scientifique ou le statut épistémique si elle est perdue.",
+      "sourceLocator": "source.conversationTurns[5]",
+      "criticality": "MAJOR",
+      "propertyIds": [
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      ],
+      "sourceClassification": "INHERENTLY_REQUIRED"
+    }
+  ],
+  "prohibited": [
+    {
+      "prohibitionId": "pro-1-keep-biomarker-primary",
+      "semanticKey": "sem3-dev-outcome-priority-change.forbidden-keep-biomarker-primary",
+      "description": "Maintenir le biomarqueur comme endpoint principal actif.",
+      "rationale": "Cette erreur modifierait une obligation scientifique, une provenance, une polarité ou une frontière d'ownership.",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"
+      ],
+      "failureClass": "RELATION_SEMANTICS_FAILURE"
+    },
+    {
+      "prohibitionId": "pro-2-invent-outcome-definition",
+      "semanticKey": "sem3-dev-outcome-priority-change.forbidden-invent-outcome-definition",
+      "description": "Compléter silencieusement la définition du biomarqueur ou du score.",
+      "rationale": "Cette erreur modifierait une obligation scientifique, une provenance, une polarité ou une frontière d'ownership.",
+      "criticality": "CRITICAL",
+      "propertyIds": [
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+      ],
+      "failureClass": "UNSUPPORTED_INVENTION_FAILURE"
+    }
+  ],
+  "acceptableSemanticVariants": [
+    {
+      "variantId": "variant-obligation-vector",
+      "label": "Vecteur d'obligations indépendant de la topologie",
+      "structureSynopsis": "Les obligations peuvent être portées par un objet composé ou par plusieurs objets reliés si leur sens, provenance, polarité et ownership sont préservés.",
+      "preservedObligationIds": [
+        "req-1-change-primary-endpoint",
+        "req-2-biomarker-secondary",
+        "req-3-historical-endpoint",
+        "req-4-current-state",
+        "req-5-historical-state"
+      ],
+      "caveats": [
+        "Aucune variante n'est acceptée par simple similarité lexicale.",
+        "Toute équivalence scientifique complexe reste soumise à adjudication humaine."
+      ]
+    }
+  ],
+  "optionalRelevant": [
+    {
+      "candidateId": "opt-1-candidate-analysis-specification",
+      "semanticKey": "sem3-dev-outcome-priority-change.optional-candidate-analysis-specification",
+      "description": "Spécifications d'analyse des deux résultats comme travail aval, non comme faits adoptés.",
+      "epistemicStatus": "OPTION",
+      "rationale": "Candidat contextualisé à examiner sans attribution à l'utilisateur ni adoption par le Project.",
+      "absenceIsBlocking": false,
+      "envelopeIsNonExhaustive": true
+    }
+  ],
+  "admissibleAmbiguities": [],
+  "expectedClarification": {
+    "status": "OPTIONAL",
+    "decisionImpact": "La hiérarchie des endpoints est comprise ; leurs définitions restent nécessaires avant conception finale.",
+    "acceptableQuestionClasses": [
+      "Définitions du biomarqueur et du score"
+    ],
+    "exactWordingRequired": false
+  },
+  "ownershipBoundaries": [
+    {
+      "boundaryId": "own-sem-project",
+      "sourceOwner": "SEM",
+      "targetOwner": "Research Project / human decision",
+      "description": "SEM peut préserver et structurer l'intention, les unknowns et les candidats ; il n'adopte pas une décision de projet.",
+      "forbiddenPromotion": "Inference, option or contextual candidate to adopted Project decision",
+      "adoptionRequiresHumanDecision": true
+    },
+    {
+      "boundaryId": "own-knowledge-specialists",
+      "sourceOwner": "Knowledge / OBS / Imaging / Scientific Thinking",
+      "targetOwner": "SEM benchmark reference",
+      "description": "Les owners spécialisés qualifient preuves, mesures, acquisition ou hypothèses ; leur support n'est pas une déclaration utilisateur.",
+      "forbiddenPromotion": "Specialist support to explicit user fact or automatic endpoint",
+      "adoptionRequiresHumanDecision": true
+    }
+  ],
+  "properties": [
+    {
+      "propertyId": "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RUN_LEVEL",
+      "absolute": true,
+      "compensable": false
+    },
+    {
+      "propertyId": "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "criticality": "MAJOR",
+      "evaluationMode": "DISTRIBUTION",
+      "absolute": false,
+      "compensable": false
+    }
+  ],
+  "adjudication": {
+    "requiredExpertise": [
+      "SCIENTIFIC_DOMAIN",
+      "METHODOLOGICAL_SEM"
+    ],
+    "notes": "Référence candidate préparée sans exécution SEM, sans provider et sans approbation humaine inventée.",
+    "humanAdjudicationPoints": [
+      "Confirmer que REQUIRED contient uniquement les obligations nécessaires.",
+      "Confirmer la plausibilité et le caractère non exhaustif des candidats optionnels.",
+      "Confirmer les équivalences sémantiques au-delà des contrôles structurels."
+    ],
+    "status": "REVIEW_REQUIRED"
+  },
+  "evaluationDemonstrations": [
+    {
+      "representationId": "representation-a",
+      "label": "Synthèse structurée par obligations",
+      "structureSynopsis": "Une structure regroupe les concepts et relations tout en conservant toutes les obligations.",
+      "declaredDisposition": "ACCEPTABLE_SEMANTIC_EQUIVALENT",
+      "declarationBasis": "Disposition candidate écrite pour développer le futur évaluateur ; aucune sortie SEM n'est impliquée.",
+      "notAutomaticallyEvaluated": true
+    },
+    {
+      "representationId": "representation-b",
+      "label": "Structure distribuée équivalente",
+      "structureSynopsis": "Une structure différente distribue les mêmes obligations sans changer leur statut, leur provenance ou leur ownership.",
+      "declaredDisposition": "ACCEPTABLE_SEMANTIC_EQUIVALENT",
+      "declarationBasis": "Équivalence déclarée dans la référence candidate et soumise à adjudication humaine.",
+      "notAutomaticallyEvaluated": true
+    },
+    {
+      "representationId": "representation-c",
+      "label": "Violation critique synthétique",
+      "structureSynopsis": "Une structure proche commet la violation suivante : Maintenir le biomarqueur comme endpoint principal actif.",
+      "declaredDisposition": "SEMANTIC_FAILURE",
+      "declarationBasis": "La disposition est candidate et illustre une violation PROHIBITED ; elle ne mesure aucun moteur.",
+      "notAutomaticallyEvaluated": true
+    }
+  ]
+}

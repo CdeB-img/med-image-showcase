@@ -39,6 +39,27 @@ describe("SEM-003 benchmark authoring validator", () => {
     assert.ok(errorCodes(result).includes("CASE_SCHEMA_INVALID"));
   });
 
+  it("accepts generic qualitative difficulty classes under Case Schema 1.1.0", () => {
+    const authoringPackage = validPackage();
+    authoringPackage.cases[0].schemaVersion = "1.1.0";
+    authoringPackage.cases[0].scientificScope.difficultyTarget = "COMPOSITIONAL";
+
+    const result = validateAuthoringPackage(authoringPackage);
+
+    assert.equal(result.valid, true);
+  });
+
+  it("requires Case Schema 1.1.0 for the additive qualitative difficulty classes", () => {
+    const authoringPackage = validPackage();
+    authoringPackage.cases[0].schemaVersion = "1.0.0";
+    authoringPackage.cases[0].scientificScope.difficultyTarget = "ADVANCED";
+
+    const result = validateAuthoringPackage(authoringPackage);
+
+    assert.equal(result.valid, false);
+    assert.ok(errorCodes(result).includes("CASE_SCHEMA_INVALID"));
+  });
+
   it("rejects duplicate Case identities", () => {
     const authoringPackage = validPackage();
     authoringPackage.cases.push(structuredClone(authoringPackage.cases[0]));
