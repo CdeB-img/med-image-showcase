@@ -1,0 +1,117 @@
+{
+  "campaign": "SEM-001R5I",
+  "verifiedAt": "2026-08-13T08:38:50.610Z",
+  "configurationName": "SEM_LEGACY_R5I",
+  "expectedConfigurationName": "SEM_LEGACY_R5I",
+  "expectedConfigurationDigest": "ke1-b054ba08b89e02ec",
+  "recordedConfigurationDigest": "ke1-b054ba08b89e02ec",
+  "recomputedConfigurationDigest": "ke1-b054ba08b89e02ec",
+  "status": "PROPOSED_NOT_ACTIVATED",
+  "provider": "GOOGLE_GEMINI",
+  "model": "gemini-3.5-flash-lite",
+  "digestChecks": [
+    {
+      "owner": "developmentCorpus",
+      "expected": "ke1-64d654cfa041a563",
+      "observed": "ke1-64d654cfa041a563",
+      "pass": true
+    },
+    {
+      "owner": "developmentGold",
+      "expected": "ke1-1006a72533caf7f9",
+      "observed": "ke1-1006a72533caf7f9",
+      "pass": true
+    },
+    {
+      "owner": "holdoutCorpus",
+      "expected": "ke1-08392b87b2cc140b",
+      "observed": "ke1-08392b87b2cc140b",
+      "pass": true
+    },
+    {
+      "owner": "holdoutGold",
+      "expected": "ke1-9208b3d2f1d0698e",
+      "observed": "ke1-9208b3d2f1d0698e",
+      "pass": true
+    },
+    {
+      "owner": "reconstructionPrompt",
+      "expected": "ke1-a2f55612381ac9ee",
+      "observed": "ke1-a2f55612381ac9ee",
+      "pass": true
+    },
+    {
+      "owner": "criticPrompt",
+      "expected": "ke1-9ae6db2190a318f5",
+      "observed": "ke1-9ae6db2190a318f5",
+      "pass": true
+    },
+    {
+      "owner": "auditPrompt",
+      "expected": "ke1-10b88664b49fca18",
+      "observed": "ke1-10b88664b49fca18",
+      "pass": true
+    },
+    {
+      "owner": "baseProviderSchema",
+      "expected": "ke1-c849778553bf38b1",
+      "observed": "ke1-c849778553bf38b1",
+      "pass": true
+    },
+    {
+      "owner": "providerContract",
+      "expected": "ke1-a46a167400ee2e68",
+      "observed": "ke1-a46a167400ee2e68",
+      "pass": true
+    },
+    {
+      "owner": "auditProviderSchema",
+      "expected": "ke1-55cd50759595b451",
+      "observed": "ke1-55cd50759595b451",
+      "pass": true
+    },
+    {
+      "owner": "canonicalModel",
+      "expected": "ke1-443905dedde8900a",
+      "observed": "ke1-443905dedde8900a",
+      "pass": true
+    },
+    {
+      "owner": "acceptanceGuards",
+      "expected": "ke1-c07cc22d8708c7c9",
+      "observed": "ke1-c07cc22d8708c7c9",
+      "pass": true
+    },
+    {
+      "owner": "canonicalizer",
+      "expected": "ke1-cf56d05755b2b05b",
+      "observed": "ke1-cf56d05755b2b05b",
+      "pass": true
+    },
+    {
+      "owner": "coverageAndIntegrity",
+      "expected": "ke1-9d05495ec107c8f2",
+      "observed": "ke1-9d05495ec107c8f2",
+      "pass": true
+    },
+    {
+      "owner": "relationOwnership",
+      "expected": "ke1-93d289f0b3d1f384",
+      "observed": "ke1-93d289f0b3d1f384",
+      "pass": true
+    },
+    {
+      "owner": "evaluator",
+      "expected": "ke1-8066258bdfcc6c77",
+      "observed": "ke1-8066258bdfcc6c77",
+      "pass": true
+    },
+    {
+      "owner": "routing",
+      "expected": "ke1-d5e9fbdce07f0730",
+      "observed": "ke1-d5e9fbdce07f0730",
+      "pass": true
+    }
+  ],
+  "decision": "R5I_CONFIGURATION_VERIFIED_FOR_H29"
+}
