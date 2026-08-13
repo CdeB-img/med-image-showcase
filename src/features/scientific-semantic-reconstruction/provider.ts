@@ -351,12 +351,108 @@ const normalizeInventoryRelationSourceSpans = (
   });
 };
 
+const normalizeReplacementRelationTopology = (
+  request: SemanticReconstructionRequest,
+  candidate: SemanticReconstructionCandidate,
+) => {
+  const previous = request.previousModel;
+  const currentMessage = [...request.messages].reverse().find((message) => message.role === "USER");
+  if (!previous || !currentMessage) return candidate;
+  const currentInventory = candidate.semanticInventory.explicitFragments.filter((fragment) => fragment.sourceMessageId === currentMessage.messageId);
+  const candidateById = new Map(candidate.elements.map((element) => [element.clientElementId, element]));
+  const previousById = new Map(previous.elements.map((element) => [element.semanticElementId, element]));
+  const newElements = candidate.elements.filter((element) => element.epistemicStatus === "EXPLICIT_USER_STATED"
+    && element.polarity === "AFFIRMED"
+    && element.sourceMessageId === currentMessage.messageId
+    && element.supersedesElementIds.length === 0);
+  let groundedCount = 0;
+  const addedInventoryRelations: SemanticReconstructionCandidate["semanticInventory"]["explicitRelations"] = [];
+  const relations = candidate.relations.map((relation) => {
+    if (relation.epistemicStatus === "EXPLICIT_USER_STATED" || relation.polarity !== "AFFIRMED") return relation;
+    const source = candidateById.get(relation.sourceClientElementId);
+    const target = candidateById.get(relation.targetClientElementId);
+    if (!source || !target) return relation;
+    const matches = previous.relations.flatMap((priorRelation) => {
+      if (priorRelation.epistemicStatus !== "EXPLICIT_USER_STATED"
+        || priorRelation.polarity !== relation.polarity
+        || comparableScientificText(priorRelation.relationType) !== comparableScientificText(relation.relationType)) return [];
+      const priorSource = previousById.get(priorRelation.sourceElementId);
+      const priorTarget = previousById.get(priorRelation.targetElementId);
+      if (!priorSource || !priorTarget) return [];
+      const orientations = [
+        { replaced: priorSource, retained: priorTarget, expectedSource: source, expectedTarget: target },
+        { replaced: priorTarget, retained: priorSource, expectedSource: target, expectedTarget: source },
+      ];
+      return orientations.flatMap(({ replaced, retained, expectedSource, expectedTarget }) => {
+        const rejected = candidate.elements.filter((element) => element.epistemicStatus === "EXPLICIT_USER_STATED"
+          && element.polarity === "NEGATED"
+          && element.sourceMessageId === currentMessage.messageId
+          && element.supersedesElementIds.includes(replaced.semanticElementId));
+        const retainedCurrent = candidate.elements.filter((element) => element.epistemicStatus === "EXPLICIT_USER_STATED"
+          && element.polarity === "AFFIRMED"
+          && element.sourceMessageId === currentMessage.messageId
+          && element.supersedesElementIds.includes(retained.semanticElementId));
+        const sameRoleReplacements = newElements.filter((element) => element.type === replaced.type && element.studyRole === replaced.studyRole);
+        if (rejected.length !== 1 || retainedCurrent.length !== 1 || sameRoleReplacements.length !== 1
+          || expectedSource.clientElementId !== sameRoleReplacements[0].clientElementId
+          || expectedTarget.clientElementId !== retainedCurrent[0].clientElementId) return [];
+        return [{ replacement: sameRoleReplacements[0], retained: retainedCurrent[0], priorRelation }];
+      });
+    });
+    if (matches.length !== 1) return relation;
+    const match = matches[0];
+    const replacementInventory = currentInventory.filter((fragment) => match.replacement.inventoryItemIds.includes(fragment.inventoryItemId));
+    const retainedInventory = currentInventory.filter((fragment) => match.retained.inventoryItemIds.includes(fragment.inventoryItemId));
+    if (replacementInventory.length !== 1 || retainedInventory.length !== 1) return relation;
+    const replacementIndex = uniqueOccurrenceIndex(currentMessage.content, replacementInventory[0].sourceText);
+    const retainedIndex = uniqueOccurrenceIndex(currentMessage.content, retainedInventory[0].sourceText);
+    if (replacementIndex === null || retainedIndex === null) return relation;
+    const sourceText = clauseContaining(currentMessage.content, replacementIndex, replacementInventory[0].sourceText.length, retainedIndex, retainedInventory[0].sourceText.length);
+    if (!sourceText || sourceText.length > 1_000) return relation;
+    const inventoryRelationId = `deterministic-replacement:${logicalDigest({
+      messageId: currentMessage.messageId,
+      sourceInventoryItemId: replacementInventory[0].inventoryItemId,
+      targetInventoryItemId: retainedInventory[0].inventoryItemId,
+      relationType: relation.relationType,
+    })}`;
+    addedInventoryRelations.push({
+      inventoryRelationId,
+      sourceInventoryItemId: replacementInventory[0].inventoryItemId,
+      targetInventoryItemId: retainedInventory[0].inventoryItemId,
+      sourceMessageId: currentMessage.messageId,
+      sourceText,
+      normalizedRelation: relation.relationType,
+      polarity: relation.polarity,
+    });
+    groundedCount += 1;
+    return {
+      ...relation,
+      inventoryRelationIds: [inventoryRelationId],
+      epistemicStatus: "EXPLICIT_USER_STATED" as const,
+      confidence: 1,
+      inferenceReason: null,
+      requiresConfirmation: false,
+    };
+  });
+  if (groundedCount === 0) return candidate;
+  return parseSemanticReconstructionCandidate({
+    ...candidate,
+    semanticInventory: {
+      ...candidate.semanticInventory,
+      explicitRelations: [...candidate.semanticInventory.explicitRelations, ...addedInventoryRelations],
+    },
+    relations,
+    semanticWarnings: [...candidate.semanticWarnings, `DETERMINISTIC_REPLACEMENT_RELATION_GROUNDED:${groundedCount}`],
+  });
+};
+
 const parseSourceGroundedReconstruction = (
   request: SemanticReconstructionRequest,
   value: unknown,
 ) => {
   const parsed = parseSemanticReconstructionCandidate(normalizeDeterministicPriorStateReemission(request, value));
-  const candidate = normalizeInventoryRelationSourceSpans(request, parsed);
+  const replacementGrounded = normalizeReplacementRelationTopology(request, parsed);
+  const candidate = normalizeInventoryRelationSourceSpans(request, replacementGrounded);
   const sourceGroundingCodes = new Set([
     "INVENTORY_FRAGMENT_SOURCE_NOT_CONTIGUOUS",
     "INVENTORY_RELATION_SOURCE_NOT_CONTIGUOUS",
