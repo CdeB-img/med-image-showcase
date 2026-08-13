@@ -1,0 +1,403 @@
+{
+  "schemaVersion": "1.0",
+  "generatedOn": "2026-08-13",
+  "decision": "NOXIA_SINGLE_WORKTREE_COMPLETE_HISTORICAL_BRANCHES_PRESERVED",
+  "repository": {
+    "name": "noxia-dev",
+    "canonicalWorktree": "/Users/charles/Documents/Projets/NOXIA/noxia-dev",
+    "canonicalBranch": "sem-001r-closure",
+    "initialCanonicalHead": "8b30a632b038790adac1503c9cb44a8193f8fd90",
+    "consolidatedApplicationHead": "2e84db1615c837e01d88be5eb4d515bb3776819d",
+    "auditRecordCommit": "SELF",
+    "finalStatusExpectedAfterAuditCommit": "CLEAN"
+  },
+  "documentaryGovernance": {
+    "sourceOfTruthIndexVersion": "1.30",
+    "governedArtifacts": 107,
+    "totalGovernedIncludingIndex": 108,
+    "documentsOutsideGovernedCorpus": 33,
+    "auditReportStatus": "TECHNICAL_REPORT_NON_AUTHORITATIVE",
+    "machineManifestStatus": "MACHINE_EVIDENCE_NOT_DOCUMENTARY_AUTHORITY"
+  },
+  "initialWorktrees": [
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev",
+      "branch": "sem-001r-closure",
+      "head": "8b30a632b038790adac1503c9cb44a8193f8fd90",
+      "dirty": true,
+      "disposition": "CANONICAL"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-doc001b",
+      "branch": "doc-001b",
+      "head": "3e9e7d5ca3d4fe3aa4288b66768db851459e24a8",
+      "dirty": false,
+      "disposition": "INTEGRATED_AND_REMOVED"
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-val000",
+      "branch": "val-000",
+      "head": "06e66d78d5f6239c08b624e6b9823e5ae0a3ab84",
+      "dirty": false,
+      "disposition": "INTEGRATED_AND_REMOVED"
+    }
+  ],
+  "finalWorktrees": [
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-dev",
+      "branch": "sem-001r-closure",
+      "applicationHead": "2e84db1615c837e01d88be5eb4d515bb3776819d"
+    }
+  ],
+  "historicalBranchesPreserved": [
+    {
+      "branch": "main",
+      "head": "c6e4fa4fc3b74d6a16890a5a9b4f534e470a1916"
+    },
+    {
+      "branch": "doc-001b",
+      "head": "3e9e7d5ca3d4fe3aa4288b66768db851459e24a8"
+    },
+    {
+      "branch": "val-000",
+      "head": "06e66d78d5f6239c08b624e6b9823e5ae0a3ab84"
+    }
+  ],
+  "ownershipGroups": [
+    {
+      "mission": "PRE_V2_CANDIDATE_ANALYSES",
+      "owner": "SCIENTIFIC_DOCUMENTATION",
+      "generation": "PRE_V2",
+      "pathScopes": [
+        "docs/skm-000-scientific-knowledge-modeling-architecture-report.md",
+        "docs/pd-003r1-scientific-model-observability-data-extension-report.md"
+      ],
+      "status": "CANDIDATE_HISTORICAL"
+    },
+    {
+      "mission": "MAN_001",
+      "owner": "SCIENTIFIC_GOVERNANCE",
+      "generation": "V2",
+      "pathScopes": [
+        "docs/man-001-*",
+        "output/documents/noxia-protocol-designer-scientific-product-manifesto-v2.0.docx",
+        "output/pdf/noxia-protocol-designer-scientific-product-manifesto-v2.0.pdf"
+      ],
+      "fileCount": 7
+    },
+    {
+      "mission": "PD_003_V2",
+      "owner": "RESEARCH_OBJECT_MODEL",
+      "generation": "V2",
+      "pathScopes": ["docs/pd-003-v2-*", "docs/pd-003-v1-v2-object-crosswalk.md"],
+      "fileCount": 7
+    },
+    {
+      "mission": "OBS_001",
+      "owner": "OBSERVABILITY_AND_MEASUREMENT",
+      "generation": "V2",
+      "pathScopes": ["docs/obs-001-*"],
+      "fileCount": 8
+    },
+    {
+      "mission": "CDM_001",
+      "owner": "CANONICAL_STUDY_DATA",
+      "generation": "V2",
+      "pathScopes": ["docs/cdm-001-*"],
+      "fileCount": 11
+    },
+    {
+      "mission": "SEM_R5B_IMPLEMENTATION",
+      "owner": "SEM_AND_CONSUMER_OWNERS",
+      "generation": "LEGACY_FROZEN",
+      "pathScopes": [
+        "api/prompts/scientific-semantic-*",
+        "api/scientific-semantic.ts",
+        "scripts/semantic-live-browser-server.ts",
+        "src/features/scientific-semantic-reconstruction/**",
+        "consumer boundary files recorded by commit 94a6e634a23a10b656e229ad5edff66e6ee1bf90"
+      ],
+      "fileCount": 75
+    },
+    {
+      "mission": "SEM_R5B_EVIDENCE",
+      "owner": "SEM_QUALIFICATION",
+      "generation": "LEGACY_FROZEN",
+      "pathScopes": ["docs/sem-001*.md", "semantic-validation/**"],
+      "fileCount": 549
+    },
+    {
+      "mission": "DOC_001B",
+      "owner": "DOCUMENT_PROJECTION",
+      "generation": "V1_COMPATIBLE",
+      "pathScopes": [
+        "docs/doc-001b-study-template-document-projection-integration-report.md",
+        "src/features/document-projection/**",
+        "src/features/system-integration/__tests__/contracts.test.ts"
+      ],
+      "integrationCommit": "a8bf4b9a19cd694cd73d3a590f8b21668316c2d8"
+    },
+    {
+      "mission": "VAL_000",
+      "owner": "VALIDATION_ARCHITECTURE",
+      "generation": "V1",
+      "pathScopes": [
+        "docs/val-000-semantic-reasoning-validation-architecture-report.md",
+        "src/features/validation-architecture/**"
+      ],
+      "fileCount": 12,
+      "historicalCommit": "06e66d78d5f6239c08b624e6b9823e5ae0a3ab84"
+    }
+  ],
+  "commitsCreated": [
+    {
+      "sha": "25d16c5938a52aed4013fce34e5afcbf8647f46c",
+      "subject": "docs(model): record pre-V2 candidate analyses",
+      "mission": "PRE_V2_CANDIDATE_ANALYSES",
+      "branch": "sem-001r-closure",
+      "fileCount": 2
+    },
+    {
+      "sha": "be84efec2ed54ddae4325f87a11c30b650017226",
+      "subject": "docs(manifesto): adopt scientific product manifesto V2",
+      "mission": "MAN_001",
+      "branch": "sem-001r-closure",
+      "fileCount": 7
+    },
+    {
+      "sha": "e5a4b3ef1ae5634e421296333e302cce8836b767",
+      "subject": "style(docs): normalize MAN-001 markdown whitespace",
+      "mission": "MAN_001_FORMAT",
+      "branch": "sem-001r-closure",
+      "fileCount": 5
+    },
+    {
+      "sha": "fdce9a824f76b5f8cc63dbe608577813d3751199",
+      "subject": "docs(model): admit PD-003 V2 research object model",
+      "mission": "PD_003_V2",
+      "branch": "sem-001r-closure",
+      "fileCount": 7
+    },
+    {
+      "sha": "ce28f3ff22c1e584f91b5803252365e73eba330e",
+      "subject": "docs(observability): admit OBS-001 measurement architecture",
+      "mission": "OBS_001",
+      "branch": "sem-001r-closure",
+      "fileCount": 8
+    },
+    {
+      "sha": "f418d7905ecb20a8c1940106614f861b80596e0c",
+      "subject": "docs(data): admit CDM-001 canonical study data model",
+      "mission": "CDM_001",
+      "branch": "sem-001r-closure",
+      "fileCount": 11
+    },
+    {
+      "sha": "29ddd9c8e1003a66e1680e743d1752db5bab7ec1",
+      "subject": "docs(governance): reconcile V2 documentary authorities",
+      "mission": "SOURCE_OF_TRUTH_INDEX",
+      "branch": "sem-001r-closure",
+      "fileCount": 1
+    },
+    {
+      "sha": "94a6e634a23a10b656e229ad5edff66e6ee1bf90",
+      "subject": "feat(sem): stabilize governed legacy reconstruction",
+      "mission": "SEM_R5B_IMPLEMENTATION",
+      "branch": "sem-001r-closure",
+      "fileCount": 75
+    },
+    {
+      "sha": "f6b76e4aad1209aa098dd06fa7e6f7da1ea8b267",
+      "subject": "docs(sem): record governed legacy R5B evidence",
+      "mission": "SEM_R5B_EVIDENCE",
+      "branch": "sem-001r-closure",
+      "fileCount": 549
+    },
+    {
+      "sha": "a8bf4b9a19cd694cd73d3a590f8b21668316c2d8",
+      "subject": "merge(doc): integrate DOC-001B projection",
+      "mission": "DOC_001B_INTEGRATION",
+      "branch": "sem-001r-closure",
+      "parents": [
+        "f6b76e4aad1209aa098dd06fa7e6f7da1ea8b267",
+        "3e9e7d5ca3d4fe3aa4288b66768db851459e24a8"
+      ]
+    },
+    {
+      "sha": "2e84db1615c837e01d88be5eb4d515bb3776819d",
+      "subject": "merge(validation): integrate VAL-000 architecture",
+      "mission": "VAL_000_INTEGRATION",
+      "branch": "sem-001r-closure",
+      "parents": [
+        "a8bf4b9a19cd694cd73d3a590f8b21668316c2d8",
+        "06e66d78d5f6239c08b624e6b9823e5ae0a3ab84"
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "sourceBranch": "doc-001b",
+      "targetBranch": "sem-001r-closure",
+      "method": "MERGE_NO_FF",
+      "resultCommit": "a8bf4b9a19cd694cd73d3a590f8b21668316c2d8",
+      "conflicts": [
+        {
+          "path": "package.json",
+          "ownerResolution": "PRESERVE_SEM_R3_MANUAL_COMMANDS",
+          "semBehaviorModified": false
+        },
+        {
+          "path": "src/features/system-integration/__tests__/contracts.test.ts",
+          "ownerResolution": "IMAGING_1_2_1_FROM_SEM_AND_DOCUMENT_1_2_0_FROM_DOC",
+          "semBehaviorModified": false
+        }
+      ]
+    },
+    {
+      "sourceBranch": "val-000",
+      "targetBranch": "sem-001r-closure",
+      "method": "MERGE_NO_FF",
+      "resultCommit": "2e84db1615c837e01d88be5eb4d515bb3776819d",
+      "conflicts": []
+    }
+  ],
+  "semR5bScope": {
+    "configuration": "SEM_LEGACY_R5B",
+    "expectedDigest": "ke1-f7893e6c21710ec8",
+    "recomputedDigest": "ke1-f7893e6c21710ec8",
+    "reconstructible": true,
+    "behaviorModifiedByConsolidation": false,
+    "status": "PROPOSED_NOT_ACTIVATED",
+    "providerCallsDuringConsolidation": 0,
+    "h29Executed": false,
+    "holdoutStarted": false,
+    "freezeActivated": false,
+    "digests": {
+      "developmentCorpus": "ke1-64d654cfa041a563",
+      "developmentGold": "ke1-1006a72533caf7f9",
+      "holdoutCorpus": "ke1-08392b87b2cc140b",
+      "holdoutGold": "ke1-9208b3d2f1d0698e",
+      "reconstructionPrompt": "ke1-f880aabb87c7160f",
+      "criticPrompt": "ke1-eba3edf15a26f91d",
+      "auditPrompt": "ke1-10b88664b49fca18",
+      "baseProviderSchema": "ke1-c849778553bf38b1",
+      "auditProviderSchema": "ke1-55cd50759595b451",
+      "canonicalModel": "ke1-1baaa1ff6db97ebb",
+      "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+      "canonicalizer": "ke1-b0bff0f79c2bd3db",
+      "coverageAndIntegrity": "ke1-58bfb255c2011009",
+      "evaluator": "ke1-8066258bdfcc6c77",
+      "routing": "ke1-f9876d90511261c4"
+    }
+  },
+  "validations": [
+    {
+      "name": "SEM_COMPLETE",
+      "status": "PASS",
+      "testsPassed": 270,
+      "testsTotal": 270
+    },
+    {
+      "name": "DOC_VAL_SYSTEM_TARGETED",
+      "status": "PASS",
+      "testsPassed": 106,
+      "testsTotal": 106
+    },
+    {
+      "name": "TYPECHECK",
+      "status": "PASS"
+    },
+    {
+      "name": "PRODUCTION_BUILD",
+      "status": "PASS",
+      "modulesTransformed": 1932
+    },
+    {
+      "name": "GLOBAL_NOXIA_SUITE",
+      "status": "EXTERNAL_PRECONDITION_FAILURE",
+      "testsPassed": 1353,
+      "testsTotal": 1356,
+      "failedTests": 3,
+      "cause": "EXTERNAL_EDITORIAL_ENGINE_WORKTREE_DIRTY"
+    },
+    {
+      "name": "SEM_R5B_RECONSTRUCTION",
+      "status": "PASS"
+    },
+    {
+      "name": "GIT_DIFF_CHECK",
+      "status": "PASS"
+    }
+  ],
+  "externalDependencies": [
+    {
+      "repository": "/Users/charles/Documents/Projets/editorial-engine",
+      "head": "335fbbea8d138901f0cdf4f5e2d3b96144880e8b",
+      "dirty": true,
+      "modifiedByMission": false,
+      "impact": "THREE_GLOBAL_GUARD_TESTS_ONLY"
+    }
+  ],
+  "uncommittedChanges": [],
+  "unknownChanges": [],
+  "sharedChanges": [
+    {
+      "path": "0. NOXIA — SOURCE-OF-TRUTH-INDEX.md",
+      "resolution": "ISOLATED_MULTI_OWNER_COMMIT"
+    },
+    {
+      "path": "package.json",
+      "resolution": "OWNER_AWARE_MERGE"
+    },
+    {
+      "path": "src/features/system-integration/__tests__/contracts.test.ts",
+      "resolution": "OWNER_AWARE_VERSION_COMPOSITION"
+    }
+  ],
+  "architecturalConflicts": [],
+  "futureReconciliationPlan": [
+    {
+      "boundary": "LEGACY_SEM_COMPATIBILITY_BOUNDARY",
+      "action": "QUALIFY_A_NEW_CONFIGURATION_BEFORE_ANY_PD003_V2_ADAPTER_OR_SEM_MIGRATION",
+      "blockingCurrentConsolidation": false
+    },
+    {
+      "boundary": "VAL_TO_SEM_CHECKPOINT_INTEGRATION",
+      "action": "HANDLE_AS_A_SEPARATE_CONFIGURATION_CHANGE_WITH_OWN_EVIDENCE",
+      "blockingCurrentConsolidation": false
+    },
+    {
+      "boundary": "HISTORICAL_BRANCH_CLEANUP",
+      "action": "OPTIONAL_LATER_OPERATION_AFTER_AUDIT_RETENTION_DECISION",
+      "blockingCurrentConsolidation": false
+    }
+  ],
+  "worktreesRemoved": [
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-doc001b",
+      "force": false,
+      "dataLoss": false,
+      "headReachableFromCanonical": true
+    },
+    {
+      "path": "/Users/charles/Documents/Projets/NOXIA/noxia-val000",
+      "force": false,
+      "dataLoss": false,
+      "headReachableFromCanonical": true
+    }
+  ],
+  "actionsNotPerformed": [
+    "PUSH",
+    "REBASE",
+    "SQUASH",
+    "HISTORY_REWRITE",
+    "BRANCH_DELETE",
+    "DEPLOYMENT",
+    "BROWSER_LIVE",
+    "DOWNSTREAM_LIVE",
+    "LLM_PROVIDER_CALL",
+    "H29",
+    "FREEZE_ACTIVATION",
+    "HOLDOUT"
+  ]
+}
