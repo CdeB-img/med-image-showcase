@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "BENCHMARK_EVALUATION_FAILURE_DISPOSITION_REGISTRY",
+  "source": "semantic-validation/sem-002/scientific-understanding-competence-contract.json",
+  "failureClasses": [
+    "EXPLICIT_FIDELITY_FAILURE",
+    "RELATION_SEMANTICS_FAILURE",
+    "POLARITY_OR_CAUSALITY_FAILURE",
+    "CONTEXTUAL_UNDERSTANDING_FAILURE",
+    "EPISTEMIC_PROMOTION_FAILURE",
+    "UNSUPPORTED_INVENTION_FAILURE",
+    "MISSING_INFORMATION_FAILURE",
+    "CLARIFICATION_FAILURE",
+    "CONCEPTUAL_PLAN_COLLAPSE",
+    "PROVENANCE_FAILURE",
+    "OWNERSHIP_BOUNDARY_FAILURE",
+    "SEMANTIC_EQUIVALENCE_EVALUATION_FAILURE",
+    "GENERATIVE_INSTABILITY_FAILURE",
+    "PROVIDER_EXECUTION_FAILURE",
+    "QUALIFICATION_PROTOCOL_FAILURE"
+  ],
+  "dispositions": [
+    "ACCEPTABLE_SEMANTIC_EQUIVALENT",
+    "ACCEPTABLE_NONCRITICAL_VARIATION",
+    "SAFE_FAIL_CLOSED",
+    "SEMANTIC_FAILURE",
+    "PROVIDER_EXECUTION_FAILURE",
+    "NOT_EVALUABLE"
+  ],
+  "propertyJudgments": [
+    "SATISFIED",
+    "VIOLATED",
+    "NOT_APPLICABLE",
+    "NOT_EVALUABLE",
+    "ADJUDICATION_REQUIRED"
+  ],
+  "checkTypes": [
+    "DETERMINISTIC_CHECK",
+    "REFERENCE_DECLARED_CHECK",
+    "ADJUDICATION_CHECK"
+  ],
+  "firstCauseStageOrder": ["CONTRACT", "EXECUTION", "LEVEL_1", "LEVEL_2"],
+  "rules": {
+    "absoluteViolationDisposition": "SEMANTIC_FAILURE",
+    "providerFailureDisposition": "PROVIDER_EXECUTION_FAILURE",
+    "safeFailClosedDisposition": "SAFE_FAIL_CLOSED",
+    "unresolvedAdjudicationDisposition": "NOT_EVALUABLE",
+    "noAggregateScore": true,
+    "criticalPropertiesCompensable": false
+  }
+}

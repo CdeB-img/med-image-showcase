@@ -1,0 +1,358 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "BENCHMARK_EVALUATION_PROPERTY_REGISTRY",
+  "source": "semantic-validation/sem-002/scientific-understanding-competence-contract.json",
+  "sourceDocument": "docs/sem-002-scientific-understanding-competence-contract.md",
+  "sourceVersion": "1.0",
+  "derivedWithoutNormativeMutation": true,
+  "propertyCount": 18,
+  "familyCounts": {
+    "SAFETY_FIDELITY_INVARIANT": 12,
+    "SCIENTIFIC_UNDERSTANDING_COMPETENCE": 5,
+    "CONTEXTUAL_ENRICHMENT": 1
+  },
+  "properties": [
+    {
+      "id": "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "alias": "P01",
+      "dimension": "EXPLICIT_FIDELITY",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "scope": "Tout contenu explicite scientifiquement utile reste reconstructible.",
+      "criticality": "CRITICAL",
+      "sourceEvaluationMode": "EXPLICIT_UNIT_ADJUDICATION",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "absolute": true,
+      "compensable": false,
+      "qualificationOwner": "VAL_PD_011_GOVERNANCE",
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "permittedCheckTypes": [
+        "DETERMINISTIC_CHECK",
+        "REFERENCE_DECLARED_CHECK",
+        "ADJUDICATION_CHECK"
+      ]
+    },
+    {
+      "id": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "alias": "P02",
+      "dimension": "EXPLICIT_FIDELITY",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "scope": "Endpoints, direction et force des relations explicites sont conservés.",
+      "criticality": "CRITICAL",
+      "sourceEvaluationMode": "RELATION_ADJUDICATION",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "absolute": true,
+      "compensable": false,
+      "qualificationOwner": "VAL_PD_011_GOVERNANCE",
+      "failureClass": "RELATION_SEMANTICS_FAILURE",
+      "permittedCheckTypes": [
+        "DETERMINISTIC_CHECK",
+        "REFERENCE_DECLARED_CHECK",
+        "ADJUDICATION_CHECK"
+      ]
+    },
+    {
+      "id": "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+      "alias": "P03",
+      "dimension": "EXPLICIT_FIDELITY",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "scope": "Négation, condition et refus causal ne deviennent pas affirmation.",
+      "criticality": "CRITICAL",
+      "sourceEvaluationMode": "CONTRASTIVE_INVARIANT_CASES",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "absolute": true,
+      "compensable": false,
+      "qualificationOwner": "VAL_PD_011_GOVERNANCE",
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE",
+      "permittedCheckTypes": [
+        "DETERMINISTIC_CHECK",
+        "REFERENCE_DECLARED_CHECK",
+        "ADJUDICATION_CHECK"
+      ]
+    },
+    {
+      "id": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "alias": "P04",
+      "dimension": "EXPLICIT_FIDELITY",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "scope": "Comparateurs, état sélectionné ou ouvert, axe et temporalité restent fidèles.",
+      "criticality": "CRITICAL",
+      "sourceEvaluationMode": "STRUCTURED_ADJUDICATION",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "absolute": true,
+      "compensable": false,
+      "qualificationOwner": "VAL_PD_011_GOVERNANCE",
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "permittedCheckTypes": [
+        "DETERMINISTIC_CHECK",
+        "REFERENCE_DECLARED_CHECK",
+        "ADJUDICATION_CHECK"
+      ]
+    },
+    {
+      "id": "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+      "alias": "P05",
+      "dimension": "EXPLICIT_FIDELITY",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "scope": "Une correction actualise l'état actif sans effacer l'histoire.",
+      "criticality": "CRITICAL",
+      "sourceEvaluationMode": "MULTI_TURN_REPLAY",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "absolute": true,
+      "compensable": false,
+      "qualificationOwner": "VAL_PD_011_GOVERNANCE",
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "permittedCheckTypes": [
+        "DETERMINISTIC_CHECK",
+        "REFERENCE_DECLARED_CHECK",
+        "ADJUDICATION_CHECK"
+      ]
+    },
+    {
+      "id": "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+      "alias": "P06",
+      "dimension": "EPISTEMIC_DISCIPLINE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "scope": "Association ou finalité ne sont pas renforcées en causalité ou prédiction.",
+      "criticality": "CRITICAL",
+      "sourceEvaluationMode": "RELATION_FORCE_CASES",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "absolute": true,
+      "compensable": false,
+      "qualificationOwner": "VAL_PD_011_GOVERNANCE",
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE",
+      "permittedCheckTypes": [
+        "DETERMINISTIC_CHECK",
+        "REFERENCE_DECLARED_CHECK",
+        "ADJUDICATION_CHECK"
+      ]
+    },
+    {
+      "id": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+      "alias": "P07",
+      "dimension": "CONTEXTUAL_SCIENTIFIC_UNDERSTANDING",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "scope": "Une inférence contextuelle ne devient jamais déclaration utilisateur ni vérité Project.",
+      "criticality": "CRITICAL",
+      "sourceEvaluationMode": "PROVENANCE_AND_STATUS_AUDIT",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "absolute": true,
+      "compensable": false,
+      "qualificationOwner": "VAL_PD_011_GOVERNANCE",
+      "failureClass": "EPISTEMIC_PROMOTION_FAILURE",
+      "permittedCheckTypes": [
+        "DETERMINISTIC_CHECK",
+        "REFERENCE_DECLARED_CHECK",
+        "ADJUDICATION_CHECK"
+      ]
+    },
+    {
+      "id": "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+      "alias": "P08",
+      "dimension": "EPISTEMIC_DISCIPLINE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "scope": "Un support Knowledge ne vaut jamais adoption Project.",
+      "criticality": "CRITICAL",
+      "sourceEvaluationMode": "OWNERSHIP_AND_ADOPTION_AUDIT",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "absolute": true,
+      "compensable": false,
+      "qualificationOwner": "VAL_PD_011_GOVERNANCE",
+      "failureClass": "EPISTEMIC_PROMOTION_FAILURE",
+      "permittedCheckTypes": [
+        "DETERMINISTIC_CHECK",
+        "REFERENCE_DECLARED_CHECK",
+        "ADJUDICATION_CHECK"
+      ]
+    },
+    {
+      "id": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "alias": "P09",
+      "dimension": "MISSING_INFORMATION_INTELLIGENCE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "scope": "Les inconnues et ambiguïtés déjà établies restent visibles à chaque handoff.",
+      "criticality": "CRITICAL",
+      "sourceEvaluationMode": "HANDOFF_STATE_COMPARISON",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "absolute": true,
+      "compensable": false,
+      "qualificationOwner": "VAL_PD_011_GOVERNANCE",
+      "failureClass": "MISSING_INFORMATION_FAILURE",
+      "permittedCheckTypes": [
+        "DETERMINISTIC_CHECK",
+        "REFERENCE_DECLARED_CHECK",
+        "ADJUDICATION_CHECK"
+      ]
+    },
+    {
+      "id": "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "alias": "P10",
+      "dimension": "CONTEXTUAL_SCIENTIFIC_UNDERSTANDING",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "scope": "Aucune information critique insuffisamment fondée n'entre dans l'état actif.",
+      "criticality": "CRITICAL",
+      "sourceEvaluationMode": "ADDITION_AND_SOURCE_AUDIT",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "absolute": true,
+      "compensable": false,
+      "qualificationOwner": "VAL_PD_011_GOVERNANCE",
+      "failureClass": "UNSUPPORTED_INVENTION_FAILURE",
+      "permittedCheckTypes": [
+        "DETERMINISTIC_CHECK",
+        "REFERENCE_DECLARED_CHECK",
+        "ADJUDICATION_CHECK"
+      ]
+    },
+    {
+      "id": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "alias": "P11",
+      "dimension": "EPISTEMIC_DISCIPLINE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "scope": "Aucun moteur n'adopte ou ne mute hors de son ownership.",
+      "criticality": "CRITICAL",
+      "sourceEvaluationMode": "HANDOFF_AND_DECISION_AUDIT",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "absolute": true,
+      "compensable": false,
+      "qualificationOwner": "VAL_PD_011_GOVERNANCE",
+      "failureClass": "OWNERSHIP_BOUNDARY_FAILURE",
+      "permittedCheckTypes": [
+        "DETERMINISTIC_CHECK",
+        "REFERENCE_DECLARED_CHECK",
+        "ADJUDICATION_CHECK"
+      ]
+    },
+    {
+      "id": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "alias": "P12",
+      "dimension": "EPISTEMIC_DISCIPLINE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "scope": "Origine, transformation et statut critiques restent reconstructibles.",
+      "criticality": "CRITICAL",
+      "sourceEvaluationMode": "LINEAGE_AUDIT",
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "absolute": true,
+      "compensable": false,
+      "qualificationOwner": "VAL_PD_011_GOVERNANCE",
+      "failureClass": "PROVENANCE_FAILURE",
+      "permittedCheckTypes": [
+        "DETERMINISTIC_CHECK",
+        "REFERENCE_DECLARED_CHECK",
+        "ADJUDICATION_CHECK"
+      ]
+    },
+    {
+      "id": "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+      "alias": "P13",
+      "dimension": "MISSING_INFORMATION_INTELLIGENCE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "scope": "Détecter et qualifier les informations manquantes importantes.",
+      "criticality": "CRITICAL_IF_BLOCKING_OTHERWISE_MAJOR",
+      "sourceEvaluationMode": "RECALL_PRECISION_AND_DECISIONAL_IMPACT",
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "absolute": false,
+      "compensable": false,
+      "qualificationOwner": "VAL_PD_011_EXPERT_PANEL",
+      "failureClass": "MISSING_INFORMATION_FAILURE",
+      "permittedCheckTypes": [
+        "DETERMINISTIC_CHECK",
+        "REFERENCE_DECLARED_CHECK",
+        "ADJUDICATION_CHECK"
+      ]
+    },
+    {
+      "id": "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+      "alias": "P14",
+      "dimension": "EPISTEMIC_DISCIPLINE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "scope": "Phénomène, propriété, méthode, rôle, variable et valeur restent distingués.",
+      "criticality": "CRITICAL_IF_DECISION_ALTERED_OTHERWISE_MAJOR",
+      "sourceEvaluationMode": "CONCEPT_DISTINCTION_EXPERT_ADJUDICATION",
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "absolute": false,
+      "compensable": false,
+      "qualificationOwner": "VAL_WITH_PD003_OBS_OWNERS",
+      "failureClass": "CONCEPTUAL_PLAN_COLLAPSE",
+      "permittedCheckTypes": [
+        "DETERMINISTIC_CHECK",
+        "REFERENCE_DECLARED_CHECK",
+        "ADJUDICATION_CHECK"
+      ]
+    },
+    {
+      "id": "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED",
+      "alias": "P15",
+      "dimension": "EXPLICIT_FIDELITY",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "scope": "Des formes différentes sont jugées selon le même vecteur d'obligations scientifiques.",
+      "criticality": "MAJOR",
+      "sourceEvaluationMode": "EXPERT_AGREEMENT_AND_EQUIVALENCE_CLASSES",
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "absolute": false,
+      "compensable": false,
+      "qualificationOwner": "VAL_PD_011_EXPERT_PANEL",
+      "failureClass": "SEMANTIC_EQUIVALENCE_EVALUATION_FAILURE",
+      "permittedCheckTypes": [
+        "DETERMINISTIC_CHECK",
+        "REFERENCE_DECLARED_CHECK",
+        "ADJUDICATION_CHECK"
+      ]
+    },
+    {
+      "id": "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "alias": "P16",
+      "dimension": "MISSING_INFORMATION_INTELLIGENCE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "scope": "Une question réduit une incertitude qui affecte réellement le raisonnement.",
+      "criticality": "MAJOR",
+      "sourceEvaluationMode": "RELEVANCE_INFORMATION_GAIN_AND_BURDEN",
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "absolute": false,
+      "compensable": false,
+      "qualificationOwner": "VAL_WITH_PD009_ACTION_AUTHORITY",
+      "failureClass": "CLARIFICATION_FAILURE",
+      "permittedCheckTypes": [
+        "DETERMINISTIC_CHECK",
+        "REFERENCE_DECLARED_CHECK",
+        "ADJUDICATION_CHECK"
+      ]
+    },
+    {
+      "id": "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "alias": "P17",
+      "dimension": "EXPLICIT_FIDELITY",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "scope": "Style, ordre et segmentation sans effet de fond ne sont pas pénalisés.",
+      "criticality": "NON_CRITICAL",
+      "sourceEvaluationMode": "PARAPHRASE_INVARIANCE",
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "absolute": false,
+      "compensable": false,
+      "qualificationOwner": "VAL_PD_011_EXPERT_PANEL",
+      "failureClass": "SEMANTIC_EQUIVALENCE_EVALUATION_FAILURE",
+      "permittedCheckTypes": [
+        "DETERMINISTIC_CHECK",
+        "REFERENCE_DECLARED_CHECK",
+        "ADJUDICATION_CHECK"
+      ]
+    },
+    {
+      "id": "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+      "alias": "P18",
+      "dimension": "CONTEXTUAL_SCIENTIFIC_UNDERSTANDING",
+      "family": "CONTEXTUAL_ENRICHMENT",
+      "scope": "Les candidats utiles sont pertinents, classés, contextualisés et expliqués sans devenir des faits.",
+      "criticality": "MAJOR_ISOLATED_OMISSION_NON_CRITICAL_UNLESS_PRE_SPECIFIED",
+      "sourceEvaluationMode": "RECALL_PRECISION_RELEVANCE_RANK_AND_JUSTIFICATION",
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "absolute": false,
+      "compensable": false,
+      "qualificationOwner": "VAL_PD_011_DOMAIN_EXPERTS",
+      "failureClass": "CONTEXTUAL_UNDERSTANDING_FAILURE",
+      "permittedCheckTypes": [
+        "DETERMINISTIC_CHECK",
+        "REFERENCE_DECLARED_CHECK",
+        "ADJUDICATION_CHECK"
+      ]
+    }
+  ]
+}

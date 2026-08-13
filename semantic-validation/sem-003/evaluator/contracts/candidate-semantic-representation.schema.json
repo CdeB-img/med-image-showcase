@@ -1,0 +1,275 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://noxia.local/sem-003/evaluator/candidate-semantic-representation.schema.json",
+  "title": "SEM-003 Candidate Semantic Representation",
+  "description": "Benchmark evaluation contract for a normalized candidate output. It is not a PD-003 object, a SEM runtime schema, or a statement of scientific truth.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "contractType",
+    "purpose",
+    "candidateId",
+    "caseId",
+    "caseVersion",
+    "envelopeId",
+    "envelopeVersion",
+    "evaluationMode",
+    "sourceType",
+    "structureProfile",
+    "executionStatus",
+    "semanticElements",
+    "obligationMappings",
+    "prohibitionSignals",
+    "optionalCandidateMappings",
+    "ambiguityMappings",
+    "clarificationMapping",
+    "ownershipMappings",
+    "provenanceSummary",
+    "adjudicationClaims"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "contractType": { "const": "BENCHMARK_EVALUATION_CANDIDATE" },
+    "purpose": { "const": "SCIENTIFIC_UNDERSTANDING_EVALUATOR_DEVELOPMENT" },
+    "candidateId": { "type": "string", "pattern": "^SEM3-EVAL-CAND-[A-Z0-9][A-Z0-9-]{2,95}$" },
+    "caseId": { "type": "string", "pattern": "^SEM3-(EX|DEV|CAL)-[A-Z0-9][A-Z0-9-]{2,63}$" },
+    "caseVersion": { "$ref": "#/definitions/version" },
+    "envelopeId": { "type": "string", "pattern": "^SEM3-AE-[A-Z0-9][A-Z0-9-]{2,63}$" },
+    "envelopeVersion": { "$ref": "#/definitions/version" },
+    "evaluationMode": { "$ref": "#/definitions/evaluationMode" },
+    "sourceType": {
+      "enum": [
+        "EVALUATOR_DEVELOPMENT_SYNTHETIC",
+        "FUTURE_SEM_RUNTIME_OUTPUT",
+        "HUMAN_ADJUDICATED_OUTPUT"
+      ]
+    },
+    "structureProfile": {
+      "enum": [
+        "CONSOLIDATED",
+        "DISTRIBUTED_EQUIVALENT",
+        "NEAR_REFERENCE_WITH_SEMANTIC_DEFECT",
+        "NOVEL_REQUIRES_ADJUDICATION",
+        "FAIL_CLOSED",
+        "NOT_AVAILABLE"
+      ]
+    },
+    "referenceDemonstrationId": {
+      "type": "string",
+      "pattern": "^representation-[a-z0-9-]+$"
+    },
+    "declaredVariantId": {
+      "type": "string",
+      "pattern": "^variant-[a-z0-9-]+$"
+    },
+    "executionStatus": {
+      "enum": ["COMPLETED", "SAFE_FAIL_CLOSED", "PROVIDER_FAILURE", "NOT_EVALUABLE"]
+    },
+    "semanticElements": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/semanticElement" }
+    },
+    "obligationMappings": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/obligationMapping" }
+    },
+    "prohibitionSignals": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/prohibitionSignal" }
+    },
+    "optionalCandidateMappings": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/optionalCandidateMapping" }
+    },
+    "ambiguityMappings": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/ambiguityMapping" }
+    },
+    "clarificationMapping": { "$ref": "#/definitions/clarificationMapping" },
+    "ownershipMappings": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/ownershipMapping" }
+    },
+    "provenanceSummary": { "$ref": "#/definitions/provenanceSummary" },
+    "adjudicationClaims": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/adjudicationClaim" }
+    }
+  },
+  "definitions": {
+    "nonEmptyString": { "type": "string", "minLength": 1 },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "evaluationMode": {
+      "enum": ["DEVELOPMENT_SYNTHETIC", "FUTURE_SEM_RUNTIME", "HUMAN_ADJUDICATION"]
+    },
+    "propertyId": {
+      "type": "string",
+      "pattern": "^PROPERTY_[A-Z0-9_]+$"
+    },
+    "reference": { "type": "string", "minLength": 1, "maxLength": 240 },
+    "semanticElement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "elementId",
+        "semanticKey",
+        "elementType",
+        "state",
+        "epistemicStatus",
+        "adoptionStatus",
+        "owner",
+        "sourceRefs",
+        "provenanceRefs"
+      ],
+      "properties": {
+        "elementId": { "type": "string", "pattern": "^element-[a-z0-9-]+$" },
+        "semanticKey": { "type": "string", "pattern": "^[a-z0-9][a-z0-9.-]{2,95}$" },
+        "elementType": {
+          "enum": [
+            "CONTENT",
+            "RELATION",
+            "POLARITY",
+            "TIMING",
+            "CORRECTION",
+            "UNKNOWN",
+            "AMBIGUITY",
+            "OPTIONAL_CANDIDATE",
+            "OWNERSHIP",
+            "PROVENANCE",
+            "OTHER"
+          ]
+        },
+        "state": {
+          "enum": [
+            "CURRENT",
+            "HISTORICAL",
+            "SUPERSEDED",
+            "OPEN_UNKNOWN",
+            "OPEN_AMBIGUITY",
+            "OPTIONAL",
+            "REJECTED"
+          ]
+        },
+        "epistemicStatus": {
+          "enum": [
+            "EXPLICIT_USER_STATED",
+            "INFERRED_HIGH_CONFIDENCE",
+            "INFERRED_CANDIDATE",
+            "SUPPORTED_CANDIDATE",
+            "UNSUPPORTED_CANDIDATE",
+            "CONFIRMED_BY_USER",
+            "REJECTED_BY_USER",
+            "UNKNOWN",
+            "AMBIGUOUS"
+          ]
+        },
+        "adoptionStatus": {
+          "enum": ["NOT_ADOPTED", "CANDIDATE", "ADOPTED_BY_HUMAN", "REJECTED", "NOT_APPLICABLE"]
+        },
+        "owner": { "$ref": "#/definitions/nonEmptyString" },
+        "sourceRefs": { "type": "array", "items": { "$ref": "#/definitions/reference" }, "uniqueItems": true },
+        "provenanceRefs": { "type": "array", "items": { "$ref": "#/definitions/reference" }, "uniqueItems": true }
+      }
+    },
+    "obligationMapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["obligationId", "status", "evidenceType", "candidateElementRefs"],
+      "properties": {
+        "obligationId": { "type": "string", "pattern": "^req-[a-z0-9-]+$" },
+        "status": { "enum": ["PRESERVED", "OMITTED", "CONTRADICTED", "NOT_EVALUABLE"] },
+        "evidenceType": {
+          "enum": [
+            "EXPLICIT_NORMALIZED_MAPPING",
+            "REFERENCE_DECLARED_VARIANT",
+            "REQUIRES_HUMAN_ADJUDICATION"
+          ]
+        },
+        "candidateElementRefs": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^element-[a-z0-9-]+$" },
+          "uniqueItems": true
+        }
+      }
+    },
+    "prohibitionSignal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["prohibitionId", "status", "evidenceRefs"],
+      "properties": {
+        "prohibitionId": { "type": "string", "pattern": "^pro-[a-z0-9-]+$" },
+        "status": { "enum": ["ABSENT", "PRESENT", "NOT_EVALUABLE"] },
+        "evidenceRefs": { "type": "array", "items": { "$ref": "#/definitions/reference" }, "uniqueItems": true }
+      }
+    },
+    "optionalCandidateMapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidateId", "status", "epistemicStatus", "evidenceRefs"],
+      "properties": {
+        "candidateId": { "type": "string", "pattern": "^opt-[a-z0-9-]+$" },
+        "status": { "enum": ["ABSENT", "PRESENT", "NOT_EVALUABLE"] },
+        "epistemicStatus": {
+          "enum": ["NOT_APPLICABLE", "INFERRED_CANDIDATE", "SUPPORTED_CANDIDATE", "NOT_EVALUABLE"]
+        },
+        "evidenceRefs": { "type": "array", "items": { "$ref": "#/definitions/reference" }, "uniqueItems": true }
+      }
+    },
+    "ambiguityMapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ambiguityId", "status", "evidenceRefs"],
+      "properties": {
+        "ambiguityId": { "type": "string", "pattern": "^amb-[a-z0-9-]+$" },
+        "status": { "enum": ["PRESERVED_OPEN", "CLOSED_WITHOUT_SUPPORT", "NOT_EVALUABLE"] },
+        "evidenceRefs": { "type": "array", "items": { "$ref": "#/definitions/reference" }, "uniqueItems": true }
+      }
+    },
+    "clarificationMapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "decisionImpactMapping", "evidenceRefs"],
+      "properties": {
+        "status": { "enum": ["PRESENT", "ABSENT", "NOT_EVALUABLE"] },
+        "decisionImpactMapping": {
+          "enum": ["REFERENCE_DECLARED_MATCH", "REQUIRES_HUMAN_ADJUDICATION", "NOT_EVALUABLE"]
+        },
+        "evidenceRefs": { "type": "array", "items": { "$ref": "#/definitions/reference" }, "uniqueItems": true }
+      }
+    },
+    "ownershipMapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["boundaryId", "status", "evidenceRefs"],
+      "properties": {
+        "boundaryId": { "type": "string", "pattern": "^own-[a-z0-9-]+$" },
+        "status": { "enum": ["PRESERVED", "VIOLATED", "NOT_EVALUABLE"] },
+        "evidenceRefs": { "type": "array", "items": { "$ref": "#/definitions/reference" }, "uniqueItems": true }
+      }
+    },
+    "provenanceSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "sourceRequestReconstructible", "historyReconstructible", "evidenceRefs"],
+      "properties": {
+        "status": { "enum": ["RECONSTRUCTIBLE", "BROKEN", "NOT_EVALUABLE"] },
+        "sourceRequestReconstructible": { "type": "boolean" },
+        "historyReconstructible": { "type": "boolean" },
+        "evidenceRefs": { "type": "array", "items": { "$ref": "#/definitions/reference" }, "uniqueItems": true }
+      }
+    },
+    "adjudicationClaim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claimId", "propertyIds", "description", "basis", "evidenceRefs"],
+      "properties": {
+        "claimId": { "type": "string", "pattern": "^claim-[a-z0-9-]+$" },
+        "propertyIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/definitions/propertyId" }, "uniqueItems": true },
+        "description": { "$ref": "#/definitions/nonEmptyString" },
+        "basis": { "enum": ["REFERENCE_DECLARED", "NOVEL_REQUIRES_ADJUDICATION"] },
+        "evidenceRefs": { "type": "array", "items": { "$ref": "#/definitions/reference" }, "uniqueItems": true }
+      }
+    }
+  }
+}

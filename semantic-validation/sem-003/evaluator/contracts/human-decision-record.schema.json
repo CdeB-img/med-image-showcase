@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://noxia.local/sem-003/evaluator/human-decision-record.schema.json",
+  "title": "SEM-003 Human Decision Record",
+  "description": "Benchmark adjudication record schema. A conforming structure does not prove that a human review occurred.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "contractType",
+    "recordId",
+    "packetId",
+    "decision",
+    "rationale",
+    "actorRole",
+    "actorIdentity",
+    "mandate",
+    "conflictsDeclared",
+    "evidenceReviewed",
+    "decidedAt",
+    "authority",
+    "status"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "contractType": { "const": "BENCHMARK_EVALUATION_HUMAN_DECISION_RECORD" },
+    "recordId": { "type": "string", "pattern": "^SEM3-HDR-[A-Z0-9][A-Z0-9-]{2,127}$" },
+    "packetId": { "type": "string", "pattern": "^SEM3-ADJ-[A-Z0-9][A-Z0-9-]{2,127}$" },
+    "decision": { "enum": ["SATISFIED", "VIOLATED", "EQUIVALENT", "ACCEPTABLE_WITH_RESERVE", "NON_EQUIVALENT", "NOT_ADJUDICABLE"] },
+    "rationale": { "type": "string", "minLength": 1 },
+    "actorRole": { "type": "string", "minLength": 1 },
+    "actorIdentity": { "type": "string", "minLength": 1 },
+    "mandate": { "type": "string", "minLength": 1 },
+    "conflictsDeclared": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+    "evidenceReviewed": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+    "decidedAt": { "type": "string", "format": "date-time" },
+    "authority": { "const": "HUMAN_ADJUDICATION" },
+    "status": { "const": "FINAL" }
+  }
+}
