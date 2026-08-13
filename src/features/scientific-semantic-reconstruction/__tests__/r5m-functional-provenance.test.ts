@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { buildExplicitCoverageReport, buildSemanticIntegrityReport, buildSemanticTaxonomyReport } from "../coverage";
+import { buildExplicitCoverageReport, buildRelationCoverageReport, buildSemanticIntegrityReport, buildSemanticTaxonomyReport } from "../coverage";
 import { normalizeSemanticRelationEndpointGrounding } from "../provider";
 import { stabilizeRelationOwnership } from "../relation-ownership";
 import type { SemanticReconstructionRequest } from "../types";
 import { comparisonCandidate, makeSemanticRequest } from "./fixtures";
 
 describe("SEM-001R5M generic functional provenance", () => {
-  it("coalesces two comparison spokes through one functional node into one direct relation", () => {
+  it("does not invent a pairwise scientific relation from functional spokes", () => {
     const candidate = comparisonCandidate();
     candidate.semanticInventory.explicitRelations = [
       { inventoryRelationId: "ir-left", sourceInventoryItemId: "i-operation", targetInventoryItemId: "i-ct", sourceMessageId: "user-1", sourceText: "comparer CT", normalizedRelation: "COMPARES_WITH", polarity: "AFFIRMED" },
@@ -18,9 +18,60 @@ describe("SEM-001R5M generic functional provenance", () => {
     ];
 
     const stabilized = stabilizeRelationOwnership(candidate).candidate;
-    expect(stabilized.relations).toHaveLength(1);
-    expect(new Set([stabilized.relations[0].sourceClientElementId, stabilized.relations[0].targetClientElementId])).toEqual(new Set(["e-ct", "e-mri"]));
-    expect(stabilized.relations[0]).toMatchObject({ relationType: "COMPARES_WITH", inventoryRelationIds: ["ir-left", "ir-right"] });
+    expect(stabilized.relations).toHaveLength(2);
+    expect(stabilized.relations.every((relation) => [relation.sourceClientElementId, relation.targetClientElementId].includes("e-operation"))).toBe(true);
+    expect(stabilized.relations.some((relation) => new Set([relation.sourceClientElementId, relation.targetClientElementId]).has("e-ct")
+      && new Set([relation.sourceClientElementId, relation.targetClientElementId]).has("e-mri"))).toBe(false);
+  });
+
+  it("covers a composite comparison endpoint through its constituent graph", () => {
+    const candidate = comparisonCandidate();
+    candidate.semanticInventory.explicitRelations = [{
+      inventoryRelationId: "ir-composite",
+      sourceInventoryItemId: "i-operation",
+      targetInventoryItemId: "i-context",
+      sourceMessageId: "user-1",
+      sourceText: "comparer CT et IRM cardiaque",
+      normalizedRelation: "COMPARES_WITH_FOR_PREDICTION",
+      polarity: "AFFIRMED",
+    }];
+    candidate.relations = [
+      { ...candidate.relations[0], inventoryRelationIds: [] },
+      { ...candidate.relations[0], clientRelationId: "r-ct-target", sourceClientElementId: "e-ct", targetClientElementId: "e-context", relationType: "PREDICTS_CANDIDATE", inventoryRelationIds: [] },
+      { ...candidate.relations[0], clientRelationId: "r-mri-target", sourceClientElementId: "e-mri", targetClientElementId: "e-context", relationType: "PREDICTS_CANDIDATE", inventoryRelationIds: [] },
+    ];
+    expect(buildRelationCoverageReport(makeSemanticRequest(), candidate).entries[0]).toMatchObject({
+      coverageStatus: "MAPPED",
+      mappedClientRelationIds: ["r-compare", "r-ct-target", "r-mri-target"],
+    });
+  });
+
+  it("does not infer a direct relation between two observables merely sharing an outcome", () => {
+    const candidate = comparisonCandidate();
+    candidate.elements[1] = { ...candidate.elements[1], type: "BIOMARKER" };
+    candidate.elements[2] = { ...candidate.elements[2], type: "BIOMARKER" };
+    candidate.elements[3] = { ...candidate.elements[3], type: "OUTCOME", studyRole: "OUTCOME_ROLE" };
+    candidate.semanticInventory.explicitRelations = [
+      { inventoryRelationId: "ir-left-outcome", sourceInventoryItemId: "i-ct", targetInventoryItemId: "i-context", sourceMessageId: "user-1", sourceText: "CT et IRM cardiaque", normalizedRelation: "RELATED_TO_CANDIDATE", polarity: "AFFIRMED" },
+      { inventoryRelationId: "ir-right-outcome", sourceInventoryItemId: "i-mri", targetInventoryItemId: "i-context", sourceMessageId: "user-1", sourceText: "IRM cardiaque", normalizedRelation: "RELATED_TO_CANDIDATE", polarity: "AFFIRMED" },
+    ];
+    candidate.relations = [
+      { ...candidate.relations[0], clientRelationId: "r-left-outcome", sourceClientElementId: "e-ct", targetClientElementId: "e-context", relationType: "RELATED_TO_CANDIDATE", inventoryRelationIds: ["ir-left-outcome"] },
+      { ...candidate.relations[0], clientRelationId: "r-right-outcome", sourceClientElementId: "e-mri", targetClientElementId: "e-context", relationType: "RELATED_TO_CANDIDATE", inventoryRelationIds: ["ir-right-outcome"] },
+    ];
+    const report = buildRelationCoverageReport(makeSemanticRequest(), candidate);
+    expect(report.status).toBe("COMPLETE");
+    expect(report.entries.some((entry) => entry.inventoryRelationId.startsWith("structural:") && entry.coverageStatus === "EXPLICIT_RELATION_UNMAPPED")).toBe(false);
+  });
+
+  it("keeps an exact bare condition distinct from an inferred participant population", () => {
+    const request = makeSemanticRequest([{ messageId: "user-1", role: "USER", content: "IRM chez mucoviscidose.", createdAt: "2026-08-13T00:00:00.000Z" }]);
+    const candidate = comparisonCandidate();
+    candidate.semanticInventory.explicitFragments = [{ inventoryItemId: "i-condition", sourceMessageId: "user-1", sourceText: "mucoviscidose", normalizedLabel: "mucoviscidose", localRole: "condition", polarity: "AFFIRMED", modifiers: [], linkedInventoryItemIds: [] }];
+    candidate.semanticInventory.explicitRelations = [];
+    candidate.elements = [{ ...candidate.elements[1], clientElementId: "e-condition", type: "CONDITION", studyRole: "NONE", sourceText: "mucoviscidose", canonicalMeaning: "mucoviscidose", inventoryItemIds: ["i-condition"] }];
+    candidate.relations = [];
+    expect(buildSemanticTaxonomyReport(request, candidate).findings).not.toContainEqual(expect.objectContaining({ code: "PARTICIPANT_GROUP_TYPED_AS_CONDITION" }));
   });
 
   it("derives exact endpoint provenance for an explicit relation only when both endpoint spans are unique", () => {
