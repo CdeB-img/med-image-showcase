@@ -108,6 +108,8 @@ export const canonicalizeSemanticReconstruction = (input: {
     const sourceSpan = sourceSpanFor(element, input.request);
     const semanticElementId = clientToCanonical.get(element.clientElementId)!;
     const previous = input.request.previousModel?.elements.find((item) => item.semanticElementId === semanticElementId);
+    const explicitlyRejectsPriorIdentity = element.polarity === "NEGATED" && element.supersedesElementIds.includes(semanticElementId);
+    const epistemicStatus: SemanticEpistemicStatus = explicitlyRejectsPriorIdentity ? "REJECTED_BY_USER" : element.epistemicStatus;
     return {
       semanticElementId,
       type: element.type,
@@ -116,14 +118,14 @@ export const canonicalizeSemanticReconstruction = (input: {
       polarity: element.polarity,
       inventoryItemIds: uniqueSorted(element.inventoryItemIds),
       sourceSpan,
-      epistemicStatus: element.epistemicStatus,
+      epistemicStatus,
       confidence: element.confidence,
       relationships: [],
-      inferenceReason: element.epistemicStatus === "EXPLICIT_USER_STATED" ? null : element.inferenceReason,
+      inferenceReason: epistemicStatus === "EXPLICIT_USER_STATED" || epistemicStatus === "REJECTED_BY_USER" ? null : element.inferenceReason,
       knowledgeSupport: previous?.knowledgeSupport ?? emptyKnowledgeSupport(),
-      requiresConfirmation: element.epistemicStatus === "EXPLICIT_USER_STATED" ? false : true,
+      requiresConfirmation: epistemicStatus === "EXPLICIT_USER_STATED" || epistemicStatus === "REJECTED_BY_USER" ? false : true,
       provenance: {
-        source: element.epistemicStatus === "EXPLICIT_USER_STATED" ? "USER_LANGUAGE" : element.supersedesElementIds.length ? "USER_CORRECTION" : "LLM_INFERENCE",
+        source: explicitlyRejectsPriorIdentity || element.supersedesElementIds.length ? "USER_CORRECTION" : element.epistemicStatus === "EXPLICIT_USER_STATED" ? "USER_LANGUAGE" : "LLM_INFERENCE",
         messageId: element.sourceMessageId,
         providerCallId: input.reconstructionCallId,
         rawElementId: element.clientElementId,
@@ -148,6 +150,7 @@ export const canonicalizeSemanticReconstruction = (input: {
   });
   const elements = [...currentElements, ...carriedElements].sort((left, right) => left.semanticElementId.localeCompare(right.semanticElementId));
   const knownElementIds = new Set(elements.map((item) => item.semanticElementId));
+  const rejectedElementIds = new Set(elements.filter((item) => item.epistemicStatus === "REJECTED_BY_USER").map((item) => item.semanticElementId));
 
   const currentRelations = candidate.relations.map((relation): SemanticRelation => {
     const sourceElementId = clientToCanonical.get(relation.sourceClientElementId);
@@ -155,6 +158,7 @@ export const canonicalizeSemanticReconstruction = (input: {
     if (!sourceElementId || !targetElementId) throw new SemanticCanonicalizationError("RELATION_ENDPOINT_UNKNOWN");
     const semanticRelationId = `sem-relation:${logicalDigest({ sourceElementId, targetElementId, relationType: comparableScientificText(relation.relationType) })}`;
     const previous = input.request.previousModel?.relations.find((item) => item.semanticRelationId === semanticRelationId);
+    const rejectedByEndpointCorrection = rejectedElementIds.has(sourceElementId) || rejectedElementIds.has(targetElementId);
     return {
       semanticRelationId,
       sourceElementId,
@@ -163,10 +167,10 @@ export const canonicalizeSemanticReconstruction = (input: {
       polarity: relation.polarity,
       inventoryRelationIds: uniqueSorted(relation.inventoryRelationIds),
       vocabularyStatus: "RUNTIME_CANDIDATE_RELATION",
-      epistemicStatus: relation.epistemicStatus,
+      epistemicStatus: rejectedByEndpointCorrection ? "REJECTED_BY_USER" : relation.epistemicStatus,
       confidence: relation.confidence,
-      inferenceReason: relation.epistemicStatus === "EXPLICIT_USER_STATED" ? null : relation.inferenceReason,
-      requiresConfirmation: relation.epistemicStatus !== "EXPLICIT_USER_STATED",
+      inferenceReason: rejectedByEndpointCorrection || relation.epistemicStatus === "EXPLICIT_USER_STATED" ? null : relation.inferenceReason,
+      requiresConfirmation: rejectedByEndpointCorrection ? false : relation.epistemicStatus !== "EXPLICIT_USER_STATED",
       version: previous ? previous.version + 1 : 1,
     };
   });

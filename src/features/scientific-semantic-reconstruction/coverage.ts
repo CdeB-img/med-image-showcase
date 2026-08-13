@@ -1,3 +1,4 @@
+import { comparableScientificText, logicalDigest } from "@/features/knowledge-engine/canonical";
 import { parseSemanticReconstructionCandidate } from "./schema";
 import type {
   ExplicitCoverageReport,
@@ -331,7 +332,9 @@ export const buildRelationCoverageReport = (
     const coalescedElementIds = [...relationSourceElements].filter((elementId) => relationTargetElements.has(elementId)).map((elementId) => `coalesced:${elementId}`);
     const supersededEndpointIds = [...relationSourceElements, ...relationTargetElements].filter((elementId) => {
       const endpoint = candidate.elements.find((element) => element.clientElementId === elementId);
-      return endpoint?.polarity === "NEGATED" && candidate.elements.some((element) => element.supersedesElementIds.includes(elementId));
+      if (!endpoint || endpoint.polarity !== "NEGATED") return false;
+      const canonicalEndpointId = `sem-element:${logicalDigest({ type: endpoint.type, meaning: comparableScientificText(endpoint.canonicalMeaning) })}`;
+      return endpoint.supersedesElementIds.includes(canonicalEndpointId);
     }).map((elementId) => `superseded:${elementId}`);
     const directlyMappedClientRelationIds = candidate.relations
       .filter((relation) => relation.inventoryRelationIds.includes(inventoryRelation.inventoryRelationId))
