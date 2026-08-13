@@ -56,6 +56,24 @@ describe("SEM-001R5C generic outcome and endpoint distinction", () => {
       code: "UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
     }));
   });
+
+  it("does not let an inventory localRole self-promote a contextual result to ENDPOINT", () => {
+    const promoted = candidate("ENDPOINT");
+    promoted.elements.filter((item) => ["e-alpha", "e-beta"].includes(item.clientElementId)).forEach((item) => { item.studyRole = "COMPARATOR_ARM"; });
+    promoted.semanticInventory.explicitFragments.find((item) => item.inventoryItemId === "i-response")!.localRole = "endpoint";
+    promoted.semanticInventory.explicitRelations.push(
+      { inventoryRelationId: "ir-alpha-response", sourceInventoryItemId: "i-alpha", targetInventoryItemId: "i-response", sourceMessageId: "user-generic", sourceText: "Comparer la technique alpha et la technique bêta pour la réponse fonctionnelle", normalizedRelation: "OBSERVES", polarity: "AFFIRMED" },
+      { inventoryRelationId: "ir-beta-response", sourceInventoryItemId: "i-beta", targetInventoryItemId: "i-response", sourceMessageId: "user-generic", sourceText: "Comparer la technique alpha et la technique bêta pour la réponse fonctionnelle", normalizedRelation: "OBSERVES", polarity: "AFFIRMED" },
+    );
+    promoted.relations.push(
+      { clientRelationId: "r-alpha-response", sourceClientElementId: "e-alpha", targetClientElementId: "e-response", relationType: "OBSERVES", polarity: "AFFIRMED", inventoryRelationIds: ["ir-alpha-response"], epistemicStatus: "EXPLICIT_USER_STATED", confidence: 1, inferenceReason: null, requiresConfirmation: false },
+      { clientRelationId: "r-beta-response", sourceClientElementId: "e-beta", targetClientElementId: "e-response", relationType: "OBSERVES", polarity: "AFFIRMED", inventoryRelationIds: ["ir-beta-response"], epistemicStatus: "EXPLICIT_USER_STATED", confidence: 1, inferenceReason: null, requiresConfirmation: false },
+    );
+    expect(buildSemanticCoverage(request, promoted).taxonomy.findings).toContainEqual(expect.objectContaining({
+      code: "UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+      expectedType: "OUTCOME",
+    }));
+  });
 });
 
 describe("SEM-001R5C generic multi-turn rejection", () => {
