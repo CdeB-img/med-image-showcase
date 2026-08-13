@@ -1,0 +1,590 @@
+{
+  "document": {
+    "id": "SEM-002",
+    "title": "Scientific Understanding Competence Contract",
+    "version": "1.0",
+    "status": "NON_NORMATIVE_MACHINE_PROJECTION",
+    "admissionStatus": "ADMITTED_WITH_LIMITATIONS",
+    "normative": false,
+    "sourceDocumentNormative": true,
+    "documentLevel": "NIVEAU_1",
+    "sourceMaster": "docs/sem-002-scientific-understanding-competence-contract.md",
+    "decision": "SEM002_ADMITTED_WITH_LIMITATIONS_READY_FOR_INDEPENDENT_BENCHMARK_DESIGN",
+    "referenceDate": "2026-08-13"
+  },
+  "dimensions": [
+    {
+      "id": "EXPLICIT_FIDELITY",
+      "label": "Explicit Fidelity",
+      "critical": true,
+      "definition": "Conserver le contenu explicite, les rôles, les relations, la polarité, les comparaisons, la temporalité et les corrections."
+    },
+    {
+      "id": "CONTEXTUAL_SCIENTIFIC_UNDERSTANDING",
+      "label": "Contextual Scientific Understanding",
+      "critical": true,
+      "definition": "Reconnaître les implicites et candidats scientifiquement pertinents sans les attribuer à l'utilisateur ni les adopter dans le Project."
+    },
+    {
+      "id": "EPISTEMIC_DISCIPLINE",
+      "label": "Epistemic Discipline",
+      "critical": true,
+      "definition": "Préserver séparément provenance linguistique, état épistémique, support Knowledge et adoption Project."
+    },
+    {
+      "id": "MISSING_INFORMATION_INTELLIGENCE",
+      "label": "Missing-Information Intelligence",
+      "critical": true,
+      "definition": "Détecter, localiser et propager les inconnues et ambiguïtés, puis clarifier seulement lorsque la réponse change le raisonnement."
+    }
+  ],
+  "propertyFamilies": [
+    {
+      "id": "SAFETY_FIDELITY_INVARIANT",
+      "propertyCount": 12,
+      "aggregationMode": "ABSOLUTE_PER_SEMANTICALLY_EVALUABLE_OUTPUT",
+      "rule": "Tolérance nulle pour les violations critiques de sécurité, fidélité, provenance, non-promotion et ownership."
+    },
+    {
+      "id": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "propertyCount": 5,
+      "aggregationMode": "STATISTICAL_PRE_SPECIFIED",
+      "rule": "Mesure de la compréhension par métriques, unités de jugement, répétitions et seuils contextualisés gouvernés sous PD-011."
+    },
+    {
+      "id": "CONTEXTUAL_ENRICHMENT",
+      "propertyCount": 1,
+      "aggregationMode": "STATISTICAL_PRE_SPECIFIED",
+      "rule": "Mesure de la pertinence, du rappel, de la précision, du rang, de la contextualisation et de la justification des candidats utiles."
+    }
+  ],
+  "properties": [
+    {
+      "id": "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "dimension": "EXPLICIT_FIDELITY",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "scope": "Tout contenu explicite scientifiquement utile reste reconstructible.",
+      "criticality": "CRITICAL",
+      "evaluationMode": "EXPLICIT_UNIT_ADJUDICATION",
+      "absoluteOrStatistical": "ABSOLUTE",
+      "qualificationOwner": "VAL_PD_011_GOVERNANCE",
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE"
+    },
+    {
+      "id": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "dimension": "EXPLICIT_FIDELITY",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "scope": "Endpoints, direction et force des relations explicites sont conservés.",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RELATION_ADJUDICATION",
+      "absoluteOrStatistical": "ABSOLUTE",
+      "qualificationOwner": "VAL_PD_011_GOVERNANCE",
+      "failureClass": "RELATION_SEMANTICS_FAILURE"
+    },
+    {
+      "id": "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+      "dimension": "EXPLICIT_FIDELITY",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "scope": "Négation, condition et refus causal ne deviennent pas affirmation.",
+      "criticality": "CRITICAL",
+      "evaluationMode": "CONTRASTIVE_INVARIANT_CASES",
+      "absoluteOrStatistical": "ABSOLUTE",
+      "qualificationOwner": "VAL_PD_011_GOVERNANCE",
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE"
+    },
+    {
+      "id": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "dimension": "EXPLICIT_FIDELITY",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "scope": "Comparateurs, état sélectionné ou ouvert, axe et temporalité restent fidèles.",
+      "criticality": "CRITICAL",
+      "evaluationMode": "STRUCTURED_ADJUDICATION",
+      "absoluteOrStatistical": "ABSOLUTE",
+      "qualificationOwner": "VAL_PD_011_GOVERNANCE",
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE"
+    },
+    {
+      "id": "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+      "dimension": "EXPLICIT_FIDELITY",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "scope": "Une correction actualise l'état actif sans effacer l'histoire.",
+      "criticality": "CRITICAL",
+      "evaluationMode": "MULTI_TURN_REPLAY",
+      "absoluteOrStatistical": "ABSOLUTE",
+      "qualificationOwner": "VAL_PD_011_GOVERNANCE",
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE"
+    },
+    {
+      "id": "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+      "dimension": "EPISTEMIC_DISCIPLINE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "scope": "Association ou finalité ne sont pas renforcées en causalité ou prédiction.",
+      "criticality": "CRITICAL",
+      "evaluationMode": "RELATION_FORCE_CASES",
+      "absoluteOrStatistical": "ABSOLUTE",
+      "qualificationOwner": "VAL_PD_011_GOVERNANCE",
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE"
+    },
+    {
+      "id": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+      "dimension": "CONTEXTUAL_SCIENTIFIC_UNDERSTANDING",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "scope": "Une inférence contextuelle ne devient jamais déclaration utilisateur ni vérité Project.",
+      "criticality": "CRITICAL",
+      "evaluationMode": "PROVENANCE_AND_STATUS_AUDIT",
+      "absoluteOrStatistical": "ABSOLUTE",
+      "qualificationOwner": "VAL_PD_011_GOVERNANCE",
+      "failureClass": "EPISTEMIC_PROMOTION_FAILURE"
+    },
+    {
+      "id": "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+      "dimension": "EPISTEMIC_DISCIPLINE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "scope": "Un support Knowledge ne vaut jamais adoption Project.",
+      "criticality": "CRITICAL",
+      "evaluationMode": "OWNERSHIP_AND_ADOPTION_AUDIT",
+      "absoluteOrStatistical": "ABSOLUTE",
+      "qualificationOwner": "VAL_PD_011_GOVERNANCE",
+      "failureClass": "EPISTEMIC_PROMOTION_FAILURE"
+    },
+    {
+      "id": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "dimension": "MISSING_INFORMATION_INTELLIGENCE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "scope": "Les inconnues et ambiguïtés déjà établies restent visibles à chaque handoff.",
+      "criticality": "CRITICAL",
+      "evaluationMode": "HANDOFF_STATE_COMPARISON",
+      "absoluteOrStatistical": "ABSOLUTE",
+      "qualificationOwner": "VAL_PD_011_GOVERNANCE",
+      "failureClass": "MISSING_INFORMATION_FAILURE"
+    },
+    {
+      "id": "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+      "dimension": "MISSING_INFORMATION_INTELLIGENCE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "scope": "Détecter et qualifier les informations manquantes importantes.",
+      "criticality": "CRITICAL_IF_BLOCKING_OTHERWISE_MAJOR",
+      "evaluationMode": "RECALL_PRECISION_AND_DECISIONAL_IMPACT",
+      "absoluteOrStatistical": "STATISTICAL_PRE_SPECIFIED",
+      "qualificationOwner": "VAL_PD_011_EXPERT_PANEL",
+      "failureClass": "MISSING_INFORMATION_FAILURE"
+    },
+    {
+      "id": "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "dimension": "CONTEXTUAL_SCIENTIFIC_UNDERSTANDING",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "scope": "Aucune information critique insuffisamment fondée n'entre dans l'état actif.",
+      "criticality": "CRITICAL",
+      "evaluationMode": "ADDITION_AND_SOURCE_AUDIT",
+      "absoluteOrStatistical": "ABSOLUTE",
+      "qualificationOwner": "VAL_PD_011_GOVERNANCE",
+      "failureClass": "UNSUPPORTED_INVENTION_FAILURE"
+    },
+    {
+      "id": "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+      "dimension": "EPISTEMIC_DISCIPLINE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "scope": "Phénomène, propriété, méthode, rôle, variable et valeur restent distingués.",
+      "criticality": "CRITICAL_IF_DECISION_ALTERED_OTHERWISE_MAJOR",
+      "evaluationMode": "CONCEPT_DISTINCTION_EXPERT_ADJUDICATION",
+      "absoluteOrStatistical": "STATISTICAL_PRE_SPECIFIED",
+      "qualificationOwner": "VAL_WITH_PD003_OBS_OWNERS",
+      "failureClass": "CONCEPTUAL_PLAN_COLLAPSE"
+    },
+    {
+      "id": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "dimension": "EPISTEMIC_DISCIPLINE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "scope": "Aucun moteur n'adopte ou ne mute hors de son ownership.",
+      "criticality": "CRITICAL",
+      "evaluationMode": "HANDOFF_AND_DECISION_AUDIT",
+      "absoluteOrStatistical": "ABSOLUTE",
+      "qualificationOwner": "VAL_PD_011_GOVERNANCE",
+      "failureClass": "OWNERSHIP_BOUNDARY_FAILURE"
+    },
+    {
+      "id": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "dimension": "EPISTEMIC_DISCIPLINE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "scope": "Origine, transformation et statut critiques restent reconstructibles.",
+      "criticality": "CRITICAL",
+      "evaluationMode": "LINEAGE_AUDIT",
+      "absoluteOrStatistical": "ABSOLUTE",
+      "qualificationOwner": "VAL_PD_011_GOVERNANCE",
+      "failureClass": "PROVENANCE_FAILURE"
+    },
+    {
+      "id": "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED",
+      "dimension": "EXPLICIT_FIDELITY",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "scope": "Des formes différentes sont jugées selon le même vecteur d'obligations scientifiques.",
+      "criticality": "MAJOR",
+      "evaluationMode": "EXPERT_AGREEMENT_AND_EQUIVALENCE_CLASSES",
+      "absoluteOrStatistical": "STATISTICAL_PRE_SPECIFIED",
+      "qualificationOwner": "VAL_PD_011_EXPERT_PANEL",
+      "failureClass": "SEMANTIC_EQUIVALENCE_EVALUATION_FAILURE"
+    },
+    {
+      "id": "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "dimension": "MISSING_INFORMATION_INTELLIGENCE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "scope": "Une question réduit une incertitude qui affecte réellement le raisonnement.",
+      "criticality": "MAJOR",
+      "evaluationMode": "RELEVANCE_INFORMATION_GAIN_AND_BURDEN",
+      "absoluteOrStatistical": "STATISTICAL_PRE_SPECIFIED",
+      "qualificationOwner": "VAL_WITH_PD009_ACTION_AUTHORITY",
+      "failureClass": "CLARIFICATION_FAILURE"
+    },
+    {
+      "id": "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "dimension": "EXPLICIT_FIDELITY",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "scope": "Style, ordre et segmentation sans effet de fond ne sont pas pénalisés.",
+      "criticality": "NON_CRITICAL",
+      "evaluationMode": "PARAPHRASE_INVARIANCE",
+      "absoluteOrStatistical": "STATISTICAL_PRE_SPECIFIED",
+      "qualificationOwner": "VAL_PD_011_EXPERT_PANEL",
+      "failureClass": "SEMANTIC_EQUIVALENCE_EVALUATION_FAILURE"
+    },
+    {
+      "id": "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+      "dimension": "CONTEXTUAL_SCIENTIFIC_UNDERSTANDING",
+      "family": "CONTEXTUAL_ENRICHMENT",
+      "scope": "Les candidats utiles sont pertinents, classés, contextualisés et expliqués sans devenir des faits.",
+      "criticality": "MAJOR_ISOLATED_OMISSION_NON_CRITICAL_UNLESS_PRE_SPECIFIED",
+      "evaluationMode": "RECALL_PRECISION_RELEVANCE_RANK_AND_JUSTIFICATION",
+      "absoluteOrStatistical": "STATISTICAL_PRE_SPECIFIED",
+      "qualificationOwner": "VAL_PD_011_DOMAIN_EXPERTS",
+      "failureClass": "CONTEXTUAL_UNDERSTANDING_FAILURE",
+      "splitFrom": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT"
+    }
+  ],
+  "epistemicStates": {
+    "semanticProvenance": [
+      "EXPLICIT_USER_STATED",
+      "INFERRED_HIGH_CONFIDENCE",
+      "INFERRED_CANDIDATE",
+      "SUPPORTED_CANDIDATE",
+      "UNSUPPORTED_CANDIDATE",
+      "CONFIRMED_BY_USER",
+      "REJECTED_BY_USER",
+      "UNKNOWN",
+      "AMBIGUOUS"
+    ],
+    "pd003EpistemicAxis": [
+      "KNOWN",
+      "ASSUMED",
+      "UNKNOWN",
+      "WITHHELD"
+    ],
+    "separationRules": [
+      "INFERRED_HIGH_CONFIDENCE_IS_NOT_EXPLICIT_USER_STATED",
+      "SUPPORTED_CANDIDATE_IS_NOT_CONFIRMED_BY_USER",
+      "HIGH_CONFIDENCE_IS_NOT_PROJECT_TRUTH",
+      "USER_CONFIRMATION_DOES_NOT_INCREASE_KNOWLEDGE_STRENGTH",
+      "PROJECTION_PRESENCE_IS_NOT_CANONICAL_ADOPTION"
+    ],
+    "projectAdoption": "Aucune confiance LLM, inférence contextuelle ou qualification Knowledge ne vaut adoption Project."
+  },
+  "failureClasses": [
+    "EXPLICIT_FIDELITY_FAILURE",
+    "RELATION_SEMANTICS_FAILURE",
+    "POLARITY_OR_CAUSALITY_FAILURE",
+    "CONTEXTUAL_UNDERSTANDING_FAILURE",
+    "EPISTEMIC_PROMOTION_FAILURE",
+    "UNSUPPORTED_INVENTION_FAILURE",
+    "MISSING_INFORMATION_FAILURE",
+    "CLARIFICATION_FAILURE",
+    "CONCEPTUAL_PLAN_COLLAPSE",
+    "PROVENANCE_FAILURE",
+    "OWNERSHIP_BOUNDARY_FAILURE",
+    "SEMANTIC_EQUIVALENCE_EVALUATION_FAILURE",
+    "GENERATIVE_INSTABILITY_FAILURE",
+    "PROVIDER_EXECUTION_FAILURE",
+    "QUALIFICATION_PROTOCOL_FAILURE"
+  ],
+  "clarificationClasses": [
+    {
+      "id": "IMMEDIATE_BLOCKING_CLARIFICATION",
+      "condition": "La réponse conditionne une conclusion, un objectif ou une décision critique.",
+      "action": "Poser une question principale avant la branche dépendante."
+    },
+    {
+      "id": "HIGH_INFORMATION_GAIN_CLARIFICATION",
+      "condition": "Une réponse discrimine plusieurs options ou résout plusieurs ambiguïtés liées.",
+      "action": "Prioriser selon PD-009."
+    },
+    {
+      "id": "DEFERRED_NON_BLOCKING_CLARIFICATION",
+      "condition": "L'inconnue importe mais n'affecte pas l'action courante.",
+      "action": "Poursuivre les branches indépendantes avec une limite visible."
+    },
+    {
+      "id": "KNOWLEDGE_FIRST",
+      "condition": "La réponse relève d'une preuve ou d'une terminologie dont l'utilisateur n'est pas la source légitime.",
+      "action": "Interroger Knowledge avant de questionner."
+    },
+    {
+      "id": "OWNER_ESCALATION_REQUIRED",
+      "condition": "La réponse exige expertise, mandat ou arbitrage scientifique.",
+      "action": "Suspendre la branche concernée et adresser l'owner."
+    },
+    {
+      "id": "NO_CLARIFICATION_REQUIRED",
+      "condition": "Aucune réponse plausible ne change l'action actuelle.",
+      "action": "Conserver l'information sans poser de question."
+    }
+  ],
+  "inferenceClasses": [
+    {
+      "id": "NECESSARY_IMPLICIT",
+      "criteria": "Information presque indispensable à une interprétation linguistique cohérente sans ajouter de conclusion scientifique.",
+      "representation": "Candidat inféré avec fragment déclencheur, règle d'interprétation, alternatives et portée.",
+      "propagation": "Vers les traitements nécessaires à la compréhension, jamais comme explicite.",
+      "promotion": "Aucune promotion Project automatique.",
+      "clarification": "Requise si plusieurs complétions changent le sens."
+    },
+    {
+      "id": "STRONG_CONTEXTUAL_IMPLICIT",
+      "criteria": "Implication très plausible dans le domaine, non dite et pas forcément unique.",
+      "representation": "INFERRED_HIGH_CONFIDENCE avec contexte, justification et concurrents.",
+      "propagation": "Vers Knowledge, Scientific Thinking ou owner spécialisé comme candidat.",
+      "promotion": "Jamais explicite, confirmé par l'utilisateur ou vérité Project.",
+      "clarification": "Requise si l'implicite change objectif, méthode, variable ou branche."
+    },
+    {
+      "id": "SCIENTIFIC_CANDIDATE",
+      "criteria": "Concept pertinent pour enrichir le raisonnement et nécessitant qualification.",
+      "representation": "INFERRED_CANDIDATE, puis éventuellement SUPPORTED_CANDIDATE ou UNSUPPORTED_CANDIDATE.",
+      "propagation": "Vers Knowledge et les engines compétents avec provenance et statut.",
+      "promotion": "Support Knowledge permis ; adoption Project interdite sans décision humaine.",
+      "clarification": "Selon impact décisionnel et alternatives."
+    },
+    {
+      "id": "AMBIGUITY",
+      "criteria": "Au moins deux interprétations scientifiquement recevables restent possibles.",
+      "representation": "Interprétations concurrentes, éléments discriminants et impacts.",
+      "propagation": "Vers PD-009 et les branches indépendantes.",
+      "promotion": "Aucune interprétation ne peut être choisie silencieusement.",
+      "clarification": "Immédiate si bloquante, sinon différable et visible."
+    },
+    {
+      "id": "INVENTION",
+      "criteria": "Information insuffisamment soutenue par le texte, le contexte autorisé ou Knowledge applicable.",
+      "representation": "Aucune entrée active ; trace de rejet ou diagnostic de failure.",
+      "propagation": "Aucune.",
+      "promotion": "Interdite.",
+      "clarification": "Ne pas questionner pour légitimer l'invention ; demander seulement l'information réellement manquante."
+    }
+  ],
+  "qualificationPrinciples": [
+    {
+      "id": "PROPERTY_BASED_NOT_EXACT_JSON",
+      "rule": "La compréhension se qualifie par propriétés scientifiques et classes d'équivalence, pas par identité d'un JSON."
+    },
+    {
+      "id": "CRITICAL_PROPERTIES_NON_COMPENSABLE",
+      "rule": "Les propriétés critiques sont des portes indépendantes et ne sont jamais compensées par un score moyen."
+    },
+    {
+      "id": "SAFETY_FIDELITY_INVARIANTS_ALL_EVALUABLE_OUTPUTS",
+      "rule": "Les invariants de sécurité et fidélité sont vrais dans 100 % des sorties sémantiquement évaluables."
+    },
+    {
+      "id": "UNDERSTANDING_AND_ENRICHMENT_STATISTICAL",
+      "rule": "La compréhension scientifique et l'enrichissement contextuel utilisent des métriques, répétitions et seuils contextualisés préspécifiés sous PD-011."
+    },
+    {
+      "id": "PRE_REGISTER_GENERATIVE_PARAMETERS",
+      "rule": "Le nombre d'exécutions, l'indépendance, les seuils et la règle de décision sont gelés avant le jeu aveugle."
+    },
+    {
+      "id": "NO_BEST_RUN_SELECTION",
+      "rule": "Tous les départs, échecs, refus et non-évaluables restent dans le dénominateur préspécifié."
+    },
+    {
+      "id": "SAFE_FAIL_CLOSED_NOT_COMPETENCE_SUCCESS",
+      "rule": "Un arrêt sûr empêche une promotion dangereuse mais ne démontre pas la compétence utile."
+    },
+    {
+      "id": "PROVIDER_FAILURE_SEPARATE_FROM_SEMANTIC_FAILURE",
+      "rule": "Une panne provider sans sortie n'est pas une erreur scientifique ; une sortie valide qui viole une propriété l'est."
+    },
+    {
+      "id": "INDEPENDENT_BLIND_BENCHMARK",
+      "rule": "Une qualification future requiert un jeu aveugle indépendant et une décision gouvernée selon PD-011."
+    },
+    {
+      "id": "LEGACY_RESULTS_IMMUTABLE",
+      "rule": "Les résultats SEM-001 restent attachés à leur configuration et ne sont ni prolongés ni requalifiés par SEM-002."
+    }
+  ],
+  "benchmarkCategories": [
+    {
+      "id": "COMPLETE_SCIENTIFIC_REQUEST",
+      "capability": "Fidélité et reconstruction distribuée",
+      "expectedProperties": ["PROPERTY_EXPLICIT_CONTENT_PRESERVED", "PROPERTY_EXPLICIT_RELATIONS_PRESERVED", "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"],
+      "criticalFailure": "Omission ou renforcement sémantique",
+      "clarification": "Aucune sauf ambiguïté nouvellement détectée"
+    },
+    {
+      "id": "UNDER_SPECIFIED_REQUEST",
+      "capability": "Détection d'information manquante",
+      "expectedProperties": ["PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED", "PROPERTY_NO_UNSUPPORTED_INVENTION"],
+      "criticalFailure": "Complétion inventée",
+      "clarification": "Requise si le manque bloque la branche"
+    },
+    {
+      "id": "ELLIPSIS",
+      "capability": "Reconstruction bornée",
+      "expectedProperties": ["PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"],
+      "criticalFailure": "Résolution silencieuse",
+      "clarification": "Selon l'impact des interprétations"
+    },
+    {
+      "id": "NECESSARY_IMPLICIT",
+      "capability": "Interprétation linguistique",
+      "expectedProperties": ["PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT"],
+      "criticalFailure": "Attribut explicite fabriqué",
+      "clarification": "Si plusieurs complétions changent le sens"
+    },
+    {
+      "id": "STRONG_CONTEXTUAL_IMPLICIT",
+      "capability": "Expertise contextuelle",
+      "expectedProperties": ["PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT", "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE", "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"],
+      "criticalFailure": "Vérité utilisateur ou Project fabriquée",
+      "clarification": "Si une décision est affectée"
+    },
+    {
+      "id": "KNOWLEDGE_CANDIDATE",
+      "capability": "Enrichissement scientifique",
+      "expectedProperties": ["PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH", "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE"],
+      "criticalFailure": "Support Knowledge transformé en adoption",
+      "clarification": "Parfois, après interrogation de Knowledge"
+    },
+    {
+      "id": "SCIENTIFIC_AMBIGUITY",
+      "capability": "Maintien de branches concurrentes",
+      "expectedProperties": ["PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED", "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE"],
+      "criticalFailure": "Choix arbitraire",
+      "clarification": "Requise si les branches divergent"
+    },
+    {
+      "id": "COMPARISON_AND_TIMING",
+      "capability": "Structure comparative",
+      "expectedProperties": ["PROPERTY_COMPARISON_AND_TIMING_PRESERVED"],
+      "criticalFailure": "Comparateur ou timing perdu",
+      "clarification": "Si le référentiel temporel est inconnu"
+    },
+    {
+      "id": "NEGATION_AND_NON_CAUSALITY",
+      "capability": "Polarité et force relationnelle",
+      "expectedProperties": ["PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED", "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION"],
+      "criticalFailure": "Négation ou absence de causalité perdue",
+      "clarification": "Rarement"
+    },
+    {
+      "id": "MULTI_TURN_CORRECTION",
+      "capability": "Continuité historique",
+      "expectedProperties": ["PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"],
+      "criticalFailure": "Écrasement historique ou carry-forward erroné",
+      "clarification": "Si la portée de correction est ambiguë"
+    },
+    {
+      "id": "CHANGE_OF_MIND",
+      "capability": "Adoption et supersession",
+      "expectedProperties": ["PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY", "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"],
+      "criticalFailure": "Coexistence active contradictoire",
+      "clarification": "Si le nouvel état est incomplet"
+    },
+    {
+      "id": "METHOD_VERSUS_MEASUREMENT",
+      "capability": "Séparation des plans OBS",
+      "expectedProperties": ["PROPERTY_CONCEPTUAL_PLAN_SEPARATION", "PROPERTY_NO_UNSUPPORTED_INVENTION"],
+      "criticalFailure": "Mesure ou rôle biomarqueur inventé",
+      "clarification": "Si la cible quantitative est absente"
+    },
+    {
+      "id": "PHENOMENON_VERSUS_OBSERVABLE",
+      "capability": "Séparation des plans PD-003 V2",
+      "expectedProperties": ["PROPERTY_CONCEPTUAL_PLAN_SEPARATION"],
+      "criticalFailure": "Synonymie ou rôle universel fabriqué",
+      "clarification": "Selon l'objectif"
+    },
+    {
+      "id": "INTERVENTION_AND_IMAGING",
+      "capability": "Compréhension multi-owner",
+      "expectedProperties": ["PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT", "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE", "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"],
+      "criticalFailure": "Modalité Project adoptée par SEM",
+      "clarification": "Si le design dépend du choix"
+    },
+    {
+      "id": "MULTIDIMENSIONAL_REQUEST",
+      "capability": "Équivalence compositionnelle",
+      "expectedProperties": ["PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED", "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"],
+      "criticalFailure": "Topologie exacte exigée ou relation perdue",
+      "clarification": "Selon les inconnues critiques"
+    }
+  ],
+  "limitations": [
+    "NO_RUNTIME_IMPLEMENTATION_DEMONSTRATED",
+    "NO_SEM002_BENCHMARK_CREATED",
+    "NO_SCIENTIFIC_PASS_OBTAINED",
+    "NO_PD003_V2_CONFORMITY_DEMONSTRATED_FOR_SEM_LEGACY",
+    "NO_STATISTICAL_THRESHOLD_ADMITTED",
+    "NO_N_VALUE_ADMITTED",
+    "NO_MULTI_RUN_CALIBRATION_PERFORMED"
+  ],
+  "legacyCorpusStatus": {
+    "corpus": "H01-H30",
+    "status": "HISTORICAL_LEGACY_NON_REGRESSION_CORPUS",
+    "notStatus": "FUTURE_BLIND_COMPETENCE_BENCHMARK"
+  },
+  "engineBoundaries": [
+    {
+      "engine": "SEM",
+      "owns": "Langage, contenu explicite, implicites, ambiguïtés, inconnues, candidats et provenance.",
+      "mustNotPromote": "Connaissance établie, ScientificModel adopté, modalité, variable ou endpoint Project."
+    },
+    {
+      "engine": "KNOWLEDGE",
+      "owns": "Concepts, assertions, relations, preuves, applicabilité, support, réfutation, contradiction et gaps.",
+      "mustNotPromote": "Décision ou vérité propre au Project."
+    },
+    {
+      "engine": "SCIENTIFIC_THINKING",
+      "owns": "Questions, objectifs, hypothèses, alternatives et ScientificModels candidats.",
+      "mustNotPromote": "Adoption Project ou augmentation de preuve."
+    },
+    {
+      "engine": "OBS",
+      "owns": "ObservableProperties, MeasurementDefinitions et BiomarkerRoles candidats.",
+      "mustNotPromote": "DataNeed, Variable, Endpoint, valeur ou modalité adoptée."
+    },
+    {
+      "engine": "IMAGING",
+      "owns": "Besoins d'imagerie, modalités, méthodes, acquisitions, lecture, qualité et contraintes techniques.",
+      "mustNotPromote": "Validité générale, besoin Project ou protocole adopté automatiquement."
+    },
+    {
+      "engine": "RESEARCH_PROJECT",
+      "owns": "Décisions contextuelles adoptées sous décision humaine.",
+      "mustNotPromote": "Force des assertions Knowledge."
+    },
+    {
+      "engine": "PD_009",
+      "owns": "Prochaine action ou clarification selon la valeur de l'information.",
+      "mustNotPromote": "Formulation devenue vérité ou décision réservée à un autre owner."
+    },
+    {
+      "engine": "VAL_PD_011",
+      "owns": "Diagnostic et qualification sous protocole gouverné.",
+      "mustNotPromote": "Correction de l'objet source ou PASS implicite."
+    },
+    {
+      "engine": "EDITORIAL_ENGINE",
+      "owns": "Projection structurée de faits et politiques déjà gouvernés.",
+      "mustNotPromote": "Compréhension, preuve ou arbitrage scientifique."
+    }
+  ]
+}
