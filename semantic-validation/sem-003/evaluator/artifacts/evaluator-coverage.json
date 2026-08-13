@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0.0",
   "contractType": "SEM003_EVALUATOR_DEVELOPMENT_COVERAGE",
-  "evaluatorVersion": "1.2.0",
-  "evaluatorConfigurationDigest": "c8b79236fafabfe7745b66c182daff8c89b9e6aaa1f4cd1ae00b0fe60bd948bb",
+  "evaluatorVersion": "1.3.0",
+  "evaluatorConfigurationDigest": "0d0f48cf1859d3747fd17eeaf75d51a59e6a5d5a48a096beab67cbe32d94665b",
   "modeExecuted": "DEVELOPMENT_SYNTHETIC",
   "calibrationCaseContentAccessedForEvaluatorTuning": false,
   "calibrationExecuted": false,

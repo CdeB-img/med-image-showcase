@@ -12,25 +12,37 @@ const REGISTRY_ROOT = path.resolve(EVALUATOR_ROOT, "registry");
 const IDENTITY_PATH = path.resolve(REGISTRY_ROOT, "evaluator-identity.json");
 const BINDING_PATH = path.resolve(
   REGISTRY_ROOT,
-  "sem003c1r-comparative-evaluator-binding.json",
+  "sem003c1r2-comparative-evaluator-binding.json",
 );
 const FREEZE_PATH = path.resolve(
   REGISTRY_ROOT,
-  "evaluator-post-c1r-freeze-manifest.json",
+  "evaluator-post-c1r2-freeze-manifest.json",
 );
 const C1_ROOT = path.resolve(REPOSITORY_ROOT, "experiments/semantic-engine-comparison");
 const C1_FREEZE_PATH = path.resolve(C1_ROOT, "manifests/freeze-index.json");
-const POST_B4R_FREEZE_PATH = path.resolve(
+const C1R_BINDING_PATH = path.resolve(
   REGISTRY_ROOT,
-  "evaluator-post-b4r-freeze-manifest.json",
+  "sem003c1r-comparative-evaluator-binding.json",
+);
+const C1R_FREEZE_PATH = path.resolve(
+  REGISTRY_ROOT,
+  "evaluator-post-c1r-freeze-manifest.json",
 );
 const DEVELOPMENT_FIXTURE_ROOT = path.resolve(EVALUATOR_ROOT, "fixtures/development");
+const BLIND_CASE_SCHEMA_PATH = path.resolve(
+  REPOSITORY_ROOT,
+  "semantic-validation/sem-003/blind/contracts/blind-case.schema.json",
+);
+const BLIND_ENVELOPE_SCHEMA_PATH = path.resolve(
+  REPOSITORY_ROOT,
+  "semantic-validation/sem-003/blind/contracts/blind-acceptance-envelope.schema.json",
+);
 const CHECK_ONLY = process.argv.includes("--check");
-const CREATED_AT = "2026-08-14T12:00:00.000+02:00";
+const CREATED_AT = "2026-08-14T18:00:00.000+02:00";
 const BLIND_PURPOSE = "SCIENTIFIC_UNDERSTANDING_EVALUATOR_BLIND_QUALIFICATION";
-const HISTORICAL_FREEZE_DIGEST =
+const HISTORICAL_C1R_FREEZE_DIGEST =
   "9d8a8d46111aa3f442f5975c9aaede5a0c807d64ea3a9da2f3363b2e4bb7725e";
-const HISTORICAL_BINDING_DIGEST =
+const HISTORICAL_C1R_BINDING_DIGEST =
   "b7444f90622992286ef21c425c26142a517a7c6e33c2bd66cd4e3f136dad4279";
 
 const stableJson = (value) => `${JSON.stringify(value, null, 2)}\n`;
@@ -81,22 +93,8 @@ const assertOrWrite = (filePath, value, label) => {
 };
 
 const identity = computeEvaluatorIdentity();
-if (identity.version !== "1.2.0") {
-  if (!CHECK_ONLY) {
-    throw new Error(
-      `C1R is a historical freeze for Evaluator 1.2.0; use the successor freeze tool for ${identity.version}`,
-    );
-  }
-  if (
-    sha256File(FREEZE_PATH) !== HISTORICAL_FREEZE_DIGEST ||
-    sha256File(BINDING_PATH) !== HISTORICAL_BINDING_DIGEST
-  ) {
-    throw new Error("Historical SEM-003C1R freeze or binding changed");
-  }
-  process.stdout.write(
-    `SEM-003C1R historical freeze verified under successor Evaluator ${identity.version}\n`,
-  );
-  process.exit(0);
+if (identity.version !== "1.3.0") {
+  throw new Error(`C1R2 requires Evaluator 1.3.0, got ${identity.version}`);
 }
 assertOrWrite(IDENTITY_PATH, identity, "Evaluator identity");
 
@@ -109,37 +107,62 @@ if (
 ) {
   throw new Error("The original SEM-003C1 comparative freeze changed");
 }
+if (
+  sha256File(C1R_FREEZE_PATH) !== HISTORICAL_C1R_FREEZE_DIGEST ||
+  sha256File(C1R_BINDING_PATH) !== HISTORICAL_C1R_BINDING_DIGEST
+) {
+  throw new Error("The historical SEM-003C1R freeze or binding changed");
+}
+const c1rBinding = JSON.parse(fs.readFileSync(C1R_BINDING_PATH, "utf8"));
 
 const binding = {
   schemaVersion: "1.0.0",
-  contractType: "SEM003C1R_COMPARATIVE_EVALUATOR_BINDING",
-  bindingId: "SEM003C1R-COMMON-BLIND-EVALUATOR-BINDING-01",
+  contractType: "SEM003C1R2_COMPARATIVE_EVALUATOR_BINDING",
+  bindingId: "SEM003C1R2-COMMON-BLIND-EVALUATOR-BINDING-01",
   status: "FROZEN_PRE_BLIND_EXECUTION",
   sourceComparativeFreeze: {
     freezeId: c1Freeze.freezeId,
     freezeDigest: c1Freeze.freezeDigest,
-    previousEvaluatorVersion: c1Freeze.targetEvaluator.version,
-    previousEvaluatorConfigurationDigest: c1Freeze.targetEvaluator.configurationDigest,
     baselineIds: c1Freeze.baselineManifests.map((entry) => entry.baselineId),
+  },
+  supersedesBinding: {
+    bindingId: c1rBinding.bindingId,
+    digest: HISTORICAL_C1R_BINDING_DIGEST,
+    evaluatorVersion: c1rBinding.evaluator.version,
+    reason: "BLIND_REFERENCE_BINDING_CONTRACT_INCOMPLETE",
   },
   evaluator: {
     version: identity.version,
     configurationDigest: identity.configurationDigest,
   },
   evaluationMode: "FUTURE_SEM_RUNTIME",
-  purpose: BLIND_PURPOSE,
-  sourceType: "FUTURE_SEM_RUNTIME_OUTPUT",
+  benchmarkSet: "BLIND",
+  referenceBinding: {
+    caseContractType: "SEM003C_BLIND_BENCHMARK_CASE",
+    casePurpose: "BLIND_QUALIFICATION_AUTHORING",
+    exposureStatus: "BLIND_SEALED",
+    eligibleForBlindQualification: true,
+    envelopeContractType: "SEM003C_BLIND_ACCEPTANCE_ENVELOPE",
+    identityRule: "GENERIC_CONTRACT_IDENTITY_NO_CASE_PREFIX_RULE",
+  },
+  candidateBinding: {
+    purpose: BLIND_PURPOSE,
+    sourceType: "FUTURE_SEM_RUNTIME_OUTPUT",
+    schemaVersion: "1.3.0",
+  },
   appliesUniformlyToAllBaselines: true,
   baselineCodeOrConfigurationChanged: false,
   semanticAdapterChanged: false,
   baselineManifestsRegenerated: false,
-  blindAccessed: false,
-  sealedReferenceAccessed: false,
+  blindCasesChanged: false,
+  acceptanceEnvelopesChanged: false,
+  blindContentAccessed: false,
+  sealedReferenceContentAccessed: false,
   blindExecuted: false,
   providerCalls: 0,
   createdAt: CREATED_AT,
 };
-assertOrWrite(BINDING_PATH, binding, "SEM-003C1R comparative binding");
+assertOrWrite(BINDING_PATH, binding, "SEM-003C1R2 comparative binding");
 
 const candidateSchema = JSON.parse(
   fs.readFileSync(
@@ -168,15 +191,18 @@ const developmentFixtureFiles = filesUnder(
 
 const manifest = {
   schemaVersion: "1.0.0",
-  contractType: "SEM003_EVALUATOR_POST_C1R_FREEZE_MANIFEST",
-  freezeId: "SEM003C1R-EVALUATOR-FREEZE-01",
+  contractType: "SEM003_EVALUATOR_POST_C1R2_FREEZE_MANIFEST",
+  freezeId: "SEM003C1R2-EVALUATOR-FREEZE-01",
   evaluatorVersion: identity.version,
-  previousEvaluatorVersion: "1.1.0",
+  previousEvaluatorVersion: "1.2.0",
   configurationDigest: identity.configurationDigest,
-  previousConfigurationDigest:
-    "b05bc0ac66cb3e4dc5f135ba278cac8cadebe7443e57b1003dca580c9bd0e9bd",
+  previousConfigurationDigest: c1rBinding.evaluator.configurationDigest,
   codeDigest: collectionDigest(codeFiles),
   schemasDigest: collectionDigest(schemaFiles),
+  sourceBlindContractDigests: {
+    caseSchema: sha256File(BLIND_CASE_SCHEMA_PATH),
+    acceptanceEnvelopeSchema: sha256File(BLIND_ENVELOPE_SCHEMA_PATH),
+  },
   propertyRegistryDigest: sha256File(
     path.resolve(REGISTRY_ROOT, "property-registry.json"),
   ),
@@ -185,11 +211,13 @@ const manifest = {
   ),
   supportedModes: candidateSchema.definitions.evaluationMode.enum,
   supportedPurposes: candidateSchema.properties.purpose.enum,
+  benchmarkSet: "BLIND",
   blindQualificationPurpose: BLIND_PURPOSE,
   developmentFixtureCount: developmentFixtureFiles.length,
   developmentFixturesDigest: collectionDigest(developmentFixtureFiles),
-  c1rContractTestsDigest: sha256File(path.resolve(EVALUATOR_ROOT, "c1r.test.mjs")),
-  historicalB4RFreezeDigest: sha256File(POST_B4R_FREEZE_PATH),
+  c1r2ContractTestsDigest: sha256File(path.resolve(EVALUATOR_ROOT, "c1r2.test.mjs")),
+  historicalC1RFreezeDigest: HISTORICAL_C1R_FREEZE_DIGEST,
+  historicalC1RBindingDigest: HISTORICAL_C1R_BINDING_DIGEST,
   comparativeBindingDigest: sha256File(BINDING_PATH),
   protectedComparativeArtifacts: {
     fileCount: protectedComparativeFiles.length,
@@ -197,29 +225,45 @@ const manifest = {
     originalFreezeDigest: c1Freeze.freezeDigest,
     baselineCount: c1Freeze.baselineCount,
   },
-  changeClassification: "ADDITIVE_PURPOSE_AND_MODE_BINDING_REPAIR",
+  blockingClassification: "BLIND_REFERENCE_BINDING_CONTRACT_INCOMPLETE",
+  changeClassification: "ADDITIVE_GENERIC_BLIND_REFERENCE_BINDING_REPAIR",
   propertiesP01ToP18Changed: false,
   failureClassesChanged: false,
+  dispositionsChanged: false,
   level1RulesChanged: false,
   level2RulesChanged: false,
   thresholdsChanged: false,
+  semChanged: false,
   acceptanceEnvelopesChanged: false,
   blindCasesChanged: false,
   baselineCodeOrConfigurationChanged: false,
   semanticAdaptersChanged: false,
-  blindAccessed: false,
-  sealedReferenceAccessed: false,
+  blindContentAccessed: false,
+  sealedReferenceContentAccessed: false,
+  blindOutputRead: false,
   blindExecuted: false,
   providerCalls: 0,
-  decision: "SEM003C1R_BLIND_QUALIFICATION_CONTRACT_READY",
-  next: "SEM-003D-COMP — Common Blind Comparative Qualification Campaign",
+  decision: "SEM003C1R2_BLIND_REFERENCE_BINDING_READY",
+  next: "SEM-003D-COMP — Common Blind Comparative Qualification Campaign in a new clean worktree state",
   createdAt: CREATED_AT,
 };
 if (manifest.developmentFixtureCount !== 41) {
   throw new Error(`Expected 41 Development fixtures, got ${manifest.developmentFixtureCount}`);
 }
-assertOrWrite(FREEZE_PATH, manifest, "SEM-003C1R evaluator freeze manifest");
+if (
+  manifest.developmentFixturesDigest !==
+  "b50a7f795fea663d911edf7f6334e8dc9ab2ba4334ceceee1a2f57f7a8f3e420"
+) {
+  throw new Error("Development fixtures changed");
+}
+if (
+  manifest.protectedComparativeArtifacts.digest !==
+  "e7262acbdfdbd7100f85c1e442e64f8698ca9b93b43fceda6407be80885f4d28"
+) {
+  throw new Error("Protected SEM-003C1 comparative artifacts changed");
+}
+assertOrWrite(FREEZE_PATH, manifest, "SEM-003C1R2 evaluator freeze manifest");
 
 process.stdout.write(
-  `SEM-003C1R freeze ${CHECK_ONLY ? "verified" : "generated"}: Evaluator ${identity.version} ${identity.configurationDigest}\n`,
+  `SEM-003C1R2 freeze ${CHECK_ONLY ? "verified" : "generated"}: Evaluator ${identity.version} ${identity.configurationDigest}\n`,
 );

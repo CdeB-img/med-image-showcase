@@ -314,7 +314,7 @@ test("B4R-C23 decision lineage remains reconstructible end to end", () => {
   }
 });
 
-test("B4R-C24-C28 repair sources remain Development-only and offline", () => {
+test("B4R-C24-C28 repair sources remain case-agnostic and offline", () => {
   const repairSources = [
     path.resolve(EVALUATOR_ROOT, "core/adjudication.mjs"),
     path.resolve(EVALUATOR_ROOT, "core/evaluator.mjs"),
@@ -324,7 +324,9 @@ test("B4R-C24-C28 repair sources remain Development-only and offline", () => {
   assert.equal(repairSources.includes("calibration-results"), false);
   assert.equal(repairSources.includes("src/features/scientific-semantic-reconstruction"), false);
   assert.equal(repairSources.includes("Gemini"), false);
-  assert.equal(repairSources.includes("BLIND_SEALED") && fs.existsSync(path.resolve(REPOSITORY_ROOT, "semantic-validation/sem-003/blind")), false);
+  assert.equal(repairSources.includes("SEM3-BLIND-"), false);
+  assert.equal(repairSources.includes("sealed-reference/"), false);
+  assert.equal(repairSources.includes("blind/input"), false);
   const prepared = prepareAdjudicationDecisions({
     adjudicationDecisionRecords: [],
     humanDecisionRecords: [],

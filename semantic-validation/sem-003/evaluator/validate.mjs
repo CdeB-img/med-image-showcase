@@ -67,11 +67,11 @@ export const validateEvaluatorDevelopment = () => {
   }
   const freezeCheck = spawnSync(
     process.execPath,
-    ["semantic-validation/sem-003/evaluator/tools/generate-c1r-freeze.mjs", "--check"],
+    ["semantic-validation/sem-003/evaluator/tools/generate-c1r2-freeze.mjs", "--check"],
     { cwd: REPOSITORY_ROOT, encoding: "utf8" },
   );
   if (freezeCheck.status !== 0) {
-    errors.push(`POST_C1R_FREEZE_CHECK_FAILED: ${freezeCheck.stderr || freezeCheck.stdout}`);
+    errors.push(`POST_C1R2_FREEZE_CHECK_FAILED: ${freezeCheck.stderr || freezeCheck.stdout}`);
   }
 
   const expectedIdentity = computeEvaluatorIdentity();

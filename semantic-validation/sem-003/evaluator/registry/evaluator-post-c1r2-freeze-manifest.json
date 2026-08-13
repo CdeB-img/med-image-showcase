@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003_EVALUATOR_POST_C1R2_FREEZE_MANIFEST",
+  "freezeId": "SEM003C1R2-EVALUATOR-FREEZE-01",
+  "evaluatorVersion": "1.3.0",
+  "previousEvaluatorVersion": "1.2.0",
+  "configurationDigest": "0d0f48cf1859d3747fd17eeaf75d51a59e6a5d5a48a096beab67cbe32d94665b",
+  "previousConfigurationDigest": "c8b79236fafabfe7745b66c182daff8c89b9e6aaa1f4cd1ae00b0fe60bd948bb",
+  "codeDigest": "cc0eefa00c9be2cb56d166fe7ad8e23e4a1b74ee2d1e26b8a9c8ee1600fd181a",
+  "schemasDigest": "da70a8401dcc43064509d379468828858cc094b788fc78535b16e6f466341793",
+  "sourceBlindContractDigests": {
+    "caseSchema": "ea67d24d222d87e96b858c4078eecd8ecc0260d5ca20b77c4bd5507894204068",
+    "acceptanceEnvelopeSchema": "e29b949911591e8aae95daa4038326becb32f23ed8da39786972a7361c2d3073"
+  },
+  "propertyRegistryDigest": "f0db9a687df425fd844c80580914bb91b3c5382663307fa9aea696015c876a70",
+  "failureTaxonomyDigest": "a5e45a03676b049c8a6478c66dfbd218fcd29954e48e38cc74ab850b6a950e2b",
+  "supportedModes": [
+    "DEVELOPMENT_SYNTHETIC",
+    "CALIBRATION_SYNTHETIC",
+    "FUTURE_SEM_RUNTIME",
+    "HUMAN_ADJUDICATION"
+  ],
+  "supportedPurposes": [
+    "SCIENTIFIC_UNDERSTANDING_EVALUATOR_DEVELOPMENT",
+    "SCIENTIFIC_UNDERSTANDING_EVALUATOR_CALIBRATION",
+    "SCIENTIFIC_UNDERSTANDING_EVALUATOR_BLIND_QUALIFICATION"
+  ],
+  "benchmarkSet": "BLIND",
+  "blindQualificationPurpose": "SCIENTIFIC_UNDERSTANDING_EVALUATOR_BLIND_QUALIFICATION",
+  "developmentFixtureCount": 41,
+  "developmentFixturesDigest": "b50a7f795fea663d911edf7f6334e8dc9ab2ba4334ceceee1a2f57f7a8f3e420",
+  "c1r2ContractTestsDigest": "b72a4915c037c1999433e58a5549b3532fe8e732b124c586170bb350288d2114",
+  "historicalC1RFreezeDigest": "9d8a8d46111aa3f442f5975c9aaede5a0c807d64ea3a9da2f3363b2e4bb7725e",
+  "historicalC1RBindingDigest": "b7444f90622992286ef21c425c26142a517a7c6e33c2bd66cd4e3f136dad4279",
+  "comparativeBindingDigest": "b5ad539dfa9e4152149479ac8af3b2ef9bfbf153204ead840b93ebbb33b6ed23",
+  "protectedComparativeArtifacts": {
+    "fileCount": 30,
+    "digest": "e7262acbdfdbd7100f85c1e442e64f8698ca9b93b43fceda6407be80885f4d28",
+    "originalFreezeDigest": "6373b7b04838e75582048becb2efdf075b644740f1d3f6bbb381809ecdc010f1",
+    "baselineCount": 6
+  },
+  "blockingClassification": "BLIND_REFERENCE_BINDING_CONTRACT_INCOMPLETE",
+  "changeClassification": "ADDITIVE_GENERIC_BLIND_REFERENCE_BINDING_REPAIR",
+  "propertiesP01ToP18Changed": false,
+  "failureClassesChanged": false,
+  "dispositionsChanged": false,
+  "level1RulesChanged": false,
+  "level2RulesChanged": false,
+  "thresholdsChanged": false,
+  "semChanged": false,
+  "acceptanceEnvelopesChanged": false,
+  "blindCasesChanged": false,
+  "baselineCodeOrConfigurationChanged": false,
+  "semanticAdaptersChanged": false,
+  "blindContentAccessed": false,
+  "sealedReferenceContentAccessed": false,
+  "blindOutputRead": false,
+  "blindExecuted": false,
+  "providerCalls": 0,
+  "decision": "SEM003C1R2_BLIND_REFERENCE_BINDING_READY",
+  "next": "SEM-003D-COMP — Common Blind Comparative Qualification Campaign in a new clean worktree state",
+  "createdAt": "2026-08-14T18:00:00.000+02:00"
+}

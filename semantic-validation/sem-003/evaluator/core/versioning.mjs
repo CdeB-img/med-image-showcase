@@ -40,6 +40,14 @@ export const evaluatorConfigurationFiles = () => {
       REPOSITORY_ROOT,
       "semantic-validation/sem-003/authoring/acceptance-envelope.schema.json",
     ),
+    path.resolve(
+      REPOSITORY_ROOT,
+      "semantic-validation/sem-003/blind/contracts/blind-case.schema.json",
+    ),
+    path.resolve(
+      REPOSITORY_ROOT,
+      "semantic-validation/sem-003/blind/contracts/blind-acceptance-envelope.schema.json",
+    ),
   );
   return files.sort((left, right) => relative(left).localeCompare(relative(right)));
 };
@@ -53,7 +61,8 @@ export const computeEvaluatorIdentity = () => {
     SEM002: "1.0",
     SEM003: "1.0",
     acceptanceEnvelopeContract: "1.0.0",
-    candidateSemanticRepresentationContract: "1.2.0",
+    candidateSemanticRepresentationContract: "1.3.0",
+    blindReferenceBindingContract: "1.0.0",
     adjudicationContract: "1.1.0",
   };
   const configurationDigest = sha256(
@@ -71,7 +80,7 @@ export const computeEvaluatorIdentity = () => {
     authorityVersions,
     coveredComponents: [
       "evaluator core code",
-      "seven evaluator schemas",
+      "seven evaluator schemas with a generic sealed Blind reference binding",
       "derived SEM-002 property registry",
       "normalized candidate contract",
       "adjudication contract",

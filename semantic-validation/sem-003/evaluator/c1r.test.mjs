@@ -60,7 +60,7 @@ const asCalibration = (purpose = CALIBRATION_PURPOSE) => ({
 
 const asBlindQualification = (purpose = BLIND_PURPOSE) => ({
   ...structuredClone(sourceCandidate),
-  schemaVersion: "1.2.0",
+  schemaVersion: "1.3.0",
   purpose,
   evaluationMode: "FUTURE_SEM_RUNTIME",
   sourceType: "FUTURE_SEM_RUNTIME_OUTPUT",
@@ -113,19 +113,22 @@ test("C1R-C05 the four existing Evaluator modes are unchanged", () => {
   ]);
 });
 
-test("C1R-C06 Blind mode executes contract mechanics without Blind benchmark data", () => {
+test("C1R-C06 Blind purpose alone cannot relabel a visible Development reference", () => {
   const candidateOutput = asBlindQualification();
-  const result = evaluateScientificUnderstanding({
-    schemaVersion: "1.2.0",
-    contractType: "BENCHMARK_EVALUATION_INPUT",
-    evaluationId: "SEM3-EVAL-C1R-GENERIC-BLIND-PURPOSE-CONTRACT",
-    evaluationMode: "FUTURE_SEM_RUNTIME",
-    benchmarkCase: sourceCase,
-    acceptanceEnvelope: sourceEnvelope,
-    candidateOutput,
-  });
-  assert.equal(result.mode, "FUTURE_SEM_RUNTIME");
-  assert.equal(result.evaluatorIdentity.version, "1.2.0");
+  assert.throws(
+    () =>
+      evaluateScientificUnderstanding({
+        schemaVersion: "1.3.0",
+        contractType: "BENCHMARK_EVALUATION_INPUT",
+        evaluationId: "SEM3-EVAL-C1R-GENERIC-BLIND-PURPOSE-CONTRACT",
+        evaluationMode: "FUTURE_SEM_RUNTIME",
+        benchmarkSet: "BLIND",
+        benchmarkCase: sourceCase,
+        acceptanceEnvelope: sourceEnvelope,
+        candidateOutput,
+      }),
+    (error) => error.code === "EVALUATOR_CONTRACT_INVALID",
+  );
 });
 
 test("C1R-C07 all 41 historical Development fixtures remain byte-identical", () => {

@@ -140,12 +140,13 @@ def main() -> int:
 
     evaluator_registry = REPOSITORY_ROOT / "semantic-validation" / "sem-003" / "evaluator" / "registry"
     evaluator_identity = load_json(evaluator_registry / "evaluator-identity.json")
-    evaluator_binding = load_json(evaluator_registry / "sem003c1r-comparative-evaluator-binding.json")
+    evaluator_binding = load_json(evaluator_registry / "sem003c1r2-comparative-evaluator-binding.json")
     identity_ok = (
-        evaluator_identity["version"] == "1.2.0"
+        evaluator_identity["version"] == "1.3.0"
         and evaluator_identity["configurationDigest"] == evaluator_binding["evaluator"]["configurationDigest"]
         and index["targetEvaluator"]["version"] == "1.1.0"
         and evaluator_binding["sourceComparativeFreeze"]["freezeDigest"] == index["freezeDigest"]
+        and evaluator_binding["benchmarkSet"] == "BLIND"
     )
     checks.append(("C08_EVALUATOR_BINDING", identity_ok, evaluator_identity["configurationDigest"]))
 
@@ -153,7 +154,7 @@ def main() -> int:
     evaluator_schema = load_json(evaluator_schema_path)
     purposes = set(evaluator_schema["properties"]["purpose"]["enum"])
     blind_purpose = "SCIENTIFIC_UNDERSTANDING_EVALUATOR_BLIND_QUALIFICATION"
-    qualification_present = blind_purpose in purposes and evaluator_binding["purpose"] == blind_purpose
+    qualification_present = blind_purpose in purposes and evaluator_binding["candidateBinding"]["purpose"] == blind_purpose
     gate_recorded = index["commonCampaignGate"] == "EVALUATOR_1_1_0_QUALIFICATION_PURPOSE_ENUM_REQUIRES_GOVERNED_RESOLUTION"
     checks.append(("C09_EVALUATOR_GATE_REPAIRED_BY_EXTERNAL_BINDING", qualification_present and gate_recorded, ",".join(sorted(purposes))))
 
@@ -175,10 +176,10 @@ def main() -> int:
         ownershipBoundaries=[OwnershipBinding(boundaryId="own-project-adoption", prohibitedAdoptedSemanticKeys=["concept.a"])],
     )
     evaluator_candidate = bind_to_sem003_evaluator_1_1_0(normalized, binding)
-    evaluator_candidate["schemaVersion"] = "1.2.0"
-    evaluator_candidate["purpose"] = evaluator_binding["purpose"]
+    evaluator_candidate["schemaVersion"] = "1.3.0"
+    evaluator_candidate["purpose"] = evaluator_binding["candidateBinding"]["purpose"]
     evaluator_errors = list(Draft7Validator(evaluator_schema).iter_errors(evaluator_candidate))
-    checks.append(("C11_EVALUATOR_BRIDGE_WITH_C1R_BINDING_PROOF", not evaluator_errors, evaluator_errors[0].message if evaluator_errors else "schema-valid"))
+    checks.append(("C11_EVALUATOR_BRIDGE_WITH_C1R2_BINDING_PROOF", not evaluator_errors, evaluator_errors[0].message if evaluator_errors else "schema-valid"))
 
     results = [path for path in (ROOT / "results").iterdir() if path.name != "README.md"]
     checks.append(("C12_RESULTS_EMPTY", not results, f"unexpected={len(results)}"))

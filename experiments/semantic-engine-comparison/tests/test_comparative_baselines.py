@@ -104,9 +104,9 @@ class ComparativeBaselineTests(unittest.TestCase):
             requirements=[], prohibitions=[], optionalCandidates=[], ambiguities=[], ownershipBoundaries=[],
         )
         candidate = bind_to_sem003_evaluator_1_1_0(normalized, binding)
-        external_binding = json.loads((REPOSITORY_ROOT / "semantic-validation/sem-003/evaluator/registry/sem003c1r-comparative-evaluator-binding.json").read_text())
-        candidate["schemaVersion"] = "1.2.0"
-        candidate["purpose"] = external_binding["purpose"]
+        external_binding = json.loads((REPOSITORY_ROOT / "semantic-validation/sem-003/evaluator/registry/sem003c1r2-comparative-evaluator-binding.json").read_text())
+        candidate["schemaVersion"] = "1.3.0"
+        candidate["purpose"] = external_binding["candidateBinding"]["purpose"]
         schema = json.loads((REPOSITORY_ROOT / "semantic-validation/sem-003/evaluator/contracts/candidate-semantic-representation.schema.json").read_text())
         self.assertEqual(list(Draft7Validator(schema).iter_errors(candidate)), [])
 
@@ -129,9 +129,10 @@ class ComparativeBaselineTests(unittest.TestCase):
         self.assertIn("SCIENTIFIC_UNDERSTANDING_EVALUATOR_BLIND_QUALIFICATION", schema["properties"]["purpose"]["enum"])
         freeze = json.loads((ROOT / "manifests/freeze-index.json").read_text())
         self.assertEqual(freeze["decision"], "SEM003C1_COMPARATIVE_BASELINES_PARTIAL")
-        binding = json.loads((REPOSITORY_ROOT / "semantic-validation/sem-003/evaluator/registry/sem003c1r-comparative-evaluator-binding.json").read_text())
+        binding = json.loads((REPOSITORY_ROOT / "semantic-validation/sem-003/evaluator/registry/sem003c1r2-comparative-evaluator-binding.json").read_text())
         self.assertEqual(binding["sourceComparativeFreeze"]["freezeDigest"], freeze["freezeDigest"])
         self.assertFalse(binding["baselineCodeOrConfigurationChanged"])
+        self.assertEqual(binding["benchmarkSet"], "BLIND")
 
 
 if __name__ == "__main__":

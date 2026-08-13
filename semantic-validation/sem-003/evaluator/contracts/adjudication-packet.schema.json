@@ -25,7 +25,7 @@
     "schemaVersion": { "const": "1.0.0" },
     "contractType": { "const": "BENCHMARK_EVALUATION_ADJUDICATION_PACKET" },
     "packetId": { "type": "string", "pattern": "^SEM3-ADJ-[A-Z0-9][A-Z0-9-]{2,127}$" },
-    "caseId": { "type": "string", "pattern": "^SEM3-(EX|DEV|CAL)-[A-Z0-9][A-Z0-9-]{2,63}$" },
+    "caseId": { "type": "string", "pattern": "^[A-Z0-9][A-Z0-9-]{2,127}$" },
     "candidateId": { "type": "string", "pattern": "^SEM3-EVAL-CAND-[A-Z0-9][A-Z0-9-]{2,95}$" },
     "propertyIds": { "type": "array", "minItems": 1, "items": { "type": "string", "pattern": "^PROPERTY_[A-Z0-9_]+$" }, "uniqueItems": true },
     "reason": { "type": "string", "minLength": 1 },

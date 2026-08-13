@@ -48,17 +48,25 @@ const contractError = (code, message, details = []) => {
 };
 
 const assertEvaluationBindings = (input) => {
-  const { benchmarkCase, acceptanceEnvelope, candidateOutput, evaluationMode } = input;
-  const authoring = validateAuthoringPackage({
-    cases: [benchmarkCase],
-    envelopes: [acceptanceEnvelope],
-  });
-  if (!authoring.valid) {
-    throw contractError(
-      "AUTHORING_REFERENCE_INVALID",
-      "Case and Acceptance Envelope are not a valid SEM-003B authoring pair",
-      authoring.errors,
-    );
+  const {
+    benchmarkCase,
+    acceptanceEnvelope,
+    candidateOutput,
+    evaluationMode,
+    benchmarkSet,
+  } = input;
+  if (benchmarkSet !== "BLIND") {
+    const authoring = validateAuthoringPackage({
+      cases: [benchmarkCase],
+      envelopes: [acceptanceEnvelope],
+    });
+    if (!authoring.valid) {
+      throw contractError(
+        "AUTHORING_REFERENCE_INVALID",
+        "Case and Acceptance Envelope are not a valid SEM-003B authoring pair",
+        authoring.errors,
+      );
+    }
   }
 
   const mismatches = [];
@@ -107,13 +115,19 @@ const assertEvaluationBindings = (input) => {
   }
   if (
     evaluationMode === "FUTURE_SEM_RUNTIME" &&
-    (candidateOutput.sourceType !== "FUTURE_SEM_RUNTIME_OUTPUT" ||
+    (benchmarkSet !== "BLIND" ||
+      benchmarkCase.contractType !== "SEM003C_BLIND_BENCHMARK_CASE" ||
+      benchmarkCase.purpose !== "BLIND_QUALIFICATION_AUTHORING" ||
+      benchmarkCase.exposure.exposureStatus !== "BLIND_SEALED" ||
+      benchmarkCase.exposure.eligibleForBlindQualification !== true ||
+      acceptanceEnvelope.contractType !== "SEM003C_BLIND_ACCEPTANCE_ENVELOPE" ||
+      candidateOutput.sourceType !== "FUTURE_SEM_RUNTIME_OUTPUT" ||
       candidateOutput.purpose !==
         "SCIENTIFIC_UNDERSTANDING_EVALUATOR_BLIND_QUALIFICATION")
   ) {
     throw contractError(
       "RUNTIME_MODE_BOUNDARY_VIOLATION",
-      "FUTURE_SEM_RUNTIME requires a Blind Qualification candidate and a future runtime adapter output",
+      "FUTURE_SEM_RUNTIME requires a sealed Blind reference, a Blind Qualification candidate, and a future runtime adapter output",
     );
   }
   if (

@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003C1R2_COMPARATIVE_EVALUATOR_BINDING",
+  "bindingId": "SEM003C1R2-COMMON-BLIND-EVALUATOR-BINDING-01",
+  "status": "FROZEN_PRE_BLIND_EXECUTION",
+  "sourceComparativeFreeze": {
+    "freezeId": "SEM003C1-COMPARATIVE-BASELINES-FREEZE-01",
+    "freezeDigest": "6373b7b04838e75582048becb2efdf075b644740f1d3f6bbb381809ecdc010f1",
+    "baselineIds": [
+      "SEM003C1-SEM-CURRENT-01",
+      "SEM003C1-INSTRUCTOR-PYDANTIC-01",
+      "SEM003C1-PYDANTICAI-01",
+      "SEM003C1-DSPY-01",
+      "SEM003C1-LANGEXTRACT-01",
+      "SEM003C1-OUTLINES-01"
+    ]
+  },
+  "supersedesBinding": {
+    "bindingId": "SEM003C1R-COMMON-BLIND-EVALUATOR-BINDING-01",
+    "digest": "b7444f90622992286ef21c425c26142a517a7c6e33c2bd66cd4e3f136dad4279",
+    "evaluatorVersion": "1.2.0",
+    "reason": "BLIND_REFERENCE_BINDING_CONTRACT_INCOMPLETE"
+  },
+  "evaluator": {
+    "version": "1.3.0",
+    "configurationDigest": "0d0f48cf1859d3747fd17eeaf75d51a59e6a5d5a48a096beab67cbe32d94665b"
+  },
+  "evaluationMode": "FUTURE_SEM_RUNTIME",
+  "benchmarkSet": "BLIND",
+  "referenceBinding": {
+    "caseContractType": "SEM003C_BLIND_BENCHMARK_CASE",
+    "casePurpose": "BLIND_QUALIFICATION_AUTHORING",
+    "exposureStatus": "BLIND_SEALED",
+    "eligibleForBlindQualification": true,
+    "envelopeContractType": "SEM003C_BLIND_ACCEPTANCE_ENVELOPE",
+    "identityRule": "GENERIC_CONTRACT_IDENTITY_NO_CASE_PREFIX_RULE"
+  },
+  "candidateBinding": {
+    "purpose": "SCIENTIFIC_UNDERSTANDING_EVALUATOR_BLIND_QUALIFICATION",
+    "sourceType": "FUTURE_SEM_RUNTIME_OUTPUT",
+    "schemaVersion": "1.3.0"
+  },
+  "appliesUniformlyToAllBaselines": true,
+  "baselineCodeOrConfigurationChanged": false,
+  "semanticAdapterChanged": false,
+  "baselineManifestsRegenerated": false,
+  "blindCasesChanged": false,
+  "acceptanceEnvelopesChanged": false,
+  "blindContentAccessed": false,
+  "sealedReferenceContentAccessed": false,
+  "blindExecuted": false,
+  "providerCalls": 0,
+  "createdAt": "2026-08-14T18:00:00.000+02:00"
+}
