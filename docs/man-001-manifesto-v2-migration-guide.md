@@ -1,10 +1,10 @@
 # MAN-001 — Migration Guide V1 → V2
 
-**Statut :** OFFICIAL — guide de transition constitutionnelle  
-**Niveau :** NIVEAU_3 — document d’accompagnement, sans autorité concurrente  
-**Version :** 1.0  
-**Date :** 12 août 2026  
-**Autorité supérieure :** Scientific Product Manifesto V2.0  
+**Statut :** OFFICIAL — guide de transition constitutionnelle
+**Niveau :** NIVEAU_3 — document d’accompagnement, sans autorité concurrente
+**Version :** 1.0
+**Date :** 12 août 2026
+**Autorité supérieure :** Scientific Product Manifesto V2.0
 **Portée :** transition documentaire et conceptuelle ; aucune migration de données ou de moteur
 
 ## 1. Décision de migration
@@ -151,4 +151,3 @@ La transition ne peut être déclarée achevée que lorsque :
 - Aucun moteur n’est modifié.
 - Aucun statut d’implémentation ou de qualification V2 n’est revendiqué.
 - Le calendrier et les owners des phases ultérieures exigent des décisions séparées.
-

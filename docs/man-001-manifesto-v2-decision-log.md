@@ -1,9 +1,9 @@
 # MAN-001 — Decision Log
 
-**Statut :** OFFICIAL — journal de décision constitutionnelle  
-**Niveau :** NIVEAU_3 — preuve d’arbitrage, subordonnée au Manifeste V2  
-**Version :** 1.0  
-**Date :** 12 août 2026  
+**Statut :** OFFICIAL — journal de décision constitutionnelle
+**Niveau :** NIVEAU_3 — preuve d’arbitrage, subordonnée au Manifeste V2
+**Version :** 1.0
+**Date :** 12 août 2026
 **Décision globale :** `MANIFESTO_V2_ADOPTED_WITH_LIMITATIONS`
 
 ## 1. Autorités
@@ -79,4 +79,3 @@ Rejet : les autorités métier intermédiaires ne sont pas encore admises et la 
 ## 5. Décision finale
 
 `MANIFESTO_V2_ADOPTED_WITH_LIMITATIONS`
-

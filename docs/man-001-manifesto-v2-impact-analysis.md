@@ -1,9 +1,9 @@
 # MAN-001 — Scientific Product Manifesto V2 Impact Analysis
 
-**Statut :** OFFICIAL — analyse d’impact constitutionnelle  
-**Niveau :** NIVEAU_3 — document d’accompagnement  
-**Version :** 1.0  
-**Date :** 12 août 2026  
+**Statut :** OFFICIAL — analyse d’impact constitutionnelle
+**Niveau :** NIVEAU_3 — document d’accompagnement
+**Version :** 1.0
+**Date :** 12 août 2026
 **Autorité supérieure :** Scientific Product Manifesto V2.0
 
 ## 1. Objet
@@ -142,4 +142,3 @@ Les futures campagnes devront inclure au minimum :
 ## 10. Décision d’impact
 
 La V2 est compatible avec les responsabilités établies des moteurs existants. Elle crée des obligations d’évolution future, principalement pour PD-003, Imaging, Research Project, OBS, CDM, Data Management, Biostatistics et VAL. Aucun de ces impacts ne doit être requalifié en capacité déjà implémentée.
-

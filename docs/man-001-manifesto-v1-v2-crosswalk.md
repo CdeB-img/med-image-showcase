@@ -1,9 +1,9 @@
 # MAN-001 — Crosswalk Scientific Product Manifesto V1 / V2
 
-**Statut :** OFFICIAL — crosswalk constitutionnel exhaustif  
-**Niveau :** NIVEAU_3 — document d’accompagnement  
-**Version :** 1.0  
-**Date :** 12 août 2026  
+**Statut :** OFFICIAL — crosswalk constitutionnel exhaustif
+**Niveau :** NIVEAU_3 — document d’accompagnement
+**Version :** 1.0
+**Date :** 12 août 2026
 **Périmètre :** 129 chapitres V1, préface, épilogue et appendice
 
 ## 1. Règle de lecture
@@ -177,4 +177,3 @@ Aucun chapitre V1 n’est supprimé de l’histoire. Plusieurs chapitres V1 peuv
 ## 5. Résultat
 
 Les 129 chapitres V1 possèdent une destination et une justification. Les évolutions de fond sont limitées aux frontières nécessaires : Scientific Model, Observable Property, Measurement Definition, Biomarker Role, Project/Data Need, Variable/Occurrence, analyses spécialisées et système coordonné. Tous les invariants de prudence, contexte, décision humaine, preuve, projection et Core Lab sont conservés.
-

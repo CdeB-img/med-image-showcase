@@ -1,8 +1,8 @@
 # MAN-001 — Compatibility Matrix
 
-**Statut :** OFFICIAL — matrice de compatibilité V1/V2  
-**Niveau :** NIVEAU_3 — document d’accompagnement  
-**Version :** 1.0  
+**Statut :** OFFICIAL — matrice de compatibilité V1/V2
+**Niveau :** NIVEAU_3 — document d’accompagnement
+**Version :** 1.0
 **Date :** 12 août 2026
 
 ## 1. Légende
@@ -76,4 +76,3 @@
 ## 6. Conclusion de compatibilité
 
 La non-régression est satisfaite au niveau constitutionnel : aucun owner existant n’est supprimé, aucune preuve n’est déplacée, aucune décision humaine n’est automatisée et aucune projection n’acquiert d’autorité. Les adaptations nécessaires restent explicitement différées jusqu’aux évolutions normatives et évaluations correspondantes.
-
