@@ -132,6 +132,16 @@ describe("SEM-001R5F relation ownership", () => {
     expect(new Set([after.sourceInventoryItemId, after.targetInventoryItemId])).toEqual(new Set([before.sourceInventoryItemId, before.targetInventoryItemId]));
   });
 
+  it("keeps Semantic Relation polarity authoritative when inventory provenance uses a different assertion status", () => {
+    const initial = relationCandidate();
+    initial.relations[0] = { ...initial.relations[0], relationType: "MAY_INFLUENCE", polarity: "CONDITIONAL" };
+
+    const stabilized = stabilizeRelationOwnership(initial).candidate;
+
+    expect(stabilized.relations[0].polarity).toBe("CONDITIONAL");
+    expect(stabilized.semanticInventory.explicitRelations[0].polarity).toBe("AFFIRMED");
+  });
+
   it("preserves a legitimate active/passive inverse relation", () => {
     const inverse = relationCandidate({
       content: "Mesurer le signal par méthode alpha.",
