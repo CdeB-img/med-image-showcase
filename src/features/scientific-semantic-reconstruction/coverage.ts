@@ -334,7 +334,8 @@ export const buildRelationCoverageReport = (
       const endpoint = candidate.elements.find((element) => element.clientElementId === elementId);
       if (!endpoint || endpoint.polarity !== "NEGATED") return false;
       const canonicalEndpointId = `sem-element:${logicalDigest({ type: endpoint.type, meaning: comparableScientificText(endpoint.canonicalMeaning) })}`;
-      return endpoint.supersedesElementIds.includes(canonicalEndpointId);
+      return endpoint.supersedesElementIds.includes(canonicalEndpointId)
+        || candidate.elements.some((element) => element.supersedesElementIds.includes(elementId));
     }).map((elementId) => `superseded:${elementId}`);
     const directlyMappedClientRelationIds = candidate.relations
       .filter((relation) => relation.inventoryRelationIds.includes(inventoryRelation.inventoryRelationId))
