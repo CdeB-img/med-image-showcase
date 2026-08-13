@@ -239,30 +239,54 @@ const normalizeDeterministicPriorStateReemission = (
   if (!Array.isArray(candidate.elements) || !Array.isArray(candidate.relations)) return value;
 
   const previousElements = new Map(request.previousModel.elements.map((element) => [element.semanticElementId, element]));
+  let identityBindingCount = 0;
+  const elements = candidate.elements.map((element) => {
+    const clientElementId = typeof element.clientElementId === "string" ? element.clientElementId : null;
+    const supersedesElementIds = stringArray(element.supersedesElementIds);
+    const previous = clientElementId ? previousElements.get(clientElementId) : null;
+    const identityCompatible = previous
+      && element.type === previous.type
+      && typeof element.canonicalMeaning === "string"
+      && comparableScientificText(element.canonicalMeaning) === comparableScientificText(previous.canonicalMeaning);
+    if (!identityCompatible || !supersedesElementIds || supersedesElementIds.length !== 0 || element.epistemicStatus !== "EXPLICIT_USER_STATED") return element;
+    identityBindingCount += 1;
+    return { ...element, supersedesElementIds: [previous.semanticElementId] };
+  });
   const previousIdByClientId = new Map<string, string>();
   const duplicatedClientIds = new Set<string>();
 
-  candidate.elements.forEach((element) => {
+  elements.forEach((element) => {
     const clientElementId = typeof element.clientElementId === "string" ? element.clientElementId : null;
     const inventoryItemIds = stringArray(element.inventoryItemIds);
     const supersedesElementIds = stringArray(element.supersedesElementIds);
     if (!clientElementId || !inventoryItemIds || !supersedesElementIds || supersedesElementIds.length !== 1) return;
     const previous = previousElements.get(supersedesElementIds[0]);
     if (!previous) return;
-    const sameIdentity = element.type === previous.type
-      && element.studyRole === previous.studyRole
-      && element.polarity === previous.polarity
+    const identityCompatible = element.type === previous.type
       && typeof element.canonicalMeaning === "string"
       && comparableScientificText(element.canonicalMeaning) === comparableScientificText(previous.canonicalMeaning);
-    if (sameIdentity) previousIdByClientId.set(clientElementId, previous.semanticElementId);
-    const ungroundedHistoricalDuplicate = sameIdentity
+    const sameRepresentation = identityCompatible
+      && element.studyRole === previous.studyRole
+      && element.polarity === previous.polarity;
+    if (identityCompatible) previousIdByClientId.set(clientElementId, previous.semanticElementId);
+    const ungroundedHistoricalDuplicate = sameRepresentation
       && element.epistemicStatus === "EXPLICIT_USER_STATED"
       && inventoryItemIds.length === 0
       && element.sourceMessageId === null
       && element.sourceText === null;
     if (ungroundedHistoricalDuplicate) duplicatedClientIds.add(clientElementId);
   });
-  if (duplicatedClientIds.size === 0) return value;
+  if (duplicatedClientIds.size === 0) {
+    if (identityBindingCount === 0) return value;
+    return {
+      ...candidate,
+      elements,
+      semanticWarnings: [
+        ...(Array.isArray(candidate.semanticWarnings) ? candidate.semanticWarnings : []),
+        `DETERMINISTIC_CANONICAL_CLIENT_ID_BOUND_TO_PRIOR_STATE:${identityBindingCount}`,
+      ],
+    };
+  }
 
   const duplicatedRelationIds = new Set<string>();
   candidate.relations.forEach((relation) => {
@@ -295,10 +319,11 @@ const normalizeDeterministicPriorStateReemission = (
 
   return {
     ...candidate,
-    elements: candidate.elements.filter((element) => !duplicatedClientIds.has(String(element.clientElementId ?? ""))),
+    elements: elements.filter((element) => !duplicatedClientIds.has(String(element.clientElementId ?? ""))),
     relations: remainingRelations,
     semanticWarnings: [
       ...(Array.isArray(candidate.semanticWarnings) ? candidate.semanticWarnings : []),
+      ...(identityBindingCount ? [`DETERMINISTIC_CANONICAL_CLIENT_ID_BOUND_TO_PRIOR_STATE:${identityBindingCount}`] : []),
       `DETERMINISTIC_PRIOR_STATE_REEMISSION_DEDUPLICATED:${duplicatedClientIds.size}:${duplicatedRelationIds.size}`,
     ],
   };
