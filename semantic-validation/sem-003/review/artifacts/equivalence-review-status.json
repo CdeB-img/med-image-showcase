@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003B3_EQUIVALENCE_REVIEW_STATUS",
+  "generatedAt": "2026-08-13T19:05:53.000Z",
+  "resolved": 0,
+  "open": 5,
+  "pairs": [
+    {
+      "pairId": "SEM3B3-EQ-CT-FUNCTIONAL-ESTIMATE-ROLE",
+      "caseId": "SEM3-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
+      "reviewUnitId": "SEM3B3-RU-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
+      "candidateA": "SEM3-EVAL-CAND-CT-FUNCTIONAL-ESTIMATE-ROLE-BASELINE",
+      "candidateB": "SEM3-EVAL-CAND-CT-FUNCTIONAL-ESTIMATE-ROLE-DISTRIBUTED",
+      "level1A": "PASS",
+      "level1B": "PASS",
+      "status": "ADJUDICATION_REQUIRED",
+      "humanDecisionId": null
+    },
+    {
+      "pairId": "SEM3B3-EQ-OUTCOME-PRIORITY-CHANGE",
+      "caseId": "SEM3-DEV-OUTCOME-PRIORITY-CHANGE",
+      "reviewUnitId": "SEM3B3-RU-DEV-OUTCOME-PRIORITY-CHANGE",
+      "candidateA": "SEM3-EVAL-CAND-OUTCOME-PRIORITY-CHANGE-BASELINE",
+      "candidateB": "SEM3-EVAL-CAND-OUTCOME-PRIORITY-CHANGE-DISTRIBUTED",
+      "level1A": "PASS",
+      "level1B": "PASS",
+      "status": "ADJUDICATION_REQUIRED",
+      "humanDecisionId": null
+    },
+    {
+      "pairId": "SEM3B3-EQ-PERICARDIAL-FAT-NONCAUSAL",
+      "caseId": "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL",
+      "reviewUnitId": "SEM3B3-RU-DEV-PERICARDIAL-FAT-NONCAUSAL",
+      "candidateA": "SEM3-EVAL-CAND-PERICARDIAL-FAT-NONCAUSAL-BASELINE",
+      "candidateB": "SEM3-EVAL-CAND-PERICARDIAL-FAT-NONCAUSAL-DISTRIBUTED",
+      "level1A": "PASS",
+      "level1B": "PASS",
+      "status": "ADJUDICATION_REQUIRED",
+      "humanDecisionId": null
+    },
+    {
+      "pairId": "SEM3B3-EQ-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
+      "caseId": "SEM3-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
+      "reviewUnitId": "SEM3B3-RU-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
+      "candidateA": "SEM3-EVAL-CAND-RETINAL-VASCULAR-OUTCOME-UNKNOWN-BASELINE",
+      "candidateB": "SEM3-EVAL-CAND-RETINAL-VASCULAR-OUTCOME-UNKNOWN-DISTRIBUTED",
+      "level1A": "PASS",
+      "level1B": "PASS",
+      "status": "ADJUDICATION_REQUIRED",
+      "humanDecisionId": null
+    },
+    {
+      "pairId": "SEM3B3-EQ-VALVE-HEMODYNAMICS-MULTIMODAL",
+      "caseId": "SEM3-DEV-VALVE-HEMODYNAMICS-MULTIMODAL",
+      "reviewUnitId": "SEM3B3-RU-DEV-VALVE-HEMODYNAMICS-MULTIMODAL",
+      "candidateA": "SEM3-EVAL-CAND-VALVE-HEMODYNAMICS-MULTIMODAL-BASELINE",
+      "candidateB": "SEM3-EVAL-CAND-VALVE-HEMODYNAMICS-MULTIMODAL-DISTRIBUTED",
+      "level1A": "PASS",
+      "level1B": "PASS",
+      "status": "ADJUDICATION_REQUIRED",
+      "humanDecisionId": null
+    }
+  ],
+  "rule": "Level 1 PASS does not establish semantic equivalence."
+}

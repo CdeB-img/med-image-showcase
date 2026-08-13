@@ -1,0 +1,423 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003B3_CONSOLIDATED_DECISION_TABLE",
+  "generatedAt": "2026-08-13T19:05:53.000Z",
+  "rows": [
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-ATRIAL-FIBROSIS-ABLATION",
+      "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "SCIENTIFIC_REFERENCE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-ATRIAL-FIBROSIS-ABLATION",
+      "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "CALIBRATION_ADMISSION",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-ATRIAL-FIBROSIS-ABLATION",
+      "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "PARENTAGE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-ATRIAL-FIBROSIS-ABLATION",
+      "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "AMBIGUITY",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-CARDIO-RHYTHM-REMODELING",
+      "caseId": "SEM3-CAL-CARDIO-RHYTHM-REMODELING",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "SCIENTIFIC_REFERENCE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-CARDIO-RHYTHM-REMODELING",
+      "caseId": "SEM3-CAL-CARDIO-RHYTHM-REMODELING",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "CALIBRATION_ADMISSION",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-CARDIO-RHYTHM-REMODELING",
+      "caseId": "SEM3-CAL-CARDIO-RHYTHM-REMODELING",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "PARENTAGE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-CARDIO-RHYTHM-REMODELING",
+      "caseId": "SEM3-CAL-CARDIO-RHYTHM-REMODELING",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "METHODOLOGICAL_REFERENCE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-CONGENITAL-FLOW-ELLIPSIS",
+      "caseId": "SEM3-CAL-CONGENITAL-FLOW-ELLIPSIS",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "SCIENTIFIC_REFERENCE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-CONGENITAL-FLOW-ELLIPSIS",
+      "caseId": "SEM3-CAL-CONGENITAL-FLOW-ELLIPSIS",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "CALIBRATION_ADMISSION",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-CONGENITAL-FLOW-ELLIPSIS",
+      "caseId": "SEM3-CAL-CONGENITAL-FLOW-ELLIPSIS",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "PARENTAGE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-CORTISOL-SAMPLING-SUMMARY",
+      "caseId": "SEM3-CAL-CORTISOL-SAMPLING-SUMMARY",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "SCIENTIFIC_REFERENCE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-CORTISOL-SAMPLING-SUMMARY",
+      "caseId": "SEM3-CAL-CORTISOL-SAMPLING-SUMMARY",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "CALIBRATION_ADMISSION",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-CORTISOL-SAMPLING-SUMMARY",
+      "caseId": "SEM3-CAL-CORTISOL-SAMPLING-SUMMARY",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "PARENTAGE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-CORTISOL-SAMPLING-SUMMARY",
+      "caseId": "SEM3-CAL-CORTISOL-SAMPLING-SUMMARY",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "METHODOLOGICAL_REFERENCE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-MSK-INFLAMMATION-RESPONSE",
+      "caseId": "SEM3-CAL-MSK-INFLAMMATION-RESPONSE",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "SCIENTIFIC_REFERENCE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-MSK-INFLAMMATION-RESPONSE",
+      "caseId": "SEM3-CAL-MSK-INFLAMMATION-RESPONSE",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "CALIBRATION_ADMISSION",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-MSK-INFLAMMATION-RESPONSE",
+      "caseId": "SEM3-CAL-MSK-INFLAMMATION-RESPONSE",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "PARENTAGE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-NEURODEGENERATION-PROGRESSION",
+      "caseId": "SEM3-CAL-NEURODEGENERATION-PROGRESSION",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "SCIENTIFIC_REFERENCE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-NEURODEGENERATION-PROGRESSION",
+      "caseId": "SEM3-CAL-NEURODEGENERATION-PROGRESSION",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "CALIBRATION_ADMISSION",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-NEURODEGENERATION-PROGRESSION",
+      "caseId": "SEM3-CAL-NEURODEGENERATION-PROGRESSION",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "PARENTAGE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-NEURODEGENERATION-PROGRESSION",
+      "caseId": "SEM3-CAL-NEURODEGENERATION-PROGRESSION",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "METHODOLOGICAL_REFERENCE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+      "caseId": "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "SCIENTIFIC_REFERENCE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+      "caseId": "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "CALIBRATION_ADMISSION",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+      "caseId": "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "PARENTAGE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+      "caseId": "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "METHODOLOGICAL_REFERENCE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+      "caseId": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "SCIENTIFIC_REFERENCE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+      "caseId": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "CALIBRATION_ADMISSION",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+      "caseId": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "PARENTAGE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+      "caseId": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "AMBIGUITY",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+      "caseId": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "METHODOLOGICAL_REFERENCE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
+      "caseId": "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "SCIENTIFIC_REFERENCE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
+      "caseId": "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "CALIBRATION_ADMISSION",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
+      "caseId": "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "PARENTAGE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
+      "caseId": "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "METHODOLOGICAL_REFERENCE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-TRIAL-COMPARATOR-DECISION",
+      "caseId": "SEM3-CAL-TRIAL-COMPARATOR-DECISION",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "SCIENTIFIC_REFERENCE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-TRIAL-COMPARATOR-DECISION",
+      "caseId": "SEM3-CAL-TRIAL-COMPARATOR-DECISION",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "CALIBRATION_ADMISSION",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-TRIAL-COMPARATOR-DECISION",
+      "caseId": "SEM3-CAL-TRIAL-COMPARATOR-DECISION",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "PARENTAGE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-CAL-TRIAL-COMPARATOR-DECISION",
+      "caseId": "SEM3-CAL-TRIAL-COMPARATOR-DECISION",
+      "candidateSet": "CALIBRATION",
+      "reviewType": "AMBIGUITY",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
+      "caseId": "SEM3-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
+      "candidateSet": "DEVELOPMENT",
+      "reviewType": "SCIENTIFIC_REFERENCE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
+      "caseId": "SEM3-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
+      "candidateSet": "DEVELOPMENT",
+      "reviewType": "AMBIGUITY",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
+      "caseId": "SEM3-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
+      "candidateSet": "DEVELOPMENT",
+      "reviewType": "METHODOLOGICAL_REFERENCE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
+      "caseId": "SEM3-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
+      "candidateSet": "DEVELOPMENT",
+      "reviewType": "SEMANTIC_EQUIVALENCE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-DEV-OUTCOME-PRIORITY-CHANGE",
+      "caseId": "SEM3-DEV-OUTCOME-PRIORITY-CHANGE",
+      "candidateSet": "DEVELOPMENT",
+      "reviewType": "SCIENTIFIC_REFERENCE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-DEV-OUTCOME-PRIORITY-CHANGE",
+      "caseId": "SEM3-DEV-OUTCOME-PRIORITY-CHANGE",
+      "candidateSet": "DEVELOPMENT",
+      "reviewType": "SEMANTIC_EQUIVALENCE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-DEV-PERICARDIAL-FAT-NONCAUSAL",
+      "caseId": "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL",
+      "candidateSet": "DEVELOPMENT",
+      "reviewType": "SCIENTIFIC_REFERENCE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-DEV-PERICARDIAL-FAT-NONCAUSAL",
+      "caseId": "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL",
+      "candidateSet": "DEVELOPMENT",
+      "reviewType": "SEMANTIC_EQUIVALENCE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
+      "caseId": "SEM3-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
+      "candidateSet": "DEVELOPMENT",
+      "reviewType": "SCIENTIFIC_REFERENCE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
+      "caseId": "SEM3-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
+      "candidateSet": "DEVELOPMENT",
+      "reviewType": "AMBIGUITY",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
+      "caseId": "SEM3-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
+      "candidateSet": "DEVELOPMENT",
+      "reviewType": "SEMANTIC_EQUIVALENCE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-DEV-VALVE-HEMODYNAMICS-MULTIMODAL",
+      "caseId": "SEM3-DEV-VALVE-HEMODYNAMICS-MULTIMODAL",
+      "candidateSet": "DEVELOPMENT",
+      "reviewType": "SCIENTIFIC_REFERENCE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    },
+    {
+      "reviewUnitId": "SEM3B3-RU-DEV-VALVE-HEMODYNAMICS-MULTIMODAL",
+      "caseId": "SEM3-DEV-VALVE-HEMODYNAMICS-MULTIMODAL",
+      "candidateSet": "DEVELOPMENT",
+      "reviewType": "SEMANTIC_EQUIVALENCE",
+      "status": "OPEN",
+      "humanDecisionId": null
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003B3_ANTI_OVERFITTING_AUDIT",
+  "generatedAt": "2026-08-13T19:05:53.000Z",
+  "semOutputsReadForReferenceRevision": false,
+  "calibrationEvaluatorResultsUsed": false,
+  "referenceAdaptedToObservedOutput": false,
+  "calibrationContentUsedForEvaluatorTuning": false,
+  "localDecisionPromotedToGenericRule": false,
+  "developmentCasePromotedToCalibration": false,
+  "exposedCaseDeclaredBlindEligible": false,
+  "semModified": false,
+  "semExecuted": false,
+  "llmProviderCalls": 0,
+  "calibrationExecuted": false,
+  "blindSetCreated": false,
+  "qualificationDecisionProduced": false
+}

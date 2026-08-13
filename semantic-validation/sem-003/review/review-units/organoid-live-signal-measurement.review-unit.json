@@ -1,0 +1,480 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003B3_HUMAN_REVIEW_UNIT",
+  "reviewUnitId": "SEM3B3-RU-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+  "caseId": "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+  "candidateSet": "CALIBRATION",
+  "priority": "CALIBRATION_GATE",
+  "state": "HUMAN_REVIEW_REQUIRED",
+  "identity": {
+    "title": "Signal vivant d'organoïde, phénomène et mesure terminale",
+    "domain": "modèles translationnels et imagerie cellulaire",
+    "difficulty": "COMPOSITIONAL",
+    "turnCount": 9,
+    "language": "fr-FR",
+    "scenarioCategory": "MULTIDIMENSIONAL_REQUEST"
+  },
+  "sourcePaths": {
+    "case": "semantic-validation/sem-003/corpus/calibration/organoid-live-signal-measurement.case.json",
+    "acceptanceEnvelope": "semantic-validation/sem-003/corpus/calibration/organoid-live-signal-measurement.envelope.json"
+  },
+  "sourceVersions": {
+    "case": "1.0.0",
+    "acceptanceEnvelope": "1.0.0"
+  },
+  "sourceDigests": {
+    "caseSha256": "fc26f8761d591de9942e8f2dce53d581838a95e7c8d3d94ab78313138f01feee",
+    "acceptanceEnvelopeSha256": "6a179cd0b1033bb22a7b3de2279087dbe1749f4a14e524689d2aab45e5507496",
+    "pairSha256": "5431058892524022da656522bf9d29fa0b9c7f97419c5b86368d0a9add028e04"
+  },
+  "scientificRequest": {
+    "sourceRequest": "Tour 1: Je veux étudier la réponse d'organoïdes pendant une exposition expérimentale.\nTour 2: On aura un signal d'imagerie en direct.\nTour 3: Une mesure histologique sera disponible seulement au dernier temps.\nTour 4: Et ça, on peut le relier au signal comment ?\nTour 5: Je parle de la mesure histologique, pas de l'exposition elle-même.\nTour 6: Je ne veux pas supposer que le signal mesure directement la prolifération.\nTour 7: Les modèles de relation peuvent rester des hypothèses candidates.\nTour 8: La priorité est de conserver réponse biologique, signal vivant, mesure terminale et temporalités distincts.\nTour 9: La relation finale devra être revue scientifiquement avant toute calibration.",
+    "conversationTurns": [
+      {
+        "turnId": "turn-1",
+        "role": "USER",
+        "text": "Je veux étudier la réponse d'organoïdes pendant une exposition expérimentale."
+      },
+      {
+        "turnId": "turn-2",
+        "role": "USER",
+        "text": "On aura un signal d'imagerie en direct."
+      },
+      {
+        "turnId": "turn-3",
+        "role": "USER",
+        "text": "Une mesure histologique sera disponible seulement au dernier temps."
+      },
+      {
+        "turnId": "turn-4",
+        "role": "USER",
+        "text": "Et ça, on peut le relier au signal comment ?"
+      },
+      {
+        "turnId": "turn-5",
+        "role": "USER",
+        "text": "Je parle de la mesure histologique, pas de l'exposition elle-même."
+      },
+      {
+        "turnId": "turn-6",
+        "role": "USER",
+        "text": "Je ne veux pas supposer que le signal mesure directement la prolifération."
+      },
+      {
+        "turnId": "turn-7",
+        "role": "USER",
+        "text": "Les modèles de relation peuvent rester des hypothèses candidates."
+      },
+      {
+        "turnId": "turn-8",
+        "role": "USER",
+        "text": "La priorité est de conserver réponse biologique, signal vivant, mesure terminale et temporalités distincts."
+      },
+      {
+        "turnId": "turn-9",
+        "role": "USER",
+        "text": "La relation finale devra être revue scientifiquement avant toute calibration."
+      }
+    ],
+    "sourceContext": "Candidat Calibration original combinant référence pronominale, correction, plans conceptuels et hypothèses candidates dans un modèle cellulaire."
+  },
+  "currentInterpretation": {
+    "candidateSummary": "Candidat Calibration original combinant référence pronominale, correction, plans conceptuels et hypothèses candidates dans un modèle cellulaire.",
+    "activeFinalState": [
+      "Rattacher 'ça' à la mesure histologique après correction.",
+      "Distinguer réponse biologique, signal vivant et mesure histologique.",
+      "La mesure histologique n'existe qu'au dernier temps.",
+      "Le signal n'est pas présenté comme mesure directe de la prolifération.",
+      "L'état scientifique courant, tel que défini après la dernière correction, doit rester actif."
+    ],
+    "supersededOrHistorical": [
+      "Les formulations corrigées ou abandonnées restent reconstructibles comme historique sans rester actives."
+    ],
+    "unknowns": [
+      "La nature du signal, la mesure histologique et le modèle de relation restent à qualifier."
+    ],
+    "ambiguities": []
+  },
+  "acceptanceEnvelope": {
+    "required": [
+      {
+        "description": "Rattacher 'ça' à la mesure histologique après correction.",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "criticality": "CRITICAL",
+        "sourceLocator": "source.conversationTurns[4]"
+      },
+      {
+        "description": "Distinguer réponse biologique, signal vivant et mesure histologique.",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "criticality": "CRITICAL",
+        "sourceLocator": "source.conversationTurns[7]"
+      },
+      {
+        "description": "La mesure histologique n'existe qu'au dernier temps.",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "criticality": "CRITICAL",
+        "sourceLocator": "source.conversationTurns[2]"
+      },
+      {
+        "description": "Le signal n'est pas présenté comme mesure directe de la prolifération.",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "criticality": "CRITICAL",
+        "sourceLocator": "source.conversationTurns[5]"
+      },
+      {
+        "description": "L'état scientifique courant, tel que défini après la dernière correction, doit rester actif.",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "criticality": "CRITICAL",
+        "sourceLocator": "source.conversationTurns[8]"
+      },
+      {
+        "description": "Les formulations corrigées ou abandonnées restent reconstructibles comme historique sans rester actives.",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "criticality": "MAJOR",
+        "sourceLocator": "source.conversationTurns[8]"
+      }
+    ],
+    "prohibited": [
+      {
+        "description": "Assimiler automatiquement le signal à la prolifération.",
+        "failureClass": "CONCEPTUAL_PLAN_COLLAPSE",
+        "criticality": "CRITICAL"
+      },
+      {
+        "description": "Adopter une hypothèse de relation comme vérité du projet.",
+        "failureClass": "EPISTEMIC_PROMOTION_FAILURE",
+        "criticality": "CRITICAL"
+      }
+    ],
+    "optionalRelevant": [
+      {
+        "description": "Modèles de relation signal vivant-mesure terminale comme hypothèses candidates soumises à revue.",
+        "epistemicStatus": "HYPOTHESIS",
+        "absenceIsBlocking": false,
+        "nonExhaustive": true
+      }
+    ],
+    "admissibleAmbiguities": [],
+    "expectedClarification": {
+      "status": "OPTIONAL",
+      "decisionImpact": "La structure scientifique est compréhensible ; la relation quantitative relève de la revue spécialisée.",
+      "acceptableQuestionClasses": [
+        "Nature du signal",
+        "Définition de la mesure histologique"
+      ],
+      "exactWordingRequired": false
+    },
+    "ownershipBoundaries": [
+      {
+        "boundaryId": "own-sem-project",
+        "sourceOwner": "SEM",
+        "targetOwner": "Research Project / human decision",
+        "description": "SEM peut préserver et structurer l'intention, les unknowns et les candidats ; il n'adopte pas une décision de projet.",
+        "forbiddenPromotion": "Inference, option or contextual candidate to adopted Project decision",
+        "adoptionRequiresHumanDecision": true
+      },
+      {
+        "boundaryId": "own-knowledge-specialists",
+        "sourceOwner": "Knowledge / OBS / Imaging / Scientific Thinking",
+        "targetOwner": "SEM benchmark reference",
+        "description": "Les owners spécialisés qualifient preuves, mesures, acquisition ou hypothèses ; leur support n'est pas une déclaration utilisateur.",
+        "forbiddenPromotion": "Specialist support to explicit user fact or automatic endpoint",
+        "adoptionRequiresHumanDecision": true
+      }
+    ]
+  },
+  "properties": [
+    {
+      "propertyId": "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "absolute": false
+    },
+    {
+      "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "absolute": true
+    },
+    {
+      "propertyId": "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "absolute": false
+    },
+    {
+      "propertyId": "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+      "family": "CONTEXTUAL_ENRICHMENT",
+      "absolute": false
+    },
+    {
+      "propertyId": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "absolute": true
+    },
+    {
+      "propertyId": "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "absolute": true
+    },
+    {
+      "propertyId": "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "absolute": true
+    },
+    {
+      "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "absolute": true
+    },
+    {
+      "propertyId": "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "absolute": true
+    },
+    {
+      "propertyId": "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "absolute": false
+    },
+    {
+      "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "absolute": true
+    },
+    {
+      "propertyId": "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "absolute": true
+    },
+    {
+      "propertyId": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "absolute": true
+    },
+    {
+      "propertyId": "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "absolute": false
+    }
+  ],
+  "reviewItemIds": [
+    "SEM3B1-REVIEW-059",
+    "SEM3B1-REVIEW-060",
+    "SEM3B1-REVIEW-061",
+    "SEM3B1-REVIEW-062"
+  ],
+  "reviewTypes": [
+    "CALIBRATION_REVIEW_REQUIRED",
+    "METHODOLOGICAL_REVIEW_REQUIRED",
+    "PARENTAGE_REVIEW_REQUIRED",
+    "SCIENTIFIC_REVIEW_REQUIRED"
+  ],
+  "decisionRequirements": [
+    "SCIENTIFIC_REFERENCE",
+    "CALIBRATION_ADMISSION",
+    "PARENTAGE",
+    "METHODOLOGICAL_REFERENCE"
+  ],
+  "exposureImpact": {
+    "currentStatus": "DESIGN_ONLY",
+    "acceptedAfterAllApplicableGates": "CALIBRATION_VISIBLE",
+    "rejected": "REJECTED_WITH_HISTORY_PRESERVED",
+    "specialistReview": "HUMAN_REVIEW_REQUIRED_AND_NO_PROMOTION",
+    "blindEligibility": false
+  },
+  "openReviewPoints": [
+    {
+      "reviewId": "SEM3B1-REVIEW-059",
+      "reviewType": "SCIENTIFIC_REVIEW_REQUIRED",
+      "subject": "Scientific readability of REQUIRED, PROHIBITED and OPTIONAL_RELEVANT",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "consequenceIfUnresolved": "Candidate remains DESIGN_ONLY and cannot enter formal Calibration.",
+      "reviewerCompetence": "Scientific domain expert familiar with the scenario"
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-060",
+      "reviewType": "CALIBRATION_REVIEW_REQUIRED",
+      "subject": "SEM-003B Calibration gate",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "consequenceIfUnresolved": "CALIBRATION_VISIBLE is forbidden; candidate remains DESIGN_ONLY.",
+      "reviewerCompetence": "PD-011 methodological governance and scientific reviewer"
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-061",
+      "reviewType": "PARENTAGE_REVIEW_REQUIRED",
+      "subject": "Independent inter-set parentage review",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "consequenceIfUnresolved": "Candidate cannot be used for formal Calibration until reviewed.",
+      "reviewerCompetence": "Independent benchmark methodologist"
+    },
+    {
+      "reviewId": "SEM3B1-REVIEW-062",
+      "reviewType": "METHODOLOGICAL_REVIEW_REQUIRED",
+      "subject": "Conceptual-plan separation and OBS boundary",
+      "currentProposal": "Acceptance Envelope candidate as versioned in the corpus.",
+      "alternatives": [
+        "Accept as authored",
+        "Revise with a new version",
+        "Reject from active corpus"
+      ],
+      "consequenceIfUnresolved": "The evaluator cannot be trained on this distinction as final before OBS-aware review.",
+      "reviewerCompetence": "OBS measurement expert and SEM methodologist"
+    }
+  ],
+  "adjudicationRequirements": [
+    {
+      "expertise": "SCIENTIFIC_DOMAIN",
+      "rationale": "Confirmer la lisibilité scientifique des obligations candidates sans inventer une approbation.",
+      "mandatory": true
+    },
+    {
+      "expertise": "METHODOLOGICAL_SEM",
+      "rationale": "Vérifier équivalence, failure classes, statut épistémique et absence de Gold structurel caché.",
+      "mandatory": true
+    },
+    {
+      "expertise": "PD009_CLARIFICATION",
+      "rationale": "Confirmer la valeur décisionnelle de la clarification candidate sans imposer sa formulation.",
+      "mandatory": false
+    },
+    {
+      "expertise": "OBS_MEASUREMENT",
+      "rationale": "Vérifier la séparation méthode, observable, image quantitative, mesure et rôle de biomarqueur.",
+      "mandatory": true
+    }
+  ],
+  "parentageReviewAssistance": {
+    "method": "Metadata overlap for reviewer orientation only; no distance threshold and no parentage decision.",
+    "closestDevelopmentForReview": [
+      {
+        "caseId": "SEM3-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
+        "title": "Estimation fonctionnelle dérivée du CT, représentation et valeur",
+        "sharedCategories": [
+          "METHOD_VERSUS_MEASUREMENT",
+          "PHENOMENON_VERSUS_OBSERVABLE"
+        ],
+        "sharedFeatures": [
+          "METHOD_MEASUREMENT",
+          "MISSING_INFORMATION",
+          "MULTI_TURN_CONTEXT_DEPENDENT",
+          "OWNERSHIP",
+          "PHENOMENON_OBSERVABLE"
+        ],
+        "sameDomainGroup": false,
+        "conclusion": "REVIEW_ASSISTANCE_ONLY"
+      },
+      {
+        "caseId": "SEM3-DEV-TRANSLATIONAL-HYPOXIA-CANDIDATES",
+        "title": "Hypoxie translationnelle et candidats contextuels",
+        "sharedCategories": [
+          "KNOWLEDGE_CANDIDATE",
+          "MULTIDIMENSIONAL_REQUEST"
+        ],
+        "sharedFeatures": [
+          "CONTEXTUAL_ENRICHMENT",
+          "MISSING_INFORMATION",
+          "MULTI_TURN_CONTEXT_DEPENDENT",
+          "OWNERSHIP"
+        ],
+        "sameDomainGroup": true,
+        "conclusion": "REVIEW_ASSISTANCE_ONLY"
+      },
+      {
+        "caseId": "SEM3-DEV-INFLAMMATION-MULTIDIMENSIONAL",
+        "title": "Inflammation systémique et imagerie sans causalité imposée",
+        "sharedCategories": [
+          "MULTIDIMENSIONAL_REQUEST"
+        ],
+        "sharedFeatures": [
+          "CONTEXTUAL_ENRICHMENT",
+          "MISSING_INFORMATION",
+          "MULTI_TURN_CONTEXT_DEPENDENT",
+          "OWNERSHIP"
+        ],
+        "sameDomainGroup": true,
+        "conclusion": "REVIEW_ASSISTANCE_ONLY"
+      }
+    ],
+    "closestCalibrationForReview": [
+      {
+        "caseId": "SEM3-CAL-CARDIO-RHYTHM-REMODELING",
+        "title": "Charge rythmique et structure atriale sans promotion causale",
+        "sharedCategories": [
+          "METHOD_VERSUS_MEASUREMENT"
+        ],
+        "sharedFeatures": [
+          "CORRECTION",
+          "METHOD_MEASUREMENT",
+          "MISSING_INFORMATION",
+          "MULTI_TURN_CONTEXT_DEPENDENT",
+          "OWNERSHIP"
+        ],
+        "sameDomainGroup": false,
+        "conclusion": "REVIEW_ASSISTANCE_ONLY"
+      },
+      {
+        "caseId": "SEM3-CAL-CORTISOL-SAMPLING-SUMMARY",
+        "title": "Profil de cortisol, méthode de prélèvement et mesure dérivée",
+        "sharedCategories": [
+          "METHOD_VERSUS_MEASUREMENT"
+        ],
+        "sharedFeatures": [
+          "METHOD_MEASUREMENT",
+          "MISSING_INFORMATION",
+          "MULTI_TURN_CONTEXT_DEPENDENT",
+          "OWNERSHIP"
+        ],
+        "sameDomainGroup": true,
+        "conclusion": "REVIEW_ASSISTANCE_ONLY"
+      },
+      {
+        "caseId": "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
+        "title": "Hémodynamique pulmonaire et suivi multimodal",
+        "sharedCategories": [
+          "MULTIDIMENSIONAL_REQUEST",
+          "PHENOMENON_VERSUS_OBSERVABLE"
+        ],
+        "sharedFeatures": [
+          "MISSING_INFORMATION",
+          "MULTI_TURN_CONTEXT_DEPENDENT",
+          "OWNERSHIP",
+          "PHENOMENON_OBSERVABLE"
+        ],
+        "sameDomainGroup": false,
+        "conclusion": "REVIEW_ASSISTANCE_ONLY"
+      }
+    ],
+    "b1HistoricalAudit": {
+      "caseId": "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+      "disposition": "PARENTAGE_REVIEW_REQUIRED",
+      "independenceNote": "Modèle d'organoïde, signal vivant et mesure histologique terminale ; aucune question ni chaîne factuelle reprise de H01-H30.",
+      "obviousContaminationIdentified": false,
+      "eligibleForCalibrationBeforeReview": false
+    },
+    "exposedExampleComparison": "SEM-002/SEM-003 exposed examples remain ineligible as Calibration sources; no reuse was declared by B1.",
+    "historicalComparison": "B1 compared originalRequest only across H01-H30 and reported no source reuse; this is not an independent human conclusion.",
+    "humanConclusionRequired": true
+  },
+  "assistanceFlags": [],
+  "humanSheetPath": "semantic-validation/sem-003/review/review-units/organoid-live-signal-measurement.review.md",
+  "equivalencePair": null,
+  "humanDecisionRecords": [],
+  "limits": [
+    "Codex prepared this unit but is not the human reviewer.",
+    "No scientific, methodological, ambiguity, parentage, equivalence or admission decision is inferred.",
+    "All parentage comparisons are REVIEW_ASSISTANCE_ONLY."
+  ]
+}

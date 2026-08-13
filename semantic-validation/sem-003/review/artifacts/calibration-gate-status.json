@@ -1,0 +1,298 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003B3_CALIBRATION_GATE_STATUS",
+  "generatedAt": "2026-08-13T19:05:53.000Z",
+  "status": "HUMAN_REVIEW_REQUIRED",
+  "candidatesInitial": 10,
+  "admitted": 0,
+  "designOnly": 10,
+  "rejected": 0,
+  "specialistReview": 0,
+  "calibrationVisible": 0,
+  "cases": [
+    {
+      "caseId": "SEM3-CAL-ATRIAL-FIBROSIS-ABLATION",
+      "reviewUnitId": "SEM3B3-RU-CAL-ATRIAL-FIBROSIS-ABLATION",
+      "status": "HUMAN_REVIEW_REQUIRED",
+      "exposureStatus": "DESIGN_ONLY",
+      "promotionApplied": false,
+      "eligibleForCalibration": false,
+      "eligibleForBlindQualification": false,
+      "requiredDecisionTypes": [
+        "SCIENTIFIC_REFERENCE",
+        "CALIBRATION_ADMISSION",
+        "PARENTAGE",
+        "AMBIGUITY"
+      ],
+      "recommendedReviewerCompetencies": [
+        "SCIENTIFIC_DOMAIN",
+        "METHODOLOGICAL_SEM",
+        "PD009_CLARIFICATION"
+      ],
+      "unmetGates": [
+        "PLURALISTIC_SCIENTIFIC_REFERENCE_REVIEW_REQUIRED",
+        "AMBIGUITY_DISPOSITION_REQUIRED",
+        "PARENTAGE_REVIEW_REQUIRED",
+        "CONTAMINATION_REVIEW_REQUIRED",
+        "CALIBRATION_APPROVAL_REQUIRED",
+        "REVIEWER_CONFLICT_INFORMATION_REQUIRED"
+      ]
+    },
+    {
+      "caseId": "SEM3-CAL-CARDIO-RHYTHM-REMODELING",
+      "reviewUnitId": "SEM3B3-RU-CAL-CARDIO-RHYTHM-REMODELING",
+      "status": "HUMAN_REVIEW_REQUIRED",
+      "exposureStatus": "DESIGN_ONLY",
+      "promotionApplied": false,
+      "eligibleForCalibration": false,
+      "eligibleForBlindQualification": false,
+      "requiredDecisionTypes": [
+        "SCIENTIFIC_REFERENCE",
+        "CALIBRATION_ADMISSION",
+        "PARENTAGE",
+        "METHODOLOGICAL_REFERENCE"
+      ],
+      "recommendedReviewerCompetencies": [
+        "SCIENTIFIC_DOMAIN",
+        "METHODOLOGICAL_SEM",
+        "OBS_MEASUREMENT"
+      ],
+      "unmetGates": [
+        "PLURALISTIC_SCIENTIFIC_REFERENCE_REVIEW_REQUIRED",
+        "METHODOLOGICAL_REVIEW_REQUIRED",
+        "PARENTAGE_REVIEW_REQUIRED",
+        "CONTAMINATION_REVIEW_REQUIRED",
+        "CALIBRATION_APPROVAL_REQUIRED",
+        "REVIEWER_CONFLICT_INFORMATION_REQUIRED"
+      ]
+    },
+    {
+      "caseId": "SEM3-CAL-CONGENITAL-FLOW-ELLIPSIS",
+      "reviewUnitId": "SEM3B3-RU-CAL-CONGENITAL-FLOW-ELLIPSIS",
+      "status": "HUMAN_REVIEW_REQUIRED",
+      "exposureStatus": "DESIGN_ONLY",
+      "promotionApplied": false,
+      "eligibleForCalibration": false,
+      "eligibleForBlindQualification": false,
+      "requiredDecisionTypes": [
+        "SCIENTIFIC_REFERENCE",
+        "CALIBRATION_ADMISSION",
+        "PARENTAGE"
+      ],
+      "recommendedReviewerCompetencies": [
+        "SCIENTIFIC_DOMAIN",
+        "METHODOLOGICAL_SEM",
+        "PD009_CLARIFICATION"
+      ],
+      "unmetGates": [
+        "PLURALISTIC_SCIENTIFIC_REFERENCE_REVIEW_REQUIRED",
+        "PARENTAGE_REVIEW_REQUIRED",
+        "CONTAMINATION_REVIEW_REQUIRED",
+        "CALIBRATION_APPROVAL_REQUIRED",
+        "REVIEWER_CONFLICT_INFORMATION_REQUIRED"
+      ]
+    },
+    {
+      "caseId": "SEM3-CAL-CORTISOL-SAMPLING-SUMMARY",
+      "reviewUnitId": "SEM3B3-RU-CAL-CORTISOL-SAMPLING-SUMMARY",
+      "status": "HUMAN_REVIEW_REQUIRED",
+      "exposureStatus": "DESIGN_ONLY",
+      "promotionApplied": false,
+      "eligibleForCalibration": false,
+      "eligibleForBlindQualification": false,
+      "requiredDecisionTypes": [
+        "SCIENTIFIC_REFERENCE",
+        "CALIBRATION_ADMISSION",
+        "PARENTAGE",
+        "METHODOLOGICAL_REFERENCE"
+      ],
+      "recommendedReviewerCompetencies": [
+        "SCIENTIFIC_DOMAIN",
+        "METHODOLOGICAL_SEM",
+        "PD009_CLARIFICATION",
+        "OBS_MEASUREMENT"
+      ],
+      "unmetGates": [
+        "PLURALISTIC_SCIENTIFIC_REFERENCE_REVIEW_REQUIRED",
+        "METHODOLOGICAL_REVIEW_REQUIRED",
+        "PARENTAGE_REVIEW_REQUIRED",
+        "CONTAMINATION_REVIEW_REQUIRED",
+        "CALIBRATION_APPROVAL_REQUIRED",
+        "REVIEWER_CONFLICT_INFORMATION_REQUIRED"
+      ]
+    },
+    {
+      "caseId": "SEM3-CAL-MSK-INFLAMMATION-RESPONSE",
+      "reviewUnitId": "SEM3B3-RU-CAL-MSK-INFLAMMATION-RESPONSE",
+      "status": "HUMAN_REVIEW_REQUIRED",
+      "exposureStatus": "DESIGN_ONLY",
+      "promotionApplied": false,
+      "eligibleForCalibration": false,
+      "eligibleForBlindQualification": false,
+      "requiredDecisionTypes": [
+        "SCIENTIFIC_REFERENCE",
+        "CALIBRATION_ADMISSION",
+        "PARENTAGE"
+      ],
+      "recommendedReviewerCompetencies": [
+        "SCIENTIFIC_DOMAIN",
+        "METHODOLOGICAL_SEM",
+        "PD009_CLARIFICATION"
+      ],
+      "unmetGates": [
+        "PLURALISTIC_SCIENTIFIC_REFERENCE_REVIEW_REQUIRED",
+        "PARENTAGE_REVIEW_REQUIRED",
+        "CONTAMINATION_REVIEW_REQUIRED",
+        "CALIBRATION_APPROVAL_REQUIRED",
+        "REVIEWER_CONFLICT_INFORMATION_REQUIRED"
+      ]
+    },
+    {
+      "caseId": "SEM3-CAL-NEURODEGENERATION-PROGRESSION",
+      "reviewUnitId": "SEM3B3-RU-CAL-NEURODEGENERATION-PROGRESSION",
+      "status": "HUMAN_REVIEW_REQUIRED",
+      "exposureStatus": "DESIGN_ONLY",
+      "promotionApplied": false,
+      "eligibleForCalibration": false,
+      "eligibleForBlindQualification": false,
+      "requiredDecisionTypes": [
+        "SCIENTIFIC_REFERENCE",
+        "CALIBRATION_ADMISSION",
+        "PARENTAGE",
+        "METHODOLOGICAL_REFERENCE"
+      ],
+      "recommendedReviewerCompetencies": [
+        "SCIENTIFIC_DOMAIN",
+        "METHODOLOGICAL_SEM",
+        "OBS_MEASUREMENT"
+      ],
+      "unmetGates": [
+        "PLURALISTIC_SCIENTIFIC_REFERENCE_REVIEW_REQUIRED",
+        "METHODOLOGICAL_REVIEW_REQUIRED",
+        "PARENTAGE_REVIEW_REQUIRED",
+        "CONTAMINATION_REVIEW_REQUIRED",
+        "CALIBRATION_APPROVAL_REQUIRED",
+        "REVIEWER_CONFLICT_INFORMATION_REQUIRED"
+      ]
+    },
+    {
+      "caseId": "SEM3-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+      "reviewUnitId": "SEM3B3-RU-CAL-ORGANOID-LIVE-SIGNAL-MEASUREMENT",
+      "status": "HUMAN_REVIEW_REQUIRED",
+      "exposureStatus": "DESIGN_ONLY",
+      "promotionApplied": false,
+      "eligibleForCalibration": false,
+      "eligibleForBlindQualification": false,
+      "requiredDecisionTypes": [
+        "SCIENTIFIC_REFERENCE",
+        "CALIBRATION_ADMISSION",
+        "PARENTAGE",
+        "METHODOLOGICAL_REFERENCE"
+      ],
+      "recommendedReviewerCompetencies": [
+        "SCIENTIFIC_DOMAIN",
+        "METHODOLOGICAL_SEM",
+        "OBS_MEASUREMENT"
+      ],
+      "unmetGates": [
+        "PLURALISTIC_SCIENTIFIC_REFERENCE_REVIEW_REQUIRED",
+        "METHODOLOGICAL_REVIEW_REQUIRED",
+        "PARENTAGE_REVIEW_REQUIRED",
+        "CONTAMINATION_REVIEW_REQUIRED",
+        "CALIBRATION_APPROVAL_REQUIRED",
+        "REVIEWER_CONFLICT_INFORMATION_REQUIRED"
+      ]
+    },
+    {
+      "caseId": "SEM3-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+      "reviewUnitId": "SEM3B3-RU-CAL-OVARIAN-ULTRASOUND-AMBIGUITY",
+      "status": "HUMAN_REVIEW_REQUIRED",
+      "exposureStatus": "DESIGN_ONLY",
+      "promotionApplied": false,
+      "eligibleForCalibration": false,
+      "eligibleForBlindQualification": false,
+      "requiredDecisionTypes": [
+        "SCIENTIFIC_REFERENCE",
+        "CALIBRATION_ADMISSION",
+        "PARENTAGE",
+        "AMBIGUITY",
+        "METHODOLOGICAL_REFERENCE"
+      ],
+      "recommendedReviewerCompetencies": [
+        "SCIENTIFIC_DOMAIN",
+        "METHODOLOGICAL_SEM",
+        "PD009_CLARIFICATION",
+        "OBS_MEASUREMENT"
+      ],
+      "unmetGates": [
+        "PLURALISTIC_SCIENTIFIC_REFERENCE_REVIEW_REQUIRED",
+        "METHODOLOGICAL_REVIEW_REQUIRED",
+        "AMBIGUITY_DISPOSITION_REQUIRED",
+        "PARENTAGE_REVIEW_REQUIRED",
+        "CONTAMINATION_REVIEW_REQUIRED",
+        "CALIBRATION_APPROVAL_REQUIRED",
+        "REVIEWER_CONFLICT_INFORMATION_REQUIRED"
+      ]
+    },
+    {
+      "caseId": "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
+      "reviewUnitId": "SEM3B3-RU-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP",
+      "status": "HUMAN_REVIEW_REQUIRED",
+      "exposureStatus": "DESIGN_ONLY",
+      "promotionApplied": false,
+      "eligibleForCalibration": false,
+      "eligibleForBlindQualification": false,
+      "requiredDecisionTypes": [
+        "SCIENTIFIC_REFERENCE",
+        "CALIBRATION_ADMISSION",
+        "PARENTAGE",
+        "METHODOLOGICAL_REFERENCE"
+      ],
+      "recommendedReviewerCompetencies": [
+        "SCIENTIFIC_DOMAIN",
+        "METHODOLOGICAL_SEM",
+        "OBS_MEASUREMENT"
+      ],
+      "unmetGates": [
+        "PLURALISTIC_SCIENTIFIC_REFERENCE_REVIEW_REQUIRED",
+        "METHODOLOGICAL_REVIEW_REQUIRED",
+        "PARENTAGE_REVIEW_REQUIRED",
+        "CONTAMINATION_REVIEW_REQUIRED",
+        "CALIBRATION_APPROVAL_REQUIRED",
+        "REVIEWER_CONFLICT_INFORMATION_REQUIRED"
+      ]
+    },
+    {
+      "caseId": "SEM3-CAL-TRIAL-COMPARATOR-DECISION",
+      "reviewUnitId": "SEM3B3-RU-CAL-TRIAL-COMPARATOR-DECISION",
+      "status": "HUMAN_REVIEW_REQUIRED",
+      "exposureStatus": "DESIGN_ONLY",
+      "promotionApplied": false,
+      "eligibleForCalibration": false,
+      "eligibleForBlindQualification": false,
+      "requiredDecisionTypes": [
+        "SCIENTIFIC_REFERENCE",
+        "CALIBRATION_ADMISSION",
+        "PARENTAGE",
+        "AMBIGUITY"
+      ],
+      "recommendedReviewerCompetencies": [
+        "SCIENTIFIC_DOMAIN",
+        "METHODOLOGICAL_SEM",
+        "PD009_CLARIFICATION"
+      ],
+      "unmetGates": [
+        "PLURALISTIC_SCIENTIFIC_REFERENCE_REVIEW_REQUIRED",
+        "AMBIGUITY_DISPOSITION_REQUIRED",
+        "PARENTAGE_REVIEW_REQUIRED",
+        "CONTAMINATION_REVIEW_REQUIRED",
+        "CALIBRATION_APPROVAL_REQUIRED",
+        "REVIEWER_CONFLICT_INFORMATION_REQUIRED"
+      ]
+    }
+  ],
+  "calibrationPerformed": false,
+  "metricsComputed": false,
+  "thresholdsFixed": false,
+  "nFixed": false
+}

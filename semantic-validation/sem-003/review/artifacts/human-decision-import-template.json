@@ -1,0 +1,39 @@
+{
+  "templateOnly": true,
+  "schema": "semantic-validation/sem-003/review/contracts/human-decision-record.schema.json",
+  "instructions": [
+    "Create one JSON record per reviewer, Case and review type.",
+    "Do not place a template or draft in decision-records/.",
+    "A pseudonymous stable reviewerRef is accepted; do not invent independence or conflict information.",
+    "ACCEPT_WITH_REVISION and AMBIGUITY_REVISED require a complete revision plan."
+  ],
+  "fields": {
+    "schemaVersion": "1.0.0",
+    "contractType": "SEM003B3_HUMAN_REFERENCE_DECISION_RECORD",
+    "decisionId": "SEM3B3-HDR-TO-BE-ASSIGNED",
+    "caseId": "SEM3-CAL-TO-BE-SELECTED",
+    "reviewUnitId": "SEM3B3-RU-CAL-TO-BE-SELECTED",
+    "reviewType": "SCIENTIFIC_REFERENCE",
+    "reviewerRef": "REVIEWER-TO-BE-ASSIGNED",
+    "reviewerRole": "TO_BE_COMPLETED_BY_HUMAN",
+    "competencies": [
+      "TO_BE_COMPLETED_BY_HUMAN"
+    ],
+    "decision": "TO_BE_COMPLETED_BY_HUMAN",
+    "recommendedDisposition": null,
+    "rationale": "TO_BE_COMPLETED_BY_HUMAN",
+    "scope": "TO_BE_COMPLETED_BY_HUMAN",
+    "createdAt": "TO_BE_COMPLETED_BY_HUMAN",
+    "conflictDeclared": "TO_BE_COMPLETED_BY_HUMAN",
+    "independenceDeclaration": "TO_BE_COMPLETED_BY_HUMAN",
+    "sourceCaseVersion": "1.0.0",
+    "sourceEnvelopeVersion": "1.0.0",
+    "reviewItemIds": [],
+    "evidenceReviewed": [
+      "TO_BE_COMPLETED_BY_HUMAN"
+    ],
+    "supersedes": null,
+    "authority": "HUMAN_REFERENCE_REVIEW",
+    "status": "FINAL"
+  }
+}
