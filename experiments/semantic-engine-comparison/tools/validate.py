@@ -138,16 +138,24 @@ def main() -> int:
         Draft7Validator.check_schema(load_json(schema_path))
     checks.append(("C07_LOCAL_SCHEMAS_VALID", True, f"schemas={len(list((ROOT / 'contracts').glob('*.schema.json')))}"))
 
-    evaluator_identity = load_json(REPOSITORY_ROOT / "semantic-validation" / "sem-003" / "evaluator" / "registry" / "evaluator-identity.json")
-    identity_ok = evaluator_identity["version"] == "1.1.0" and evaluator_identity["configurationDigest"] == index["targetEvaluator"]["configurationDigest"]
-    checks.append(("C08_EVALUATOR_IDENTITY", identity_ok, evaluator_identity["configurationDigest"]))
+    evaluator_registry = REPOSITORY_ROOT / "semantic-validation" / "sem-003" / "evaluator" / "registry"
+    evaluator_identity = load_json(evaluator_registry / "evaluator-identity.json")
+    evaluator_binding = load_json(evaluator_registry / "sem003c1r-comparative-evaluator-binding.json")
+    identity_ok = (
+        evaluator_identity["version"] == "1.2.0"
+        and evaluator_identity["configurationDigest"] == evaluator_binding["evaluator"]["configurationDigest"]
+        and index["targetEvaluator"]["version"] == "1.1.0"
+        and evaluator_binding["sourceComparativeFreeze"]["freezeDigest"] == index["freezeDigest"]
+    )
+    checks.append(("C08_EVALUATOR_BINDING", identity_ok, evaluator_identity["configurationDigest"]))
 
     evaluator_schema_path = REPOSITORY_ROOT / "semantic-validation" / "sem-003" / "evaluator" / "contracts" / "candidate-semantic-representation.schema.json"
     evaluator_schema = load_json(evaluator_schema_path)
     purposes = set(evaluator_schema["properties"]["purpose"]["enum"])
-    qualification_missing = "SCIENTIFIC_UNDERSTANDING_BLIND_QUALIFICATION" not in purposes
+    blind_purpose = "SCIENTIFIC_UNDERSTANDING_EVALUATOR_BLIND_QUALIFICATION"
+    qualification_present = blind_purpose in purposes and evaluator_binding["purpose"] == blind_purpose
     gate_recorded = index["commonCampaignGate"] == "EVALUATOR_1_1_0_QUALIFICATION_PURPOSE_ENUM_REQUIRES_GOVERNED_RESOLUTION"
-    checks.append(("C09_KNOWN_EVALUATOR_GATE_EXPLICIT", qualification_missing and gate_recorded, ",".join(sorted(purposes))))
+    checks.append(("C09_EVALUATOR_GATE_REPAIRED_BY_EXTERNAL_BINDING", qualification_present and gate_recorded, ",".join(sorted(purposes))))
 
     case, projection, normalized = sample_normalized()
     conservation_ok = len(normalized.semanticElements) == len(projection.concepts) and len(normalized.semanticRelations) == len(projection.relations)
@@ -167,8 +175,10 @@ def main() -> int:
         ownershipBoundaries=[OwnershipBinding(boundaryId="own-project-adoption", prohibitedAdoptedSemanticKeys=["concept.a"])],
     )
     evaluator_candidate = bind_to_sem003_evaluator_1_1_0(normalized, binding)
+    evaluator_candidate["schemaVersion"] = "1.2.0"
+    evaluator_candidate["purpose"] = evaluator_binding["purpose"]
     evaluator_errors = list(Draft7Validator(evaluator_schema).iter_errors(evaluator_candidate))
-    checks.append(("C11_EVALUATOR_BRIDGE_DEVELOPMENT_PROOF", not evaluator_errors, evaluator_errors[0].message if evaluator_errors else "schema-valid"))
+    checks.append(("C11_EVALUATOR_BRIDGE_WITH_C1R_BINDING_PROOF", not evaluator_errors, evaluator_errors[0].message if evaluator_errors else "schema-valid"))
 
     results = [path for path in (ROOT / "results").iterdir() if path.name != "README.md"]
     checks.append(("C12_RESULTS_EMPTY", not results, f"unexpected={len(results)}"))

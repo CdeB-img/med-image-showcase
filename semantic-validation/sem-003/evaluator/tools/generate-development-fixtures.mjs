@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { computeEvaluatorIdentity } from "../core/versioning.mjs";
+import { SEM003_EVALUATOR_VERSION } from "../core/identity.mjs";
 
 const TOOL_ROOT = path.dirname(fileURLToPath(import.meta.url));
 const EVALUATOR_ROOT = path.resolve(TOOL_ROOT, "..");
@@ -20,7 +21,6 @@ const B3_EQUIVALENCE_PATH = path.resolve(
   "../review/artifacts/equivalence-review-status.json",
 );
 
-const EVALUATOR_VERSION = "1.1.0";
 const CHECK_ONLY = process.argv.includes("--check");
 
 const SEM003_PROPERTY_ORDER = Object.freeze([
@@ -514,7 +514,7 @@ const buildCoverage = async ({ pairs, fixtures, matrix, propertyRegistry }) => {
   return {
     schemaVersion: "1.0.0",
     contractType: "SEM003_EVALUATOR_DEVELOPMENT_COVERAGE",
-    evaluatorVersion: EVALUATOR_VERSION,
+    evaluatorVersion: SEM003_EVALUATOR_VERSION,
     evaluatorConfigurationDigest: readJson(
       path.resolve(REGISTRY_ROOT, "evaluator-identity.json"),
     ).configurationDigest,

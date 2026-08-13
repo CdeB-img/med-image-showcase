@@ -1,13 +1,13 @@
 {
   "schemaVersion": "1.0.0",
   "contractType": "SEM003_EVALUATOR_IDENTITY",
-  "version": "1.1.0",
-  "configurationDigest": "b05bc0ac66cb3e4dc5f135ba278cac8cadebe7443e57b1003dca580c9bd0e9bd",
+  "version": "1.2.0",
+  "configurationDigest": "c8b79236fafabfe7745b66c182daff8c89b9e6aaa1f4cd1ae00b0fe60bd948bb",
   "authorityVersions": {
     "SEM002": "1.0",
     "SEM003": "1.0",
     "acceptanceEnvelopeContract": "1.0.0",
-    "candidateSemanticRepresentationContract": "1.1.0",
+    "candidateSemanticRepresentationContract": "1.2.0",
     "adjudicationContract": "1.1.0"
   },
   "coveredComponents": [
@@ -43,11 +43,11 @@
     },
     {
       "path": "semantic-validation/sem-003/evaluator/contracts/candidate-semantic-representation.schema.json",
-      "sha256": "c05d47df87375a4b8bd217b7bc3f25cc3c2f8cdb903ef9ab7439086f51f892b8"
+      "sha256": "477169fd2ac59a4ba3d9059daefa13030676bb533a6577a1cdabd410692c8a9a"
     },
     {
       "path": "semantic-validation/sem-003/evaluator/contracts/evaluation-input.schema.json",
-      "sha256": "7bbedd5d83fc25ec6de30a7e4dc8c706295fdb4e1e347982963a749593aaf60f"
+      "sha256": "90accb9b44756bc6d9ed780268a2ecc08ea92928df7d98eabcb91319ff76185f"
     },
     {
       "path": "semantic-validation/sem-003/evaluator/contracts/evaluation-result.schema.json",
@@ -71,11 +71,11 @@
     },
     {
       "path": "semantic-validation/sem-003/evaluator/core/evaluator.mjs",
-      "sha256": "8a51dee4065020f7109ee9e0fbb55b4d6fcccf668e2b10a7d704d41a7088acf5"
+      "sha256": "84c926c57f0f0af2cfd908b5fed6998fbee3573361ba101676154d7053a7057a"
     },
     {
       "path": "semantic-validation/sem-003/evaluator/core/identity.mjs",
-      "sha256": "6f1a6f0c37d78a344846b35375bf96ea737ca1039f8af92895657459e882efb5"
+      "sha256": "ccaa1201c1adcba453d4a2a710165dd3f3563addebaea61e2465e651cc83a443"
     },
     {
       "path": "semantic-validation/sem-003/evaluator/core/registry.mjs",
@@ -83,7 +83,7 @@
     },
     {
       "path": "semantic-validation/sem-003/evaluator/core/versioning.mjs",
-      "sha256": "39bb3ffd4ef42f4125c0104ff10543d57c85412e619a5807d4b23590599d81f9"
+      "sha256": "1f434d12eecddc1248f0d329c13a41eddcbcb296810f2cf0fae50e282651b53f"
     },
     {
       "path": "semantic-validation/sem-003/evaluator/registry/adjudication-authority-capabilities.json",

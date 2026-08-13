@@ -53,7 +53,7 @@ export const computeEvaluatorIdentity = () => {
     SEM002: "1.0",
     SEM003: "1.0",
     acceptanceEnvelopeContract: "1.0.0",
-    candidateSemanticRepresentationContract: "1.1.0",
+    candidateSemanticRepresentationContract: "1.2.0",
     adjudicationContract: "1.1.0",
   };
   const configurationDigest = sha256(

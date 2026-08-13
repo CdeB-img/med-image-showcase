@@ -29,12 +29,13 @@
     "adjudicationClaims"
   ],
   "properties": {
-    "schemaVersion": { "enum": ["1.0.0", "1.1.0"] },
+    "schemaVersion": { "enum": ["1.0.0", "1.1.0", "1.2.0"] },
     "contractType": { "const": "BENCHMARK_EVALUATION_CANDIDATE" },
     "purpose": {
       "enum": [
         "SCIENTIFIC_UNDERSTANDING_EVALUATOR_DEVELOPMENT",
-        "SCIENTIFIC_UNDERSTANDING_EVALUATOR_CALIBRATION"
+        "SCIENTIFIC_UNDERSTANDING_EVALUATOR_CALIBRATION",
+        "SCIENTIFIC_UNDERSTANDING_EVALUATOR_BLIND_QUALIFICATION"
       ]
     },
     "candidateId": { "type": "string", "pattern": "^SEM3-EVAL-CAND-[A-Z0-9][A-Z0-9-]{2,95}$" },
@@ -105,12 +106,31 @@
   },
   "allOf": [
     {
+      "if": { "properties": { "evaluationMode": { "const": "DEVELOPMENT_SYNTHETIC" } } },
+      "then": {
+        "properties": {
+          "purpose": { "const": "SCIENTIFIC_UNDERSTANDING_EVALUATOR_DEVELOPMENT" },
+          "sourceType": { "const": "EVALUATOR_DEVELOPMENT_SYNTHETIC" }
+        }
+      }
+    },
+    {
       "if": { "properties": { "evaluationMode": { "const": "CALIBRATION_SYNTHETIC" } } },
       "then": {
         "properties": {
           "schemaVersion": { "const": "1.1.0" },
           "purpose": { "const": "SCIENTIFIC_UNDERSTANDING_EVALUATOR_CALIBRATION" },
           "sourceType": { "const": "B4_SYNTHETIC_CALIBRATION" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "evaluationMode": { "const": "FUTURE_SEM_RUNTIME" } } },
+      "then": {
+        "properties": {
+          "schemaVersion": { "const": "1.2.0" },
+          "purpose": { "const": "SCIENTIFIC_UNDERSTANDING_EVALUATOR_BLIND_QUALIFICATION" },
+          "sourceType": { "const": "FUTURE_SEM_RUNTIME_OUTPUT" }
         }
       }
     }

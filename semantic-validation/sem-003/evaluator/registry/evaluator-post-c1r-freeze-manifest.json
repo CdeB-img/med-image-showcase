@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003_EVALUATOR_POST_C1R_FREEZE_MANIFEST",
+  "freezeId": "SEM003C1R-EVALUATOR-FREEZE-01",
+  "evaluatorVersion": "1.2.0",
+  "previousEvaluatorVersion": "1.1.0",
+  "configurationDigest": "c8b79236fafabfe7745b66c182daff8c89b9e6aaa1f4cd1ae00b0fe60bd948bb",
+  "previousConfigurationDigest": "b05bc0ac66cb3e4dc5f135ba278cac8cadebe7443e57b1003dca580c9bd0e9bd",
+  "codeDigest": "ede72b63c5304204b97188588df4ce6d62b16d090e4bf5aeb468568009bd3860",
+  "schemasDigest": "7fc2cd1745d380a2ffbe3002ab985c1a8f040e95b12df61f326410afa2f9ac62",
+  "propertyRegistryDigest": "f0db9a687df425fd844c80580914bb91b3c5382663307fa9aea696015c876a70",
+  "failureTaxonomyDigest": "a5e45a03676b049c8a6478c66dfbd218fcd29954e48e38cc74ab850b6a950e2b",
+  "supportedModes": [
+    "DEVELOPMENT_SYNTHETIC",
+    "CALIBRATION_SYNTHETIC",
+    "FUTURE_SEM_RUNTIME",
+    "HUMAN_ADJUDICATION"
+  ],
+  "supportedPurposes": [
+    "SCIENTIFIC_UNDERSTANDING_EVALUATOR_DEVELOPMENT",
+    "SCIENTIFIC_UNDERSTANDING_EVALUATOR_CALIBRATION",
+    "SCIENTIFIC_UNDERSTANDING_EVALUATOR_BLIND_QUALIFICATION"
+  ],
+  "blindQualificationPurpose": "SCIENTIFIC_UNDERSTANDING_EVALUATOR_BLIND_QUALIFICATION",
+  "developmentFixtureCount": 41,
+  "developmentFixturesDigest": "b50a7f795fea663d911edf7f6334e8dc9ab2ba4334ceceee1a2f57f7a8f3e420",
+  "c1rContractTestsDigest": "67513ce47d5ab8547f1ea950bf89858e3d979e6ee55746265cf1e326e57d39e0",
+  "historicalB4RFreezeDigest": "f22f98135ec2118d6a78bb017544d317ff0481f923dab54fbe2a13e25123804d",
+  "comparativeBindingDigest": "b7444f90622992286ef21c425c26142a517a7c6e33c2bd66cd4e3f136dad4279",
+  "protectedComparativeArtifacts": {
+    "fileCount": 30,
+    "digest": "e7262acbdfdbd7100f85c1e442e64f8698ca9b93b43fceda6407be80885f4d28",
+    "originalFreezeDigest": "6373b7b04838e75582048becb2efdf075b644740f1d3f6bbb381809ecdc010f1",
+    "baselineCount": 6
+  },
+  "changeClassification": "ADDITIVE_PURPOSE_AND_MODE_BINDING_REPAIR",
+  "propertiesP01ToP18Changed": false,
+  "failureClassesChanged": false,
+  "level1RulesChanged": false,
+  "level2RulesChanged": false,
+  "thresholdsChanged": false,
+  "acceptanceEnvelopesChanged": false,
+  "blindCasesChanged": false,
+  "baselineCodeOrConfigurationChanged": false,
+  "semanticAdaptersChanged": false,
+  "blindAccessed": false,
+  "sealedReferenceAccessed": false,
+  "blindExecuted": false,
+  "providerCalls": 0,
+  "decision": "SEM003C1R_BLIND_QUALIFICATION_CONTRACT_READY",
+  "next": "SEM-003D-COMP — Common Blind Comparative Qualification Campaign",
+  "createdAt": "2026-08-14T12:00:00.000+02:00"
+}

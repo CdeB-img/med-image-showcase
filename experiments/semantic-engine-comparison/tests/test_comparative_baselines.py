@@ -92,7 +92,7 @@ class ComparativeBaselineTests(unittest.TestCase):
         self.assertEqual(candidate["obligationMappings"][0]["status"], "PRESERVED")
         self.assertEqual(candidate["obligationMappings"][1]["status"], "OMITTED")
 
-    def test_bridge_output_satisfies_evaluator_1_1_schema_for_development_proof(self):
+    def test_frozen_bridge_plus_external_binding_satisfies_active_evaluator_schema(self):
         normalized = normalize_projection(baseline_id="SEM003C1-INSTRUCTOR-PYDANTIC-01", run_id="run-1", case=case(), native=projection())
         binding = EvaluatorBinding(
             candidateId="SEM3-EVAL-CAND-COMPARATIVE-TEST",
@@ -104,6 +104,9 @@ class ComparativeBaselineTests(unittest.TestCase):
             requirements=[], prohibitions=[], optionalCandidates=[], ambiguities=[], ownershipBoundaries=[],
         )
         candidate = bind_to_sem003_evaluator_1_1_0(normalized, binding)
+        external_binding = json.loads((REPOSITORY_ROOT / "semantic-validation/sem-003/evaluator/registry/sem003c1r-comparative-evaluator-binding.json").read_text())
+        candidate["schemaVersion"] = "1.2.0"
+        candidate["purpose"] = external_binding["purpose"]
         schema = json.loads((REPOSITORY_ROOT / "semantic-validation/sem-003/evaluator/contracts/candidate-semantic-representation.schema.json").read_text())
         self.assertEqual(list(Draft7Validator(schema).iter_errors(candidate)), [])
 
@@ -121,11 +124,14 @@ class ComparativeBaselineTests(unittest.TestCase):
     def test_results_directory_contains_policy_only(self):
         self.assertEqual(sorted(path.name for path in (ROOT / "results").iterdir()), ["README.md"])
 
-    def test_evaluator_qualification_purpose_gap_is_not_hidden(self):
+    def test_evaluator_qualification_purpose_repair_preserves_the_original_freeze(self):
         schema = json.loads((REPOSITORY_ROOT / "semantic-validation/sem-003/evaluator/contracts/candidate-semantic-representation.schema.json").read_text())
-        self.assertNotIn("SCIENTIFIC_UNDERSTANDING_BLIND_QUALIFICATION", schema["properties"]["purpose"]["enum"])
+        self.assertIn("SCIENTIFIC_UNDERSTANDING_EVALUATOR_BLIND_QUALIFICATION", schema["properties"]["purpose"]["enum"])
         freeze = json.loads((ROOT / "manifests/freeze-index.json").read_text())
         self.assertEqual(freeze["decision"], "SEM003C1_COMPARATIVE_BASELINES_PARTIAL")
+        binding = json.loads((REPOSITORY_ROOT / "semantic-validation/sem-003/evaluator/registry/sem003c1r-comparative-evaluator-binding.json").read_text())
+        self.assertEqual(binding["sourceComparativeFreeze"]["freezeDigest"], freeze["freezeDigest"])
+        self.assertFalse(binding["baselineCodeOrConfigurationChanged"])
 
 
 if __name__ == "__main__":

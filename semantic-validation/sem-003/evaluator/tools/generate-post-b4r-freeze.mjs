@@ -40,6 +40,15 @@ const collectionDigest = (files) =>
   );
 
 const identity = computeEvaluatorIdentity();
+if (
+  identity.version !== "1.1.0" ||
+  identity.configurationDigest !==
+    "b05bc0ac66cb3e4dc5f135ba278cac8cadebe7443e57b1003dca580c9bd0e9bd"
+) {
+  throw new Error(
+    "The post-B4R freeze is historical and cannot be regenerated from a successor Evaluator identity",
+  );
+}
 const recordedIdentity = JSON.parse(
   fs.readFileSync(path.resolve(EVALUATOR_ROOT, "registry/evaluator-identity.json"), "utf8"),
 );

@@ -82,6 +82,7 @@ const assertEvaluationBindings = (input) => {
   if (
     evaluationMode === "DEVELOPMENT_SYNTHETIC" &&
     (candidateOutput.sourceType !== "EVALUATOR_DEVELOPMENT_SYNTHETIC" ||
+      candidateOutput.purpose !== "SCIENTIFIC_UNDERSTANDING_EVALUATOR_DEVELOPMENT" ||
       benchmarkCase.purpose !== "DEVELOPMENT_AUTHORING" ||
       benchmarkCase.exposure.exposureStatus !== "DEVELOPMENT_VISIBLE")
   ) {
@@ -106,11 +107,13 @@ const assertEvaluationBindings = (input) => {
   }
   if (
     evaluationMode === "FUTURE_SEM_RUNTIME" &&
-    candidateOutput.sourceType !== "FUTURE_SEM_RUNTIME_OUTPUT"
+    (candidateOutput.sourceType !== "FUTURE_SEM_RUNTIME_OUTPUT" ||
+      candidateOutput.purpose !==
+        "SCIENTIFIC_UNDERSTANDING_EVALUATOR_BLIND_QUALIFICATION")
   ) {
     throw contractError(
       "RUNTIME_MODE_BOUNDARY_VIOLATION",
-      "FUTURE_SEM_RUNTIME requires a future runtime adapter output",
+      "FUTURE_SEM_RUNTIME requires a Blind Qualification candidate and a future runtime adapter output",
     );
   }
   if (

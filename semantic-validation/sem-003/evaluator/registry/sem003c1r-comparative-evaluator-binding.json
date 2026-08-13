@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003C1R_COMPARATIVE_EVALUATOR_BINDING",
+  "bindingId": "SEM003C1R-COMMON-BLIND-EVALUATOR-BINDING-01",
+  "status": "FROZEN_PRE_BLIND_EXECUTION",
+  "sourceComparativeFreeze": {
+    "freezeId": "SEM003C1-COMPARATIVE-BASELINES-FREEZE-01",
+    "freezeDigest": "6373b7b04838e75582048becb2efdf075b644740f1d3f6bbb381809ecdc010f1",
+    "previousEvaluatorVersion": "1.1.0",
+    "previousEvaluatorConfigurationDigest": "b05bc0ac66cb3e4dc5f135ba278cac8cadebe7443e57b1003dca580c9bd0e9bd",
+    "baselineIds": [
+      "SEM003C1-SEM-CURRENT-01",
+      "SEM003C1-INSTRUCTOR-PYDANTIC-01",
+      "SEM003C1-PYDANTICAI-01",
+      "SEM003C1-DSPY-01",
+      "SEM003C1-LANGEXTRACT-01",
+      "SEM003C1-OUTLINES-01"
+    ]
+  },
+  "evaluator": {
+    "version": "1.2.0",
+    "configurationDigest": "c8b79236fafabfe7745b66c182daff8c89b9e6aaa1f4cd1ae00b0fe60bd948bb"
+  },
+  "evaluationMode": "FUTURE_SEM_RUNTIME",
+  "purpose": "SCIENTIFIC_UNDERSTANDING_EVALUATOR_BLIND_QUALIFICATION",
+  "sourceType": "FUTURE_SEM_RUNTIME_OUTPUT",
+  "appliesUniformlyToAllBaselines": true,
+  "baselineCodeOrConfigurationChanged": false,
+  "semanticAdapterChanged": false,
+  "baselineManifestsRegenerated": false,
+  "blindAccessed": false,
+  "sealedReferenceAccessed": false,
+  "blindExecuted": false,
+  "providerCalls": 0,
+  "createdAt": "2026-08-14T12:00:00.000+02:00"
+}

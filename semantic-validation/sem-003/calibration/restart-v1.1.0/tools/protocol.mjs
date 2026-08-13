@@ -20,6 +20,8 @@ export const ARTIFACT_ROOT = path.resolve(RESTART_ROOT, "artifacts");
 export const EVALUATOR_VERSION = "1.1.0";
 export const EVALUATOR_CONFIGURATION_DIGEST =
   "b05bc0ac66cb3e4dc5f135ba278cac8cadebe7443e57b1003dca580c9bd0e9bd";
+export const EVALUATOR_IDENTITY_SHA256_AT_FREEZE =
+  "6b592f4c30580e3a7ae52a511f027d6246f1b87cd7d015185a413fbe6ff6f997";
 export const FREEZE_TIMESTAMP = "2026-08-13T22:00:00.000Z";
 export const BASELINE_HEAD = "1ed85df";
 
@@ -584,7 +586,7 @@ export const buildFrozenArtifacts = () => {
       version: EVALUATOR_VERSION,
       configurationDigest: EVALUATOR_CONFIGURATION_DIGEST,
       identityPath: relative(EVALUATOR_IDENTITY_PATH),
-      identitySha256: fileSha256(EVALUATOR_IDENTITY_PATH),
+      identitySha256: EVALUATOR_IDENTITY_SHA256_AT_FREEZE,
       mutationAuthorizedAfterFreeze: false,
     },
     referenceSet: {
