@@ -1,0 +1,527 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003_EVALUATOR_DEVELOPMENT_TEST_MATRIX",
+  "evaluatorMode": "DEVELOPMENT_SYNTHETIC",
+  "rows": [
+    {
+      "fixture": "fixtures/development/body-composition-ambiguity-baseline.candidate.json",
+      "caseId": "SEM3-DEV-BODY-COMPOSITION-AMBIGUITY",
+      "candidateId": "SEM3-EVAL-CAND-BODY-COMPOSITION-AMBIGUITY-BASELINE",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "PASS",
+        "level2": "ADJUDICATION_REQUIRED",
+        "disposition": "NOT_EVALUABLE"
+      },
+      "purpose": "Positive explicit mapping for all applicable absolute properties; statistical properties remain governed adjudication mechanics."
+    },
+    {
+      "fixture": "fixtures/development/cardiac-aging-trajectory-baseline.candidate.json",
+      "caseId": "SEM3-DEV-CARDIAC-AGING-TRAJECTORY",
+      "candidateId": "SEM3-EVAL-CAND-CARDIAC-AGING-TRAJECTORY-BASELINE",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "PASS",
+        "level2": "ADJUDICATION_REQUIRED",
+        "disposition": "NOT_EVALUABLE"
+      },
+      "purpose": "Positive explicit mapping for all applicable absolute properties; statistical properties remain governed adjudication mechanics."
+    },
+    {
+      "fixture": "fixtures/development/coronary-perfusion-priority-baseline.candidate.json",
+      "caseId": "SEM3-DEV-CORONARY-PERFUSION-PRIORITY",
+      "candidateId": "SEM3-EVAL-CAND-CORONARY-PERFUSION-PRIORITY-BASELINE",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "PASS",
+        "level2": "ADJUDICATION_REQUIRED",
+        "disposition": "NOT_EVALUABLE"
+      },
+      "purpose": "Positive explicit mapping for all applicable absolute properties; statistical properties remain governed adjudication mechanics."
+    },
+    {
+      "fixture": "fixtures/development/ct-functional-estimate-role-baseline.candidate.json",
+      "caseId": "SEM3-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
+      "candidateId": "SEM3-EVAL-CAND-CT-FUNCTIONAL-ESTIMATE-ROLE-BASELINE",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "PASS",
+        "level2": "ADJUDICATION_REQUIRED",
+        "disposition": "NOT_EVALUABLE"
+      },
+      "purpose": "Positive explicit mapping for all applicable absolute properties; statistical properties remain governed adjudication mechanics."
+    },
+    {
+      "fixture": "fixtures/development/inflammation-multidimensional-baseline.candidate.json",
+      "caseId": "SEM3-DEV-INFLAMMATION-MULTIDIMENSIONAL",
+      "candidateId": "SEM3-EVAL-CAND-INFLAMMATION-MULTIDIMENSIONAL-BASELINE",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "PASS",
+        "level2": "ADJUDICATION_REQUIRED",
+        "disposition": "NOT_EVALUABLE"
+      },
+      "purpose": "Positive explicit mapping for all applicable absolute properties; statistical properties remain governed adjudication mechanics."
+    },
+    {
+      "fixture": "fixtures/development/intestinal-motility-method-baseline.candidate.json",
+      "caseId": "SEM3-DEV-INTESTINAL-MOTILITY-METHOD",
+      "candidateId": "SEM3-EVAL-CAND-INTESTINAL-MOTILITY-METHOD-BASELINE",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "PASS",
+        "level2": "ADJUDICATION_REQUIRED",
+        "disposition": "NOT_EVALUABLE"
+      },
+      "purpose": "Positive explicit mapping for all applicable absolute properties; statistical properties remain governed adjudication mechanics."
+    },
+    {
+      "fixture": "fixtures/development/outcome-priority-change-baseline.candidate.json",
+      "caseId": "SEM3-DEV-OUTCOME-PRIORITY-CHANGE",
+      "candidateId": "SEM3-EVAL-CAND-OUTCOME-PRIORITY-CHANGE-BASELINE",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "PASS",
+        "level2": "ADJUDICATION_REQUIRED",
+        "disposition": "NOT_EVALUABLE"
+      },
+      "purpose": "Positive explicit mapping for all applicable absolute properties; statistical properties remain governed adjudication mechanics."
+    },
+    {
+      "fixture": "fixtures/development/pancreatic-composition-longitudinal-baseline.candidate.json",
+      "caseId": "SEM3-DEV-PANCREATIC-COMPOSITION-LONGITUDINAL",
+      "candidateId": "SEM3-EVAL-CAND-PANCREATIC-COMPOSITION-LONGITUDINAL-BASELINE",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "PASS",
+        "level2": "ADJUDICATION_REQUIRED",
+        "disposition": "NOT_EVALUABLE"
+      },
+      "purpose": "Positive explicit mapping for all applicable absolute properties; statistical properties remain governed adjudication mechanics."
+    },
+    {
+      "fixture": "fixtures/development/pericardial-fat-noncausal-baseline.candidate.json",
+      "caseId": "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL",
+      "candidateId": "SEM3-EVAL-CAND-PERICARDIAL-FAT-NONCAUSAL-BASELINE",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "PASS",
+        "level2": "ADJUDICATION_REQUIRED",
+        "disposition": "NOT_EVALUABLE"
+      },
+      "purpose": "Positive explicit mapping for all applicable absolute properties; statistical properties remain governed adjudication mechanics."
+    },
+    {
+      "fixture": "fixtures/development/plaque-intervention-context-baseline.candidate.json",
+      "caseId": "SEM3-DEV-PLAQUE-INTERVENTION-CONTEXT",
+      "candidateId": "SEM3-EVAL-CAND-PLAQUE-INTERVENTION-CONTEXT-BASELINE",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "PASS",
+        "level2": "ADJUDICATION_REQUIRED",
+        "disposition": "NOT_EVALUABLE"
+      },
+      "purpose": "Positive explicit mapping for all applicable absolute properties; statistical properties remain governed adjudication mechanics."
+    },
+    {
+      "fixture": "fixtures/development/retinal-vascular-outcome-unknown-baseline.candidate.json",
+      "caseId": "SEM3-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
+      "candidateId": "SEM3-EVAL-CAND-RETINAL-VASCULAR-OUTCOME-UNKNOWN-BASELINE",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "PASS",
+        "level2": "ADJUDICATION_REQUIRED",
+        "disposition": "NOT_EVALUABLE"
+      },
+      "purpose": "Positive explicit mapping for all applicable absolute properties; statistical properties remain governed adjudication mechanics."
+    },
+    {
+      "fixture": "fixtures/development/routine-data-comparator-gap-baseline.candidate.json",
+      "caseId": "SEM3-DEV-ROUTINE-DATA-COMPARATOR-GAP",
+      "candidateId": "SEM3-EVAL-CAND-ROUTINE-DATA-COMPARATOR-GAP-BASELINE",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "PASS",
+        "level2": "ADJUDICATION_REQUIRED",
+        "disposition": "NOT_EVALUABLE"
+      },
+      "purpose": "Positive explicit mapping for all applicable absolute properties; statistical properties remain governed adjudication mechanics."
+    },
+    {
+      "fixture": "fixtures/development/translational-hypoxia-candidates-baseline.candidate.json",
+      "caseId": "SEM3-DEV-TRANSLATIONAL-HYPOXIA-CANDIDATES",
+      "candidateId": "SEM3-EVAL-CAND-TRANSLATIONAL-HYPOXIA-CANDIDATES-BASELINE",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "PASS",
+        "level2": "ADJUDICATION_REQUIRED",
+        "disposition": "NOT_EVALUABLE"
+      },
+      "purpose": "Positive explicit mapping for all applicable absolute properties; statistical properties remain governed adjudication mechanics."
+    },
+    {
+      "fixture": "fixtures/development/trial-imaging-outcome-correction-baseline.candidate.json",
+      "caseId": "SEM3-DEV-TRIAL-IMAGING-OUTCOME-CORRECTION",
+      "candidateId": "SEM3-EVAL-CAND-TRIAL-IMAGING-OUTCOME-CORRECTION-BASELINE",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "PASS",
+        "level2": "ADJUDICATION_REQUIRED",
+        "disposition": "NOT_EVALUABLE"
+      },
+      "purpose": "Positive explicit mapping for all applicable absolute properties; statistical properties remain governed adjudication mechanics."
+    },
+    {
+      "fixture": "fixtures/development/valve-hemodynamics-multimodal-baseline.candidate.json",
+      "caseId": "SEM3-DEV-VALVE-HEMODYNAMICS-MULTIMODAL",
+      "candidateId": "SEM3-EVAL-CAND-VALVE-HEMODYNAMICS-MULTIMODAL-BASELINE",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "PASS",
+        "level2": "ADJUDICATION_REQUIRED",
+        "disposition": "NOT_EVALUABLE"
+      },
+      "purpose": "Positive explicit mapping for all applicable absolute properties; statistical properties remain governed adjudication mechanics."
+    },
+    {
+      "fixture": "fixtures/development/ct-functional-estimate-role-distributed.candidate.json",
+      "caseId": "SEM3-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
+      "candidateId": "SEM3-EVAL-CAND-CT-FUNCTIONAL-ESTIMATE-ROLE-DISTRIBUTED",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "PASS",
+        "level2": "ADJUDICATION_REQUIRED",
+        "disposition": "NOT_EVALUABLE",
+        "noSemanticFailureDueToForm": true,
+        "criticalVectorMatchesCandidateId": "SEM3-EVAL-CAND-CT-FUNCTIONAL-ESTIMATE-ROLE-BASELINE"
+      },
+      "purpose": "Different structure with the same explicit critical obligation vector; form alone must not cause rejection."
+    },
+    {
+      "fixture": "fixtures/development/outcome-priority-change-distributed.candidate.json",
+      "caseId": "SEM3-DEV-OUTCOME-PRIORITY-CHANGE",
+      "candidateId": "SEM3-EVAL-CAND-OUTCOME-PRIORITY-CHANGE-DISTRIBUTED",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "PASS",
+        "level2": "ADJUDICATION_REQUIRED",
+        "disposition": "NOT_EVALUABLE",
+        "noSemanticFailureDueToForm": true,
+        "criticalVectorMatchesCandidateId": "SEM3-EVAL-CAND-OUTCOME-PRIORITY-CHANGE-BASELINE"
+      },
+      "purpose": "Different structure with the same explicit critical obligation vector; form alone must not cause rejection."
+    },
+    {
+      "fixture": "fixtures/development/pericardial-fat-noncausal-distributed.candidate.json",
+      "caseId": "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL",
+      "candidateId": "SEM3-EVAL-CAND-PERICARDIAL-FAT-NONCAUSAL-DISTRIBUTED",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "PASS",
+        "level2": "ADJUDICATION_REQUIRED",
+        "disposition": "NOT_EVALUABLE",
+        "noSemanticFailureDueToForm": true,
+        "criticalVectorMatchesCandidateId": "SEM3-EVAL-CAND-PERICARDIAL-FAT-NONCAUSAL-BASELINE"
+      },
+      "purpose": "Different structure with the same explicit critical obligation vector; form alone must not cause rejection."
+    },
+    {
+      "fixture": "fixtures/development/retinal-vascular-outcome-unknown-distributed.candidate.json",
+      "caseId": "SEM3-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
+      "candidateId": "SEM3-EVAL-CAND-RETINAL-VASCULAR-OUTCOME-UNKNOWN-DISTRIBUTED",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "PASS",
+        "level2": "ADJUDICATION_REQUIRED",
+        "disposition": "NOT_EVALUABLE",
+        "noSemanticFailureDueToForm": true,
+        "criticalVectorMatchesCandidateId": "SEM3-EVAL-CAND-RETINAL-VASCULAR-OUTCOME-UNKNOWN-BASELINE"
+      },
+      "purpose": "Different structure with the same explicit critical obligation vector; form alone must not cause rejection."
+    },
+    {
+      "fixture": "fixtures/development/valve-hemodynamics-multimodal-distributed.candidate.json",
+      "caseId": "SEM3-DEV-VALVE-HEMODYNAMICS-MULTIMODAL",
+      "candidateId": "SEM3-EVAL-CAND-VALVE-HEMODYNAMICS-MULTIMODAL-DISTRIBUTED",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "PASS",
+        "level2": "ADJUDICATION_REQUIRED",
+        "disposition": "NOT_EVALUABLE",
+        "noSemanticFailureDueToForm": true,
+        "criticalVectorMatchesCandidateId": "SEM3-EVAL-CAND-VALVE-HEMODYNAMICS-MULTIMODAL-BASELINE"
+      },
+      "purpose": "Different structure with the same explicit critical obligation vector; form alone must not cause rejection."
+    },
+    {
+      "fixture": "fixtures/development/coronary-perfusion-priority-negative-p01.candidate.json",
+      "caseId": "SEM3-DEV-CORONARY-PERFUSION-PRIORITY",
+      "candidateId": "SEM3-EVAL-CAND-CORONARY-PERFUSION-PRIORITY-NEGATIVE-P01",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "FAIL",
+        "disposition": "SEMANTIC_FAILURE",
+        "propertyId": "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "propertyJudgment": "VIOLATED"
+      },
+      "purpose": "Structurally close candidate with one explicit reference-declared semantic defect."
+    },
+    {
+      "fixture": "fixtures/development/body-composition-ambiguity-negative-p02.candidate.json",
+      "caseId": "SEM3-DEV-BODY-COMPOSITION-AMBIGUITY",
+      "candidateId": "SEM3-EVAL-CAND-BODY-COMPOSITION-AMBIGUITY-NEGATIVE-P02",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "FAIL",
+        "disposition": "SEMANTIC_FAILURE",
+        "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "propertyJudgment": "VIOLATED"
+      },
+      "purpose": "Structurally close candidate with one explicit reference-declared semantic defect."
+    },
+    {
+      "fixture": "fixtures/development/cardiac-aging-trajectory-negative-p03.candidate.json",
+      "caseId": "SEM3-DEV-CARDIAC-AGING-TRAJECTORY",
+      "candidateId": "SEM3-EVAL-CAND-CARDIAC-AGING-TRAJECTORY-NEGATIVE-P03",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "FAIL",
+        "disposition": "SEMANTIC_FAILURE",
+        "propertyId": "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "propertyJudgment": "VIOLATED"
+      },
+      "purpose": "Structurally close candidate with one explicit reference-declared semantic defect."
+    },
+    {
+      "fixture": "fixtures/development/cardiac-aging-trajectory-negative-p04.candidate.json",
+      "caseId": "SEM3-DEV-CARDIAC-AGING-TRAJECTORY",
+      "candidateId": "SEM3-EVAL-CAND-CARDIAC-AGING-TRAJECTORY-NEGATIVE-P04",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "FAIL",
+        "disposition": "SEMANTIC_FAILURE",
+        "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "propertyJudgment": "VIOLATED"
+      },
+      "purpose": "Structurally close candidate with one explicit reference-declared semantic defect."
+    },
+    {
+      "fixture": "fixtures/development/cardiac-aging-trajectory-negative-p05.candidate.json",
+      "caseId": "SEM3-DEV-CARDIAC-AGING-TRAJECTORY",
+      "candidateId": "SEM3-EVAL-CAND-CARDIAC-AGING-TRAJECTORY-NEGATIVE-P05",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "FAIL",
+        "disposition": "SEMANTIC_FAILURE",
+        "propertyId": "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "propertyJudgment": "VIOLATED"
+      },
+      "purpose": "Structurally close candidate with one explicit reference-declared semantic defect."
+    },
+    {
+      "fixture": "fixtures/development/cardiac-aging-trajectory-negative-p06.candidate.json",
+      "caseId": "SEM3-DEV-CARDIAC-AGING-TRAJECTORY",
+      "candidateId": "SEM3-EVAL-CAND-CARDIAC-AGING-TRAJECTORY-NEGATIVE-P06",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "FAIL",
+        "disposition": "SEMANTIC_FAILURE",
+        "propertyId": "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+        "propertyJudgment": "VIOLATED"
+      },
+      "purpose": "Structurally close candidate with one explicit reference-declared semantic defect."
+    },
+    {
+      "fixture": "fixtures/development/inflammation-multidimensional-negative-p07.candidate.json",
+      "caseId": "SEM3-DEV-INFLAMMATION-MULTIDIMENSIONAL",
+      "candidateId": "SEM3-EVAL-CAND-INFLAMMATION-MULTIDIMENSIONAL-NEGATIVE-P07",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "FAIL",
+        "disposition": "SEMANTIC_FAILURE",
+        "propertyId": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+        "propertyJudgment": "VIOLATED"
+      },
+      "purpose": "Structurally close candidate with one explicit reference-declared semantic defect."
+    },
+    {
+      "fixture": "fixtures/development/coronary-perfusion-priority-negative-p08.candidate.json",
+      "caseId": "SEM3-DEV-CORONARY-PERFUSION-PRIORITY",
+      "candidateId": "SEM3-EVAL-CAND-CORONARY-PERFUSION-PRIORITY-NEGATIVE-P08",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "FAIL",
+        "disposition": "SEMANTIC_FAILURE",
+        "propertyId": "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+        "propertyJudgment": "VIOLATED"
+      },
+      "purpose": "Structurally close candidate with one explicit reference-declared semantic defect."
+    },
+    {
+      "fixture": "fixtures/development/body-composition-ambiguity-negative-p09.candidate.json",
+      "caseId": "SEM3-DEV-BODY-COMPOSITION-AMBIGUITY",
+      "candidateId": "SEM3-EVAL-CAND-BODY-COMPOSITION-AMBIGUITY-NEGATIVE-P09",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "FAIL",
+        "disposition": "SEMANTIC_FAILURE",
+        "propertyId": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "propertyJudgment": "VIOLATED"
+      },
+      "purpose": "Structurally close candidate with one explicit reference-declared semantic defect."
+    },
+    {
+      "fixture": "fixtures/development/body-composition-ambiguity-negative-p10.candidate.json",
+      "caseId": "SEM3-DEV-BODY-COMPOSITION-AMBIGUITY",
+      "candidateId": "SEM3-EVAL-CAND-BODY-COMPOSITION-AMBIGUITY-NEGATIVE-P10",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "FAIL",
+        "disposition": "SEMANTIC_FAILURE",
+        "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "propertyJudgment": "VIOLATED"
+      },
+      "purpose": "Structurally close candidate with one explicit reference-declared semantic defect."
+    },
+    {
+      "fixture": "fixtures/development/body-composition-ambiguity-negative-p11.candidate.json",
+      "caseId": "SEM3-DEV-BODY-COMPOSITION-AMBIGUITY",
+      "candidateId": "SEM3-EVAL-CAND-BODY-COMPOSITION-AMBIGUITY-NEGATIVE-P11",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "FAIL",
+        "disposition": "SEMANTIC_FAILURE",
+        "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "propertyJudgment": "VIOLATED"
+      },
+      "purpose": "Structurally close candidate with one explicit reference-declared semantic defect."
+    },
+    {
+      "fixture": "fixtures/development/body-composition-ambiguity-negative-p12.candidate.json",
+      "caseId": "SEM3-DEV-BODY-COMPOSITION-AMBIGUITY",
+      "candidateId": "SEM3-EVAL-CAND-BODY-COMPOSITION-AMBIGUITY-NEGATIVE-P12",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "FAIL",
+        "disposition": "SEMANTIC_FAILURE",
+        "propertyId": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "propertyJudgment": "VIOLATED"
+      },
+      "purpose": "Structurally close candidate with one explicit reference-declared semantic defect."
+    },
+    {
+      "fixture": "fixtures/development/coronary-perfusion-priority-adjudication-p13.candidate.json",
+      "caseId": "SEM3-DEV-CORONARY-PERFUSION-PRIORITY",
+      "candidateId": "SEM3-EVAL-CAND-CORONARY-PERFUSION-PRIORITY-ADJUDICATION-P13",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "PASS",
+        "level2": "ADJUDICATION_REQUIRED",
+        "disposition": "NOT_EVALUABLE",
+        "propertyId": "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "propertyJudgment": "ADJUDICATION_REQUIRED"
+      },
+      "purpose": "Judgment mechanics only; no statistical threshold, score, or scientific decision is computed."
+    },
+    {
+      "fixture": "fixtures/development/body-composition-ambiguity-adjudication-p14.candidate.json",
+      "caseId": "SEM3-DEV-BODY-COMPOSITION-AMBIGUITY",
+      "candidateId": "SEM3-EVAL-CAND-BODY-COMPOSITION-AMBIGUITY-ADJUDICATION-P14",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "PASS",
+        "level2": "ADJUDICATION_REQUIRED",
+        "disposition": "NOT_EVALUABLE",
+        "propertyId": "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "propertyJudgment": "ADJUDICATION_REQUIRED"
+      },
+      "purpose": "Judgment mechanics only; no statistical threshold, score, or scientific decision is computed."
+    },
+    {
+      "fixture": "fixtures/development/body-composition-ambiguity-adjudication-p15.candidate.json",
+      "caseId": "SEM3-DEV-BODY-COMPOSITION-AMBIGUITY",
+      "candidateId": "SEM3-EVAL-CAND-BODY-COMPOSITION-AMBIGUITY-ADJUDICATION-P15",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "PASS",
+        "level2": "ADJUDICATION_REQUIRED",
+        "disposition": "NOT_EVALUABLE",
+        "propertyId": "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED",
+        "propertyJudgment": "ADJUDICATION_REQUIRED"
+      },
+      "purpose": "Judgment mechanics only; no statistical threshold, score, or scientific decision is computed."
+    },
+    {
+      "fixture": "fixtures/development/body-composition-ambiguity-adjudication-p16.candidate.json",
+      "caseId": "SEM3-DEV-BODY-COMPOSITION-AMBIGUITY",
+      "candidateId": "SEM3-EVAL-CAND-BODY-COMPOSITION-AMBIGUITY-ADJUDICATION-P16",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "PASS",
+        "level2": "ADJUDICATION_REQUIRED",
+        "disposition": "NOT_EVALUABLE",
+        "propertyId": "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "propertyJudgment": "ADJUDICATION_REQUIRED"
+      },
+      "purpose": "Judgment mechanics only; no statistical threshold, score, or scientific decision is computed."
+    },
+    {
+      "fixture": "fixtures/development/body-composition-ambiguity-adjudication-p17.candidate.json",
+      "caseId": "SEM3-DEV-BODY-COMPOSITION-AMBIGUITY",
+      "candidateId": "SEM3-EVAL-CAND-BODY-COMPOSITION-AMBIGUITY-ADJUDICATION-P17",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "PASS",
+        "level2": "ADJUDICATION_REQUIRED",
+        "disposition": "NOT_EVALUABLE",
+        "propertyId": "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "propertyJudgment": "ADJUDICATION_REQUIRED"
+      },
+      "purpose": "Judgment mechanics only; no statistical threshold, score, or scientific decision is computed."
+    },
+    {
+      "fixture": "fixtures/development/body-composition-ambiguity-adjudication-p18.candidate.json",
+      "caseId": "SEM3-DEV-BODY-COMPOSITION-AMBIGUITY",
+      "candidateId": "SEM3-EVAL-CAND-BODY-COMPOSITION-AMBIGUITY-ADJUDICATION-P18",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "level1": "PASS",
+        "level2": "ADJUDICATION_REQUIRED",
+        "disposition": "NOT_EVALUABLE",
+        "propertyId": "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+        "propertyJudgment": "ADJUDICATION_REQUIRED"
+      },
+      "purpose": "Judgment mechanics only; no statistical threshold, score, or scientific decision is computed."
+    },
+    {
+      "fixture": "fixtures/development/body-composition-ambiguity-safe-fail-closed.candidate.json",
+      "caseId": "SEM3-DEV-BODY-COMPOSITION-AMBIGUITY",
+      "candidateId": "SEM3-EVAL-CAND-BODY-COMPOSITION-AMBIGUITY-SAFE-FAIL-CLOSED",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "disposition": "SAFE_FAIL_CLOSED"
+      },
+      "purpose": "Boundary disposition remains separate from semantic success and from aggregate competence."
+    },
+    {
+      "fixture": "fixtures/development/body-composition-ambiguity-provider-failure.candidate.json",
+      "caseId": "SEM3-DEV-BODY-COMPOSITION-AMBIGUITY",
+      "candidateId": "SEM3-EVAL-CAND-BODY-COMPOSITION-AMBIGUITY-PROVIDER-FAILURE",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "disposition": "PROVIDER_EXECUTION_FAILURE"
+      },
+      "purpose": "Boundary disposition remains separate from semantic success and from aggregate competence."
+    },
+    {
+      "fixture": "fixtures/development/body-composition-ambiguity-not-evaluable.candidate.json",
+      "caseId": "SEM3-DEV-BODY-COMPOSITION-AMBIGUITY",
+      "candidateId": "SEM3-EVAL-CAND-BODY-COMPOSITION-AMBIGUITY-NOT-EVALUABLE",
+      "mode": "DEVELOPMENT_SYNTHETIC",
+      "expected": {
+        "disposition": "NOT_EVALUABLE"
+      },
+      "purpose": "Boundary disposition remains separate from semantic success and from aggregate competence."
+    }
+  ]
+}

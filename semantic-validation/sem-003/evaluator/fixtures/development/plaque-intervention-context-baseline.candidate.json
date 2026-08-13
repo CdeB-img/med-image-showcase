@@ -1,0 +1,147 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "BENCHMARK_EVALUATION_CANDIDATE",
+  "purpose": "SCIENTIFIC_UNDERSTANDING_EVALUATOR_DEVELOPMENT",
+  "candidateId": "SEM3-EVAL-CAND-PLAQUE-INTERVENTION-CONTEXT-BASELINE",
+  "caseId": "SEM3-DEV-PLAQUE-INTERVENTION-CONTEXT",
+  "caseVersion": "1.0.0",
+  "envelopeId": "SEM3-AE-DEV-PLAQUE-INTERVENTION-CONTEXT",
+  "envelopeVersion": "1.0.0",
+  "evaluationMode": "DEVELOPMENT_SYNTHETIC",
+  "sourceType": "EVALUATOR_DEVELOPMENT_SYNTHETIC",
+  "structureProfile": "CONSOLIDATED",
+  "executionStatus": "COMPLETED",
+  "semanticElements": [
+    {
+      "elementId": "element-1-ct-before-procedure",
+      "semanticKey": "sem3-dev-plaque-intervention-context.ct-before-procedure",
+      "elementType": "TIMING",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[1]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-PLAQUE-INTERVENTION-CONTEXT.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-2-cross-source-association",
+      "semanticKey": "sem3-dev-plaque-intervention-context.cross-source-association",
+      "elementType": "RELATION",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[2]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-PLAQUE-INTERVENTION-CONTEXT.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-3-no-treatment-decision",
+      "semanticKey": "sem3-dev-plaque-intervention-context.no-treatment-decision",
+      "elementType": "POLARITY",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[3]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-PLAQUE-INTERVENTION-CONTEXT.source.provenance"
+      ]
+    }
+  ],
+  "obligationMappings": [
+    {
+      "obligationId": "req-1-ct-before-procedure",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-1-ct-before-procedure"
+      ]
+    },
+    {
+      "obligationId": "req-2-cross-source-association",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-2-cross-source-association"
+      ]
+    },
+    {
+      "obligationId": "req-3-no-treatment-decision",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-3-no-treatment-decision"
+      ]
+    }
+  ],
+  "prohibitionSignals": [
+    {
+      "prohibitionId": "pro-1-adopt-treatment-rule",
+      "status": "ABSENT",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-PLAQUE-INTERVENTION-CONTEXT.prohibited.pro-1-adopt-treatment-rule"
+      ]
+    },
+    {
+      "prohibitionId": "pro-2-invent-available-features",
+      "status": "ABSENT",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-PLAQUE-INTERVENTION-CONTEXT.prohibited.pro-2-invent-available-features"
+      ]
+    }
+  ],
+  "optionalCandidateMappings": [
+    {
+      "candidateId": "opt-1-candidate-procedural-observables",
+      "status": "ABSENT",
+      "epistemicStatus": "NOT_APPLICABLE",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-PLAQUE-INTERVENTION-CONTEXT.optionalRelevant.opt-1-candidate-procedural-observables"
+      ]
+    }
+  ],
+  "ambiguityMappings": [],
+  "clarificationMapping": {
+    "status": "ABSENT",
+    "decisionImpactMapping": "REQUIRES_HUMAN_ADJUDICATION",
+    "evidenceRefs": [
+      "SEM3-AE-DEV-PLAQUE-INTERVENTION-CONTEXT.expectedClarification"
+    ]
+  },
+  "ownershipMappings": [
+    {
+      "boundaryId": "own-sem-project",
+      "status": "PRESERVED",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-PLAQUE-INTERVENTION-CONTEXT.ownershipBoundaries.own-sem-project"
+      ]
+    },
+    {
+      "boundaryId": "own-knowledge-specialists",
+      "status": "PRESERVED",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-PLAQUE-INTERVENTION-CONTEXT.ownershipBoundaries.own-knowledge-specialists"
+      ]
+    }
+  ],
+  "provenanceSummary": {
+    "status": "RECONSTRUCTIBLE",
+    "sourceRequestReconstructible": true,
+    "historyReconstructible": true,
+    "evidenceRefs": [
+      "SEM3-DEV-PLAQUE-INTERVENTION-CONTEXT.source.sourceRequest",
+      "SEM3-DEV-PLAQUE-INTERVENTION-CONTEXT.source.provenance"
+    ]
+  },
+  "adjudicationClaims": []
+}

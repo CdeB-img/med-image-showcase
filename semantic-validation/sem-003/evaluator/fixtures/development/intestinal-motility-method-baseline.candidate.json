@@ -1,0 +1,155 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "BENCHMARK_EVALUATION_CANDIDATE",
+  "purpose": "SCIENTIFIC_UNDERSTANDING_EVALUATOR_DEVELOPMENT",
+  "candidateId": "SEM3-EVAL-CAND-INTESTINAL-MOTILITY-METHOD-BASELINE",
+  "caseId": "SEM3-DEV-INTESTINAL-MOTILITY-METHOD",
+  "caseVersion": "1.0.0",
+  "envelopeId": "SEM3-AE-DEV-INTESTINAL-MOTILITY-METHOD",
+  "envelopeVersion": "1.0.0",
+  "evaluationMode": "DEVELOPMENT_SYNTHETIC",
+  "sourceType": "EVALUATOR_DEVELOPMENT_SYNTHETIC",
+  "structureProfile": "CONSOLIDATED",
+  "executionStatus": "COMPLETED",
+  "semanticElements": [
+    {
+      "elementId": "element-1-intestinal-motility-target",
+      "semanticKey": "sem3-dev-intestinal-motility-method.intestinal-motility-target",
+      "elementType": "CONTENT",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[0]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-INTESTINAL-MOTILITY-METHOD.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-2-method-not-selected",
+      "semanticKey": "sem3-dev-intestinal-motility-method.method-not-selected",
+      "elementType": "UNKNOWN",
+      "state": "OPEN_UNKNOWN",
+      "epistemicStatus": "UNKNOWN",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[0]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-INTESTINAL-MOTILITY-METHOD.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-3-measurement-form-open",
+      "semanticKey": "sem3-dev-intestinal-motility-method.measurement-form-open",
+      "elementType": "AMBIGUITY",
+      "state": "OPEN_AMBIGUITY",
+      "epistemicStatus": "AMBIGUOUS",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[0]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-INTESTINAL-MOTILITY-METHOD.source.provenance"
+      ]
+    }
+  ],
+  "obligationMappings": [
+    {
+      "obligationId": "req-1-intestinal-motility-target",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-1-intestinal-motility-target"
+      ]
+    },
+    {
+      "obligationId": "req-2-method-not-selected",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-2-method-not-selected"
+      ]
+    },
+    {
+      "obligationId": "req-3-measurement-form-open",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-3-measurement-form-open"
+      ]
+    }
+  ],
+  "prohibitionSignals": [
+    {
+      "prohibitionId": "pro-1-select-technique",
+      "status": "ABSENT",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-INTESTINAL-MOTILITY-METHOD.prohibited.pro-1-select-technique"
+      ]
+    },
+    {
+      "prohibitionId": "pro-2-collapse-map-value",
+      "status": "ABSENT",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-INTESTINAL-MOTILITY-METHOD.prohibited.pro-2-collapse-map-value"
+      ]
+    }
+  ],
+  "optionalCandidateMappings": [
+    {
+      "candidateId": "opt-1-candidate-noninvasive-methods",
+      "status": "ABSENT",
+      "epistemicStatus": "NOT_APPLICABLE",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-INTESTINAL-MOTILITY-METHOD.optionalRelevant.opt-1-candidate-noninvasive-methods"
+      ]
+    }
+  ],
+  "ambiguityMappings": [
+    {
+      "ambiguityId": "amb-1-measurement-form",
+      "status": "PRESERVED_OPEN",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-INTESTINAL-MOTILITY-METHOD.admissibleAmbiguities.amb-1-measurement-form"
+      ]
+    }
+  ],
+  "clarificationMapping": {
+    "status": "PRESENT",
+    "decisionImpactMapping": "REQUIRES_HUMAN_ADJUDICATION",
+    "evidenceRefs": [
+      "SEM3-AE-DEV-INTESTINAL-MOTILITY-METHOD.expectedClarification"
+    ]
+  },
+  "ownershipMappings": [
+    {
+      "boundaryId": "own-sem-project",
+      "status": "PRESERVED",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-INTESTINAL-MOTILITY-METHOD.ownershipBoundaries.own-sem-project"
+      ]
+    },
+    {
+      "boundaryId": "own-knowledge-specialists",
+      "status": "PRESERVED",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-INTESTINAL-MOTILITY-METHOD.ownershipBoundaries.own-knowledge-specialists"
+      ]
+    }
+  ],
+  "provenanceSummary": {
+    "status": "RECONSTRUCTIBLE",
+    "sourceRequestReconstructible": true,
+    "historyReconstructible": true,
+    "evidenceRefs": [
+      "SEM3-DEV-INTESTINAL-MOTILITY-METHOD.source.sourceRequest",
+      "SEM3-DEV-INTESTINAL-MOTILITY-METHOD.source.provenance"
+    ]
+  },
+  "adjudicationClaims": []
+}

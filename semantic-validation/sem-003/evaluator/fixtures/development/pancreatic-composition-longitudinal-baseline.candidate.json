@@ -1,0 +1,147 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "BENCHMARK_EVALUATION_CANDIDATE",
+  "purpose": "SCIENTIFIC_UNDERSTANDING_EVALUATOR_DEVELOPMENT",
+  "candidateId": "SEM3-EVAL-CAND-PANCREATIC-COMPOSITION-LONGITUDINAL-BASELINE",
+  "caseId": "SEM3-DEV-PANCREATIC-COMPOSITION-LONGITUDINAL",
+  "caseVersion": "1.0.0",
+  "envelopeId": "SEM3-AE-DEV-PANCREATIC-COMPOSITION-LONGITUDINAL",
+  "envelopeVersion": "1.0.0",
+  "evaluationMode": "DEVELOPMENT_SYNTHETIC",
+  "sourceType": "EVALUATOR_DEVELOPMENT_SYNTHETIC",
+  "structureProfile": "CONSOLIDATED",
+  "executionStatus": "COMPLETED",
+  "semanticElements": [
+    {
+      "elementId": "element-1-one-year-followup",
+      "semanticKey": "sem3-dev-pancreatic-composition-longitudinal.one-year-followup",
+      "elementType": "TIMING",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[0]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-PANCREATIC-COMPOSITION-LONGITUDINAL.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-2-two-assessment-families",
+      "semanticKey": "sem3-dev-pancreatic-composition-longitudinal.two-assessment-families",
+      "elementType": "RELATION",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[1]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-PANCREATIC-COMPOSITION-LONGITUDINAL.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-3-no-interchangeability-claim",
+      "semanticKey": "sem3-dev-pancreatic-composition-longitudinal.no-interchangeability-claim",
+      "elementType": "POLARITY",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[3]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-PANCREATIC-COMPOSITION-LONGITUDINAL.source.provenance"
+      ]
+    }
+  ],
+  "obligationMappings": [
+    {
+      "obligationId": "req-1-one-year-followup",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-1-one-year-followup"
+      ]
+    },
+    {
+      "obligationId": "req-2-two-assessment-families",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-2-two-assessment-families"
+      ]
+    },
+    {
+      "obligationId": "req-3-no-interchangeability-claim",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-3-no-interchangeability-claim"
+      ]
+    }
+  ],
+  "prohibitionSignals": [
+    {
+      "prohibitionId": "pro-1-merge-assessments",
+      "status": "ABSENT",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-PANCREATIC-COMPOSITION-LONGITUDINAL.prohibited.pro-1-merge-assessments"
+      ]
+    },
+    {
+      "prohibitionId": "pro-2-invent-clinical-context",
+      "status": "ABSENT",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-PANCREATIC-COMPOSITION-LONGITUDINAL.prohibited.pro-2-invent-clinical-context"
+      ]
+    }
+  ],
+  "optionalCandidateMappings": [
+    {
+      "candidateId": "opt-1-candidate-clinical-covariates",
+      "status": "ABSENT",
+      "epistemicStatus": "NOT_APPLICABLE",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-PANCREATIC-COMPOSITION-LONGITUDINAL.optionalRelevant.opt-1-candidate-clinical-covariates"
+      ]
+    }
+  ],
+  "ambiguityMappings": [],
+  "clarificationMapping": {
+    "status": "ABSENT",
+    "decisionImpactMapping": "REQUIRES_HUMAN_ADJUDICATION",
+    "evidenceRefs": [
+      "SEM3-AE-DEV-PANCREATIC-COMPOSITION-LONGITUDINAL.expectedClarification"
+    ]
+  },
+  "ownershipMappings": [
+    {
+      "boundaryId": "own-sem-project",
+      "status": "PRESERVED",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-PANCREATIC-COMPOSITION-LONGITUDINAL.ownershipBoundaries.own-sem-project"
+      ]
+    },
+    {
+      "boundaryId": "own-knowledge-specialists",
+      "status": "PRESERVED",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-PANCREATIC-COMPOSITION-LONGITUDINAL.ownershipBoundaries.own-knowledge-specialists"
+      ]
+    }
+  ],
+  "provenanceSummary": {
+    "status": "RECONSTRUCTIBLE",
+    "sourceRequestReconstructible": true,
+    "historyReconstructible": true,
+    "evidenceRefs": [
+      "SEM3-DEV-PANCREATIC-COMPOSITION-LONGITUDINAL.source.sourceRequest",
+      "SEM3-DEV-PANCREATIC-COMPOSITION-LONGITUDINAL.source.provenance"
+    ]
+  },
+  "adjudicationClaims": []
+}

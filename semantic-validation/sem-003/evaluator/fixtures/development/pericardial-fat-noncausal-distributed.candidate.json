@@ -1,0 +1,209 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "BENCHMARK_EVALUATION_CANDIDATE",
+  "purpose": "SCIENTIFIC_UNDERSTANDING_EVALUATOR_DEVELOPMENT",
+  "candidateId": "SEM3-EVAL-CAND-PERICARDIAL-FAT-NONCAUSAL-DISTRIBUTED",
+  "caseId": "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL",
+  "caseVersion": "1.0.0",
+  "envelopeId": "SEM3-AE-DEV-PERICARDIAL-FAT-NONCAUSAL",
+  "envelopeVersion": "1.0.0",
+  "evaluationMode": "DEVELOPMENT_SYNTHETIC",
+  "sourceType": "EVALUATOR_DEVELOPMENT_SYNTHETIC",
+  "structureProfile": "DISTRIBUTED_EQUIVALENT",
+  "executionStatus": "COMPLETED",
+  "semanticElements": [
+    {
+      "elementId": "element-distributed-5-historical-state",
+      "semanticKey": "sem3-dev-pericardial-fat-noncausal.historical-state",
+      "elementType": "PROVENANCE",
+      "state": "HISTORICAL",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[4]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-distributed-4-current-state",
+      "semanticKey": "sem3-dev-pericardial-fat-noncausal.current-state",
+      "elementType": "CORRECTION",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[4]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-distributed-3-paired-observations",
+      "semanticKey": "sem3-dev-pericardial-fat-noncausal.paired-observations",
+      "elementType": "RELATION",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[1]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-distributed-2-historical-causal-wording",
+      "semanticKey": "sem3-dev-pericardial-fat-noncausal.historical-causal-wording",
+      "elementType": "PROVENANCE",
+      "state": "HISTORICAL",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[2]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-distributed-1-current-association",
+      "semanticKey": "sem3-dev-pericardial-fat-noncausal.current-association",
+      "elementType": "CORRECTION",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[4]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL.source.provenance"
+      ]
+    }
+  ],
+  "obligationMappings": [
+    {
+      "obligationId": "req-5-historical-state",
+      "status": "PRESERVED",
+      "evidenceType": "REFERENCE_DECLARED_VARIANT",
+      "candidateElementRefs": [
+        "element-distributed-5-historical-state"
+      ]
+    },
+    {
+      "obligationId": "req-4-current-state",
+      "status": "PRESERVED",
+      "evidenceType": "REFERENCE_DECLARED_VARIANT",
+      "candidateElementRefs": [
+        "element-distributed-4-current-state"
+      ]
+    },
+    {
+      "obligationId": "req-3-paired-observations",
+      "status": "PRESERVED",
+      "evidenceType": "REFERENCE_DECLARED_VARIANT",
+      "candidateElementRefs": [
+        "element-distributed-3-paired-observations"
+      ]
+    },
+    {
+      "obligationId": "req-2-historical-causal-wording",
+      "status": "PRESERVED",
+      "evidenceType": "REFERENCE_DECLARED_VARIANT",
+      "candidateElementRefs": [
+        "element-distributed-2-historical-causal-wording"
+      ]
+    },
+    {
+      "obligationId": "req-1-current-association",
+      "status": "PRESERVED",
+      "evidenceType": "REFERENCE_DECLARED_VARIANT",
+      "candidateElementRefs": [
+        "element-distributed-1-current-association"
+      ]
+    }
+  ],
+  "prohibitionSignals": [
+    {
+      "prohibitionId": "pro-1-retain-causal-claim",
+      "status": "ABSENT",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-PERICARDIAL-FAT-NONCAUSAL.prohibited.pro-1-retain-causal-claim"
+      ]
+    },
+    {
+      "prohibitionId": "pro-2-invent-measurement-definition",
+      "status": "ABSENT",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-PERICARDIAL-FAT-NONCAUSAL.prohibited.pro-2-invent-measurement-definition"
+      ]
+    }
+  ],
+  "optionalCandidateMappings": [
+    {
+      "candidateId": "opt-1-candidate-measurement-definitions",
+      "status": "ABSENT",
+      "epistemicStatus": "NOT_APPLICABLE",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-PERICARDIAL-FAT-NONCAUSAL.optionalRelevant.opt-1-candidate-measurement-definitions"
+      ]
+    }
+  ],
+  "ambiguityMappings": [],
+  "clarificationMapping": {
+    "status": "ABSENT",
+    "decisionImpactMapping": "REQUIRES_HUMAN_ADJUDICATION",
+    "evidenceRefs": [
+      "SEM3-AE-DEV-PERICARDIAL-FAT-NONCAUSAL.expectedClarification"
+    ]
+  },
+  "ownershipMappings": [
+    {
+      "boundaryId": "own-sem-project",
+      "status": "PRESERVED",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-PERICARDIAL-FAT-NONCAUSAL.ownershipBoundaries.own-sem-project"
+      ]
+    },
+    {
+      "boundaryId": "own-knowledge-specialists",
+      "status": "PRESERVED",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-PERICARDIAL-FAT-NONCAUSAL.ownershipBoundaries.own-knowledge-specialists"
+      ]
+    }
+  ],
+  "provenanceSummary": {
+    "status": "RECONSTRUCTIBLE",
+    "sourceRequestReconstructible": true,
+    "historyReconstructible": true,
+    "evidenceRefs": [
+      "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL.source.sourceRequest",
+      "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL.source.provenance"
+    ]
+  },
+  "adjudicationClaims": [
+    {
+      "claimId": "claim-reference-declared-equivalence",
+      "propertyIds": [
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED"
+      ],
+      "description": "The candidate uses the reference-declared distributed form while preserving explicit obligation mappings.",
+      "basis": "REFERENCE_DECLARED",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-PERICARDIAL-FAT-NONCAUSAL.acceptableSemanticVariants.variant-obligation-vector",
+        "SEM3-AE-DEV-PERICARDIAL-FAT-NONCAUSAL.evaluationDemonstrations.representation-b"
+      ]
+    }
+  ],
+  "referenceDemonstrationId": "representation-b",
+  "declaredVariantId": "variant-obligation-vector"
+}

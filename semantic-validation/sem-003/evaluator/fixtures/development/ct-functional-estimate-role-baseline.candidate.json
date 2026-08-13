@@ -1,0 +1,178 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "BENCHMARK_EVALUATION_CANDIDATE",
+  "purpose": "SCIENTIFIC_UNDERSTANDING_EVALUATOR_DEVELOPMENT",
+  "candidateId": "SEM3-EVAL-CAND-CT-FUNCTIONAL-ESTIMATE-ROLE-BASELINE",
+  "caseId": "SEM3-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
+  "caseVersion": "1.0.0",
+  "envelopeId": "SEM3-AE-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
+  "envelopeVersion": "1.0.0",
+  "evaluationMode": "DEVELOPMENT_SYNTHETIC",
+  "sourceType": "EVALUATOR_DEVELOPMENT_SYNTHETIC",
+  "structureProfile": "CONSOLIDATED",
+  "executionStatus": "COMPLETED",
+  "semanticElements": [
+    {
+      "elementId": "element-1-processing-is-method",
+      "semanticKey": "sem3-dev-ct-functional-estimate-role.processing-is-method",
+      "elementType": "RELATION",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[4]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-2-representation-is-not-measurement",
+      "semanticKey": "sem3-dev-ct-functional-estimate-role.representation-is-not-measurement",
+      "elementType": "RELATION",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[1]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-3-measurement-comparison",
+      "semanticKey": "sem3-dev-ct-functional-estimate-role.measurement-comparison",
+      "elementType": "RELATION",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[2]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-4-endpoint-role-unadopted",
+      "semanticKey": "sem3-dev-ct-functional-estimate-role.endpoint-role-unadopted",
+      "elementType": "OWNERSHIP",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[4]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE.source.provenance"
+      ]
+    }
+  ],
+  "obligationMappings": [
+    {
+      "obligationId": "req-1-processing-is-method",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-1-processing-is-method"
+      ]
+    },
+    {
+      "obligationId": "req-2-representation-is-not-measurement",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-2-representation-is-not-measurement"
+      ]
+    },
+    {
+      "obligationId": "req-3-measurement-comparison",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-3-measurement-comparison"
+      ]
+    },
+    {
+      "obligationId": "req-4-endpoint-role-unadopted",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-4-endpoint-role-unadopted"
+      ]
+    }
+  ],
+  "prohibitionSignals": [
+    {
+      "prohibitionId": "pro-1-classify-processing-as-value",
+      "status": "ABSENT",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE.prohibited.pro-1-classify-processing-as-value"
+      ]
+    },
+    {
+      "prohibitionId": "pro-2-invent-lesion-endpoint",
+      "status": "ABSENT",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE.prohibited.pro-2-invent-lesion-endpoint"
+      ]
+    }
+  ],
+  "optionalCandidateMappings": [
+    {
+      "candidateId": "opt-1-candidate-aggregation-levels",
+      "status": "ABSENT",
+      "epistemicStatus": "NOT_APPLICABLE",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE.optionalRelevant.opt-1-candidate-aggregation-levels"
+      ]
+    }
+  ],
+  "ambiguityMappings": [
+    {
+      "ambiguityId": "amb-1-aggregation",
+      "status": "PRESERVED_OPEN",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE.admissibleAmbiguities.amb-1-aggregation"
+      ]
+    }
+  ],
+  "clarificationMapping": {
+    "status": "PRESENT",
+    "decisionImpactMapping": "REQUIRES_HUMAN_ADJUDICATION",
+    "evidenceRefs": [
+      "SEM3-AE-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE.expectedClarification"
+    ]
+  },
+  "ownershipMappings": [
+    {
+      "boundaryId": "own-sem-project",
+      "status": "PRESERVED",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE.ownershipBoundaries.own-sem-project"
+      ]
+    },
+    {
+      "boundaryId": "own-knowledge-specialists",
+      "status": "PRESERVED",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE.ownershipBoundaries.own-knowledge-specialists"
+      ]
+    }
+  ],
+  "provenanceSummary": {
+    "status": "RECONSTRUCTIBLE",
+    "sourceRequestReconstructible": true,
+    "historyReconstructible": true,
+    "evidenceRefs": [
+      "SEM3-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE.source.sourceRequest",
+      "SEM3-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE.source.provenance"
+    ]
+  },
+  "adjudicationClaims": []
+}

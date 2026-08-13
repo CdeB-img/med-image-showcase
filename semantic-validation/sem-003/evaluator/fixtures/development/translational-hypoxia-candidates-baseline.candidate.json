@@ -1,0 +1,155 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "BENCHMARK_EVALUATION_CANDIDATE",
+  "purpose": "SCIENTIFIC_UNDERSTANDING_EVALUATOR_DEVELOPMENT",
+  "candidateId": "SEM3-EVAL-CAND-TRANSLATIONAL-HYPOXIA-CANDIDATES-BASELINE",
+  "caseId": "SEM3-DEV-TRANSLATIONAL-HYPOXIA-CANDIDATES",
+  "caseVersion": "1.0.0",
+  "envelopeId": "SEM3-AE-DEV-TRANSLATIONAL-HYPOXIA-CANDIDATES",
+  "envelopeVersion": "1.0.0",
+  "evaluationMode": "DEVELOPMENT_SYNTHETIC",
+  "sourceType": "EVALUATOR_DEVELOPMENT_SYNTHETIC",
+  "structureProfile": "CONSOLIDATED",
+  "executionStatus": "COMPLETED",
+  "semanticElements": [
+    {
+      "elementId": "element-1-hypoxia-translation",
+      "semanticKey": "sem3-dev-translational-hypoxia-candidates.hypoxia-translation",
+      "elementType": "CONTENT",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[0]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-TRANSLATIONAL-HYPOXIA-CANDIDATES.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-2-imaging-tissue-relation",
+      "semanticKey": "sem3-dev-translational-hypoxia-candidates.imaging-tissue-relation",
+      "elementType": "RELATION",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[1]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-TRANSLATIONAL-HYPOXIA-CANDIDATES.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-3-no-tracer-adoption",
+      "semanticKey": "sem3-dev-translational-hypoxia-candidates.no-tracer-adoption",
+      "elementType": "POLARITY",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[2]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-TRANSLATIONAL-HYPOXIA-CANDIDATES.source.provenance"
+      ]
+    }
+  ],
+  "obligationMappings": [
+    {
+      "obligationId": "req-1-hypoxia-translation",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-1-hypoxia-translation"
+      ]
+    },
+    {
+      "obligationId": "req-2-imaging-tissue-relation",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-2-imaging-tissue-relation"
+      ]
+    },
+    {
+      "obligationId": "req-3-no-tracer-adoption",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-3-no-tracer-adoption"
+      ]
+    }
+  ],
+  "prohibitionSignals": [
+    {
+      "prohibitionId": "pro-1-attribute-candidate-to-user",
+      "status": "ABSENT",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-TRANSLATIONAL-HYPOXIA-CANDIDATES.prohibited.pro-1-attribute-candidate-to-user"
+      ]
+    },
+    {
+      "prohibitionId": "pro-2-adopt-project-target",
+      "status": "ABSENT",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-TRANSLATIONAL-HYPOXIA-CANDIDATES.prohibited.pro-2-adopt-project-target"
+      ]
+    }
+  ],
+  "optionalCandidateMappings": [
+    {
+      "candidateId": "opt-1-candidate-molecular-mechanisms",
+      "status": "ABSENT",
+      "epistemicStatus": "NOT_APPLICABLE",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-TRANSLATIONAL-HYPOXIA-CANDIDATES.optionalRelevant.opt-1-candidate-molecular-mechanisms"
+      ]
+    },
+    {
+      "candidateId": "opt-2-candidate-imaging-strategies",
+      "status": "ABSENT",
+      "epistemicStatus": "NOT_APPLICABLE",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-TRANSLATIONAL-HYPOXIA-CANDIDATES.optionalRelevant.opt-2-candidate-imaging-strategies"
+      ]
+    }
+  ],
+  "ambiguityMappings": [],
+  "clarificationMapping": {
+    "status": "ABSENT",
+    "decisionImpactMapping": "REQUIRES_HUMAN_ADJUDICATION",
+    "evidenceRefs": [
+      "SEM3-AE-DEV-TRANSLATIONAL-HYPOXIA-CANDIDATES.expectedClarification"
+    ]
+  },
+  "ownershipMappings": [
+    {
+      "boundaryId": "own-sem-project",
+      "status": "PRESERVED",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-TRANSLATIONAL-HYPOXIA-CANDIDATES.ownershipBoundaries.own-sem-project"
+      ]
+    },
+    {
+      "boundaryId": "own-knowledge-specialists",
+      "status": "PRESERVED",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-TRANSLATIONAL-HYPOXIA-CANDIDATES.ownershipBoundaries.own-knowledge-specialists"
+      ]
+    }
+  ],
+  "provenanceSummary": {
+    "status": "RECONSTRUCTIBLE",
+    "sourceRequestReconstructible": true,
+    "historyReconstructible": true,
+    "evidenceRefs": [
+      "SEM3-DEV-TRANSLATIONAL-HYPOXIA-CANDIDATES.source.sourceRequest",
+      "SEM3-DEV-TRANSLATIONAL-HYPOXIA-CANDIDATES.source.provenance"
+    ]
+  },
+  "adjudicationClaims": []
+}

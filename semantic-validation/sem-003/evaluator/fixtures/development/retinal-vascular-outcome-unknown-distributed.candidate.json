@@ -1,0 +1,194 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "BENCHMARK_EVALUATION_CANDIDATE",
+  "purpose": "SCIENTIFIC_UNDERSTANDING_EVALUATOR_DEVELOPMENT",
+  "candidateId": "SEM3-EVAL-CAND-RETINAL-VASCULAR-OUTCOME-UNKNOWN-DISTRIBUTED",
+  "caseId": "SEM3-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
+  "caseVersion": "1.0.0",
+  "envelopeId": "SEM3-AE-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
+  "envelopeVersion": "1.0.0",
+  "evaluationMode": "DEVELOPMENT_SYNTHETIC",
+  "sourceType": "EVALUATOR_DEVELOPMENT_SYNTHETIC",
+  "structureProfile": "DISTRIBUTED_EQUIVALENT",
+  "executionStatus": "COMPLETED",
+  "semanticElements": [
+    {
+      "elementId": "element-distributed-4-technique-equivalence-unproven",
+      "semanticKey": "sem3-dev-retinal-vascular-outcome-unknown.technique-equivalence-unproven",
+      "elementType": "OWNERSHIP",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[5]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-distributed-3-followup-timing-variable",
+      "semanticKey": "sem3-dev-retinal-vascular-outcome-unknown.followup-timing-variable",
+      "elementType": "TIMING",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[2]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-distributed-2-stability-undefined",
+      "semanticKey": "sem3-dev-retinal-vascular-outcome-unknown.stability-undefined",
+      "elementType": "UNKNOWN",
+      "state": "OPEN_UNKNOWN",
+      "epistemicStatus": "UNKNOWN",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[4]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-distributed-1-baseline-followup-retinal-imaging",
+      "semanticKey": "sem3-dev-retinal-vascular-outcome-unknown.baseline-followup-retinal-imaging",
+      "elementType": "RELATION",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[1]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN.source.provenance"
+      ]
+    }
+  ],
+  "obligationMappings": [
+    {
+      "obligationId": "req-4-technique-equivalence-unproven",
+      "status": "PRESERVED",
+      "evidenceType": "REFERENCE_DECLARED_VARIANT",
+      "candidateElementRefs": [
+        "element-distributed-4-technique-equivalence-unproven"
+      ]
+    },
+    {
+      "obligationId": "req-3-followup-timing-variable",
+      "status": "PRESERVED",
+      "evidenceType": "REFERENCE_DECLARED_VARIANT",
+      "candidateElementRefs": [
+        "element-distributed-3-followup-timing-variable"
+      ]
+    },
+    {
+      "obligationId": "req-2-stability-undefined",
+      "status": "PRESERVED",
+      "evidenceType": "REFERENCE_DECLARED_VARIANT",
+      "candidateElementRefs": [
+        "element-distributed-2-stability-undefined"
+      ]
+    },
+    {
+      "obligationId": "req-1-baseline-followup-retinal-imaging",
+      "status": "PRESERVED",
+      "evidenceType": "REFERENCE_DECLARED_VARIANT",
+      "candidateElementRefs": [
+        "element-distributed-1-baseline-followup-retinal-imaging"
+      ]
+    }
+  ],
+  "prohibitionSignals": [
+    {
+      "prohibitionId": "pro-1-invent-stability-definition",
+      "status": "ABSENT",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN.prohibited.pro-1-invent-stability-definition"
+      ]
+    },
+    {
+      "prohibitionId": "pro-2-assume-harmonized-followup",
+      "status": "ABSENT",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN.prohibited.pro-2-assume-harmonized-followup"
+      ]
+    }
+  ],
+  "optionalCandidateMappings": [
+    {
+      "candidateId": "opt-1-candidate-harmonization-analysis",
+      "status": "ABSENT",
+      "epistemicStatus": "NOT_APPLICABLE",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN.optionalRelevant.opt-1-candidate-harmonization-analysis"
+      ]
+    }
+  ],
+  "ambiguityMappings": [
+    {
+      "ambiguityId": "amb-1-functional-stability",
+      "status": "PRESERVED_OPEN",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN.admissibleAmbiguities.amb-1-functional-stability"
+      ]
+    }
+  ],
+  "clarificationMapping": {
+    "status": "PRESENT",
+    "decisionImpactMapping": "REQUIRES_HUMAN_ADJUDICATION",
+    "evidenceRefs": [
+      "SEM3-AE-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN.expectedClarification"
+    ]
+  },
+  "ownershipMappings": [
+    {
+      "boundaryId": "own-sem-project",
+      "status": "PRESERVED",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN.ownershipBoundaries.own-sem-project"
+      ]
+    },
+    {
+      "boundaryId": "own-knowledge-specialists",
+      "status": "PRESERVED",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN.ownershipBoundaries.own-knowledge-specialists"
+      ]
+    }
+  ],
+  "provenanceSummary": {
+    "status": "RECONSTRUCTIBLE",
+    "sourceRequestReconstructible": true,
+    "historyReconstructible": true,
+    "evidenceRefs": [
+      "SEM3-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN.source.sourceRequest",
+      "SEM3-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN.source.provenance"
+    ]
+  },
+  "adjudicationClaims": [
+    {
+      "claimId": "claim-reference-declared-equivalence",
+      "propertyIds": [
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED"
+      ],
+      "description": "The candidate uses the reference-declared distributed form while preserving explicit obligation mappings.",
+      "basis": "REFERENCE_DECLARED",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN.acceptableSemanticVariants.variant-obligation-vector",
+        "SEM3-AE-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN.evaluationDemonstrations.representation-b"
+      ]
+    }
+  ],
+  "referenceDemonstrationId": "representation-b",
+  "declaredVariantId": "variant-obligation-vector"
+}

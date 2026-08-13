@@ -1,0 +1,147 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "BENCHMARK_EVALUATION_CANDIDATE",
+  "purpose": "SCIENTIFIC_UNDERSTANDING_EVALUATOR_DEVELOPMENT",
+  "candidateId": "SEM3-EVAL-CAND-INFLAMMATION-MULTIDIMENSIONAL-BASELINE",
+  "caseId": "SEM3-DEV-INFLAMMATION-MULTIDIMENSIONAL",
+  "caseVersion": "1.0.0",
+  "envelopeId": "SEM3-AE-DEV-INFLAMMATION-MULTIDIMENSIONAL",
+  "envelopeVersion": "1.0.0",
+  "evaluationMode": "DEVELOPMENT_SYNTHETIC",
+  "sourceType": "EVALUATOR_DEVELOPMENT_SYNTHETIC",
+  "structureProfile": "CONSOLIDATED",
+  "executionStatus": "COMPLETED",
+  "semanticElements": [
+    {
+      "elementId": "element-1-asymmetric-timing",
+      "semanticKey": "sem3-dev-inflammation-multidimensional.asymmetric-timing",
+      "elementType": "TIMING",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[1]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-INFLAMMATION-MULTIDIMENSIONAL.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-2-association-only",
+      "semanticKey": "sem3-dev-inflammation-multidimensional.association-only",
+      "elementType": "POLARITY",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[2]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-INFLAMMATION-MULTIDIMENSIONAL.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-3-mechanisms-optional",
+      "semanticKey": "sem3-dev-inflammation-multidimensional.mechanisms-optional",
+      "elementType": "OWNERSHIP",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[4]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-INFLAMMATION-MULTIDIMENSIONAL.source.provenance"
+      ]
+    }
+  ],
+  "obligationMappings": [
+    {
+      "obligationId": "req-1-asymmetric-timing",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-1-asymmetric-timing"
+      ]
+    },
+    {
+      "obligationId": "req-2-association-only",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-2-association-only"
+      ]
+    },
+    {
+      "obligationId": "req-3-mechanisms-optional",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-3-mechanisms-optional"
+      ]
+    }
+  ],
+  "prohibitionSignals": [
+    {
+      "prohibitionId": "pro-1-invent-causality",
+      "status": "ABSENT",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-INFLAMMATION-MULTIDIMENSIONAL.prohibited.pro-1-invent-causality"
+      ]
+    },
+    {
+      "prohibitionId": "pro-2-promote-mechanism-objective",
+      "status": "ABSENT",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-INFLAMMATION-MULTIDIMENSIONAL.prohibited.pro-2-promote-mechanism-objective"
+      ]
+    }
+  ],
+  "optionalCandidateMappings": [
+    {
+      "candidateId": "opt-1-candidate-mechanisms",
+      "status": "ABSENT",
+      "epistemicStatus": "NOT_APPLICABLE",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-INFLAMMATION-MULTIDIMENSIONAL.optionalRelevant.opt-1-candidate-mechanisms"
+      ]
+    }
+  ],
+  "ambiguityMappings": [],
+  "clarificationMapping": {
+    "status": "ABSENT",
+    "decisionImpactMapping": "REQUIRES_HUMAN_ADJUDICATION",
+    "evidenceRefs": [
+      "SEM3-AE-DEV-INFLAMMATION-MULTIDIMENSIONAL.expectedClarification"
+    ]
+  },
+  "ownershipMappings": [
+    {
+      "boundaryId": "own-sem-project",
+      "status": "PRESERVED",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-INFLAMMATION-MULTIDIMENSIONAL.ownershipBoundaries.own-sem-project"
+      ]
+    },
+    {
+      "boundaryId": "own-knowledge-specialists",
+      "status": "PRESERVED",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-INFLAMMATION-MULTIDIMENSIONAL.ownershipBoundaries.own-knowledge-specialists"
+      ]
+    }
+  ],
+  "provenanceSummary": {
+    "status": "RECONSTRUCTIBLE",
+    "sourceRequestReconstructible": true,
+    "historyReconstructible": true,
+    "evidenceRefs": [
+      "SEM3-DEV-INFLAMMATION-MULTIDIMENSIONAL.source.sourceRequest",
+      "SEM3-DEV-INFLAMMATION-MULTIDIMENSIONAL.source.provenance"
+    ]
+  },
+  "adjudicationClaims": []
+}

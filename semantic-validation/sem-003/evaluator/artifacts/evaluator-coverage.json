@@ -1,0 +1,125 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003_EVALUATOR_DEVELOPMENT_COVERAGE",
+  "evaluatorVersion": "1.0.0",
+  "evaluatorConfigurationDigest": "13f2e4d0b57e200b53e3db52a4fa74cc346a0b65e82b96ac12ca82ba435767b5",
+  "modeExecuted": "DEVELOPMENT_SYNTHETIC",
+  "calibrationCaseContentAccessedForEvaluatorTuning": false,
+  "calibrationExecuted": false,
+  "development": {
+    "casesAvailable": 15,
+    "casesUsed": 15,
+    "caseIdsUsed": [
+      "SEM3-DEV-BODY-COMPOSITION-AMBIGUITY",
+      "SEM3-DEV-CARDIAC-AGING-TRAJECTORY",
+      "SEM3-DEV-CORONARY-PERFUSION-PRIORITY",
+      "SEM3-DEV-CT-FUNCTIONAL-ESTIMATE-ROLE",
+      "SEM3-DEV-INFLAMMATION-MULTIDIMENSIONAL",
+      "SEM3-DEV-INTESTINAL-MOTILITY-METHOD",
+      "SEM3-DEV-OUTCOME-PRIORITY-CHANGE",
+      "SEM3-DEV-PANCREATIC-COMPOSITION-LONGITUDINAL",
+      "SEM3-DEV-PERICARDIAL-FAT-NONCAUSAL",
+      "SEM3-DEV-PLAQUE-INTERVENTION-CONTEXT",
+      "SEM3-DEV-RETINAL-VASCULAR-OUTCOME-UNKNOWN",
+      "SEM3-DEV-ROUTINE-DATA-COMPARATOR-GAP",
+      "SEM3-DEV-TRANSLATIONAL-HYPOXIA-CANDIDATES",
+      "SEM3-DEV-TRIAL-IMAGING-OUTCOME-CORRECTION",
+      "SEM3-DEV-VALVE-HEMODYNAMICS-MULTIMODAL"
+    ],
+    "caseIdsUnused": []
+  },
+  "candidates": {
+    "total": 41,
+    "baselinePositive": 15,
+    "structuralEquivalence": 5,
+    "nearStructureCriticalFailure": 12,
+    "statisticalAdjudicationMechanic": 6,
+    "boundaryDispositions": 3
+  },
+  "properties": {
+    "recognized": 18,
+    "positiveFixtureCoverage": [
+      "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+      "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+      "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+      "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+      "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+      "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+    ],
+    "negativeFixtureCoverage": [
+      "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+      "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+      "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+      "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+      "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+      "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+      "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+      "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+      "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+      "PROPERTY_NO_UNSUPPORTED_INVENTION",
+      "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+      "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+      "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+    ],
+    "adjudicationFixtureCoverage": [
+      "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+      "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+      "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+      "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+      "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+      "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+    ],
+    "absolutePositiveAndNegative": true,
+    "statisticalMechanicsCovered": true
+  },
+  "failureClasses": {
+    "recognized": 15,
+    "observedInSyntheticFixtures": [
+      "CONCEPTUAL_PLAN_COLLAPSE",
+      "EPISTEMIC_PROMOTION_FAILURE",
+      "EXPLICIT_FIDELITY_FAILURE",
+      "OWNERSHIP_BOUNDARY_FAILURE",
+      "POLARITY_OR_CAUSALITY_FAILURE",
+      "PROVIDER_EXECUTION_FAILURE",
+      "QUALIFICATION_PROTOCOL_FAILURE",
+      "RELATION_SEMANTICS_FAILURE",
+      "UNSUPPORTED_INVENTION_FAILURE"
+    ],
+    "unobservedButContractuallySupported": [
+      "CONTEXTUAL_UNDERSTANDING_FAILURE",
+      "MISSING_INFORMATION_FAILURE",
+      "CLARIFICATION_FAILURE",
+      "PROVENANCE_FAILURE",
+      "SEMANTIC_EQUIVALENCE_EVALUATION_FAILURE",
+      "GENERATIVE_INSTABILITY_FAILURE"
+    ]
+  },
+  "dispositions": {
+    "recognized": 6,
+    "observedInDevelopmentSynthetic": [
+      "NOT_EVALUABLE",
+      "PROVIDER_EXECUTION_FAILURE",
+      "SAFE_FAIL_CLOSED",
+      "SEMANTIC_FAILURE"
+    ],
+    "supportedButNotExecutedWithoutHumanDecision": [
+      "ACCEPTABLE_SEMANTIC_EQUIVALENT",
+      "ACCEPTABLE_NONCRITICAL_VARIATION"
+    ]
+  },
+  "testMatrixRows": 41,
+  "gaps": [
+    "Human scientific reference review remains required.",
+    "Human methodological review remains required.",
+    "The five declared equivalence pairs remain open for human adjudication.",
+    "The evaluator has not been calibrated or qualified under PD-011.",
+    "FUTURE_SEM_RUNTIME and HUMAN_ADJUDICATION modes are implemented as contracts but were not executed.",
+    "No threshold, N value, aggregate score, blind package, or qualification decision exists."
+  ]
+}

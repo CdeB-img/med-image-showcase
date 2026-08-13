@@ -1,0 +1,183 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "BENCHMARK_EVALUATION_CANDIDATE",
+  "purpose": "SCIENTIFIC_UNDERSTANDING_EVALUATOR_DEVELOPMENT",
+  "candidateId": "SEM3-EVAL-CAND-CORONARY-PERFUSION-PRIORITY-ADJUDICATION-P13",
+  "caseId": "SEM3-DEV-CORONARY-PERFUSION-PRIORITY",
+  "caseVersion": "1.0.0",
+  "envelopeId": "SEM3-AE-DEV-CORONARY-PERFUSION-PRIORITY",
+  "envelopeVersion": "1.0.0",
+  "evaluationMode": "DEVELOPMENT_SYNTHETIC",
+  "sourceType": "EVALUATOR_DEVELOPMENT_SYNTHETIC",
+  "structureProfile": "NOVEL_REQUIRES_ADJUDICATION",
+  "executionStatus": "COMPLETED",
+  "semanticElements": [
+    {
+      "elementId": "element-1-before-after-revascularization",
+      "semanticKey": "sem3-dev-coronary-perfusion-priority.before-after-revascularization",
+      "elementType": "RELATION",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[0]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-CORONARY-PERFUSION-PRIORITY.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-2-twelve-month-ellipsis",
+      "semanticKey": "sem3-dev-coronary-perfusion-priority.twelve-month-ellipsis",
+      "elementType": "TIMING",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[4]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-CORONARY-PERFUSION-PRIORITY.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-3-mri-not-guaranteed",
+      "semanticKey": "sem3-dev-coronary-perfusion-priority.mri-not-guaranteed",
+      "elementType": "POLARITY",
+      "state": "CURRENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[3]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-CORONARY-PERFUSION-PRIORITY.source.provenance"
+      ]
+    },
+    {
+      "elementId": "element-4-cross-modality-comparability-open",
+      "semanticKey": "sem3-dev-coronary-perfusion-priority.cross-modality-comparability-open",
+      "elementType": "UNKNOWN",
+      "state": "OPEN_UNKNOWN",
+      "epistemicStatus": "UNKNOWN",
+      "adoptionStatus": "NOT_ADOPTED",
+      "owner": "BENCHMARK_SYNTHETIC_REPRESENTATION_ONLY",
+      "sourceRefs": [
+        "source.conversationTurns[6]"
+      ],
+      "provenanceRefs": [
+        "SEM3-DEV-CORONARY-PERFUSION-PRIORITY.source.provenance"
+      ]
+    }
+  ],
+  "obligationMappings": [
+    {
+      "obligationId": "req-1-before-after-revascularization",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-1-before-after-revascularization"
+      ]
+    },
+    {
+      "obligationId": "req-2-twelve-month-ellipsis",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-2-twelve-month-ellipsis"
+      ]
+    },
+    {
+      "obligationId": "req-3-mri-not-guaranteed",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-3-mri-not-guaranteed"
+      ]
+    },
+    {
+      "obligationId": "req-4-cross-modality-comparability-open",
+      "status": "PRESERVED",
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "candidateElementRefs": [
+        "element-4-cross-modality-comparability-open"
+      ]
+    }
+  ],
+  "prohibitionSignals": [
+    {
+      "prohibitionId": "pro-1-assume-followup-mri",
+      "status": "ABSENT",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-CORONARY-PERFUSION-PRIORITY.prohibited.pro-1-assume-followup-mri"
+      ]
+    },
+    {
+      "prohibitionId": "pro-2-declare-modality-equivalence",
+      "status": "ABSENT",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-CORONARY-PERFUSION-PRIORITY.prohibited.pro-2-declare-modality-equivalence"
+      ]
+    }
+  ],
+  "optionalCandidateMappings": [
+    {
+      "candidateId": "opt-1-candidate-harmonization",
+      "status": "ABSENT",
+      "epistemicStatus": "NOT_APPLICABLE",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-CORONARY-PERFUSION-PRIORITY.optionalRelevant.opt-1-candidate-harmonization"
+      ]
+    }
+  ],
+  "ambiguityMappings": [],
+  "clarificationMapping": {
+    "status": "PRESENT",
+    "decisionImpactMapping": "REQUIRES_HUMAN_ADJUDICATION",
+    "evidenceRefs": [
+      "SEM3-AE-DEV-CORONARY-PERFUSION-PRIORITY.expectedClarification"
+    ]
+  },
+  "ownershipMappings": [
+    {
+      "boundaryId": "own-sem-project",
+      "status": "PRESERVED",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-CORONARY-PERFUSION-PRIORITY.ownershipBoundaries.own-sem-project"
+      ]
+    },
+    {
+      "boundaryId": "own-knowledge-specialists",
+      "status": "PRESERVED",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-CORONARY-PERFUSION-PRIORITY.ownershipBoundaries.own-knowledge-specialists"
+      ]
+    }
+  ],
+  "provenanceSummary": {
+    "status": "RECONSTRUCTIBLE",
+    "sourceRequestReconstructible": true,
+    "historyReconstructible": true,
+    "evidenceRefs": [
+      "SEM3-DEV-CORONARY-PERFUSION-PRIORITY.source.sourceRequest",
+      "SEM3-DEV-CORONARY-PERFUSION-PRIORITY.source.provenance"
+    ]
+  },
+  "adjudicationClaims": [
+    {
+      "claimId": "claim-p13-requires-adjudication",
+      "propertyIds": [
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED"
+      ],
+      "description": "The normalized representation leaves a non-trivial scientific property judgment to governed human adjudication.",
+      "basis": "NOVEL_REQUIRES_ADJUDICATION",
+      "evidenceRefs": [
+        "SEM3-AE-DEV-CORONARY-PERFUSION-PRIORITY.properties.PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "SEM3-EVAL-CAND-CORONARY-PERFUSION-PRIORITY-ADJUDICATION-P13.semanticElements"
+      ]
+    }
+  ]
+}
