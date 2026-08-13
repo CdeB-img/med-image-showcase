@@ -165,14 +165,13 @@ describe("SEM generic provider structured-contract validation", () => {
     expect(fetchImpl).toHaveBeenCalledTimes(3);
   });
 
-  it("regenerates a reconstruction whose explicit relation source is not an exact USER substring", async () => {
-    const fetchImpl = vi.fn()
-      .mockResolvedValueOnce(response(invalidSourceCandidate()))
-      .mockResolvedValueOnce(response(comparisonCandidate())) as unknown as typeof fetch;
+  it("derives an exact USER clause when unique relation endpoints make the source span unambiguous", async () => {
+    const fetchImpl = vi.fn().mockResolvedValue(response(invalidSourceCandidate())) as unknown as typeof fetch;
     const result = await provider(fetchImpl).reconstruct(makeSemanticRequest());
-    expect(result.candidate.semanticInventory.explicitRelations[0].sourceText).toBe("comparer CT et IRM");
-    expect(result.attempts).toHaveLength(2);
-    expect(fetchImpl).toHaveBeenCalledTimes(2);
+    expect(result.candidate.semanticInventory.explicitRelations[0].sourceText).toBe("Je veux comparer CT et IRM cardiaque.");
+    expect(result.candidate.semanticWarnings).toContain("DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:1");
+    expect(result.attempts).toHaveLength(1);
+    expect(fetchImpl).toHaveBeenCalledTimes(1);
   });
 
   it("regenerates a critic output containing a source-ungrounded repair", async () => {
@@ -188,7 +187,9 @@ describe("SEM generic provider structured-contract validation", () => {
   });
 
   it("uses at most two new generations before failing closed on exact source grounding", async () => {
-    const fetchImpl = vi.fn(async () => response(invalidSourceCandidate())) as unknown as typeof fetch;
+    const irreparable = invalidSourceCandidate();
+    irreparable.semanticInventory.explicitRelations[0].sourceMessageId = "unknown-user-message";
+    const fetchImpl = vi.fn(async () => response(irreparable)) as unknown as typeof fetch;
     try {
       await provider(fetchImpl).reconstruct(makeSemanticRequest());
       throw new Error("EXPECTED_PROVIDER_ERROR");
