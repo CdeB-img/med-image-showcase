@@ -42,7 +42,7 @@ export type RelationOwnershipAdjustment = {
 
 const functionalInventoryRole = (value: string) => /action|operation|predicate|verb|relation|link|operator|op[ée]rateur|connector|connecteur|comparison|comparaison|intent|purpose|objectif/i.test(value);
 
-const semanticRelationHasCollectiveSpokeGrounding = (
+export const semanticRelationHasCollectiveSpokeGrounding = (
   candidate: SemanticReconstructionCandidate,
   semanticRelation: SemanticReconstructionCandidate["relations"][number],
   sourceInventoryIds: Set<string>,
@@ -140,6 +140,7 @@ export const stabilizeRelationOwnership = (
         reason: "SEMANTIC_RELATION_OWNS_DIRECTION",
       });
     });
+
   });
 
   stabilized.relations = stabilized.relations.filter((semanticRelation) => {

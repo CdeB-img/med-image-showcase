@@ -2,6 +2,7 @@ import { comparableScientificText, logicalDigest } from "@/features/knowledge-en
 import { parseSemanticReconstructionCandidate } from "./schema";
 import {
   relationAllowsReversedInventoryEndpoints,
+  semanticRelationHasCollectiveSpokeGrounding,
   semanticRelationFamily,
   stabilizeRelationOwnership,
 } from "./relation-ownership";
@@ -120,13 +121,14 @@ export const buildSemanticIntegrityReport = (
     if (!source || !target) return;
     const sourceInventoryIds = new Set(source.inventoryItemIds);
     const targetInventoryIds = new Set(target.inventoryItemIds);
+    const collectivelyGrounded = semanticRelationHasCollectiveSpokeGrounding(candidate, relation, sourceInventoryIds, targetInventoryIds);
     relation.inventoryRelationIds.forEach((inventoryRelationId) => {
       const inventoryRelation = candidate.semanticInventory.explicitRelations.find((item) => item.inventoryRelationId === inventoryRelationId);
       if (!inventoryRelation) return;
       const direct = sourceInventoryIds.has(inventoryRelation.sourceInventoryItemId) && targetInventoryIds.has(inventoryRelation.targetInventoryItemId);
       const reversed = sourceInventoryIds.has(inventoryRelation.targetInventoryItemId) && targetInventoryIds.has(inventoryRelation.sourceInventoryItemId);
       const endpointsCompatible = direct || reversed && relationAllowsReversedInventoryEndpoints(inventoryRelation.normalizedRelation, relation.relationType);
-      if (!endpointsCompatible) findings.push({
+      if (!endpointsCompatible && !collectivelyGrounded) findings.push({
         code: "RELATION_INVENTORY_ENDPOINT_MISMATCH",
         inventoryItemId: null,
         inventoryRelationId,
@@ -284,6 +286,39 @@ const relationIdsCarryingFramedFunctionalEndpoint = (
   });
 };
 
+const relationIdsCarryingLinkedFunctionalHub = (
+  candidate: SemanticReconstructionCandidate,
+  inventoryRelation: SemanticReconstructionCandidate["semanticInventory"]["explicitRelations"][number],
+) => {
+  const fragmentsById = new Map(candidate.semanticInventory.explicitFragments.map((fragment) => [fragment.inventoryItemId, fragment]));
+  const sourceFragment = fragmentsById.get(inventoryRelation.sourceInventoryItemId);
+  const targetFragment = fragmentsById.get(inventoryRelation.targetInventoryItemId);
+  const isFunctionalHub = (fragment: typeof sourceFragment) => Boolean(fragment
+    && /action|operation|predicate|verb|relation|link|operator|op[ée]rateur|connector|connecteur|comparison|comparaison|intent|purpose|objectif/i.test(`${fragment.localRole} ${fragment.normalizedLabel}`)
+    && fragment.linkedInventoryItemIds.length >= 2);
+  const hub = isFunctionalHub(sourceFragment) ? sourceFragment : isFunctionalHub(targetFragment) ? targetFragment : undefined;
+  if (!hub) return [];
+  const otherInventoryItemId = hub.inventoryItemId === inventoryRelation.sourceInventoryItemId
+    ? inventoryRelation.targetInventoryItemId
+    : inventoryRelation.sourceInventoryItemId;
+  const linkedInventoryIds = new Set(hub.linkedInventoryItemIds);
+  if (!linkedInventoryIds.has(otherInventoryItemId)) return [];
+
+  return candidate.relations.filter((relation) => relation.epistemicStatus === "EXPLICIT_USER_STATED"
+    && relation.polarity === inventoryRelation.polarity).filter((relation) => {
+    const source = candidate.elements.find((element) => element.clientElementId === relation.sourceClientElementId);
+    const target = candidate.elements.find((element) => element.clientElementId === relation.targetClientElementId);
+    if (!source || !target) return false;
+    const sourceInventoryIds = new Set(source.inventoryItemIds);
+    const targetInventoryIds = new Set(target.inventoryItemIds);
+    const sourceCarriesOther = sourceInventoryIds.has(otherInventoryItemId);
+    const targetCarriesOther = targetInventoryIds.has(otherInventoryItemId);
+    const sourceCarriesAnotherLink = [...sourceInventoryIds].some((inventoryItemId) => inventoryItemId !== otherInventoryItemId && linkedInventoryIds.has(inventoryItemId));
+    const targetCarriesAnotherLink = [...targetInventoryIds].some((inventoryItemId) => inventoryItemId !== otherInventoryItemId && linkedInventoryIds.has(inventoryItemId));
+    return sourceCarriesOther && targetCarriesAnotherLink || targetCarriesOther && sourceCarriesAnotherLink;
+  }).map((relation) => relation.clientRelationId).sort();
+};
+
 export const buildExplicitCoverageReport = (
   request: SemanticReconstructionRequest,
   candidate: SemanticReconstructionCandidate,
@@ -339,8 +374,9 @@ export const buildRelationCoverageReport = (
       if (!source || !target) return false;
       const sourceTool = toolTypes.has(source.type);
       const targetTool = toolTypes.has(target.type);
-      if (/MEASURED_BY|OBSERVED_BY|DETECTED_BY/i.test(relation.relationType) && sourceTool && !targetTool) return false;
       const sourceIsMeasuredTarget = ["SCIENTIFIC_OBJECT", "ANATOMICAL_CONTEXT", "PHENOMENON", "BIOMARKER", "ENDPOINT", "OUTCOME"].includes(source.type);
+      const targetIsMeasuredTarget = ["SCIENTIFIC_OBJECT", "ANATOMICAL_CONTEXT", "PHENOMENON", "BIOMARKER", "ENDPOINT", "OUTCOME"].includes(target.type);
+      if (/MEASURED_BY|OBSERVED_BY|DETECTED_BY/i.test(relation.relationType) && sourceTool && targetIsMeasuredTarget) return false;
       if (/^(MEASURES|OBSERVES|DETECTS)$/i.test(relation.relationType) && targetTool && !sourceTool && sourceIsMeasuredTarget) return false;
       return true;
     };
@@ -360,6 +396,16 @@ export const buildRelationCoverageReport = (
           && relationSourceElements.has(relation.targetClientElementId) && relationTargetElements.has(relation.sourceClientElementId))
       .map((relation) => relation.clientRelationId)
       .sort();
+    const collectivelyGroundedClientRelationIds = candidate.relations.filter((relation) => relation.inventoryRelationIds.includes(inventoryRelation.inventoryRelationId)).filter((relation) => {
+      const source = candidate.elements.find((element) => element.clientElementId === relation.sourceClientElementId);
+      const target = candidate.elements.find((element) => element.clientElementId === relation.targetClientElementId);
+      return Boolean(source && target && semanticRelationHasCollectiveSpokeGrounding(
+        candidate,
+        relation,
+        new Set(source.inventoryItemIds),
+        new Set(target.inventoryItemIds),
+      ));
+    }).map((relation) => relation.clientRelationId).sort();
     const sourceIsIntent = candidate.elements.some((element) => relationSourceElements.has(element.clientElementId) && (element.type === "SCIENTIFIC_INTENT" || element.type === "OPERATION"));
     const comparisonSiblings = sourceIsIntent && /compar|versus|oppos/i.test(inventoryRelation.normalizedRelation)
       ? candidate.semanticInventory.explicitRelations.filter((item) => item.inventoryRelationId !== inventoryRelation.inventoryRelationId
@@ -395,6 +441,7 @@ export const buildRelationCoverageReport = (
       relationSourceElements,
       relationTargetElements,
     );
+    const linkedFunctionalHubCarrierIds = relationIdsCarryingLinkedFunctionalHub(candidate, inventoryRelation);
     const sourceFragment = candidate.semanticInventory.explicitFragments.find((fragment) => fragment.inventoryItemId === inventoryRelation.sourceInventoryItemId);
     const targetFragment = candidate.semanticInventory.explicitFragments.find((fragment) => fragment.inventoryItemId === inventoryRelation.targetInventoryItemId);
     const compositeEndpointTopologyIds = (() => {
@@ -429,7 +476,7 @@ export const buildRelationCoverageReport = (
       : relationTargetElements.size === 0 && relationSourceElements.size > 0
         ? unaryStateTransitionIds(candidate, targetFragment)
         : [];
-    const mappedClientRelationIds = [...new Set([...coalescedElementIds, ...supersededEndpointIds, ...directlyMappedClientRelationIds, ...bridgedClientRelationIds, ...directComparisonFromIntentTargetIds, ...actionBridgeIds, ...framedFunctionalCarrierIds, ...compositeEndpointTopologyIds, ...unaryTransitionIds])].sort();
+    const mappedClientRelationIds = [...new Set([...coalescedElementIds, ...supersededEndpointIds, ...directlyMappedClientRelationIds, ...collectivelyGroundedClientRelationIds, ...bridgedClientRelationIds, ...directComparisonFromIntentTargetIds, ...actionBridgeIds, ...framedFunctionalCarrierIds, ...linkedFunctionalHubCarrierIds, ...compositeEndpointTopologyIds, ...unaryTransitionIds])].sort();
     return {
       inventoryRelationId: inventoryRelation.inventoryRelationId,
       sourceInventoryItemId: inventoryRelation.sourceInventoryItemId,
@@ -444,6 +491,10 @@ export const buildRelationCoverageReport = (
           ? "Both inventory fragments are explicitly preserved inside one typed Semantic Element; a redundant self-relation is not required."
           : framedFunctionalCarrierIds.length && directlyMappedClientRelationIds.length === 0
           ? "The framing intent-to-functional-operator construction is preserved by the source-grounded direct scientific relation between its explicit endpoints; a redundant relation-as-node edge is not required."
+          : linkedFunctionalHubCarrierIds.length && directlyMappedClientRelationIds.length === 0
+          ? "The functional relation hub is preserved by a direct explicit Semantic Relation between its linked scientific endpoints; a relation-as-object node is not required."
+          : collectivelyGroundedClientRelationIds.length && directlyMappedClientRelationIds.length === 0
+          ? "The direct Semantic Relation preserves both source-grounded spokes that share one explicit functional hub."
           : unaryTransitionIds.length && directlyMappedClientRelationIds.length === 0
           ? "The unary retain/add/remove construction is preserved by the explicit state transition of its uniquely linked scientific object; a redundant self-relation is forbidden."
           : compositeEndpointTopologyIds.length && directlyMappedClientRelationIds.length === 0

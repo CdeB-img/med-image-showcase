@@ -9,6 +9,7 @@ import {
 } from "./atomic-composition";
 import { parseSemanticCriticResult, parseSemanticReconstructionCandidate, SEMANTIC_CRITIC_JSON_SCHEMA, SEMANTIC_RECONSTRUCTION_JSON_SCHEMA } from "./schema";
 import { applyCriticRepairs, buildSemanticIntegrityReport } from "./coverage";
+import { semanticRelationHasCollectiveSpokeGrounding } from "./relation-ownership";
 import type {
   ScientificSemanticProvider,
   SemanticProviderAttempt,
@@ -398,7 +399,7 @@ export const normalizeSemanticRelationEndpointGrounding = (
       return sourceIds.has(inventory.sourceInventoryItemId) && targetIds.has(inventory.targetInventoryItemId)
         || sourceIds.has(inventory.targetInventoryItemId) && targetIds.has(inventory.sourceInventoryItemId);
     });
-    if (alreadyGrounded) return relation;
+    if (alreadyGrounded || semanticRelationHasCollectiveSpokeGrounding(candidate, relation, sourceIds, targetIds)) return relation;
     const candidates = source.inventoryItemIds.flatMap((sourceInventoryItemId) => target.inventoryItemIds.flatMap((targetInventoryItemId) => {
       const sourceFragment = fragmentsById.get(sourceInventoryItemId);
       const targetFragment = fragmentsById.get(targetInventoryItemId);
