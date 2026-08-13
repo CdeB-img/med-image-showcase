@@ -683,15 +683,11 @@ La photographie baseline ultérieure doit évaluer la configuration SEM alors ge
 
 Le résultat baseline peut révéler des forces, lacunes ou limites. Il ne donne aucun droit automatique à réparer, publier ou étendre le domaine. Toute évolution post-baseline appartient à une mission distincte, avec nouvelle identité de configuration et nouveau plan de preuve indépendant.
 
-## 17. Phases futures — non exécutées
+## 17. Chaîne de réalisation — fondation officielle et phases futures
 
-### SEM-003B — Benchmark Case Authoring Protocol
+### SEM-003B — Benchmark Case Authoring Protocol — `OFFICIAL`
 
-- préparer et former les auteurs ;
-- créer uniquement les jeux Development et Calibration ;
-- tester la qualité et la reproductibilité des `Acceptance Envelopes` ;
-- qualifier les procédures d’adjudication ;
-- ne pas créer le blind set final tant que la gouvernance de scellement n’est pas décidée.
+SEM-003B est le protocole opérationnel officiel et subordonné qui prépare les auteurs, gouverne la création des cas Development et des candidats Calibration, contrôle la qualité structurelle des `Acceptance Envelopes` et organise les revues humaines nécessaires. Son admission ne qualifie ni les références scientifiques, ni l’évaluateur, ni une campagne. Il interdit de créer le blind set final tant que la gouvernance de scellement n’est pas décidée.
 
 ### SEM-003C — Blind Package Construction and Sealing
 
@@ -718,7 +714,7 @@ Après analyse humaine, distinguer :
 - insuffisance ou évolution nécessaire du contrat d’évaluation ;
 - éventuelle mission de développement ultérieure.
 
-Aucune de ces phases n’est exécutée par SEM-003 ni par son admission documentaire.
+Les phases SEM-003C à SEM-003E ne sont exécutées ni par SEM-003, ni par SEM-003B, ni par leur admission documentaire.
 
 ## 18. Questions ouvertes et limitations
 
@@ -766,4 +762,4 @@ Cette décision :
 - ne qualifie pas SEM ;
 - ne crée aucun cas, Gold, seuil, nombre de runs ou corpus aveugle ;
 - n’autorise aucune exécution ni réparation ;
-- ne modifie ni l’index, ni le code, ni les contrats fonctionnels existants.
+- est enregistrée par le `SOURCE-OF-TRUTH-INDEX` version 1.32 sans modifier le code ni les contrats fonctionnels existants.
