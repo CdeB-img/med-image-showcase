@@ -11,6 +11,7 @@ const EVALUATOR_ROOT = path.dirname(fileURLToPath(import.meta.url));
 const REPOSITORY_ROOT = path.resolve(EVALUATOR_ROOT, "../../..");
 const DEVELOPMENT_ROOT = path.resolve(EVALUATOR_ROOT, "../corpus/development");
 const FIXTURE_ROOT = path.resolve(EVALUATOR_ROOT, "fixtures/development");
+const DECISION_FIXTURE_ROOT = path.resolve(FIXTURE_ROOT, "adjudication");
 const ARTIFACT_ROOT = path.resolve(EVALUATOR_ROOT, "artifacts");
 const REGISTRY_ROOT = path.resolve(EVALUATOR_ROOT, "registry");
 
@@ -64,6 +65,14 @@ export const validateEvaluatorDevelopment = () => {
   if (generatedCheck.status !== 0) {
     errors.push(`GENERATED_ARTIFACT_CHECK_FAILED: ${generatedCheck.stderr || generatedCheck.stdout}`);
   }
+  const freezeCheck = spawnSync(
+    process.execPath,
+    ["semantic-validation/sem-003/evaluator/tools/generate-post-b4r-freeze.mjs", "--check"],
+    { cwd: REPOSITORY_ROOT, encoding: "utf8" },
+  );
+  if (freezeCheck.status !== 0) {
+    errors.push(`POST_B4R_FREEZE_CHECK_FAILED: ${freezeCheck.stderr || freezeCheck.stdout}`);
+  }
 
   const expectedIdentity = computeEvaluatorIdentity();
   const recordedIdentity = readJson(path.join(REGISTRY_ROOT, "evaluator-identity.json"));
@@ -108,6 +117,44 @@ export const validateEvaluatorDevelopment = () => {
       resultByCandidateId.set(candidate.candidateId, result);
     } catch (error) {
       errors.push(`EVALUATION_FAILED:${candidate.candidateId}:${error.message}`);
+    }
+  }
+
+  const decisionFiles = fs
+    .readdirSync(DECISION_FIXTURE_ROOT)
+    .filter((file) => file.endsWith(".decision.json"))
+    .sort();
+  const decisionRecords = decisionFiles.map((file) =>
+    readJson(path.join(DECISION_FIXTURE_ROOT, file)),
+  );
+  for (const record of decisionRecords) {
+    const contract = validateContract("adjudicationDecisionRecord", record);
+    if (!contract.valid) {
+      errors.push(
+        `ADJUDICATION_DECISION_SCHEMA_INVALID:${record.recordId}:${JSON.stringify(contract.errors)}`,
+      );
+    }
+  }
+  const simulatedDecisions = decisionRecords.filter(
+    (record) => record.authorityClass === "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+  );
+  const humanContractFixtures = decisionRecords.filter(
+    (record) => record.evidenceBasis === "CONTRACT_TEST_ONLY",
+  );
+  if (simulatedDecisions.length !== 5) {
+    errors.push(`B3_SIMULATED_EQUIVALENCE_DECISION_COUNT_EXPECTED_5_GOT_${simulatedDecisions.length}`);
+  }
+  if (humanContractFixtures.length !== 1) {
+    errors.push(`HUMAN_CONTRACT_FIXTURE_COUNT_EXPECTED_1_GOT_${humanContractFixtures.length}`);
+  }
+  for (const record of simulatedDecisions) {
+    if (
+      record.provenance.realHumanReview ||
+      record.eligibility.formalIndependentQualification ||
+      record.eligibility.blindReferenceAdmission ||
+      record.eligibility.pd011FinalEvidence
+    ) {
+      errors.push(`SIMULATED_ADJUDICATION_PROMOTION:${record.recordId}`);
     }
   }
 
@@ -169,6 +216,7 @@ export const validateEvaluatorDevelopment = () => {
   const sourceFiles = [
     ...fs.readdirSync(path.join(EVALUATOR_ROOT, "core")).map((file) => path.join(EVALUATOR_ROOT, "core", file)),
     path.join(EVALUATOR_ROOT, "registry", "failure-disposition-registry.json"),
+    path.join(EVALUATOR_ROOT, "registry", "adjudication-authority-capabilities.json"),
   ];
   const implementationSource = sourceFiles
     .filter((file) => fs.statSync(file).isFile())
@@ -191,6 +239,7 @@ export const validateEvaluatorDevelopment = () => {
   const schemaFiles = fs
     .readdirSync(path.join(EVALUATOR_ROOT, "contracts"))
     .filter((file) => file.endsWith(".json"));
+  if (schemaFiles.length !== 7) errors.push(`EVALUATOR_SCHEMA_COUNT_EXPECTED_7_GOT_${schemaFiles.length}`);
   const forbiddenKeys = new Set(["score", "aggregateScore", "threshold", "nRuns", "passFail"]);
   for (const file of schemaFiles) {
     const keys = collectPropertyKeys(readJson(path.join(EVALUATOR_ROOT, "contracts", file)));
@@ -206,6 +255,21 @@ export const validateEvaluatorDevelopment = () => {
   ) {
     errors.push("CALIBRATION_BOUNDARY_NOT_PRESERVED");
   }
+
+  const antiOverfitting = readJson(
+    path.join(ARTIFACT_ROOT, "b4r-anti-overfitting-audit.json"),
+  );
+  if (
+    antiOverfitting.calibrationCaseIdsReferencedByRepairCode !== 0 ||
+    antiOverfitting.calibrationSemanticKeysReferencedByRepairCode !== 0 ||
+    antiOverfitting.calibrationCandidateOutputsRead !== 0 ||
+    antiOverfitting.calibrationExpectationsRead !== 0 ||
+    antiOverfitting.calibrationMetricsRead !== 0 ||
+    antiOverfitting.evaluatorRulesDerivedFromCalibration !== false ||
+    antiOverfitting.b3SimulatedProvenanceRelabeledHuman !== false
+  ) {
+    errors.push("B4R_ANTI_OVERFITTING_AUDIT_FAILED");
+  }
   if (coverage.development.casesUsed !== 15 || coverage.development.caseIdsUnused.length !== 0) {
     errors.push("DEVELOPMENT_COVERAGE_INCOMPLETE");
   }
@@ -215,7 +279,7 @@ export const validateEvaluatorDevelopment = () => {
     valid: true,
     evaluatorVersion: recordedIdentity.version,
     configurationDigest: recordedIdentity.configurationDigest,
-    schemas: 6,
+    schemas: 7,
     properties: PROPERTY_ORDER.length,
     absoluteProperties: absoluteProperties.length,
     statisticalProperties: statisticalProperties.length,
@@ -223,6 +287,8 @@ export const validateEvaluatorDevelopment = () => {
     syntheticCandidates: fixtureFiles.length,
     testMatrixRows: matrix.rows.length,
     results: resultByCandidateId.size,
+    simulatedAdjudicationDecisions: simulatedDecisions.length,
+    humanAuthorityContractFixtures: humanContractFixtures.length,
     calibrationContentTuning: "NO",
     calibrationExecuted: "NO",
   };
@@ -231,6 +297,6 @@ export const validateEvaluatorDevelopment = () => {
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const result = validateEvaluatorDevelopment();
   process.stdout.write(
-    `SEM-003 evaluator validation PASS: ${result.schemas} schemas, ${result.properties} properties, ${result.developmentCases} Development cases, ${result.syntheticCandidates} candidates, Calibration tuning ${result.calibrationContentTuning}\n`,
+    `SEM-003 evaluator validation PASS: ${result.schemas} schemas, ${result.properties} properties, ${result.developmentCases} Development cases, ${result.syntheticCandidates} candidates, ${result.simulatedAdjudicationDecisions} simulated decisions, Calibration tuning ${result.calibrationContentTuning}\n`,
   );
 }

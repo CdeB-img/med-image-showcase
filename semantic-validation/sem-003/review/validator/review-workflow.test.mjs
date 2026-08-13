@@ -375,8 +375,10 @@ test("B3-C23 — simulated review is never recorded as human approval", () => {
 
 test("B3-C24 — Calibration content was not used to tune the evaluator", () => {
   assert.equal(review.antiOverfitting.calibrationContentUsedForEvaluatorTuning, false);
-  assert.equal(review.evaluatorIdentity.version, "1.0.0");
-  assert.equal(review.evaluatorIdentity.configurationDigest, "13f2e4d0b57e200b53e3db52a4fa74cc346a0b65e82b96ac12ca82ba435767b5");
+  assert.equal(review.manifest.evaluator.version, "1.0.0");
+  assert.equal(review.manifest.evaluator.configurationDigest, "13f2e4d0b57e200b53e3db52a4fa74cc346a0b65e82b96ac12ca82ba435767b5");
+  assert.equal(review.calibrationReferenceSet.evaluator.version, "1.0.0");
+  assert.equal(review.calibrationReferenceSet.evaluator.configurationDigest, "13f2e4d0b57e200b53e3db52a4fa74cc346a0b65e82b96ac12ca82ba435767b5");
 });
 
 test("B3-C25 — packet preparation invokes neither SEM runtime nor provider", () => {

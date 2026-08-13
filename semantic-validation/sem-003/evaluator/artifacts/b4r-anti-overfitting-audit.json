@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003B4R_ANTI_OVERFITTING_AUDIT",
+  "createdAt": "2026-08-13T21:41:40.000Z",
+  "scope": "DEVELOPMENT_ONLY_CALIBRATION_CONTRACT_REPAIR",
+  "calibrationCaseIdsReferencedByRepairCode": 0,
+  "calibrationSemanticKeysReferencedByRepairCode": 0,
+  "calibrationCandidateOutputsRead": 0,
+  "calibrationExpectationsRead": 0,
+  "calibrationMetricsRead": 0,
+  "evaluatorRulesDerivedFromCalibration": false,
+  "b3SimulatedProvenanceRelabeledHuman": false,
+  "developmentCasesUsed": 15,
+  "b3DevelopmentEquivalenceDecisionsUsed": 5,
+  "genericContractFixturesUsed": 1,
+  "semRuntimeModified": false,
+  "semRuntimeExecuted": false,
+  "llmProviderCalls": 0,
+  "blindArtifactCreated": false,
+  "calibrationScientificExecutionPerformed": false,
+  "thresholdOrNIntroduced": false,
+  "result": "PASS"
+}

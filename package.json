@@ -22,6 +22,8 @@
     "generate:sem003-evaluator": "node semantic-validation/sem-003/evaluator/tools/generate-development-fixtures.mjs",
     "validate:sem003-evaluator": "node semantic-validation/sem-003/evaluator/validate.mjs",
     "test:sem003-evaluator": "node --test semantic-validation/sem-003/evaluator/evaluator.test.mjs",
+    "test:sem003-evaluator:b4r": "node --test semantic-validation/sem-003/evaluator/b4r.test.mjs",
+    "freeze:sem003-evaluator:b4r": "node semantic-validation/sem-003/evaluator/tools/generate-post-b4r-freeze.mjs",
     "generate:sem003-review": "node semantic-validation/sem-003/review/tools/generate-review-packet.mjs",
     "validate:sem003-review": "node semantic-validation/sem-003/review/validator/validate.mjs",
     "test:sem003-review": "node --test semantic-validation/sem-003/review/validator/review-workflow.test.mjs",

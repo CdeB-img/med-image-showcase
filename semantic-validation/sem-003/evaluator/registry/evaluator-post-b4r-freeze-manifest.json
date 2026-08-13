@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003_EVALUATOR_POST_B4R_FREEZE_MANIFEST",
+  "evaluatorVersion": "1.1.0",
+  "previousEvaluatorVersion": "1.0.0",
+  "configurationDigest": "b05bc0ac66cb3e4dc5f135ba278cac8cadebe7443e57b1003dca580c9bd0e9bd",
+  "previousConfigurationDigest": "13f2e4d0b57e200b53e3db52a4fa74cc346a0b65e82b96ac12ca82ba435767b5",
+  "codeDigest": "ddf0e9b81bcea7c46b79a2389ea5a4b4f3ecf9d8be4940833b2fecb04713681c",
+  "schemasDigest": "7e608d8b66f1cda8f7b8accfc62e37eb88d1306ebec2434dc3cc4aefee19b5aa",
+  "propertyRegistryDigest": "f0db9a687df425fd844c80580914bb91b3c5382663307fa9aea696015c876a70",
+  "failureTaxonomyDigest": "a5e45a03676b049c8a6478c66dfbd218fcd29954e48e38cc74ab850b6a950e2b",
+  "adjudicationAuthorityCapabilitiesDigest": "0ef703192bf1cb48fbbd3ef51b4cb6354222479d4802f80b61d719281a497adf",
+  "supportedModes": [
+    "DEVELOPMENT_SYNTHETIC",
+    "CALIBRATION_SYNTHETIC",
+    "FUTURE_SEM_RUNTIME",
+    "HUMAN_ADJUDICATION"
+  ],
+  "supportedAdjudicationAuthorities": [
+    "SIMULATED_PLURALISTIC_EXPERT_REVIEW",
+    "HUMAN_ADJUDICATION"
+  ],
+  "developmentTestsDigest": "e9a4bf8989377881fc0af7a9305ad27ce775d429a92213c15ffb001950c4426a",
+  "B3EquivalenceDecisionSetDigest": "d389cf630da5dde5481c21f6b02aaf3cafb02b2e4acdb0c39f1adc4a670ab824",
+  "antiOverfittingAuditDigest": "da090e59c329c996047ae2021cb3dbcea01771496c4e15060a08393ff9e33d49",
+  "calibrationScientificContentAccessed": false,
+  "calibrationExecuted": false,
+  "semExecuted": false,
+  "llmProviderCalls": 0,
+  "blindCreated": false,
+  "thresholdOrNIntroduced": false,
+  "restartRule": "SEM-003B4 must restart from this identity before any Calibration fixture, expectation, or result is created.",
+  "createdAt": "2026-08-13T21:42:33.000Z"
+}

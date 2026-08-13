@@ -43,7 +43,7 @@ const evaluate = (candidate) => {
 
 const results = new Map(candidates.map((candidate) => [candidate.candidateId, evaluate(candidate)]));
 
-test("all six evaluator contracts compile and all 41 candidates conform", () => {
+test("all seven evaluator contracts compile and all 41 candidates conform", () => {
   assert.equal(candidates.length, 41);
   for (const candidate of candidates) assert.equal(validateContract("candidate", candidate).valid, true);
   for (const result of results.values()) assert.equal(validateContract("evaluationResult", result).valid, true);
