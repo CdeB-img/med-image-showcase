@@ -1,0 +1,2540 @@
+{
+  "campaign": "SEM-001R5L-CLOSURE",
+  "campaignId": "sem-001r5l-closure-2026-08-13T09-09-28-906Z-ke1-391a23dcb99dc470",
+  "caseId": "SEM-H16",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-391a23dcb99dc470",
+  "semanticConfigurationDigest": "ke1-410eaaec72fd1768",
+  "goldFrameDigest": "ke1-dd9620473f884cfb",
+  "originalRequest": [
+    "Évaluer une séquence ultracourte pour voir le cortex osseux; le comparateur n'est pas encore choisi."
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-13T09:16:57.962Z",
+  "completedAt": "2026-08-13T09:17:17.539Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H16:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Evaluation of an ultrashort sequence to observe cortical bone, with the comparator not yet chosen.",
+        "summaryForUser": "Analyse de la demande d'évaluation d'une séquence ultracourte pour l'observation du cortex osseux avec comparateur non défini.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H16:user:1",
+              "sourceText": "Évaluer",
+              "normalizedLabel": "évaluer",
+              "localRole": "action",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-2",
+                "inv-3"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H16:user:1",
+              "sourceText": "séquence ultracourte",
+              "normalizedLabel": "séquence ultracourte",
+              "localRole": "method",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "ultracourte"
+              ],
+              "linkedInventoryItemIds": [
+                "inv-1"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H16:user:1",
+              "sourceText": "cortex osseux",
+              "normalizedLabel": "cortex osseux",
+              "localRole": "target",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "osseux"
+              ],
+              "linkedInventoryItemIds": [
+                "inv-1"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H16:user:1",
+              "sourceText": "comparateur n'est pas encore choisi",
+              "normalizedLabel": "comparateur non choisi",
+              "localRole": "comparator",
+              "polarity": "NEGATED",
+              "modifiers": [
+                "pas encore choisi"
+              ],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-inv-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H16:user:1",
+              "sourceText": "Évaluer une séquence ultracourte",
+              "normalizedRelation": "AIMS_TO_MODIFY",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-inv-2",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H16:user:1",
+              "sourceText": "séquence ultracourte pour voir le cortex osseux",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Evaluate",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceMessageId": "SEM-H16:user:1",
+            "sourceText": "Évaluer",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "METHOD",
+            "canonicalMeaning": "Ultrashort sequence",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceMessageId": "SEM-H16:user:1",
+            "sourceText": "séquence ultracourte",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "Cortical bone",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceMessageId": "SEM-H16:user:1",
+            "sourceText": "cortex osseux",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-4",
+            "type": "COMPARATOR",
+            "canonicalMeaning": "Comparator not yet chosen",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "sourceMessageId": "SEM-H16:user:1",
+            "sourceText": "comparateur n'est pas encore choisi",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-1",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-2",
+            "relationType": "AIMS_TO_MODIFY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-2",
+            "sourceClientElementId": "elem-2",
+            "targetClientElementId": "elem-3",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [
+          "comparator"
+        ],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [
+          "comparator"
+        ],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [
+          {
+            "question": "Quel comparateur souhaitez-vous utiliser pour cette évaluation ?",
+            "reason": "Le comparateur n'est pas encore choisi.",
+            "resolvesClientElementIds": [
+              "elem-4"
+            ]
+          }
+        ],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "The user is setting up an evaluation of a method targeting an object, while specifying that a study parameter (comparator) remains to be defined.",
+          "expectedCapabilities": [
+            "Define study arms",
+            "Select comparator"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "reconstructionDigest": "ke1-6e96a8bbf12a433f",
+      "critics": [
+        {
+          "criticId": "crit-001",
+          "verdict": "REVISE",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects like cortex osseux are represented."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The comparator statement is represented."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No active intervention arm is present."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Séquence ultracourte is represented."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit relations are mapped."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "FAIL",
+              "evidence": "An unselected comparator was typed as COMPARATOR instead of UNKNOWN with uncertainty polarity per taxonomy."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relation was weakened."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No inferences promoted."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Ambiguity of unselected comparator is preserved."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Negation/uncertainty correctly handled."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No timing specified."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No promotions."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Concepts specific."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No missing source fragments."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY matches study setup context."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [
+            {
+              "code": "TYPE_MISMATCH",
+              "severity": "WARNING",
+              "elementClientIds": [
+                "elem-4"
+              ],
+              "description": "An explicitly unselected comparator should be typed as UNKNOWN with UNCERTAIN polarity, not COMPARATOR with NEGATED polarity.",
+              "recommendedAction": "Use UPSERT_ELEMENT to change elem-4 type to UNKNOWN and polarity to UNCERTAIN.",
+              "resolved": false
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "repairId": "rep-1",
+              "action": "UPSERT_ELEMENT",
+              "reason": "Correct element type for an explicitly unselected comparator to UNKNOWN with UNCERTAIN polarity per operational taxonomy.",
+              "sourceInventoryItemIds": [
+                "inv-4"
+              ],
+              "sourceInventoryRelationIds": [],
+              "inventoryItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "inventoryNormalizedLabel": null,
+              "inventoryLocalRole": null,
+              "inventoryPolarity": null,
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": "elem-4",
+              "elementType": "UNKNOWN",
+              "elementCanonicalMeaning": "Comparator not yet chosen",
+              "elementStudyRole": "COMPARATOR_ARM",
+              "elementPolarity": "UNCERTAIN",
+              "elementInventoryItemIds": [
+                "inv-4"
+              ],
+              "elementSourceMessageId": "SEM-H16:user:1",
+              "elementSourceText": "comparateur n'est pas encore choisi",
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementConfidence": 1,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": false,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "relationPolarity": null,
+              "relationInventoryRelationIds": [],
+              "relationEpistemicStatus": null,
+              "relationConfidence": null,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": null,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            }
+          ],
+          "criticSummary": "The candidate is well-structured, but element elem-4 representing the unselected comparator must be corrected from type COMPARATOR with polarity NEGATED to type UNKNOWN with polarity UNCERTAIN according to the operational taxonomy rules."
+        },
+        {
+          "criticId": "critic-1",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit fragments including the ultrashort sequence, cortical bone, and comparator are represented in the typed candidate."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The unchosen comparator is correctly represented as an UNKNOWN element with studyRole COMPARATOR_ARM."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No active intervention arm is present in the source."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No broad modality family is mentioned; only a specific method (ultrashort sequence)."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit inventory relations are fully covered in the semantic graph."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All typed elements comply with operational taxonomy and have no findings."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Relations retain their explicit strength and polarity."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No inferences are improperly promoted to explicit user-stated facts."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "The unchosen comparator is fully transparent as an unknown entity and clarification candidate."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Negative polarity on the unchosen comparator is preserved."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit timing constraint is present."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No outcome has been promoted to endpoint without user specification."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like ultrashort sequence and cortical bone are precisely typed."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No missing source fragments are found."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "DESIGN_STUDY correctly matches the study setup request involving a method, target, and open study parameters."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The typed candidate and semantic inventory are fully aligned with the source message. All explicit objects, relations, and the unchosen comparator are correctly classified and represented without any integrity or taxonomy violations."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [
+        {
+          "repairId": "rep-1",
+          "status": "ACCEPTED",
+          "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+        }
+      ],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-74369fd2d2c3aa7e",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "Évaluer une séquence ultracourte pour voir le cortex osseux; le comparateur n'est pas encore choisi.",
+        "normalizedMeaning": "Evaluation of an ultrashort sequence to observe cortical bone, with the comparator not yet chosen.",
+        "conversationMessageIds": [
+          "SEM-H16:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-3fde3dea838a930e",
+            "type": "METHOD",
+            "canonicalMeaning": "Ultrashort sequence",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H16:user:1",
+              "text": "séquence ultracourte",
+              "start": 12,
+              "end": 32
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-c3e5ba89d11e16d5",
+              "sem-relation:ke1-d0921a94b1620ff8"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H16:user:1",
+              "providerCallId": "gemini-call:ke1-f14132038e47a1d7",
+              "rawElementId": "elem-2"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-499528031e9b7e67",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Evaluate",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H16:user:1",
+              "text": "Évaluer",
+              "start": 0,
+              "end": 7
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-d0921a94b1620ff8"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H16:user:1",
+              "providerCallId": "gemini-call:ke1-f14132038e47a1d7",
+              "rawElementId": "elem-1"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-8bc60407875806c3",
+            "type": "UNKNOWN",
+            "canonicalMeaning": "Comparator not yet chosen",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "UNCERTAIN",
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H16:user:1",
+              "text": "comparateur n'est pas encore choisi",
+              "start": 64,
+              "end": 99
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H16:user:1",
+              "providerCallId": "gemini-call:ke1-f14132038e47a1d7",
+              "rawElementId": "elem-4"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-c660a4a2b52d9c8e",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "Cortical bone",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H16:user:1",
+              "text": "cortex osseux",
+              "start": 46,
+              "end": 59
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-c3e5ba89d11e16d5"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H16:user:1",
+              "providerCallId": "gemini-call:ke1-f14132038e47a1d7",
+              "rawElementId": "elem-3"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-c3e5ba89d11e16d5",
+            "sourceElementId": "sem-element:ke1-3fde3dea838a930e",
+            "targetElementId": "sem-element:ke1-c660a4a2b52d9c8e",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-2"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-d0921a94b1620ff8",
+            "sourceElementId": "sem-element:ke1-499528031e9b7e67",
+            "targetElementId": "sem-element:ke1-3fde3dea838a930e",
+            "relationType": "AIMS_TO_MODIFY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-1"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H16:user:1",
+              "sourceText": "Évaluer",
+              "normalizedMeaning": "évaluer",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H16:user:1",
+              "sourceText": "séquence ultracourte",
+              "normalizedMeaning": "séquence ultracourte",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H16:user:1",
+              "sourceText": "cortex osseux",
+              "normalizedMeaning": "cortex osseux",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H16:user:1",
+              "sourceText": "comparateur n'est pas encore choisi",
+              "normalizedMeaning": "comparateur non choisi",
+              "mappedClientElementIds": [
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-inv-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-2",
+              "normalizedRelation": "AIMS_TO_MODIFY",
+              "mappedClientRelationIds": [
+                "rel-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-inv-2",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-3",
+              "normalizedRelation": "OBSERVES",
+              "mappedClientRelationIds": [
+                "rel-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [
+          "comparator"
+        ],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [
+          "comparator"
+        ],
+        "contradictions": [],
+        "clarificationCandidates": [
+          {
+            "question": "Quel comparateur souhaitez-vous utiliser pour cette évaluation ?",
+            "reason": "Le comparateur n'est pas encore choisi.",
+            "resolvesElementIds": [
+              "sem-element:ke1-8bc60407875806c3"
+            ]
+          }
+        ],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "The user is setting up an evaluation of a method targeting an object, while specifying that a study parameter (comparator) remains to be defined.",
+          "expectedCapabilities": [
+            "Define study arms",
+            "Select comparator"
+          ]
+        },
+        "summaryForUser": "Analyse de la demande d'évaluation d'une séquence ultracourte pour l'observation du cortex osseux avec comparateur non défini.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "The typed candidate and semantic inventory are fully aligned with the source message. All explicit objects, relations, and the unchosen comparator are correctly classified and represented without any integrity or taxonomy violations."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+          "criticPromptVersion": "SEM-001-CRITIC-1.6",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-f14132038e47a1d7",
+          "criticCallId": "gemini-call:ke1-779de21045421164",
+          "criticCallIds": [
+            "gemini-call:ke1-ae4076d78754beb3",
+            "gemini-call:ke1-779de21045421164"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:17:02.738Z",
+              "requestFinished": "2026-08-13T09:17:08.125Z",
+              "latencyMs": 5387,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:17:08.129Z",
+              "requestFinished": "2026-08-13T09:17:12.408Z",
+              "latencyMs": 4279,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            },
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:17:14.253Z",
+              "requestFinished": "2026-08-13T09:17:17.532Z",
+              "latencyMs": 3279,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "cand-001",
+            "language": "fr",
+            "normalizedMeaning": "Evaluation of an ultrashort sequence to observe cortical bone, with the comparator not yet chosen.",
+            "summaryForUser": "Analyse de la demande d'évaluation d'une séquence ultracourte pour l'observation du cortex osseux avec comparateur non défini.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "inv-1",
+                  "sourceMessageId": "SEM-H16:user:1",
+                  "sourceText": "Évaluer",
+                  "normalizedLabel": "évaluer",
+                  "localRole": "action",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-2",
+                    "inv-3"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-2",
+                  "sourceMessageId": "SEM-H16:user:1",
+                  "sourceText": "séquence ultracourte",
+                  "normalizedLabel": "séquence ultracourte",
+                  "localRole": "method",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [
+                    "ultracourte"
+                  ],
+                  "linkedInventoryItemIds": [
+                    "inv-1"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-3",
+                  "sourceMessageId": "SEM-H16:user:1",
+                  "sourceText": "cortex osseux",
+                  "normalizedLabel": "cortex osseux",
+                  "localRole": "target",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [
+                    "osseux"
+                  ],
+                  "linkedInventoryItemIds": [
+                    "inv-1"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-4",
+                  "sourceMessageId": "SEM-H16:user:1",
+                  "sourceText": "comparateur n'est pas encore choisi",
+                  "normalizedLabel": "comparateur non choisi",
+                  "localRole": "comparator",
+                  "polarity": "NEGATED",
+                  "modifiers": [
+                    "pas encore choisi"
+                  ],
+                  "linkedInventoryItemIds": []
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel-inv-1",
+                  "sourceInventoryItemId": "inv-1",
+                  "targetInventoryItemId": "inv-2",
+                  "sourceMessageId": "SEM-H16:user:1",
+                  "sourceText": "Évaluer une séquence ultracourte",
+                  "normalizedRelation": "AIMS_TO_MODIFY",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-inv-2",
+                  "sourceInventoryItemId": "inv-2",
+                  "targetInventoryItemId": "inv-3",
+                  "sourceMessageId": "SEM-H16:user:1",
+                  "sourceText": "séquence ultracourte pour voir le cortex osseux",
+                  "normalizedRelation": "OBSERVES",
+                  "polarity": "AFFIRMED"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem-1",
+                "type": "SCIENTIFIC_INTENT",
+                "canonicalMeaning": "Evaluate",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-1"
+                ],
+                "sourceMessageId": "SEM-H16:user:1",
+                "sourceText": "Évaluer",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-2",
+                "type": "METHOD",
+                "canonicalMeaning": "Ultrashort sequence",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-2"
+                ],
+                "sourceMessageId": "SEM-H16:user:1",
+                "sourceText": "séquence ultracourte",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-3",
+                "type": "SCIENTIFIC_OBJECT",
+                "canonicalMeaning": "Cortical bone",
+                "studyRole": "SUBJECT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-3"
+                ],
+                "sourceMessageId": "SEM-H16:user:1",
+                "sourceText": "cortex osseux",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-4",
+                "type": "UNKNOWN",
+                "canonicalMeaning": "Comparator not yet chosen",
+                "studyRole": "COMPARATOR_ARM",
+                "polarity": "UNCERTAIN",
+                "inventoryItemIds": [
+                  "inv-4"
+                ],
+                "sourceMessageId": "SEM-H16:user:1",
+                "sourceText": "comparateur n'est pas encore choisi",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel-1",
+                "sourceClientElementId": "elem-1",
+                "targetClientElementId": "elem-2",
+                "relationType": "AIMS_TO_MODIFY",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-inv-1"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-2",
+                "sourceClientElementId": "elem-2",
+                "targetClientElementId": "elem-3",
+                "relationType": "OBSERVES",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-inv-2"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              }
+            ],
+            "missingConcepts": [
+              "comparator"
+            ],
+            "ellipses": [],
+            "ambiguities": [],
+            "unknowns": [
+              "comparator"
+            ],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [
+              {
+                "question": "Quel comparateur souhaitez-vous utiliser pour cette évaluation ?",
+                "reason": "Le comparateur n'est pas encore choisi.",
+                "resolvesClientElementIds": [
+                  "elem-4"
+                ]
+              }
+            ],
+            "routeProposal": {
+              "route": "DESIGN_STUDY",
+              "confidence": 0.9,
+              "reason": "The user is setting up an evaluation of a method targeting an object, while specifying that a study parameter (comparator) remains to be defined.",
+              "expectedCapabilities": [
+                "Define study arms",
+                "Select comparator"
+              ]
+            },
+            "semanticWarnings": []
+          },
+          "rawCritic": {
+            "criticId": "critic-1",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit fragments including the ultrashort sequence, cortical bone, and comparator are represented in the typed candidate."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "PASS",
+                "evidence": "The unchosen comparator is correctly represented as an UNKNOWN element with studyRole COMPARATOR_ARM."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No active intervention arm is present in the source."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No broad modality family is mentioned; only a specific method (ultrashort sequence)."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit inventory relations are fully covered in the semantic graph."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "All typed elements comply with operational taxonomy and have no findings."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Relations retain their explicit strength and polarity."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No inferences are improperly promoted to explicit user-stated facts."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "The unchosen comparator is fully transparent as an unknown entity and clarification candidate."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "Negative polarity on the unchosen comparator is preserved."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No explicit timing constraint is present."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "No outcome has been promoted to endpoint without user specification."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts like ultrashort sequence and cortical bone are precisely typed."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "No missing source fragments are found."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "DESIGN_STUDY correctly matches the study setup request involving a method, target, and open study parameters."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The typed candidate and semantic inventory are fully aligned with the source message. All explicit objects, relations, and the unchosen comparator are correctly classified and represented without any integrity or taxonomy violations."
+          },
+          "rawCritics": [
+            {
+              "criticId": "crit-001",
+              "verdict": "REVISE",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit objects like cortex osseux are represented."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The comparator statement is represented."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No active intervention arm is present."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "Séquence ultracourte is represented."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit relations are mapped."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "FAIL",
+                  "evidence": "An unselected comparator was typed as COMPARATOR instead of UNKNOWN with uncertainty polarity per taxonomy."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "No explicit relation was weakened."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No inferences promoted."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "Ambiguity of unselected comparator is preserved."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "Negation/uncertainty correctly handled."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No timing specified."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "No promotions."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Concepts specific."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "No missing source fragments."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "Route DESIGN_STUDY matches study setup context."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [
+                {
+                  "code": "TYPE_MISMATCH",
+                  "severity": "WARNING",
+                  "elementClientIds": [
+                    "elem-4"
+                  ],
+                  "description": "An explicitly unselected comparator should be typed as UNKNOWN with UNCERTAIN polarity, not COMPARATOR with NEGATED polarity.",
+                  "recommendedAction": "Use UPSERT_ELEMENT to change elem-4 type to UNKNOWN and polarity to UNCERTAIN.",
+                  "resolved": false
+                }
+              ],
+              "proposedRepairs": [
+                {
+                  "repairId": "rep-1",
+                  "action": "UPSERT_ELEMENT",
+                  "reason": "Correct element type for an explicitly unselected comparator to UNKNOWN with UNCERTAIN polarity per operational taxonomy.",
+                  "sourceInventoryItemIds": [
+                    "inv-4"
+                  ],
+                  "sourceInventoryRelationIds": [],
+                  "inventoryItemId": null,
+                  "inventorySourceMessageId": null,
+                  "inventorySourceText": null,
+                  "inventoryNormalizedLabel": null,
+                  "inventoryLocalRole": null,
+                  "inventoryPolarity": null,
+                  "inventoryModifiers": [],
+                  "inventoryLinkedItemIds": [],
+                  "inventoryRelationId": null,
+                  "inventoryRelationSourceItemId": null,
+                  "inventoryRelationTargetItemId": null,
+                  "inventoryRelationSourceMessageId": null,
+                  "inventoryRelationSourceText": null,
+                  "inventoryNormalizedRelation": null,
+                  "inventoryRelationPolarity": null,
+                  "elementClientElementId": "elem-4",
+                  "elementType": "UNKNOWN",
+                  "elementCanonicalMeaning": "Comparator not yet chosen",
+                  "elementStudyRole": "COMPARATOR_ARM",
+                  "elementPolarity": "UNCERTAIN",
+                  "elementInventoryItemIds": [
+                    "inv-4"
+                  ],
+                  "elementSourceMessageId": "SEM-H16:user:1",
+                  "elementSourceText": "comparateur n'est pas encore choisi",
+                  "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+                  "elementConfidence": 1,
+                  "elementInferenceReason": null,
+                  "elementRequiresConfirmation": false,
+                  "elementSupersedesElementIds": [],
+                  "relationClientRelationId": null,
+                  "relationSourceClientElementId": null,
+                  "relationTargetClientElementId": null,
+                  "relationType": null,
+                  "relationPolarity": null,
+                  "relationInventoryRelationIds": [],
+                  "relationEpistemicStatus": null,
+                  "relationConfidence": null,
+                  "relationInferenceReason": null,
+                  "relationRequiresConfirmation": null,
+                  "ambiguity": null,
+                  "route": null,
+                  "routeConfidence": null,
+                  "routeReason": null,
+                  "routeExpectedCapabilities": []
+                }
+              ],
+              "criticSummary": "The candidate is well-structured, but element elem-4 representing the unselected comparator must be corrected from type COMPARATOR with polarity NEGATED to type UNKNOWN with polarity UNCERTAIN according to the operational taxonomy rules."
+            },
+            {
+              "criticId": "critic-1",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit fragments including the ultrashort sequence, cortical bone, and comparator are represented in the typed candidate."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The unchosen comparator is correctly represented as an UNKNOWN element with studyRole COMPARATOR_ARM."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No active intervention arm is present in the source."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No broad modality family is mentioned; only a specific method (ultrashort sequence)."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit inventory relations are fully covered in the semantic graph."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "All typed elements comply with operational taxonomy and have no findings."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Relations retain their explicit strength and polarity."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No inferences are improperly promoted to explicit user-stated facts."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "The unchosen comparator is fully transparent as an unknown entity and clarification candidate."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "Negative polarity on the unchosen comparator is preserved."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No explicit timing constraint is present."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "No outcome has been promoted to endpoint without user specification."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific concepts like ultrashort sequence and cortical bone are precisely typed."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "No missing source fragments are found."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "DESIGN_STUDY correctly matches the study setup request involving a method, target, and open study parameters."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "The typed candidate and semantic inventory are fully aligned with the source message. All explicit objects, relations, and the unchosen comparator are correctly classified and represented without any integrity or taxonomy violations."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-13T09:17:17.533Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-3344a0dccce7a000",
+          "resultDigest": "ke1-3344a0dccce7a000",
+          "coverageStatus": "NO_PROVIDER",
+          "verifiedAt": "2026-08-13T09:17:17.536Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-13T09:17:17.533Z",
+        "updatedAt": "2026-08-13T09:17:17.536Z",
+        "digest": "ke1-d786377ec3aec0d2"
+      },
+      "canonicalModelDigest": "ke1-d786377ec3aec0d2",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-3344a0dccce7a000",
+        "resultDigest": "ke1-3344a0dccce7a000",
+        "coverageStatus": "NO_PROVIDER",
+        "verifiedAt": "2026-08-13T09:17:17.536Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-f14132038e47a1d7",
+      "structuredDigest": "ke1-6e96a8bbf12a433f",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:17:02.738Z",
+          "requestFinished": "2026-08-13T09:17:08.125Z",
+          "latencyMs": 5387,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-ae4076d78754beb3",
+      "structuredDigest": "ke1-b87ce1204b7ca004",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:17:08.129Z",
+          "requestFinished": "2026-08-13T09:17:12.408Z",
+          "latencyMs": 4279,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 2,
+      "callId": "gemini-call:ke1-779de21045421164",
+      "structuredDigest": "ke1-0d0fe0ca17c8c35e",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:17:14.253Z",
+          "requestFinished": "2026-08-13T09:17:17.532Z",
+          "latencyMs": 3279,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-74369fd2d2c3aa7e",
+    "revision": 1,
+    "status": "CANDIDATE",
+    "originalRequest": "Évaluer une séquence ultracourte pour voir le cortex osseux; le comparateur n'est pas encore choisi.",
+    "normalizedMeaning": "Evaluation of an ultrashort sequence to observe cortical bone, with the comparator not yet chosen.",
+    "conversationMessageIds": [
+      "SEM-H16:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-3fde3dea838a930e",
+        "type": "METHOD",
+        "canonicalMeaning": "Ultrashort sequence",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-2"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H16:user:1",
+          "text": "séquence ultracourte",
+          "start": 12,
+          "end": 32
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-c3e5ba89d11e16d5",
+          "sem-relation:ke1-d0921a94b1620ff8"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H16:user:1",
+          "providerCallId": "gemini-call:ke1-f14132038e47a1d7",
+          "rawElementId": "elem-2"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-499528031e9b7e67",
+        "type": "SCIENTIFIC_INTENT",
+        "canonicalMeaning": "Evaluate",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-1"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H16:user:1",
+          "text": "Évaluer",
+          "start": 0,
+          "end": 7
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-d0921a94b1620ff8"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H16:user:1",
+          "providerCallId": "gemini-call:ke1-f14132038e47a1d7",
+          "rawElementId": "elem-1"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-8bc60407875806c3",
+        "type": "UNKNOWN",
+        "canonicalMeaning": "Comparator not yet chosen",
+        "studyRole": "COMPARATOR_ARM",
+        "polarity": "UNCERTAIN",
+        "inventoryItemIds": [
+          "inv-4"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H16:user:1",
+          "text": "comparateur n'est pas encore choisi",
+          "start": 64,
+          "end": 99
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H16:user:1",
+          "providerCallId": "gemini-call:ke1-f14132038e47a1d7",
+          "rawElementId": "elem-4"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-c660a4a2b52d9c8e",
+        "type": "SCIENTIFIC_OBJECT",
+        "canonicalMeaning": "Cortical bone",
+        "studyRole": "SUBJECT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-3"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H16:user:1",
+          "text": "cortex osseux",
+          "start": 46,
+          "end": 59
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-c3e5ba89d11e16d5"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H16:user:1",
+          "providerCallId": "gemini-call:ke1-f14132038e47a1d7",
+          "rawElementId": "elem-3"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-c3e5ba89d11e16d5",
+        "sourceElementId": "sem-element:ke1-3fde3dea838a930e",
+        "targetElementId": "sem-element:ke1-c660a4a2b52d9c8e",
+        "relationType": "OBSERVES",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-inv-2"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-d0921a94b1620ff8",
+        "sourceElementId": "sem-element:ke1-499528031e9b7e67",
+        "targetElementId": "sem-element:ke1-3fde3dea838a930e",
+        "relationType": "AIMS_TO_MODIFY",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-inv-1"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-1",
+          "sourceMessageId": "SEM-H16:user:1",
+          "sourceText": "Évaluer",
+          "normalizedMeaning": "évaluer",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-2",
+          "sourceMessageId": "SEM-H16:user:1",
+          "sourceText": "séquence ultracourte",
+          "normalizedMeaning": "séquence ultracourte",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-3",
+          "sourceMessageId": "SEM-H16:user:1",
+          "sourceText": "cortex osseux",
+          "normalizedMeaning": "cortex osseux",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-4",
+          "sourceMessageId": "SEM-H16:user:1",
+          "sourceText": "comparateur n'est pas encore choisi",
+          "normalizedMeaning": "comparateur non choisi",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-inv-1",
+          "sourceInventoryItemId": "inv-1",
+          "targetInventoryItemId": "inv-2",
+          "normalizedRelation": "AIMS_TO_MODIFY",
+          "mappedClientRelationIds": [
+            "rel-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-inv-2",
+          "sourceInventoryItemId": "inv-2",
+          "targetInventoryItemId": "inv-3",
+          "normalizedRelation": "OBSERVES",
+          "mappedClientRelationIds": [
+            "rel-2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "missingConcepts": [
+      "comparator"
+    ],
+    "ellipses": [],
+    "ambiguities": [],
+    "unknowns": [
+      "comparator"
+    ],
+    "contradictions": [],
+    "clarificationCandidates": [
+      {
+        "question": "Quel comparateur souhaitez-vous utiliser pour cette évaluation ?",
+        "reason": "Le comparateur n'est pas encore choisi.",
+        "resolvesElementIds": [
+          "sem-element:ke1-8bc60407875806c3"
+        ]
+      }
+    ],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "DESIGN_STUDY",
+      "confidence": 0.9,
+      "reason": "The user is setting up an evaluation of a method targeting an object, while specifying that a study parameter (comparator) remains to be defined.",
+      "expectedCapabilities": [
+        "Define study arms",
+        "Select comparator"
+      ]
+    },
+    "summaryForUser": "Analyse de la demande d'évaluation d'une séquence ultracourte pour l'observation du cortex osseux avec comparateur non défini.",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "The typed candidate and semantic inventory are fully aligned with the source message. All explicit objects, relations, and the unchosen comparator are correctly classified and represented without any integrity or taxonomy violations."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-f14132038e47a1d7",
+      "criticCallId": "gemini-call:ke1-779de21045421164",
+      "criticCallIds": [
+        "gemini-call:ke1-ae4076d78754beb3",
+        "gemini-call:ke1-779de21045421164"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:17:02.738Z",
+          "requestFinished": "2026-08-13T09:17:08.125Z",
+          "latencyMs": 5387,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:17:08.129Z",
+          "requestFinished": "2026-08-13T09:17:12.408Z",
+          "latencyMs": 4279,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:17:14.253Z",
+          "requestFinished": "2026-08-13T09:17:17.532Z",
+          "latencyMs": 3279,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Evaluation of an ultrashort sequence to observe cortical bone, with the comparator not yet chosen.",
+        "summaryForUser": "Analyse de la demande d'évaluation d'une séquence ultracourte pour l'observation du cortex osseux avec comparateur non défini.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H16:user:1",
+              "sourceText": "Évaluer",
+              "normalizedLabel": "évaluer",
+              "localRole": "action",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-2",
+                "inv-3"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H16:user:1",
+              "sourceText": "séquence ultracourte",
+              "normalizedLabel": "séquence ultracourte",
+              "localRole": "method",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "ultracourte"
+              ],
+              "linkedInventoryItemIds": [
+                "inv-1"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H16:user:1",
+              "sourceText": "cortex osseux",
+              "normalizedLabel": "cortex osseux",
+              "localRole": "target",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "osseux"
+              ],
+              "linkedInventoryItemIds": [
+                "inv-1"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H16:user:1",
+              "sourceText": "comparateur n'est pas encore choisi",
+              "normalizedLabel": "comparateur non choisi",
+              "localRole": "comparator",
+              "polarity": "NEGATED",
+              "modifiers": [
+                "pas encore choisi"
+              ],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-inv-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H16:user:1",
+              "sourceText": "Évaluer une séquence ultracourte",
+              "normalizedRelation": "AIMS_TO_MODIFY",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-inv-2",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H16:user:1",
+              "sourceText": "séquence ultracourte pour voir le cortex osseux",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Evaluate",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceMessageId": "SEM-H16:user:1",
+            "sourceText": "Évaluer",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "METHOD",
+            "canonicalMeaning": "Ultrashort sequence",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceMessageId": "SEM-H16:user:1",
+            "sourceText": "séquence ultracourte",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "Cortical bone",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceMessageId": "SEM-H16:user:1",
+            "sourceText": "cortex osseux",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-4",
+            "type": "UNKNOWN",
+            "canonicalMeaning": "Comparator not yet chosen",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "UNCERTAIN",
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "sourceMessageId": "SEM-H16:user:1",
+            "sourceText": "comparateur n'est pas encore choisi",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-1",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-2",
+            "relationType": "AIMS_TO_MODIFY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-2",
+            "sourceClientElementId": "elem-2",
+            "targetClientElementId": "elem-3",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [
+          "comparator"
+        ],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [
+          "comparator"
+        ],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [
+          {
+            "question": "Quel comparateur souhaitez-vous utiliser pour cette évaluation ?",
+            "reason": "Le comparateur n'est pas encore choisi.",
+            "resolvesClientElementIds": [
+              "elem-4"
+            ]
+          }
+        ],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "The user is setting up an evaluation of a method targeting an object, while specifying that a study parameter (comparator) remains to be defined.",
+          "expectedCapabilities": [
+            "Define study arms",
+            "Select comparator"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "rawCritic": {
+        "criticId": "critic-1",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit fragments including the ultrashort sequence, cortical bone, and comparator are represented in the typed candidate."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "PASS",
+            "evidence": "The unchosen comparator is correctly represented as an UNKNOWN element with studyRole COMPARATOR_ARM."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No active intervention arm is present in the source."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No broad modality family is mentioned; only a specific method (ultrashort sequence)."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit inventory relations are fully covered in the semantic graph."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "All typed elements comply with operational taxonomy and have no findings."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "Relations retain their explicit strength and polarity."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No inferences are improperly promoted to explicit user-stated facts."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "The unchosen comparator is fully transparent as an unknown entity and clarification candidate."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "Negative polarity on the unchosen comparator is preserved."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No explicit timing constraint is present."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "No outcome has been promoted to endpoint without user specification."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific concepts like ultrashort sequence and cortical bone are precisely typed."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "No missing source fragments are found."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "DESIGN_STUDY correctly matches the study setup request involving a method, target, and open study parameters."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "The typed candidate and semantic inventory are fully aligned with the source message. All explicit objects, relations, and the unchosen comparator are correctly classified and represented without any integrity or taxonomy violations."
+      },
+      "rawCritics": [
+        {
+          "criticId": "crit-001",
+          "verdict": "REVISE",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects like cortex osseux are represented."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The comparator statement is represented."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No active intervention arm is present."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Séquence ultracourte is represented."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit relations are mapped."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "FAIL",
+              "evidence": "An unselected comparator was typed as COMPARATOR instead of UNKNOWN with uncertainty polarity per taxonomy."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relation was weakened."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No inferences promoted."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Ambiguity of unselected comparator is preserved."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Negation/uncertainty correctly handled."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No timing specified."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No promotions."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Concepts specific."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No missing source fragments."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY matches study setup context."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [
+            {
+              "code": "TYPE_MISMATCH",
+              "severity": "WARNING",
+              "elementClientIds": [
+                "elem-4"
+              ],
+              "description": "An explicitly unselected comparator should be typed as UNKNOWN with UNCERTAIN polarity, not COMPARATOR with NEGATED polarity.",
+              "recommendedAction": "Use UPSERT_ELEMENT to change elem-4 type to UNKNOWN and polarity to UNCERTAIN.",
+              "resolved": false
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "repairId": "rep-1",
+              "action": "UPSERT_ELEMENT",
+              "reason": "Correct element type for an explicitly unselected comparator to UNKNOWN with UNCERTAIN polarity per operational taxonomy.",
+              "sourceInventoryItemIds": [
+                "inv-4"
+              ],
+              "sourceInventoryRelationIds": [],
+              "inventoryItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "inventoryNormalizedLabel": null,
+              "inventoryLocalRole": null,
+              "inventoryPolarity": null,
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": "elem-4",
+              "elementType": "UNKNOWN",
+              "elementCanonicalMeaning": "Comparator not yet chosen",
+              "elementStudyRole": "COMPARATOR_ARM",
+              "elementPolarity": "UNCERTAIN",
+              "elementInventoryItemIds": [
+                "inv-4"
+              ],
+              "elementSourceMessageId": "SEM-H16:user:1",
+              "elementSourceText": "comparateur n'est pas encore choisi",
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementConfidence": 1,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": false,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "relationPolarity": null,
+              "relationInventoryRelationIds": [],
+              "relationEpistemicStatus": null,
+              "relationConfidence": null,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": null,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            }
+          ],
+          "criticSummary": "The candidate is well-structured, but element elem-4 representing the unselected comparator must be corrected from type COMPARATOR with polarity NEGATED to type UNKNOWN with polarity UNCERTAIN according to the operational taxonomy rules."
+        },
+        {
+          "criticId": "critic-1",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit fragments including the ultrashort sequence, cortical bone, and comparator are represented in the typed candidate."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The unchosen comparator is correctly represented as an UNKNOWN element with studyRole COMPARATOR_ARM."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No active intervention arm is present in the source."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No broad modality family is mentioned; only a specific method (ultrashort sequence)."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit inventory relations are fully covered in the semantic graph."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All typed elements comply with operational taxonomy and have no findings."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Relations retain their explicit strength and polarity."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No inferences are improperly promoted to explicit user-stated facts."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "The unchosen comparator is fully transparent as an unknown entity and clarification candidate."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Negative polarity on the unchosen comparator is preserved."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit timing constraint is present."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No outcome has been promoted to endpoint without user specification."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like ultrashort sequence and cortical bone are precisely typed."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No missing source fragments are found."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "DESIGN_STUDY correctly matches the study setup request involving a method, target, and open study parameters."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The typed candidate and semantic inventory are fully aligned with the source message. All explicit objects, relations, and the unchosen comparator are correctly classified and represented without any integrity or taxonomy violations."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-13T09:17:17.533Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-3344a0dccce7a000",
+      "resultDigest": "ke1-3344a0dccce7a000",
+      "coverageStatus": "NO_PROVIDER",
+      "verifiedAt": "2026-08-13T09:17:17.536Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-13T09:17:17.533Z",
+    "updatedAt": "2026-08-13T09:17:17.536Z",
+    "digest": "ke1-d786377ec3aec0d2"
+  },
+  "semanticModelDigest": "ke1-d786377ec3aec0d2",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-1",
+          "sourceMessageId": "SEM-H16:user:1",
+          "sourceText": "Évaluer",
+          "normalizedMeaning": "évaluer",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-2",
+          "sourceMessageId": "SEM-H16:user:1",
+          "sourceText": "séquence ultracourte",
+          "normalizedMeaning": "séquence ultracourte",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-3",
+          "sourceMessageId": "SEM-H16:user:1",
+          "sourceText": "cortex osseux",
+          "normalizedMeaning": "cortex osseux",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-4",
+          "sourceMessageId": "SEM-H16:user:1",
+          "sourceText": "comparateur n'est pas encore choisi",
+          "normalizedMeaning": "comparateur non choisi",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-inv-1",
+          "sourceInventoryItemId": "inv-1",
+          "targetInventoryItemId": "inv-2",
+          "normalizedRelation": "AIMS_TO_MODIFY",
+          "mappedClientRelationIds": [
+            "rel-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-inv-2",
+          "sourceInventoryItemId": "inv-2",
+          "targetInventoryItemId": "inv-3",
+          "normalizedRelation": "OBSERVES",
+          "mappedClientRelationIds": [
+            "rel-2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-8066258bdfcc6c77",
+    "evaluatedAt": "2026-08-13T09:17:17.539Z",
+    "goldFrameDigest": "ke1-dd9620473f884cfb",
+    "result": {
+      "caseId": "SEM-H16",
+      "explicitObjectRecall": 0.6666666666666666,
+      "explicitRelationRecall": 1,
+      "criticalSemanticRecall": 0.75,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 1,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": [
+        "EXPLICIT_UNKNOWN_LOST:comparateur non choisi"
+      ]
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H16",
+    "explicitObjectRecall": 0.6666666666666666,
+    "explicitRelationRecall": 1,
+    "criticalSemanticRecall": 0.75,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 1,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": [
+      "EXPLICIT_UNKNOWN_LOST:comparateur non choisi"
+    ]
+  },
+  "error": null
+}

@@ -1,0 +1,3341 @@
+{
+  "campaign": "SEM-001R5M-CLOSURE",
+  "campaignId": "sem-001r5m-closure-2026-08-13T09-40-35-104Z-ke1-ac75ad8a4d6f2326",
+  "caseId": "SEM-H07",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-ac75ad8a4d6f2326",
+  "semanticConfigurationDigest": "ke1-2d65467f810363ab",
+  "goldFrameDigest": "ke1-247aabd235166aa6",
+  "originalRequest": [
+    "post myocardite : mapping natif et strain, lequel annonce la récupération VG ?"
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-13T09:44:06.779Z",
+  "completedAt": "2026-08-13T09:44:26.681Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H07:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "cand_01J5KXYZ89ABCDEF",
+        "language": "fr",
+        "normalizedMeaning": "Comparison between native T1/T2 mapping and strain imaging in post-myocarditis patients to predict left ventricular functional recovery.",
+        "summaryForUser": "Vous souhaitez comparer le mapping natif et le strain en post-myocardite pour identifier lequel prédit la récupération ventriculaire gauche.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv_01",
+              "sourceMessageId": "SEM-H07:user:1",
+              "sourceText": "post myocardite",
+              "normalizedLabel": "post-myocarditis condition",
+              "localRole": "condition",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_02",
+              "sourceMessageId": "SEM-H07:user:1",
+              "sourceText": "mapping natif",
+              "normalizedLabel": "native mapping",
+              "localRole": "biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "natif"
+              ],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_03",
+              "sourceMessageId": "SEM-H07:user:1",
+              "sourceText": "strain",
+              "normalizedLabel": "myocardial strain",
+              "localRole": "biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_04",
+              "sourceMessageId": "SEM-H07:user:1",
+              "sourceText": "lequel",
+              "normalizedLabel": "which method",
+              "localRole": "comparator",
+              "polarity": "UNCERTAIN",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_02",
+                "inv_03"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_05",
+              "sourceMessageId": "SEM-H07:user:1",
+              "sourceText": "annonce",
+              "normalizedLabel": "predicts",
+              "localRole": "relation",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_06",
+              "sourceMessageId": "SEM-H07:user:1",
+              "sourceText": "récupération VG",
+              "normalizedLabel": "left ventricular recovery",
+              "localRole": "outcome",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "VG"
+              ],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_01",
+              "sourceInventoryItemId": "inv_02",
+              "targetInventoryItemId": "inv_03",
+              "sourceMessageId": "SEM-H07:user:1",
+              "sourceText": "mapping natif et strain",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_02",
+              "sourceInventoryItemId": "inv_02",
+              "targetInventoryItemId": "inv_06",
+              "sourceMessageId": "SEM-H07:user:1",
+              "sourceText": "post myocardite : mapping natif et strain, lequel annonce la récupération VG ?",
+              "normalizedRelation": "PREDICTS_CANDIDATE",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_03",
+              "sourceInventoryItemId": "inv_03",
+              "targetInventoryItemId": "inv_06",
+              "sourceMessageId": "SEM-H07:user:1",
+              "sourceText": "post myocardite : mapping natif et strain, lequel annonce la récupération VG ?",
+              "normalizedRelation": "PREDICTS_CANDIDATE",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem_01",
+            "type": "CONDITION",
+            "canonicalMeaning": "Myocarditis",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_01"
+            ],
+            "sourceMessageId": "SEM-H07:user:1",
+            "sourceText": "post myocardite",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_02",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Native mapping (T1/T2)",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_02"
+            ],
+            "sourceMessageId": "SEM-H07:user:1",
+            "sourceText": "mapping natif",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_03",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Myocardial strain",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_03"
+            ],
+            "sourceMessageId": "SEM-H07:user:1",
+            "sourceText": "strain",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_04",
+            "type": "OUTCOME",
+            "canonicalMeaning": "Left ventricular functional recovery",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_06"
+            ],
+            "sourceMessageId": "SEM-H07:user:1",
+            "sourceText": "récupération VG",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel_el_01",
+            "sourceClientElementId": "elem_02",
+            "targetClientElementId": "elem_03",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_01"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_el_02",
+            "sourceClientElementId": "elem_02",
+            "targetClientElementId": "elem_04",
+            "relationType": "PREDICTS_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_02"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_el_03",
+            "sourceClientElementId": "elem_03",
+            "targetClientElementId": "elem_04",
+            "relationType": "PREDICTS_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_03"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [
+          "Uncertain which biomarker (native mapping or strain) is superior or selected for predicting left ventricular recovery."
+        ],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [
+          {
+            "question": "Souhaitez-vous évaluer la supériorité du mapping natif ou du strain pour prédire la récupération ventriculaire gauche dans le cadre d'un protocole d' étude formalisé ?",
+            "reason": "Clarify whether the user wants to set up a study protocol comparing these two predictors.",
+            "resolvesClientElementIds": [
+              "elem_02",
+              "elem_03"
+            ]
+          }
+        ],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.85,
+          "reason": "The user is comparing two diagnostic biomarkers for predicting a clinical outcome in a specific condition, which maps well to designing an evaluative study.",
+          "expectedCapabilities": [
+            "Define study endpoints",
+            "Structure comparative analysis"
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:2"
+        ]
+      },
+      "reconstructionDigest": "ke1-2e447bcdfce21d59",
+      "critics": [
+        {
+          "criticId": "crit_01J5KXYZ89ABCDEF",
+          "verdict": "REVISE",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All main explicit objects (condition, biomarkers, outcome) are represented."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "FAIL",
+              "evidence": "Inventory item inv_04 ('lequel') is unmapped in the explicit coverage report."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No active intervention is present in the source message."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "Specific modalities are not independently listed as broad family headers here; mapping/strain are methods."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All deterministic explicit relation coverage entries are successfully mapped."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "FAIL",
+              "evidence": "Taxonomy report flags elem_02 ('mapping natif') as BIOMARKER instead of METHOD."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations are fully maintained."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unsupported inferences promoted."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "The uncertainty regarding 'lequel' is preserved in ambiguities."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarity is correctly maintained across all elements."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit temporal intervals or timepoints are present."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Outcome is appropriately typed without unauthorized endpoint promotion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Concepts are kept at their specific user-stated level."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "FAIL",
+              "evidence": "Inventory item inv_04 ('lequel') remains unresolved in explicit coverage."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route correctly set to DESIGN_STUDY."
+            }
+          ],
+          "missingExplicitSourceFragments": [
+            {
+              "sourceMessageId": "SEM-H07:user:1",
+              "sourceText": "lequel",
+              "normalizedMeaning": "which method / comparative query choice",
+              "reason": "Explicit comparator fragment is not mapped to an explicit typed element in the candidate.",
+              "suggestedLocalRole": "comparator",
+              "confidence": 0.95
+            }
+          ],
+          "issues": [
+            {
+              "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+              "severity": "WARNING",
+              "elementClientIds": [],
+              "description": "Inventory item inv_04 ('lequel') is unresolved in the explicit coverage report.",
+              "recommendedAction": "Map inv_04 to an element or ambiguity representation.",
+              "resolved": false
+            },
+            {
+              "code": "TYPE_MISMATCH",
+              "severity": "CRITICAL",
+              "elementClientIds": [
+                "elem_02"
+              ],
+              "description": "Native mapping is a acquisition/analysis technique and must be typed as METHOD under taxonomy rules.",
+              "recommendedAction": "Update element type for elem_02 to METHOD via UPSERT_ELEMENT.",
+              "resolved": false
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "repairId": "rep_01",
+              "action": "UPSERT_ELEMENT",
+              "reason": "Correct element type for 'mapping natif' from BIOMARKER to METHOD per taxonomy report.",
+              "sourceInventoryItemIds": [
+                "inv_02"
+              ],
+              "sourceInventoryRelationIds": [],
+              "inventoryItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "inventoryNormalizedLabel": null,
+              "inventoryLocalRole": null,
+              "inventoryPolarity": null,
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": "elem_02",
+              "elementType": "METHOD",
+              "elementCanonicalMeaning": "Native mapping (T1/T2 acquisition method)",
+              "elementStudyRole": "MEASUREMENT",
+              "elementPolarity": "AFFIRMED",
+              "elementInventoryItemIds": [
+                "inv_02"
+              ],
+              "elementSourceMessageId": "SEM-H07:user:1",
+              "elementSourceText": "mapping natif",
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementConfidence": 1,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": false,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "relationPolarity": null,
+              "relationInventoryRelationIds": [],
+              "relationEpistemicStatus": null,
+              "relationConfidence": null,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": null,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            }
+          ],
+          "criticSummary": "The audit identified a type mismatch where native mapping (elem_02) was classified as BIOMARKER instead of METHOD, and an unmapped comparator fragment ('lequel', inv_04). A bounded repair is proposed to correct elem_02 to METHOD."
+        },
+        {
+          "criticId": "critic_SEM_H07_02",
+          "verdict": "REVISE",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "FAIL",
+              "evidence": "Inventory item inv_04 ('lequel') remains unmapped and unresolved in the explicit coverage report."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Native mapping and strain are correctly compared via explicit relation rel_el_01."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No interventions are present in this diagnostic/predictive query."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Imaging modalities/methods are appropriately represented."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All inventory relations are mapped to direct client relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Taxonomy report is complete with no findings."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Relations retain their explicit predictive and comparative meanings."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No ungrounded inferences are promoted as user statements."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "The uncertainty regarding 'lequel' is properly registered in ambiguities."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarities are correctly preserved."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit timing interval or clock time is present."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Outcome remains OUTCOME without unauthorized endpoint promotion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific imaging techniques and clinical condition are preserved."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "FAIL",
+              "evidence": "Inventory item inv_04 ('lequel') is listed as UNRESOLVED_EXPLICIT_FRAGMENT."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY is appropriate for a comparative predictive query."
+            }
+          ],
+          "missingExplicitSourceFragments": [
+            {
+              "sourceMessageId": "SEM-H07:user:1",
+              "sourceText": "lequel",
+              "normalizedMeaning": "which biomarker or method",
+              "reason": "Explicit fragment inv_04 has no mapped client element.",
+              "suggestedLocalRole": "comparator",
+              "confidence": 1
+            }
+          ],
+          "issues": [
+            {
+              "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+              "severity": "CRITICAL",
+              "elementClientIds": [],
+              "description": "Explicit inventory fragment inv_04 ('lequel') is unmapped in explicitCoverageReport.",
+              "recommendedAction": "Map inv_04 to an AMBIGUITY element or COMPARATOR element to satisfy coverage.",
+              "resolved": false
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "repairId": "rep_01",
+              "action": "UPSERT_ELEMENT",
+              "reason": "Map explicit fragment inv_04 ('lequel') to an ambiguity element to ensure complete explicit coverage.",
+              "sourceInventoryItemIds": [
+                "inv_04"
+              ],
+              "sourceInventoryRelationIds": [],
+              "inventoryItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "inventoryNormalizedLabel": null,
+              "inventoryLocalRole": null,
+              "inventoryPolarity": null,
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": "elem_05",
+              "elementType": "AMBIGUITY",
+              "elementCanonicalMeaning": "Uncertainty regarding which biomarker predicts recovery",
+              "elementStudyRole": "NONE",
+              "elementPolarity": "UNCERTAIN",
+              "elementInventoryItemIds": [
+                "inv_04"
+              ],
+              "elementSourceMessageId": "SEM-H07:user:1",
+              "elementSourceText": "lequel",
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementConfidence": 1,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": false,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "relationPolarity": null,
+              "relationInventoryRelationIds": [],
+              "relationEpistemicStatus": null,
+              "relationConfidence": null,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": null,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            }
+          ],
+          "criticSummary": "All explicit relations, objects, and types are robustly validated, except for the unmapped inventory item 'lequel' (inv_04). A proposed repair maps 'lequel' to an AMBIGUITY element (elem_05) to ensure complete explicit coverage."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_SECOND_REPAIR_DETERMINISTIC_AUDIT_PASSED",
+      "criticRepairs": [
+        {
+          "repairId": "rep_01",
+          "status": "ACCEPTED",
+          "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+        },
+        {
+          "repairId": "rep_01",
+          "status": "ACCEPTED",
+          "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+        }
+      ],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-2a52f2456ee33309",
+        "revision": 1,
+        "status": "CLARIFICATION_REQUIRED",
+        "originalRequest": "post myocardite : mapping natif et strain, lequel annonce la récupération VG ?",
+        "normalizedMeaning": "Comparison between native T1/T2 mapping and strain imaging in post-myocarditis patients to predict left ventricular functional recovery.",
+        "conversationMessageIds": [
+          "SEM-H07:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-067214d90410914d",
+            "type": "CONDITION",
+            "canonicalMeaning": "Myocarditis",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_01"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H07:user:1",
+              "text": "post myocardite",
+              "start": 0,
+              "end": 15
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-4f0240752b3435e9",
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": "2026-08-13T09:44:26.679Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H07:user:1",
+              "providerCallId": "gemini-call:ke1-31652e1661ea1e02",
+              "rawElementId": "elem_01"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-8cc5497e9fa50562",
+            "type": "AMBIGUITY",
+            "canonicalMeaning": "Uncertainty regarding which biomarker predicts recovery",
+            "studyRole": "NONE",
+            "polarity": "UNCERTAIN",
+            "inventoryItemIds": [
+              "inv_04"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H07:user:1",
+              "text": "lequel",
+              "start": 43,
+              "end": 49
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H07:user:1",
+              "providerCallId": "gemini-call:ke1-31652e1661ea1e02",
+              "rawElementId": "elem_05"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-957f7b9909e639ad",
+            "type": "METHOD",
+            "canonicalMeaning": "Native mapping (T1/T2 acquisition method)",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_02"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H07:user:1",
+              "text": "mapping natif",
+              "start": 18,
+              "end": 31
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-51a887e1808d6755",
+              "sem-relation:ke1-b2b0e664f7f6c9a8"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H07:user:1",
+              "providerCallId": "gemini-call:ke1-31652e1661ea1e02",
+              "rawElementId": "elem_02"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-dfa385e618e40c52",
+            "type": "OUTCOME",
+            "canonicalMeaning": "Left ventricular functional recovery",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_06"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H07:user:1",
+              "text": "récupération VG",
+              "start": 61,
+              "end": 76
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-77ce78f7440184d3",
+              "sem-relation:ke1-b2b0e664f7f6c9a8"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H07:user:1",
+              "providerCallId": "gemini-call:ke1-31652e1661ea1e02",
+              "rawElementId": "elem_04"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-ecd85ec60b8a562a",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Myocardial strain",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_03"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H07:user:1",
+              "text": "strain",
+              "start": 35,
+              "end": 41
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-51a887e1808d6755",
+              "sem-relation:ke1-77ce78f7440184d3"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-4f0240752b3435e9",
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": "2026-08-13T09:44:26.679Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H07:user:1",
+              "providerCallId": "gemini-call:ke1-31652e1661ea1e02",
+              "rawElementId": "elem_03"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-51a887e1808d6755",
+            "sourceElementId": "sem-element:ke1-957f7b9909e639ad",
+            "targetElementId": "sem-element:ke1-ecd85ec60b8a562a",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_01"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-77ce78f7440184d3",
+            "sourceElementId": "sem-element:ke1-ecd85ec60b8a562a",
+            "targetElementId": "sem-element:ke1-dfa385e618e40c52",
+            "relationType": "PREDICTS_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_03"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-b2b0e664f7f6c9a8",
+            "sourceElementId": "sem-element:ke1-957f7b9909e639ad",
+            "targetElementId": "sem-element:ke1-dfa385e618e40c52",
+            "relationType": "PREDICTS_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_02"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv_01",
+              "sourceMessageId": "SEM-H07:user:1",
+              "sourceText": "post myocardite",
+              "normalizedMeaning": "post-myocarditis condition",
+              "mappedClientElementIds": [
+                "elem_01"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_02",
+              "sourceMessageId": "SEM-H07:user:1",
+              "sourceText": "mapping natif",
+              "normalizedMeaning": "native mapping",
+              "mappedClientElementIds": [
+                "elem_02"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_03",
+              "sourceMessageId": "SEM-H07:user:1",
+              "sourceText": "strain",
+              "normalizedMeaning": "myocardial strain",
+              "mappedClientElementIds": [
+                "elem_03"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_04",
+              "sourceMessageId": "SEM-H07:user:1",
+              "sourceText": "lequel",
+              "normalizedMeaning": "which method",
+              "mappedClientElementIds": [
+                "elem_05"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_05",
+              "sourceMessageId": "SEM-H07:user:1",
+              "sourceText": "annonce",
+              "normalizedMeaning": "predicts",
+              "mappedClientElementIds": [],
+              "mappedClientRelationIds": [
+                "rel_el_02",
+                "rel_el_03"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "The explicit functional fragment is represented by its source-grounded direct Semantic Relation rather than by a false object node."
+            },
+            {
+              "inventoryItemId": "inv_06",
+              "sourceMessageId": "SEM-H07:user:1",
+              "sourceText": "récupération VG",
+              "normalizedMeaning": "left ventricular recovery",
+              "mappedClientElementIds": [
+                "elem_04"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel_01",
+              "sourceInventoryItemId": "inv_02",
+              "targetInventoryItemId": "inv_03",
+              "normalizedRelation": "COMPARES_WITH",
+              "mappedClientRelationIds": [
+                "rel_el_01"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_02",
+              "sourceInventoryItemId": "inv_02",
+              "targetInventoryItemId": "inv_06",
+              "normalizedRelation": "PREDICTS_CANDIDATE",
+              "mappedClientRelationIds": [
+                "rel_el_02"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_03",
+              "sourceInventoryItemId": "inv_03",
+              "targetInventoryItemId": "inv_06",
+              "normalizedRelation": "PREDICTS_CANDIDATE",
+              "mappedClientRelationIds": [
+                "rel_el_03"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [
+          "Uncertain which biomarker (native mapping or strain) is superior or selected for predicting left ventricular recovery."
+        ],
+        "unknowns": [],
+        "contradictions": [],
+        "clarificationCandidates": [
+          {
+            "question": "Souhaitez-vous évaluer la supériorité du mapping natif ou du strain pour prédire la récupération ventriculaire gauche dans le cadre d'un protocole d' étude formalisé ?",
+            "reason": "Clarify whether the user wants to set up a study protocol comparing these two predictors.",
+            "resolvesElementIds": [
+              "sem-element:ke1-957f7b9909e639ad",
+              "sem-element:ke1-ecd85ec60b8a562a"
+            ]
+          }
+        ],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.85,
+          "reason": "The user is comparing two diagnostic biomarkers for predicting a clinical outcome in a specific condition, which maps well to designing an evaluative study.",
+          "expectedCapabilities": [
+            "Define study endpoints",
+            "Structure comparative analysis"
+          ]
+        },
+        "summaryForUser": "Vous souhaitez comparer le mapping natif et le strain en post-myocardite pour identifier lequel prédit la récupération ventriculaire gauche.",
+        "critic": {
+          "verdict": "REVISE",
+          "issues": [
+            {
+              "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+              "severity": "CRITICAL",
+              "elementClientIds": [],
+              "description": "Explicit inventory fragment inv_04 ('lequel') is unmapped in explicitCoverageReport.",
+              "recommendedAction": "Map inv_04 to an AMBIGUITY element or COMPARATOR element to satisfy coverage.",
+              "resolved": false
+            }
+          ],
+          "summary": "All explicit relations, objects, and types are robustly validated, except for the unmapped inventory item 'lequel' (inv_04). A proposed repair maps 'lequel' to an AMBIGUITY element (elem_05) to ensure complete explicit coverage."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+          "criticPromptVersion": "SEM-001-CRITIC-1.6",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-31652e1661ea1e02",
+          "criticCallId": "gemini-call:ke1-ee6d2fed1105c6b9",
+          "criticCallIds": [
+            "gemini-call:ke1-56c185cc929b6fc0",
+            "gemini-call:ke1-ee6d2fed1105c6b9"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:44:10.994Z",
+              "requestFinished": "2026-08-13T09:44:17.204Z",
+              "latencyMs": 6210,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:44:17.210Z",
+              "requestFinished": "2026-08-13T09:44:21.872Z",
+              "latencyMs": 4662,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            },
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:44:21.878Z",
+              "requestFinished": "2026-08-13T09:44:26.671Z",
+              "latencyMs": 4793,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "cand_01J5KXYZ89ABCDEF",
+            "language": "fr",
+            "normalizedMeaning": "Comparison between native T1/T2 mapping and strain imaging in post-myocarditis patients to predict left ventricular functional recovery.",
+            "summaryForUser": "Vous souhaitez comparer le mapping natif et le strain en post-myocardite pour identifier lequel prédit la récupération ventriculaire gauche.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "inv_01",
+                  "sourceMessageId": "SEM-H07:user:1",
+                  "sourceText": "post myocardite",
+                  "normalizedLabel": "post-myocarditis condition",
+                  "localRole": "condition",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv_02",
+                  "sourceMessageId": "SEM-H07:user:1",
+                  "sourceText": "mapping natif",
+                  "normalizedLabel": "native mapping",
+                  "localRole": "biomarker",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [
+                    "natif"
+                  ],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv_03",
+                  "sourceMessageId": "SEM-H07:user:1",
+                  "sourceText": "strain",
+                  "normalizedLabel": "myocardial strain",
+                  "localRole": "biomarker",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv_04",
+                  "sourceMessageId": "SEM-H07:user:1",
+                  "sourceText": "lequel",
+                  "normalizedLabel": "which method",
+                  "localRole": "comparator",
+                  "polarity": "UNCERTAIN",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv_02",
+                    "inv_03"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv_05",
+                  "sourceMessageId": "SEM-H07:user:1",
+                  "sourceText": "annonce",
+                  "normalizedLabel": "predicts",
+                  "localRole": "relation",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv_06",
+                  "sourceMessageId": "SEM-H07:user:1",
+                  "sourceText": "récupération VG",
+                  "normalizedLabel": "left ventricular recovery",
+                  "localRole": "outcome",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [
+                    "VG"
+                  ],
+                  "linkedInventoryItemIds": []
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel_01",
+                  "sourceInventoryItemId": "inv_02",
+                  "targetInventoryItemId": "inv_03",
+                  "sourceMessageId": "SEM-H07:user:1",
+                  "sourceText": "mapping natif et strain",
+                  "normalizedRelation": "COMPARES_WITH",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel_02",
+                  "sourceInventoryItemId": "inv_02",
+                  "targetInventoryItemId": "inv_06",
+                  "sourceMessageId": "SEM-H07:user:1",
+                  "sourceText": "post myocardite : mapping natif et strain, lequel annonce la récupération VG ?",
+                  "normalizedRelation": "PREDICTS_CANDIDATE",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel_03",
+                  "sourceInventoryItemId": "inv_03",
+                  "targetInventoryItemId": "inv_06",
+                  "sourceMessageId": "SEM-H07:user:1",
+                  "sourceText": "post myocardite : mapping natif et strain, lequel annonce la récupération VG ?",
+                  "normalizedRelation": "PREDICTS_CANDIDATE",
+                  "polarity": "AFFIRMED"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem_01",
+                "type": "CONDITION",
+                "canonicalMeaning": "Myocarditis",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_01"
+                ],
+                "sourceMessageId": "SEM-H07:user:1",
+                "sourceText": "post myocardite",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_03",
+                "type": "BIOMARKER",
+                "canonicalMeaning": "Myocardial strain",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_03"
+                ],
+                "sourceMessageId": "SEM-H07:user:1",
+                "sourceText": "strain",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_04",
+                "type": "OUTCOME",
+                "canonicalMeaning": "Left ventricular functional recovery",
+                "studyRole": "OUTCOME_ROLE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_06"
+                ],
+                "sourceMessageId": "SEM-H07:user:1",
+                "sourceText": "récupération VG",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_02",
+                "type": "METHOD",
+                "canonicalMeaning": "Native mapping (T1/T2 acquisition method)",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_02"
+                ],
+                "sourceMessageId": "SEM-H07:user:1",
+                "sourceText": "mapping natif",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_05",
+                "type": "AMBIGUITY",
+                "canonicalMeaning": "Uncertainty regarding which biomarker predicts recovery",
+                "studyRole": "NONE",
+                "polarity": "UNCERTAIN",
+                "inventoryItemIds": [
+                  "inv_04"
+                ],
+                "sourceMessageId": "SEM-H07:user:1",
+                "sourceText": "lequel",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel_el_01",
+                "sourceClientElementId": "elem_02",
+                "targetClientElementId": "elem_03",
+                "relationType": "COMPARES_WITH",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_01"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel_el_02",
+                "sourceClientElementId": "elem_02",
+                "targetClientElementId": "elem_04",
+                "relationType": "PREDICTS_CANDIDATE",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_02"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel_el_03",
+                "sourceClientElementId": "elem_03",
+                "targetClientElementId": "elem_04",
+                "relationType": "PREDICTS_CANDIDATE",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_03"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              }
+            ],
+            "missingConcepts": [],
+            "ellipses": [],
+            "ambiguities": [
+              "Uncertain which biomarker (native mapping or strain) is superior or selected for predicting left ventricular recovery."
+            ],
+            "unknowns": [],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [
+              {
+                "question": "Souhaitez-vous évaluer la supériorité du mapping natif ou du strain pour prédire la récupération ventriculaire gauche dans le cadre d'un protocole d' étude formalisé ?",
+                "reason": "Clarify whether the user wants to set up a study protocol comparing these two predictors.",
+                "resolvesClientElementIds": [
+                  "elem_02",
+                  "elem_03"
+                ]
+              }
+            ],
+            "routeProposal": {
+              "route": "DESIGN_STUDY",
+              "confidence": 0.85,
+              "reason": "The user is comparing two diagnostic biomarkers for predicting a clinical outcome in a specific condition, which maps well to designing an evaluative study.",
+              "expectedCapabilities": [
+                "Define study endpoints",
+                "Structure comparative analysis"
+              ]
+            },
+            "semanticWarnings": [
+              "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:2"
+            ]
+          },
+          "rawCritic": {
+            "criticId": "critic_SEM_H07_02",
+            "verdict": "REVISE",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "FAIL",
+                "evidence": "Inventory item inv_04 ('lequel') remains unmapped and unresolved in the explicit coverage report."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Native mapping and strain are correctly compared via explicit relation rel_el_01."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No interventions are present in this diagnostic/predictive query."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Imaging modalities/methods are appropriately represented."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All inventory relations are mapped to direct client relations."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "Taxonomy report is complete with no findings."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Relations retain their explicit predictive and comparative meanings."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No ungrounded inferences are promoted as user statements."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "The uncertainty regarding 'lequel' is properly registered in ambiguities."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "Polarities are correctly preserved."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No explicit timing interval or clock time is present."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "Outcome remains OUTCOME without unauthorized endpoint promotion."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific imaging techniques and clinical condition are preserved."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "FAIL",
+                "evidence": "Inventory item inv_04 ('lequel') is listed as UNRESOLVED_EXPLICIT_FRAGMENT."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "Route DESIGN_STUDY is appropriate for a comparative predictive query."
+              }
+            ],
+            "missingExplicitSourceFragments": [
+              {
+                "sourceMessageId": "SEM-H07:user:1",
+                "sourceText": "lequel",
+                "normalizedMeaning": "which biomarker or method",
+                "reason": "Explicit fragment inv_04 has no mapped client element.",
+                "suggestedLocalRole": "comparator",
+                "confidence": 1
+              }
+            ],
+            "issues": [
+              {
+                "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+                "severity": "CRITICAL",
+                "elementClientIds": [],
+                "description": "Explicit inventory fragment inv_04 ('lequel') is unmapped in explicitCoverageReport.",
+                "recommendedAction": "Map inv_04 to an AMBIGUITY element or COMPARATOR element to satisfy coverage.",
+                "resolved": false
+              }
+            ],
+            "proposedRepairs": [
+              {
+                "repairId": "rep_01",
+                "action": "UPSERT_ELEMENT",
+                "reason": "Map explicit fragment inv_04 ('lequel') to an ambiguity element to ensure complete explicit coverage.",
+                "sourceInventoryItemIds": [
+                  "inv_04"
+                ],
+                "sourceInventoryRelationIds": [],
+                "inventoryItemId": null,
+                "inventorySourceMessageId": null,
+                "inventorySourceText": null,
+                "inventoryNormalizedLabel": null,
+                "inventoryLocalRole": null,
+                "inventoryPolarity": null,
+                "inventoryModifiers": [],
+                "inventoryLinkedItemIds": [],
+                "inventoryRelationId": null,
+                "inventoryRelationSourceItemId": null,
+                "inventoryRelationTargetItemId": null,
+                "inventoryRelationSourceMessageId": null,
+                "inventoryRelationSourceText": null,
+                "inventoryNormalizedRelation": null,
+                "inventoryRelationPolarity": null,
+                "elementClientElementId": "elem_05",
+                "elementType": "AMBIGUITY",
+                "elementCanonicalMeaning": "Uncertainty regarding which biomarker predicts recovery",
+                "elementStudyRole": "NONE",
+                "elementPolarity": "UNCERTAIN",
+                "elementInventoryItemIds": [
+                  "inv_04"
+                ],
+                "elementSourceMessageId": "SEM-H07:user:1",
+                "elementSourceText": "lequel",
+                "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+                "elementConfidence": 1,
+                "elementInferenceReason": null,
+                "elementRequiresConfirmation": false,
+                "elementSupersedesElementIds": [],
+                "relationClientRelationId": null,
+                "relationSourceClientElementId": null,
+                "relationTargetClientElementId": null,
+                "relationType": null,
+                "relationPolarity": null,
+                "relationInventoryRelationIds": [],
+                "relationEpistemicStatus": null,
+                "relationConfidence": null,
+                "relationInferenceReason": null,
+                "relationRequiresConfirmation": null,
+                "ambiguity": null,
+                "route": null,
+                "routeConfidence": null,
+                "routeReason": null,
+                "routeExpectedCapabilities": []
+              }
+            ],
+            "criticSummary": "All explicit relations, objects, and types are robustly validated, except for the unmapped inventory item 'lequel' (inv_04). A proposed repair maps 'lequel' to an AMBIGUITY element (elem_05) to ensure complete explicit coverage."
+          },
+          "rawCritics": [
+            {
+              "criticId": "crit_01J5KXYZ89ABCDEF",
+              "verdict": "REVISE",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All main explicit objects (condition, biomarkers, outcome) are represented."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "FAIL",
+                  "evidence": "Inventory item inv_04 ('lequel') is unmapped in the explicit coverage report."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No active intervention is present in the source message."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "Specific modalities are not independently listed as broad family headers here; mapping/strain are methods."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All deterministic explicit relation coverage entries are successfully mapped."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "FAIL",
+                  "evidence": "Taxonomy report flags elem_02 ('mapping natif') as BIOMARKER instead of METHOD."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Explicit relations are fully maintained."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No unsupported inferences promoted."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "The uncertainty regarding 'lequel' is preserved in ambiguities."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "Polarity is correctly maintained across all elements."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No explicit temporal intervals or timepoints are present."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "Outcome is appropriately typed without unauthorized endpoint promotion."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Concepts are kept at their specific user-stated level."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "FAIL",
+                  "evidence": "Inventory item inv_04 ('lequel') remains unresolved in explicit coverage."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "Route correctly set to DESIGN_STUDY."
+                }
+              ],
+              "missingExplicitSourceFragments": [
+                {
+                  "sourceMessageId": "SEM-H07:user:1",
+                  "sourceText": "lequel",
+                  "normalizedMeaning": "which method / comparative query choice",
+                  "reason": "Explicit comparator fragment is not mapped to an explicit typed element in the candidate.",
+                  "suggestedLocalRole": "comparator",
+                  "confidence": 0.95
+                }
+              ],
+              "issues": [
+                {
+                  "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+                  "severity": "WARNING",
+                  "elementClientIds": [],
+                  "description": "Inventory item inv_04 ('lequel') is unresolved in the explicit coverage report.",
+                  "recommendedAction": "Map inv_04 to an element or ambiguity representation.",
+                  "resolved": false
+                },
+                {
+                  "code": "TYPE_MISMATCH",
+                  "severity": "CRITICAL",
+                  "elementClientIds": [
+                    "elem_02"
+                  ],
+                  "description": "Native mapping is a acquisition/analysis technique and must be typed as METHOD under taxonomy rules.",
+                  "recommendedAction": "Update element type for elem_02 to METHOD via UPSERT_ELEMENT.",
+                  "resolved": false
+                }
+              ],
+              "proposedRepairs": [
+                {
+                  "repairId": "rep_01",
+                  "action": "UPSERT_ELEMENT",
+                  "reason": "Correct element type for 'mapping natif' from BIOMARKER to METHOD per taxonomy report.",
+                  "sourceInventoryItemIds": [
+                    "inv_02"
+                  ],
+                  "sourceInventoryRelationIds": [],
+                  "inventoryItemId": null,
+                  "inventorySourceMessageId": null,
+                  "inventorySourceText": null,
+                  "inventoryNormalizedLabel": null,
+                  "inventoryLocalRole": null,
+                  "inventoryPolarity": null,
+                  "inventoryModifiers": [],
+                  "inventoryLinkedItemIds": [],
+                  "inventoryRelationId": null,
+                  "inventoryRelationSourceItemId": null,
+                  "inventoryRelationTargetItemId": null,
+                  "inventoryRelationSourceMessageId": null,
+                  "inventoryRelationSourceText": null,
+                  "inventoryNormalizedRelation": null,
+                  "inventoryRelationPolarity": null,
+                  "elementClientElementId": "elem_02",
+                  "elementType": "METHOD",
+                  "elementCanonicalMeaning": "Native mapping (T1/T2 acquisition method)",
+                  "elementStudyRole": "MEASUREMENT",
+                  "elementPolarity": "AFFIRMED",
+                  "elementInventoryItemIds": [
+                    "inv_02"
+                  ],
+                  "elementSourceMessageId": "SEM-H07:user:1",
+                  "elementSourceText": "mapping natif",
+                  "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+                  "elementConfidence": 1,
+                  "elementInferenceReason": null,
+                  "elementRequiresConfirmation": false,
+                  "elementSupersedesElementIds": [],
+                  "relationClientRelationId": null,
+                  "relationSourceClientElementId": null,
+                  "relationTargetClientElementId": null,
+                  "relationType": null,
+                  "relationPolarity": null,
+                  "relationInventoryRelationIds": [],
+                  "relationEpistemicStatus": null,
+                  "relationConfidence": null,
+                  "relationInferenceReason": null,
+                  "relationRequiresConfirmation": null,
+                  "ambiguity": null,
+                  "route": null,
+                  "routeConfidence": null,
+                  "routeReason": null,
+                  "routeExpectedCapabilities": []
+                }
+              ],
+              "criticSummary": "The audit identified a type mismatch where native mapping (elem_02) was classified as BIOMARKER instead of METHOD, and an unmapped comparator fragment ('lequel', inv_04). A bounded repair is proposed to correct elem_02 to METHOD."
+            },
+            {
+              "criticId": "critic_SEM_H07_02",
+              "verdict": "REVISE",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "FAIL",
+                  "evidence": "Inventory item inv_04 ('lequel') remains unmapped and unresolved in the explicit coverage report."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "Native mapping and strain are correctly compared via explicit relation rel_el_01."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No interventions are present in this diagnostic/predictive query."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "Imaging modalities/methods are appropriately represented."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All inventory relations are mapped to direct client relations."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "Taxonomy report is complete with no findings."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Relations retain their explicit predictive and comparative meanings."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No ungrounded inferences are promoted as user statements."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "The uncertainty regarding 'lequel' is properly registered in ambiguities."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "Polarities are correctly preserved."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No explicit timing interval or clock time is present."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "Outcome remains OUTCOME without unauthorized endpoint promotion."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific imaging techniques and clinical condition are preserved."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "FAIL",
+                  "evidence": "Inventory item inv_04 ('lequel') is listed as UNRESOLVED_EXPLICIT_FRAGMENT."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "Route DESIGN_STUDY is appropriate for a comparative predictive query."
+                }
+              ],
+              "missingExplicitSourceFragments": [
+                {
+                  "sourceMessageId": "SEM-H07:user:1",
+                  "sourceText": "lequel",
+                  "normalizedMeaning": "which biomarker or method",
+                  "reason": "Explicit fragment inv_04 has no mapped client element.",
+                  "suggestedLocalRole": "comparator",
+                  "confidence": 1
+                }
+              ],
+              "issues": [
+                {
+                  "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+                  "severity": "CRITICAL",
+                  "elementClientIds": [],
+                  "description": "Explicit inventory fragment inv_04 ('lequel') is unmapped in explicitCoverageReport.",
+                  "recommendedAction": "Map inv_04 to an AMBIGUITY element or COMPARATOR element to satisfy coverage.",
+                  "resolved": false
+                }
+              ],
+              "proposedRepairs": [
+                {
+                  "repairId": "rep_01",
+                  "action": "UPSERT_ELEMENT",
+                  "reason": "Map explicit fragment inv_04 ('lequel') to an ambiguity element to ensure complete explicit coverage.",
+                  "sourceInventoryItemIds": [
+                    "inv_04"
+                  ],
+                  "sourceInventoryRelationIds": [],
+                  "inventoryItemId": null,
+                  "inventorySourceMessageId": null,
+                  "inventorySourceText": null,
+                  "inventoryNormalizedLabel": null,
+                  "inventoryLocalRole": null,
+                  "inventoryPolarity": null,
+                  "inventoryModifiers": [],
+                  "inventoryLinkedItemIds": [],
+                  "inventoryRelationId": null,
+                  "inventoryRelationSourceItemId": null,
+                  "inventoryRelationTargetItemId": null,
+                  "inventoryRelationSourceMessageId": null,
+                  "inventoryRelationSourceText": null,
+                  "inventoryNormalizedRelation": null,
+                  "inventoryRelationPolarity": null,
+                  "elementClientElementId": "elem_05",
+                  "elementType": "AMBIGUITY",
+                  "elementCanonicalMeaning": "Uncertainty regarding which biomarker predicts recovery",
+                  "elementStudyRole": "NONE",
+                  "elementPolarity": "UNCERTAIN",
+                  "elementInventoryItemIds": [
+                    "inv_04"
+                  ],
+                  "elementSourceMessageId": "SEM-H07:user:1",
+                  "elementSourceText": "lequel",
+                  "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+                  "elementConfidence": 1,
+                  "elementInferenceReason": null,
+                  "elementRequiresConfirmation": false,
+                  "elementSupersedesElementIds": [],
+                  "relationClientRelationId": null,
+                  "relationSourceClientElementId": null,
+                  "relationTargetClientElementId": null,
+                  "relationType": null,
+                  "relationPolarity": null,
+                  "relationInventoryRelationIds": [],
+                  "relationEpistemicStatus": null,
+                  "relationConfidence": null,
+                  "relationInferenceReason": null,
+                  "relationRequiresConfirmation": null,
+                  "ambiguity": null,
+                  "route": null,
+                  "routeConfidence": null,
+                  "routeReason": null,
+                  "routeExpectedCapabilities": []
+                }
+              ],
+              "criticSummary": "All explicit relations, objects, and types are robustly validated, except for the unmapped inventory item 'lequel' (inv_04). A proposed repair maps 'lequel' to an AMBIGUITY element (elem_05) to ensure complete explicit coverage."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-13T09:44:26.676Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-4f0240752b3435e9",
+          "resultDigest": "ke1-4f0240752b3435e9",
+          "coverageStatus": "SUPPORTED",
+          "verifiedAt": "2026-08-13T09:44:26.679Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-13T09:44:26.676Z",
+        "updatedAt": "2026-08-13T09:44:26.679Z",
+        "digest": "ke1-8b0b8cec219b7880"
+      },
+      "canonicalModelDigest": "ke1-8b0b8cec219b7880",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-4f0240752b3435e9",
+        "resultDigest": "ke1-4f0240752b3435e9",
+        "coverageStatus": "SUPPORTED",
+        "verifiedAt": "2026-08-13T09:44:26.679Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-31652e1661ea1e02",
+      "structuredDigest": "ke1-2e447bcdfce21d59",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:44:10.994Z",
+          "requestFinished": "2026-08-13T09:44:17.204Z",
+          "latencyMs": 6210,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-56c185cc929b6fc0",
+      "structuredDigest": "ke1-4cd41e8ae5bedf36",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:44:17.210Z",
+          "requestFinished": "2026-08-13T09:44:21.872Z",
+          "latencyMs": 4662,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_SECOND_REPAIR_DETERMINISTIC_AUDIT_PASSED"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 2,
+      "callId": "gemini-call:ke1-ee6d2fed1105c6b9",
+      "structuredDigest": "ke1-41cf74624d2c987e",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:44:21.878Z",
+          "requestFinished": "2026-08-13T09:44:26.671Z",
+          "latencyMs": 4793,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_SECOND_REPAIR_DETERMINISTIC_AUDIT_PASSED"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-2a52f2456ee33309",
+    "revision": 1,
+    "status": "CLARIFICATION_REQUIRED",
+    "originalRequest": "post myocardite : mapping natif et strain, lequel annonce la récupération VG ?",
+    "normalizedMeaning": "Comparison between native T1/T2 mapping and strain imaging in post-myocarditis patients to predict left ventricular functional recovery.",
+    "conversationMessageIds": [
+      "SEM-H07:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-067214d90410914d",
+        "type": "CONDITION",
+        "canonicalMeaning": "Myocarditis",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_01"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H07:user:1",
+          "text": "post myocardite",
+          "start": 0,
+          "end": 15
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-4f0240752b3435e9",
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": "2026-08-13T09:44:26.679Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H07:user:1",
+          "providerCallId": "gemini-call:ke1-31652e1661ea1e02",
+          "rawElementId": "elem_01"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-8cc5497e9fa50562",
+        "type": "AMBIGUITY",
+        "canonicalMeaning": "Uncertainty regarding which biomarker predicts recovery",
+        "studyRole": "NONE",
+        "polarity": "UNCERTAIN",
+        "inventoryItemIds": [
+          "inv_04"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H07:user:1",
+          "text": "lequel",
+          "start": 43,
+          "end": 49
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H07:user:1",
+          "providerCallId": "gemini-call:ke1-31652e1661ea1e02",
+          "rawElementId": "elem_05"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-957f7b9909e639ad",
+        "type": "METHOD",
+        "canonicalMeaning": "Native mapping (T1/T2 acquisition method)",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_02"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H07:user:1",
+          "text": "mapping natif",
+          "start": 18,
+          "end": 31
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-51a887e1808d6755",
+          "sem-relation:ke1-b2b0e664f7f6c9a8"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H07:user:1",
+          "providerCallId": "gemini-call:ke1-31652e1661ea1e02",
+          "rawElementId": "elem_02"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-dfa385e618e40c52",
+        "type": "OUTCOME",
+        "canonicalMeaning": "Left ventricular functional recovery",
+        "studyRole": "OUTCOME_ROLE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_06"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H07:user:1",
+          "text": "récupération VG",
+          "start": 61,
+          "end": 76
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-77ce78f7440184d3",
+          "sem-relation:ke1-b2b0e664f7f6c9a8"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H07:user:1",
+          "providerCallId": "gemini-call:ke1-31652e1661ea1e02",
+          "rawElementId": "elem_04"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-ecd85ec60b8a562a",
+        "type": "BIOMARKER",
+        "canonicalMeaning": "Myocardial strain",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_03"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H07:user:1",
+          "text": "strain",
+          "start": 35,
+          "end": 41
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-51a887e1808d6755",
+          "sem-relation:ke1-77ce78f7440184d3"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-4f0240752b3435e9",
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": "2026-08-13T09:44:26.679Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H07:user:1",
+          "providerCallId": "gemini-call:ke1-31652e1661ea1e02",
+          "rawElementId": "elem_03"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-51a887e1808d6755",
+        "sourceElementId": "sem-element:ke1-957f7b9909e639ad",
+        "targetElementId": "sem-element:ke1-ecd85ec60b8a562a",
+        "relationType": "COMPARES_WITH",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_01"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-77ce78f7440184d3",
+        "sourceElementId": "sem-element:ke1-ecd85ec60b8a562a",
+        "targetElementId": "sem-element:ke1-dfa385e618e40c52",
+        "relationType": "PREDICTS_CANDIDATE",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_03"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-b2b0e664f7f6c9a8",
+        "sourceElementId": "sem-element:ke1-957f7b9909e639ad",
+        "targetElementId": "sem-element:ke1-dfa385e618e40c52",
+        "relationType": "PREDICTS_CANDIDATE",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_02"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv_01",
+          "sourceMessageId": "SEM-H07:user:1",
+          "sourceText": "post myocardite",
+          "normalizedMeaning": "post-myocarditis condition",
+          "mappedClientElementIds": [
+            "elem_01"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_02",
+          "sourceMessageId": "SEM-H07:user:1",
+          "sourceText": "mapping natif",
+          "normalizedMeaning": "native mapping",
+          "mappedClientElementIds": [
+            "elem_02"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_03",
+          "sourceMessageId": "SEM-H07:user:1",
+          "sourceText": "strain",
+          "normalizedMeaning": "myocardial strain",
+          "mappedClientElementIds": [
+            "elem_03"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_04",
+          "sourceMessageId": "SEM-H07:user:1",
+          "sourceText": "lequel",
+          "normalizedMeaning": "which method",
+          "mappedClientElementIds": [
+            "elem_05"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_05",
+          "sourceMessageId": "SEM-H07:user:1",
+          "sourceText": "annonce",
+          "normalizedMeaning": "predicts",
+          "mappedClientElementIds": [],
+          "mappedClientRelationIds": [
+            "rel_el_02",
+            "rel_el_03"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "The explicit functional fragment is represented by its source-grounded direct Semantic Relation rather than by a false object node."
+        },
+        {
+          "inventoryItemId": "inv_06",
+          "sourceMessageId": "SEM-H07:user:1",
+          "sourceText": "récupération VG",
+          "normalizedMeaning": "left ventricular recovery",
+          "mappedClientElementIds": [
+            "elem_04"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel_01",
+          "sourceInventoryItemId": "inv_02",
+          "targetInventoryItemId": "inv_03",
+          "normalizedRelation": "COMPARES_WITH",
+          "mappedClientRelationIds": [
+            "rel_el_01"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_02",
+          "sourceInventoryItemId": "inv_02",
+          "targetInventoryItemId": "inv_06",
+          "normalizedRelation": "PREDICTS_CANDIDATE",
+          "mappedClientRelationIds": [
+            "rel_el_02"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_03",
+          "sourceInventoryItemId": "inv_03",
+          "targetInventoryItemId": "inv_06",
+          "normalizedRelation": "PREDICTS_CANDIDATE",
+          "mappedClientRelationIds": [
+            "rel_el_03"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "missingConcepts": [],
+    "ellipses": [],
+    "ambiguities": [
+      "Uncertain which biomarker (native mapping or strain) is superior or selected for predicting left ventricular recovery."
+    ],
+    "unknowns": [],
+    "contradictions": [],
+    "clarificationCandidates": [
+      {
+        "question": "Souhaitez-vous évaluer la supériorité du mapping natif ou du strain pour prédire la récupération ventriculaire gauche dans le cadre d'un protocole d' étude formalisé ?",
+        "reason": "Clarify whether the user wants to set up a study protocol comparing these two predictors.",
+        "resolvesElementIds": [
+          "sem-element:ke1-957f7b9909e639ad",
+          "sem-element:ke1-ecd85ec60b8a562a"
+        ]
+      }
+    ],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "DESIGN_STUDY",
+      "confidence": 0.85,
+      "reason": "The user is comparing two diagnostic biomarkers for predicting a clinical outcome in a specific condition, which maps well to designing an evaluative study.",
+      "expectedCapabilities": [
+        "Define study endpoints",
+        "Structure comparative analysis"
+      ]
+    },
+    "summaryForUser": "Vous souhaitez comparer le mapping natif et le strain en post-myocardite pour identifier lequel prédit la récupération ventriculaire gauche.",
+    "critic": {
+      "verdict": "REVISE",
+      "issues": [
+        {
+          "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+          "severity": "CRITICAL",
+          "elementClientIds": [],
+          "description": "Explicit inventory fragment inv_04 ('lequel') is unmapped in explicitCoverageReport.",
+          "recommendedAction": "Map inv_04 to an AMBIGUITY element or COMPARATOR element to satisfy coverage.",
+          "resolved": false
+        }
+      ],
+      "summary": "All explicit relations, objects, and types are robustly validated, except for the unmapped inventory item 'lequel' (inv_04). A proposed repair maps 'lequel' to an AMBIGUITY element (elem_05) to ensure complete explicit coverage."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-31652e1661ea1e02",
+      "criticCallId": "gemini-call:ke1-ee6d2fed1105c6b9",
+      "criticCallIds": [
+        "gemini-call:ke1-56c185cc929b6fc0",
+        "gemini-call:ke1-ee6d2fed1105c6b9"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:44:10.994Z",
+          "requestFinished": "2026-08-13T09:44:17.204Z",
+          "latencyMs": 6210,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:44:17.210Z",
+          "requestFinished": "2026-08-13T09:44:21.872Z",
+          "latencyMs": 4662,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:44:21.878Z",
+          "requestFinished": "2026-08-13T09:44:26.671Z",
+          "latencyMs": 4793,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "cand_01J5KXYZ89ABCDEF",
+        "language": "fr",
+        "normalizedMeaning": "Comparison between native T1/T2 mapping and strain imaging in post-myocarditis patients to predict left ventricular functional recovery.",
+        "summaryForUser": "Vous souhaitez comparer le mapping natif et le strain en post-myocardite pour identifier lequel prédit la récupération ventriculaire gauche.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv_01",
+              "sourceMessageId": "SEM-H07:user:1",
+              "sourceText": "post myocardite",
+              "normalizedLabel": "post-myocarditis condition",
+              "localRole": "condition",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_02",
+              "sourceMessageId": "SEM-H07:user:1",
+              "sourceText": "mapping natif",
+              "normalizedLabel": "native mapping",
+              "localRole": "biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "natif"
+              ],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_03",
+              "sourceMessageId": "SEM-H07:user:1",
+              "sourceText": "strain",
+              "normalizedLabel": "myocardial strain",
+              "localRole": "biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_04",
+              "sourceMessageId": "SEM-H07:user:1",
+              "sourceText": "lequel",
+              "normalizedLabel": "which method",
+              "localRole": "comparator",
+              "polarity": "UNCERTAIN",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_02",
+                "inv_03"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_05",
+              "sourceMessageId": "SEM-H07:user:1",
+              "sourceText": "annonce",
+              "normalizedLabel": "predicts",
+              "localRole": "relation",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_06",
+              "sourceMessageId": "SEM-H07:user:1",
+              "sourceText": "récupération VG",
+              "normalizedLabel": "left ventricular recovery",
+              "localRole": "outcome",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "VG"
+              ],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_01",
+              "sourceInventoryItemId": "inv_02",
+              "targetInventoryItemId": "inv_03",
+              "sourceMessageId": "SEM-H07:user:1",
+              "sourceText": "mapping natif et strain",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_02",
+              "sourceInventoryItemId": "inv_02",
+              "targetInventoryItemId": "inv_06",
+              "sourceMessageId": "SEM-H07:user:1",
+              "sourceText": "post myocardite : mapping natif et strain, lequel annonce la récupération VG ?",
+              "normalizedRelation": "PREDICTS_CANDIDATE",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_03",
+              "sourceInventoryItemId": "inv_03",
+              "targetInventoryItemId": "inv_06",
+              "sourceMessageId": "SEM-H07:user:1",
+              "sourceText": "post myocardite : mapping natif et strain, lequel annonce la récupération VG ?",
+              "normalizedRelation": "PREDICTS_CANDIDATE",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem_01",
+            "type": "CONDITION",
+            "canonicalMeaning": "Myocarditis",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_01"
+            ],
+            "sourceMessageId": "SEM-H07:user:1",
+            "sourceText": "post myocardite",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_03",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Myocardial strain",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_03"
+            ],
+            "sourceMessageId": "SEM-H07:user:1",
+            "sourceText": "strain",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_04",
+            "type": "OUTCOME",
+            "canonicalMeaning": "Left ventricular functional recovery",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_06"
+            ],
+            "sourceMessageId": "SEM-H07:user:1",
+            "sourceText": "récupération VG",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_02",
+            "type": "METHOD",
+            "canonicalMeaning": "Native mapping (T1/T2 acquisition method)",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_02"
+            ],
+            "sourceMessageId": "SEM-H07:user:1",
+            "sourceText": "mapping natif",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_05",
+            "type": "AMBIGUITY",
+            "canonicalMeaning": "Uncertainty regarding which biomarker predicts recovery",
+            "studyRole": "NONE",
+            "polarity": "UNCERTAIN",
+            "inventoryItemIds": [
+              "inv_04"
+            ],
+            "sourceMessageId": "SEM-H07:user:1",
+            "sourceText": "lequel",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel_el_01",
+            "sourceClientElementId": "elem_02",
+            "targetClientElementId": "elem_03",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_01"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_el_02",
+            "sourceClientElementId": "elem_02",
+            "targetClientElementId": "elem_04",
+            "relationType": "PREDICTS_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_02"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_el_03",
+            "sourceClientElementId": "elem_03",
+            "targetClientElementId": "elem_04",
+            "relationType": "PREDICTS_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_03"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [
+          "Uncertain which biomarker (native mapping or strain) is superior or selected for predicting left ventricular recovery."
+        ],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [
+          {
+            "question": "Souhaitez-vous évaluer la supériorité du mapping natif ou du strain pour prédire la récupération ventriculaire gauche dans le cadre d'un protocole d' étude formalisé ?",
+            "reason": "Clarify whether the user wants to set up a study protocol comparing these two predictors.",
+            "resolvesClientElementIds": [
+              "elem_02",
+              "elem_03"
+            ]
+          }
+        ],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.85,
+          "reason": "The user is comparing two diagnostic biomarkers for predicting a clinical outcome in a specific condition, which maps well to designing an evaluative study.",
+          "expectedCapabilities": [
+            "Define study endpoints",
+            "Structure comparative analysis"
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:2"
+        ]
+      },
+      "rawCritic": {
+        "criticId": "critic_SEM_H07_02",
+        "verdict": "REVISE",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "FAIL",
+            "evidence": "Inventory item inv_04 ('lequel') remains unmapped and unresolved in the explicit coverage report."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Native mapping and strain are correctly compared via explicit relation rel_el_01."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No interventions are present in this diagnostic/predictive query."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Imaging modalities/methods are appropriately represented."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All inventory relations are mapped to direct client relations."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "Taxonomy report is complete with no findings."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "Relations retain their explicit predictive and comparative meanings."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No ungrounded inferences are promoted as user statements."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "The uncertainty regarding 'lequel' is properly registered in ambiguities."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "Polarities are correctly preserved."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No explicit timing interval or clock time is present."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "Outcome remains OUTCOME without unauthorized endpoint promotion."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific imaging techniques and clinical condition are preserved."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "FAIL",
+            "evidence": "Inventory item inv_04 ('lequel') is listed as UNRESOLVED_EXPLICIT_FRAGMENT."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "Route DESIGN_STUDY is appropriate for a comparative predictive query."
+          }
+        ],
+        "missingExplicitSourceFragments": [
+          {
+            "sourceMessageId": "SEM-H07:user:1",
+            "sourceText": "lequel",
+            "normalizedMeaning": "which biomarker or method",
+            "reason": "Explicit fragment inv_04 has no mapped client element.",
+            "suggestedLocalRole": "comparator",
+            "confidence": 1
+          }
+        ],
+        "issues": [
+          {
+            "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+            "severity": "CRITICAL",
+            "elementClientIds": [],
+            "description": "Explicit inventory fragment inv_04 ('lequel') is unmapped in explicitCoverageReport.",
+            "recommendedAction": "Map inv_04 to an AMBIGUITY element or COMPARATOR element to satisfy coverage.",
+            "resolved": false
+          }
+        ],
+        "proposedRepairs": [
+          {
+            "repairId": "rep_01",
+            "action": "UPSERT_ELEMENT",
+            "reason": "Map explicit fragment inv_04 ('lequel') to an ambiguity element to ensure complete explicit coverage.",
+            "sourceInventoryItemIds": [
+              "inv_04"
+            ],
+            "sourceInventoryRelationIds": [],
+            "inventoryItemId": null,
+            "inventorySourceMessageId": null,
+            "inventorySourceText": null,
+            "inventoryNormalizedLabel": null,
+            "inventoryLocalRole": null,
+            "inventoryPolarity": null,
+            "inventoryModifiers": [],
+            "inventoryLinkedItemIds": [],
+            "inventoryRelationId": null,
+            "inventoryRelationSourceItemId": null,
+            "inventoryRelationTargetItemId": null,
+            "inventoryRelationSourceMessageId": null,
+            "inventoryRelationSourceText": null,
+            "inventoryNormalizedRelation": null,
+            "inventoryRelationPolarity": null,
+            "elementClientElementId": "elem_05",
+            "elementType": "AMBIGUITY",
+            "elementCanonicalMeaning": "Uncertainty regarding which biomarker predicts recovery",
+            "elementStudyRole": "NONE",
+            "elementPolarity": "UNCERTAIN",
+            "elementInventoryItemIds": [
+              "inv_04"
+            ],
+            "elementSourceMessageId": "SEM-H07:user:1",
+            "elementSourceText": "lequel",
+            "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+            "elementConfidence": 1,
+            "elementInferenceReason": null,
+            "elementRequiresConfirmation": false,
+            "elementSupersedesElementIds": [],
+            "relationClientRelationId": null,
+            "relationSourceClientElementId": null,
+            "relationTargetClientElementId": null,
+            "relationType": null,
+            "relationPolarity": null,
+            "relationInventoryRelationIds": [],
+            "relationEpistemicStatus": null,
+            "relationConfidence": null,
+            "relationInferenceReason": null,
+            "relationRequiresConfirmation": null,
+            "ambiguity": null,
+            "route": null,
+            "routeConfidence": null,
+            "routeReason": null,
+            "routeExpectedCapabilities": []
+          }
+        ],
+        "criticSummary": "All explicit relations, objects, and types are robustly validated, except for the unmapped inventory item 'lequel' (inv_04). A proposed repair maps 'lequel' to an AMBIGUITY element (elem_05) to ensure complete explicit coverage."
+      },
+      "rawCritics": [
+        {
+          "criticId": "crit_01J5KXYZ89ABCDEF",
+          "verdict": "REVISE",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All main explicit objects (condition, biomarkers, outcome) are represented."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "FAIL",
+              "evidence": "Inventory item inv_04 ('lequel') is unmapped in the explicit coverage report."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No active intervention is present in the source message."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "Specific modalities are not independently listed as broad family headers here; mapping/strain are methods."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All deterministic explicit relation coverage entries are successfully mapped."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "FAIL",
+              "evidence": "Taxonomy report flags elem_02 ('mapping natif') as BIOMARKER instead of METHOD."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations are fully maintained."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unsupported inferences promoted."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "The uncertainty regarding 'lequel' is preserved in ambiguities."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarity is correctly maintained across all elements."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit temporal intervals or timepoints are present."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Outcome is appropriately typed without unauthorized endpoint promotion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Concepts are kept at their specific user-stated level."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "FAIL",
+              "evidence": "Inventory item inv_04 ('lequel') remains unresolved in explicit coverage."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route correctly set to DESIGN_STUDY."
+            }
+          ],
+          "missingExplicitSourceFragments": [
+            {
+              "sourceMessageId": "SEM-H07:user:1",
+              "sourceText": "lequel",
+              "normalizedMeaning": "which method / comparative query choice",
+              "reason": "Explicit comparator fragment is not mapped to an explicit typed element in the candidate.",
+              "suggestedLocalRole": "comparator",
+              "confidence": 0.95
+            }
+          ],
+          "issues": [
+            {
+              "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+              "severity": "WARNING",
+              "elementClientIds": [],
+              "description": "Inventory item inv_04 ('lequel') is unresolved in the explicit coverage report.",
+              "recommendedAction": "Map inv_04 to an element or ambiguity representation.",
+              "resolved": false
+            },
+            {
+              "code": "TYPE_MISMATCH",
+              "severity": "CRITICAL",
+              "elementClientIds": [
+                "elem_02"
+              ],
+              "description": "Native mapping is a acquisition/analysis technique and must be typed as METHOD under taxonomy rules.",
+              "recommendedAction": "Update element type for elem_02 to METHOD via UPSERT_ELEMENT.",
+              "resolved": false
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "repairId": "rep_01",
+              "action": "UPSERT_ELEMENT",
+              "reason": "Correct element type for 'mapping natif' from BIOMARKER to METHOD per taxonomy report.",
+              "sourceInventoryItemIds": [
+                "inv_02"
+              ],
+              "sourceInventoryRelationIds": [],
+              "inventoryItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "inventoryNormalizedLabel": null,
+              "inventoryLocalRole": null,
+              "inventoryPolarity": null,
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": "elem_02",
+              "elementType": "METHOD",
+              "elementCanonicalMeaning": "Native mapping (T1/T2 acquisition method)",
+              "elementStudyRole": "MEASUREMENT",
+              "elementPolarity": "AFFIRMED",
+              "elementInventoryItemIds": [
+                "inv_02"
+              ],
+              "elementSourceMessageId": "SEM-H07:user:1",
+              "elementSourceText": "mapping natif",
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementConfidence": 1,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": false,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "relationPolarity": null,
+              "relationInventoryRelationIds": [],
+              "relationEpistemicStatus": null,
+              "relationConfidence": null,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": null,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            }
+          ],
+          "criticSummary": "The audit identified a type mismatch where native mapping (elem_02) was classified as BIOMARKER instead of METHOD, and an unmapped comparator fragment ('lequel', inv_04). A bounded repair is proposed to correct elem_02 to METHOD."
+        },
+        {
+          "criticId": "critic_SEM_H07_02",
+          "verdict": "REVISE",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "FAIL",
+              "evidence": "Inventory item inv_04 ('lequel') remains unmapped and unresolved in the explicit coverage report."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Native mapping and strain are correctly compared via explicit relation rel_el_01."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No interventions are present in this diagnostic/predictive query."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Imaging modalities/methods are appropriately represented."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All inventory relations are mapped to direct client relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Taxonomy report is complete with no findings."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Relations retain their explicit predictive and comparative meanings."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No ungrounded inferences are promoted as user statements."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "The uncertainty regarding 'lequel' is properly registered in ambiguities."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarities are correctly preserved."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit timing interval or clock time is present."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Outcome remains OUTCOME without unauthorized endpoint promotion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific imaging techniques and clinical condition are preserved."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "FAIL",
+              "evidence": "Inventory item inv_04 ('lequel') is listed as UNRESOLVED_EXPLICIT_FRAGMENT."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY is appropriate for a comparative predictive query."
+            }
+          ],
+          "missingExplicitSourceFragments": [
+            {
+              "sourceMessageId": "SEM-H07:user:1",
+              "sourceText": "lequel",
+              "normalizedMeaning": "which biomarker or method",
+              "reason": "Explicit fragment inv_04 has no mapped client element.",
+              "suggestedLocalRole": "comparator",
+              "confidence": 1
+            }
+          ],
+          "issues": [
+            {
+              "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+              "severity": "CRITICAL",
+              "elementClientIds": [],
+              "description": "Explicit inventory fragment inv_04 ('lequel') is unmapped in explicitCoverageReport.",
+              "recommendedAction": "Map inv_04 to an AMBIGUITY element or COMPARATOR element to satisfy coverage.",
+              "resolved": false
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "repairId": "rep_01",
+              "action": "UPSERT_ELEMENT",
+              "reason": "Map explicit fragment inv_04 ('lequel') to an ambiguity element to ensure complete explicit coverage.",
+              "sourceInventoryItemIds": [
+                "inv_04"
+              ],
+              "sourceInventoryRelationIds": [],
+              "inventoryItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "inventoryNormalizedLabel": null,
+              "inventoryLocalRole": null,
+              "inventoryPolarity": null,
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": "elem_05",
+              "elementType": "AMBIGUITY",
+              "elementCanonicalMeaning": "Uncertainty regarding which biomarker predicts recovery",
+              "elementStudyRole": "NONE",
+              "elementPolarity": "UNCERTAIN",
+              "elementInventoryItemIds": [
+                "inv_04"
+              ],
+              "elementSourceMessageId": "SEM-H07:user:1",
+              "elementSourceText": "lequel",
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementConfidence": 1,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": false,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "relationPolarity": null,
+              "relationInventoryRelationIds": [],
+              "relationEpistemicStatus": null,
+              "relationConfidence": null,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": null,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            }
+          ],
+          "criticSummary": "All explicit relations, objects, and types are robustly validated, except for the unmapped inventory item 'lequel' (inv_04). A proposed repair maps 'lequel' to an AMBIGUITY element (elem_05) to ensure complete explicit coverage."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-13T09:44:26.676Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-4f0240752b3435e9",
+      "resultDigest": "ke1-4f0240752b3435e9",
+      "coverageStatus": "SUPPORTED",
+      "verifiedAt": "2026-08-13T09:44:26.679Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-13T09:44:26.676Z",
+    "updatedAt": "2026-08-13T09:44:26.679Z",
+    "digest": "ke1-8b0b8cec219b7880"
+  },
+  "semanticModelDigest": "ke1-8b0b8cec219b7880",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv_01",
+          "sourceMessageId": "SEM-H07:user:1",
+          "sourceText": "post myocardite",
+          "normalizedMeaning": "post-myocarditis condition",
+          "mappedClientElementIds": [
+            "elem_01"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_02",
+          "sourceMessageId": "SEM-H07:user:1",
+          "sourceText": "mapping natif",
+          "normalizedMeaning": "native mapping",
+          "mappedClientElementIds": [
+            "elem_02"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_03",
+          "sourceMessageId": "SEM-H07:user:1",
+          "sourceText": "strain",
+          "normalizedMeaning": "myocardial strain",
+          "mappedClientElementIds": [
+            "elem_03"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_04",
+          "sourceMessageId": "SEM-H07:user:1",
+          "sourceText": "lequel",
+          "normalizedMeaning": "which method",
+          "mappedClientElementIds": [
+            "elem_05"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_05",
+          "sourceMessageId": "SEM-H07:user:1",
+          "sourceText": "annonce",
+          "normalizedMeaning": "predicts",
+          "mappedClientElementIds": [],
+          "mappedClientRelationIds": [
+            "rel_el_02",
+            "rel_el_03"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "The explicit functional fragment is represented by its source-grounded direct Semantic Relation rather than by a false object node."
+        },
+        {
+          "inventoryItemId": "inv_06",
+          "sourceMessageId": "SEM-H07:user:1",
+          "sourceText": "récupération VG",
+          "normalizedMeaning": "left ventricular recovery",
+          "mappedClientElementIds": [
+            "elem_04"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel_01",
+          "sourceInventoryItemId": "inv_02",
+          "targetInventoryItemId": "inv_03",
+          "normalizedRelation": "COMPARES_WITH",
+          "mappedClientRelationIds": [
+            "rel_el_01"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_02",
+          "sourceInventoryItemId": "inv_02",
+          "targetInventoryItemId": "inv_06",
+          "normalizedRelation": "PREDICTS_CANDIDATE",
+          "mappedClientRelationIds": [
+            "rel_el_02"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_03",
+          "sourceInventoryItemId": "inv_03",
+          "targetInventoryItemId": "inv_06",
+          "normalizedRelation": "PREDICTS_CANDIDATE",
+          "mappedClientRelationIds": [
+            "rel_el_03"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-8066258bdfcc6c77",
+    "evaluatedAt": "2026-08-13T09:44:26.681Z",
+    "goldFrameDigest": "ke1-247aabd235166aa6",
+    "result": {
+      "caseId": "SEM-H07",
+      "explicitObjectRecall": 0.75,
+      "explicitRelationRecall": 1,
+      "criticalSemanticRecall": 0.8,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 1,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": [
+        "EXPLICIT_OUTCOME_LOST:récupération ventriculaire gauche"
+      ]
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H07",
+    "explicitObjectRecall": 0.75,
+    "explicitRelationRecall": 1,
+    "criticalSemanticRecall": 0.8,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 1,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": [
+      "EXPLICIT_OUTCOME_LOST:récupération ventriculaire gauche"
+    ]
+  },
+  "error": null
+}

@@ -1,0 +1,1801 @@
+{
+  "campaign": "SEM-001R5M-CLOSURE",
+  "campaignId": "sem-001r5m-closure-2026-08-13T09-40-35-104Z-ke1-ac75ad8a4d6f2326",
+  "caseId": "SEM-H14",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-ac75ad8a4d6f2326",
+  "semanticConfigurationDigest": "ke1-2d65467f810363ab",
+  "goldFrameDigest": "ke1-29628e5a712f1886",
+  "originalRequest": [
+    "Double lecture aveugle, mais adjudication seulement si écart au-dessus d'un seuil encore indéfini."
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-13T09:47:27.788Z",
+  "completedAt": "2026-08-13T09:48:08.117Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H14:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Mise en place d'une double lecture aveugle avec une adjudication conditionnée à un écart supérieur à un seuil non défini.",
+        "summaryForUser": "Analyse d'une stratégie de double lecture aveugle avec adjudication conditionnelle basée sur un écart.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H14:user:1",
+              "sourceText": "Double lecture",
+              "normalizedLabel": "Double lecture",
+              "localRole": "METHOD",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H14:user:1",
+              "sourceText": "aveugle",
+              "normalizedLabel": "Aveugle",
+              "localRole": "MODIFIER",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-1"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H14:user:1",
+              "sourceText": "adjudication",
+              "normalizedLabel": "Adjudication",
+              "localRole": "METHOD",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H14:user:1",
+              "sourceText": "écart au-dessus d'un seuil encore indéfini",
+              "normalizedLabel": "Écart supérieur à un seuil indéfini",
+              "localRole": "CONDITION",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "indéfini"
+              ],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H14:user:1",
+              "sourceText": "Double lecture aveugle",
+              "normalizedRelation": "QUALIFIED_BY",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H14:user:1",
+              "sourceText": "adjudication seulement si écart au-dessus d'un seuil encore indéfini",
+              "normalizedRelation": "TRIGGERED_BY",
+              "polarity": "CONDITIONAL"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "METHOD",
+            "canonicalMeaning": "Double lecture",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1",
+              "inv-2"
+            ],
+            "sourceMessageId": "SEM-H14:user:1",
+            "sourceText": "Double lecture aveugle",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "METHOD",
+            "canonicalMeaning": "Adjudication",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceMessageId": "SEM-H14:user:1",
+            "sourceText": "adjudication",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "UNKNOWN",
+            "canonicalMeaning": "Seuil d'écart indéfini",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "sourceMessageId": "SEM-H14:user:1",
+            "sourceText": "écart au-dessus d'un seuil encore indéfini",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": true,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-elem-1",
+            "sourceClientElementId": "elem-2",
+            "targetClientElementId": "elem-3",
+            "relationType": "TRIGGERED_BY",
+            "polarity": "CONDITIONAL",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [
+          "Le seuil d'écart déclenchant l'adjudication n'est pas encore défini."
+        ],
+        "unknowns": [
+          "Seuil d'écart"
+        ],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [
+          {
+            "question": "Quel est la valeur ou le paramètre exact du seuil pour l'adjudication ?",
+            "reason": "Le seuil est explicitement décrit comme encore indéfini.",
+            "resolvesClientElementIds": [
+              "elem-3"
+            ]
+          }
+        ],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "L'utilisateur définit des modalités méthodologiques et des conditions de lecture pour une étude.",
+          "expectedCapabilities": [
+            "Définition de protocole",
+            "Gestion des seuils et règles d'adjudication"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "reconstructionDigest": "ke1-29f738feee0ab182",
+      "critics": [
+        {
+          "criticId": "critic-SEM-H14-01",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit fragments including double reading, blinding, adjudication, and discrepancy threshold are properly represented in the semantic model."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator arms or reference standards are present in the user prompt."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Double reading and adjudication procedures are fully captured as methodological elements."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No specific imaging or diagnostic modality family is mentioned."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Blinding qualifying double reading and adjudication triggered by discrepancy threshold are both explicitly mapped."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All elements follow correct types under taxonomy precedence."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relations were weakened or lost."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No speculative inferences are treated as explicit user facts."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "The undefined threshold is explicitly maintained as ambiguity and unknown."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "No negations or uncertainties are reversed or ignored."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit time points or intervals are present in the message."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No outcomes or endpoints were improperly promoted."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like double reading and adjudication are preserved without generalization."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No important source fragments remain unrepresented."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY perfectly matches the study protocol setup context."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The candidate model correctly represents all explicit fragments, relations, methodological items, and ambiguities without any violations of taxonomy or integrity rules."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-f59b036553f8f599",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "Double lecture aveugle, mais adjudication seulement si écart au-dessus d'un seuil encore indéfini.",
+        "normalizedMeaning": "Mise en place d'une double lecture aveugle avec une adjudication conditionnée à un écart supérieur à un seuil non défini.",
+        "conversationMessageIds": [
+          "SEM-H14:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-13297b10fb91a53c",
+            "type": "METHOD",
+            "canonicalMeaning": "Adjudication",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H14:user:1",
+              "text": "adjudication",
+              "start": 29,
+              "end": 41
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-ac5e531b9054bad7"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H14:user:1",
+              "providerCallId": "gemini-call:ke1-622c439d7c9268c9",
+              "rawElementId": "elem-2"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-6c2c41fcc0542688",
+            "type": "UNKNOWN",
+            "canonicalMeaning": "Seuil d'écart indéfini",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H14:user:1",
+              "text": "écart au-dessus d'un seuil encore indéfini",
+              "start": 55,
+              "end": 97
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-ac5e531b9054bad7"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H14:user:1",
+              "providerCallId": "gemini-call:ke1-622c439d7c9268c9",
+              "rawElementId": "elem-3"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-86b4d8de06cd23f2",
+            "type": "METHOD",
+            "canonicalMeaning": "Double lecture",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1",
+              "inv-2"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H14:user:1",
+              "text": "Double lecture aveugle",
+              "start": 0,
+              "end": 22
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H14:user:1",
+              "providerCallId": "gemini-call:ke1-622c439d7c9268c9",
+              "rawElementId": "elem-1"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-ac5e531b9054bad7",
+            "sourceElementId": "sem-element:ke1-13297b10fb91a53c",
+            "targetElementId": "sem-element:ke1-6c2c41fcc0542688",
+            "relationType": "TRIGGERED_BY",
+            "polarity": "CONDITIONAL",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H14:user:1",
+              "sourceText": "Double lecture",
+              "normalizedMeaning": "Double lecture",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H14:user:1",
+              "sourceText": "aveugle",
+              "normalizedMeaning": "Aveugle",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H14:user:1",
+              "sourceText": "adjudication",
+              "normalizedMeaning": "Adjudication",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H14:user:1",
+              "sourceText": "écart au-dessus d'un seuil encore indéfini",
+              "normalizedMeaning": "Écart supérieur à un seuil indéfini",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-2",
+              "normalizedRelation": "QUALIFIED_BY",
+              "mappedClientRelationIds": [
+                "coalesced:elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "Both inventory fragments are explicitly preserved inside one typed Semantic Element; a redundant self-relation is not required."
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-4",
+              "normalizedRelation": "TRIGGERED_BY",
+              "mappedClientRelationIds": [
+                "rel-elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [
+          "Le seuil d'écart déclenchant l'adjudication n'est pas encore défini."
+        ],
+        "unknowns": [
+          "Seuil d'écart"
+        ],
+        "contradictions": [],
+        "clarificationCandidates": [
+          {
+            "question": "Quel est la valeur ou le paramètre exact du seuil pour l'adjudication ?",
+            "reason": "Le seuil est explicitement décrit comme encore indéfini.",
+            "resolvesElementIds": [
+              "sem-element:ke1-6c2c41fcc0542688"
+            ]
+          }
+        ],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "L'utilisateur définit des modalités méthodologiques et des conditions de lecture pour une étude.",
+          "expectedCapabilities": [
+            "Définition de protocole",
+            "Gestion des seuils et règles d'adjudication"
+          ]
+        },
+        "summaryForUser": "Analyse d'une stratégie de double lecture aveugle avec adjudication conditionnelle basée sur un écart.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "The candidate model correctly represents all explicit fragments, relations, methodological items, and ambiguities without any violations of taxonomy or integrity rules."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+          "criticPromptVersion": "SEM-001-CRITIC-1.6",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-622c439d7c9268c9",
+          "criticCallId": "gemini-call:ke1-20f4b5bf7a1667cb",
+          "criticCallIds": [
+            "gemini-call:ke1-20f4b5bf7a1667cb"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:47:29.851Z",
+              "requestFinished": "2026-08-13T09:47:34.186Z",
+              "latencyMs": 4335,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:48:05.021Z",
+              "requestFinished": "2026-08-13T09:48:08.110Z",
+              "latencyMs": 3089,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "cand-001",
+            "language": "fr",
+            "normalizedMeaning": "Mise en place d'une double lecture aveugle avec une adjudication conditionnée à un écart supérieur à un seuil non défini.",
+            "summaryForUser": "Analyse d'une stratégie de double lecture aveugle avec adjudication conditionnelle basée sur un écart.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "inv-1",
+                  "sourceMessageId": "SEM-H14:user:1",
+                  "sourceText": "Double lecture",
+                  "normalizedLabel": "Double lecture",
+                  "localRole": "METHOD",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-2",
+                  "sourceMessageId": "SEM-H14:user:1",
+                  "sourceText": "aveugle",
+                  "normalizedLabel": "Aveugle",
+                  "localRole": "MODIFIER",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-1"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-3",
+                  "sourceMessageId": "SEM-H14:user:1",
+                  "sourceText": "adjudication",
+                  "normalizedLabel": "Adjudication",
+                  "localRole": "METHOD",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-4",
+                  "sourceMessageId": "SEM-H14:user:1",
+                  "sourceText": "écart au-dessus d'un seuil encore indéfini",
+                  "normalizedLabel": "Écart supérieur à un seuil indéfini",
+                  "localRole": "CONDITION",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [
+                    "indéfini"
+                  ],
+                  "linkedInventoryItemIds": []
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel-1",
+                  "sourceInventoryItemId": "inv-1",
+                  "targetInventoryItemId": "inv-2",
+                  "sourceMessageId": "SEM-H14:user:1",
+                  "sourceText": "Double lecture aveugle",
+                  "normalizedRelation": "QUALIFIED_BY",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-2",
+                  "sourceInventoryItemId": "inv-3",
+                  "targetInventoryItemId": "inv-4",
+                  "sourceMessageId": "SEM-H14:user:1",
+                  "sourceText": "adjudication seulement si écart au-dessus d'un seuil encore indéfini",
+                  "normalizedRelation": "TRIGGERED_BY",
+                  "polarity": "CONDITIONAL"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem-1",
+                "type": "METHOD",
+                "canonicalMeaning": "Double lecture",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-1",
+                  "inv-2"
+                ],
+                "sourceMessageId": "SEM-H14:user:1",
+                "sourceText": "Double lecture aveugle",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-2",
+                "type": "METHOD",
+                "canonicalMeaning": "Adjudication",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-3"
+                ],
+                "sourceMessageId": "SEM-H14:user:1",
+                "sourceText": "adjudication",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-3",
+                "type": "UNKNOWN",
+                "canonicalMeaning": "Seuil d'écart indéfini",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-4"
+                ],
+                "sourceMessageId": "SEM-H14:user:1",
+                "sourceText": "écart au-dessus d'un seuil encore indéfini",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": true,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel-elem-1",
+                "sourceClientElementId": "elem-2",
+                "targetClientElementId": "elem-3",
+                "relationType": "TRIGGERED_BY",
+                "polarity": "CONDITIONAL",
+                "inventoryRelationIds": [
+                  "rel-2"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              }
+            ],
+            "missingConcepts": [],
+            "ellipses": [],
+            "ambiguities": [
+              "Le seuil d'écart déclenchant l'adjudication n'est pas encore défini."
+            ],
+            "unknowns": [
+              "Seuil d'écart"
+            ],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [
+              {
+                "question": "Quel est la valeur ou le paramètre exact du seuil pour l'adjudication ?",
+                "reason": "Le seuil est explicitement décrit comme encore indéfini.",
+                "resolvesClientElementIds": [
+                  "elem-3"
+                ]
+              }
+            ],
+            "routeProposal": {
+              "route": "DESIGN_STUDY",
+              "confidence": 0.9,
+              "reason": "L'utilisateur définit des modalités méthodologiques et des conditions de lecture pour une étude.",
+              "expectedCapabilities": [
+                "Définition de protocole",
+                "Gestion des seuils et règles d'adjudication"
+              ]
+            },
+            "semanticWarnings": []
+          },
+          "rawCritic": {
+            "criticId": "critic-SEM-H14-01",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit fragments including double reading, blinding, adjudication, and discrepancy threshold are properly represented in the semantic model."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No comparator arms or reference standards are present in the user prompt."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Double reading and adjudication procedures are fully captured as methodological elements."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No specific imaging or diagnostic modality family is mentioned."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Blinding qualifying double reading and adjudication triggered by discrepancy threshold are both explicitly mapped."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "All elements follow correct types under taxonomy precedence."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "No explicit relations were weakened or lost."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No speculative inferences are treated as explicit user facts."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "The undefined threshold is explicitly maintained as ambiguity and unknown."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "No negations or uncertainties are reversed or ignored."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No explicit time points or intervals are present in the message."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "No outcomes or endpoints were improperly promoted."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts like double reading and adjudication are preserved without generalization."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "No important source fragments remain unrepresented."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "Route DESIGN_STUDY perfectly matches the study protocol setup context."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The candidate model correctly represents all explicit fragments, relations, methodological items, and ambiguities without any violations of taxonomy or integrity rules."
+          },
+          "rawCritics": [
+            {
+              "criticId": "critic-SEM-H14-01",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit fragments including double reading, blinding, adjudication, and discrepancy threshold are properly represented in the semantic model."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No comparator arms or reference standards are present in the user prompt."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "Double reading and adjudication procedures are fully captured as methodological elements."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No specific imaging or diagnostic modality family is mentioned."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "Blinding qualifying double reading and adjudication triggered by discrepancy threshold are both explicitly mapped."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "All elements follow correct types under taxonomy precedence."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "No explicit relations were weakened or lost."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No speculative inferences are treated as explicit user facts."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "The undefined threshold is explicitly maintained as ambiguity and unknown."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "No negations or uncertainties are reversed or ignored."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No explicit time points or intervals are present in the message."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "No outcomes or endpoints were improperly promoted."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific concepts like double reading and adjudication are preserved without generalization."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "No important source fragments remain unrepresented."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "Route DESIGN_STUDY perfectly matches the study protocol setup context."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "The candidate model correctly represents all explicit fragments, relations, methodological items, and ambiguities without any violations of taxonomy or integrity rules."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-13T09:48:08.111Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-cf38c13f46fb846b",
+          "resultDigest": "ke1-cf38c13f46fb846b",
+          "coverageStatus": "NO_PROVIDER",
+          "verifiedAt": "2026-08-13T09:48:08.113Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-13T09:48:08.111Z",
+        "updatedAt": "2026-08-13T09:48:08.113Z",
+        "digest": "ke1-b0fe42a7354506db"
+      },
+      "canonicalModelDigest": "ke1-b0fe42a7354506db",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-cf38c13f46fb846b",
+        "resultDigest": "ke1-cf38c13f46fb846b",
+        "coverageStatus": "NO_PROVIDER",
+        "verifiedAt": "2026-08-13T09:48:08.113Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-622c439d7c9268c9",
+      "structuredDigest": "ke1-29f738feee0ab182",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:47:29.851Z",
+          "requestFinished": "2026-08-13T09:47:34.186Z",
+          "latencyMs": 4335,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-20f4b5bf7a1667cb",
+      "structuredDigest": "ke1-29b3877c9167b558",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:48:05.021Z",
+          "requestFinished": "2026-08-13T09:48:08.110Z",
+          "latencyMs": 3089,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-f59b036553f8f599",
+    "revision": 1,
+    "status": "CANDIDATE",
+    "originalRequest": "Double lecture aveugle, mais adjudication seulement si écart au-dessus d'un seuil encore indéfini.",
+    "normalizedMeaning": "Mise en place d'une double lecture aveugle avec une adjudication conditionnée à un écart supérieur à un seuil non défini.",
+    "conversationMessageIds": [
+      "SEM-H14:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-13297b10fb91a53c",
+        "type": "METHOD",
+        "canonicalMeaning": "Adjudication",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-3"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H14:user:1",
+          "text": "adjudication",
+          "start": 29,
+          "end": 41
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-ac5e531b9054bad7"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H14:user:1",
+          "providerCallId": "gemini-call:ke1-622c439d7c9268c9",
+          "rawElementId": "elem-2"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-6c2c41fcc0542688",
+        "type": "UNKNOWN",
+        "canonicalMeaning": "Seuil d'écart indéfini",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-4"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H14:user:1",
+          "text": "écart au-dessus d'un seuil encore indéfini",
+          "start": 55,
+          "end": 97
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-ac5e531b9054bad7"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H14:user:1",
+          "providerCallId": "gemini-call:ke1-622c439d7c9268c9",
+          "rawElementId": "elem-3"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-86b4d8de06cd23f2",
+        "type": "METHOD",
+        "canonicalMeaning": "Double lecture",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-1",
+          "inv-2"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H14:user:1",
+          "text": "Double lecture aveugle",
+          "start": 0,
+          "end": 22
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H14:user:1",
+          "providerCallId": "gemini-call:ke1-622c439d7c9268c9",
+          "rawElementId": "elem-1"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-ac5e531b9054bad7",
+        "sourceElementId": "sem-element:ke1-13297b10fb91a53c",
+        "targetElementId": "sem-element:ke1-6c2c41fcc0542688",
+        "relationType": "TRIGGERED_BY",
+        "polarity": "CONDITIONAL",
+        "inventoryRelationIds": [
+          "rel-2"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-1",
+          "sourceMessageId": "SEM-H14:user:1",
+          "sourceText": "Double lecture",
+          "normalizedMeaning": "Double lecture",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-2",
+          "sourceMessageId": "SEM-H14:user:1",
+          "sourceText": "aveugle",
+          "normalizedMeaning": "Aveugle",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-3",
+          "sourceMessageId": "SEM-H14:user:1",
+          "sourceText": "adjudication",
+          "normalizedMeaning": "Adjudication",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-4",
+          "sourceMessageId": "SEM-H14:user:1",
+          "sourceText": "écart au-dessus d'un seuil encore indéfini",
+          "normalizedMeaning": "Écart supérieur à un seuil indéfini",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-1",
+          "sourceInventoryItemId": "inv-1",
+          "targetInventoryItemId": "inv-2",
+          "normalizedRelation": "QUALIFIED_BY",
+          "mappedClientRelationIds": [
+            "coalesced:elem-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "Both inventory fragments are explicitly preserved inside one typed Semantic Element; a redundant self-relation is not required."
+        },
+        {
+          "inventoryRelationId": "rel-2",
+          "sourceInventoryItemId": "inv-3",
+          "targetInventoryItemId": "inv-4",
+          "normalizedRelation": "TRIGGERED_BY",
+          "mappedClientRelationIds": [
+            "rel-elem-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "missingConcepts": [],
+    "ellipses": [],
+    "ambiguities": [
+      "Le seuil d'écart déclenchant l'adjudication n'est pas encore défini."
+    ],
+    "unknowns": [
+      "Seuil d'écart"
+    ],
+    "contradictions": [],
+    "clarificationCandidates": [
+      {
+        "question": "Quel est la valeur ou le paramètre exact du seuil pour l'adjudication ?",
+        "reason": "Le seuil est explicitement décrit comme encore indéfini.",
+        "resolvesElementIds": [
+          "sem-element:ke1-6c2c41fcc0542688"
+        ]
+      }
+    ],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "DESIGN_STUDY",
+      "confidence": 0.9,
+      "reason": "L'utilisateur définit des modalités méthodologiques et des conditions de lecture pour une étude.",
+      "expectedCapabilities": [
+        "Définition de protocole",
+        "Gestion des seuils et règles d'adjudication"
+      ]
+    },
+    "summaryForUser": "Analyse d'une stratégie de double lecture aveugle avec adjudication conditionnelle basée sur un écart.",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "The candidate model correctly represents all explicit fragments, relations, methodological items, and ambiguities without any violations of taxonomy or integrity rules."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-622c439d7c9268c9",
+      "criticCallId": "gemini-call:ke1-20f4b5bf7a1667cb",
+      "criticCallIds": [
+        "gemini-call:ke1-20f4b5bf7a1667cb"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:47:29.851Z",
+          "requestFinished": "2026-08-13T09:47:34.186Z",
+          "latencyMs": 4335,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:48:05.021Z",
+          "requestFinished": "2026-08-13T09:48:08.110Z",
+          "latencyMs": 3089,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Mise en place d'une double lecture aveugle avec une adjudication conditionnée à un écart supérieur à un seuil non défini.",
+        "summaryForUser": "Analyse d'une stratégie de double lecture aveugle avec adjudication conditionnelle basée sur un écart.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H14:user:1",
+              "sourceText": "Double lecture",
+              "normalizedLabel": "Double lecture",
+              "localRole": "METHOD",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H14:user:1",
+              "sourceText": "aveugle",
+              "normalizedLabel": "Aveugle",
+              "localRole": "MODIFIER",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-1"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H14:user:1",
+              "sourceText": "adjudication",
+              "normalizedLabel": "Adjudication",
+              "localRole": "METHOD",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H14:user:1",
+              "sourceText": "écart au-dessus d'un seuil encore indéfini",
+              "normalizedLabel": "Écart supérieur à un seuil indéfini",
+              "localRole": "CONDITION",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "indéfini"
+              ],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H14:user:1",
+              "sourceText": "Double lecture aveugle",
+              "normalizedRelation": "QUALIFIED_BY",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H14:user:1",
+              "sourceText": "adjudication seulement si écart au-dessus d'un seuil encore indéfini",
+              "normalizedRelation": "TRIGGERED_BY",
+              "polarity": "CONDITIONAL"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "METHOD",
+            "canonicalMeaning": "Double lecture",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1",
+              "inv-2"
+            ],
+            "sourceMessageId": "SEM-H14:user:1",
+            "sourceText": "Double lecture aveugle",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "METHOD",
+            "canonicalMeaning": "Adjudication",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceMessageId": "SEM-H14:user:1",
+            "sourceText": "adjudication",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "UNKNOWN",
+            "canonicalMeaning": "Seuil d'écart indéfini",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "sourceMessageId": "SEM-H14:user:1",
+            "sourceText": "écart au-dessus d'un seuil encore indéfini",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": true,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-elem-1",
+            "sourceClientElementId": "elem-2",
+            "targetClientElementId": "elem-3",
+            "relationType": "TRIGGERED_BY",
+            "polarity": "CONDITIONAL",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [
+          "Le seuil d'écart déclenchant l'adjudication n'est pas encore défini."
+        ],
+        "unknowns": [
+          "Seuil d'écart"
+        ],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [
+          {
+            "question": "Quel est la valeur ou le paramètre exact du seuil pour l'adjudication ?",
+            "reason": "Le seuil est explicitement décrit comme encore indéfini.",
+            "resolvesClientElementIds": [
+              "elem-3"
+            ]
+          }
+        ],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "L'utilisateur définit des modalités méthodologiques et des conditions de lecture pour une étude.",
+          "expectedCapabilities": [
+            "Définition de protocole",
+            "Gestion des seuils et règles d'adjudication"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "rawCritic": {
+        "criticId": "critic-SEM-H14-01",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit fragments including double reading, blinding, adjudication, and discrepancy threshold are properly represented in the semantic model."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No comparator arms or reference standards are present in the user prompt."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Double reading and adjudication procedures are fully captured as methodological elements."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No specific imaging or diagnostic modality family is mentioned."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Blinding qualifying double reading and adjudication triggered by discrepancy threshold are both explicitly mapped."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "All elements follow correct types under taxonomy precedence."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "No explicit relations were weakened or lost."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No speculative inferences are treated as explicit user facts."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "The undefined threshold is explicitly maintained as ambiguity and unknown."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "No negations or uncertainties are reversed or ignored."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No explicit time points or intervals are present in the message."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "No outcomes or endpoints were improperly promoted."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific concepts like double reading and adjudication are preserved without generalization."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "No important source fragments remain unrepresented."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "Route DESIGN_STUDY perfectly matches the study protocol setup context."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "The candidate model correctly represents all explicit fragments, relations, methodological items, and ambiguities without any violations of taxonomy or integrity rules."
+      },
+      "rawCritics": [
+        {
+          "criticId": "critic-SEM-H14-01",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit fragments including double reading, blinding, adjudication, and discrepancy threshold are properly represented in the semantic model."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator arms or reference standards are present in the user prompt."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Double reading and adjudication procedures are fully captured as methodological elements."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No specific imaging or diagnostic modality family is mentioned."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Blinding qualifying double reading and adjudication triggered by discrepancy threshold are both explicitly mapped."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All elements follow correct types under taxonomy precedence."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relations were weakened or lost."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No speculative inferences are treated as explicit user facts."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "The undefined threshold is explicitly maintained as ambiguity and unknown."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "No negations or uncertainties are reversed or ignored."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit time points or intervals are present in the message."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No outcomes or endpoints were improperly promoted."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like double reading and adjudication are preserved without generalization."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No important source fragments remain unrepresented."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY perfectly matches the study protocol setup context."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The candidate model correctly represents all explicit fragments, relations, methodological items, and ambiguities without any violations of taxonomy or integrity rules."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-13T09:48:08.111Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-cf38c13f46fb846b",
+      "resultDigest": "ke1-cf38c13f46fb846b",
+      "coverageStatus": "NO_PROVIDER",
+      "verifiedAt": "2026-08-13T09:48:08.113Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-13T09:48:08.111Z",
+    "updatedAt": "2026-08-13T09:48:08.113Z",
+    "digest": "ke1-b0fe42a7354506db"
+  },
+  "semanticModelDigest": "ke1-b0fe42a7354506db",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-1",
+          "sourceMessageId": "SEM-H14:user:1",
+          "sourceText": "Double lecture",
+          "normalizedMeaning": "Double lecture",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-2",
+          "sourceMessageId": "SEM-H14:user:1",
+          "sourceText": "aveugle",
+          "normalizedMeaning": "Aveugle",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-3",
+          "sourceMessageId": "SEM-H14:user:1",
+          "sourceText": "adjudication",
+          "normalizedMeaning": "Adjudication",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-4",
+          "sourceMessageId": "SEM-H14:user:1",
+          "sourceText": "écart au-dessus d'un seuil encore indéfini",
+          "normalizedMeaning": "Écart supérieur à un seuil indéfini",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-1",
+          "sourceInventoryItemId": "inv-1",
+          "targetInventoryItemId": "inv-2",
+          "normalizedRelation": "QUALIFIED_BY",
+          "mappedClientRelationIds": [
+            "coalesced:elem-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "Both inventory fragments are explicitly preserved inside one typed Semantic Element; a redundant self-relation is not required."
+        },
+        {
+          "inventoryRelationId": "rel-2",
+          "sourceInventoryItemId": "inv-3",
+          "targetInventoryItemId": "inv-4",
+          "normalizedRelation": "TRIGGERED_BY",
+          "mappedClientRelationIds": [
+            "rel-elem-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-8066258bdfcc6c77",
+    "evaluatedAt": "2026-08-13T09:48:08.117Z",
+    "goldFrameDigest": "ke1-29628e5a712f1886",
+    "result": {
+      "caseId": "SEM-H14",
+      "explicitObjectRecall": 1,
+      "explicitRelationRecall": 1,
+      "criticalSemanticRecall": 1,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 1,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": []
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H14",
+    "explicitObjectRecall": 1,
+    "explicitRelationRecall": 1,
+    "criticalSemanticRecall": 1,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 1,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": []
+  },
+  "error": null
+}

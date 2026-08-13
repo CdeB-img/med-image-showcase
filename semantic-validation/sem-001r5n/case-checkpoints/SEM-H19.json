@@ -1,0 +1,2592 @@
+{
+  "campaign": "SEM-001R5N-CLOSURE",
+  "campaignId": "sem-001r5n-closure-2026-08-13T10-04-53-978Z-ke1-dddaa50feb99591b",
+  "caseId": "SEM-H19",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-dddaa50feb99591b",
+  "semanticConfigurationDigest": "ke1-845f98f9c02a2a8d",
+  "goldFrameDigest": "ke1-5c5b7aff523bacdb",
+  "originalRequest": [
+    "PI-RADS ou radiomique pour prédire upgrading, biopsie comme référence"
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-13T10:13:45.036Z",
+  "completedAt": "2026-08-13T10:13:57.170Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H19:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "candidate_1723497540_001",
+        "language": "fr",
+        "normalizedMeaning": "Evaluation de PI-RADS versus radiomique pour predire l'upgrading, utilisant la biopsie comme reference standard.",
+        "summaryForUser": "Comparaison de PI-RADS et de la radiomique pour la prediction de l'upgrading, avec la biopsie comme reference.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv_1",
+              "sourceMessageId": "SEM-H19:user:1",
+              "sourceText": "PI-RADS",
+              "normalizedLabel": "PI-RADS",
+              "localRole": "method_1",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_2",
+              "sourceMessageId": "SEM-H19:user:1",
+              "sourceText": "radiomique",
+              "normalizedLabel": "radiomique",
+              "localRole": "method_2",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_3",
+              "sourceMessageId": "SEM-H19:user:1",
+              "sourceText": "prédire",
+              "normalizedLabel": "predire",
+              "localRole": "intent",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_4",
+              "sourceMessageId": "SEM-H19:user:1",
+              "sourceText": "upgrading",
+              "normalizedLabel": "upgrading",
+              "localRole": "outcome",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_5",
+              "sourceMessageId": "SEM-H19:user:1",
+              "sourceText": "biopsie",
+              "normalizedLabel": "biopsie",
+              "localRole": "reference_standard",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_inv_1",
+              "sourceInventoryItemId": "inv_1",
+              "targetInventoryItemId": "inv_2",
+              "sourceMessageId": "SEM-H19:user:1",
+              "sourceText": "PI-RADS ou radiomique",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_inv_2",
+              "sourceInventoryItemId": "inv_3",
+              "targetInventoryItemId": "inv_4",
+              "sourceMessageId": "SEM-H19:user:1",
+              "sourceText": "prédire upgrading",
+              "normalizedRelation": "AIMS_TO_PREDICT",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_inv_3",
+              "sourceInventoryItemId": "inv_1",
+              "targetInventoryItemId": "inv_4",
+              "sourceMessageId": "SEM-H19:user:1",
+              "sourceText": "PI-RADS ou radiomique pour prédire upgrading, biopsie comme référence",
+              "normalizedRelation": "PREDICTS_CANDIDATE",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_inv_4",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_4",
+              "sourceMessageId": "SEM-H19:user:1",
+              "sourceText": "PI-RADS ou radiomique pour prédire upgrading, biopsie comme référence",
+              "normalizedRelation": "PREDICTS_CANDIDATE",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_inv_5",
+              "sourceInventoryItemId": "inv_5",
+              "targetInventoryItemId": "inv_1",
+              "sourceMessageId": "SEM-H19:user:1",
+              "sourceText": "biopsie comme référence",
+              "normalizedRelation": "REFERENCE_FOR",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem_1",
+            "type": "METHOD",
+            "canonicalMeaning": "PI-RADS scoring system",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_1"
+            ],
+            "sourceMessageId": "SEM-H19:user:1",
+            "sourceText": "PI-RADS",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_2",
+            "type": "METHOD",
+            "canonicalMeaning": "Radiomics analysis",
+            "studyRole": "INTERVENTION_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_2"
+            ],
+            "sourceMessageId": "SEM-H19:user:1",
+            "sourceText": "radiomique",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_3",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Prediction objective",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_3"
+            ],
+            "sourceMessageId": "SEM-H19:user:1",
+            "sourceText": "prédire",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_4",
+            "type": "OUTCOME",
+            "canonicalMeaning": "Pathological upgrading",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_4"
+            ],
+            "sourceMessageId": "SEM-H19:user:1",
+            "sourceText": "upgrading",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_5",
+            "type": "METHOD",
+            "canonicalMeaning": "Biopsy as reference standard",
+            "studyRole": "REFERENCE_STANDARD",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_5"
+            ],
+            "sourceMessageId": "SEM-H19:user:1",
+            "sourceText": "biopsie",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel_1",
+            "sourceClientElementId": "elem_2",
+            "targetClientElementId": "elem_1",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_2",
+            "sourceClientElementId": "elem_3",
+            "targetClientElementId": "elem_4",
+            "relationType": "AIMS_TO_PREDICT",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_3",
+            "sourceClientElementId": "elem_1",
+            "targetClientElementId": "elem_4",
+            "relationType": "PREDICTS_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_3"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_4",
+            "sourceClientElementId": "elem_2",
+            "targetClientElementId": "elem_4",
+            "relationType": "PREDICTS_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_4"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_5",
+            "sourceClientElementId": "elem_5",
+            "targetClientElementId": "elem_1",
+            "relationType": "REFERENCE_FOR",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_5"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [
+          "Population context or organ specification"
+        ],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [
+          {
+            "question": "Quelle est la population cible ou l'organe concerne par cette etude ?",
+            "reason": "Preciser le contexte clinique et la population cible pour formaliser completement le protocole.",
+            "resolvesClientElementIds": []
+          }
+        ],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "L'utilisateur compare des methodes d'evaluation et definit une reference en vue d'une prediction.",
+          "expectedCapabilities": [
+            "Protocol structuring",
+            "Methodology comparison"
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:2"
+        ]
+      },
+      "reconstructionDigest": "ke1-1ab501940007d5c8",
+      "critics": [
+        {
+          "criticId": "critic_SEM_H19_01",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects (PI-RADS, radiomique, upgrading, biopsie) are faithfully represented in the semantic model."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The comparison between PI-RADS and radiomique is fully preserved with appropriate COMPARES_WITH relation."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Methodological arms are correctly instantiated as methods with appropriate study roles."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No broader imaging modality family separate from methods is declared."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit relations from the semantic inventory map directly to valid client relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All types adhere strictly to the operational taxonomy and taxonomy report is complete."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Relations retain their explicit predictive and comparative semantics."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No ungrounded inferences have been promoted to explicit statements."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Ambiguities regarding quantitative radiomic measurements and population context are explicitly exposed."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "All polarities are affirmed and correctly preserved."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No temporal constraints or explicit timing intervals were provided in the prompt."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Outcomes and reference standards are appropriately classified without unauthorized endpoint promotion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific technical concepts like PI-RADS and radiomique are fully maintained."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No important source fragments remain unrepresented."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "DESIGN_STUDY route matches the complete semantic model and comparison objectives perfectly."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The semantic inventory, candidate, and coverage reports are fully consistent, well-grounded, and adhere to all taxonomic and routing guidelines. No repairs are necessary."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-5a5113e3b1cd93af",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "PI-RADS ou radiomique pour prédire upgrading, biopsie comme référence",
+        "normalizedMeaning": "Evaluation de PI-RADS versus radiomique pour predire l'upgrading, utilisant la biopsie comme reference standard.",
+        "conversationMessageIds": [
+          "SEM-H19:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-48896939fcdaded5",
+            "type": "METHOD",
+            "canonicalMeaning": "PI-RADS scoring system",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_1"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H19:user:1",
+              "text": "PI-RADS",
+              "start": 0,
+              "end": 7
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-99928ed880187534",
+              "sem-relation:ke1-b20d723184c548a5",
+              "sem-relation:ke1-c80181da2b1224c6"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H19:user:1",
+              "providerCallId": "gemini-call:ke1-a87de8e85a4c6b2c",
+              "rawElementId": "elem_1"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-521f7965fd56a2d9",
+            "type": "METHOD",
+            "canonicalMeaning": "Biopsy as reference standard",
+            "studyRole": "REFERENCE_STANDARD",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_5"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H19:user:1",
+              "text": "biopsie",
+              "start": 46,
+              "end": 53
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-99928ed880187534"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H19:user:1",
+              "providerCallId": "gemini-call:ke1-a87de8e85a4c6b2c",
+              "rawElementId": "elem_5"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-708fe8c25b921b9e",
+            "type": "OUTCOME",
+            "canonicalMeaning": "Pathological upgrading",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_4"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H19:user:1",
+              "text": "upgrading",
+              "start": 35,
+              "end": 44
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-abf203aca9394598",
+              "sem-relation:ke1-b20d723184c548a5",
+              "sem-relation:ke1-cac5741db10b9601"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H19:user:1",
+              "providerCallId": "gemini-call:ke1-a87de8e85a4c6b2c",
+              "rawElementId": "elem_4"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-8ae55560534c178c",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Prediction objective",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_3"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H19:user:1",
+              "text": "prédire",
+              "start": 27,
+              "end": 34
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-abf203aca9394598"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H19:user:1",
+              "providerCallId": "gemini-call:ke1-a87de8e85a4c6b2c",
+              "rawElementId": "elem_3"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-e486f6b602e843da",
+            "type": "METHOD",
+            "canonicalMeaning": "Radiomics analysis",
+            "studyRole": "INTERVENTION_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_2"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H19:user:1",
+              "text": "radiomique",
+              "start": 11,
+              "end": 21
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-c80181da2b1224c6",
+              "sem-relation:ke1-cac5741db10b9601"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H19:user:1",
+              "providerCallId": "gemini-call:ke1-a87de8e85a4c6b2c",
+              "rawElementId": "elem_2"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-99928ed880187534",
+            "sourceElementId": "sem-element:ke1-521f7965fd56a2d9",
+            "targetElementId": "sem-element:ke1-48896939fcdaded5",
+            "relationType": "REFERENCE_FOR",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_5"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-abf203aca9394598",
+            "sourceElementId": "sem-element:ke1-8ae55560534c178c",
+            "targetElementId": "sem-element:ke1-708fe8c25b921b9e",
+            "relationType": "AIMS_TO_PREDICT",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_2"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-b20d723184c548a5",
+            "sourceElementId": "sem-element:ke1-48896939fcdaded5",
+            "targetElementId": "sem-element:ke1-708fe8c25b921b9e",
+            "relationType": "PREDICTS_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_3"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-c80181da2b1224c6",
+            "sourceElementId": "sem-element:ke1-e486f6b602e843da",
+            "targetElementId": "sem-element:ke1-48896939fcdaded5",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_1"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-cac5741db10b9601",
+            "sourceElementId": "sem-element:ke1-e486f6b602e843da",
+            "targetElementId": "sem-element:ke1-708fe8c25b921b9e",
+            "relationType": "PREDICTS_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_4"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv_1",
+              "sourceMessageId": "SEM-H19:user:1",
+              "sourceText": "PI-RADS",
+              "normalizedMeaning": "PI-RADS",
+              "mappedClientElementIds": [
+                "elem_1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_2",
+              "sourceMessageId": "SEM-H19:user:1",
+              "sourceText": "radiomique",
+              "normalizedMeaning": "radiomique",
+              "mappedClientElementIds": [
+                "elem_2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_3",
+              "sourceMessageId": "SEM-H19:user:1",
+              "sourceText": "prédire",
+              "normalizedMeaning": "predire",
+              "mappedClientElementIds": [
+                "elem_3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_4",
+              "sourceMessageId": "SEM-H19:user:1",
+              "sourceText": "upgrading",
+              "normalizedMeaning": "upgrading",
+              "mappedClientElementIds": [
+                "elem_4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_5",
+              "sourceMessageId": "SEM-H19:user:1",
+              "sourceText": "biopsie",
+              "normalizedMeaning": "biopsie",
+              "mappedClientElementIds": [
+                "elem_5"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel_inv_1",
+              "sourceInventoryItemId": "inv_1",
+              "targetInventoryItemId": "inv_2",
+              "normalizedRelation": "COMPARES_WITH",
+              "mappedClientRelationIds": [
+                "rel_1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_inv_2",
+              "sourceInventoryItemId": "inv_3",
+              "targetInventoryItemId": "inv_4",
+              "normalizedRelation": "AIMS_TO_PREDICT",
+              "mappedClientRelationIds": [
+                "rel_2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_inv_3",
+              "sourceInventoryItemId": "inv_1",
+              "targetInventoryItemId": "inv_4",
+              "normalizedRelation": "PREDICTS_CANDIDATE",
+              "mappedClientRelationIds": [
+                "rel_3"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_inv_4",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_4",
+              "normalizedRelation": "PREDICTS_CANDIDATE",
+              "mappedClientRelationIds": [
+                "rel_4"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_inv_5",
+              "sourceInventoryItemId": "inv_5",
+              "targetInventoryItemId": "inv_1",
+              "normalizedRelation": "REFERENCE_FOR",
+              "mappedClientRelationIds": [
+                "rel_5"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [
+          "Population context or organ specification"
+        ],
+        "ellipses": [],
+        "ambiguities": [
+          "La mesure quantitative produite par la méthode « radiomique » et utilisée comme prédicteur n'est pas explicitement nommée."
+        ],
+        "unknowns": [],
+        "contradictions": [],
+        "clarificationCandidates": [
+          {
+            "question": "Quelle est la population cible ou l'organe concerne par cette etude ?",
+            "reason": "Preciser le contexte clinique et la population cible pour formaliser completement le protocole.",
+            "resolvesElementIds": []
+          }
+        ],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "L'utilisateur compare des methodes d'evaluation et definit une reference en vue d'une prediction.",
+          "expectedCapabilities": [
+            "Methodology comparison",
+            "Protocol structuring"
+          ]
+        },
+        "summaryForUser": "Comparaison de PI-RADS et de la radiomique pour la prediction de l'upgrading, avec la biopsie comme reference.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "The semantic inventory, candidate, and coverage reports are fully consistent, well-grounded, and adhere to all taxonomic and routing guidelines. No repairs are necessary."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+          "criticPromptVersion": "SEM-001-CRITIC-1.6",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-a87de8e85a4c6b2c",
+          "criticCallId": "gemini-call:ke1-186f70890c2a0f6d",
+          "criticCallIds": [
+            "gemini-call:ke1-186f70890c2a0f6d"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T10:13:47.020Z",
+              "requestFinished": "2026-08-13T10:13:53.851Z",
+              "latencyMs": 6831,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T10:13:53.856Z",
+              "requestFinished": "2026-08-13T10:13:57.161Z",
+              "latencyMs": 3305,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "candidate_1723497540_001",
+            "language": "fr",
+            "normalizedMeaning": "Evaluation de PI-RADS versus radiomique pour predire l'upgrading, utilisant la biopsie comme reference standard.",
+            "summaryForUser": "Comparaison de PI-RADS et de la radiomique pour la prediction de l'upgrading, avec la biopsie comme reference.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "inv_1",
+                  "sourceMessageId": "SEM-H19:user:1",
+                  "sourceText": "PI-RADS",
+                  "normalizedLabel": "PI-RADS",
+                  "localRole": "method_1",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv_2",
+                  "sourceMessageId": "SEM-H19:user:1",
+                  "sourceText": "radiomique",
+                  "normalizedLabel": "radiomique",
+                  "localRole": "method_2",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv_3",
+                  "sourceMessageId": "SEM-H19:user:1",
+                  "sourceText": "prédire",
+                  "normalizedLabel": "predire",
+                  "localRole": "intent",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv_4",
+                  "sourceMessageId": "SEM-H19:user:1",
+                  "sourceText": "upgrading",
+                  "normalizedLabel": "upgrading",
+                  "localRole": "outcome",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv_5",
+                  "sourceMessageId": "SEM-H19:user:1",
+                  "sourceText": "biopsie",
+                  "normalizedLabel": "biopsie",
+                  "localRole": "reference_standard",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel_inv_1",
+                  "sourceInventoryItemId": "inv_1",
+                  "targetInventoryItemId": "inv_2",
+                  "sourceMessageId": "SEM-H19:user:1",
+                  "sourceText": "PI-RADS ou radiomique",
+                  "normalizedRelation": "COMPARES_WITH",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel_inv_2",
+                  "sourceInventoryItemId": "inv_3",
+                  "targetInventoryItemId": "inv_4",
+                  "sourceMessageId": "SEM-H19:user:1",
+                  "sourceText": "prédire upgrading",
+                  "normalizedRelation": "AIMS_TO_PREDICT",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel_inv_3",
+                  "sourceInventoryItemId": "inv_1",
+                  "targetInventoryItemId": "inv_4",
+                  "sourceMessageId": "SEM-H19:user:1",
+                  "sourceText": "PI-RADS ou radiomique pour prédire upgrading, biopsie comme référence",
+                  "normalizedRelation": "PREDICTS_CANDIDATE",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel_inv_4",
+                  "sourceInventoryItemId": "inv_2",
+                  "targetInventoryItemId": "inv_4",
+                  "sourceMessageId": "SEM-H19:user:1",
+                  "sourceText": "PI-RADS ou radiomique pour prédire upgrading, biopsie comme référence",
+                  "normalizedRelation": "PREDICTS_CANDIDATE",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel_inv_5",
+                  "sourceInventoryItemId": "inv_5",
+                  "targetInventoryItemId": "inv_1",
+                  "sourceMessageId": "SEM-H19:user:1",
+                  "sourceText": "biopsie comme référence",
+                  "normalizedRelation": "REFERENCE_FOR",
+                  "polarity": "AFFIRMED"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem_1",
+                "type": "METHOD",
+                "canonicalMeaning": "PI-RADS scoring system",
+                "studyRole": "COMPARATOR_ARM",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_1"
+                ],
+                "sourceMessageId": "SEM-H19:user:1",
+                "sourceText": "PI-RADS",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_2",
+                "type": "METHOD",
+                "canonicalMeaning": "Radiomics analysis",
+                "studyRole": "INTERVENTION_ARM",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_2"
+                ],
+                "sourceMessageId": "SEM-H19:user:1",
+                "sourceText": "radiomique",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_3",
+                "type": "SCIENTIFIC_INTENT",
+                "canonicalMeaning": "Prediction objective",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_3"
+                ],
+                "sourceMessageId": "SEM-H19:user:1",
+                "sourceText": "prédire",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_4",
+                "type": "OUTCOME",
+                "canonicalMeaning": "Pathological upgrading",
+                "studyRole": "OUTCOME_ROLE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_4"
+                ],
+                "sourceMessageId": "SEM-H19:user:1",
+                "sourceText": "upgrading",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_5",
+                "type": "METHOD",
+                "canonicalMeaning": "Biopsy as reference standard",
+                "studyRole": "REFERENCE_STANDARD",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_5"
+                ],
+                "sourceMessageId": "SEM-H19:user:1",
+                "sourceText": "biopsie",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel_1",
+                "sourceClientElementId": "elem_2",
+                "targetClientElementId": "elem_1",
+                "relationType": "COMPARES_WITH",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_inv_1"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel_2",
+                "sourceClientElementId": "elem_3",
+                "targetClientElementId": "elem_4",
+                "relationType": "AIMS_TO_PREDICT",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_inv_2"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel_3",
+                "sourceClientElementId": "elem_1",
+                "targetClientElementId": "elem_4",
+                "relationType": "PREDICTS_CANDIDATE",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_inv_3"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel_4",
+                "sourceClientElementId": "elem_2",
+                "targetClientElementId": "elem_4",
+                "relationType": "PREDICTS_CANDIDATE",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_inv_4"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel_5",
+                "sourceClientElementId": "elem_5",
+                "targetClientElementId": "elem_1",
+                "relationType": "REFERENCE_FOR",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_inv_5"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              }
+            ],
+            "missingConcepts": [
+              "Population context or organ specification"
+            ],
+            "ellipses": [],
+            "ambiguities": [
+              "La mesure quantitative produite par la méthode « radiomique » et utilisée comme prédicteur n'est pas explicitement nommée."
+            ],
+            "unknowns": [],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [
+              {
+                "question": "Quelle est la population cible ou l'organe concerne par cette etude ?",
+                "reason": "Preciser le contexte clinique et la population cible pour formaliser completement le protocole.",
+                "resolvesClientElementIds": []
+              }
+            ],
+            "routeProposal": {
+              "route": "DESIGN_STUDY",
+              "confidence": 0.9,
+              "reason": "L'utilisateur compare des methodes d'evaluation et definit une reference en vue d'une prediction.",
+              "expectedCapabilities": [
+                "Protocol structuring",
+                "Methodology comparison"
+              ]
+            },
+            "semanticWarnings": [
+              "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:2"
+            ]
+          },
+          "rawCritic": {
+            "criticId": "critic_SEM_H19_01",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit objects (PI-RADS, radiomique, upgrading, biopsie) are faithfully represented in the semantic model."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "PASS",
+                "evidence": "The comparison between PI-RADS and radiomique is fully preserved with appropriate COMPARES_WITH relation."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Methodological arms are correctly instantiated as methods with appropriate study roles."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No broader imaging modality family separate from methods is declared."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit relations from the semantic inventory map directly to valid client relations."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "All types adhere strictly to the operational taxonomy and taxonomy report is complete."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Relations retain their explicit predictive and comparative semantics."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No ungrounded inferences have been promoted to explicit statements."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "Ambiguities regarding quantitative radiomic measurements and population context are explicitly exposed."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "All polarities are affirmed and correctly preserved."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No temporal constraints or explicit timing intervals were provided in the prompt."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "Outcomes and reference standards are appropriately classified without unauthorized endpoint promotion."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific technical concepts like PI-RADS and radiomique are fully maintained."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "No important source fragments remain unrepresented."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "DESIGN_STUDY route matches the complete semantic model and comparison objectives perfectly."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The semantic inventory, candidate, and coverage reports are fully consistent, well-grounded, and adhere to all taxonomic and routing guidelines. No repairs are necessary."
+          },
+          "rawCritics": [
+            {
+              "criticId": "critic_SEM_H19_01",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit objects (PI-RADS, radiomique, upgrading, biopsie) are faithfully represented in the semantic model."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The comparison between PI-RADS and radiomique is fully preserved with appropriate COMPARES_WITH relation."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "Methodological arms are correctly instantiated as methods with appropriate study roles."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No broader imaging modality family separate from methods is declared."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit relations from the semantic inventory map directly to valid client relations."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "All types adhere strictly to the operational taxonomy and taxonomy report is complete."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Relations retain their explicit predictive and comparative semantics."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No ungrounded inferences have been promoted to explicit statements."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "Ambiguities regarding quantitative radiomic measurements and population context are explicitly exposed."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "All polarities are affirmed and correctly preserved."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No temporal constraints or explicit timing intervals were provided in the prompt."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "Outcomes and reference standards are appropriately classified without unauthorized endpoint promotion."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific technical concepts like PI-RADS and radiomique are fully maintained."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "No important source fragments remain unrepresented."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "DESIGN_STUDY route matches the complete semantic model and comparison objectives perfectly."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "The semantic inventory, candidate, and coverage reports are fully consistent, well-grounded, and adhere to all taxonomic and routing guidelines. No repairs are necessary."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-13T10:13:57.163Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-a892ecb40ae348a0",
+          "resultDigest": "ke1-a892ecb40ae348a0",
+          "coverageStatus": "NO_PROVIDER",
+          "verifiedAt": "2026-08-13T10:13:57.166Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-13T10:13:57.163Z",
+        "updatedAt": "2026-08-13T10:13:57.166Z",
+        "digest": "ke1-d18f5909aaeb6d6d"
+      },
+      "canonicalModelDigest": "ke1-d18f5909aaeb6d6d",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-a892ecb40ae348a0",
+        "resultDigest": "ke1-a892ecb40ae348a0",
+        "coverageStatus": "NO_PROVIDER",
+        "verifiedAt": "2026-08-13T10:13:57.166Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-a87de8e85a4c6b2c",
+      "structuredDigest": "ke1-1ab501940007d5c8",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:13:47.020Z",
+          "requestFinished": "2026-08-13T10:13:53.851Z",
+          "latencyMs": 6831,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-186f70890c2a0f6d",
+      "structuredDigest": "ke1-61e2af9545320219",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:13:53.856Z",
+          "requestFinished": "2026-08-13T10:13:57.161Z",
+          "latencyMs": 3305,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-5a5113e3b1cd93af",
+    "revision": 1,
+    "status": "CANDIDATE",
+    "originalRequest": "PI-RADS ou radiomique pour prédire upgrading, biopsie comme référence",
+    "normalizedMeaning": "Evaluation de PI-RADS versus radiomique pour predire l'upgrading, utilisant la biopsie comme reference standard.",
+    "conversationMessageIds": [
+      "SEM-H19:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-48896939fcdaded5",
+        "type": "METHOD",
+        "canonicalMeaning": "PI-RADS scoring system",
+        "studyRole": "COMPARATOR_ARM",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_1"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H19:user:1",
+          "text": "PI-RADS",
+          "start": 0,
+          "end": 7
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-99928ed880187534",
+          "sem-relation:ke1-b20d723184c548a5",
+          "sem-relation:ke1-c80181da2b1224c6"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H19:user:1",
+          "providerCallId": "gemini-call:ke1-a87de8e85a4c6b2c",
+          "rawElementId": "elem_1"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-521f7965fd56a2d9",
+        "type": "METHOD",
+        "canonicalMeaning": "Biopsy as reference standard",
+        "studyRole": "REFERENCE_STANDARD",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_5"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H19:user:1",
+          "text": "biopsie",
+          "start": 46,
+          "end": 53
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-99928ed880187534"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H19:user:1",
+          "providerCallId": "gemini-call:ke1-a87de8e85a4c6b2c",
+          "rawElementId": "elem_5"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-708fe8c25b921b9e",
+        "type": "OUTCOME",
+        "canonicalMeaning": "Pathological upgrading",
+        "studyRole": "OUTCOME_ROLE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_4"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H19:user:1",
+          "text": "upgrading",
+          "start": 35,
+          "end": 44
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-abf203aca9394598",
+          "sem-relation:ke1-b20d723184c548a5",
+          "sem-relation:ke1-cac5741db10b9601"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H19:user:1",
+          "providerCallId": "gemini-call:ke1-a87de8e85a4c6b2c",
+          "rawElementId": "elem_4"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-8ae55560534c178c",
+        "type": "SCIENTIFIC_INTENT",
+        "canonicalMeaning": "Prediction objective",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_3"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H19:user:1",
+          "text": "prédire",
+          "start": 27,
+          "end": 34
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-abf203aca9394598"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H19:user:1",
+          "providerCallId": "gemini-call:ke1-a87de8e85a4c6b2c",
+          "rawElementId": "elem_3"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-e486f6b602e843da",
+        "type": "METHOD",
+        "canonicalMeaning": "Radiomics analysis",
+        "studyRole": "INTERVENTION_ARM",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_2"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H19:user:1",
+          "text": "radiomique",
+          "start": 11,
+          "end": 21
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-c80181da2b1224c6",
+          "sem-relation:ke1-cac5741db10b9601"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H19:user:1",
+          "providerCallId": "gemini-call:ke1-a87de8e85a4c6b2c",
+          "rawElementId": "elem_2"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-99928ed880187534",
+        "sourceElementId": "sem-element:ke1-521f7965fd56a2d9",
+        "targetElementId": "sem-element:ke1-48896939fcdaded5",
+        "relationType": "REFERENCE_FOR",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_inv_5"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-abf203aca9394598",
+        "sourceElementId": "sem-element:ke1-8ae55560534c178c",
+        "targetElementId": "sem-element:ke1-708fe8c25b921b9e",
+        "relationType": "AIMS_TO_PREDICT",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_inv_2"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-b20d723184c548a5",
+        "sourceElementId": "sem-element:ke1-48896939fcdaded5",
+        "targetElementId": "sem-element:ke1-708fe8c25b921b9e",
+        "relationType": "PREDICTS_CANDIDATE",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_inv_3"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-c80181da2b1224c6",
+        "sourceElementId": "sem-element:ke1-e486f6b602e843da",
+        "targetElementId": "sem-element:ke1-48896939fcdaded5",
+        "relationType": "COMPARES_WITH",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_inv_1"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-cac5741db10b9601",
+        "sourceElementId": "sem-element:ke1-e486f6b602e843da",
+        "targetElementId": "sem-element:ke1-708fe8c25b921b9e",
+        "relationType": "PREDICTS_CANDIDATE",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_inv_4"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv_1",
+          "sourceMessageId": "SEM-H19:user:1",
+          "sourceText": "PI-RADS",
+          "normalizedMeaning": "PI-RADS",
+          "mappedClientElementIds": [
+            "elem_1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_2",
+          "sourceMessageId": "SEM-H19:user:1",
+          "sourceText": "radiomique",
+          "normalizedMeaning": "radiomique",
+          "mappedClientElementIds": [
+            "elem_2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_3",
+          "sourceMessageId": "SEM-H19:user:1",
+          "sourceText": "prédire",
+          "normalizedMeaning": "predire",
+          "mappedClientElementIds": [
+            "elem_3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_4",
+          "sourceMessageId": "SEM-H19:user:1",
+          "sourceText": "upgrading",
+          "normalizedMeaning": "upgrading",
+          "mappedClientElementIds": [
+            "elem_4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_5",
+          "sourceMessageId": "SEM-H19:user:1",
+          "sourceText": "biopsie",
+          "normalizedMeaning": "biopsie",
+          "mappedClientElementIds": [
+            "elem_5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel_inv_1",
+          "sourceInventoryItemId": "inv_1",
+          "targetInventoryItemId": "inv_2",
+          "normalizedRelation": "COMPARES_WITH",
+          "mappedClientRelationIds": [
+            "rel_1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_inv_2",
+          "sourceInventoryItemId": "inv_3",
+          "targetInventoryItemId": "inv_4",
+          "normalizedRelation": "AIMS_TO_PREDICT",
+          "mappedClientRelationIds": [
+            "rel_2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_inv_3",
+          "sourceInventoryItemId": "inv_1",
+          "targetInventoryItemId": "inv_4",
+          "normalizedRelation": "PREDICTS_CANDIDATE",
+          "mappedClientRelationIds": [
+            "rel_3"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_inv_4",
+          "sourceInventoryItemId": "inv_2",
+          "targetInventoryItemId": "inv_4",
+          "normalizedRelation": "PREDICTS_CANDIDATE",
+          "mappedClientRelationIds": [
+            "rel_4"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_inv_5",
+          "sourceInventoryItemId": "inv_5",
+          "targetInventoryItemId": "inv_1",
+          "normalizedRelation": "REFERENCE_FOR",
+          "mappedClientRelationIds": [
+            "rel_5"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "missingConcepts": [
+      "Population context or organ specification"
+    ],
+    "ellipses": [],
+    "ambiguities": [
+      "La mesure quantitative produite par la méthode « radiomique » et utilisée comme prédicteur n'est pas explicitement nommée."
+    ],
+    "unknowns": [],
+    "contradictions": [],
+    "clarificationCandidates": [
+      {
+        "question": "Quelle est la population cible ou l'organe concerne par cette etude ?",
+        "reason": "Preciser le contexte clinique et la population cible pour formaliser completement le protocole.",
+        "resolvesElementIds": []
+      }
+    ],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "DESIGN_STUDY",
+      "confidence": 0.9,
+      "reason": "L'utilisateur compare des methodes d'evaluation et definit une reference en vue d'une prediction.",
+      "expectedCapabilities": [
+        "Methodology comparison",
+        "Protocol structuring"
+      ]
+    },
+    "summaryForUser": "Comparaison de PI-RADS et de la radiomique pour la prediction de l'upgrading, avec la biopsie comme reference.",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "The semantic inventory, candidate, and coverage reports are fully consistent, well-grounded, and adhere to all taxonomic and routing guidelines. No repairs are necessary."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-a87de8e85a4c6b2c",
+      "criticCallId": "gemini-call:ke1-186f70890c2a0f6d",
+      "criticCallIds": [
+        "gemini-call:ke1-186f70890c2a0f6d"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:13:47.020Z",
+          "requestFinished": "2026-08-13T10:13:53.851Z",
+          "latencyMs": 6831,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:13:53.856Z",
+          "requestFinished": "2026-08-13T10:13:57.161Z",
+          "latencyMs": 3305,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "candidate_1723497540_001",
+        "language": "fr",
+        "normalizedMeaning": "Evaluation de PI-RADS versus radiomique pour predire l'upgrading, utilisant la biopsie comme reference standard.",
+        "summaryForUser": "Comparaison de PI-RADS et de la radiomique pour la prediction de l'upgrading, avec la biopsie comme reference.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv_1",
+              "sourceMessageId": "SEM-H19:user:1",
+              "sourceText": "PI-RADS",
+              "normalizedLabel": "PI-RADS",
+              "localRole": "method_1",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_2",
+              "sourceMessageId": "SEM-H19:user:1",
+              "sourceText": "radiomique",
+              "normalizedLabel": "radiomique",
+              "localRole": "method_2",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_3",
+              "sourceMessageId": "SEM-H19:user:1",
+              "sourceText": "prédire",
+              "normalizedLabel": "predire",
+              "localRole": "intent",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_4",
+              "sourceMessageId": "SEM-H19:user:1",
+              "sourceText": "upgrading",
+              "normalizedLabel": "upgrading",
+              "localRole": "outcome",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_5",
+              "sourceMessageId": "SEM-H19:user:1",
+              "sourceText": "biopsie",
+              "normalizedLabel": "biopsie",
+              "localRole": "reference_standard",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_inv_1",
+              "sourceInventoryItemId": "inv_1",
+              "targetInventoryItemId": "inv_2",
+              "sourceMessageId": "SEM-H19:user:1",
+              "sourceText": "PI-RADS ou radiomique",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_inv_2",
+              "sourceInventoryItemId": "inv_3",
+              "targetInventoryItemId": "inv_4",
+              "sourceMessageId": "SEM-H19:user:1",
+              "sourceText": "prédire upgrading",
+              "normalizedRelation": "AIMS_TO_PREDICT",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_inv_3",
+              "sourceInventoryItemId": "inv_1",
+              "targetInventoryItemId": "inv_4",
+              "sourceMessageId": "SEM-H19:user:1",
+              "sourceText": "PI-RADS ou radiomique pour prédire upgrading, biopsie comme référence",
+              "normalizedRelation": "PREDICTS_CANDIDATE",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_inv_4",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_4",
+              "sourceMessageId": "SEM-H19:user:1",
+              "sourceText": "PI-RADS ou radiomique pour prédire upgrading, biopsie comme référence",
+              "normalizedRelation": "PREDICTS_CANDIDATE",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_inv_5",
+              "sourceInventoryItemId": "inv_5",
+              "targetInventoryItemId": "inv_1",
+              "sourceMessageId": "SEM-H19:user:1",
+              "sourceText": "biopsie comme référence",
+              "normalizedRelation": "REFERENCE_FOR",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem_1",
+            "type": "METHOD",
+            "canonicalMeaning": "PI-RADS scoring system",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_1"
+            ],
+            "sourceMessageId": "SEM-H19:user:1",
+            "sourceText": "PI-RADS",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_2",
+            "type": "METHOD",
+            "canonicalMeaning": "Radiomics analysis",
+            "studyRole": "INTERVENTION_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_2"
+            ],
+            "sourceMessageId": "SEM-H19:user:1",
+            "sourceText": "radiomique",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_3",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Prediction objective",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_3"
+            ],
+            "sourceMessageId": "SEM-H19:user:1",
+            "sourceText": "prédire",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_4",
+            "type": "OUTCOME",
+            "canonicalMeaning": "Pathological upgrading",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_4"
+            ],
+            "sourceMessageId": "SEM-H19:user:1",
+            "sourceText": "upgrading",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_5",
+            "type": "METHOD",
+            "canonicalMeaning": "Biopsy as reference standard",
+            "studyRole": "REFERENCE_STANDARD",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_5"
+            ],
+            "sourceMessageId": "SEM-H19:user:1",
+            "sourceText": "biopsie",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel_1",
+            "sourceClientElementId": "elem_2",
+            "targetClientElementId": "elem_1",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_2",
+            "sourceClientElementId": "elem_3",
+            "targetClientElementId": "elem_4",
+            "relationType": "AIMS_TO_PREDICT",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_3",
+            "sourceClientElementId": "elem_1",
+            "targetClientElementId": "elem_4",
+            "relationType": "PREDICTS_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_3"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_4",
+            "sourceClientElementId": "elem_2",
+            "targetClientElementId": "elem_4",
+            "relationType": "PREDICTS_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_4"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_5",
+            "sourceClientElementId": "elem_5",
+            "targetClientElementId": "elem_1",
+            "relationType": "REFERENCE_FOR",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_5"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [
+          "Population context or organ specification"
+        ],
+        "ellipses": [],
+        "ambiguities": [
+          "La mesure quantitative produite par la méthode « radiomique » et utilisée comme prédicteur n'est pas explicitement nommée."
+        ],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [
+          {
+            "question": "Quelle est la population cible ou l'organe concerne par cette etude ?",
+            "reason": "Preciser le contexte clinique et la population cible pour formaliser completement le protocole.",
+            "resolvesClientElementIds": []
+          }
+        ],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "L'utilisateur compare des methodes d'evaluation et definit une reference en vue d'une prediction.",
+          "expectedCapabilities": [
+            "Protocol structuring",
+            "Methodology comparison"
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:2"
+        ]
+      },
+      "rawCritic": {
+        "criticId": "critic_SEM_H19_01",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit objects (PI-RADS, radiomique, upgrading, biopsie) are faithfully represented in the semantic model."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "PASS",
+            "evidence": "The comparison between PI-RADS and radiomique is fully preserved with appropriate COMPARES_WITH relation."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Methodological arms are correctly instantiated as methods with appropriate study roles."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No broader imaging modality family separate from methods is declared."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit relations from the semantic inventory map directly to valid client relations."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "All types adhere strictly to the operational taxonomy and taxonomy report is complete."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "Relations retain their explicit predictive and comparative semantics."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No ungrounded inferences have been promoted to explicit statements."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "Ambiguities regarding quantitative radiomic measurements and population context are explicitly exposed."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "All polarities are affirmed and correctly preserved."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No temporal constraints or explicit timing intervals were provided in the prompt."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "Outcomes and reference standards are appropriately classified without unauthorized endpoint promotion."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific technical concepts like PI-RADS and radiomique are fully maintained."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "No important source fragments remain unrepresented."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "DESIGN_STUDY route matches the complete semantic model and comparison objectives perfectly."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "The semantic inventory, candidate, and coverage reports are fully consistent, well-grounded, and adhere to all taxonomic and routing guidelines. No repairs are necessary."
+      },
+      "rawCritics": [
+        {
+          "criticId": "critic_SEM_H19_01",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects (PI-RADS, radiomique, upgrading, biopsie) are faithfully represented in the semantic model."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The comparison between PI-RADS and radiomique is fully preserved with appropriate COMPARES_WITH relation."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Methodological arms are correctly instantiated as methods with appropriate study roles."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No broader imaging modality family separate from methods is declared."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit relations from the semantic inventory map directly to valid client relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All types adhere strictly to the operational taxonomy and taxonomy report is complete."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Relations retain their explicit predictive and comparative semantics."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No ungrounded inferences have been promoted to explicit statements."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Ambiguities regarding quantitative radiomic measurements and population context are explicitly exposed."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "All polarities are affirmed and correctly preserved."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No temporal constraints or explicit timing intervals were provided in the prompt."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Outcomes and reference standards are appropriately classified without unauthorized endpoint promotion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific technical concepts like PI-RADS and radiomique are fully maintained."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No important source fragments remain unrepresented."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "DESIGN_STUDY route matches the complete semantic model and comparison objectives perfectly."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The semantic inventory, candidate, and coverage reports are fully consistent, well-grounded, and adhere to all taxonomic and routing guidelines. No repairs are necessary."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-13T10:13:57.163Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-a892ecb40ae348a0",
+      "resultDigest": "ke1-a892ecb40ae348a0",
+      "coverageStatus": "NO_PROVIDER",
+      "verifiedAt": "2026-08-13T10:13:57.166Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-13T10:13:57.163Z",
+    "updatedAt": "2026-08-13T10:13:57.166Z",
+    "digest": "ke1-d18f5909aaeb6d6d"
+  },
+  "semanticModelDigest": "ke1-d18f5909aaeb6d6d",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv_1",
+          "sourceMessageId": "SEM-H19:user:1",
+          "sourceText": "PI-RADS",
+          "normalizedMeaning": "PI-RADS",
+          "mappedClientElementIds": [
+            "elem_1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_2",
+          "sourceMessageId": "SEM-H19:user:1",
+          "sourceText": "radiomique",
+          "normalizedMeaning": "radiomique",
+          "mappedClientElementIds": [
+            "elem_2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_3",
+          "sourceMessageId": "SEM-H19:user:1",
+          "sourceText": "prédire",
+          "normalizedMeaning": "predire",
+          "mappedClientElementIds": [
+            "elem_3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_4",
+          "sourceMessageId": "SEM-H19:user:1",
+          "sourceText": "upgrading",
+          "normalizedMeaning": "upgrading",
+          "mappedClientElementIds": [
+            "elem_4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_5",
+          "sourceMessageId": "SEM-H19:user:1",
+          "sourceText": "biopsie",
+          "normalizedMeaning": "biopsie",
+          "mappedClientElementIds": [
+            "elem_5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel_inv_1",
+          "sourceInventoryItemId": "inv_1",
+          "targetInventoryItemId": "inv_2",
+          "normalizedRelation": "COMPARES_WITH",
+          "mappedClientRelationIds": [
+            "rel_1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_inv_2",
+          "sourceInventoryItemId": "inv_3",
+          "targetInventoryItemId": "inv_4",
+          "normalizedRelation": "AIMS_TO_PREDICT",
+          "mappedClientRelationIds": [
+            "rel_2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_inv_3",
+          "sourceInventoryItemId": "inv_1",
+          "targetInventoryItemId": "inv_4",
+          "normalizedRelation": "PREDICTS_CANDIDATE",
+          "mappedClientRelationIds": [
+            "rel_3"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_inv_4",
+          "sourceInventoryItemId": "inv_2",
+          "targetInventoryItemId": "inv_4",
+          "normalizedRelation": "PREDICTS_CANDIDATE",
+          "mappedClientRelationIds": [
+            "rel_4"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_inv_5",
+          "sourceInventoryItemId": "inv_5",
+          "targetInventoryItemId": "inv_1",
+          "normalizedRelation": "REFERENCE_FOR",
+          "mappedClientRelationIds": [
+            "rel_5"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-8066258bdfcc6c77",
+    "evaluatedAt": "2026-08-13T10:13:57.170Z",
+    "goldFrameDigest": "ke1-5c5b7aff523bacdb",
+    "result": {
+      "caseId": "SEM-H19",
+      "explicitObjectRecall": 0.75,
+      "explicitRelationRecall": 1,
+      "criticalSemanticRecall": 0.8,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 1,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": [
+        "EXPLICIT_BIOMARKER_LOST:PI-RADS"
+      ]
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H19",
+    "explicitObjectRecall": 0.75,
+    "explicitRelationRecall": 1,
+    "criticalSemanticRecall": 0.8,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 1,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": [
+      "EXPLICIT_BIOMARKER_LOST:PI-RADS"
+    ]
+  },
+  "error": null
+}

@@ -1,0 +1,25 @@
+{
+  "campaign": "SEM-001R5M-CLOSURE",
+  "campaignId": "sem-001r5m-closure-2026-08-13T09-40-35-104Z-ke1-ac75ad8a4d6f2326",
+  "provider": "GOOGLE_GEMINI",
+  "model": "gemini-3.5-flash-lite",
+  "actualRequestStarts": 71,
+  "llmCallsPerformed": 71,
+  "retries": 0,
+  "structuredRegenerations": 4,
+  "providerCapacityFailures": 0,
+  "completedCasesReusedOnResume": 1,
+  "llmCallsAvoidedByResume": 6,
+  "compatibleProviderOperationsReused": 5,
+  "deterministicReplays": 0,
+  "governedUnresolvedCasesNotCalled": [
+    "SEM-H10",
+    "SEM-H17",
+    "SEM-H28",
+    "SEM-H30"
+  ],
+  "historicalNonR5lCallsExcludedFromClosure": true,
+  "developmentOutputsReusedAsHoldoutResults": 0,
+  "conditionalAuditCases": [],
+  "noSecretsStored": true
+}

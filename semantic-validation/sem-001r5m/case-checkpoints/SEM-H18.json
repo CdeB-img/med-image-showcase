@@ -1,0 +1,2942 @@
+{
+  "campaign": "SEM-001R5M-CLOSURE",
+  "campaignId": "sem-001r5m-closure-2026-08-13T09-40-35-104Z-ke1-ac75ad8a4d6f2326",
+  "caseId": "SEM-H18",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-ac75ad8a4d6f2326",
+  "semanticConfigurationDigest": "ke1-2d65467f810363ab",
+  "goldFrameDigest": "ke1-7ff99fe798fd20bb",
+  "originalRequest": [
+    "fibrose pulmonaire quantitative : progression à 1 an avec CT, mortalité pas concernée"
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-13T09:49:08.852Z",
+  "completedAt": "2026-08-13T09:49:29.218Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H18:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Evaluation de la progression de la fibrose pulmonaire quantitative à un an par CT, à l'exclusion de la mortalité.",
+        "summaryForUser": "Analyse de la progression de la fibrose pulmonaire quantitative à 1 an par CT, sans inclure la mortalité.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-01",
+              "sourceMessageId": "SEM-H18:user:1",
+              "sourceText": "fibrose pulmonaire quantitative",
+              "normalizedLabel": "fibrose pulmonaire quantitative",
+              "localRole": "target",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "quantitative"
+              ],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-02",
+              "sourceMessageId": "SEM-H18:user:1",
+              "sourceText": "progression",
+              "normalizedLabel": "progression",
+              "localRole": "outcome",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-01"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-03",
+              "sourceMessageId": "SEM-H18:user:1",
+              "sourceText": "1 an",
+              "normalizedLabel": "1 an",
+              "localRole": "timing",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-02"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-04",
+              "sourceMessageId": "SEM-H18:user:1",
+              "sourceText": "CT",
+              "normalizedLabel": "CT",
+              "localRole": "method",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-02"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-05",
+              "sourceMessageId": "SEM-H18:user:1",
+              "sourceText": "mortalité",
+              "normalizedLabel": "mortalité",
+              "localRole": "excluded endpoint",
+              "polarity": "NEGATED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-01",
+              "sourceInventoryItemId": "inv-02",
+              "targetInventoryItemId": "inv-01",
+              "sourceMessageId": "SEM-H18:user:1",
+              "sourceText": "fibrose pulmonaire quantitative : progression",
+              "normalizedRelation": "AIMS_TO_MODIFY",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-02",
+              "sourceInventoryItemId": "inv-02",
+              "targetInventoryItemId": "inv-03",
+              "sourceMessageId": "SEM-H18:user:1",
+              "sourceText": "progression à 1 an",
+              "normalizedRelation": "REPEATED_AT",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-03",
+              "sourceInventoryItemId": "inv-02",
+              "targetInventoryItemId": "inv-04",
+              "sourceMessageId": "SEM-H18:user:1",
+              "sourceText": "progression à 1 an avec CT",
+              "normalizedRelation": "OBSERVED_BY",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-04",
+              "sourceInventoryItemId": "inv-05",
+              "targetInventoryItemId": "inv-02",
+              "sourceMessageId": "SEM-H18:user:1",
+              "sourceText": "mortalité pas concernée",
+              "normalizedRelation": "EXCLUDES",
+              "polarity": "NEGATED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-01",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "Fibrose pulmonaire quantitative",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-01"
+            ],
+            "sourceMessageId": "SEM-H18:user:1",
+            "sourceText": "fibrose pulmonaire quantitative",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-02",
+            "type": "OUTCOME",
+            "canonicalMeaning": "Progression de la fibrose",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-02"
+            ],
+            "sourceMessageId": "SEM-H18:user:1",
+            "sourceText": "progression",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-03",
+            "type": "TIMING",
+            "canonicalMeaning": "1 an",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-03"
+            ],
+            "sourceMessageId": "SEM-H18:user:1",
+            "sourceText": "1 an",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-04",
+            "type": "METHOD",
+            "canonicalMeaning": "CT (Computed Tomography)",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-04"
+            ],
+            "sourceMessageId": "SEM-H18:user:1",
+            "sourceText": "CT",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-05",
+            "type": "ENDPOINT",
+            "canonicalMeaning": "Mortalité",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv-05"
+            ],
+            "sourceMessageId": "SEM-H18:user:1",
+            "sourceText": "mortalité",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-elem-01",
+            "sourceClientElementId": "elem-02",
+            "targetClientElementId": "elem-01",
+            "relationType": "AIMS_TO_MODIFY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-01"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-02",
+            "sourceClientElementId": "elem-02",
+            "targetClientElementId": "elem-03",
+            "relationType": "REPEATED_AT",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-02"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-03",
+            "sourceClientElementId": "elem-02",
+            "targetClientElementId": "elem-04",
+            "relationType": "OBSERVED_BY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-03"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-04",
+            "sourceClientElementId": "elem-05",
+            "targetClientElementId": "elem-02",
+            "relationType": "EXCLUDES",
+            "polarity": "NEGATED",
+            "inventoryRelationIds": [
+              "rel-04"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "The user is setting up elements of a study (subject, outcome, timeline, method, and explicit exclusions).",
+          "expectedCapabilities": [
+            "Study design formulation",
+            "Method specification"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "reconstructionDigest": "ke1-887e422e1bd1a8f2",
+      "critics": [
+        {
+          "criticId": "critic-01",
+          "verdict": "REVISE",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects are represented."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator present."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No intervention present."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "FAIL",
+              "evidence": "CT is classified as METHOD instead of MODALITY."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit relations represented."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "FAIL",
+              "evidence": "elem-04 (CT) is typed as METHOD instead of MODALITY per taxonomy report."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relations weakened."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No inferences promoted."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No ambiguities hidden."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Negation preserved correctly."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Timing preserved correctly."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No unsupported outcome promotion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "No specific concepts generalized."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No fragments unrepresented."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY matches."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [
+            {
+              "code": "TYPE_MISMATCH",
+              "severity": "CRITICAL",
+              "elementClientIds": [
+                "elem-04"
+              ],
+              "description": "CT is classified as METHOD instead of MODALITY.",
+              "recommendedAction": "Upsert element-04 with type MODALITY.",
+              "resolved": false
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "repairId": "rep-01",
+              "action": "UPSERT_ELEMENT",
+              "reason": "Correct element-04 type from METHOD to MODALITY per taxonomy finding.",
+              "sourceInventoryItemIds": [
+                "inv-04"
+              ],
+              "sourceInventoryRelationIds": [],
+              "inventoryItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "inventoryNormalizedLabel": null,
+              "inventoryLocalRole": null,
+              "inventoryPolarity": null,
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": "elem-04",
+              "elementType": "MODALITY",
+              "elementCanonicalMeaning": "CT (Computed Tomography)",
+              "elementStudyRole": "MEASUREMENT",
+              "elementPolarity": "AFFIRMED",
+              "elementInventoryItemIds": [
+                "inv-04"
+              ],
+              "elementSourceMessageId": "SEM-H18:user:1",
+              "elementSourceText": "CT",
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementConfidence": 1,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": false,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "relationPolarity": null,
+              "relationInventoryRelationIds": [],
+              "relationEpistemicStatus": null,
+              "relationConfidence": null,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": null,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            }
+          ],
+          "criticSummary": "The candidate is well-formed overall, but element elem-04 (CT) must be classified as MODALITY rather than METHOD per the operational taxonomy for broad imaging families."
+        },
+        {
+          "criticId": "critic-01",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects (fibrose pulmonaire quantitative, progression, 1 an, CT, mortalité) are fully represented by elements elem-01, elem-02, elem-03, elem-04, and elem-05."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is explicitly mentioned in the source message."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No active intervention is explicitly mentioned in the source message."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The modality 'CT' is fully represented by elem-04."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All four explicit inventory relations are fully and correctly represented by explicit client relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All element types adhere strictly to the operational taxonomy (e.g., CT as MODALITY, fibrose as SCIENTIFIC_OBJECT, progression as OUTCOME, timing as TIMING)."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relations were weakened or transformed into inferences."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No inferences are promoted; all elements are explicitly user-stated."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No ambiguities were hidden."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "The negation on mortality ('mortalité pas concernée') is correctly captured with polarity NEGATED."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "The timing element '1 an' is fully preserved in elem-03."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Mortality is explicitly excluded as an endpoint, and outcome mapping correctly reflects user intent without unauthorized promotions."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Concepts such as quantitative pulmonary fibrosis and CT are preserved at their precise specificity."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No significant source fragments are missing from the semantic representation."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The route DESIGN_STUDY appropriately matches the study setup request containing outcomes, timings, methods, and constraints."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "All components of the candidate inventory and typed elements fully and faithfully capture the user's input with complete alignment across coverage, taxonomy, and integrity checks. The verdict is ACCEPT."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [
+        {
+          "repairId": "rep-01",
+          "status": "ACCEPTED",
+          "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+        }
+      ],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-b103b35de61f7561",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "fibrose pulmonaire quantitative : progression à 1 an avec CT, mortalité pas concernée",
+        "normalizedMeaning": "Evaluation de la progression de la fibrose pulmonaire quantitative à un an par CT, à l'exclusion de la mortalité.",
+        "conversationMessageIds": [
+          "SEM-H18:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-347d55441618a100",
+            "type": "TIMING",
+            "canonicalMeaning": "1 an",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-03"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H18:user:1",
+              "text": "1 an",
+              "start": 48,
+              "end": 52
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-9d0ac8a466dbd240"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H18:user:1",
+              "providerCallId": "gemini-call:ke1-dcaeb2f2b2c5e4ae",
+              "rawElementId": "elem-03"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-8356e1defc1ced1a",
+            "type": "MODALITY",
+            "canonicalMeaning": "CT (Computed Tomography)",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-04"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H18:user:1",
+              "text": "CT",
+              "start": 58,
+              "end": 60
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-8ae51c3bd289f7bf"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H18:user:1",
+              "providerCallId": "gemini-call:ke1-dcaeb2f2b2c5e4ae",
+              "rawElementId": "elem-04"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-90eccaeeae99930a",
+            "type": "ENDPOINT",
+            "canonicalMeaning": "Mortalité",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv-05"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H18:user:1",
+              "text": "mortalité",
+              "start": 62,
+              "end": 71
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-ef1157fde916fcf1"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-f49dce875101f413",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-50d48579a463f43d",
+                "knowledge-gap:ke1-b111adb64ea050da"
+              ],
+              "checkedAt": "2026-08-13T09:49:29.216Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H18:user:1",
+              "providerCallId": "gemini-call:ke1-dcaeb2f2b2c5e4ae",
+              "rawElementId": "elem-05"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-c3754ce9c0b4647d",
+            "type": "OUTCOME",
+            "canonicalMeaning": "Progression de la fibrose",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-02"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H18:user:1",
+              "text": "progression",
+              "start": 34,
+              "end": 45
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-8ae51c3bd289f7bf",
+              "sem-relation:ke1-9d0ac8a466dbd240",
+              "sem-relation:ke1-ef1157fde916fcf1",
+              "sem-relation:ke1-f0a8f57d15dcb119"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H18:user:1",
+              "providerCallId": "gemini-call:ke1-dcaeb2f2b2c5e4ae",
+              "rawElementId": "elem-02"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-c950eec88372ba54",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "Fibrose pulmonaire quantitative",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-01"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H18:user:1",
+              "text": "fibrose pulmonaire quantitative",
+              "start": 0,
+              "end": 31
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-f0a8f57d15dcb119"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H18:user:1",
+              "providerCallId": "gemini-call:ke1-dcaeb2f2b2c5e4ae",
+              "rawElementId": "elem-01"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-8ae51c3bd289f7bf",
+            "sourceElementId": "sem-element:ke1-c3754ce9c0b4647d",
+            "targetElementId": "sem-element:ke1-8356e1defc1ced1a",
+            "relationType": "OBSERVED_BY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-03"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-9d0ac8a466dbd240",
+            "sourceElementId": "sem-element:ke1-c3754ce9c0b4647d",
+            "targetElementId": "sem-element:ke1-347d55441618a100",
+            "relationType": "REPEATED_AT",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-02"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-ef1157fde916fcf1",
+            "sourceElementId": "sem-element:ke1-90eccaeeae99930a",
+            "targetElementId": "sem-element:ke1-c3754ce9c0b4647d",
+            "relationType": "EXCLUDES",
+            "polarity": "NEGATED",
+            "inventoryRelationIds": [
+              "rel-04"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-f0a8f57d15dcb119",
+            "sourceElementId": "sem-element:ke1-c3754ce9c0b4647d",
+            "targetElementId": "sem-element:ke1-c950eec88372ba54",
+            "relationType": "AIMS_TO_MODIFY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-01"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-01",
+              "sourceMessageId": "SEM-H18:user:1",
+              "sourceText": "fibrose pulmonaire quantitative",
+              "normalizedMeaning": "fibrose pulmonaire quantitative",
+              "mappedClientElementIds": [
+                "elem-01"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-02",
+              "sourceMessageId": "SEM-H18:user:1",
+              "sourceText": "progression",
+              "normalizedMeaning": "progression",
+              "mappedClientElementIds": [
+                "elem-02"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-03",
+              "sourceMessageId": "SEM-H18:user:1",
+              "sourceText": "1 an",
+              "normalizedMeaning": "1 an",
+              "mappedClientElementIds": [
+                "elem-03"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-04",
+              "sourceMessageId": "SEM-H18:user:1",
+              "sourceText": "CT",
+              "normalizedMeaning": "CT",
+              "mappedClientElementIds": [
+                "elem-04"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-05",
+              "sourceMessageId": "SEM-H18:user:1",
+              "sourceText": "mortalité",
+              "normalizedMeaning": "mortalité",
+              "mappedClientElementIds": [
+                "elem-05"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-01",
+              "sourceInventoryItemId": "inv-02",
+              "targetInventoryItemId": "inv-01",
+              "normalizedRelation": "AIMS_TO_MODIFY",
+              "mappedClientRelationIds": [
+                "rel-elem-01"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-02",
+              "sourceInventoryItemId": "inv-02",
+              "targetInventoryItemId": "inv-03",
+              "normalizedRelation": "REPEATED_AT",
+              "mappedClientRelationIds": [
+                "rel-elem-02"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-03",
+              "sourceInventoryItemId": "inv-02",
+              "targetInventoryItemId": "inv-04",
+              "normalizedRelation": "OBSERVED_BY",
+              "mappedClientRelationIds": [
+                "rel-elem-03"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-04",
+              "sourceInventoryItemId": "inv-05",
+              "targetInventoryItemId": "inv-02",
+              "normalizedRelation": "EXCLUDES",
+              "mappedClientRelationIds": [
+                "rel-elem-04"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "clarificationCandidates": [],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "The user is setting up elements of a study (subject, outcome, timeline, method, and explicit exclusions).",
+          "expectedCapabilities": [
+            "Method specification",
+            "Study design formulation"
+          ]
+        },
+        "summaryForUser": "Analyse de la progression de la fibrose pulmonaire quantitative à 1 an par CT, sans inclure la mortalité.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "All components of the candidate inventory and typed elements fully and faithfully capture the user's input with complete alignment across coverage, taxonomy, and integrity checks. The verdict is ACCEPT."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+          "criticPromptVersion": "SEM-001-CRITIC-1.6",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-dcaeb2f2b2c5e4ae",
+          "criticCallId": "gemini-call:ke1-1285eeeadd20c87e",
+          "criticCallIds": [
+            "gemini-call:ke1-88898b6378f8328f",
+            "gemini-call:ke1-1285eeeadd20c87e"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:49:13.504Z",
+              "requestFinished": "2026-08-13T09:49:19.746Z",
+              "latencyMs": 6242,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:49:19.749Z",
+              "requestFinished": "2026-08-13T09:49:23.667Z",
+              "latencyMs": 3918,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            },
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:49:25.783Z",
+              "requestFinished": "2026-08-13T09:49:29.211Z",
+              "latencyMs": 3428,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "cand-001",
+            "language": "fr",
+            "normalizedMeaning": "Evaluation de la progression de la fibrose pulmonaire quantitative à un an par CT, à l'exclusion de la mortalité.",
+            "summaryForUser": "Analyse de la progression de la fibrose pulmonaire quantitative à 1 an par CT, sans inclure la mortalité.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "inv-01",
+                  "sourceMessageId": "SEM-H18:user:1",
+                  "sourceText": "fibrose pulmonaire quantitative",
+                  "normalizedLabel": "fibrose pulmonaire quantitative",
+                  "localRole": "target",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [
+                    "quantitative"
+                  ],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-02",
+                  "sourceMessageId": "SEM-H18:user:1",
+                  "sourceText": "progression",
+                  "normalizedLabel": "progression",
+                  "localRole": "outcome",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-01"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-03",
+                  "sourceMessageId": "SEM-H18:user:1",
+                  "sourceText": "1 an",
+                  "normalizedLabel": "1 an",
+                  "localRole": "timing",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-02"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-04",
+                  "sourceMessageId": "SEM-H18:user:1",
+                  "sourceText": "CT",
+                  "normalizedLabel": "CT",
+                  "localRole": "method",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-02"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-05",
+                  "sourceMessageId": "SEM-H18:user:1",
+                  "sourceText": "mortalité",
+                  "normalizedLabel": "mortalité",
+                  "localRole": "excluded endpoint",
+                  "polarity": "NEGATED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel-01",
+                  "sourceInventoryItemId": "inv-02",
+                  "targetInventoryItemId": "inv-01",
+                  "sourceMessageId": "SEM-H18:user:1",
+                  "sourceText": "fibrose pulmonaire quantitative : progression",
+                  "normalizedRelation": "AIMS_TO_MODIFY",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-02",
+                  "sourceInventoryItemId": "inv-02",
+                  "targetInventoryItemId": "inv-03",
+                  "sourceMessageId": "SEM-H18:user:1",
+                  "sourceText": "progression à 1 an",
+                  "normalizedRelation": "REPEATED_AT",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-03",
+                  "sourceInventoryItemId": "inv-02",
+                  "targetInventoryItemId": "inv-04",
+                  "sourceMessageId": "SEM-H18:user:1",
+                  "sourceText": "progression à 1 an avec CT",
+                  "normalizedRelation": "OBSERVED_BY",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-04",
+                  "sourceInventoryItemId": "inv-05",
+                  "targetInventoryItemId": "inv-02",
+                  "sourceMessageId": "SEM-H18:user:1",
+                  "sourceText": "mortalité pas concernée",
+                  "normalizedRelation": "EXCLUDES",
+                  "polarity": "NEGATED"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem-01",
+                "type": "SCIENTIFIC_OBJECT",
+                "canonicalMeaning": "Fibrose pulmonaire quantitative",
+                "studyRole": "SUBJECT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-01"
+                ],
+                "sourceMessageId": "SEM-H18:user:1",
+                "sourceText": "fibrose pulmonaire quantitative",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-02",
+                "type": "OUTCOME",
+                "canonicalMeaning": "Progression de la fibrose",
+                "studyRole": "OUTCOME_ROLE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-02"
+                ],
+                "sourceMessageId": "SEM-H18:user:1",
+                "sourceText": "progression",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-03",
+                "type": "TIMING",
+                "canonicalMeaning": "1 an",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-03"
+                ],
+                "sourceMessageId": "SEM-H18:user:1",
+                "sourceText": "1 an",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-05",
+                "type": "ENDPOINT",
+                "canonicalMeaning": "Mortalité",
+                "studyRole": "OUTCOME_ROLE",
+                "polarity": "NEGATED",
+                "inventoryItemIds": [
+                  "inv-05"
+                ],
+                "sourceMessageId": "SEM-H18:user:1",
+                "sourceText": "mortalité",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-04",
+                "type": "MODALITY",
+                "canonicalMeaning": "CT (Computed Tomography)",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-04"
+                ],
+                "sourceMessageId": "SEM-H18:user:1",
+                "sourceText": "CT",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel-elem-01",
+                "sourceClientElementId": "elem-02",
+                "targetClientElementId": "elem-01",
+                "relationType": "AIMS_TO_MODIFY",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-01"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-elem-02",
+                "sourceClientElementId": "elem-02",
+                "targetClientElementId": "elem-03",
+                "relationType": "REPEATED_AT",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-02"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-elem-03",
+                "sourceClientElementId": "elem-02",
+                "targetClientElementId": "elem-04",
+                "relationType": "OBSERVED_BY",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-03"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-elem-04",
+                "sourceClientElementId": "elem-05",
+                "targetClientElementId": "elem-02",
+                "relationType": "EXCLUDES",
+                "polarity": "NEGATED",
+                "inventoryRelationIds": [
+                  "rel-04"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              }
+            ],
+            "missingConcepts": [],
+            "ellipses": [],
+            "ambiguities": [],
+            "unknowns": [],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [],
+            "routeProposal": {
+              "route": "DESIGN_STUDY",
+              "confidence": 0.9,
+              "reason": "The user is setting up elements of a study (subject, outcome, timeline, method, and explicit exclusions).",
+              "expectedCapabilities": [
+                "Study design formulation",
+                "Method specification"
+              ]
+            },
+            "semanticWarnings": []
+          },
+          "rawCritic": {
+            "criticId": "critic-01",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit objects (fibrose pulmonaire quantitative, progression, 1 an, CT, mortalité) are fully represented by elements elem-01, elem-02, elem-03, elem-04, and elem-05."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No comparator is explicitly mentioned in the source message."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No active intervention is explicitly mentioned in the source message."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "PASS",
+                "evidence": "The modality 'CT' is fully represented by elem-04."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All four explicit inventory relations are fully and correctly represented by explicit client relations."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "All element types adhere strictly to the operational taxonomy (e.g., CT as MODALITY, fibrose as SCIENTIFIC_OBJECT, progression as OUTCOME, timing as TIMING)."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "No explicit relations were weakened or transformed into inferences."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No inferences are promoted; all elements are explicitly user-stated."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "No ambiguities were hidden."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "The negation on mortality ('mortalité pas concernée') is correctly captured with polarity NEGATED."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "PASS",
+                "evidence": "The timing element '1 an' is fully preserved in elem-03."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "Mortality is explicitly excluded as an endpoint, and outcome mapping correctly reflects user intent without unauthorized promotions."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Concepts such as quantitative pulmonary fibrosis and CT are preserved at their precise specificity."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "No significant source fragments are missing from the semantic representation."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "The route DESIGN_STUDY appropriately matches the study setup request containing outcomes, timings, methods, and constraints."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "All components of the candidate inventory and typed elements fully and faithfully capture the user's input with complete alignment across coverage, taxonomy, and integrity checks. The verdict is ACCEPT."
+          },
+          "rawCritics": [
+            {
+              "criticId": "critic-01",
+              "verdict": "REVISE",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit objects are represented."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No comparator present."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No intervention present."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "FAIL",
+                  "evidence": "CT is classified as METHOD instead of MODALITY."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit relations represented."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "FAIL",
+                  "evidence": "elem-04 (CT) is typed as METHOD instead of MODALITY per taxonomy report."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "No explicit relations weakened."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No inferences promoted."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "No ambiguities hidden."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "Negation preserved correctly."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "PASS",
+                  "evidence": "Timing preserved correctly."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "No unsupported outcome promotion."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "No specific concepts generalized."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "No fragments unrepresented."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "Route DESIGN_STUDY matches."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [
+                {
+                  "code": "TYPE_MISMATCH",
+                  "severity": "CRITICAL",
+                  "elementClientIds": [
+                    "elem-04"
+                  ],
+                  "description": "CT is classified as METHOD instead of MODALITY.",
+                  "recommendedAction": "Upsert element-04 with type MODALITY.",
+                  "resolved": false
+                }
+              ],
+              "proposedRepairs": [
+                {
+                  "repairId": "rep-01",
+                  "action": "UPSERT_ELEMENT",
+                  "reason": "Correct element-04 type from METHOD to MODALITY per taxonomy finding.",
+                  "sourceInventoryItemIds": [
+                    "inv-04"
+                  ],
+                  "sourceInventoryRelationIds": [],
+                  "inventoryItemId": null,
+                  "inventorySourceMessageId": null,
+                  "inventorySourceText": null,
+                  "inventoryNormalizedLabel": null,
+                  "inventoryLocalRole": null,
+                  "inventoryPolarity": null,
+                  "inventoryModifiers": [],
+                  "inventoryLinkedItemIds": [],
+                  "inventoryRelationId": null,
+                  "inventoryRelationSourceItemId": null,
+                  "inventoryRelationTargetItemId": null,
+                  "inventoryRelationSourceMessageId": null,
+                  "inventoryRelationSourceText": null,
+                  "inventoryNormalizedRelation": null,
+                  "inventoryRelationPolarity": null,
+                  "elementClientElementId": "elem-04",
+                  "elementType": "MODALITY",
+                  "elementCanonicalMeaning": "CT (Computed Tomography)",
+                  "elementStudyRole": "MEASUREMENT",
+                  "elementPolarity": "AFFIRMED",
+                  "elementInventoryItemIds": [
+                    "inv-04"
+                  ],
+                  "elementSourceMessageId": "SEM-H18:user:1",
+                  "elementSourceText": "CT",
+                  "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+                  "elementConfidence": 1,
+                  "elementInferenceReason": null,
+                  "elementRequiresConfirmation": false,
+                  "elementSupersedesElementIds": [],
+                  "relationClientRelationId": null,
+                  "relationSourceClientElementId": null,
+                  "relationTargetClientElementId": null,
+                  "relationType": null,
+                  "relationPolarity": null,
+                  "relationInventoryRelationIds": [],
+                  "relationEpistemicStatus": null,
+                  "relationConfidence": null,
+                  "relationInferenceReason": null,
+                  "relationRequiresConfirmation": null,
+                  "ambiguity": null,
+                  "route": null,
+                  "routeConfidence": null,
+                  "routeReason": null,
+                  "routeExpectedCapabilities": []
+                }
+              ],
+              "criticSummary": "The candidate is well-formed overall, but element elem-04 (CT) must be classified as MODALITY rather than METHOD per the operational taxonomy for broad imaging families."
+            },
+            {
+              "criticId": "critic-01",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit objects (fibrose pulmonaire quantitative, progression, 1 an, CT, mortalité) are fully represented by elements elem-01, elem-02, elem-03, elem-04, and elem-05."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No comparator is explicitly mentioned in the source message."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No active intervention is explicitly mentioned in the source message."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The modality 'CT' is fully represented by elem-04."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All four explicit inventory relations are fully and correctly represented by explicit client relations."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "All element types adhere strictly to the operational taxonomy (e.g., CT as MODALITY, fibrose as SCIENTIFIC_OBJECT, progression as OUTCOME, timing as TIMING)."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "No explicit relations were weakened or transformed into inferences."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No inferences are promoted; all elements are explicitly user-stated."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "No ambiguities were hidden."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "The negation on mortality ('mortalité pas concernée') is correctly captured with polarity NEGATED."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "PASS",
+                  "evidence": "The timing element '1 an' is fully preserved in elem-03."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "Mortality is explicitly excluded as an endpoint, and outcome mapping correctly reflects user intent without unauthorized promotions."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Concepts such as quantitative pulmonary fibrosis and CT are preserved at their precise specificity."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "No significant source fragments are missing from the semantic representation."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "The route DESIGN_STUDY appropriately matches the study setup request containing outcomes, timings, methods, and constraints."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "All components of the candidate inventory and typed elements fully and faithfully capture the user's input with complete alignment across coverage, taxonomy, and integrity checks. The verdict is ACCEPT."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-13T09:49:29.213Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-f49dce875101f413",
+          "resultDigest": "ke1-f49dce875101f413",
+          "coverageStatus": "NO_PROVIDER",
+          "verifiedAt": "2026-08-13T09:49:29.216Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-13T09:49:29.213Z",
+        "updatedAt": "2026-08-13T09:49:29.216Z",
+        "digest": "ke1-2fcab3925780f566"
+      },
+      "canonicalModelDigest": "ke1-2fcab3925780f566",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-f49dce875101f413",
+        "resultDigest": "ke1-f49dce875101f413",
+        "coverageStatus": "NO_PROVIDER",
+        "verifiedAt": "2026-08-13T09:49:29.216Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-dcaeb2f2b2c5e4ae",
+      "structuredDigest": "ke1-887e422e1bd1a8f2",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:49:13.504Z",
+          "requestFinished": "2026-08-13T09:49:19.746Z",
+          "latencyMs": 6242,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-88898b6378f8328f",
+      "structuredDigest": "ke1-aa5717613b7427fd",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:49:19.749Z",
+          "requestFinished": "2026-08-13T09:49:23.667Z",
+          "latencyMs": 3918,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 2,
+      "callId": "gemini-call:ke1-1285eeeadd20c87e",
+      "structuredDigest": "ke1-77a0c5119fe3f95d",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:49:25.783Z",
+          "requestFinished": "2026-08-13T09:49:29.211Z",
+          "latencyMs": 3428,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-b103b35de61f7561",
+    "revision": 1,
+    "status": "CANDIDATE",
+    "originalRequest": "fibrose pulmonaire quantitative : progression à 1 an avec CT, mortalité pas concernée",
+    "normalizedMeaning": "Evaluation de la progression de la fibrose pulmonaire quantitative à un an par CT, à l'exclusion de la mortalité.",
+    "conversationMessageIds": [
+      "SEM-H18:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-347d55441618a100",
+        "type": "TIMING",
+        "canonicalMeaning": "1 an",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-03"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H18:user:1",
+          "text": "1 an",
+          "start": 48,
+          "end": 52
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-9d0ac8a466dbd240"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H18:user:1",
+          "providerCallId": "gemini-call:ke1-dcaeb2f2b2c5e4ae",
+          "rawElementId": "elem-03"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-8356e1defc1ced1a",
+        "type": "MODALITY",
+        "canonicalMeaning": "CT (Computed Tomography)",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-04"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H18:user:1",
+          "text": "CT",
+          "start": 58,
+          "end": 60
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-8ae51c3bd289f7bf"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H18:user:1",
+          "providerCallId": "gemini-call:ke1-dcaeb2f2b2c5e4ae",
+          "rawElementId": "elem-04"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-90eccaeeae99930a",
+        "type": "ENDPOINT",
+        "canonicalMeaning": "Mortalité",
+        "studyRole": "OUTCOME_ROLE",
+        "polarity": "NEGATED",
+        "inventoryItemIds": [
+          "inv-05"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H18:user:1",
+          "text": "mortalité",
+          "start": 62,
+          "end": 71
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-ef1157fde916fcf1"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-f49dce875101f413",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-50d48579a463f43d",
+            "knowledge-gap:ke1-b111adb64ea050da"
+          ],
+          "checkedAt": "2026-08-13T09:49:29.216Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H18:user:1",
+          "providerCallId": "gemini-call:ke1-dcaeb2f2b2c5e4ae",
+          "rawElementId": "elem-05"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-c3754ce9c0b4647d",
+        "type": "OUTCOME",
+        "canonicalMeaning": "Progression de la fibrose",
+        "studyRole": "OUTCOME_ROLE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-02"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H18:user:1",
+          "text": "progression",
+          "start": 34,
+          "end": 45
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-8ae51c3bd289f7bf",
+          "sem-relation:ke1-9d0ac8a466dbd240",
+          "sem-relation:ke1-ef1157fde916fcf1",
+          "sem-relation:ke1-f0a8f57d15dcb119"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H18:user:1",
+          "providerCallId": "gemini-call:ke1-dcaeb2f2b2c5e4ae",
+          "rawElementId": "elem-02"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-c950eec88372ba54",
+        "type": "SCIENTIFIC_OBJECT",
+        "canonicalMeaning": "Fibrose pulmonaire quantitative",
+        "studyRole": "SUBJECT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-01"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H18:user:1",
+          "text": "fibrose pulmonaire quantitative",
+          "start": 0,
+          "end": 31
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-f0a8f57d15dcb119"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H18:user:1",
+          "providerCallId": "gemini-call:ke1-dcaeb2f2b2c5e4ae",
+          "rawElementId": "elem-01"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-8ae51c3bd289f7bf",
+        "sourceElementId": "sem-element:ke1-c3754ce9c0b4647d",
+        "targetElementId": "sem-element:ke1-8356e1defc1ced1a",
+        "relationType": "OBSERVED_BY",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-03"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-9d0ac8a466dbd240",
+        "sourceElementId": "sem-element:ke1-c3754ce9c0b4647d",
+        "targetElementId": "sem-element:ke1-347d55441618a100",
+        "relationType": "REPEATED_AT",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-02"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-ef1157fde916fcf1",
+        "sourceElementId": "sem-element:ke1-90eccaeeae99930a",
+        "targetElementId": "sem-element:ke1-c3754ce9c0b4647d",
+        "relationType": "EXCLUDES",
+        "polarity": "NEGATED",
+        "inventoryRelationIds": [
+          "rel-04"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-f0a8f57d15dcb119",
+        "sourceElementId": "sem-element:ke1-c3754ce9c0b4647d",
+        "targetElementId": "sem-element:ke1-c950eec88372ba54",
+        "relationType": "AIMS_TO_MODIFY",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-01"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-01",
+          "sourceMessageId": "SEM-H18:user:1",
+          "sourceText": "fibrose pulmonaire quantitative",
+          "normalizedMeaning": "fibrose pulmonaire quantitative",
+          "mappedClientElementIds": [
+            "elem-01"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-02",
+          "sourceMessageId": "SEM-H18:user:1",
+          "sourceText": "progression",
+          "normalizedMeaning": "progression",
+          "mappedClientElementIds": [
+            "elem-02"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-03",
+          "sourceMessageId": "SEM-H18:user:1",
+          "sourceText": "1 an",
+          "normalizedMeaning": "1 an",
+          "mappedClientElementIds": [
+            "elem-03"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-04",
+          "sourceMessageId": "SEM-H18:user:1",
+          "sourceText": "CT",
+          "normalizedMeaning": "CT",
+          "mappedClientElementIds": [
+            "elem-04"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-05",
+          "sourceMessageId": "SEM-H18:user:1",
+          "sourceText": "mortalité",
+          "normalizedMeaning": "mortalité",
+          "mappedClientElementIds": [
+            "elem-05"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-01",
+          "sourceInventoryItemId": "inv-02",
+          "targetInventoryItemId": "inv-01",
+          "normalizedRelation": "AIMS_TO_MODIFY",
+          "mappedClientRelationIds": [
+            "rel-elem-01"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-02",
+          "sourceInventoryItemId": "inv-02",
+          "targetInventoryItemId": "inv-03",
+          "normalizedRelation": "REPEATED_AT",
+          "mappedClientRelationIds": [
+            "rel-elem-02"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-03",
+          "sourceInventoryItemId": "inv-02",
+          "targetInventoryItemId": "inv-04",
+          "normalizedRelation": "OBSERVED_BY",
+          "mappedClientRelationIds": [
+            "rel-elem-03"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-04",
+          "sourceInventoryItemId": "inv-05",
+          "targetInventoryItemId": "inv-02",
+          "normalizedRelation": "EXCLUDES",
+          "mappedClientRelationIds": [
+            "rel-elem-04"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "missingConcepts": [],
+    "ellipses": [],
+    "ambiguities": [],
+    "unknowns": [],
+    "contradictions": [],
+    "clarificationCandidates": [],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "DESIGN_STUDY",
+      "confidence": 0.9,
+      "reason": "The user is setting up elements of a study (subject, outcome, timeline, method, and explicit exclusions).",
+      "expectedCapabilities": [
+        "Method specification",
+        "Study design formulation"
+      ]
+    },
+    "summaryForUser": "Analyse de la progression de la fibrose pulmonaire quantitative à 1 an par CT, sans inclure la mortalité.",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "All components of the candidate inventory and typed elements fully and faithfully capture the user's input with complete alignment across coverage, taxonomy, and integrity checks. The verdict is ACCEPT."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-dcaeb2f2b2c5e4ae",
+      "criticCallId": "gemini-call:ke1-1285eeeadd20c87e",
+      "criticCallIds": [
+        "gemini-call:ke1-88898b6378f8328f",
+        "gemini-call:ke1-1285eeeadd20c87e"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:49:13.504Z",
+          "requestFinished": "2026-08-13T09:49:19.746Z",
+          "latencyMs": 6242,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:49:19.749Z",
+          "requestFinished": "2026-08-13T09:49:23.667Z",
+          "latencyMs": 3918,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:49:25.783Z",
+          "requestFinished": "2026-08-13T09:49:29.211Z",
+          "latencyMs": 3428,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Evaluation de la progression de la fibrose pulmonaire quantitative à un an par CT, à l'exclusion de la mortalité.",
+        "summaryForUser": "Analyse de la progression de la fibrose pulmonaire quantitative à 1 an par CT, sans inclure la mortalité.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-01",
+              "sourceMessageId": "SEM-H18:user:1",
+              "sourceText": "fibrose pulmonaire quantitative",
+              "normalizedLabel": "fibrose pulmonaire quantitative",
+              "localRole": "target",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "quantitative"
+              ],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-02",
+              "sourceMessageId": "SEM-H18:user:1",
+              "sourceText": "progression",
+              "normalizedLabel": "progression",
+              "localRole": "outcome",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-01"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-03",
+              "sourceMessageId": "SEM-H18:user:1",
+              "sourceText": "1 an",
+              "normalizedLabel": "1 an",
+              "localRole": "timing",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-02"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-04",
+              "sourceMessageId": "SEM-H18:user:1",
+              "sourceText": "CT",
+              "normalizedLabel": "CT",
+              "localRole": "method",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-02"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-05",
+              "sourceMessageId": "SEM-H18:user:1",
+              "sourceText": "mortalité",
+              "normalizedLabel": "mortalité",
+              "localRole": "excluded endpoint",
+              "polarity": "NEGATED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-01",
+              "sourceInventoryItemId": "inv-02",
+              "targetInventoryItemId": "inv-01",
+              "sourceMessageId": "SEM-H18:user:1",
+              "sourceText": "fibrose pulmonaire quantitative : progression",
+              "normalizedRelation": "AIMS_TO_MODIFY",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-02",
+              "sourceInventoryItemId": "inv-02",
+              "targetInventoryItemId": "inv-03",
+              "sourceMessageId": "SEM-H18:user:1",
+              "sourceText": "progression à 1 an",
+              "normalizedRelation": "REPEATED_AT",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-03",
+              "sourceInventoryItemId": "inv-02",
+              "targetInventoryItemId": "inv-04",
+              "sourceMessageId": "SEM-H18:user:1",
+              "sourceText": "progression à 1 an avec CT",
+              "normalizedRelation": "OBSERVED_BY",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-04",
+              "sourceInventoryItemId": "inv-05",
+              "targetInventoryItemId": "inv-02",
+              "sourceMessageId": "SEM-H18:user:1",
+              "sourceText": "mortalité pas concernée",
+              "normalizedRelation": "EXCLUDES",
+              "polarity": "NEGATED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-01",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "Fibrose pulmonaire quantitative",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-01"
+            ],
+            "sourceMessageId": "SEM-H18:user:1",
+            "sourceText": "fibrose pulmonaire quantitative",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-02",
+            "type": "OUTCOME",
+            "canonicalMeaning": "Progression de la fibrose",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-02"
+            ],
+            "sourceMessageId": "SEM-H18:user:1",
+            "sourceText": "progression",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-03",
+            "type": "TIMING",
+            "canonicalMeaning": "1 an",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-03"
+            ],
+            "sourceMessageId": "SEM-H18:user:1",
+            "sourceText": "1 an",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-05",
+            "type": "ENDPOINT",
+            "canonicalMeaning": "Mortalité",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv-05"
+            ],
+            "sourceMessageId": "SEM-H18:user:1",
+            "sourceText": "mortalité",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-04",
+            "type": "MODALITY",
+            "canonicalMeaning": "CT (Computed Tomography)",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-04"
+            ],
+            "sourceMessageId": "SEM-H18:user:1",
+            "sourceText": "CT",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-elem-01",
+            "sourceClientElementId": "elem-02",
+            "targetClientElementId": "elem-01",
+            "relationType": "AIMS_TO_MODIFY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-01"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-02",
+            "sourceClientElementId": "elem-02",
+            "targetClientElementId": "elem-03",
+            "relationType": "REPEATED_AT",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-02"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-03",
+            "sourceClientElementId": "elem-02",
+            "targetClientElementId": "elem-04",
+            "relationType": "OBSERVED_BY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-03"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-04",
+            "sourceClientElementId": "elem-05",
+            "targetClientElementId": "elem-02",
+            "relationType": "EXCLUDES",
+            "polarity": "NEGATED",
+            "inventoryRelationIds": [
+              "rel-04"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "The user is setting up elements of a study (subject, outcome, timeline, method, and explicit exclusions).",
+          "expectedCapabilities": [
+            "Study design formulation",
+            "Method specification"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "rawCritic": {
+        "criticId": "critic-01",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit objects (fibrose pulmonaire quantitative, progression, 1 an, CT, mortalité) are fully represented by elements elem-01, elem-02, elem-03, elem-04, and elem-05."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No comparator is explicitly mentioned in the source message."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No active intervention is explicitly mentioned in the source message."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "PASS",
+            "evidence": "The modality 'CT' is fully represented by elem-04."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All four explicit inventory relations are fully and correctly represented by explicit client relations."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "All element types adhere strictly to the operational taxonomy (e.g., CT as MODALITY, fibrose as SCIENTIFIC_OBJECT, progression as OUTCOME, timing as TIMING)."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "No explicit relations were weakened or transformed into inferences."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No inferences are promoted; all elements are explicitly user-stated."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "No ambiguities were hidden."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "The negation on mortality ('mortalité pas concernée') is correctly captured with polarity NEGATED."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "PASS",
+            "evidence": "The timing element '1 an' is fully preserved in elem-03."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "Mortality is explicitly excluded as an endpoint, and outcome mapping correctly reflects user intent without unauthorized promotions."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Concepts such as quantitative pulmonary fibrosis and CT are preserved at their precise specificity."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "No significant source fragments are missing from the semantic representation."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "The route DESIGN_STUDY appropriately matches the study setup request containing outcomes, timings, methods, and constraints."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "All components of the candidate inventory and typed elements fully and faithfully capture the user's input with complete alignment across coverage, taxonomy, and integrity checks. The verdict is ACCEPT."
+      },
+      "rawCritics": [
+        {
+          "criticId": "critic-01",
+          "verdict": "REVISE",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects are represented."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator present."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No intervention present."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "FAIL",
+              "evidence": "CT is classified as METHOD instead of MODALITY."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit relations represented."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "FAIL",
+              "evidence": "elem-04 (CT) is typed as METHOD instead of MODALITY per taxonomy report."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relations weakened."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No inferences promoted."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No ambiguities hidden."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Negation preserved correctly."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Timing preserved correctly."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No unsupported outcome promotion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "No specific concepts generalized."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No fragments unrepresented."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY matches."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [
+            {
+              "code": "TYPE_MISMATCH",
+              "severity": "CRITICAL",
+              "elementClientIds": [
+                "elem-04"
+              ],
+              "description": "CT is classified as METHOD instead of MODALITY.",
+              "recommendedAction": "Upsert element-04 with type MODALITY.",
+              "resolved": false
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "repairId": "rep-01",
+              "action": "UPSERT_ELEMENT",
+              "reason": "Correct element-04 type from METHOD to MODALITY per taxonomy finding.",
+              "sourceInventoryItemIds": [
+                "inv-04"
+              ],
+              "sourceInventoryRelationIds": [],
+              "inventoryItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "inventoryNormalizedLabel": null,
+              "inventoryLocalRole": null,
+              "inventoryPolarity": null,
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": "elem-04",
+              "elementType": "MODALITY",
+              "elementCanonicalMeaning": "CT (Computed Tomography)",
+              "elementStudyRole": "MEASUREMENT",
+              "elementPolarity": "AFFIRMED",
+              "elementInventoryItemIds": [
+                "inv-04"
+              ],
+              "elementSourceMessageId": "SEM-H18:user:1",
+              "elementSourceText": "CT",
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementConfidence": 1,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": false,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "relationPolarity": null,
+              "relationInventoryRelationIds": [],
+              "relationEpistemicStatus": null,
+              "relationConfidence": null,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": null,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            }
+          ],
+          "criticSummary": "The candidate is well-formed overall, but element elem-04 (CT) must be classified as MODALITY rather than METHOD per the operational taxonomy for broad imaging families."
+        },
+        {
+          "criticId": "critic-01",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects (fibrose pulmonaire quantitative, progression, 1 an, CT, mortalité) are fully represented by elements elem-01, elem-02, elem-03, elem-04, and elem-05."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is explicitly mentioned in the source message."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No active intervention is explicitly mentioned in the source message."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The modality 'CT' is fully represented by elem-04."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All four explicit inventory relations are fully and correctly represented by explicit client relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All element types adhere strictly to the operational taxonomy (e.g., CT as MODALITY, fibrose as SCIENTIFIC_OBJECT, progression as OUTCOME, timing as TIMING)."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relations were weakened or transformed into inferences."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No inferences are promoted; all elements are explicitly user-stated."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No ambiguities were hidden."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "The negation on mortality ('mortalité pas concernée') is correctly captured with polarity NEGATED."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "The timing element '1 an' is fully preserved in elem-03."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Mortality is explicitly excluded as an endpoint, and outcome mapping correctly reflects user intent without unauthorized promotions."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Concepts such as quantitative pulmonary fibrosis and CT are preserved at their precise specificity."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No significant source fragments are missing from the semantic representation."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The route DESIGN_STUDY appropriately matches the study setup request containing outcomes, timings, methods, and constraints."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "All components of the candidate inventory and typed elements fully and faithfully capture the user's input with complete alignment across coverage, taxonomy, and integrity checks. The verdict is ACCEPT."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-13T09:49:29.213Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-f49dce875101f413",
+      "resultDigest": "ke1-f49dce875101f413",
+      "coverageStatus": "NO_PROVIDER",
+      "verifiedAt": "2026-08-13T09:49:29.216Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-13T09:49:29.213Z",
+    "updatedAt": "2026-08-13T09:49:29.216Z",
+    "digest": "ke1-2fcab3925780f566"
+  },
+  "semanticModelDigest": "ke1-2fcab3925780f566",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-01",
+          "sourceMessageId": "SEM-H18:user:1",
+          "sourceText": "fibrose pulmonaire quantitative",
+          "normalizedMeaning": "fibrose pulmonaire quantitative",
+          "mappedClientElementIds": [
+            "elem-01"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-02",
+          "sourceMessageId": "SEM-H18:user:1",
+          "sourceText": "progression",
+          "normalizedMeaning": "progression",
+          "mappedClientElementIds": [
+            "elem-02"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-03",
+          "sourceMessageId": "SEM-H18:user:1",
+          "sourceText": "1 an",
+          "normalizedMeaning": "1 an",
+          "mappedClientElementIds": [
+            "elem-03"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-04",
+          "sourceMessageId": "SEM-H18:user:1",
+          "sourceText": "CT",
+          "normalizedMeaning": "CT",
+          "mappedClientElementIds": [
+            "elem-04"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-05",
+          "sourceMessageId": "SEM-H18:user:1",
+          "sourceText": "mortalité",
+          "normalizedMeaning": "mortalité",
+          "mappedClientElementIds": [
+            "elem-05"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-01",
+          "sourceInventoryItemId": "inv-02",
+          "targetInventoryItemId": "inv-01",
+          "normalizedRelation": "AIMS_TO_MODIFY",
+          "mappedClientRelationIds": [
+            "rel-elem-01"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-02",
+          "sourceInventoryItemId": "inv-02",
+          "targetInventoryItemId": "inv-03",
+          "normalizedRelation": "REPEATED_AT",
+          "mappedClientRelationIds": [
+            "rel-elem-02"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-03",
+          "sourceInventoryItemId": "inv-02",
+          "targetInventoryItemId": "inv-04",
+          "normalizedRelation": "OBSERVED_BY",
+          "mappedClientRelationIds": [
+            "rel-elem-03"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-04",
+          "sourceInventoryItemId": "inv-05",
+          "targetInventoryItemId": "inv-02",
+          "normalizedRelation": "EXCLUDES",
+          "mappedClientRelationIds": [
+            "rel-elem-04"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-8066258bdfcc6c77",
+    "evaluatedAt": "2026-08-13T09:49:29.218Z",
+    "goldFrameDigest": "ke1-7ff99fe798fd20bb",
+    "result": {
+      "caseId": "SEM-H18",
+      "explicitObjectRecall": 0.75,
+      "explicitRelationRecall": 0,
+      "criticalSemanticRecall": 0.6,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 1,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": [
+        "EXPLICIT_CONSTRAINT_LOST:mortalité exclue",
+        "RELATION_LOST:fibrose pulmonaire quantitative->CT"
+      ]
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H18",
+    "explicitObjectRecall": 0.75,
+    "explicitRelationRecall": 0,
+    "criticalSemanticRecall": 0.6,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 1,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": [
+      "EXPLICIT_CONSTRAINT_LOST:mortalité exclue",
+      "RELATION_LOST:fibrose pulmonaire quantitative->CT"
+    ]
+  },
+  "error": null
+}

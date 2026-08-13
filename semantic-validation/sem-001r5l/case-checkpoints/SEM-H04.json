@@ -1,0 +1,111 @@
+{
+  "campaign": "SEM-001R5L-CLOSURE",
+  "campaignId": "sem-001r5l-closure-2026-08-13T09-09-28-906Z-ke1-391a23dcb99dc470",
+  "caseId": "SEM-H04",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-391a23dcb99dc470",
+  "semanticConfigurationDigest": "ke1-410eaaec72fd1768",
+  "goldFrameDigest": "ke1-c09e5fea6587acc6",
+  "originalRequest": [
+    "Comparer DWI whole-body et PET PSMA pour repérer les métastases, pas pour mesurer la réponse."
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "FAILED",
+  "startedAt": "2026-08-13T09:11:04.964Z",
+  "completedAt": "2026-08-13T09:12:02.274Z",
+  "turns": [],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-035e28d13cf59cb5",
+      "structuredDigest": "ke1-8a90e1a1549b40ad",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:11:04.965Z",
+          "requestFinished": "2026-08-13T09:11:11.874Z",
+          "latencyMs": 6909,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-0477125c4cec08e0",
+      "structuredDigest": "ke1-0a0147c3ca1815b7",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:11:11.880Z",
+          "requestFinished": "2026-08-13T09:11:16.445Z",
+          "latencyMs": 4565,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_MAX_CYCLES_EXHAUSTED"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 2,
+      "callId": "gemini-call:ke1-f5174edc10967bc8",
+      "structuredDigest": "ke1-f677e78b637b2427",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:11:52.127Z",
+          "requestFinished": "2026-08-13T09:11:57.692Z",
+          "latencyMs": 5565,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:11:57.695Z",
+          "requestFinished": "2026-08-13T09:12:02.268Z",
+          "latencyMs": 4573,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_MAX_CYCLES_EXHAUSTED"
+    }
+  ],
+  "semanticModel": null,
+  "semanticModelDigest": null,
+  "coverageReports": null,
+  "evaluation": null,
+  "metric": null,
+  "error": {
+    "category": "SEMANTIC_PIPELINE_FAILURE",
+    "failureClass": "CRITIC_FAILURE",
+    "message": "SEM001R4_CRITIC_NOT_ACCEPTED:CRITIC_MAX_CYCLES_EXHAUSTED"
+  }
+}

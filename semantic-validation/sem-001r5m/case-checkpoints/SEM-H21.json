@@ -1,0 +1,98 @@
+{
+  "campaign": "SEM-001R5M-CLOSURE",
+  "campaignId": "sem-001r5m-closure-2026-08-13T09-40-35-104Z-ke1-ac75ad8a4d6f2326",
+  "caseId": "SEM-H21",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-ac75ad8a4d6f2326",
+  "semanticConfigurationDigest": "ke1-2d65467f810363ab",
+  "goldFrameDigest": "ke1-7688175b4fb23007",
+  "originalRequest": [
+    "Fusionner échographie de contraste et CT, non pour les comparer mais pour localiser la même lésion."
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "FAILED",
+  "startedAt": "2026-08-13T09:50:29.939Z",
+  "completedAt": "2026-08-13T09:51:20.232Z",
+  "turns": [],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-1751e778e6a5b9bc",
+      "structuredDigest": "ke1-f946e1cc6c4ecf08",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:50:31.411Z",
+          "requestFinished": "2026-08-13T09:50:38.386Z",
+          "latencyMs": 6975,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-84cdf21cc0b910c0",
+      "structuredDigest": "ke1-6a727c9b51470147",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:51:06.527Z",
+          "requestFinished": "2026-08-13T09:51:15.003Z",
+          "latencyMs": 8476,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_MAX_CYCLES_EXHAUSTED"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 2,
+      "callId": "gemini-call:ke1-0d0290fc036d06c8",
+      "structuredDigest": "ke1-b2af82cdf2dcb841",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:51:15.011Z",
+          "requestFinished": "2026-08-13T09:51:20.226Z",
+          "latencyMs": 5215,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_MAX_CYCLES_EXHAUSTED"
+    }
+  ],
+  "semanticModel": null,
+  "semanticModelDigest": null,
+  "coverageReports": null,
+  "evaluation": null,
+  "metric": null,
+  "error": {
+    "category": "SEMANTIC_PIPELINE_FAILURE",
+    "failureClass": "CRITIC_FAILURE",
+    "message": "SEM001R4_CRITIC_NOT_ACCEPTED:CRITIC_MAX_CYCLES_EXHAUSTED"
+  }
+}

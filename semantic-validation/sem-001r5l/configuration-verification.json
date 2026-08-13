@@ -1,6 +1,6 @@
 {
   "campaign": "SEM-001R5L",
-  "verifiedAt": "2026-08-13T08:57:30.501Z",
+  "verifiedAt": "2026-08-13T09:36:49.210Z",
   "configurationName": "SEM_LEGACY_R5L",
   "expectedConfigurationName": "SEM_LEGACY_R5L",
   "expectedConfigurationDigest": "ke1-391a23dcb99dc470",
@@ -61,8 +61,8 @@
     {
       "owner": "providerContract",
       "expected": "ke1-c8809b849e97bf60",
-      "observed": "ke1-c8809b849e97bf60",
-      "pass": true
+      "observed": "ke1-cdbd96350b88c6a1",
+      "pass": false
     },
     {
       "owner": "auditProviderSchema",
@@ -91,14 +91,14 @@
     {
       "owner": "coverageAndIntegrity",
       "expected": "ke1-7411f0c9b3d83e7d",
-      "observed": "ke1-7411f0c9b3d83e7d",
-      "pass": true
+      "observed": "ke1-3ef52f1b23b3ba3f",
+      "pass": false
     },
     {
       "owner": "relationOwnership",
       "expected": "ke1-93d289f0b3d1f384",
-      "observed": "ke1-93d289f0b3d1f384",
-      "pass": true
+      "observed": "ke1-45a28781e3036095",
+      "pass": false
     },
     {
       "owner": "evaluator",
@@ -113,5 +113,5 @@
       "pass": true
     }
   ],
-  "decision": "R5L_CONFIGURATION_VERIFIED_FOR_H29"
+  "decision": "R5L_BLOCKED_BY_CONFIGURATION_DRIFT"
 }

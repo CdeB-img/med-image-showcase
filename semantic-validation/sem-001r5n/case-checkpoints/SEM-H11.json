@@ -1,0 +1,3294 @@
+{
+  "campaign": "SEM-001R5N-CLOSURE",
+  "campaignId": "sem-001r5n-closure-2026-08-13T10-04-53-978Z-ke1-dddaa50feb99591b",
+  "caseId": "SEM-H11",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-dddaa50feb99591b",
+  "semanticConfigurationDigest": "ke1-845f98f9c02a2a8d",
+  "goldFrameDigest": "ke1-205402ea8197ee06",
+  "originalRequest": [
+    "On suit diamètre aortique, mais c'est la vitesse de croissance plutôt que le diamètre brut qui doit compter."
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-13T10:09:45.067Z",
+  "completedAt": "2026-08-13T10:10:43.876Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H11:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Suivi du diamètre aortique mais focalisation sur la vitesse de croissance comme critère principal plutôt que sur le diamètre brut.",
+        "summaryForUser": "Vous suivez le diamètre aortique, mais vous privilégiez la vitesse de croissance comme critère plutôt que la valeur brute.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "diamètre aortique",
+              "normalizedLabel": "diamètre aortique",
+              "localRole": "target",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "vitesse de croissance",
+              "normalizedLabel": "vitesse de croissance aortique",
+              "localRole": "endpoint_candidate",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "diamètre brut",
+              "normalizedLabel": "diamètre brut",
+              "localRole": "comparison_reference",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "plutôt que",
+              "normalizedLabel": "plutôt que",
+              "localRole": "comparison_operator",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-2",
+                "inv-3"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "doit compter",
+              "normalizedLabel": "doit compter comme critère",
+              "localRole": "selection",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-2"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-6",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "On suit",
+              "normalizedLabel": "suivi",
+              "localRole": "action",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-1"
+              ]
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-6",
+              "targetInventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "On suit diamètre aortique",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "vitesse de croissance plutôt que le diamètre brut",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-3",
+              "sourceInventoryItemId": "inv-5",
+              "targetInventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "On suit diamètre aortique, mais c'est la vitesse de croissance plutôt que le diamètre brut qui doit compter.",
+              "normalizedRelation": "SELECTED_AS",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "Aortic diameter target",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceMessageId": "SEM-H11:user:1",
+            "sourceText": "diamètre aortique",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Aortic growth rate",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceMessageId": "SEM-H11:user:1",
+            "sourceText": "vitesse de croissance",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Raw aortic diameter",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceMessageId": "SEM-H11:user:1",
+            "sourceText": "diamètre brut",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-4",
+            "type": "ENDPOINT",
+            "canonicalMeaning": "Selected endpoint for evaluation",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-5"
+            ],
+            "sourceMessageId": "SEM-H11:user:1",
+            "sourceText": "doit compter",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-elem-1",
+            "sourceClientElementId": "elem-2",
+            "targetClientElementId": "elem-3",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-2",
+            "sourceClientElementId": "elem-4",
+            "targetClientElementId": "elem-2",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-3"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "The user is defining study endpoints and criteria for aortic follow-up.",
+          "expectedCapabilities": [
+            "Endpoint selection",
+            "Study variable definition"
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:1"
+        ]
+      },
+      "reconstructionDigest": "ke1-f2d7905de5669fb1",
+      "critics": [
+        {
+          "criticId": "critic-SEM-H11-01",
+          "verdict": "REVISE",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "FAIL",
+              "evidence": "Inventory item inv-6 ('On suit') lacks an explicit Semantic Element mapping."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Comparison operators and targets are represented."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No active intervention is present."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No imaging modality is present."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "FAIL",
+              "evidence": "Inventory relation rel-1 ('On suit diamètre aortique') has no mapped Semantic Relation."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "FAIL",
+              "evidence": "Taxonomy finding flags element elem-2 as BIOMARKER instead of ENDPOINT when selected as the judging criterion."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Relations are preserved correctly."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No inferences are promoted without grounding."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No hidden ambiguities."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarity is preserved."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "No timings present."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Endpoint promotion is explicitly supported by user text ('doit compter')."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Concepts are specific."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "All main text fragments are covered by inventory items."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY matches the study setup and endpoint criteria definition."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [
+            {
+              "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+              "severity": "CRITICAL",
+              "elementClientIds": [],
+              "description": "Inventory item inv-6 ('On suit') is unresolved in explicitCoverageReport.",
+              "recommendedAction": "Map inv-6 to a SCIENTIFIC_INTENT or OPERATION element.",
+              "resolved": false
+            },
+            {
+              "code": "EXPLICIT_RELATION_UNMAPPED",
+              "severity": "CRITICAL",
+              "elementClientIds": [
+                "elem-1"
+              ],
+              "description": "Inventory relation rel-1 ('On suit diamètre aortique') has no corresponding Semantic Relation.",
+              "recommendedAction": "Add a Semantic Relation for OBSERVES between the action and the aortic diameter target.",
+              "resolved": false
+            },
+            {
+              "code": "TYPE_MISMATCH",
+              "severity": "CRITICAL",
+              "elementClientIds": [
+                "elem-2"
+              ],
+              "description": "A variable explicitly selected as the criterion for study evaluation must be typed as ENDPOINT.",
+              "recommendedAction": "Change element type of elem-2 to ENDPOINT.",
+              "resolved": false
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "repairId": "rep-1",
+              "action": "UPSERT_ELEMENT",
+              "reason": "Map unmapped inventory item inv-6 ('On suit') to a SCIENTIFIC_INTENT element representing follow-up action.",
+              "sourceInventoryItemIds": [
+                "inv-6"
+              ],
+              "sourceInventoryRelationIds": [],
+              "inventoryItemId": "inv-6",
+              "inventorySourceMessageId": "SEM-H11:user:1",
+              "inventorySourceText": "On suit",
+              "inventoryNormalizedLabel": "suivi",
+              "inventoryLocalRole": "action",
+              "inventoryPolarity": "AFFIRMED",
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [
+                "inv-1"
+              ],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": "elem-5",
+              "elementType": "SCIENTIFIC_INTENT",
+              "elementCanonicalMeaning": "Follow-up observation intent",
+              "elementStudyRole": "NONE",
+              "elementPolarity": "AFFIRMED",
+              "elementInventoryItemIds": [
+                "inv-6"
+              ],
+              "elementSourceMessageId": "SEM-H11:user:1",
+              "elementSourceText": "On suit",
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementConfidence": 1,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": false,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "relationPolarity": null,
+              "relationInventoryRelationIds": [],
+              "relationEpistemicStatus": null,
+              "relationConfidence": null,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": null,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            },
+            {
+              "repairId": "rep-2",
+              "action": "UPSERT_ELEMENT",
+              "reason": "Correct element type for elem-2 from BIOMARKER to ENDPOINT per taxonomy rule for selected judging variables.",
+              "sourceInventoryItemIds": [
+                "inv-2"
+              ],
+              "sourceInventoryRelationIds": [],
+              "inventoryItemId": "inv-2",
+              "inventorySourceMessageId": "SEM-H11:user:1",
+              "inventorySourceText": "vitesse de croissance",
+              "inventoryNormalizedLabel": "vitesse de croissance aortique",
+              "inventoryLocalRole": "endpoint_candidate",
+              "inventoryPolarity": "AFFIRMED",
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": "elem-2",
+              "elementType": "ENDPOINT",
+              "elementCanonicalMeaning": "Aortic growth rate selected as primary evaluation criterion",
+              "elementStudyRole": "OUTCOME_ROLE",
+              "elementPolarity": "AFFIRMED",
+              "elementInventoryItemIds": [
+                "inv-2"
+              ],
+              "elementSourceMessageId": "SEM-H11:user:1",
+              "elementSourceText": "vitesse de croissance",
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementConfidence": 1,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": false,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "relationPolarity": null,
+              "relationInventoryRelationIds": [],
+              "relationEpistemicStatus": null,
+              "relationConfidence": null,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": null,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            },
+            {
+              "repairId": "rep-3",
+              "action": "UPSERT_RELATION",
+              "reason": "Map inventory relation rel-1 ('On suit diamètre aortique') to an explicit OBSERVES Semantic Relation between elem-5 and elem-1.",
+              "sourceInventoryItemIds": [],
+              "sourceInventoryRelationIds": [
+                "rel-1"
+              ],
+              "inventoryItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "inventoryNormalizedLabel": null,
+              "inventoryLocalRole": null,
+              "inventoryPolarity": null,
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": "rel-1",
+              "inventoryRelationSourceItemId": "inv-6",
+              "inventoryRelationTargetItemId": "inv-1",
+              "inventoryRelationSourceMessageId": "SEM-H11:user:1",
+              "inventoryRelationSourceText": "On suit diamètre aortique",
+              "inventoryNormalizedRelation": "OBSERVES",
+              "inventoryRelationPolarity": "AFFIRMED",
+              "elementClientElementId": null,
+              "elementType": null,
+              "elementCanonicalMeaning": null,
+              "elementStudyRole": null,
+              "elementPolarity": null,
+              "elementInventoryItemIds": [],
+              "elementSourceMessageId": null,
+              "elementSourceText": null,
+              "elementEpistemicStatus": null,
+              "elementConfidence": null,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": null,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": "rel-elem-3",
+              "relationSourceClientElementId": "elem-5",
+              "relationTargetClientElementId": "elem-1",
+              "relationType": "OBSERVES",
+              "relationPolarity": "AFFIRMED",
+              "relationInventoryRelationIds": [
+                "rel-1"
+              ],
+              "relationEpistemicStatus": "EXPLICIT_USER_STATED",
+              "relationConfidence": 1,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": false,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            }
+          ],
+          "criticSummary": "The candidate missed mapping inventory item inv-6 and inventory relation rel-1, and incorrectly classified the selected growth rate as BIOMARKER instead of ENDPOINT. Repairs provide the missing action element, map the observation relation, and retype the endpoint appropriately."
+        },
+        {
+          "criticId": "crit-001",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit inventory objects (diamètre aortique, vitesse de croissance, diamètre brut, doit compter, On suit) are fully represented by corresponding typed semantic elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The comparison between growth rate and raw diameter is fully represented and preserved."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No active experimental intervention or treatment is stated in this observational context."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No acquisition modality family is stated."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit inventory relations (rel-1, rel-2, rel-3) are successfully mapped to direct typed semantic relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All typed semantic elements adhere strictly to the operational taxonomy without type mismatches."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations retain their full semantic strength and direct mapping."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No ungrounded inferences have been promoted to explicit fact status."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Ambiguities are appropriately accounted for and none are hidden."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarities are correctly affirmed without reversal or omission."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit timing or interval points are specified."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Aortic growth rate is explicitly designated by the user as the primary evaluation criterion, justifying its ENDPOINT classification."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific scientific concepts such as aortic growth rate and raw diameter are precisely preserved."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "The missing explicit source fragments list is empty and all source spans are mapped."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The route DESIGN_STUDY properly matches the user's focus on defining endpoints and criteria for study execution."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The typed candidate accurately represents all explicit elements, relations, and endpoint selections with complete semantic coverage and no taxonomy violations."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [
+        {
+          "repairId": "rep-1",
+          "status": "ACCEPTED",
+          "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+        },
+        {
+          "repairId": "rep-2",
+          "status": "ACCEPTED",
+          "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+        },
+        {
+          "repairId": "rep-3",
+          "status": "ACCEPTED",
+          "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+        }
+      ],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-2f9bac73446c137f",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "On suit diamètre aortique, mais c'est la vitesse de croissance plutôt que le diamètre brut qui doit compter.",
+        "normalizedMeaning": "Suivi du diamètre aortique mais focalisation sur la vitesse de croissance comme critère principal plutôt que sur le diamètre brut.",
+        "conversationMessageIds": [
+          "SEM-H11:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-1a13ee3675f3fb42",
+            "type": "ENDPOINT",
+            "canonicalMeaning": "Aortic growth rate selected as primary evaluation criterion",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H11:user:1",
+              "text": "vitesse de croissance",
+              "start": 41,
+              "end": 62
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-323b6be235de11be",
+              "sem-relation:ke1-af419b6221534f06"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-9e6751354ec52ce1",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-169fccf0c0a96b74",
+                "knowledge-gap:ke1-2fdd08a7f3036d3b",
+                "knowledge-gap:ke1-d4801ce6adf44452"
+              ],
+              "checkedAt": "2026-08-13T10:10:43.873Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H11:user:1",
+              "providerCallId": "gemini-call:ke1-351f4d4927b64a45",
+              "rawElementId": "elem-2"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-58818e35695ec241",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Raw aortic diameter",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H11:user:1",
+              "text": "diamètre brut",
+              "start": 77,
+              "end": 90
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-323b6be235de11be"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-9e6751354ec52ce1",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-169fccf0c0a96b74",
+                "knowledge-gap:ke1-2fdd08a7f3036d3b",
+                "knowledge-gap:ke1-d4801ce6adf44452"
+              ],
+              "checkedAt": "2026-08-13T10:10:43.873Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H11:user:1",
+              "providerCallId": "gemini-call:ke1-351f4d4927b64a45",
+              "rawElementId": "elem-3"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-8fcdbcef4d44e3ab",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Follow-up observation intent",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-6"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H11:user:1",
+              "text": "On suit",
+              "start": 0,
+              "end": 7
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-243e77d906afefb5"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H11:user:1",
+              "providerCallId": "gemini-call:ke1-351f4d4927b64a45",
+              "rawElementId": "elem-5"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-964a4bb5ffa7ccc1",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "Aortic diameter target",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H11:user:1",
+              "text": "diamètre aortique",
+              "start": 8,
+              "end": 25
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-243e77d906afefb5"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H11:user:1",
+              "providerCallId": "gemini-call:ke1-351f4d4927b64a45",
+              "rawElementId": "elem-1"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-a5f801a854384b1c",
+            "type": "ENDPOINT",
+            "canonicalMeaning": "Selected endpoint for evaluation",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-5"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H11:user:1",
+              "text": "doit compter",
+              "start": 95,
+              "end": 107
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-af419b6221534f06"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-9e6751354ec52ce1",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-169fccf0c0a96b74",
+                "knowledge-gap:ke1-2fdd08a7f3036d3b",
+                "knowledge-gap:ke1-d4801ce6adf44452"
+              ],
+              "checkedAt": "2026-08-13T10:10:43.873Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H11:user:1",
+              "providerCallId": "gemini-call:ke1-351f4d4927b64a45",
+              "rawElementId": "elem-4"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-243e77d906afefb5",
+            "sourceElementId": "sem-element:ke1-8fcdbcef4d44e3ab",
+            "targetElementId": "sem-element:ke1-964a4bb5ffa7ccc1",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-1"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-323b6be235de11be",
+            "sourceElementId": "sem-element:ke1-1a13ee3675f3fb42",
+            "targetElementId": "sem-element:ke1-58818e35695ec241",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-af419b6221534f06",
+            "sourceElementId": "sem-element:ke1-a5f801a854384b1c",
+            "targetElementId": "sem-element:ke1-1a13ee3675f3fb42",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-3"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "diamètre aortique",
+              "normalizedMeaning": "diamètre aortique",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "vitesse de croissance",
+              "normalizedMeaning": "vitesse de croissance aortique",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "diamètre brut",
+              "normalizedMeaning": "diamètre brut",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "plutôt que",
+              "normalizedMeaning": "plutôt que",
+              "mappedClientElementIds": [],
+              "mappedClientRelationIds": [
+                "rel-elem-1",
+                "rel-elem-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "The explicit functional fragment is represented by its source-grounded direct Semantic Relation rather than by a false object node."
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "doit compter",
+              "normalizedMeaning": "doit compter comme critère",
+              "mappedClientElementIds": [
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-6",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "On suit",
+              "normalizedMeaning": "suivi",
+              "mappedClientElementIds": [
+                "elem-5"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-6",
+              "targetInventoryItemId": "inv-1",
+              "normalizedRelation": "OBSERVES",
+              "mappedClientRelationIds": [
+                "rel-elem-3"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-3",
+              "normalizedRelation": "COMPARES_WITH",
+              "mappedClientRelationIds": [
+                "rel-elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-3",
+              "sourceInventoryItemId": "inv-5",
+              "targetInventoryItemId": "inv-2",
+              "normalizedRelation": "SELECTED_AS",
+              "mappedClientRelationIds": [
+                "rel-elem-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "clarificationCandidates": [],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "The user is defining study endpoints and criteria for aortic follow-up.",
+          "expectedCapabilities": [
+            "Endpoint selection",
+            "Study variable definition"
+          ]
+        },
+        "summaryForUser": "Vous suivez le diamètre aortique, mais vous privilégiez la vitesse de croissance comme critère plutôt que la valeur brute.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "The typed candidate accurately represents all explicit elements, relations, and endpoint selections with complete semantic coverage and no taxonomy violations."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+          "criticPromptVersion": "SEM-001-CRITIC-1.6",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-351f4d4927b64a45",
+          "criticCallId": "gemini-call:ke1-d92e3ef70b47872b",
+          "criticCallIds": [
+            "gemini-call:ke1-d969a72517a49bd9",
+            "gemini-call:ke1-d92e3ef70b47872b"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T10:09:45.944Z",
+              "requestFinished": "2026-08-13T10:09:52.148Z",
+              "latencyMs": 6204,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            },
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T10:10:20.931Z",
+              "requestFinished": "2026-08-13T10:10:26.421Z",
+              "latencyMs": 5490,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T10:10:33.016Z",
+              "requestFinished": "2026-08-13T10:10:40.441Z",
+              "latencyMs": 7425,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            },
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T10:10:40.445Z",
+              "requestFinished": "2026-08-13T10:10:43.866Z",
+              "latencyMs": 3421,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "cand-001",
+            "language": "fr",
+            "normalizedMeaning": "Suivi du diamètre aortique mais focalisation sur la vitesse de croissance comme critère principal plutôt que sur le diamètre brut.",
+            "summaryForUser": "Vous suivez le diamètre aortique, mais vous privilégiez la vitesse de croissance comme critère plutôt que la valeur brute.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "inv-1",
+                  "sourceMessageId": "SEM-H11:user:1",
+                  "sourceText": "diamètre aortique",
+                  "normalizedLabel": "diamètre aortique",
+                  "localRole": "target",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-2",
+                  "sourceMessageId": "SEM-H11:user:1",
+                  "sourceText": "vitesse de croissance",
+                  "normalizedLabel": "vitesse de croissance aortique",
+                  "localRole": "endpoint_candidate",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-3",
+                  "sourceMessageId": "SEM-H11:user:1",
+                  "sourceText": "diamètre brut",
+                  "normalizedLabel": "diamètre brut",
+                  "localRole": "comparison_reference",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-4",
+                  "sourceMessageId": "SEM-H11:user:1",
+                  "sourceText": "plutôt que",
+                  "normalizedLabel": "plutôt que",
+                  "localRole": "comparison_operator",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-2",
+                    "inv-3"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-5",
+                  "sourceMessageId": "SEM-H11:user:1",
+                  "sourceText": "doit compter",
+                  "normalizedLabel": "doit compter comme critère",
+                  "localRole": "selection",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-2"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-6",
+                  "sourceMessageId": "SEM-H11:user:1",
+                  "sourceText": "On suit",
+                  "normalizedLabel": "suivi",
+                  "localRole": "action",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-1"
+                  ]
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel-1",
+                  "sourceInventoryItemId": "inv-6",
+                  "targetInventoryItemId": "inv-1",
+                  "sourceMessageId": "SEM-H11:user:1",
+                  "sourceText": "On suit diamètre aortique",
+                  "normalizedRelation": "OBSERVES",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-2",
+                  "sourceInventoryItemId": "inv-2",
+                  "targetInventoryItemId": "inv-3",
+                  "sourceMessageId": "SEM-H11:user:1",
+                  "sourceText": "vitesse de croissance plutôt que le diamètre brut",
+                  "normalizedRelation": "COMPARES_WITH",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-3",
+                  "sourceInventoryItemId": "inv-5",
+                  "targetInventoryItemId": "inv-2",
+                  "sourceMessageId": "SEM-H11:user:1",
+                  "sourceText": "On suit diamètre aortique, mais c'est la vitesse de croissance plutôt que le diamètre brut qui doit compter.",
+                  "normalizedRelation": "SELECTED_AS",
+                  "polarity": "AFFIRMED"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem-1",
+                "type": "SCIENTIFIC_OBJECT",
+                "canonicalMeaning": "Aortic diameter target",
+                "studyRole": "SUBJECT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-1"
+                ],
+                "sourceMessageId": "SEM-H11:user:1",
+                "sourceText": "diamètre aortique",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-3",
+                "type": "BIOMARKER",
+                "canonicalMeaning": "Raw aortic diameter",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-3"
+                ],
+                "sourceMessageId": "SEM-H11:user:1",
+                "sourceText": "diamètre brut",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-4",
+                "type": "ENDPOINT",
+                "canonicalMeaning": "Selected endpoint for evaluation",
+                "studyRole": "OUTCOME_ROLE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-5"
+                ],
+                "sourceMessageId": "SEM-H11:user:1",
+                "sourceText": "doit compter",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-5",
+                "type": "SCIENTIFIC_INTENT",
+                "canonicalMeaning": "Follow-up observation intent",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-6"
+                ],
+                "sourceMessageId": "SEM-H11:user:1",
+                "sourceText": "On suit",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-2",
+                "type": "ENDPOINT",
+                "canonicalMeaning": "Aortic growth rate selected as primary evaluation criterion",
+                "studyRole": "OUTCOME_ROLE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-2"
+                ],
+                "sourceMessageId": "SEM-H11:user:1",
+                "sourceText": "vitesse de croissance",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel-elem-1",
+                "sourceClientElementId": "elem-2",
+                "targetClientElementId": "elem-3",
+                "relationType": "COMPARES_WITH",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-2"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-elem-2",
+                "sourceClientElementId": "elem-4",
+                "targetClientElementId": "elem-2",
+                "relationType": "RELATED_TO_CANDIDATE",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-3"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-elem-3",
+                "sourceClientElementId": "elem-5",
+                "targetClientElementId": "elem-1",
+                "relationType": "OBSERVES",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-1"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              }
+            ],
+            "missingConcepts": [],
+            "ellipses": [],
+            "ambiguities": [],
+            "unknowns": [],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [],
+            "routeProposal": {
+              "route": "DESIGN_STUDY",
+              "confidence": 0.9,
+              "reason": "The user is defining study endpoints and criteria for aortic follow-up.",
+              "expectedCapabilities": [
+                "Endpoint selection",
+                "Study variable definition"
+              ]
+            },
+            "semanticWarnings": [
+              "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:1"
+            ]
+          },
+          "rawCritic": {
+            "criticId": "crit-001",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit inventory objects (diamètre aortique, vitesse de croissance, diamètre brut, doit compter, On suit) are fully represented by corresponding typed semantic elements."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "PASS",
+                "evidence": "The comparison between growth rate and raw diameter is fully represented and preserved."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No active experimental intervention or treatment is stated in this observational context."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No acquisition modality family is stated."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit inventory relations (rel-1, rel-2, rel-3) are successfully mapped to direct typed semantic relations."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "All typed semantic elements adhere strictly to the operational taxonomy without type mismatches."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Explicit relations retain their full semantic strength and direct mapping."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No ungrounded inferences have been promoted to explicit fact status."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "Ambiguities are appropriately accounted for and none are hidden."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "Polarities are correctly affirmed without reversal or omission."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No explicit timing or interval points are specified."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "Aortic growth rate is explicitly designated by the user as the primary evaluation criterion, justifying its ENDPOINT classification."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific scientific concepts such as aortic growth rate and raw diameter are precisely preserved."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "The missing explicit source fragments list is empty and all source spans are mapped."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "The route DESIGN_STUDY properly matches the user's focus on defining endpoints and criteria for study execution."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The typed candidate accurately represents all explicit elements, relations, and endpoint selections with complete semantic coverage and no taxonomy violations."
+          },
+          "rawCritics": [
+            {
+              "criticId": "critic-SEM-H11-01",
+              "verdict": "REVISE",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "FAIL",
+                  "evidence": "Inventory item inv-6 ('On suit') lacks an explicit Semantic Element mapping."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "Comparison operators and targets are represented."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No active intervention is present."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No imaging modality is present."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "FAIL",
+                  "evidence": "Inventory relation rel-1 ('On suit diamètre aortique') has no mapped Semantic Relation."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "FAIL",
+                  "evidence": "Taxonomy finding flags element elem-2 as BIOMARKER instead of ENDPOINT when selected as the judging criterion."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Relations are preserved correctly."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No inferences are promoted without grounding."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "No hidden ambiguities."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "Polarity is preserved."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "PASS",
+                  "evidence": "No timings present."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "Endpoint promotion is explicitly supported by user text ('doit compter')."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Concepts are specific."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All main text fragments are covered by inventory items."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "Route DESIGN_STUDY matches the study setup and endpoint criteria definition."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [
+                {
+                  "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+                  "severity": "CRITICAL",
+                  "elementClientIds": [],
+                  "description": "Inventory item inv-6 ('On suit') is unresolved in explicitCoverageReport.",
+                  "recommendedAction": "Map inv-6 to a SCIENTIFIC_INTENT or OPERATION element.",
+                  "resolved": false
+                },
+                {
+                  "code": "EXPLICIT_RELATION_UNMAPPED",
+                  "severity": "CRITICAL",
+                  "elementClientIds": [
+                    "elem-1"
+                  ],
+                  "description": "Inventory relation rel-1 ('On suit diamètre aortique') has no corresponding Semantic Relation.",
+                  "recommendedAction": "Add a Semantic Relation for OBSERVES between the action and the aortic diameter target.",
+                  "resolved": false
+                },
+                {
+                  "code": "TYPE_MISMATCH",
+                  "severity": "CRITICAL",
+                  "elementClientIds": [
+                    "elem-2"
+                  ],
+                  "description": "A variable explicitly selected as the criterion for study evaluation must be typed as ENDPOINT.",
+                  "recommendedAction": "Change element type of elem-2 to ENDPOINT.",
+                  "resolved": false
+                }
+              ],
+              "proposedRepairs": [
+                {
+                  "repairId": "rep-1",
+                  "action": "UPSERT_ELEMENT",
+                  "reason": "Map unmapped inventory item inv-6 ('On suit') to a SCIENTIFIC_INTENT element representing follow-up action.",
+                  "sourceInventoryItemIds": [
+                    "inv-6"
+                  ],
+                  "sourceInventoryRelationIds": [],
+                  "inventoryItemId": "inv-6",
+                  "inventorySourceMessageId": "SEM-H11:user:1",
+                  "inventorySourceText": "On suit",
+                  "inventoryNormalizedLabel": "suivi",
+                  "inventoryLocalRole": "action",
+                  "inventoryPolarity": "AFFIRMED",
+                  "inventoryModifiers": [],
+                  "inventoryLinkedItemIds": [
+                    "inv-1"
+                  ],
+                  "inventoryRelationId": null,
+                  "inventoryRelationSourceItemId": null,
+                  "inventoryRelationTargetItemId": null,
+                  "inventoryRelationSourceMessageId": null,
+                  "inventoryRelationSourceText": null,
+                  "inventoryNormalizedRelation": null,
+                  "inventoryRelationPolarity": null,
+                  "elementClientElementId": "elem-5",
+                  "elementType": "SCIENTIFIC_INTENT",
+                  "elementCanonicalMeaning": "Follow-up observation intent",
+                  "elementStudyRole": "NONE",
+                  "elementPolarity": "AFFIRMED",
+                  "elementInventoryItemIds": [
+                    "inv-6"
+                  ],
+                  "elementSourceMessageId": "SEM-H11:user:1",
+                  "elementSourceText": "On suit",
+                  "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+                  "elementConfidence": 1,
+                  "elementInferenceReason": null,
+                  "elementRequiresConfirmation": false,
+                  "elementSupersedesElementIds": [],
+                  "relationClientRelationId": null,
+                  "relationSourceClientElementId": null,
+                  "relationTargetClientElementId": null,
+                  "relationType": null,
+                  "relationPolarity": null,
+                  "relationInventoryRelationIds": [],
+                  "relationEpistemicStatus": null,
+                  "relationConfidence": null,
+                  "relationInferenceReason": null,
+                  "relationRequiresConfirmation": null,
+                  "ambiguity": null,
+                  "route": null,
+                  "routeConfidence": null,
+                  "routeReason": null,
+                  "routeExpectedCapabilities": []
+                },
+                {
+                  "repairId": "rep-2",
+                  "action": "UPSERT_ELEMENT",
+                  "reason": "Correct element type for elem-2 from BIOMARKER to ENDPOINT per taxonomy rule for selected judging variables.",
+                  "sourceInventoryItemIds": [
+                    "inv-2"
+                  ],
+                  "sourceInventoryRelationIds": [],
+                  "inventoryItemId": "inv-2",
+                  "inventorySourceMessageId": "SEM-H11:user:1",
+                  "inventorySourceText": "vitesse de croissance",
+                  "inventoryNormalizedLabel": "vitesse de croissance aortique",
+                  "inventoryLocalRole": "endpoint_candidate",
+                  "inventoryPolarity": "AFFIRMED",
+                  "inventoryModifiers": [],
+                  "inventoryLinkedItemIds": [],
+                  "inventoryRelationId": null,
+                  "inventoryRelationSourceItemId": null,
+                  "inventoryRelationTargetItemId": null,
+                  "inventoryRelationSourceMessageId": null,
+                  "inventoryRelationSourceText": null,
+                  "inventoryNormalizedRelation": null,
+                  "inventoryRelationPolarity": null,
+                  "elementClientElementId": "elem-2",
+                  "elementType": "ENDPOINT",
+                  "elementCanonicalMeaning": "Aortic growth rate selected as primary evaluation criterion",
+                  "elementStudyRole": "OUTCOME_ROLE",
+                  "elementPolarity": "AFFIRMED",
+                  "elementInventoryItemIds": [
+                    "inv-2"
+                  ],
+                  "elementSourceMessageId": "SEM-H11:user:1",
+                  "elementSourceText": "vitesse de croissance",
+                  "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+                  "elementConfidence": 1,
+                  "elementInferenceReason": null,
+                  "elementRequiresConfirmation": false,
+                  "elementSupersedesElementIds": [],
+                  "relationClientRelationId": null,
+                  "relationSourceClientElementId": null,
+                  "relationTargetClientElementId": null,
+                  "relationType": null,
+                  "relationPolarity": null,
+                  "relationInventoryRelationIds": [],
+                  "relationEpistemicStatus": null,
+                  "relationConfidence": null,
+                  "relationInferenceReason": null,
+                  "relationRequiresConfirmation": null,
+                  "ambiguity": null,
+                  "route": null,
+                  "routeConfidence": null,
+                  "routeReason": null,
+                  "routeExpectedCapabilities": []
+                },
+                {
+                  "repairId": "rep-3",
+                  "action": "UPSERT_RELATION",
+                  "reason": "Map inventory relation rel-1 ('On suit diamètre aortique') to an explicit OBSERVES Semantic Relation between elem-5 and elem-1.",
+                  "sourceInventoryItemIds": [],
+                  "sourceInventoryRelationIds": [
+                    "rel-1"
+                  ],
+                  "inventoryItemId": null,
+                  "inventorySourceMessageId": null,
+                  "inventorySourceText": null,
+                  "inventoryNormalizedLabel": null,
+                  "inventoryLocalRole": null,
+                  "inventoryPolarity": null,
+                  "inventoryModifiers": [],
+                  "inventoryLinkedItemIds": [],
+                  "inventoryRelationId": "rel-1",
+                  "inventoryRelationSourceItemId": "inv-6",
+                  "inventoryRelationTargetItemId": "inv-1",
+                  "inventoryRelationSourceMessageId": "SEM-H11:user:1",
+                  "inventoryRelationSourceText": "On suit diamètre aortique",
+                  "inventoryNormalizedRelation": "OBSERVES",
+                  "inventoryRelationPolarity": "AFFIRMED",
+                  "elementClientElementId": null,
+                  "elementType": null,
+                  "elementCanonicalMeaning": null,
+                  "elementStudyRole": null,
+                  "elementPolarity": null,
+                  "elementInventoryItemIds": [],
+                  "elementSourceMessageId": null,
+                  "elementSourceText": null,
+                  "elementEpistemicStatus": null,
+                  "elementConfidence": null,
+                  "elementInferenceReason": null,
+                  "elementRequiresConfirmation": null,
+                  "elementSupersedesElementIds": [],
+                  "relationClientRelationId": "rel-elem-3",
+                  "relationSourceClientElementId": "elem-5",
+                  "relationTargetClientElementId": "elem-1",
+                  "relationType": "OBSERVES",
+                  "relationPolarity": "AFFIRMED",
+                  "relationInventoryRelationIds": [
+                    "rel-1"
+                  ],
+                  "relationEpistemicStatus": "EXPLICIT_USER_STATED",
+                  "relationConfidence": 1,
+                  "relationInferenceReason": null,
+                  "relationRequiresConfirmation": false,
+                  "ambiguity": null,
+                  "route": null,
+                  "routeConfidence": null,
+                  "routeReason": null,
+                  "routeExpectedCapabilities": []
+                }
+              ],
+              "criticSummary": "The candidate missed mapping inventory item inv-6 and inventory relation rel-1, and incorrectly classified the selected growth rate as BIOMARKER instead of ENDPOINT. Repairs provide the missing action element, map the observation relation, and retype the endpoint appropriately."
+            },
+            {
+              "criticId": "crit-001",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit inventory objects (diamètre aortique, vitesse de croissance, diamètre brut, doit compter, On suit) are fully represented by corresponding typed semantic elements."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The comparison between growth rate and raw diameter is fully represented and preserved."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No active experimental intervention or treatment is stated in this observational context."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No acquisition modality family is stated."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit inventory relations (rel-1, rel-2, rel-3) are successfully mapped to direct typed semantic relations."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "All typed semantic elements adhere strictly to the operational taxonomy without type mismatches."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Explicit relations retain their full semantic strength and direct mapping."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No ungrounded inferences have been promoted to explicit fact status."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "Ambiguities are appropriately accounted for and none are hidden."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "Polarities are correctly affirmed without reversal or omission."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No explicit timing or interval points are specified."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "Aortic growth rate is explicitly designated by the user as the primary evaluation criterion, justifying its ENDPOINT classification."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific scientific concepts such as aortic growth rate and raw diameter are precisely preserved."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The missing explicit source fragments list is empty and all source spans are mapped."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "The route DESIGN_STUDY properly matches the user's focus on defining endpoints and criteria for study execution."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "The typed candidate accurately represents all explicit elements, relations, and endpoint selections with complete semantic coverage and no taxonomy violations."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-13T10:10:43.868Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-9e6751354ec52ce1",
+          "resultDigest": "ke1-9e6751354ec52ce1",
+          "coverageStatus": "NO_PROVIDER",
+          "verifiedAt": "2026-08-13T10:10:43.873Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-13T10:10:43.868Z",
+        "updatedAt": "2026-08-13T10:10:43.873Z",
+        "digest": "ke1-f33d1ae4c7bb0b00"
+      },
+      "canonicalModelDigest": "ke1-f33d1ae4c7bb0b00",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-9e6751354ec52ce1",
+        "resultDigest": "ke1-9e6751354ec52ce1",
+        "coverageStatus": "NO_PROVIDER",
+        "verifiedAt": "2026-08-13T10:10:43.873Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-351f4d4927b64a45",
+      "structuredDigest": "ke1-f2d7905de5669fb1",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:09:45.944Z",
+          "requestFinished": "2026-08-13T10:09:52.148Z",
+          "latencyMs": 6204,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:10:20.931Z",
+          "requestFinished": "2026-08-13T10:10:26.421Z",
+          "latencyMs": 5490,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-d969a72517a49bd9",
+      "structuredDigest": "ke1-aaabe2e3750425ef",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:10:33.016Z",
+          "requestFinished": "2026-08-13T10:10:40.441Z",
+          "latencyMs": 7425,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 2,
+      "callId": "gemini-call:ke1-d92e3ef70b47872b",
+      "structuredDigest": "ke1-49a76e3501913571",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:10:40.445Z",
+          "requestFinished": "2026-08-13T10:10:43.866Z",
+          "latencyMs": 3421,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-2f9bac73446c137f",
+    "revision": 1,
+    "status": "CANDIDATE",
+    "originalRequest": "On suit diamètre aortique, mais c'est la vitesse de croissance plutôt que le diamètre brut qui doit compter.",
+    "normalizedMeaning": "Suivi du diamètre aortique mais focalisation sur la vitesse de croissance comme critère principal plutôt que sur le diamètre brut.",
+    "conversationMessageIds": [
+      "SEM-H11:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-1a13ee3675f3fb42",
+        "type": "ENDPOINT",
+        "canonicalMeaning": "Aortic growth rate selected as primary evaluation criterion",
+        "studyRole": "OUTCOME_ROLE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-2"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H11:user:1",
+          "text": "vitesse de croissance",
+          "start": 41,
+          "end": 62
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-323b6be235de11be",
+          "sem-relation:ke1-af419b6221534f06"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-9e6751354ec52ce1",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-169fccf0c0a96b74",
+            "knowledge-gap:ke1-2fdd08a7f3036d3b",
+            "knowledge-gap:ke1-d4801ce6adf44452"
+          ],
+          "checkedAt": "2026-08-13T10:10:43.873Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H11:user:1",
+          "providerCallId": "gemini-call:ke1-351f4d4927b64a45",
+          "rawElementId": "elem-2"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-58818e35695ec241",
+        "type": "BIOMARKER",
+        "canonicalMeaning": "Raw aortic diameter",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-3"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H11:user:1",
+          "text": "diamètre brut",
+          "start": 77,
+          "end": 90
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-323b6be235de11be"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-9e6751354ec52ce1",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-169fccf0c0a96b74",
+            "knowledge-gap:ke1-2fdd08a7f3036d3b",
+            "knowledge-gap:ke1-d4801ce6adf44452"
+          ],
+          "checkedAt": "2026-08-13T10:10:43.873Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H11:user:1",
+          "providerCallId": "gemini-call:ke1-351f4d4927b64a45",
+          "rawElementId": "elem-3"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-8fcdbcef4d44e3ab",
+        "type": "SCIENTIFIC_INTENT",
+        "canonicalMeaning": "Follow-up observation intent",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-6"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H11:user:1",
+          "text": "On suit",
+          "start": 0,
+          "end": 7
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-243e77d906afefb5"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H11:user:1",
+          "providerCallId": "gemini-call:ke1-351f4d4927b64a45",
+          "rawElementId": "elem-5"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-964a4bb5ffa7ccc1",
+        "type": "SCIENTIFIC_OBJECT",
+        "canonicalMeaning": "Aortic diameter target",
+        "studyRole": "SUBJECT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-1"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H11:user:1",
+          "text": "diamètre aortique",
+          "start": 8,
+          "end": 25
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-243e77d906afefb5"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H11:user:1",
+          "providerCallId": "gemini-call:ke1-351f4d4927b64a45",
+          "rawElementId": "elem-1"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-a5f801a854384b1c",
+        "type": "ENDPOINT",
+        "canonicalMeaning": "Selected endpoint for evaluation",
+        "studyRole": "OUTCOME_ROLE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-5"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H11:user:1",
+          "text": "doit compter",
+          "start": 95,
+          "end": 107
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-af419b6221534f06"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-9e6751354ec52ce1",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-169fccf0c0a96b74",
+            "knowledge-gap:ke1-2fdd08a7f3036d3b",
+            "knowledge-gap:ke1-d4801ce6adf44452"
+          ],
+          "checkedAt": "2026-08-13T10:10:43.873Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H11:user:1",
+          "providerCallId": "gemini-call:ke1-351f4d4927b64a45",
+          "rawElementId": "elem-4"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-243e77d906afefb5",
+        "sourceElementId": "sem-element:ke1-8fcdbcef4d44e3ab",
+        "targetElementId": "sem-element:ke1-964a4bb5ffa7ccc1",
+        "relationType": "OBSERVES",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-1"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-323b6be235de11be",
+        "sourceElementId": "sem-element:ke1-1a13ee3675f3fb42",
+        "targetElementId": "sem-element:ke1-58818e35695ec241",
+        "relationType": "COMPARES_WITH",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-2"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-af419b6221534f06",
+        "sourceElementId": "sem-element:ke1-a5f801a854384b1c",
+        "targetElementId": "sem-element:ke1-1a13ee3675f3fb42",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-3"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-1",
+          "sourceMessageId": "SEM-H11:user:1",
+          "sourceText": "diamètre aortique",
+          "normalizedMeaning": "diamètre aortique",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-2",
+          "sourceMessageId": "SEM-H11:user:1",
+          "sourceText": "vitesse de croissance",
+          "normalizedMeaning": "vitesse de croissance aortique",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-3",
+          "sourceMessageId": "SEM-H11:user:1",
+          "sourceText": "diamètre brut",
+          "normalizedMeaning": "diamètre brut",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-4",
+          "sourceMessageId": "SEM-H11:user:1",
+          "sourceText": "plutôt que",
+          "normalizedMeaning": "plutôt que",
+          "mappedClientElementIds": [],
+          "mappedClientRelationIds": [
+            "rel-elem-1",
+            "rel-elem-2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "The explicit functional fragment is represented by its source-grounded direct Semantic Relation rather than by a false object node."
+        },
+        {
+          "inventoryItemId": "inv-5",
+          "sourceMessageId": "SEM-H11:user:1",
+          "sourceText": "doit compter",
+          "normalizedMeaning": "doit compter comme critère",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-6",
+          "sourceMessageId": "SEM-H11:user:1",
+          "sourceText": "On suit",
+          "normalizedMeaning": "suivi",
+          "mappedClientElementIds": [
+            "elem-5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-1",
+          "sourceInventoryItemId": "inv-6",
+          "targetInventoryItemId": "inv-1",
+          "normalizedRelation": "OBSERVES",
+          "mappedClientRelationIds": [
+            "rel-elem-3"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-2",
+          "sourceInventoryItemId": "inv-2",
+          "targetInventoryItemId": "inv-3",
+          "normalizedRelation": "COMPARES_WITH",
+          "mappedClientRelationIds": [
+            "rel-elem-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-3",
+          "sourceInventoryItemId": "inv-5",
+          "targetInventoryItemId": "inv-2",
+          "normalizedRelation": "SELECTED_AS",
+          "mappedClientRelationIds": [
+            "rel-elem-2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "missingConcepts": [],
+    "ellipses": [],
+    "ambiguities": [],
+    "unknowns": [],
+    "contradictions": [],
+    "clarificationCandidates": [],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "DESIGN_STUDY",
+      "confidence": 0.9,
+      "reason": "The user is defining study endpoints and criteria for aortic follow-up.",
+      "expectedCapabilities": [
+        "Endpoint selection",
+        "Study variable definition"
+      ]
+    },
+    "summaryForUser": "Vous suivez le diamètre aortique, mais vous privilégiez la vitesse de croissance comme critère plutôt que la valeur brute.",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "The typed candidate accurately represents all explicit elements, relations, and endpoint selections with complete semantic coverage and no taxonomy violations."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-351f4d4927b64a45",
+      "criticCallId": "gemini-call:ke1-d92e3ef70b47872b",
+      "criticCallIds": [
+        "gemini-call:ke1-d969a72517a49bd9",
+        "gemini-call:ke1-d92e3ef70b47872b"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:09:45.944Z",
+          "requestFinished": "2026-08-13T10:09:52.148Z",
+          "latencyMs": 6204,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:10:20.931Z",
+          "requestFinished": "2026-08-13T10:10:26.421Z",
+          "latencyMs": 5490,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:10:33.016Z",
+          "requestFinished": "2026-08-13T10:10:40.441Z",
+          "latencyMs": 7425,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:10:40.445Z",
+          "requestFinished": "2026-08-13T10:10:43.866Z",
+          "latencyMs": 3421,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Suivi du diamètre aortique mais focalisation sur la vitesse de croissance comme critère principal plutôt que sur le diamètre brut.",
+        "summaryForUser": "Vous suivez le diamètre aortique, mais vous privilégiez la vitesse de croissance comme critère plutôt que la valeur brute.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "diamètre aortique",
+              "normalizedLabel": "diamètre aortique",
+              "localRole": "target",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "vitesse de croissance",
+              "normalizedLabel": "vitesse de croissance aortique",
+              "localRole": "endpoint_candidate",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "diamètre brut",
+              "normalizedLabel": "diamètre brut",
+              "localRole": "comparison_reference",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "plutôt que",
+              "normalizedLabel": "plutôt que",
+              "localRole": "comparison_operator",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-2",
+                "inv-3"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "doit compter",
+              "normalizedLabel": "doit compter comme critère",
+              "localRole": "selection",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-2"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-6",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "On suit",
+              "normalizedLabel": "suivi",
+              "localRole": "action",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-1"
+              ]
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-6",
+              "targetInventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "On suit diamètre aortique",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "vitesse de croissance plutôt que le diamètre brut",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-3",
+              "sourceInventoryItemId": "inv-5",
+              "targetInventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "On suit diamètre aortique, mais c'est la vitesse de croissance plutôt que le diamètre brut qui doit compter.",
+              "normalizedRelation": "SELECTED_AS",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "Aortic diameter target",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceMessageId": "SEM-H11:user:1",
+            "sourceText": "diamètre aortique",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Raw aortic diameter",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceMessageId": "SEM-H11:user:1",
+            "sourceText": "diamètre brut",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-4",
+            "type": "ENDPOINT",
+            "canonicalMeaning": "Selected endpoint for evaluation",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-5"
+            ],
+            "sourceMessageId": "SEM-H11:user:1",
+            "sourceText": "doit compter",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-5",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Follow-up observation intent",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-6"
+            ],
+            "sourceMessageId": "SEM-H11:user:1",
+            "sourceText": "On suit",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "ENDPOINT",
+            "canonicalMeaning": "Aortic growth rate selected as primary evaluation criterion",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceMessageId": "SEM-H11:user:1",
+            "sourceText": "vitesse de croissance",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-elem-1",
+            "sourceClientElementId": "elem-2",
+            "targetClientElementId": "elem-3",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-2",
+            "sourceClientElementId": "elem-4",
+            "targetClientElementId": "elem-2",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-3"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-3",
+            "sourceClientElementId": "elem-5",
+            "targetClientElementId": "elem-1",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "The user is defining study endpoints and criteria for aortic follow-up.",
+          "expectedCapabilities": [
+            "Endpoint selection",
+            "Study variable definition"
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:1"
+        ]
+      },
+      "rawCritic": {
+        "criticId": "crit-001",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit inventory objects (diamètre aortique, vitesse de croissance, diamètre brut, doit compter, On suit) are fully represented by corresponding typed semantic elements."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "PASS",
+            "evidence": "The comparison between growth rate and raw diameter is fully represented and preserved."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No active experimental intervention or treatment is stated in this observational context."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No acquisition modality family is stated."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit inventory relations (rel-1, rel-2, rel-3) are successfully mapped to direct typed semantic relations."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "All typed semantic elements adhere strictly to the operational taxonomy without type mismatches."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "Explicit relations retain their full semantic strength and direct mapping."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No ungrounded inferences have been promoted to explicit fact status."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "Ambiguities are appropriately accounted for and none are hidden."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "Polarities are correctly affirmed without reversal or omission."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No explicit timing or interval points are specified."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "Aortic growth rate is explicitly designated by the user as the primary evaluation criterion, justifying its ENDPOINT classification."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific scientific concepts such as aortic growth rate and raw diameter are precisely preserved."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "The missing explicit source fragments list is empty and all source spans are mapped."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "The route DESIGN_STUDY properly matches the user's focus on defining endpoints and criteria for study execution."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "The typed candidate accurately represents all explicit elements, relations, and endpoint selections with complete semantic coverage and no taxonomy violations."
+      },
+      "rawCritics": [
+        {
+          "criticId": "critic-SEM-H11-01",
+          "verdict": "REVISE",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "FAIL",
+              "evidence": "Inventory item inv-6 ('On suit') lacks an explicit Semantic Element mapping."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Comparison operators and targets are represented."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No active intervention is present."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No imaging modality is present."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "FAIL",
+              "evidence": "Inventory relation rel-1 ('On suit diamètre aortique') has no mapped Semantic Relation."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "FAIL",
+              "evidence": "Taxonomy finding flags element elem-2 as BIOMARKER instead of ENDPOINT when selected as the judging criterion."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Relations are preserved correctly."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No inferences are promoted without grounding."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No hidden ambiguities."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarity is preserved."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "No timings present."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Endpoint promotion is explicitly supported by user text ('doit compter')."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Concepts are specific."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "All main text fragments are covered by inventory items."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY matches the study setup and endpoint criteria definition."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [
+            {
+              "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+              "severity": "CRITICAL",
+              "elementClientIds": [],
+              "description": "Inventory item inv-6 ('On suit') is unresolved in explicitCoverageReport.",
+              "recommendedAction": "Map inv-6 to a SCIENTIFIC_INTENT or OPERATION element.",
+              "resolved": false
+            },
+            {
+              "code": "EXPLICIT_RELATION_UNMAPPED",
+              "severity": "CRITICAL",
+              "elementClientIds": [
+                "elem-1"
+              ],
+              "description": "Inventory relation rel-1 ('On suit diamètre aortique') has no corresponding Semantic Relation.",
+              "recommendedAction": "Add a Semantic Relation for OBSERVES between the action and the aortic diameter target.",
+              "resolved": false
+            },
+            {
+              "code": "TYPE_MISMATCH",
+              "severity": "CRITICAL",
+              "elementClientIds": [
+                "elem-2"
+              ],
+              "description": "A variable explicitly selected as the criterion for study evaluation must be typed as ENDPOINT.",
+              "recommendedAction": "Change element type of elem-2 to ENDPOINT.",
+              "resolved": false
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "repairId": "rep-1",
+              "action": "UPSERT_ELEMENT",
+              "reason": "Map unmapped inventory item inv-6 ('On suit') to a SCIENTIFIC_INTENT element representing follow-up action.",
+              "sourceInventoryItemIds": [
+                "inv-6"
+              ],
+              "sourceInventoryRelationIds": [],
+              "inventoryItemId": "inv-6",
+              "inventorySourceMessageId": "SEM-H11:user:1",
+              "inventorySourceText": "On suit",
+              "inventoryNormalizedLabel": "suivi",
+              "inventoryLocalRole": "action",
+              "inventoryPolarity": "AFFIRMED",
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [
+                "inv-1"
+              ],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": "elem-5",
+              "elementType": "SCIENTIFIC_INTENT",
+              "elementCanonicalMeaning": "Follow-up observation intent",
+              "elementStudyRole": "NONE",
+              "elementPolarity": "AFFIRMED",
+              "elementInventoryItemIds": [
+                "inv-6"
+              ],
+              "elementSourceMessageId": "SEM-H11:user:1",
+              "elementSourceText": "On suit",
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementConfidence": 1,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": false,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "relationPolarity": null,
+              "relationInventoryRelationIds": [],
+              "relationEpistemicStatus": null,
+              "relationConfidence": null,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": null,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            },
+            {
+              "repairId": "rep-2",
+              "action": "UPSERT_ELEMENT",
+              "reason": "Correct element type for elem-2 from BIOMARKER to ENDPOINT per taxonomy rule for selected judging variables.",
+              "sourceInventoryItemIds": [
+                "inv-2"
+              ],
+              "sourceInventoryRelationIds": [],
+              "inventoryItemId": "inv-2",
+              "inventorySourceMessageId": "SEM-H11:user:1",
+              "inventorySourceText": "vitesse de croissance",
+              "inventoryNormalizedLabel": "vitesse de croissance aortique",
+              "inventoryLocalRole": "endpoint_candidate",
+              "inventoryPolarity": "AFFIRMED",
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": "elem-2",
+              "elementType": "ENDPOINT",
+              "elementCanonicalMeaning": "Aortic growth rate selected as primary evaluation criterion",
+              "elementStudyRole": "OUTCOME_ROLE",
+              "elementPolarity": "AFFIRMED",
+              "elementInventoryItemIds": [
+                "inv-2"
+              ],
+              "elementSourceMessageId": "SEM-H11:user:1",
+              "elementSourceText": "vitesse de croissance",
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementConfidence": 1,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": false,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "relationPolarity": null,
+              "relationInventoryRelationIds": [],
+              "relationEpistemicStatus": null,
+              "relationConfidence": null,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": null,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            },
+            {
+              "repairId": "rep-3",
+              "action": "UPSERT_RELATION",
+              "reason": "Map inventory relation rel-1 ('On suit diamètre aortique') to an explicit OBSERVES Semantic Relation between elem-5 and elem-1.",
+              "sourceInventoryItemIds": [],
+              "sourceInventoryRelationIds": [
+                "rel-1"
+              ],
+              "inventoryItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "inventoryNormalizedLabel": null,
+              "inventoryLocalRole": null,
+              "inventoryPolarity": null,
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": "rel-1",
+              "inventoryRelationSourceItemId": "inv-6",
+              "inventoryRelationTargetItemId": "inv-1",
+              "inventoryRelationSourceMessageId": "SEM-H11:user:1",
+              "inventoryRelationSourceText": "On suit diamètre aortique",
+              "inventoryNormalizedRelation": "OBSERVES",
+              "inventoryRelationPolarity": "AFFIRMED",
+              "elementClientElementId": null,
+              "elementType": null,
+              "elementCanonicalMeaning": null,
+              "elementStudyRole": null,
+              "elementPolarity": null,
+              "elementInventoryItemIds": [],
+              "elementSourceMessageId": null,
+              "elementSourceText": null,
+              "elementEpistemicStatus": null,
+              "elementConfidence": null,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": null,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": "rel-elem-3",
+              "relationSourceClientElementId": "elem-5",
+              "relationTargetClientElementId": "elem-1",
+              "relationType": "OBSERVES",
+              "relationPolarity": "AFFIRMED",
+              "relationInventoryRelationIds": [
+                "rel-1"
+              ],
+              "relationEpistemicStatus": "EXPLICIT_USER_STATED",
+              "relationConfidence": 1,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": false,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            }
+          ],
+          "criticSummary": "The candidate missed mapping inventory item inv-6 and inventory relation rel-1, and incorrectly classified the selected growth rate as BIOMARKER instead of ENDPOINT. Repairs provide the missing action element, map the observation relation, and retype the endpoint appropriately."
+        },
+        {
+          "criticId": "crit-001",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit inventory objects (diamètre aortique, vitesse de croissance, diamètre brut, doit compter, On suit) are fully represented by corresponding typed semantic elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The comparison between growth rate and raw diameter is fully represented and preserved."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No active experimental intervention or treatment is stated in this observational context."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No acquisition modality family is stated."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit inventory relations (rel-1, rel-2, rel-3) are successfully mapped to direct typed semantic relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All typed semantic elements adhere strictly to the operational taxonomy without type mismatches."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations retain their full semantic strength and direct mapping."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No ungrounded inferences have been promoted to explicit fact status."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Ambiguities are appropriately accounted for and none are hidden."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarities are correctly affirmed without reversal or omission."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit timing or interval points are specified."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Aortic growth rate is explicitly designated by the user as the primary evaluation criterion, justifying its ENDPOINT classification."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific scientific concepts such as aortic growth rate and raw diameter are precisely preserved."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "The missing explicit source fragments list is empty and all source spans are mapped."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The route DESIGN_STUDY properly matches the user's focus on defining endpoints and criteria for study execution."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The typed candidate accurately represents all explicit elements, relations, and endpoint selections with complete semantic coverage and no taxonomy violations."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-13T10:10:43.868Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-9e6751354ec52ce1",
+      "resultDigest": "ke1-9e6751354ec52ce1",
+      "coverageStatus": "NO_PROVIDER",
+      "verifiedAt": "2026-08-13T10:10:43.873Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-13T10:10:43.868Z",
+    "updatedAt": "2026-08-13T10:10:43.873Z",
+    "digest": "ke1-f33d1ae4c7bb0b00"
+  },
+  "semanticModelDigest": "ke1-f33d1ae4c7bb0b00",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-1",
+          "sourceMessageId": "SEM-H11:user:1",
+          "sourceText": "diamètre aortique",
+          "normalizedMeaning": "diamètre aortique",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-2",
+          "sourceMessageId": "SEM-H11:user:1",
+          "sourceText": "vitesse de croissance",
+          "normalizedMeaning": "vitesse de croissance aortique",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-3",
+          "sourceMessageId": "SEM-H11:user:1",
+          "sourceText": "diamètre brut",
+          "normalizedMeaning": "diamètre brut",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-4",
+          "sourceMessageId": "SEM-H11:user:1",
+          "sourceText": "plutôt que",
+          "normalizedMeaning": "plutôt que",
+          "mappedClientElementIds": [],
+          "mappedClientRelationIds": [
+            "rel-elem-1",
+            "rel-elem-2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "The explicit functional fragment is represented by its source-grounded direct Semantic Relation rather than by a false object node."
+        },
+        {
+          "inventoryItemId": "inv-5",
+          "sourceMessageId": "SEM-H11:user:1",
+          "sourceText": "doit compter",
+          "normalizedMeaning": "doit compter comme critère",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-6",
+          "sourceMessageId": "SEM-H11:user:1",
+          "sourceText": "On suit",
+          "normalizedMeaning": "suivi",
+          "mappedClientElementIds": [
+            "elem-5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-1",
+          "sourceInventoryItemId": "inv-6",
+          "targetInventoryItemId": "inv-1",
+          "normalizedRelation": "OBSERVES",
+          "mappedClientRelationIds": [
+            "rel-elem-3"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-2",
+          "sourceInventoryItemId": "inv-2",
+          "targetInventoryItemId": "inv-3",
+          "normalizedRelation": "COMPARES_WITH",
+          "mappedClientRelationIds": [
+            "rel-elem-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-3",
+          "sourceInventoryItemId": "inv-5",
+          "targetInventoryItemId": "inv-2",
+          "normalizedRelation": "SELECTED_AS",
+          "mappedClientRelationIds": [
+            "rel-elem-2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-8066258bdfcc6c77",
+    "evaluatedAt": "2026-08-13T10:10:43.876Z",
+    "goldFrameDigest": "ke1-205402ea8197ee06",
+    "result": {
+      "caseId": "SEM-H11",
+      "explicitObjectRecall": 1,
+      "explicitRelationRecall": 0,
+      "criticalSemanticRecall": 0.6666666666666666,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 1,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": [
+        "RELATION_LOST:vitesse de croissance->diamètre aortique"
+      ]
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H11",
+    "explicitObjectRecall": 1,
+    "explicitRelationRecall": 0,
+    "criticalSemanticRecall": 0.6666666666666666,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 1,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": [
+      "RELATION_LOST:vitesse de croissance->diamètre aortique"
+    ]
+  },
+  "error": null
+}

@@ -1,0 +1,2956 @@
+{
+  "campaign": "SEM-001R5L-CLOSURE",
+  "campaignId": "sem-001r5l-closure-2026-08-13T09-09-28-906Z-ke1-391a23dcb99dc470",
+  "caseId": "SEM-H12",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-391a23dcb99dc470",
+  "semanticConfigurationDigest": "ke1-410eaaec72fd1768",
+  "goldFrameDigest": "ke1-6cde19cdd202bfb9",
+  "originalRequest": [
+    "delta-radiomics avant et pendant RT pour toxicité pulmonaire tardive"
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-13T09:15:04.480Z",
+  "completedAt": "2026-08-13T09:15:21.415Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H12:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Étude de la delta-radiomique avant et pendant la radiothérapie pour prédire la toxicité pulmonaire tardive",
+        "summaryForUser": "Analyse de la delta-radiomique avant et pendant la radiothérapie par rapport à la toxicité pulmonaire tardive.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H12:user:1",
+              "sourceText": "delta-radiomics",
+              "normalizedLabel": "delta-radiomics",
+              "localRole": "biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H12:user:1",
+              "sourceText": "avant",
+              "normalizedLabel": "avant",
+              "localRole": "timing",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H12:user:1",
+              "sourceText": "pendant",
+              "normalizedLabel": "pendant",
+              "localRole": "timing",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H12:user:1",
+              "sourceText": "RT",
+              "normalizedLabel": "radiothérapie",
+              "localRole": "intervention",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H12:user:1",
+              "sourceText": "toxicité pulmonaire tardive",
+              "normalizedLabel": "toxicité pulmonaire tardive",
+              "localRole": "outcome",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-inv-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H12:user:1",
+              "sourceText": "delta-radiomics avant",
+              "normalizedRelation": "REPEATED_AT",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-inv-2",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H12:user:1",
+              "sourceText": "delta-radiomics avant et pendant RT pour toxicité pulmonaire tardive",
+              "normalizedRelation": "REPEATED_AT",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-inv-3",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H12:user:1",
+              "sourceText": "pendant RT",
+              "normalizedRelation": "CO_LOCALIZES_WITH",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-inv-4",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H12:user:1",
+              "sourceText": "delta-radiomics avant et pendant RT pour toxicité pulmonaire tardive",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Delta radiomics features",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceMessageId": "SEM-H12:user:1",
+            "sourceText": "delta-radiomics",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "TIMING",
+            "canonicalMeaning": "Avant",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceMessageId": "SEM-H12:user:1",
+            "sourceText": "avant",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "TIMING",
+            "canonicalMeaning": "Pendant",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceMessageId": "SEM-H12:user:1",
+            "sourceText": "pendant",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-4",
+            "type": "INTERVENTION",
+            "canonicalMeaning": "Radiotherapy",
+            "studyRole": "INTERVENTION_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "sourceMessageId": "SEM-H12:user:1",
+            "sourceText": "RT",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-5",
+            "type": "OUTCOME",
+            "canonicalMeaning": "Late pulmonary toxicity",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-5"
+            ],
+            "sourceMessageId": "SEM-H12:user:1",
+            "sourceText": "toxicité pulmonaire tardive",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-1",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-2",
+            "relationType": "REPEATED_AT",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-2",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-3",
+            "relationType": "REPEATED_AT",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-3",
+            "sourceClientElementId": "elem-3",
+            "targetClientElementId": "elem-4",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-3"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-4",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-5",
+            "relationType": "PREDICTS_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-4"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 0.8,
+            "inferenceReason": "Implied predictive or associative link between biomarker and toxicity outcome.",
+            "requiresConfirmation": true
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [
+          {
+            "question": "Souhaitez-vous préciser le modèle prédictif ou l'algorithme associé à cette étude de delta-radiomique ?",
+            "reason": "Préciser la méthode d'analyse pour affiner la conception de l'étude.",
+            "resolvesClientElementIds": [
+              "elem-1"
+            ]
+          }
+        ],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "L'utilisateur fournit les éléments clés d'une étude potentielle (biomarqueur, intervention, timing, critère de jugement).",
+          "expectedCapabilities": [
+            "Définition du design d'étude",
+            "Sélection des critères d'évaluation"
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:1"
+        ]
+      },
+      "reconstructionDigest": "ke1-d9a8990255ec330e",
+      "critics": [
+        {
+          "criticId": "critic-1",
+          "verdict": "REVISE",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects (delta-radiomics, RT, toxicité pulmonaire tardive) are represented in the typed candidate."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is present in the source message."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "RT is represented as an intervention."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No broad modality family is separately stated apart from the method/technique."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit inventory relations are mapped in the relation set."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "FAIL",
+              "evidence": "delta-radiomics was incorrectly typed as BIOMARKER; per taxonomy, mapping and analysis techniques that produce features are METHOD."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations are preserved faithfully."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No inferences are promoted without grounding."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No ambiguities are hidden."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarities are correctly affirmed."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Timings 'avant' and 'pendant' are fully preserved."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Outcome role remains OUTCOME_ROLE without unauthorized promotion to ENDPOINT."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like delta-radiomics and late pulmonary toxicity are not generalized."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "All source tokens are mapped."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "DESIGN_STUDY matches the study-construction intent."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [
+            {
+              "code": "TYPE_MISMATCH",
+              "severity": "CRITICAL",
+              "elementClientIds": [
+                "elem-1"
+              ],
+              "description": "delta-radiomics typed as BIOMARKER instead of METHOD.",
+              "recommendedAction": "Upsert element elem-1 to type METHOD.",
+              "resolved": false
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "repairId": "rep-1",
+              "action": "UPSERT_ELEMENT",
+              "reason": "Correct delta-radiomics type from BIOMARKER to METHOD per operational taxonomy.",
+              "sourceInventoryItemIds": [
+                "inv-1"
+              ],
+              "sourceInventoryRelationIds": [],
+              "inventoryItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "inventoryNormalizedLabel": null,
+              "inventoryLocalRole": null,
+              "inventoryPolarity": null,
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": "elem-1",
+              "elementType": "METHOD",
+              "elementCanonicalMeaning": "Delta radiomics analysis method",
+              "elementStudyRole": "MEASUREMENT",
+              "elementPolarity": "AFFIRMED",
+              "elementInventoryItemIds": [
+                "inv-1"
+              ],
+              "elementSourceMessageId": "SEM-H12:user:1",
+              "elementSourceText": "delta-radiomics",
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementConfidence": 1,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": false,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "relationPolarity": null,
+              "relationInventoryRelationIds": [],
+              "relationEpistemicStatus": null,
+              "relationConfidence": null,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": null,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            }
+          ],
+          "criticSummary": "The candidate is well-formed except for element 1 (delta-radiomics), which should be typed as METHOD rather than BIOMARKER because it represents an analytical method/mapping technique. A single UPSERT_ELEMENT repair is provided."
+        },
+        {
+          "criticId": "critic-001",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit fragments from the user message are fully represented in the inventory and candidate."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is explicitly requested or mentioned in the source message."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "RT (radiotherapy) is fully represented as element elem-4."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "No separate broad modality independent of the method is declared."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All inventory relations are mapped correctly to candidate semantic relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All semantic element types conform to the operational taxonomy rules."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations are preserved faithfully without weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No ungrounded inferences have been promoted to explicit statements."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No ambiguities were concealed."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarities are correctly preserved as affirmed."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Timings 'avant' and 'pendant' are represented as elements elem-2 and elem-3."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Outcomes are appropriately categorized without unwarranted endpoint promotion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like delta-radiomics and late pulmonary toxicity retain their exact specificity."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "The missing explicit source fragments list is empty and all fragments are accounted for."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The route DESIGN_STUDY matches the study-construction components provided by the user."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The semantic inventory, candidate, taxonomy report, and integrity report are complete and correct. All user constraints and tokens are fully and faithfully mapped."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [
+        {
+          "repairId": "rep-1",
+          "status": "ACCEPTED",
+          "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+        }
+      ],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-258f57d251d3763e",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "delta-radiomics avant et pendant RT pour toxicité pulmonaire tardive",
+        "normalizedMeaning": "Étude de la delta-radiomique avant et pendant la radiothérapie pour prédire la toxicité pulmonaire tardive",
+        "conversationMessageIds": [
+          "SEM-H12:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-01356c600d12bbdc",
+            "type": "TIMING",
+            "canonicalMeaning": "Avant",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H12:user:1",
+              "text": "avant",
+              "start": 16,
+              "end": 21
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-717e11401d18002c"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H12:user:1",
+              "providerCallId": "gemini-call:ke1-a153499617fbde7a",
+              "rawElementId": "elem-2"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-154a203da8d17569",
+            "type": "INTERVENTION",
+            "canonicalMeaning": "Radiotherapy",
+            "studyRole": "INTERVENTION_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H12:user:1",
+              "text": "RT",
+              "start": 33,
+              "end": 35
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-f7b2c445276386b9"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H12:user:1",
+              "providerCallId": "gemini-call:ke1-a153499617fbde7a",
+              "rawElementId": "elem-4"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-515c766a69c5b946",
+            "type": "OUTCOME",
+            "canonicalMeaning": "Late pulmonary toxicity",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-5"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H12:user:1",
+              "text": "toxicité pulmonaire tardive",
+              "start": 41,
+              "end": 68
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-64560cd20da29a3e"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H12:user:1",
+              "providerCallId": "gemini-call:ke1-a153499617fbde7a",
+              "rawElementId": "elem-5"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-9fd14026dbcbab1a",
+            "type": "TIMING",
+            "canonicalMeaning": "Pendant",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H12:user:1",
+              "text": "pendant",
+              "start": 25,
+              "end": 32
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-8d973c0286a050ce",
+              "sem-relation:ke1-f7b2c445276386b9"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H12:user:1",
+              "providerCallId": "gemini-call:ke1-a153499617fbde7a",
+              "rawElementId": "elem-3"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-df01be4d465f4b71",
+            "type": "METHOD",
+            "canonicalMeaning": "Delta radiomics analysis method",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H12:user:1",
+              "text": "delta-radiomics",
+              "start": 0,
+              "end": 15
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-64560cd20da29a3e",
+              "sem-relation:ke1-717e11401d18002c",
+              "sem-relation:ke1-8d973c0286a050ce"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H12:user:1",
+              "providerCallId": "gemini-call:ke1-a153499617fbde7a",
+              "rawElementId": "elem-1"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-64560cd20da29a3e",
+            "sourceElementId": "sem-element:ke1-df01be4d465f4b71",
+            "targetElementId": "sem-element:ke1-515c766a69c5b946",
+            "relationType": "PREDICTS_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-4"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 0.8,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-717e11401d18002c",
+            "sourceElementId": "sem-element:ke1-df01be4d465f4b71",
+            "targetElementId": "sem-element:ke1-01356c600d12bbdc",
+            "relationType": "REPEATED_AT",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-1"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-8d973c0286a050ce",
+            "sourceElementId": "sem-element:ke1-df01be4d465f4b71",
+            "targetElementId": "sem-element:ke1-9fd14026dbcbab1a",
+            "relationType": "REPEATED_AT",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-2"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-f7b2c445276386b9",
+            "sourceElementId": "sem-element:ke1-9fd14026dbcbab1a",
+            "targetElementId": "sem-element:ke1-154a203da8d17569",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-3"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H12:user:1",
+              "sourceText": "delta-radiomics",
+              "normalizedMeaning": "delta-radiomics",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H12:user:1",
+              "sourceText": "avant",
+              "normalizedMeaning": "avant",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H12:user:1",
+              "sourceText": "pendant",
+              "normalizedMeaning": "pendant",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H12:user:1",
+              "sourceText": "RT",
+              "normalizedMeaning": "radiothérapie",
+              "mappedClientElementIds": [
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H12:user:1",
+              "sourceText": "toxicité pulmonaire tardive",
+              "normalizedMeaning": "toxicité pulmonaire tardive",
+              "mappedClientElementIds": [
+                "elem-5"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-inv-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-2",
+              "normalizedRelation": "REPEATED_AT",
+              "mappedClientRelationIds": [
+                "rel-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-inv-2",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-3",
+              "normalizedRelation": "REPEATED_AT",
+              "mappedClientRelationIds": [
+                "rel-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-inv-3",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-4",
+              "normalizedRelation": "CO_LOCALIZES_WITH",
+              "mappedClientRelationIds": [
+                "rel-3"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-inv-4",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-5",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "mappedClientRelationIds": [
+                "rel-4"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "clarificationCandidates": [
+          {
+            "question": "Souhaitez-vous préciser le modèle prédictif ou l'algorithme associé à cette étude de delta-radiomique ?",
+            "reason": "Préciser la méthode d'analyse pour affiner la conception de l'étude.",
+            "resolvesElementIds": [
+              "sem-element:ke1-df01be4d465f4b71"
+            ]
+          }
+        ],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "L'utilisateur fournit les éléments clés d'une étude potentielle (biomarqueur, intervention, timing, critère de jugement).",
+          "expectedCapabilities": [
+            "Définition du design d'étude",
+            "Sélection des critères d'évaluation"
+          ]
+        },
+        "summaryForUser": "Analyse de la delta-radiomique avant et pendant la radiothérapie par rapport à la toxicité pulmonaire tardive.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "The semantic inventory, candidate, taxonomy report, and integrity report are complete and correct. All user constraints and tokens are fully and faithfully mapped."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+          "criticPromptVersion": "SEM-001-CRITIC-1.6",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-a153499617fbde7a",
+          "criticCallId": "gemini-call:ke1-46e4448024cd2944",
+          "criticCallIds": [
+            "gemini-call:ke1-2f7a9d26a5a510da",
+            "gemini-call:ke1-46e4448024cd2944"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:15:06.638Z",
+              "requestFinished": "2026-08-13T09:15:13.243Z",
+              "latencyMs": 6605,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:15:13.247Z",
+              "requestFinished": "2026-08-13T09:15:18.361Z",
+              "latencyMs": 5114,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            },
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:15:18.367Z",
+              "requestFinished": "2026-08-13T09:15:21.407Z",
+              "latencyMs": 3040,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "cand-001",
+            "language": "fr",
+            "normalizedMeaning": "Étude de la delta-radiomique avant et pendant la radiothérapie pour prédire la toxicité pulmonaire tardive",
+            "summaryForUser": "Analyse de la delta-radiomique avant et pendant la radiothérapie par rapport à la toxicité pulmonaire tardive.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "inv-1",
+                  "sourceMessageId": "SEM-H12:user:1",
+                  "sourceText": "delta-radiomics",
+                  "normalizedLabel": "delta-radiomics",
+                  "localRole": "biomarker",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-2",
+                  "sourceMessageId": "SEM-H12:user:1",
+                  "sourceText": "avant",
+                  "normalizedLabel": "avant",
+                  "localRole": "timing",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-3",
+                  "sourceMessageId": "SEM-H12:user:1",
+                  "sourceText": "pendant",
+                  "normalizedLabel": "pendant",
+                  "localRole": "timing",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-4",
+                  "sourceMessageId": "SEM-H12:user:1",
+                  "sourceText": "RT",
+                  "normalizedLabel": "radiothérapie",
+                  "localRole": "intervention",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-5",
+                  "sourceMessageId": "SEM-H12:user:1",
+                  "sourceText": "toxicité pulmonaire tardive",
+                  "normalizedLabel": "toxicité pulmonaire tardive",
+                  "localRole": "outcome",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel-inv-1",
+                  "sourceInventoryItemId": "inv-1",
+                  "targetInventoryItemId": "inv-2",
+                  "sourceMessageId": "SEM-H12:user:1",
+                  "sourceText": "delta-radiomics avant",
+                  "normalizedRelation": "REPEATED_AT",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-inv-2",
+                  "sourceInventoryItemId": "inv-1",
+                  "targetInventoryItemId": "inv-3",
+                  "sourceMessageId": "SEM-H12:user:1",
+                  "sourceText": "delta-radiomics avant et pendant RT pour toxicité pulmonaire tardive",
+                  "normalizedRelation": "REPEATED_AT",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-inv-3",
+                  "sourceInventoryItemId": "inv-3",
+                  "targetInventoryItemId": "inv-4",
+                  "sourceMessageId": "SEM-H12:user:1",
+                  "sourceText": "pendant RT",
+                  "normalizedRelation": "CO_LOCALIZES_WITH",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-inv-4",
+                  "sourceInventoryItemId": "inv-1",
+                  "targetInventoryItemId": "inv-5",
+                  "sourceMessageId": "SEM-H12:user:1",
+                  "sourceText": "delta-radiomics avant et pendant RT pour toxicité pulmonaire tardive",
+                  "normalizedRelation": "RELATED_TO_CANDIDATE",
+                  "polarity": "AFFIRMED"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem-2",
+                "type": "TIMING",
+                "canonicalMeaning": "Avant",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-2"
+                ],
+                "sourceMessageId": "SEM-H12:user:1",
+                "sourceText": "avant",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-3",
+                "type": "TIMING",
+                "canonicalMeaning": "Pendant",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-3"
+                ],
+                "sourceMessageId": "SEM-H12:user:1",
+                "sourceText": "pendant",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-4",
+                "type": "INTERVENTION",
+                "canonicalMeaning": "Radiotherapy",
+                "studyRole": "INTERVENTION_ARM",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-4"
+                ],
+                "sourceMessageId": "SEM-H12:user:1",
+                "sourceText": "RT",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-5",
+                "type": "OUTCOME",
+                "canonicalMeaning": "Late pulmonary toxicity",
+                "studyRole": "OUTCOME_ROLE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-5"
+                ],
+                "sourceMessageId": "SEM-H12:user:1",
+                "sourceText": "toxicité pulmonaire tardive",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-1",
+                "type": "METHOD",
+                "canonicalMeaning": "Delta radiomics analysis method",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-1"
+                ],
+                "sourceMessageId": "SEM-H12:user:1",
+                "sourceText": "delta-radiomics",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel-1",
+                "sourceClientElementId": "elem-1",
+                "targetClientElementId": "elem-2",
+                "relationType": "REPEATED_AT",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-inv-1"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-2",
+                "sourceClientElementId": "elem-1",
+                "targetClientElementId": "elem-3",
+                "relationType": "REPEATED_AT",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-inv-2"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-3",
+                "sourceClientElementId": "elem-3",
+                "targetClientElementId": "elem-4",
+                "relationType": "RELATED_TO_CANDIDATE",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-inv-3"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-4",
+                "sourceClientElementId": "elem-1",
+                "targetClientElementId": "elem-5",
+                "relationType": "PREDICTS_CANDIDATE",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-inv-4"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 0.8,
+                "inferenceReason": "Implied predictive or associative link between biomarker and toxicity outcome.",
+                "requiresConfirmation": true
+              }
+            ],
+            "missingConcepts": [],
+            "ellipses": [],
+            "ambiguities": [],
+            "unknowns": [],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [
+              {
+                "question": "Souhaitez-vous préciser le modèle prédictif ou l'algorithme associé à cette étude de delta-radiomique ?",
+                "reason": "Préciser la méthode d'analyse pour affiner la conception de l'étude.",
+                "resolvesClientElementIds": [
+                  "elem-1"
+                ]
+              }
+            ],
+            "routeProposal": {
+              "route": "DESIGN_STUDY",
+              "confidence": 0.9,
+              "reason": "L'utilisateur fournit les éléments clés d'une étude potentielle (biomarqueur, intervention, timing, critère de jugement).",
+              "expectedCapabilities": [
+                "Définition du design d'étude",
+                "Sélection des critères d'évaluation"
+              ]
+            },
+            "semanticWarnings": [
+              "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:1"
+            ]
+          },
+          "rawCritic": {
+            "criticId": "critic-001",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit fragments from the user message are fully represented in the inventory and candidate."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No comparator is explicitly requested or mentioned in the source message."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "RT (radiotherapy) is fully represented as element elem-4."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "PASS",
+                "evidence": "No separate broad modality independent of the method is declared."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All inventory relations are mapped correctly to candidate semantic relations."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "All semantic element types conform to the operational taxonomy rules."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Explicit relations are preserved faithfully without weakening."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No ungrounded inferences have been promoted to explicit statements."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "No ambiguities were concealed."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "Polarities are correctly preserved as affirmed."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "PASS",
+                "evidence": "Timings 'avant' and 'pendant' are represented as elements elem-2 and elem-3."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "Outcomes are appropriately categorized without unwarranted endpoint promotion."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts like delta-radiomics and late pulmonary toxicity retain their exact specificity."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "The missing explicit source fragments list is empty and all fragments are accounted for."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "The route DESIGN_STUDY matches the study-construction components provided by the user."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The semantic inventory, candidate, taxonomy report, and integrity report are complete and correct. All user constraints and tokens are fully and faithfully mapped."
+          },
+          "rawCritics": [
+            {
+              "criticId": "critic-1",
+              "verdict": "REVISE",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit objects (delta-radiomics, RT, toxicité pulmonaire tardive) are represented in the typed candidate."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No comparator is present in the source message."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "RT is represented as an intervention."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No broad modality family is separately stated apart from the method/technique."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit inventory relations are mapped in the relation set."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "FAIL",
+                  "evidence": "delta-radiomics was incorrectly typed as BIOMARKER; per taxonomy, mapping and analysis techniques that produce features are METHOD."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Explicit relations are preserved faithfully."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No inferences are promoted without grounding."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "No ambiguities are hidden."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "Polarities are correctly affirmed."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "PASS",
+                  "evidence": "Timings 'avant' and 'pendant' are fully preserved."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "Outcome role remains OUTCOME_ROLE without unauthorized promotion to ENDPOINT."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific concepts like delta-radiomics and late pulmonary toxicity are not generalized."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All source tokens are mapped."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "DESIGN_STUDY matches the study-construction intent."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [
+                {
+                  "code": "TYPE_MISMATCH",
+                  "severity": "CRITICAL",
+                  "elementClientIds": [
+                    "elem-1"
+                  ],
+                  "description": "delta-radiomics typed as BIOMARKER instead of METHOD.",
+                  "recommendedAction": "Upsert element elem-1 to type METHOD.",
+                  "resolved": false
+                }
+              ],
+              "proposedRepairs": [
+                {
+                  "repairId": "rep-1",
+                  "action": "UPSERT_ELEMENT",
+                  "reason": "Correct delta-radiomics type from BIOMARKER to METHOD per operational taxonomy.",
+                  "sourceInventoryItemIds": [
+                    "inv-1"
+                  ],
+                  "sourceInventoryRelationIds": [],
+                  "inventoryItemId": null,
+                  "inventorySourceMessageId": null,
+                  "inventorySourceText": null,
+                  "inventoryNormalizedLabel": null,
+                  "inventoryLocalRole": null,
+                  "inventoryPolarity": null,
+                  "inventoryModifiers": [],
+                  "inventoryLinkedItemIds": [],
+                  "inventoryRelationId": null,
+                  "inventoryRelationSourceItemId": null,
+                  "inventoryRelationTargetItemId": null,
+                  "inventoryRelationSourceMessageId": null,
+                  "inventoryRelationSourceText": null,
+                  "inventoryNormalizedRelation": null,
+                  "inventoryRelationPolarity": null,
+                  "elementClientElementId": "elem-1",
+                  "elementType": "METHOD",
+                  "elementCanonicalMeaning": "Delta radiomics analysis method",
+                  "elementStudyRole": "MEASUREMENT",
+                  "elementPolarity": "AFFIRMED",
+                  "elementInventoryItemIds": [
+                    "inv-1"
+                  ],
+                  "elementSourceMessageId": "SEM-H12:user:1",
+                  "elementSourceText": "delta-radiomics",
+                  "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+                  "elementConfidence": 1,
+                  "elementInferenceReason": null,
+                  "elementRequiresConfirmation": false,
+                  "elementSupersedesElementIds": [],
+                  "relationClientRelationId": null,
+                  "relationSourceClientElementId": null,
+                  "relationTargetClientElementId": null,
+                  "relationType": null,
+                  "relationPolarity": null,
+                  "relationInventoryRelationIds": [],
+                  "relationEpistemicStatus": null,
+                  "relationConfidence": null,
+                  "relationInferenceReason": null,
+                  "relationRequiresConfirmation": null,
+                  "ambiguity": null,
+                  "route": null,
+                  "routeConfidence": null,
+                  "routeReason": null,
+                  "routeExpectedCapabilities": []
+                }
+              ],
+              "criticSummary": "The candidate is well-formed except for element 1 (delta-radiomics), which should be typed as METHOD rather than BIOMARKER because it represents an analytical method/mapping technique. A single UPSERT_ELEMENT repair is provided."
+            },
+            {
+              "criticId": "critic-001",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit fragments from the user message are fully represented in the inventory and candidate."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No comparator is explicitly requested or mentioned in the source message."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "RT (radiotherapy) is fully represented as element elem-4."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "No separate broad modality independent of the method is declared."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All inventory relations are mapped correctly to candidate semantic relations."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "All semantic element types conform to the operational taxonomy rules."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Explicit relations are preserved faithfully without weakening."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No ungrounded inferences have been promoted to explicit statements."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "No ambiguities were concealed."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "Polarities are correctly preserved as affirmed."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "PASS",
+                  "evidence": "Timings 'avant' and 'pendant' are represented as elements elem-2 and elem-3."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "Outcomes are appropriately categorized without unwarranted endpoint promotion."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific concepts like delta-radiomics and late pulmonary toxicity retain their exact specificity."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The missing explicit source fragments list is empty and all fragments are accounted for."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "The route DESIGN_STUDY matches the study-construction components provided by the user."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "The semantic inventory, candidate, taxonomy report, and integrity report are complete and correct. All user constraints and tokens are fully and faithfully mapped."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-13T09:15:21.408Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-ae59e3a5ec3a8831",
+          "resultDigest": "ke1-ae59e3a5ec3a8831",
+          "coverageStatus": "NO_PROVIDER",
+          "verifiedAt": "2026-08-13T09:15:21.412Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-13T09:15:21.408Z",
+        "updatedAt": "2026-08-13T09:15:21.412Z",
+        "digest": "ke1-28e71b29a9729cad"
+      },
+      "canonicalModelDigest": "ke1-28e71b29a9729cad",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-ae59e3a5ec3a8831",
+        "resultDigest": "ke1-ae59e3a5ec3a8831",
+        "coverageStatus": "NO_PROVIDER",
+        "verifiedAt": "2026-08-13T09:15:21.412Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-a153499617fbde7a",
+      "structuredDigest": "ke1-d9a8990255ec330e",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:15:06.638Z",
+          "requestFinished": "2026-08-13T09:15:13.243Z",
+          "latencyMs": 6605,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-2f7a9d26a5a510da",
+      "structuredDigest": "ke1-9f43986da5572bf1",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:15:13.247Z",
+          "requestFinished": "2026-08-13T09:15:18.361Z",
+          "latencyMs": 5114,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 2,
+      "callId": "gemini-call:ke1-46e4448024cd2944",
+      "structuredDigest": "ke1-8d97b1e8494fa764",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:15:18.367Z",
+          "requestFinished": "2026-08-13T09:15:21.407Z",
+          "latencyMs": 3040,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-258f57d251d3763e",
+    "revision": 1,
+    "status": "CANDIDATE",
+    "originalRequest": "delta-radiomics avant et pendant RT pour toxicité pulmonaire tardive",
+    "normalizedMeaning": "Étude de la delta-radiomique avant et pendant la radiothérapie pour prédire la toxicité pulmonaire tardive",
+    "conversationMessageIds": [
+      "SEM-H12:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-01356c600d12bbdc",
+        "type": "TIMING",
+        "canonicalMeaning": "Avant",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-2"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H12:user:1",
+          "text": "avant",
+          "start": 16,
+          "end": 21
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-717e11401d18002c"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H12:user:1",
+          "providerCallId": "gemini-call:ke1-a153499617fbde7a",
+          "rawElementId": "elem-2"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-154a203da8d17569",
+        "type": "INTERVENTION",
+        "canonicalMeaning": "Radiotherapy",
+        "studyRole": "INTERVENTION_ARM",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-4"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H12:user:1",
+          "text": "RT",
+          "start": 33,
+          "end": 35
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-f7b2c445276386b9"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H12:user:1",
+          "providerCallId": "gemini-call:ke1-a153499617fbde7a",
+          "rawElementId": "elem-4"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-515c766a69c5b946",
+        "type": "OUTCOME",
+        "canonicalMeaning": "Late pulmonary toxicity",
+        "studyRole": "OUTCOME_ROLE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-5"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H12:user:1",
+          "text": "toxicité pulmonaire tardive",
+          "start": 41,
+          "end": 68
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-64560cd20da29a3e"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H12:user:1",
+          "providerCallId": "gemini-call:ke1-a153499617fbde7a",
+          "rawElementId": "elem-5"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-9fd14026dbcbab1a",
+        "type": "TIMING",
+        "canonicalMeaning": "Pendant",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-3"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H12:user:1",
+          "text": "pendant",
+          "start": 25,
+          "end": 32
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-8d973c0286a050ce",
+          "sem-relation:ke1-f7b2c445276386b9"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H12:user:1",
+          "providerCallId": "gemini-call:ke1-a153499617fbde7a",
+          "rawElementId": "elem-3"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-df01be4d465f4b71",
+        "type": "METHOD",
+        "canonicalMeaning": "Delta radiomics analysis method",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-1"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H12:user:1",
+          "text": "delta-radiomics",
+          "start": 0,
+          "end": 15
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-64560cd20da29a3e",
+          "sem-relation:ke1-717e11401d18002c",
+          "sem-relation:ke1-8d973c0286a050ce"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H12:user:1",
+          "providerCallId": "gemini-call:ke1-a153499617fbde7a",
+          "rawElementId": "elem-1"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-64560cd20da29a3e",
+        "sourceElementId": "sem-element:ke1-df01be4d465f4b71",
+        "targetElementId": "sem-element:ke1-515c766a69c5b946",
+        "relationType": "PREDICTS_CANDIDATE",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-inv-4"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 0.8,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-717e11401d18002c",
+        "sourceElementId": "sem-element:ke1-df01be4d465f4b71",
+        "targetElementId": "sem-element:ke1-01356c600d12bbdc",
+        "relationType": "REPEATED_AT",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-inv-1"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-8d973c0286a050ce",
+        "sourceElementId": "sem-element:ke1-df01be4d465f4b71",
+        "targetElementId": "sem-element:ke1-9fd14026dbcbab1a",
+        "relationType": "REPEATED_AT",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-inv-2"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-f7b2c445276386b9",
+        "sourceElementId": "sem-element:ke1-9fd14026dbcbab1a",
+        "targetElementId": "sem-element:ke1-154a203da8d17569",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-inv-3"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-1",
+          "sourceMessageId": "SEM-H12:user:1",
+          "sourceText": "delta-radiomics",
+          "normalizedMeaning": "delta-radiomics",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-2",
+          "sourceMessageId": "SEM-H12:user:1",
+          "sourceText": "avant",
+          "normalizedMeaning": "avant",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-3",
+          "sourceMessageId": "SEM-H12:user:1",
+          "sourceText": "pendant",
+          "normalizedMeaning": "pendant",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-4",
+          "sourceMessageId": "SEM-H12:user:1",
+          "sourceText": "RT",
+          "normalizedMeaning": "radiothérapie",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-5",
+          "sourceMessageId": "SEM-H12:user:1",
+          "sourceText": "toxicité pulmonaire tardive",
+          "normalizedMeaning": "toxicité pulmonaire tardive",
+          "mappedClientElementIds": [
+            "elem-5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-inv-1",
+          "sourceInventoryItemId": "inv-1",
+          "targetInventoryItemId": "inv-2",
+          "normalizedRelation": "REPEATED_AT",
+          "mappedClientRelationIds": [
+            "rel-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-inv-2",
+          "sourceInventoryItemId": "inv-1",
+          "targetInventoryItemId": "inv-3",
+          "normalizedRelation": "REPEATED_AT",
+          "mappedClientRelationIds": [
+            "rel-2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-inv-3",
+          "sourceInventoryItemId": "inv-3",
+          "targetInventoryItemId": "inv-4",
+          "normalizedRelation": "CO_LOCALIZES_WITH",
+          "mappedClientRelationIds": [
+            "rel-3"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-inv-4",
+          "sourceInventoryItemId": "inv-1",
+          "targetInventoryItemId": "inv-5",
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "mappedClientRelationIds": [
+            "rel-4"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "missingConcepts": [],
+    "ellipses": [],
+    "ambiguities": [],
+    "unknowns": [],
+    "contradictions": [],
+    "clarificationCandidates": [
+      {
+        "question": "Souhaitez-vous préciser le modèle prédictif ou l'algorithme associé à cette étude de delta-radiomique ?",
+        "reason": "Préciser la méthode d'analyse pour affiner la conception de l'étude.",
+        "resolvesElementIds": [
+          "sem-element:ke1-df01be4d465f4b71"
+        ]
+      }
+    ],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "DESIGN_STUDY",
+      "confidence": 0.9,
+      "reason": "L'utilisateur fournit les éléments clés d'une étude potentielle (biomarqueur, intervention, timing, critère de jugement).",
+      "expectedCapabilities": [
+        "Définition du design d'étude",
+        "Sélection des critères d'évaluation"
+      ]
+    },
+    "summaryForUser": "Analyse de la delta-radiomique avant et pendant la radiothérapie par rapport à la toxicité pulmonaire tardive.",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "The semantic inventory, candidate, taxonomy report, and integrity report are complete and correct. All user constraints and tokens are fully and faithfully mapped."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-a153499617fbde7a",
+      "criticCallId": "gemini-call:ke1-46e4448024cd2944",
+      "criticCallIds": [
+        "gemini-call:ke1-2f7a9d26a5a510da",
+        "gemini-call:ke1-46e4448024cd2944"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:15:06.638Z",
+          "requestFinished": "2026-08-13T09:15:13.243Z",
+          "latencyMs": 6605,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:15:13.247Z",
+          "requestFinished": "2026-08-13T09:15:18.361Z",
+          "latencyMs": 5114,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:15:18.367Z",
+          "requestFinished": "2026-08-13T09:15:21.407Z",
+          "latencyMs": 3040,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Étude de la delta-radiomique avant et pendant la radiothérapie pour prédire la toxicité pulmonaire tardive",
+        "summaryForUser": "Analyse de la delta-radiomique avant et pendant la radiothérapie par rapport à la toxicité pulmonaire tardive.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H12:user:1",
+              "sourceText": "delta-radiomics",
+              "normalizedLabel": "delta-radiomics",
+              "localRole": "biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H12:user:1",
+              "sourceText": "avant",
+              "normalizedLabel": "avant",
+              "localRole": "timing",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H12:user:1",
+              "sourceText": "pendant",
+              "normalizedLabel": "pendant",
+              "localRole": "timing",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H12:user:1",
+              "sourceText": "RT",
+              "normalizedLabel": "radiothérapie",
+              "localRole": "intervention",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H12:user:1",
+              "sourceText": "toxicité pulmonaire tardive",
+              "normalizedLabel": "toxicité pulmonaire tardive",
+              "localRole": "outcome",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-inv-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H12:user:1",
+              "sourceText": "delta-radiomics avant",
+              "normalizedRelation": "REPEATED_AT",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-inv-2",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H12:user:1",
+              "sourceText": "delta-radiomics avant et pendant RT pour toxicité pulmonaire tardive",
+              "normalizedRelation": "REPEATED_AT",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-inv-3",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H12:user:1",
+              "sourceText": "pendant RT",
+              "normalizedRelation": "CO_LOCALIZES_WITH",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-inv-4",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H12:user:1",
+              "sourceText": "delta-radiomics avant et pendant RT pour toxicité pulmonaire tardive",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-2",
+            "type": "TIMING",
+            "canonicalMeaning": "Avant",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceMessageId": "SEM-H12:user:1",
+            "sourceText": "avant",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "TIMING",
+            "canonicalMeaning": "Pendant",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceMessageId": "SEM-H12:user:1",
+            "sourceText": "pendant",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-4",
+            "type": "INTERVENTION",
+            "canonicalMeaning": "Radiotherapy",
+            "studyRole": "INTERVENTION_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "sourceMessageId": "SEM-H12:user:1",
+            "sourceText": "RT",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-5",
+            "type": "OUTCOME",
+            "canonicalMeaning": "Late pulmonary toxicity",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-5"
+            ],
+            "sourceMessageId": "SEM-H12:user:1",
+            "sourceText": "toxicité pulmonaire tardive",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-1",
+            "type": "METHOD",
+            "canonicalMeaning": "Delta radiomics analysis method",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceMessageId": "SEM-H12:user:1",
+            "sourceText": "delta-radiomics",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-1",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-2",
+            "relationType": "REPEATED_AT",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-2",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-3",
+            "relationType": "REPEATED_AT",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-3",
+            "sourceClientElementId": "elem-3",
+            "targetClientElementId": "elem-4",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-3"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-4",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-5",
+            "relationType": "PREDICTS_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-4"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 0.8,
+            "inferenceReason": "Implied predictive or associative link between biomarker and toxicity outcome.",
+            "requiresConfirmation": true
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [
+          {
+            "question": "Souhaitez-vous préciser le modèle prédictif ou l'algorithme associé à cette étude de delta-radiomique ?",
+            "reason": "Préciser la méthode d'analyse pour affiner la conception de l'étude.",
+            "resolvesClientElementIds": [
+              "elem-1"
+            ]
+          }
+        ],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "L'utilisateur fournit les éléments clés d'une étude potentielle (biomarqueur, intervention, timing, critère de jugement).",
+          "expectedCapabilities": [
+            "Définition du design d'étude",
+            "Sélection des critères d'évaluation"
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:1"
+        ]
+      },
+      "rawCritic": {
+        "criticId": "critic-001",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit fragments from the user message are fully represented in the inventory and candidate."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No comparator is explicitly requested or mentioned in the source message."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "RT (radiotherapy) is fully represented as element elem-4."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "PASS",
+            "evidence": "No separate broad modality independent of the method is declared."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All inventory relations are mapped correctly to candidate semantic relations."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "All semantic element types conform to the operational taxonomy rules."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "Explicit relations are preserved faithfully without weakening."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No ungrounded inferences have been promoted to explicit statements."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "No ambiguities were concealed."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "Polarities are correctly preserved as affirmed."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "PASS",
+            "evidence": "Timings 'avant' and 'pendant' are represented as elements elem-2 and elem-3."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "Outcomes are appropriately categorized without unwarranted endpoint promotion."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific concepts like delta-radiomics and late pulmonary toxicity retain their exact specificity."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "The missing explicit source fragments list is empty and all fragments are accounted for."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "The route DESIGN_STUDY matches the study-construction components provided by the user."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "The semantic inventory, candidate, taxonomy report, and integrity report are complete and correct. All user constraints and tokens are fully and faithfully mapped."
+      },
+      "rawCritics": [
+        {
+          "criticId": "critic-1",
+          "verdict": "REVISE",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects (delta-radiomics, RT, toxicité pulmonaire tardive) are represented in the typed candidate."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is present in the source message."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "RT is represented as an intervention."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No broad modality family is separately stated apart from the method/technique."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit inventory relations are mapped in the relation set."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "FAIL",
+              "evidence": "delta-radiomics was incorrectly typed as BIOMARKER; per taxonomy, mapping and analysis techniques that produce features are METHOD."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations are preserved faithfully."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No inferences are promoted without grounding."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No ambiguities are hidden."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarities are correctly affirmed."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Timings 'avant' and 'pendant' are fully preserved."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Outcome role remains OUTCOME_ROLE without unauthorized promotion to ENDPOINT."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like delta-radiomics and late pulmonary toxicity are not generalized."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "All source tokens are mapped."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "DESIGN_STUDY matches the study-construction intent."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [
+            {
+              "code": "TYPE_MISMATCH",
+              "severity": "CRITICAL",
+              "elementClientIds": [
+                "elem-1"
+              ],
+              "description": "delta-radiomics typed as BIOMARKER instead of METHOD.",
+              "recommendedAction": "Upsert element elem-1 to type METHOD.",
+              "resolved": false
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "repairId": "rep-1",
+              "action": "UPSERT_ELEMENT",
+              "reason": "Correct delta-radiomics type from BIOMARKER to METHOD per operational taxonomy.",
+              "sourceInventoryItemIds": [
+                "inv-1"
+              ],
+              "sourceInventoryRelationIds": [],
+              "inventoryItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "inventoryNormalizedLabel": null,
+              "inventoryLocalRole": null,
+              "inventoryPolarity": null,
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": "elem-1",
+              "elementType": "METHOD",
+              "elementCanonicalMeaning": "Delta radiomics analysis method",
+              "elementStudyRole": "MEASUREMENT",
+              "elementPolarity": "AFFIRMED",
+              "elementInventoryItemIds": [
+                "inv-1"
+              ],
+              "elementSourceMessageId": "SEM-H12:user:1",
+              "elementSourceText": "delta-radiomics",
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementConfidence": 1,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": false,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "relationPolarity": null,
+              "relationInventoryRelationIds": [],
+              "relationEpistemicStatus": null,
+              "relationConfidence": null,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": null,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            }
+          ],
+          "criticSummary": "The candidate is well-formed except for element 1 (delta-radiomics), which should be typed as METHOD rather than BIOMARKER because it represents an analytical method/mapping technique. A single UPSERT_ELEMENT repair is provided."
+        },
+        {
+          "criticId": "critic-001",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit fragments from the user message are fully represented in the inventory and candidate."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is explicitly requested or mentioned in the source message."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "RT (radiotherapy) is fully represented as element elem-4."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "No separate broad modality independent of the method is declared."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All inventory relations are mapped correctly to candidate semantic relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All semantic element types conform to the operational taxonomy rules."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations are preserved faithfully without weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No ungrounded inferences have been promoted to explicit statements."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No ambiguities were concealed."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarities are correctly preserved as affirmed."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Timings 'avant' and 'pendant' are represented as elements elem-2 and elem-3."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Outcomes are appropriately categorized without unwarranted endpoint promotion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like delta-radiomics and late pulmonary toxicity retain their exact specificity."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "The missing explicit source fragments list is empty and all fragments are accounted for."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The route DESIGN_STUDY matches the study-construction components provided by the user."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The semantic inventory, candidate, taxonomy report, and integrity report are complete and correct. All user constraints and tokens are fully and faithfully mapped."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-13T09:15:21.408Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-ae59e3a5ec3a8831",
+      "resultDigest": "ke1-ae59e3a5ec3a8831",
+      "coverageStatus": "NO_PROVIDER",
+      "verifiedAt": "2026-08-13T09:15:21.412Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-13T09:15:21.408Z",
+    "updatedAt": "2026-08-13T09:15:21.412Z",
+    "digest": "ke1-28e71b29a9729cad"
+  },
+  "semanticModelDigest": "ke1-28e71b29a9729cad",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-1",
+          "sourceMessageId": "SEM-H12:user:1",
+          "sourceText": "delta-radiomics",
+          "normalizedMeaning": "delta-radiomics",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-2",
+          "sourceMessageId": "SEM-H12:user:1",
+          "sourceText": "avant",
+          "normalizedMeaning": "avant",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-3",
+          "sourceMessageId": "SEM-H12:user:1",
+          "sourceText": "pendant",
+          "normalizedMeaning": "pendant",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-4",
+          "sourceMessageId": "SEM-H12:user:1",
+          "sourceText": "RT",
+          "normalizedMeaning": "radiothérapie",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-5",
+          "sourceMessageId": "SEM-H12:user:1",
+          "sourceText": "toxicité pulmonaire tardive",
+          "normalizedMeaning": "toxicité pulmonaire tardive",
+          "mappedClientElementIds": [
+            "elem-5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-inv-1",
+          "sourceInventoryItemId": "inv-1",
+          "targetInventoryItemId": "inv-2",
+          "normalizedRelation": "REPEATED_AT",
+          "mappedClientRelationIds": [
+            "rel-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-inv-2",
+          "sourceInventoryItemId": "inv-1",
+          "targetInventoryItemId": "inv-3",
+          "normalizedRelation": "REPEATED_AT",
+          "mappedClientRelationIds": [
+            "rel-2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-inv-3",
+          "sourceInventoryItemId": "inv-3",
+          "targetInventoryItemId": "inv-4",
+          "normalizedRelation": "CO_LOCALIZES_WITH",
+          "mappedClientRelationIds": [
+            "rel-3"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-inv-4",
+          "sourceInventoryItemId": "inv-1",
+          "targetInventoryItemId": "inv-5",
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "mappedClientRelationIds": [
+            "rel-4"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-8066258bdfcc6c77",
+    "evaluatedAt": "2026-08-13T09:15:21.415Z",
+    "goldFrameDigest": "ke1-6cde19cdd202bfb9",
+    "result": {
+      "caseId": "SEM-H12",
+      "explicitObjectRecall": 1,
+      "explicitRelationRecall": 0,
+      "criticalSemanticRecall": 0.8,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 1,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": [
+        "RELATION_LOST:delta-radiomics->toxicité pulmonaire tardive"
+      ]
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H12",
+    "explicitObjectRecall": 1,
+    "explicitRelationRecall": 0,
+    "criticalSemanticRecall": 0.8,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 1,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": [
+      "RELATION_LOST:delta-radiomics->toxicité pulmonaire tardive"
+    ]
+  },
+  "error": null
+}

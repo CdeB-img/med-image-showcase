@@ -1,0 +1,75 @@
+{
+  "campaign": "SEM-001R5P-CLOSURE",
+  "campaignId": "sem-001r5p-closure-2026-08-13T10-29-07-565Z-ke1-2ac79d2f15fe20bb",
+  "caseId": "SEM-H24",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-2ac79d2f15fe20bb",
+  "semanticConfigurationDigest": "ke1-487f37f9fdb16ba5",
+  "goldFrameDigest": "ke1-57fb269bebbd2397",
+  "originalRequest": [
+    "Placenta IVIM et T2*, relation avec croissance fœtale, mais aucune injection."
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "FAILED",
+  "startedAt": "2026-08-13T10:39:52.812Z",
+  "completedAt": "2026-08-13T10:40:39.891Z",
+  "turns": [],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-31337db893e2de1c",
+      "structuredDigest": "ke1-4b6df1ef5d67358b",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:40:30.977Z",
+          "requestFinished": "2026-08-13T10:40:36.902Z",
+          "latencyMs": 5925,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-a477845e50bfbaca",
+      "structuredDigest": "ke1-585972892b3dcb4d",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:40:36.905Z",
+          "requestFinished": "2026-08-13T10:40:39.890Z",
+          "latencyMs": 2985,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPT_INCONSISTENT_WITH_COVERAGE"
+    }
+  ],
+  "semanticModel": null,
+  "semanticModelDigest": null,
+  "coverageReports": null,
+  "evaluation": null,
+  "metric": null,
+  "error": {
+    "category": "SEMANTIC_PIPELINE_FAILURE",
+    "failureClass": "CRITIC_FAILURE",
+    "message": "SEM001R4_CRITIC_NOT_ACCEPTED:CRITIC_ACCEPT_INCONSISTENT_WITH_COVERAGE"
+  }
+}

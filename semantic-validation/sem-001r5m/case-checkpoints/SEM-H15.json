@@ -1,0 +1,2029 @@
+{
+  "campaign": "SEM-001R5M-CLOSURE",
+  "campaignId": "sem-001r5m-closure-2026-08-13T09-40-35-104Z-ke1-ac75ad8a4d6f2326",
+  "caseId": "SEM-H15",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-ac75ad8a4d6f2326",
+  "semanticConfigurationDigest": "ke1-2d65467f810363ab",
+  "goldFrameDigest": "ke1-ca9fe4da669e7556",
+  "originalRequest": [
+    "Cohorte rétrospective, trois hôpitaux, DICOM incomplets : estimer le taux de non-évaluables."
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-13T09:48:08.135Z",
+  "completedAt": "2026-08-13T09:48:22.851Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H15:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "cand_01J00000000000000000000001",
+        "language": "fr",
+        "normalizedMeaning": "Étude rétrospective multicentrique (trois hôpitaux) avec données DICOM incomplètes, visant à estimer le taux de cas non évaluables.",
+        "summaryForUser": "Étude de cohorte rétrospective menée dans trois hôpitaux sur des données DICOM incomplètes pour estimer le taux de cas non évaluables.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv_01",
+              "sourceMessageId": "SEM-H15:user:1",
+              "sourceText": "Cohorte rétrospective",
+              "normalizedLabel": "cohorte rétrospective",
+              "localRole": "design",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "rétrospective"
+              ],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_02",
+              "sourceMessageId": "SEM-H15:user:1",
+              "sourceText": "trois hôpitaux",
+              "normalizedLabel": "trois hôpitaux",
+              "localRole": "setting",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "trois"
+              ],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_03",
+              "sourceMessageId": "SEM-H15:user:1",
+              "sourceText": "DICOM incomplets",
+              "normalizedLabel": "données DICOM incomplètes",
+              "localRole": "data_condition",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "incomplets"
+              ],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_04",
+              "sourceMessageId": "SEM-H15:user:1",
+              "sourceText": "estimer",
+              "normalizedLabel": "estimer",
+              "localRole": "action",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_05"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_05",
+              "sourceMessageId": "SEM-H15:user:1",
+              "sourceText": "taux de non-évaluables",
+              "normalizedLabel": "taux de non-évaluables",
+              "localRole": "endpoint",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "taux"
+              ],
+              "linkedInventoryItemIds": [
+                "inv_04"
+              ]
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_inv_01",
+              "sourceInventoryItemId": "inv_04",
+              "targetInventoryItemId": "inv_05",
+              "sourceMessageId": "SEM-H15:user:1",
+              "sourceText": "estimer le taux de non-évaluables",
+              "normalizedRelation": "AIMS_TO_EVALUATE",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem_01",
+            "type": "STUDY_DESIGN",
+            "canonicalMeaning": "Étude de cohorte rétrospective",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_01"
+            ],
+            "sourceMessageId": "SEM-H15:user:1",
+            "sourceText": "Cohorte rétrospective",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_02",
+            "type": "STUDY_DESIGN",
+            "canonicalMeaning": "Trois hôpitaux participants",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_02"
+            ],
+            "sourceMessageId": "SEM-H15:user:1",
+            "sourceText": "trois hôpitaux",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_03",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "Données DICOM incomplètes",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_03"
+            ],
+            "sourceMessageId": "SEM-H15:user:1",
+            "sourceText": "DICOM incomplets",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_04",
+            "type": "OPERATION",
+            "canonicalMeaning": "Estimer",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_04"
+            ],
+            "sourceMessageId": "SEM-H15:user:1",
+            "sourceText": "estimer",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_05",
+            "type": "ENDPOINT",
+            "canonicalMeaning": "Taux de non-évaluables",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_05"
+            ],
+            "sourceMessageId": "SEM-H15:user:1",
+            "sourceText": "taux de non-évaluables",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel_01",
+            "sourceClientElementId": "elem_04",
+            "targetClientElementId": "elem_05",
+            "relationType": "ESTIMATES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_01"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.95,
+          "reason": "L'utilisateur spécifie un design d'étude, un cadre multicentrique, des contraintes de données et un endpoint principal dans le cadre de la construction ou structuration d'un projet.",
+          "expectedCapabilities": [
+            "Structuration de cohorte",
+            "Définition d'endpoint",
+            "Gestion des contraintes de données"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "reconstructionDigest": "ke1-7d5f4d34d234b870",
+      "critics": [
+        {
+          "criticId": "critic_SEM_H15_01",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit fragments (cohorte rétrospective, trois hôpitaux, DICOM incomplets, estimer, taux de non-évaluables) are fully represented in the typed candidate elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is present in the source message."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No intervention is present in the source message."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No imaging modality is explicitly named as a standalone observation family (DICOM is a data condition/format restriction here)."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The explicit relation 'estimer le taux de non-évaluables' is correctly mapped to rel_01 connecting elem_04 to elem_05."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All element types adhere strictly to the operational taxonomy and are clean of deterministic taxonomy findings."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relation was weakened or generalized."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No ungrounded inferences were promoted as explicit user states."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "All explicit items and parameters are faithfully captured without hidden ambiguities."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarities are correctly preserved as AFFIRMED throughout."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "No explicit timing interval or point was present to lose."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "The endpoint 'taux de non-évaluables' is correctly designated as an endpoint given its explicit estimation target role."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts such as retrospective cohort and DICOM incompleteness are precisely represented."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "The missing explicit source fragments list is empty and all source spans are accounted for."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The route DESIGN_STUDY perfectly matches the study-construction context requested by the user."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The typed candidate perfectly aligns with the user message, satisfying all explicit objects, relations, and taxonomic constraints. All coverage reports are COMPLETE and no issues or repairs are needed."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-2144225595abfa39",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "Cohorte rétrospective, trois hôpitaux, DICOM incomplets : estimer le taux de non-évaluables.",
+        "normalizedMeaning": "Étude rétrospective multicentrique (trois hôpitaux) avec données DICOM incomplètes, visant à estimer le taux de cas non évaluables.",
+        "conversationMessageIds": [
+          "SEM-H15:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-1ea1ece075315e74",
+            "type": "STUDY_DESIGN",
+            "canonicalMeaning": "Trois hôpitaux participants",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_02"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H15:user:1",
+              "text": "trois hôpitaux",
+              "start": 23,
+              "end": 37
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H15:user:1",
+              "providerCallId": "gemini-call:ke1-d202f6013996259d",
+              "rawElementId": "elem_02"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-34dc001685fadfd2",
+            "type": "OPERATION",
+            "canonicalMeaning": "Estimer",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_04"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H15:user:1",
+              "text": "estimer",
+              "start": 58,
+              "end": 65
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-89f1505e6e13df8a"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H15:user:1",
+              "providerCallId": "gemini-call:ke1-d202f6013996259d",
+              "rawElementId": "elem_04"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-3e68ed9d794c17a9",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "Données DICOM incomplètes",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_03"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H15:user:1",
+              "text": "DICOM incomplets",
+              "start": 39,
+              "end": 55
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H15:user:1",
+              "providerCallId": "gemini-call:ke1-d202f6013996259d",
+              "rawElementId": "elem_03"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-3fa56527c5aa5b63",
+            "type": "STUDY_DESIGN",
+            "canonicalMeaning": "Étude de cohorte rétrospective",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_01"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H15:user:1",
+              "text": "Cohorte rétrospective",
+              "start": 0,
+              "end": 21
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H15:user:1",
+              "providerCallId": "gemini-call:ke1-d202f6013996259d",
+              "rawElementId": "elem_01"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-bbe77e4637b743fa",
+            "type": "ENDPOINT",
+            "canonicalMeaning": "Taux de non-évaluables",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_05"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H15:user:1",
+              "text": "taux de non-évaluables",
+              "start": 69,
+              "end": 91
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-89f1505e6e13df8a"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-e8664baada9241fe",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-62d13659ad38e46d",
+                "knowledge-gap:ke1-d606b28a20f05e0e"
+              ],
+              "checkedAt": "2026-08-13T09:48:22.849Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H15:user:1",
+              "providerCallId": "gemini-call:ke1-d202f6013996259d",
+              "rawElementId": "elem_05"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-89f1505e6e13df8a",
+            "sourceElementId": "sem-element:ke1-34dc001685fadfd2",
+            "targetElementId": "sem-element:ke1-bbe77e4637b743fa",
+            "relationType": "ESTIMATES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_01"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv_01",
+              "sourceMessageId": "SEM-H15:user:1",
+              "sourceText": "Cohorte rétrospective",
+              "normalizedMeaning": "cohorte rétrospective",
+              "mappedClientElementIds": [
+                "elem_01"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_02",
+              "sourceMessageId": "SEM-H15:user:1",
+              "sourceText": "trois hôpitaux",
+              "normalizedMeaning": "trois hôpitaux",
+              "mappedClientElementIds": [
+                "elem_02"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_03",
+              "sourceMessageId": "SEM-H15:user:1",
+              "sourceText": "DICOM incomplets",
+              "normalizedMeaning": "données DICOM incomplètes",
+              "mappedClientElementIds": [
+                "elem_03"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_04",
+              "sourceMessageId": "SEM-H15:user:1",
+              "sourceText": "estimer",
+              "normalizedMeaning": "estimer",
+              "mappedClientElementIds": [
+                "elem_04"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_05",
+              "sourceMessageId": "SEM-H15:user:1",
+              "sourceText": "taux de non-évaluables",
+              "normalizedMeaning": "taux de non-évaluables",
+              "mappedClientElementIds": [
+                "elem_05"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel_inv_01",
+              "sourceInventoryItemId": "inv_04",
+              "targetInventoryItemId": "inv_05",
+              "normalizedRelation": "AIMS_TO_EVALUATE",
+              "mappedClientRelationIds": [
+                "rel_01"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "clarificationCandidates": [],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.95,
+          "reason": "L'utilisateur spécifie un design d'étude, un cadre multicentrique, des contraintes de données et un endpoint principal dans le cadre de la construction ou structuration d'un projet.",
+          "expectedCapabilities": [
+            "Définition d'endpoint",
+            "Gestion des contraintes de données",
+            "Structuration de cohorte"
+          ]
+        },
+        "summaryForUser": "Étude de cohorte rétrospective menée dans trois hôpitaux sur des données DICOM incomplètes pour estimer le taux de cas non évaluables.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "The typed candidate perfectly aligns with the user message, satisfying all explicit objects, relations, and taxonomic constraints. All coverage reports are COMPLETE and no issues or repairs are needed."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+          "criticPromptVersion": "SEM-001-CRITIC-1.6",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-d202f6013996259d",
+          "criticCallId": "gemini-call:ke1-66e9acaf221b526b",
+          "criticCallIds": [
+            "gemini-call:ke1-66e9acaf221b526b"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:48:13.002Z",
+              "requestFinished": "2026-08-13T09:48:18.563Z",
+              "latencyMs": 5561,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:48:19.448Z",
+              "requestFinished": "2026-08-13T09:48:22.844Z",
+              "latencyMs": 3396,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "cand_01J00000000000000000000001",
+            "language": "fr",
+            "normalizedMeaning": "Étude rétrospective multicentrique (trois hôpitaux) avec données DICOM incomplètes, visant à estimer le taux de cas non évaluables.",
+            "summaryForUser": "Étude de cohorte rétrospective menée dans trois hôpitaux sur des données DICOM incomplètes pour estimer le taux de cas non évaluables.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "inv_01",
+                  "sourceMessageId": "SEM-H15:user:1",
+                  "sourceText": "Cohorte rétrospective",
+                  "normalizedLabel": "cohorte rétrospective",
+                  "localRole": "design",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [
+                    "rétrospective"
+                  ],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv_02",
+                  "sourceMessageId": "SEM-H15:user:1",
+                  "sourceText": "trois hôpitaux",
+                  "normalizedLabel": "trois hôpitaux",
+                  "localRole": "setting",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [
+                    "trois"
+                  ],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv_03",
+                  "sourceMessageId": "SEM-H15:user:1",
+                  "sourceText": "DICOM incomplets",
+                  "normalizedLabel": "données DICOM incomplètes",
+                  "localRole": "data_condition",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [
+                    "incomplets"
+                  ],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv_04",
+                  "sourceMessageId": "SEM-H15:user:1",
+                  "sourceText": "estimer",
+                  "normalizedLabel": "estimer",
+                  "localRole": "action",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv_05"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv_05",
+                  "sourceMessageId": "SEM-H15:user:1",
+                  "sourceText": "taux de non-évaluables",
+                  "normalizedLabel": "taux de non-évaluables",
+                  "localRole": "endpoint",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [
+                    "taux"
+                  ],
+                  "linkedInventoryItemIds": [
+                    "inv_04"
+                  ]
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel_inv_01",
+                  "sourceInventoryItemId": "inv_04",
+                  "targetInventoryItemId": "inv_05",
+                  "sourceMessageId": "SEM-H15:user:1",
+                  "sourceText": "estimer le taux de non-évaluables",
+                  "normalizedRelation": "AIMS_TO_EVALUATE",
+                  "polarity": "AFFIRMED"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem_01",
+                "type": "STUDY_DESIGN",
+                "canonicalMeaning": "Étude de cohorte rétrospective",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_01"
+                ],
+                "sourceMessageId": "SEM-H15:user:1",
+                "sourceText": "Cohorte rétrospective",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_02",
+                "type": "STUDY_DESIGN",
+                "canonicalMeaning": "Trois hôpitaux participants",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_02"
+                ],
+                "sourceMessageId": "SEM-H15:user:1",
+                "sourceText": "trois hôpitaux",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_03",
+                "type": "CONSTRAINT",
+                "canonicalMeaning": "Données DICOM incomplètes",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_03"
+                ],
+                "sourceMessageId": "SEM-H15:user:1",
+                "sourceText": "DICOM incomplets",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_04",
+                "type": "OPERATION",
+                "canonicalMeaning": "Estimer",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_04"
+                ],
+                "sourceMessageId": "SEM-H15:user:1",
+                "sourceText": "estimer",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_05",
+                "type": "ENDPOINT",
+                "canonicalMeaning": "Taux de non-évaluables",
+                "studyRole": "OUTCOME_ROLE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_05"
+                ],
+                "sourceMessageId": "SEM-H15:user:1",
+                "sourceText": "taux de non-évaluables",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel_01",
+                "sourceClientElementId": "elem_04",
+                "targetClientElementId": "elem_05",
+                "relationType": "ESTIMATES",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_inv_01"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              }
+            ],
+            "missingConcepts": [],
+            "ellipses": [],
+            "ambiguities": [],
+            "unknowns": [],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [],
+            "routeProposal": {
+              "route": "DESIGN_STUDY",
+              "confidence": 0.95,
+              "reason": "L'utilisateur spécifie un design d'étude, un cadre multicentrique, des contraintes de données et un endpoint principal dans le cadre de la construction ou structuration d'un projet.",
+              "expectedCapabilities": [
+                "Structuration de cohorte",
+                "Définition d'endpoint",
+                "Gestion des contraintes de données"
+              ]
+            },
+            "semanticWarnings": []
+          },
+          "rawCritic": {
+            "criticId": "critic_SEM_H15_01",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit fragments (cohorte rétrospective, trois hôpitaux, DICOM incomplets, estimer, taux de non-évaluables) are fully represented in the typed candidate elements."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No comparator is present in the source message."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No intervention is present in the source message."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No imaging modality is explicitly named as a standalone observation family (DICOM is a data condition/format restriction here)."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "The explicit relation 'estimer le taux de non-évaluables' is correctly mapped to rel_01 connecting elem_04 to elem_05."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "All element types adhere strictly to the operational taxonomy and are clean of deterministic taxonomy findings."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "No explicit relation was weakened or generalized."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No ungrounded inferences were promoted as explicit user states."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "All explicit items and parameters are faithfully captured without hidden ambiguities."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "Polarities are correctly preserved as AFFIRMED throughout."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "PASS",
+                "evidence": "No explicit timing interval or point was present to lose."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "The endpoint 'taux de non-évaluables' is correctly designated as an endpoint given its explicit estimation target role."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts such as retrospective cohort and DICOM incompleteness are precisely represented."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "The missing explicit source fragments list is empty and all source spans are accounted for."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "The route DESIGN_STUDY perfectly matches the study-construction context requested by the user."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The typed candidate perfectly aligns with the user message, satisfying all explicit objects, relations, and taxonomic constraints. All coverage reports are COMPLETE and no issues or repairs are needed."
+          },
+          "rawCritics": [
+            {
+              "criticId": "critic_SEM_H15_01",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit fragments (cohorte rétrospective, trois hôpitaux, DICOM incomplets, estimer, taux de non-évaluables) are fully represented in the typed candidate elements."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No comparator is present in the source message."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No intervention is present in the source message."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No imaging modality is explicitly named as a standalone observation family (DICOM is a data condition/format restriction here)."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The explicit relation 'estimer le taux de non-évaluables' is correctly mapped to rel_01 connecting elem_04 to elem_05."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "All element types adhere strictly to the operational taxonomy and are clean of deterministic taxonomy findings."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "No explicit relation was weakened or generalized."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No ungrounded inferences were promoted as explicit user states."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "All explicit items and parameters are faithfully captured without hidden ambiguities."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "Polarities are correctly preserved as AFFIRMED throughout."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "PASS",
+                  "evidence": "No explicit timing interval or point was present to lose."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "The endpoint 'taux de non-évaluables' is correctly designated as an endpoint given its explicit estimation target role."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific concepts such as retrospective cohort and DICOM incompleteness are precisely represented."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The missing explicit source fragments list is empty and all source spans are accounted for."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "The route DESIGN_STUDY perfectly matches the study-construction context requested by the user."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "The typed candidate perfectly aligns with the user message, satisfying all explicit objects, relations, and taxonomic constraints. All coverage reports are COMPLETE and no issues or repairs are needed."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-13T09:48:22.846Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-e8664baada9241fe",
+          "resultDigest": "ke1-e8664baada9241fe",
+          "coverageStatus": "NO_MATCH",
+          "verifiedAt": "2026-08-13T09:48:22.849Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-13T09:48:22.846Z",
+        "updatedAt": "2026-08-13T09:48:22.849Z",
+        "digest": "ke1-3c3f6279d8afa9bd"
+      },
+      "canonicalModelDigest": "ke1-3c3f6279d8afa9bd",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-e8664baada9241fe",
+        "resultDigest": "ke1-e8664baada9241fe",
+        "coverageStatus": "NO_MATCH",
+        "verifiedAt": "2026-08-13T09:48:22.849Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-d202f6013996259d",
+      "structuredDigest": "ke1-7d5f4d34d234b870",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:48:13.002Z",
+          "requestFinished": "2026-08-13T09:48:18.563Z",
+          "latencyMs": 5561,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-66e9acaf221b526b",
+      "structuredDigest": "ke1-97ce820a4657cd46",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:48:19.448Z",
+          "requestFinished": "2026-08-13T09:48:22.844Z",
+          "latencyMs": 3396,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-2144225595abfa39",
+    "revision": 1,
+    "status": "CANDIDATE",
+    "originalRequest": "Cohorte rétrospective, trois hôpitaux, DICOM incomplets : estimer le taux de non-évaluables.",
+    "normalizedMeaning": "Étude rétrospective multicentrique (trois hôpitaux) avec données DICOM incomplètes, visant à estimer le taux de cas non évaluables.",
+    "conversationMessageIds": [
+      "SEM-H15:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-1ea1ece075315e74",
+        "type": "STUDY_DESIGN",
+        "canonicalMeaning": "Trois hôpitaux participants",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_02"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H15:user:1",
+          "text": "trois hôpitaux",
+          "start": 23,
+          "end": 37
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H15:user:1",
+          "providerCallId": "gemini-call:ke1-d202f6013996259d",
+          "rawElementId": "elem_02"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-34dc001685fadfd2",
+        "type": "OPERATION",
+        "canonicalMeaning": "Estimer",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_04"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H15:user:1",
+          "text": "estimer",
+          "start": 58,
+          "end": 65
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-89f1505e6e13df8a"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H15:user:1",
+          "providerCallId": "gemini-call:ke1-d202f6013996259d",
+          "rawElementId": "elem_04"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-3e68ed9d794c17a9",
+        "type": "CONSTRAINT",
+        "canonicalMeaning": "Données DICOM incomplètes",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_03"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H15:user:1",
+          "text": "DICOM incomplets",
+          "start": 39,
+          "end": 55
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H15:user:1",
+          "providerCallId": "gemini-call:ke1-d202f6013996259d",
+          "rawElementId": "elem_03"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-3fa56527c5aa5b63",
+        "type": "STUDY_DESIGN",
+        "canonicalMeaning": "Étude de cohorte rétrospective",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_01"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H15:user:1",
+          "text": "Cohorte rétrospective",
+          "start": 0,
+          "end": 21
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H15:user:1",
+          "providerCallId": "gemini-call:ke1-d202f6013996259d",
+          "rawElementId": "elem_01"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-bbe77e4637b743fa",
+        "type": "ENDPOINT",
+        "canonicalMeaning": "Taux de non-évaluables",
+        "studyRole": "OUTCOME_ROLE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_05"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H15:user:1",
+          "text": "taux de non-évaluables",
+          "start": 69,
+          "end": 91
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-89f1505e6e13df8a"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-e8664baada9241fe",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-62d13659ad38e46d",
+            "knowledge-gap:ke1-d606b28a20f05e0e"
+          ],
+          "checkedAt": "2026-08-13T09:48:22.849Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H15:user:1",
+          "providerCallId": "gemini-call:ke1-d202f6013996259d",
+          "rawElementId": "elem_05"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-89f1505e6e13df8a",
+        "sourceElementId": "sem-element:ke1-34dc001685fadfd2",
+        "targetElementId": "sem-element:ke1-bbe77e4637b743fa",
+        "relationType": "ESTIMATES",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_inv_01"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv_01",
+          "sourceMessageId": "SEM-H15:user:1",
+          "sourceText": "Cohorte rétrospective",
+          "normalizedMeaning": "cohorte rétrospective",
+          "mappedClientElementIds": [
+            "elem_01"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_02",
+          "sourceMessageId": "SEM-H15:user:1",
+          "sourceText": "trois hôpitaux",
+          "normalizedMeaning": "trois hôpitaux",
+          "mappedClientElementIds": [
+            "elem_02"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_03",
+          "sourceMessageId": "SEM-H15:user:1",
+          "sourceText": "DICOM incomplets",
+          "normalizedMeaning": "données DICOM incomplètes",
+          "mappedClientElementIds": [
+            "elem_03"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_04",
+          "sourceMessageId": "SEM-H15:user:1",
+          "sourceText": "estimer",
+          "normalizedMeaning": "estimer",
+          "mappedClientElementIds": [
+            "elem_04"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_05",
+          "sourceMessageId": "SEM-H15:user:1",
+          "sourceText": "taux de non-évaluables",
+          "normalizedMeaning": "taux de non-évaluables",
+          "mappedClientElementIds": [
+            "elem_05"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel_inv_01",
+          "sourceInventoryItemId": "inv_04",
+          "targetInventoryItemId": "inv_05",
+          "normalizedRelation": "AIMS_TO_EVALUATE",
+          "mappedClientRelationIds": [
+            "rel_01"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "missingConcepts": [],
+    "ellipses": [],
+    "ambiguities": [],
+    "unknowns": [],
+    "contradictions": [],
+    "clarificationCandidates": [],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "DESIGN_STUDY",
+      "confidence": 0.95,
+      "reason": "L'utilisateur spécifie un design d'étude, un cadre multicentrique, des contraintes de données et un endpoint principal dans le cadre de la construction ou structuration d'un projet.",
+      "expectedCapabilities": [
+        "Définition d'endpoint",
+        "Gestion des contraintes de données",
+        "Structuration de cohorte"
+      ]
+    },
+    "summaryForUser": "Étude de cohorte rétrospective menée dans trois hôpitaux sur des données DICOM incomplètes pour estimer le taux de cas non évaluables.",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "The typed candidate perfectly aligns with the user message, satisfying all explicit objects, relations, and taxonomic constraints. All coverage reports are COMPLETE and no issues or repairs are needed."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-d202f6013996259d",
+      "criticCallId": "gemini-call:ke1-66e9acaf221b526b",
+      "criticCallIds": [
+        "gemini-call:ke1-66e9acaf221b526b"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:48:13.002Z",
+          "requestFinished": "2026-08-13T09:48:18.563Z",
+          "latencyMs": 5561,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:48:19.448Z",
+          "requestFinished": "2026-08-13T09:48:22.844Z",
+          "latencyMs": 3396,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "cand_01J00000000000000000000001",
+        "language": "fr",
+        "normalizedMeaning": "Étude rétrospective multicentrique (trois hôpitaux) avec données DICOM incomplètes, visant à estimer le taux de cas non évaluables.",
+        "summaryForUser": "Étude de cohorte rétrospective menée dans trois hôpitaux sur des données DICOM incomplètes pour estimer le taux de cas non évaluables.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv_01",
+              "sourceMessageId": "SEM-H15:user:1",
+              "sourceText": "Cohorte rétrospective",
+              "normalizedLabel": "cohorte rétrospective",
+              "localRole": "design",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "rétrospective"
+              ],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_02",
+              "sourceMessageId": "SEM-H15:user:1",
+              "sourceText": "trois hôpitaux",
+              "normalizedLabel": "trois hôpitaux",
+              "localRole": "setting",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "trois"
+              ],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_03",
+              "sourceMessageId": "SEM-H15:user:1",
+              "sourceText": "DICOM incomplets",
+              "normalizedLabel": "données DICOM incomplètes",
+              "localRole": "data_condition",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "incomplets"
+              ],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_04",
+              "sourceMessageId": "SEM-H15:user:1",
+              "sourceText": "estimer",
+              "normalizedLabel": "estimer",
+              "localRole": "action",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_05"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_05",
+              "sourceMessageId": "SEM-H15:user:1",
+              "sourceText": "taux de non-évaluables",
+              "normalizedLabel": "taux de non-évaluables",
+              "localRole": "endpoint",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "taux"
+              ],
+              "linkedInventoryItemIds": [
+                "inv_04"
+              ]
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_inv_01",
+              "sourceInventoryItemId": "inv_04",
+              "targetInventoryItemId": "inv_05",
+              "sourceMessageId": "SEM-H15:user:1",
+              "sourceText": "estimer le taux de non-évaluables",
+              "normalizedRelation": "AIMS_TO_EVALUATE",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem_01",
+            "type": "STUDY_DESIGN",
+            "canonicalMeaning": "Étude de cohorte rétrospective",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_01"
+            ],
+            "sourceMessageId": "SEM-H15:user:1",
+            "sourceText": "Cohorte rétrospective",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_02",
+            "type": "STUDY_DESIGN",
+            "canonicalMeaning": "Trois hôpitaux participants",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_02"
+            ],
+            "sourceMessageId": "SEM-H15:user:1",
+            "sourceText": "trois hôpitaux",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_03",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "Données DICOM incomplètes",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_03"
+            ],
+            "sourceMessageId": "SEM-H15:user:1",
+            "sourceText": "DICOM incomplets",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_04",
+            "type": "OPERATION",
+            "canonicalMeaning": "Estimer",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_04"
+            ],
+            "sourceMessageId": "SEM-H15:user:1",
+            "sourceText": "estimer",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_05",
+            "type": "ENDPOINT",
+            "canonicalMeaning": "Taux de non-évaluables",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_05"
+            ],
+            "sourceMessageId": "SEM-H15:user:1",
+            "sourceText": "taux de non-évaluables",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel_01",
+            "sourceClientElementId": "elem_04",
+            "targetClientElementId": "elem_05",
+            "relationType": "ESTIMATES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_01"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.95,
+          "reason": "L'utilisateur spécifie un design d'étude, un cadre multicentrique, des contraintes de données et un endpoint principal dans le cadre de la construction ou structuration d'un projet.",
+          "expectedCapabilities": [
+            "Structuration de cohorte",
+            "Définition d'endpoint",
+            "Gestion des contraintes de données"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "rawCritic": {
+        "criticId": "critic_SEM_H15_01",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit fragments (cohorte rétrospective, trois hôpitaux, DICOM incomplets, estimer, taux de non-évaluables) are fully represented in the typed candidate elements."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No comparator is present in the source message."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No intervention is present in the source message."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No imaging modality is explicitly named as a standalone observation family (DICOM is a data condition/format restriction here)."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "The explicit relation 'estimer le taux de non-évaluables' is correctly mapped to rel_01 connecting elem_04 to elem_05."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "All element types adhere strictly to the operational taxonomy and are clean of deterministic taxonomy findings."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "No explicit relation was weakened or generalized."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No ungrounded inferences were promoted as explicit user states."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "All explicit items and parameters are faithfully captured without hidden ambiguities."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "Polarities are correctly preserved as AFFIRMED throughout."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "PASS",
+            "evidence": "No explicit timing interval or point was present to lose."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "The endpoint 'taux de non-évaluables' is correctly designated as an endpoint given its explicit estimation target role."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific concepts such as retrospective cohort and DICOM incompleteness are precisely represented."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "The missing explicit source fragments list is empty and all source spans are accounted for."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "The route DESIGN_STUDY perfectly matches the study-construction context requested by the user."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "The typed candidate perfectly aligns with the user message, satisfying all explicit objects, relations, and taxonomic constraints. All coverage reports are COMPLETE and no issues or repairs are needed."
+      },
+      "rawCritics": [
+        {
+          "criticId": "critic_SEM_H15_01",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit fragments (cohorte rétrospective, trois hôpitaux, DICOM incomplets, estimer, taux de non-évaluables) are fully represented in the typed candidate elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is present in the source message."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No intervention is present in the source message."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No imaging modality is explicitly named as a standalone observation family (DICOM is a data condition/format restriction here)."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The explicit relation 'estimer le taux de non-évaluables' is correctly mapped to rel_01 connecting elem_04 to elem_05."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All element types adhere strictly to the operational taxonomy and are clean of deterministic taxonomy findings."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relation was weakened or generalized."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No ungrounded inferences were promoted as explicit user states."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "All explicit items and parameters are faithfully captured without hidden ambiguities."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarities are correctly preserved as AFFIRMED throughout."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "No explicit timing interval or point was present to lose."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "The endpoint 'taux de non-évaluables' is correctly designated as an endpoint given its explicit estimation target role."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts such as retrospective cohort and DICOM incompleteness are precisely represented."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "The missing explicit source fragments list is empty and all source spans are accounted for."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The route DESIGN_STUDY perfectly matches the study-construction context requested by the user."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The typed candidate perfectly aligns with the user message, satisfying all explicit objects, relations, and taxonomic constraints. All coverage reports are COMPLETE and no issues or repairs are needed."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-13T09:48:22.846Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-e8664baada9241fe",
+      "resultDigest": "ke1-e8664baada9241fe",
+      "coverageStatus": "NO_MATCH",
+      "verifiedAt": "2026-08-13T09:48:22.849Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-13T09:48:22.846Z",
+    "updatedAt": "2026-08-13T09:48:22.849Z",
+    "digest": "ke1-3c3f6279d8afa9bd"
+  },
+  "semanticModelDigest": "ke1-3c3f6279d8afa9bd",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv_01",
+          "sourceMessageId": "SEM-H15:user:1",
+          "sourceText": "Cohorte rétrospective",
+          "normalizedMeaning": "cohorte rétrospective",
+          "mappedClientElementIds": [
+            "elem_01"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_02",
+          "sourceMessageId": "SEM-H15:user:1",
+          "sourceText": "trois hôpitaux",
+          "normalizedMeaning": "trois hôpitaux",
+          "mappedClientElementIds": [
+            "elem_02"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_03",
+          "sourceMessageId": "SEM-H15:user:1",
+          "sourceText": "DICOM incomplets",
+          "normalizedMeaning": "données DICOM incomplètes",
+          "mappedClientElementIds": [
+            "elem_03"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_04",
+          "sourceMessageId": "SEM-H15:user:1",
+          "sourceText": "estimer",
+          "normalizedMeaning": "estimer",
+          "mappedClientElementIds": [
+            "elem_04"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_05",
+          "sourceMessageId": "SEM-H15:user:1",
+          "sourceText": "taux de non-évaluables",
+          "normalizedMeaning": "taux de non-évaluables",
+          "mappedClientElementIds": [
+            "elem_05"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel_inv_01",
+          "sourceInventoryItemId": "inv_04",
+          "targetInventoryItemId": "inv_05",
+          "normalizedRelation": "AIMS_TO_EVALUATE",
+          "mappedClientRelationIds": [
+            "rel_01"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-8066258bdfcc6c77",
+    "evaluatedAt": "2026-08-13T09:48:22.851Z",
+    "goldFrameDigest": "ke1-ca9fe4da669e7556",
+    "result": {
+      "caseId": "SEM-H15",
+      "explicitObjectRecall": 0.75,
+      "explicitRelationRecall": 0,
+      "criticalSemanticRecall": 0.6,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 1,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": [
+        "EXPLICIT_OUTCOME_LOST:taux de non-évaluables",
+        "RELATION_LOST:DICOM incomplets->taux de non-évaluables"
+      ]
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H15",
+    "explicitObjectRecall": 0.75,
+    "explicitRelationRecall": 0,
+    "criticalSemanticRecall": 0.6,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 1,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": [
+      "EXPLICIT_OUTCOME_LOST:taux de non-évaluables",
+      "RELATION_LOST:DICOM incomplets->taux de non-évaluables"
+    ]
+  },
+  "error": null
+}

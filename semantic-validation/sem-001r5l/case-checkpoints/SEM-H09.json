@@ -1,0 +1,2092 @@
+{
+  "campaign": "SEM-001R5L-CLOSURE",
+  "campaignId": "sem-001r5l-closure-2026-08-13T09-09-28-906Z-ke1-391a23dcb99dc470",
+  "caseId": "SEM-H09",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-391a23dcb99dc470",
+  "semanticConfigurationDigest": "ke1-410eaaec72fd1768",
+  "goldFrameDigest": "ke1-7d9094ae8c14a0e2",
+  "originalRequest": [
+    "Le virtuel sans contraste peut-il remplacer le sans injection pour les calculs de calcium ?"
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-13T09:14:10.218Z",
+  "completedAt": "2026-08-13T09:14:18.929Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H09:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Evaluation de la capacite du virtuel sans contraste a remplacer l'imagerie sans injection pour la quantification du calcium",
+        "summaryForUser": "Analyse de la question concernant l'equivalence potentielle entre le virtuel sans contraste et l'imagerie sans injection pour la mesure du calcium.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H09:user:1",
+              "sourceText": "virtuel sans contraste",
+              "normalizedLabel": "virtuel sans contraste",
+              "localRole": "method_candidate",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H09:user:1",
+              "sourceText": "remplacer",
+              "normalizedLabel": "remplacer",
+              "localRole": "action_comparison",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-1",
+                "inv-3"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H09:user:1",
+              "sourceText": "sans injection",
+              "normalizedLabel": "sans injection",
+              "localRole": "reference_method",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H09:user:1",
+              "sourceText": "calculs de calcium",
+              "normalizedLabel": "calculs de calcium",
+              "localRole": "target_biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-inv-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H09:user:1",
+              "sourceText": "Le virtuel sans contraste peut-il remplacer le sans injection",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "UNCERTAIN"
+            },
+            {
+              "inventoryRelationId": "rel-inv-2",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H09:user:1",
+              "sourceText": "Le virtuel sans contraste peut-il remplacer le sans injection pour les calculs de calcium ?",
+              "normalizedRelation": "MEASURES",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-inv-3",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H09:user:1",
+              "sourceText": "sans injection pour les calculs de calcium",
+              "normalizedRelation": "MEASURES",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "METHOD",
+            "canonicalMeaning": "Imagerie virtuelle sans contraste",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceMessageId": "SEM-H09:user:1",
+            "sourceText": "virtuel sans contraste",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "COMPARATOR",
+            "canonicalMeaning": "Acquisition sans injection de contraste",
+            "studyRole": "REFERENCE_STANDARD",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceMessageId": "SEM-H09:user:1",
+            "sourceText": "sans injection",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Quantification ou calcul du calcium",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "sourceMessageId": "SEM-H09:user:1",
+            "sourceText": "calculs de calcium",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-4",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Questionner le remplacement d'une methode par une autre",
+            "studyRole": "NONE",
+            "polarity": "UNCERTAIN",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceMessageId": "SEM-H09:user:1",
+            "sourceText": "remplacer",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-1",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-2",
+            "relationType": "COMPARES_WITH",
+            "polarity": "UNCERTAIN",
+            "inventoryRelationIds": [
+              "rel-inv-1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-2",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-3",
+            "relationType": "MEASURES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-3",
+            "sourceClientElementId": "elem-2",
+            "targetClientElementId": "elem-3",
+            "relationType": "MEASURES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-3"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "L'utilisateur compare deux methodes d'acquisition pour evaluer une mesure biologique precise.",
+          "expectedCapabilities": [
+            "Evaluation comparative de methodes",
+            "Parametres de mesure du calcium"
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:1"
+        ]
+      },
+      "reconstructionDigest": "ke1-3f3613bb3824d34f",
+      "critics": [
+        {
+          "criticId": "CRITIC-H09",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit fragments (inv-1, inv-2, inv-3, inv-4) are correctly represented as semantic elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The reference method 'sans injection' is represented as COMPARATOR with role REFERENCE_STANDARD."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No active study intervention is present; only methods and comparisons are tested."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No broad modality family is explicitly mentioned; specific imaging method variants are used."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit inventory relations (rel-inv-1, rel-inv-2, rel-inv-3) are successfully mapped to client relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All object types comply with operational taxonomy rules."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations are fully preserved without weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unsupported inferences were promoted to explicit facts."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No ambiguities or uncertainties were suppressed."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarities are consistently maintained across elements and relations."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit temporal expressions or timings are present in the user message."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Biomarkers and outcomes are appropriately typed without unsupported endpoint promotion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific terms ('virtuel sans contraste', 'sans injection', 'calculs de calcium') are faithfully represented."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "The missing explicit source fragments list is empty and all parts are fully accounted for."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY perfectly matches the study comparison request."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The typed candidate and semantic inventory are accurate, fully grounded, and comply with all syntactic, structural, and taxonomic rules. All explicit objects and relations are correctly represented, and the route is appropriate."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-fb5fa1725ca7e70e",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "Le virtuel sans contraste peut-il remplacer le sans injection pour les calculs de calcium ?",
+        "normalizedMeaning": "Evaluation de la capacite du virtuel sans contraste a remplacer l'imagerie sans injection pour la quantification du calcium",
+        "conversationMessageIds": [
+          "SEM-H09:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-0daa3c0a00283f46",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Quantification ou calcul du calcium",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H09:user:1",
+              "text": "calculs de calcium",
+              "start": 71,
+              "end": 89
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-2df23b9f503c75fb",
+              "sem-relation:ke1-ed167e449254fff8"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-888bf5eab675247e",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-106ed9aaacc9124e",
+                "knowledge-gap:ke1-2ceba60f0479909b",
+                "knowledge-gap:ke1-9542c7d745317113"
+              ],
+              "checkedAt": "2026-08-13T09:14:18.926Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H09:user:1",
+              "providerCallId": "gemini-call:ke1-ce26f325a7024721",
+              "rawElementId": "elem-3"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-2c10cfec00c0c7c8",
+            "type": "METHOD",
+            "canonicalMeaning": "Imagerie virtuelle sans contraste",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H09:user:1",
+              "text": "virtuel sans contraste",
+              "start": 3,
+              "end": 25
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-2df23b9f503c75fb",
+              "sem-relation:ke1-c3f4c8c9bf78618d"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H09:user:1",
+              "providerCallId": "gemini-call:ke1-ce26f325a7024721",
+              "rawElementId": "elem-1"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-791bc02000a4a0ec",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Questionner le remplacement d'une methode par une autre",
+            "studyRole": "NONE",
+            "polarity": "UNCERTAIN",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H09:user:1",
+              "text": "remplacer",
+              "start": 34,
+              "end": 43
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H09:user:1",
+              "providerCallId": "gemini-call:ke1-ce26f325a7024721",
+              "rawElementId": "elem-4"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-c3ed8c098003cc55",
+            "type": "COMPARATOR",
+            "canonicalMeaning": "Acquisition sans injection de contraste",
+            "studyRole": "REFERENCE_STANDARD",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H09:user:1",
+              "text": "sans injection",
+              "start": 47,
+              "end": 61
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-c3f4c8c9bf78618d",
+              "sem-relation:ke1-ed167e449254fff8"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H09:user:1",
+              "providerCallId": "gemini-call:ke1-ce26f325a7024721",
+              "rawElementId": "elem-2"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-2df23b9f503c75fb",
+            "sourceElementId": "sem-element:ke1-2c10cfec00c0c7c8",
+            "targetElementId": "sem-element:ke1-0daa3c0a00283f46",
+            "relationType": "MEASURES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-2"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-c3f4c8c9bf78618d",
+            "sourceElementId": "sem-element:ke1-2c10cfec00c0c7c8",
+            "targetElementId": "sem-element:ke1-c3ed8c098003cc55",
+            "relationType": "COMPARES_WITH",
+            "polarity": "UNCERTAIN",
+            "inventoryRelationIds": [
+              "rel-inv-1"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-ed167e449254fff8",
+            "sourceElementId": "sem-element:ke1-c3ed8c098003cc55",
+            "targetElementId": "sem-element:ke1-0daa3c0a00283f46",
+            "relationType": "MEASURES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-3"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H09:user:1",
+              "sourceText": "virtuel sans contraste",
+              "normalizedMeaning": "virtuel sans contraste",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H09:user:1",
+              "sourceText": "remplacer",
+              "normalizedMeaning": "remplacer",
+              "mappedClientElementIds": [
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H09:user:1",
+              "sourceText": "sans injection",
+              "normalizedMeaning": "sans injection",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H09:user:1",
+              "sourceText": "calculs de calcium",
+              "normalizedMeaning": "calculs de calcium",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-inv-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-3",
+              "normalizedRelation": "COMPARES_WITH",
+              "mappedClientRelationIds": [
+                "rel-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-inv-2",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-4",
+              "normalizedRelation": "MEASURES",
+              "mappedClientRelationIds": [
+                "rel-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-inv-3",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-4",
+              "normalizedRelation": "MEASURES",
+              "mappedClientRelationIds": [
+                "rel-3"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "clarificationCandidates": [],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "L'utilisateur compare deux methodes d'acquisition pour evaluer une mesure biologique precise.",
+          "expectedCapabilities": [
+            "Evaluation comparative de methodes",
+            "Parametres de mesure du calcium"
+          ]
+        },
+        "summaryForUser": "Analyse de la question concernant l'equivalence potentielle entre le virtuel sans contraste et l'imagerie sans injection pour la mesure du calcium.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "The typed candidate and semantic inventory are accurate, fully grounded, and comply with all syntactic, structural, and taxonomic rules. All explicit objects and relations are correctly represented, and the route is appropriate."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+          "criticPromptVersion": "SEM-001-CRITIC-1.6",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-ce26f325a7024721",
+          "criticCallId": "gemini-call:ke1-d3e1b8b67913922a",
+          "criticCallIds": [
+            "gemini-call:ke1-d3e1b8b67913922a"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:14:10.219Z",
+              "requestFinished": "2026-08-13T09:14:15.617Z",
+              "latencyMs": 5398,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:14:15.619Z",
+              "requestFinished": "2026-08-13T09:14:18.922Z",
+              "latencyMs": 3303,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "cand-001",
+            "language": "fr",
+            "normalizedMeaning": "Evaluation de la capacite du virtuel sans contraste a remplacer l'imagerie sans injection pour la quantification du calcium",
+            "summaryForUser": "Analyse de la question concernant l'equivalence potentielle entre le virtuel sans contraste et l'imagerie sans injection pour la mesure du calcium.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "inv-1",
+                  "sourceMessageId": "SEM-H09:user:1",
+                  "sourceText": "virtuel sans contraste",
+                  "normalizedLabel": "virtuel sans contraste",
+                  "localRole": "method_candidate",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-2",
+                  "sourceMessageId": "SEM-H09:user:1",
+                  "sourceText": "remplacer",
+                  "normalizedLabel": "remplacer",
+                  "localRole": "action_comparison",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-1",
+                    "inv-3"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-3",
+                  "sourceMessageId": "SEM-H09:user:1",
+                  "sourceText": "sans injection",
+                  "normalizedLabel": "sans injection",
+                  "localRole": "reference_method",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-4",
+                  "sourceMessageId": "SEM-H09:user:1",
+                  "sourceText": "calculs de calcium",
+                  "normalizedLabel": "calculs de calcium",
+                  "localRole": "target_biomarker",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel-inv-1",
+                  "sourceInventoryItemId": "inv-1",
+                  "targetInventoryItemId": "inv-3",
+                  "sourceMessageId": "SEM-H09:user:1",
+                  "sourceText": "Le virtuel sans contraste peut-il remplacer le sans injection",
+                  "normalizedRelation": "COMPARES_WITH",
+                  "polarity": "UNCERTAIN"
+                },
+                {
+                  "inventoryRelationId": "rel-inv-2",
+                  "sourceInventoryItemId": "inv-1",
+                  "targetInventoryItemId": "inv-4",
+                  "sourceMessageId": "SEM-H09:user:1",
+                  "sourceText": "Le virtuel sans contraste peut-il remplacer le sans injection pour les calculs de calcium ?",
+                  "normalizedRelation": "MEASURES",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-inv-3",
+                  "sourceInventoryItemId": "inv-3",
+                  "targetInventoryItemId": "inv-4",
+                  "sourceMessageId": "SEM-H09:user:1",
+                  "sourceText": "sans injection pour les calculs de calcium",
+                  "normalizedRelation": "MEASURES",
+                  "polarity": "AFFIRMED"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem-1",
+                "type": "METHOD",
+                "canonicalMeaning": "Imagerie virtuelle sans contraste",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-1"
+                ],
+                "sourceMessageId": "SEM-H09:user:1",
+                "sourceText": "virtuel sans contraste",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-2",
+                "type": "COMPARATOR",
+                "canonicalMeaning": "Acquisition sans injection de contraste",
+                "studyRole": "REFERENCE_STANDARD",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-3"
+                ],
+                "sourceMessageId": "SEM-H09:user:1",
+                "sourceText": "sans injection",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-3",
+                "type": "BIOMARKER",
+                "canonicalMeaning": "Quantification ou calcul du calcium",
+                "studyRole": "OUTCOME_ROLE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-4"
+                ],
+                "sourceMessageId": "SEM-H09:user:1",
+                "sourceText": "calculs de calcium",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-4",
+                "type": "SCIENTIFIC_INTENT",
+                "canonicalMeaning": "Questionner le remplacement d'une methode par une autre",
+                "studyRole": "NONE",
+                "polarity": "UNCERTAIN",
+                "inventoryItemIds": [
+                  "inv-2"
+                ],
+                "sourceMessageId": "SEM-H09:user:1",
+                "sourceText": "remplacer",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel-1",
+                "sourceClientElementId": "elem-1",
+                "targetClientElementId": "elem-2",
+                "relationType": "COMPARES_WITH",
+                "polarity": "UNCERTAIN",
+                "inventoryRelationIds": [
+                  "rel-inv-1"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-2",
+                "sourceClientElementId": "elem-1",
+                "targetClientElementId": "elem-3",
+                "relationType": "MEASURES",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-inv-2"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-3",
+                "sourceClientElementId": "elem-2",
+                "targetClientElementId": "elem-3",
+                "relationType": "MEASURES",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-inv-3"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              }
+            ],
+            "missingConcepts": [],
+            "ellipses": [],
+            "ambiguities": [],
+            "unknowns": [],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [],
+            "routeProposal": {
+              "route": "DESIGN_STUDY",
+              "confidence": 0.9,
+              "reason": "L'utilisateur compare deux methodes d'acquisition pour evaluer une mesure biologique precise.",
+              "expectedCapabilities": [
+                "Evaluation comparative de methodes",
+                "Parametres de mesure du calcium"
+              ]
+            },
+            "semanticWarnings": [
+              "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:1"
+            ]
+          },
+          "rawCritic": {
+            "criticId": "CRITIC-H09",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit fragments (inv-1, inv-2, inv-3, inv-4) are correctly represented as semantic elements."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "PASS",
+                "evidence": "The reference method 'sans injection' is represented as COMPARATOR with role REFERENCE_STANDARD."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No active study intervention is present; only methods and comparisons are tested."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No broad modality family is explicitly mentioned; specific imaging method variants are used."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit inventory relations (rel-inv-1, rel-inv-2, rel-inv-3) are successfully mapped to client relations."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "All object types comply with operational taxonomy rules."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Explicit relations are fully preserved without weakening."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No unsupported inferences were promoted to explicit facts."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "No ambiguities or uncertainties were suppressed."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "Polarities are consistently maintained across elements and relations."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No explicit temporal expressions or timings are present in the user message."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "Biomarkers and outcomes are appropriately typed without unsupported endpoint promotion."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific terms ('virtuel sans contraste', 'sans injection', 'calculs de calcium') are faithfully represented."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "The missing explicit source fragments list is empty and all parts are fully accounted for."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "Route DESIGN_STUDY perfectly matches the study comparison request."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The typed candidate and semantic inventory are accurate, fully grounded, and comply with all syntactic, structural, and taxonomic rules. All explicit objects and relations are correctly represented, and the route is appropriate."
+          },
+          "rawCritics": [
+            {
+              "criticId": "CRITIC-H09",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit fragments (inv-1, inv-2, inv-3, inv-4) are correctly represented as semantic elements."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The reference method 'sans injection' is represented as COMPARATOR with role REFERENCE_STANDARD."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No active study intervention is present; only methods and comparisons are tested."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No broad modality family is explicitly mentioned; specific imaging method variants are used."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit inventory relations (rel-inv-1, rel-inv-2, rel-inv-3) are successfully mapped to client relations."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "All object types comply with operational taxonomy rules."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Explicit relations are fully preserved without weakening."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No unsupported inferences were promoted to explicit facts."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "No ambiguities or uncertainties were suppressed."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "Polarities are consistently maintained across elements and relations."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No explicit temporal expressions or timings are present in the user message."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "Biomarkers and outcomes are appropriately typed without unsupported endpoint promotion."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific terms ('virtuel sans contraste', 'sans injection', 'calculs de calcium') are faithfully represented."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The missing explicit source fragments list is empty and all parts are fully accounted for."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "Route DESIGN_STUDY perfectly matches the study comparison request."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "The typed candidate and semantic inventory are accurate, fully grounded, and comply with all syntactic, structural, and taxonomic rules. All explicit objects and relations are correctly represented, and the route is appropriate."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-13T09:14:18.923Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-888bf5eab675247e",
+          "resultDigest": "ke1-888bf5eab675247e",
+          "coverageStatus": "NO_PROVIDER",
+          "verifiedAt": "2026-08-13T09:14:18.926Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-13T09:14:18.923Z",
+        "updatedAt": "2026-08-13T09:14:18.926Z",
+        "digest": "ke1-6f2362da5efe7f9e"
+      },
+      "canonicalModelDigest": "ke1-6f2362da5efe7f9e",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-888bf5eab675247e",
+        "resultDigest": "ke1-888bf5eab675247e",
+        "coverageStatus": "NO_PROVIDER",
+        "verifiedAt": "2026-08-13T09:14:18.926Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-ce26f325a7024721",
+      "structuredDigest": "ke1-3f3613bb3824d34f",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:14:10.219Z",
+          "requestFinished": "2026-08-13T09:14:15.617Z",
+          "latencyMs": 5398,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-d3e1b8b67913922a",
+      "structuredDigest": "ke1-dbc43e463795aa32",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:14:15.619Z",
+          "requestFinished": "2026-08-13T09:14:18.922Z",
+          "latencyMs": 3303,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-fb5fa1725ca7e70e",
+    "revision": 1,
+    "status": "CANDIDATE",
+    "originalRequest": "Le virtuel sans contraste peut-il remplacer le sans injection pour les calculs de calcium ?",
+    "normalizedMeaning": "Evaluation de la capacite du virtuel sans contraste a remplacer l'imagerie sans injection pour la quantification du calcium",
+    "conversationMessageIds": [
+      "SEM-H09:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-0daa3c0a00283f46",
+        "type": "BIOMARKER",
+        "canonicalMeaning": "Quantification ou calcul du calcium",
+        "studyRole": "OUTCOME_ROLE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-4"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H09:user:1",
+          "text": "calculs de calcium",
+          "start": 71,
+          "end": 89
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-2df23b9f503c75fb",
+          "sem-relation:ke1-ed167e449254fff8"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-888bf5eab675247e",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-106ed9aaacc9124e",
+            "knowledge-gap:ke1-2ceba60f0479909b",
+            "knowledge-gap:ke1-9542c7d745317113"
+          ],
+          "checkedAt": "2026-08-13T09:14:18.926Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H09:user:1",
+          "providerCallId": "gemini-call:ke1-ce26f325a7024721",
+          "rawElementId": "elem-3"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-2c10cfec00c0c7c8",
+        "type": "METHOD",
+        "canonicalMeaning": "Imagerie virtuelle sans contraste",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-1"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H09:user:1",
+          "text": "virtuel sans contraste",
+          "start": 3,
+          "end": 25
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-2df23b9f503c75fb",
+          "sem-relation:ke1-c3f4c8c9bf78618d"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H09:user:1",
+          "providerCallId": "gemini-call:ke1-ce26f325a7024721",
+          "rawElementId": "elem-1"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-791bc02000a4a0ec",
+        "type": "SCIENTIFIC_INTENT",
+        "canonicalMeaning": "Questionner le remplacement d'une methode par une autre",
+        "studyRole": "NONE",
+        "polarity": "UNCERTAIN",
+        "inventoryItemIds": [
+          "inv-2"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H09:user:1",
+          "text": "remplacer",
+          "start": 34,
+          "end": 43
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H09:user:1",
+          "providerCallId": "gemini-call:ke1-ce26f325a7024721",
+          "rawElementId": "elem-4"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-c3ed8c098003cc55",
+        "type": "COMPARATOR",
+        "canonicalMeaning": "Acquisition sans injection de contraste",
+        "studyRole": "REFERENCE_STANDARD",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-3"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H09:user:1",
+          "text": "sans injection",
+          "start": 47,
+          "end": 61
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-c3f4c8c9bf78618d",
+          "sem-relation:ke1-ed167e449254fff8"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H09:user:1",
+          "providerCallId": "gemini-call:ke1-ce26f325a7024721",
+          "rawElementId": "elem-2"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-2df23b9f503c75fb",
+        "sourceElementId": "sem-element:ke1-2c10cfec00c0c7c8",
+        "targetElementId": "sem-element:ke1-0daa3c0a00283f46",
+        "relationType": "MEASURES",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-inv-2"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-c3f4c8c9bf78618d",
+        "sourceElementId": "sem-element:ke1-2c10cfec00c0c7c8",
+        "targetElementId": "sem-element:ke1-c3ed8c098003cc55",
+        "relationType": "COMPARES_WITH",
+        "polarity": "UNCERTAIN",
+        "inventoryRelationIds": [
+          "rel-inv-1"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-ed167e449254fff8",
+        "sourceElementId": "sem-element:ke1-c3ed8c098003cc55",
+        "targetElementId": "sem-element:ke1-0daa3c0a00283f46",
+        "relationType": "MEASURES",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-inv-3"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-1",
+          "sourceMessageId": "SEM-H09:user:1",
+          "sourceText": "virtuel sans contraste",
+          "normalizedMeaning": "virtuel sans contraste",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-2",
+          "sourceMessageId": "SEM-H09:user:1",
+          "sourceText": "remplacer",
+          "normalizedMeaning": "remplacer",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-3",
+          "sourceMessageId": "SEM-H09:user:1",
+          "sourceText": "sans injection",
+          "normalizedMeaning": "sans injection",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-4",
+          "sourceMessageId": "SEM-H09:user:1",
+          "sourceText": "calculs de calcium",
+          "normalizedMeaning": "calculs de calcium",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-inv-1",
+          "sourceInventoryItemId": "inv-1",
+          "targetInventoryItemId": "inv-3",
+          "normalizedRelation": "COMPARES_WITH",
+          "mappedClientRelationIds": [
+            "rel-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-inv-2",
+          "sourceInventoryItemId": "inv-1",
+          "targetInventoryItemId": "inv-4",
+          "normalizedRelation": "MEASURES",
+          "mappedClientRelationIds": [
+            "rel-2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-inv-3",
+          "sourceInventoryItemId": "inv-3",
+          "targetInventoryItemId": "inv-4",
+          "normalizedRelation": "MEASURES",
+          "mappedClientRelationIds": [
+            "rel-3"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "missingConcepts": [],
+    "ellipses": [],
+    "ambiguities": [],
+    "unknowns": [],
+    "contradictions": [],
+    "clarificationCandidates": [],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "DESIGN_STUDY",
+      "confidence": 0.9,
+      "reason": "L'utilisateur compare deux methodes d'acquisition pour evaluer une mesure biologique precise.",
+      "expectedCapabilities": [
+        "Evaluation comparative de methodes",
+        "Parametres de mesure du calcium"
+      ]
+    },
+    "summaryForUser": "Analyse de la question concernant l'equivalence potentielle entre le virtuel sans contraste et l'imagerie sans injection pour la mesure du calcium.",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "The typed candidate and semantic inventory are accurate, fully grounded, and comply with all syntactic, structural, and taxonomic rules. All explicit objects and relations are correctly represented, and the route is appropriate."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-ce26f325a7024721",
+      "criticCallId": "gemini-call:ke1-d3e1b8b67913922a",
+      "criticCallIds": [
+        "gemini-call:ke1-d3e1b8b67913922a"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:14:10.219Z",
+          "requestFinished": "2026-08-13T09:14:15.617Z",
+          "latencyMs": 5398,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:14:15.619Z",
+          "requestFinished": "2026-08-13T09:14:18.922Z",
+          "latencyMs": 3303,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Evaluation de la capacite du virtuel sans contraste a remplacer l'imagerie sans injection pour la quantification du calcium",
+        "summaryForUser": "Analyse de la question concernant l'equivalence potentielle entre le virtuel sans contraste et l'imagerie sans injection pour la mesure du calcium.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H09:user:1",
+              "sourceText": "virtuel sans contraste",
+              "normalizedLabel": "virtuel sans contraste",
+              "localRole": "method_candidate",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H09:user:1",
+              "sourceText": "remplacer",
+              "normalizedLabel": "remplacer",
+              "localRole": "action_comparison",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-1",
+                "inv-3"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H09:user:1",
+              "sourceText": "sans injection",
+              "normalizedLabel": "sans injection",
+              "localRole": "reference_method",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H09:user:1",
+              "sourceText": "calculs de calcium",
+              "normalizedLabel": "calculs de calcium",
+              "localRole": "target_biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-inv-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H09:user:1",
+              "sourceText": "Le virtuel sans contraste peut-il remplacer le sans injection",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "UNCERTAIN"
+            },
+            {
+              "inventoryRelationId": "rel-inv-2",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H09:user:1",
+              "sourceText": "Le virtuel sans contraste peut-il remplacer le sans injection pour les calculs de calcium ?",
+              "normalizedRelation": "MEASURES",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-inv-3",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H09:user:1",
+              "sourceText": "sans injection pour les calculs de calcium",
+              "normalizedRelation": "MEASURES",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "METHOD",
+            "canonicalMeaning": "Imagerie virtuelle sans contraste",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceMessageId": "SEM-H09:user:1",
+            "sourceText": "virtuel sans contraste",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "COMPARATOR",
+            "canonicalMeaning": "Acquisition sans injection de contraste",
+            "studyRole": "REFERENCE_STANDARD",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceMessageId": "SEM-H09:user:1",
+            "sourceText": "sans injection",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Quantification ou calcul du calcium",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "sourceMessageId": "SEM-H09:user:1",
+            "sourceText": "calculs de calcium",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-4",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Questionner le remplacement d'une methode par une autre",
+            "studyRole": "NONE",
+            "polarity": "UNCERTAIN",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceMessageId": "SEM-H09:user:1",
+            "sourceText": "remplacer",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-1",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-2",
+            "relationType": "COMPARES_WITH",
+            "polarity": "UNCERTAIN",
+            "inventoryRelationIds": [
+              "rel-inv-1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-2",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-3",
+            "relationType": "MEASURES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-3",
+            "sourceClientElementId": "elem-2",
+            "targetClientElementId": "elem-3",
+            "relationType": "MEASURES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-3"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "L'utilisateur compare deux methodes d'acquisition pour evaluer une mesure biologique precise.",
+          "expectedCapabilities": [
+            "Evaluation comparative de methodes",
+            "Parametres de mesure du calcium"
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:1"
+        ]
+      },
+      "rawCritic": {
+        "criticId": "CRITIC-H09",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit fragments (inv-1, inv-2, inv-3, inv-4) are correctly represented as semantic elements."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "PASS",
+            "evidence": "The reference method 'sans injection' is represented as COMPARATOR with role REFERENCE_STANDARD."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No active study intervention is present; only methods and comparisons are tested."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No broad modality family is explicitly mentioned; specific imaging method variants are used."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit inventory relations (rel-inv-1, rel-inv-2, rel-inv-3) are successfully mapped to client relations."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "All object types comply with operational taxonomy rules."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "Explicit relations are fully preserved without weakening."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No unsupported inferences were promoted to explicit facts."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "No ambiguities or uncertainties were suppressed."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "Polarities are consistently maintained across elements and relations."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No explicit temporal expressions or timings are present in the user message."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "Biomarkers and outcomes are appropriately typed without unsupported endpoint promotion."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific terms ('virtuel sans contraste', 'sans injection', 'calculs de calcium') are faithfully represented."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "The missing explicit source fragments list is empty and all parts are fully accounted for."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "Route DESIGN_STUDY perfectly matches the study comparison request."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "The typed candidate and semantic inventory are accurate, fully grounded, and comply with all syntactic, structural, and taxonomic rules. All explicit objects and relations are correctly represented, and the route is appropriate."
+      },
+      "rawCritics": [
+        {
+          "criticId": "CRITIC-H09",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit fragments (inv-1, inv-2, inv-3, inv-4) are correctly represented as semantic elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The reference method 'sans injection' is represented as COMPARATOR with role REFERENCE_STANDARD."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No active study intervention is present; only methods and comparisons are tested."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No broad modality family is explicitly mentioned; specific imaging method variants are used."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit inventory relations (rel-inv-1, rel-inv-2, rel-inv-3) are successfully mapped to client relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All object types comply with operational taxonomy rules."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations are fully preserved without weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unsupported inferences were promoted to explicit facts."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No ambiguities or uncertainties were suppressed."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarities are consistently maintained across elements and relations."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit temporal expressions or timings are present in the user message."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Biomarkers and outcomes are appropriately typed without unsupported endpoint promotion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific terms ('virtuel sans contraste', 'sans injection', 'calculs de calcium') are faithfully represented."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "The missing explicit source fragments list is empty and all parts are fully accounted for."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY perfectly matches the study comparison request."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The typed candidate and semantic inventory are accurate, fully grounded, and comply with all syntactic, structural, and taxonomic rules. All explicit objects and relations are correctly represented, and the route is appropriate."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-13T09:14:18.923Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-888bf5eab675247e",
+      "resultDigest": "ke1-888bf5eab675247e",
+      "coverageStatus": "NO_PROVIDER",
+      "verifiedAt": "2026-08-13T09:14:18.926Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-13T09:14:18.923Z",
+    "updatedAt": "2026-08-13T09:14:18.926Z",
+    "digest": "ke1-6f2362da5efe7f9e"
+  },
+  "semanticModelDigest": "ke1-6f2362da5efe7f9e",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-1",
+          "sourceMessageId": "SEM-H09:user:1",
+          "sourceText": "virtuel sans contraste",
+          "normalizedMeaning": "virtuel sans contraste",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-2",
+          "sourceMessageId": "SEM-H09:user:1",
+          "sourceText": "remplacer",
+          "normalizedMeaning": "remplacer",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-3",
+          "sourceMessageId": "SEM-H09:user:1",
+          "sourceText": "sans injection",
+          "normalizedMeaning": "sans injection",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-4",
+          "sourceMessageId": "SEM-H09:user:1",
+          "sourceText": "calculs de calcium",
+          "normalizedMeaning": "calculs de calcium",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-inv-1",
+          "sourceInventoryItemId": "inv-1",
+          "targetInventoryItemId": "inv-3",
+          "normalizedRelation": "COMPARES_WITH",
+          "mappedClientRelationIds": [
+            "rel-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-inv-2",
+          "sourceInventoryItemId": "inv-1",
+          "targetInventoryItemId": "inv-4",
+          "normalizedRelation": "MEASURES",
+          "mappedClientRelationIds": [
+            "rel-2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-inv-3",
+          "sourceInventoryItemId": "inv-3",
+          "targetInventoryItemId": "inv-4",
+          "normalizedRelation": "MEASURES",
+          "mappedClientRelationIds": [
+            "rel-3"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-8066258bdfcc6c77",
+    "evaluatedAt": "2026-08-13T09:14:18.929Z",
+    "goldFrameDigest": "ke1-7d9094ae8c14a0e2",
+    "result": {
+      "caseId": "SEM-H09",
+      "explicitObjectRecall": 0.6666666666666666,
+      "explicitRelationRecall": 1,
+      "criticalSemanticRecall": 0.75,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 1,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": [
+        "EXPLICIT_SCIENTIFIC_OBJECT_LOST:calcium"
+      ]
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H09",
+    "explicitObjectRecall": 0.6666666666666666,
+    "explicitRelationRecall": 1,
+    "criticalSemanticRecall": 0.75,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 1,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": [
+      "EXPLICIT_SCIENTIFIC_OBJECT_LOST:calcium"
+    ]
+  },
+  "error": null
+}

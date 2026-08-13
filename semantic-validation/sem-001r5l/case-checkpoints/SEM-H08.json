@@ -1,0 +1,3207 @@
+{
+  "campaign": "SEM-001R5L-CLOSURE",
+  "campaignId": "sem-001r5l-closure-2026-08-13T09-09-28-906Z-ke1-391a23dcb99dc470",
+  "caseId": "SEM-H08",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-391a23dcb99dc470",
+  "semanticConfigurationDigest": "ke1-410eaaec72fd1768",
+  "goldFrameDigest": "ke1-179e4597a1d685f3",
+  "originalRequest": [
+    "Tmax 6 s n'est pas mon endpoint; je veux décrire le décalage bolus entre CT perfusion et ASL."
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-13T09:13:18.844Z",
+  "completedAt": "2026-08-13T09:14:10.207Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H08:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "L'utilisateur rejette Tmax > 6 s comme critère de jugement (endpoint) et souhaite décrire le décalage bolus (bolus delay) entre la perfusion par CT et l'ASL.",
+        "summaryForUser": "Vous indiquez que Tmax 6 s n'est pas votre endpoint et exprimez l'intention de décrire le décalage bolus entre la perfusion CT et l'ASL.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-001",
+              "sourceMessageId": "SEM-H08:user:1",
+              "sourceText": "Tmax 6 s",
+              "normalizedLabel": "Tmax superieur a 6 secondes",
+              "localRole": "biomarker_or_variable",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "6 s"
+              ],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-002",
+              "sourceMessageId": "SEM-H08:user:1",
+              "sourceText": "endpoint",
+              "normalizedLabel": "critere de jugement",
+              "localRole": "study_role",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-001"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-003",
+              "sourceMessageId": "SEM-H08:user:1",
+              "sourceText": "n'est pas",
+              "normalizedLabel": "negation de la relation",
+              "localRole": "constraint_operator",
+              "polarity": "NEGATED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-001",
+                "inv-002"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-004",
+              "sourceMessageId": "SEM-H08:user:1",
+              "sourceText": "décrire",
+              "normalizedLabel": "decrire",
+              "localRole": "scientific_intent",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-005",
+              "sourceMessageId": "SEM-H08:user:1",
+              "sourceText": "décalage bolus",
+              "normalizedLabel": "decalage bolus",
+              "localRole": "target_variable",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-006",
+              "sourceMessageId": "SEM-H08:user:1",
+              "sourceText": "CT perfusion",
+              "normalizedLabel": "CT perfusion",
+              "localRole": "method",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-007",
+              "sourceMessageId": "SEM-H08:user:1",
+              "sourceText": "ASL",
+              "normalizedLabel": "ASL",
+              "localRole": "method",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-inv-001",
+              "sourceInventoryItemId": "inv-001",
+              "targetInventoryItemId": "inv-002",
+              "sourceMessageId": "SEM-H08:user:1",
+              "sourceText": "Tmax 6 s n'est pas mon endpoint",
+              "normalizedRelation": "IS_NOT_ENDPOINT",
+              "polarity": "NEGATED"
+            },
+            {
+              "inventoryRelationId": "rel-inv-002",
+              "sourceInventoryItemId": "inv-004",
+              "targetInventoryItemId": "inv-005",
+              "sourceMessageId": "SEM-H08:user:1",
+              "sourceText": "décrire le décalage bolus",
+              "normalizedRelation": "AIMS_TO_DESCRIBE",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-inv-003",
+              "sourceInventoryItemId": "inv-005",
+              "targetInventoryItemId": "inv-006",
+              "sourceMessageId": "SEM-H08:user:1",
+              "sourceText": "décalage bolus entre CT perfusion et ASL",
+              "normalizedRelation": "MEASURED_BETWEEN",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-inv-004",
+              "sourceInventoryItemId": "inv-005",
+              "targetInventoryItemId": "inv-007",
+              "sourceMessageId": "SEM-H08:user:1",
+              "sourceText": "décalage bolus entre CT perfusion et ASL",
+              "normalizedRelation": "MEASURED_BETWEEN",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-001",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Tmax superieur a 6 secondes",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-001"
+            ],
+            "sourceMessageId": "SEM-H08:user:1",
+            "sourceText": "Tmax 6 s",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-002",
+            "type": "ENDPOINT",
+            "canonicalMeaning": "Critere de jugement principal ou secondaire",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv-002",
+              "inv-003"
+            ],
+            "sourceMessageId": "SEM-H08:user:1",
+            "sourceText": "n'est pas mon endpoint",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-003",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Decrire une variable ou un phenomene",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-004"
+            ],
+            "sourceMessageId": "SEM-H08:user:1",
+            "sourceText": "décrire",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-004",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Decalage bolus entre modalites d'imagerie",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-005"
+            ],
+            "sourceMessageId": "SEM-H08:user:1",
+            "sourceText": "décalage bolus",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-005",
+            "type": "METHOD",
+            "canonicalMeaning": "Perfusion par tomographie computee",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-006"
+            ],
+            "sourceMessageId": "SEM-H08:user:1",
+            "sourceText": "CT perfusion",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-006",
+            "type": "METHOD",
+            "canonicalMeaning": "Imagerie de marquage de spin arterial",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-007"
+            ],
+            "sourceMessageId": "SEM-H08:user:1",
+            "sourceText": "ASL",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-001",
+            "sourceClientElementId": "elem-001",
+            "targetClientElementId": "elem-002",
+            "relationType": "IS_NOT_ENDPOINT",
+            "polarity": "NEGATED",
+            "inventoryRelationIds": [
+              "rel-inv-001"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-002",
+            "sourceClientElementId": "elem-003",
+            "targetClientElementId": "elem-004",
+            "relationType": "AIMS_TO_DESCRIBE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-002"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-003",
+            "sourceClientElementId": "elem-004",
+            "targetClientElementId": "elem-005",
+            "relationType": "MEASURED_BETWEEN",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-003"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-004",
+            "sourceClientElementId": "elem-004",
+            "targetClientElementId": "elem-006",
+            "relationType": "MEASURED_BETWEEN",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-004"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "FORMALIZE_IDEA",
+          "confidence": 0.9,
+          "reason": "L'utilisateur recadre un paramètre et formule une nouvelle intention de description méthodologique entre deux techniques, ce qui relève de la formalisation d'idée avant le design d'étude.",
+          "expectedCapabilities": [
+            "Clarification des variables d'intérêt",
+            "Mise en relation des méthodes de perfusion"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "reconstructionDigest": "ke1-2923d7c407a91e28",
+      "critics": [
+        {
+          "criticId": "crit-001",
+          "verdict": "REVISE",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicitly stated objects (Tmax 6 s, décalage bolus, CT perfusion, ASL) are successfully mapped in the candidate elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is explicitly stated in the source message."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No active intervention is expressed in the user message."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "CT perfusion and ASL are both correctly represented as methods."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit inventory relations have corresponding semantic relations in the candidate."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "FAIL",
+              "evidence": "The deterministic taxonomy report flagged elem-004 ('décalage bolus') as typed incorrectly; it should be SCIENTIFIC_OBJECT according to the operational taxonomy."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations retain their exact source polarities and structural meanings."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unstated inferences have been promoted to explicit statements."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "All source elements and relation polarities remain visible and unmodified."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "The negation 'n'est pas mon endpoint' is faithfully preserved with NEGATED polarity."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit temporal timing constraint is mentioned in the input."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "The endpoint negation refers explicitly to the user's rejection of Tmax as an endpoint without unsupported promotions."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific imaging techniques and variables retain their literal labels and canonical meanings."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "All contiguous source fragments are accounted for in the explicit inventory and mapped elements."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The FORMALIZE_IDEA route matches the idea formalization and variable recasting described by the user."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [
+            {
+              "code": "TYPE_MISMATCH",
+              "severity": "CRITICAL",
+              "elementClientIds": [
+                "elem-004"
+              ],
+              "description": "Element elem-004 ('décalage bolus') is typed as BIOMARKER, but under the operational taxonomy it should be classified as SCIENTIFIC_OBJECT.",
+              "recommendedAction": "Use UPSERT_ELEMENT to update the type of elem-004 to SCIENTIFIC_OBJECT.",
+              "resolved": false
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "repairId": "rep-001",
+              "action": "UPSERT_ELEMENT",
+              "reason": "Correct element type mismatch for 'décalage bolus' from BIOMARKER to SCIENTIFIC_OBJECT based on the taxonomy findings.",
+              "sourceInventoryItemIds": [
+                "inv-005"
+              ],
+              "sourceInventoryRelationIds": [],
+              "inventoryItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "inventoryNormalizedLabel": null,
+              "inventoryLocalRole": null,
+              "inventoryPolarity": null,
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": "elem-004",
+              "elementType": "SCIENTIFIC_OBJECT",
+              "elementCanonicalMeaning": "Decalage bolus entre modalites d'imagerie",
+              "elementStudyRole": "MEASUREMENT",
+              "elementPolarity": "AFFIRMED",
+              "elementInventoryItemIds": [
+                "inv-005"
+              ],
+              "elementSourceMessageId": "SEM-H08:user:1",
+              "elementSourceText": "décalage bolus",
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementConfidence": 1,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": false,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "relationPolarity": null,
+              "relationInventoryRelationIds": [],
+              "relationEpistemicStatus": null,
+              "relationConfidence": null,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": null,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            }
+          ],
+          "criticSummary": "The candidate captures all explicit source fragments and relations accurately. However, the taxonomy report correctly flags element elem-004 ('décalage bolus') as a SCIENTIFIC_OBJECT rather than a BIOMARKER since it represents the target physiological measure without a direct numerical value or parameter index. A bounded UPSERT_ELEMENT repair is provided to resolve this type mismatch."
+        },
+        {
+          "criticId": "crit-SEM-H08-c2",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects (Tmax 6 s, endpoint, décalage bolus, CT perfusion, ASL) are fully represented."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit comparator arm is introduced."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No active intervention arm is present."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "CT perfusion and ASL are correctly captured as methods/modalities."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit relations from the inventory are mapped into semantic relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Taxonomy report is complete and all types conform to the operational taxonomy."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relations were weakened."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unsupported inferences were promoted."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "All elements and negations are explicitly captured."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "The rejection of Tmax > 6 s as endpoint is properly preserved with negative polarity."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit timing elements are present."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No outcome was promoted to endpoint inappropriately."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like Tmax 6 s, CT perfusion, and ASL remain ungeneralized."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "Explicit coverage report is complete."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "FORMALIZE_IDEA matches the idea-framing and parameter-revising nature of the user message."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "All components of the candidate model, semantic inventory, coverage reports, taxonomy, and integrity reports have been audited and verified successfully. No discrepancies or missing fragments remain."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [
+        {
+          "repairId": "rep-001",
+          "status": "ACCEPTED",
+          "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+        }
+      ],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-a10302d24b03402e",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "Tmax 6 s n'est pas mon endpoint; je veux décrire le décalage bolus entre CT perfusion et ASL.",
+        "normalizedMeaning": "L'utilisateur rejette Tmax > 6 s comme critère de jugement (endpoint) et souhaite décrire le décalage bolus (bolus delay) entre la perfusion par CT et l'ASL.",
+        "conversationMessageIds": [
+          "SEM-H08:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-23637baed5a2a502",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "Decalage bolus entre modalites d'imagerie",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-005"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H08:user:1",
+              "text": "décalage bolus",
+              "start": 52,
+              "end": 66
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-0a9d90103f98b27c",
+              "sem-relation:ke1-6cf52155b978ef59",
+              "sem-relation:ke1-cc0e508ad9c34dfe"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H08:user:1",
+              "providerCallId": "gemini-call:ke1-7acd75a9d34404d5",
+              "rawElementId": "elem-004"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-2e4e9ce925fd7bcd",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Tmax superieur a 6 secondes",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-001"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H08:user:1",
+              "text": "Tmax 6 s",
+              "start": 0,
+              "end": 8
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-d5bb1da3c55a3af7"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-41b99b64e4a62758",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-53c2daf62557ab12",
+                "knowledge-gap:ke1-636bc4635fedc0df"
+              ],
+              "checkedAt": "2026-08-13T09:14:10.203Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H08:user:1",
+              "providerCallId": "gemini-call:ke1-7acd75a9d34404d5",
+              "rawElementId": "elem-001"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-4ef3b64133d1c8b5",
+            "type": "METHOD",
+            "canonicalMeaning": "Imagerie de marquage de spin arterial",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-007"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H08:user:1",
+              "text": "ASL",
+              "start": 89,
+              "end": 92
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-6cf52155b978ef59"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H08:user:1",
+              "providerCallId": "gemini-call:ke1-7acd75a9d34404d5",
+              "rawElementId": "elem-006"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-6f63d5c4c1009c58",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Decrire une variable ou un phenomene",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-004"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H08:user:1",
+              "text": "décrire",
+              "start": 41,
+              "end": 48
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-0a9d90103f98b27c"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H08:user:1",
+              "providerCallId": "gemini-call:ke1-7acd75a9d34404d5",
+              "rawElementId": "elem-003"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-7b97de54010e50c0",
+            "type": "ENDPOINT",
+            "canonicalMeaning": "Critere de jugement principal ou secondaire",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv-002",
+              "inv-003"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H08:user:1",
+              "text": "n'est pas mon endpoint",
+              "start": 9,
+              "end": 31
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-d5bb1da3c55a3af7"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-41b99b64e4a62758",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-53c2daf62557ab12",
+                "knowledge-gap:ke1-636bc4635fedc0df"
+              ],
+              "checkedAt": "2026-08-13T09:14:10.203Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H08:user:1",
+              "providerCallId": "gemini-call:ke1-7acd75a9d34404d5",
+              "rawElementId": "elem-002"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-cf99fe12d78c5a3e",
+            "type": "METHOD",
+            "canonicalMeaning": "Perfusion par tomographie computee",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-006"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H08:user:1",
+              "text": "CT perfusion",
+              "start": 73,
+              "end": 85
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-cc0e508ad9c34dfe"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H08:user:1",
+              "providerCallId": "gemini-call:ke1-7acd75a9d34404d5",
+              "rawElementId": "elem-005"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-0a9d90103f98b27c",
+            "sourceElementId": "sem-element:ke1-6f63d5c4c1009c58",
+            "targetElementId": "sem-element:ke1-23637baed5a2a502",
+            "relationType": "AIMS_TO_DESCRIBE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-002"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-6cf52155b978ef59",
+            "sourceElementId": "sem-element:ke1-23637baed5a2a502",
+            "targetElementId": "sem-element:ke1-4ef3b64133d1c8b5",
+            "relationType": "MEASURED_BETWEEN",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-004"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-cc0e508ad9c34dfe",
+            "sourceElementId": "sem-element:ke1-23637baed5a2a502",
+            "targetElementId": "sem-element:ke1-cf99fe12d78c5a3e",
+            "relationType": "MEASURED_BETWEEN",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-003"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-d5bb1da3c55a3af7",
+            "sourceElementId": "sem-element:ke1-2e4e9ce925fd7bcd",
+            "targetElementId": "sem-element:ke1-7b97de54010e50c0",
+            "relationType": "IS_NOT_ENDPOINT",
+            "polarity": "NEGATED",
+            "inventoryRelationIds": [
+              "rel-inv-001"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-001",
+              "sourceMessageId": "SEM-H08:user:1",
+              "sourceText": "Tmax 6 s",
+              "normalizedMeaning": "Tmax superieur a 6 secondes",
+              "mappedClientElementIds": [
+                "elem-001"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-002",
+              "sourceMessageId": "SEM-H08:user:1",
+              "sourceText": "endpoint",
+              "normalizedMeaning": "critere de jugement",
+              "mappedClientElementIds": [
+                "elem-002"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-003",
+              "sourceMessageId": "SEM-H08:user:1",
+              "sourceText": "n'est pas",
+              "normalizedMeaning": "negation de la relation",
+              "mappedClientElementIds": [
+                "elem-002"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-004",
+              "sourceMessageId": "SEM-H08:user:1",
+              "sourceText": "décrire",
+              "normalizedMeaning": "decrire",
+              "mappedClientElementIds": [
+                "elem-003"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-005",
+              "sourceMessageId": "SEM-H08:user:1",
+              "sourceText": "décalage bolus",
+              "normalizedMeaning": "decalage bolus",
+              "mappedClientElementIds": [
+                "elem-004"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-006",
+              "sourceMessageId": "SEM-H08:user:1",
+              "sourceText": "CT perfusion",
+              "normalizedMeaning": "CT perfusion",
+              "mappedClientElementIds": [
+                "elem-005"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-007",
+              "sourceMessageId": "SEM-H08:user:1",
+              "sourceText": "ASL",
+              "normalizedMeaning": "ASL",
+              "mappedClientElementIds": [
+                "elem-006"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-inv-001",
+              "sourceInventoryItemId": "inv-001",
+              "targetInventoryItemId": "inv-002",
+              "normalizedRelation": "IS_NOT_ENDPOINT",
+              "mappedClientRelationIds": [
+                "rel-001"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-inv-002",
+              "sourceInventoryItemId": "inv-004",
+              "targetInventoryItemId": "inv-005",
+              "normalizedRelation": "AIMS_TO_DESCRIBE",
+              "mappedClientRelationIds": [
+                "rel-002"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-inv-003",
+              "sourceInventoryItemId": "inv-005",
+              "targetInventoryItemId": "inv-006",
+              "normalizedRelation": "MEASURED_BETWEEN",
+              "mappedClientRelationIds": [
+                "rel-003"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-inv-004",
+              "sourceInventoryItemId": "inv-005",
+              "targetInventoryItemId": "inv-007",
+              "normalizedRelation": "MEASURED_BETWEEN",
+              "mappedClientRelationIds": [
+                "rel-004"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "clarificationCandidates": [],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "FORMALIZE_IDEA",
+          "confidence": 0.9,
+          "reason": "L'utilisateur recadre un paramètre et formule une nouvelle intention de description méthodologique entre deux techniques, ce qui relève de la formalisation d'idée avant le design d'étude.",
+          "expectedCapabilities": [
+            "Clarification des variables d'intérêt",
+            "Mise en relation des méthodes de perfusion"
+          ]
+        },
+        "summaryForUser": "Vous indiquez que Tmax 6 s n'est pas votre endpoint et exprimez l'intention de décrire le décalage bolus entre la perfusion CT et l'ASL.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "All components of the candidate model, semantic inventory, coverage reports, taxonomy, and integrity reports have been audited and verified successfully. No discrepancies or missing fragments remain."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+          "criticPromptVersion": "SEM-001-CRITIC-1.6",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-7acd75a9d34404d5",
+          "criticCallId": "gemini-call:ke1-9b83dae0149f13cc",
+          "criticCallIds": [
+            "gemini-call:ke1-28f4e6a458063f70",
+            "gemini-call:ke1-9b83dae0149f13cc"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:13:53.131Z",
+              "requestFinished": "2026-08-13T09:14:01.228Z",
+              "latencyMs": 8097,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:14:01.232Z",
+              "requestFinished": "2026-08-13T09:14:06.133Z",
+              "latencyMs": 4901,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            },
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:14:06.137Z",
+              "requestFinished": "2026-08-13T09:14:10.198Z",
+              "latencyMs": 4061,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "cand-001",
+            "language": "fr",
+            "normalizedMeaning": "L'utilisateur rejette Tmax > 6 s comme critère de jugement (endpoint) et souhaite décrire le décalage bolus (bolus delay) entre la perfusion par CT et l'ASL.",
+            "summaryForUser": "Vous indiquez que Tmax 6 s n'est pas votre endpoint et exprimez l'intention de décrire le décalage bolus entre la perfusion CT et l'ASL.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "inv-001",
+                  "sourceMessageId": "SEM-H08:user:1",
+                  "sourceText": "Tmax 6 s",
+                  "normalizedLabel": "Tmax superieur a 6 secondes",
+                  "localRole": "biomarker_or_variable",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [
+                    "6 s"
+                  ],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-002",
+                  "sourceMessageId": "SEM-H08:user:1",
+                  "sourceText": "endpoint",
+                  "normalizedLabel": "critere de jugement",
+                  "localRole": "study_role",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-001"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-003",
+                  "sourceMessageId": "SEM-H08:user:1",
+                  "sourceText": "n'est pas",
+                  "normalizedLabel": "negation de la relation",
+                  "localRole": "constraint_operator",
+                  "polarity": "NEGATED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-001",
+                    "inv-002"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-004",
+                  "sourceMessageId": "SEM-H08:user:1",
+                  "sourceText": "décrire",
+                  "normalizedLabel": "decrire",
+                  "localRole": "scientific_intent",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-005",
+                  "sourceMessageId": "SEM-H08:user:1",
+                  "sourceText": "décalage bolus",
+                  "normalizedLabel": "decalage bolus",
+                  "localRole": "target_variable",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-006",
+                  "sourceMessageId": "SEM-H08:user:1",
+                  "sourceText": "CT perfusion",
+                  "normalizedLabel": "CT perfusion",
+                  "localRole": "method",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-007",
+                  "sourceMessageId": "SEM-H08:user:1",
+                  "sourceText": "ASL",
+                  "normalizedLabel": "ASL",
+                  "localRole": "method",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel-inv-001",
+                  "sourceInventoryItemId": "inv-001",
+                  "targetInventoryItemId": "inv-002",
+                  "sourceMessageId": "SEM-H08:user:1",
+                  "sourceText": "Tmax 6 s n'est pas mon endpoint",
+                  "normalizedRelation": "IS_NOT_ENDPOINT",
+                  "polarity": "NEGATED"
+                },
+                {
+                  "inventoryRelationId": "rel-inv-002",
+                  "sourceInventoryItemId": "inv-004",
+                  "targetInventoryItemId": "inv-005",
+                  "sourceMessageId": "SEM-H08:user:1",
+                  "sourceText": "décrire le décalage bolus",
+                  "normalizedRelation": "AIMS_TO_DESCRIBE",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-inv-003",
+                  "sourceInventoryItemId": "inv-005",
+                  "targetInventoryItemId": "inv-006",
+                  "sourceMessageId": "SEM-H08:user:1",
+                  "sourceText": "décalage bolus entre CT perfusion et ASL",
+                  "normalizedRelation": "MEASURED_BETWEEN",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-inv-004",
+                  "sourceInventoryItemId": "inv-005",
+                  "targetInventoryItemId": "inv-007",
+                  "sourceMessageId": "SEM-H08:user:1",
+                  "sourceText": "décalage bolus entre CT perfusion et ASL",
+                  "normalizedRelation": "MEASURED_BETWEEN",
+                  "polarity": "AFFIRMED"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem-001",
+                "type": "BIOMARKER",
+                "canonicalMeaning": "Tmax superieur a 6 secondes",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-001"
+                ],
+                "sourceMessageId": "SEM-H08:user:1",
+                "sourceText": "Tmax 6 s",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-002",
+                "type": "ENDPOINT",
+                "canonicalMeaning": "Critere de jugement principal ou secondaire",
+                "studyRole": "OUTCOME_ROLE",
+                "polarity": "NEGATED",
+                "inventoryItemIds": [
+                  "inv-002",
+                  "inv-003"
+                ],
+                "sourceMessageId": "SEM-H08:user:1",
+                "sourceText": "n'est pas mon endpoint",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-003",
+                "type": "SCIENTIFIC_INTENT",
+                "canonicalMeaning": "Decrire une variable ou un phenomene",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-004"
+                ],
+                "sourceMessageId": "SEM-H08:user:1",
+                "sourceText": "décrire",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-005",
+                "type": "METHOD",
+                "canonicalMeaning": "Perfusion par tomographie computee",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-006"
+                ],
+                "sourceMessageId": "SEM-H08:user:1",
+                "sourceText": "CT perfusion",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-006",
+                "type": "METHOD",
+                "canonicalMeaning": "Imagerie de marquage de spin arterial",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-007"
+                ],
+                "sourceMessageId": "SEM-H08:user:1",
+                "sourceText": "ASL",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-004",
+                "type": "SCIENTIFIC_OBJECT",
+                "canonicalMeaning": "Decalage bolus entre modalites d'imagerie",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-005"
+                ],
+                "sourceMessageId": "SEM-H08:user:1",
+                "sourceText": "décalage bolus",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel-001",
+                "sourceClientElementId": "elem-001",
+                "targetClientElementId": "elem-002",
+                "relationType": "IS_NOT_ENDPOINT",
+                "polarity": "NEGATED",
+                "inventoryRelationIds": [
+                  "rel-inv-001"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-002",
+                "sourceClientElementId": "elem-003",
+                "targetClientElementId": "elem-004",
+                "relationType": "AIMS_TO_DESCRIBE",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-inv-002"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-003",
+                "sourceClientElementId": "elem-004",
+                "targetClientElementId": "elem-005",
+                "relationType": "MEASURED_BETWEEN",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-inv-003"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-004",
+                "sourceClientElementId": "elem-004",
+                "targetClientElementId": "elem-006",
+                "relationType": "MEASURED_BETWEEN",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-inv-004"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              }
+            ],
+            "missingConcepts": [],
+            "ellipses": [],
+            "ambiguities": [],
+            "unknowns": [],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [],
+            "routeProposal": {
+              "route": "FORMALIZE_IDEA",
+              "confidence": 0.9,
+              "reason": "L'utilisateur recadre un paramètre et formule une nouvelle intention de description méthodologique entre deux techniques, ce qui relève de la formalisation d'idée avant le design d'étude.",
+              "expectedCapabilities": [
+                "Clarification des variables d'intérêt",
+                "Mise en relation des méthodes de perfusion"
+              ]
+            },
+            "semanticWarnings": []
+          },
+          "rawCritic": {
+            "criticId": "crit-SEM-H08-c2",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit objects (Tmax 6 s, endpoint, décalage bolus, CT perfusion, ASL) are fully represented."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No explicit comparator arm is introduced."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No active intervention arm is present."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "PASS",
+                "evidence": "CT perfusion and ASL are correctly captured as methods/modalities."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit relations from the inventory are mapped into semantic relations."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "Taxonomy report is complete and all types conform to the operational taxonomy."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "No explicit relations were weakened."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No unsupported inferences were promoted."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "All elements and negations are explicitly captured."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "The rejection of Tmax > 6 s as endpoint is properly preserved with negative polarity."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No explicit timing elements are present."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "No outcome was promoted to endpoint inappropriately."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts like Tmax 6 s, CT perfusion, and ASL remain ungeneralized."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "Explicit coverage report is complete."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "FORMALIZE_IDEA matches the idea-framing and parameter-revising nature of the user message."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "All components of the candidate model, semantic inventory, coverage reports, taxonomy, and integrity reports have been audited and verified successfully. No discrepancies or missing fragments remain."
+          },
+          "rawCritics": [
+            {
+              "criticId": "crit-001",
+              "verdict": "REVISE",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicitly stated objects (Tmax 6 s, décalage bolus, CT perfusion, ASL) are successfully mapped in the candidate elements."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No comparator is explicitly stated in the source message."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No active intervention is expressed in the user message."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "CT perfusion and ASL are both correctly represented as methods."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit inventory relations have corresponding semantic relations in the candidate."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "FAIL",
+                  "evidence": "The deterministic taxonomy report flagged elem-004 ('décalage bolus') as typed incorrectly; it should be SCIENTIFIC_OBJECT according to the operational taxonomy."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Explicit relations retain their exact source polarities and structural meanings."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No unstated inferences have been promoted to explicit statements."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "All source elements and relation polarities remain visible and unmodified."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "The negation 'n'est pas mon endpoint' is faithfully preserved with NEGATED polarity."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No explicit temporal timing constraint is mentioned in the input."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "The endpoint negation refers explicitly to the user's rejection of Tmax as an endpoint without unsupported promotions."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific imaging techniques and variables retain their literal labels and canonical meanings."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All contiguous source fragments are accounted for in the explicit inventory and mapped elements."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "The FORMALIZE_IDEA route matches the idea formalization and variable recasting described by the user."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [
+                {
+                  "code": "TYPE_MISMATCH",
+                  "severity": "CRITICAL",
+                  "elementClientIds": [
+                    "elem-004"
+                  ],
+                  "description": "Element elem-004 ('décalage bolus') is typed as BIOMARKER, but under the operational taxonomy it should be classified as SCIENTIFIC_OBJECT.",
+                  "recommendedAction": "Use UPSERT_ELEMENT to update the type of elem-004 to SCIENTIFIC_OBJECT.",
+                  "resolved": false
+                }
+              ],
+              "proposedRepairs": [
+                {
+                  "repairId": "rep-001",
+                  "action": "UPSERT_ELEMENT",
+                  "reason": "Correct element type mismatch for 'décalage bolus' from BIOMARKER to SCIENTIFIC_OBJECT based on the taxonomy findings.",
+                  "sourceInventoryItemIds": [
+                    "inv-005"
+                  ],
+                  "sourceInventoryRelationIds": [],
+                  "inventoryItemId": null,
+                  "inventorySourceMessageId": null,
+                  "inventorySourceText": null,
+                  "inventoryNormalizedLabel": null,
+                  "inventoryLocalRole": null,
+                  "inventoryPolarity": null,
+                  "inventoryModifiers": [],
+                  "inventoryLinkedItemIds": [],
+                  "inventoryRelationId": null,
+                  "inventoryRelationSourceItemId": null,
+                  "inventoryRelationTargetItemId": null,
+                  "inventoryRelationSourceMessageId": null,
+                  "inventoryRelationSourceText": null,
+                  "inventoryNormalizedRelation": null,
+                  "inventoryRelationPolarity": null,
+                  "elementClientElementId": "elem-004",
+                  "elementType": "SCIENTIFIC_OBJECT",
+                  "elementCanonicalMeaning": "Decalage bolus entre modalites d'imagerie",
+                  "elementStudyRole": "MEASUREMENT",
+                  "elementPolarity": "AFFIRMED",
+                  "elementInventoryItemIds": [
+                    "inv-005"
+                  ],
+                  "elementSourceMessageId": "SEM-H08:user:1",
+                  "elementSourceText": "décalage bolus",
+                  "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+                  "elementConfidence": 1,
+                  "elementInferenceReason": null,
+                  "elementRequiresConfirmation": false,
+                  "elementSupersedesElementIds": [],
+                  "relationClientRelationId": null,
+                  "relationSourceClientElementId": null,
+                  "relationTargetClientElementId": null,
+                  "relationType": null,
+                  "relationPolarity": null,
+                  "relationInventoryRelationIds": [],
+                  "relationEpistemicStatus": null,
+                  "relationConfidence": null,
+                  "relationInferenceReason": null,
+                  "relationRequiresConfirmation": null,
+                  "ambiguity": null,
+                  "route": null,
+                  "routeConfidence": null,
+                  "routeReason": null,
+                  "routeExpectedCapabilities": []
+                }
+              ],
+              "criticSummary": "The candidate captures all explicit source fragments and relations accurately. However, the taxonomy report correctly flags element elem-004 ('décalage bolus') as a SCIENTIFIC_OBJECT rather than a BIOMARKER since it represents the target physiological measure without a direct numerical value or parameter index. A bounded UPSERT_ELEMENT repair is provided to resolve this type mismatch."
+            },
+            {
+              "criticId": "crit-SEM-H08-c2",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit objects (Tmax 6 s, endpoint, décalage bolus, CT perfusion, ASL) are fully represented."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No explicit comparator arm is introduced."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No active intervention arm is present."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "CT perfusion and ASL are correctly captured as methods/modalities."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit relations from the inventory are mapped into semantic relations."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "Taxonomy report is complete and all types conform to the operational taxonomy."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "No explicit relations were weakened."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No unsupported inferences were promoted."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "All elements and negations are explicitly captured."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "The rejection of Tmax > 6 s as endpoint is properly preserved with negative polarity."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No explicit timing elements are present."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "No outcome was promoted to endpoint inappropriately."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific concepts like Tmax 6 s, CT perfusion, and ASL remain ungeneralized."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "Explicit coverage report is complete."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "FORMALIZE_IDEA matches the idea-framing and parameter-revising nature of the user message."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "All components of the candidate model, semantic inventory, coverage reports, taxonomy, and integrity reports have been audited and verified successfully. No discrepancies or missing fragments remain."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-13T09:14:10.199Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-41b99b64e4a62758",
+          "resultDigest": "ke1-41b99b64e4a62758",
+          "coverageStatus": "PROVIDER_NOT_APPLICABLE",
+          "verifiedAt": "2026-08-13T09:14:10.203Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-13T09:14:10.199Z",
+        "updatedAt": "2026-08-13T09:14:10.203Z",
+        "digest": "ke1-7f08f801e5a293d5"
+      },
+      "canonicalModelDigest": "ke1-7f08f801e5a293d5",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-41b99b64e4a62758",
+        "resultDigest": "ke1-41b99b64e4a62758",
+        "coverageStatus": "PROVIDER_NOT_APPLICABLE",
+        "verifiedAt": "2026-08-13T09:14:10.203Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-7acd75a9d34404d5",
+      "structuredDigest": "ke1-2923d7c407a91e28",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:13:53.131Z",
+          "requestFinished": "2026-08-13T09:14:01.228Z",
+          "latencyMs": 8097,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-28f4e6a458063f70",
+      "structuredDigest": "ke1-344dd70620236c72",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:14:01.232Z",
+          "requestFinished": "2026-08-13T09:14:06.133Z",
+          "latencyMs": 4901,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 2,
+      "callId": "gemini-call:ke1-9b83dae0149f13cc",
+      "structuredDigest": "ke1-a0dc847136ebd9fd",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:14:06.137Z",
+          "requestFinished": "2026-08-13T09:14:10.198Z",
+          "latencyMs": 4061,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-a10302d24b03402e",
+    "revision": 1,
+    "status": "CANDIDATE",
+    "originalRequest": "Tmax 6 s n'est pas mon endpoint; je veux décrire le décalage bolus entre CT perfusion et ASL.",
+    "normalizedMeaning": "L'utilisateur rejette Tmax > 6 s comme critère de jugement (endpoint) et souhaite décrire le décalage bolus (bolus delay) entre la perfusion par CT et l'ASL.",
+    "conversationMessageIds": [
+      "SEM-H08:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-23637baed5a2a502",
+        "type": "SCIENTIFIC_OBJECT",
+        "canonicalMeaning": "Decalage bolus entre modalites d'imagerie",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-005"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H08:user:1",
+          "text": "décalage bolus",
+          "start": 52,
+          "end": 66
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-0a9d90103f98b27c",
+          "sem-relation:ke1-6cf52155b978ef59",
+          "sem-relation:ke1-cc0e508ad9c34dfe"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H08:user:1",
+          "providerCallId": "gemini-call:ke1-7acd75a9d34404d5",
+          "rawElementId": "elem-004"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-2e4e9ce925fd7bcd",
+        "type": "BIOMARKER",
+        "canonicalMeaning": "Tmax superieur a 6 secondes",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-001"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H08:user:1",
+          "text": "Tmax 6 s",
+          "start": 0,
+          "end": 8
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-d5bb1da3c55a3af7"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-41b99b64e4a62758",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-53c2daf62557ab12",
+            "knowledge-gap:ke1-636bc4635fedc0df"
+          ],
+          "checkedAt": "2026-08-13T09:14:10.203Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H08:user:1",
+          "providerCallId": "gemini-call:ke1-7acd75a9d34404d5",
+          "rawElementId": "elem-001"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-4ef3b64133d1c8b5",
+        "type": "METHOD",
+        "canonicalMeaning": "Imagerie de marquage de spin arterial",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-007"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H08:user:1",
+          "text": "ASL",
+          "start": 89,
+          "end": 92
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-6cf52155b978ef59"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H08:user:1",
+          "providerCallId": "gemini-call:ke1-7acd75a9d34404d5",
+          "rawElementId": "elem-006"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-6f63d5c4c1009c58",
+        "type": "SCIENTIFIC_INTENT",
+        "canonicalMeaning": "Decrire une variable ou un phenomene",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-004"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H08:user:1",
+          "text": "décrire",
+          "start": 41,
+          "end": 48
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-0a9d90103f98b27c"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H08:user:1",
+          "providerCallId": "gemini-call:ke1-7acd75a9d34404d5",
+          "rawElementId": "elem-003"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-7b97de54010e50c0",
+        "type": "ENDPOINT",
+        "canonicalMeaning": "Critere de jugement principal ou secondaire",
+        "studyRole": "OUTCOME_ROLE",
+        "polarity": "NEGATED",
+        "inventoryItemIds": [
+          "inv-002",
+          "inv-003"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H08:user:1",
+          "text": "n'est pas mon endpoint",
+          "start": 9,
+          "end": 31
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-d5bb1da3c55a3af7"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-41b99b64e4a62758",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-53c2daf62557ab12",
+            "knowledge-gap:ke1-636bc4635fedc0df"
+          ],
+          "checkedAt": "2026-08-13T09:14:10.203Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H08:user:1",
+          "providerCallId": "gemini-call:ke1-7acd75a9d34404d5",
+          "rawElementId": "elem-002"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-cf99fe12d78c5a3e",
+        "type": "METHOD",
+        "canonicalMeaning": "Perfusion par tomographie computee",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-006"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H08:user:1",
+          "text": "CT perfusion",
+          "start": 73,
+          "end": 85
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-cc0e508ad9c34dfe"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H08:user:1",
+          "providerCallId": "gemini-call:ke1-7acd75a9d34404d5",
+          "rawElementId": "elem-005"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-0a9d90103f98b27c",
+        "sourceElementId": "sem-element:ke1-6f63d5c4c1009c58",
+        "targetElementId": "sem-element:ke1-23637baed5a2a502",
+        "relationType": "AIMS_TO_DESCRIBE",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-inv-002"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-6cf52155b978ef59",
+        "sourceElementId": "sem-element:ke1-23637baed5a2a502",
+        "targetElementId": "sem-element:ke1-4ef3b64133d1c8b5",
+        "relationType": "MEASURED_BETWEEN",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-inv-004"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-cc0e508ad9c34dfe",
+        "sourceElementId": "sem-element:ke1-23637baed5a2a502",
+        "targetElementId": "sem-element:ke1-cf99fe12d78c5a3e",
+        "relationType": "MEASURED_BETWEEN",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-inv-003"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-d5bb1da3c55a3af7",
+        "sourceElementId": "sem-element:ke1-2e4e9ce925fd7bcd",
+        "targetElementId": "sem-element:ke1-7b97de54010e50c0",
+        "relationType": "IS_NOT_ENDPOINT",
+        "polarity": "NEGATED",
+        "inventoryRelationIds": [
+          "rel-inv-001"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-001",
+          "sourceMessageId": "SEM-H08:user:1",
+          "sourceText": "Tmax 6 s",
+          "normalizedMeaning": "Tmax superieur a 6 secondes",
+          "mappedClientElementIds": [
+            "elem-001"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-002",
+          "sourceMessageId": "SEM-H08:user:1",
+          "sourceText": "endpoint",
+          "normalizedMeaning": "critere de jugement",
+          "mappedClientElementIds": [
+            "elem-002"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-003",
+          "sourceMessageId": "SEM-H08:user:1",
+          "sourceText": "n'est pas",
+          "normalizedMeaning": "negation de la relation",
+          "mappedClientElementIds": [
+            "elem-002"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-004",
+          "sourceMessageId": "SEM-H08:user:1",
+          "sourceText": "décrire",
+          "normalizedMeaning": "decrire",
+          "mappedClientElementIds": [
+            "elem-003"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-005",
+          "sourceMessageId": "SEM-H08:user:1",
+          "sourceText": "décalage bolus",
+          "normalizedMeaning": "decalage bolus",
+          "mappedClientElementIds": [
+            "elem-004"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-006",
+          "sourceMessageId": "SEM-H08:user:1",
+          "sourceText": "CT perfusion",
+          "normalizedMeaning": "CT perfusion",
+          "mappedClientElementIds": [
+            "elem-005"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-007",
+          "sourceMessageId": "SEM-H08:user:1",
+          "sourceText": "ASL",
+          "normalizedMeaning": "ASL",
+          "mappedClientElementIds": [
+            "elem-006"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-inv-001",
+          "sourceInventoryItemId": "inv-001",
+          "targetInventoryItemId": "inv-002",
+          "normalizedRelation": "IS_NOT_ENDPOINT",
+          "mappedClientRelationIds": [
+            "rel-001"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-inv-002",
+          "sourceInventoryItemId": "inv-004",
+          "targetInventoryItemId": "inv-005",
+          "normalizedRelation": "AIMS_TO_DESCRIBE",
+          "mappedClientRelationIds": [
+            "rel-002"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-inv-003",
+          "sourceInventoryItemId": "inv-005",
+          "targetInventoryItemId": "inv-006",
+          "normalizedRelation": "MEASURED_BETWEEN",
+          "mappedClientRelationIds": [
+            "rel-003"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-inv-004",
+          "sourceInventoryItemId": "inv-005",
+          "targetInventoryItemId": "inv-007",
+          "normalizedRelation": "MEASURED_BETWEEN",
+          "mappedClientRelationIds": [
+            "rel-004"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "missingConcepts": [],
+    "ellipses": [],
+    "ambiguities": [],
+    "unknowns": [],
+    "contradictions": [],
+    "clarificationCandidates": [],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "FORMALIZE_IDEA",
+      "confidence": 0.9,
+      "reason": "L'utilisateur recadre un paramètre et formule une nouvelle intention de description méthodologique entre deux techniques, ce qui relève de la formalisation d'idée avant le design d'étude.",
+      "expectedCapabilities": [
+        "Clarification des variables d'intérêt",
+        "Mise en relation des méthodes de perfusion"
+      ]
+    },
+    "summaryForUser": "Vous indiquez que Tmax 6 s n'est pas votre endpoint et exprimez l'intention de décrire le décalage bolus entre la perfusion CT et l'ASL.",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "All components of the candidate model, semantic inventory, coverage reports, taxonomy, and integrity reports have been audited and verified successfully. No discrepancies or missing fragments remain."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-7acd75a9d34404d5",
+      "criticCallId": "gemini-call:ke1-9b83dae0149f13cc",
+      "criticCallIds": [
+        "gemini-call:ke1-28f4e6a458063f70",
+        "gemini-call:ke1-9b83dae0149f13cc"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:13:53.131Z",
+          "requestFinished": "2026-08-13T09:14:01.228Z",
+          "latencyMs": 8097,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:14:01.232Z",
+          "requestFinished": "2026-08-13T09:14:06.133Z",
+          "latencyMs": 4901,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:14:06.137Z",
+          "requestFinished": "2026-08-13T09:14:10.198Z",
+          "latencyMs": 4061,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "L'utilisateur rejette Tmax > 6 s comme critère de jugement (endpoint) et souhaite décrire le décalage bolus (bolus delay) entre la perfusion par CT et l'ASL.",
+        "summaryForUser": "Vous indiquez que Tmax 6 s n'est pas votre endpoint et exprimez l'intention de décrire le décalage bolus entre la perfusion CT et l'ASL.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-001",
+              "sourceMessageId": "SEM-H08:user:1",
+              "sourceText": "Tmax 6 s",
+              "normalizedLabel": "Tmax superieur a 6 secondes",
+              "localRole": "biomarker_or_variable",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "6 s"
+              ],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-002",
+              "sourceMessageId": "SEM-H08:user:1",
+              "sourceText": "endpoint",
+              "normalizedLabel": "critere de jugement",
+              "localRole": "study_role",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-001"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-003",
+              "sourceMessageId": "SEM-H08:user:1",
+              "sourceText": "n'est pas",
+              "normalizedLabel": "negation de la relation",
+              "localRole": "constraint_operator",
+              "polarity": "NEGATED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-001",
+                "inv-002"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-004",
+              "sourceMessageId": "SEM-H08:user:1",
+              "sourceText": "décrire",
+              "normalizedLabel": "decrire",
+              "localRole": "scientific_intent",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-005",
+              "sourceMessageId": "SEM-H08:user:1",
+              "sourceText": "décalage bolus",
+              "normalizedLabel": "decalage bolus",
+              "localRole": "target_variable",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-006",
+              "sourceMessageId": "SEM-H08:user:1",
+              "sourceText": "CT perfusion",
+              "normalizedLabel": "CT perfusion",
+              "localRole": "method",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-007",
+              "sourceMessageId": "SEM-H08:user:1",
+              "sourceText": "ASL",
+              "normalizedLabel": "ASL",
+              "localRole": "method",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-inv-001",
+              "sourceInventoryItemId": "inv-001",
+              "targetInventoryItemId": "inv-002",
+              "sourceMessageId": "SEM-H08:user:1",
+              "sourceText": "Tmax 6 s n'est pas mon endpoint",
+              "normalizedRelation": "IS_NOT_ENDPOINT",
+              "polarity": "NEGATED"
+            },
+            {
+              "inventoryRelationId": "rel-inv-002",
+              "sourceInventoryItemId": "inv-004",
+              "targetInventoryItemId": "inv-005",
+              "sourceMessageId": "SEM-H08:user:1",
+              "sourceText": "décrire le décalage bolus",
+              "normalizedRelation": "AIMS_TO_DESCRIBE",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-inv-003",
+              "sourceInventoryItemId": "inv-005",
+              "targetInventoryItemId": "inv-006",
+              "sourceMessageId": "SEM-H08:user:1",
+              "sourceText": "décalage bolus entre CT perfusion et ASL",
+              "normalizedRelation": "MEASURED_BETWEEN",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-inv-004",
+              "sourceInventoryItemId": "inv-005",
+              "targetInventoryItemId": "inv-007",
+              "sourceMessageId": "SEM-H08:user:1",
+              "sourceText": "décalage bolus entre CT perfusion et ASL",
+              "normalizedRelation": "MEASURED_BETWEEN",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-001",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Tmax superieur a 6 secondes",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-001"
+            ],
+            "sourceMessageId": "SEM-H08:user:1",
+            "sourceText": "Tmax 6 s",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-002",
+            "type": "ENDPOINT",
+            "canonicalMeaning": "Critere de jugement principal ou secondaire",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv-002",
+              "inv-003"
+            ],
+            "sourceMessageId": "SEM-H08:user:1",
+            "sourceText": "n'est pas mon endpoint",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-003",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Decrire une variable ou un phenomene",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-004"
+            ],
+            "sourceMessageId": "SEM-H08:user:1",
+            "sourceText": "décrire",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-005",
+            "type": "METHOD",
+            "canonicalMeaning": "Perfusion par tomographie computee",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-006"
+            ],
+            "sourceMessageId": "SEM-H08:user:1",
+            "sourceText": "CT perfusion",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-006",
+            "type": "METHOD",
+            "canonicalMeaning": "Imagerie de marquage de spin arterial",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-007"
+            ],
+            "sourceMessageId": "SEM-H08:user:1",
+            "sourceText": "ASL",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-004",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "Decalage bolus entre modalites d'imagerie",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-005"
+            ],
+            "sourceMessageId": "SEM-H08:user:1",
+            "sourceText": "décalage bolus",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-001",
+            "sourceClientElementId": "elem-001",
+            "targetClientElementId": "elem-002",
+            "relationType": "IS_NOT_ENDPOINT",
+            "polarity": "NEGATED",
+            "inventoryRelationIds": [
+              "rel-inv-001"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-002",
+            "sourceClientElementId": "elem-003",
+            "targetClientElementId": "elem-004",
+            "relationType": "AIMS_TO_DESCRIBE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-002"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-003",
+            "sourceClientElementId": "elem-004",
+            "targetClientElementId": "elem-005",
+            "relationType": "MEASURED_BETWEEN",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-003"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-004",
+            "sourceClientElementId": "elem-004",
+            "targetClientElementId": "elem-006",
+            "relationType": "MEASURED_BETWEEN",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-004"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "FORMALIZE_IDEA",
+          "confidence": 0.9,
+          "reason": "L'utilisateur recadre un paramètre et formule une nouvelle intention de description méthodologique entre deux techniques, ce qui relève de la formalisation d'idée avant le design d'étude.",
+          "expectedCapabilities": [
+            "Clarification des variables d'intérêt",
+            "Mise en relation des méthodes de perfusion"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "rawCritic": {
+        "criticId": "crit-SEM-H08-c2",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit objects (Tmax 6 s, endpoint, décalage bolus, CT perfusion, ASL) are fully represented."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No explicit comparator arm is introduced."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No active intervention arm is present."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "PASS",
+            "evidence": "CT perfusion and ASL are correctly captured as methods/modalities."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit relations from the inventory are mapped into semantic relations."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "Taxonomy report is complete and all types conform to the operational taxonomy."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "No explicit relations were weakened."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No unsupported inferences were promoted."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "All elements and negations are explicitly captured."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "The rejection of Tmax > 6 s as endpoint is properly preserved with negative polarity."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No explicit timing elements are present."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "No outcome was promoted to endpoint inappropriately."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific concepts like Tmax 6 s, CT perfusion, and ASL remain ungeneralized."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "Explicit coverage report is complete."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "FORMALIZE_IDEA matches the idea-framing and parameter-revising nature of the user message."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "All components of the candidate model, semantic inventory, coverage reports, taxonomy, and integrity reports have been audited and verified successfully. No discrepancies or missing fragments remain."
+      },
+      "rawCritics": [
+        {
+          "criticId": "crit-001",
+          "verdict": "REVISE",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicitly stated objects (Tmax 6 s, décalage bolus, CT perfusion, ASL) are successfully mapped in the candidate elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is explicitly stated in the source message."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No active intervention is expressed in the user message."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "CT perfusion and ASL are both correctly represented as methods."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit inventory relations have corresponding semantic relations in the candidate."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "FAIL",
+              "evidence": "The deterministic taxonomy report flagged elem-004 ('décalage bolus') as typed incorrectly; it should be SCIENTIFIC_OBJECT according to the operational taxonomy."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations retain their exact source polarities and structural meanings."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unstated inferences have been promoted to explicit statements."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "All source elements and relation polarities remain visible and unmodified."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "The negation 'n'est pas mon endpoint' is faithfully preserved with NEGATED polarity."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit temporal timing constraint is mentioned in the input."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "The endpoint negation refers explicitly to the user's rejection of Tmax as an endpoint without unsupported promotions."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific imaging techniques and variables retain their literal labels and canonical meanings."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "All contiguous source fragments are accounted for in the explicit inventory and mapped elements."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The FORMALIZE_IDEA route matches the idea formalization and variable recasting described by the user."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [
+            {
+              "code": "TYPE_MISMATCH",
+              "severity": "CRITICAL",
+              "elementClientIds": [
+                "elem-004"
+              ],
+              "description": "Element elem-004 ('décalage bolus') is typed as BIOMARKER, but under the operational taxonomy it should be classified as SCIENTIFIC_OBJECT.",
+              "recommendedAction": "Use UPSERT_ELEMENT to update the type of elem-004 to SCIENTIFIC_OBJECT.",
+              "resolved": false
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "repairId": "rep-001",
+              "action": "UPSERT_ELEMENT",
+              "reason": "Correct element type mismatch for 'décalage bolus' from BIOMARKER to SCIENTIFIC_OBJECT based on the taxonomy findings.",
+              "sourceInventoryItemIds": [
+                "inv-005"
+              ],
+              "sourceInventoryRelationIds": [],
+              "inventoryItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "inventoryNormalizedLabel": null,
+              "inventoryLocalRole": null,
+              "inventoryPolarity": null,
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": "elem-004",
+              "elementType": "SCIENTIFIC_OBJECT",
+              "elementCanonicalMeaning": "Decalage bolus entre modalites d'imagerie",
+              "elementStudyRole": "MEASUREMENT",
+              "elementPolarity": "AFFIRMED",
+              "elementInventoryItemIds": [
+                "inv-005"
+              ],
+              "elementSourceMessageId": "SEM-H08:user:1",
+              "elementSourceText": "décalage bolus",
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementConfidence": 1,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": false,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "relationPolarity": null,
+              "relationInventoryRelationIds": [],
+              "relationEpistemicStatus": null,
+              "relationConfidence": null,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": null,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            }
+          ],
+          "criticSummary": "The candidate captures all explicit source fragments and relations accurately. However, the taxonomy report correctly flags element elem-004 ('décalage bolus') as a SCIENTIFIC_OBJECT rather than a BIOMARKER since it represents the target physiological measure without a direct numerical value or parameter index. A bounded UPSERT_ELEMENT repair is provided to resolve this type mismatch."
+        },
+        {
+          "criticId": "crit-SEM-H08-c2",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects (Tmax 6 s, endpoint, décalage bolus, CT perfusion, ASL) are fully represented."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit comparator arm is introduced."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No active intervention arm is present."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "CT perfusion and ASL are correctly captured as methods/modalities."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit relations from the inventory are mapped into semantic relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Taxonomy report is complete and all types conform to the operational taxonomy."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relations were weakened."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unsupported inferences were promoted."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "All elements and negations are explicitly captured."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "The rejection of Tmax > 6 s as endpoint is properly preserved with negative polarity."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit timing elements are present."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No outcome was promoted to endpoint inappropriately."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like Tmax 6 s, CT perfusion, and ASL remain ungeneralized."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "Explicit coverage report is complete."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "FORMALIZE_IDEA matches the idea-framing and parameter-revising nature of the user message."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "All components of the candidate model, semantic inventory, coverage reports, taxonomy, and integrity reports have been audited and verified successfully. No discrepancies or missing fragments remain."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-13T09:14:10.199Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-41b99b64e4a62758",
+      "resultDigest": "ke1-41b99b64e4a62758",
+      "coverageStatus": "PROVIDER_NOT_APPLICABLE",
+      "verifiedAt": "2026-08-13T09:14:10.203Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-13T09:14:10.199Z",
+    "updatedAt": "2026-08-13T09:14:10.203Z",
+    "digest": "ke1-7f08f801e5a293d5"
+  },
+  "semanticModelDigest": "ke1-7f08f801e5a293d5",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-001",
+          "sourceMessageId": "SEM-H08:user:1",
+          "sourceText": "Tmax 6 s",
+          "normalizedMeaning": "Tmax superieur a 6 secondes",
+          "mappedClientElementIds": [
+            "elem-001"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-002",
+          "sourceMessageId": "SEM-H08:user:1",
+          "sourceText": "endpoint",
+          "normalizedMeaning": "critere de jugement",
+          "mappedClientElementIds": [
+            "elem-002"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-003",
+          "sourceMessageId": "SEM-H08:user:1",
+          "sourceText": "n'est pas",
+          "normalizedMeaning": "negation de la relation",
+          "mappedClientElementIds": [
+            "elem-002"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-004",
+          "sourceMessageId": "SEM-H08:user:1",
+          "sourceText": "décrire",
+          "normalizedMeaning": "decrire",
+          "mappedClientElementIds": [
+            "elem-003"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-005",
+          "sourceMessageId": "SEM-H08:user:1",
+          "sourceText": "décalage bolus",
+          "normalizedMeaning": "decalage bolus",
+          "mappedClientElementIds": [
+            "elem-004"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-006",
+          "sourceMessageId": "SEM-H08:user:1",
+          "sourceText": "CT perfusion",
+          "normalizedMeaning": "CT perfusion",
+          "mappedClientElementIds": [
+            "elem-005"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-007",
+          "sourceMessageId": "SEM-H08:user:1",
+          "sourceText": "ASL",
+          "normalizedMeaning": "ASL",
+          "mappedClientElementIds": [
+            "elem-006"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-inv-001",
+          "sourceInventoryItemId": "inv-001",
+          "targetInventoryItemId": "inv-002",
+          "normalizedRelation": "IS_NOT_ENDPOINT",
+          "mappedClientRelationIds": [
+            "rel-001"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-inv-002",
+          "sourceInventoryItemId": "inv-004",
+          "targetInventoryItemId": "inv-005",
+          "normalizedRelation": "AIMS_TO_DESCRIBE",
+          "mappedClientRelationIds": [
+            "rel-002"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-inv-003",
+          "sourceInventoryItemId": "inv-005",
+          "targetInventoryItemId": "inv-006",
+          "normalizedRelation": "MEASURED_BETWEEN",
+          "mappedClientRelationIds": [
+            "rel-003"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-inv-004",
+          "sourceInventoryItemId": "inv-005",
+          "targetInventoryItemId": "inv-007",
+          "normalizedRelation": "MEASURED_BETWEEN",
+          "mappedClientRelationIds": [
+            "rel-004"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-8066258bdfcc6c77",
+    "evaluatedAt": "2026-08-13T09:14:10.207Z",
+    "goldFrameDigest": "ke1-179e4597a1d685f3",
+    "result": {
+      "caseId": "SEM-H08",
+      "explicitObjectRecall": 0.75,
+      "explicitRelationRecall": 0,
+      "criticalSemanticRecall": 0.6,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 1,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": [
+        "EXPLICIT_CONSTRAINT_LOST:Tmax 6 s exclu comme endpoint",
+        "RELATION_LOST:CT perfusion->ASL"
+      ]
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H08",
+    "explicitObjectRecall": 0.75,
+    "explicitRelationRecall": 0,
+    "criticalSemanticRecall": 0.6,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 1,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": [
+      "EXPLICIT_CONSTRAINT_LOST:Tmax 6 s exclu comme endpoint",
+      "RELATION_LOST:CT perfusion->ASL"
+    ]
+  },
+  "error": null
+}

@@ -1,0 +1,124 @@
+{
+  "campaign": "SEM-001R5O",
+  "caseId": "SEM-H29",
+  "decision": "R5O_BLOCKED_BY_CONFIGURATION_DRIFT",
+  "configurationVerification": {
+    "campaign": "SEM-001R5O",
+    "verifiedAt": "2026-08-13T10:27:20.257Z",
+    "configurationName": "SEM_LEGACY_R5O",
+    "expectedConfigurationName": "SEM_LEGACY_R5O",
+    "expectedConfigurationDigest": "ke1-af5b674bce8d3b6f",
+    "recordedConfigurationDigest": "ke1-af5b674bce8d3b6f",
+    "recomputedConfigurationDigest": "ke1-af5b674bce8d3b6f",
+    "status": "PROPOSED_NOT_ACTIVATED",
+    "provider": "GOOGLE_GEMINI",
+    "model": "gemini-3.5-flash-lite",
+    "digestChecks": [
+      {
+        "owner": "developmentCorpus",
+        "expected": "ke1-64d654cfa041a563",
+        "observed": "ke1-64d654cfa041a563",
+        "pass": true
+      },
+      {
+        "owner": "developmentGold",
+        "expected": "ke1-1006a72533caf7f9",
+        "observed": "ke1-1006a72533caf7f9",
+        "pass": true
+      },
+      {
+        "owner": "holdoutCorpus",
+        "expected": "ke1-08392b87b2cc140b",
+        "observed": "ke1-08392b87b2cc140b",
+        "pass": true
+      },
+      {
+        "owner": "holdoutGold",
+        "expected": "ke1-9208b3d2f1d0698e",
+        "observed": "ke1-9208b3d2f1d0698e",
+        "pass": true
+      },
+      {
+        "owner": "reconstructionPrompt",
+        "expected": "ke1-a2f55612381ac9ee",
+        "observed": "ke1-a2f55612381ac9ee",
+        "pass": true
+      },
+      {
+        "owner": "criticPrompt",
+        "expected": "ke1-9ae6db2190a318f5",
+        "observed": "ke1-9ae6db2190a318f5",
+        "pass": true
+      },
+      {
+        "owner": "auditPrompt",
+        "expected": "ke1-10b88664b49fca18",
+        "observed": "ke1-10b88664b49fca18",
+        "pass": true
+      },
+      {
+        "owner": "baseProviderSchema",
+        "expected": "ke1-c849778553bf38b1",
+        "observed": "ke1-c849778553bf38b1",
+        "pass": true
+      },
+      {
+        "owner": "providerContract",
+        "expected": "ke1-cdbd96350b88c6a1",
+        "observed": "ke1-cdbd96350b88c6a1",
+        "pass": true
+      },
+      {
+        "owner": "auditProviderSchema",
+        "expected": "ke1-55cd50759595b451",
+        "observed": "ke1-55cd50759595b451",
+        "pass": true
+      },
+      {
+        "owner": "canonicalModel",
+        "expected": "ke1-443905dedde8900a",
+        "observed": "ke1-443905dedde8900a",
+        "pass": true
+      },
+      {
+        "owner": "acceptanceGuards",
+        "expected": "ke1-c07cc22d8708c7c9",
+        "observed": "ke1-c07cc22d8708c7c9",
+        "pass": true
+      },
+      {
+        "owner": "canonicalizer",
+        "expected": "ke1-cf56d05755b2b05b",
+        "observed": "ke1-bd23f485eaf7fe41",
+        "pass": false
+      },
+      {
+        "owner": "coverageAndIntegrity",
+        "expected": "ke1-5c7aa4aa2fc1b87e",
+        "observed": "ke1-5c7aa4aa2fc1b87e",
+        "pass": true
+      },
+      {
+        "owner": "relationOwnership",
+        "expected": "ke1-edad269e6159f872",
+        "observed": "ke1-edad269e6159f872",
+        "pass": true
+      },
+      {
+        "owner": "evaluator",
+        "expected": "ke1-8066258bdfcc6c77",
+        "observed": "ke1-8066258bdfcc6c77",
+        "pass": true
+      },
+      {
+        "owner": "routing",
+        "expected": "ke1-d5e9fbdce07f0730",
+        "observed": "ke1-110ef9ee008a482a",
+        "pass": false
+      }
+    ],
+    "decision": "R5O_BLOCKED_BY_CONFIGURATION_DRIFT"
+  },
+  "llmOperations": 0,
+  "providerRequestStarts": 0
+}

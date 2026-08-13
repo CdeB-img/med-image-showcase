@@ -1,0 +1,3997 @@
+{
+  "campaign": "SEM-001R5I",
+  "caseId": "SEM-H29",
+  "configurationName": "SEM_LEGACY_R5I",
+  "configurationDigest": "ke1-b054ba08b89e02ec",
+  "chain": "HOMOGENEOUS_R5I_NO_PRIOR_RESULT_REUSE",
+  "sourceFreeze": "semantic-validation/sem-001r5i/legacy-qualification-freeze-candidate.json",
+  "sourceFreezeDigest": "ke1-b225fdec8c8899e0",
+  "provider": "GOOGLE_GEMINI",
+  "model": "gemini-3.5-flash-lite",
+  "promptVersions": {
+    "reconstruction": "SEM-001-RECONSTRUCTION-1.6",
+    "critic": "SEM-001-CRITIC-1.6"
+  },
+  "schemaVersion": "SEM-001-1.1",
+  "semanticModelVersion": "1.1",
+  "startedAt": "2026-08-13T08:39:11.750Z",
+  "completedAt": "2026-08-13T08:40:22.322Z",
+  "decision": "H29_FAIL",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H29:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Comparaison entre la tomographie par émission de positons (PET) et l'imagerie par résonance magnétique (IRM) pour évaluer la réponse tumorale à trois mois.",
+        "summaryForUser": "Comparaison de la PET et de l'IRM pour l'évaluation de la réponse tumorale à trois mois.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H29:user:1",
+              "sourceText": "Comparer",
+              "normalizedLabel": "comparer",
+              "localRole": "action",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-2",
+                "inv-3"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H29:user:1",
+              "sourceText": "PET",
+              "normalizedLabel": "PET",
+              "localRole": "modality",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-1"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H29:user:1",
+              "sourceText": "IRM",
+              "normalizedLabel": "IRM",
+              "localRole": "modality",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-1"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H29:user:1",
+              "sourceText": "réponse tumorale",
+              "normalizedLabel": "réponse tumorale",
+              "localRole": "endpoint",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H29:user:1",
+              "sourceText": "à trois mois",
+              "normalizedLabel": "à trois mois",
+              "localRole": "timing",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-4"
+              ]
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-inv-1",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H29:user:1",
+              "sourceText": "Comparer PET et IRM",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-inv-2",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H29:user:1",
+              "sourceText": "PET et IRM pour la réponse tumorale",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-inv-3",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H29:user:1",
+              "sourceText": "PET et IRM pour la réponse tumorale",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-inv-4",
+              "sourceInventoryItemId": "inv-4",
+              "targetInventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H29:user:1",
+              "sourceText": "réponse tumorale à trois mois",
+              "normalizedRelation": "REPEATED_AT",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Action de comparer",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceMessageId": "SEM-H29:user:1",
+            "sourceText": "Comparer",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "MODALITY",
+            "canonicalMeaning": "Tomographie par émission de positons",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceMessageId": "SEM-H29:user:1",
+            "sourceText": "PET",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "MODALITY",
+            "canonicalMeaning": "Imagerie par résonance magnétique",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceMessageId": "SEM-H29:user:1",
+            "sourceText": "IRM",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-4",
+            "type": "ENDPOINT",
+            "canonicalMeaning": "Réponse tumorale",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "sourceMessageId": "SEM-H29:user:1",
+            "sourceText": "réponse tumorale",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-5",
+            "type": "TIMING",
+            "canonicalMeaning": "Trois mois",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-5"
+            ],
+            "sourceMessageId": "SEM-H29:user:1",
+            "sourceText": "à trois mois",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-1",
+            "sourceClientElementId": "elem-2",
+            "targetClientElementId": "elem-3",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-2",
+            "sourceClientElementId": "elem-2",
+            "targetClientElementId": "elem-4",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-3",
+            "sourceClientElementId": "elem-3",
+            "targetClientElementId": "elem-4",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-3"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-4",
+            "sourceClientElementId": "elem-4",
+            "targetClientElementId": "elem-5",
+            "relationType": "REPEATED_AT",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-4"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.95,
+          "reason": "The user is constructing a comparative study design between PET and IRM modalities with a defined endpoint and timing.",
+          "expectedCapabilities": [
+            "Define study arms",
+            "Specify imaging protocols",
+            "Establish evaluation criteria"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "reconstructionDigest": "ke1-4a0c981c140c1cc0",
+      "critics": [
+        {
+          "criticId": "crit-SEM-H29-001",
+          "verdict": "REVISE",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit fragments from the user message are fully represented in the inventory and candidate elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Both modalities (PET and IRM) compared in the prompt are properly represented."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No interventions are requested in the prompt."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "PET and IRM modalities are fully represented."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All inventory relations are mapped to direct semantic relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "FAIL",
+              "evidence": "Element elem-4 was incorrectly promoted to ENDPOINT without explicit criteria selection; taxonomy report specifies OUTCOME."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relations were weakened."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No inferences were improperly promoted."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No ambiguities were concealed."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarity is correctly affirmed throughout."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Timing 'à trois mois' is correctly represented."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "FAIL",
+              "evidence": "The outcome 'réponse tumorale' was promoted to ENDPOINT without explicit user designation as the judging criterion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts are retained without generalization."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No important source fragments are omitted."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "DESIGN_STUDY correctly matches the comparative study design model."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [
+            {
+              "code": "UNSUPPORTED_ENDPOINT_PROMOTION",
+              "severity": "WARNING",
+              "elementClientIds": [
+                "elem-4"
+              ],
+              "description": "Element 'réponse tumorale' is typed as ENDPOINT, but comparing modalities for a result leaves it as OUTCOME unless explicitly designated as the judging criterion.",
+              "recommendedAction": "Demote element elem-4 type from ENDPOINT to OUTCOME using UPSERT_ELEMENT.",
+              "resolved": false
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "repairId": "rep-1",
+              "action": "UPSERT_ELEMENT",
+              "reason": "Correct element type from ENDPOINT to OUTCOME according to taxonomy rules since the tumour response is evaluated without explicit endpoint selection.",
+              "sourceInventoryItemIds": [
+                "inv-4"
+              ],
+              "sourceInventoryRelationIds": [],
+              "inventoryItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "inventoryNormalizedLabel": null,
+              "inventoryLocalRole": null,
+              "inventoryPolarity": null,
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": "elem-4",
+              "elementType": "OUTCOME",
+              "elementCanonicalMeaning": "Réponse tumorale",
+              "elementStudyRole": "OUTCOME_ROLE",
+              "elementPolarity": "AFFIRMED",
+              "elementInventoryItemIds": [
+                "inv-4"
+              ],
+              "elementSourceMessageId": "SEM-H29:user:1",
+              "elementSourceText": "réponse tumorale",
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementConfidence": 1,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": false,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "relationPolarity": null,
+              "relationInventoryRelationIds": [],
+              "relationEpistemicStatus": null,
+              "relationConfidence": null,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": null,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            }
+          ],
+          "criticSummary": "Audit completed. The semantic inventory and relations are accurately represented, but element elem-4 'réponse tumorale' must be corrected from ENDPOINT to OUTCOME as flagged by the taxonomy report."
+        },
+        {
+          "criticId": "crit-001",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit source fragments (PET, IRM, réponse tumorale, à trois mois) are mapped to valid semantic elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "PET and IRM are both represented as MODALITY elements with COMPARATOR_ARM study roles."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No active intervention is present in the source prompt; it is purely a comparative imaging study."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "PET and IRM are both correctly represented as MODALITY elements."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All inventory relations including comparison and observations are fully mapped."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Taxonomy report is complete with no type mismatches."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relations were weakened or converted to inferences."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Only explicit elements and relations grounded in the source text are present."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No hidden ambiguities; explicit terms are straightforward."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "All polarities are AFFIRMED matching the source."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "'à trois mois' is correctly preserved as a TIMING element."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "'réponse tumorale' is correctly classified as OUTCOME, respecting the rule against unjustified endpoint promotion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "PET and IRM are preserved specifically as named modalities."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No missing explicit source fragments."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY perfectly matches a comparative study design request."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The semantic inventory, typed candidate, coverage reports, taxonomy, and integrity reports are fully verified and complete. All items correctly follow operational rules."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [
+        {
+          "repairId": "rep-1",
+          "status": "ACCEPTED",
+          "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+        }
+      ],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-a3a6cd45a5619e11",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "Comparer PET et IRM pour la réponse tumorale à trois mois.",
+        "normalizedMeaning": "Comparaison entre la tomographie par émission de positons (PET) et l'imagerie par résonance magnétique (IRM) pour évaluer la réponse tumorale à trois mois.",
+        "conversationMessageIds": [
+          "SEM-H29:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-11f4e71b87243a57",
+            "type": "TIMING",
+            "canonicalMeaning": "Trois mois",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-5"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H29:user:1",
+              "text": "à trois mois",
+              "start": 45,
+              "end": 57
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-03b57fcd123ac0a9"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H29:user:1",
+              "providerCallId": "gemini-call:ke1-3b1fba909f20a724",
+              "rawElementId": "elem-5"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-39a0cf97ed8175c3",
+            "type": "OUTCOME",
+            "canonicalMeaning": "Réponse tumorale",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H29:user:1",
+              "text": "réponse tumorale",
+              "start": 28,
+              "end": 44
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-03b57fcd123ac0a9",
+              "sem-relation:ke1-e1246c536b397fbf",
+              "sem-relation:ke1-fcde57bdd2ef1591"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H29:user:1",
+              "providerCallId": "gemini-call:ke1-3b1fba909f20a724",
+              "rawElementId": "elem-4"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-963ab9c4b72f7778",
+            "type": "MODALITY",
+            "canonicalMeaning": "Tomographie par émission de positons",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H29:user:1",
+              "text": "PET",
+              "start": 9,
+              "end": 12
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-dd38a4a25079823e",
+              "sem-relation:ke1-e1246c536b397fbf"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H29:user:1",
+              "providerCallId": "gemini-call:ke1-3b1fba909f20a724",
+              "rawElementId": "elem-2"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-bf186072a95bfa66",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Action de comparer",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H29:user:1",
+              "text": "Comparer",
+              "start": 0,
+              "end": 8
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H29:user:1",
+              "providerCallId": "gemini-call:ke1-3b1fba909f20a724",
+              "rawElementId": "elem-1"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-cee27023bc99f717",
+            "type": "MODALITY",
+            "canonicalMeaning": "Imagerie par résonance magnétique",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H29:user:1",
+              "text": "IRM",
+              "start": 16,
+              "end": 19
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-dd38a4a25079823e",
+              "sem-relation:ke1-fcde57bdd2ef1591"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H29:user:1",
+              "providerCallId": "gemini-call:ke1-3b1fba909f20a724",
+              "rawElementId": "elem-3"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-03b57fcd123ac0a9",
+            "sourceElementId": "sem-element:ke1-39a0cf97ed8175c3",
+            "targetElementId": "sem-element:ke1-11f4e71b87243a57",
+            "relationType": "REPEATED_AT",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-4"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-dd38a4a25079823e",
+            "sourceElementId": "sem-element:ke1-963ab9c4b72f7778",
+            "targetElementId": "sem-element:ke1-cee27023bc99f717",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-1"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-e1246c536b397fbf",
+            "sourceElementId": "sem-element:ke1-963ab9c4b72f7778",
+            "targetElementId": "sem-element:ke1-39a0cf97ed8175c3",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-2"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-fcde57bdd2ef1591",
+            "sourceElementId": "sem-element:ke1-cee27023bc99f717",
+            "targetElementId": "sem-element:ke1-39a0cf97ed8175c3",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-3"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H29:user:1",
+              "sourceText": "Comparer",
+              "normalizedMeaning": "comparer",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H29:user:1",
+              "sourceText": "PET",
+              "normalizedMeaning": "PET",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H29:user:1",
+              "sourceText": "IRM",
+              "normalizedMeaning": "IRM",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H29:user:1",
+              "sourceText": "réponse tumorale",
+              "normalizedMeaning": "réponse tumorale",
+              "mappedClientElementIds": [
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H29:user:1",
+              "sourceText": "à trois mois",
+              "normalizedMeaning": "à trois mois",
+              "mappedClientElementIds": [
+                "elem-5"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-inv-1",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-3",
+              "normalizedRelation": "COMPARES_WITH",
+              "mappedClientRelationIds": [
+                "rel-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-inv-2",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-4",
+              "normalizedRelation": "OBSERVES",
+              "mappedClientRelationIds": [
+                "rel-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-inv-3",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-4",
+              "normalizedRelation": "OBSERVES",
+              "mappedClientRelationIds": [
+                "rel-3"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-inv-4",
+              "sourceInventoryItemId": "inv-4",
+              "targetInventoryItemId": "inv-5",
+              "normalizedRelation": "REPEATED_AT",
+              "mappedClientRelationIds": [
+                "rel-4"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "clarificationCandidates": [],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.95,
+          "reason": "The user is constructing a comparative study design between PET and IRM modalities with a defined endpoint and timing.",
+          "expectedCapabilities": [
+            "Define study arms",
+            "Establish evaluation criteria",
+            "Specify imaging protocols"
+          ]
+        },
+        "summaryForUser": "Comparaison de la PET et de l'IRM pour l'évaluation de la réponse tumorale à trois mois.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "The semantic inventory, typed candidate, coverage reports, taxonomy, and integrity reports are fully verified and complete. All items correctly follow operational rules."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+          "criticPromptVersion": "SEM-001-CRITIC-1.6",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-3b1fba909f20a724",
+          "criticCallId": "gemini-call:ke1-4bb644525f3eaa5e",
+          "criticCallIds": [
+            "gemini-call:ke1-ba3f42f9a758598d",
+            "gemini-call:ke1-4bb644525f3eaa5e"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T08:39:11.750Z",
+              "requestFinished": "2026-08-13T08:39:18.084Z",
+              "latencyMs": 6334,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T08:39:18.094Z",
+              "requestFinished": "2026-08-13T08:39:22.588Z",
+              "latencyMs": 4494,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            },
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T08:39:22.591Z",
+              "requestFinished": "2026-08-13T08:39:26.098Z",
+              "latencyMs": 3507,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "cand-001",
+            "language": "fr",
+            "normalizedMeaning": "Comparaison entre la tomographie par émission de positons (PET) et l'imagerie par résonance magnétique (IRM) pour évaluer la réponse tumorale à trois mois.",
+            "summaryForUser": "Comparaison de la PET et de l'IRM pour l'évaluation de la réponse tumorale à trois mois.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "inv-1",
+                  "sourceMessageId": "SEM-H29:user:1",
+                  "sourceText": "Comparer",
+                  "normalizedLabel": "comparer",
+                  "localRole": "action",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-2",
+                    "inv-3"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-2",
+                  "sourceMessageId": "SEM-H29:user:1",
+                  "sourceText": "PET",
+                  "normalizedLabel": "PET",
+                  "localRole": "modality",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-1"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-3",
+                  "sourceMessageId": "SEM-H29:user:1",
+                  "sourceText": "IRM",
+                  "normalizedLabel": "IRM",
+                  "localRole": "modality",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-1"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-4",
+                  "sourceMessageId": "SEM-H29:user:1",
+                  "sourceText": "réponse tumorale",
+                  "normalizedLabel": "réponse tumorale",
+                  "localRole": "endpoint",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-5",
+                  "sourceMessageId": "SEM-H29:user:1",
+                  "sourceText": "à trois mois",
+                  "normalizedLabel": "à trois mois",
+                  "localRole": "timing",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-4"
+                  ]
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel-inv-1",
+                  "sourceInventoryItemId": "inv-2",
+                  "targetInventoryItemId": "inv-3",
+                  "sourceMessageId": "SEM-H29:user:1",
+                  "sourceText": "Comparer PET et IRM",
+                  "normalizedRelation": "COMPARES_WITH",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-inv-2",
+                  "sourceInventoryItemId": "inv-2",
+                  "targetInventoryItemId": "inv-4",
+                  "sourceMessageId": "SEM-H29:user:1",
+                  "sourceText": "PET et IRM pour la réponse tumorale",
+                  "normalizedRelation": "OBSERVES",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-inv-3",
+                  "sourceInventoryItemId": "inv-3",
+                  "targetInventoryItemId": "inv-4",
+                  "sourceMessageId": "SEM-H29:user:1",
+                  "sourceText": "PET et IRM pour la réponse tumorale",
+                  "normalizedRelation": "OBSERVES",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-inv-4",
+                  "sourceInventoryItemId": "inv-4",
+                  "targetInventoryItemId": "inv-5",
+                  "sourceMessageId": "SEM-H29:user:1",
+                  "sourceText": "réponse tumorale à trois mois",
+                  "normalizedRelation": "REPEATED_AT",
+                  "polarity": "AFFIRMED"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem-1",
+                "type": "SCIENTIFIC_INTENT",
+                "canonicalMeaning": "Action de comparer",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-1"
+                ],
+                "sourceMessageId": "SEM-H29:user:1",
+                "sourceText": "Comparer",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-2",
+                "type": "MODALITY",
+                "canonicalMeaning": "Tomographie par émission de positons",
+                "studyRole": "COMPARATOR_ARM",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-2"
+                ],
+                "sourceMessageId": "SEM-H29:user:1",
+                "sourceText": "PET",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-3",
+                "type": "MODALITY",
+                "canonicalMeaning": "Imagerie par résonance magnétique",
+                "studyRole": "COMPARATOR_ARM",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-3"
+                ],
+                "sourceMessageId": "SEM-H29:user:1",
+                "sourceText": "IRM",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-5",
+                "type": "TIMING",
+                "canonicalMeaning": "Trois mois",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-5"
+                ],
+                "sourceMessageId": "SEM-H29:user:1",
+                "sourceText": "à trois mois",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-4",
+                "type": "OUTCOME",
+                "canonicalMeaning": "Réponse tumorale",
+                "studyRole": "OUTCOME_ROLE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-4"
+                ],
+                "sourceMessageId": "SEM-H29:user:1",
+                "sourceText": "réponse tumorale",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel-1",
+                "sourceClientElementId": "elem-2",
+                "targetClientElementId": "elem-3",
+                "relationType": "COMPARES_WITH",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-inv-1"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-2",
+                "sourceClientElementId": "elem-2",
+                "targetClientElementId": "elem-4",
+                "relationType": "OBSERVES",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-inv-2"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-3",
+                "sourceClientElementId": "elem-3",
+                "targetClientElementId": "elem-4",
+                "relationType": "OBSERVES",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-inv-3"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-4",
+                "sourceClientElementId": "elem-4",
+                "targetClientElementId": "elem-5",
+                "relationType": "REPEATED_AT",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-inv-4"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              }
+            ],
+            "missingConcepts": [],
+            "ellipses": [],
+            "ambiguities": [],
+            "unknowns": [],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [],
+            "routeProposal": {
+              "route": "DESIGN_STUDY",
+              "confidence": 0.95,
+              "reason": "The user is constructing a comparative study design between PET and IRM modalities with a defined endpoint and timing.",
+              "expectedCapabilities": [
+                "Define study arms",
+                "Specify imaging protocols",
+                "Establish evaluation criteria"
+              ]
+            },
+            "semanticWarnings": []
+          },
+          "rawCritic": {
+            "criticId": "crit-001",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit source fragments (PET, IRM, réponse tumorale, à trois mois) are mapped to valid semantic elements."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "PASS",
+                "evidence": "PET and IRM are both represented as MODALITY elements with COMPARATOR_ARM study roles."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No active intervention is present in the source prompt; it is purely a comparative imaging study."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "PASS",
+                "evidence": "PET and IRM are both correctly represented as MODALITY elements."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All inventory relations including comparison and observations are fully mapped."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "Taxonomy report is complete with no type mismatches."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "No explicit relations were weakened or converted to inferences."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "Only explicit elements and relations grounded in the source text are present."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "No hidden ambiguities; explicit terms are straightforward."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "All polarities are AFFIRMED matching the source."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "PASS",
+                "evidence": "'à trois mois' is correctly preserved as a TIMING element."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "'réponse tumorale' is correctly classified as OUTCOME, respecting the rule against unjustified endpoint promotion."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "PET and IRM are preserved specifically as named modalities."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "No missing explicit source fragments."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "Route DESIGN_STUDY perfectly matches a comparative study design request."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The semantic inventory, typed candidate, coverage reports, taxonomy, and integrity reports are fully verified and complete. All items correctly follow operational rules."
+          },
+          "rawCritics": [
+            {
+              "criticId": "crit-SEM-H29-001",
+              "verdict": "REVISE",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit fragments from the user message are fully represented in the inventory and candidate elements."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "Both modalities (PET and IRM) compared in the prompt are properly represented."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No interventions are requested in the prompt."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "PET and IRM modalities are fully represented."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All inventory relations are mapped to direct semantic relations."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "FAIL",
+                  "evidence": "Element elem-4 was incorrectly promoted to ENDPOINT without explicit criteria selection; taxonomy report specifies OUTCOME."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "No explicit relations were weakened."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No inferences were improperly promoted."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "No ambiguities were concealed."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "Polarity is correctly affirmed throughout."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "PASS",
+                  "evidence": "Timing 'à trois mois' is correctly represented."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "FAIL",
+                  "evidence": "The outcome 'réponse tumorale' was promoted to ENDPOINT without explicit user designation as the judging criterion."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific concepts are retained without generalization."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "No important source fragments are omitted."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "DESIGN_STUDY correctly matches the comparative study design model."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [
+                {
+                  "code": "UNSUPPORTED_ENDPOINT_PROMOTION",
+                  "severity": "WARNING",
+                  "elementClientIds": [
+                    "elem-4"
+                  ],
+                  "description": "Element 'réponse tumorale' is typed as ENDPOINT, but comparing modalities for a result leaves it as OUTCOME unless explicitly designated as the judging criterion.",
+                  "recommendedAction": "Demote element elem-4 type from ENDPOINT to OUTCOME using UPSERT_ELEMENT.",
+                  "resolved": false
+                }
+              ],
+              "proposedRepairs": [
+                {
+                  "repairId": "rep-1",
+                  "action": "UPSERT_ELEMENT",
+                  "reason": "Correct element type from ENDPOINT to OUTCOME according to taxonomy rules since the tumour response is evaluated without explicit endpoint selection.",
+                  "sourceInventoryItemIds": [
+                    "inv-4"
+                  ],
+                  "sourceInventoryRelationIds": [],
+                  "inventoryItemId": null,
+                  "inventorySourceMessageId": null,
+                  "inventorySourceText": null,
+                  "inventoryNormalizedLabel": null,
+                  "inventoryLocalRole": null,
+                  "inventoryPolarity": null,
+                  "inventoryModifiers": [],
+                  "inventoryLinkedItemIds": [],
+                  "inventoryRelationId": null,
+                  "inventoryRelationSourceItemId": null,
+                  "inventoryRelationTargetItemId": null,
+                  "inventoryRelationSourceMessageId": null,
+                  "inventoryRelationSourceText": null,
+                  "inventoryNormalizedRelation": null,
+                  "inventoryRelationPolarity": null,
+                  "elementClientElementId": "elem-4",
+                  "elementType": "OUTCOME",
+                  "elementCanonicalMeaning": "Réponse tumorale",
+                  "elementStudyRole": "OUTCOME_ROLE",
+                  "elementPolarity": "AFFIRMED",
+                  "elementInventoryItemIds": [
+                    "inv-4"
+                  ],
+                  "elementSourceMessageId": "SEM-H29:user:1",
+                  "elementSourceText": "réponse tumorale",
+                  "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+                  "elementConfidence": 1,
+                  "elementInferenceReason": null,
+                  "elementRequiresConfirmation": false,
+                  "elementSupersedesElementIds": [],
+                  "relationClientRelationId": null,
+                  "relationSourceClientElementId": null,
+                  "relationTargetClientElementId": null,
+                  "relationType": null,
+                  "relationPolarity": null,
+                  "relationInventoryRelationIds": [],
+                  "relationEpistemicStatus": null,
+                  "relationConfidence": null,
+                  "relationInferenceReason": null,
+                  "relationRequiresConfirmation": null,
+                  "ambiguity": null,
+                  "route": null,
+                  "routeConfidence": null,
+                  "routeReason": null,
+                  "routeExpectedCapabilities": []
+                }
+              ],
+              "criticSummary": "Audit completed. The semantic inventory and relations are accurately represented, but element elem-4 'réponse tumorale' must be corrected from ENDPOINT to OUTCOME as flagged by the taxonomy report."
+            },
+            {
+              "criticId": "crit-001",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit source fragments (PET, IRM, réponse tumorale, à trois mois) are mapped to valid semantic elements."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "PET and IRM are both represented as MODALITY elements with COMPARATOR_ARM study roles."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No active intervention is present in the source prompt; it is purely a comparative imaging study."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "PET and IRM are both correctly represented as MODALITY elements."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All inventory relations including comparison and observations are fully mapped."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "Taxonomy report is complete with no type mismatches."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "No explicit relations were weakened or converted to inferences."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "Only explicit elements and relations grounded in the source text are present."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "No hidden ambiguities; explicit terms are straightforward."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "All polarities are AFFIRMED matching the source."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "PASS",
+                  "evidence": "'à trois mois' is correctly preserved as a TIMING element."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "'réponse tumorale' is correctly classified as OUTCOME, respecting the rule against unjustified endpoint promotion."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "PET and IRM are preserved specifically as named modalities."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "No missing explicit source fragments."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "Route DESIGN_STUDY perfectly matches a comparative study design request."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "The semantic inventory, typed candidate, coverage reports, taxonomy, and integrity reports are fully verified and complete. All items correctly follow operational rules."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-13T08:39:26.100Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-e1a94bf0fea3a71c",
+          "resultDigest": "ke1-e1a94bf0fea3a71c",
+          "coverageStatus": "NO_PROVIDER",
+          "verifiedAt": "2026-08-13T08:39:26.111Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-13T08:39:26.100Z",
+        "updatedAt": "2026-08-13T08:39:26.111Z",
+        "digest": "ke1-ff9de58318b58e9f"
+      },
+      "canonicalModelDigest": "ke1-ff9de58318b58e9f"
+    },
+    {
+      "turn": 2,
+      "requestMessageIds": [
+        "SEM-H29:user:1",
+        "SEM-H29:noxia:1",
+        "SEM-H29:user:2"
+      ],
+      "reconstruction": {
+        "candidateId": "cand-ke1-final-01",
+        "language": "fr",
+        "normalizedMeaning": "Conservation de l'IRM, suppression de la PET et ajout du CT spectral pour la comparaison dans le projet.",
+        "summaryForUser": "Le projet conserve l'IRM, supprime la PET et ajoute le CT spectral.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-u2-1",
+              "sourceMessageId": "SEM-H29:user:2",
+              "sourceText": "gardez",
+              "normalizedLabel": "action de conserver",
+              "localRole": "action",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-u2-2"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-u2-2",
+              "sourceMessageId": "SEM-H29:user:2",
+              "sourceText": "l'IRM",
+              "normalizedLabel": "imagerie par résonance magnétique",
+              "localRole": "target",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-u2-1"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-u2-3",
+              "sourceMessageId": "SEM-H29:user:2",
+              "sourceText": "le PET n'est plus dans le projet",
+              "normalizedLabel": "suppression de la tomographie par émission de positons",
+              "localRole": "exclusion",
+              "polarity": "NEGATED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-u2-4",
+              "sourceMessageId": "SEM-H29:user:2",
+              "sourceText": "ajoutez",
+              "normalizedLabel": "action d'ajouter",
+              "localRole": "action",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-u2-5"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-u2-5",
+              "sourceMessageId": "SEM-H29:user:2",
+              "sourceText": "le CT spectral",
+              "normalizedLabel": "tomodensitométrie spectrale",
+              "localRole": "addition",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-u2-4"
+              ]
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-u2-1",
+              "sourceInventoryItemId": "inv-u2-1",
+              "targetInventoryItemId": "inv-u2-2",
+              "sourceMessageId": "SEM-H29:user:2",
+              "sourceText": "gardez l'IRM",
+              "normalizedRelation": "KEEPS",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-u2-2",
+              "sourceInventoryItemId": "inv-u2-4",
+              "targetInventoryItemId": "inv-u2-5",
+              "sourceMessageId": "SEM-H29:user:2",
+              "sourceText": "ajoutez le CT spectral",
+              "normalizedRelation": "ADDS",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-u2-1",
+            "type": "MODALITY",
+            "canonicalMeaning": "Imagerie par résonance magnétique",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-u2-2"
+            ],
+            "sourceMessageId": "SEM-H29:user:2",
+            "sourceText": "l'IRM",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": [
+              "sem-element:ke1-cee27023bc99f717"
+            ]
+          },
+          {
+            "clientElementId": "elem-u2-2",
+            "type": "MODALITY",
+            "canonicalMeaning": "Tomographie par émission de positons",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv-u2-3"
+            ],
+            "sourceMessageId": "SEM-H29:user:2",
+            "sourceText": "le PET n'est plus dans le projet",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": [
+              "sem-element:ke1-963ab9c4b72f7778"
+            ]
+          },
+          {
+            "clientElementId": "elem-u2-3",
+            "type": "MODALITY",
+            "canonicalMeaning": "Tomodensitométrie spectrale",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-u2-5"
+            ],
+            "sourceMessageId": "SEM-H29:user:2",
+            "sourceText": "le CT spectral",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-u2-4",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Action de conserver l'IRM",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-u2-1"
+            ],
+            "sourceMessageId": "SEM-H29:user:2",
+            "sourceText": "gardez",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-u2-5",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Action d'ajouter le CT spectral",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-u2-4"
+            ],
+            "sourceMessageId": "SEM-H29:user:2",
+            "sourceText": "ajoutez",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-elem-u2-1",
+            "sourceClientElementId": "elem-u2-4",
+            "targetClientElementId": "elem-u2-1",
+            "relationType": "KEEPS",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-u2-1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-u2-2",
+            "sourceClientElementId": "elem-u2-5",
+            "targetClientElementId": "elem-u2-3",
+            "relationType": "ADDS",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-u2-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-u2-3",
+            "sourceClientElementId": "elem-u2-3",
+            "targetClientElementId": "elem-u2-1",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-u2-2"
+            ],
+            "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+            "confidence": 0.9,
+            "inferenceReason": "Le CT spectral remplace la PET dans la comparaison avec l'IRM.",
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.95,
+          "reason": "Modification des modalités comparées dans un protocole d'étude existant.",
+          "expectedCapabilities": [
+            "Mise à jour des bras de comparaison",
+            "Gestion des ajouts et suppressions de modalités"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "reconstructionDigest": "ke1-516de4b042a44b2c",
+      "critics": [
+        {
+          "criticId": "NOXIA-CRITIC-H29-01",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects from the latest user message ('l'IRM', 'le PET', 'le CT spectral') are correctly represented as semantic elements with appropriate polarity and modality types."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The comparator arms (MRI kept, PET removed, spectral CT added) are accurately represented."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "No interventions are present in the user utterance; actions are properly captured as scientific intents."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All modalities mentioned (MRI, PET, spectral CT) are represented as MODALITY elements."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit inventory relations ('gardez l'IRM' and 'ajoutez le CT spectral') are mapped to direct semantic relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All object types comply with the operational taxonomy (MODALITY for imaging technologies, SCIENTIFIC_INTENT for actions)."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations are preserved faithfully without weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Inferred relations are correctly marked with low epistemic status and are not treated as explicit user facts."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No ambiguities were concealed; the removal of PET and addition of spectral CT are explicitly captured."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "The negation in 'le PET n'est plus dans le projet' is correctly mapped with NEGATED polarity."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Timing information ('à trois mois' from the previous turn) remains correctly associated in the model context."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No outcomes or endpoints were improperly promoted."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like spectral CT and PET are maintained with full specificity."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No source fragments from the user messages were left unrepresented."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The route DESIGN_STUDY perfectly matches the study modification request."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The semantic model accurately incorporates the modifications introduced in the second user message: retention of MRI, removal of PET, and addition of spectral CT. All checks pass with no outstanding issues."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-5820cba792b5cec3",
+        "revision": 2,
+        "status": "CANDIDATE",
+        "originalRequest": "Comparer PET et IRM pour la réponse tumorale à trois mois.",
+        "normalizedMeaning": "Conservation de l'IRM, suppression de la PET et ajout du CT spectral pour la comparaison dans le projet.",
+        "conversationMessageIds": [
+          "SEM-H29:user:1",
+          "SEM-H29:noxia:1",
+          "SEM-H29:user:2"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-11f4e71b87243a57",
+            "type": "TIMING",
+            "canonicalMeaning": "Trois mois",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-5"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H29:user:1",
+              "text": "à trois mois",
+              "start": 45,
+              "end": 57
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-03b57fcd123ac0a9"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "DETERMINISTIC_CARRY_FORWARD",
+              "messageId": "SEM-H29:user:1",
+              "providerCallId": "gemini-call:ke1-3b1fba909f20a724",
+              "rawElementId": "elem-5"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-27afcda11cf935dd",
+            "type": "MODALITY",
+            "canonicalMeaning": "Tomodensitométrie spectrale",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-u2-5"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H29:user:2",
+              "text": "le CT spectral",
+              "start": 69,
+              "end": 83
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-840323a9d3576515",
+              "sem-relation:ke1-8c2423b3c7e1868f"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H29:user:2",
+              "providerCallId": "gemini-call:ke1-d7e71f963f4685e2",
+              "rawElementId": "elem-u2-3"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-39a0cf97ed8175c3",
+            "type": "OUTCOME",
+            "canonicalMeaning": "Réponse tumorale",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H29:user:1",
+              "text": "réponse tumorale",
+              "start": 28,
+              "end": 44
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-03b57fcd123ac0a9"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "DETERMINISTIC_CARRY_FORWARD",
+              "messageId": "SEM-H29:user:1",
+              "providerCallId": "gemini-call:ke1-3b1fba909f20a724",
+              "rawElementId": "elem-4"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-963ab9c4b72f7778",
+            "type": "MODALITY",
+            "canonicalMeaning": "Tomographie par émission de positons",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv-u2-3"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H29:user:2",
+              "text": "le PET n'est plus dans le projet",
+              "start": 27,
+              "end": 59
+            },
+            "epistemicStatus": "REJECTED_BY_USER",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_CORRECTION",
+              "messageId": "SEM-H29:user:2",
+              "providerCallId": "gemini-call:ke1-d7e71f963f4685e2",
+              "rawElementId": "elem-u2-2"
+            },
+            "supersedesElementIds": [
+              "sem-element:ke1-963ab9c4b72f7778"
+            ],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-bf186072a95bfa66",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Action de comparer",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H29:user:1",
+              "text": "Comparer",
+              "start": 0,
+              "end": 8
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "DETERMINISTIC_CARRY_FORWARD",
+              "messageId": "SEM-H29:user:1",
+              "providerCallId": "gemini-call:ke1-3b1fba909f20a724",
+              "rawElementId": "elem-1"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-c4e27b85caee4c81",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Action d'ajouter le CT spectral",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-u2-4"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H29:user:2",
+              "text": "ajoutez",
+              "start": 61,
+              "end": 68
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-840323a9d3576515"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H29:user:2",
+              "providerCallId": "gemini-call:ke1-d7e71f963f4685e2",
+              "rawElementId": "elem-u2-5"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-cee27023bc99f717",
+            "type": "MODALITY",
+            "canonicalMeaning": "Imagerie par résonance magnétique",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-u2-2"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H29:user:2",
+              "text": "l'IRM",
+              "start": 15,
+              "end": 20
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-46feb6f9dd086cd5",
+              "sem-relation:ke1-8c2423b3c7e1868f"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_CORRECTION",
+              "messageId": "SEM-H29:user:2",
+              "providerCallId": "gemini-call:ke1-d7e71f963f4685e2",
+              "rawElementId": "elem-u2-1"
+            },
+            "supersedesElementIds": [
+              "sem-element:ke1-cee27023bc99f717"
+            ],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-fa865c8909b338dd",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Action de conserver l'IRM",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-u2-1"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H29:user:2",
+              "text": "gardez",
+              "start": 8,
+              "end": 14
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-46feb6f9dd086cd5"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H29:user:2",
+              "providerCallId": "gemini-call:ke1-d7e71f963f4685e2",
+              "rawElementId": "elem-u2-4"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-03b57fcd123ac0a9",
+            "sourceElementId": "sem-element:ke1-39a0cf97ed8175c3",
+            "targetElementId": "sem-element:ke1-11f4e71b87243a57",
+            "relationType": "REPEATED_AT",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-4"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 2
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-46feb6f9dd086cd5",
+            "sourceElementId": "sem-element:ke1-fa865c8909b338dd",
+            "targetElementId": "sem-element:ke1-cee27023bc99f717",
+            "relationType": "KEEPS",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-u2-1"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-840323a9d3576515",
+            "sourceElementId": "sem-element:ke1-c4e27b85caee4c81",
+            "targetElementId": "sem-element:ke1-27afcda11cf935dd",
+            "relationType": "ADDS",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-u2-2"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-8c2423b3c7e1868f",
+            "sourceElementId": "sem-element:ke1-27afcda11cf935dd",
+            "targetElementId": "sem-element:ke1-cee27023bc99f717",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-u2-2"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+            "confidence": 0.9,
+            "inferenceReason": "Le CT spectral remplace la PET dans la comparaison avec l'IRM.",
+            "requiresConfirmation": true,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-u2-1",
+              "sourceMessageId": "SEM-H29:user:2",
+              "sourceText": "gardez",
+              "normalizedMeaning": "action de conserver",
+              "mappedClientElementIds": [
+                "elem-u2-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-u2-2",
+              "sourceMessageId": "SEM-H29:user:2",
+              "sourceText": "l'IRM",
+              "normalizedMeaning": "imagerie par résonance magnétique",
+              "mappedClientElementIds": [
+                "elem-u2-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-u2-3",
+              "sourceMessageId": "SEM-H29:user:2",
+              "sourceText": "le PET n'est plus dans le projet",
+              "normalizedMeaning": "suppression de la tomographie par émission de positons",
+              "mappedClientElementIds": [
+                "elem-u2-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-u2-4",
+              "sourceMessageId": "SEM-H29:user:2",
+              "sourceText": "ajoutez",
+              "normalizedMeaning": "action d'ajouter",
+              "mappedClientElementIds": [
+                "elem-u2-5"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-u2-5",
+              "sourceMessageId": "SEM-H29:user:2",
+              "sourceText": "le CT spectral",
+              "normalizedMeaning": "tomodensitométrie spectrale",
+              "mappedClientElementIds": [
+                "elem-u2-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-u2-1",
+              "sourceInventoryItemId": "inv-u2-1",
+              "targetInventoryItemId": "inv-u2-2",
+              "normalizedRelation": "KEEPS",
+              "mappedClientRelationIds": [
+                "rel-elem-u2-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-u2-2",
+              "sourceInventoryItemId": "inv-u2-4",
+              "targetInventoryItemId": "inv-u2-5",
+              "normalizedRelation": "ADDS",
+              "mappedClientRelationIds": [
+                "rel-elem-u2-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "clarificationCandidates": [],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.95,
+          "reason": "Modification des modalités comparées dans un protocole d'étude existant.",
+          "expectedCapabilities": [
+            "Gestion des ajouts et suppressions de modalités",
+            "Mise à jour des bras de comparaison"
+          ]
+        },
+        "summaryForUser": "Le projet conserve l'IRM, supprime la PET et ajoute le CT spectral.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "The semantic model accurately incorporates the modifications introduced in the second user message: retention of MRI, removal of PET, and addition of spectral CT. All checks pass with no outstanding issues."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+          "criticPromptVersion": "SEM-001-CRITIC-1.6",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-d7e71f963f4685e2",
+          "criticCallId": "gemini-call:ke1-ec0b28af46679f6b",
+          "criticCallIds": [
+            "gemini-call:ke1-ec0b28af46679f6b"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T08:39:26.112Z",
+              "requestFinished": "2026-08-13T08:39:33.649Z",
+              "latencyMs": 7537,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            },
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T08:39:33.652Z",
+              "requestFinished": "2026-08-13T08:39:41.268Z",
+              "latencyMs": 7616,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            },
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T08:40:12.255Z",
+              "requestFinished": "2026-08-13T08:40:18.522Z",
+              "latencyMs": 6267,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T08:40:18.524Z",
+              "requestFinished": "2026-08-13T08:40:22.307Z",
+              "latencyMs": 3783,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "cand-ke1-final-01",
+            "language": "fr",
+            "normalizedMeaning": "Conservation de l'IRM, suppression de la PET et ajout du CT spectral pour la comparaison dans le projet.",
+            "summaryForUser": "Le projet conserve l'IRM, supprime la PET et ajoute le CT spectral.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "inv-u2-1",
+                  "sourceMessageId": "SEM-H29:user:2",
+                  "sourceText": "gardez",
+                  "normalizedLabel": "action de conserver",
+                  "localRole": "action",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-u2-2"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-u2-2",
+                  "sourceMessageId": "SEM-H29:user:2",
+                  "sourceText": "l'IRM",
+                  "normalizedLabel": "imagerie par résonance magnétique",
+                  "localRole": "target",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-u2-1"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-u2-3",
+                  "sourceMessageId": "SEM-H29:user:2",
+                  "sourceText": "le PET n'est plus dans le projet",
+                  "normalizedLabel": "suppression de la tomographie par émission de positons",
+                  "localRole": "exclusion",
+                  "polarity": "NEGATED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-u2-4",
+                  "sourceMessageId": "SEM-H29:user:2",
+                  "sourceText": "ajoutez",
+                  "normalizedLabel": "action d'ajouter",
+                  "localRole": "action",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-u2-5"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-u2-5",
+                  "sourceMessageId": "SEM-H29:user:2",
+                  "sourceText": "le CT spectral",
+                  "normalizedLabel": "tomodensitométrie spectrale",
+                  "localRole": "addition",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-u2-4"
+                  ]
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel-u2-1",
+                  "sourceInventoryItemId": "inv-u2-1",
+                  "targetInventoryItemId": "inv-u2-2",
+                  "sourceMessageId": "SEM-H29:user:2",
+                  "sourceText": "gardez l'IRM",
+                  "normalizedRelation": "KEEPS",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-u2-2",
+                  "sourceInventoryItemId": "inv-u2-4",
+                  "targetInventoryItemId": "inv-u2-5",
+                  "sourceMessageId": "SEM-H29:user:2",
+                  "sourceText": "ajoutez le CT spectral",
+                  "normalizedRelation": "ADDS",
+                  "polarity": "AFFIRMED"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem-u2-1",
+                "type": "MODALITY",
+                "canonicalMeaning": "Imagerie par résonance magnétique",
+                "studyRole": "COMPARATOR_ARM",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-u2-2"
+                ],
+                "sourceMessageId": "SEM-H29:user:2",
+                "sourceText": "l'IRM",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": [
+                  "sem-element:ke1-cee27023bc99f717"
+                ]
+              },
+              {
+                "clientElementId": "elem-u2-2",
+                "type": "MODALITY",
+                "canonicalMeaning": "Tomographie par émission de positons",
+                "studyRole": "COMPARATOR_ARM",
+                "polarity": "NEGATED",
+                "inventoryItemIds": [
+                  "inv-u2-3"
+                ],
+                "sourceMessageId": "SEM-H29:user:2",
+                "sourceText": "le PET n'est plus dans le projet",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": [
+                  "sem-element:ke1-963ab9c4b72f7778"
+                ]
+              },
+              {
+                "clientElementId": "elem-u2-3",
+                "type": "MODALITY",
+                "canonicalMeaning": "Tomodensitométrie spectrale",
+                "studyRole": "COMPARATOR_ARM",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-u2-5"
+                ],
+                "sourceMessageId": "SEM-H29:user:2",
+                "sourceText": "le CT spectral",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-u2-4",
+                "type": "SCIENTIFIC_INTENT",
+                "canonicalMeaning": "Action de conserver l'IRM",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-u2-1"
+                ],
+                "sourceMessageId": "SEM-H29:user:2",
+                "sourceText": "gardez",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-u2-5",
+                "type": "SCIENTIFIC_INTENT",
+                "canonicalMeaning": "Action d'ajouter le CT spectral",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-u2-4"
+                ],
+                "sourceMessageId": "SEM-H29:user:2",
+                "sourceText": "ajoutez",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel-elem-u2-1",
+                "sourceClientElementId": "elem-u2-4",
+                "targetClientElementId": "elem-u2-1",
+                "relationType": "KEEPS",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-u2-1"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-elem-u2-2",
+                "sourceClientElementId": "elem-u2-5",
+                "targetClientElementId": "elem-u2-3",
+                "relationType": "ADDS",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-u2-2"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-elem-u2-3",
+                "sourceClientElementId": "elem-u2-3",
+                "targetClientElementId": "elem-u2-1",
+                "relationType": "COMPARES_WITH",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-u2-2"
+                ],
+                "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+                "confidence": 0.9,
+                "inferenceReason": "Le CT spectral remplace la PET dans la comparaison avec l'IRM.",
+                "requiresConfirmation": false
+              }
+            ],
+            "missingConcepts": [],
+            "ellipses": [],
+            "ambiguities": [],
+            "unknowns": [],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [],
+            "routeProposal": {
+              "route": "DESIGN_STUDY",
+              "confidence": 0.95,
+              "reason": "Modification des modalités comparées dans un protocole d'étude existant.",
+              "expectedCapabilities": [
+                "Mise à jour des bras de comparaison",
+                "Gestion des ajouts et suppressions de modalités"
+              ]
+            },
+            "semanticWarnings": []
+          },
+          "rawCritic": {
+            "criticId": "NOXIA-CRITIC-H29-01",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit objects from the latest user message ('l'IRM', 'le PET', 'le CT spectral') are correctly represented as semantic elements with appropriate polarity and modality types."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "PASS",
+                "evidence": "The comparator arms (MRI kept, PET removed, spectral CT added) are accurately represented."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "No interventions are present in the user utterance; actions are properly captured as scientific intents."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All modalities mentioned (MRI, PET, spectral CT) are represented as MODALITY elements."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit inventory relations ('gardez l'IRM' and 'ajoutez le CT spectral') are mapped to direct semantic relations."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "All object types comply with the operational taxonomy (MODALITY for imaging technologies, SCIENTIFIC_INTENT for actions)."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Explicit relations are preserved faithfully without weakening."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "Inferred relations are correctly marked with low epistemic status and are not treated as explicit user facts."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "No ambiguities were concealed; the removal of PET and addition of spectral CT are explicitly captured."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "The negation in 'le PET n'est plus dans le projet' is correctly mapped with NEGATED polarity."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "PASS",
+                "evidence": "Timing information ('à trois mois' from the previous turn) remains correctly associated in the model context."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "No outcomes or endpoints were improperly promoted."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts like spectral CT and PET are maintained with full specificity."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "No source fragments from the user messages were left unrepresented."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "The route DESIGN_STUDY perfectly matches the study modification request."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The semantic model accurately incorporates the modifications introduced in the second user message: retention of MRI, removal of PET, and addition of spectral CT. All checks pass with no outstanding issues."
+          },
+          "rawCritics": [
+            {
+              "criticId": "NOXIA-CRITIC-H29-01",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit objects from the latest user message ('l'IRM', 'le PET', 'le CT spectral') are correctly represented as semantic elements with appropriate polarity and modality types."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The comparator arms (MRI kept, PET removed, spectral CT added) are accurately represented."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "No interventions are present in the user utterance; actions are properly captured as scientific intents."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All modalities mentioned (MRI, PET, spectral CT) are represented as MODALITY elements."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit inventory relations ('gardez l'IRM' and 'ajoutez le CT spectral') are mapped to direct semantic relations."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "All object types comply with the operational taxonomy (MODALITY for imaging technologies, SCIENTIFIC_INTENT for actions)."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Explicit relations are preserved faithfully without weakening."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "Inferred relations are correctly marked with low epistemic status and are not treated as explicit user facts."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "No ambiguities were concealed; the removal of PET and addition of spectral CT are explicitly captured."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "The negation in 'le PET n'est plus dans le projet' is correctly mapped with NEGATED polarity."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "PASS",
+                  "evidence": "Timing information ('à trois mois' from the previous turn) remains correctly associated in the model context."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "No outcomes or endpoints were improperly promoted."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific concepts like spectral CT and PET are maintained with full specificity."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "No source fragments from the user messages were left unrepresented."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "The route DESIGN_STUDY perfectly matches the study modification request."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "The semantic model accurately incorporates the modifications introduced in the second user message: retention of MRI, removal of PET, and addition of spectral CT. All checks pass with no outstanding issues."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-13T08:40:22.309Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-868924a72608853b",
+          "resultDigest": "ke1-868924a72608853b",
+          "coverageStatus": "NO_PROVIDER",
+          "verifiedAt": "2026-08-13T08:40:22.316Z"
+        },
+        "previousModelId": "semantic-model:ke1-a3a6cd45a5619e11",
+        "history": [
+          {
+            "modelId": "semantic-model:ke1-a3a6cd45a5619e11",
+            "revision": 1,
+            "digest": "ke1-ff9de58318b58e9f",
+            "status": "CANDIDATE",
+            "changedAt": "2026-08-13T08:39:26.111Z",
+            "changeReason": "Nouvelle contribution utilisateur analysée sans réécriture de l’état antérieur."
+          }
+        ],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-13T08:39:26.100Z",
+        "updatedAt": "2026-08-13T08:40:22.316Z",
+        "digest": "ke1-32e470861fc737a2"
+      },
+      "canonicalModelDigest": "ke1-32e470861fc737a2"
+    }
+  ],
+  "metric": {
+    "caseId": "SEM-H29",
+    "explicitObjectRecall": 1,
+    "explicitRelationRecall": 0,
+    "criticalSemanticRecall": 0.8,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 1,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": [
+      "RELATION_LOST:IRM->CT spectral"
+    ]
+  },
+  "firstDivergentStage": "POST_CANONICAL_HOLDOUT_EVALUATION",
+  "failureClass": "RELATION_COVERAGE_FAILURE",
+  "error": null,
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-5820cba792b5cec3",
+    "revision": 2,
+    "status": "CANDIDATE",
+    "originalRequest": "Comparer PET et IRM pour la réponse tumorale à trois mois.",
+    "normalizedMeaning": "Conservation de l'IRM, suppression de la PET et ajout du CT spectral pour la comparaison dans le projet.",
+    "conversationMessageIds": [
+      "SEM-H29:user:1",
+      "SEM-H29:noxia:1",
+      "SEM-H29:user:2"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-11f4e71b87243a57",
+        "type": "TIMING",
+        "canonicalMeaning": "Trois mois",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-5"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H29:user:1",
+          "text": "à trois mois",
+          "start": 45,
+          "end": 57
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-03b57fcd123ac0a9"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "DETERMINISTIC_CARRY_FORWARD",
+          "messageId": "SEM-H29:user:1",
+          "providerCallId": "gemini-call:ke1-3b1fba909f20a724",
+          "rawElementId": "elem-5"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-27afcda11cf935dd",
+        "type": "MODALITY",
+        "canonicalMeaning": "Tomodensitométrie spectrale",
+        "studyRole": "COMPARATOR_ARM",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-u2-5"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H29:user:2",
+          "text": "le CT spectral",
+          "start": 69,
+          "end": 83
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-840323a9d3576515",
+          "sem-relation:ke1-8c2423b3c7e1868f"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H29:user:2",
+          "providerCallId": "gemini-call:ke1-d7e71f963f4685e2",
+          "rawElementId": "elem-u2-3"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-39a0cf97ed8175c3",
+        "type": "OUTCOME",
+        "canonicalMeaning": "Réponse tumorale",
+        "studyRole": "OUTCOME_ROLE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-4"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H29:user:1",
+          "text": "réponse tumorale",
+          "start": 28,
+          "end": 44
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-03b57fcd123ac0a9"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "DETERMINISTIC_CARRY_FORWARD",
+          "messageId": "SEM-H29:user:1",
+          "providerCallId": "gemini-call:ke1-3b1fba909f20a724",
+          "rawElementId": "elem-4"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-963ab9c4b72f7778",
+        "type": "MODALITY",
+        "canonicalMeaning": "Tomographie par émission de positons",
+        "studyRole": "COMPARATOR_ARM",
+        "polarity": "NEGATED",
+        "inventoryItemIds": [
+          "inv-u2-3"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H29:user:2",
+          "text": "le PET n'est plus dans le projet",
+          "start": 27,
+          "end": 59
+        },
+        "epistemicStatus": "REJECTED_BY_USER",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_CORRECTION",
+          "messageId": "SEM-H29:user:2",
+          "providerCallId": "gemini-call:ke1-d7e71f963f4685e2",
+          "rawElementId": "elem-u2-2"
+        },
+        "supersedesElementIds": [
+          "sem-element:ke1-963ab9c4b72f7778"
+        ],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-bf186072a95bfa66",
+        "type": "SCIENTIFIC_INTENT",
+        "canonicalMeaning": "Action de comparer",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-1"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H29:user:1",
+          "text": "Comparer",
+          "start": 0,
+          "end": 8
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "DETERMINISTIC_CARRY_FORWARD",
+          "messageId": "SEM-H29:user:1",
+          "providerCallId": "gemini-call:ke1-3b1fba909f20a724",
+          "rawElementId": "elem-1"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-c4e27b85caee4c81",
+        "type": "SCIENTIFIC_INTENT",
+        "canonicalMeaning": "Action d'ajouter le CT spectral",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-u2-4"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H29:user:2",
+          "text": "ajoutez",
+          "start": 61,
+          "end": 68
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-840323a9d3576515"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H29:user:2",
+          "providerCallId": "gemini-call:ke1-d7e71f963f4685e2",
+          "rawElementId": "elem-u2-5"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-cee27023bc99f717",
+        "type": "MODALITY",
+        "canonicalMeaning": "Imagerie par résonance magnétique",
+        "studyRole": "COMPARATOR_ARM",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-u2-2"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H29:user:2",
+          "text": "l'IRM",
+          "start": 15,
+          "end": 20
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-46feb6f9dd086cd5",
+          "sem-relation:ke1-8c2423b3c7e1868f"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_CORRECTION",
+          "messageId": "SEM-H29:user:2",
+          "providerCallId": "gemini-call:ke1-d7e71f963f4685e2",
+          "rawElementId": "elem-u2-1"
+        },
+        "supersedesElementIds": [
+          "sem-element:ke1-cee27023bc99f717"
+        ],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-fa865c8909b338dd",
+        "type": "SCIENTIFIC_INTENT",
+        "canonicalMeaning": "Action de conserver l'IRM",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-u2-1"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H29:user:2",
+          "text": "gardez",
+          "start": 8,
+          "end": 14
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-46feb6f9dd086cd5"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H29:user:2",
+          "providerCallId": "gemini-call:ke1-d7e71f963f4685e2",
+          "rawElementId": "elem-u2-4"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-03b57fcd123ac0a9",
+        "sourceElementId": "sem-element:ke1-39a0cf97ed8175c3",
+        "targetElementId": "sem-element:ke1-11f4e71b87243a57",
+        "relationType": "REPEATED_AT",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-inv-4"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 2
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-46feb6f9dd086cd5",
+        "sourceElementId": "sem-element:ke1-fa865c8909b338dd",
+        "targetElementId": "sem-element:ke1-cee27023bc99f717",
+        "relationType": "KEEPS",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-u2-1"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-840323a9d3576515",
+        "sourceElementId": "sem-element:ke1-c4e27b85caee4c81",
+        "targetElementId": "sem-element:ke1-27afcda11cf935dd",
+        "relationType": "ADDS",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-u2-2"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-8c2423b3c7e1868f",
+        "sourceElementId": "sem-element:ke1-27afcda11cf935dd",
+        "targetElementId": "sem-element:ke1-cee27023bc99f717",
+        "relationType": "COMPARES_WITH",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-u2-2"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+        "confidence": 0.9,
+        "inferenceReason": "Le CT spectral remplace la PET dans la comparaison avec l'IRM.",
+        "requiresConfirmation": true,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-u2-1",
+          "sourceMessageId": "SEM-H29:user:2",
+          "sourceText": "gardez",
+          "normalizedMeaning": "action de conserver",
+          "mappedClientElementIds": [
+            "elem-u2-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-u2-2",
+          "sourceMessageId": "SEM-H29:user:2",
+          "sourceText": "l'IRM",
+          "normalizedMeaning": "imagerie par résonance magnétique",
+          "mappedClientElementIds": [
+            "elem-u2-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-u2-3",
+          "sourceMessageId": "SEM-H29:user:2",
+          "sourceText": "le PET n'est plus dans le projet",
+          "normalizedMeaning": "suppression de la tomographie par émission de positons",
+          "mappedClientElementIds": [
+            "elem-u2-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-u2-4",
+          "sourceMessageId": "SEM-H29:user:2",
+          "sourceText": "ajoutez",
+          "normalizedMeaning": "action d'ajouter",
+          "mappedClientElementIds": [
+            "elem-u2-5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-u2-5",
+          "sourceMessageId": "SEM-H29:user:2",
+          "sourceText": "le CT spectral",
+          "normalizedMeaning": "tomodensitométrie spectrale",
+          "mappedClientElementIds": [
+            "elem-u2-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-u2-1",
+          "sourceInventoryItemId": "inv-u2-1",
+          "targetInventoryItemId": "inv-u2-2",
+          "normalizedRelation": "KEEPS",
+          "mappedClientRelationIds": [
+            "rel-elem-u2-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-u2-2",
+          "sourceInventoryItemId": "inv-u2-4",
+          "targetInventoryItemId": "inv-u2-5",
+          "normalizedRelation": "ADDS",
+          "mappedClientRelationIds": [
+            "rel-elem-u2-2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "missingConcepts": [],
+    "ellipses": [],
+    "ambiguities": [],
+    "unknowns": [],
+    "contradictions": [],
+    "clarificationCandidates": [],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "DESIGN_STUDY",
+      "confidence": 0.95,
+      "reason": "Modification des modalités comparées dans un protocole d'étude existant.",
+      "expectedCapabilities": [
+        "Gestion des ajouts et suppressions de modalités",
+        "Mise à jour des bras de comparaison"
+      ]
+    },
+    "summaryForUser": "Le projet conserve l'IRM, supprime la PET et ajoute le CT spectral.",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "The semantic model accurately incorporates the modifications introduced in the second user message: retention of MRI, removal of PET, and addition of spectral CT. All checks pass with no outstanding issues."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-d7e71f963f4685e2",
+      "criticCallId": "gemini-call:ke1-ec0b28af46679f6b",
+      "criticCallIds": [
+        "gemini-call:ke1-ec0b28af46679f6b"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T08:39:26.112Z",
+          "requestFinished": "2026-08-13T08:39:33.649Z",
+          "latencyMs": 7537,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T08:39:33.652Z",
+          "requestFinished": "2026-08-13T08:39:41.268Z",
+          "latencyMs": 7616,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T08:40:12.255Z",
+          "requestFinished": "2026-08-13T08:40:18.522Z",
+          "latencyMs": 6267,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T08:40:18.524Z",
+          "requestFinished": "2026-08-13T08:40:22.307Z",
+          "latencyMs": 3783,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "cand-ke1-final-01",
+        "language": "fr",
+        "normalizedMeaning": "Conservation de l'IRM, suppression de la PET et ajout du CT spectral pour la comparaison dans le projet.",
+        "summaryForUser": "Le projet conserve l'IRM, supprime la PET et ajoute le CT spectral.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-u2-1",
+              "sourceMessageId": "SEM-H29:user:2",
+              "sourceText": "gardez",
+              "normalizedLabel": "action de conserver",
+              "localRole": "action",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-u2-2"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-u2-2",
+              "sourceMessageId": "SEM-H29:user:2",
+              "sourceText": "l'IRM",
+              "normalizedLabel": "imagerie par résonance magnétique",
+              "localRole": "target",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-u2-1"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-u2-3",
+              "sourceMessageId": "SEM-H29:user:2",
+              "sourceText": "le PET n'est plus dans le projet",
+              "normalizedLabel": "suppression de la tomographie par émission de positons",
+              "localRole": "exclusion",
+              "polarity": "NEGATED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-u2-4",
+              "sourceMessageId": "SEM-H29:user:2",
+              "sourceText": "ajoutez",
+              "normalizedLabel": "action d'ajouter",
+              "localRole": "action",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-u2-5"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-u2-5",
+              "sourceMessageId": "SEM-H29:user:2",
+              "sourceText": "le CT spectral",
+              "normalizedLabel": "tomodensitométrie spectrale",
+              "localRole": "addition",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-u2-4"
+              ]
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-u2-1",
+              "sourceInventoryItemId": "inv-u2-1",
+              "targetInventoryItemId": "inv-u2-2",
+              "sourceMessageId": "SEM-H29:user:2",
+              "sourceText": "gardez l'IRM",
+              "normalizedRelation": "KEEPS",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-u2-2",
+              "sourceInventoryItemId": "inv-u2-4",
+              "targetInventoryItemId": "inv-u2-5",
+              "sourceMessageId": "SEM-H29:user:2",
+              "sourceText": "ajoutez le CT spectral",
+              "normalizedRelation": "ADDS",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-u2-1",
+            "type": "MODALITY",
+            "canonicalMeaning": "Imagerie par résonance magnétique",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-u2-2"
+            ],
+            "sourceMessageId": "SEM-H29:user:2",
+            "sourceText": "l'IRM",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": [
+              "sem-element:ke1-cee27023bc99f717"
+            ]
+          },
+          {
+            "clientElementId": "elem-u2-2",
+            "type": "MODALITY",
+            "canonicalMeaning": "Tomographie par émission de positons",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv-u2-3"
+            ],
+            "sourceMessageId": "SEM-H29:user:2",
+            "sourceText": "le PET n'est plus dans le projet",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": [
+              "sem-element:ke1-963ab9c4b72f7778"
+            ]
+          },
+          {
+            "clientElementId": "elem-u2-3",
+            "type": "MODALITY",
+            "canonicalMeaning": "Tomodensitométrie spectrale",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-u2-5"
+            ],
+            "sourceMessageId": "SEM-H29:user:2",
+            "sourceText": "le CT spectral",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-u2-4",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Action de conserver l'IRM",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-u2-1"
+            ],
+            "sourceMessageId": "SEM-H29:user:2",
+            "sourceText": "gardez",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-u2-5",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Action d'ajouter le CT spectral",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-u2-4"
+            ],
+            "sourceMessageId": "SEM-H29:user:2",
+            "sourceText": "ajoutez",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-elem-u2-1",
+            "sourceClientElementId": "elem-u2-4",
+            "targetClientElementId": "elem-u2-1",
+            "relationType": "KEEPS",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-u2-1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-u2-2",
+            "sourceClientElementId": "elem-u2-5",
+            "targetClientElementId": "elem-u2-3",
+            "relationType": "ADDS",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-u2-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-u2-3",
+            "sourceClientElementId": "elem-u2-3",
+            "targetClientElementId": "elem-u2-1",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-u2-2"
+            ],
+            "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+            "confidence": 0.9,
+            "inferenceReason": "Le CT spectral remplace la PET dans la comparaison avec l'IRM.",
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.95,
+          "reason": "Modification des modalités comparées dans un protocole d'étude existant.",
+          "expectedCapabilities": [
+            "Mise à jour des bras de comparaison",
+            "Gestion des ajouts et suppressions de modalités"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "rawCritic": {
+        "criticId": "NOXIA-CRITIC-H29-01",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit objects from the latest user message ('l'IRM', 'le PET', 'le CT spectral') are correctly represented as semantic elements with appropriate polarity and modality types."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "PASS",
+            "evidence": "The comparator arms (MRI kept, PET removed, spectral CT added) are accurately represented."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "No interventions are present in the user utterance; actions are properly captured as scientific intents."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All modalities mentioned (MRI, PET, spectral CT) are represented as MODALITY elements."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit inventory relations ('gardez l'IRM' and 'ajoutez le CT spectral') are mapped to direct semantic relations."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "All object types comply with the operational taxonomy (MODALITY for imaging technologies, SCIENTIFIC_INTENT for actions)."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "Explicit relations are preserved faithfully without weakening."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "Inferred relations are correctly marked with low epistemic status and are not treated as explicit user facts."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "No ambiguities were concealed; the removal of PET and addition of spectral CT are explicitly captured."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "The negation in 'le PET n'est plus dans le projet' is correctly mapped with NEGATED polarity."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "PASS",
+            "evidence": "Timing information ('à trois mois' from the previous turn) remains correctly associated in the model context."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "No outcomes or endpoints were improperly promoted."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific concepts like spectral CT and PET are maintained with full specificity."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "No source fragments from the user messages were left unrepresented."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "The route DESIGN_STUDY perfectly matches the study modification request."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "The semantic model accurately incorporates the modifications introduced in the second user message: retention of MRI, removal of PET, and addition of spectral CT. All checks pass with no outstanding issues."
+      },
+      "rawCritics": [
+        {
+          "criticId": "NOXIA-CRITIC-H29-01",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects from the latest user message ('l'IRM', 'le PET', 'le CT spectral') are correctly represented as semantic elements with appropriate polarity and modality types."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The comparator arms (MRI kept, PET removed, spectral CT added) are accurately represented."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "No interventions are present in the user utterance; actions are properly captured as scientific intents."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All modalities mentioned (MRI, PET, spectral CT) are represented as MODALITY elements."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit inventory relations ('gardez l'IRM' and 'ajoutez le CT spectral') are mapped to direct semantic relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All object types comply with the operational taxonomy (MODALITY for imaging technologies, SCIENTIFIC_INTENT for actions)."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations are preserved faithfully without weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Inferred relations are correctly marked with low epistemic status and are not treated as explicit user facts."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No ambiguities were concealed; the removal of PET and addition of spectral CT are explicitly captured."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "The negation in 'le PET n'est plus dans le projet' is correctly mapped with NEGATED polarity."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Timing information ('à trois mois' from the previous turn) remains correctly associated in the model context."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No outcomes or endpoints were improperly promoted."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like spectral CT and PET are maintained with full specificity."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No source fragments from the user messages were left unrepresented."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The route DESIGN_STUDY perfectly matches the study modification request."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The semantic model accurately incorporates the modifications introduced in the second user message: retention of MRI, removal of PET, and addition of spectral CT. All checks pass with no outstanding issues."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-13T08:40:22.309Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-868924a72608853b",
+      "resultDigest": "ke1-868924a72608853b",
+      "coverageStatus": "NO_PROVIDER",
+      "verifiedAt": "2026-08-13T08:40:22.316Z"
+    },
+    "previousModelId": "semantic-model:ke1-a3a6cd45a5619e11",
+    "history": [
+      {
+        "modelId": "semantic-model:ke1-a3a6cd45a5619e11",
+        "revision": 1,
+        "digest": "ke1-ff9de58318b58e9f",
+        "status": "CANDIDATE",
+        "changedAt": "2026-08-13T08:39:26.111Z",
+        "changeReason": "Nouvelle contribution utilisateur analysée sans réécriture de l’état antérieur."
+      }
+    ],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-13T08:39:26.100Z",
+    "updatedAt": "2026-08-13T08:40:22.316Z",
+    "digest": "ke1-32e470861fc737a2"
+  },
+  "semanticModelDigest": "ke1-32e470861fc737a2",
+  "llmOperations": 5,
+  "providerRequestStarts": 7,
+  "retries": 0,
+  "structuredOutputIncidents": 1
+}

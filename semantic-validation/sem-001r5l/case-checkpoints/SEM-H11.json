@@ -1,0 +1,75 @@
+{
+  "campaign": "SEM-001R5L-CLOSURE",
+  "campaignId": "sem-001r5l-closure-2026-08-13T09-09-28-906Z-ke1-391a23dcb99dc470",
+  "caseId": "SEM-H11",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-391a23dcb99dc470",
+  "semanticConfigurationDigest": "ke1-410eaaec72fd1768",
+  "goldFrameDigest": "ke1-205402ea8197ee06",
+  "originalRequest": [
+    "On suit diamètre aortique, mais c'est la vitesse de croissance plutôt que le diamètre brut qui doit compter."
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "FAILED",
+  "startedAt": "2026-08-13T09:14:18.943Z",
+  "completedAt": "2026-08-13T09:15:04.466Z",
+  "turns": [],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-cd4d855cfc15e9b8",
+      "structuredDigest": "ke1-1ffa34bb66e88ee7",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:14:53.631Z",
+          "requestFinished": "2026-08-13T09:15:00.089Z",
+          "latencyMs": 6458,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-029320b890247a0c",
+      "structuredDigest": "ke1-1c4a2354f90d6918",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:15:01.735Z",
+          "requestFinished": "2026-08-13T09:15:04.464Z",
+          "latencyMs": 2729,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPT_INCONSISTENT_WITH_COVERAGE"
+    }
+  ],
+  "semanticModel": null,
+  "semanticModelDigest": null,
+  "coverageReports": null,
+  "evaluation": null,
+  "metric": null,
+  "error": {
+    "category": "SEMANTIC_PIPELINE_FAILURE",
+    "failureClass": "CRITIC_FAILURE",
+    "message": "SEM001R4_CRITIC_NOT_ACCEPTED:CRITIC_ACCEPT_INCONSISTENT_WITH_COVERAGE"
+  }
+}

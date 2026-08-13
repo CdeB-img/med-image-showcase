@@ -1,0 +1,98 @@
+{
+  "campaign": "SEM-001R5M-CLOSURE",
+  "campaignId": "sem-001r5m-closure-2026-08-13T09-40-35-104Z-ke1-ac75ad8a4d6f2326",
+  "caseId": "SEM-H24",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-ac75ad8a4d6f2326",
+  "semanticConfigurationDigest": "ke1-2d65467f810363ab",
+  "goldFrameDigest": "ke1-57fb269bebbd2397",
+  "originalRequest": [
+    "Placenta IVIM et T2*, relation avec croissance fœtale, mais aucune injection."
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "FAILED",
+  "startedAt": "2026-08-13T09:52:10.464Z",
+  "completedAt": "2026-08-13T09:52:33.294Z",
+  "turns": [],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-2d99cbf67d5dfe72",
+      "structuredDigest": "ke1-d0239e21c224dd1d",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:52:15.514Z",
+          "requestFinished": "2026-08-13T09:52:22.803Z",
+          "latencyMs": 7289,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-e5c2fe72729a956e",
+      "structuredDigest": "ke1-164d176a3d23040e",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:52:22.810Z",
+          "requestFinished": "2026-08-13T09:52:27.381Z",
+          "latencyMs": 4571,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_MAX_CYCLES_EXHAUSTED"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 2,
+      "callId": "gemini-call:ke1-18abacc05dd9805c",
+      "structuredDigest": "ke1-038d491a36957efe",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:52:28.367Z",
+          "requestFinished": "2026-08-13T09:52:33.290Z",
+          "latencyMs": 4923,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_MAX_CYCLES_EXHAUSTED"
+    }
+  ],
+  "semanticModel": null,
+  "semanticModelDigest": null,
+  "coverageReports": null,
+  "evaluation": null,
+  "metric": null,
+  "error": {
+    "category": "SEMANTIC_PIPELINE_FAILURE",
+    "failureClass": "CRITIC_FAILURE",
+    "message": "SEM001R4_CRITIC_NOT_ACCEPTED:CRITIC_MAX_CYCLES_EXHAUSTED"
+  }
+}

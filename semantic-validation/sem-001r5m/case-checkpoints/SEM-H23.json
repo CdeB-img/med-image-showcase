@@ -1,0 +1,2428 @@
+{
+  "campaign": "SEM-001R5M-CLOSURE",
+  "campaignId": "sem-001r5m-closure-2026-08-13T09-40-35-104Z-ke1-ac75ad8a4d6f2326",
+  "caseId": "SEM-H23",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-ac75ad8a4d6f2326",
+  "semanticConfigurationDigest": "ke1-2d65467f810363ab",
+  "goldFrameDigest": "ke1-3447e5a53ff03d71",
+  "originalRequest": [
+    "Test-retest ADC tumeur, même jour, sans traitement entre les deux"
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-13T09:51:31.336Z",
+  "completedAt": "2026-08-13T09:52:10.448Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H23:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "CAND-SEM-001-1",
+        "language": "fr",
+        "normalizedMeaning": "Évaluation test-retest de l'ADC tumoral le même jour, sans traitement intermédiaire.",
+        "summaryForUser": "Analyse de la reproductibilité test-retest de l'ADC de la tumeur réalisée le même jour en l'absence de traitement.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv_1",
+              "sourceMessageId": "SEM-H23:user:1",
+              "sourceText": "Test-retest",
+              "normalizedLabel": "Test-retest",
+              "localRole": "design",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_2"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_2",
+              "sourceMessageId": "SEM-H23:user:1",
+              "sourceText": "ADC",
+              "normalizedLabel": "ADC",
+              "localRole": "biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_3"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_3",
+              "sourceMessageId": "SEM-H23:user:1",
+              "sourceText": "tumeur",
+              "normalizedLabel": "tumeur",
+              "localRole": "target",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_2"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_4",
+              "sourceMessageId": "SEM-H23:user:1",
+              "sourceText": "même jour",
+              "normalizedLabel": "même jour",
+              "localRole": "timing",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_5",
+              "sourceMessageId": "SEM-H23:user:1",
+              "sourceText": "traitement",
+              "normalizedLabel": "traitement",
+              "localRole": "intervention",
+              "polarity": "NEGATED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_inv_1",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_3",
+              "sourceMessageId": "SEM-H23:user:1",
+              "sourceText": "ADC tumeur",
+              "normalizedRelation": "MEASURES",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_inv_2",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_1",
+              "sourceMessageId": "SEM-H23:user:1",
+              "sourceText": "Test-retest ADC",
+              "normalizedRelation": "REPEATED_AT",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_inv_3",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_4",
+              "sourceMessageId": "SEM-H23:user:1",
+              "sourceText": "Test-retest ADC tumeur, même jour, sans traitement entre les deux",
+              "normalizedRelation": "REPEATED_AT",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_inv_4",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_5",
+              "sourceMessageId": "SEM-H23:user:1",
+              "sourceText": "Test-retest ADC tumeur, même jour, sans traitement entre les deux",
+              "normalizedRelation": "EXCLUDES",
+              "polarity": "NEGATED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem_1",
+            "type": "STUDY_DESIGN",
+            "canonicalMeaning": "Test-retest design",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_1"
+            ],
+            "sourceMessageId": "SEM-H23:user:1",
+            "sourceText": "Test-retest",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_2",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Apparent Diffusion Coefficient (ADC)",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_2"
+            ],
+            "sourceMessageId": "SEM-H23:user:1",
+            "sourceText": "ADC",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_3",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "Tumeur",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_3"
+            ],
+            "sourceMessageId": "SEM-H23:user:1",
+            "sourceText": "tumeur",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_4",
+            "type": "TIMING",
+            "canonicalMeaning": "Même jour",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_4"
+            ],
+            "sourceMessageId": "SEM-H23:user:1",
+            "sourceText": "même jour",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_5",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "Absence de traitement entre les mesures",
+            "studyRole": "NONE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv_5"
+            ],
+            "sourceMessageId": "SEM-H23:user:1",
+            "sourceText": "traitement",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel_1",
+            "sourceClientElementId": "elem_2",
+            "targetClientElementId": "elem_3",
+            "relationType": "MEASURES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_2",
+            "sourceClientElementId": "elem_2",
+            "targetClientElementId": "elem_1",
+            "relationType": "REPEATED_AT",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_3",
+            "sourceClientElementId": "elem_2",
+            "targetClientElementId": "elem_4",
+            "relationType": "REPEATED_AT",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_3"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_4",
+            "sourceClientElementId": "elem_2",
+            "targetClientElementId": "elem_5",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "NEGATED",
+            "inventoryRelationIds": [
+              "rel_inv_4"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.95,
+          "reason": "L'utilisateur définit les paramètres d'une évaluation méthodologique test-retest (biomarqueur, cible, timing, contraintes).",
+          "expectedCapabilities": [
+            "Définition de protocole test-retest",
+            "Paramètres d'acquisition d'imagerie"
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:2"
+        ]
+      },
+      "reconstructionDigest": "ke1-9aabbd94844feae0",
+      "critics": [
+        {
+          "criticId": "CRIT-SEM-001-1",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects ('ADC', 'tumeur', 'Test-retest', 'même jour', 'traitement') are fully represented in the semantic elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is present in the source text."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The absence of treatment is correctly represented as a negative constraint inventory item and element."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit imaging modality family is mentioned."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit relations in the inventory are mapped to direct semantic relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All element types strictly conform to the operational taxonomy rules."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Relations retain their original explicit semantics without weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No inferences are improperly promoted to explicit user statements."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No hidden ambiguities are present."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "The negation on treatment is correctly preserved with NEGATED polarity."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Timing information ('même jour') is fully represented."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No unwarranted outcome or endpoint promotions have been made."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Concepts like ADC and tumour are precisely represented."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No source fragments are missing from the semantic representation."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The route DESIGN_STUDY correctly matches the methodological protocol parameters."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "All explicit fragments, relations, types, and constraints are fully accounted for, complete, and correct. The semantic model and routing are verified with no errors found."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-ea92d2cded2a0d31",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "Test-retest ADC tumeur, même jour, sans traitement entre les deux",
+        "normalizedMeaning": "Évaluation test-retest de l'ADC tumoral le même jour, sans traitement intermédiaire.",
+        "conversationMessageIds": [
+          "SEM-H23:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-1f3d14f8db13a724",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Apparent Diffusion Coefficient (ADC)",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_2"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H23:user:1",
+              "text": "ADC",
+              "start": 12,
+              "end": 15
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-5f8411b2acf69fee",
+              "sem-relation:ke1-777eeb18ff8abf34",
+              "sem-relation:ke1-9ff9ca215404fe05",
+              "sem-relation:ke1-fc8d016198e472bd"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-7964eba516d248e1",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-6bec7798a766c0e4",
+                "knowledge-gap:ke1-b6172e8aca9a7fce",
+                "knowledge-gap:ke1-f5cc0c85ceff49c9"
+              ],
+              "checkedAt": "2026-08-13T09:52:10.445Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H23:user:1",
+              "providerCallId": "gemini-call:ke1-77bb47d5210ca911",
+              "rawElementId": "elem_2"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-3d02d904c5a6a868",
+            "type": "STUDY_DESIGN",
+            "canonicalMeaning": "Test-retest design",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_1"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H23:user:1",
+              "text": "Test-retest",
+              "start": 0,
+              "end": 11
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-5f8411b2acf69fee"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H23:user:1",
+              "providerCallId": "gemini-call:ke1-77bb47d5210ca911",
+              "rawElementId": "elem_1"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-7c9468c3ddeb65e7",
+            "type": "TIMING",
+            "canonicalMeaning": "Même jour",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_4"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H23:user:1",
+              "text": "même jour",
+              "start": 24,
+              "end": 33
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-fc8d016198e472bd"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H23:user:1",
+              "providerCallId": "gemini-call:ke1-77bb47d5210ca911",
+              "rawElementId": "elem_4"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-b220f185e3875449",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "Tumeur",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_3"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H23:user:1",
+              "text": "tumeur",
+              "start": 16,
+              "end": 22
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-777eeb18ff8abf34"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H23:user:1",
+              "providerCallId": "gemini-call:ke1-77bb47d5210ca911",
+              "rawElementId": "elem_3"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-bb6a794c981fc1f8",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "Absence de traitement entre les mesures",
+            "studyRole": "NONE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv_5"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H23:user:1",
+              "text": "traitement",
+              "start": 40,
+              "end": 50
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-9ff9ca215404fe05"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H23:user:1",
+              "providerCallId": "gemini-call:ke1-77bb47d5210ca911",
+              "rawElementId": "elem_5"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-5f8411b2acf69fee",
+            "sourceElementId": "sem-element:ke1-1f3d14f8db13a724",
+            "targetElementId": "sem-element:ke1-3d02d904c5a6a868",
+            "relationType": "REPEATED_AT",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_2"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-777eeb18ff8abf34",
+            "sourceElementId": "sem-element:ke1-1f3d14f8db13a724",
+            "targetElementId": "sem-element:ke1-b220f185e3875449",
+            "relationType": "MEASURES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_1"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-9ff9ca215404fe05",
+            "sourceElementId": "sem-element:ke1-1f3d14f8db13a724",
+            "targetElementId": "sem-element:ke1-bb6a794c981fc1f8",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "NEGATED",
+            "inventoryRelationIds": [
+              "rel_inv_4"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-fc8d016198e472bd",
+            "sourceElementId": "sem-element:ke1-1f3d14f8db13a724",
+            "targetElementId": "sem-element:ke1-7c9468c3ddeb65e7",
+            "relationType": "REPEATED_AT",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_3"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv_1",
+              "sourceMessageId": "SEM-H23:user:1",
+              "sourceText": "Test-retest",
+              "normalizedMeaning": "Test-retest",
+              "mappedClientElementIds": [
+                "elem_1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_2",
+              "sourceMessageId": "SEM-H23:user:1",
+              "sourceText": "ADC",
+              "normalizedMeaning": "ADC",
+              "mappedClientElementIds": [
+                "elem_2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_3",
+              "sourceMessageId": "SEM-H23:user:1",
+              "sourceText": "tumeur",
+              "normalizedMeaning": "tumeur",
+              "mappedClientElementIds": [
+                "elem_3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_4",
+              "sourceMessageId": "SEM-H23:user:1",
+              "sourceText": "même jour",
+              "normalizedMeaning": "même jour",
+              "mappedClientElementIds": [
+                "elem_4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_5",
+              "sourceMessageId": "SEM-H23:user:1",
+              "sourceText": "traitement",
+              "normalizedMeaning": "traitement",
+              "mappedClientElementIds": [
+                "elem_5"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel_inv_1",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_3",
+              "normalizedRelation": "MEASURES",
+              "mappedClientRelationIds": [
+                "rel_1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_inv_2",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_1",
+              "normalizedRelation": "REPEATED_AT",
+              "mappedClientRelationIds": [
+                "rel_2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_inv_3",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_4",
+              "normalizedRelation": "REPEATED_AT",
+              "mappedClientRelationIds": [
+                "rel_3"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_inv_4",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_5",
+              "normalizedRelation": "EXCLUDES",
+              "mappedClientRelationIds": [
+                "rel_4"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "clarificationCandidates": [],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.95,
+          "reason": "L'utilisateur définit les paramètres d'une évaluation méthodologique test-retest (biomarqueur, cible, timing, contraintes).",
+          "expectedCapabilities": [
+            "Définition de protocole test-retest",
+            "Paramètres d'acquisition d'imagerie"
+          ]
+        },
+        "summaryForUser": "Analyse de la reproductibilité test-retest de l'ADC de la tumeur réalisée le même jour en l'absence de traitement.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "All explicit fragments, relations, types, and constraints are fully accounted for, complete, and correct. The semantic model and routing are verified with no errors found."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+          "criticPromptVersion": "SEM-001-CRITIC-1.6",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-77bb47d5210ca911",
+          "criticCallId": "gemini-call:ke1-3799eb4062577f74",
+          "criticCallIds": [
+            "gemini-call:ke1-3799eb4062577f74"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:51:31.912Z",
+              "requestFinished": "2026-08-13T09:51:37.815Z",
+              "latencyMs": 5903,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:52:07.029Z",
+              "requestFinished": "2026-08-13T09:52:10.443Z",
+              "latencyMs": 3414,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "CAND-SEM-001-1",
+            "language": "fr",
+            "normalizedMeaning": "Évaluation test-retest de l'ADC tumoral le même jour, sans traitement intermédiaire.",
+            "summaryForUser": "Analyse de la reproductibilité test-retest de l'ADC de la tumeur réalisée le même jour en l'absence de traitement.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "inv_1",
+                  "sourceMessageId": "SEM-H23:user:1",
+                  "sourceText": "Test-retest",
+                  "normalizedLabel": "Test-retest",
+                  "localRole": "design",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv_2"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv_2",
+                  "sourceMessageId": "SEM-H23:user:1",
+                  "sourceText": "ADC",
+                  "normalizedLabel": "ADC",
+                  "localRole": "biomarker",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv_3"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv_3",
+                  "sourceMessageId": "SEM-H23:user:1",
+                  "sourceText": "tumeur",
+                  "normalizedLabel": "tumeur",
+                  "localRole": "target",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv_2"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv_4",
+                  "sourceMessageId": "SEM-H23:user:1",
+                  "sourceText": "même jour",
+                  "normalizedLabel": "même jour",
+                  "localRole": "timing",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv_5",
+                  "sourceMessageId": "SEM-H23:user:1",
+                  "sourceText": "traitement",
+                  "normalizedLabel": "traitement",
+                  "localRole": "intervention",
+                  "polarity": "NEGATED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel_inv_1",
+                  "sourceInventoryItemId": "inv_2",
+                  "targetInventoryItemId": "inv_3",
+                  "sourceMessageId": "SEM-H23:user:1",
+                  "sourceText": "ADC tumeur",
+                  "normalizedRelation": "MEASURES",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel_inv_2",
+                  "sourceInventoryItemId": "inv_2",
+                  "targetInventoryItemId": "inv_1",
+                  "sourceMessageId": "SEM-H23:user:1",
+                  "sourceText": "Test-retest ADC",
+                  "normalizedRelation": "REPEATED_AT",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel_inv_3",
+                  "sourceInventoryItemId": "inv_2",
+                  "targetInventoryItemId": "inv_4",
+                  "sourceMessageId": "SEM-H23:user:1",
+                  "sourceText": "Test-retest ADC tumeur, même jour, sans traitement entre les deux",
+                  "normalizedRelation": "REPEATED_AT",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel_inv_4",
+                  "sourceInventoryItemId": "inv_2",
+                  "targetInventoryItemId": "inv_5",
+                  "sourceMessageId": "SEM-H23:user:1",
+                  "sourceText": "Test-retest ADC tumeur, même jour, sans traitement entre les deux",
+                  "normalizedRelation": "EXCLUDES",
+                  "polarity": "NEGATED"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem_1",
+                "type": "STUDY_DESIGN",
+                "canonicalMeaning": "Test-retest design",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_1"
+                ],
+                "sourceMessageId": "SEM-H23:user:1",
+                "sourceText": "Test-retest",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_2",
+                "type": "BIOMARKER",
+                "canonicalMeaning": "Apparent Diffusion Coefficient (ADC)",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_2"
+                ],
+                "sourceMessageId": "SEM-H23:user:1",
+                "sourceText": "ADC",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_3",
+                "type": "SCIENTIFIC_OBJECT",
+                "canonicalMeaning": "Tumeur",
+                "studyRole": "SUBJECT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_3"
+                ],
+                "sourceMessageId": "SEM-H23:user:1",
+                "sourceText": "tumeur",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_4",
+                "type": "TIMING",
+                "canonicalMeaning": "Même jour",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_4"
+                ],
+                "sourceMessageId": "SEM-H23:user:1",
+                "sourceText": "même jour",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_5",
+                "type": "CONSTRAINT",
+                "canonicalMeaning": "Absence de traitement entre les mesures",
+                "studyRole": "NONE",
+                "polarity": "NEGATED",
+                "inventoryItemIds": [
+                  "inv_5"
+                ],
+                "sourceMessageId": "SEM-H23:user:1",
+                "sourceText": "traitement",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel_1",
+                "sourceClientElementId": "elem_2",
+                "targetClientElementId": "elem_3",
+                "relationType": "MEASURES",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_inv_1"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel_2",
+                "sourceClientElementId": "elem_2",
+                "targetClientElementId": "elem_1",
+                "relationType": "REPEATED_AT",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_inv_2"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel_3",
+                "sourceClientElementId": "elem_2",
+                "targetClientElementId": "elem_4",
+                "relationType": "REPEATED_AT",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_inv_3"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel_4",
+                "sourceClientElementId": "elem_2",
+                "targetClientElementId": "elem_5",
+                "relationType": "RELATED_TO_CANDIDATE",
+                "polarity": "NEGATED",
+                "inventoryRelationIds": [
+                  "rel_inv_4"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              }
+            ],
+            "missingConcepts": [],
+            "ellipses": [],
+            "ambiguities": [],
+            "unknowns": [],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [],
+            "routeProposal": {
+              "route": "DESIGN_STUDY",
+              "confidence": 0.95,
+              "reason": "L'utilisateur définit les paramètres d'une évaluation méthodologique test-retest (biomarqueur, cible, timing, contraintes).",
+              "expectedCapabilities": [
+                "Définition de protocole test-retest",
+                "Paramètres d'acquisition d'imagerie"
+              ]
+            },
+            "semanticWarnings": [
+              "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:2"
+            ]
+          },
+          "rawCritic": {
+            "criticId": "CRIT-SEM-001-1",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit objects ('ADC', 'tumeur', 'Test-retest', 'même jour', 'traitement') are fully represented in the semantic elements."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No comparator is present in the source text."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "The absence of treatment is correctly represented as a negative constraint inventory item and element."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No explicit imaging modality family is mentioned."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit relations in the inventory are mapped to direct semantic relations."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "All element types strictly conform to the operational taxonomy rules."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Relations retain their original explicit semantics without weakening."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No inferences are improperly promoted to explicit user statements."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "No hidden ambiguities are present."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "The negation on treatment is correctly preserved with NEGATED polarity."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "PASS",
+                "evidence": "Timing information ('même jour') is fully represented."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "No unwarranted outcome or endpoint promotions have been made."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Concepts like ADC and tumour are precisely represented."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "No source fragments are missing from the semantic representation."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "The route DESIGN_STUDY correctly matches the methodological protocol parameters."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "All explicit fragments, relations, types, and constraints are fully accounted for, complete, and correct. The semantic model and routing are verified with no errors found."
+          },
+          "rawCritics": [
+            {
+              "criticId": "CRIT-SEM-001-1",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit objects ('ADC', 'tumeur', 'Test-retest', 'même jour', 'traitement') are fully represented in the semantic elements."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No comparator is present in the source text."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The absence of treatment is correctly represented as a negative constraint inventory item and element."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No explicit imaging modality family is mentioned."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit relations in the inventory are mapped to direct semantic relations."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "All element types strictly conform to the operational taxonomy rules."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Relations retain their original explicit semantics without weakening."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No inferences are improperly promoted to explicit user statements."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "No hidden ambiguities are present."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "The negation on treatment is correctly preserved with NEGATED polarity."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "PASS",
+                  "evidence": "Timing information ('même jour') is fully represented."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "No unwarranted outcome or endpoint promotions have been made."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Concepts like ADC and tumour are precisely represented."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "No source fragments are missing from the semantic representation."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "The route DESIGN_STUDY correctly matches the methodological protocol parameters."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "All explicit fragments, relations, types, and constraints are fully accounted for, complete, and correct. The semantic model and routing are verified with no errors found."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-13T09:52:10.444Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-7964eba516d248e1",
+          "resultDigest": "ke1-7964eba516d248e1",
+          "coverageStatus": "NO_PROVIDER",
+          "verifiedAt": "2026-08-13T09:52:10.445Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-13T09:52:10.444Z",
+        "updatedAt": "2026-08-13T09:52:10.445Z",
+        "digest": "ke1-f95c27a21f9e1676"
+      },
+      "canonicalModelDigest": "ke1-f95c27a21f9e1676",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-7964eba516d248e1",
+        "resultDigest": "ke1-7964eba516d248e1",
+        "coverageStatus": "NO_PROVIDER",
+        "verifiedAt": "2026-08-13T09:52:10.445Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-77bb47d5210ca911",
+      "structuredDigest": "ke1-9aabbd94844feae0",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:51:31.912Z",
+          "requestFinished": "2026-08-13T09:51:37.815Z",
+          "latencyMs": 5903,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-3799eb4062577f74",
+      "structuredDigest": "ke1-7c66c1509fd7e374",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:52:07.029Z",
+          "requestFinished": "2026-08-13T09:52:10.443Z",
+          "latencyMs": 3414,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-ea92d2cded2a0d31",
+    "revision": 1,
+    "status": "CANDIDATE",
+    "originalRequest": "Test-retest ADC tumeur, même jour, sans traitement entre les deux",
+    "normalizedMeaning": "Évaluation test-retest de l'ADC tumoral le même jour, sans traitement intermédiaire.",
+    "conversationMessageIds": [
+      "SEM-H23:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-1f3d14f8db13a724",
+        "type": "BIOMARKER",
+        "canonicalMeaning": "Apparent Diffusion Coefficient (ADC)",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_2"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H23:user:1",
+          "text": "ADC",
+          "start": 12,
+          "end": 15
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-5f8411b2acf69fee",
+          "sem-relation:ke1-777eeb18ff8abf34",
+          "sem-relation:ke1-9ff9ca215404fe05",
+          "sem-relation:ke1-fc8d016198e472bd"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-7964eba516d248e1",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-6bec7798a766c0e4",
+            "knowledge-gap:ke1-b6172e8aca9a7fce",
+            "knowledge-gap:ke1-f5cc0c85ceff49c9"
+          ],
+          "checkedAt": "2026-08-13T09:52:10.445Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H23:user:1",
+          "providerCallId": "gemini-call:ke1-77bb47d5210ca911",
+          "rawElementId": "elem_2"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-3d02d904c5a6a868",
+        "type": "STUDY_DESIGN",
+        "canonicalMeaning": "Test-retest design",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_1"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H23:user:1",
+          "text": "Test-retest",
+          "start": 0,
+          "end": 11
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-5f8411b2acf69fee"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H23:user:1",
+          "providerCallId": "gemini-call:ke1-77bb47d5210ca911",
+          "rawElementId": "elem_1"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-7c9468c3ddeb65e7",
+        "type": "TIMING",
+        "canonicalMeaning": "Même jour",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_4"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H23:user:1",
+          "text": "même jour",
+          "start": 24,
+          "end": 33
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-fc8d016198e472bd"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H23:user:1",
+          "providerCallId": "gemini-call:ke1-77bb47d5210ca911",
+          "rawElementId": "elem_4"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-b220f185e3875449",
+        "type": "SCIENTIFIC_OBJECT",
+        "canonicalMeaning": "Tumeur",
+        "studyRole": "SUBJECT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_3"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H23:user:1",
+          "text": "tumeur",
+          "start": 16,
+          "end": 22
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-777eeb18ff8abf34"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H23:user:1",
+          "providerCallId": "gemini-call:ke1-77bb47d5210ca911",
+          "rawElementId": "elem_3"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-bb6a794c981fc1f8",
+        "type": "CONSTRAINT",
+        "canonicalMeaning": "Absence de traitement entre les mesures",
+        "studyRole": "NONE",
+        "polarity": "NEGATED",
+        "inventoryItemIds": [
+          "inv_5"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H23:user:1",
+          "text": "traitement",
+          "start": 40,
+          "end": 50
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-9ff9ca215404fe05"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H23:user:1",
+          "providerCallId": "gemini-call:ke1-77bb47d5210ca911",
+          "rawElementId": "elem_5"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-5f8411b2acf69fee",
+        "sourceElementId": "sem-element:ke1-1f3d14f8db13a724",
+        "targetElementId": "sem-element:ke1-3d02d904c5a6a868",
+        "relationType": "REPEATED_AT",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_inv_2"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-777eeb18ff8abf34",
+        "sourceElementId": "sem-element:ke1-1f3d14f8db13a724",
+        "targetElementId": "sem-element:ke1-b220f185e3875449",
+        "relationType": "MEASURES",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_inv_1"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-9ff9ca215404fe05",
+        "sourceElementId": "sem-element:ke1-1f3d14f8db13a724",
+        "targetElementId": "sem-element:ke1-bb6a794c981fc1f8",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "polarity": "NEGATED",
+        "inventoryRelationIds": [
+          "rel_inv_4"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-fc8d016198e472bd",
+        "sourceElementId": "sem-element:ke1-1f3d14f8db13a724",
+        "targetElementId": "sem-element:ke1-7c9468c3ddeb65e7",
+        "relationType": "REPEATED_AT",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_inv_3"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv_1",
+          "sourceMessageId": "SEM-H23:user:1",
+          "sourceText": "Test-retest",
+          "normalizedMeaning": "Test-retest",
+          "mappedClientElementIds": [
+            "elem_1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_2",
+          "sourceMessageId": "SEM-H23:user:1",
+          "sourceText": "ADC",
+          "normalizedMeaning": "ADC",
+          "mappedClientElementIds": [
+            "elem_2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_3",
+          "sourceMessageId": "SEM-H23:user:1",
+          "sourceText": "tumeur",
+          "normalizedMeaning": "tumeur",
+          "mappedClientElementIds": [
+            "elem_3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_4",
+          "sourceMessageId": "SEM-H23:user:1",
+          "sourceText": "même jour",
+          "normalizedMeaning": "même jour",
+          "mappedClientElementIds": [
+            "elem_4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_5",
+          "sourceMessageId": "SEM-H23:user:1",
+          "sourceText": "traitement",
+          "normalizedMeaning": "traitement",
+          "mappedClientElementIds": [
+            "elem_5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel_inv_1",
+          "sourceInventoryItemId": "inv_2",
+          "targetInventoryItemId": "inv_3",
+          "normalizedRelation": "MEASURES",
+          "mappedClientRelationIds": [
+            "rel_1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_inv_2",
+          "sourceInventoryItemId": "inv_2",
+          "targetInventoryItemId": "inv_1",
+          "normalizedRelation": "REPEATED_AT",
+          "mappedClientRelationIds": [
+            "rel_2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_inv_3",
+          "sourceInventoryItemId": "inv_2",
+          "targetInventoryItemId": "inv_4",
+          "normalizedRelation": "REPEATED_AT",
+          "mappedClientRelationIds": [
+            "rel_3"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_inv_4",
+          "sourceInventoryItemId": "inv_2",
+          "targetInventoryItemId": "inv_5",
+          "normalizedRelation": "EXCLUDES",
+          "mappedClientRelationIds": [
+            "rel_4"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "missingConcepts": [],
+    "ellipses": [],
+    "ambiguities": [],
+    "unknowns": [],
+    "contradictions": [],
+    "clarificationCandidates": [],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "DESIGN_STUDY",
+      "confidence": 0.95,
+      "reason": "L'utilisateur définit les paramètres d'une évaluation méthodologique test-retest (biomarqueur, cible, timing, contraintes).",
+      "expectedCapabilities": [
+        "Définition de protocole test-retest",
+        "Paramètres d'acquisition d'imagerie"
+      ]
+    },
+    "summaryForUser": "Analyse de la reproductibilité test-retest de l'ADC de la tumeur réalisée le même jour en l'absence de traitement.",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "All explicit fragments, relations, types, and constraints are fully accounted for, complete, and correct. The semantic model and routing are verified with no errors found."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-77bb47d5210ca911",
+      "criticCallId": "gemini-call:ke1-3799eb4062577f74",
+      "criticCallIds": [
+        "gemini-call:ke1-3799eb4062577f74"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:51:31.912Z",
+          "requestFinished": "2026-08-13T09:51:37.815Z",
+          "latencyMs": 5903,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:52:07.029Z",
+          "requestFinished": "2026-08-13T09:52:10.443Z",
+          "latencyMs": 3414,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "CAND-SEM-001-1",
+        "language": "fr",
+        "normalizedMeaning": "Évaluation test-retest de l'ADC tumoral le même jour, sans traitement intermédiaire.",
+        "summaryForUser": "Analyse de la reproductibilité test-retest de l'ADC de la tumeur réalisée le même jour en l'absence de traitement.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv_1",
+              "sourceMessageId": "SEM-H23:user:1",
+              "sourceText": "Test-retest",
+              "normalizedLabel": "Test-retest",
+              "localRole": "design",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_2"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_2",
+              "sourceMessageId": "SEM-H23:user:1",
+              "sourceText": "ADC",
+              "normalizedLabel": "ADC",
+              "localRole": "biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_3"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_3",
+              "sourceMessageId": "SEM-H23:user:1",
+              "sourceText": "tumeur",
+              "normalizedLabel": "tumeur",
+              "localRole": "target",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_2"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_4",
+              "sourceMessageId": "SEM-H23:user:1",
+              "sourceText": "même jour",
+              "normalizedLabel": "même jour",
+              "localRole": "timing",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_5",
+              "sourceMessageId": "SEM-H23:user:1",
+              "sourceText": "traitement",
+              "normalizedLabel": "traitement",
+              "localRole": "intervention",
+              "polarity": "NEGATED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_inv_1",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_3",
+              "sourceMessageId": "SEM-H23:user:1",
+              "sourceText": "ADC tumeur",
+              "normalizedRelation": "MEASURES",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_inv_2",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_1",
+              "sourceMessageId": "SEM-H23:user:1",
+              "sourceText": "Test-retest ADC",
+              "normalizedRelation": "REPEATED_AT",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_inv_3",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_4",
+              "sourceMessageId": "SEM-H23:user:1",
+              "sourceText": "Test-retest ADC tumeur, même jour, sans traitement entre les deux",
+              "normalizedRelation": "REPEATED_AT",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_inv_4",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_5",
+              "sourceMessageId": "SEM-H23:user:1",
+              "sourceText": "Test-retest ADC tumeur, même jour, sans traitement entre les deux",
+              "normalizedRelation": "EXCLUDES",
+              "polarity": "NEGATED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem_1",
+            "type": "STUDY_DESIGN",
+            "canonicalMeaning": "Test-retest design",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_1"
+            ],
+            "sourceMessageId": "SEM-H23:user:1",
+            "sourceText": "Test-retest",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_2",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Apparent Diffusion Coefficient (ADC)",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_2"
+            ],
+            "sourceMessageId": "SEM-H23:user:1",
+            "sourceText": "ADC",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_3",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "Tumeur",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_3"
+            ],
+            "sourceMessageId": "SEM-H23:user:1",
+            "sourceText": "tumeur",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_4",
+            "type": "TIMING",
+            "canonicalMeaning": "Même jour",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_4"
+            ],
+            "sourceMessageId": "SEM-H23:user:1",
+            "sourceText": "même jour",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_5",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "Absence de traitement entre les mesures",
+            "studyRole": "NONE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv_5"
+            ],
+            "sourceMessageId": "SEM-H23:user:1",
+            "sourceText": "traitement",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel_1",
+            "sourceClientElementId": "elem_2",
+            "targetClientElementId": "elem_3",
+            "relationType": "MEASURES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_2",
+            "sourceClientElementId": "elem_2",
+            "targetClientElementId": "elem_1",
+            "relationType": "REPEATED_AT",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_3",
+            "sourceClientElementId": "elem_2",
+            "targetClientElementId": "elem_4",
+            "relationType": "REPEATED_AT",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_3"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_4",
+            "sourceClientElementId": "elem_2",
+            "targetClientElementId": "elem_5",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "NEGATED",
+            "inventoryRelationIds": [
+              "rel_inv_4"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.95,
+          "reason": "L'utilisateur définit les paramètres d'une évaluation méthodologique test-retest (biomarqueur, cible, timing, contraintes).",
+          "expectedCapabilities": [
+            "Définition de protocole test-retest",
+            "Paramètres d'acquisition d'imagerie"
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:2"
+        ]
+      },
+      "rawCritic": {
+        "criticId": "CRIT-SEM-001-1",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit objects ('ADC', 'tumeur', 'Test-retest', 'même jour', 'traitement') are fully represented in the semantic elements."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No comparator is present in the source text."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "The absence of treatment is correctly represented as a negative constraint inventory item and element."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No explicit imaging modality family is mentioned."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit relations in the inventory are mapped to direct semantic relations."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "All element types strictly conform to the operational taxonomy rules."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "Relations retain their original explicit semantics without weakening."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No inferences are improperly promoted to explicit user statements."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "No hidden ambiguities are present."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "The negation on treatment is correctly preserved with NEGATED polarity."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "PASS",
+            "evidence": "Timing information ('même jour') is fully represented."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "No unwarranted outcome or endpoint promotions have been made."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Concepts like ADC and tumour are precisely represented."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "No source fragments are missing from the semantic representation."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "The route DESIGN_STUDY correctly matches the methodological protocol parameters."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "All explicit fragments, relations, types, and constraints are fully accounted for, complete, and correct. The semantic model and routing are verified with no errors found."
+      },
+      "rawCritics": [
+        {
+          "criticId": "CRIT-SEM-001-1",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects ('ADC', 'tumeur', 'Test-retest', 'même jour', 'traitement') are fully represented in the semantic elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is present in the source text."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The absence of treatment is correctly represented as a negative constraint inventory item and element."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit imaging modality family is mentioned."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit relations in the inventory are mapped to direct semantic relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All element types strictly conform to the operational taxonomy rules."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Relations retain their original explicit semantics without weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No inferences are improperly promoted to explicit user statements."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No hidden ambiguities are present."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "The negation on treatment is correctly preserved with NEGATED polarity."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Timing information ('même jour') is fully represented."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No unwarranted outcome or endpoint promotions have been made."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Concepts like ADC and tumour are precisely represented."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No source fragments are missing from the semantic representation."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The route DESIGN_STUDY correctly matches the methodological protocol parameters."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "All explicit fragments, relations, types, and constraints are fully accounted for, complete, and correct. The semantic model and routing are verified with no errors found."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-13T09:52:10.444Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-7964eba516d248e1",
+      "resultDigest": "ke1-7964eba516d248e1",
+      "coverageStatus": "NO_PROVIDER",
+      "verifiedAt": "2026-08-13T09:52:10.445Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-13T09:52:10.444Z",
+    "updatedAt": "2026-08-13T09:52:10.445Z",
+    "digest": "ke1-f95c27a21f9e1676"
+  },
+  "semanticModelDigest": "ke1-f95c27a21f9e1676",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv_1",
+          "sourceMessageId": "SEM-H23:user:1",
+          "sourceText": "Test-retest",
+          "normalizedMeaning": "Test-retest",
+          "mappedClientElementIds": [
+            "elem_1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_2",
+          "sourceMessageId": "SEM-H23:user:1",
+          "sourceText": "ADC",
+          "normalizedMeaning": "ADC",
+          "mappedClientElementIds": [
+            "elem_2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_3",
+          "sourceMessageId": "SEM-H23:user:1",
+          "sourceText": "tumeur",
+          "normalizedMeaning": "tumeur",
+          "mappedClientElementIds": [
+            "elem_3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_4",
+          "sourceMessageId": "SEM-H23:user:1",
+          "sourceText": "même jour",
+          "normalizedMeaning": "même jour",
+          "mappedClientElementIds": [
+            "elem_4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_5",
+          "sourceMessageId": "SEM-H23:user:1",
+          "sourceText": "traitement",
+          "normalizedMeaning": "traitement",
+          "mappedClientElementIds": [
+            "elem_5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel_inv_1",
+          "sourceInventoryItemId": "inv_2",
+          "targetInventoryItemId": "inv_3",
+          "normalizedRelation": "MEASURES",
+          "mappedClientRelationIds": [
+            "rel_1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_inv_2",
+          "sourceInventoryItemId": "inv_2",
+          "targetInventoryItemId": "inv_1",
+          "normalizedRelation": "REPEATED_AT",
+          "mappedClientRelationIds": [
+            "rel_2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_inv_3",
+          "sourceInventoryItemId": "inv_2",
+          "targetInventoryItemId": "inv_4",
+          "normalizedRelation": "REPEATED_AT",
+          "mappedClientRelationIds": [
+            "rel_3"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_inv_4",
+          "sourceInventoryItemId": "inv_2",
+          "targetInventoryItemId": "inv_5",
+          "normalizedRelation": "EXCLUDES",
+          "mappedClientRelationIds": [
+            "rel_4"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-8066258bdfcc6c77",
+    "evaluatedAt": "2026-08-13T09:52:10.448Z",
+    "goldFrameDigest": "ke1-3447e5a53ff03d71",
+    "result": {
+      "caseId": "SEM-H23",
+      "explicitObjectRecall": 1,
+      "explicitRelationRecall": 1,
+      "criticalSemanticRecall": 1,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 1,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": []
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H23",
+    "explicitObjectRecall": 1,
+    "explicitRelationRecall": 1,
+    "criticalSemanticRecall": 1,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 1,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": []
+  },
+  "error": null
+}

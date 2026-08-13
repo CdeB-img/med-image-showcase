@@ -1,0 +1,2525 @@
+{
+  "campaign": "SEM-001R5L-CLOSURE",
+  "campaignId": "sem-001r5l-closure-2026-08-13T09-09-28-906Z-ke1-391a23dcb99dc470",
+  "caseId": "SEM-H03",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-391a23dcb99dc470",
+  "semanticConfigurationDigest": "ke1-410eaaec72fd1768",
+  "goldFrameDigest": "ke1-4c3c7941093f5edd",
+  "originalRequest": [
+    "Chez SEP, le QSM serait lié au handicap mais je ne sais pas si je cherche une association ou du pronostic."
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-13T09:10:13.800Z",
+  "completedAt": "2026-08-13T09:11:04.955Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H03:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Dans la sclérose en plaques, le QSM est lié au handicap, mais la nature exacte de la relation (association ou pronostic) reste incertaine.",
+        "summaryForUser": "Vous étudiez le lien entre le QSM et le handicap dans la sclérose en plaques, en hésitant entre une recherche d'association simple ou une approche pronostique.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "item-001",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "SEP",
+              "normalizedLabel": "sclérose en plaques",
+              "localRole": "condition",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item-002",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "QSM",
+              "normalizedLabel": "QSM",
+              "localRole": "biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item-003",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "lié",
+              "normalizedLabel": "lié",
+              "localRole": "relation",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "item-002",
+                "item-004"
+              ]
+            },
+            {
+              "inventoryItemId": "item-004",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "handicap",
+              "normalizedLabel": "handicap",
+              "localRole": "outcome",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item-005",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "association",
+              "normalizedLabel": "association",
+              "localRole": "uncertainty",
+              "polarity": "UNCERTAIN",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item-006",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "pronostic",
+              "normalizedLabel": "pronostic",
+              "localRole": "uncertainty",
+              "polarity": "UNCERTAIN",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-001",
+              "sourceInventoryItemId": "item-002",
+              "targetInventoryItemId": "item-004",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "le QSM serait lié au handicap",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "polarity": "UNCERTAIN"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-001",
+            "type": "CONDITION",
+            "canonicalMeaning": "Sclérose en plaques",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-001"
+            ],
+            "sourceMessageId": "SEM-H03:user:1",
+            "sourceText": "SEP",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-002",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "QSM (Quantitative Susceptibility Mapping)",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-002"
+            ],
+            "sourceMessageId": "SEM-H03:user:1",
+            "sourceText": "QSM",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-003",
+            "type": "OUTCOME",
+            "canonicalMeaning": "Handicap",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-004"
+            ],
+            "sourceMessageId": "SEM-H03:user:1",
+            "sourceText": "handicap",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-004",
+            "type": "UNKNOWN",
+            "canonicalMeaning": "Association versus pronostic",
+            "studyRole": "NONE",
+            "polarity": "UNCERTAIN",
+            "inventoryItemIds": [
+              "item-005",
+              "item-006"
+            ],
+            "sourceMessageId": "SEM-H03:user:1",
+            "sourceText": "association ou du pronostic",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": true,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-001",
+            "sourceClientElementId": "elem-002",
+            "targetClientElementId": "elem-003",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "UNCERTAIN",
+            "inventoryRelationIds": [
+              "rel-001"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": true
+          }
+        ],
+        "missingConcepts": [
+          "Nature of relationship (association vs prognostic)"
+        ],
+        "ellipses": [],
+        "ambiguities": [
+          "Whether the objective is a simple association or a prognostic relationship."
+        ],
+        "unknowns": [
+          "Association versus prognostic objective"
+        ],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [
+          {
+            "question": "Souhaitez-vous évaluer une simple association statistique entre le QSM et le handicap, ou visez-vous une étude pronostique ?",
+            "reason": "Clarifier l'objectif scientifique exact entre association et pronostic.",
+            "resolvesClientElementIds": [
+              "elem-004"
+            ]
+          }
+        ],
+        "routeProposal": {
+          "route": "FORMALIZE_IDEA",
+          "confidence": 0.9,
+          "reason": "The user is exploring a scientific hypothesis and relating a biomarker to an outcome but needs to formalize the analytical objective (association vs prognosis).",
+          "expectedCapabilities": [
+            "Clarification of research hypotheses",
+            "Scientific framing"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "reconstructionDigest": "ke1-ef6bd5382c54298c",
+      "critics": [
+        {
+          "criticId": "critic-01",
+          "verdict": "REVISE",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit object fragments are mapped to corresponding semantic elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is present in the source text."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No intervention is present in the source text."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "QSM is represented as BIOMARKER based on operational precedence."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The relation 'lié' is properly mapped."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "FAIL",
+              "evidence": "Taxonomy report flagged element elem-001 as CONDITION instead of POPULATION."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations are preserved without weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No inference has been promoted incorrectly."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Uncertainty between association and prognosis is exposed."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "No negation is present."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No specific timing expression is present."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Outcomes and endpoints are properly classified."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Concepts are maintained at their specific levels."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "All text fragments are represented."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route FORMALIZE_IDEA matches the idea-exploration and objective-clarification state."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [
+            {
+              "code": "TYPE_MISMATCH",
+              "severity": "CRITICAL",
+              "elementClientIds": [
+                "elem-001"
+              ],
+              "description": "Participant group 'Chez SEP' typed as CONDITION instead of POPULATION.",
+              "recommendedAction": "Use UPSERT_ELEMENT to change elementType to POPULATION and studyRole to SUBJECT.",
+              "resolved": false
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "repairId": "rep-001",
+              "action": "UPSERT_ELEMENT",
+              "reason": "Correct element type for 'Chez SEP' from CONDITION to POPULATION following taxonomy report.",
+              "sourceInventoryItemIds": [
+                "item-001"
+              ],
+              "sourceInventoryRelationIds": [],
+              "inventoryItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "inventoryNormalizedLabel": null,
+              "inventoryLocalRole": null,
+              "inventoryPolarity": null,
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": "elem-001",
+              "elementType": "POPULATION",
+              "elementCanonicalMeaning": "Patients atteints de sclérose en plaques",
+              "elementStudyRole": "SUBJECT",
+              "elementPolarity": "AFFIRMED",
+              "elementInventoryItemIds": [
+                "item-001"
+              ],
+              "elementSourceMessageId": "SEM-H03:user:1",
+              "elementSourceText": "SEP",
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementConfidence": 1,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": false,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "relationPolarity": null,
+              "relationInventoryRelationIds": [],
+              "relationEpistemicStatus": null,
+              "relationConfidence": null,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": null,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            }
+          ],
+          "criticSummary": "The typed candidate correctly captures the biomarker, outcome, and the methodological ambiguity. However, the participant group context 'Chez SEP' was misclassified as CONDITION instead of POPULATION per the taxonomy report. A bounded repair is provided to correct this."
+        },
+        {
+          "criticId": "critic-001",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit source objects (SEP, QSM, handicap, association, pronostic) are correctly represented in the semantic inventory and typed elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is present in the source text."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No intervention is present in the source text."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "QSM is correctly recognized and typed as a biomarker under the operational taxonomy precedence."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The explicit relation 'lié' between QSM and handicap is fully captured as a RELATED_TO_CANDIDATE relation."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Taxonomy report is complete with no findings; element types strictly conform to operational precedence."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations are preserved faithfully without weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Uncertainties between association and prognosis are correctly maintained as ambiguous/unknown rather than promoted to definitive facts."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "The ambiguity regarding association versus prognosis is explicitly exposed in ambiguities and elementClientIds."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarities are correctly recorded and affirmed/uncertain."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No specific timing constraint is present in the source text."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Outcome and biomarker types are appropriately assigned without unsupported endpoint promotion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like QSM and SEP are preserved with exact meanings."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit source fragments are mapped in the semantic inventory."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The route FORMALIZE_IDEA correctly matches the user's need to formalize an exploratory hypothesis involving association vs prognosis."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The semantic inventory, typed candidate, coverage reports, taxonomy report, and integrity report are complete and fully verified. All explicit objects, relations, and uncertainties are correctly represented without violations."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [
+        {
+          "repairId": "rep-001",
+          "status": "ACCEPTED",
+          "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+        }
+      ],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-4aaa97fab8f81356",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "Chez SEP, le QSM serait lié au handicap mais je ne sais pas si je cherche une association ou du pronostic.",
+        "normalizedMeaning": "Dans la sclérose en plaques, le QSM est lié au handicap, mais la nature exacte de la relation (association ou pronostic) reste incertaine.",
+        "conversationMessageIds": [
+          "SEM-H03:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-1be1de6ae351fb0e",
+            "type": "OUTCOME",
+            "canonicalMeaning": "Handicap",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-004"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H03:user:1",
+              "text": "handicap",
+              "start": 31,
+              "end": 39
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-6d1e5aaede1a583a"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H03:user:1",
+              "providerCallId": "gemini-call:ke1-eb590ee8c0481afc",
+              "rawElementId": "elem-003"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-54a02dec72e92908",
+            "type": "UNKNOWN",
+            "canonicalMeaning": "Association versus pronostic",
+            "studyRole": "NONE",
+            "polarity": "UNCERTAIN",
+            "inventoryItemIds": [
+              "item-005",
+              "item-006"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H03:user:1",
+              "text": "association ou du pronostic",
+              "start": 78,
+              "end": 105
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H03:user:1",
+              "providerCallId": "gemini-call:ke1-eb590ee8c0481afc",
+              "rawElementId": "elem-004"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-b3ce46cac15fc9f6",
+            "type": "POPULATION",
+            "canonicalMeaning": "Patients atteints de sclérose en plaques",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-001"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H03:user:1",
+              "text": "SEP",
+              "start": 5,
+              "end": 8
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H03:user:1",
+              "providerCallId": "gemini-call:ke1-eb590ee8c0481afc",
+              "rawElementId": "elem-001"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-f379a85aea199cf6",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "QSM (Quantitative Susceptibility Mapping)",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-002"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H03:user:1",
+              "text": "QSM",
+              "start": 13,
+              "end": 16
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-6d1e5aaede1a583a"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-a046507ad5c5a176",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-507b7b199928638d",
+                "knowledge-gap:ke1-7a6eabe4f3b700e8",
+                "knowledge-gap:ke1-dcdfda33c341cc67"
+              ],
+              "checkedAt": "2026-08-13T09:11:04.951Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H03:user:1",
+              "providerCallId": "gemini-call:ke1-eb590ee8c0481afc",
+              "rawElementId": "elem-002"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-6d1e5aaede1a583a",
+            "sourceElementId": "sem-element:ke1-f379a85aea199cf6",
+            "targetElementId": "sem-element:ke1-1be1de6ae351fb0e",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "UNCERTAIN",
+            "inventoryRelationIds": [
+              "rel-001"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "item-001",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "SEP",
+              "normalizedMeaning": "sclérose en plaques",
+              "mappedClientElementIds": [
+                "elem-001"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-002",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "QSM",
+              "normalizedMeaning": "QSM",
+              "mappedClientElementIds": [
+                "elem-002"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-003",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "lié",
+              "normalizedMeaning": "lié",
+              "mappedClientElementIds": [],
+              "mappedClientRelationIds": [
+                "rel-001"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "The explicit functional fragment is represented by its source-grounded direct Semantic Relation rather than by a false object node."
+            },
+            {
+              "inventoryItemId": "item-004",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "handicap",
+              "normalizedMeaning": "handicap",
+              "mappedClientElementIds": [
+                "elem-003"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-005",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "association",
+              "normalizedMeaning": "association",
+              "mappedClientElementIds": [
+                "elem-004"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-006",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "pronostic",
+              "normalizedMeaning": "pronostic",
+              "mappedClientElementIds": [
+                "elem-004"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-001",
+              "sourceInventoryItemId": "item-002",
+              "targetInventoryItemId": "item-004",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "mappedClientRelationIds": [
+                "rel-001"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [
+          "Nature of relationship (association vs prognostic)"
+        ],
+        "ellipses": [],
+        "ambiguities": [
+          "Whether the objective is a simple association or a prognostic relationship."
+        ],
+        "unknowns": [
+          "Association versus prognostic objective"
+        ],
+        "contradictions": [],
+        "clarificationCandidates": [
+          {
+            "question": "Souhaitez-vous évaluer une simple association statistique entre le QSM et le handicap, ou visez-vous une étude pronostique ?",
+            "reason": "Clarifier l'objectif scientifique exact entre association et pronostic.",
+            "resolvesElementIds": [
+              "sem-element:ke1-54a02dec72e92908"
+            ]
+          }
+        ],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "FORMALIZE_IDEA",
+          "confidence": 0.9,
+          "reason": "The user is exploring a scientific hypothesis and relating a biomarker to an outcome but needs to formalize the analytical objective (association vs prognosis).",
+          "expectedCapabilities": [
+            "Clarification of research hypotheses",
+            "Scientific framing"
+          ]
+        },
+        "summaryForUser": "Vous étudiez le lien entre le QSM et le handicap dans la sclérose en plaques, en hésitant entre une recherche d'association simple ou une approche pronostique.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "The semantic inventory, typed candidate, coverage reports, taxonomy report, and integrity report are complete and fully verified. All explicit objects, relations, and uncertainties are correctly represented without violations."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+          "criticPromptVersion": "SEM-001-CRITIC-1.6",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-eb590ee8c0481afc",
+          "criticCallId": "gemini-call:ke1-8ff05c7022de34fc",
+          "criticCallIds": [
+            "gemini-call:ke1-739b154b6e0d7dbf",
+            "gemini-call:ke1-8ff05c7022de34fc"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:10:51.625Z",
+              "requestFinished": "2026-08-13T09:10:56.892Z",
+              "latencyMs": 5267,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:10:56.896Z",
+              "requestFinished": "2026-08-13T09:11:01.220Z",
+              "latencyMs": 4324,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            },
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:11:01.754Z",
+              "requestFinished": "2026-08-13T09:11:04.946Z",
+              "latencyMs": 3192,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "cand-001",
+            "language": "fr",
+            "normalizedMeaning": "Dans la sclérose en plaques, le QSM est lié au handicap, mais la nature exacte de la relation (association ou pronostic) reste incertaine.",
+            "summaryForUser": "Vous étudiez le lien entre le QSM et le handicap dans la sclérose en plaques, en hésitant entre une recherche d'association simple ou une approche pronostique.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "item-001",
+                  "sourceMessageId": "SEM-H03:user:1",
+                  "sourceText": "SEP",
+                  "normalizedLabel": "sclérose en plaques",
+                  "localRole": "condition",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "item-002",
+                  "sourceMessageId": "SEM-H03:user:1",
+                  "sourceText": "QSM",
+                  "normalizedLabel": "QSM",
+                  "localRole": "biomarker",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "item-003",
+                  "sourceMessageId": "SEM-H03:user:1",
+                  "sourceText": "lié",
+                  "normalizedLabel": "lié",
+                  "localRole": "relation",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "item-002",
+                    "item-004"
+                  ]
+                },
+                {
+                  "inventoryItemId": "item-004",
+                  "sourceMessageId": "SEM-H03:user:1",
+                  "sourceText": "handicap",
+                  "normalizedLabel": "handicap",
+                  "localRole": "outcome",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "item-005",
+                  "sourceMessageId": "SEM-H03:user:1",
+                  "sourceText": "association",
+                  "normalizedLabel": "association",
+                  "localRole": "uncertainty",
+                  "polarity": "UNCERTAIN",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "item-006",
+                  "sourceMessageId": "SEM-H03:user:1",
+                  "sourceText": "pronostic",
+                  "normalizedLabel": "pronostic",
+                  "localRole": "uncertainty",
+                  "polarity": "UNCERTAIN",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel-001",
+                  "sourceInventoryItemId": "item-002",
+                  "targetInventoryItemId": "item-004",
+                  "sourceMessageId": "SEM-H03:user:1",
+                  "sourceText": "le QSM serait lié au handicap",
+                  "normalizedRelation": "RELATED_TO_CANDIDATE",
+                  "polarity": "UNCERTAIN"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem-002",
+                "type": "BIOMARKER",
+                "canonicalMeaning": "QSM (Quantitative Susceptibility Mapping)",
+                "studyRole": "SUBJECT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "item-002"
+                ],
+                "sourceMessageId": "SEM-H03:user:1",
+                "sourceText": "QSM",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-003",
+                "type": "OUTCOME",
+                "canonicalMeaning": "Handicap",
+                "studyRole": "OUTCOME_ROLE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "item-004"
+                ],
+                "sourceMessageId": "SEM-H03:user:1",
+                "sourceText": "handicap",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-004",
+                "type": "UNKNOWN",
+                "canonicalMeaning": "Association versus pronostic",
+                "studyRole": "NONE",
+                "polarity": "UNCERTAIN",
+                "inventoryItemIds": [
+                  "item-005",
+                  "item-006"
+                ],
+                "sourceMessageId": "SEM-H03:user:1",
+                "sourceText": "association ou du pronostic",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": true,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-001",
+                "type": "POPULATION",
+                "canonicalMeaning": "Patients atteints de sclérose en plaques",
+                "studyRole": "SUBJECT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "item-001"
+                ],
+                "sourceMessageId": "SEM-H03:user:1",
+                "sourceText": "SEP",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel-001",
+                "sourceClientElementId": "elem-002",
+                "targetClientElementId": "elem-003",
+                "relationType": "RELATED_TO_CANDIDATE",
+                "polarity": "UNCERTAIN",
+                "inventoryRelationIds": [
+                  "rel-001"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": true
+              }
+            ],
+            "missingConcepts": [
+              "Nature of relationship (association vs prognostic)"
+            ],
+            "ellipses": [],
+            "ambiguities": [
+              "Whether the objective is a simple association or a prognostic relationship."
+            ],
+            "unknowns": [
+              "Association versus prognostic objective"
+            ],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [
+              {
+                "question": "Souhaitez-vous évaluer une simple association statistique entre le QSM et le handicap, ou visez-vous une étude pronostique ?",
+                "reason": "Clarifier l'objectif scientifique exact entre association et pronostic.",
+                "resolvesClientElementIds": [
+                  "elem-004"
+                ]
+              }
+            ],
+            "routeProposal": {
+              "route": "FORMALIZE_IDEA",
+              "confidence": 0.9,
+              "reason": "The user is exploring a scientific hypothesis and relating a biomarker to an outcome but needs to formalize the analytical objective (association vs prognosis).",
+              "expectedCapabilities": [
+                "Clarification of research hypotheses",
+                "Scientific framing"
+              ]
+            },
+            "semanticWarnings": []
+          },
+          "rawCritic": {
+            "criticId": "critic-001",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit source objects (SEP, QSM, handicap, association, pronostic) are correctly represented in the semantic inventory and typed elements."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No comparator is present in the source text."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No intervention is present in the source text."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "PASS",
+                "evidence": "QSM is correctly recognized and typed as a biomarker under the operational taxonomy precedence."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "The explicit relation 'lié' between QSM and handicap is fully captured as a RELATED_TO_CANDIDATE relation."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "Taxonomy report is complete with no findings; element types strictly conform to operational precedence."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Explicit relations are preserved faithfully without weakening."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "Uncertainties between association and prognosis are correctly maintained as ambiguous/unknown rather than promoted to definitive facts."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "The ambiguity regarding association versus prognosis is explicitly exposed in ambiguities and elementClientIds."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "Polarities are correctly recorded and affirmed/uncertain."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No specific timing constraint is present in the source text."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "Outcome and biomarker types are appropriately assigned without unsupported endpoint promotion."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts like QSM and SEP are preserved with exact meanings."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit source fragments are mapped in the semantic inventory."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "The route FORMALIZE_IDEA correctly matches the user's need to formalize an exploratory hypothesis involving association vs prognosis."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The semantic inventory, typed candidate, coverage reports, taxonomy report, and integrity report are complete and fully verified. All explicit objects, relations, and uncertainties are correctly represented without violations."
+          },
+          "rawCritics": [
+            {
+              "criticId": "critic-01",
+              "verdict": "REVISE",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit object fragments are mapped to corresponding semantic elements."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No comparator is present in the source text."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No intervention is present in the source text."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "QSM is represented as BIOMARKER based on operational precedence."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The relation 'lié' is properly mapped."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "FAIL",
+                  "evidence": "Taxonomy report flagged element elem-001 as CONDITION instead of POPULATION."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Explicit relations are preserved without weakening."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No inference has been promoted incorrectly."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "Uncertainty between association and prognosis is exposed."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "No negation is present."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No specific timing expression is present."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "Outcomes and endpoints are properly classified."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Concepts are maintained at their specific levels."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All text fragments are represented."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "Route FORMALIZE_IDEA matches the idea-exploration and objective-clarification state."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [
+                {
+                  "code": "TYPE_MISMATCH",
+                  "severity": "CRITICAL",
+                  "elementClientIds": [
+                    "elem-001"
+                  ],
+                  "description": "Participant group 'Chez SEP' typed as CONDITION instead of POPULATION.",
+                  "recommendedAction": "Use UPSERT_ELEMENT to change elementType to POPULATION and studyRole to SUBJECT.",
+                  "resolved": false
+                }
+              ],
+              "proposedRepairs": [
+                {
+                  "repairId": "rep-001",
+                  "action": "UPSERT_ELEMENT",
+                  "reason": "Correct element type for 'Chez SEP' from CONDITION to POPULATION following taxonomy report.",
+                  "sourceInventoryItemIds": [
+                    "item-001"
+                  ],
+                  "sourceInventoryRelationIds": [],
+                  "inventoryItemId": null,
+                  "inventorySourceMessageId": null,
+                  "inventorySourceText": null,
+                  "inventoryNormalizedLabel": null,
+                  "inventoryLocalRole": null,
+                  "inventoryPolarity": null,
+                  "inventoryModifiers": [],
+                  "inventoryLinkedItemIds": [],
+                  "inventoryRelationId": null,
+                  "inventoryRelationSourceItemId": null,
+                  "inventoryRelationTargetItemId": null,
+                  "inventoryRelationSourceMessageId": null,
+                  "inventoryRelationSourceText": null,
+                  "inventoryNormalizedRelation": null,
+                  "inventoryRelationPolarity": null,
+                  "elementClientElementId": "elem-001",
+                  "elementType": "POPULATION",
+                  "elementCanonicalMeaning": "Patients atteints de sclérose en plaques",
+                  "elementStudyRole": "SUBJECT",
+                  "elementPolarity": "AFFIRMED",
+                  "elementInventoryItemIds": [
+                    "item-001"
+                  ],
+                  "elementSourceMessageId": "SEM-H03:user:1",
+                  "elementSourceText": "SEP",
+                  "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+                  "elementConfidence": 1,
+                  "elementInferenceReason": null,
+                  "elementRequiresConfirmation": false,
+                  "elementSupersedesElementIds": [],
+                  "relationClientRelationId": null,
+                  "relationSourceClientElementId": null,
+                  "relationTargetClientElementId": null,
+                  "relationType": null,
+                  "relationPolarity": null,
+                  "relationInventoryRelationIds": [],
+                  "relationEpistemicStatus": null,
+                  "relationConfidence": null,
+                  "relationInferenceReason": null,
+                  "relationRequiresConfirmation": null,
+                  "ambiguity": null,
+                  "route": null,
+                  "routeConfidence": null,
+                  "routeReason": null,
+                  "routeExpectedCapabilities": []
+                }
+              ],
+              "criticSummary": "The typed candidate correctly captures the biomarker, outcome, and the methodological ambiguity. However, the participant group context 'Chez SEP' was misclassified as CONDITION instead of POPULATION per the taxonomy report. A bounded repair is provided to correct this."
+            },
+            {
+              "criticId": "critic-001",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit source objects (SEP, QSM, handicap, association, pronostic) are correctly represented in the semantic inventory and typed elements."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No comparator is present in the source text."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No intervention is present in the source text."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "QSM is correctly recognized and typed as a biomarker under the operational taxonomy precedence."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The explicit relation 'lié' between QSM and handicap is fully captured as a RELATED_TO_CANDIDATE relation."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "Taxonomy report is complete with no findings; element types strictly conform to operational precedence."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Explicit relations are preserved faithfully without weakening."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "Uncertainties between association and prognosis are correctly maintained as ambiguous/unknown rather than promoted to definitive facts."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "The ambiguity regarding association versus prognosis is explicitly exposed in ambiguities and elementClientIds."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "Polarities are correctly recorded and affirmed/uncertain."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No specific timing constraint is present in the source text."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "Outcome and biomarker types are appropriately assigned without unsupported endpoint promotion."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific concepts like QSM and SEP are preserved with exact meanings."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit source fragments are mapped in the semantic inventory."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "The route FORMALIZE_IDEA correctly matches the user's need to formalize an exploratory hypothesis involving association vs prognosis."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "The semantic inventory, typed candidate, coverage reports, taxonomy report, and integrity report are complete and fully verified. All explicit objects, relations, and uncertainties are correctly represented without violations."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-13T09:11:04.947Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-a046507ad5c5a176",
+          "resultDigest": "ke1-a046507ad5c5a176",
+          "coverageStatus": "NO_PROVIDER",
+          "verifiedAt": "2026-08-13T09:11:04.951Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-13T09:11:04.947Z",
+        "updatedAt": "2026-08-13T09:11:04.951Z",
+        "digest": "ke1-060b696b69774257"
+      },
+      "canonicalModelDigest": "ke1-060b696b69774257",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-a046507ad5c5a176",
+        "resultDigest": "ke1-a046507ad5c5a176",
+        "coverageStatus": "NO_PROVIDER",
+        "verifiedAt": "2026-08-13T09:11:04.951Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-eb590ee8c0481afc",
+      "structuredDigest": "ke1-ef6bd5382c54298c",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:10:51.625Z",
+          "requestFinished": "2026-08-13T09:10:56.892Z",
+          "latencyMs": 5267,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-739b154b6e0d7dbf",
+      "structuredDigest": "ke1-9795c79faeb882b3",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:10:56.896Z",
+          "requestFinished": "2026-08-13T09:11:01.220Z",
+          "latencyMs": 4324,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 2,
+      "callId": "gemini-call:ke1-8ff05c7022de34fc",
+      "structuredDigest": "ke1-141d73d97ae7f74d",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:11:01.754Z",
+          "requestFinished": "2026-08-13T09:11:04.946Z",
+          "latencyMs": 3192,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-4aaa97fab8f81356",
+    "revision": 1,
+    "status": "CANDIDATE",
+    "originalRequest": "Chez SEP, le QSM serait lié au handicap mais je ne sais pas si je cherche une association ou du pronostic.",
+    "normalizedMeaning": "Dans la sclérose en plaques, le QSM est lié au handicap, mais la nature exacte de la relation (association ou pronostic) reste incertaine.",
+    "conversationMessageIds": [
+      "SEM-H03:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-1be1de6ae351fb0e",
+        "type": "OUTCOME",
+        "canonicalMeaning": "Handicap",
+        "studyRole": "OUTCOME_ROLE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "item-004"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H03:user:1",
+          "text": "handicap",
+          "start": 31,
+          "end": 39
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-6d1e5aaede1a583a"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H03:user:1",
+          "providerCallId": "gemini-call:ke1-eb590ee8c0481afc",
+          "rawElementId": "elem-003"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-54a02dec72e92908",
+        "type": "UNKNOWN",
+        "canonicalMeaning": "Association versus pronostic",
+        "studyRole": "NONE",
+        "polarity": "UNCERTAIN",
+        "inventoryItemIds": [
+          "item-005",
+          "item-006"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H03:user:1",
+          "text": "association ou du pronostic",
+          "start": 78,
+          "end": 105
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H03:user:1",
+          "providerCallId": "gemini-call:ke1-eb590ee8c0481afc",
+          "rawElementId": "elem-004"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-b3ce46cac15fc9f6",
+        "type": "POPULATION",
+        "canonicalMeaning": "Patients atteints de sclérose en plaques",
+        "studyRole": "SUBJECT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "item-001"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H03:user:1",
+          "text": "SEP",
+          "start": 5,
+          "end": 8
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H03:user:1",
+          "providerCallId": "gemini-call:ke1-eb590ee8c0481afc",
+          "rawElementId": "elem-001"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-f379a85aea199cf6",
+        "type": "BIOMARKER",
+        "canonicalMeaning": "QSM (Quantitative Susceptibility Mapping)",
+        "studyRole": "SUBJECT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "item-002"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H03:user:1",
+          "text": "QSM",
+          "start": 13,
+          "end": 16
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-6d1e5aaede1a583a"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-a046507ad5c5a176",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-507b7b199928638d",
+            "knowledge-gap:ke1-7a6eabe4f3b700e8",
+            "knowledge-gap:ke1-dcdfda33c341cc67"
+          ],
+          "checkedAt": "2026-08-13T09:11:04.951Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H03:user:1",
+          "providerCallId": "gemini-call:ke1-eb590ee8c0481afc",
+          "rawElementId": "elem-002"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-6d1e5aaede1a583a",
+        "sourceElementId": "sem-element:ke1-f379a85aea199cf6",
+        "targetElementId": "sem-element:ke1-1be1de6ae351fb0e",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "polarity": "UNCERTAIN",
+        "inventoryRelationIds": [
+          "rel-001"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "item-001",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "SEP",
+          "normalizedMeaning": "sclérose en plaques",
+          "mappedClientElementIds": [
+            "elem-001"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-002",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "QSM",
+          "normalizedMeaning": "QSM",
+          "mappedClientElementIds": [
+            "elem-002"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-003",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "lié",
+          "normalizedMeaning": "lié",
+          "mappedClientElementIds": [],
+          "mappedClientRelationIds": [
+            "rel-001"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "The explicit functional fragment is represented by its source-grounded direct Semantic Relation rather than by a false object node."
+        },
+        {
+          "inventoryItemId": "item-004",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "handicap",
+          "normalizedMeaning": "handicap",
+          "mappedClientElementIds": [
+            "elem-003"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-005",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "association",
+          "normalizedMeaning": "association",
+          "mappedClientElementIds": [
+            "elem-004"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-006",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "pronostic",
+          "normalizedMeaning": "pronostic",
+          "mappedClientElementIds": [
+            "elem-004"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-001",
+          "sourceInventoryItemId": "item-002",
+          "targetInventoryItemId": "item-004",
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "mappedClientRelationIds": [
+            "rel-001"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "missingConcepts": [
+      "Nature of relationship (association vs prognostic)"
+    ],
+    "ellipses": [],
+    "ambiguities": [
+      "Whether the objective is a simple association or a prognostic relationship."
+    ],
+    "unknowns": [
+      "Association versus prognostic objective"
+    ],
+    "contradictions": [],
+    "clarificationCandidates": [
+      {
+        "question": "Souhaitez-vous évaluer une simple association statistique entre le QSM et le handicap, ou visez-vous une étude pronostique ?",
+        "reason": "Clarifier l'objectif scientifique exact entre association et pronostic.",
+        "resolvesElementIds": [
+          "sem-element:ke1-54a02dec72e92908"
+        ]
+      }
+    ],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "FORMALIZE_IDEA",
+      "confidence": 0.9,
+      "reason": "The user is exploring a scientific hypothesis and relating a biomarker to an outcome but needs to formalize the analytical objective (association vs prognosis).",
+      "expectedCapabilities": [
+        "Clarification of research hypotheses",
+        "Scientific framing"
+      ]
+    },
+    "summaryForUser": "Vous étudiez le lien entre le QSM et le handicap dans la sclérose en plaques, en hésitant entre une recherche d'association simple ou une approche pronostique.",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "The semantic inventory, typed candidate, coverage reports, taxonomy report, and integrity report are complete and fully verified. All explicit objects, relations, and uncertainties are correctly represented without violations."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-eb590ee8c0481afc",
+      "criticCallId": "gemini-call:ke1-8ff05c7022de34fc",
+      "criticCallIds": [
+        "gemini-call:ke1-739b154b6e0d7dbf",
+        "gemini-call:ke1-8ff05c7022de34fc"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:10:51.625Z",
+          "requestFinished": "2026-08-13T09:10:56.892Z",
+          "latencyMs": 5267,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:10:56.896Z",
+          "requestFinished": "2026-08-13T09:11:01.220Z",
+          "latencyMs": 4324,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:11:01.754Z",
+          "requestFinished": "2026-08-13T09:11:04.946Z",
+          "latencyMs": 3192,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Dans la sclérose en plaques, le QSM est lié au handicap, mais la nature exacte de la relation (association ou pronostic) reste incertaine.",
+        "summaryForUser": "Vous étudiez le lien entre le QSM et le handicap dans la sclérose en plaques, en hésitant entre une recherche d'association simple ou une approche pronostique.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "item-001",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "SEP",
+              "normalizedLabel": "sclérose en plaques",
+              "localRole": "condition",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item-002",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "QSM",
+              "normalizedLabel": "QSM",
+              "localRole": "biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item-003",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "lié",
+              "normalizedLabel": "lié",
+              "localRole": "relation",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "item-002",
+                "item-004"
+              ]
+            },
+            {
+              "inventoryItemId": "item-004",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "handicap",
+              "normalizedLabel": "handicap",
+              "localRole": "outcome",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item-005",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "association",
+              "normalizedLabel": "association",
+              "localRole": "uncertainty",
+              "polarity": "UNCERTAIN",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item-006",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "pronostic",
+              "normalizedLabel": "pronostic",
+              "localRole": "uncertainty",
+              "polarity": "UNCERTAIN",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-001",
+              "sourceInventoryItemId": "item-002",
+              "targetInventoryItemId": "item-004",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "le QSM serait lié au handicap",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "polarity": "UNCERTAIN"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-002",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "QSM (Quantitative Susceptibility Mapping)",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-002"
+            ],
+            "sourceMessageId": "SEM-H03:user:1",
+            "sourceText": "QSM",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-003",
+            "type": "OUTCOME",
+            "canonicalMeaning": "Handicap",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-004"
+            ],
+            "sourceMessageId": "SEM-H03:user:1",
+            "sourceText": "handicap",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-004",
+            "type": "UNKNOWN",
+            "canonicalMeaning": "Association versus pronostic",
+            "studyRole": "NONE",
+            "polarity": "UNCERTAIN",
+            "inventoryItemIds": [
+              "item-005",
+              "item-006"
+            ],
+            "sourceMessageId": "SEM-H03:user:1",
+            "sourceText": "association ou du pronostic",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": true,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-001",
+            "type": "POPULATION",
+            "canonicalMeaning": "Patients atteints de sclérose en plaques",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-001"
+            ],
+            "sourceMessageId": "SEM-H03:user:1",
+            "sourceText": "SEP",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-001",
+            "sourceClientElementId": "elem-002",
+            "targetClientElementId": "elem-003",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "UNCERTAIN",
+            "inventoryRelationIds": [
+              "rel-001"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": true
+          }
+        ],
+        "missingConcepts": [
+          "Nature of relationship (association vs prognostic)"
+        ],
+        "ellipses": [],
+        "ambiguities": [
+          "Whether the objective is a simple association or a prognostic relationship."
+        ],
+        "unknowns": [
+          "Association versus prognostic objective"
+        ],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [
+          {
+            "question": "Souhaitez-vous évaluer une simple association statistique entre le QSM et le handicap, ou visez-vous une étude pronostique ?",
+            "reason": "Clarifier l'objectif scientifique exact entre association et pronostic.",
+            "resolvesClientElementIds": [
+              "elem-004"
+            ]
+          }
+        ],
+        "routeProposal": {
+          "route": "FORMALIZE_IDEA",
+          "confidence": 0.9,
+          "reason": "The user is exploring a scientific hypothesis and relating a biomarker to an outcome but needs to formalize the analytical objective (association vs prognosis).",
+          "expectedCapabilities": [
+            "Clarification of research hypotheses",
+            "Scientific framing"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "rawCritic": {
+        "criticId": "critic-001",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit source objects (SEP, QSM, handicap, association, pronostic) are correctly represented in the semantic inventory and typed elements."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No comparator is present in the source text."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No intervention is present in the source text."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "PASS",
+            "evidence": "QSM is correctly recognized and typed as a biomarker under the operational taxonomy precedence."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "The explicit relation 'lié' between QSM and handicap is fully captured as a RELATED_TO_CANDIDATE relation."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "Taxonomy report is complete with no findings; element types strictly conform to operational precedence."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "Explicit relations are preserved faithfully without weakening."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "Uncertainties between association and prognosis are correctly maintained as ambiguous/unknown rather than promoted to definitive facts."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "The ambiguity regarding association versus prognosis is explicitly exposed in ambiguities and elementClientIds."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "Polarities are correctly recorded and affirmed/uncertain."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No specific timing constraint is present in the source text."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "Outcome and biomarker types are appropriately assigned without unsupported endpoint promotion."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific concepts like QSM and SEP are preserved with exact meanings."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit source fragments are mapped in the semantic inventory."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "The route FORMALIZE_IDEA correctly matches the user's need to formalize an exploratory hypothesis involving association vs prognosis."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "The semantic inventory, typed candidate, coverage reports, taxonomy report, and integrity report are complete and fully verified. All explicit objects, relations, and uncertainties are correctly represented without violations."
+      },
+      "rawCritics": [
+        {
+          "criticId": "critic-01",
+          "verdict": "REVISE",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit object fragments are mapped to corresponding semantic elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is present in the source text."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No intervention is present in the source text."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "QSM is represented as BIOMARKER based on operational precedence."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The relation 'lié' is properly mapped."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "FAIL",
+              "evidence": "Taxonomy report flagged element elem-001 as CONDITION instead of POPULATION."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations are preserved without weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No inference has been promoted incorrectly."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Uncertainty between association and prognosis is exposed."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "No negation is present."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No specific timing expression is present."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Outcomes and endpoints are properly classified."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Concepts are maintained at their specific levels."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "All text fragments are represented."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route FORMALIZE_IDEA matches the idea-exploration and objective-clarification state."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [
+            {
+              "code": "TYPE_MISMATCH",
+              "severity": "CRITICAL",
+              "elementClientIds": [
+                "elem-001"
+              ],
+              "description": "Participant group 'Chez SEP' typed as CONDITION instead of POPULATION.",
+              "recommendedAction": "Use UPSERT_ELEMENT to change elementType to POPULATION and studyRole to SUBJECT.",
+              "resolved": false
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "repairId": "rep-001",
+              "action": "UPSERT_ELEMENT",
+              "reason": "Correct element type for 'Chez SEP' from CONDITION to POPULATION following taxonomy report.",
+              "sourceInventoryItemIds": [
+                "item-001"
+              ],
+              "sourceInventoryRelationIds": [],
+              "inventoryItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "inventoryNormalizedLabel": null,
+              "inventoryLocalRole": null,
+              "inventoryPolarity": null,
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": "elem-001",
+              "elementType": "POPULATION",
+              "elementCanonicalMeaning": "Patients atteints de sclérose en plaques",
+              "elementStudyRole": "SUBJECT",
+              "elementPolarity": "AFFIRMED",
+              "elementInventoryItemIds": [
+                "item-001"
+              ],
+              "elementSourceMessageId": "SEM-H03:user:1",
+              "elementSourceText": "SEP",
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementConfidence": 1,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": false,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "relationPolarity": null,
+              "relationInventoryRelationIds": [],
+              "relationEpistemicStatus": null,
+              "relationConfidence": null,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": null,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            }
+          ],
+          "criticSummary": "The typed candidate correctly captures the biomarker, outcome, and the methodological ambiguity. However, the participant group context 'Chez SEP' was misclassified as CONDITION instead of POPULATION per the taxonomy report. A bounded repair is provided to correct this."
+        },
+        {
+          "criticId": "critic-001",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit source objects (SEP, QSM, handicap, association, pronostic) are correctly represented in the semantic inventory and typed elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is present in the source text."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No intervention is present in the source text."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "QSM is correctly recognized and typed as a biomarker under the operational taxonomy precedence."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The explicit relation 'lié' between QSM and handicap is fully captured as a RELATED_TO_CANDIDATE relation."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Taxonomy report is complete with no findings; element types strictly conform to operational precedence."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations are preserved faithfully without weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Uncertainties between association and prognosis are correctly maintained as ambiguous/unknown rather than promoted to definitive facts."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "The ambiguity regarding association versus prognosis is explicitly exposed in ambiguities and elementClientIds."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarities are correctly recorded and affirmed/uncertain."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No specific timing constraint is present in the source text."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Outcome and biomarker types are appropriately assigned without unsupported endpoint promotion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like QSM and SEP are preserved with exact meanings."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit source fragments are mapped in the semantic inventory."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The route FORMALIZE_IDEA correctly matches the user's need to formalize an exploratory hypothesis involving association vs prognosis."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The semantic inventory, typed candidate, coverage reports, taxonomy report, and integrity report are complete and fully verified. All explicit objects, relations, and uncertainties are correctly represented without violations."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-13T09:11:04.947Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-a046507ad5c5a176",
+      "resultDigest": "ke1-a046507ad5c5a176",
+      "coverageStatus": "NO_PROVIDER",
+      "verifiedAt": "2026-08-13T09:11:04.951Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-13T09:11:04.947Z",
+    "updatedAt": "2026-08-13T09:11:04.951Z",
+    "digest": "ke1-060b696b69774257"
+  },
+  "semanticModelDigest": "ke1-060b696b69774257",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "item-001",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "SEP",
+          "normalizedMeaning": "sclérose en plaques",
+          "mappedClientElementIds": [
+            "elem-001"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-002",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "QSM",
+          "normalizedMeaning": "QSM",
+          "mappedClientElementIds": [
+            "elem-002"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-003",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "lié",
+          "normalizedMeaning": "lié",
+          "mappedClientElementIds": [],
+          "mappedClientRelationIds": [
+            "rel-001"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "The explicit functional fragment is represented by its source-grounded direct Semantic Relation rather than by a false object node."
+        },
+        {
+          "inventoryItemId": "item-004",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "handicap",
+          "normalizedMeaning": "handicap",
+          "mappedClientElementIds": [
+            "elem-003"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-005",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "association",
+          "normalizedMeaning": "association",
+          "mappedClientElementIds": [
+            "elem-004"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-006",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "pronostic",
+          "normalizedMeaning": "pronostic",
+          "mappedClientElementIds": [
+            "elem-004"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-001",
+          "sourceInventoryItemId": "item-002",
+          "targetInventoryItemId": "item-004",
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "mappedClientRelationIds": [
+            "rel-001"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-8066258bdfcc6c77",
+    "evaluatedAt": "2026-08-13T09:11:04.955Z",
+    "goldFrameDigest": "ke1-4c3c7941093f5edd",
+    "result": {
+      "caseId": "SEM-H03",
+      "explicitObjectRecall": 0.6666666666666666,
+      "explicitRelationRecall": 1,
+      "criticalSemanticRecall": 0.75,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 0,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": [
+        "EXPLICIT_CONDITION_LOST:sclérose en plaques"
+      ]
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H03",
+    "explicitObjectRecall": 0.6666666666666666,
+    "explicitRelationRecall": 1,
+    "criticalSemanticRecall": 0.75,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 0,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": [
+      "EXPLICIT_CONDITION_LOST:sclérose en plaques"
+    ]
+  },
+  "error": null
+}

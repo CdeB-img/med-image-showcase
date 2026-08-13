@@ -1,0 +1,2494 @@
+{
+  "campaign": "SEM-001R5M-CLOSURE",
+  "campaignId": "sem-001r5m-closure-2026-08-13T09-40-35-104Z-ke1-ac75ad8a4d6f2326",
+  "caseId": "SEM-H04",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-ac75ad8a4d6f2326",
+  "semanticConfigurationDigest": "ke1-2d65467f810363ab",
+  "goldFrameDigest": "ke1-c09e5fea6587acc6",
+  "originalRequest": [
+    "Comparer DWI whole-body et PET PSMA pour repérer les métastases, pas pour mesurer la réponse."
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-13T09:42:17.047Z",
+  "completedAt": "2026-08-13T09:42:26.979Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H04:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "cand_01J9XYZ",
+        "language": "fr",
+        "normalizedMeaning": "Comparison between whole-body diffusion-weighted imaging (DWI) and PSMA PET for detecting metastases, explicitly excluding response measurement.",
+        "summaryForUser": "Comparaison entre la DWI corps entier et le TEP PSMA pour la détection des métastases, à l'exclusion de la mesure de la réponse.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv_01",
+              "sourceMessageId": "SEM-H04:user:1",
+              "sourceText": "Comparer",
+              "normalizedLabel": "comparer",
+              "localRole": "action",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_02",
+                "inv_03"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_02",
+              "sourceMessageId": "SEM-H04:user:1",
+              "sourceText": "DWI whole-body",
+              "normalizedLabel": "DWI whole-body",
+              "localRole": "modality",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_01"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_03",
+              "sourceMessageId": "SEM-H04:user:1",
+              "sourceText": "PET PSMA",
+              "normalizedLabel": "PET PSMA",
+              "localRole": "modality",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_01"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_04",
+              "sourceMessageId": "SEM-H04:user:1",
+              "sourceText": "repérer",
+              "normalizedLabel": "repérer",
+              "localRole": "purpose",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_05"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_05",
+              "sourceMessageId": "SEM-H04:user:1",
+              "sourceText": "métastases",
+              "normalizedLabel": "métastases",
+              "localRole": "target",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_04"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_06",
+              "sourceMessageId": "SEM-H04:user:1",
+              "sourceText": "pas pour mesurer la réponse",
+              "normalizedLabel": "pas pour mesurer la réponse",
+              "localRole": "constraint",
+              "polarity": "NEGATED",
+              "modifiers": [
+                "pas"
+              ],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_01",
+              "sourceInventoryItemId": "inv_02",
+              "targetInventoryItemId": "inv_03",
+              "sourceMessageId": "SEM-H04:user:1",
+              "sourceText": "Comparer DWI whole-body et PET PSMA",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_02",
+              "sourceInventoryItemId": "inv_02",
+              "targetInventoryItemId": "inv_05",
+              "sourceMessageId": "SEM-H04:user:1",
+              "sourceText": "Comparer DWI whole-body et PET PSMA pour repérer les métastases, pas pour mesurer la réponse.",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_03",
+              "sourceInventoryItemId": "inv_03",
+              "targetInventoryItemId": "inv_05",
+              "sourceMessageId": "SEM-H04:user:1",
+              "sourceText": "Comparer DWI whole-body et PET PSMA pour repérer les métastases, pas pour mesurer la réponse.",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem_01",
+            "type": "OPERATION",
+            "canonicalMeaning": "Comparer",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_01"
+            ],
+            "sourceMessageId": "SEM-H04:user:1",
+            "sourceText": "Comparer",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_02",
+            "type": "MODALITY",
+            "canonicalMeaning": "DWI whole-body",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_02"
+            ],
+            "sourceMessageId": "SEM-H04:user:1",
+            "sourceText": "DWI whole-body",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_03",
+            "type": "MODALITY",
+            "canonicalMeaning": "PET PSMA",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_03"
+            ],
+            "sourceMessageId": "SEM-H04:user:1",
+            "sourceText": "PET PSMA",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_04",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "repérer",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_04"
+            ],
+            "sourceMessageId": "SEM-H04:user:1",
+            "sourceText": "repérer",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_05",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "métastases",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_05"
+            ],
+            "sourceMessageId": "SEM-H04:user:1",
+            "sourceText": "métastases",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_06",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "pas pour mesurer la réponse",
+            "studyRole": "NONE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv_06"
+            ],
+            "sourceMessageId": "SEM-H04:user:1",
+            "sourceText": "pas pour mesurer la réponse",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel_c_01",
+            "sourceClientElementId": "elem_02",
+            "targetClientElementId": "elem_03",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_01"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_c_02",
+            "sourceClientElementId": "elem_02",
+            "targetClientElementId": "elem_05",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_02"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_c_03",
+            "sourceClientElementId": "elem_03",
+            "targetClientElementId": "elem_05",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_03"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.95,
+          "reason": "The user is setting up a comparison study between two modalities for detecting a target condition.",
+          "expectedCapabilities": [
+            "Study design framework",
+            "Modalities comparison"
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:2"
+        ]
+      },
+      "reconstructionDigest": "ke1-86b1c7c508a5b1d9",
+      "critics": [
+        {
+          "criticId": "critic_01J9XYZ",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit object fragments are mapped to corresponding semantic elements (elem_02, elem_03, elem_05)."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Modality comparison between DWI whole-body and PET PSMA is fully captured in elements and relations."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit therapeutic or experimental interventions are requested in the source message."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Both DWI whole-body and PET PSMA are correctly classified as MODALITY."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All inventory relations (rel_01, rel_02, rel_03) are represented correctly by client relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All element types adhere strictly to the operational taxonomy."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations retain their direct semantics without weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No ungrounded inferences have been promoted to explicit statements."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No hidden ambiguities were introduced."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "The constraint 'pas pour mesurer la réponse' is correctly captured with NEGATED polarity."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit temporal expressions or timings are present in the text."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No outcome has been inappropriately promoted to an endpoint without user designation."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts such as DWI whole-body and PET PSMA are preserved accurately."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "All source fragments are accounted for in the inventory and candidate."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY is completely appropriate for comparing modalities in a diagnostic study setup."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The semantic model and typed candidate are fully aligned with the source text, correctly representing all modalities, objects, operations, constraints, and relations without any critical issues or missing elements."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-1fd21441951bcac5",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "Comparer DWI whole-body et PET PSMA pour repérer les métastases, pas pour mesurer la réponse.",
+        "normalizedMeaning": "Comparison between whole-body diffusion-weighted imaging (DWI) and PSMA PET for detecting metastases, explicitly excluding response measurement.",
+        "conversationMessageIds": [
+          "SEM-H04:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-4bc10ffd72d689c9",
+            "type": "MODALITY",
+            "canonicalMeaning": "DWI whole-body",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_02"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H04:user:1",
+              "text": "DWI whole-body",
+              "start": 9,
+              "end": 23
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-5b4924f857623584",
+              "sem-relation:ke1-d569d08397e7eccf"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H04:user:1",
+              "providerCallId": "gemini-call:ke1-9622c51c6467a478",
+              "rawElementId": "elem_02"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-669de1bbee4fe08f",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "pas pour mesurer la réponse",
+            "studyRole": "NONE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv_06"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H04:user:1",
+              "text": "pas pour mesurer la réponse",
+              "start": 65,
+              "end": 92
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H04:user:1",
+              "providerCallId": "gemini-call:ke1-9622c51c6467a478",
+              "rawElementId": "elem_06"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-733e88ed3db783b9",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "métastases",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_05"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H04:user:1",
+              "text": "métastases",
+              "start": 53,
+              "end": 63
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-32f7e41554e83b51",
+              "sem-relation:ke1-d569d08397e7eccf"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H04:user:1",
+              "providerCallId": "gemini-call:ke1-9622c51c6467a478",
+              "rawElementId": "elem_05"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-9312b24e820c8ffa",
+            "type": "OPERATION",
+            "canonicalMeaning": "Comparer",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_01"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H04:user:1",
+              "text": "Comparer",
+              "start": 0,
+              "end": 8
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H04:user:1",
+              "providerCallId": "gemini-call:ke1-9622c51c6467a478",
+              "rawElementId": "elem_01"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-e6dbdc6923c8992d",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "repérer",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_04"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H04:user:1",
+              "text": "repérer",
+              "start": 41,
+              "end": 48
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H04:user:1",
+              "providerCallId": "gemini-call:ke1-9622c51c6467a478",
+              "rawElementId": "elem_04"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-f8ec6203e34e00a7",
+            "type": "MODALITY",
+            "canonicalMeaning": "PET PSMA",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_03"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H04:user:1",
+              "text": "PET PSMA",
+              "start": 27,
+              "end": 35
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-32f7e41554e83b51",
+              "sem-relation:ke1-5b4924f857623584"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H04:user:1",
+              "providerCallId": "gemini-call:ke1-9622c51c6467a478",
+              "rawElementId": "elem_03"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-32f7e41554e83b51",
+            "sourceElementId": "sem-element:ke1-f8ec6203e34e00a7",
+            "targetElementId": "sem-element:ke1-733e88ed3db783b9",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_03"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-5b4924f857623584",
+            "sourceElementId": "sem-element:ke1-4bc10ffd72d689c9",
+            "targetElementId": "sem-element:ke1-f8ec6203e34e00a7",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_01"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-d569d08397e7eccf",
+            "sourceElementId": "sem-element:ke1-4bc10ffd72d689c9",
+            "targetElementId": "sem-element:ke1-733e88ed3db783b9",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_02"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv_01",
+              "sourceMessageId": "SEM-H04:user:1",
+              "sourceText": "Comparer",
+              "normalizedMeaning": "comparer",
+              "mappedClientElementIds": [
+                "elem_01"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_02",
+              "sourceMessageId": "SEM-H04:user:1",
+              "sourceText": "DWI whole-body",
+              "normalizedMeaning": "DWI whole-body",
+              "mappedClientElementIds": [
+                "elem_02"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_03",
+              "sourceMessageId": "SEM-H04:user:1",
+              "sourceText": "PET PSMA",
+              "normalizedMeaning": "PET PSMA",
+              "mappedClientElementIds": [
+                "elem_03"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_04",
+              "sourceMessageId": "SEM-H04:user:1",
+              "sourceText": "repérer",
+              "normalizedMeaning": "repérer",
+              "mappedClientElementIds": [
+                "elem_04"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_05",
+              "sourceMessageId": "SEM-H04:user:1",
+              "sourceText": "métastases",
+              "normalizedMeaning": "métastases",
+              "mappedClientElementIds": [
+                "elem_05"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_06",
+              "sourceMessageId": "SEM-H04:user:1",
+              "sourceText": "pas pour mesurer la réponse",
+              "normalizedMeaning": "pas pour mesurer la réponse",
+              "mappedClientElementIds": [
+                "elem_06"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel_01",
+              "sourceInventoryItemId": "inv_02",
+              "targetInventoryItemId": "inv_03",
+              "normalizedRelation": "COMPARES_WITH",
+              "mappedClientRelationIds": [
+                "rel_c_01"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_02",
+              "sourceInventoryItemId": "inv_02",
+              "targetInventoryItemId": "inv_05",
+              "normalizedRelation": "OBSERVES",
+              "mappedClientRelationIds": [
+                "rel_c_02"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_03",
+              "sourceInventoryItemId": "inv_03",
+              "targetInventoryItemId": "inv_05",
+              "normalizedRelation": "OBSERVES",
+              "mappedClientRelationIds": [
+                "rel_c_03"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "clarificationCandidates": [],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.95,
+          "reason": "The user is setting up a comparison study between two modalities for detecting a target condition.",
+          "expectedCapabilities": [
+            "Modalities comparison",
+            "Study design framework"
+          ]
+        },
+        "summaryForUser": "Comparaison entre la DWI corps entier et le TEP PSMA pour la détection des métastases, à l'exclusion de la mesure de la réponse.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "The semantic model and typed candidate are fully aligned with the source text, correctly representing all modalities, objects, operations, constraints, and relations without any critical issues or missing elements."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+          "criticPromptVersion": "SEM-001-CRITIC-1.6",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-9622c51c6467a478",
+          "criticCallId": "gemini-call:ke1-e98391bb5b8711cf",
+          "criticCallIds": [
+            "gemini-call:ke1-e98391bb5b8711cf"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:42:17.048Z",
+              "requestFinished": "2026-08-13T09:42:23.663Z",
+              "latencyMs": 6615,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:42:23.667Z",
+              "requestFinished": "2026-08-13T09:42:26.971Z",
+              "latencyMs": 3304,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "cand_01J9XYZ",
+            "language": "fr",
+            "normalizedMeaning": "Comparison between whole-body diffusion-weighted imaging (DWI) and PSMA PET for detecting metastases, explicitly excluding response measurement.",
+            "summaryForUser": "Comparaison entre la DWI corps entier et le TEP PSMA pour la détection des métastases, à l'exclusion de la mesure de la réponse.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "inv_01",
+                  "sourceMessageId": "SEM-H04:user:1",
+                  "sourceText": "Comparer",
+                  "normalizedLabel": "comparer",
+                  "localRole": "action",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv_02",
+                    "inv_03"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv_02",
+                  "sourceMessageId": "SEM-H04:user:1",
+                  "sourceText": "DWI whole-body",
+                  "normalizedLabel": "DWI whole-body",
+                  "localRole": "modality",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv_01"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv_03",
+                  "sourceMessageId": "SEM-H04:user:1",
+                  "sourceText": "PET PSMA",
+                  "normalizedLabel": "PET PSMA",
+                  "localRole": "modality",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv_01"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv_04",
+                  "sourceMessageId": "SEM-H04:user:1",
+                  "sourceText": "repérer",
+                  "normalizedLabel": "repérer",
+                  "localRole": "purpose",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv_05"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv_05",
+                  "sourceMessageId": "SEM-H04:user:1",
+                  "sourceText": "métastases",
+                  "normalizedLabel": "métastases",
+                  "localRole": "target",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv_04"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv_06",
+                  "sourceMessageId": "SEM-H04:user:1",
+                  "sourceText": "pas pour mesurer la réponse",
+                  "normalizedLabel": "pas pour mesurer la réponse",
+                  "localRole": "constraint",
+                  "polarity": "NEGATED",
+                  "modifiers": [
+                    "pas"
+                  ],
+                  "linkedInventoryItemIds": []
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel_01",
+                  "sourceInventoryItemId": "inv_02",
+                  "targetInventoryItemId": "inv_03",
+                  "sourceMessageId": "SEM-H04:user:1",
+                  "sourceText": "Comparer DWI whole-body et PET PSMA",
+                  "normalizedRelation": "COMPARES_WITH",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel_02",
+                  "sourceInventoryItemId": "inv_02",
+                  "targetInventoryItemId": "inv_05",
+                  "sourceMessageId": "SEM-H04:user:1",
+                  "sourceText": "Comparer DWI whole-body et PET PSMA pour repérer les métastases, pas pour mesurer la réponse.",
+                  "normalizedRelation": "OBSERVES",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel_03",
+                  "sourceInventoryItemId": "inv_03",
+                  "targetInventoryItemId": "inv_05",
+                  "sourceMessageId": "SEM-H04:user:1",
+                  "sourceText": "Comparer DWI whole-body et PET PSMA pour repérer les métastases, pas pour mesurer la réponse.",
+                  "normalizedRelation": "OBSERVES",
+                  "polarity": "AFFIRMED"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem_01",
+                "type": "OPERATION",
+                "canonicalMeaning": "Comparer",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_01"
+                ],
+                "sourceMessageId": "SEM-H04:user:1",
+                "sourceText": "Comparer",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_02",
+                "type": "MODALITY",
+                "canonicalMeaning": "DWI whole-body",
+                "studyRole": "COMPARATOR_ARM",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_02"
+                ],
+                "sourceMessageId": "SEM-H04:user:1",
+                "sourceText": "DWI whole-body",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_03",
+                "type": "MODALITY",
+                "canonicalMeaning": "PET PSMA",
+                "studyRole": "COMPARATOR_ARM",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_03"
+                ],
+                "sourceMessageId": "SEM-H04:user:1",
+                "sourceText": "PET PSMA",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_04",
+                "type": "SCIENTIFIC_INTENT",
+                "canonicalMeaning": "repérer",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_04"
+                ],
+                "sourceMessageId": "SEM-H04:user:1",
+                "sourceText": "repérer",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_05",
+                "type": "SCIENTIFIC_OBJECT",
+                "canonicalMeaning": "métastases",
+                "studyRole": "SUBJECT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_05"
+                ],
+                "sourceMessageId": "SEM-H04:user:1",
+                "sourceText": "métastases",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_06",
+                "type": "CONSTRAINT",
+                "canonicalMeaning": "pas pour mesurer la réponse",
+                "studyRole": "NONE",
+                "polarity": "NEGATED",
+                "inventoryItemIds": [
+                  "inv_06"
+                ],
+                "sourceMessageId": "SEM-H04:user:1",
+                "sourceText": "pas pour mesurer la réponse",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel_c_01",
+                "sourceClientElementId": "elem_02",
+                "targetClientElementId": "elem_03",
+                "relationType": "COMPARES_WITH",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_01"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel_c_02",
+                "sourceClientElementId": "elem_02",
+                "targetClientElementId": "elem_05",
+                "relationType": "OBSERVES",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_02"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel_c_03",
+                "sourceClientElementId": "elem_03",
+                "targetClientElementId": "elem_05",
+                "relationType": "OBSERVES",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_03"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              }
+            ],
+            "missingConcepts": [],
+            "ellipses": [],
+            "ambiguities": [],
+            "unknowns": [],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [],
+            "routeProposal": {
+              "route": "DESIGN_STUDY",
+              "confidence": 0.95,
+              "reason": "The user is setting up a comparison study between two modalities for detecting a target condition.",
+              "expectedCapabilities": [
+                "Study design framework",
+                "Modalities comparison"
+              ]
+            },
+            "semanticWarnings": [
+              "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:2"
+            ]
+          },
+          "rawCritic": {
+            "criticId": "critic_01J9XYZ",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit object fragments are mapped to corresponding semantic elements (elem_02, elem_03, elem_05)."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Modality comparison between DWI whole-body and PET PSMA is fully captured in elements and relations."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No explicit therapeutic or experimental interventions are requested in the source message."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Both DWI whole-body and PET PSMA are correctly classified as MODALITY."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All inventory relations (rel_01, rel_02, rel_03) are represented correctly by client relations."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "All element types adhere strictly to the operational taxonomy."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Explicit relations retain their direct semantics without weakening."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No ungrounded inferences have been promoted to explicit statements."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "No hidden ambiguities were introduced."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "The constraint 'pas pour mesurer la réponse' is correctly captured with NEGATED polarity."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No explicit temporal expressions or timings are present in the text."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "No outcome has been inappropriately promoted to an endpoint without user designation."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts such as DWI whole-body and PET PSMA are preserved accurately."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "All source fragments are accounted for in the inventory and candidate."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "Route DESIGN_STUDY is completely appropriate for comparing modalities in a diagnostic study setup."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The semantic model and typed candidate are fully aligned with the source text, correctly representing all modalities, objects, operations, constraints, and relations without any critical issues or missing elements."
+          },
+          "rawCritics": [
+            {
+              "criticId": "critic_01J9XYZ",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit object fragments are mapped to corresponding semantic elements (elem_02, elem_03, elem_05)."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "Modality comparison between DWI whole-body and PET PSMA is fully captured in elements and relations."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No explicit therapeutic or experimental interventions are requested in the source message."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "Both DWI whole-body and PET PSMA are correctly classified as MODALITY."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All inventory relations (rel_01, rel_02, rel_03) are represented correctly by client relations."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "All element types adhere strictly to the operational taxonomy."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Explicit relations retain their direct semantics without weakening."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No ungrounded inferences have been promoted to explicit statements."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "No hidden ambiguities were introduced."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "The constraint 'pas pour mesurer la réponse' is correctly captured with NEGATED polarity."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No explicit temporal expressions or timings are present in the text."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "No outcome has been inappropriately promoted to an endpoint without user designation."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific concepts such as DWI whole-body and PET PSMA are preserved accurately."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All source fragments are accounted for in the inventory and candidate."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "Route DESIGN_STUDY is completely appropriate for comparing modalities in a diagnostic study setup."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "The semantic model and typed candidate are fully aligned with the source text, correctly representing all modalities, objects, operations, constraints, and relations without any critical issues or missing elements."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-13T09:42:26.973Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-db77bf8b1ffff71f",
+          "resultDigest": "ke1-db77bf8b1ffff71f",
+          "coverageStatus": "NO_PROVIDER",
+          "verifiedAt": "2026-08-13T09:42:26.977Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-13T09:42:26.973Z",
+        "updatedAt": "2026-08-13T09:42:26.977Z",
+        "digest": "ke1-f0ad934823698d74"
+      },
+      "canonicalModelDigest": "ke1-f0ad934823698d74",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-db77bf8b1ffff71f",
+        "resultDigest": "ke1-db77bf8b1ffff71f",
+        "coverageStatus": "NO_PROVIDER",
+        "verifiedAt": "2026-08-13T09:42:26.977Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-9622c51c6467a478",
+      "structuredDigest": "ke1-86b1c7c508a5b1d9",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:42:17.048Z",
+          "requestFinished": "2026-08-13T09:42:23.663Z",
+          "latencyMs": 6615,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-e98391bb5b8711cf",
+      "structuredDigest": "ke1-ba052c596fd6b785",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:42:23.667Z",
+          "requestFinished": "2026-08-13T09:42:26.971Z",
+          "latencyMs": 3304,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-1fd21441951bcac5",
+    "revision": 1,
+    "status": "CANDIDATE",
+    "originalRequest": "Comparer DWI whole-body et PET PSMA pour repérer les métastases, pas pour mesurer la réponse.",
+    "normalizedMeaning": "Comparison between whole-body diffusion-weighted imaging (DWI) and PSMA PET for detecting metastases, explicitly excluding response measurement.",
+    "conversationMessageIds": [
+      "SEM-H04:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-4bc10ffd72d689c9",
+        "type": "MODALITY",
+        "canonicalMeaning": "DWI whole-body",
+        "studyRole": "COMPARATOR_ARM",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_02"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H04:user:1",
+          "text": "DWI whole-body",
+          "start": 9,
+          "end": 23
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-5b4924f857623584",
+          "sem-relation:ke1-d569d08397e7eccf"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H04:user:1",
+          "providerCallId": "gemini-call:ke1-9622c51c6467a478",
+          "rawElementId": "elem_02"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-669de1bbee4fe08f",
+        "type": "CONSTRAINT",
+        "canonicalMeaning": "pas pour mesurer la réponse",
+        "studyRole": "NONE",
+        "polarity": "NEGATED",
+        "inventoryItemIds": [
+          "inv_06"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H04:user:1",
+          "text": "pas pour mesurer la réponse",
+          "start": 65,
+          "end": 92
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H04:user:1",
+          "providerCallId": "gemini-call:ke1-9622c51c6467a478",
+          "rawElementId": "elem_06"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-733e88ed3db783b9",
+        "type": "SCIENTIFIC_OBJECT",
+        "canonicalMeaning": "métastases",
+        "studyRole": "SUBJECT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_05"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H04:user:1",
+          "text": "métastases",
+          "start": 53,
+          "end": 63
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-32f7e41554e83b51",
+          "sem-relation:ke1-d569d08397e7eccf"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H04:user:1",
+          "providerCallId": "gemini-call:ke1-9622c51c6467a478",
+          "rawElementId": "elem_05"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-9312b24e820c8ffa",
+        "type": "OPERATION",
+        "canonicalMeaning": "Comparer",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_01"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H04:user:1",
+          "text": "Comparer",
+          "start": 0,
+          "end": 8
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H04:user:1",
+          "providerCallId": "gemini-call:ke1-9622c51c6467a478",
+          "rawElementId": "elem_01"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-e6dbdc6923c8992d",
+        "type": "SCIENTIFIC_INTENT",
+        "canonicalMeaning": "repérer",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_04"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H04:user:1",
+          "text": "repérer",
+          "start": 41,
+          "end": 48
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H04:user:1",
+          "providerCallId": "gemini-call:ke1-9622c51c6467a478",
+          "rawElementId": "elem_04"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-f8ec6203e34e00a7",
+        "type": "MODALITY",
+        "canonicalMeaning": "PET PSMA",
+        "studyRole": "COMPARATOR_ARM",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_03"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H04:user:1",
+          "text": "PET PSMA",
+          "start": 27,
+          "end": 35
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-32f7e41554e83b51",
+          "sem-relation:ke1-5b4924f857623584"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H04:user:1",
+          "providerCallId": "gemini-call:ke1-9622c51c6467a478",
+          "rawElementId": "elem_03"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-32f7e41554e83b51",
+        "sourceElementId": "sem-element:ke1-f8ec6203e34e00a7",
+        "targetElementId": "sem-element:ke1-733e88ed3db783b9",
+        "relationType": "OBSERVES",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_03"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-5b4924f857623584",
+        "sourceElementId": "sem-element:ke1-4bc10ffd72d689c9",
+        "targetElementId": "sem-element:ke1-f8ec6203e34e00a7",
+        "relationType": "COMPARES_WITH",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_01"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-d569d08397e7eccf",
+        "sourceElementId": "sem-element:ke1-4bc10ffd72d689c9",
+        "targetElementId": "sem-element:ke1-733e88ed3db783b9",
+        "relationType": "OBSERVES",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_02"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv_01",
+          "sourceMessageId": "SEM-H04:user:1",
+          "sourceText": "Comparer",
+          "normalizedMeaning": "comparer",
+          "mappedClientElementIds": [
+            "elem_01"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_02",
+          "sourceMessageId": "SEM-H04:user:1",
+          "sourceText": "DWI whole-body",
+          "normalizedMeaning": "DWI whole-body",
+          "mappedClientElementIds": [
+            "elem_02"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_03",
+          "sourceMessageId": "SEM-H04:user:1",
+          "sourceText": "PET PSMA",
+          "normalizedMeaning": "PET PSMA",
+          "mappedClientElementIds": [
+            "elem_03"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_04",
+          "sourceMessageId": "SEM-H04:user:1",
+          "sourceText": "repérer",
+          "normalizedMeaning": "repérer",
+          "mappedClientElementIds": [
+            "elem_04"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_05",
+          "sourceMessageId": "SEM-H04:user:1",
+          "sourceText": "métastases",
+          "normalizedMeaning": "métastases",
+          "mappedClientElementIds": [
+            "elem_05"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_06",
+          "sourceMessageId": "SEM-H04:user:1",
+          "sourceText": "pas pour mesurer la réponse",
+          "normalizedMeaning": "pas pour mesurer la réponse",
+          "mappedClientElementIds": [
+            "elem_06"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel_01",
+          "sourceInventoryItemId": "inv_02",
+          "targetInventoryItemId": "inv_03",
+          "normalizedRelation": "COMPARES_WITH",
+          "mappedClientRelationIds": [
+            "rel_c_01"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_02",
+          "sourceInventoryItemId": "inv_02",
+          "targetInventoryItemId": "inv_05",
+          "normalizedRelation": "OBSERVES",
+          "mappedClientRelationIds": [
+            "rel_c_02"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_03",
+          "sourceInventoryItemId": "inv_03",
+          "targetInventoryItemId": "inv_05",
+          "normalizedRelation": "OBSERVES",
+          "mappedClientRelationIds": [
+            "rel_c_03"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "missingConcepts": [],
+    "ellipses": [],
+    "ambiguities": [],
+    "unknowns": [],
+    "contradictions": [],
+    "clarificationCandidates": [],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "DESIGN_STUDY",
+      "confidence": 0.95,
+      "reason": "The user is setting up a comparison study between two modalities for detecting a target condition.",
+      "expectedCapabilities": [
+        "Modalities comparison",
+        "Study design framework"
+      ]
+    },
+    "summaryForUser": "Comparaison entre la DWI corps entier et le TEP PSMA pour la détection des métastases, à l'exclusion de la mesure de la réponse.",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "The semantic model and typed candidate are fully aligned with the source text, correctly representing all modalities, objects, operations, constraints, and relations without any critical issues or missing elements."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-9622c51c6467a478",
+      "criticCallId": "gemini-call:ke1-e98391bb5b8711cf",
+      "criticCallIds": [
+        "gemini-call:ke1-e98391bb5b8711cf"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:42:17.048Z",
+          "requestFinished": "2026-08-13T09:42:23.663Z",
+          "latencyMs": 6615,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:42:23.667Z",
+          "requestFinished": "2026-08-13T09:42:26.971Z",
+          "latencyMs": 3304,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "cand_01J9XYZ",
+        "language": "fr",
+        "normalizedMeaning": "Comparison between whole-body diffusion-weighted imaging (DWI) and PSMA PET for detecting metastases, explicitly excluding response measurement.",
+        "summaryForUser": "Comparaison entre la DWI corps entier et le TEP PSMA pour la détection des métastases, à l'exclusion de la mesure de la réponse.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv_01",
+              "sourceMessageId": "SEM-H04:user:1",
+              "sourceText": "Comparer",
+              "normalizedLabel": "comparer",
+              "localRole": "action",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_02",
+                "inv_03"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_02",
+              "sourceMessageId": "SEM-H04:user:1",
+              "sourceText": "DWI whole-body",
+              "normalizedLabel": "DWI whole-body",
+              "localRole": "modality",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_01"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_03",
+              "sourceMessageId": "SEM-H04:user:1",
+              "sourceText": "PET PSMA",
+              "normalizedLabel": "PET PSMA",
+              "localRole": "modality",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_01"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_04",
+              "sourceMessageId": "SEM-H04:user:1",
+              "sourceText": "repérer",
+              "normalizedLabel": "repérer",
+              "localRole": "purpose",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_05"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_05",
+              "sourceMessageId": "SEM-H04:user:1",
+              "sourceText": "métastases",
+              "normalizedLabel": "métastases",
+              "localRole": "target",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_04"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_06",
+              "sourceMessageId": "SEM-H04:user:1",
+              "sourceText": "pas pour mesurer la réponse",
+              "normalizedLabel": "pas pour mesurer la réponse",
+              "localRole": "constraint",
+              "polarity": "NEGATED",
+              "modifiers": [
+                "pas"
+              ],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_01",
+              "sourceInventoryItemId": "inv_02",
+              "targetInventoryItemId": "inv_03",
+              "sourceMessageId": "SEM-H04:user:1",
+              "sourceText": "Comparer DWI whole-body et PET PSMA",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_02",
+              "sourceInventoryItemId": "inv_02",
+              "targetInventoryItemId": "inv_05",
+              "sourceMessageId": "SEM-H04:user:1",
+              "sourceText": "Comparer DWI whole-body et PET PSMA pour repérer les métastases, pas pour mesurer la réponse.",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_03",
+              "sourceInventoryItemId": "inv_03",
+              "targetInventoryItemId": "inv_05",
+              "sourceMessageId": "SEM-H04:user:1",
+              "sourceText": "Comparer DWI whole-body et PET PSMA pour repérer les métastases, pas pour mesurer la réponse.",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem_01",
+            "type": "OPERATION",
+            "canonicalMeaning": "Comparer",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_01"
+            ],
+            "sourceMessageId": "SEM-H04:user:1",
+            "sourceText": "Comparer",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_02",
+            "type": "MODALITY",
+            "canonicalMeaning": "DWI whole-body",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_02"
+            ],
+            "sourceMessageId": "SEM-H04:user:1",
+            "sourceText": "DWI whole-body",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_03",
+            "type": "MODALITY",
+            "canonicalMeaning": "PET PSMA",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_03"
+            ],
+            "sourceMessageId": "SEM-H04:user:1",
+            "sourceText": "PET PSMA",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_04",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "repérer",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_04"
+            ],
+            "sourceMessageId": "SEM-H04:user:1",
+            "sourceText": "repérer",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_05",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "métastases",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_05"
+            ],
+            "sourceMessageId": "SEM-H04:user:1",
+            "sourceText": "métastases",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_06",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "pas pour mesurer la réponse",
+            "studyRole": "NONE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv_06"
+            ],
+            "sourceMessageId": "SEM-H04:user:1",
+            "sourceText": "pas pour mesurer la réponse",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel_c_01",
+            "sourceClientElementId": "elem_02",
+            "targetClientElementId": "elem_03",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_01"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_c_02",
+            "sourceClientElementId": "elem_02",
+            "targetClientElementId": "elem_05",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_02"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_c_03",
+            "sourceClientElementId": "elem_03",
+            "targetClientElementId": "elem_05",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_03"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.95,
+          "reason": "The user is setting up a comparison study between two modalities for detecting a target condition.",
+          "expectedCapabilities": [
+            "Study design framework",
+            "Modalities comparison"
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:2"
+        ]
+      },
+      "rawCritic": {
+        "criticId": "critic_01J9XYZ",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit object fragments are mapped to corresponding semantic elements (elem_02, elem_03, elem_05)."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Modality comparison between DWI whole-body and PET PSMA is fully captured in elements and relations."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No explicit therapeutic or experimental interventions are requested in the source message."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Both DWI whole-body and PET PSMA are correctly classified as MODALITY."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All inventory relations (rel_01, rel_02, rel_03) are represented correctly by client relations."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "All element types adhere strictly to the operational taxonomy."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "Explicit relations retain their direct semantics without weakening."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No ungrounded inferences have been promoted to explicit statements."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "No hidden ambiguities were introduced."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "The constraint 'pas pour mesurer la réponse' is correctly captured with NEGATED polarity."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No explicit temporal expressions or timings are present in the text."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "No outcome has been inappropriately promoted to an endpoint without user designation."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific concepts such as DWI whole-body and PET PSMA are preserved accurately."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "All source fragments are accounted for in the inventory and candidate."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "Route DESIGN_STUDY is completely appropriate for comparing modalities in a diagnostic study setup."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "The semantic model and typed candidate are fully aligned with the source text, correctly representing all modalities, objects, operations, constraints, and relations without any critical issues or missing elements."
+      },
+      "rawCritics": [
+        {
+          "criticId": "critic_01J9XYZ",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit object fragments are mapped to corresponding semantic elements (elem_02, elem_03, elem_05)."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Modality comparison between DWI whole-body and PET PSMA is fully captured in elements and relations."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit therapeutic or experimental interventions are requested in the source message."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Both DWI whole-body and PET PSMA are correctly classified as MODALITY."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All inventory relations (rel_01, rel_02, rel_03) are represented correctly by client relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All element types adhere strictly to the operational taxonomy."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations retain their direct semantics without weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No ungrounded inferences have been promoted to explicit statements."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No hidden ambiguities were introduced."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "The constraint 'pas pour mesurer la réponse' is correctly captured with NEGATED polarity."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit temporal expressions or timings are present in the text."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No outcome has been inappropriately promoted to an endpoint without user designation."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts such as DWI whole-body and PET PSMA are preserved accurately."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "All source fragments are accounted for in the inventory and candidate."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY is completely appropriate for comparing modalities in a diagnostic study setup."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The semantic model and typed candidate are fully aligned with the source text, correctly representing all modalities, objects, operations, constraints, and relations without any critical issues or missing elements."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-13T09:42:26.973Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-db77bf8b1ffff71f",
+      "resultDigest": "ke1-db77bf8b1ffff71f",
+      "coverageStatus": "NO_PROVIDER",
+      "verifiedAt": "2026-08-13T09:42:26.977Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-13T09:42:26.973Z",
+    "updatedAt": "2026-08-13T09:42:26.977Z",
+    "digest": "ke1-f0ad934823698d74"
+  },
+  "semanticModelDigest": "ke1-f0ad934823698d74",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv_01",
+          "sourceMessageId": "SEM-H04:user:1",
+          "sourceText": "Comparer",
+          "normalizedMeaning": "comparer",
+          "mappedClientElementIds": [
+            "elem_01"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_02",
+          "sourceMessageId": "SEM-H04:user:1",
+          "sourceText": "DWI whole-body",
+          "normalizedMeaning": "DWI whole-body",
+          "mappedClientElementIds": [
+            "elem_02"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_03",
+          "sourceMessageId": "SEM-H04:user:1",
+          "sourceText": "PET PSMA",
+          "normalizedMeaning": "PET PSMA",
+          "mappedClientElementIds": [
+            "elem_03"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_04",
+          "sourceMessageId": "SEM-H04:user:1",
+          "sourceText": "repérer",
+          "normalizedMeaning": "repérer",
+          "mappedClientElementIds": [
+            "elem_04"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_05",
+          "sourceMessageId": "SEM-H04:user:1",
+          "sourceText": "métastases",
+          "normalizedMeaning": "métastases",
+          "mappedClientElementIds": [
+            "elem_05"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_06",
+          "sourceMessageId": "SEM-H04:user:1",
+          "sourceText": "pas pour mesurer la réponse",
+          "normalizedMeaning": "pas pour mesurer la réponse",
+          "mappedClientElementIds": [
+            "elem_06"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel_01",
+          "sourceInventoryItemId": "inv_02",
+          "targetInventoryItemId": "inv_03",
+          "normalizedRelation": "COMPARES_WITH",
+          "mappedClientRelationIds": [
+            "rel_c_01"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_02",
+          "sourceInventoryItemId": "inv_02",
+          "targetInventoryItemId": "inv_05",
+          "normalizedRelation": "OBSERVES",
+          "mappedClientRelationIds": [
+            "rel_c_02"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_03",
+          "sourceInventoryItemId": "inv_03",
+          "targetInventoryItemId": "inv_05",
+          "normalizedRelation": "OBSERVES",
+          "mappedClientRelationIds": [
+            "rel_c_03"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-8066258bdfcc6c77",
+    "evaluatedAt": "2026-08-13T09:42:26.979Z",
+    "goldFrameDigest": "ke1-c09e5fea6587acc6",
+    "result": {
+      "caseId": "SEM-H04",
+      "explicitObjectRecall": 0.5,
+      "explicitRelationRecall": 1,
+      "criticalSemanticRecall": 0.6,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 1,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": [
+        "EXPLICIT_METHOD_LOST:DWI whole-body",
+        "EXPLICIT_METHOD_LOST:PET PSMA"
+      ]
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H04",
+    "explicitObjectRecall": 0.5,
+    "explicitRelationRecall": 1,
+    "criticalSemanticRecall": 0.6,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 1,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": [
+      "EXPLICIT_METHOD_LOST:DWI whole-body",
+      "EXPLICIT_METHOD_LOST:PET PSMA"
+    ]
+  },
+  "error": null
+}

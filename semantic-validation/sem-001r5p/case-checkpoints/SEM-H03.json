@@ -1,0 +1,2009 @@
+{
+  "campaign": "SEM-001R5P-CLOSURE",
+  "campaignId": "sem-001r5p-closure-2026-08-13T10-29-07-565Z-ke1-2ac79d2f15fe20bb",
+  "caseId": "SEM-H03",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-2ac79d2f15fe20bb",
+  "semanticConfigurationDigest": "ke1-487f37f9fdb16ba5",
+  "goldFrameDigest": "ke1-4c3c7941093f5edd",
+  "originalRequest": [
+    "Chez SEP, le QSM serait lié au handicap mais je ne sais pas si je cherche une association ou du pronostic."
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-13T10:30:02.157Z",
+  "completedAt": "2026-08-13T10:30:47.723Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H03:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "cand_01J8K1V0000000000000000001",
+        "language": "fr",
+        "normalizedMeaning": "Dans la sclerose en plaques, le QSM est evalue pour sa relation potentielle avec le handicap, mais le type de relation recherchee (association ou pronostic) reste incertain.",
+        "summaryForUser": "Vous etudiez le lien entre le QSM et le handicap dans la sclerose en plaques, avec une incertitude sur la nature exacte de la relation (association ou pronostic).",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv_01",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "SEP",
+              "normalizedLabel": "sclerose en plaques",
+              "localRole": "condition",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_02",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "QSM",
+              "normalizedLabel": "quantitative susceptibility mapping",
+              "localRole": "biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_03",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "handicap",
+              "normalizedLabel": "handicap",
+              "localRole": "outcome",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_04",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "lié",
+              "normalizedLabel": "lie",
+              "localRole": "relation",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_02",
+                "inv_03"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_05",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "association",
+              "normalizedLabel": "association",
+              "localRole": "relation_type",
+              "polarity": "UNCERTAIN",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_06",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "pronostic",
+              "normalizedLabel": "pronostic",
+              "localRole": "relation_type",
+              "polarity": "UNCERTAIN",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_inv_01",
+              "sourceInventoryItemId": "inv_02",
+              "targetInventoryItemId": "inv_03",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "le QSM serait lié au handicap",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem_01",
+            "type": "CONDITION",
+            "canonicalMeaning": "Sclerose en plaques",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_01"
+            ],
+            "sourceMessageId": "SEM-H03:user:1",
+            "sourceText": "SEP",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_02",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Quantitative Susceptibility Mapping (QSM)",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_02"
+            ],
+            "sourceMessageId": "SEM-H03:user:1",
+            "sourceText": "QSM",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_03",
+            "type": "OUTCOME",
+            "canonicalMeaning": "Handicap",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_03"
+            ],
+            "sourceMessageId": "SEM-H03:user:1",
+            "sourceText": "handicap",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_04",
+            "type": "UNKNOWN",
+            "canonicalMeaning": "Nature exacte du lien entre association et pronostic",
+            "studyRole": "NONE",
+            "polarity": "UNCERTAIN",
+            "inventoryItemIds": [
+              "inv_05",
+              "inv_06"
+            ],
+            "sourceMessageId": "SEM-H03:user:1",
+            "sourceText": "association ou du pronostic",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": true,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel_01",
+            "sourceClientElementId": "elem_02",
+            "targetClientElementId": "elem_03",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_01"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [
+          "Le type de relation recherchee entre le QSM et le handicap est incertain entre une simple association statistique et une valeur pronostique."
+        ],
+        "unknowns": [
+          "Association versus pronostic"
+        ],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [
+          {
+            "question": "Souhaitez-vous etablir une simple association transversale entre le QSM et le handicap, ou evaluer sa valeur pronostique longitudinale ?",
+            "reason": "Clarifier l'objectif methodologique exact entre association et pronostic.",
+            "resolvesClientElementIds": [
+              "elem_04"
+            ]
+          }
+        ],
+        "routeProposal": {
+          "route": "FORMALIZE_IDEA",
+          "confidence": 0.95,
+          "reason": "L'idee scientifique est en cours de cadrage et necessite de preciser l'objectif analytique (association vs pronostic) avant de concevoir formellement l'etude.",
+          "expectedCapabilities": [
+            "Clarification de l'hypothese",
+            "Formalisation des liens entre variables"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "reconstructionDigest": "ke1-e8ce79746b47fc18",
+      "critics": [
+        {
+          "criticId": "crit_01J8K1V0000000000000000001",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects (SEP, QSM, handicap, association, pronostic) are fully represented in the typed candidate elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is expressed in the user message."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No intervention is expressed in the user message."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No modality is explicitly standalone; QSM is appropriately typed as BIOMARKER."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The explicit relation 'lié' between QSM and handicap is fully represented by rel_01."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All element types adhere strictly to the operational taxonomy."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "The relationship is preserved accurately as a candidate relation."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No uncertain inferences were promoted to definitive facts."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "The uncertainty between association and pronostic is correctly highlighted as an ambiguity and modeled as an unknown element."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarities are correctly maintained."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit timing is present in the message."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Handicap is correctly classified as OUTCOME and not prematurely promoted to ENDPOINT."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like QSM and SEP are preserved without unjustified generalization."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "All contiguous source fragments are accounted for in the inventory and candidate."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The idea is correctly routed to FORMALIZE_IDEA given the uncertainty in the analytic objective."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The typed candidate correctly and completely models the semantic content, types, and ambiguities of the user message without any violations or missing fragments. All checklist items pass."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-f47eb0d584fbcb21",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "Chez SEP, le QSM serait lié au handicap mais je ne sais pas si je cherche une association ou du pronostic.",
+        "normalizedMeaning": "Dans la sclerose en plaques, le QSM est evalue pour sa relation potentielle avec le handicap, mais le type de relation recherchee (association ou pronostic) reste incertain.",
+        "conversationMessageIds": [
+          "SEM-H03:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-1be1de6ae351fb0e",
+            "type": "OUTCOME",
+            "canonicalMeaning": "Handicap",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_03"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H03:user:1",
+              "text": "handicap",
+              "start": 31,
+              "end": 39
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-4c31bdbe31ceeab2"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H03:user:1",
+              "providerCallId": "gemini-call:ke1-2a24e5010ce0a19d",
+              "rawElementId": "elem_03"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-69fb2481b7569f95",
+            "type": "CONDITION",
+            "canonicalMeaning": "Sclerose en plaques",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_01"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H03:user:1",
+              "text": "SEP",
+              "start": 5,
+              "end": 8
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-e938e0148b753600",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-507b7b199928638d",
+                "knowledge-gap:ke1-7a6eabe4f3b700e8",
+                "knowledge-gap:ke1-dcdfda33c341cc67"
+              ],
+              "checkedAt": "2026-08-13T10:30:47.719Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H03:user:1",
+              "providerCallId": "gemini-call:ke1-2a24e5010ce0a19d",
+              "rawElementId": "elem_01"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-9e03c523674ecdbf",
+            "type": "UNKNOWN",
+            "canonicalMeaning": "Nature exacte du lien entre association et pronostic",
+            "studyRole": "NONE",
+            "polarity": "UNCERTAIN",
+            "inventoryItemIds": [
+              "inv_05",
+              "inv_06"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H03:user:1",
+              "text": "association ou du pronostic",
+              "start": 78,
+              "end": 105
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H03:user:1",
+              "providerCallId": "gemini-call:ke1-2a24e5010ce0a19d",
+              "rawElementId": "elem_04"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-b495c238edfc904c",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Quantitative Susceptibility Mapping (QSM)",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_02"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H03:user:1",
+              "text": "QSM",
+              "start": 13,
+              "end": 16
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-4c31bdbe31ceeab2"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-e938e0148b753600",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-507b7b199928638d",
+                "knowledge-gap:ke1-7a6eabe4f3b700e8",
+                "knowledge-gap:ke1-dcdfda33c341cc67"
+              ],
+              "checkedAt": "2026-08-13T10:30:47.719Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H03:user:1",
+              "providerCallId": "gemini-call:ke1-2a24e5010ce0a19d",
+              "rawElementId": "elem_02"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-4c31bdbe31ceeab2",
+            "sourceElementId": "sem-element:ke1-b495c238edfc904c",
+            "targetElementId": "sem-element:ke1-1be1de6ae351fb0e",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_01"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv_01",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "SEP",
+              "normalizedMeaning": "sclerose en plaques",
+              "mappedClientElementIds": [
+                "elem_01"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_02",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "QSM",
+              "normalizedMeaning": "quantitative susceptibility mapping",
+              "mappedClientElementIds": [
+                "elem_02"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_03",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "handicap",
+              "normalizedMeaning": "handicap",
+              "mappedClientElementIds": [
+                "elem_03"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_04",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "lié",
+              "normalizedMeaning": "lie",
+              "mappedClientElementIds": [],
+              "mappedClientRelationIds": [
+                "rel_01"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "The explicit functional fragment is represented by its source-grounded direct Semantic Relation rather than by a false object node."
+            },
+            {
+              "inventoryItemId": "inv_05",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "association",
+              "normalizedMeaning": "association",
+              "mappedClientElementIds": [
+                "elem_04"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_06",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "pronostic",
+              "normalizedMeaning": "pronostic",
+              "mappedClientElementIds": [
+                "elem_04"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel_inv_01",
+              "sourceInventoryItemId": "inv_02",
+              "targetInventoryItemId": "inv_03",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "mappedClientRelationIds": [
+                "rel_01"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [
+          "Le type de relation recherchee entre le QSM et le handicap est incertain entre une simple association statistique et une valeur pronostique."
+        ],
+        "unknowns": [
+          "Association versus pronostic"
+        ],
+        "contradictions": [],
+        "clarificationCandidates": [
+          {
+            "question": "Souhaitez-vous etablir une simple association transversale entre le QSM et le handicap, ou evaluer sa valeur pronostique longitudinale ?",
+            "reason": "Clarifier l'objectif methodologique exact entre association et pronostic.",
+            "resolvesElementIds": [
+              "sem-element:ke1-9e03c523674ecdbf"
+            ]
+          }
+        ],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "FORMALIZE_IDEA",
+          "confidence": 0.95,
+          "reason": "L'idee scientifique est en cours de cadrage et necessite de preciser l'objectif analytique (association vs pronostic) avant de concevoir formellement l'etude.",
+          "expectedCapabilities": [
+            "Clarification de l'hypothese",
+            "Formalisation des liens entre variables"
+          ]
+        },
+        "summaryForUser": "Vous etudiez le lien entre le QSM et le handicap dans la sclerose en plaques, avec une incertitude sur la nature exacte de la relation (association ou pronostic).",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "The typed candidate correctly and completely models the semantic content, types, and ambiguities of the user message without any violations or missing fragments. All checklist items pass."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+          "criticPromptVersion": "SEM-001-CRITIC-1.6",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-2a24e5010ce0a19d",
+          "criticCallId": "gemini-call:ke1-00578e7eb9eed69a",
+          "criticCallIds": [
+            "gemini-call:ke1-00578e7eb9eed69a"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T10:30:38.130Z",
+              "requestFinished": "2026-08-13T10:30:44.040Z",
+              "latencyMs": 5910,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T10:30:44.849Z",
+              "requestFinished": "2026-08-13T10:30:47.711Z",
+              "latencyMs": 2862,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "cand_01J8K1V0000000000000000001",
+            "language": "fr",
+            "normalizedMeaning": "Dans la sclerose en plaques, le QSM est evalue pour sa relation potentielle avec le handicap, mais le type de relation recherchee (association ou pronostic) reste incertain.",
+            "summaryForUser": "Vous etudiez le lien entre le QSM et le handicap dans la sclerose en plaques, avec une incertitude sur la nature exacte de la relation (association ou pronostic).",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "inv_01",
+                  "sourceMessageId": "SEM-H03:user:1",
+                  "sourceText": "SEP",
+                  "normalizedLabel": "sclerose en plaques",
+                  "localRole": "condition",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv_02",
+                  "sourceMessageId": "SEM-H03:user:1",
+                  "sourceText": "QSM",
+                  "normalizedLabel": "quantitative susceptibility mapping",
+                  "localRole": "biomarker",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv_03",
+                  "sourceMessageId": "SEM-H03:user:1",
+                  "sourceText": "handicap",
+                  "normalizedLabel": "handicap",
+                  "localRole": "outcome",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv_04",
+                  "sourceMessageId": "SEM-H03:user:1",
+                  "sourceText": "lié",
+                  "normalizedLabel": "lie",
+                  "localRole": "relation",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv_02",
+                    "inv_03"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv_05",
+                  "sourceMessageId": "SEM-H03:user:1",
+                  "sourceText": "association",
+                  "normalizedLabel": "association",
+                  "localRole": "relation_type",
+                  "polarity": "UNCERTAIN",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv_06",
+                  "sourceMessageId": "SEM-H03:user:1",
+                  "sourceText": "pronostic",
+                  "normalizedLabel": "pronostic",
+                  "localRole": "relation_type",
+                  "polarity": "UNCERTAIN",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel_inv_01",
+                  "sourceInventoryItemId": "inv_02",
+                  "targetInventoryItemId": "inv_03",
+                  "sourceMessageId": "SEM-H03:user:1",
+                  "sourceText": "le QSM serait lié au handicap",
+                  "normalizedRelation": "RELATED_TO_CANDIDATE",
+                  "polarity": "AFFIRMED"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem_01",
+                "type": "CONDITION",
+                "canonicalMeaning": "Sclerose en plaques",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_01"
+                ],
+                "sourceMessageId": "SEM-H03:user:1",
+                "sourceText": "SEP",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_02",
+                "type": "BIOMARKER",
+                "canonicalMeaning": "Quantitative Susceptibility Mapping (QSM)",
+                "studyRole": "SUBJECT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_02"
+                ],
+                "sourceMessageId": "SEM-H03:user:1",
+                "sourceText": "QSM",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_03",
+                "type": "OUTCOME",
+                "canonicalMeaning": "Handicap",
+                "studyRole": "OUTCOME_ROLE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_03"
+                ],
+                "sourceMessageId": "SEM-H03:user:1",
+                "sourceText": "handicap",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_04",
+                "type": "UNKNOWN",
+                "canonicalMeaning": "Nature exacte du lien entre association et pronostic",
+                "studyRole": "NONE",
+                "polarity": "UNCERTAIN",
+                "inventoryItemIds": [
+                  "inv_05",
+                  "inv_06"
+                ],
+                "sourceMessageId": "SEM-H03:user:1",
+                "sourceText": "association ou du pronostic",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": true,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel_01",
+                "sourceClientElementId": "elem_02",
+                "targetClientElementId": "elem_03",
+                "relationType": "RELATED_TO_CANDIDATE",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_inv_01"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              }
+            ],
+            "missingConcepts": [],
+            "ellipses": [],
+            "ambiguities": [
+              "Le type de relation recherchee entre le QSM et le handicap est incertain entre une simple association statistique et une valeur pronostique."
+            ],
+            "unknowns": [
+              "Association versus pronostic"
+            ],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [
+              {
+                "question": "Souhaitez-vous etablir une simple association transversale entre le QSM et le handicap, ou evaluer sa valeur pronostique longitudinale ?",
+                "reason": "Clarifier l'objectif methodologique exact entre association et pronostic.",
+                "resolvesClientElementIds": [
+                  "elem_04"
+                ]
+              }
+            ],
+            "routeProposal": {
+              "route": "FORMALIZE_IDEA",
+              "confidence": 0.95,
+              "reason": "L'idee scientifique est en cours de cadrage et necessite de preciser l'objectif analytique (association vs pronostic) avant de concevoir formellement l'etude.",
+              "expectedCapabilities": [
+                "Clarification de l'hypothese",
+                "Formalisation des liens entre variables"
+              ]
+            },
+            "semanticWarnings": []
+          },
+          "rawCritic": {
+            "criticId": "crit_01J8K1V0000000000000000001",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit objects (SEP, QSM, handicap, association, pronostic) are fully represented in the typed candidate elements."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No comparator is expressed in the user message."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No intervention is expressed in the user message."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No modality is explicitly standalone; QSM is appropriately typed as BIOMARKER."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "The explicit relation 'lié' between QSM and handicap is fully represented by rel_01."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "All element types adhere strictly to the operational taxonomy."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "The relationship is preserved accurately as a candidate relation."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No uncertain inferences were promoted to definitive facts."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "The uncertainty between association and pronostic is correctly highlighted as an ambiguity and modeled as an unknown element."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "Polarities are correctly maintained."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No explicit timing is present in the message."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "Handicap is correctly classified as OUTCOME and not prematurely promoted to ENDPOINT."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts like QSM and SEP are preserved without unjustified generalization."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "All contiguous source fragments are accounted for in the inventory and candidate."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "The idea is correctly routed to FORMALIZE_IDEA given the uncertainty in the analytic objective."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The typed candidate correctly and completely models the semantic content, types, and ambiguities of the user message without any violations or missing fragments. All checklist items pass."
+          },
+          "rawCritics": [
+            {
+              "criticId": "crit_01J8K1V0000000000000000001",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit objects (SEP, QSM, handicap, association, pronostic) are fully represented in the typed candidate elements."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No comparator is expressed in the user message."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No intervention is expressed in the user message."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No modality is explicitly standalone; QSM is appropriately typed as BIOMARKER."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The explicit relation 'lié' between QSM and handicap is fully represented by rel_01."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "All element types adhere strictly to the operational taxonomy."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "The relationship is preserved accurately as a candidate relation."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No uncertain inferences were promoted to definitive facts."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "The uncertainty between association and pronostic is correctly highlighted as an ambiguity and modeled as an unknown element."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "Polarities are correctly maintained."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No explicit timing is present in the message."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "Handicap is correctly classified as OUTCOME and not prematurely promoted to ENDPOINT."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific concepts like QSM and SEP are preserved without unjustified generalization."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All contiguous source fragments are accounted for in the inventory and candidate."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "The idea is correctly routed to FORMALIZE_IDEA given the uncertainty in the analytic objective."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "The typed candidate correctly and completely models the semantic content, types, and ambiguities of the user message without any violations or missing fragments. All checklist items pass."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-13T10:30:47.713Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-e938e0148b753600",
+          "resultDigest": "ke1-e938e0148b753600",
+          "coverageStatus": "NO_PROVIDER",
+          "verifiedAt": "2026-08-13T10:30:47.719Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-13T10:30:47.713Z",
+        "updatedAt": "2026-08-13T10:30:47.719Z",
+        "digest": "ke1-43fa760d2e939459"
+      },
+      "canonicalModelDigest": "ke1-43fa760d2e939459",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-e938e0148b753600",
+        "resultDigest": "ke1-e938e0148b753600",
+        "coverageStatus": "NO_PROVIDER",
+        "verifiedAt": "2026-08-13T10:30:47.719Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-2a24e5010ce0a19d",
+      "structuredDigest": "ke1-e8ce79746b47fc18",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:30:38.130Z",
+          "requestFinished": "2026-08-13T10:30:44.040Z",
+          "latencyMs": 5910,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-00578e7eb9eed69a",
+      "structuredDigest": "ke1-684adb120ec7409e",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:30:44.849Z",
+          "requestFinished": "2026-08-13T10:30:47.711Z",
+          "latencyMs": 2862,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-f47eb0d584fbcb21",
+    "revision": 1,
+    "status": "CANDIDATE",
+    "originalRequest": "Chez SEP, le QSM serait lié au handicap mais je ne sais pas si je cherche une association ou du pronostic.",
+    "normalizedMeaning": "Dans la sclerose en plaques, le QSM est evalue pour sa relation potentielle avec le handicap, mais le type de relation recherchee (association ou pronostic) reste incertain.",
+    "conversationMessageIds": [
+      "SEM-H03:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-1be1de6ae351fb0e",
+        "type": "OUTCOME",
+        "canonicalMeaning": "Handicap",
+        "studyRole": "OUTCOME_ROLE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_03"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H03:user:1",
+          "text": "handicap",
+          "start": 31,
+          "end": 39
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-4c31bdbe31ceeab2"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H03:user:1",
+          "providerCallId": "gemini-call:ke1-2a24e5010ce0a19d",
+          "rawElementId": "elem_03"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-69fb2481b7569f95",
+        "type": "CONDITION",
+        "canonicalMeaning": "Sclerose en plaques",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_01"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H03:user:1",
+          "text": "SEP",
+          "start": 5,
+          "end": 8
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-e938e0148b753600",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-507b7b199928638d",
+            "knowledge-gap:ke1-7a6eabe4f3b700e8",
+            "knowledge-gap:ke1-dcdfda33c341cc67"
+          ],
+          "checkedAt": "2026-08-13T10:30:47.719Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H03:user:1",
+          "providerCallId": "gemini-call:ke1-2a24e5010ce0a19d",
+          "rawElementId": "elem_01"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-9e03c523674ecdbf",
+        "type": "UNKNOWN",
+        "canonicalMeaning": "Nature exacte du lien entre association et pronostic",
+        "studyRole": "NONE",
+        "polarity": "UNCERTAIN",
+        "inventoryItemIds": [
+          "inv_05",
+          "inv_06"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H03:user:1",
+          "text": "association ou du pronostic",
+          "start": 78,
+          "end": 105
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H03:user:1",
+          "providerCallId": "gemini-call:ke1-2a24e5010ce0a19d",
+          "rawElementId": "elem_04"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-b495c238edfc904c",
+        "type": "BIOMARKER",
+        "canonicalMeaning": "Quantitative Susceptibility Mapping (QSM)",
+        "studyRole": "SUBJECT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_02"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H03:user:1",
+          "text": "QSM",
+          "start": 13,
+          "end": 16
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-4c31bdbe31ceeab2"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-e938e0148b753600",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-507b7b199928638d",
+            "knowledge-gap:ke1-7a6eabe4f3b700e8",
+            "knowledge-gap:ke1-dcdfda33c341cc67"
+          ],
+          "checkedAt": "2026-08-13T10:30:47.719Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H03:user:1",
+          "providerCallId": "gemini-call:ke1-2a24e5010ce0a19d",
+          "rawElementId": "elem_02"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-4c31bdbe31ceeab2",
+        "sourceElementId": "sem-element:ke1-b495c238edfc904c",
+        "targetElementId": "sem-element:ke1-1be1de6ae351fb0e",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_inv_01"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv_01",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "SEP",
+          "normalizedMeaning": "sclerose en plaques",
+          "mappedClientElementIds": [
+            "elem_01"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_02",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "QSM",
+          "normalizedMeaning": "quantitative susceptibility mapping",
+          "mappedClientElementIds": [
+            "elem_02"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_03",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "handicap",
+          "normalizedMeaning": "handicap",
+          "mappedClientElementIds": [
+            "elem_03"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_04",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "lié",
+          "normalizedMeaning": "lie",
+          "mappedClientElementIds": [],
+          "mappedClientRelationIds": [
+            "rel_01"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "The explicit functional fragment is represented by its source-grounded direct Semantic Relation rather than by a false object node."
+        },
+        {
+          "inventoryItemId": "inv_05",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "association",
+          "normalizedMeaning": "association",
+          "mappedClientElementIds": [
+            "elem_04"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_06",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "pronostic",
+          "normalizedMeaning": "pronostic",
+          "mappedClientElementIds": [
+            "elem_04"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel_inv_01",
+          "sourceInventoryItemId": "inv_02",
+          "targetInventoryItemId": "inv_03",
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "mappedClientRelationIds": [
+            "rel_01"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "missingConcepts": [],
+    "ellipses": [],
+    "ambiguities": [
+      "Le type de relation recherchee entre le QSM et le handicap est incertain entre une simple association statistique et une valeur pronostique."
+    ],
+    "unknowns": [
+      "Association versus pronostic"
+    ],
+    "contradictions": [],
+    "clarificationCandidates": [
+      {
+        "question": "Souhaitez-vous etablir une simple association transversale entre le QSM et le handicap, ou evaluer sa valeur pronostique longitudinale ?",
+        "reason": "Clarifier l'objectif methodologique exact entre association et pronostic.",
+        "resolvesElementIds": [
+          "sem-element:ke1-9e03c523674ecdbf"
+        ]
+      }
+    ],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "FORMALIZE_IDEA",
+      "confidence": 0.95,
+      "reason": "L'idee scientifique est en cours de cadrage et necessite de preciser l'objectif analytique (association vs pronostic) avant de concevoir formellement l'etude.",
+      "expectedCapabilities": [
+        "Clarification de l'hypothese",
+        "Formalisation des liens entre variables"
+      ]
+    },
+    "summaryForUser": "Vous etudiez le lien entre le QSM et le handicap dans la sclerose en plaques, avec une incertitude sur la nature exacte de la relation (association ou pronostic).",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "The typed candidate correctly and completely models the semantic content, types, and ambiguities of the user message without any violations or missing fragments. All checklist items pass."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-2a24e5010ce0a19d",
+      "criticCallId": "gemini-call:ke1-00578e7eb9eed69a",
+      "criticCallIds": [
+        "gemini-call:ke1-00578e7eb9eed69a"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:30:38.130Z",
+          "requestFinished": "2026-08-13T10:30:44.040Z",
+          "latencyMs": 5910,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:30:44.849Z",
+          "requestFinished": "2026-08-13T10:30:47.711Z",
+          "latencyMs": 2862,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "cand_01J8K1V0000000000000000001",
+        "language": "fr",
+        "normalizedMeaning": "Dans la sclerose en plaques, le QSM est evalue pour sa relation potentielle avec le handicap, mais le type de relation recherchee (association ou pronostic) reste incertain.",
+        "summaryForUser": "Vous etudiez le lien entre le QSM et le handicap dans la sclerose en plaques, avec une incertitude sur la nature exacte de la relation (association ou pronostic).",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv_01",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "SEP",
+              "normalizedLabel": "sclerose en plaques",
+              "localRole": "condition",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_02",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "QSM",
+              "normalizedLabel": "quantitative susceptibility mapping",
+              "localRole": "biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_03",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "handicap",
+              "normalizedLabel": "handicap",
+              "localRole": "outcome",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_04",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "lié",
+              "normalizedLabel": "lie",
+              "localRole": "relation",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_02",
+                "inv_03"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_05",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "association",
+              "normalizedLabel": "association",
+              "localRole": "relation_type",
+              "polarity": "UNCERTAIN",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_06",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "pronostic",
+              "normalizedLabel": "pronostic",
+              "localRole": "relation_type",
+              "polarity": "UNCERTAIN",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_inv_01",
+              "sourceInventoryItemId": "inv_02",
+              "targetInventoryItemId": "inv_03",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "le QSM serait lié au handicap",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem_01",
+            "type": "CONDITION",
+            "canonicalMeaning": "Sclerose en plaques",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_01"
+            ],
+            "sourceMessageId": "SEM-H03:user:1",
+            "sourceText": "SEP",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_02",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Quantitative Susceptibility Mapping (QSM)",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_02"
+            ],
+            "sourceMessageId": "SEM-H03:user:1",
+            "sourceText": "QSM",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_03",
+            "type": "OUTCOME",
+            "canonicalMeaning": "Handicap",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_03"
+            ],
+            "sourceMessageId": "SEM-H03:user:1",
+            "sourceText": "handicap",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_04",
+            "type": "UNKNOWN",
+            "canonicalMeaning": "Nature exacte du lien entre association et pronostic",
+            "studyRole": "NONE",
+            "polarity": "UNCERTAIN",
+            "inventoryItemIds": [
+              "inv_05",
+              "inv_06"
+            ],
+            "sourceMessageId": "SEM-H03:user:1",
+            "sourceText": "association ou du pronostic",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": true,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel_01",
+            "sourceClientElementId": "elem_02",
+            "targetClientElementId": "elem_03",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_01"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [
+          "Le type de relation recherchee entre le QSM et le handicap est incertain entre une simple association statistique et une valeur pronostique."
+        ],
+        "unknowns": [
+          "Association versus pronostic"
+        ],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [
+          {
+            "question": "Souhaitez-vous etablir une simple association transversale entre le QSM et le handicap, ou evaluer sa valeur pronostique longitudinale ?",
+            "reason": "Clarifier l'objectif methodologique exact entre association et pronostic.",
+            "resolvesClientElementIds": [
+              "elem_04"
+            ]
+          }
+        ],
+        "routeProposal": {
+          "route": "FORMALIZE_IDEA",
+          "confidence": 0.95,
+          "reason": "L'idee scientifique est en cours de cadrage et necessite de preciser l'objectif analytique (association vs pronostic) avant de concevoir formellement l'etude.",
+          "expectedCapabilities": [
+            "Clarification de l'hypothese",
+            "Formalisation des liens entre variables"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "rawCritic": {
+        "criticId": "crit_01J8K1V0000000000000000001",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit objects (SEP, QSM, handicap, association, pronostic) are fully represented in the typed candidate elements."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No comparator is expressed in the user message."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No intervention is expressed in the user message."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No modality is explicitly standalone; QSM is appropriately typed as BIOMARKER."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "The explicit relation 'lié' between QSM and handicap is fully represented by rel_01."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "All element types adhere strictly to the operational taxonomy."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "The relationship is preserved accurately as a candidate relation."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No uncertain inferences were promoted to definitive facts."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "The uncertainty between association and pronostic is correctly highlighted as an ambiguity and modeled as an unknown element."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "Polarities are correctly maintained."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No explicit timing is present in the message."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "Handicap is correctly classified as OUTCOME and not prematurely promoted to ENDPOINT."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific concepts like QSM and SEP are preserved without unjustified generalization."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "All contiguous source fragments are accounted for in the inventory and candidate."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "The idea is correctly routed to FORMALIZE_IDEA given the uncertainty in the analytic objective."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "The typed candidate correctly and completely models the semantic content, types, and ambiguities of the user message without any violations or missing fragments. All checklist items pass."
+      },
+      "rawCritics": [
+        {
+          "criticId": "crit_01J8K1V0000000000000000001",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects (SEP, QSM, handicap, association, pronostic) are fully represented in the typed candidate elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is expressed in the user message."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No intervention is expressed in the user message."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No modality is explicitly standalone; QSM is appropriately typed as BIOMARKER."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The explicit relation 'lié' between QSM and handicap is fully represented by rel_01."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All element types adhere strictly to the operational taxonomy."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "The relationship is preserved accurately as a candidate relation."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No uncertain inferences were promoted to definitive facts."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "The uncertainty between association and pronostic is correctly highlighted as an ambiguity and modeled as an unknown element."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarities are correctly maintained."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit timing is present in the message."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Handicap is correctly classified as OUTCOME and not prematurely promoted to ENDPOINT."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like QSM and SEP are preserved without unjustified generalization."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "All contiguous source fragments are accounted for in the inventory and candidate."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The idea is correctly routed to FORMALIZE_IDEA given the uncertainty in the analytic objective."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The typed candidate correctly and completely models the semantic content, types, and ambiguities of the user message without any violations or missing fragments. All checklist items pass."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-13T10:30:47.713Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-e938e0148b753600",
+      "resultDigest": "ke1-e938e0148b753600",
+      "coverageStatus": "NO_PROVIDER",
+      "verifiedAt": "2026-08-13T10:30:47.719Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-13T10:30:47.713Z",
+    "updatedAt": "2026-08-13T10:30:47.719Z",
+    "digest": "ke1-43fa760d2e939459"
+  },
+  "semanticModelDigest": "ke1-43fa760d2e939459",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv_01",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "SEP",
+          "normalizedMeaning": "sclerose en plaques",
+          "mappedClientElementIds": [
+            "elem_01"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_02",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "QSM",
+          "normalizedMeaning": "quantitative susceptibility mapping",
+          "mappedClientElementIds": [
+            "elem_02"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_03",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "handicap",
+          "normalizedMeaning": "handicap",
+          "mappedClientElementIds": [
+            "elem_03"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_04",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "lié",
+          "normalizedMeaning": "lie",
+          "mappedClientElementIds": [],
+          "mappedClientRelationIds": [
+            "rel_01"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "The explicit functional fragment is represented by its source-grounded direct Semantic Relation rather than by a false object node."
+        },
+        {
+          "inventoryItemId": "inv_05",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "association",
+          "normalizedMeaning": "association",
+          "mappedClientElementIds": [
+            "elem_04"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_06",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "pronostic",
+          "normalizedMeaning": "pronostic",
+          "mappedClientElementIds": [
+            "elem_04"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel_inv_01",
+          "sourceInventoryItemId": "inv_02",
+          "targetInventoryItemId": "inv_03",
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "mappedClientRelationIds": [
+            "rel_01"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-8066258bdfcc6c77",
+    "evaluatedAt": "2026-08-13T10:30:47.723Z",
+    "goldFrameDigest": "ke1-4c3c7941093f5edd",
+    "result": {
+      "caseId": "SEM-H03",
+      "explicitObjectRecall": 1,
+      "explicitRelationRecall": 1,
+      "criticalSemanticRecall": 1,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 0,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": []
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H03",
+    "explicitObjectRecall": 1,
+    "explicitRelationRecall": 1,
+    "criticalSemanticRecall": 1,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 0,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": []
+  },
+  "error": null
+}

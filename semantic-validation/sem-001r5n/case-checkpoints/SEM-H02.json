@@ -1,0 +1,2378 @@
+{
+  "campaign": "SEM-001R5N-CLOSURE",
+  "campaignId": "sem-001r5n-closure-2026-08-13T10-04-53-978Z-ke1-dddaa50feb99591b",
+  "caseId": "SEM-H02",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-dddaa50feb99591b",
+  "semanticConfigurationDigest": "ke1-845f98f9c02a2a8d",
+  "goldFrameDigest": "ke1-a0263871e53cb915",
+  "originalRequest": [
+    "Endométriose profonde : est-ce que le T2* change après traitement, à six mois ?"
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-13T10:05:32.135Z",
+  "completedAt": "2026-08-13T10:05:42.253Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H02:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "cand_01J8K6MNP7QR3STV9W2XYZ0001",
+        "language": "fr",
+        "normalizedMeaning": "Étude de l'évolution de la mesure T2* après un traitement de l'endométriose profonde à un intervalle de six mois.",
+        "summaryForUser": "Analyse de la variation du paramètre T2* à six mois suite à un traitement pour l'endométriose profonde.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "item_01",
+              "sourceMessageId": "SEM-H02:user:1",
+              "sourceText": "Endométriose profonde",
+              "normalizedLabel": "endométriose profonde",
+              "localRole": "condition",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "profonde"
+              ],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item_02",
+              "sourceMessageId": "SEM-H02:user:1",
+              "sourceText": "T2*",
+              "normalizedLabel": "T2*",
+              "localRole": "biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item_03",
+              "sourceMessageId": "SEM-H02:user:1",
+              "sourceText": "change",
+              "normalizedLabel": "changement",
+              "localRole": "action",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "item_02"
+              ]
+            },
+            {
+              "inventoryItemId": "item_04",
+              "sourceMessageId": "SEM-H02:user:1",
+              "sourceText": "après traitement",
+              "normalizedLabel": "après traitement",
+              "localRole": "intervention",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item_05",
+              "sourceMessageId": "SEM-H02:user:1",
+              "sourceText": "à six mois",
+              "normalizedLabel": "à six mois",
+              "localRole": "timing",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "six",
+                "mois"
+              ],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_01",
+              "sourceInventoryItemId": "item_02",
+              "targetInventoryItemId": "item_04",
+              "sourceMessageId": "SEM-H02:user:1",
+              "sourceText": "est-ce que le T2* change après traitement",
+              "normalizedRelation": "CHANGES_AFTER",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_02",
+              "sourceInventoryItemId": "item_02",
+              "targetInventoryItemId": "item_05",
+              "sourceMessageId": "SEM-H02:user:1",
+              "sourceText": "le T2* change après traitement, à six mois",
+              "normalizedRelation": "REPEATED_AT",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_03",
+              "sourceInventoryItemId": "item_02",
+              "targetInventoryItemId": "item_01",
+              "sourceMessageId": "SEM-H02:user:1",
+              "sourceText": "Endométriose profonde : est-ce que le T2*",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem_01",
+            "type": "CONDITION",
+            "canonicalMeaning": "Endométriose profonde",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_01"
+            ],
+            "sourceMessageId": "SEM-H02:user:1",
+            "sourceText": "Endométriose profonde",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_02",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Paramètre quantitatif T2*",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_02"
+            ],
+            "sourceMessageId": "SEM-H02:user:1",
+            "sourceText": "T2*",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_03",
+            "type": "INTERVENTION",
+            "canonicalMeaning": "Traitement médical ou chirurgical non spécifié",
+            "studyRole": "INTERVENTION_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_04"
+            ],
+            "sourceMessageId": "SEM-H02:user:1",
+            "sourceText": "après traitement",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_04",
+            "type": "TIMING",
+            "canonicalMeaning": "Intervalle de six mois",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_05"
+            ],
+            "sourceMessageId": "SEM-H02:user:1",
+            "sourceText": "à six mois",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_05",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Évaluation du changement du T2*",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_03"
+            ],
+            "sourceMessageId": "SEM-H02:user:1",
+            "sourceText": "change",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel_elem_01",
+            "sourceClientElementId": "elem_02",
+            "targetClientElementId": "elem_03",
+            "relationType": "CHANGES_AFTER",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_01"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_elem_02",
+            "sourceClientElementId": "elem_02",
+            "targetClientElementId": "elem_04",
+            "relationType": "REPEATED_AT",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_02"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_elem_03",
+            "sourceClientElementId": "elem_02",
+            "targetClientElementId": "elem_01",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_03"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [
+          "Le type exact de traitement n'est pas spécifié."
+        ],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [
+          {
+            "question": "Quel type de traitement est envisagé pour l'endométriose profonde ?",
+            "reason": "Préciser la nature exacte de l'intervention pour affiner le protocole d'évaluation.",
+            "resolvesClientElementIds": [
+              "elem_03"
+            ]
+          }
+        ],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "L'utilisateur interroge l'évolution d'un biomarqueur (T2*) suite à une intervention à un temps donné dans le cadre d'une pathologie spécifique, ce qui correspond à la conception ou l'évaluation d'un suivi d'étude.",
+          "expectedCapabilities": [
+            "Définition précise du traitement",
+            "Structuration des temps de mesure",
+            "Validation du choix du biomarqueur T2*"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "reconstructionDigest": "ke1-ecd6416751c32043",
+      "critics": [
+        {
+          "criticId": "crit_01J8K6MNP7QR3STV9W2XYZ0002",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit fragments including condition, biomarker, intervention, timing, and action intent are fully represented by corresponding typed elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is present in the source message."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The intervention ('après traitement') is fully represented as an INTERVENTION element."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No separate broad modality family is explicitly mentioned beyond the T2* measurement technique which is correctly classified as BIOMARKER."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All inventory relations (rel_01, rel_02, rel_03) are fully represented by direct client semantic relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All types conform precisely to the operational taxonomy and taxonomy report is complete with no findings."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relation has been weakened to an inference."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unverified inference has been promoted to explicit user status."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "The ambiguity regarding the exact type of treatment is appropriately captured and exposed."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "All polarities are affirmed as stated in the source text with no negation reversed or ignored."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "The explicit timing 'à six mois' is fully preserved as a TIMING element."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No unauthorized promotion of outcome to endpoint has occurred."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts such as deep endometriosis and T2* are faithfully retained without unwarranted generalization."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "Explicit coverage report is complete and no source fragments are omitted."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY perfectly matches the study design and evaluation request structure of the semantic model."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The typed candidate and semantic inventory are fully aligned with the source message. All explicit objects, relations, timings, and intentions are accurately typed and covered, and the route is fully justified."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-67758b33e18a25af",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "Endométriose profonde : est-ce que le T2* change après traitement, à six mois ?",
+        "normalizedMeaning": "Étude de l'évolution de la mesure T2* après un traitement de l'endométriose profonde à un intervalle de six mois.",
+        "conversationMessageIds": [
+          "SEM-H02:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-02ee7c914beb2445",
+            "type": "TIMING",
+            "canonicalMeaning": "Intervalle de six mois",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_05"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H02:user:1",
+              "text": "à six mois",
+              "start": 67,
+              "end": 77
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-38a7e75fc0ad17b3"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H02:user:1",
+              "providerCallId": "gemini-call:ke1-1bea41ebfdfab65f",
+              "rawElementId": "elem_04"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-57ce080826d32674",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Paramètre quantitatif T2*",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_02"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H02:user:1",
+              "text": "T2*",
+              "start": 38,
+              "end": 41
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-0d9b84979f490b53",
+              "sem-relation:ke1-38a7e75fc0ad17b3",
+              "sem-relation:ke1-7c25eef2e711ff7e"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "SUPPORTED",
+              "resultRef": "knowledge-result:ke1-8d015e117012b295",
+              "assertionRefs": [
+                "RB-004:v1.1:block:1:ke1-e39816a6bdc6356a",
+                "RB-004:v1.1:block:10:ke1-f5d808a0c27812a4",
+                "RB-004:v1.1:block:11:ke1-660fe893123efedf",
+                "RB-004:v1.1:block:12:ke1-4b093dc51508ad01",
+                "RB-004:v1.1:block:13:ke1-b823cbd4b7316c50",
+                "RB-004:v1.1:block:14:ke1-3dd28cef8bb9003b",
+                "RB-004:v1.1:block:15:ke1-593b6ff0f373f344",
+                "RB-004:v1.1:block:16:ke1-795caa8bc49b57c7",
+                "RB-004:v1.1:block:17:ke1-b0f815cb8f1c773f",
+                "RB-004:v1.1:block:18:ke1-5a8000fced8f23a8",
+                "RB-004:v1.1:block:2:ke1-8fb56766b011127a",
+                "RB-004:v1.1:block:3:ke1-caed666c73f1b230",
+                "RB-004:v1.1:block:4:ke1-a3e762d90a2309bd",
+                "RB-004:v1.1:block:5:ke1-b92d8f8738854273",
+                "RB-004:v1.1:block:6:ke1-5d646824a19d5f88",
+                "RB-004:v1.1:block:7:ke1-ecc539bec6136d82",
+                "RB-004:v1.1:block:8:ke1-c5e1465f566a604b",
+                "RB-004:v1.1:block:9:ke1-58a432651f80bb01"
+              ],
+              "gapRefs": [
+                "knowledge-gap:ke1-92967b41354750d5"
+              ],
+              "checkedAt": "2026-08-13T10:05:42.247Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H02:user:1",
+              "providerCallId": "gemini-call:ke1-1bea41ebfdfab65f",
+              "rawElementId": "elem_02"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-58c2bd2545d58e89",
+            "type": "INTERVENTION",
+            "canonicalMeaning": "Traitement médical ou chirurgical non spécifié",
+            "studyRole": "INTERVENTION_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_04"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H02:user:1",
+              "text": "après traitement",
+              "start": 49,
+              "end": 65
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-7c25eef2e711ff7e"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H02:user:1",
+              "providerCallId": "gemini-call:ke1-1bea41ebfdfab65f",
+              "rawElementId": "elem_03"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-d7b2b958ccc77aac",
+            "type": "CONDITION",
+            "canonicalMeaning": "Endométriose profonde",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_01"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H02:user:1",
+              "text": "Endométriose profonde",
+              "start": 0,
+              "end": 21
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-0d9b84979f490b53"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-8d015e117012b295",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-92967b41354750d5"
+              ],
+              "checkedAt": "2026-08-13T10:05:42.247Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H02:user:1",
+              "providerCallId": "gemini-call:ke1-1bea41ebfdfab65f",
+              "rawElementId": "elem_01"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-ef82ea1a4c588d16",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Évaluation du changement du T2*",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_03"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H02:user:1",
+              "text": "change",
+              "start": 42,
+              "end": 48
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H02:user:1",
+              "providerCallId": "gemini-call:ke1-1bea41ebfdfab65f",
+              "rawElementId": "elem_05"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-0d9b84979f490b53",
+            "sourceElementId": "sem-element:ke1-57ce080826d32674",
+            "targetElementId": "sem-element:ke1-d7b2b958ccc77aac",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_03"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-38a7e75fc0ad17b3",
+            "sourceElementId": "sem-element:ke1-57ce080826d32674",
+            "targetElementId": "sem-element:ke1-02ee7c914beb2445",
+            "relationType": "REPEATED_AT",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_02"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-7c25eef2e711ff7e",
+            "sourceElementId": "sem-element:ke1-57ce080826d32674",
+            "targetElementId": "sem-element:ke1-58c2bd2545d58e89",
+            "relationType": "CHANGES_AFTER",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_01"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "item_01",
+              "sourceMessageId": "SEM-H02:user:1",
+              "sourceText": "Endométriose profonde",
+              "normalizedMeaning": "endométriose profonde",
+              "mappedClientElementIds": [
+                "elem_01"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item_02",
+              "sourceMessageId": "SEM-H02:user:1",
+              "sourceText": "T2*",
+              "normalizedMeaning": "T2*",
+              "mappedClientElementIds": [
+                "elem_02"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item_03",
+              "sourceMessageId": "SEM-H02:user:1",
+              "sourceText": "change",
+              "normalizedMeaning": "changement",
+              "mappedClientElementIds": [
+                "elem_05"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item_04",
+              "sourceMessageId": "SEM-H02:user:1",
+              "sourceText": "après traitement",
+              "normalizedMeaning": "après traitement",
+              "mappedClientElementIds": [
+                "elem_03"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item_05",
+              "sourceMessageId": "SEM-H02:user:1",
+              "sourceText": "à six mois",
+              "normalizedMeaning": "à six mois",
+              "mappedClientElementIds": [
+                "elem_04"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel_01",
+              "sourceInventoryItemId": "item_02",
+              "targetInventoryItemId": "item_04",
+              "normalizedRelation": "CHANGES_AFTER",
+              "mappedClientRelationIds": [
+                "rel_elem_01"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_02",
+              "sourceInventoryItemId": "item_02",
+              "targetInventoryItemId": "item_05",
+              "normalizedRelation": "REPEATED_AT",
+              "mappedClientRelationIds": [
+                "rel_elem_02"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_03",
+              "sourceInventoryItemId": "item_02",
+              "targetInventoryItemId": "item_01",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "mappedClientRelationIds": [
+                "rel_elem_03"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [
+          "Le type exact de traitement n'est pas spécifié."
+        ],
+        "unknowns": [],
+        "contradictions": [],
+        "clarificationCandidates": [
+          {
+            "question": "Quel type de traitement est envisagé pour l'endométriose profonde ?",
+            "reason": "Préciser la nature exacte de l'intervention pour affiner le protocole d'évaluation.",
+            "resolvesElementIds": [
+              "sem-element:ke1-58c2bd2545d58e89"
+            ]
+          }
+        ],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "L'utilisateur interroge l'évolution d'un biomarqueur (T2*) suite à une intervention à un temps donné dans le cadre d'une pathologie spécifique, ce qui correspond à la conception ou l'évaluation d'un suivi d'étude.",
+          "expectedCapabilities": [
+            "Définition précise du traitement",
+            "Structuration des temps de mesure",
+            "Validation du choix du biomarqueur T2*"
+          ]
+        },
+        "summaryForUser": "Analyse de la variation du paramètre T2* à six mois suite à un traitement pour l'endométriose profonde.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "The typed candidate and semantic inventory are fully aligned with the source message. All explicit objects, relations, timings, and intentions are accurately typed and covered, and the route is fully justified."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+          "criticPromptVersion": "SEM-001-CRITIC-1.6",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-1bea41ebfdfab65f",
+          "criticCallId": "gemini-call:ke1-f5b803e6a983cd0a",
+          "criticCallIds": [
+            "gemini-call:ke1-f5b803e6a983cd0a"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T10:05:32.135Z",
+              "requestFinished": "2026-08-13T10:05:38.544Z",
+              "latencyMs": 6409,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T10:05:38.547Z",
+              "requestFinished": "2026-08-13T10:05:42.231Z",
+              "latencyMs": 3684,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "cand_01J8K6MNP7QR3STV9W2XYZ0001",
+            "language": "fr",
+            "normalizedMeaning": "Étude de l'évolution de la mesure T2* après un traitement de l'endométriose profonde à un intervalle de six mois.",
+            "summaryForUser": "Analyse de la variation du paramètre T2* à six mois suite à un traitement pour l'endométriose profonde.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "item_01",
+                  "sourceMessageId": "SEM-H02:user:1",
+                  "sourceText": "Endométriose profonde",
+                  "normalizedLabel": "endométriose profonde",
+                  "localRole": "condition",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [
+                    "profonde"
+                  ],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "item_02",
+                  "sourceMessageId": "SEM-H02:user:1",
+                  "sourceText": "T2*",
+                  "normalizedLabel": "T2*",
+                  "localRole": "biomarker",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "item_03",
+                  "sourceMessageId": "SEM-H02:user:1",
+                  "sourceText": "change",
+                  "normalizedLabel": "changement",
+                  "localRole": "action",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "item_02"
+                  ]
+                },
+                {
+                  "inventoryItemId": "item_04",
+                  "sourceMessageId": "SEM-H02:user:1",
+                  "sourceText": "après traitement",
+                  "normalizedLabel": "après traitement",
+                  "localRole": "intervention",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "item_05",
+                  "sourceMessageId": "SEM-H02:user:1",
+                  "sourceText": "à six mois",
+                  "normalizedLabel": "à six mois",
+                  "localRole": "timing",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [
+                    "six",
+                    "mois"
+                  ],
+                  "linkedInventoryItemIds": []
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel_01",
+                  "sourceInventoryItemId": "item_02",
+                  "targetInventoryItemId": "item_04",
+                  "sourceMessageId": "SEM-H02:user:1",
+                  "sourceText": "est-ce que le T2* change après traitement",
+                  "normalizedRelation": "CHANGES_AFTER",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel_02",
+                  "sourceInventoryItemId": "item_02",
+                  "targetInventoryItemId": "item_05",
+                  "sourceMessageId": "SEM-H02:user:1",
+                  "sourceText": "le T2* change après traitement, à six mois",
+                  "normalizedRelation": "REPEATED_AT",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel_03",
+                  "sourceInventoryItemId": "item_02",
+                  "targetInventoryItemId": "item_01",
+                  "sourceMessageId": "SEM-H02:user:1",
+                  "sourceText": "Endométriose profonde : est-ce que le T2*",
+                  "normalizedRelation": "RELATED_TO_CANDIDATE",
+                  "polarity": "AFFIRMED"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem_01",
+                "type": "CONDITION",
+                "canonicalMeaning": "Endométriose profonde",
+                "studyRole": "SUBJECT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "item_01"
+                ],
+                "sourceMessageId": "SEM-H02:user:1",
+                "sourceText": "Endométriose profonde",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_02",
+                "type": "BIOMARKER",
+                "canonicalMeaning": "Paramètre quantitatif T2*",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "item_02"
+                ],
+                "sourceMessageId": "SEM-H02:user:1",
+                "sourceText": "T2*",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_03",
+                "type": "INTERVENTION",
+                "canonicalMeaning": "Traitement médical ou chirurgical non spécifié",
+                "studyRole": "INTERVENTION_ARM",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "item_04"
+                ],
+                "sourceMessageId": "SEM-H02:user:1",
+                "sourceText": "après traitement",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_04",
+                "type": "TIMING",
+                "canonicalMeaning": "Intervalle de six mois",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "item_05"
+                ],
+                "sourceMessageId": "SEM-H02:user:1",
+                "sourceText": "à six mois",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_05",
+                "type": "SCIENTIFIC_INTENT",
+                "canonicalMeaning": "Évaluation du changement du T2*",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "item_03"
+                ],
+                "sourceMessageId": "SEM-H02:user:1",
+                "sourceText": "change",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel_elem_01",
+                "sourceClientElementId": "elem_02",
+                "targetClientElementId": "elem_03",
+                "relationType": "CHANGES_AFTER",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_01"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel_elem_02",
+                "sourceClientElementId": "elem_02",
+                "targetClientElementId": "elem_04",
+                "relationType": "REPEATED_AT",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_02"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel_elem_03",
+                "sourceClientElementId": "elem_02",
+                "targetClientElementId": "elem_01",
+                "relationType": "RELATED_TO_CANDIDATE",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_03"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              }
+            ],
+            "missingConcepts": [],
+            "ellipses": [],
+            "ambiguities": [
+              "Le type exact de traitement n'est pas spécifié."
+            ],
+            "unknowns": [],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [
+              {
+                "question": "Quel type de traitement est envisagé pour l'endométriose profonde ?",
+                "reason": "Préciser la nature exacte de l'intervention pour affiner le protocole d'évaluation.",
+                "resolvesClientElementIds": [
+                  "elem_03"
+                ]
+              }
+            ],
+            "routeProposal": {
+              "route": "DESIGN_STUDY",
+              "confidence": 0.9,
+              "reason": "L'utilisateur interroge l'évolution d'un biomarqueur (T2*) suite à une intervention à un temps donné dans le cadre d'une pathologie spécifique, ce qui correspond à la conception ou l'évaluation d'un suivi d'étude.",
+              "expectedCapabilities": [
+                "Définition précise du traitement",
+                "Structuration des temps de mesure",
+                "Validation du choix du biomarqueur T2*"
+              ]
+            },
+            "semanticWarnings": []
+          },
+          "rawCritic": {
+            "criticId": "crit_01J8K6MNP7QR3STV9W2XYZ0002",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit fragments including condition, biomarker, intervention, timing, and action intent are fully represented by corresponding typed elements."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No comparator is present in the source message."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "The intervention ('après traitement') is fully represented as an INTERVENTION element."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No separate broad modality family is explicitly mentioned beyond the T2* measurement technique which is correctly classified as BIOMARKER."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All inventory relations (rel_01, rel_02, rel_03) are fully represented by direct client semantic relations."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "All types conform precisely to the operational taxonomy and taxonomy report is complete with no findings."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "No explicit relation has been weakened to an inference."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No unverified inference has been promoted to explicit user status."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "The ambiguity regarding the exact type of treatment is appropriately captured and exposed."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "All polarities are affirmed as stated in the source text with no negation reversed or ignored."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "PASS",
+                "evidence": "The explicit timing 'à six mois' is fully preserved as a TIMING element."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "No unauthorized promotion of outcome to endpoint has occurred."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts such as deep endometriosis and T2* are faithfully retained without unwarranted generalization."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "Explicit coverage report is complete and no source fragments are omitted."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "Route DESIGN_STUDY perfectly matches the study design and evaluation request structure of the semantic model."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The typed candidate and semantic inventory are fully aligned with the source message. All explicit objects, relations, timings, and intentions are accurately typed and covered, and the route is fully justified."
+          },
+          "rawCritics": [
+            {
+              "criticId": "crit_01J8K6MNP7QR3STV9W2XYZ0002",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit fragments including condition, biomarker, intervention, timing, and action intent are fully represented by corresponding typed elements."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No comparator is present in the source message."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The intervention ('après traitement') is fully represented as an INTERVENTION element."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No separate broad modality family is explicitly mentioned beyond the T2* measurement technique which is correctly classified as BIOMARKER."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All inventory relations (rel_01, rel_02, rel_03) are fully represented by direct client semantic relations."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "All types conform precisely to the operational taxonomy and taxonomy report is complete with no findings."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "No explicit relation has been weakened to an inference."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No unverified inference has been promoted to explicit user status."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "The ambiguity regarding the exact type of treatment is appropriately captured and exposed."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "All polarities are affirmed as stated in the source text with no negation reversed or ignored."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "PASS",
+                  "evidence": "The explicit timing 'à six mois' is fully preserved as a TIMING element."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "No unauthorized promotion of outcome to endpoint has occurred."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific concepts such as deep endometriosis and T2* are faithfully retained without unwarranted generalization."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "Explicit coverage report is complete and no source fragments are omitted."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "Route DESIGN_STUDY perfectly matches the study design and evaluation request structure of the semantic model."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "The typed candidate and semantic inventory are fully aligned with the source message. All explicit objects, relations, timings, and intentions are accurately typed and covered, and the route is fully justified."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-13T10:05:42.233Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-8d015e117012b295",
+          "resultDigest": "ke1-8d015e117012b295",
+          "coverageStatus": "SUPPORTED",
+          "verifiedAt": "2026-08-13T10:05:42.247Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-13T10:05:42.233Z",
+        "updatedAt": "2026-08-13T10:05:42.247Z",
+        "digest": "ke1-11b5b13119467ac5"
+      },
+      "canonicalModelDigest": "ke1-11b5b13119467ac5",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-8d015e117012b295",
+        "resultDigest": "ke1-8d015e117012b295",
+        "coverageStatus": "SUPPORTED",
+        "verifiedAt": "2026-08-13T10:05:42.247Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-1bea41ebfdfab65f",
+      "structuredDigest": "ke1-ecd6416751c32043",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:05:32.135Z",
+          "requestFinished": "2026-08-13T10:05:38.544Z",
+          "latencyMs": 6409,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-f5b803e6a983cd0a",
+      "structuredDigest": "ke1-fef38ce0e7cdeae4",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:05:38.547Z",
+          "requestFinished": "2026-08-13T10:05:42.231Z",
+          "latencyMs": 3684,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-67758b33e18a25af",
+    "revision": 1,
+    "status": "CANDIDATE",
+    "originalRequest": "Endométriose profonde : est-ce que le T2* change après traitement, à six mois ?",
+    "normalizedMeaning": "Étude de l'évolution de la mesure T2* après un traitement de l'endométriose profonde à un intervalle de six mois.",
+    "conversationMessageIds": [
+      "SEM-H02:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-02ee7c914beb2445",
+        "type": "TIMING",
+        "canonicalMeaning": "Intervalle de six mois",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "item_05"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H02:user:1",
+          "text": "à six mois",
+          "start": 67,
+          "end": 77
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-38a7e75fc0ad17b3"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H02:user:1",
+          "providerCallId": "gemini-call:ke1-1bea41ebfdfab65f",
+          "rawElementId": "elem_04"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-57ce080826d32674",
+        "type": "BIOMARKER",
+        "canonicalMeaning": "Paramètre quantitatif T2*",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "item_02"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H02:user:1",
+          "text": "T2*",
+          "start": 38,
+          "end": 41
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-0d9b84979f490b53",
+          "sem-relation:ke1-38a7e75fc0ad17b3",
+          "sem-relation:ke1-7c25eef2e711ff7e"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "SUPPORTED",
+          "resultRef": "knowledge-result:ke1-8d015e117012b295",
+          "assertionRefs": [
+            "RB-004:v1.1:block:1:ke1-e39816a6bdc6356a",
+            "RB-004:v1.1:block:10:ke1-f5d808a0c27812a4",
+            "RB-004:v1.1:block:11:ke1-660fe893123efedf",
+            "RB-004:v1.1:block:12:ke1-4b093dc51508ad01",
+            "RB-004:v1.1:block:13:ke1-b823cbd4b7316c50",
+            "RB-004:v1.1:block:14:ke1-3dd28cef8bb9003b",
+            "RB-004:v1.1:block:15:ke1-593b6ff0f373f344",
+            "RB-004:v1.1:block:16:ke1-795caa8bc49b57c7",
+            "RB-004:v1.1:block:17:ke1-b0f815cb8f1c773f",
+            "RB-004:v1.1:block:18:ke1-5a8000fced8f23a8",
+            "RB-004:v1.1:block:2:ke1-8fb56766b011127a",
+            "RB-004:v1.1:block:3:ke1-caed666c73f1b230",
+            "RB-004:v1.1:block:4:ke1-a3e762d90a2309bd",
+            "RB-004:v1.1:block:5:ke1-b92d8f8738854273",
+            "RB-004:v1.1:block:6:ke1-5d646824a19d5f88",
+            "RB-004:v1.1:block:7:ke1-ecc539bec6136d82",
+            "RB-004:v1.1:block:8:ke1-c5e1465f566a604b",
+            "RB-004:v1.1:block:9:ke1-58a432651f80bb01"
+          ],
+          "gapRefs": [
+            "knowledge-gap:ke1-92967b41354750d5"
+          ],
+          "checkedAt": "2026-08-13T10:05:42.247Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H02:user:1",
+          "providerCallId": "gemini-call:ke1-1bea41ebfdfab65f",
+          "rawElementId": "elem_02"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-58c2bd2545d58e89",
+        "type": "INTERVENTION",
+        "canonicalMeaning": "Traitement médical ou chirurgical non spécifié",
+        "studyRole": "INTERVENTION_ARM",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "item_04"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H02:user:1",
+          "text": "après traitement",
+          "start": 49,
+          "end": 65
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-7c25eef2e711ff7e"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H02:user:1",
+          "providerCallId": "gemini-call:ke1-1bea41ebfdfab65f",
+          "rawElementId": "elem_03"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-d7b2b958ccc77aac",
+        "type": "CONDITION",
+        "canonicalMeaning": "Endométriose profonde",
+        "studyRole": "SUBJECT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "item_01"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H02:user:1",
+          "text": "Endométriose profonde",
+          "start": 0,
+          "end": 21
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-0d9b84979f490b53"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-8d015e117012b295",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-92967b41354750d5"
+          ],
+          "checkedAt": "2026-08-13T10:05:42.247Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H02:user:1",
+          "providerCallId": "gemini-call:ke1-1bea41ebfdfab65f",
+          "rawElementId": "elem_01"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-ef82ea1a4c588d16",
+        "type": "SCIENTIFIC_INTENT",
+        "canonicalMeaning": "Évaluation du changement du T2*",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "item_03"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H02:user:1",
+          "text": "change",
+          "start": 42,
+          "end": 48
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H02:user:1",
+          "providerCallId": "gemini-call:ke1-1bea41ebfdfab65f",
+          "rawElementId": "elem_05"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-0d9b84979f490b53",
+        "sourceElementId": "sem-element:ke1-57ce080826d32674",
+        "targetElementId": "sem-element:ke1-d7b2b958ccc77aac",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_03"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-38a7e75fc0ad17b3",
+        "sourceElementId": "sem-element:ke1-57ce080826d32674",
+        "targetElementId": "sem-element:ke1-02ee7c914beb2445",
+        "relationType": "REPEATED_AT",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_02"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-7c25eef2e711ff7e",
+        "sourceElementId": "sem-element:ke1-57ce080826d32674",
+        "targetElementId": "sem-element:ke1-58c2bd2545d58e89",
+        "relationType": "CHANGES_AFTER",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_01"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "item_01",
+          "sourceMessageId": "SEM-H02:user:1",
+          "sourceText": "Endométriose profonde",
+          "normalizedMeaning": "endométriose profonde",
+          "mappedClientElementIds": [
+            "elem_01"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item_02",
+          "sourceMessageId": "SEM-H02:user:1",
+          "sourceText": "T2*",
+          "normalizedMeaning": "T2*",
+          "mappedClientElementIds": [
+            "elem_02"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item_03",
+          "sourceMessageId": "SEM-H02:user:1",
+          "sourceText": "change",
+          "normalizedMeaning": "changement",
+          "mappedClientElementIds": [
+            "elem_05"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item_04",
+          "sourceMessageId": "SEM-H02:user:1",
+          "sourceText": "après traitement",
+          "normalizedMeaning": "après traitement",
+          "mappedClientElementIds": [
+            "elem_03"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item_05",
+          "sourceMessageId": "SEM-H02:user:1",
+          "sourceText": "à six mois",
+          "normalizedMeaning": "à six mois",
+          "mappedClientElementIds": [
+            "elem_04"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel_01",
+          "sourceInventoryItemId": "item_02",
+          "targetInventoryItemId": "item_04",
+          "normalizedRelation": "CHANGES_AFTER",
+          "mappedClientRelationIds": [
+            "rel_elem_01"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_02",
+          "sourceInventoryItemId": "item_02",
+          "targetInventoryItemId": "item_05",
+          "normalizedRelation": "REPEATED_AT",
+          "mappedClientRelationIds": [
+            "rel_elem_02"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_03",
+          "sourceInventoryItemId": "item_02",
+          "targetInventoryItemId": "item_01",
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "mappedClientRelationIds": [
+            "rel_elem_03"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "missingConcepts": [],
+    "ellipses": [],
+    "ambiguities": [
+      "Le type exact de traitement n'est pas spécifié."
+    ],
+    "unknowns": [],
+    "contradictions": [],
+    "clarificationCandidates": [
+      {
+        "question": "Quel type de traitement est envisagé pour l'endométriose profonde ?",
+        "reason": "Préciser la nature exacte de l'intervention pour affiner le protocole d'évaluation.",
+        "resolvesElementIds": [
+          "sem-element:ke1-58c2bd2545d58e89"
+        ]
+      }
+    ],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "DESIGN_STUDY",
+      "confidence": 0.9,
+      "reason": "L'utilisateur interroge l'évolution d'un biomarqueur (T2*) suite à une intervention à un temps donné dans le cadre d'une pathologie spécifique, ce qui correspond à la conception ou l'évaluation d'un suivi d'étude.",
+      "expectedCapabilities": [
+        "Définition précise du traitement",
+        "Structuration des temps de mesure",
+        "Validation du choix du biomarqueur T2*"
+      ]
+    },
+    "summaryForUser": "Analyse de la variation du paramètre T2* à six mois suite à un traitement pour l'endométriose profonde.",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "The typed candidate and semantic inventory are fully aligned with the source message. All explicit objects, relations, timings, and intentions are accurately typed and covered, and the route is fully justified."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-1bea41ebfdfab65f",
+      "criticCallId": "gemini-call:ke1-f5b803e6a983cd0a",
+      "criticCallIds": [
+        "gemini-call:ke1-f5b803e6a983cd0a"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:05:32.135Z",
+          "requestFinished": "2026-08-13T10:05:38.544Z",
+          "latencyMs": 6409,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:05:38.547Z",
+          "requestFinished": "2026-08-13T10:05:42.231Z",
+          "latencyMs": 3684,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "cand_01J8K6MNP7QR3STV9W2XYZ0001",
+        "language": "fr",
+        "normalizedMeaning": "Étude de l'évolution de la mesure T2* après un traitement de l'endométriose profonde à un intervalle de six mois.",
+        "summaryForUser": "Analyse de la variation du paramètre T2* à six mois suite à un traitement pour l'endométriose profonde.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "item_01",
+              "sourceMessageId": "SEM-H02:user:1",
+              "sourceText": "Endométriose profonde",
+              "normalizedLabel": "endométriose profonde",
+              "localRole": "condition",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "profonde"
+              ],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item_02",
+              "sourceMessageId": "SEM-H02:user:1",
+              "sourceText": "T2*",
+              "normalizedLabel": "T2*",
+              "localRole": "biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item_03",
+              "sourceMessageId": "SEM-H02:user:1",
+              "sourceText": "change",
+              "normalizedLabel": "changement",
+              "localRole": "action",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "item_02"
+              ]
+            },
+            {
+              "inventoryItemId": "item_04",
+              "sourceMessageId": "SEM-H02:user:1",
+              "sourceText": "après traitement",
+              "normalizedLabel": "après traitement",
+              "localRole": "intervention",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item_05",
+              "sourceMessageId": "SEM-H02:user:1",
+              "sourceText": "à six mois",
+              "normalizedLabel": "à six mois",
+              "localRole": "timing",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "six",
+                "mois"
+              ],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_01",
+              "sourceInventoryItemId": "item_02",
+              "targetInventoryItemId": "item_04",
+              "sourceMessageId": "SEM-H02:user:1",
+              "sourceText": "est-ce que le T2* change après traitement",
+              "normalizedRelation": "CHANGES_AFTER",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_02",
+              "sourceInventoryItemId": "item_02",
+              "targetInventoryItemId": "item_05",
+              "sourceMessageId": "SEM-H02:user:1",
+              "sourceText": "le T2* change après traitement, à six mois",
+              "normalizedRelation": "REPEATED_AT",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_03",
+              "sourceInventoryItemId": "item_02",
+              "targetInventoryItemId": "item_01",
+              "sourceMessageId": "SEM-H02:user:1",
+              "sourceText": "Endométriose profonde : est-ce que le T2*",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem_01",
+            "type": "CONDITION",
+            "canonicalMeaning": "Endométriose profonde",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_01"
+            ],
+            "sourceMessageId": "SEM-H02:user:1",
+            "sourceText": "Endométriose profonde",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_02",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Paramètre quantitatif T2*",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_02"
+            ],
+            "sourceMessageId": "SEM-H02:user:1",
+            "sourceText": "T2*",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_03",
+            "type": "INTERVENTION",
+            "canonicalMeaning": "Traitement médical ou chirurgical non spécifié",
+            "studyRole": "INTERVENTION_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_04"
+            ],
+            "sourceMessageId": "SEM-H02:user:1",
+            "sourceText": "après traitement",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_04",
+            "type": "TIMING",
+            "canonicalMeaning": "Intervalle de six mois",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_05"
+            ],
+            "sourceMessageId": "SEM-H02:user:1",
+            "sourceText": "à six mois",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_05",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Évaluation du changement du T2*",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_03"
+            ],
+            "sourceMessageId": "SEM-H02:user:1",
+            "sourceText": "change",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel_elem_01",
+            "sourceClientElementId": "elem_02",
+            "targetClientElementId": "elem_03",
+            "relationType": "CHANGES_AFTER",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_01"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_elem_02",
+            "sourceClientElementId": "elem_02",
+            "targetClientElementId": "elem_04",
+            "relationType": "REPEATED_AT",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_02"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_elem_03",
+            "sourceClientElementId": "elem_02",
+            "targetClientElementId": "elem_01",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_03"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [
+          "Le type exact de traitement n'est pas spécifié."
+        ],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [
+          {
+            "question": "Quel type de traitement est envisagé pour l'endométriose profonde ?",
+            "reason": "Préciser la nature exacte de l'intervention pour affiner le protocole d'évaluation.",
+            "resolvesClientElementIds": [
+              "elem_03"
+            ]
+          }
+        ],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "L'utilisateur interroge l'évolution d'un biomarqueur (T2*) suite à une intervention à un temps donné dans le cadre d'une pathologie spécifique, ce qui correspond à la conception ou l'évaluation d'un suivi d'étude.",
+          "expectedCapabilities": [
+            "Définition précise du traitement",
+            "Structuration des temps de mesure",
+            "Validation du choix du biomarqueur T2*"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "rawCritic": {
+        "criticId": "crit_01J8K6MNP7QR3STV9W2XYZ0002",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit fragments including condition, biomarker, intervention, timing, and action intent are fully represented by corresponding typed elements."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No comparator is present in the source message."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "The intervention ('après traitement') is fully represented as an INTERVENTION element."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No separate broad modality family is explicitly mentioned beyond the T2* measurement technique which is correctly classified as BIOMARKER."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All inventory relations (rel_01, rel_02, rel_03) are fully represented by direct client semantic relations."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "All types conform precisely to the operational taxonomy and taxonomy report is complete with no findings."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "No explicit relation has been weakened to an inference."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No unverified inference has been promoted to explicit user status."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "The ambiguity regarding the exact type of treatment is appropriately captured and exposed."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "All polarities are affirmed as stated in the source text with no negation reversed or ignored."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "PASS",
+            "evidence": "The explicit timing 'à six mois' is fully preserved as a TIMING element."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "No unauthorized promotion of outcome to endpoint has occurred."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific concepts such as deep endometriosis and T2* are faithfully retained without unwarranted generalization."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "Explicit coverage report is complete and no source fragments are omitted."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "Route DESIGN_STUDY perfectly matches the study design and evaluation request structure of the semantic model."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "The typed candidate and semantic inventory are fully aligned with the source message. All explicit objects, relations, timings, and intentions are accurately typed and covered, and the route is fully justified."
+      },
+      "rawCritics": [
+        {
+          "criticId": "crit_01J8K6MNP7QR3STV9W2XYZ0002",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit fragments including condition, biomarker, intervention, timing, and action intent are fully represented by corresponding typed elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is present in the source message."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The intervention ('après traitement') is fully represented as an INTERVENTION element."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No separate broad modality family is explicitly mentioned beyond the T2* measurement technique which is correctly classified as BIOMARKER."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All inventory relations (rel_01, rel_02, rel_03) are fully represented by direct client semantic relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All types conform precisely to the operational taxonomy and taxonomy report is complete with no findings."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relation has been weakened to an inference."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unverified inference has been promoted to explicit user status."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "The ambiguity regarding the exact type of treatment is appropriately captured and exposed."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "All polarities are affirmed as stated in the source text with no negation reversed or ignored."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "The explicit timing 'à six mois' is fully preserved as a TIMING element."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No unauthorized promotion of outcome to endpoint has occurred."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts such as deep endometriosis and T2* are faithfully retained without unwarranted generalization."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "Explicit coverage report is complete and no source fragments are omitted."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY perfectly matches the study design and evaluation request structure of the semantic model."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The typed candidate and semantic inventory are fully aligned with the source message. All explicit objects, relations, timings, and intentions are accurately typed and covered, and the route is fully justified."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-13T10:05:42.233Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-8d015e117012b295",
+      "resultDigest": "ke1-8d015e117012b295",
+      "coverageStatus": "SUPPORTED",
+      "verifiedAt": "2026-08-13T10:05:42.247Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-13T10:05:42.233Z",
+    "updatedAt": "2026-08-13T10:05:42.247Z",
+    "digest": "ke1-11b5b13119467ac5"
+  },
+  "semanticModelDigest": "ke1-11b5b13119467ac5",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "item_01",
+          "sourceMessageId": "SEM-H02:user:1",
+          "sourceText": "Endométriose profonde",
+          "normalizedMeaning": "endométriose profonde",
+          "mappedClientElementIds": [
+            "elem_01"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item_02",
+          "sourceMessageId": "SEM-H02:user:1",
+          "sourceText": "T2*",
+          "normalizedMeaning": "T2*",
+          "mappedClientElementIds": [
+            "elem_02"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item_03",
+          "sourceMessageId": "SEM-H02:user:1",
+          "sourceText": "change",
+          "normalizedMeaning": "changement",
+          "mappedClientElementIds": [
+            "elem_05"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item_04",
+          "sourceMessageId": "SEM-H02:user:1",
+          "sourceText": "après traitement",
+          "normalizedMeaning": "après traitement",
+          "mappedClientElementIds": [
+            "elem_03"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item_05",
+          "sourceMessageId": "SEM-H02:user:1",
+          "sourceText": "à six mois",
+          "normalizedMeaning": "à six mois",
+          "mappedClientElementIds": [
+            "elem_04"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel_01",
+          "sourceInventoryItemId": "item_02",
+          "targetInventoryItemId": "item_04",
+          "normalizedRelation": "CHANGES_AFTER",
+          "mappedClientRelationIds": [
+            "rel_elem_01"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_02",
+          "sourceInventoryItemId": "item_02",
+          "targetInventoryItemId": "item_05",
+          "normalizedRelation": "REPEATED_AT",
+          "mappedClientRelationIds": [
+            "rel_elem_02"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_03",
+          "sourceInventoryItemId": "item_02",
+          "targetInventoryItemId": "item_01",
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "mappedClientRelationIds": [
+            "rel_elem_03"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-8066258bdfcc6c77",
+    "evaluatedAt": "2026-08-13T10:05:42.253Z",
+    "goldFrameDigest": "ke1-a0263871e53cb915",
+    "result": {
+      "caseId": "SEM-H02",
+      "explicitObjectRecall": 1,
+      "explicitRelationRecall": 1,
+      "criticalSemanticRecall": 1,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 1,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": []
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H02",
+    "explicitObjectRecall": 1,
+    "explicitRelationRecall": 1,
+    "criticalSemanticRecall": 1,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 1,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": []
+  },
+  "error": null
+}

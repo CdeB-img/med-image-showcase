@@ -1,0 +1,20 @@
+{
+  "campaignId": "sem-001r5p-closure-2026-08-13T10-29-07-565Z-ke1-2ac79d2f15fe20bb",
+  "caseId": "SEM-H13",
+  "stage": "RECONSTRUCTION",
+  "turn": 1,
+  "cycle": null,
+  "provider": "GOOGLE_GEMINI",
+  "model": "gemini-3.5-flash-lite",
+  "promptVersion": "SEM-001-RECONSTRUCTION-1.6",
+  "schemaDigest": "ke1-c849778553bf38b1",
+  "classification": "MODEL_STRUCTURE_NON_COMPLIANCE",
+  "validationPaths": [],
+  "disposition": "RECOVERED_BY_FROZEN_STRUCTURED_CORRECTION",
+  "rawStructuredResponseArtifacts": [
+    "semantic-validation/sem-001r5p/closure-raw-provider-responses/0028-SEM-H13-reconstruction-t1-c0.json",
+    "semantic-validation/sem-001r5p/closure-raw-provider-responses/0029-SEM-H13-reconstruction-t1-c0.json"
+  ],
+  "noParserFabrication": true,
+  "recordedAt": "2026-08-13T10:35:02.952Z"
+}

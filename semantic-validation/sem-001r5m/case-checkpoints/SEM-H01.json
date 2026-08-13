@@ -1,0 +1,2818 @@
+{
+  "campaign": "SEM-001R5M-CLOSURE",
+  "campaignId": "sem-001r5m-closure-2026-08-13T09-40-35-104Z-ke1-ac75ad8a4d6f2326",
+  "caseId": "SEM-H01",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-ac75ad8a4d6f2326",
+  "semanticConfigurationDigest": "ke1-2d65467f810363ab",
+  "goldFrameDigest": "ke1-db4a6b9753f7d543",
+  "originalRequest": [
+    "On voudrait opposer l'ADC cortical à la perfusion ASL pour caractériser le rein greffé."
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-13T09:41:01.497Z",
+  "completedAt": "2026-08-13T09:41:15.855Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H01:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "cand_1",
+        "language": "fr",
+        "normalizedMeaning": "Comparison between cortical ADC and ASL perfusion for characterizing the transplanted kidney.",
+        "summaryForUser": "Comparison of cortical ADC and ASL perfusion to characterize the transplanted kidney.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "item_1",
+              "sourceMessageId": "SEM-H01:user:1",
+              "sourceText": "opposer",
+              "normalizedLabel": "opposer",
+              "localRole": "verb",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "item_2",
+                "item_3"
+              ]
+            },
+            {
+              "inventoryItemId": "item_2",
+              "sourceMessageId": "SEM-H01:user:1",
+              "sourceText": "l'ADC cortical",
+              "normalizedLabel": "ADC cortical",
+              "localRole": "object",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "cortical"
+              ],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item_3",
+              "sourceMessageId": "SEM-H01:user:1",
+              "sourceText": "la perfusion ASL",
+              "normalizedLabel": "perfusion ASL",
+              "localRole": "object",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "ASL"
+              ],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item_4",
+              "sourceMessageId": "SEM-H01:user:1",
+              "sourceText": "caractériser",
+              "normalizedLabel": "caractériser",
+              "localRole": "verb",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "item_5"
+              ]
+            },
+            {
+              "inventoryItemId": "item_5",
+              "sourceMessageId": "SEM-H01:user:1",
+              "sourceText": "le rein greffé",
+              "normalizedLabel": "rein greffé",
+              "localRole": "object",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "greffé"
+              ],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_1",
+              "sourceInventoryItemId": "item_2",
+              "targetInventoryItemId": "item_3",
+              "sourceMessageId": "SEM-H01:user:1",
+              "sourceText": "opposer l'ADC cortical à la perfusion ASL",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_2",
+              "sourceInventoryItemId": "item_4",
+              "targetInventoryItemId": "item_5",
+              "sourceMessageId": "SEM-H01:user:1",
+              "sourceText": "caractériser le rein greffé",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem_1",
+            "type": "OPERATION",
+            "canonicalMeaning": "opposition or comparison intent",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_1"
+            ],
+            "sourceMessageId": "SEM-H01:user:1",
+            "sourceText": "opposer",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_2",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "cortical apparent diffusion coefficient",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_2"
+            ],
+            "sourceMessageId": "SEM-H01:user:1",
+            "sourceText": "l'ADC cortical",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_3",
+            "type": "METHOD",
+            "canonicalMeaning": "arterial spin labeling perfusion measurement",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_3"
+            ],
+            "sourceMessageId": "SEM-H01:user:1",
+            "sourceText": "la perfusion ASL",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_4",
+            "type": "OPERATION",
+            "canonicalMeaning": "characterization",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_4"
+            ],
+            "sourceMessageId": "SEM-H01:user:1",
+            "sourceText": "caractériser",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_5",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "transplanted kidney",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_5"
+            ],
+            "sourceMessageId": "SEM-H01:user:1",
+            "sourceText": "le rein greffé",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel_elem_1",
+            "sourceClientElementId": "elem_2",
+            "targetClientElementId": "elem_3",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_elem_2",
+            "sourceClientElementId": "elem_2",
+            "targetClientElementId": "elem_5",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_2"
+            ],
+            "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+            "confidence": 0.9,
+            "inferenceReason": "Cortical ADC observes the transplanted kidney object.",
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_elem_3",
+            "sourceClientElementId": "elem_3",
+            "targetClientElementId": "elem_5",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_2"
+            ],
+            "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+            "confidence": 0.9,
+            "inferenceReason": "ASL perfusion observes the transplanted kidney object.",
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.95,
+          "reason": "The user is proposing a comparative study design between two methods/biomarkers on a specific target.",
+          "expectedCapabilities": [
+            "Define study arms",
+            "Specify evaluation criteria"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "reconstructionDigest": "ke1-f7063e486fd0c234",
+      "critics": [
+        {
+          "criticId": "crit_adv_1",
+          "verdict": "REVISE",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects (ADC cortical, perfusion ASL, rein greffé) are present in the element list."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Comparison between ADC and ASL perfusion is correctly represented."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No active intervention is present in the source text."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "Modalities are captured as method or biomarker under operational taxonomy."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "FAIL",
+              "evidence": "relationCoverageReport indicates rel_2 is EXPLICIT_RELATION_UNMAPPED because characterizing the transplanted kidney lacks a direct semantic relation between 'caractériser'/'elem_4' or the methods and 'rein greffé'."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All element types conform to the operational taxonomy."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relations were weakened."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Inferred relations are marked appropriately as INFERRED_HIGH_CONFIDENCE."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No hidden ambiguities."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "No negations present."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No timing specified."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No unauthorized endpoint promotions."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts retained."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No source fragments are completely omitted from inventory."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "DESIGN_STUDY route correctly matches the comparative study intent."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [
+            {
+              "code": "EXPLICIT_RELATION_UNMAPPED",
+              "severity": "CRITICAL",
+              "elementClientIds": [
+                "elem_4",
+                "elem_5"
+              ],
+              "description": "Explicit relation rel_2 ('caractériser le rein greffé') is unmapped in the Semantic Relations list.",
+              "recommendedAction": "Add an explicit semantic relation representing the characterization of the transplanted kidney using inventory relation rel_2.",
+              "resolved": false
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "repairId": "rep_1",
+              "action": "UPSERT_RELATION",
+              "reason": "Map the explicit relation rel_2 ('caractériser le rein greffé') to a direct semantic relation between the intent/operation and the target object.",
+              "sourceInventoryItemIds": [],
+              "sourceInventoryRelationIds": [
+                "rel_2"
+              ],
+              "inventoryItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "inventoryNormalizedLabel": null,
+              "inventoryLocalRole": null,
+              "inventoryPolarity": null,
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": null,
+              "elementType": null,
+              "elementCanonicalMeaning": null,
+              "elementStudyRole": null,
+              "elementPolarity": null,
+              "elementInventoryItemIds": [],
+              "elementSourceMessageId": null,
+              "elementSourceText": null,
+              "elementEpistemicStatus": null,
+              "elementConfidence": null,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": null,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": "rel_elem_4",
+              "relationSourceClientElementId": "elem_4",
+              "relationTargetClientElementId": "elem_5",
+              "relationType": "TARGETS",
+              "relationPolarity": "AFFIRMED",
+              "relationInventoryRelationIds": [
+                "rel_2"
+              ],
+              "relationEpistemicStatus": "EXPLICIT_USER_STATED",
+              "relationConfidence": 1,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": false,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            }
+          ],
+          "criticSummary": "The candidate captures all explicit objects and comparative relations accurately, but relation rel_2 ('caractériser le rein greffé') is currently unmapped in the semantic relation graph. A repair adding the direct TARGETS relation anchored by inventory relation rel_2 resolves this coverage gap."
+        },
+        {
+          "criticId": "crit_adv_01",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects (l'ADC cortical, la perfusion ASL, le rein greffé) are fully represented by typed semantic elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The comparison between cortical ADC and ASL perfusion is correctly represented."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No active intervention is mentioned in the text."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "ASL perfusion and cortical ADC capture the imaging/measurement methods and modalities correctly."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit relations from the inventory are mapped to direct semantic relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All object types comply with the operational taxonomy rules."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations retain their direct nature and are not weakened."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Inferences are correctly marked with appropriate epistemic statuses."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No hidden ambiguities detected."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarities are correctly affirmed without reversal."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit timing constraint is present in the text."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No unrequested outcome/endpoint promotions found."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Concepts retain their specific source meanings."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No missing source fragments identified."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY is completely consistent with the semantic model."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The typed candidate and semantic model fully satisfy all criteria with complete coverage, correct typings, and valid routing."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [
+        {
+          "repairId": "rep_1",
+          "status": "ACCEPTED",
+          "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+        }
+      ],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-b2e0126dfb4c8cf1",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "On voudrait opposer l'ADC cortical à la perfusion ASL pour caractériser le rein greffé.",
+        "normalizedMeaning": "Comparison between cortical ADC and ASL perfusion for characterizing the transplanted kidney.",
+        "conversationMessageIds": [
+          "SEM-H01:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-0250bfa4c2e9b030",
+            "type": "OPERATION",
+            "canonicalMeaning": "characterization",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_4"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H01:user:1",
+              "text": "caractériser",
+              "start": 59,
+              "end": 71
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-9a4ee3195d95f1f5"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H01:user:1",
+              "providerCallId": "gemini-call:ke1-b700908b12a2ecff",
+              "rawElementId": "elem_4"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-305a0ca450fca328",
+            "type": "METHOD",
+            "canonicalMeaning": "arterial spin labeling perfusion measurement",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_3"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H01:user:1",
+              "text": "la perfusion ASL",
+              "start": 37,
+              "end": 53
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-9c8f1bd963d068d5",
+              "sem-relation:ke1-a9bd26d1dbdad4a5"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H01:user:1",
+              "providerCallId": "gemini-call:ke1-b700908b12a2ecff",
+              "rawElementId": "elem_3"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-79b4f448514a8f14",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "cortical apparent diffusion coefficient",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_2"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H01:user:1",
+              "text": "l'ADC cortical",
+              "start": 20,
+              "end": 34
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-557b357046644d9c",
+              "sem-relation:ke1-9c8f1bd963d068d5"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-2dd8d352b0642036",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-1077004101b34e0d",
+                "knowledge-gap:ke1-160dd534862545e8",
+                "knowledge-gap:ke1-97e4ec0e13fea5ca"
+              ],
+              "checkedAt": "2026-08-13T09:41:15.849Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H01:user:1",
+              "providerCallId": "gemini-call:ke1-b700908b12a2ecff",
+              "rawElementId": "elem_2"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-7b7b2d2d45feca11",
+            "type": "OPERATION",
+            "canonicalMeaning": "opposition or comparison intent",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_1"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H01:user:1",
+              "text": "opposer",
+              "start": 12,
+              "end": 19
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H01:user:1",
+              "providerCallId": "gemini-call:ke1-b700908b12a2ecff",
+              "rawElementId": "elem_1"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-e7f6dc2b5b1416bf",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "transplanted kidney",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_5"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H01:user:1",
+              "text": "le rein greffé",
+              "start": 72,
+              "end": 86
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-557b357046644d9c",
+              "sem-relation:ke1-9a4ee3195d95f1f5",
+              "sem-relation:ke1-a9bd26d1dbdad4a5"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H01:user:1",
+              "providerCallId": "gemini-call:ke1-b700908b12a2ecff",
+              "rawElementId": "elem_5"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-557b357046644d9c",
+            "sourceElementId": "sem-element:ke1-79b4f448514a8f14",
+            "targetElementId": "sem-element:ke1-e7f6dc2b5b1416bf",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_2"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+            "confidence": 0.9,
+            "inferenceReason": "Cortical ADC observes the transplanted kidney object.",
+            "requiresConfirmation": true,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-9a4ee3195d95f1f5",
+            "sourceElementId": "sem-element:ke1-0250bfa4c2e9b030",
+            "targetElementId": "sem-element:ke1-e7f6dc2b5b1416bf",
+            "relationType": "TARGETS",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_2"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-9c8f1bd963d068d5",
+            "sourceElementId": "sem-element:ke1-79b4f448514a8f14",
+            "targetElementId": "sem-element:ke1-305a0ca450fca328",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_1"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-a9bd26d1dbdad4a5",
+            "sourceElementId": "sem-element:ke1-305a0ca450fca328",
+            "targetElementId": "sem-element:ke1-e7f6dc2b5b1416bf",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_2"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+            "confidence": 0.9,
+            "inferenceReason": "ASL perfusion observes the transplanted kidney object.",
+            "requiresConfirmation": true,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "item_1",
+              "sourceMessageId": "SEM-H01:user:1",
+              "sourceText": "opposer",
+              "normalizedMeaning": "opposer",
+              "mappedClientElementIds": [
+                "elem_1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item_2",
+              "sourceMessageId": "SEM-H01:user:1",
+              "sourceText": "l'ADC cortical",
+              "normalizedMeaning": "ADC cortical",
+              "mappedClientElementIds": [
+                "elem_2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item_3",
+              "sourceMessageId": "SEM-H01:user:1",
+              "sourceText": "la perfusion ASL",
+              "normalizedMeaning": "perfusion ASL",
+              "mappedClientElementIds": [
+                "elem_3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item_4",
+              "sourceMessageId": "SEM-H01:user:1",
+              "sourceText": "caractériser",
+              "normalizedMeaning": "caractériser",
+              "mappedClientElementIds": [
+                "elem_4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item_5",
+              "sourceMessageId": "SEM-H01:user:1",
+              "sourceText": "le rein greffé",
+              "normalizedMeaning": "rein greffé",
+              "mappedClientElementIds": [
+                "elem_5"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel_1",
+              "sourceInventoryItemId": "item_2",
+              "targetInventoryItemId": "item_3",
+              "normalizedRelation": "COMPARES_WITH",
+              "mappedClientRelationIds": [
+                "rel_elem_1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_2",
+              "sourceInventoryItemId": "item_4",
+              "targetInventoryItemId": "item_5",
+              "normalizedRelation": "OBSERVES",
+              "mappedClientRelationIds": [
+                "rel_elem_4"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "clarificationCandidates": [],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.95,
+          "reason": "The user is proposing a comparative study design between two methods/biomarkers on a specific target.",
+          "expectedCapabilities": [
+            "Define study arms",
+            "Specify evaluation criteria"
+          ]
+        },
+        "summaryForUser": "Comparison of cortical ADC and ASL perfusion to characterize the transplanted kidney.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "The typed candidate and semantic model fully satisfy all criteria with complete coverage, correct typings, and valid routing."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+          "criticPromptVersion": "SEM-001-CRITIC-1.6",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-b700908b12a2ecff",
+          "criticCallId": "gemini-call:ke1-52f2b0e9b2094665",
+          "criticCallIds": [
+            "gemini-call:ke1-72a0140f5148d04b",
+            "gemini-call:ke1-52f2b0e9b2094665"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:41:01.498Z",
+              "requestFinished": "2026-08-13T09:41:07.601Z",
+              "latencyMs": 6103,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:41:07.613Z",
+              "requestFinished": "2026-08-13T09:41:12.640Z",
+              "latencyMs": 5027,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            },
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:41:12.647Z",
+              "requestFinished": "2026-08-13T09:41:15.834Z",
+              "latencyMs": 3187,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "cand_1",
+            "language": "fr",
+            "normalizedMeaning": "Comparison between cortical ADC and ASL perfusion for characterizing the transplanted kidney.",
+            "summaryForUser": "Comparison of cortical ADC and ASL perfusion to characterize the transplanted kidney.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "item_1",
+                  "sourceMessageId": "SEM-H01:user:1",
+                  "sourceText": "opposer",
+                  "normalizedLabel": "opposer",
+                  "localRole": "verb",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "item_2",
+                    "item_3"
+                  ]
+                },
+                {
+                  "inventoryItemId": "item_2",
+                  "sourceMessageId": "SEM-H01:user:1",
+                  "sourceText": "l'ADC cortical",
+                  "normalizedLabel": "ADC cortical",
+                  "localRole": "object",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [
+                    "cortical"
+                  ],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "item_3",
+                  "sourceMessageId": "SEM-H01:user:1",
+                  "sourceText": "la perfusion ASL",
+                  "normalizedLabel": "perfusion ASL",
+                  "localRole": "object",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [
+                    "ASL"
+                  ],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "item_4",
+                  "sourceMessageId": "SEM-H01:user:1",
+                  "sourceText": "caractériser",
+                  "normalizedLabel": "caractériser",
+                  "localRole": "verb",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "item_5"
+                  ]
+                },
+                {
+                  "inventoryItemId": "item_5",
+                  "sourceMessageId": "SEM-H01:user:1",
+                  "sourceText": "le rein greffé",
+                  "normalizedLabel": "rein greffé",
+                  "localRole": "object",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [
+                    "greffé"
+                  ],
+                  "linkedInventoryItemIds": []
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel_1",
+                  "sourceInventoryItemId": "item_2",
+                  "targetInventoryItemId": "item_3",
+                  "sourceMessageId": "SEM-H01:user:1",
+                  "sourceText": "opposer l'ADC cortical à la perfusion ASL",
+                  "normalizedRelation": "COMPARES_WITH",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel_2",
+                  "sourceInventoryItemId": "item_4",
+                  "targetInventoryItemId": "item_5",
+                  "sourceMessageId": "SEM-H01:user:1",
+                  "sourceText": "caractériser le rein greffé",
+                  "normalizedRelation": "OBSERVES",
+                  "polarity": "AFFIRMED"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem_1",
+                "type": "OPERATION",
+                "canonicalMeaning": "opposition or comparison intent",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "item_1"
+                ],
+                "sourceMessageId": "SEM-H01:user:1",
+                "sourceText": "opposer",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_2",
+                "type": "BIOMARKER",
+                "canonicalMeaning": "cortical apparent diffusion coefficient",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "item_2"
+                ],
+                "sourceMessageId": "SEM-H01:user:1",
+                "sourceText": "l'ADC cortical",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_3",
+                "type": "METHOD",
+                "canonicalMeaning": "arterial spin labeling perfusion measurement",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "item_3"
+                ],
+                "sourceMessageId": "SEM-H01:user:1",
+                "sourceText": "la perfusion ASL",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_4",
+                "type": "OPERATION",
+                "canonicalMeaning": "characterization",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "item_4"
+                ],
+                "sourceMessageId": "SEM-H01:user:1",
+                "sourceText": "caractériser",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_5",
+                "type": "SCIENTIFIC_OBJECT",
+                "canonicalMeaning": "transplanted kidney",
+                "studyRole": "SUBJECT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "item_5"
+                ],
+                "sourceMessageId": "SEM-H01:user:1",
+                "sourceText": "le rein greffé",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel_elem_1",
+                "sourceClientElementId": "elem_2",
+                "targetClientElementId": "elem_3",
+                "relationType": "COMPARES_WITH",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_1"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel_elem_2",
+                "sourceClientElementId": "elem_2",
+                "targetClientElementId": "elem_5",
+                "relationType": "OBSERVES",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_2"
+                ],
+                "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+                "confidence": 0.9,
+                "inferenceReason": "Cortical ADC observes the transplanted kidney object.",
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel_elem_3",
+                "sourceClientElementId": "elem_3",
+                "targetClientElementId": "elem_5",
+                "relationType": "OBSERVES",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_2"
+                ],
+                "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+                "confidence": 0.9,
+                "inferenceReason": "ASL perfusion observes the transplanted kidney object.",
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel_elem_4",
+                "sourceClientElementId": "elem_4",
+                "targetClientElementId": "elem_5",
+                "relationType": "TARGETS",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_2"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              }
+            ],
+            "missingConcepts": [],
+            "ellipses": [],
+            "ambiguities": [],
+            "unknowns": [],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [],
+            "routeProposal": {
+              "route": "DESIGN_STUDY",
+              "confidence": 0.95,
+              "reason": "The user is proposing a comparative study design between two methods/biomarkers on a specific target.",
+              "expectedCapabilities": [
+                "Define study arms",
+                "Specify evaluation criteria"
+              ]
+            },
+            "semanticWarnings": []
+          },
+          "rawCritic": {
+            "criticId": "crit_adv_01",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit objects (l'ADC cortical, la perfusion ASL, le rein greffé) are fully represented by typed semantic elements."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "PASS",
+                "evidence": "The comparison between cortical ADC and ASL perfusion is correctly represented."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No active intervention is mentioned in the text."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "PASS",
+                "evidence": "ASL perfusion and cortical ADC capture the imaging/measurement methods and modalities correctly."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit relations from the inventory are mapped to direct semantic relations."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "All object types comply with the operational taxonomy rules."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Explicit relations retain their direct nature and are not weakened."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "Inferences are correctly marked with appropriate epistemic statuses."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "No hidden ambiguities detected."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "Polarities are correctly affirmed without reversal."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No explicit timing constraint is present in the text."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "No unrequested outcome/endpoint promotions found."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Concepts retain their specific source meanings."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "No missing source fragments identified."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "Route DESIGN_STUDY is completely consistent with the semantic model."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The typed candidate and semantic model fully satisfy all criteria with complete coverage, correct typings, and valid routing."
+          },
+          "rawCritics": [
+            {
+              "criticId": "crit_adv_1",
+              "verdict": "REVISE",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit objects (ADC cortical, perfusion ASL, rein greffé) are present in the element list."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "Comparison between ADC and ASL perfusion is correctly represented."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No active intervention is present in the source text."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "Modalities are captured as method or biomarker under operational taxonomy."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "FAIL",
+                  "evidence": "relationCoverageReport indicates rel_2 is EXPLICIT_RELATION_UNMAPPED because characterizing the transplanted kidney lacks a direct semantic relation between 'caractériser'/'elem_4' or the methods and 'rein greffé'."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "All element types conform to the operational taxonomy."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "No explicit relations were weakened."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "Inferred relations are marked appropriately as INFERRED_HIGH_CONFIDENCE."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "No hidden ambiguities."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "No negations present."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No timing specified."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "No unauthorized endpoint promotions."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific concepts retained."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "No source fragments are completely omitted from inventory."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "DESIGN_STUDY route correctly matches the comparative study intent."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [
+                {
+                  "code": "EXPLICIT_RELATION_UNMAPPED",
+                  "severity": "CRITICAL",
+                  "elementClientIds": [
+                    "elem_4",
+                    "elem_5"
+                  ],
+                  "description": "Explicit relation rel_2 ('caractériser le rein greffé') is unmapped in the Semantic Relations list.",
+                  "recommendedAction": "Add an explicit semantic relation representing the characterization of the transplanted kidney using inventory relation rel_2.",
+                  "resolved": false
+                }
+              ],
+              "proposedRepairs": [
+                {
+                  "repairId": "rep_1",
+                  "action": "UPSERT_RELATION",
+                  "reason": "Map the explicit relation rel_2 ('caractériser le rein greffé') to a direct semantic relation between the intent/operation and the target object.",
+                  "sourceInventoryItemIds": [],
+                  "sourceInventoryRelationIds": [
+                    "rel_2"
+                  ],
+                  "inventoryItemId": null,
+                  "inventorySourceMessageId": null,
+                  "inventorySourceText": null,
+                  "inventoryNormalizedLabel": null,
+                  "inventoryLocalRole": null,
+                  "inventoryPolarity": null,
+                  "inventoryModifiers": [],
+                  "inventoryLinkedItemIds": [],
+                  "inventoryRelationId": null,
+                  "inventoryRelationSourceItemId": null,
+                  "inventoryRelationTargetItemId": null,
+                  "inventoryRelationSourceMessageId": null,
+                  "inventoryRelationSourceText": null,
+                  "inventoryNormalizedRelation": null,
+                  "inventoryRelationPolarity": null,
+                  "elementClientElementId": null,
+                  "elementType": null,
+                  "elementCanonicalMeaning": null,
+                  "elementStudyRole": null,
+                  "elementPolarity": null,
+                  "elementInventoryItemIds": [],
+                  "elementSourceMessageId": null,
+                  "elementSourceText": null,
+                  "elementEpistemicStatus": null,
+                  "elementConfidence": null,
+                  "elementInferenceReason": null,
+                  "elementRequiresConfirmation": null,
+                  "elementSupersedesElementIds": [],
+                  "relationClientRelationId": "rel_elem_4",
+                  "relationSourceClientElementId": "elem_4",
+                  "relationTargetClientElementId": "elem_5",
+                  "relationType": "TARGETS",
+                  "relationPolarity": "AFFIRMED",
+                  "relationInventoryRelationIds": [
+                    "rel_2"
+                  ],
+                  "relationEpistemicStatus": "EXPLICIT_USER_STATED",
+                  "relationConfidence": 1,
+                  "relationInferenceReason": null,
+                  "relationRequiresConfirmation": false,
+                  "ambiguity": null,
+                  "route": null,
+                  "routeConfidence": null,
+                  "routeReason": null,
+                  "routeExpectedCapabilities": []
+                }
+              ],
+              "criticSummary": "The candidate captures all explicit objects and comparative relations accurately, but relation rel_2 ('caractériser le rein greffé') is currently unmapped in the semantic relation graph. A repair adding the direct TARGETS relation anchored by inventory relation rel_2 resolves this coverage gap."
+            },
+            {
+              "criticId": "crit_adv_01",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit objects (l'ADC cortical, la perfusion ASL, le rein greffé) are fully represented by typed semantic elements."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The comparison between cortical ADC and ASL perfusion is correctly represented."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No active intervention is mentioned in the text."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "ASL perfusion and cortical ADC capture the imaging/measurement methods and modalities correctly."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit relations from the inventory are mapped to direct semantic relations."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "All object types comply with the operational taxonomy rules."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Explicit relations retain their direct nature and are not weakened."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "Inferences are correctly marked with appropriate epistemic statuses."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "No hidden ambiguities detected."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "Polarities are correctly affirmed without reversal."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No explicit timing constraint is present in the text."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "No unrequested outcome/endpoint promotions found."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Concepts retain their specific source meanings."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "No missing source fragments identified."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "Route DESIGN_STUDY is completely consistent with the semantic model."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "The typed candidate and semantic model fully satisfy all criteria with complete coverage, correct typings, and valid routing."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-13T09:41:15.837Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-2dd8d352b0642036",
+          "resultDigest": "ke1-2dd8d352b0642036",
+          "coverageStatus": "NO_PROVIDER",
+          "verifiedAt": "2026-08-13T09:41:15.849Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-13T09:41:15.837Z",
+        "updatedAt": "2026-08-13T09:41:15.849Z",
+        "digest": "ke1-c3e0787a4b932116"
+      },
+      "canonicalModelDigest": "ke1-c3e0787a4b932116",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-2dd8d352b0642036",
+        "resultDigest": "ke1-2dd8d352b0642036",
+        "coverageStatus": "NO_PROVIDER",
+        "verifiedAt": "2026-08-13T09:41:15.849Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-b700908b12a2ecff",
+      "structuredDigest": "ke1-f7063e486fd0c234",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:41:01.498Z",
+          "requestFinished": "2026-08-13T09:41:07.601Z",
+          "latencyMs": 6103,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-72a0140f5148d04b",
+      "structuredDigest": "ke1-5ed1d29434744a80",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:41:07.613Z",
+          "requestFinished": "2026-08-13T09:41:12.640Z",
+          "latencyMs": 5027,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 2,
+      "callId": "gemini-call:ke1-52f2b0e9b2094665",
+      "structuredDigest": "ke1-d913939360f5e987",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:41:12.647Z",
+          "requestFinished": "2026-08-13T09:41:15.834Z",
+          "latencyMs": 3187,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-b2e0126dfb4c8cf1",
+    "revision": 1,
+    "status": "CANDIDATE",
+    "originalRequest": "On voudrait opposer l'ADC cortical à la perfusion ASL pour caractériser le rein greffé.",
+    "normalizedMeaning": "Comparison between cortical ADC and ASL perfusion for characterizing the transplanted kidney.",
+    "conversationMessageIds": [
+      "SEM-H01:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-0250bfa4c2e9b030",
+        "type": "OPERATION",
+        "canonicalMeaning": "characterization",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "item_4"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H01:user:1",
+          "text": "caractériser",
+          "start": 59,
+          "end": 71
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-9a4ee3195d95f1f5"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H01:user:1",
+          "providerCallId": "gemini-call:ke1-b700908b12a2ecff",
+          "rawElementId": "elem_4"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-305a0ca450fca328",
+        "type": "METHOD",
+        "canonicalMeaning": "arterial spin labeling perfusion measurement",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "item_3"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H01:user:1",
+          "text": "la perfusion ASL",
+          "start": 37,
+          "end": 53
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-9c8f1bd963d068d5",
+          "sem-relation:ke1-a9bd26d1dbdad4a5"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H01:user:1",
+          "providerCallId": "gemini-call:ke1-b700908b12a2ecff",
+          "rawElementId": "elem_3"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-79b4f448514a8f14",
+        "type": "BIOMARKER",
+        "canonicalMeaning": "cortical apparent diffusion coefficient",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "item_2"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H01:user:1",
+          "text": "l'ADC cortical",
+          "start": 20,
+          "end": 34
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-557b357046644d9c",
+          "sem-relation:ke1-9c8f1bd963d068d5"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-2dd8d352b0642036",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-1077004101b34e0d",
+            "knowledge-gap:ke1-160dd534862545e8",
+            "knowledge-gap:ke1-97e4ec0e13fea5ca"
+          ],
+          "checkedAt": "2026-08-13T09:41:15.849Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H01:user:1",
+          "providerCallId": "gemini-call:ke1-b700908b12a2ecff",
+          "rawElementId": "elem_2"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-7b7b2d2d45feca11",
+        "type": "OPERATION",
+        "canonicalMeaning": "opposition or comparison intent",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "item_1"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H01:user:1",
+          "text": "opposer",
+          "start": 12,
+          "end": 19
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H01:user:1",
+          "providerCallId": "gemini-call:ke1-b700908b12a2ecff",
+          "rawElementId": "elem_1"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-e7f6dc2b5b1416bf",
+        "type": "SCIENTIFIC_OBJECT",
+        "canonicalMeaning": "transplanted kidney",
+        "studyRole": "SUBJECT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "item_5"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H01:user:1",
+          "text": "le rein greffé",
+          "start": 72,
+          "end": 86
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-557b357046644d9c",
+          "sem-relation:ke1-9a4ee3195d95f1f5",
+          "sem-relation:ke1-a9bd26d1dbdad4a5"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H01:user:1",
+          "providerCallId": "gemini-call:ke1-b700908b12a2ecff",
+          "rawElementId": "elem_5"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-557b357046644d9c",
+        "sourceElementId": "sem-element:ke1-79b4f448514a8f14",
+        "targetElementId": "sem-element:ke1-e7f6dc2b5b1416bf",
+        "relationType": "OBSERVES",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_2"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+        "confidence": 0.9,
+        "inferenceReason": "Cortical ADC observes the transplanted kidney object.",
+        "requiresConfirmation": true,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-9a4ee3195d95f1f5",
+        "sourceElementId": "sem-element:ke1-0250bfa4c2e9b030",
+        "targetElementId": "sem-element:ke1-e7f6dc2b5b1416bf",
+        "relationType": "TARGETS",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_2"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-9c8f1bd963d068d5",
+        "sourceElementId": "sem-element:ke1-79b4f448514a8f14",
+        "targetElementId": "sem-element:ke1-305a0ca450fca328",
+        "relationType": "COMPARES_WITH",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_1"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-a9bd26d1dbdad4a5",
+        "sourceElementId": "sem-element:ke1-305a0ca450fca328",
+        "targetElementId": "sem-element:ke1-e7f6dc2b5b1416bf",
+        "relationType": "OBSERVES",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_2"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+        "confidence": 0.9,
+        "inferenceReason": "ASL perfusion observes the transplanted kidney object.",
+        "requiresConfirmation": true,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "item_1",
+          "sourceMessageId": "SEM-H01:user:1",
+          "sourceText": "opposer",
+          "normalizedMeaning": "opposer",
+          "mappedClientElementIds": [
+            "elem_1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item_2",
+          "sourceMessageId": "SEM-H01:user:1",
+          "sourceText": "l'ADC cortical",
+          "normalizedMeaning": "ADC cortical",
+          "mappedClientElementIds": [
+            "elem_2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item_3",
+          "sourceMessageId": "SEM-H01:user:1",
+          "sourceText": "la perfusion ASL",
+          "normalizedMeaning": "perfusion ASL",
+          "mappedClientElementIds": [
+            "elem_3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item_4",
+          "sourceMessageId": "SEM-H01:user:1",
+          "sourceText": "caractériser",
+          "normalizedMeaning": "caractériser",
+          "mappedClientElementIds": [
+            "elem_4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item_5",
+          "sourceMessageId": "SEM-H01:user:1",
+          "sourceText": "le rein greffé",
+          "normalizedMeaning": "rein greffé",
+          "mappedClientElementIds": [
+            "elem_5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel_1",
+          "sourceInventoryItemId": "item_2",
+          "targetInventoryItemId": "item_3",
+          "normalizedRelation": "COMPARES_WITH",
+          "mappedClientRelationIds": [
+            "rel_elem_1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_2",
+          "sourceInventoryItemId": "item_4",
+          "targetInventoryItemId": "item_5",
+          "normalizedRelation": "OBSERVES",
+          "mappedClientRelationIds": [
+            "rel_elem_4"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "missingConcepts": [],
+    "ellipses": [],
+    "ambiguities": [],
+    "unknowns": [],
+    "contradictions": [],
+    "clarificationCandidates": [],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "DESIGN_STUDY",
+      "confidence": 0.95,
+      "reason": "The user is proposing a comparative study design between two methods/biomarkers on a specific target.",
+      "expectedCapabilities": [
+        "Define study arms",
+        "Specify evaluation criteria"
+      ]
+    },
+    "summaryForUser": "Comparison of cortical ADC and ASL perfusion to characterize the transplanted kidney.",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "The typed candidate and semantic model fully satisfy all criteria with complete coverage, correct typings, and valid routing."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-b700908b12a2ecff",
+      "criticCallId": "gemini-call:ke1-52f2b0e9b2094665",
+      "criticCallIds": [
+        "gemini-call:ke1-72a0140f5148d04b",
+        "gemini-call:ke1-52f2b0e9b2094665"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:41:01.498Z",
+          "requestFinished": "2026-08-13T09:41:07.601Z",
+          "latencyMs": 6103,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:41:07.613Z",
+          "requestFinished": "2026-08-13T09:41:12.640Z",
+          "latencyMs": 5027,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:41:12.647Z",
+          "requestFinished": "2026-08-13T09:41:15.834Z",
+          "latencyMs": 3187,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "cand_1",
+        "language": "fr",
+        "normalizedMeaning": "Comparison between cortical ADC and ASL perfusion for characterizing the transplanted kidney.",
+        "summaryForUser": "Comparison of cortical ADC and ASL perfusion to characterize the transplanted kidney.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "item_1",
+              "sourceMessageId": "SEM-H01:user:1",
+              "sourceText": "opposer",
+              "normalizedLabel": "opposer",
+              "localRole": "verb",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "item_2",
+                "item_3"
+              ]
+            },
+            {
+              "inventoryItemId": "item_2",
+              "sourceMessageId": "SEM-H01:user:1",
+              "sourceText": "l'ADC cortical",
+              "normalizedLabel": "ADC cortical",
+              "localRole": "object",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "cortical"
+              ],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item_3",
+              "sourceMessageId": "SEM-H01:user:1",
+              "sourceText": "la perfusion ASL",
+              "normalizedLabel": "perfusion ASL",
+              "localRole": "object",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "ASL"
+              ],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item_4",
+              "sourceMessageId": "SEM-H01:user:1",
+              "sourceText": "caractériser",
+              "normalizedLabel": "caractériser",
+              "localRole": "verb",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "item_5"
+              ]
+            },
+            {
+              "inventoryItemId": "item_5",
+              "sourceMessageId": "SEM-H01:user:1",
+              "sourceText": "le rein greffé",
+              "normalizedLabel": "rein greffé",
+              "localRole": "object",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "greffé"
+              ],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_1",
+              "sourceInventoryItemId": "item_2",
+              "targetInventoryItemId": "item_3",
+              "sourceMessageId": "SEM-H01:user:1",
+              "sourceText": "opposer l'ADC cortical à la perfusion ASL",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_2",
+              "sourceInventoryItemId": "item_4",
+              "targetInventoryItemId": "item_5",
+              "sourceMessageId": "SEM-H01:user:1",
+              "sourceText": "caractériser le rein greffé",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem_1",
+            "type": "OPERATION",
+            "canonicalMeaning": "opposition or comparison intent",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_1"
+            ],
+            "sourceMessageId": "SEM-H01:user:1",
+            "sourceText": "opposer",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_2",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "cortical apparent diffusion coefficient",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_2"
+            ],
+            "sourceMessageId": "SEM-H01:user:1",
+            "sourceText": "l'ADC cortical",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_3",
+            "type": "METHOD",
+            "canonicalMeaning": "arterial spin labeling perfusion measurement",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_3"
+            ],
+            "sourceMessageId": "SEM-H01:user:1",
+            "sourceText": "la perfusion ASL",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_4",
+            "type": "OPERATION",
+            "canonicalMeaning": "characterization",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_4"
+            ],
+            "sourceMessageId": "SEM-H01:user:1",
+            "sourceText": "caractériser",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_5",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "transplanted kidney",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item_5"
+            ],
+            "sourceMessageId": "SEM-H01:user:1",
+            "sourceText": "le rein greffé",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel_elem_1",
+            "sourceClientElementId": "elem_2",
+            "targetClientElementId": "elem_3",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_elem_2",
+            "sourceClientElementId": "elem_2",
+            "targetClientElementId": "elem_5",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_2"
+            ],
+            "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+            "confidence": 0.9,
+            "inferenceReason": "Cortical ADC observes the transplanted kidney object.",
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_elem_3",
+            "sourceClientElementId": "elem_3",
+            "targetClientElementId": "elem_5",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_2"
+            ],
+            "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+            "confidence": 0.9,
+            "inferenceReason": "ASL perfusion observes the transplanted kidney object.",
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_elem_4",
+            "sourceClientElementId": "elem_4",
+            "targetClientElementId": "elem_5",
+            "relationType": "TARGETS",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.95,
+          "reason": "The user is proposing a comparative study design between two methods/biomarkers on a specific target.",
+          "expectedCapabilities": [
+            "Define study arms",
+            "Specify evaluation criteria"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "rawCritic": {
+        "criticId": "crit_adv_01",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit objects (l'ADC cortical, la perfusion ASL, le rein greffé) are fully represented by typed semantic elements."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "PASS",
+            "evidence": "The comparison between cortical ADC and ASL perfusion is correctly represented."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No active intervention is mentioned in the text."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "PASS",
+            "evidence": "ASL perfusion and cortical ADC capture the imaging/measurement methods and modalities correctly."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit relations from the inventory are mapped to direct semantic relations."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "All object types comply with the operational taxonomy rules."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "Explicit relations retain their direct nature and are not weakened."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "Inferences are correctly marked with appropriate epistemic statuses."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "No hidden ambiguities detected."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "Polarities are correctly affirmed without reversal."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No explicit timing constraint is present in the text."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "No unrequested outcome/endpoint promotions found."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Concepts retain their specific source meanings."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "No missing source fragments identified."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "Route DESIGN_STUDY is completely consistent with the semantic model."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "The typed candidate and semantic model fully satisfy all criteria with complete coverage, correct typings, and valid routing."
+      },
+      "rawCritics": [
+        {
+          "criticId": "crit_adv_1",
+          "verdict": "REVISE",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects (ADC cortical, perfusion ASL, rein greffé) are present in the element list."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Comparison between ADC and ASL perfusion is correctly represented."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No active intervention is present in the source text."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "Modalities are captured as method or biomarker under operational taxonomy."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "FAIL",
+              "evidence": "relationCoverageReport indicates rel_2 is EXPLICIT_RELATION_UNMAPPED because characterizing the transplanted kidney lacks a direct semantic relation between 'caractériser'/'elem_4' or the methods and 'rein greffé'."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All element types conform to the operational taxonomy."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relations were weakened."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Inferred relations are marked appropriately as INFERRED_HIGH_CONFIDENCE."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No hidden ambiguities."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "No negations present."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No timing specified."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No unauthorized endpoint promotions."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts retained."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No source fragments are completely omitted from inventory."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "DESIGN_STUDY route correctly matches the comparative study intent."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [
+            {
+              "code": "EXPLICIT_RELATION_UNMAPPED",
+              "severity": "CRITICAL",
+              "elementClientIds": [
+                "elem_4",
+                "elem_5"
+              ],
+              "description": "Explicit relation rel_2 ('caractériser le rein greffé') is unmapped in the Semantic Relations list.",
+              "recommendedAction": "Add an explicit semantic relation representing the characterization of the transplanted kidney using inventory relation rel_2.",
+              "resolved": false
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "repairId": "rep_1",
+              "action": "UPSERT_RELATION",
+              "reason": "Map the explicit relation rel_2 ('caractériser le rein greffé') to a direct semantic relation between the intent/operation and the target object.",
+              "sourceInventoryItemIds": [],
+              "sourceInventoryRelationIds": [
+                "rel_2"
+              ],
+              "inventoryItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "inventoryNormalizedLabel": null,
+              "inventoryLocalRole": null,
+              "inventoryPolarity": null,
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": null,
+              "elementType": null,
+              "elementCanonicalMeaning": null,
+              "elementStudyRole": null,
+              "elementPolarity": null,
+              "elementInventoryItemIds": [],
+              "elementSourceMessageId": null,
+              "elementSourceText": null,
+              "elementEpistemicStatus": null,
+              "elementConfidence": null,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": null,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": "rel_elem_4",
+              "relationSourceClientElementId": "elem_4",
+              "relationTargetClientElementId": "elem_5",
+              "relationType": "TARGETS",
+              "relationPolarity": "AFFIRMED",
+              "relationInventoryRelationIds": [
+                "rel_2"
+              ],
+              "relationEpistemicStatus": "EXPLICIT_USER_STATED",
+              "relationConfidence": 1,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": false,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            }
+          ],
+          "criticSummary": "The candidate captures all explicit objects and comparative relations accurately, but relation rel_2 ('caractériser le rein greffé') is currently unmapped in the semantic relation graph. A repair adding the direct TARGETS relation anchored by inventory relation rel_2 resolves this coverage gap."
+        },
+        {
+          "criticId": "crit_adv_01",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects (l'ADC cortical, la perfusion ASL, le rein greffé) are fully represented by typed semantic elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The comparison between cortical ADC and ASL perfusion is correctly represented."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No active intervention is mentioned in the text."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "ASL perfusion and cortical ADC capture the imaging/measurement methods and modalities correctly."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit relations from the inventory are mapped to direct semantic relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All object types comply with the operational taxonomy rules."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations retain their direct nature and are not weakened."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Inferences are correctly marked with appropriate epistemic statuses."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No hidden ambiguities detected."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarities are correctly affirmed without reversal."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit timing constraint is present in the text."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No unrequested outcome/endpoint promotions found."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Concepts retain their specific source meanings."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No missing source fragments identified."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY is completely consistent with the semantic model."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The typed candidate and semantic model fully satisfy all criteria with complete coverage, correct typings, and valid routing."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-13T09:41:15.837Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-2dd8d352b0642036",
+      "resultDigest": "ke1-2dd8d352b0642036",
+      "coverageStatus": "NO_PROVIDER",
+      "verifiedAt": "2026-08-13T09:41:15.849Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-13T09:41:15.837Z",
+    "updatedAt": "2026-08-13T09:41:15.849Z",
+    "digest": "ke1-c3e0787a4b932116"
+  },
+  "semanticModelDigest": "ke1-c3e0787a4b932116",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "item_1",
+          "sourceMessageId": "SEM-H01:user:1",
+          "sourceText": "opposer",
+          "normalizedMeaning": "opposer",
+          "mappedClientElementIds": [
+            "elem_1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item_2",
+          "sourceMessageId": "SEM-H01:user:1",
+          "sourceText": "l'ADC cortical",
+          "normalizedMeaning": "ADC cortical",
+          "mappedClientElementIds": [
+            "elem_2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item_3",
+          "sourceMessageId": "SEM-H01:user:1",
+          "sourceText": "la perfusion ASL",
+          "normalizedMeaning": "perfusion ASL",
+          "mappedClientElementIds": [
+            "elem_3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item_4",
+          "sourceMessageId": "SEM-H01:user:1",
+          "sourceText": "caractériser",
+          "normalizedMeaning": "caractériser",
+          "mappedClientElementIds": [
+            "elem_4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item_5",
+          "sourceMessageId": "SEM-H01:user:1",
+          "sourceText": "le rein greffé",
+          "normalizedMeaning": "rein greffé",
+          "mappedClientElementIds": [
+            "elem_5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel_1",
+          "sourceInventoryItemId": "item_2",
+          "targetInventoryItemId": "item_3",
+          "normalizedRelation": "COMPARES_WITH",
+          "mappedClientRelationIds": [
+            "rel_elem_1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_2",
+          "sourceInventoryItemId": "item_4",
+          "targetInventoryItemId": "item_5",
+          "normalizedRelation": "OBSERVES",
+          "mappedClientRelationIds": [
+            "rel_elem_4"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-8066258bdfcc6c77",
+    "evaluatedAt": "2026-08-13T09:41:15.855Z",
+    "goldFrameDigest": "ke1-db4a6b9753f7d543",
+    "result": {
+      "caseId": "SEM-H01",
+      "explicitObjectRecall": 0.6666666666666666,
+      "explicitRelationRecall": 1,
+      "criticalSemanticRecall": 0.75,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 1,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": [
+        "EXPLICIT_BIOMARKER_LOST:perfusion ASL"
+      ]
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H01",
+    "explicitObjectRecall": 0.6666666666666666,
+    "explicitRelationRecall": 1,
+    "criticalSemanticRecall": 0.75,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 1,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": [
+      "EXPLICIT_BIOMARKER_LOST:perfusion ASL"
+    ]
+  },
+  "error": null
+}

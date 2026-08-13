@@ -1,0 +1,3677 @@
+{
+  "campaign": "SEM-001R5N-CLOSURE",
+  "campaignId": "sem-001r5n-closure-2026-08-13T10-04-53-978Z-ke1-dddaa50feb99591b",
+  "caseId": "SEM-H05",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-dddaa50feb99591b",
+  "semanticConfigurationDigest": "ke1-845f98f9c02a2a8d",
+  "goldFrameDigest": "ke1-3d0f2e64cc2eb850",
+  "originalRequest": [
+    "sans sédation, IRM poumon chez mucoviscidose, suivre ventilation"
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-13T10:06:42.676Z",
+  "completedAt": "2026-08-13T10:07:36.856Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H05:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "candidate_1723497000_001",
+        "language": "fr",
+        "normalizedMeaning": "Réalisation d'une IRM pulmonaire sans sédation chez des patients atteints de mucoviscidose afin d'évaluer ou de suivre la ventilation.",
+        "summaryForUser": "Vous souhaitez concevoir le suivi de la ventilation par IRM pulmonaire sans sédation chez des patients atteints de mucoviscidose.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv_1",
+              "sourceMessageId": "SEM-H05:user:1",
+              "sourceText": "sans sédation",
+              "normalizedLabel": "sans sédation",
+              "localRole": "constraint",
+              "polarity": "NEGATED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_2",
+              "sourceMessageId": "SEM-H05:user:1",
+              "sourceText": "IRM",
+              "normalizedLabel": "IRM",
+              "localRole": "method",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_3",
+              "sourceMessageId": "SEM-H05:user:1",
+              "sourceText": "poumon",
+              "normalizedLabel": "poumon",
+              "localRole": "anatomical location",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_4",
+              "sourceMessageId": "SEM-H05:user:1",
+              "sourceText": "mucoviscidose",
+              "normalizedLabel": "mucoviscidose",
+              "localRole": "condition",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_5",
+              "sourceMessageId": "SEM-H05:user:1",
+              "sourceText": "suivre",
+              "normalizedLabel": "suivre",
+              "localRole": "action",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_6",
+              "sourceMessageId": "SEM-H05:user:1",
+              "sourceText": "ventilation",
+              "normalizedLabel": "ventilation",
+              "localRole": "target parameter",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_inv_1",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_1",
+              "sourceMessageId": "SEM-H05:user:1",
+              "sourceText": "sans sédation, IRM",
+              "normalizedRelation": "CONSTRAINED_BY",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_inv_2",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_3",
+              "sourceMessageId": "SEM-H05:user:1",
+              "sourceText": "IRM poumon",
+              "normalizedRelation": "APPLIED_TO",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_inv_3",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_4",
+              "sourceMessageId": "SEM-H05:user:1",
+              "sourceText": "IRM poumon chez mucoviscidose",
+              "normalizedRelation": "PERFORMED_ON_CONDITION",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_inv_4",
+              "sourceInventoryItemId": "inv_5",
+              "targetInventoryItemId": "inv_6",
+              "sourceMessageId": "SEM-H05:user:1",
+              "sourceText": "suivre ventilation",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_inv_5",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_6",
+              "sourceMessageId": "SEM-H05:user:1",
+              "sourceText": "sans sédation, IRM poumon chez mucoviscidose, suivre ventilation",
+              "normalizedRelation": "MEASURES",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem_1",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "Absence de sédation",
+            "studyRole": "NONE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv_1"
+            ],
+            "sourceMessageId": "SEM-H05:user:1",
+            "sourceText": "sans sédation",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_2",
+            "type": "METHOD",
+            "canonicalMeaning": "Imagerie par résonance magnétique",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_2"
+            ],
+            "sourceMessageId": "SEM-H05:user:1",
+            "sourceText": "IRM",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_3",
+            "type": "ANATOMICAL_CONTEXT",
+            "canonicalMeaning": "Poumon",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_3"
+            ],
+            "sourceMessageId": "SEM-H05:user:1",
+            "sourceText": "poumon",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_4",
+            "type": "CONDITION",
+            "canonicalMeaning": "Mucoviscidose",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_4"
+            ],
+            "sourceMessageId": "SEM-H05:user:1",
+            "sourceText": "mucoviscidose",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_5",
+            "type": "OPERATION",
+            "canonicalMeaning": "Suivi longitudinal ou évaluation",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_5"
+            ],
+            "sourceMessageId": "SEM-H05:user:1",
+            "sourceText": "suivre",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_6",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Paramètre ventilatoire",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_6"
+            ],
+            "sourceMessageId": "SEM-H05:user:1",
+            "sourceText": "ventilation",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_7",
+            "type": "POPULATION",
+            "canonicalMeaning": "Patients atteints de mucoviscidose",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_4"
+            ],
+            "sourceMessageId": "SEM-H05:user:1",
+            "sourceText": "mucoviscidose",
+            "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+            "confidence": 0.9,
+            "inferenceReason": "La condition de mucoviscidose implique implicitement une population de patients atteints de cette pathologie.",
+            "requiresConfirmation": true,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel_1",
+            "sourceClientElementId": "elem_2",
+            "targetClientElementId": "elem_1",
+            "relationType": "CONSTRAINED_BY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_2",
+            "sourceClientElementId": "elem_2",
+            "targetClientElementId": "elem_3",
+            "relationType": "APPLIED_TO",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_3",
+            "sourceClientElementId": "elem_2",
+            "targetClientElementId": "elem_4",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_3"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_4",
+            "sourceClientElementId": "elem_5",
+            "targetClientElementId": "elem_6",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_4"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_5",
+            "sourceClientElementId": "elem_6",
+            "targetClientElementId": "elem_2",
+            "relationType": "MEASURED_BY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_5"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_6",
+            "sourceClientElementId": "elem_7",
+            "targetClientElementId": "elem_4",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [],
+            "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+            "confidence": 0.9,
+            "inferenceReason": "La population étudiée présente la condition de mucoviscidose.",
+            "requiresConfirmation": true
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [
+          {
+            "question": "S'agit-il d'une population pédiatrique ou adulte pour cette IRM pulmonaire sans sédation ?",
+            "reason": "Préciser la tranche d'âge de la population atteinte de mucoviscidose aide à définir la faisabilité de l'IRM sans sédation.",
+            "resolvesClientElementIds": [
+              "elem_7"
+            ]
+          }
+        ],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.95,
+          "reason": "L'utilisateur définit les paramètres clés d'une étude potentielle (méthode, condition, contrainte et variable de suivi).",
+          "expectedCapabilities": [
+            "Définition du protocole d'imagerie",
+            "Sélection des critères d'évaluation",
+            "Considérations sur la faisabilité sans sédation"
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:1"
+        ]
+      },
+      "reconstructionDigest": "ke1-8201dee93bef442d",
+      "critics": [
+        {
+          "criticId": "critic_SEM_H05_01",
+          "verdict": "REVISE",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects in the source are represented in the inventory and candidate elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is present in the source."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No intervention is present in the source."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "FAIL",
+              "evidence": "Element elem_2 (IRM) is incorrectly typed as METHOD instead of MODALITY."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit relations are mapped correctly."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "FAIL",
+              "evidence": "Taxonomy report flags elem_2 as MODALITY and elem_6 as SCIENTIFIC_OBJECT instead of BIOMARKER."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relations were weakened."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Inferred elements are properly marked."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No ambiguity is hidden."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Negation 'sans sédation' is correctly preserved."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No specific timing is stated."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No outcome promoted to endpoint without user support."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Concepts are not improperly generalized."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No important source fragment is unrepresented."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY matches the model."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [
+            {
+              "code": "TYPE_MISMATCH",
+              "severity": "CRITICAL",
+              "elementClientIds": [
+                "elem_2"
+              ],
+              "description": "Broad imaging family IRM typed as METHOD instead of MODALITY.",
+              "recommendedAction": "Upsert element elem_2 with type MODALITY.",
+              "resolved": false
+            },
+            {
+              "code": "TYPE_MISMATCH",
+              "severity": "CRITICAL",
+              "elementClientIds": [
+                "elem_6"
+              ],
+              "description": "Target ventilation typed as BIOMARKER instead of SCIENTIFIC_OBJECT.",
+              "recommendedAction": "Upsert element elem_6 with type SCIENTIFIC_OBJECT.",
+              "resolved": false
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "repairId": "rep_1",
+              "action": "UPSERT_ELEMENT",
+              "reason": "Correct the type of element elem_2 from METHOD to MODALITY per taxonomy.",
+              "sourceInventoryItemIds": [
+                "inv_2"
+              ],
+              "sourceInventoryRelationIds": [],
+              "inventoryItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "inventoryNormalizedLabel": null,
+              "inventoryLocalRole": null,
+              "inventoryPolarity": null,
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": "elem_2",
+              "elementType": "MODALITY",
+              "elementCanonicalMeaning": "Imagerie par résonance magnétique",
+              "elementStudyRole": "MEASUREMENT",
+              "elementPolarity": "AFFIRMED",
+              "elementInventoryItemIds": [
+                "inv_2"
+              ],
+              "elementSourceMessageId": "SEM-H05:user:1",
+              "elementSourceText": "IRM",
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementConfidence": 1,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": false,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "relationPolarity": null,
+              "relationInventoryRelationIds": [],
+              "relationEpistemicStatus": null,
+              "relationConfidence": null,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": null,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            },
+            {
+              "repairId": "rep_2",
+              "action": "UPSERT_ELEMENT",
+              "reason": "Correct the type of element elem_6 from BIOMARKER to SCIENTIFIC_OBJECT per taxonomy.",
+              "sourceInventoryItemIds": [
+                "inv_6"
+              ],
+              "sourceInventoryRelationIds": [],
+              "inventoryItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "inventoryNormalizedLabel": null,
+              "inventoryLocalRole": null,
+              "inventoryPolarity": null,
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": "elem_6",
+              "elementType": "SCIENTIFIC_OBJECT",
+              "elementCanonicalMeaning": "Paramètre ventilatoire",
+              "elementStudyRole": "OUTCOME_ROLE",
+              "elementPolarity": "AFFIRMED",
+              "elementInventoryItemIds": [
+                "inv_6"
+              ],
+              "elementSourceMessageId": "SEM-H05:user:1",
+              "elementSourceText": "ventilation",
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementConfidence": 1,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": false,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "relationPolarity": null,
+              "relationInventoryRelationIds": [],
+              "relationEpistemicStatus": null,
+              "relationConfidence": null,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": null,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            }
+          ],
+          "criticSummary": "The typed candidate correctly identifies all explicit items and relations, but the deterministic taxonomy report flags two type mismatches: IRM should be MODALITY instead of METHOD, and ventilation should be SCIENTIFIC_OBJECT instead of BIOMARKER. Two UPSERT_ELEMENT repairs have been proposed to resolve these issues."
+        },
+        {
+          "criticId": "critic_sem_h05_cycle2",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit fragments ('sans sédation', 'IRM', 'poumon', 'mucoviscidose', 'suivre', 'ventilation') are mapped to valid semantic elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is mentioned in the user message."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The imaging modality and procedure elements are properly represented."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "IRM is correctly represented as MODALITY."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All inventory relations (rel_inv_1 through rel_inv_5) are mapped to explicit client relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Taxonomy report is complete with zero findings; all types match the operational taxonomy."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relations were weakened."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Inferred population elem_7 is correctly marked as INFERRED_HIGH_CONFIDENCE."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No hidden ambiguities detected."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Negation on 'sans sédation' is correctly captured with NEGATED polarity."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit timing constraint is present in the text."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No outcome has been promoted to endpoint without user specification."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like mucoviscidose and IRM remain fully specific."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "Missing explicit source fragments list is empty."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "DESIGN_STUDY is completely consistent with the semantic model."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The typed candidate successfully passes all validation checks, including complete explicit object and relation coverage, correct taxonomy compliance, and proper epistemic status for inferred elements."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [
+        {
+          "repairId": "rep_1",
+          "status": "ACCEPTED",
+          "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+        },
+        {
+          "repairId": "rep_2",
+          "status": "ACCEPTED",
+          "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+        }
+      ],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-b32c309fbdee869b",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "sans sédation, IRM poumon chez mucoviscidose, suivre ventilation",
+        "normalizedMeaning": "Réalisation d'une IRM pulmonaire sans sédation chez des patients atteints de mucoviscidose afin d'évaluer ou de suivre la ventilation.",
+        "conversationMessageIds": [
+          "SEM-H05:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-0ddbf2b941a953b5",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "Paramètre ventilatoire",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_6"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H05:user:1",
+              "text": "ventilation",
+              "start": 53,
+              "end": 64
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-16b200b42c9434e8",
+              "sem-relation:ke1-450dc5bbb23e3d67"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H05:user:1",
+              "providerCallId": "gemini-call:ke1-22e79bad8011fcd1",
+              "rawElementId": "elem_6"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-2f8362856e52b8a1",
+            "type": "POPULATION",
+            "canonicalMeaning": "Patients atteints de mucoviscidose",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_4"
+            ],
+            "sourceSpan": null,
+            "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+            "confidence": 0.9,
+            "relationships": [
+              "sem-relation:ke1-a93f898da52c7c79"
+            ],
+            "inferenceReason": "La condition de mucoviscidose implique implicitement une population de patients atteints de cette pathologie.",
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": true,
+            "provenance": {
+              "source": "LLM_INFERENCE",
+              "messageId": "SEM-H05:user:1",
+              "providerCallId": "gemini-call:ke1-22e79bad8011fcd1",
+              "rawElementId": "elem_7"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-5cea6e830d28c7cf",
+            "type": "OPERATION",
+            "canonicalMeaning": "Suivi longitudinal ou évaluation",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_5"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H05:user:1",
+              "text": "suivre",
+              "start": 46,
+              "end": 52
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-16b200b42c9434e8"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H05:user:1",
+              "providerCallId": "gemini-call:ke1-22e79bad8011fcd1",
+              "rawElementId": "elem_5"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-af490cba1036a70e",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "Absence de sédation",
+            "studyRole": "NONE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv_1"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H05:user:1",
+              "text": "sans sédation",
+              "start": 0,
+              "end": 13
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-f53073e7728bbcdb"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H05:user:1",
+              "providerCallId": "gemini-call:ke1-22e79bad8011fcd1",
+              "rawElementId": "elem_1"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-c2b2cac87de763fc",
+            "type": "CONDITION",
+            "canonicalMeaning": "Mucoviscidose",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_4"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H05:user:1",
+              "text": "mucoviscidose",
+              "start": 31,
+              "end": 44
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-166899ba5e1c9cfe",
+              "sem-relation:ke1-a93f898da52c7c79"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-91f5c2ea64dffade",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-04dad697407f2513",
+                "knowledge-gap:ke1-62ca376a080e4e4e",
+                "knowledge-gap:ke1-e81eacc038cd0dd4"
+              ],
+              "checkedAt": "2026-08-13T10:07:36.852Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H05:user:1",
+              "providerCallId": "gemini-call:ke1-22e79bad8011fcd1",
+              "rawElementId": "elem_4"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-cee27023bc99f717",
+            "type": "MODALITY",
+            "canonicalMeaning": "Imagerie par résonance magnétique",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_2"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H05:user:1",
+              "text": "IRM",
+              "start": 15,
+              "end": 18
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-166899ba5e1c9cfe",
+              "sem-relation:ke1-450dc5bbb23e3d67",
+              "sem-relation:ke1-7d55a41ca6719f60",
+              "sem-relation:ke1-f53073e7728bbcdb"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H05:user:1",
+              "providerCallId": "gemini-call:ke1-22e79bad8011fcd1",
+              "rawElementId": "elem_2"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-d3703859de7186f5",
+            "type": "ANATOMICAL_CONTEXT",
+            "canonicalMeaning": "Poumon",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_3"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H05:user:1",
+              "text": "poumon",
+              "start": 19,
+              "end": 25
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-7d55a41ca6719f60"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H05:user:1",
+              "providerCallId": "gemini-call:ke1-22e79bad8011fcd1",
+              "rawElementId": "elem_3"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-166899ba5e1c9cfe",
+            "sourceElementId": "sem-element:ke1-cee27023bc99f717",
+            "targetElementId": "sem-element:ke1-c2b2cac87de763fc",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_3"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-16b200b42c9434e8",
+            "sourceElementId": "sem-element:ke1-5cea6e830d28c7cf",
+            "targetElementId": "sem-element:ke1-0ddbf2b941a953b5",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_4"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-450dc5bbb23e3d67",
+            "sourceElementId": "sem-element:ke1-0ddbf2b941a953b5",
+            "targetElementId": "sem-element:ke1-cee27023bc99f717",
+            "relationType": "MEASURED_BY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_5"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-7d55a41ca6719f60",
+            "sourceElementId": "sem-element:ke1-cee27023bc99f717",
+            "targetElementId": "sem-element:ke1-d3703859de7186f5",
+            "relationType": "APPLIED_TO",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_2"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-a93f898da52c7c79",
+            "sourceElementId": "sem-element:ke1-2f8362856e52b8a1",
+            "targetElementId": "sem-element:ke1-c2b2cac87de763fc",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+            "confidence": 0.9,
+            "inferenceReason": "La population étudiée présente la condition de mucoviscidose.",
+            "requiresConfirmation": true,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-f53073e7728bbcdb",
+            "sourceElementId": "sem-element:ke1-cee27023bc99f717",
+            "targetElementId": "sem-element:ke1-af490cba1036a70e",
+            "relationType": "CONSTRAINED_BY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_1"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv_1",
+              "sourceMessageId": "SEM-H05:user:1",
+              "sourceText": "sans sédation",
+              "normalizedMeaning": "sans sédation",
+              "mappedClientElementIds": [
+                "elem_1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_2",
+              "sourceMessageId": "SEM-H05:user:1",
+              "sourceText": "IRM",
+              "normalizedMeaning": "IRM",
+              "mappedClientElementIds": [
+                "elem_2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_3",
+              "sourceMessageId": "SEM-H05:user:1",
+              "sourceText": "poumon",
+              "normalizedMeaning": "poumon",
+              "mappedClientElementIds": [
+                "elem_3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_4",
+              "sourceMessageId": "SEM-H05:user:1",
+              "sourceText": "mucoviscidose",
+              "normalizedMeaning": "mucoviscidose",
+              "mappedClientElementIds": [
+                "elem_4",
+                "elem_7"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_5",
+              "sourceMessageId": "SEM-H05:user:1",
+              "sourceText": "suivre",
+              "normalizedMeaning": "suivre",
+              "mappedClientElementIds": [
+                "elem_5"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_6",
+              "sourceMessageId": "SEM-H05:user:1",
+              "sourceText": "ventilation",
+              "normalizedMeaning": "ventilation",
+              "mappedClientElementIds": [
+                "elem_6"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel_inv_1",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_1",
+              "normalizedRelation": "CONSTRAINED_BY",
+              "mappedClientRelationIds": [
+                "rel_1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_inv_2",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_3",
+              "normalizedRelation": "APPLIED_TO",
+              "mappedClientRelationIds": [
+                "rel_2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_inv_3",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_4",
+              "normalizedRelation": "PERFORMED_ON_CONDITION",
+              "mappedClientRelationIds": [
+                "rel_3"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_inv_4",
+              "sourceInventoryItemId": "inv_5",
+              "targetInventoryItemId": "inv_6",
+              "normalizedRelation": "OBSERVES",
+              "mappedClientRelationIds": [
+                "rel_4"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_inv_5",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_6",
+              "normalizedRelation": "MEASURES",
+              "mappedClientRelationIds": [
+                "rel_5"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "clarificationCandidates": [
+          {
+            "question": "S'agit-il d'une population pédiatrique ou adulte pour cette IRM pulmonaire sans sédation ?",
+            "reason": "Préciser la tranche d'âge de la population atteinte de mucoviscidose aide à définir la faisabilité de l'IRM sans sédation.",
+            "resolvesElementIds": [
+              "sem-element:ke1-2f8362856e52b8a1"
+            ]
+          }
+        ],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.95,
+          "reason": "L'utilisateur définit les paramètres clés d'une étude potentielle (méthode, condition, contrainte et variable de suivi).",
+          "expectedCapabilities": [
+            "Considérations sur la faisabilité sans sédation",
+            "Définition du protocole d'imagerie",
+            "Sélection des critères d'évaluation"
+          ]
+        },
+        "summaryForUser": "Vous souhaitez concevoir le suivi de la ventilation par IRM pulmonaire sans sédation chez des patients atteints de mucoviscidose.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "The typed candidate successfully passes all validation checks, including complete explicit object and relation coverage, correct taxonomy compliance, and proper epistemic status for inferred elements."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+          "criticPromptVersion": "SEM-001-CRITIC-1.6",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-22e79bad8011fcd1",
+          "criticCallId": "gemini-call:ke1-2adcdec02e33c174",
+          "criticCallIds": [
+            "gemini-call:ke1-c32cbe838e57bb4f",
+            "gemini-call:ke1-2adcdec02e33c174"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T10:07:19.423Z",
+              "requestFinished": "2026-08-13T10:07:27.994Z",
+              "latencyMs": 8571,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T10:07:28.000Z",
+              "requestFinished": "2026-08-13T10:07:33.795Z",
+              "latencyMs": 5795,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            },
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T10:07:33.802Z",
+              "requestFinished": "2026-08-13T10:07:36.846Z",
+              "latencyMs": 3044,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "candidate_1723497000_001",
+            "language": "fr",
+            "normalizedMeaning": "Réalisation d'une IRM pulmonaire sans sédation chez des patients atteints de mucoviscidose afin d'évaluer ou de suivre la ventilation.",
+            "summaryForUser": "Vous souhaitez concevoir le suivi de la ventilation par IRM pulmonaire sans sédation chez des patients atteints de mucoviscidose.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "inv_1",
+                  "sourceMessageId": "SEM-H05:user:1",
+                  "sourceText": "sans sédation",
+                  "normalizedLabel": "sans sédation",
+                  "localRole": "constraint",
+                  "polarity": "NEGATED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv_2",
+                  "sourceMessageId": "SEM-H05:user:1",
+                  "sourceText": "IRM",
+                  "normalizedLabel": "IRM",
+                  "localRole": "method",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv_3",
+                  "sourceMessageId": "SEM-H05:user:1",
+                  "sourceText": "poumon",
+                  "normalizedLabel": "poumon",
+                  "localRole": "anatomical location",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv_4",
+                  "sourceMessageId": "SEM-H05:user:1",
+                  "sourceText": "mucoviscidose",
+                  "normalizedLabel": "mucoviscidose",
+                  "localRole": "condition",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv_5",
+                  "sourceMessageId": "SEM-H05:user:1",
+                  "sourceText": "suivre",
+                  "normalizedLabel": "suivre",
+                  "localRole": "action",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv_6",
+                  "sourceMessageId": "SEM-H05:user:1",
+                  "sourceText": "ventilation",
+                  "normalizedLabel": "ventilation",
+                  "localRole": "target parameter",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel_inv_1",
+                  "sourceInventoryItemId": "inv_2",
+                  "targetInventoryItemId": "inv_1",
+                  "sourceMessageId": "SEM-H05:user:1",
+                  "sourceText": "sans sédation, IRM",
+                  "normalizedRelation": "CONSTRAINED_BY",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel_inv_2",
+                  "sourceInventoryItemId": "inv_2",
+                  "targetInventoryItemId": "inv_3",
+                  "sourceMessageId": "SEM-H05:user:1",
+                  "sourceText": "IRM poumon",
+                  "normalizedRelation": "APPLIED_TO",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel_inv_3",
+                  "sourceInventoryItemId": "inv_2",
+                  "targetInventoryItemId": "inv_4",
+                  "sourceMessageId": "SEM-H05:user:1",
+                  "sourceText": "IRM poumon chez mucoviscidose",
+                  "normalizedRelation": "PERFORMED_ON_CONDITION",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel_inv_4",
+                  "sourceInventoryItemId": "inv_5",
+                  "targetInventoryItemId": "inv_6",
+                  "sourceMessageId": "SEM-H05:user:1",
+                  "sourceText": "suivre ventilation",
+                  "normalizedRelation": "OBSERVES",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel_inv_5",
+                  "sourceInventoryItemId": "inv_2",
+                  "targetInventoryItemId": "inv_6",
+                  "sourceMessageId": "SEM-H05:user:1",
+                  "sourceText": "sans sédation, IRM poumon chez mucoviscidose, suivre ventilation",
+                  "normalizedRelation": "MEASURES",
+                  "polarity": "AFFIRMED"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem_1",
+                "type": "CONSTRAINT",
+                "canonicalMeaning": "Absence de sédation",
+                "studyRole": "NONE",
+                "polarity": "NEGATED",
+                "inventoryItemIds": [
+                  "inv_1"
+                ],
+                "sourceMessageId": "SEM-H05:user:1",
+                "sourceText": "sans sédation",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_3",
+                "type": "ANATOMICAL_CONTEXT",
+                "canonicalMeaning": "Poumon",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_3"
+                ],
+                "sourceMessageId": "SEM-H05:user:1",
+                "sourceText": "poumon",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_4",
+                "type": "CONDITION",
+                "canonicalMeaning": "Mucoviscidose",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_4"
+                ],
+                "sourceMessageId": "SEM-H05:user:1",
+                "sourceText": "mucoviscidose",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_5",
+                "type": "OPERATION",
+                "canonicalMeaning": "Suivi longitudinal ou évaluation",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_5"
+                ],
+                "sourceMessageId": "SEM-H05:user:1",
+                "sourceText": "suivre",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_7",
+                "type": "POPULATION",
+                "canonicalMeaning": "Patients atteints de mucoviscidose",
+                "studyRole": "SUBJECT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_4"
+                ],
+                "sourceMessageId": "SEM-H05:user:1",
+                "sourceText": "mucoviscidose",
+                "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+                "confidence": 0.9,
+                "inferenceReason": "La condition de mucoviscidose implique implicitement une population de patients atteints de cette pathologie.",
+                "requiresConfirmation": true,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_2",
+                "type": "MODALITY",
+                "canonicalMeaning": "Imagerie par résonance magnétique",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_2"
+                ],
+                "sourceMessageId": "SEM-H05:user:1",
+                "sourceText": "IRM",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_6",
+                "type": "SCIENTIFIC_OBJECT",
+                "canonicalMeaning": "Paramètre ventilatoire",
+                "studyRole": "OUTCOME_ROLE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_6"
+                ],
+                "sourceMessageId": "SEM-H05:user:1",
+                "sourceText": "ventilation",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel_1",
+                "sourceClientElementId": "elem_2",
+                "targetClientElementId": "elem_1",
+                "relationType": "CONSTRAINED_BY",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_inv_1"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel_2",
+                "sourceClientElementId": "elem_2",
+                "targetClientElementId": "elem_3",
+                "relationType": "APPLIED_TO",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_inv_2"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel_3",
+                "sourceClientElementId": "elem_2",
+                "targetClientElementId": "elem_4",
+                "relationType": "RELATED_TO_CANDIDATE",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_inv_3"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel_4",
+                "sourceClientElementId": "elem_5",
+                "targetClientElementId": "elem_6",
+                "relationType": "OBSERVES",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_inv_4"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel_5",
+                "sourceClientElementId": "elem_6",
+                "targetClientElementId": "elem_2",
+                "relationType": "MEASURED_BY",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_inv_5"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel_6",
+                "sourceClientElementId": "elem_7",
+                "targetClientElementId": "elem_4",
+                "relationType": "RELATED_TO_CANDIDATE",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [],
+                "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+                "confidence": 0.9,
+                "inferenceReason": "La population étudiée présente la condition de mucoviscidose.",
+                "requiresConfirmation": true
+              }
+            ],
+            "missingConcepts": [],
+            "ellipses": [],
+            "ambiguities": [],
+            "unknowns": [],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [
+              {
+                "question": "S'agit-il d'une population pédiatrique ou adulte pour cette IRM pulmonaire sans sédation ?",
+                "reason": "Préciser la tranche d'âge de la population atteinte de mucoviscidose aide à définir la faisabilité de l'IRM sans sédation.",
+                "resolvesClientElementIds": [
+                  "elem_7"
+                ]
+              }
+            ],
+            "routeProposal": {
+              "route": "DESIGN_STUDY",
+              "confidence": 0.95,
+              "reason": "L'utilisateur définit les paramètres clés d'une étude potentielle (méthode, condition, contrainte et variable de suivi).",
+              "expectedCapabilities": [
+                "Définition du protocole d'imagerie",
+                "Sélection des critères d'évaluation",
+                "Considérations sur la faisabilité sans sédation"
+              ]
+            },
+            "semanticWarnings": [
+              "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:1"
+            ]
+          },
+          "rawCritic": {
+            "criticId": "critic_sem_h05_cycle2",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit fragments ('sans sédation', 'IRM', 'poumon', 'mucoviscidose', 'suivre', 'ventilation') are mapped to valid semantic elements."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No comparator is mentioned in the user message."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "The imaging modality and procedure elements are properly represented."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "PASS",
+                "evidence": "IRM is correctly represented as MODALITY."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All inventory relations (rel_inv_1 through rel_inv_5) are mapped to explicit client relations."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "Taxonomy report is complete with zero findings; all types match the operational taxonomy."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "No explicit relations were weakened."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "Inferred population elem_7 is correctly marked as INFERRED_HIGH_CONFIDENCE."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "No hidden ambiguities detected."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "Negation on 'sans sédation' is correctly captured with NEGATED polarity."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No explicit timing constraint is present in the text."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "No outcome has been promoted to endpoint without user specification."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts like mucoviscidose and IRM remain fully specific."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "Missing explicit source fragments list is empty."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "DESIGN_STUDY is completely consistent with the semantic model."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The typed candidate successfully passes all validation checks, including complete explicit object and relation coverage, correct taxonomy compliance, and proper epistemic status for inferred elements."
+          },
+          "rawCritics": [
+            {
+              "criticId": "critic_SEM_H05_01",
+              "verdict": "REVISE",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit objects in the source are represented in the inventory and candidate elements."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No comparator is present in the source."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No intervention is present in the source."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "FAIL",
+                  "evidence": "Element elem_2 (IRM) is incorrectly typed as METHOD instead of MODALITY."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit relations are mapped correctly."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "FAIL",
+                  "evidence": "Taxonomy report flags elem_2 as MODALITY and elem_6 as SCIENTIFIC_OBJECT instead of BIOMARKER."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "No explicit relations were weakened."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "Inferred elements are properly marked."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "No ambiguity is hidden."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "Negation 'sans sédation' is correctly preserved."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No specific timing is stated."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "No outcome promoted to endpoint without user support."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Concepts are not improperly generalized."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "No important source fragment is unrepresented."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "Route DESIGN_STUDY matches the model."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [
+                {
+                  "code": "TYPE_MISMATCH",
+                  "severity": "CRITICAL",
+                  "elementClientIds": [
+                    "elem_2"
+                  ],
+                  "description": "Broad imaging family IRM typed as METHOD instead of MODALITY.",
+                  "recommendedAction": "Upsert element elem_2 with type MODALITY.",
+                  "resolved": false
+                },
+                {
+                  "code": "TYPE_MISMATCH",
+                  "severity": "CRITICAL",
+                  "elementClientIds": [
+                    "elem_6"
+                  ],
+                  "description": "Target ventilation typed as BIOMARKER instead of SCIENTIFIC_OBJECT.",
+                  "recommendedAction": "Upsert element elem_6 with type SCIENTIFIC_OBJECT.",
+                  "resolved": false
+                }
+              ],
+              "proposedRepairs": [
+                {
+                  "repairId": "rep_1",
+                  "action": "UPSERT_ELEMENT",
+                  "reason": "Correct the type of element elem_2 from METHOD to MODALITY per taxonomy.",
+                  "sourceInventoryItemIds": [
+                    "inv_2"
+                  ],
+                  "sourceInventoryRelationIds": [],
+                  "inventoryItemId": null,
+                  "inventorySourceMessageId": null,
+                  "inventorySourceText": null,
+                  "inventoryNormalizedLabel": null,
+                  "inventoryLocalRole": null,
+                  "inventoryPolarity": null,
+                  "inventoryModifiers": [],
+                  "inventoryLinkedItemIds": [],
+                  "inventoryRelationId": null,
+                  "inventoryRelationSourceItemId": null,
+                  "inventoryRelationTargetItemId": null,
+                  "inventoryRelationSourceMessageId": null,
+                  "inventoryRelationSourceText": null,
+                  "inventoryNormalizedRelation": null,
+                  "inventoryRelationPolarity": null,
+                  "elementClientElementId": "elem_2",
+                  "elementType": "MODALITY",
+                  "elementCanonicalMeaning": "Imagerie par résonance magnétique",
+                  "elementStudyRole": "MEASUREMENT",
+                  "elementPolarity": "AFFIRMED",
+                  "elementInventoryItemIds": [
+                    "inv_2"
+                  ],
+                  "elementSourceMessageId": "SEM-H05:user:1",
+                  "elementSourceText": "IRM",
+                  "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+                  "elementConfidence": 1,
+                  "elementInferenceReason": null,
+                  "elementRequiresConfirmation": false,
+                  "elementSupersedesElementIds": [],
+                  "relationClientRelationId": null,
+                  "relationSourceClientElementId": null,
+                  "relationTargetClientElementId": null,
+                  "relationType": null,
+                  "relationPolarity": null,
+                  "relationInventoryRelationIds": [],
+                  "relationEpistemicStatus": null,
+                  "relationConfidence": null,
+                  "relationInferenceReason": null,
+                  "relationRequiresConfirmation": null,
+                  "ambiguity": null,
+                  "route": null,
+                  "routeConfidence": null,
+                  "routeReason": null,
+                  "routeExpectedCapabilities": []
+                },
+                {
+                  "repairId": "rep_2",
+                  "action": "UPSERT_ELEMENT",
+                  "reason": "Correct the type of element elem_6 from BIOMARKER to SCIENTIFIC_OBJECT per taxonomy.",
+                  "sourceInventoryItemIds": [
+                    "inv_6"
+                  ],
+                  "sourceInventoryRelationIds": [],
+                  "inventoryItemId": null,
+                  "inventorySourceMessageId": null,
+                  "inventorySourceText": null,
+                  "inventoryNormalizedLabel": null,
+                  "inventoryLocalRole": null,
+                  "inventoryPolarity": null,
+                  "inventoryModifiers": [],
+                  "inventoryLinkedItemIds": [],
+                  "inventoryRelationId": null,
+                  "inventoryRelationSourceItemId": null,
+                  "inventoryRelationTargetItemId": null,
+                  "inventoryRelationSourceMessageId": null,
+                  "inventoryRelationSourceText": null,
+                  "inventoryNormalizedRelation": null,
+                  "inventoryRelationPolarity": null,
+                  "elementClientElementId": "elem_6",
+                  "elementType": "SCIENTIFIC_OBJECT",
+                  "elementCanonicalMeaning": "Paramètre ventilatoire",
+                  "elementStudyRole": "OUTCOME_ROLE",
+                  "elementPolarity": "AFFIRMED",
+                  "elementInventoryItemIds": [
+                    "inv_6"
+                  ],
+                  "elementSourceMessageId": "SEM-H05:user:1",
+                  "elementSourceText": "ventilation",
+                  "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+                  "elementConfidence": 1,
+                  "elementInferenceReason": null,
+                  "elementRequiresConfirmation": false,
+                  "elementSupersedesElementIds": [],
+                  "relationClientRelationId": null,
+                  "relationSourceClientElementId": null,
+                  "relationTargetClientElementId": null,
+                  "relationType": null,
+                  "relationPolarity": null,
+                  "relationInventoryRelationIds": [],
+                  "relationEpistemicStatus": null,
+                  "relationConfidence": null,
+                  "relationInferenceReason": null,
+                  "relationRequiresConfirmation": null,
+                  "ambiguity": null,
+                  "route": null,
+                  "routeConfidence": null,
+                  "routeReason": null,
+                  "routeExpectedCapabilities": []
+                }
+              ],
+              "criticSummary": "The typed candidate correctly identifies all explicit items and relations, but the deterministic taxonomy report flags two type mismatches: IRM should be MODALITY instead of METHOD, and ventilation should be SCIENTIFIC_OBJECT instead of BIOMARKER. Two UPSERT_ELEMENT repairs have been proposed to resolve these issues."
+            },
+            {
+              "criticId": "critic_sem_h05_cycle2",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit fragments ('sans sédation', 'IRM', 'poumon', 'mucoviscidose', 'suivre', 'ventilation') are mapped to valid semantic elements."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No comparator is mentioned in the user message."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The imaging modality and procedure elements are properly represented."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "IRM is correctly represented as MODALITY."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All inventory relations (rel_inv_1 through rel_inv_5) are mapped to explicit client relations."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "Taxonomy report is complete with zero findings; all types match the operational taxonomy."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "No explicit relations were weakened."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "Inferred population elem_7 is correctly marked as INFERRED_HIGH_CONFIDENCE."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "No hidden ambiguities detected."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "Negation on 'sans sédation' is correctly captured with NEGATED polarity."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No explicit timing constraint is present in the text."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "No outcome has been promoted to endpoint without user specification."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific concepts like mucoviscidose and IRM remain fully specific."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "Missing explicit source fragments list is empty."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "DESIGN_STUDY is completely consistent with the semantic model."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "The typed candidate successfully passes all validation checks, including complete explicit object and relation coverage, correct taxonomy compliance, and proper epistemic status for inferred elements."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-13T10:07:36.848Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-91f5c2ea64dffade",
+          "resultDigest": "ke1-91f5c2ea64dffade",
+          "coverageStatus": "NO_PROVIDER",
+          "verifiedAt": "2026-08-13T10:07:36.852Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-13T10:07:36.848Z",
+        "updatedAt": "2026-08-13T10:07:36.852Z",
+        "digest": "ke1-8f15fd7006f1477c"
+      },
+      "canonicalModelDigest": "ke1-8f15fd7006f1477c",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-91f5c2ea64dffade",
+        "resultDigest": "ke1-91f5c2ea64dffade",
+        "coverageStatus": "NO_PROVIDER",
+        "verifiedAt": "2026-08-13T10:07:36.852Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-22e79bad8011fcd1",
+      "structuredDigest": "ke1-8201dee93bef442d",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:07:19.423Z",
+          "requestFinished": "2026-08-13T10:07:27.994Z",
+          "latencyMs": 8571,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-c32cbe838e57bb4f",
+      "structuredDigest": "ke1-2fb5a5ba9068ba26",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:07:28.000Z",
+          "requestFinished": "2026-08-13T10:07:33.795Z",
+          "latencyMs": 5795,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 2,
+      "callId": "gemini-call:ke1-2adcdec02e33c174",
+      "structuredDigest": "ke1-b6ce710ba60920f7",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:07:33.802Z",
+          "requestFinished": "2026-08-13T10:07:36.846Z",
+          "latencyMs": 3044,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-b32c309fbdee869b",
+    "revision": 1,
+    "status": "CANDIDATE",
+    "originalRequest": "sans sédation, IRM poumon chez mucoviscidose, suivre ventilation",
+    "normalizedMeaning": "Réalisation d'une IRM pulmonaire sans sédation chez des patients atteints de mucoviscidose afin d'évaluer ou de suivre la ventilation.",
+    "conversationMessageIds": [
+      "SEM-H05:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-0ddbf2b941a953b5",
+        "type": "SCIENTIFIC_OBJECT",
+        "canonicalMeaning": "Paramètre ventilatoire",
+        "studyRole": "OUTCOME_ROLE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_6"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H05:user:1",
+          "text": "ventilation",
+          "start": 53,
+          "end": 64
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-16b200b42c9434e8",
+          "sem-relation:ke1-450dc5bbb23e3d67"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H05:user:1",
+          "providerCallId": "gemini-call:ke1-22e79bad8011fcd1",
+          "rawElementId": "elem_6"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-2f8362856e52b8a1",
+        "type": "POPULATION",
+        "canonicalMeaning": "Patients atteints de mucoviscidose",
+        "studyRole": "SUBJECT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_4"
+        ],
+        "sourceSpan": null,
+        "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+        "confidence": 0.9,
+        "relationships": [
+          "sem-relation:ke1-a93f898da52c7c79"
+        ],
+        "inferenceReason": "La condition de mucoviscidose implique implicitement une population de patients atteints de cette pathologie.",
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": true,
+        "provenance": {
+          "source": "LLM_INFERENCE",
+          "messageId": "SEM-H05:user:1",
+          "providerCallId": "gemini-call:ke1-22e79bad8011fcd1",
+          "rawElementId": "elem_7"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-5cea6e830d28c7cf",
+        "type": "OPERATION",
+        "canonicalMeaning": "Suivi longitudinal ou évaluation",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_5"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H05:user:1",
+          "text": "suivre",
+          "start": 46,
+          "end": 52
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-16b200b42c9434e8"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H05:user:1",
+          "providerCallId": "gemini-call:ke1-22e79bad8011fcd1",
+          "rawElementId": "elem_5"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-af490cba1036a70e",
+        "type": "CONSTRAINT",
+        "canonicalMeaning": "Absence de sédation",
+        "studyRole": "NONE",
+        "polarity": "NEGATED",
+        "inventoryItemIds": [
+          "inv_1"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H05:user:1",
+          "text": "sans sédation",
+          "start": 0,
+          "end": 13
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-f53073e7728bbcdb"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H05:user:1",
+          "providerCallId": "gemini-call:ke1-22e79bad8011fcd1",
+          "rawElementId": "elem_1"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-c2b2cac87de763fc",
+        "type": "CONDITION",
+        "canonicalMeaning": "Mucoviscidose",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_4"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H05:user:1",
+          "text": "mucoviscidose",
+          "start": 31,
+          "end": 44
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-166899ba5e1c9cfe",
+          "sem-relation:ke1-a93f898da52c7c79"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-91f5c2ea64dffade",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-04dad697407f2513",
+            "knowledge-gap:ke1-62ca376a080e4e4e",
+            "knowledge-gap:ke1-e81eacc038cd0dd4"
+          ],
+          "checkedAt": "2026-08-13T10:07:36.852Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H05:user:1",
+          "providerCallId": "gemini-call:ke1-22e79bad8011fcd1",
+          "rawElementId": "elem_4"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-cee27023bc99f717",
+        "type": "MODALITY",
+        "canonicalMeaning": "Imagerie par résonance magnétique",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_2"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H05:user:1",
+          "text": "IRM",
+          "start": 15,
+          "end": 18
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-166899ba5e1c9cfe",
+          "sem-relation:ke1-450dc5bbb23e3d67",
+          "sem-relation:ke1-7d55a41ca6719f60",
+          "sem-relation:ke1-f53073e7728bbcdb"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H05:user:1",
+          "providerCallId": "gemini-call:ke1-22e79bad8011fcd1",
+          "rawElementId": "elem_2"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-d3703859de7186f5",
+        "type": "ANATOMICAL_CONTEXT",
+        "canonicalMeaning": "Poumon",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_3"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H05:user:1",
+          "text": "poumon",
+          "start": 19,
+          "end": 25
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-7d55a41ca6719f60"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H05:user:1",
+          "providerCallId": "gemini-call:ke1-22e79bad8011fcd1",
+          "rawElementId": "elem_3"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-166899ba5e1c9cfe",
+        "sourceElementId": "sem-element:ke1-cee27023bc99f717",
+        "targetElementId": "sem-element:ke1-c2b2cac87de763fc",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_inv_3"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-16b200b42c9434e8",
+        "sourceElementId": "sem-element:ke1-5cea6e830d28c7cf",
+        "targetElementId": "sem-element:ke1-0ddbf2b941a953b5",
+        "relationType": "OBSERVES",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_inv_4"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-450dc5bbb23e3d67",
+        "sourceElementId": "sem-element:ke1-0ddbf2b941a953b5",
+        "targetElementId": "sem-element:ke1-cee27023bc99f717",
+        "relationType": "MEASURED_BY",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_inv_5"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-7d55a41ca6719f60",
+        "sourceElementId": "sem-element:ke1-cee27023bc99f717",
+        "targetElementId": "sem-element:ke1-d3703859de7186f5",
+        "relationType": "APPLIED_TO",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_inv_2"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-a93f898da52c7c79",
+        "sourceElementId": "sem-element:ke1-2f8362856e52b8a1",
+        "targetElementId": "sem-element:ke1-c2b2cac87de763fc",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+        "confidence": 0.9,
+        "inferenceReason": "La population étudiée présente la condition de mucoviscidose.",
+        "requiresConfirmation": true,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-f53073e7728bbcdb",
+        "sourceElementId": "sem-element:ke1-cee27023bc99f717",
+        "targetElementId": "sem-element:ke1-af490cba1036a70e",
+        "relationType": "CONSTRAINED_BY",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_inv_1"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv_1",
+          "sourceMessageId": "SEM-H05:user:1",
+          "sourceText": "sans sédation",
+          "normalizedMeaning": "sans sédation",
+          "mappedClientElementIds": [
+            "elem_1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_2",
+          "sourceMessageId": "SEM-H05:user:1",
+          "sourceText": "IRM",
+          "normalizedMeaning": "IRM",
+          "mappedClientElementIds": [
+            "elem_2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_3",
+          "sourceMessageId": "SEM-H05:user:1",
+          "sourceText": "poumon",
+          "normalizedMeaning": "poumon",
+          "mappedClientElementIds": [
+            "elem_3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_4",
+          "sourceMessageId": "SEM-H05:user:1",
+          "sourceText": "mucoviscidose",
+          "normalizedMeaning": "mucoviscidose",
+          "mappedClientElementIds": [
+            "elem_4",
+            "elem_7"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_5",
+          "sourceMessageId": "SEM-H05:user:1",
+          "sourceText": "suivre",
+          "normalizedMeaning": "suivre",
+          "mappedClientElementIds": [
+            "elem_5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_6",
+          "sourceMessageId": "SEM-H05:user:1",
+          "sourceText": "ventilation",
+          "normalizedMeaning": "ventilation",
+          "mappedClientElementIds": [
+            "elem_6"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel_inv_1",
+          "sourceInventoryItemId": "inv_2",
+          "targetInventoryItemId": "inv_1",
+          "normalizedRelation": "CONSTRAINED_BY",
+          "mappedClientRelationIds": [
+            "rel_1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_inv_2",
+          "sourceInventoryItemId": "inv_2",
+          "targetInventoryItemId": "inv_3",
+          "normalizedRelation": "APPLIED_TO",
+          "mappedClientRelationIds": [
+            "rel_2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_inv_3",
+          "sourceInventoryItemId": "inv_2",
+          "targetInventoryItemId": "inv_4",
+          "normalizedRelation": "PERFORMED_ON_CONDITION",
+          "mappedClientRelationIds": [
+            "rel_3"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_inv_4",
+          "sourceInventoryItemId": "inv_5",
+          "targetInventoryItemId": "inv_6",
+          "normalizedRelation": "OBSERVES",
+          "mappedClientRelationIds": [
+            "rel_4"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_inv_5",
+          "sourceInventoryItemId": "inv_2",
+          "targetInventoryItemId": "inv_6",
+          "normalizedRelation": "MEASURES",
+          "mappedClientRelationIds": [
+            "rel_5"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "missingConcepts": [],
+    "ellipses": [],
+    "ambiguities": [],
+    "unknowns": [],
+    "contradictions": [],
+    "clarificationCandidates": [
+      {
+        "question": "S'agit-il d'une population pédiatrique ou adulte pour cette IRM pulmonaire sans sédation ?",
+        "reason": "Préciser la tranche d'âge de la population atteinte de mucoviscidose aide à définir la faisabilité de l'IRM sans sédation.",
+        "resolvesElementIds": [
+          "sem-element:ke1-2f8362856e52b8a1"
+        ]
+      }
+    ],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "DESIGN_STUDY",
+      "confidence": 0.95,
+      "reason": "L'utilisateur définit les paramètres clés d'une étude potentielle (méthode, condition, contrainte et variable de suivi).",
+      "expectedCapabilities": [
+        "Considérations sur la faisabilité sans sédation",
+        "Définition du protocole d'imagerie",
+        "Sélection des critères d'évaluation"
+      ]
+    },
+    "summaryForUser": "Vous souhaitez concevoir le suivi de la ventilation par IRM pulmonaire sans sédation chez des patients atteints de mucoviscidose.",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "The typed candidate successfully passes all validation checks, including complete explicit object and relation coverage, correct taxonomy compliance, and proper epistemic status for inferred elements."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-22e79bad8011fcd1",
+      "criticCallId": "gemini-call:ke1-2adcdec02e33c174",
+      "criticCallIds": [
+        "gemini-call:ke1-c32cbe838e57bb4f",
+        "gemini-call:ke1-2adcdec02e33c174"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:07:19.423Z",
+          "requestFinished": "2026-08-13T10:07:27.994Z",
+          "latencyMs": 8571,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:07:28.000Z",
+          "requestFinished": "2026-08-13T10:07:33.795Z",
+          "latencyMs": 5795,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:07:33.802Z",
+          "requestFinished": "2026-08-13T10:07:36.846Z",
+          "latencyMs": 3044,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "candidate_1723497000_001",
+        "language": "fr",
+        "normalizedMeaning": "Réalisation d'une IRM pulmonaire sans sédation chez des patients atteints de mucoviscidose afin d'évaluer ou de suivre la ventilation.",
+        "summaryForUser": "Vous souhaitez concevoir le suivi de la ventilation par IRM pulmonaire sans sédation chez des patients atteints de mucoviscidose.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv_1",
+              "sourceMessageId": "SEM-H05:user:1",
+              "sourceText": "sans sédation",
+              "normalizedLabel": "sans sédation",
+              "localRole": "constraint",
+              "polarity": "NEGATED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_2",
+              "sourceMessageId": "SEM-H05:user:1",
+              "sourceText": "IRM",
+              "normalizedLabel": "IRM",
+              "localRole": "method",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_3",
+              "sourceMessageId": "SEM-H05:user:1",
+              "sourceText": "poumon",
+              "normalizedLabel": "poumon",
+              "localRole": "anatomical location",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_4",
+              "sourceMessageId": "SEM-H05:user:1",
+              "sourceText": "mucoviscidose",
+              "normalizedLabel": "mucoviscidose",
+              "localRole": "condition",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_5",
+              "sourceMessageId": "SEM-H05:user:1",
+              "sourceText": "suivre",
+              "normalizedLabel": "suivre",
+              "localRole": "action",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_6",
+              "sourceMessageId": "SEM-H05:user:1",
+              "sourceText": "ventilation",
+              "normalizedLabel": "ventilation",
+              "localRole": "target parameter",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_inv_1",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_1",
+              "sourceMessageId": "SEM-H05:user:1",
+              "sourceText": "sans sédation, IRM",
+              "normalizedRelation": "CONSTRAINED_BY",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_inv_2",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_3",
+              "sourceMessageId": "SEM-H05:user:1",
+              "sourceText": "IRM poumon",
+              "normalizedRelation": "APPLIED_TO",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_inv_3",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_4",
+              "sourceMessageId": "SEM-H05:user:1",
+              "sourceText": "IRM poumon chez mucoviscidose",
+              "normalizedRelation": "PERFORMED_ON_CONDITION",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_inv_4",
+              "sourceInventoryItemId": "inv_5",
+              "targetInventoryItemId": "inv_6",
+              "sourceMessageId": "SEM-H05:user:1",
+              "sourceText": "suivre ventilation",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_inv_5",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_6",
+              "sourceMessageId": "SEM-H05:user:1",
+              "sourceText": "sans sédation, IRM poumon chez mucoviscidose, suivre ventilation",
+              "normalizedRelation": "MEASURES",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem_1",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "Absence de sédation",
+            "studyRole": "NONE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv_1"
+            ],
+            "sourceMessageId": "SEM-H05:user:1",
+            "sourceText": "sans sédation",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_3",
+            "type": "ANATOMICAL_CONTEXT",
+            "canonicalMeaning": "Poumon",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_3"
+            ],
+            "sourceMessageId": "SEM-H05:user:1",
+            "sourceText": "poumon",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_4",
+            "type": "CONDITION",
+            "canonicalMeaning": "Mucoviscidose",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_4"
+            ],
+            "sourceMessageId": "SEM-H05:user:1",
+            "sourceText": "mucoviscidose",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_5",
+            "type": "OPERATION",
+            "canonicalMeaning": "Suivi longitudinal ou évaluation",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_5"
+            ],
+            "sourceMessageId": "SEM-H05:user:1",
+            "sourceText": "suivre",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_7",
+            "type": "POPULATION",
+            "canonicalMeaning": "Patients atteints de mucoviscidose",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_4"
+            ],
+            "sourceMessageId": "SEM-H05:user:1",
+            "sourceText": "mucoviscidose",
+            "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+            "confidence": 0.9,
+            "inferenceReason": "La condition de mucoviscidose implique implicitement une population de patients atteints de cette pathologie.",
+            "requiresConfirmation": true,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_2",
+            "type": "MODALITY",
+            "canonicalMeaning": "Imagerie par résonance magnétique",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_2"
+            ],
+            "sourceMessageId": "SEM-H05:user:1",
+            "sourceText": "IRM",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_6",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "Paramètre ventilatoire",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_6"
+            ],
+            "sourceMessageId": "SEM-H05:user:1",
+            "sourceText": "ventilation",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel_1",
+            "sourceClientElementId": "elem_2",
+            "targetClientElementId": "elem_1",
+            "relationType": "CONSTRAINED_BY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_2",
+            "sourceClientElementId": "elem_2",
+            "targetClientElementId": "elem_3",
+            "relationType": "APPLIED_TO",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_3",
+            "sourceClientElementId": "elem_2",
+            "targetClientElementId": "elem_4",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_3"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_4",
+            "sourceClientElementId": "elem_5",
+            "targetClientElementId": "elem_6",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_4"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_5",
+            "sourceClientElementId": "elem_6",
+            "targetClientElementId": "elem_2",
+            "relationType": "MEASURED_BY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_5"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_6",
+            "sourceClientElementId": "elem_7",
+            "targetClientElementId": "elem_4",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [],
+            "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+            "confidence": 0.9,
+            "inferenceReason": "La population étudiée présente la condition de mucoviscidose.",
+            "requiresConfirmation": true
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [
+          {
+            "question": "S'agit-il d'une population pédiatrique ou adulte pour cette IRM pulmonaire sans sédation ?",
+            "reason": "Préciser la tranche d'âge de la population atteinte de mucoviscidose aide à définir la faisabilité de l'IRM sans sédation.",
+            "resolvesClientElementIds": [
+              "elem_7"
+            ]
+          }
+        ],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.95,
+          "reason": "L'utilisateur définit les paramètres clés d'une étude potentielle (méthode, condition, contrainte et variable de suivi).",
+          "expectedCapabilities": [
+            "Définition du protocole d'imagerie",
+            "Sélection des critères d'évaluation",
+            "Considérations sur la faisabilité sans sédation"
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:1"
+        ]
+      },
+      "rawCritic": {
+        "criticId": "critic_sem_h05_cycle2",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit fragments ('sans sédation', 'IRM', 'poumon', 'mucoviscidose', 'suivre', 'ventilation') are mapped to valid semantic elements."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No comparator is mentioned in the user message."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "The imaging modality and procedure elements are properly represented."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "PASS",
+            "evidence": "IRM is correctly represented as MODALITY."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All inventory relations (rel_inv_1 through rel_inv_5) are mapped to explicit client relations."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "Taxonomy report is complete with zero findings; all types match the operational taxonomy."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "No explicit relations were weakened."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "Inferred population elem_7 is correctly marked as INFERRED_HIGH_CONFIDENCE."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "No hidden ambiguities detected."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "Negation on 'sans sédation' is correctly captured with NEGATED polarity."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No explicit timing constraint is present in the text."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "No outcome has been promoted to endpoint without user specification."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific concepts like mucoviscidose and IRM remain fully specific."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "Missing explicit source fragments list is empty."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "DESIGN_STUDY is completely consistent with the semantic model."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "The typed candidate successfully passes all validation checks, including complete explicit object and relation coverage, correct taxonomy compliance, and proper epistemic status for inferred elements."
+      },
+      "rawCritics": [
+        {
+          "criticId": "critic_SEM_H05_01",
+          "verdict": "REVISE",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects in the source are represented in the inventory and candidate elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is present in the source."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No intervention is present in the source."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "FAIL",
+              "evidence": "Element elem_2 (IRM) is incorrectly typed as METHOD instead of MODALITY."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit relations are mapped correctly."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "FAIL",
+              "evidence": "Taxonomy report flags elem_2 as MODALITY and elem_6 as SCIENTIFIC_OBJECT instead of BIOMARKER."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relations were weakened."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Inferred elements are properly marked."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No ambiguity is hidden."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Negation 'sans sédation' is correctly preserved."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No specific timing is stated."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No outcome promoted to endpoint without user support."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Concepts are not improperly generalized."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No important source fragment is unrepresented."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY matches the model."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [
+            {
+              "code": "TYPE_MISMATCH",
+              "severity": "CRITICAL",
+              "elementClientIds": [
+                "elem_2"
+              ],
+              "description": "Broad imaging family IRM typed as METHOD instead of MODALITY.",
+              "recommendedAction": "Upsert element elem_2 with type MODALITY.",
+              "resolved": false
+            },
+            {
+              "code": "TYPE_MISMATCH",
+              "severity": "CRITICAL",
+              "elementClientIds": [
+                "elem_6"
+              ],
+              "description": "Target ventilation typed as BIOMARKER instead of SCIENTIFIC_OBJECT.",
+              "recommendedAction": "Upsert element elem_6 with type SCIENTIFIC_OBJECT.",
+              "resolved": false
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "repairId": "rep_1",
+              "action": "UPSERT_ELEMENT",
+              "reason": "Correct the type of element elem_2 from METHOD to MODALITY per taxonomy.",
+              "sourceInventoryItemIds": [
+                "inv_2"
+              ],
+              "sourceInventoryRelationIds": [],
+              "inventoryItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "inventoryNormalizedLabel": null,
+              "inventoryLocalRole": null,
+              "inventoryPolarity": null,
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": "elem_2",
+              "elementType": "MODALITY",
+              "elementCanonicalMeaning": "Imagerie par résonance magnétique",
+              "elementStudyRole": "MEASUREMENT",
+              "elementPolarity": "AFFIRMED",
+              "elementInventoryItemIds": [
+                "inv_2"
+              ],
+              "elementSourceMessageId": "SEM-H05:user:1",
+              "elementSourceText": "IRM",
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementConfidence": 1,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": false,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "relationPolarity": null,
+              "relationInventoryRelationIds": [],
+              "relationEpistemicStatus": null,
+              "relationConfidence": null,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": null,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            },
+            {
+              "repairId": "rep_2",
+              "action": "UPSERT_ELEMENT",
+              "reason": "Correct the type of element elem_6 from BIOMARKER to SCIENTIFIC_OBJECT per taxonomy.",
+              "sourceInventoryItemIds": [
+                "inv_6"
+              ],
+              "sourceInventoryRelationIds": [],
+              "inventoryItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "inventoryNormalizedLabel": null,
+              "inventoryLocalRole": null,
+              "inventoryPolarity": null,
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": "elem_6",
+              "elementType": "SCIENTIFIC_OBJECT",
+              "elementCanonicalMeaning": "Paramètre ventilatoire",
+              "elementStudyRole": "OUTCOME_ROLE",
+              "elementPolarity": "AFFIRMED",
+              "elementInventoryItemIds": [
+                "inv_6"
+              ],
+              "elementSourceMessageId": "SEM-H05:user:1",
+              "elementSourceText": "ventilation",
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementConfidence": 1,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": false,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "relationPolarity": null,
+              "relationInventoryRelationIds": [],
+              "relationEpistemicStatus": null,
+              "relationConfidence": null,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": null,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            }
+          ],
+          "criticSummary": "The typed candidate correctly identifies all explicit items and relations, but the deterministic taxonomy report flags two type mismatches: IRM should be MODALITY instead of METHOD, and ventilation should be SCIENTIFIC_OBJECT instead of BIOMARKER. Two UPSERT_ELEMENT repairs have been proposed to resolve these issues."
+        },
+        {
+          "criticId": "critic_sem_h05_cycle2",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit fragments ('sans sédation', 'IRM', 'poumon', 'mucoviscidose', 'suivre', 'ventilation') are mapped to valid semantic elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is mentioned in the user message."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The imaging modality and procedure elements are properly represented."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "IRM is correctly represented as MODALITY."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All inventory relations (rel_inv_1 through rel_inv_5) are mapped to explicit client relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Taxonomy report is complete with zero findings; all types match the operational taxonomy."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relations were weakened."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Inferred population elem_7 is correctly marked as INFERRED_HIGH_CONFIDENCE."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No hidden ambiguities detected."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Negation on 'sans sédation' is correctly captured with NEGATED polarity."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit timing constraint is present in the text."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No outcome has been promoted to endpoint without user specification."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like mucoviscidose and IRM remain fully specific."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "Missing explicit source fragments list is empty."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "DESIGN_STUDY is completely consistent with the semantic model."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The typed candidate successfully passes all validation checks, including complete explicit object and relation coverage, correct taxonomy compliance, and proper epistemic status for inferred elements."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-13T10:07:36.848Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-91f5c2ea64dffade",
+      "resultDigest": "ke1-91f5c2ea64dffade",
+      "coverageStatus": "NO_PROVIDER",
+      "verifiedAt": "2026-08-13T10:07:36.852Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-13T10:07:36.848Z",
+    "updatedAt": "2026-08-13T10:07:36.852Z",
+    "digest": "ke1-8f15fd7006f1477c"
+  },
+  "semanticModelDigest": "ke1-8f15fd7006f1477c",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv_1",
+          "sourceMessageId": "SEM-H05:user:1",
+          "sourceText": "sans sédation",
+          "normalizedMeaning": "sans sédation",
+          "mappedClientElementIds": [
+            "elem_1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_2",
+          "sourceMessageId": "SEM-H05:user:1",
+          "sourceText": "IRM",
+          "normalizedMeaning": "IRM",
+          "mappedClientElementIds": [
+            "elem_2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_3",
+          "sourceMessageId": "SEM-H05:user:1",
+          "sourceText": "poumon",
+          "normalizedMeaning": "poumon",
+          "mappedClientElementIds": [
+            "elem_3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_4",
+          "sourceMessageId": "SEM-H05:user:1",
+          "sourceText": "mucoviscidose",
+          "normalizedMeaning": "mucoviscidose",
+          "mappedClientElementIds": [
+            "elem_4",
+            "elem_7"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_5",
+          "sourceMessageId": "SEM-H05:user:1",
+          "sourceText": "suivre",
+          "normalizedMeaning": "suivre",
+          "mappedClientElementIds": [
+            "elem_5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_6",
+          "sourceMessageId": "SEM-H05:user:1",
+          "sourceText": "ventilation",
+          "normalizedMeaning": "ventilation",
+          "mappedClientElementIds": [
+            "elem_6"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel_inv_1",
+          "sourceInventoryItemId": "inv_2",
+          "targetInventoryItemId": "inv_1",
+          "normalizedRelation": "CONSTRAINED_BY",
+          "mappedClientRelationIds": [
+            "rel_1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_inv_2",
+          "sourceInventoryItemId": "inv_2",
+          "targetInventoryItemId": "inv_3",
+          "normalizedRelation": "APPLIED_TO",
+          "mappedClientRelationIds": [
+            "rel_2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_inv_3",
+          "sourceInventoryItemId": "inv_2",
+          "targetInventoryItemId": "inv_4",
+          "normalizedRelation": "PERFORMED_ON_CONDITION",
+          "mappedClientRelationIds": [
+            "rel_3"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_inv_4",
+          "sourceInventoryItemId": "inv_5",
+          "targetInventoryItemId": "inv_6",
+          "normalizedRelation": "OBSERVES",
+          "mappedClientRelationIds": [
+            "rel_4"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_inv_5",
+          "sourceInventoryItemId": "inv_2",
+          "targetInventoryItemId": "inv_6",
+          "normalizedRelation": "MEASURES",
+          "mappedClientRelationIds": [
+            "rel_5"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-8066258bdfcc6c77",
+    "evaluatedAt": "2026-08-13T10:07:36.856Z",
+    "goldFrameDigest": "ke1-3d0f2e64cc2eb850",
+    "result": {
+      "caseId": "SEM-H05",
+      "explicitObjectRecall": 1,
+      "explicitRelationRecall": 1,
+      "criticalSemanticRecall": 1,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 1,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": []
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H05",
+    "explicitObjectRecall": 1,
+    "explicitRelationRecall": 1,
+    "criticalSemanticRecall": 1,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 1,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": []
+  },
+  "error": null
+}

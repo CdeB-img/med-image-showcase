@@ -1,0 +1,2613 @@
+{
+  "campaign": "SEM-001R5M-CLOSURE",
+  "campaignId": "sem-001r5m-closure-2026-08-13T09-40-35-104Z-ke1-ac75ad8a4d6f2326",
+  "caseId": "SEM-H22",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-ac75ad8a4d6f2326",
+  "semanticConfigurationDigest": "ke1-2d65467f810363ab",
+  "goldFrameDigest": "ke1-3e3339709c51fb9c",
+  "originalRequest": [
+    "pseudoprogression vs récidive: perfusion DSC + spectro, résultat histologique pas toujours dispo"
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-13T09:51:20.249Z",
+  "completedAt": "2026-08-13T09:51:31.317Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H22:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Comparaison entre pseudoprogression et récidive utilisant la perfusion DSC et la spectroscopie, sachant que le résultat histologique n'est pas toujours disponible.",
+        "summaryForUser": "Analyse de la distinction entre pseudoprogression et récidive par perfusion DSC et spectroscopie, avec la contrainte d'un résultat histologique non toujours disponible.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "item-1",
+              "sourceMessageId": "SEM-H22:user:1",
+              "sourceText": "pseudoprogression",
+              "normalizedLabel": "pseudoprogression",
+              "localRole": "endpoint or compared entity A",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item-2",
+              "sourceMessageId": "SEM-H22:user:1",
+              "sourceText": "récidive",
+              "normalizedLabel": "récidive",
+              "localRole": "endpoint or compared entity B",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item-3",
+              "sourceMessageId": "SEM-H22:user:1",
+              "sourceText": "vs",
+              "normalizedLabel": "versus",
+              "localRole": "comparison operator",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "item-1",
+                "item-2"
+              ]
+            },
+            {
+              "inventoryItemId": "item-4",
+              "sourceMessageId": "SEM-H22:user:1",
+              "sourceText": "perfusion DSC",
+              "normalizedLabel": "perfusion DSC",
+              "localRole": "method",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item-5",
+              "sourceMessageId": "SEM-H22:user:1",
+              "sourceText": "spectro",
+              "normalizedLabel": "spectroscopie",
+              "localRole": "method",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item-6",
+              "sourceMessageId": "SEM-H22:user:1",
+              "sourceText": "résultat histologique",
+              "normalizedLabel": "résultat histologique",
+              "localRole": "reference standard or biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item-7",
+              "sourceMessageId": "SEM-H22:user:1",
+              "sourceText": "pas toujours dispo",
+              "normalizedLabel": "pas toujours disponible",
+              "localRole": "constraint",
+              "polarity": "CONDITIONAL",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "item-6"
+              ]
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-inv-1",
+              "sourceInventoryItemId": "item-1",
+              "targetInventoryItemId": "item-2",
+              "sourceMessageId": "SEM-H22:user:1",
+              "sourceText": "pseudoprogression vs récidive",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-inv-2",
+              "sourceInventoryItemId": "item-4",
+              "targetInventoryItemId": "item-1",
+              "sourceMessageId": "SEM-H22:user:1",
+              "sourceText": "pseudoprogression vs récidive: perfusion DSC",
+              "normalizedRelation": "MEASURES",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-inv-3",
+              "sourceInventoryItemId": "item-5",
+              "targetInventoryItemId": "item-1",
+              "sourceMessageId": "SEM-H22:user:1",
+              "sourceText": "pseudoprogression vs récidive: perfusion DSC + spectro",
+              "normalizedRelation": "MEASURES",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "CONDITION",
+            "canonicalMeaning": "pseudoprogression",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-1"
+            ],
+            "sourceMessageId": "SEM-H22:user:1",
+            "sourceText": "pseudoprogression",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "CONDITION",
+            "canonicalMeaning": "récidive tumorale",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-2"
+            ],
+            "sourceMessageId": "SEM-H22:user:1",
+            "sourceText": "récidive",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "METHOD",
+            "canonicalMeaning": "perfusion DSC",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-4"
+            ],
+            "sourceMessageId": "SEM-H22:user:1",
+            "sourceText": "perfusion DSC",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-4",
+            "type": "METHOD",
+            "canonicalMeaning": "spectroscopie par résonance magnétique",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-5"
+            ],
+            "sourceMessageId": "SEM-H22:user:1",
+            "sourceText": "spectro",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-5",
+            "type": "COMPARATOR",
+            "canonicalMeaning": "résultat histologique",
+            "studyRole": "REFERENCE_STANDARD",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-6"
+            ],
+            "sourceMessageId": "SEM-H22:user:1",
+            "sourceText": "résultat histologique",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-6",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "disponibilité inconstante du résultat histologique",
+            "studyRole": "NONE",
+            "polarity": "CONDITIONAL",
+            "inventoryItemIds": [
+              "item-7"
+            ],
+            "sourceMessageId": "SEM-H22:user:1",
+            "sourceText": "pas toujours dispo",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-1",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-2",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-2",
+            "sourceClientElementId": "elem-3",
+            "targetClientElementId": "elem-1",
+            "relationType": "MEASURES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-3",
+            "sourceClientElementId": "elem-4",
+            "targetClientElementId": "elem-1",
+            "relationType": "MEASURES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-3"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [
+          "population",
+          "anatomical context"
+        ],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [
+          {
+            "question": "Quelle est la population cible ou la localisation anatomique pour cette étude de différenciation entre pseudoprogression et récidive ?",
+            "reason": "Préciser le contexte clinique et la population cible pour formaliser le design de l'étude.",
+            "resolvesClientElementIds": [
+              "elem-1",
+              "elem-2"
+            ]
+          }
+        ],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "L'utilisateur compare deux conditions cliniques en utilisant des méthodes d'imagerie spécifiques tout en mentionnant une contrainte sur le gold standard histologique.",
+          "expectedCapabilities": [
+            "Définition des critères d'évaluation",
+            "Structuration des bras méthodologiques",
+            "Gestion des contraintes de référence"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "reconstructionDigest": "ke1-c20ac7e4946d4c00",
+      "critics": [
+        {
+          "criticId": "crit-001",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit fragments including pseudoprogression, récidive, perfusion DSC, spectro, résultat histologique, and pas toujours dispo are fully represented."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The comparison operator and compared entities are correctly preserved through direct relational mapping."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No interventions are present in this diagnostic/observational scenario."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "DSC perfusion and spectroscopy methods are correctly typed and represented."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All inventory relations (rel-inv-1, rel-inv-2, rel-inv-3) are accurately mapped to direct client relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All types adhere strictly to the operational taxonomy without incompatible object types."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations are preserved faithfully without weakening them to inferences."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No high-confidence or candidate inferences have been improperly promoted."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No ambiguities were improperly hidden; missing contextual population and anatomical context are exposed as missing concepts and clarification candidates."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Conditional/negative constraints like 'pas toujours dispo' are correctly maintained with conditional polarity."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit temporal expressions or timings are present."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No unselected outcomes were improperly promoted to endpoints."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts such as DSC perfusion and spectroscopy are preserved without undue generalization."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "The independent source-to-inventory and inventory-to-model comparison shows zero missing source fragments."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The route DESIGN_STUDY perfectly matches the complete semantic model where diagnostic conditions, methods, and constraints are structured for study design."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The semantic candidate is complete, fully grounded, and adheres strictly to all taxonomic and structural constraints. All checklist items pass successfully."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-6695063dfbf21921",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "pseudoprogression vs récidive: perfusion DSC + spectro, résultat histologique pas toujours dispo",
+        "normalizedMeaning": "Comparaison entre pseudoprogression et récidive utilisant la perfusion DSC et la spectroscopie, sachant que le résultat histologique n'est pas toujours disponible.",
+        "conversationMessageIds": [
+          "SEM-H22:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-0b4282d95b866c1d",
+            "type": "CONDITION",
+            "canonicalMeaning": "récidive tumorale",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-2"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H22:user:1",
+              "text": "récidive",
+              "start": 21,
+              "end": 29
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-3c8fe38c417283f0"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-a8ae6e4c239b0d98",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-4ba052b368dd2b67",
+                "knowledge-gap:ke1-c6548d960bf3552a",
+                "knowledge-gap:ke1-edeebc99613817ad"
+              ],
+              "checkedAt": "2026-08-13T09:51:31.314Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H22:user:1",
+              "providerCallId": "gemini-call:ke1-f8ef411d9d50e619",
+              "rawElementId": "elem-2"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-4d975cf3ec67b44f",
+            "type": "COMPARATOR",
+            "canonicalMeaning": "résultat histologique",
+            "studyRole": "REFERENCE_STANDARD",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-6"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H22:user:1",
+              "text": "résultat histologique",
+              "start": 56,
+              "end": 77
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H22:user:1",
+              "providerCallId": "gemini-call:ke1-f8ef411d9d50e619",
+              "rawElementId": "elem-5"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-6f6ac32ee2fa22f2",
+            "type": "CONDITION",
+            "canonicalMeaning": "pseudoprogression",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-1"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H22:user:1",
+              "text": "pseudoprogression",
+              "start": 0,
+              "end": 17
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-2d4130fe7111e1ca",
+              "sem-relation:ke1-3c8fe38c417283f0",
+              "sem-relation:ke1-c6a17e8524315769"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-a8ae6e4c239b0d98",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-4ba052b368dd2b67",
+                "knowledge-gap:ke1-c6548d960bf3552a",
+                "knowledge-gap:ke1-edeebc99613817ad"
+              ],
+              "checkedAt": "2026-08-13T09:51:31.314Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H22:user:1",
+              "providerCallId": "gemini-call:ke1-f8ef411d9d50e619",
+              "rawElementId": "elem-1"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-d75060e03d94c9ac",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "disponibilité inconstante du résultat histologique",
+            "studyRole": "NONE",
+            "polarity": "CONDITIONAL",
+            "inventoryItemIds": [
+              "item-7"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H22:user:1",
+              "text": "pas toujours dispo",
+              "start": 78,
+              "end": 96
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H22:user:1",
+              "providerCallId": "gemini-call:ke1-f8ef411d9d50e619",
+              "rawElementId": "elem-6"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-dd20a4d979dbf74d",
+            "type": "METHOD",
+            "canonicalMeaning": "spectroscopie par résonance magnétique",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-5"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H22:user:1",
+              "text": "spectro",
+              "start": 47,
+              "end": 54
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-c6a17e8524315769"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H22:user:1",
+              "providerCallId": "gemini-call:ke1-f8ef411d9d50e619",
+              "rawElementId": "elem-4"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-e427393e12454ec2",
+            "type": "METHOD",
+            "canonicalMeaning": "perfusion DSC",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-4"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H22:user:1",
+              "text": "perfusion DSC",
+              "start": 31,
+              "end": 44
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-2d4130fe7111e1ca"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H22:user:1",
+              "providerCallId": "gemini-call:ke1-f8ef411d9d50e619",
+              "rawElementId": "elem-3"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-2d4130fe7111e1ca",
+            "sourceElementId": "sem-element:ke1-e427393e12454ec2",
+            "targetElementId": "sem-element:ke1-6f6ac32ee2fa22f2",
+            "relationType": "MEASURES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-2"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-3c8fe38c417283f0",
+            "sourceElementId": "sem-element:ke1-6f6ac32ee2fa22f2",
+            "targetElementId": "sem-element:ke1-0b4282d95b866c1d",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-1"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-c6a17e8524315769",
+            "sourceElementId": "sem-element:ke1-dd20a4d979dbf74d",
+            "targetElementId": "sem-element:ke1-6f6ac32ee2fa22f2",
+            "relationType": "MEASURES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-3"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "item-1",
+              "sourceMessageId": "SEM-H22:user:1",
+              "sourceText": "pseudoprogression",
+              "normalizedMeaning": "pseudoprogression",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-2",
+              "sourceMessageId": "SEM-H22:user:1",
+              "sourceText": "récidive",
+              "normalizedMeaning": "récidive",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-3",
+              "sourceMessageId": "SEM-H22:user:1",
+              "sourceText": "vs",
+              "normalizedMeaning": "versus",
+              "mappedClientElementIds": [],
+              "mappedClientRelationIds": [
+                "rel-1",
+                "rel-2",
+                "rel-3"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "The explicit functional fragment is represented by its source-grounded direct Semantic Relation rather than by a false object node."
+            },
+            {
+              "inventoryItemId": "item-4",
+              "sourceMessageId": "SEM-H22:user:1",
+              "sourceText": "perfusion DSC",
+              "normalizedMeaning": "perfusion DSC",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-5",
+              "sourceMessageId": "SEM-H22:user:1",
+              "sourceText": "spectro",
+              "normalizedMeaning": "spectroscopie",
+              "mappedClientElementIds": [
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-6",
+              "sourceMessageId": "SEM-H22:user:1",
+              "sourceText": "résultat histologique",
+              "normalizedMeaning": "résultat histologique",
+              "mappedClientElementIds": [
+                "elem-5"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-7",
+              "sourceMessageId": "SEM-H22:user:1",
+              "sourceText": "pas toujours dispo",
+              "normalizedMeaning": "pas toujours disponible",
+              "mappedClientElementIds": [
+                "elem-6"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-inv-1",
+              "sourceInventoryItemId": "item-1",
+              "targetInventoryItemId": "item-2",
+              "normalizedRelation": "COMPARES_WITH",
+              "mappedClientRelationIds": [
+                "rel-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-inv-2",
+              "sourceInventoryItemId": "item-4",
+              "targetInventoryItemId": "item-1",
+              "normalizedRelation": "MEASURES",
+              "mappedClientRelationIds": [
+                "rel-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-inv-3",
+              "sourceInventoryItemId": "item-5",
+              "targetInventoryItemId": "item-1",
+              "normalizedRelation": "MEASURES",
+              "mappedClientRelationIds": [
+                "rel-3"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [
+          "anatomical context",
+          "population"
+        ],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "clarificationCandidates": [
+          {
+            "question": "Quelle est la population cible ou la localisation anatomique pour cette étude de différenciation entre pseudoprogression et récidive ?",
+            "reason": "Préciser le contexte clinique et la population cible pour formaliser le design de l'étude.",
+            "resolvesElementIds": [
+              "sem-element:ke1-0b4282d95b866c1d",
+              "sem-element:ke1-6f6ac32ee2fa22f2"
+            ]
+          }
+        ],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "L'utilisateur compare deux conditions cliniques en utilisant des méthodes d'imagerie spécifiques tout en mentionnant une contrainte sur le gold standard histologique.",
+          "expectedCapabilities": [
+            "Définition des critères d'évaluation",
+            "Gestion des contraintes de référence",
+            "Structuration des bras méthodologiques"
+          ]
+        },
+        "summaryForUser": "Analyse de la distinction entre pseudoprogression et récidive par perfusion DSC et spectroscopie, avec la contrainte d'un résultat histologique non toujours disponible.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "The semantic candidate is complete, fully grounded, and adheres strictly to all taxonomic and structural constraints. All checklist items pass successfully."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+          "criticPromptVersion": "SEM-001-CRITIC-1.6",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-f8ef411d9d50e619",
+          "criticCallId": "gemini-call:ke1-6a31c6edcc16cbc9",
+          "criticCallIds": [
+            "gemini-call:ke1-6a31c6edcc16cbc9"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:51:20.753Z",
+              "requestFinished": "2026-08-13T09:51:27.859Z",
+              "latencyMs": 7106,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:51:27.863Z",
+              "requestFinished": "2026-08-13T09:51:31.310Z",
+              "latencyMs": 3447,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "cand-001",
+            "language": "fr",
+            "normalizedMeaning": "Comparaison entre pseudoprogression et récidive utilisant la perfusion DSC et la spectroscopie, sachant que le résultat histologique n'est pas toujours disponible.",
+            "summaryForUser": "Analyse de la distinction entre pseudoprogression et récidive par perfusion DSC et spectroscopie, avec la contrainte d'un résultat histologique non toujours disponible.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "item-1",
+                  "sourceMessageId": "SEM-H22:user:1",
+                  "sourceText": "pseudoprogression",
+                  "normalizedLabel": "pseudoprogression",
+                  "localRole": "endpoint or compared entity A",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "item-2",
+                  "sourceMessageId": "SEM-H22:user:1",
+                  "sourceText": "récidive",
+                  "normalizedLabel": "récidive",
+                  "localRole": "endpoint or compared entity B",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "item-3",
+                  "sourceMessageId": "SEM-H22:user:1",
+                  "sourceText": "vs",
+                  "normalizedLabel": "versus",
+                  "localRole": "comparison operator",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "item-1",
+                    "item-2"
+                  ]
+                },
+                {
+                  "inventoryItemId": "item-4",
+                  "sourceMessageId": "SEM-H22:user:1",
+                  "sourceText": "perfusion DSC",
+                  "normalizedLabel": "perfusion DSC",
+                  "localRole": "method",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "item-5",
+                  "sourceMessageId": "SEM-H22:user:1",
+                  "sourceText": "spectro",
+                  "normalizedLabel": "spectroscopie",
+                  "localRole": "method",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "item-6",
+                  "sourceMessageId": "SEM-H22:user:1",
+                  "sourceText": "résultat histologique",
+                  "normalizedLabel": "résultat histologique",
+                  "localRole": "reference standard or biomarker",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "item-7",
+                  "sourceMessageId": "SEM-H22:user:1",
+                  "sourceText": "pas toujours dispo",
+                  "normalizedLabel": "pas toujours disponible",
+                  "localRole": "constraint",
+                  "polarity": "CONDITIONAL",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "item-6"
+                  ]
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel-inv-1",
+                  "sourceInventoryItemId": "item-1",
+                  "targetInventoryItemId": "item-2",
+                  "sourceMessageId": "SEM-H22:user:1",
+                  "sourceText": "pseudoprogression vs récidive",
+                  "normalizedRelation": "COMPARES_WITH",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-inv-2",
+                  "sourceInventoryItemId": "item-4",
+                  "targetInventoryItemId": "item-1",
+                  "sourceMessageId": "SEM-H22:user:1",
+                  "sourceText": "pseudoprogression vs récidive: perfusion DSC",
+                  "normalizedRelation": "MEASURES",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-inv-3",
+                  "sourceInventoryItemId": "item-5",
+                  "targetInventoryItemId": "item-1",
+                  "sourceMessageId": "SEM-H22:user:1",
+                  "sourceText": "pseudoprogression vs récidive: perfusion DSC + spectro",
+                  "normalizedRelation": "MEASURES",
+                  "polarity": "AFFIRMED"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem-1",
+                "type": "CONDITION",
+                "canonicalMeaning": "pseudoprogression",
+                "studyRole": "OUTCOME_ROLE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "item-1"
+                ],
+                "sourceMessageId": "SEM-H22:user:1",
+                "sourceText": "pseudoprogression",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-2",
+                "type": "CONDITION",
+                "canonicalMeaning": "récidive tumorale",
+                "studyRole": "OUTCOME_ROLE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "item-2"
+                ],
+                "sourceMessageId": "SEM-H22:user:1",
+                "sourceText": "récidive",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-3",
+                "type": "METHOD",
+                "canonicalMeaning": "perfusion DSC",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "item-4"
+                ],
+                "sourceMessageId": "SEM-H22:user:1",
+                "sourceText": "perfusion DSC",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-4",
+                "type": "METHOD",
+                "canonicalMeaning": "spectroscopie par résonance magnétique",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "item-5"
+                ],
+                "sourceMessageId": "SEM-H22:user:1",
+                "sourceText": "spectro",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-5",
+                "type": "COMPARATOR",
+                "canonicalMeaning": "résultat histologique",
+                "studyRole": "REFERENCE_STANDARD",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "item-6"
+                ],
+                "sourceMessageId": "SEM-H22:user:1",
+                "sourceText": "résultat histologique",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-6",
+                "type": "CONSTRAINT",
+                "canonicalMeaning": "disponibilité inconstante du résultat histologique",
+                "studyRole": "NONE",
+                "polarity": "CONDITIONAL",
+                "inventoryItemIds": [
+                  "item-7"
+                ],
+                "sourceMessageId": "SEM-H22:user:1",
+                "sourceText": "pas toujours dispo",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel-1",
+                "sourceClientElementId": "elem-1",
+                "targetClientElementId": "elem-2",
+                "relationType": "COMPARES_WITH",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-inv-1"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-2",
+                "sourceClientElementId": "elem-3",
+                "targetClientElementId": "elem-1",
+                "relationType": "MEASURES",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-inv-2"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-3",
+                "sourceClientElementId": "elem-4",
+                "targetClientElementId": "elem-1",
+                "relationType": "MEASURES",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-inv-3"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              }
+            ],
+            "missingConcepts": [
+              "population",
+              "anatomical context"
+            ],
+            "ellipses": [],
+            "ambiguities": [],
+            "unknowns": [],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [
+              {
+                "question": "Quelle est la population cible ou la localisation anatomique pour cette étude de différenciation entre pseudoprogression et récidive ?",
+                "reason": "Préciser le contexte clinique et la population cible pour formaliser le design de l'étude.",
+                "resolvesClientElementIds": [
+                  "elem-1",
+                  "elem-2"
+                ]
+              }
+            ],
+            "routeProposal": {
+              "route": "DESIGN_STUDY",
+              "confidence": 0.9,
+              "reason": "L'utilisateur compare deux conditions cliniques en utilisant des méthodes d'imagerie spécifiques tout en mentionnant une contrainte sur le gold standard histologique.",
+              "expectedCapabilities": [
+                "Définition des critères d'évaluation",
+                "Structuration des bras méthodologiques",
+                "Gestion des contraintes de référence"
+              ]
+            },
+            "semanticWarnings": []
+          },
+          "rawCritic": {
+            "criticId": "crit-001",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit fragments including pseudoprogression, récidive, perfusion DSC, spectro, résultat histologique, and pas toujours dispo are fully represented."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "PASS",
+                "evidence": "The comparison operator and compared entities are correctly preserved through direct relational mapping."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No interventions are present in this diagnostic/observational scenario."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "PASS",
+                "evidence": "DSC perfusion and spectroscopy methods are correctly typed and represented."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All inventory relations (rel-inv-1, rel-inv-2, rel-inv-3) are accurately mapped to direct client relations."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "All types adhere strictly to the operational taxonomy without incompatible object types."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Explicit relations are preserved faithfully without weakening them to inferences."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No high-confidence or candidate inferences have been improperly promoted."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "No ambiguities were improperly hidden; missing contextual population and anatomical context are exposed as missing concepts and clarification candidates."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "Conditional/negative constraints like 'pas toujours dispo' are correctly maintained with conditional polarity."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No explicit temporal expressions or timings are present."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "No unselected outcomes were improperly promoted to endpoints."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts such as DSC perfusion and spectroscopy are preserved without undue generalization."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "The independent source-to-inventory and inventory-to-model comparison shows zero missing source fragments."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "The route DESIGN_STUDY perfectly matches the complete semantic model where diagnostic conditions, methods, and constraints are structured for study design."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The semantic candidate is complete, fully grounded, and adheres strictly to all taxonomic and structural constraints. All checklist items pass successfully."
+          },
+          "rawCritics": [
+            {
+              "criticId": "crit-001",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit fragments including pseudoprogression, récidive, perfusion DSC, spectro, résultat histologique, and pas toujours dispo are fully represented."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The comparison operator and compared entities are correctly preserved through direct relational mapping."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No interventions are present in this diagnostic/observational scenario."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "DSC perfusion and spectroscopy methods are correctly typed and represented."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All inventory relations (rel-inv-1, rel-inv-2, rel-inv-3) are accurately mapped to direct client relations."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "All types adhere strictly to the operational taxonomy without incompatible object types."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Explicit relations are preserved faithfully without weakening them to inferences."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No high-confidence or candidate inferences have been improperly promoted."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "No ambiguities were improperly hidden; missing contextual population and anatomical context are exposed as missing concepts and clarification candidates."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "Conditional/negative constraints like 'pas toujours dispo' are correctly maintained with conditional polarity."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No explicit temporal expressions or timings are present."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "No unselected outcomes were improperly promoted to endpoints."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific concepts such as DSC perfusion and spectroscopy are preserved without undue generalization."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The independent source-to-inventory and inventory-to-model comparison shows zero missing source fragments."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "The route DESIGN_STUDY perfectly matches the complete semantic model where diagnostic conditions, methods, and constraints are structured for study design."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "The semantic candidate is complete, fully grounded, and adheres strictly to all taxonomic and structural constraints. All checklist items pass successfully."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-13T09:51:31.312Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-a8ae6e4c239b0d98",
+          "resultDigest": "ke1-a8ae6e4c239b0d98",
+          "coverageStatus": "NO_PROVIDER",
+          "verifiedAt": "2026-08-13T09:51:31.314Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-13T09:51:31.312Z",
+        "updatedAt": "2026-08-13T09:51:31.314Z",
+        "digest": "ke1-14bd3a8b3f196b47"
+      },
+      "canonicalModelDigest": "ke1-14bd3a8b3f196b47",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-a8ae6e4c239b0d98",
+        "resultDigest": "ke1-a8ae6e4c239b0d98",
+        "coverageStatus": "NO_PROVIDER",
+        "verifiedAt": "2026-08-13T09:51:31.314Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-f8ef411d9d50e619",
+      "structuredDigest": "ke1-c20ac7e4946d4c00",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:51:20.753Z",
+          "requestFinished": "2026-08-13T09:51:27.859Z",
+          "latencyMs": 7106,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-6a31c6edcc16cbc9",
+      "structuredDigest": "ke1-fdbe6a6385a50b1f",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:51:27.863Z",
+          "requestFinished": "2026-08-13T09:51:31.310Z",
+          "latencyMs": 3447,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-6695063dfbf21921",
+    "revision": 1,
+    "status": "CANDIDATE",
+    "originalRequest": "pseudoprogression vs récidive: perfusion DSC + spectro, résultat histologique pas toujours dispo",
+    "normalizedMeaning": "Comparaison entre pseudoprogression et récidive utilisant la perfusion DSC et la spectroscopie, sachant que le résultat histologique n'est pas toujours disponible.",
+    "conversationMessageIds": [
+      "SEM-H22:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-0b4282d95b866c1d",
+        "type": "CONDITION",
+        "canonicalMeaning": "récidive tumorale",
+        "studyRole": "OUTCOME_ROLE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "item-2"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H22:user:1",
+          "text": "récidive",
+          "start": 21,
+          "end": 29
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-3c8fe38c417283f0"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-a8ae6e4c239b0d98",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-4ba052b368dd2b67",
+            "knowledge-gap:ke1-c6548d960bf3552a",
+            "knowledge-gap:ke1-edeebc99613817ad"
+          ],
+          "checkedAt": "2026-08-13T09:51:31.314Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H22:user:1",
+          "providerCallId": "gemini-call:ke1-f8ef411d9d50e619",
+          "rawElementId": "elem-2"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-4d975cf3ec67b44f",
+        "type": "COMPARATOR",
+        "canonicalMeaning": "résultat histologique",
+        "studyRole": "REFERENCE_STANDARD",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "item-6"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H22:user:1",
+          "text": "résultat histologique",
+          "start": 56,
+          "end": 77
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H22:user:1",
+          "providerCallId": "gemini-call:ke1-f8ef411d9d50e619",
+          "rawElementId": "elem-5"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-6f6ac32ee2fa22f2",
+        "type": "CONDITION",
+        "canonicalMeaning": "pseudoprogression",
+        "studyRole": "OUTCOME_ROLE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "item-1"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H22:user:1",
+          "text": "pseudoprogression",
+          "start": 0,
+          "end": 17
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-2d4130fe7111e1ca",
+          "sem-relation:ke1-3c8fe38c417283f0",
+          "sem-relation:ke1-c6a17e8524315769"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-a8ae6e4c239b0d98",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-4ba052b368dd2b67",
+            "knowledge-gap:ke1-c6548d960bf3552a",
+            "knowledge-gap:ke1-edeebc99613817ad"
+          ],
+          "checkedAt": "2026-08-13T09:51:31.314Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H22:user:1",
+          "providerCallId": "gemini-call:ke1-f8ef411d9d50e619",
+          "rawElementId": "elem-1"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-d75060e03d94c9ac",
+        "type": "CONSTRAINT",
+        "canonicalMeaning": "disponibilité inconstante du résultat histologique",
+        "studyRole": "NONE",
+        "polarity": "CONDITIONAL",
+        "inventoryItemIds": [
+          "item-7"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H22:user:1",
+          "text": "pas toujours dispo",
+          "start": 78,
+          "end": 96
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H22:user:1",
+          "providerCallId": "gemini-call:ke1-f8ef411d9d50e619",
+          "rawElementId": "elem-6"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-dd20a4d979dbf74d",
+        "type": "METHOD",
+        "canonicalMeaning": "spectroscopie par résonance magnétique",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "item-5"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H22:user:1",
+          "text": "spectro",
+          "start": 47,
+          "end": 54
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-c6a17e8524315769"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H22:user:1",
+          "providerCallId": "gemini-call:ke1-f8ef411d9d50e619",
+          "rawElementId": "elem-4"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-e427393e12454ec2",
+        "type": "METHOD",
+        "canonicalMeaning": "perfusion DSC",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "item-4"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H22:user:1",
+          "text": "perfusion DSC",
+          "start": 31,
+          "end": 44
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-2d4130fe7111e1ca"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H22:user:1",
+          "providerCallId": "gemini-call:ke1-f8ef411d9d50e619",
+          "rawElementId": "elem-3"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-2d4130fe7111e1ca",
+        "sourceElementId": "sem-element:ke1-e427393e12454ec2",
+        "targetElementId": "sem-element:ke1-6f6ac32ee2fa22f2",
+        "relationType": "MEASURES",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-inv-2"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-3c8fe38c417283f0",
+        "sourceElementId": "sem-element:ke1-6f6ac32ee2fa22f2",
+        "targetElementId": "sem-element:ke1-0b4282d95b866c1d",
+        "relationType": "COMPARES_WITH",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-inv-1"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-c6a17e8524315769",
+        "sourceElementId": "sem-element:ke1-dd20a4d979dbf74d",
+        "targetElementId": "sem-element:ke1-6f6ac32ee2fa22f2",
+        "relationType": "MEASURES",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-inv-3"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "item-1",
+          "sourceMessageId": "SEM-H22:user:1",
+          "sourceText": "pseudoprogression",
+          "normalizedMeaning": "pseudoprogression",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-2",
+          "sourceMessageId": "SEM-H22:user:1",
+          "sourceText": "récidive",
+          "normalizedMeaning": "récidive",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-3",
+          "sourceMessageId": "SEM-H22:user:1",
+          "sourceText": "vs",
+          "normalizedMeaning": "versus",
+          "mappedClientElementIds": [],
+          "mappedClientRelationIds": [
+            "rel-1",
+            "rel-2",
+            "rel-3"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "The explicit functional fragment is represented by its source-grounded direct Semantic Relation rather than by a false object node."
+        },
+        {
+          "inventoryItemId": "item-4",
+          "sourceMessageId": "SEM-H22:user:1",
+          "sourceText": "perfusion DSC",
+          "normalizedMeaning": "perfusion DSC",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-5",
+          "sourceMessageId": "SEM-H22:user:1",
+          "sourceText": "spectro",
+          "normalizedMeaning": "spectroscopie",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-6",
+          "sourceMessageId": "SEM-H22:user:1",
+          "sourceText": "résultat histologique",
+          "normalizedMeaning": "résultat histologique",
+          "mappedClientElementIds": [
+            "elem-5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-7",
+          "sourceMessageId": "SEM-H22:user:1",
+          "sourceText": "pas toujours dispo",
+          "normalizedMeaning": "pas toujours disponible",
+          "mappedClientElementIds": [
+            "elem-6"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-inv-1",
+          "sourceInventoryItemId": "item-1",
+          "targetInventoryItemId": "item-2",
+          "normalizedRelation": "COMPARES_WITH",
+          "mappedClientRelationIds": [
+            "rel-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-inv-2",
+          "sourceInventoryItemId": "item-4",
+          "targetInventoryItemId": "item-1",
+          "normalizedRelation": "MEASURES",
+          "mappedClientRelationIds": [
+            "rel-2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-inv-3",
+          "sourceInventoryItemId": "item-5",
+          "targetInventoryItemId": "item-1",
+          "normalizedRelation": "MEASURES",
+          "mappedClientRelationIds": [
+            "rel-3"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "missingConcepts": [
+      "anatomical context",
+      "population"
+    ],
+    "ellipses": [],
+    "ambiguities": [],
+    "unknowns": [],
+    "contradictions": [],
+    "clarificationCandidates": [
+      {
+        "question": "Quelle est la population cible ou la localisation anatomique pour cette étude de différenciation entre pseudoprogression et récidive ?",
+        "reason": "Préciser le contexte clinique et la population cible pour formaliser le design de l'étude.",
+        "resolvesElementIds": [
+          "sem-element:ke1-0b4282d95b866c1d",
+          "sem-element:ke1-6f6ac32ee2fa22f2"
+        ]
+      }
+    ],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "DESIGN_STUDY",
+      "confidence": 0.9,
+      "reason": "L'utilisateur compare deux conditions cliniques en utilisant des méthodes d'imagerie spécifiques tout en mentionnant une contrainte sur le gold standard histologique.",
+      "expectedCapabilities": [
+        "Définition des critères d'évaluation",
+        "Gestion des contraintes de référence",
+        "Structuration des bras méthodologiques"
+      ]
+    },
+    "summaryForUser": "Analyse de la distinction entre pseudoprogression et récidive par perfusion DSC et spectroscopie, avec la contrainte d'un résultat histologique non toujours disponible.",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "The semantic candidate is complete, fully grounded, and adheres strictly to all taxonomic and structural constraints. All checklist items pass successfully."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-f8ef411d9d50e619",
+      "criticCallId": "gemini-call:ke1-6a31c6edcc16cbc9",
+      "criticCallIds": [
+        "gemini-call:ke1-6a31c6edcc16cbc9"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:51:20.753Z",
+          "requestFinished": "2026-08-13T09:51:27.859Z",
+          "latencyMs": 7106,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:51:27.863Z",
+          "requestFinished": "2026-08-13T09:51:31.310Z",
+          "latencyMs": 3447,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Comparaison entre pseudoprogression et récidive utilisant la perfusion DSC et la spectroscopie, sachant que le résultat histologique n'est pas toujours disponible.",
+        "summaryForUser": "Analyse de la distinction entre pseudoprogression et récidive par perfusion DSC et spectroscopie, avec la contrainte d'un résultat histologique non toujours disponible.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "item-1",
+              "sourceMessageId": "SEM-H22:user:1",
+              "sourceText": "pseudoprogression",
+              "normalizedLabel": "pseudoprogression",
+              "localRole": "endpoint or compared entity A",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item-2",
+              "sourceMessageId": "SEM-H22:user:1",
+              "sourceText": "récidive",
+              "normalizedLabel": "récidive",
+              "localRole": "endpoint or compared entity B",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item-3",
+              "sourceMessageId": "SEM-H22:user:1",
+              "sourceText": "vs",
+              "normalizedLabel": "versus",
+              "localRole": "comparison operator",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "item-1",
+                "item-2"
+              ]
+            },
+            {
+              "inventoryItemId": "item-4",
+              "sourceMessageId": "SEM-H22:user:1",
+              "sourceText": "perfusion DSC",
+              "normalizedLabel": "perfusion DSC",
+              "localRole": "method",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item-5",
+              "sourceMessageId": "SEM-H22:user:1",
+              "sourceText": "spectro",
+              "normalizedLabel": "spectroscopie",
+              "localRole": "method",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item-6",
+              "sourceMessageId": "SEM-H22:user:1",
+              "sourceText": "résultat histologique",
+              "normalizedLabel": "résultat histologique",
+              "localRole": "reference standard or biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item-7",
+              "sourceMessageId": "SEM-H22:user:1",
+              "sourceText": "pas toujours dispo",
+              "normalizedLabel": "pas toujours disponible",
+              "localRole": "constraint",
+              "polarity": "CONDITIONAL",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "item-6"
+              ]
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-inv-1",
+              "sourceInventoryItemId": "item-1",
+              "targetInventoryItemId": "item-2",
+              "sourceMessageId": "SEM-H22:user:1",
+              "sourceText": "pseudoprogression vs récidive",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-inv-2",
+              "sourceInventoryItemId": "item-4",
+              "targetInventoryItemId": "item-1",
+              "sourceMessageId": "SEM-H22:user:1",
+              "sourceText": "pseudoprogression vs récidive: perfusion DSC",
+              "normalizedRelation": "MEASURES",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-inv-3",
+              "sourceInventoryItemId": "item-5",
+              "targetInventoryItemId": "item-1",
+              "sourceMessageId": "SEM-H22:user:1",
+              "sourceText": "pseudoprogression vs récidive: perfusion DSC + spectro",
+              "normalizedRelation": "MEASURES",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "CONDITION",
+            "canonicalMeaning": "pseudoprogression",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-1"
+            ],
+            "sourceMessageId": "SEM-H22:user:1",
+            "sourceText": "pseudoprogression",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "CONDITION",
+            "canonicalMeaning": "récidive tumorale",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-2"
+            ],
+            "sourceMessageId": "SEM-H22:user:1",
+            "sourceText": "récidive",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "METHOD",
+            "canonicalMeaning": "perfusion DSC",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-4"
+            ],
+            "sourceMessageId": "SEM-H22:user:1",
+            "sourceText": "perfusion DSC",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-4",
+            "type": "METHOD",
+            "canonicalMeaning": "spectroscopie par résonance magnétique",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-5"
+            ],
+            "sourceMessageId": "SEM-H22:user:1",
+            "sourceText": "spectro",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-5",
+            "type": "COMPARATOR",
+            "canonicalMeaning": "résultat histologique",
+            "studyRole": "REFERENCE_STANDARD",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-6"
+            ],
+            "sourceMessageId": "SEM-H22:user:1",
+            "sourceText": "résultat histologique",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-6",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "disponibilité inconstante du résultat histologique",
+            "studyRole": "NONE",
+            "polarity": "CONDITIONAL",
+            "inventoryItemIds": [
+              "item-7"
+            ],
+            "sourceMessageId": "SEM-H22:user:1",
+            "sourceText": "pas toujours dispo",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-1",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-2",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-2",
+            "sourceClientElementId": "elem-3",
+            "targetClientElementId": "elem-1",
+            "relationType": "MEASURES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-3",
+            "sourceClientElementId": "elem-4",
+            "targetClientElementId": "elem-1",
+            "relationType": "MEASURES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-3"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [
+          "population",
+          "anatomical context"
+        ],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [
+          {
+            "question": "Quelle est la population cible ou la localisation anatomique pour cette étude de différenciation entre pseudoprogression et récidive ?",
+            "reason": "Préciser le contexte clinique et la population cible pour formaliser le design de l'étude.",
+            "resolvesClientElementIds": [
+              "elem-1",
+              "elem-2"
+            ]
+          }
+        ],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "L'utilisateur compare deux conditions cliniques en utilisant des méthodes d'imagerie spécifiques tout en mentionnant une contrainte sur le gold standard histologique.",
+          "expectedCapabilities": [
+            "Définition des critères d'évaluation",
+            "Structuration des bras méthodologiques",
+            "Gestion des contraintes de référence"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "rawCritic": {
+        "criticId": "crit-001",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit fragments including pseudoprogression, récidive, perfusion DSC, spectro, résultat histologique, and pas toujours dispo are fully represented."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "PASS",
+            "evidence": "The comparison operator and compared entities are correctly preserved through direct relational mapping."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No interventions are present in this diagnostic/observational scenario."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "PASS",
+            "evidence": "DSC perfusion and spectroscopy methods are correctly typed and represented."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All inventory relations (rel-inv-1, rel-inv-2, rel-inv-3) are accurately mapped to direct client relations."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "All types adhere strictly to the operational taxonomy without incompatible object types."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "Explicit relations are preserved faithfully without weakening them to inferences."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No high-confidence or candidate inferences have been improperly promoted."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "No ambiguities were improperly hidden; missing contextual population and anatomical context are exposed as missing concepts and clarification candidates."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "Conditional/negative constraints like 'pas toujours dispo' are correctly maintained with conditional polarity."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No explicit temporal expressions or timings are present."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "No unselected outcomes were improperly promoted to endpoints."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific concepts such as DSC perfusion and spectroscopy are preserved without undue generalization."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "The independent source-to-inventory and inventory-to-model comparison shows zero missing source fragments."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "The route DESIGN_STUDY perfectly matches the complete semantic model where diagnostic conditions, methods, and constraints are structured for study design."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "The semantic candidate is complete, fully grounded, and adheres strictly to all taxonomic and structural constraints. All checklist items pass successfully."
+      },
+      "rawCritics": [
+        {
+          "criticId": "crit-001",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit fragments including pseudoprogression, récidive, perfusion DSC, spectro, résultat histologique, and pas toujours dispo are fully represented."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The comparison operator and compared entities are correctly preserved through direct relational mapping."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No interventions are present in this diagnostic/observational scenario."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "DSC perfusion and spectroscopy methods are correctly typed and represented."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All inventory relations (rel-inv-1, rel-inv-2, rel-inv-3) are accurately mapped to direct client relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All types adhere strictly to the operational taxonomy without incompatible object types."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations are preserved faithfully without weakening them to inferences."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No high-confidence or candidate inferences have been improperly promoted."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No ambiguities were improperly hidden; missing contextual population and anatomical context are exposed as missing concepts and clarification candidates."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Conditional/negative constraints like 'pas toujours dispo' are correctly maintained with conditional polarity."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit temporal expressions or timings are present."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No unselected outcomes were improperly promoted to endpoints."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts such as DSC perfusion and spectroscopy are preserved without undue generalization."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "The independent source-to-inventory and inventory-to-model comparison shows zero missing source fragments."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The route DESIGN_STUDY perfectly matches the complete semantic model where diagnostic conditions, methods, and constraints are structured for study design."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The semantic candidate is complete, fully grounded, and adheres strictly to all taxonomic and structural constraints. All checklist items pass successfully."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-13T09:51:31.312Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-a8ae6e4c239b0d98",
+      "resultDigest": "ke1-a8ae6e4c239b0d98",
+      "coverageStatus": "NO_PROVIDER",
+      "verifiedAt": "2026-08-13T09:51:31.314Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-13T09:51:31.312Z",
+    "updatedAt": "2026-08-13T09:51:31.314Z",
+    "digest": "ke1-14bd3a8b3f196b47"
+  },
+  "semanticModelDigest": "ke1-14bd3a8b3f196b47",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "item-1",
+          "sourceMessageId": "SEM-H22:user:1",
+          "sourceText": "pseudoprogression",
+          "normalizedMeaning": "pseudoprogression",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-2",
+          "sourceMessageId": "SEM-H22:user:1",
+          "sourceText": "récidive",
+          "normalizedMeaning": "récidive",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-3",
+          "sourceMessageId": "SEM-H22:user:1",
+          "sourceText": "vs",
+          "normalizedMeaning": "versus",
+          "mappedClientElementIds": [],
+          "mappedClientRelationIds": [
+            "rel-1",
+            "rel-2",
+            "rel-3"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "The explicit functional fragment is represented by its source-grounded direct Semantic Relation rather than by a false object node."
+        },
+        {
+          "inventoryItemId": "item-4",
+          "sourceMessageId": "SEM-H22:user:1",
+          "sourceText": "perfusion DSC",
+          "normalizedMeaning": "perfusion DSC",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-5",
+          "sourceMessageId": "SEM-H22:user:1",
+          "sourceText": "spectro",
+          "normalizedMeaning": "spectroscopie",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-6",
+          "sourceMessageId": "SEM-H22:user:1",
+          "sourceText": "résultat histologique",
+          "normalizedMeaning": "résultat histologique",
+          "mappedClientElementIds": [
+            "elem-5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-7",
+          "sourceMessageId": "SEM-H22:user:1",
+          "sourceText": "pas toujours dispo",
+          "normalizedMeaning": "pas toujours disponible",
+          "mappedClientElementIds": [
+            "elem-6"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-inv-1",
+          "sourceInventoryItemId": "item-1",
+          "targetInventoryItemId": "item-2",
+          "normalizedRelation": "COMPARES_WITH",
+          "mappedClientRelationIds": [
+            "rel-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-inv-2",
+          "sourceInventoryItemId": "item-4",
+          "targetInventoryItemId": "item-1",
+          "normalizedRelation": "MEASURES",
+          "mappedClientRelationIds": [
+            "rel-2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-inv-3",
+          "sourceInventoryItemId": "item-5",
+          "targetInventoryItemId": "item-1",
+          "normalizedRelation": "MEASURES",
+          "mappedClientRelationIds": [
+            "rel-3"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-8066258bdfcc6c77",
+    "evaluatedAt": "2026-08-13T09:51:31.317Z",
+    "goldFrameDigest": "ke1-3e3339709c51fb9c",
+    "result": {
+      "caseId": "SEM-H22",
+      "explicitObjectRecall": 1,
+      "explicitRelationRecall": 1,
+      "criticalSemanticRecall": 1,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 1,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": []
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H22",
+    "explicitObjectRecall": 1,
+    "explicitRelationRecall": 1,
+    "criticalSemanticRecall": 1,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 1,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": []
+  },
+  "error": null
+}

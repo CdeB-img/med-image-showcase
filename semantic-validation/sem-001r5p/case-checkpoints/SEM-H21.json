@@ -1,0 +1,2774 @@
+{
+  "campaign": "SEM-001R5P-CLOSURE",
+  "campaignId": "sem-001r5p-closure-2026-08-13T10-29-07-565Z-ke1-2ac79d2f15fe20bb",
+  "caseId": "SEM-H21",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-2ac79d2f15fe20bb",
+  "semanticConfigurationDigest": "ke1-487f37f9fdb16ba5",
+  "goldFrameDigest": "ke1-7688175b4fb23007",
+  "originalRequest": [
+    "Fusionner échographie de contraste et CT, non pour les comparer mais pour localiser la même lésion."
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-13T10:38:46.591Z",
+  "completedAt": "2026-08-13T10:39:33.761Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H21:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Fusion of contrast-enhanced ultrasound and computed tomography to localize the same lesion, explicitly excluding a comparative objective.",
+        "summaryForUser": "Demande de fusion d'images échographiques de contraste et de CT pour localiser une lésion, sans objectif de comparaison.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "item-1",
+              "sourceMessageId": "SEM-H21:user:1",
+              "sourceText": "Fusionner",
+              "normalizedLabel": "fusion",
+              "localRole": "action",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "item-2",
+                "item-3",
+                "item-4"
+              ]
+            },
+            {
+              "inventoryItemId": "item-2",
+              "sourceMessageId": "SEM-H21:user:1",
+              "sourceText": "échographie de contraste",
+              "normalizedLabel": "échographie de contraste",
+              "localRole": "modality",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item-3",
+              "sourceMessageId": "SEM-H21:user:1",
+              "sourceText": "CT",
+              "normalizedLabel": "CT",
+              "localRole": "modality",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item-4",
+              "sourceMessageId": "SEM-H21:user:1",
+              "sourceText": "les comparer",
+              "normalizedLabel": "comparer",
+              "localRole": "comparison",
+              "polarity": "NEGATED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "item-2",
+                "item-3"
+              ]
+            },
+            {
+              "inventoryItemId": "item-5",
+              "sourceMessageId": "SEM-H21:user:1",
+              "sourceText": "localiser la même lésion",
+              "normalizedLabel": "localiser la même lésion",
+              "localRole": "objective",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "item-6"
+              ]
+            },
+            {
+              "inventoryItemId": "item-6",
+              "sourceMessageId": "SEM-H21:user:1",
+              "sourceText": "lésion",
+              "normalizedLabel": "lésion",
+              "localRole": "target",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "même"
+              ],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "item-1",
+              "targetInventoryItemId": "item-2",
+              "sourceMessageId": "SEM-H21:user:1",
+              "sourceText": "Fusionner échographie de contraste",
+              "normalizedRelation": "AIMS_TO_MODIFY",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "item-1",
+              "targetInventoryItemId": "item-3",
+              "sourceMessageId": "SEM-H21:user:1",
+              "sourceText": "Fusionner échographie de contraste et CT, non pour les comparer mais pour localiser la même lésion.",
+              "normalizedRelation": "AIMS_TO_MODIFY",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-3",
+              "sourceInventoryItemId": "item-2",
+              "targetInventoryItemId": "item-3",
+              "sourceMessageId": "SEM-H21:user:1",
+              "sourceText": "échographie de contraste et CT, non pour les comparer",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "NEGATED"
+            },
+            {
+              "inventoryRelationId": "rel-4",
+              "sourceInventoryItemId": "item-1",
+              "targetInventoryItemId": "item-5",
+              "sourceMessageId": "SEM-H21:user:1",
+              "sourceText": "Fusionner échographie de contraste et CT, non pour les comparer mais pour localiser la même lésion.",
+              "normalizedRelation": "AIMS_TO_MODIFY",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-5",
+              "sourceInventoryItemId": "item-5",
+              "targetInventoryItemId": "item-6",
+              "sourceMessageId": "SEM-H21:user:1",
+              "sourceText": "localiser la même lésion",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "OPERATION",
+            "canonicalMeaning": "Image fusion operation",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-1"
+            ],
+            "sourceMessageId": "SEM-H21:user:1",
+            "sourceText": "Fusionner",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "MODALITY",
+            "canonicalMeaning": "Contrast-enhanced ultrasound",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-2"
+            ],
+            "sourceMessageId": "SEM-H21:user:1",
+            "sourceText": "échographie de contraste",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "MODALITY",
+            "canonicalMeaning": "Computed tomography",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-3"
+            ],
+            "sourceMessageId": "SEM-H21:user:1",
+            "sourceText": "CT",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-4",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "Explicit exclusion of comparison between modalities",
+            "studyRole": "NONE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "item-4"
+            ],
+            "sourceMessageId": "SEM-H21:user:1",
+            "sourceText": "non pour les comparer",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-5",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Goal to localize the same lesion",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-5"
+            ],
+            "sourceMessageId": "SEM-H21:user:1",
+            "sourceText": "pour localiser la même lésion",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-6",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "Target lesion",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-6"
+            ],
+            "sourceMessageId": "SEM-H21:user:1",
+            "sourceText": "lésion",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-elem-1",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-2",
+            "relationType": "AIMS_TO_MODIFY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-2",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-3",
+            "relationType": "AIMS_TO_MODIFY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-3",
+            "sourceClientElementId": "elem-2",
+            "targetClientElementId": "elem-3",
+            "relationType": "COMPARES_WITH",
+            "polarity": "NEGATED",
+            "inventoryRelationIds": [
+              "rel-3"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-4",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-5",
+            "relationType": "AIMS_TO_MODIFY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-4"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-5",
+            "sourceClientElementId": "elem-5",
+            "targetClientElementId": "elem-6",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-5"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "FORMALIZE_IDEA",
+          "confidence": 0.9,
+          "reason": "The user is expressing a methodological intent to perform image fusion between modalities for localization without a full study design context yet.",
+          "expectedCapabilities": [
+            "Clarify fusion methodology",
+            "Define localization criteria"
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:2"
+        ]
+      },
+      "reconstructionDigest": "ke1-11d9b712edec6a1e",
+      "critics": [
+        {
+          "criticId": "crit-001",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit fragments including modalities, operations, constraints, intents, and objects are fully represented by elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The negated comparison between contrast-enhanced ultrasound and CT is explicitly captured through element-4."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No therapeutic interventions are present in the user request."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Contrast-enhanced ultrasound and computed tomography (CT) are both fully represented."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All inventory relations are faithfully mapped to client relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All object types align perfectly with their operational taxonomy definitions."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relations were weakened or transformed into unsupported inferences."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Only explicit user-stated facts are present with no unauthorized promotional status."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No hidden ambiguities exist."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "The negated comparison ('non pour les comparer') is correctly preserved with NEGATED polarity."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit time points or intervals are present in the text."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No variables have been improperly promoted to endpoints."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like contrast-enhanced ultrasound and CT remain properly specified."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No important source fragments are missing from the inventory."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "FORMALIZE_IDEA is the correct route for framing methodological relationships prior to a full study design."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The candidate fully and accurately captures all objects, modalities, constraints, and negative comparisons from the French source message. All checklist items pass, and the semantic inventory and relationships are completely sound."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-53190eb5ea33a181",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "Fusionner échographie de contraste et CT, non pour les comparer mais pour localiser la même lésion.",
+        "normalizedMeaning": "Fusion of contrast-enhanced ultrasound and computed tomography to localize the same lesion, explicitly excluding a comparative objective.",
+        "conversationMessageIds": [
+          "SEM-H21:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-02f866c2605e29e6",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Goal to localize the same lesion",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-5"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H21:user:1",
+              "text": "pour localiser la même lésion",
+              "start": 69,
+              "end": 98
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-642355d6b76b0fba",
+              "sem-relation:ke1-97758cf7b8aa13c3"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H21:user:1",
+              "providerCallId": "gemini-call:ke1-92c550803ecbb56c",
+              "rawElementId": "elem-5"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-3a6af06dc3476e11",
+            "type": "OPERATION",
+            "canonicalMeaning": "Image fusion operation",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-1"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H21:user:1",
+              "text": "Fusionner",
+              "start": 0,
+              "end": 9
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-1a5c52ddfbc31289",
+              "sem-relation:ke1-4de212ae83099652",
+              "sem-relation:ke1-642355d6b76b0fba"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H21:user:1",
+              "providerCallId": "gemini-call:ke1-92c550803ecbb56c",
+              "rawElementId": "elem-1"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-4e4f631e5597dafa",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "Target lesion",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-6"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H21:user:1",
+              "text": "lésion",
+              "start": 92,
+              "end": 98
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-97758cf7b8aa13c3"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H21:user:1",
+              "providerCallId": "gemini-call:ke1-92c550803ecbb56c",
+              "rawElementId": "elem-6"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-5cff1474ac2329b0",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "Explicit exclusion of comparison between modalities",
+            "studyRole": "NONE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "item-4"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H21:user:1",
+              "text": "non pour les comparer",
+              "start": 42,
+              "end": 63
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H21:user:1",
+              "providerCallId": "gemini-call:ke1-92c550803ecbb56c",
+              "rawElementId": "elem-4"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-ac99e6ebe6b38227",
+            "type": "MODALITY",
+            "canonicalMeaning": "Contrast-enhanced ultrasound",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-2"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H21:user:1",
+              "text": "échographie de contraste",
+              "start": 10,
+              "end": 34
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-4de212ae83099652",
+              "sem-relation:ke1-9a4d6073fec6779f"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H21:user:1",
+              "providerCallId": "gemini-call:ke1-92c550803ecbb56c",
+              "rawElementId": "elem-2"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-e54eb66235d8a3c6",
+            "type": "MODALITY",
+            "canonicalMeaning": "Computed tomography",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-3"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H21:user:1",
+              "text": "CT",
+              "start": 38,
+              "end": 40
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-1a5c52ddfbc31289",
+              "sem-relation:ke1-9a4d6073fec6779f"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H21:user:1",
+              "providerCallId": "gemini-call:ke1-92c550803ecbb56c",
+              "rawElementId": "elem-3"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-1a5c52ddfbc31289",
+            "sourceElementId": "sem-element:ke1-3a6af06dc3476e11",
+            "targetElementId": "sem-element:ke1-e54eb66235d8a3c6",
+            "relationType": "AIMS_TO_MODIFY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-4de212ae83099652",
+            "sourceElementId": "sem-element:ke1-3a6af06dc3476e11",
+            "targetElementId": "sem-element:ke1-ac99e6ebe6b38227",
+            "relationType": "AIMS_TO_MODIFY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-1"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-642355d6b76b0fba",
+            "sourceElementId": "sem-element:ke1-3a6af06dc3476e11",
+            "targetElementId": "sem-element:ke1-02f866c2605e29e6",
+            "relationType": "AIMS_TO_MODIFY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-4"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-97758cf7b8aa13c3",
+            "sourceElementId": "sem-element:ke1-02f866c2605e29e6",
+            "targetElementId": "sem-element:ke1-4e4f631e5597dafa",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-5"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-9a4d6073fec6779f",
+            "sourceElementId": "sem-element:ke1-ac99e6ebe6b38227",
+            "targetElementId": "sem-element:ke1-e54eb66235d8a3c6",
+            "relationType": "COMPARES_WITH",
+            "polarity": "NEGATED",
+            "inventoryRelationIds": [
+              "rel-3"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "item-1",
+              "sourceMessageId": "SEM-H21:user:1",
+              "sourceText": "Fusionner",
+              "normalizedMeaning": "fusion",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-2",
+              "sourceMessageId": "SEM-H21:user:1",
+              "sourceText": "échographie de contraste",
+              "normalizedMeaning": "échographie de contraste",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-3",
+              "sourceMessageId": "SEM-H21:user:1",
+              "sourceText": "CT",
+              "normalizedMeaning": "CT",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-4",
+              "sourceMessageId": "SEM-H21:user:1",
+              "sourceText": "les comparer",
+              "normalizedMeaning": "comparer",
+              "mappedClientElementIds": [
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-5",
+              "sourceMessageId": "SEM-H21:user:1",
+              "sourceText": "localiser la même lésion",
+              "normalizedMeaning": "localiser la même lésion",
+              "mappedClientElementIds": [
+                "elem-5"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-6",
+              "sourceMessageId": "SEM-H21:user:1",
+              "sourceText": "lésion",
+              "normalizedMeaning": "lésion",
+              "mappedClientElementIds": [
+                "elem-6"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "item-1",
+              "targetInventoryItemId": "item-2",
+              "normalizedRelation": "AIMS_TO_MODIFY",
+              "mappedClientRelationIds": [
+                "rel-elem-1",
+                "rel-elem-3"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "item-1",
+              "targetInventoryItemId": "item-3",
+              "normalizedRelation": "AIMS_TO_MODIFY",
+              "mappedClientRelationIds": [
+                "rel-elem-2",
+                "rel-elem-3"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-3",
+              "sourceInventoryItemId": "item-2",
+              "targetInventoryItemId": "item-3",
+              "normalizedRelation": "COMPARES_WITH",
+              "mappedClientRelationIds": [
+                "rel-elem-3"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-4",
+              "sourceInventoryItemId": "item-1",
+              "targetInventoryItemId": "item-5",
+              "normalizedRelation": "AIMS_TO_MODIFY",
+              "mappedClientRelationIds": [
+                "rel-elem-4"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-5",
+              "sourceInventoryItemId": "item-5",
+              "targetInventoryItemId": "item-6",
+              "normalizedRelation": "OBSERVES",
+              "mappedClientRelationIds": [
+                "rel-elem-5"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "clarificationCandidates": [],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "FORMALIZE_IDEA",
+          "confidence": 0.9,
+          "reason": "The user is expressing a methodological intent to perform image fusion between modalities for localization without a full study design context yet.",
+          "expectedCapabilities": [
+            "Clarify fusion methodology",
+            "Define localization criteria"
+          ]
+        },
+        "summaryForUser": "Demande de fusion d'images échographiques de contraste et de CT pour localiser une lésion, sans objectif de comparaison.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "The candidate fully and accurately captures all objects, modalities, constraints, and negative comparisons from the French source message. All checklist items pass, and the semantic inventory and relationships are completely sound."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+          "criticPromptVersion": "SEM-001-CRITIC-1.6",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-92c550803ecbb56c",
+          "criticCallId": "gemini-call:ke1-9316de284b64dea4",
+          "criticCallIds": [
+            "gemini-call:ke1-9316de284b64dea4"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T10:38:46.591Z",
+              "requestFinished": "2026-08-13T10:38:53.911Z",
+              "latencyMs": 7320,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T10:39:30.476Z",
+              "requestFinished": "2026-08-13T10:39:33.754Z",
+              "latencyMs": 3278,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "cand-001",
+            "language": "fr",
+            "normalizedMeaning": "Fusion of contrast-enhanced ultrasound and computed tomography to localize the same lesion, explicitly excluding a comparative objective.",
+            "summaryForUser": "Demande de fusion d'images échographiques de contraste et de CT pour localiser une lésion, sans objectif de comparaison.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "item-1",
+                  "sourceMessageId": "SEM-H21:user:1",
+                  "sourceText": "Fusionner",
+                  "normalizedLabel": "fusion",
+                  "localRole": "action",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "item-2",
+                    "item-3",
+                    "item-4"
+                  ]
+                },
+                {
+                  "inventoryItemId": "item-2",
+                  "sourceMessageId": "SEM-H21:user:1",
+                  "sourceText": "échographie de contraste",
+                  "normalizedLabel": "échographie de contraste",
+                  "localRole": "modality",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "item-3",
+                  "sourceMessageId": "SEM-H21:user:1",
+                  "sourceText": "CT",
+                  "normalizedLabel": "CT",
+                  "localRole": "modality",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "item-4",
+                  "sourceMessageId": "SEM-H21:user:1",
+                  "sourceText": "les comparer",
+                  "normalizedLabel": "comparer",
+                  "localRole": "comparison",
+                  "polarity": "NEGATED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "item-2",
+                    "item-3"
+                  ]
+                },
+                {
+                  "inventoryItemId": "item-5",
+                  "sourceMessageId": "SEM-H21:user:1",
+                  "sourceText": "localiser la même lésion",
+                  "normalizedLabel": "localiser la même lésion",
+                  "localRole": "objective",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "item-6"
+                  ]
+                },
+                {
+                  "inventoryItemId": "item-6",
+                  "sourceMessageId": "SEM-H21:user:1",
+                  "sourceText": "lésion",
+                  "normalizedLabel": "lésion",
+                  "localRole": "target",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [
+                    "même"
+                  ],
+                  "linkedInventoryItemIds": []
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel-1",
+                  "sourceInventoryItemId": "item-1",
+                  "targetInventoryItemId": "item-2",
+                  "sourceMessageId": "SEM-H21:user:1",
+                  "sourceText": "Fusionner échographie de contraste",
+                  "normalizedRelation": "AIMS_TO_MODIFY",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-2",
+                  "sourceInventoryItemId": "item-1",
+                  "targetInventoryItemId": "item-3",
+                  "sourceMessageId": "SEM-H21:user:1",
+                  "sourceText": "Fusionner échographie de contraste et CT, non pour les comparer mais pour localiser la même lésion.",
+                  "normalizedRelation": "AIMS_TO_MODIFY",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-3",
+                  "sourceInventoryItemId": "item-2",
+                  "targetInventoryItemId": "item-3",
+                  "sourceMessageId": "SEM-H21:user:1",
+                  "sourceText": "échographie de contraste et CT, non pour les comparer",
+                  "normalizedRelation": "COMPARES_WITH",
+                  "polarity": "NEGATED"
+                },
+                {
+                  "inventoryRelationId": "rel-4",
+                  "sourceInventoryItemId": "item-1",
+                  "targetInventoryItemId": "item-5",
+                  "sourceMessageId": "SEM-H21:user:1",
+                  "sourceText": "Fusionner échographie de contraste et CT, non pour les comparer mais pour localiser la même lésion.",
+                  "normalizedRelation": "AIMS_TO_MODIFY",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-5",
+                  "sourceInventoryItemId": "item-5",
+                  "targetInventoryItemId": "item-6",
+                  "sourceMessageId": "SEM-H21:user:1",
+                  "sourceText": "localiser la même lésion",
+                  "normalizedRelation": "OBSERVES",
+                  "polarity": "AFFIRMED"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem-1",
+                "type": "OPERATION",
+                "canonicalMeaning": "Image fusion operation",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "item-1"
+                ],
+                "sourceMessageId": "SEM-H21:user:1",
+                "sourceText": "Fusionner",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-2",
+                "type": "MODALITY",
+                "canonicalMeaning": "Contrast-enhanced ultrasound",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "item-2"
+                ],
+                "sourceMessageId": "SEM-H21:user:1",
+                "sourceText": "échographie de contraste",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-3",
+                "type": "MODALITY",
+                "canonicalMeaning": "Computed tomography",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "item-3"
+                ],
+                "sourceMessageId": "SEM-H21:user:1",
+                "sourceText": "CT",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-4",
+                "type": "CONSTRAINT",
+                "canonicalMeaning": "Explicit exclusion of comparison between modalities",
+                "studyRole": "NONE",
+                "polarity": "NEGATED",
+                "inventoryItemIds": [
+                  "item-4"
+                ],
+                "sourceMessageId": "SEM-H21:user:1",
+                "sourceText": "non pour les comparer",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-5",
+                "type": "SCIENTIFIC_INTENT",
+                "canonicalMeaning": "Goal to localize the same lesion",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "item-5"
+                ],
+                "sourceMessageId": "SEM-H21:user:1",
+                "sourceText": "pour localiser la même lésion",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-6",
+                "type": "SCIENTIFIC_OBJECT",
+                "canonicalMeaning": "Target lesion",
+                "studyRole": "SUBJECT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "item-6"
+                ],
+                "sourceMessageId": "SEM-H21:user:1",
+                "sourceText": "lésion",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel-elem-1",
+                "sourceClientElementId": "elem-1",
+                "targetClientElementId": "elem-2",
+                "relationType": "AIMS_TO_MODIFY",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-1"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-elem-2",
+                "sourceClientElementId": "elem-1",
+                "targetClientElementId": "elem-3",
+                "relationType": "AIMS_TO_MODIFY",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-2"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-elem-3",
+                "sourceClientElementId": "elem-2",
+                "targetClientElementId": "elem-3",
+                "relationType": "COMPARES_WITH",
+                "polarity": "NEGATED",
+                "inventoryRelationIds": [
+                  "rel-3"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-elem-4",
+                "sourceClientElementId": "elem-1",
+                "targetClientElementId": "elem-5",
+                "relationType": "AIMS_TO_MODIFY",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-4"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-elem-5",
+                "sourceClientElementId": "elem-5",
+                "targetClientElementId": "elem-6",
+                "relationType": "OBSERVES",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-5"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              }
+            ],
+            "missingConcepts": [],
+            "ellipses": [],
+            "ambiguities": [],
+            "unknowns": [],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [],
+            "routeProposal": {
+              "route": "FORMALIZE_IDEA",
+              "confidence": 0.9,
+              "reason": "The user is expressing a methodological intent to perform image fusion between modalities for localization without a full study design context yet.",
+              "expectedCapabilities": [
+                "Clarify fusion methodology",
+                "Define localization criteria"
+              ]
+            },
+            "semanticWarnings": [
+              "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:2"
+            ]
+          },
+          "rawCritic": {
+            "criticId": "crit-001",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit fragments including modalities, operations, constraints, intents, and objects are fully represented by elements."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "PASS",
+                "evidence": "The negated comparison between contrast-enhanced ultrasound and CT is explicitly captured through element-4."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No therapeutic interventions are present in the user request."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Contrast-enhanced ultrasound and computed tomography (CT) are both fully represented."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All inventory relations are faithfully mapped to client relations."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "All object types align perfectly with their operational taxonomy definitions."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "No explicit relations were weakened or transformed into unsupported inferences."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "Only explicit user-stated facts are present with no unauthorized promotional status."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "No hidden ambiguities exist."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "The negated comparison ('non pour les comparer') is correctly preserved with NEGATED polarity."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No explicit time points or intervals are present in the text."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "No variables have been improperly promoted to endpoints."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts like contrast-enhanced ultrasound and CT remain properly specified."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "No important source fragments are missing from the inventory."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "FORMALIZE_IDEA is the correct route for framing methodological relationships prior to a full study design."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The candidate fully and accurately captures all objects, modalities, constraints, and negative comparisons from the French source message. All checklist items pass, and the semantic inventory and relationships are completely sound."
+          },
+          "rawCritics": [
+            {
+              "criticId": "crit-001",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit fragments including modalities, operations, constraints, intents, and objects are fully represented by elements."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The negated comparison between contrast-enhanced ultrasound and CT is explicitly captured through element-4."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No therapeutic interventions are present in the user request."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "Contrast-enhanced ultrasound and computed tomography (CT) are both fully represented."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All inventory relations are faithfully mapped to client relations."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "All object types align perfectly with their operational taxonomy definitions."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "No explicit relations were weakened or transformed into unsupported inferences."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "Only explicit user-stated facts are present with no unauthorized promotional status."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "No hidden ambiguities exist."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "The negated comparison ('non pour les comparer') is correctly preserved with NEGATED polarity."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No explicit time points or intervals are present in the text."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "No variables have been improperly promoted to endpoints."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific concepts like contrast-enhanced ultrasound and CT remain properly specified."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "No important source fragments are missing from the inventory."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "FORMALIZE_IDEA is the correct route for framing methodological relationships prior to a full study design."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "The candidate fully and accurately captures all objects, modalities, constraints, and negative comparisons from the French source message. All checklist items pass, and the semantic inventory and relationships are completely sound."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-13T10:39:33.756Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-a7bc2a03374be12f",
+          "resultDigest": "ke1-a7bc2a03374be12f",
+          "coverageStatus": "NO_PROVIDER",
+          "verifiedAt": "2026-08-13T10:39:33.759Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-13T10:39:33.756Z",
+        "updatedAt": "2026-08-13T10:39:33.759Z",
+        "digest": "ke1-2259700488580fb8"
+      },
+      "canonicalModelDigest": "ke1-2259700488580fb8",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-a7bc2a03374be12f",
+        "resultDigest": "ke1-a7bc2a03374be12f",
+        "coverageStatus": "NO_PROVIDER",
+        "verifiedAt": "2026-08-13T10:39:33.759Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-92c550803ecbb56c",
+      "structuredDigest": "ke1-11d9b712edec6a1e",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:38:46.591Z",
+          "requestFinished": "2026-08-13T10:38:53.911Z",
+          "latencyMs": 7320,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-9316de284b64dea4",
+      "structuredDigest": "ke1-8a1877f197bdb80d",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:39:30.476Z",
+          "requestFinished": "2026-08-13T10:39:33.754Z",
+          "latencyMs": 3278,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-53190eb5ea33a181",
+    "revision": 1,
+    "status": "CANDIDATE",
+    "originalRequest": "Fusionner échographie de contraste et CT, non pour les comparer mais pour localiser la même lésion.",
+    "normalizedMeaning": "Fusion of contrast-enhanced ultrasound and computed tomography to localize the same lesion, explicitly excluding a comparative objective.",
+    "conversationMessageIds": [
+      "SEM-H21:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-02f866c2605e29e6",
+        "type": "SCIENTIFIC_INTENT",
+        "canonicalMeaning": "Goal to localize the same lesion",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "item-5"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H21:user:1",
+          "text": "pour localiser la même lésion",
+          "start": 69,
+          "end": 98
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-642355d6b76b0fba",
+          "sem-relation:ke1-97758cf7b8aa13c3"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H21:user:1",
+          "providerCallId": "gemini-call:ke1-92c550803ecbb56c",
+          "rawElementId": "elem-5"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-3a6af06dc3476e11",
+        "type": "OPERATION",
+        "canonicalMeaning": "Image fusion operation",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "item-1"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H21:user:1",
+          "text": "Fusionner",
+          "start": 0,
+          "end": 9
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-1a5c52ddfbc31289",
+          "sem-relation:ke1-4de212ae83099652",
+          "sem-relation:ke1-642355d6b76b0fba"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H21:user:1",
+          "providerCallId": "gemini-call:ke1-92c550803ecbb56c",
+          "rawElementId": "elem-1"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-4e4f631e5597dafa",
+        "type": "SCIENTIFIC_OBJECT",
+        "canonicalMeaning": "Target lesion",
+        "studyRole": "SUBJECT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "item-6"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H21:user:1",
+          "text": "lésion",
+          "start": 92,
+          "end": 98
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-97758cf7b8aa13c3"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H21:user:1",
+          "providerCallId": "gemini-call:ke1-92c550803ecbb56c",
+          "rawElementId": "elem-6"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-5cff1474ac2329b0",
+        "type": "CONSTRAINT",
+        "canonicalMeaning": "Explicit exclusion of comparison between modalities",
+        "studyRole": "NONE",
+        "polarity": "NEGATED",
+        "inventoryItemIds": [
+          "item-4"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H21:user:1",
+          "text": "non pour les comparer",
+          "start": 42,
+          "end": 63
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H21:user:1",
+          "providerCallId": "gemini-call:ke1-92c550803ecbb56c",
+          "rawElementId": "elem-4"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-ac99e6ebe6b38227",
+        "type": "MODALITY",
+        "canonicalMeaning": "Contrast-enhanced ultrasound",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "item-2"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H21:user:1",
+          "text": "échographie de contraste",
+          "start": 10,
+          "end": 34
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-4de212ae83099652",
+          "sem-relation:ke1-9a4d6073fec6779f"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H21:user:1",
+          "providerCallId": "gemini-call:ke1-92c550803ecbb56c",
+          "rawElementId": "elem-2"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-e54eb66235d8a3c6",
+        "type": "MODALITY",
+        "canonicalMeaning": "Computed tomography",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "item-3"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H21:user:1",
+          "text": "CT",
+          "start": 38,
+          "end": 40
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-1a5c52ddfbc31289",
+          "sem-relation:ke1-9a4d6073fec6779f"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H21:user:1",
+          "providerCallId": "gemini-call:ke1-92c550803ecbb56c",
+          "rawElementId": "elem-3"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-1a5c52ddfbc31289",
+        "sourceElementId": "sem-element:ke1-3a6af06dc3476e11",
+        "targetElementId": "sem-element:ke1-e54eb66235d8a3c6",
+        "relationType": "AIMS_TO_MODIFY",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-2"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-4de212ae83099652",
+        "sourceElementId": "sem-element:ke1-3a6af06dc3476e11",
+        "targetElementId": "sem-element:ke1-ac99e6ebe6b38227",
+        "relationType": "AIMS_TO_MODIFY",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-1"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-642355d6b76b0fba",
+        "sourceElementId": "sem-element:ke1-3a6af06dc3476e11",
+        "targetElementId": "sem-element:ke1-02f866c2605e29e6",
+        "relationType": "AIMS_TO_MODIFY",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-4"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-97758cf7b8aa13c3",
+        "sourceElementId": "sem-element:ke1-02f866c2605e29e6",
+        "targetElementId": "sem-element:ke1-4e4f631e5597dafa",
+        "relationType": "OBSERVES",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-5"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-9a4d6073fec6779f",
+        "sourceElementId": "sem-element:ke1-ac99e6ebe6b38227",
+        "targetElementId": "sem-element:ke1-e54eb66235d8a3c6",
+        "relationType": "COMPARES_WITH",
+        "polarity": "NEGATED",
+        "inventoryRelationIds": [
+          "rel-3"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "item-1",
+          "sourceMessageId": "SEM-H21:user:1",
+          "sourceText": "Fusionner",
+          "normalizedMeaning": "fusion",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-2",
+          "sourceMessageId": "SEM-H21:user:1",
+          "sourceText": "échographie de contraste",
+          "normalizedMeaning": "échographie de contraste",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-3",
+          "sourceMessageId": "SEM-H21:user:1",
+          "sourceText": "CT",
+          "normalizedMeaning": "CT",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-4",
+          "sourceMessageId": "SEM-H21:user:1",
+          "sourceText": "les comparer",
+          "normalizedMeaning": "comparer",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-5",
+          "sourceMessageId": "SEM-H21:user:1",
+          "sourceText": "localiser la même lésion",
+          "normalizedMeaning": "localiser la même lésion",
+          "mappedClientElementIds": [
+            "elem-5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-6",
+          "sourceMessageId": "SEM-H21:user:1",
+          "sourceText": "lésion",
+          "normalizedMeaning": "lésion",
+          "mappedClientElementIds": [
+            "elem-6"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-1",
+          "sourceInventoryItemId": "item-1",
+          "targetInventoryItemId": "item-2",
+          "normalizedRelation": "AIMS_TO_MODIFY",
+          "mappedClientRelationIds": [
+            "rel-elem-1",
+            "rel-elem-3"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-2",
+          "sourceInventoryItemId": "item-1",
+          "targetInventoryItemId": "item-3",
+          "normalizedRelation": "AIMS_TO_MODIFY",
+          "mappedClientRelationIds": [
+            "rel-elem-2",
+            "rel-elem-3"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-3",
+          "sourceInventoryItemId": "item-2",
+          "targetInventoryItemId": "item-3",
+          "normalizedRelation": "COMPARES_WITH",
+          "mappedClientRelationIds": [
+            "rel-elem-3"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-4",
+          "sourceInventoryItemId": "item-1",
+          "targetInventoryItemId": "item-5",
+          "normalizedRelation": "AIMS_TO_MODIFY",
+          "mappedClientRelationIds": [
+            "rel-elem-4"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-5",
+          "sourceInventoryItemId": "item-5",
+          "targetInventoryItemId": "item-6",
+          "normalizedRelation": "OBSERVES",
+          "mappedClientRelationIds": [
+            "rel-elem-5"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "missingConcepts": [],
+    "ellipses": [],
+    "ambiguities": [],
+    "unknowns": [],
+    "contradictions": [],
+    "clarificationCandidates": [],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "FORMALIZE_IDEA",
+      "confidence": 0.9,
+      "reason": "The user is expressing a methodological intent to perform image fusion between modalities for localization without a full study design context yet.",
+      "expectedCapabilities": [
+        "Clarify fusion methodology",
+        "Define localization criteria"
+      ]
+    },
+    "summaryForUser": "Demande de fusion d'images échographiques de contraste et de CT pour localiser une lésion, sans objectif de comparaison.",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "The candidate fully and accurately captures all objects, modalities, constraints, and negative comparisons from the French source message. All checklist items pass, and the semantic inventory and relationships are completely sound."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-92c550803ecbb56c",
+      "criticCallId": "gemini-call:ke1-9316de284b64dea4",
+      "criticCallIds": [
+        "gemini-call:ke1-9316de284b64dea4"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:38:46.591Z",
+          "requestFinished": "2026-08-13T10:38:53.911Z",
+          "latencyMs": 7320,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:39:30.476Z",
+          "requestFinished": "2026-08-13T10:39:33.754Z",
+          "latencyMs": 3278,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Fusion of contrast-enhanced ultrasound and computed tomography to localize the same lesion, explicitly excluding a comparative objective.",
+        "summaryForUser": "Demande de fusion d'images échographiques de contraste et de CT pour localiser une lésion, sans objectif de comparaison.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "item-1",
+              "sourceMessageId": "SEM-H21:user:1",
+              "sourceText": "Fusionner",
+              "normalizedLabel": "fusion",
+              "localRole": "action",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "item-2",
+                "item-3",
+                "item-4"
+              ]
+            },
+            {
+              "inventoryItemId": "item-2",
+              "sourceMessageId": "SEM-H21:user:1",
+              "sourceText": "échographie de contraste",
+              "normalizedLabel": "échographie de contraste",
+              "localRole": "modality",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item-3",
+              "sourceMessageId": "SEM-H21:user:1",
+              "sourceText": "CT",
+              "normalizedLabel": "CT",
+              "localRole": "modality",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item-4",
+              "sourceMessageId": "SEM-H21:user:1",
+              "sourceText": "les comparer",
+              "normalizedLabel": "comparer",
+              "localRole": "comparison",
+              "polarity": "NEGATED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "item-2",
+                "item-3"
+              ]
+            },
+            {
+              "inventoryItemId": "item-5",
+              "sourceMessageId": "SEM-H21:user:1",
+              "sourceText": "localiser la même lésion",
+              "normalizedLabel": "localiser la même lésion",
+              "localRole": "objective",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "item-6"
+              ]
+            },
+            {
+              "inventoryItemId": "item-6",
+              "sourceMessageId": "SEM-H21:user:1",
+              "sourceText": "lésion",
+              "normalizedLabel": "lésion",
+              "localRole": "target",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "même"
+              ],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "item-1",
+              "targetInventoryItemId": "item-2",
+              "sourceMessageId": "SEM-H21:user:1",
+              "sourceText": "Fusionner échographie de contraste",
+              "normalizedRelation": "AIMS_TO_MODIFY",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "item-1",
+              "targetInventoryItemId": "item-3",
+              "sourceMessageId": "SEM-H21:user:1",
+              "sourceText": "Fusionner échographie de contraste et CT, non pour les comparer mais pour localiser la même lésion.",
+              "normalizedRelation": "AIMS_TO_MODIFY",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-3",
+              "sourceInventoryItemId": "item-2",
+              "targetInventoryItemId": "item-3",
+              "sourceMessageId": "SEM-H21:user:1",
+              "sourceText": "échographie de contraste et CT, non pour les comparer",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "NEGATED"
+            },
+            {
+              "inventoryRelationId": "rel-4",
+              "sourceInventoryItemId": "item-1",
+              "targetInventoryItemId": "item-5",
+              "sourceMessageId": "SEM-H21:user:1",
+              "sourceText": "Fusionner échographie de contraste et CT, non pour les comparer mais pour localiser la même lésion.",
+              "normalizedRelation": "AIMS_TO_MODIFY",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-5",
+              "sourceInventoryItemId": "item-5",
+              "targetInventoryItemId": "item-6",
+              "sourceMessageId": "SEM-H21:user:1",
+              "sourceText": "localiser la même lésion",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "OPERATION",
+            "canonicalMeaning": "Image fusion operation",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-1"
+            ],
+            "sourceMessageId": "SEM-H21:user:1",
+            "sourceText": "Fusionner",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "MODALITY",
+            "canonicalMeaning": "Contrast-enhanced ultrasound",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-2"
+            ],
+            "sourceMessageId": "SEM-H21:user:1",
+            "sourceText": "échographie de contraste",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "MODALITY",
+            "canonicalMeaning": "Computed tomography",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-3"
+            ],
+            "sourceMessageId": "SEM-H21:user:1",
+            "sourceText": "CT",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-4",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "Explicit exclusion of comparison between modalities",
+            "studyRole": "NONE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "item-4"
+            ],
+            "sourceMessageId": "SEM-H21:user:1",
+            "sourceText": "non pour les comparer",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-5",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Goal to localize the same lesion",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-5"
+            ],
+            "sourceMessageId": "SEM-H21:user:1",
+            "sourceText": "pour localiser la même lésion",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-6",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "Target lesion",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-6"
+            ],
+            "sourceMessageId": "SEM-H21:user:1",
+            "sourceText": "lésion",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-elem-1",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-2",
+            "relationType": "AIMS_TO_MODIFY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-2",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-3",
+            "relationType": "AIMS_TO_MODIFY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-3",
+            "sourceClientElementId": "elem-2",
+            "targetClientElementId": "elem-3",
+            "relationType": "COMPARES_WITH",
+            "polarity": "NEGATED",
+            "inventoryRelationIds": [
+              "rel-3"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-4",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-5",
+            "relationType": "AIMS_TO_MODIFY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-4"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-5",
+            "sourceClientElementId": "elem-5",
+            "targetClientElementId": "elem-6",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-5"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "FORMALIZE_IDEA",
+          "confidence": 0.9,
+          "reason": "The user is expressing a methodological intent to perform image fusion between modalities for localization without a full study design context yet.",
+          "expectedCapabilities": [
+            "Clarify fusion methodology",
+            "Define localization criteria"
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:2"
+        ]
+      },
+      "rawCritic": {
+        "criticId": "crit-001",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit fragments including modalities, operations, constraints, intents, and objects are fully represented by elements."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "PASS",
+            "evidence": "The negated comparison between contrast-enhanced ultrasound and CT is explicitly captured through element-4."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No therapeutic interventions are present in the user request."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Contrast-enhanced ultrasound and computed tomography (CT) are both fully represented."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All inventory relations are faithfully mapped to client relations."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "All object types align perfectly with their operational taxonomy definitions."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "No explicit relations were weakened or transformed into unsupported inferences."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "Only explicit user-stated facts are present with no unauthorized promotional status."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "No hidden ambiguities exist."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "The negated comparison ('non pour les comparer') is correctly preserved with NEGATED polarity."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No explicit time points or intervals are present in the text."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "No variables have been improperly promoted to endpoints."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific concepts like contrast-enhanced ultrasound and CT remain properly specified."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "No important source fragments are missing from the inventory."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "FORMALIZE_IDEA is the correct route for framing methodological relationships prior to a full study design."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "The candidate fully and accurately captures all objects, modalities, constraints, and negative comparisons from the French source message. All checklist items pass, and the semantic inventory and relationships are completely sound."
+      },
+      "rawCritics": [
+        {
+          "criticId": "crit-001",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit fragments including modalities, operations, constraints, intents, and objects are fully represented by elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The negated comparison between contrast-enhanced ultrasound and CT is explicitly captured through element-4."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No therapeutic interventions are present in the user request."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Contrast-enhanced ultrasound and computed tomography (CT) are both fully represented."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All inventory relations are faithfully mapped to client relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All object types align perfectly with their operational taxonomy definitions."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relations were weakened or transformed into unsupported inferences."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Only explicit user-stated facts are present with no unauthorized promotional status."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No hidden ambiguities exist."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "The negated comparison ('non pour les comparer') is correctly preserved with NEGATED polarity."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit time points or intervals are present in the text."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No variables have been improperly promoted to endpoints."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like contrast-enhanced ultrasound and CT remain properly specified."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No important source fragments are missing from the inventory."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "FORMALIZE_IDEA is the correct route for framing methodological relationships prior to a full study design."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The candidate fully and accurately captures all objects, modalities, constraints, and negative comparisons from the French source message. All checklist items pass, and the semantic inventory and relationships are completely sound."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-13T10:39:33.756Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-a7bc2a03374be12f",
+      "resultDigest": "ke1-a7bc2a03374be12f",
+      "coverageStatus": "NO_PROVIDER",
+      "verifiedAt": "2026-08-13T10:39:33.759Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-13T10:39:33.756Z",
+    "updatedAt": "2026-08-13T10:39:33.759Z",
+    "digest": "ke1-2259700488580fb8"
+  },
+  "semanticModelDigest": "ke1-2259700488580fb8",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "item-1",
+          "sourceMessageId": "SEM-H21:user:1",
+          "sourceText": "Fusionner",
+          "normalizedMeaning": "fusion",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-2",
+          "sourceMessageId": "SEM-H21:user:1",
+          "sourceText": "échographie de contraste",
+          "normalizedMeaning": "échographie de contraste",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-3",
+          "sourceMessageId": "SEM-H21:user:1",
+          "sourceText": "CT",
+          "normalizedMeaning": "CT",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-4",
+          "sourceMessageId": "SEM-H21:user:1",
+          "sourceText": "les comparer",
+          "normalizedMeaning": "comparer",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-5",
+          "sourceMessageId": "SEM-H21:user:1",
+          "sourceText": "localiser la même lésion",
+          "normalizedMeaning": "localiser la même lésion",
+          "mappedClientElementIds": [
+            "elem-5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-6",
+          "sourceMessageId": "SEM-H21:user:1",
+          "sourceText": "lésion",
+          "normalizedMeaning": "lésion",
+          "mappedClientElementIds": [
+            "elem-6"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-1",
+          "sourceInventoryItemId": "item-1",
+          "targetInventoryItemId": "item-2",
+          "normalizedRelation": "AIMS_TO_MODIFY",
+          "mappedClientRelationIds": [
+            "rel-elem-1",
+            "rel-elem-3"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-2",
+          "sourceInventoryItemId": "item-1",
+          "targetInventoryItemId": "item-3",
+          "normalizedRelation": "AIMS_TO_MODIFY",
+          "mappedClientRelationIds": [
+            "rel-elem-2",
+            "rel-elem-3"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-3",
+          "sourceInventoryItemId": "item-2",
+          "targetInventoryItemId": "item-3",
+          "normalizedRelation": "COMPARES_WITH",
+          "mappedClientRelationIds": [
+            "rel-elem-3"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-4",
+          "sourceInventoryItemId": "item-1",
+          "targetInventoryItemId": "item-5",
+          "normalizedRelation": "AIMS_TO_MODIFY",
+          "mappedClientRelationIds": [
+            "rel-elem-4"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-5",
+          "sourceInventoryItemId": "item-5",
+          "targetInventoryItemId": "item-6",
+          "normalizedRelation": "OBSERVES",
+          "mappedClientRelationIds": [
+            "rel-elem-5"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-8066258bdfcc6c77",
+    "evaluatedAt": "2026-08-13T10:39:33.761Z",
+    "goldFrameDigest": "ke1-7688175b4fb23007",
+    "result": {
+      "caseId": "SEM-H21",
+      "explicitObjectRecall": 0.75,
+      "explicitRelationRecall": 0,
+      "criticalSemanticRecall": 0.6,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 1,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": false,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": [
+        "EXPLICIT_CONSTRAINT_LOST:pas une comparaison",
+        "RELATION_LOST:échographie de contraste->CT"
+      ]
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H21",
+    "explicitObjectRecall": 0.75,
+    "explicitRelationRecall": 0,
+    "criticalSemanticRecall": 0.6,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 1,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": false,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": [
+      "EXPLICIT_CONSTRAINT_LOST:pas une comparaison",
+      "RELATION_LOST:échographie de contraste->CT"
+    ]
+  },
+  "error": null
+}

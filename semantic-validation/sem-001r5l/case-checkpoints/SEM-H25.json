@@ -1,0 +1,2317 @@
+{
+  "campaign": "SEM-001R5L-CLOSURE",
+  "campaignId": "sem-001r5l-closure-2026-08-13T09-09-28-906Z-ke1-391a23dcb99dc470",
+  "caseId": "SEM-H25",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-391a23dcb99dc470",
+  "semanticConfigurationDigest": "ke1-410eaaec72fd1768",
+  "goldFrameDigest": "ke1-7faf143f525ab413",
+  "originalRequest": [
+    "Deux agents K-edge injectés pour séparer inflammation et vascularisation : projet exploratoire."
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-13T09:21:22.629Z",
+  "completedAt": "2026-08-13T09:22:00.356Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H25:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Projet exploratoire évaluant l'utilisation de deux agents K-edge injectés afin de séparer l'inflammation de la vascularisation.",
+        "summaryForUser": "Le système a identifié un projet exploratoire visant à séparer l'inflammation de la vascularisation à l'aide de deux agents K-edge injectés.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H25:user:1",
+              "sourceText": "Deux agents K-edge",
+              "normalizedLabel": "deux agents K-edge",
+              "localRole": "intervention",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "deux"
+              ],
+              "linkedInventoryItemIds": [
+                "inv-2"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H25:user:1",
+              "sourceText": "injectés",
+              "normalizedLabel": "injectés",
+              "localRole": "administration",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-1"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H25:user:1",
+              "sourceText": "inflammation",
+              "normalizedLabel": "inflammation",
+              "localRole": "target",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-5"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H25:user:1",
+              "sourceText": "vascularisation",
+              "normalizedLabel": "vascularisation",
+              "localRole": "target",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-5"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H25:user:1",
+              "sourceText": "séparer",
+              "normalizedLabel": "séparer",
+              "localRole": "objective",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-3",
+                "inv-4"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-6",
+              "sourceMessageId": "SEM-H25:user:1",
+              "sourceText": "projet exploratoire",
+              "normalizedLabel": "projet exploratoire",
+              "localRole": "study design",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "exploratoire"
+              ],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-inv-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H25:user:1",
+              "sourceText": "Deux agents K-edge injectés",
+              "normalizedRelation": "MODIFIED_BY",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-inv-2",
+              "sourceInventoryItemId": "inv-5",
+              "targetInventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H25:user:1",
+              "sourceText": "séparer inflammation",
+              "normalizedRelation": "TARGETS",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-inv-3",
+              "sourceInventoryItemId": "inv-5",
+              "targetInventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H25:user:1",
+              "sourceText": "Deux agents K-edge injectés pour séparer inflammation et vascularisation : projet exploratoire.",
+              "normalizedRelation": "TARGETS",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "INTERVENTION",
+            "canonicalMeaning": "Two injected K-edge agents",
+            "studyRole": "INTERVENTION_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1",
+              "inv-2"
+            ],
+            "sourceMessageId": "SEM-H25:user:1",
+            "sourceText": "Deux agents K-edge injectés",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "PHENOMENON",
+            "canonicalMeaning": "Inflammation",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceMessageId": "SEM-H25:user:1",
+            "sourceText": "inflammation",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "Vascularization",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "sourceMessageId": "SEM-H25:user:1",
+            "sourceText": "vascularisation",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-4",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Separate inflammation and vascularization",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-5"
+            ],
+            "sourceMessageId": "SEM-H25:user:1",
+            "sourceText": "séparer inflammation et vascularisation",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-5",
+            "type": "STUDY_DESIGN",
+            "canonicalMeaning": "Exploratory project",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-6"
+            ],
+            "sourceMessageId": "SEM-H25:user:1",
+            "sourceText": "projet exploratoire",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-1",
+            "sourceClientElementId": "elem-4",
+            "targetClientElementId": "elem-2",
+            "relationType": "TARGETS",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-2",
+            "sourceClientElementId": "elem-4",
+            "targetClientElementId": "elem-3",
+            "relationType": "TARGETS",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-3"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "The user is proposing an exploratory study design involving an intervention and specific separation objectives.",
+          "expectedCapabilities": [
+            "Define methodology",
+            "Specify imaging modality",
+            "Clarify evaluation criteria"
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:1"
+        ]
+      },
+      "reconstructionDigest": "ke1-2d44e46c4f844340",
+      "critics": [
+        {
+          "criticId": "critic-001",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit source fragments (K-edge agents, injected, inflammation, vascularization, separate, exploratory project) are fully represented in the elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is stated in the source message."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The two injected K-edge agents are fully captured as an INTERVENTION element."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No specific imaging modality family is explicitly stated."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit relations (separation targeting inflammation and vascularization) are correctly mapped."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All object types comply with the operational taxonomy."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Relations are preserved without semantic weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unwarranted inferences have been promoted to explicit status."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No hidden ambiguities were detected."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarity is uniformly affirmed and correct."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit time points or temporal intervals are present."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No outcomes or endpoints were improperly promoted."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like K-edge agents are preserved accurately."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No important source fragments are missing."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The route DESIGN_STUDY perfectly fits an exploratory study project proposition."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The typed candidate and semantic inventory are complete, accurate, and fully compliant with the operational taxonomy and integrity rules. All explicit objects and relations are correctly represented, and the routing is appropriate."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-6c38bb46cbf4bc72",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "Deux agents K-edge injectés pour séparer inflammation et vascularisation : projet exploratoire.",
+        "normalizedMeaning": "Projet exploratoire évaluant l'utilisation de deux agents K-edge injectés afin de séparer l'inflammation de la vascularisation.",
+        "conversationMessageIds": [
+          "SEM-H25:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-05176b141f437398",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "Vascularization",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H25:user:1",
+              "text": "vascularisation",
+              "start": 57,
+              "end": 72
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-97b7574497779e00"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H25:user:1",
+              "providerCallId": "gemini-call:ke1-2a715d977993eacb",
+              "rawElementId": "elem-3"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-0f8c5ed2d863f946",
+            "type": "INTERVENTION",
+            "canonicalMeaning": "Two injected K-edge agents",
+            "studyRole": "INTERVENTION_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1",
+              "inv-2"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H25:user:1",
+              "text": "Deux agents K-edge injectés",
+              "start": 0,
+              "end": 27
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H25:user:1",
+              "providerCallId": "gemini-call:ke1-2a715d977993eacb",
+              "rawElementId": "elem-1"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-5cd4afdc354871c8",
+            "type": "STUDY_DESIGN",
+            "canonicalMeaning": "Exploratory project",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-6"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H25:user:1",
+              "text": "projet exploratoire",
+              "start": 75,
+              "end": 94
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H25:user:1",
+              "providerCallId": "gemini-call:ke1-2a715d977993eacb",
+              "rawElementId": "elem-5"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-959f85b2744146fe",
+            "type": "PHENOMENON",
+            "canonicalMeaning": "Inflammation",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H25:user:1",
+              "text": "inflammation",
+              "start": 41,
+              "end": 53
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-5d7ee43ecb390a72"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-fb7a33ae7c7fd4a2",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-259bd85fde6be503",
+                "knowledge-gap:ke1-37962e673b7ef0fb",
+                "knowledge-gap:ke1-5cb8601abe1e3566"
+              ],
+              "checkedAt": "2026-08-13T09:22:00.353Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H25:user:1",
+              "providerCallId": "gemini-call:ke1-2a715d977993eacb",
+              "rawElementId": "elem-2"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-aa13dc8634dcaaa2",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Separate inflammation and vascularization",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-5"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H25:user:1",
+              "text": "séparer inflammation et vascularisation",
+              "start": 33,
+              "end": 72
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-5d7ee43ecb390a72",
+              "sem-relation:ke1-97b7574497779e00"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H25:user:1",
+              "providerCallId": "gemini-call:ke1-2a715d977993eacb",
+              "rawElementId": "elem-4"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-5d7ee43ecb390a72",
+            "sourceElementId": "sem-element:ke1-aa13dc8634dcaaa2",
+            "targetElementId": "sem-element:ke1-959f85b2744146fe",
+            "relationType": "TARGETS",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-2"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-97b7574497779e00",
+            "sourceElementId": "sem-element:ke1-aa13dc8634dcaaa2",
+            "targetElementId": "sem-element:ke1-05176b141f437398",
+            "relationType": "TARGETS",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-3"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H25:user:1",
+              "sourceText": "Deux agents K-edge",
+              "normalizedMeaning": "deux agents K-edge",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H25:user:1",
+              "sourceText": "injectés",
+              "normalizedMeaning": "injectés",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H25:user:1",
+              "sourceText": "inflammation",
+              "normalizedMeaning": "inflammation",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H25:user:1",
+              "sourceText": "vascularisation",
+              "normalizedMeaning": "vascularisation",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H25:user:1",
+              "sourceText": "séparer",
+              "normalizedMeaning": "séparer",
+              "mappedClientElementIds": [
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-6",
+              "sourceMessageId": "SEM-H25:user:1",
+              "sourceText": "projet exploratoire",
+              "normalizedMeaning": "projet exploratoire",
+              "mappedClientElementIds": [
+                "elem-5"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-inv-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-2",
+              "normalizedRelation": "MODIFIED_BY",
+              "mappedClientRelationIds": [
+                "coalesced:elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "Both inventory fragments are explicitly preserved inside one typed Semantic Element; a redundant self-relation is not required."
+            },
+            {
+              "inventoryRelationId": "rel-inv-2",
+              "sourceInventoryItemId": "inv-5",
+              "targetInventoryItemId": "inv-3",
+              "normalizedRelation": "TARGETS",
+              "mappedClientRelationIds": [
+                "rel-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-inv-3",
+              "sourceInventoryItemId": "inv-5",
+              "targetInventoryItemId": "inv-4",
+              "normalizedRelation": "TARGETS",
+              "mappedClientRelationIds": [
+                "rel-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "clarificationCandidates": [],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "The user is proposing an exploratory study design involving an intervention and specific separation objectives.",
+          "expectedCapabilities": [
+            "Clarify evaluation criteria",
+            "Define methodology",
+            "Specify imaging modality"
+          ]
+        },
+        "summaryForUser": "Le système a identifié un projet exploratoire visant à séparer l'inflammation de la vascularisation à l'aide de deux agents K-edge injectés.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "The typed candidate and semantic inventory are complete, accurate, and fully compliant with the operational taxonomy and integrity rules. All explicit objects and relations are correctly represented, and the routing is appropriate."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+          "criticPromptVersion": "SEM-001-CRITIC-1.6",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-2a715d977993eacb",
+          "criticCallId": "gemini-call:ke1-ae2052d27b21790e",
+          "criticCallIds": [
+            "gemini-call:ke1-ae2052d27b21790e"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:21:22.630Z",
+              "requestFinished": "2026-08-13T09:21:28.400Z",
+              "latencyMs": 5770,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:21:57.149Z",
+              "requestFinished": "2026-08-13T09:22:00.348Z",
+              "latencyMs": 3199,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "cand-001",
+            "language": "fr",
+            "normalizedMeaning": "Projet exploratoire évaluant l'utilisation de deux agents K-edge injectés afin de séparer l'inflammation de la vascularisation.",
+            "summaryForUser": "Le système a identifié un projet exploratoire visant à séparer l'inflammation de la vascularisation à l'aide de deux agents K-edge injectés.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "inv-1",
+                  "sourceMessageId": "SEM-H25:user:1",
+                  "sourceText": "Deux agents K-edge",
+                  "normalizedLabel": "deux agents K-edge",
+                  "localRole": "intervention",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [
+                    "deux"
+                  ],
+                  "linkedInventoryItemIds": [
+                    "inv-2"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-2",
+                  "sourceMessageId": "SEM-H25:user:1",
+                  "sourceText": "injectés",
+                  "normalizedLabel": "injectés",
+                  "localRole": "administration",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-1"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-3",
+                  "sourceMessageId": "SEM-H25:user:1",
+                  "sourceText": "inflammation",
+                  "normalizedLabel": "inflammation",
+                  "localRole": "target",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-5"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-4",
+                  "sourceMessageId": "SEM-H25:user:1",
+                  "sourceText": "vascularisation",
+                  "normalizedLabel": "vascularisation",
+                  "localRole": "target",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-5"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-5",
+                  "sourceMessageId": "SEM-H25:user:1",
+                  "sourceText": "séparer",
+                  "normalizedLabel": "séparer",
+                  "localRole": "objective",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-3",
+                    "inv-4"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-6",
+                  "sourceMessageId": "SEM-H25:user:1",
+                  "sourceText": "projet exploratoire",
+                  "normalizedLabel": "projet exploratoire",
+                  "localRole": "study design",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [
+                    "exploratoire"
+                  ],
+                  "linkedInventoryItemIds": []
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel-inv-1",
+                  "sourceInventoryItemId": "inv-1",
+                  "targetInventoryItemId": "inv-2",
+                  "sourceMessageId": "SEM-H25:user:1",
+                  "sourceText": "Deux agents K-edge injectés",
+                  "normalizedRelation": "MODIFIED_BY",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-inv-2",
+                  "sourceInventoryItemId": "inv-5",
+                  "targetInventoryItemId": "inv-3",
+                  "sourceMessageId": "SEM-H25:user:1",
+                  "sourceText": "séparer inflammation",
+                  "normalizedRelation": "TARGETS",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-inv-3",
+                  "sourceInventoryItemId": "inv-5",
+                  "targetInventoryItemId": "inv-4",
+                  "sourceMessageId": "SEM-H25:user:1",
+                  "sourceText": "Deux agents K-edge injectés pour séparer inflammation et vascularisation : projet exploratoire.",
+                  "normalizedRelation": "TARGETS",
+                  "polarity": "AFFIRMED"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem-1",
+                "type": "INTERVENTION",
+                "canonicalMeaning": "Two injected K-edge agents",
+                "studyRole": "INTERVENTION_ARM",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-1",
+                  "inv-2"
+                ],
+                "sourceMessageId": "SEM-H25:user:1",
+                "sourceText": "Deux agents K-edge injectés",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-2",
+                "type": "PHENOMENON",
+                "canonicalMeaning": "Inflammation",
+                "studyRole": "SUBJECT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-3"
+                ],
+                "sourceMessageId": "SEM-H25:user:1",
+                "sourceText": "inflammation",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-3",
+                "type": "SCIENTIFIC_OBJECT",
+                "canonicalMeaning": "Vascularization",
+                "studyRole": "SUBJECT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-4"
+                ],
+                "sourceMessageId": "SEM-H25:user:1",
+                "sourceText": "vascularisation",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-4",
+                "type": "SCIENTIFIC_INTENT",
+                "canonicalMeaning": "Separate inflammation and vascularization",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-5"
+                ],
+                "sourceMessageId": "SEM-H25:user:1",
+                "sourceText": "séparer inflammation et vascularisation",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-5",
+                "type": "STUDY_DESIGN",
+                "canonicalMeaning": "Exploratory project",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-6"
+                ],
+                "sourceMessageId": "SEM-H25:user:1",
+                "sourceText": "projet exploratoire",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel-1",
+                "sourceClientElementId": "elem-4",
+                "targetClientElementId": "elem-2",
+                "relationType": "TARGETS",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-inv-2"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-2",
+                "sourceClientElementId": "elem-4",
+                "targetClientElementId": "elem-3",
+                "relationType": "TARGETS",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-inv-3"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              }
+            ],
+            "missingConcepts": [],
+            "ellipses": [],
+            "ambiguities": [],
+            "unknowns": [],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [],
+            "routeProposal": {
+              "route": "DESIGN_STUDY",
+              "confidence": 0.9,
+              "reason": "The user is proposing an exploratory study design involving an intervention and specific separation objectives.",
+              "expectedCapabilities": [
+                "Define methodology",
+                "Specify imaging modality",
+                "Clarify evaluation criteria"
+              ]
+            },
+            "semanticWarnings": [
+              "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:1"
+            ]
+          },
+          "rawCritic": {
+            "criticId": "critic-001",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit source fragments (K-edge agents, injected, inflammation, vascularization, separate, exploratory project) are fully represented in the elements."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No comparator is stated in the source message."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "The two injected K-edge agents are fully captured as an INTERVENTION element."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No specific imaging modality family is explicitly stated."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit relations (separation targeting inflammation and vascularization) are correctly mapped."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "All object types comply with the operational taxonomy."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Relations are preserved without semantic weakening."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No unwarranted inferences have been promoted to explicit status."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "No hidden ambiguities were detected."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "Polarity is uniformly affirmed and correct."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No explicit time points or temporal intervals are present."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "No outcomes or endpoints were improperly promoted."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts like K-edge agents are preserved accurately."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "No important source fragments are missing."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "The route DESIGN_STUDY perfectly fits an exploratory study project proposition."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The typed candidate and semantic inventory are complete, accurate, and fully compliant with the operational taxonomy and integrity rules. All explicit objects and relations are correctly represented, and the routing is appropriate."
+          },
+          "rawCritics": [
+            {
+              "criticId": "critic-001",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit source fragments (K-edge agents, injected, inflammation, vascularization, separate, exploratory project) are fully represented in the elements."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No comparator is stated in the source message."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The two injected K-edge agents are fully captured as an INTERVENTION element."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No specific imaging modality family is explicitly stated."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit relations (separation targeting inflammation and vascularization) are correctly mapped."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "All object types comply with the operational taxonomy."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Relations are preserved without semantic weakening."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No unwarranted inferences have been promoted to explicit status."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "No hidden ambiguities were detected."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "Polarity is uniformly affirmed and correct."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No explicit time points or temporal intervals are present."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "No outcomes or endpoints were improperly promoted."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific concepts like K-edge agents are preserved accurately."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "No important source fragments are missing."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "The route DESIGN_STUDY perfectly fits an exploratory study project proposition."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "The typed candidate and semantic inventory are complete, accurate, and fully compliant with the operational taxonomy and integrity rules. All explicit objects and relations are correctly represented, and the routing is appropriate."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-13T09:22:00.349Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-fb7a33ae7c7fd4a2",
+          "resultDigest": "ke1-fb7a33ae7c7fd4a2",
+          "coverageStatus": "NO_PROVIDER",
+          "verifiedAt": "2026-08-13T09:22:00.353Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-13T09:22:00.349Z",
+        "updatedAt": "2026-08-13T09:22:00.353Z",
+        "digest": "ke1-c9b002563bd5f8f2"
+      },
+      "canonicalModelDigest": "ke1-c9b002563bd5f8f2",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-fb7a33ae7c7fd4a2",
+        "resultDigest": "ke1-fb7a33ae7c7fd4a2",
+        "coverageStatus": "NO_PROVIDER",
+        "verifiedAt": "2026-08-13T09:22:00.353Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-2a715d977993eacb",
+      "structuredDigest": "ke1-2d44e46c4f844340",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:21:22.630Z",
+          "requestFinished": "2026-08-13T09:21:28.400Z",
+          "latencyMs": 5770,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-ae2052d27b21790e",
+      "structuredDigest": "ke1-d42f6375711132e9",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:21:57.149Z",
+          "requestFinished": "2026-08-13T09:22:00.348Z",
+          "latencyMs": 3199,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-6c38bb46cbf4bc72",
+    "revision": 1,
+    "status": "CANDIDATE",
+    "originalRequest": "Deux agents K-edge injectés pour séparer inflammation et vascularisation : projet exploratoire.",
+    "normalizedMeaning": "Projet exploratoire évaluant l'utilisation de deux agents K-edge injectés afin de séparer l'inflammation de la vascularisation.",
+    "conversationMessageIds": [
+      "SEM-H25:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-05176b141f437398",
+        "type": "SCIENTIFIC_OBJECT",
+        "canonicalMeaning": "Vascularization",
+        "studyRole": "SUBJECT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-4"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H25:user:1",
+          "text": "vascularisation",
+          "start": 57,
+          "end": 72
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-97b7574497779e00"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H25:user:1",
+          "providerCallId": "gemini-call:ke1-2a715d977993eacb",
+          "rawElementId": "elem-3"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-0f8c5ed2d863f946",
+        "type": "INTERVENTION",
+        "canonicalMeaning": "Two injected K-edge agents",
+        "studyRole": "INTERVENTION_ARM",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-1",
+          "inv-2"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H25:user:1",
+          "text": "Deux agents K-edge injectés",
+          "start": 0,
+          "end": 27
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H25:user:1",
+          "providerCallId": "gemini-call:ke1-2a715d977993eacb",
+          "rawElementId": "elem-1"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-5cd4afdc354871c8",
+        "type": "STUDY_DESIGN",
+        "canonicalMeaning": "Exploratory project",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-6"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H25:user:1",
+          "text": "projet exploratoire",
+          "start": 75,
+          "end": 94
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H25:user:1",
+          "providerCallId": "gemini-call:ke1-2a715d977993eacb",
+          "rawElementId": "elem-5"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-959f85b2744146fe",
+        "type": "PHENOMENON",
+        "canonicalMeaning": "Inflammation",
+        "studyRole": "SUBJECT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-3"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H25:user:1",
+          "text": "inflammation",
+          "start": 41,
+          "end": 53
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-5d7ee43ecb390a72"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-fb7a33ae7c7fd4a2",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-259bd85fde6be503",
+            "knowledge-gap:ke1-37962e673b7ef0fb",
+            "knowledge-gap:ke1-5cb8601abe1e3566"
+          ],
+          "checkedAt": "2026-08-13T09:22:00.353Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H25:user:1",
+          "providerCallId": "gemini-call:ke1-2a715d977993eacb",
+          "rawElementId": "elem-2"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-aa13dc8634dcaaa2",
+        "type": "SCIENTIFIC_INTENT",
+        "canonicalMeaning": "Separate inflammation and vascularization",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-5"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H25:user:1",
+          "text": "séparer inflammation et vascularisation",
+          "start": 33,
+          "end": 72
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-5d7ee43ecb390a72",
+          "sem-relation:ke1-97b7574497779e00"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H25:user:1",
+          "providerCallId": "gemini-call:ke1-2a715d977993eacb",
+          "rawElementId": "elem-4"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-5d7ee43ecb390a72",
+        "sourceElementId": "sem-element:ke1-aa13dc8634dcaaa2",
+        "targetElementId": "sem-element:ke1-959f85b2744146fe",
+        "relationType": "TARGETS",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-inv-2"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-97b7574497779e00",
+        "sourceElementId": "sem-element:ke1-aa13dc8634dcaaa2",
+        "targetElementId": "sem-element:ke1-05176b141f437398",
+        "relationType": "TARGETS",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-inv-3"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-1",
+          "sourceMessageId": "SEM-H25:user:1",
+          "sourceText": "Deux agents K-edge",
+          "normalizedMeaning": "deux agents K-edge",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-2",
+          "sourceMessageId": "SEM-H25:user:1",
+          "sourceText": "injectés",
+          "normalizedMeaning": "injectés",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-3",
+          "sourceMessageId": "SEM-H25:user:1",
+          "sourceText": "inflammation",
+          "normalizedMeaning": "inflammation",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-4",
+          "sourceMessageId": "SEM-H25:user:1",
+          "sourceText": "vascularisation",
+          "normalizedMeaning": "vascularisation",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-5",
+          "sourceMessageId": "SEM-H25:user:1",
+          "sourceText": "séparer",
+          "normalizedMeaning": "séparer",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-6",
+          "sourceMessageId": "SEM-H25:user:1",
+          "sourceText": "projet exploratoire",
+          "normalizedMeaning": "projet exploratoire",
+          "mappedClientElementIds": [
+            "elem-5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-inv-1",
+          "sourceInventoryItemId": "inv-1",
+          "targetInventoryItemId": "inv-2",
+          "normalizedRelation": "MODIFIED_BY",
+          "mappedClientRelationIds": [
+            "coalesced:elem-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "Both inventory fragments are explicitly preserved inside one typed Semantic Element; a redundant self-relation is not required."
+        },
+        {
+          "inventoryRelationId": "rel-inv-2",
+          "sourceInventoryItemId": "inv-5",
+          "targetInventoryItemId": "inv-3",
+          "normalizedRelation": "TARGETS",
+          "mappedClientRelationIds": [
+            "rel-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-inv-3",
+          "sourceInventoryItemId": "inv-5",
+          "targetInventoryItemId": "inv-4",
+          "normalizedRelation": "TARGETS",
+          "mappedClientRelationIds": [
+            "rel-2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "missingConcepts": [],
+    "ellipses": [],
+    "ambiguities": [],
+    "unknowns": [],
+    "contradictions": [],
+    "clarificationCandidates": [],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "DESIGN_STUDY",
+      "confidence": 0.9,
+      "reason": "The user is proposing an exploratory study design involving an intervention and specific separation objectives.",
+      "expectedCapabilities": [
+        "Clarify evaluation criteria",
+        "Define methodology",
+        "Specify imaging modality"
+      ]
+    },
+    "summaryForUser": "Le système a identifié un projet exploratoire visant à séparer l'inflammation de la vascularisation à l'aide de deux agents K-edge injectés.",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "The typed candidate and semantic inventory are complete, accurate, and fully compliant with the operational taxonomy and integrity rules. All explicit objects and relations are correctly represented, and the routing is appropriate."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-2a715d977993eacb",
+      "criticCallId": "gemini-call:ke1-ae2052d27b21790e",
+      "criticCallIds": [
+        "gemini-call:ke1-ae2052d27b21790e"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:21:22.630Z",
+          "requestFinished": "2026-08-13T09:21:28.400Z",
+          "latencyMs": 5770,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:21:57.149Z",
+          "requestFinished": "2026-08-13T09:22:00.348Z",
+          "latencyMs": 3199,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Projet exploratoire évaluant l'utilisation de deux agents K-edge injectés afin de séparer l'inflammation de la vascularisation.",
+        "summaryForUser": "Le système a identifié un projet exploratoire visant à séparer l'inflammation de la vascularisation à l'aide de deux agents K-edge injectés.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H25:user:1",
+              "sourceText": "Deux agents K-edge",
+              "normalizedLabel": "deux agents K-edge",
+              "localRole": "intervention",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "deux"
+              ],
+              "linkedInventoryItemIds": [
+                "inv-2"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H25:user:1",
+              "sourceText": "injectés",
+              "normalizedLabel": "injectés",
+              "localRole": "administration",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-1"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H25:user:1",
+              "sourceText": "inflammation",
+              "normalizedLabel": "inflammation",
+              "localRole": "target",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-5"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H25:user:1",
+              "sourceText": "vascularisation",
+              "normalizedLabel": "vascularisation",
+              "localRole": "target",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-5"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H25:user:1",
+              "sourceText": "séparer",
+              "normalizedLabel": "séparer",
+              "localRole": "objective",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-3",
+                "inv-4"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-6",
+              "sourceMessageId": "SEM-H25:user:1",
+              "sourceText": "projet exploratoire",
+              "normalizedLabel": "projet exploratoire",
+              "localRole": "study design",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "exploratoire"
+              ],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-inv-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H25:user:1",
+              "sourceText": "Deux agents K-edge injectés",
+              "normalizedRelation": "MODIFIED_BY",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-inv-2",
+              "sourceInventoryItemId": "inv-5",
+              "targetInventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H25:user:1",
+              "sourceText": "séparer inflammation",
+              "normalizedRelation": "TARGETS",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-inv-3",
+              "sourceInventoryItemId": "inv-5",
+              "targetInventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H25:user:1",
+              "sourceText": "Deux agents K-edge injectés pour séparer inflammation et vascularisation : projet exploratoire.",
+              "normalizedRelation": "TARGETS",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "INTERVENTION",
+            "canonicalMeaning": "Two injected K-edge agents",
+            "studyRole": "INTERVENTION_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1",
+              "inv-2"
+            ],
+            "sourceMessageId": "SEM-H25:user:1",
+            "sourceText": "Deux agents K-edge injectés",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "PHENOMENON",
+            "canonicalMeaning": "Inflammation",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceMessageId": "SEM-H25:user:1",
+            "sourceText": "inflammation",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "Vascularization",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "sourceMessageId": "SEM-H25:user:1",
+            "sourceText": "vascularisation",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-4",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Separate inflammation and vascularization",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-5"
+            ],
+            "sourceMessageId": "SEM-H25:user:1",
+            "sourceText": "séparer inflammation et vascularisation",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-5",
+            "type": "STUDY_DESIGN",
+            "canonicalMeaning": "Exploratory project",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-6"
+            ],
+            "sourceMessageId": "SEM-H25:user:1",
+            "sourceText": "projet exploratoire",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-1",
+            "sourceClientElementId": "elem-4",
+            "targetClientElementId": "elem-2",
+            "relationType": "TARGETS",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-2",
+            "sourceClientElementId": "elem-4",
+            "targetClientElementId": "elem-3",
+            "relationType": "TARGETS",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-inv-3"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "The user is proposing an exploratory study design involving an intervention and specific separation objectives.",
+          "expectedCapabilities": [
+            "Define methodology",
+            "Specify imaging modality",
+            "Clarify evaluation criteria"
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:1"
+        ]
+      },
+      "rawCritic": {
+        "criticId": "critic-001",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit source fragments (K-edge agents, injected, inflammation, vascularization, separate, exploratory project) are fully represented in the elements."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No comparator is stated in the source message."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "The two injected K-edge agents are fully captured as an INTERVENTION element."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No specific imaging modality family is explicitly stated."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit relations (separation targeting inflammation and vascularization) are correctly mapped."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "All object types comply with the operational taxonomy."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "Relations are preserved without semantic weakening."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No unwarranted inferences have been promoted to explicit status."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "No hidden ambiguities were detected."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "Polarity is uniformly affirmed and correct."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No explicit time points or temporal intervals are present."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "No outcomes or endpoints were improperly promoted."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific concepts like K-edge agents are preserved accurately."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "No important source fragments are missing."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "The route DESIGN_STUDY perfectly fits an exploratory study project proposition."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "The typed candidate and semantic inventory are complete, accurate, and fully compliant with the operational taxonomy and integrity rules. All explicit objects and relations are correctly represented, and the routing is appropriate."
+      },
+      "rawCritics": [
+        {
+          "criticId": "critic-001",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit source fragments (K-edge agents, injected, inflammation, vascularization, separate, exploratory project) are fully represented in the elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is stated in the source message."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The two injected K-edge agents are fully captured as an INTERVENTION element."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No specific imaging modality family is explicitly stated."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit relations (separation targeting inflammation and vascularization) are correctly mapped."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All object types comply with the operational taxonomy."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Relations are preserved without semantic weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unwarranted inferences have been promoted to explicit status."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No hidden ambiguities were detected."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarity is uniformly affirmed and correct."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit time points or temporal intervals are present."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No outcomes or endpoints were improperly promoted."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like K-edge agents are preserved accurately."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No important source fragments are missing."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The route DESIGN_STUDY perfectly fits an exploratory study project proposition."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The typed candidate and semantic inventory are complete, accurate, and fully compliant with the operational taxonomy and integrity rules. All explicit objects and relations are correctly represented, and the routing is appropriate."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-13T09:22:00.349Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-fb7a33ae7c7fd4a2",
+      "resultDigest": "ke1-fb7a33ae7c7fd4a2",
+      "coverageStatus": "NO_PROVIDER",
+      "verifiedAt": "2026-08-13T09:22:00.353Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-13T09:22:00.349Z",
+    "updatedAt": "2026-08-13T09:22:00.353Z",
+    "digest": "ke1-c9b002563bd5f8f2"
+  },
+  "semanticModelDigest": "ke1-c9b002563bd5f8f2",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-1",
+          "sourceMessageId": "SEM-H25:user:1",
+          "sourceText": "Deux agents K-edge",
+          "normalizedMeaning": "deux agents K-edge",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-2",
+          "sourceMessageId": "SEM-H25:user:1",
+          "sourceText": "injectés",
+          "normalizedMeaning": "injectés",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-3",
+          "sourceMessageId": "SEM-H25:user:1",
+          "sourceText": "inflammation",
+          "normalizedMeaning": "inflammation",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-4",
+          "sourceMessageId": "SEM-H25:user:1",
+          "sourceText": "vascularisation",
+          "normalizedMeaning": "vascularisation",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-5",
+          "sourceMessageId": "SEM-H25:user:1",
+          "sourceText": "séparer",
+          "normalizedMeaning": "séparer",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-6",
+          "sourceMessageId": "SEM-H25:user:1",
+          "sourceText": "projet exploratoire",
+          "normalizedMeaning": "projet exploratoire",
+          "mappedClientElementIds": [
+            "elem-5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-inv-1",
+          "sourceInventoryItemId": "inv-1",
+          "targetInventoryItemId": "inv-2",
+          "normalizedRelation": "MODIFIED_BY",
+          "mappedClientRelationIds": [
+            "coalesced:elem-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "Both inventory fragments are explicitly preserved inside one typed Semantic Element; a redundant self-relation is not required."
+        },
+        {
+          "inventoryRelationId": "rel-inv-2",
+          "sourceInventoryItemId": "inv-5",
+          "targetInventoryItemId": "inv-3",
+          "normalizedRelation": "TARGETS",
+          "mappedClientRelationIds": [
+            "rel-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-inv-3",
+          "sourceInventoryItemId": "inv-5",
+          "targetInventoryItemId": "inv-4",
+          "normalizedRelation": "TARGETS",
+          "mappedClientRelationIds": [
+            "rel-2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-8066258bdfcc6c77",
+    "evaluatedAt": "2026-08-13T09:22:00.356Z",
+    "goldFrameDigest": "ke1-7faf143f525ab413",
+    "result": {
+      "caseId": "SEM-H25",
+      "explicitObjectRecall": 0.75,
+      "explicitRelationRecall": 0,
+      "criticalSemanticRecall": 0.6,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 1,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": [
+        "EXPLICIT_PHENOMENON_LOST:vascularisation",
+        "RELATION_LOST:inflammation->vascularisation"
+      ]
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H25",
+    "explicitObjectRecall": 0.75,
+    "explicitRelationRecall": 0,
+    "criticalSemanticRecall": 0.6,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 1,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": [
+      "EXPLICIT_PHENOMENON_LOST:vascularisation",
+      "RELATION_LOST:inflammation->vascularisation"
+    ]
+  },
+  "error": null
+}

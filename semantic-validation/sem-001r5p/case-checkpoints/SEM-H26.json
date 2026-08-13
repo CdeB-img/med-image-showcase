@@ -1,0 +1,1955 @@
+{
+  "campaign": "SEM-001R5P-CLOSURE",
+  "campaignId": "sem-001r5p-closure-2026-08-13T10-29-07-565Z-ke1-2ac79d2f15fe20bb",
+  "caseId": "SEM-H26",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-2ac79d2f15fe20bb",
+  "semanticConfigurationDigest": "ke1-487f37f9fdb16ba5",
+  "goldFrameDigest": "ke1-d3a86b6afa10e16e",
+  "originalRequest": [
+    "Moi ce qui m'intéresse c'est pas la perfusion, c'est combien de temps l'oxygénation met à revenir après l'effort."
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-13T10:40:50.215Z",
+  "completedAt": "2026-08-13T10:41:34.673Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H26:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "cand_01J8K9X7V2R8P3Q5N6M4W1Z0F1",
+        "language": "fr",
+        "normalizedMeaning": "L'utilisateur s'intéresse au temps de récupération de l'oxygénation après l'effort, en excluant explicitement la perfusion.",
+        "summaryForUser": "Vous étudiez le temps de récupération de l'oxygénation après l'effort, sans vous focaliser sur la perfusion.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv_1",
+              "sourceMessageId": "SEM-H26:user:1",
+              "sourceText": "perfusion",
+              "normalizedLabel": "perfusion",
+              "localRole": "object",
+              "polarity": "NEGATED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_2",
+              "sourceMessageId": "SEM-H26:user:1",
+              "sourceText": "oxygénation",
+              "normalizedLabel": "oxygénation",
+              "localRole": "target",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_3",
+              "sourceMessageId": "SEM-H26:user:1",
+              "sourceText": "combien de temps",
+              "normalizedLabel": "temps de récupération",
+              "localRole": "timing",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_4",
+              "sourceMessageId": "SEM-H26:user:1",
+              "sourceText": "effort",
+              "normalizedLabel": "effort",
+              "localRole": "trigger",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_inv_1",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_3",
+              "sourceMessageId": "SEM-H26:user:1",
+              "sourceText": "combien de temps l'oxygénation met à revenir",
+              "normalizedRelation": "RECOVERS_AFTER",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_inv_2",
+              "sourceInventoryItemId": "inv_3",
+              "targetInventoryItemId": "inv_4",
+              "sourceMessageId": "SEM-H26:user:1",
+              "sourceText": "revenir après l'effort",
+              "normalizedRelation": "TRIGGERED_BY",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem_1",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "perfusion",
+            "studyRole": "NONE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv_1"
+            ],
+            "sourceMessageId": "SEM-H26:user:1",
+            "sourceText": "perfusion",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_2",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "oxygénation",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_2"
+            ],
+            "sourceMessageId": "SEM-H26:user:1",
+            "sourceText": "oxygénation",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_3",
+            "type": "TIMING",
+            "canonicalMeaning": "temps de récupération",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_3"
+            ],
+            "sourceMessageId": "SEM-H26:user:1",
+            "sourceText": "combien de temps",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_4",
+            "type": "INTERVENTION",
+            "canonicalMeaning": "effort",
+            "studyRole": "INTERVENTION_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_4"
+            ],
+            "sourceMessageId": "SEM-H26:user:1",
+            "sourceText": "effort",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel_1",
+            "sourceClientElementId": "elem_2",
+            "targetClientElementId": "elem_3",
+            "relationType": "RECOVERS_AFTER",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_2",
+            "sourceClientElementId": "elem_3",
+            "targetClientElementId": "elem_4",
+            "relationType": "TRIGGERED_BY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "L'utilisateur définit les variables d'intérêt, les conditions temporelles et les déclencheurs pour un protocole d'évaluation.",
+          "expectedCapabilities": [
+            "Définition des critères d'évaluation",
+            "Paramétrage temporel de la récupération"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "reconstructionDigest": "ke1-97806c7655b604a2",
+      "critics": [
+        {
+          "criticId": "critic_SEM_H26_01",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects (perfusion, oxygénation, effort) are represented in the typed candidate elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit comparator is present in the source message."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The physical effort ('effort') is correctly represented as an intervention element."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No acquisition modality is stated in the source text."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All inventory relations are faithfully mapped to client relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All element types adhere to the operational taxonomy (e.g. biomarker for perfusion/oxygénation, timing for recovery duration, intervention for effort)."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relation has been weakened or converted to an inference."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No speculative inferences are treated as explicit user facts."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "All explicit constraints, polarities, and negations (perfusion negated) are explicitly preserved."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "The negation on perfusion is correctly captured with polarity NEGATED."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "The recovery duration constraint ('combien de temps') is preserved as a TIMING element."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No unauthorized endpoint promotion occurred."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts such as effort and oxygenation are preserved precisely."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "The missing explicit source fragments list is empty and all inventory items are mapped."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The route DESIGN_STUDY appropriately matches the structured protocol criteria and parameters defined."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The semantic inventory and typed candidate faithfully capture all source fragments, types, roles, polarities, and relations without any omissions or violations. The route and metadata are completely consistent."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-fb51be7dc5064c39",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "Moi ce qui m'intéresse c'est pas la perfusion, c'est combien de temps l'oxygénation met à revenir après l'effort.",
+        "normalizedMeaning": "L'utilisateur s'intéresse au temps de récupération de l'oxygénation après l'effort, en excluant explicitement la perfusion.",
+        "conversationMessageIds": [
+          "SEM-H26:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-49328ba3d82a8227",
+            "type": "INTERVENTION",
+            "canonicalMeaning": "effort",
+            "studyRole": "INTERVENTION_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_4"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H26:user:1",
+              "text": "effort",
+              "start": 106,
+              "end": 112
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-47c45e85e07e2fc9"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H26:user:1",
+              "providerCallId": "gemini-call:ke1-4f21de41e04a67fd",
+              "rawElementId": "elem_4"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-589f690f54f631fb",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "oxygénation",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_2"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H26:user:1",
+              "text": "oxygénation",
+              "start": 72,
+              "end": 83
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-5d68fafc210b7870"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-c32947d703ffe0b3",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-9aa42e50f8c4a3c4",
+                "knowledge-gap:ke1-b30623a28222916e",
+                "knowledge-gap:ke1-c0c4abcd1e735c29"
+              ],
+              "checkedAt": "2026-08-13T10:41:34.671Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H26:user:1",
+              "providerCallId": "gemini-call:ke1-4f21de41e04a67fd",
+              "rawElementId": "elem_2"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-b32c3b9101283c6d",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "perfusion",
+            "studyRole": "NONE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv_1"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H26:user:1",
+              "text": "perfusion",
+              "start": 36,
+              "end": 45
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-c32947d703ffe0b3",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-9aa42e50f8c4a3c4",
+                "knowledge-gap:ke1-b30623a28222916e",
+                "knowledge-gap:ke1-c0c4abcd1e735c29"
+              ],
+              "checkedAt": "2026-08-13T10:41:34.671Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H26:user:1",
+              "providerCallId": "gemini-call:ke1-4f21de41e04a67fd",
+              "rawElementId": "elem_1"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-cbcbb9e715205abb",
+            "type": "TIMING",
+            "canonicalMeaning": "temps de récupération",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_3"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H26:user:1",
+              "text": "combien de temps",
+              "start": 53,
+              "end": 69
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-47c45e85e07e2fc9",
+              "sem-relation:ke1-5d68fafc210b7870"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H26:user:1",
+              "providerCallId": "gemini-call:ke1-4f21de41e04a67fd",
+              "rawElementId": "elem_3"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-47c45e85e07e2fc9",
+            "sourceElementId": "sem-element:ke1-cbcbb9e715205abb",
+            "targetElementId": "sem-element:ke1-49328ba3d82a8227",
+            "relationType": "TRIGGERED_BY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_2"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-5d68fafc210b7870",
+            "sourceElementId": "sem-element:ke1-589f690f54f631fb",
+            "targetElementId": "sem-element:ke1-cbcbb9e715205abb",
+            "relationType": "RECOVERS_AFTER",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_1"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv_1",
+              "sourceMessageId": "SEM-H26:user:1",
+              "sourceText": "perfusion",
+              "normalizedMeaning": "perfusion",
+              "mappedClientElementIds": [
+                "elem_1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_2",
+              "sourceMessageId": "SEM-H26:user:1",
+              "sourceText": "oxygénation",
+              "normalizedMeaning": "oxygénation",
+              "mappedClientElementIds": [
+                "elem_2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_3",
+              "sourceMessageId": "SEM-H26:user:1",
+              "sourceText": "combien de temps",
+              "normalizedMeaning": "temps de récupération",
+              "mappedClientElementIds": [
+                "elem_3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_4",
+              "sourceMessageId": "SEM-H26:user:1",
+              "sourceText": "effort",
+              "normalizedMeaning": "effort",
+              "mappedClientElementIds": [
+                "elem_4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel_inv_1",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_3",
+              "normalizedRelation": "RECOVERS_AFTER",
+              "mappedClientRelationIds": [
+                "rel_1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_inv_2",
+              "sourceInventoryItemId": "inv_3",
+              "targetInventoryItemId": "inv_4",
+              "normalizedRelation": "TRIGGERED_BY",
+              "mappedClientRelationIds": [
+                "rel_2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "clarificationCandidates": [],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "L'utilisateur définit les variables d'intérêt, les conditions temporelles et les déclencheurs pour un protocole d'évaluation.",
+          "expectedCapabilities": [
+            "Définition des critères d'évaluation",
+            "Paramétrage temporel de la récupération"
+          ]
+        },
+        "summaryForUser": "Vous étudiez le temps de récupération de l'oxygénation après l'effort, sans vous focaliser sur la perfusion.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "The semantic inventory and typed candidate faithfully capture all source fragments, types, roles, polarities, and relations without any omissions or violations. The route and metadata are completely consistent."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+          "criticPromptVersion": "SEM-001-CRITIC-1.6",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-4f21de41e04a67fd",
+          "criticCallId": "gemini-call:ke1-7daf59d5458a7d59",
+          "criticCallIds": [
+            "gemini-call:ke1-7daf59d5458a7d59"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T10:40:50.216Z",
+              "requestFinished": "2026-08-13T10:40:55.225Z",
+              "latencyMs": 5009,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T10:41:31.480Z",
+              "requestFinished": "2026-08-13T10:41:34.667Z",
+              "latencyMs": 3187,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "cand_01J8K9X7V2R8P3Q5N6M4W1Z0F1",
+            "language": "fr",
+            "normalizedMeaning": "L'utilisateur s'intéresse au temps de récupération de l'oxygénation après l'effort, en excluant explicitement la perfusion.",
+            "summaryForUser": "Vous étudiez le temps de récupération de l'oxygénation après l'effort, sans vous focaliser sur la perfusion.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "inv_1",
+                  "sourceMessageId": "SEM-H26:user:1",
+                  "sourceText": "perfusion",
+                  "normalizedLabel": "perfusion",
+                  "localRole": "object",
+                  "polarity": "NEGATED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv_2",
+                  "sourceMessageId": "SEM-H26:user:1",
+                  "sourceText": "oxygénation",
+                  "normalizedLabel": "oxygénation",
+                  "localRole": "target",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv_3",
+                  "sourceMessageId": "SEM-H26:user:1",
+                  "sourceText": "combien de temps",
+                  "normalizedLabel": "temps de récupération",
+                  "localRole": "timing",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv_4",
+                  "sourceMessageId": "SEM-H26:user:1",
+                  "sourceText": "effort",
+                  "normalizedLabel": "effort",
+                  "localRole": "trigger",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel_inv_1",
+                  "sourceInventoryItemId": "inv_2",
+                  "targetInventoryItemId": "inv_3",
+                  "sourceMessageId": "SEM-H26:user:1",
+                  "sourceText": "combien de temps l'oxygénation met à revenir",
+                  "normalizedRelation": "RECOVERS_AFTER",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel_inv_2",
+                  "sourceInventoryItemId": "inv_3",
+                  "targetInventoryItemId": "inv_4",
+                  "sourceMessageId": "SEM-H26:user:1",
+                  "sourceText": "revenir après l'effort",
+                  "normalizedRelation": "TRIGGERED_BY",
+                  "polarity": "AFFIRMED"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem_1",
+                "type": "BIOMARKER",
+                "canonicalMeaning": "perfusion",
+                "studyRole": "NONE",
+                "polarity": "NEGATED",
+                "inventoryItemIds": [
+                  "inv_1"
+                ],
+                "sourceMessageId": "SEM-H26:user:1",
+                "sourceText": "perfusion",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_2",
+                "type": "BIOMARKER",
+                "canonicalMeaning": "oxygénation",
+                "studyRole": "OUTCOME_ROLE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_2"
+                ],
+                "sourceMessageId": "SEM-H26:user:1",
+                "sourceText": "oxygénation",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_3",
+                "type": "TIMING",
+                "canonicalMeaning": "temps de récupération",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_3"
+                ],
+                "sourceMessageId": "SEM-H26:user:1",
+                "sourceText": "combien de temps",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_4",
+                "type": "INTERVENTION",
+                "canonicalMeaning": "effort",
+                "studyRole": "INTERVENTION_ARM",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_4"
+                ],
+                "sourceMessageId": "SEM-H26:user:1",
+                "sourceText": "effort",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel_1",
+                "sourceClientElementId": "elem_2",
+                "targetClientElementId": "elem_3",
+                "relationType": "RECOVERS_AFTER",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_inv_1"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel_2",
+                "sourceClientElementId": "elem_3",
+                "targetClientElementId": "elem_4",
+                "relationType": "TRIGGERED_BY",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_inv_2"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              }
+            ],
+            "missingConcepts": [],
+            "ellipses": [],
+            "ambiguities": [],
+            "unknowns": [],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [],
+            "routeProposal": {
+              "route": "DESIGN_STUDY",
+              "confidence": 0.9,
+              "reason": "L'utilisateur définit les variables d'intérêt, les conditions temporelles et les déclencheurs pour un protocole d'évaluation.",
+              "expectedCapabilities": [
+                "Définition des critères d'évaluation",
+                "Paramétrage temporel de la récupération"
+              ]
+            },
+            "semanticWarnings": []
+          },
+          "rawCritic": {
+            "criticId": "critic_SEM_H26_01",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit objects (perfusion, oxygénation, effort) are represented in the typed candidate elements."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No explicit comparator is present in the source message."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "The physical effort ('effort') is correctly represented as an intervention element."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No acquisition modality is stated in the source text."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All inventory relations are faithfully mapped to client relations."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "All element types adhere to the operational taxonomy (e.g. biomarker for perfusion/oxygénation, timing for recovery duration, intervention for effort)."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "No explicit relation has been weakened or converted to an inference."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No speculative inferences are treated as explicit user facts."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "All explicit constraints, polarities, and negations (perfusion negated) are explicitly preserved."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "The negation on perfusion is correctly captured with polarity NEGATED."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "PASS",
+                "evidence": "The recovery duration constraint ('combien de temps') is preserved as a TIMING element."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "No unauthorized endpoint promotion occurred."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts such as effort and oxygenation are preserved precisely."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "The missing explicit source fragments list is empty and all inventory items are mapped."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "The route DESIGN_STUDY appropriately matches the structured protocol criteria and parameters defined."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The semantic inventory and typed candidate faithfully capture all source fragments, types, roles, polarities, and relations without any omissions or violations. The route and metadata are completely consistent."
+          },
+          "rawCritics": [
+            {
+              "criticId": "critic_SEM_H26_01",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit objects (perfusion, oxygénation, effort) are represented in the typed candidate elements."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No explicit comparator is present in the source message."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The physical effort ('effort') is correctly represented as an intervention element."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No acquisition modality is stated in the source text."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All inventory relations are faithfully mapped to client relations."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "All element types adhere to the operational taxonomy (e.g. biomarker for perfusion/oxygénation, timing for recovery duration, intervention for effort)."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "No explicit relation has been weakened or converted to an inference."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No speculative inferences are treated as explicit user facts."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "All explicit constraints, polarities, and negations (perfusion negated) are explicitly preserved."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "The negation on perfusion is correctly captured with polarity NEGATED."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "PASS",
+                  "evidence": "The recovery duration constraint ('combien de temps') is preserved as a TIMING element."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "No unauthorized endpoint promotion occurred."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific concepts such as effort and oxygenation are preserved precisely."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The missing explicit source fragments list is empty and all inventory items are mapped."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "The route DESIGN_STUDY appropriately matches the structured protocol criteria and parameters defined."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "The semantic inventory and typed candidate faithfully capture all source fragments, types, roles, polarities, and relations without any omissions or violations. The route and metadata are completely consistent."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-13T10:41:34.668Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-c32947d703ffe0b3",
+          "resultDigest": "ke1-c32947d703ffe0b3",
+          "coverageStatus": "NO_PROVIDER",
+          "verifiedAt": "2026-08-13T10:41:34.671Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-13T10:41:34.668Z",
+        "updatedAt": "2026-08-13T10:41:34.671Z",
+        "digest": "ke1-cfab14614bbbe31d"
+      },
+      "canonicalModelDigest": "ke1-cfab14614bbbe31d",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-c32947d703ffe0b3",
+        "resultDigest": "ke1-c32947d703ffe0b3",
+        "coverageStatus": "NO_PROVIDER",
+        "verifiedAt": "2026-08-13T10:41:34.671Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-4f21de41e04a67fd",
+      "structuredDigest": "ke1-97806c7655b604a2",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:40:50.216Z",
+          "requestFinished": "2026-08-13T10:40:55.225Z",
+          "latencyMs": 5009,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-7daf59d5458a7d59",
+      "structuredDigest": "ke1-4b3219ef5d1015bb",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:41:31.480Z",
+          "requestFinished": "2026-08-13T10:41:34.667Z",
+          "latencyMs": 3187,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-fb51be7dc5064c39",
+    "revision": 1,
+    "status": "CANDIDATE",
+    "originalRequest": "Moi ce qui m'intéresse c'est pas la perfusion, c'est combien de temps l'oxygénation met à revenir après l'effort.",
+    "normalizedMeaning": "L'utilisateur s'intéresse au temps de récupération de l'oxygénation après l'effort, en excluant explicitement la perfusion.",
+    "conversationMessageIds": [
+      "SEM-H26:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-49328ba3d82a8227",
+        "type": "INTERVENTION",
+        "canonicalMeaning": "effort",
+        "studyRole": "INTERVENTION_ARM",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_4"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H26:user:1",
+          "text": "effort",
+          "start": 106,
+          "end": 112
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-47c45e85e07e2fc9"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H26:user:1",
+          "providerCallId": "gemini-call:ke1-4f21de41e04a67fd",
+          "rawElementId": "elem_4"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-589f690f54f631fb",
+        "type": "BIOMARKER",
+        "canonicalMeaning": "oxygénation",
+        "studyRole": "OUTCOME_ROLE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_2"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H26:user:1",
+          "text": "oxygénation",
+          "start": 72,
+          "end": 83
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-5d68fafc210b7870"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-c32947d703ffe0b3",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-9aa42e50f8c4a3c4",
+            "knowledge-gap:ke1-b30623a28222916e",
+            "knowledge-gap:ke1-c0c4abcd1e735c29"
+          ],
+          "checkedAt": "2026-08-13T10:41:34.671Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H26:user:1",
+          "providerCallId": "gemini-call:ke1-4f21de41e04a67fd",
+          "rawElementId": "elem_2"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-b32c3b9101283c6d",
+        "type": "BIOMARKER",
+        "canonicalMeaning": "perfusion",
+        "studyRole": "NONE",
+        "polarity": "NEGATED",
+        "inventoryItemIds": [
+          "inv_1"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H26:user:1",
+          "text": "perfusion",
+          "start": 36,
+          "end": 45
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-c32947d703ffe0b3",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-9aa42e50f8c4a3c4",
+            "knowledge-gap:ke1-b30623a28222916e",
+            "knowledge-gap:ke1-c0c4abcd1e735c29"
+          ],
+          "checkedAt": "2026-08-13T10:41:34.671Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H26:user:1",
+          "providerCallId": "gemini-call:ke1-4f21de41e04a67fd",
+          "rawElementId": "elem_1"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-cbcbb9e715205abb",
+        "type": "TIMING",
+        "canonicalMeaning": "temps de récupération",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_3"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H26:user:1",
+          "text": "combien de temps",
+          "start": 53,
+          "end": 69
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-47c45e85e07e2fc9",
+          "sem-relation:ke1-5d68fafc210b7870"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H26:user:1",
+          "providerCallId": "gemini-call:ke1-4f21de41e04a67fd",
+          "rawElementId": "elem_3"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-47c45e85e07e2fc9",
+        "sourceElementId": "sem-element:ke1-cbcbb9e715205abb",
+        "targetElementId": "sem-element:ke1-49328ba3d82a8227",
+        "relationType": "TRIGGERED_BY",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_inv_2"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-5d68fafc210b7870",
+        "sourceElementId": "sem-element:ke1-589f690f54f631fb",
+        "targetElementId": "sem-element:ke1-cbcbb9e715205abb",
+        "relationType": "RECOVERS_AFTER",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_inv_1"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv_1",
+          "sourceMessageId": "SEM-H26:user:1",
+          "sourceText": "perfusion",
+          "normalizedMeaning": "perfusion",
+          "mappedClientElementIds": [
+            "elem_1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_2",
+          "sourceMessageId": "SEM-H26:user:1",
+          "sourceText": "oxygénation",
+          "normalizedMeaning": "oxygénation",
+          "mappedClientElementIds": [
+            "elem_2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_3",
+          "sourceMessageId": "SEM-H26:user:1",
+          "sourceText": "combien de temps",
+          "normalizedMeaning": "temps de récupération",
+          "mappedClientElementIds": [
+            "elem_3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_4",
+          "sourceMessageId": "SEM-H26:user:1",
+          "sourceText": "effort",
+          "normalizedMeaning": "effort",
+          "mappedClientElementIds": [
+            "elem_4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel_inv_1",
+          "sourceInventoryItemId": "inv_2",
+          "targetInventoryItemId": "inv_3",
+          "normalizedRelation": "RECOVERS_AFTER",
+          "mappedClientRelationIds": [
+            "rel_1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_inv_2",
+          "sourceInventoryItemId": "inv_3",
+          "targetInventoryItemId": "inv_4",
+          "normalizedRelation": "TRIGGERED_BY",
+          "mappedClientRelationIds": [
+            "rel_2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "missingConcepts": [],
+    "ellipses": [],
+    "ambiguities": [],
+    "unknowns": [],
+    "contradictions": [],
+    "clarificationCandidates": [],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "DESIGN_STUDY",
+      "confidence": 0.9,
+      "reason": "L'utilisateur définit les variables d'intérêt, les conditions temporelles et les déclencheurs pour un protocole d'évaluation.",
+      "expectedCapabilities": [
+        "Définition des critères d'évaluation",
+        "Paramétrage temporel de la récupération"
+      ]
+    },
+    "summaryForUser": "Vous étudiez le temps de récupération de l'oxygénation après l'effort, sans vous focaliser sur la perfusion.",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "The semantic inventory and typed candidate faithfully capture all source fragments, types, roles, polarities, and relations without any omissions or violations. The route and metadata are completely consistent."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-4f21de41e04a67fd",
+      "criticCallId": "gemini-call:ke1-7daf59d5458a7d59",
+      "criticCallIds": [
+        "gemini-call:ke1-7daf59d5458a7d59"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:40:50.216Z",
+          "requestFinished": "2026-08-13T10:40:55.225Z",
+          "latencyMs": 5009,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:41:31.480Z",
+          "requestFinished": "2026-08-13T10:41:34.667Z",
+          "latencyMs": 3187,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "cand_01J8K9X7V2R8P3Q5N6M4W1Z0F1",
+        "language": "fr",
+        "normalizedMeaning": "L'utilisateur s'intéresse au temps de récupération de l'oxygénation après l'effort, en excluant explicitement la perfusion.",
+        "summaryForUser": "Vous étudiez le temps de récupération de l'oxygénation après l'effort, sans vous focaliser sur la perfusion.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv_1",
+              "sourceMessageId": "SEM-H26:user:1",
+              "sourceText": "perfusion",
+              "normalizedLabel": "perfusion",
+              "localRole": "object",
+              "polarity": "NEGATED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_2",
+              "sourceMessageId": "SEM-H26:user:1",
+              "sourceText": "oxygénation",
+              "normalizedLabel": "oxygénation",
+              "localRole": "target",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_3",
+              "sourceMessageId": "SEM-H26:user:1",
+              "sourceText": "combien de temps",
+              "normalizedLabel": "temps de récupération",
+              "localRole": "timing",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_4",
+              "sourceMessageId": "SEM-H26:user:1",
+              "sourceText": "effort",
+              "normalizedLabel": "effort",
+              "localRole": "trigger",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_inv_1",
+              "sourceInventoryItemId": "inv_2",
+              "targetInventoryItemId": "inv_3",
+              "sourceMessageId": "SEM-H26:user:1",
+              "sourceText": "combien de temps l'oxygénation met à revenir",
+              "normalizedRelation": "RECOVERS_AFTER",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_inv_2",
+              "sourceInventoryItemId": "inv_3",
+              "targetInventoryItemId": "inv_4",
+              "sourceMessageId": "SEM-H26:user:1",
+              "sourceText": "revenir après l'effort",
+              "normalizedRelation": "TRIGGERED_BY",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem_1",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "perfusion",
+            "studyRole": "NONE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv_1"
+            ],
+            "sourceMessageId": "SEM-H26:user:1",
+            "sourceText": "perfusion",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_2",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "oxygénation",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_2"
+            ],
+            "sourceMessageId": "SEM-H26:user:1",
+            "sourceText": "oxygénation",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_3",
+            "type": "TIMING",
+            "canonicalMeaning": "temps de récupération",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_3"
+            ],
+            "sourceMessageId": "SEM-H26:user:1",
+            "sourceText": "combien de temps",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_4",
+            "type": "INTERVENTION",
+            "canonicalMeaning": "effort",
+            "studyRole": "INTERVENTION_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_4"
+            ],
+            "sourceMessageId": "SEM-H26:user:1",
+            "sourceText": "effort",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel_1",
+            "sourceClientElementId": "elem_2",
+            "targetClientElementId": "elem_3",
+            "relationType": "RECOVERS_AFTER",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_2",
+            "sourceClientElementId": "elem_3",
+            "targetClientElementId": "elem_4",
+            "relationType": "TRIGGERED_BY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "L'utilisateur définit les variables d'intérêt, les conditions temporelles et les déclencheurs pour un protocole d'évaluation.",
+          "expectedCapabilities": [
+            "Définition des critères d'évaluation",
+            "Paramétrage temporel de la récupération"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "rawCritic": {
+        "criticId": "critic_SEM_H26_01",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit objects (perfusion, oxygénation, effort) are represented in the typed candidate elements."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No explicit comparator is present in the source message."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "The physical effort ('effort') is correctly represented as an intervention element."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No acquisition modality is stated in the source text."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All inventory relations are faithfully mapped to client relations."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "All element types adhere to the operational taxonomy (e.g. biomarker for perfusion/oxygénation, timing for recovery duration, intervention for effort)."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "No explicit relation has been weakened or converted to an inference."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No speculative inferences are treated as explicit user facts."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "All explicit constraints, polarities, and negations (perfusion negated) are explicitly preserved."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "The negation on perfusion is correctly captured with polarity NEGATED."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "PASS",
+            "evidence": "The recovery duration constraint ('combien de temps') is preserved as a TIMING element."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "No unauthorized endpoint promotion occurred."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific concepts such as effort and oxygenation are preserved precisely."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "The missing explicit source fragments list is empty and all inventory items are mapped."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "The route DESIGN_STUDY appropriately matches the structured protocol criteria and parameters defined."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "The semantic inventory and typed candidate faithfully capture all source fragments, types, roles, polarities, and relations without any omissions or violations. The route and metadata are completely consistent."
+      },
+      "rawCritics": [
+        {
+          "criticId": "critic_SEM_H26_01",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects (perfusion, oxygénation, effort) are represented in the typed candidate elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit comparator is present in the source message."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The physical effort ('effort') is correctly represented as an intervention element."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No acquisition modality is stated in the source text."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All inventory relations are faithfully mapped to client relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All element types adhere to the operational taxonomy (e.g. biomarker for perfusion/oxygénation, timing for recovery duration, intervention for effort)."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relation has been weakened or converted to an inference."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No speculative inferences are treated as explicit user facts."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "All explicit constraints, polarities, and negations (perfusion negated) are explicitly preserved."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "The negation on perfusion is correctly captured with polarity NEGATED."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "The recovery duration constraint ('combien de temps') is preserved as a TIMING element."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No unauthorized endpoint promotion occurred."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts such as effort and oxygenation are preserved precisely."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "The missing explicit source fragments list is empty and all inventory items are mapped."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The route DESIGN_STUDY appropriately matches the structured protocol criteria and parameters defined."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The semantic inventory and typed candidate faithfully capture all source fragments, types, roles, polarities, and relations without any omissions or violations. The route and metadata are completely consistent."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-13T10:41:34.668Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-c32947d703ffe0b3",
+      "resultDigest": "ke1-c32947d703ffe0b3",
+      "coverageStatus": "NO_PROVIDER",
+      "verifiedAt": "2026-08-13T10:41:34.671Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-13T10:41:34.668Z",
+    "updatedAt": "2026-08-13T10:41:34.671Z",
+    "digest": "ke1-cfab14614bbbe31d"
+  },
+  "semanticModelDigest": "ke1-cfab14614bbbe31d",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv_1",
+          "sourceMessageId": "SEM-H26:user:1",
+          "sourceText": "perfusion",
+          "normalizedMeaning": "perfusion",
+          "mappedClientElementIds": [
+            "elem_1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_2",
+          "sourceMessageId": "SEM-H26:user:1",
+          "sourceText": "oxygénation",
+          "normalizedMeaning": "oxygénation",
+          "mappedClientElementIds": [
+            "elem_2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_3",
+          "sourceMessageId": "SEM-H26:user:1",
+          "sourceText": "combien de temps",
+          "normalizedMeaning": "temps de récupération",
+          "mappedClientElementIds": [
+            "elem_3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_4",
+          "sourceMessageId": "SEM-H26:user:1",
+          "sourceText": "effort",
+          "normalizedMeaning": "effort",
+          "mappedClientElementIds": [
+            "elem_4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel_inv_1",
+          "sourceInventoryItemId": "inv_2",
+          "targetInventoryItemId": "inv_3",
+          "normalizedRelation": "RECOVERS_AFTER",
+          "mappedClientRelationIds": [
+            "rel_1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_inv_2",
+          "sourceInventoryItemId": "inv_3",
+          "targetInventoryItemId": "inv_4",
+          "normalizedRelation": "TRIGGERED_BY",
+          "mappedClientRelationIds": [
+            "rel_2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-8066258bdfcc6c77",
+    "evaluatedAt": "2026-08-13T10:41:34.673Z",
+    "goldFrameDigest": "ke1-d3a86b6afa10e16e",
+    "result": {
+      "caseId": "SEM-H26",
+      "explicitObjectRecall": 0,
+      "explicitRelationRecall": 0,
+      "criticalSemanticRecall": 0,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 1,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": [
+        "EXPLICIT_CONSTRAINT_LOST:perfusion exclue",
+        "EXPLICIT_SCIENTIFIC_OBJECT_LOST:oxygénation",
+        "EXPLICIT_OUTCOME_LOST:temps de récupération",
+        "EXPLICIT_TIMING_LOST:après effort",
+        "RELATION_LOST:oxygénation->effort"
+      ]
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H26",
+    "explicitObjectRecall": 0,
+    "explicitRelationRecall": 0,
+    "criticalSemanticRecall": 0,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 1,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": [
+      "EXPLICIT_CONSTRAINT_LOST:perfusion exclue",
+      "EXPLICIT_SCIENTIFIC_OBJECT_LOST:oxygénation",
+      "EXPLICIT_OUTCOME_LOST:temps de récupération",
+      "EXPLICIT_TIMING_LOST:après effort",
+      "RELATION_LOST:oxygénation->effort"
+    ]
+  },
+  "error": null
+}

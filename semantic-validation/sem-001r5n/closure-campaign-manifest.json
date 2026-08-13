@@ -1,0 +1,191 @@
+{
+  "campaignId": "sem-001r5n-closure-2026-08-13T10-04-53-978Z-ke1-dddaa50feb99591b",
+  "campaign": "SEM-001R5N-CLOSURE",
+  "status": "ACTIVE_FULL_HOLDOUT",
+  "startTimestamp": "2026-08-13T10:04:53.978Z",
+  "sourceActivation": "semantic-validation/sem-001r5n/qualification-freeze-activation.json",
+  "sourceActivationDigest": "ke1-357da89102ea992d",
+  "sourceFreeze": "semantic-validation/sem-001r5n/legacy-qualification-freeze-candidate.json",
+  "sourceFreezeDigest": "ke1-08f7f1ed60589e49",
+  "sourceH29Result": "semantic-validation/sem-001r5n/h29-result.json",
+  "sourceH29ResultDigest": "ke1-4627b38e5260547a",
+  "digests": {
+    "developmentCorpus": "ke1-64d654cfa041a563",
+    "developmentGold": "ke1-1006a72533caf7f9",
+    "holdoutCorpus": "ke1-08392b87b2cc140b",
+    "holdoutGold": "ke1-9208b3d2f1d0698e",
+    "reconstructionPrompt": "ke1-a2f55612381ac9ee",
+    "criticPrompt": "ke1-9ae6db2190a318f5",
+    "auditPrompt": "ke1-10b88664b49fca18",
+    "baseProviderSchema": "ke1-c849778553bf38b1",
+    "providerContract": "ke1-cdbd96350b88c6a1",
+    "auditProviderSchema": "ke1-55cd50759595b451",
+    "canonicalModel": "ke1-443905dedde8900a",
+    "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+    "canonicalizer": "ke1-cf56d05755b2b05b",
+    "coverageAndIntegrity": "ke1-9328caeb14ef9d17",
+    "relationOwnership": "ke1-be4b671a6518b696",
+    "evaluator": "ke1-8066258bdfcc6c77",
+    "routing": "ke1-d5e9fbdce07f0730"
+  },
+  "configurationDigest": "ke1-dddaa50feb99591b",
+  "semanticConfigurationDigest": "ke1-845f98f9c02a2a8d",
+  "holdout": {
+    "count": 30,
+    "caseIds": [
+      "SEM-H01",
+      "SEM-H02",
+      "SEM-H03",
+      "SEM-H04",
+      "SEM-H05",
+      "SEM-H06",
+      "SEM-H07",
+      "SEM-H08",
+      "SEM-H09",
+      "SEM-H10",
+      "SEM-H11",
+      "SEM-H12",
+      "SEM-H13",
+      "SEM-H14",
+      "SEM-H15",
+      "SEM-H16",
+      "SEM-H17",
+      "SEM-H18",
+      "SEM-H19",
+      "SEM-H20",
+      "SEM-H21",
+      "SEM-H22",
+      "SEM-H23",
+      "SEM-H24",
+      "SEM-H25",
+      "SEM-H26",
+      "SEM-H27",
+      "SEM-H28",
+      "SEM-H29",
+      "SEM-H30"
+    ],
+    "corpusDigest": "ke1-08392b87b2cc140b",
+    "goldFrameDigest": "ke1-9208b3d2f1d0698e"
+  },
+  "provider": "GOOGLE_GEMINI",
+  "model": "gemini-3.5-flash-lite",
+  "temperature": null,
+  "versions": {
+    "reconstructionPrompt": "SEM-001-RECONSTRUCTION-1.6",
+    "criticPrompt": "SEM-001-CRITIC-1.6",
+    "semanticSchema": "SEM-001-1.1",
+    "canonicalModel": "1.1"
+  },
+  "prompts": {
+    "reconstruction": {
+      "version": "SEM-001-RECONSTRUCTION-1.6",
+      "digest": "ke1-a2f55612381ac9ee"
+    },
+    "critic": {
+      "version": "SEM-001-CRITIC-1.6",
+      "digest": "ke1-9ae6db2190a318f5"
+    },
+    "audit": {
+      "version": "SEM-001-ATOMIC-COMPOSITION-AUDIT-1.0",
+      "digest": "ke1-10b88664b49fca18"
+    }
+  },
+  "schemas": {
+    "providerBase": "ke1-c849778553bf38b1",
+    "providerAudit": "ke1-55cd50759595b451",
+    "internalAndCanonicalModel": "ke1-443905dedde8900a"
+  },
+  "implementation": {
+    "canonicalModelVersion": "1.1",
+    "acceptanceGuardsAndAtomicCompilerDigest": "ke1-c07cc22d8708c7c9",
+    "coverageAndIntegrityDigest": "ke1-9328caeb14ef9d17",
+    "relationOwnershipDigest": "ke1-be4b671a6518b696",
+    "providerContractDigest": "ke1-cdbd96350b88c6a1",
+    "canonicalizerDigest": "ke1-cf56d05755b2b05b",
+    "evaluatorDigest": "ke1-8066258bdfcc6c77",
+    "routingDigest": "ke1-d5e9fbdce07f0730"
+  },
+  "thresholds": {
+    "criticalSemanticRecall": {
+      "operator": ">=",
+      "value": 0.98
+    },
+    "explicitObjectRecall": {
+      "operator": ">=",
+      "value": 0.98
+    },
+    "explicitRelationRecall": {
+      "operator": ">=",
+      "value": 0.95
+    },
+    "comparatorPreservation": {
+      "operator": "=",
+      "value": 1
+    },
+    "interventionPreservation": {
+      "operator": "=",
+      "value": 1
+    },
+    "modalityPreservation": {
+      "operator": "=",
+      "value": 1
+    },
+    "criticalUnsupportedInferenceRate": {
+      "operator": "=",
+      "value": 0
+    },
+    "genericDomainCollapseRate": {
+      "operator": "=",
+      "value": 0
+    },
+    "correctionPropagationRate": {
+      "operator": "=",
+      "value": 1
+    },
+    "multiTurnCriticalContextLoss": {
+      "operator": "=",
+      "value": 0
+    }
+  },
+  "rateLimiter": {
+    "concurrency": 1,
+    "maximumStarts": 5,
+    "rollingWindowMs": 60000
+  },
+  "retryPolicy": {
+    "concurrency": 1,
+    "maxRequestStartsPerRollingMinute": 5,
+    "rollingWindowMs": 60000,
+    "maximumAttemptsPerLlmOperation": 5,
+    "transientWaitMs": 60000,
+    "retryAfterHasPriority": true,
+    "structuredCorrection": "FROZEN_PROVIDER_CONTRACT_ONLY",
+    "systemicCircuitBreaker": "3 independent exhausted operations with comparable provider failure"
+  },
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "noDevelopmentOutputReuse": true,
+  "callLlmOnlyIfRequired": true,
+  "compatibleCheckpointReuse": [
+    "SEM-H29"
+  ],
+  "governedNonExecutableCases": [
+    "SEM-H10",
+    "SEM-H17",
+    "SEM-H28",
+    "SEM-H30"
+  ],
+  "incompatibleHistoricalEvidenceExcluded": true,
+  "humanArbitrations": {
+    "source": "semantic-validation/sem-001r5b/human-arbitrations-and-gold-changes.json",
+    "digest": "ke1-8a2a7a505ea1e04c",
+    "decisionsDigest": "ke1-900fba5c2229f7f8",
+    "unresolvedLegacyMappings": [
+      "SEM-H10",
+      "SEM-H17",
+      "SEM-H28",
+      "SEM-H30"
+    ],
+    "ordinaryEngineFailureDisposition": "HUMAN_ARBITRATION_REQUIRED_IF_ACTIVE_CONTRADICTION_REAPPEARS"
+  },
+  "pd003V2Compliance": "NOT_CLAIMED"
+}

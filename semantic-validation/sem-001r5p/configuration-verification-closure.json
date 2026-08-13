@@ -1,0 +1,222 @@
+{
+  "campaign": "SEM-001R5P-CLOSURE",
+  "verifiedAt": "2026-08-13T10:29:37.615Z",
+  "decision": "R5P_CLOSURE_CONFIGURATION_VERIFIED",
+  "sourceFreeze": "semantic-validation/sem-001r5p/legacy-qualification-freeze-candidate.json",
+  "sourceFreezeDigest": "ke1-90680775e1152701",
+  "sourceH29Result": "semantic-validation/sem-001r5p/h29-result.json",
+  "sourceH29ResultDigest": "ke1-2ec91140002046d4",
+  "sourceHumanArbitrations": "semantic-validation/sem-001r5b/human-arbitrations-and-gold-changes.json",
+  "sourceHumanArbitrationsDigest": "ke1-8a2a7a505ea1e04c",
+  "provider": "GOOGLE_GEMINI",
+  "model": "gemini-3.5-flash-lite",
+  "configurationDigest": "ke1-2ac79d2f15fe20bb",
+  "semanticConfigurationDigest": "ke1-487f37f9fdb16ba5",
+  "currentDigests": {
+    "developmentCorpus": "ke1-64d654cfa041a563",
+    "developmentGold": "ke1-1006a72533caf7f9",
+    "holdoutCorpus": "ke1-08392b87b2cc140b",
+    "holdoutGold": "ke1-9208b3d2f1d0698e",
+    "reconstructionPrompt": "ke1-a2f55612381ac9ee",
+    "criticPrompt": "ke1-9ae6db2190a318f5",
+    "auditPrompt": "ke1-10b88664b49fca18",
+    "baseProviderSchema": "ke1-c849778553bf38b1",
+    "providerContract": "ke1-cdbd96350b88c6a1",
+    "auditProviderSchema": "ke1-55cd50759595b451",
+    "canonicalModel": "ke1-443905dedde8900a",
+    "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+    "canonicalizer": "ke1-bd23f485eaf7fe41",
+    "coverageAndIntegrity": "ke1-5c7aa4aa2fc1b87e",
+    "relationOwnership": "ke1-edad269e6159f872",
+    "evaluator": "ke1-8066258bdfcc6c77",
+    "routing": "ke1-110ef9ee008a482a"
+  },
+  "thresholdsDigest": "ke1-6d6317685c7f9cd4",
+  "checks": [
+    {
+      "contract": "Configuration name",
+      "expected": "SEM_LEGACY_R5P",
+      "observed": "SEM_LEGACY_R5P",
+      "pass": true
+    },
+    {
+      "contract": "Configuration digest",
+      "expected": "ke1-2ac79d2f15fe20bb",
+      "observed": "ke1-2ac79d2f15fe20bb",
+      "pass": true
+    },
+    {
+      "contract": "Freeze candidate",
+      "expected": "PROPOSED_NOT_ACTIVATED",
+      "observed": "PROPOSED_NOT_ACTIVATED",
+      "pass": true
+    },
+    {
+      "contract": "Provider",
+      "expected": "GOOGLE_GEMINI",
+      "observed": "GOOGLE_GEMINI",
+      "pass": true
+    },
+    {
+      "contract": "Model ID",
+      "expected": "gemini-3.5-flash-lite",
+      "observed": "gemini-3.5-flash-lite",
+      "pass": true
+    },
+    {
+      "contract": "Versions",
+      "expected": {
+        "reconstructionPrompt": "SEM-001-RECONSTRUCTION-1.6",
+        "criticPrompt": "SEM-001-CRITIC-1.6",
+        "semanticSchema": "SEM-001-1.1",
+        "canonicalModel": "1.1"
+      },
+      "observed": {
+        "reconstructionPrompt": "SEM-001-RECONSTRUCTION-1.6",
+        "criticPrompt": "SEM-001-CRITIC-1.6",
+        "semanticSchema": "SEM-001-1.1",
+        "canonicalModel": "1.1"
+      },
+      "pass": true
+    },
+    {
+      "contract": "H29 decision",
+      "expected": "H29_PASS",
+      "observed": "H29_PASS",
+      "pass": true
+    },
+    {
+      "contract": "H29 configuration",
+      "expected": "ke1-2ac79d2f15fe20bb",
+      "observed": "ke1-2ac79d2f15fe20bb",
+      "pass": true
+    },
+    {
+      "contract": "H29 blockers",
+      "expected": [],
+      "observed": [],
+      "pass": true
+    },
+    {
+      "contract": "Human arbitration set",
+      "expected": "ke1-900fba5c2229f7f8",
+      "observed": "ke1-900fba5c2229f7f8",
+      "pass": true
+    },
+    {
+      "contract": "Thresholds",
+      "expected": "ke1-6d6317685c7f9cd4",
+      "observed": "ke1-6d6317685c7f9cd4",
+      "pass": true
+    },
+    {
+      "contract": "Holdout identities",
+      "expected": 30,
+      "observed": 30,
+      "pass": true
+    },
+    {
+      "contract": "developmentCorpus",
+      "expected": "ke1-64d654cfa041a563",
+      "observed": "ke1-64d654cfa041a563",
+      "pass": true
+    },
+    {
+      "contract": "developmentGold",
+      "expected": "ke1-1006a72533caf7f9",
+      "observed": "ke1-1006a72533caf7f9",
+      "pass": true
+    },
+    {
+      "contract": "holdoutCorpus",
+      "expected": "ke1-08392b87b2cc140b",
+      "observed": "ke1-08392b87b2cc140b",
+      "pass": true
+    },
+    {
+      "contract": "holdoutGold",
+      "expected": "ke1-9208b3d2f1d0698e",
+      "observed": "ke1-9208b3d2f1d0698e",
+      "pass": true
+    },
+    {
+      "contract": "reconstructionPrompt",
+      "expected": "ke1-a2f55612381ac9ee",
+      "observed": "ke1-a2f55612381ac9ee",
+      "pass": true
+    },
+    {
+      "contract": "criticPrompt",
+      "expected": "ke1-9ae6db2190a318f5",
+      "observed": "ke1-9ae6db2190a318f5",
+      "pass": true
+    },
+    {
+      "contract": "auditPrompt",
+      "expected": "ke1-10b88664b49fca18",
+      "observed": "ke1-10b88664b49fca18",
+      "pass": true
+    },
+    {
+      "contract": "baseProviderSchema",
+      "expected": "ke1-c849778553bf38b1",
+      "observed": "ke1-c849778553bf38b1",
+      "pass": true
+    },
+    {
+      "contract": "providerContract",
+      "expected": "ke1-cdbd96350b88c6a1",
+      "observed": "ke1-cdbd96350b88c6a1",
+      "pass": true
+    },
+    {
+      "contract": "auditProviderSchema",
+      "expected": "ke1-55cd50759595b451",
+      "observed": "ke1-55cd50759595b451",
+      "pass": true
+    },
+    {
+      "contract": "canonicalModel",
+      "expected": "ke1-443905dedde8900a",
+      "observed": "ke1-443905dedde8900a",
+      "pass": true
+    },
+    {
+      "contract": "acceptanceGuards",
+      "expected": "ke1-c07cc22d8708c7c9",
+      "observed": "ke1-c07cc22d8708c7c9",
+      "pass": true
+    },
+    {
+      "contract": "canonicalizer",
+      "expected": "ke1-bd23f485eaf7fe41",
+      "observed": "ke1-bd23f485eaf7fe41",
+      "pass": true
+    },
+    {
+      "contract": "coverageAndIntegrity",
+      "expected": "ke1-5c7aa4aa2fc1b87e",
+      "observed": "ke1-5c7aa4aa2fc1b87e",
+      "pass": true
+    },
+    {
+      "contract": "relationOwnership",
+      "expected": "ke1-edad269e6159f872",
+      "observed": "ke1-edad269e6159f872",
+      "pass": true
+    },
+    {
+      "contract": "evaluator",
+      "expected": "ke1-8066258bdfcc6c77",
+      "observed": "ke1-8066258bdfcc6c77",
+      "pass": true
+    },
+    {
+      "contract": "routing",
+      "expected": "ke1-110ef9ee008a482a",
+      "observed": "ke1-110ef9ee008a482a",
+      "pass": true
+    }
+  ],
+  "goldAccessBoundary": "DIGESTS_VERIFIED_BEFORE_PROVIDER; GOLD CONTENT USED ONLY BY POST_CANONICAL_EVALUATOR"
+}

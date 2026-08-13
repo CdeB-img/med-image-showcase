@@ -1,0 +1,32 @@
+{
+  "campaign": "SEM-001R5L-CLOSURE",
+  "campaignId": "sem-001r5l-closure-2026-08-13T09-09-28-906Z-ke1-391a23dcb99dc470",
+  "caseId": "SEM-H10",
+  "split": "HOLDOUT",
+  "configurationDigest": "ke1-391a23dcb99dc470",
+  "semanticConfigurationDigest": "ke1-410eaaec72fd1768",
+  "goldFrameDigest": "ke1-e536b7eeef013faa",
+  "originalRequest": [
+    "Après exercice, phosphore 31P et BOLD musculaire; voir récupération énergétique."
+  ],
+  "goldUse": "NOT_EVALUATED_GOVERNED_LEGACY_MAPPING_EXCLUSION",
+  "finalStatus": "UNRESOLVED_BY_LEGACY_MODEL",
+  "startedAt": null,
+  "completedAt": "2026-08-13T09:09:28.906Z",
+  "turns": [],
+  "operationTraces": [],
+  "semanticModel": null,
+  "semanticModelDigest": null,
+  "coverageReports": null,
+  "evaluation": null,
+  "metric": null,
+  "governedDisposition": {
+    "authority": "semantic-validation/sem-001r5b/human-arbitrations-and-gold-changes.json",
+    "decisionsDigest": "ke1-900fba5c2229f7f8",
+    "classification": "UNRESOLVED_BY_LEGACY_MODEL",
+    "engineFailure": false,
+    "qualificationDenominator": "EXCLUDED_BEFORE_EXECUTION",
+    "pd003V2Compliance": "NOT_CLAIMED"
+  },
+  "error": null
+}

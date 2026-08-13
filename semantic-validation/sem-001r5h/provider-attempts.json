@@ -1,0 +1,169 @@
+{
+  "campaign": "SEM-001R5H",
+  "configurationName": "SEM_LEGACY_R5H",
+  "configurationDigest": "ke1-47ec8722a8d10fc6",
+  "provider": "GOOGLE_GEMINI",
+  "model": "gemini-3.5-flash-lite",
+  "policy": {
+    "concurrency": 1,
+    "maximumStartsPerRollingMinute": 5,
+    "maximumAttemptsPerOperation": 5,
+    "transientWaitMs": 60000
+  },
+  "attempts": [
+    {
+      "caseId": "SEM-H29",
+      "stage": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "operation": 1,
+      "operationAttempt": 1,
+      "requestStart": 1,
+      "startedAt": "2026-08-13T08:33:40.266Z",
+      "completedAt": "2026-08-13T08:33:46.643Z",
+      "providerStatus": null,
+      "httpStatus": 200,
+      "providerErrorCode": null,
+      "category": null,
+      "waitDuration": 0,
+      "finalDisposition": "STRUCTURED_REGENERATION",
+      "rawArtifact": "semantic-validation/sem-001r5h/raw-provider-responses/001-SEM-H29-reconstruction-t1-c0.json"
+    },
+    {
+      "caseId": "SEM-H29",
+      "stage": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "operation": 1,
+      "operationAttempt": 1,
+      "requestStart": 2,
+      "startedAt": "2026-08-13T08:33:46.646Z",
+      "completedAt": "2026-08-13T08:33:52.532Z",
+      "providerStatus": null,
+      "httpStatus": 200,
+      "providerErrorCode": null,
+      "category": null,
+      "waitDuration": 0,
+      "finalDisposition": "SUCCESS",
+      "rawArtifact": "semantic-validation/sem-001r5h/raw-provider-responses/002-SEM-H29-reconstruction-t1-c0.json"
+    },
+    {
+      "caseId": "SEM-H29",
+      "stage": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "operation": 2,
+      "operationAttempt": 1,
+      "requestStart": 1,
+      "startedAt": "2026-08-13T08:33:52.542Z",
+      "completedAt": "2026-08-13T08:33:56.830Z",
+      "providerStatus": null,
+      "httpStatus": 200,
+      "providerErrorCode": null,
+      "category": null,
+      "waitDuration": 0,
+      "finalDisposition": "SUCCESS",
+      "rawArtifact": "semantic-validation/sem-001r5h/raw-provider-responses/003-SEM-H29-critic-t1-c1.json"
+    },
+    {
+      "caseId": "SEM-H29",
+      "stage": "CRITIC",
+      "turn": 1,
+      "cycle": 2,
+      "operation": 3,
+      "operationAttempt": 1,
+      "requestStart": 1,
+      "startedAt": "2026-08-13T08:33:56.837Z",
+      "completedAt": "2026-08-13T08:34:00.302Z",
+      "providerStatus": null,
+      "httpStatus": 200,
+      "providerErrorCode": null,
+      "category": null,
+      "waitDuration": 0,
+      "finalDisposition": "SUCCESS",
+      "rawArtifact": "semantic-validation/sem-001r5h/raw-provider-responses/004-SEM-H29-critic-t1-c2.json"
+    },
+    {
+      "caseId": "SEM-H29",
+      "stage": "RECONSTRUCTION",
+      "turn": 2,
+      "cycle": null,
+      "operation": 4,
+      "operationAttempt": 1,
+      "requestStart": 1,
+      "startedAt": "2026-08-13T08:34:00.320Z",
+      "completedAt": "2026-08-13T08:34:07.400Z",
+      "providerStatus": null,
+      "httpStatus": 200,
+      "providerErrorCode": null,
+      "category": null,
+      "waitDuration": 0,
+      "finalDisposition": "STRUCTURED_REGENERATION",
+      "rawArtifact": "semantic-validation/sem-001r5h/raw-provider-responses/005-SEM-H29-reconstruction-t2-c0.json"
+    },
+    {
+      "caseId": "SEM-H29",
+      "stage": "RECONSTRUCTION",
+      "turn": 2,
+      "cycle": null,
+      "operation": 4,
+      "operationAttempt": 1,
+      "requestStart": 2,
+      "startedAt": "2026-08-13T08:34:40.768Z",
+      "completedAt": "2026-08-13T08:34:47.340Z",
+      "providerStatus": null,
+      "httpStatus": 200,
+      "providerErrorCode": null,
+      "category": null,
+      "waitDuration": 0,
+      "finalDisposition": "STRUCTURED_REGENERATION",
+      "rawArtifact": "semantic-validation/sem-001r5h/raw-provider-responses/006-SEM-H29-reconstruction-t2-c0.json"
+    },
+    {
+      "caseId": "SEM-H29",
+      "stage": "RECONSTRUCTION",
+      "turn": 2,
+      "cycle": null,
+      "operation": 4,
+      "operationAttempt": 1,
+      "requestStart": 3,
+      "startedAt": "2026-08-13T08:34:47.343Z",
+      "completedAt": "2026-08-13T08:34:54.713Z",
+      "providerStatus": null,
+      "httpStatus": 200,
+      "providerErrorCode": null,
+      "category": "INVALID_STRUCTURED_OUTPUT",
+      "waitDuration": 0,
+      "finalDisposition": "STRUCTURED_OUTPUT_FAILURE",
+      "rawArtifact": "semantic-validation/sem-001r5h/raw-provider-responses/007-SEM-H29-reconstruction-t2-c0.json"
+    }
+  ],
+  "structuredOutputIncidents": [
+    {
+      "caseId": "SEM-H29",
+      "stage": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "disposition": "RECOVERED_BY_BOUNDED_STRUCTURED_REGENERATION",
+      "requestStarts": 2
+    },
+    {
+      "caseId": "SEM-H29",
+      "stage": "RECONSTRUCTION",
+      "turn": 2,
+      "cycle": null,
+      "disposition": "FAILED_AFTER_BOUNDED_STRUCTURED_REGENERATION",
+      "diagnostic": {
+        "rawProviderOutput": "{\n  \"candidateId\": \"cand-ke1-final-01\",\n  \"language\": \"fr\",\n  \"normalizedMeaning\": \"Comparison of MRI and spectral CT modalities for assessing tumor response at three months, with PET removed.\",\n  \"summaryForUser\": \"Mise à jour du projet pour conserver l'IRM, retirer le PET et ajouter le CT spectral pour l'évaluation de la réponse tumorale à trois mois.\",\n  \"semanticInventory\": {\n    \"explicitFragments\": [\n      {\n        \"inventoryItemId\": \"inv-1\",\n        \"sourceMessageId\": \"SEM-H29:user:1\",\n        \"sourceText\": \"Comparer\",\n        \"normalizedLabel\": \"Comparer\",\n        \"localRole\": \"action\",\n        \"polarity\": \"AFFIRMED\",\n        \"modifiers\": [],\n        \"linkedInventoryItemIds\": []\n      },\n      {\n        \"inventoryItemId\": \"inv-2\",\n        \"sourceMessageId\": \"SEM-H29:user:1\",\n        \"sourceText\": \"PET\",\n        \"normalizedLabel\": \"PET\",\n        \"localRole\": \"modality\",\n        \"polarity\": \"AFFIRMED\",\n        \"modifiers\": [],\n        \"linkedInventoryItemIds\": []\n      },\n      {\n        \"inventoryItemId\": \"inv-3\",\n        \"sourceMessageId\": \"SEM-H29:user:1\",\n        \"sourceText\": \"IRM\",\n        \"normalizedLabel\": \"IRM\",\n        \"localRole\": \"modality\",\n        \"polarity\": \"AFFIRMED\",\n        \"modifiers\": [],\n        \"linkedInventoryItemIds\": []\n      },\n      {\n        \"inventoryItemId\": \"inv-4\",\n        \"sourceMessageId\": \"SEM-H29:user:1\",\n        \"sourceText\": \"réponse tumorale\",\n        \"normalizedLabel\": \"réponse tumorale\",\n        \"localRole\": \"outcome\",\n        \"polarity\": \"AFFIRMED\",\n        \"modifiers\": [],\n        \"linkedInventoryItemIds\": []\n      },\n      {\n        \"inventoryItemId\": \"inv-5\",\n        \"sourceMessageId\": \"SEM-H29:user:1\",\n        \"sourceText\": \"trois mois\",\n        \"normalizedLabel\": \"trois mois\",\n        \"localRole\": \"timing\",\n        \"polarity\": \"AFFIRMED\",\n        \"modifiers\": [],\n        \"linkedInventoryItemIds\": []\n      },\n      {\n        \"inventoryItemId\": \"inv-6\",\n        \"sourceMessageId\": \"SEM-H29:user:2\",\n        \"sourceText\": \"IRM\",\n        \"normalizedLabel\": \"IRM\",\n        \"localRole\": \"modality\",\n        \"polarity\": \"AFFIRMED\",\n        \"modifiers\": [],\n        \"linkedInventoryItemIds\": [\"inv-3\"]\n      },\n      {\n        \"inventoryItemId\": \"inv-7\",\n        \"sourceMessageId\": \"SEM-H29:user:2\",\n        \"sourceText\": \"PET\",\n        \"normalizedLabel\": \"PET\",\n        \"localRole\": \"modality\",\n        \"polarity\": \"NEGATED\",\n        \"modifiers\": [],\n        \"linkedInventoryItemIds\": [\"inv-2\"]\n      },\n      {\n        \"inventoryItemId\": \"inv-8\",\n        \"sourceMessageId\": \"SEM-H29:user:2\",\n        \"sourceText\": \"CT spectral\",\n        \"normalizedLabel\": \"CT spectral\",\n        \"localRole\": \"modality\",\n        \"polarity\": \"AFFIRMED\",\n        \"modifiers\": [],\n        \"linkedInventoryItemIds\": []\n      }\n    ],\n    \"explicitRelations\": [\n      {\n        \"inventoryRelationId\": \"rel-inv-1\",\n        \"sourceInventoryItemId\": \"inv-2\",\n        \"targetInventoryItemId\": \"inv-3\",\n        \"sourceMessageId\": \"SEM-H29:user:1\",\n        \"sourceText\": \"PET et IRM\",\n        \"normalizedRelation\": \"COMPARES_WITH\",\n        \"polarity\": \"AFFIRMED\"\n      },\n      {\n        \"inventoryRelationId\": \"rel-inv-2\",\n        \"sourceInventoryItemId\": \"inv-1\",\n        \"targetInventoryItemId\": \"inv-4\",\n        \"sourceMessageId\": \"SEM-H29:user:1\",\n        \"sourceText\": \"Comparer PET et IRM pour la réponse tumorale\",\n        \"normalizedRelation\": \"COMPARE_FOR\",\n        \"polarity\": \"AFFIRMED\"\n      },\n      {\n        \"inventoryRelationId\": \"rel-inv-3\",\n        \"sourceInventoryItemId\": \"inv-4\",\n        \"targetInventoryItemId\": \"inv-5\",\n        \"sourceMessageId\": \"SEM-H29:user:1\",\n        \"sourceText\": \"réponse tumorale à trois mois\",\n        \"normalizedRelation\": \"REPEATED_AT\",\n        \"polarity\": \"AFFIRMED\"\n      },\n      {\n        \"inventoryRelationId\": \"rel-inv-4\",\n        \"sourceInventoryItemId\": \"inv-7\",\n        \"targetInventoryItemId\": \"inv-3\",\n        \"sourceMessageId\": \"SEM-H29:user:2\",\n        \"sourceText\": \"gardez l'IRM, mais le PET n'est plus dans le projet\",\n        \"normalizedRelation\": \"DISTINGUISHED_FROM\",\n        \"polarity\": \"NEGATED\"\n      },\n      {\n        \"inventoryRelationId\": \"rel-inv-5\",\n        \"sourceInventoryItemId\": \"inv-8\",\n        \"targetInventoryItemId\": \"inv-3\",\n        \"sourceMessageId\": \"SEM-H29:user:2\",\n        \"sourceText\": \"gardez l'IRM ... ajoutez le CT spectral\",\n        \"normalizedRelation\": \"COMPARES_WITH\",\n        \"polarity\": \"AFFIRMED\"\n      }\n    ]\n  },\n  \"elements\": [\n    {\n      \"clientElementId\": \"elem-ke1-op-1\",\n      \"type\": \"OPERATION\",\n      \"canonicalMeaning\": \"Comparison operation\",\n      \"studyRole\": \"NONE\",\n      \"polarity\": \"AFFIRMED\",\n      \"inventoryItemIds\": [\"inv-1\"],\n      \"sourceMessageId\": \"SEM-H29:user:1\",\n      \"sourceText\": \"Comparer\",\n      \"epistemicStatus\": \"EXPLICIT_USER_STATED\",\n      \"confidence\": 1,\n      \"inferenceReason\": null,\n      \"requiresConfirmation\": false,\n      \"supersedesElementIds\": []\n    },\n    {\n      \"clientElementId\": \"elem-ke1-mod-mri\",\n      \"type\": \"MODALITY\",\n      \"canonicalMeaning\": \"Magnetic Resonance Imaging\",\n      \"studyRole\": \"COMPARATOR_ARM\",\n      \"polarity\": \"AFFIRMED\",\n      \"inventoryItemIds\": [\"inv-3\", \"inv-6\"],\n      \"sourceMessageId\": \"SEM-H29:user:2\",\n      \"sourceText\": \"IRM\",\n      \"epistemicStatus\": \"EXPLICIT_USER_STATED\",\n      \"confidence\": 1,\n      \"inferenceReason\": null,\n      \"requiresConfirmation\": false,\n      \"supersedesElementIds\": [\"sem-element:ke1-3944579344f8e407\"]\n    },\n    {\n      \"clientElementId\": \"elem-ke1-mod-pet\",\n      \"type\": \"MODALITY\",\n      \"canonicalMeaning\": \"Positron Emission Tomography\",\n      \"studyRole\": \"COMPARATOR_ARM\",\n      \"polarity\": \"NEGATED\",\n      \"inventoryItemIds\": [\"inv-2\", \"inv-7\"],\n      \"sourceMessageId\": \"SEM-H29:user:2\",\n      \"sourceText\": \"PET\",\n      \"epistemicStatus\": \"EXPLICIT_USER_STATED\",\n      \"confidence\": 1,\n      \"inferenceReason\": null,\n      \"requiresConfirmation\": false,\n      \"supersedesElementIds\": [\"sem-element:ke1-812f58fa223c75be\"]\n    },\n    {\n      \"clientElementId\": \"elem-ke1-mod-ct\",\n      \"type\": \"MODALITY\",\n      \"canonicalMeaning\": \"Spectral Computed Tomography\",\n      \"studyRole\": \"COMPARATOR_ARM\",\n      \"polarity\": \"AFFIRMED\",\n      \"inventoryItemIds\": [\"inv-8\"],\n      \"sourceMessageId\": \"SEM-H29:user:2\",\n      \"sourceText\": \"CT spectral\",\n      \"epistemicStatus\": \"EXPLICIT_USER_STATED\",\n      \"confidence\": 1,\n      \"inferenceReason\": null,\n      \"requiresConfirmation\": false,\n      \"supersedesElementIds\": []\n    },\n    {\n      \"clientElementId\": \"elem-ke1-out-tumor\",\n      \"type\": \"OUTCOME\",\n      \"canonicalMeaning\": \"Tumor response\",\n      \"studyRole\": \"OUTCOME_ROLE\",\n      \"polarity\": \"AFFIRMED\",\n      \"inventoryItemIds\": [\"inv-4\"],\n      \"sourceMessageId\": \"SEM-H29:user:1\",\n      \"sourceText\": \"réponse tumorale\",\n      \"epistemicStatus\": \"EXPLICIT_USER_STATED\",\n      \"confidence\": 1,\n      \"inferenceReason\": null,\n      \"requiresConfirmation\": false,\n      \"supersedesElementIds\": [\"sem-element:ke1-4f979aa8ee21c07c\"]\n    },\n    {\n      \"clientElementId\": \"elem-ke1-tim-3m\",\n      \"type\": \"TIMING\",\n      \"canonicalMeaning\": \"Three months\",\n      \"studyRole\": \"NONE\",\n      \"polarity\": \"AFFIRMED\",\n      \"inventoryItemIds\": [\"inv-5\"],\n      \"sourceMessageId\": \"SEM-H29:user:1\",\n      \"sourceText\": \"trois mois\",\n      \"epistemicStatus\": \"EXPLICIT_USER_STATED\",\n      \"confidence\": 1,\n      \"inferenceReason\": null,\n      \"requiresConfirmation\": false,\n      \"supersedesElementIds\": [\"sem-element:ke1-7ceb5c716774f105\"]\n    }\n  ],\n  \"relations\": [\n    {\n      \"clientRelationId\": \"rel-ke1-comp-ct-mri\",\n      \"sourceClientElementId\": \"elem-ke1-mod-ct\",\n      \"targetClientElementId\": \"elem-ke1-mod-mri\",\n      \"relationType\": \"COMPARES_WITH\",\n      \"polarity\": \"AFFIRMED\",\n      \"inventoryRelationIds\": [\"rel-inv-5\"],\n      \"epistemicStatus\": \"EXPLICIT_USER_STATED\",\n      \"confidence\": 1,\n      \"inferenceReason\": null,\n      \"requiresConfirmation\": false\n    },\n    {\n      \"clientRelationId\": \"rel-ke1-op-out\",\n      \"sourceClientElementId\": \"elem-ke1-op-1\",\n      \"targetClientElementId\": \"elem-ke1-out-tumor\",\n      \"relationType\": \"COMPARE_FOR\",\n      \"polarity\": \"AFFIRMED\",\n      \"inventoryRelationIds\": [\"rel-inv-2\"],\n      \"epistemicStatus\": \"EXPLICIT_USER_STATED\",\n      \"confidence\": 1,\n      \"inferenceReason\": null,\n      \"requiresConfirmation\": false\n    },\n    {\n      \"clientRelationId\": \"rel-ke1-out-tim\",\n      \"sourceClientElementId\": \"elem-ke1-out-tumor\",\n      \"targetClientElementId\": \"elem-ke1-tim-3m\",\n      \"relationType\": \"REPEATED_AT\",\n      \"polarity\": \"AFFIRMED\",\n      \"inventoryRelationIds\": [\"rel-inv-3\"],\n      \"epistemicStatus\": \"EXPLICIT_USER_STATED\",\n      \"confidence\": 1,\n      \"inferenceReason\": null,\n      \"requiresConfirmation\": false\n    }\n  ],\n  \"missingConcepts\": [],\n  \"ellipses\": [],\n  \"ambiguities\": [],\n  \"unknowns\": [],\n  \"contradictions\": [],\n  \"knowledgeRequests\": [],\n  \"clarificationCandidates\": [],\n  \"routeProposal\": {\n    \"route\": \"DESIGN_STUDY\",\n    \"confidence\": 1,\n    \"reason\": \"The user is actively designing a comparative imaging study, specifying arms, modalities, outcome, and timing.\",\n    \"expectedCapabilities\": [\n      \"Define study arms\",\n      \"Configure assessment timing\",\n      \"Manage protocol modalities\"\n    ]\n  },\n  \"semanticWarnings\": []\n}",
+        "validationIssues": [
+          {
+            "path": "sourceGrounding.0",
+            "code": "INVENTORY_RELATION_SOURCE_NOT_CONTIGUOUS",
+            "message": "Every explicit inventory relation must quote one exact contiguous clause from its declared USER message."
+          }
+        ]
+      }
+    }
+  ],
+  "noSecretsStored": true
+}

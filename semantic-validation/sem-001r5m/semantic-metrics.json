@@ -1,0 +1,10 @@
+{
+  "campaign": "SEM-001R5M-CLOSURE",
+  "campaignId": "sem-001r5m-closure-2026-08-13T09-40-35-104Z-ke1-ac75ad8a4d6f2326",
+  "status": "NOT_CALCULATED",
+  "reason": "REQUIRES_26_OF_26_ASSESSABLE_COMPLETE",
+  "evaluatedComplete": 21,
+  "evaluatedRequired": 26,
+  "governedUnresolved": 4,
+  "total": 30
+}

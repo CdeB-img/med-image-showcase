@@ -1,0 +1,3084 @@
+{
+  "campaign": "SEM-001R5N-CLOSURE",
+  "campaignId": "sem-001r5n-closure-2026-08-13T10-04-53-978Z-ke1-dddaa50feb99591b",
+  "caseId": "SEM-H24",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-dddaa50feb99591b",
+  "semanticConfigurationDigest": "ke1-845f98f9c02a2a8d",
+  "goldFrameDigest": "ke1-57fb269bebbd2397",
+  "originalRequest": [
+    "Placenta IVIM et T2*, relation avec croissance fœtale, mais aucune injection."
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-13T10:15:46.334Z",
+  "completedAt": "2026-08-13T10:16:39.376Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H24:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Étude de la relation entre l'IVIM placentaire et le T2* et la croissance fœtale, en excluant toute injection de produit de contraste.",
+        "summaryForUser": "Analyse de la relation entre l'IVIM et le T2* du placenta et la croissance fœtale, sans injection.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H24:user:1",
+              "sourceText": "Placenta",
+              "normalizedLabel": "placenta",
+              "localRole": "anatomical location",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H24:user:1",
+              "sourceText": "IVIM",
+              "normalizedLabel": "IVIM",
+              "localRole": "method/biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-1"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H24:user:1",
+              "sourceText": "T2*",
+              "normalizedLabel": "T2*",
+              "localRole": "biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-1"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H24:user:1",
+              "sourceText": "relation",
+              "normalizedLabel": "relation",
+              "localRole": "association",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-2",
+                "inv-3"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H24:user:1",
+              "sourceText": "croissance fœtale",
+              "normalizedLabel": "croissance fœtale",
+              "localRole": "outcome",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-6",
+              "sourceMessageId": "SEM-H24:user:1",
+              "sourceText": "aucune injection",
+              "normalizedLabel": "aucune injection",
+              "localRole": "constraint",
+              "polarity": "NEGATED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H24:user:1",
+              "sourceText": "Placenta IVIM et T2*, relation avec croissance fœtale, mais aucune injection.",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H24:user:1",
+              "sourceText": "T2*, relation avec croissance fœtale",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-3",
+              "sourceInventoryItemId": "inv-6",
+              "targetInventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H24:user:1",
+              "sourceText": "Placenta IVIM et T2*, relation avec croissance fœtale, mais aucune injection.",
+              "normalizedRelation": "EXCLUDES",
+              "polarity": "NEGATED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "ANATOMICAL_CONTEXT",
+            "canonicalMeaning": "Placenta",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceMessageId": "SEM-H24:user:1",
+            "sourceText": "Placenta",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "METHOD",
+            "canonicalMeaning": "IVIM MRI acquisition",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceMessageId": "SEM-H24:user:1",
+            "sourceText": "IVIM",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "T2* magnetic resonance parameter",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceMessageId": "SEM-H24:user:1",
+            "sourceText": "T2*",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-4",
+            "type": "OUTCOME",
+            "canonicalMeaning": "Fetal growth",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-5"
+            ],
+            "sourceMessageId": "SEM-H24:user:1",
+            "sourceText": "croissance fœtale",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-5",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "No contrast injection",
+            "studyRole": "NONE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv-6"
+            ],
+            "sourceMessageId": "SEM-H24:user:1",
+            "sourceText": "aucune injection",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-elem-1",
+            "sourceClientElementId": "elem-2",
+            "targetClientElementId": "elem-4",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-2",
+            "sourceClientElementId": "elem-3",
+            "targetClientElementId": "elem-4",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-3",
+            "sourceClientElementId": "elem-5",
+            "targetClientElementId": "elem-2",
+            "relationType": "EXCLUDES",
+            "polarity": "NEGATED",
+            "inventoryRelationIds": [
+              "rel-3"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "The user is outlining variables, methods, and constraints for a study involving placenta imaging and fetal growth.",
+          "expectedCapabilities": [
+            "Define study protocol parameters",
+            "Specify analysis plan"
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:2"
+        ]
+      },
+      "reconstructionDigest": "ke1-a28a1fc1f79eda4d",
+      "critics": [
+        {
+          "criticId": "critic-SEM-H24-01",
+          "verdict": "REVISE",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Placenta, IVIM, T2*, and croissance fœtale are all represented."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is specified."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No active intervention is specified."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "IVIM and T2* capture the MRI modalities/methods."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit relations are mapped."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Types conform to taxonomy rules."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Relations are preserved correctly."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unauthorized inferences promoted."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Ambiguities are explicitly documented."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "'aucune injection' is correctly mapped as a negative constraint."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No timing specified."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Fetal growth remains an outcome."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific terms are preserved."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "FAIL",
+              "evidence": "Fragment inv-4 ('relation') is unmapped in the explicit coverage report."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY correctly matches the study design request."
+            }
+          ],
+          "missingExplicitSourceFragments": [
+            {
+              "sourceMessageId": "SEM-H24:user:1",
+              "sourceText": "relation",
+              "normalizedMeaning": "relation",
+              "reason": "The explicit fragment 'relation' is present in the inventory but unmapped in the candidate elements.",
+              "suggestedLocalRole": "association",
+              "confidence": 1
+            }
+          ],
+          "issues": [
+            {
+              "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+              "severity": "WARNING",
+              "elementClientIds": [],
+              "description": "Fragment inv-4 ('relation') is unresolved in explicit coverage.",
+              "recommendedAction": "Map relation fragment or link elements directly via explicit semantic relation.",
+              "resolved": false
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "repairId": "rep-1",
+              "action": "UPSERT_ELEMENT",
+              "reason": "Ensure the explicit relation fragment 'relation' is represented as a structural semantic intent or relational link.",
+              "sourceInventoryItemIds": [
+                "inv-4"
+              ],
+              "sourceInventoryRelationIds": [],
+              "inventoryItemId": "inv-4",
+              "inventorySourceMessageId": "SEM-H24:user:1",
+              "inventorySourceText": "relation",
+              "inventoryNormalizedLabel": "relation",
+              "inventoryLocalRole": "association",
+              "inventoryPolarity": "AFFIRMED",
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [
+                "inv-2",
+                "inv-3"
+              ],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": "elem-6",
+              "elementType": "SCIENTIFIC_INTENT",
+              "elementCanonicalMeaning": "Association study",
+              "elementStudyRole": "NONE",
+              "elementPolarity": "AFFIRMED",
+              "elementInventoryItemIds": [
+                "inv-4"
+              ],
+              "elementSourceMessageId": "SEM-H24:user:1",
+              "elementSourceText": "relation",
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementConfidence": 1,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": false,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "relationPolarity": null,
+              "relationInventoryRelationIds": [],
+              "relationEpistemicStatus": null,
+              "relationConfidence": null,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": null,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            }
+          ],
+          "criticSummary": "The inventory contains an unmapped fragment 'relation' (inv-4). A repair is proposed to map this fragment as a SCIENTIFIC_INTENT element to ensure complete explicit fragment coverage."
+        },
+        {
+          "criticId": "critic-001",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit source objects (Placenta, IVIM, T2*, croissance fœtale, aucune injection, relation) are fully represented in the inventory and typed model."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is present in the source message."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "No active intervention arm is present, and constraints are correctly captured."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "MRI-related acquisition aspects are appropriately typed."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All inventory relations are mapped correctly to model relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All types adhere strictly to the operational taxonomy."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations are preserved without weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unjustified inferences have been promoted to explicit status."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "The missing quantitative variable for IVIM is correctly retained as ambiguity."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Negative constraint 'aucune injection' is correctly represented with NEGATED polarity."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit timing constraint is present in the source."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Fetal growth remains an OUTCOME without unsupported endpoint promotion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts such as IVIM and T2* are retained faithfully."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No source fragment is unrepresented."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY is completely consistent with the variables and study parameters provided."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The semantic model and typed candidate are fully aligned with the source text. All objects, relations, and constraints are accurately mapped, typed, and routed without any critical issues."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [
+        {
+          "repairId": "rep-1",
+          "status": "ACCEPTED",
+          "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+        }
+      ],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-f248132f6093308b",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "Placenta IVIM et T2*, relation avec croissance fœtale, mais aucune injection.",
+        "normalizedMeaning": "Étude de la relation entre l'IVIM placentaire et le T2* et la croissance fœtale, en excluant toute injection de produit de contraste.",
+        "conversationMessageIds": [
+          "SEM-H24:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-2463ab959c427e99",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "T2* magnetic resonance parameter",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H24:user:1",
+              "text": "T2*",
+              "start": 17,
+              "end": 20
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-b3dec302174d9aa6"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "SUPPORTED",
+              "resultRef": "knowledge-result:ke1-c90b9541c0c64d3d",
+              "assertionRefs": [
+                "RB-004:v1.1:block:1:ke1-e39816a6bdc6356a",
+                "RB-004:v1.1:block:10:ke1-f5d808a0c27812a4",
+                "RB-004:v1.1:block:11:ke1-660fe893123efedf",
+                "RB-004:v1.1:block:12:ke1-4b093dc51508ad01",
+                "RB-004:v1.1:block:13:ke1-b823cbd4b7316c50",
+                "RB-004:v1.1:block:14:ke1-3dd28cef8bb9003b",
+                "RB-004:v1.1:block:15:ke1-593b6ff0f373f344",
+                "RB-004:v1.1:block:16:ke1-795caa8bc49b57c7",
+                "RB-004:v1.1:block:17:ke1-b0f815cb8f1c773f",
+                "RB-004:v1.1:block:18:ke1-5a8000fced8f23a8",
+                "RB-004:v1.1:block:2:ke1-8fb56766b011127a",
+                "RB-004:v1.1:block:3:ke1-caed666c73f1b230",
+                "RB-004:v1.1:block:4:ke1-a3e762d90a2309bd",
+                "RB-004:v1.1:block:5:ke1-b92d8f8738854273",
+                "RB-004:v1.1:block:6:ke1-5d646824a19d5f88",
+                "RB-004:v1.1:block:7:ke1-ecc539bec6136d82",
+                "RB-004:v1.1:block:8:ke1-c5e1465f566a604b",
+                "RB-004:v1.1:block:9:ke1-58a432651f80bb01"
+              ],
+              "gapRefs": [],
+              "checkedAt": "2026-08-13T10:16:39.374Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H24:user:1",
+              "providerCallId": "gemini-call:ke1-57140e2c0055d658",
+              "rawElementId": "elem-3"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-64741bf72e3d8223",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "No contrast injection",
+            "studyRole": "NONE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv-6"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H24:user:1",
+              "text": "aucune injection",
+              "start": 60,
+              "end": 76
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-ffcaa09397c982f7"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H24:user:1",
+              "providerCallId": "gemini-call:ke1-57140e2c0055d658",
+              "rawElementId": "elem-5"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-68dc0779a2056afd",
+            "type": "METHOD",
+            "canonicalMeaning": "IVIM MRI acquisition",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H24:user:1",
+              "text": "IVIM",
+              "start": 9,
+              "end": 13
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-92d5cb61bbc16d1d",
+              "sem-relation:ke1-ffcaa09397c982f7"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H24:user:1",
+              "providerCallId": "gemini-call:ke1-57140e2c0055d658",
+              "rawElementId": "elem-2"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-aa54bada2568f19e",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Association study",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H24:user:1",
+              "text": "relation",
+              "start": 22,
+              "end": 30
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H24:user:1",
+              "providerCallId": "gemini-call:ke1-57140e2c0055d658",
+              "rawElementId": "elem-6"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-bc4cc6d7f5505edb",
+            "type": "ANATOMICAL_CONTEXT",
+            "canonicalMeaning": "Placenta",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H24:user:1",
+              "text": "Placenta",
+              "start": 0,
+              "end": 8
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H24:user:1",
+              "providerCallId": "gemini-call:ke1-57140e2c0055d658",
+              "rawElementId": "elem-1"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-f19d9a551b80ffb9",
+            "type": "OUTCOME",
+            "canonicalMeaning": "Fetal growth",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-5"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H24:user:1",
+              "text": "croissance fœtale",
+              "start": 36,
+              "end": 53
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-92d5cb61bbc16d1d",
+              "sem-relation:ke1-b3dec302174d9aa6"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H24:user:1",
+              "providerCallId": "gemini-call:ke1-57140e2c0055d658",
+              "rawElementId": "elem-4"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-92d5cb61bbc16d1d",
+            "sourceElementId": "sem-element:ke1-68dc0779a2056afd",
+            "targetElementId": "sem-element:ke1-f19d9a551b80ffb9",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-1"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-b3dec302174d9aa6",
+            "sourceElementId": "sem-element:ke1-2463ab959c427e99",
+            "targetElementId": "sem-element:ke1-f19d9a551b80ffb9",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-ffcaa09397c982f7",
+            "sourceElementId": "sem-element:ke1-64741bf72e3d8223",
+            "targetElementId": "sem-element:ke1-68dc0779a2056afd",
+            "relationType": "EXCLUDES",
+            "polarity": "NEGATED",
+            "inventoryRelationIds": [
+              "rel-3"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H24:user:1",
+              "sourceText": "Placenta",
+              "normalizedMeaning": "placenta",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H24:user:1",
+              "sourceText": "IVIM",
+              "normalizedMeaning": "IVIM",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H24:user:1",
+              "sourceText": "T2*",
+              "normalizedMeaning": "T2*",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H24:user:1",
+              "sourceText": "relation",
+              "normalizedMeaning": "relation",
+              "mappedClientElementIds": [
+                "elem-6"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H24:user:1",
+              "sourceText": "croissance fœtale",
+              "normalizedMeaning": "croissance fœtale",
+              "mappedClientElementIds": [
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-6",
+              "sourceMessageId": "SEM-H24:user:1",
+              "sourceText": "aucune injection",
+              "normalizedMeaning": "aucune injection",
+              "mappedClientElementIds": [
+                "elem-5"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-5",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "mappedClientRelationIds": [
+                "rel-elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-5",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "mappedClientRelationIds": [
+                "rel-elem-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-3",
+              "sourceInventoryItemId": "inv-6",
+              "targetInventoryItemId": "inv-2",
+              "normalizedRelation": "EXCLUDES",
+              "mappedClientRelationIds": [
+                "rel-elem-3"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [
+          "La mesure quantitative produite par la méthode « IVIM » et utilisée comme prédicteur n'est pas explicitement nommée."
+        ],
+        "unknowns": [],
+        "contradictions": [],
+        "clarificationCandidates": [],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "The user is outlining variables, methods, and constraints for a study involving placenta imaging and fetal growth.",
+          "expectedCapabilities": [
+            "Define study protocol parameters",
+            "Specify analysis plan"
+          ]
+        },
+        "summaryForUser": "Analyse de la relation entre l'IVIM et le T2* du placenta et la croissance fœtale, sans injection.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "The semantic model and typed candidate are fully aligned with the source text. All objects, relations, and constraints are accurately mapped, typed, and routed without any critical issues."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+          "criticPromptVersion": "SEM-001-CRITIC-1.6",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-57140e2c0055d658",
+          "criticCallId": "gemini-call:ke1-a69abe7d9455b6f1",
+          "criticCallIds": [
+            "gemini-call:ke1-0dee4b3e09b6569a",
+            "gemini-call:ke1-a69abe7d9455b6f1"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T10:15:50.643Z",
+              "requestFinished": "2026-08-13T10:15:56.370Z",
+              "latencyMs": 5727,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T10:15:56.374Z",
+              "requestFinished": "2026-08-13T10:16:01.405Z",
+              "latencyMs": 5031,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            },
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T10:16:23.947Z",
+              "requestFinished": "2026-08-13T10:16:28.440Z",
+              "latencyMs": 4493,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            },
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T10:16:36.030Z",
+              "requestFinished": "2026-08-13T10:16:39.368Z",
+              "latencyMs": 3338,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "cand-001",
+            "language": "fr",
+            "normalizedMeaning": "Étude de la relation entre l'IVIM placentaire et le T2* et la croissance fœtale, en excluant toute injection de produit de contraste.",
+            "summaryForUser": "Analyse de la relation entre l'IVIM et le T2* du placenta et la croissance fœtale, sans injection.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "inv-1",
+                  "sourceMessageId": "SEM-H24:user:1",
+                  "sourceText": "Placenta",
+                  "normalizedLabel": "placenta",
+                  "localRole": "anatomical location",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-2",
+                  "sourceMessageId": "SEM-H24:user:1",
+                  "sourceText": "IVIM",
+                  "normalizedLabel": "IVIM",
+                  "localRole": "method/biomarker",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-1"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-3",
+                  "sourceMessageId": "SEM-H24:user:1",
+                  "sourceText": "T2*",
+                  "normalizedLabel": "T2*",
+                  "localRole": "biomarker",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-1"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-4",
+                  "sourceMessageId": "SEM-H24:user:1",
+                  "sourceText": "relation",
+                  "normalizedLabel": "relation",
+                  "localRole": "association",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-2",
+                    "inv-3"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-5",
+                  "sourceMessageId": "SEM-H24:user:1",
+                  "sourceText": "croissance fœtale",
+                  "normalizedLabel": "croissance fœtale",
+                  "localRole": "outcome",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-6",
+                  "sourceMessageId": "SEM-H24:user:1",
+                  "sourceText": "aucune injection",
+                  "normalizedLabel": "aucune injection",
+                  "localRole": "constraint",
+                  "polarity": "NEGATED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel-1",
+                  "sourceInventoryItemId": "inv-2",
+                  "targetInventoryItemId": "inv-5",
+                  "sourceMessageId": "SEM-H24:user:1",
+                  "sourceText": "Placenta IVIM et T2*, relation avec croissance fœtale, mais aucune injection.",
+                  "normalizedRelation": "RELATED_TO_CANDIDATE",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-2",
+                  "sourceInventoryItemId": "inv-3",
+                  "targetInventoryItemId": "inv-5",
+                  "sourceMessageId": "SEM-H24:user:1",
+                  "sourceText": "T2*, relation avec croissance fœtale",
+                  "normalizedRelation": "RELATED_TO_CANDIDATE",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-3",
+                  "sourceInventoryItemId": "inv-6",
+                  "targetInventoryItemId": "inv-2",
+                  "sourceMessageId": "SEM-H24:user:1",
+                  "sourceText": "Placenta IVIM et T2*, relation avec croissance fœtale, mais aucune injection.",
+                  "normalizedRelation": "EXCLUDES",
+                  "polarity": "NEGATED"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem-1",
+                "type": "ANATOMICAL_CONTEXT",
+                "canonicalMeaning": "Placenta",
+                "studyRole": "SUBJECT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-1"
+                ],
+                "sourceMessageId": "SEM-H24:user:1",
+                "sourceText": "Placenta",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-2",
+                "type": "METHOD",
+                "canonicalMeaning": "IVIM MRI acquisition",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-2"
+                ],
+                "sourceMessageId": "SEM-H24:user:1",
+                "sourceText": "IVIM",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-3",
+                "type": "BIOMARKER",
+                "canonicalMeaning": "T2* magnetic resonance parameter",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-3"
+                ],
+                "sourceMessageId": "SEM-H24:user:1",
+                "sourceText": "T2*",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-4",
+                "type": "OUTCOME",
+                "canonicalMeaning": "Fetal growth",
+                "studyRole": "OUTCOME_ROLE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-5"
+                ],
+                "sourceMessageId": "SEM-H24:user:1",
+                "sourceText": "croissance fœtale",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-5",
+                "type": "CONSTRAINT",
+                "canonicalMeaning": "No contrast injection",
+                "studyRole": "NONE",
+                "polarity": "NEGATED",
+                "inventoryItemIds": [
+                  "inv-6"
+                ],
+                "sourceMessageId": "SEM-H24:user:1",
+                "sourceText": "aucune injection",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-6",
+                "type": "SCIENTIFIC_INTENT",
+                "canonicalMeaning": "Association study",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-4"
+                ],
+                "sourceMessageId": "SEM-H24:user:1",
+                "sourceText": "relation",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel-elem-1",
+                "sourceClientElementId": "elem-2",
+                "targetClientElementId": "elem-4",
+                "relationType": "RELATED_TO_CANDIDATE",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-1"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-elem-2",
+                "sourceClientElementId": "elem-3",
+                "targetClientElementId": "elem-4",
+                "relationType": "RELATED_TO_CANDIDATE",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-2"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-elem-3",
+                "sourceClientElementId": "elem-5",
+                "targetClientElementId": "elem-2",
+                "relationType": "EXCLUDES",
+                "polarity": "NEGATED",
+                "inventoryRelationIds": [
+                  "rel-3"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              }
+            ],
+            "missingConcepts": [],
+            "ellipses": [],
+            "ambiguities": [
+              "La mesure quantitative produite par la méthode « IVIM » et utilisée comme prédicteur n'est pas explicitement nommée."
+            ],
+            "unknowns": [],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [],
+            "routeProposal": {
+              "route": "DESIGN_STUDY",
+              "confidence": 0.9,
+              "reason": "The user is outlining variables, methods, and constraints for a study involving placenta imaging and fetal growth.",
+              "expectedCapabilities": [
+                "Define study protocol parameters",
+                "Specify analysis plan"
+              ]
+            },
+            "semanticWarnings": [
+              "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:2"
+            ]
+          },
+          "rawCritic": {
+            "criticId": "critic-001",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit source objects (Placenta, IVIM, T2*, croissance fœtale, aucune injection, relation) are fully represented in the inventory and typed model."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No comparator is present in the source message."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "No active intervention arm is present, and constraints are correctly captured."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "PASS",
+                "evidence": "MRI-related acquisition aspects are appropriately typed."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All inventory relations are mapped correctly to model relations."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "All types adhere strictly to the operational taxonomy."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Explicit relations are preserved without weakening."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No unjustified inferences have been promoted to explicit status."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "The missing quantitative variable for IVIM is correctly retained as ambiguity."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "Negative constraint 'aucune injection' is correctly represented with NEGATED polarity."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No explicit timing constraint is present in the source."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "Fetal growth remains an OUTCOME without unsupported endpoint promotion."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts such as IVIM and T2* are retained faithfully."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "No source fragment is unrepresented."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "Route DESIGN_STUDY is completely consistent with the variables and study parameters provided."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The semantic model and typed candidate are fully aligned with the source text. All objects, relations, and constraints are accurately mapped, typed, and routed without any critical issues."
+          },
+          "rawCritics": [
+            {
+              "criticId": "critic-SEM-H24-01",
+              "verdict": "REVISE",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "Placenta, IVIM, T2*, and croissance fœtale are all represented."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No comparator is specified."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No active intervention is specified."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "IVIM and T2* capture the MRI modalities/methods."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit relations are mapped."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "Types conform to taxonomy rules."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Relations are preserved correctly."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No unauthorized inferences promoted."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "Ambiguities are explicitly documented."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "'aucune injection' is correctly mapped as a negative constraint."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No timing specified."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "Fetal growth remains an outcome."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific terms are preserved."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "FAIL",
+                  "evidence": "Fragment inv-4 ('relation') is unmapped in the explicit coverage report."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "Route DESIGN_STUDY correctly matches the study design request."
+                }
+              ],
+              "missingExplicitSourceFragments": [
+                {
+                  "sourceMessageId": "SEM-H24:user:1",
+                  "sourceText": "relation",
+                  "normalizedMeaning": "relation",
+                  "reason": "The explicit fragment 'relation' is present in the inventory but unmapped in the candidate elements.",
+                  "suggestedLocalRole": "association",
+                  "confidence": 1
+                }
+              ],
+              "issues": [
+                {
+                  "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+                  "severity": "WARNING",
+                  "elementClientIds": [],
+                  "description": "Fragment inv-4 ('relation') is unresolved in explicit coverage.",
+                  "recommendedAction": "Map relation fragment or link elements directly via explicit semantic relation.",
+                  "resolved": false
+                }
+              ],
+              "proposedRepairs": [
+                {
+                  "repairId": "rep-1",
+                  "action": "UPSERT_ELEMENT",
+                  "reason": "Ensure the explicit relation fragment 'relation' is represented as a structural semantic intent or relational link.",
+                  "sourceInventoryItemIds": [
+                    "inv-4"
+                  ],
+                  "sourceInventoryRelationIds": [],
+                  "inventoryItemId": "inv-4",
+                  "inventorySourceMessageId": "SEM-H24:user:1",
+                  "inventorySourceText": "relation",
+                  "inventoryNormalizedLabel": "relation",
+                  "inventoryLocalRole": "association",
+                  "inventoryPolarity": "AFFIRMED",
+                  "inventoryModifiers": [],
+                  "inventoryLinkedItemIds": [
+                    "inv-2",
+                    "inv-3"
+                  ],
+                  "inventoryRelationId": null,
+                  "inventoryRelationSourceItemId": null,
+                  "inventoryRelationTargetItemId": null,
+                  "inventoryRelationSourceMessageId": null,
+                  "inventoryRelationSourceText": null,
+                  "inventoryNormalizedRelation": null,
+                  "inventoryRelationPolarity": null,
+                  "elementClientElementId": "elem-6",
+                  "elementType": "SCIENTIFIC_INTENT",
+                  "elementCanonicalMeaning": "Association study",
+                  "elementStudyRole": "NONE",
+                  "elementPolarity": "AFFIRMED",
+                  "elementInventoryItemIds": [
+                    "inv-4"
+                  ],
+                  "elementSourceMessageId": "SEM-H24:user:1",
+                  "elementSourceText": "relation",
+                  "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+                  "elementConfidence": 1,
+                  "elementInferenceReason": null,
+                  "elementRequiresConfirmation": false,
+                  "elementSupersedesElementIds": [],
+                  "relationClientRelationId": null,
+                  "relationSourceClientElementId": null,
+                  "relationTargetClientElementId": null,
+                  "relationType": null,
+                  "relationPolarity": null,
+                  "relationInventoryRelationIds": [],
+                  "relationEpistemicStatus": null,
+                  "relationConfidence": null,
+                  "relationInferenceReason": null,
+                  "relationRequiresConfirmation": null,
+                  "ambiguity": null,
+                  "route": null,
+                  "routeConfidence": null,
+                  "routeReason": null,
+                  "routeExpectedCapabilities": []
+                }
+              ],
+              "criticSummary": "The inventory contains an unmapped fragment 'relation' (inv-4). A repair is proposed to map this fragment as a SCIENTIFIC_INTENT element to ensure complete explicit fragment coverage."
+            },
+            {
+              "criticId": "critic-001",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit source objects (Placenta, IVIM, T2*, croissance fœtale, aucune injection, relation) are fully represented in the inventory and typed model."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No comparator is present in the source message."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "No active intervention arm is present, and constraints are correctly captured."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "MRI-related acquisition aspects are appropriately typed."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All inventory relations are mapped correctly to model relations."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "All types adhere strictly to the operational taxonomy."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Explicit relations are preserved without weakening."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No unjustified inferences have been promoted to explicit status."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "The missing quantitative variable for IVIM is correctly retained as ambiguity."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "Negative constraint 'aucune injection' is correctly represented with NEGATED polarity."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No explicit timing constraint is present in the source."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "Fetal growth remains an OUTCOME without unsupported endpoint promotion."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific concepts such as IVIM and T2* are retained faithfully."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "No source fragment is unrepresented."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "Route DESIGN_STUDY is completely consistent with the variables and study parameters provided."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "The semantic model and typed candidate are fully aligned with the source text. All objects, relations, and constraints are accurately mapped, typed, and routed without any critical issues."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-13T10:16:39.369Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-c90b9541c0c64d3d",
+          "resultDigest": "ke1-c90b9541c0c64d3d",
+          "coverageStatus": "SUPPORTED",
+          "verifiedAt": "2026-08-13T10:16:39.374Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-13T10:16:39.369Z",
+        "updatedAt": "2026-08-13T10:16:39.374Z",
+        "digest": "ke1-f7fd36c1720b3ef5"
+      },
+      "canonicalModelDigest": "ke1-f7fd36c1720b3ef5",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-c90b9541c0c64d3d",
+        "resultDigest": "ke1-c90b9541c0c64d3d",
+        "coverageStatus": "SUPPORTED",
+        "verifiedAt": "2026-08-13T10:16:39.374Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-57140e2c0055d658",
+      "structuredDigest": "ke1-a28a1fc1f79eda4d",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:15:50.643Z",
+          "requestFinished": "2026-08-13T10:15:56.370Z",
+          "latencyMs": 5727,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-0dee4b3e09b6569a",
+      "structuredDigest": "ke1-21882e7a185c1ac6",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:15:56.374Z",
+          "requestFinished": "2026-08-13T10:16:01.405Z",
+          "latencyMs": 5031,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:16:23.947Z",
+          "requestFinished": "2026-08-13T10:16:28.440Z",
+          "latencyMs": 4493,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 2,
+      "callId": "gemini-call:ke1-a69abe7d9455b6f1",
+      "structuredDigest": "ke1-d5239f646f529648",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:16:36.030Z",
+          "requestFinished": "2026-08-13T10:16:39.368Z",
+          "latencyMs": 3338,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-f248132f6093308b",
+    "revision": 1,
+    "status": "CANDIDATE",
+    "originalRequest": "Placenta IVIM et T2*, relation avec croissance fœtale, mais aucune injection.",
+    "normalizedMeaning": "Étude de la relation entre l'IVIM placentaire et le T2* et la croissance fœtale, en excluant toute injection de produit de contraste.",
+    "conversationMessageIds": [
+      "SEM-H24:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-2463ab959c427e99",
+        "type": "BIOMARKER",
+        "canonicalMeaning": "T2* magnetic resonance parameter",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-3"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H24:user:1",
+          "text": "T2*",
+          "start": 17,
+          "end": 20
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-b3dec302174d9aa6"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "SUPPORTED",
+          "resultRef": "knowledge-result:ke1-c90b9541c0c64d3d",
+          "assertionRefs": [
+            "RB-004:v1.1:block:1:ke1-e39816a6bdc6356a",
+            "RB-004:v1.1:block:10:ke1-f5d808a0c27812a4",
+            "RB-004:v1.1:block:11:ke1-660fe893123efedf",
+            "RB-004:v1.1:block:12:ke1-4b093dc51508ad01",
+            "RB-004:v1.1:block:13:ke1-b823cbd4b7316c50",
+            "RB-004:v1.1:block:14:ke1-3dd28cef8bb9003b",
+            "RB-004:v1.1:block:15:ke1-593b6ff0f373f344",
+            "RB-004:v1.1:block:16:ke1-795caa8bc49b57c7",
+            "RB-004:v1.1:block:17:ke1-b0f815cb8f1c773f",
+            "RB-004:v1.1:block:18:ke1-5a8000fced8f23a8",
+            "RB-004:v1.1:block:2:ke1-8fb56766b011127a",
+            "RB-004:v1.1:block:3:ke1-caed666c73f1b230",
+            "RB-004:v1.1:block:4:ke1-a3e762d90a2309bd",
+            "RB-004:v1.1:block:5:ke1-b92d8f8738854273",
+            "RB-004:v1.1:block:6:ke1-5d646824a19d5f88",
+            "RB-004:v1.1:block:7:ke1-ecc539bec6136d82",
+            "RB-004:v1.1:block:8:ke1-c5e1465f566a604b",
+            "RB-004:v1.1:block:9:ke1-58a432651f80bb01"
+          ],
+          "gapRefs": [],
+          "checkedAt": "2026-08-13T10:16:39.374Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H24:user:1",
+          "providerCallId": "gemini-call:ke1-57140e2c0055d658",
+          "rawElementId": "elem-3"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-64741bf72e3d8223",
+        "type": "CONSTRAINT",
+        "canonicalMeaning": "No contrast injection",
+        "studyRole": "NONE",
+        "polarity": "NEGATED",
+        "inventoryItemIds": [
+          "inv-6"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H24:user:1",
+          "text": "aucune injection",
+          "start": 60,
+          "end": 76
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-ffcaa09397c982f7"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H24:user:1",
+          "providerCallId": "gemini-call:ke1-57140e2c0055d658",
+          "rawElementId": "elem-5"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-68dc0779a2056afd",
+        "type": "METHOD",
+        "canonicalMeaning": "IVIM MRI acquisition",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-2"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H24:user:1",
+          "text": "IVIM",
+          "start": 9,
+          "end": 13
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-92d5cb61bbc16d1d",
+          "sem-relation:ke1-ffcaa09397c982f7"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H24:user:1",
+          "providerCallId": "gemini-call:ke1-57140e2c0055d658",
+          "rawElementId": "elem-2"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-aa54bada2568f19e",
+        "type": "SCIENTIFIC_INTENT",
+        "canonicalMeaning": "Association study",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-4"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H24:user:1",
+          "text": "relation",
+          "start": 22,
+          "end": 30
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H24:user:1",
+          "providerCallId": "gemini-call:ke1-57140e2c0055d658",
+          "rawElementId": "elem-6"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-bc4cc6d7f5505edb",
+        "type": "ANATOMICAL_CONTEXT",
+        "canonicalMeaning": "Placenta",
+        "studyRole": "SUBJECT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-1"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H24:user:1",
+          "text": "Placenta",
+          "start": 0,
+          "end": 8
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H24:user:1",
+          "providerCallId": "gemini-call:ke1-57140e2c0055d658",
+          "rawElementId": "elem-1"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-f19d9a551b80ffb9",
+        "type": "OUTCOME",
+        "canonicalMeaning": "Fetal growth",
+        "studyRole": "OUTCOME_ROLE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-5"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H24:user:1",
+          "text": "croissance fœtale",
+          "start": 36,
+          "end": 53
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-92d5cb61bbc16d1d",
+          "sem-relation:ke1-b3dec302174d9aa6"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H24:user:1",
+          "providerCallId": "gemini-call:ke1-57140e2c0055d658",
+          "rawElementId": "elem-4"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-92d5cb61bbc16d1d",
+        "sourceElementId": "sem-element:ke1-68dc0779a2056afd",
+        "targetElementId": "sem-element:ke1-f19d9a551b80ffb9",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-1"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-b3dec302174d9aa6",
+        "sourceElementId": "sem-element:ke1-2463ab959c427e99",
+        "targetElementId": "sem-element:ke1-f19d9a551b80ffb9",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-2"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-ffcaa09397c982f7",
+        "sourceElementId": "sem-element:ke1-64741bf72e3d8223",
+        "targetElementId": "sem-element:ke1-68dc0779a2056afd",
+        "relationType": "EXCLUDES",
+        "polarity": "NEGATED",
+        "inventoryRelationIds": [
+          "rel-3"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-1",
+          "sourceMessageId": "SEM-H24:user:1",
+          "sourceText": "Placenta",
+          "normalizedMeaning": "placenta",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-2",
+          "sourceMessageId": "SEM-H24:user:1",
+          "sourceText": "IVIM",
+          "normalizedMeaning": "IVIM",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-3",
+          "sourceMessageId": "SEM-H24:user:1",
+          "sourceText": "T2*",
+          "normalizedMeaning": "T2*",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-4",
+          "sourceMessageId": "SEM-H24:user:1",
+          "sourceText": "relation",
+          "normalizedMeaning": "relation",
+          "mappedClientElementIds": [
+            "elem-6"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-5",
+          "sourceMessageId": "SEM-H24:user:1",
+          "sourceText": "croissance fœtale",
+          "normalizedMeaning": "croissance fœtale",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-6",
+          "sourceMessageId": "SEM-H24:user:1",
+          "sourceText": "aucune injection",
+          "normalizedMeaning": "aucune injection",
+          "mappedClientElementIds": [
+            "elem-5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-1",
+          "sourceInventoryItemId": "inv-2",
+          "targetInventoryItemId": "inv-5",
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "mappedClientRelationIds": [
+            "rel-elem-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-2",
+          "sourceInventoryItemId": "inv-3",
+          "targetInventoryItemId": "inv-5",
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "mappedClientRelationIds": [
+            "rel-elem-2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-3",
+          "sourceInventoryItemId": "inv-6",
+          "targetInventoryItemId": "inv-2",
+          "normalizedRelation": "EXCLUDES",
+          "mappedClientRelationIds": [
+            "rel-elem-3"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "missingConcepts": [],
+    "ellipses": [],
+    "ambiguities": [
+      "La mesure quantitative produite par la méthode « IVIM » et utilisée comme prédicteur n'est pas explicitement nommée."
+    ],
+    "unknowns": [],
+    "contradictions": [],
+    "clarificationCandidates": [],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "DESIGN_STUDY",
+      "confidence": 0.9,
+      "reason": "The user is outlining variables, methods, and constraints for a study involving placenta imaging and fetal growth.",
+      "expectedCapabilities": [
+        "Define study protocol parameters",
+        "Specify analysis plan"
+      ]
+    },
+    "summaryForUser": "Analyse de la relation entre l'IVIM et le T2* du placenta et la croissance fœtale, sans injection.",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "The semantic model and typed candidate are fully aligned with the source text. All objects, relations, and constraints are accurately mapped, typed, and routed without any critical issues."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-57140e2c0055d658",
+      "criticCallId": "gemini-call:ke1-a69abe7d9455b6f1",
+      "criticCallIds": [
+        "gemini-call:ke1-0dee4b3e09b6569a",
+        "gemini-call:ke1-a69abe7d9455b6f1"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:15:50.643Z",
+          "requestFinished": "2026-08-13T10:15:56.370Z",
+          "latencyMs": 5727,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:15:56.374Z",
+          "requestFinished": "2026-08-13T10:16:01.405Z",
+          "latencyMs": 5031,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:16:23.947Z",
+          "requestFinished": "2026-08-13T10:16:28.440Z",
+          "latencyMs": 4493,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T10:16:36.030Z",
+          "requestFinished": "2026-08-13T10:16:39.368Z",
+          "latencyMs": 3338,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Étude de la relation entre l'IVIM placentaire et le T2* et la croissance fœtale, en excluant toute injection de produit de contraste.",
+        "summaryForUser": "Analyse de la relation entre l'IVIM et le T2* du placenta et la croissance fœtale, sans injection.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H24:user:1",
+              "sourceText": "Placenta",
+              "normalizedLabel": "placenta",
+              "localRole": "anatomical location",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H24:user:1",
+              "sourceText": "IVIM",
+              "normalizedLabel": "IVIM",
+              "localRole": "method/biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-1"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H24:user:1",
+              "sourceText": "T2*",
+              "normalizedLabel": "T2*",
+              "localRole": "biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-1"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H24:user:1",
+              "sourceText": "relation",
+              "normalizedLabel": "relation",
+              "localRole": "association",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-2",
+                "inv-3"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H24:user:1",
+              "sourceText": "croissance fœtale",
+              "normalizedLabel": "croissance fœtale",
+              "localRole": "outcome",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-6",
+              "sourceMessageId": "SEM-H24:user:1",
+              "sourceText": "aucune injection",
+              "normalizedLabel": "aucune injection",
+              "localRole": "constraint",
+              "polarity": "NEGATED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H24:user:1",
+              "sourceText": "Placenta IVIM et T2*, relation avec croissance fœtale, mais aucune injection.",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H24:user:1",
+              "sourceText": "T2*, relation avec croissance fœtale",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-3",
+              "sourceInventoryItemId": "inv-6",
+              "targetInventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H24:user:1",
+              "sourceText": "Placenta IVIM et T2*, relation avec croissance fœtale, mais aucune injection.",
+              "normalizedRelation": "EXCLUDES",
+              "polarity": "NEGATED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "ANATOMICAL_CONTEXT",
+            "canonicalMeaning": "Placenta",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceMessageId": "SEM-H24:user:1",
+            "sourceText": "Placenta",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "METHOD",
+            "canonicalMeaning": "IVIM MRI acquisition",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceMessageId": "SEM-H24:user:1",
+            "sourceText": "IVIM",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "T2* magnetic resonance parameter",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceMessageId": "SEM-H24:user:1",
+            "sourceText": "T2*",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-4",
+            "type": "OUTCOME",
+            "canonicalMeaning": "Fetal growth",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-5"
+            ],
+            "sourceMessageId": "SEM-H24:user:1",
+            "sourceText": "croissance fœtale",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-5",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "No contrast injection",
+            "studyRole": "NONE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv-6"
+            ],
+            "sourceMessageId": "SEM-H24:user:1",
+            "sourceText": "aucune injection",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-6",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Association study",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "sourceMessageId": "SEM-H24:user:1",
+            "sourceText": "relation",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-elem-1",
+            "sourceClientElementId": "elem-2",
+            "targetClientElementId": "elem-4",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-2",
+            "sourceClientElementId": "elem-3",
+            "targetClientElementId": "elem-4",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-3",
+            "sourceClientElementId": "elem-5",
+            "targetClientElementId": "elem-2",
+            "relationType": "EXCLUDES",
+            "polarity": "NEGATED",
+            "inventoryRelationIds": [
+              "rel-3"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [
+          "La mesure quantitative produite par la méthode « IVIM » et utilisée comme prédicteur n'est pas explicitement nommée."
+        ],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "The user is outlining variables, methods, and constraints for a study involving placenta imaging and fetal growth.",
+          "expectedCapabilities": [
+            "Define study protocol parameters",
+            "Specify analysis plan"
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:2"
+        ]
+      },
+      "rawCritic": {
+        "criticId": "critic-001",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit source objects (Placenta, IVIM, T2*, croissance fœtale, aucune injection, relation) are fully represented in the inventory and typed model."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No comparator is present in the source message."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "No active intervention arm is present, and constraints are correctly captured."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "PASS",
+            "evidence": "MRI-related acquisition aspects are appropriately typed."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All inventory relations are mapped correctly to model relations."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "All types adhere strictly to the operational taxonomy."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "Explicit relations are preserved without weakening."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No unjustified inferences have been promoted to explicit status."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "The missing quantitative variable for IVIM is correctly retained as ambiguity."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "Negative constraint 'aucune injection' is correctly represented with NEGATED polarity."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No explicit timing constraint is present in the source."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "Fetal growth remains an OUTCOME without unsupported endpoint promotion."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific concepts such as IVIM and T2* are retained faithfully."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "No source fragment is unrepresented."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "Route DESIGN_STUDY is completely consistent with the variables and study parameters provided."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "The semantic model and typed candidate are fully aligned with the source text. All objects, relations, and constraints are accurately mapped, typed, and routed without any critical issues."
+      },
+      "rawCritics": [
+        {
+          "criticId": "critic-SEM-H24-01",
+          "verdict": "REVISE",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Placenta, IVIM, T2*, and croissance fœtale are all represented."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is specified."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No active intervention is specified."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "IVIM and T2* capture the MRI modalities/methods."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit relations are mapped."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Types conform to taxonomy rules."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Relations are preserved correctly."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unauthorized inferences promoted."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Ambiguities are explicitly documented."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "'aucune injection' is correctly mapped as a negative constraint."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No timing specified."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Fetal growth remains an outcome."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific terms are preserved."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "FAIL",
+              "evidence": "Fragment inv-4 ('relation') is unmapped in the explicit coverage report."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY correctly matches the study design request."
+            }
+          ],
+          "missingExplicitSourceFragments": [
+            {
+              "sourceMessageId": "SEM-H24:user:1",
+              "sourceText": "relation",
+              "normalizedMeaning": "relation",
+              "reason": "The explicit fragment 'relation' is present in the inventory but unmapped in the candidate elements.",
+              "suggestedLocalRole": "association",
+              "confidence": 1
+            }
+          ],
+          "issues": [
+            {
+              "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+              "severity": "WARNING",
+              "elementClientIds": [],
+              "description": "Fragment inv-4 ('relation') is unresolved in explicit coverage.",
+              "recommendedAction": "Map relation fragment or link elements directly via explicit semantic relation.",
+              "resolved": false
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "repairId": "rep-1",
+              "action": "UPSERT_ELEMENT",
+              "reason": "Ensure the explicit relation fragment 'relation' is represented as a structural semantic intent or relational link.",
+              "sourceInventoryItemIds": [
+                "inv-4"
+              ],
+              "sourceInventoryRelationIds": [],
+              "inventoryItemId": "inv-4",
+              "inventorySourceMessageId": "SEM-H24:user:1",
+              "inventorySourceText": "relation",
+              "inventoryNormalizedLabel": "relation",
+              "inventoryLocalRole": "association",
+              "inventoryPolarity": "AFFIRMED",
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [
+                "inv-2",
+                "inv-3"
+              ],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": "elem-6",
+              "elementType": "SCIENTIFIC_INTENT",
+              "elementCanonicalMeaning": "Association study",
+              "elementStudyRole": "NONE",
+              "elementPolarity": "AFFIRMED",
+              "elementInventoryItemIds": [
+                "inv-4"
+              ],
+              "elementSourceMessageId": "SEM-H24:user:1",
+              "elementSourceText": "relation",
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementConfidence": 1,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": false,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "relationPolarity": null,
+              "relationInventoryRelationIds": [],
+              "relationEpistemicStatus": null,
+              "relationConfidence": null,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": null,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            }
+          ],
+          "criticSummary": "The inventory contains an unmapped fragment 'relation' (inv-4). A repair is proposed to map this fragment as a SCIENTIFIC_INTENT element to ensure complete explicit fragment coverage."
+        },
+        {
+          "criticId": "critic-001",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit source objects (Placenta, IVIM, T2*, croissance fœtale, aucune injection, relation) are fully represented in the inventory and typed model."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is present in the source message."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "No active intervention arm is present, and constraints are correctly captured."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "MRI-related acquisition aspects are appropriately typed."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All inventory relations are mapped correctly to model relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All types adhere strictly to the operational taxonomy."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations are preserved without weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unjustified inferences have been promoted to explicit status."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "The missing quantitative variable for IVIM is correctly retained as ambiguity."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Negative constraint 'aucune injection' is correctly represented with NEGATED polarity."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit timing constraint is present in the source."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Fetal growth remains an OUTCOME without unsupported endpoint promotion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts such as IVIM and T2* are retained faithfully."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No source fragment is unrepresented."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY is completely consistent with the variables and study parameters provided."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The semantic model and typed candidate are fully aligned with the source text. All objects, relations, and constraints are accurately mapped, typed, and routed without any critical issues."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-13T10:16:39.369Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-c90b9541c0c64d3d",
+      "resultDigest": "ke1-c90b9541c0c64d3d",
+      "coverageStatus": "SUPPORTED",
+      "verifiedAt": "2026-08-13T10:16:39.374Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-13T10:16:39.369Z",
+    "updatedAt": "2026-08-13T10:16:39.374Z",
+    "digest": "ke1-f7fd36c1720b3ef5"
+  },
+  "semanticModelDigest": "ke1-f7fd36c1720b3ef5",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-1",
+          "sourceMessageId": "SEM-H24:user:1",
+          "sourceText": "Placenta",
+          "normalizedMeaning": "placenta",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-2",
+          "sourceMessageId": "SEM-H24:user:1",
+          "sourceText": "IVIM",
+          "normalizedMeaning": "IVIM",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-3",
+          "sourceMessageId": "SEM-H24:user:1",
+          "sourceText": "T2*",
+          "normalizedMeaning": "T2*",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-4",
+          "sourceMessageId": "SEM-H24:user:1",
+          "sourceText": "relation",
+          "normalizedMeaning": "relation",
+          "mappedClientElementIds": [
+            "elem-6"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-5",
+          "sourceMessageId": "SEM-H24:user:1",
+          "sourceText": "croissance fœtale",
+          "normalizedMeaning": "croissance fœtale",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-6",
+          "sourceMessageId": "SEM-H24:user:1",
+          "sourceText": "aucune injection",
+          "normalizedMeaning": "aucune injection",
+          "mappedClientElementIds": [
+            "elem-5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-1",
+          "sourceInventoryItemId": "inv-2",
+          "targetInventoryItemId": "inv-5",
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "mappedClientRelationIds": [
+            "rel-elem-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-2",
+          "sourceInventoryItemId": "inv-3",
+          "targetInventoryItemId": "inv-5",
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "mappedClientRelationIds": [
+            "rel-elem-2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-3",
+          "sourceInventoryItemId": "inv-6",
+          "targetInventoryItemId": "inv-2",
+          "normalizedRelation": "EXCLUDES",
+          "mappedClientRelationIds": [
+            "rel-elem-3"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-8066258bdfcc6c77",
+    "evaluatedAt": "2026-08-13T10:16:39.376Z",
+    "goldFrameDigest": "ke1-57fb269bebbd2397",
+    "result": {
+      "caseId": "SEM-H24",
+      "explicitObjectRecall": 0.8,
+      "explicitRelationRecall": 1,
+      "criticalSemanticRecall": 0.8333333333333334,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 1,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": [
+        "EXPLICIT_SCIENTIFIC_OBJECT_LOST:placenta"
+      ]
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H24",
+    "explicitObjectRecall": 0.8,
+    "explicitRelationRecall": 1,
+    "criticalSemanticRecall": 0.8333333333333334,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 1,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": [
+      "EXPLICIT_SCIENTIFIC_OBJECT_LOST:placenta"
+    ]
+  },
+  "error": null
+}

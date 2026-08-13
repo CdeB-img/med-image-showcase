@@ -1,0 +1,20 @@
+{
+  "campaignId": "sem-001r5l-closure-2026-08-13T09-09-28-906Z-ke1-391a23dcb99dc470",
+  "caseId": "SEM-H04",
+  "stage": "CRITIC",
+  "turn": 1,
+  "cycle": 2,
+  "provider": "GOOGLE_GEMINI",
+  "model": "gemini-3.5-flash-lite",
+  "promptVersion": "SEM-001-CRITIC-1.6",
+  "schemaDigest": "ke1-c849778553bf38b1",
+  "classification": "MODEL_STRUCTURE_NON_COMPLIANCE",
+  "validationPaths": [],
+  "disposition": "RECOVERED_BY_FROZEN_STRUCTURED_CORRECTION",
+  "rawStructuredResponseArtifacts": [
+    "semantic-validation/sem-001r5l/closure-raw-provider-responses/0011-SEM-H04-critic-t1-c2.json",
+    "semantic-validation/sem-001r5l/closure-raw-provider-responses/0012-SEM-H04-critic-t1-c2.json"
+  ],
+  "noParserFabrication": true,
+  "recordedAt": "2026-08-13T09:12:02.270Z"
+}

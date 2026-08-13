@@ -1,0 +1,2212 @@
+{
+  "campaign": "SEM-001R5L-CLOSURE",
+  "campaignId": "sem-001r5l-closure-2026-08-13T09-09-28-906Z-ke1-391a23dcb99dc470",
+  "caseId": "SEM-H13",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-391a23dcb99dc470",
+  "semanticConfigurationDigest": "ke1-410eaaec72fd1768",
+  "goldFrameDigest": "ke1-1543b0651ad4af91",
+  "originalRequest": [
+    "embolisation maintenant ou en deux temps; volume perfusé en cone-beam CT"
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-13T09:15:21.429Z",
+  "completedAt": "2026-08-13T09:16:05.468Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H13:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Comparaison entre embolisation en une étape (maintenant) ou en deux temps, et mesure du volume perfusé en cone-beam CT.",
+        "summaryForUser": "L'analyse identifie une comparaison entre deux stratégies d'embolisation (maintenant vs en deux temps) et une mesure par cone-beam CT du volume perfusé.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "item-1",
+              "sourceMessageId": "SEM-H13:user:1",
+              "sourceText": "embolisation",
+              "normalizedLabel": "embolisation",
+              "localRole": "intervention",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item-2",
+              "sourceMessageId": "SEM-H13:user:1",
+              "sourceText": "maintenant",
+              "normalizedLabel": "maintenant",
+              "localRole": "timing",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "item-1"
+              ]
+            },
+            {
+              "inventoryItemId": "item-3",
+              "sourceMessageId": "SEM-H13:user:1",
+              "sourceText": "en deux temps",
+              "normalizedLabel": "en deux temps",
+              "localRole": "timing",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "item-1"
+              ]
+            },
+            {
+              "inventoryItemId": "item-4",
+              "sourceMessageId": "SEM-H13:user:1",
+              "sourceText": "volume perfusé",
+              "normalizedLabel": "volume perfusé",
+              "localRole": "biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item-5",
+              "sourceMessageId": "SEM-H13:user:1",
+              "sourceText": "cone-beam CT",
+              "normalizedLabel": "cone-beam computed tomography",
+              "localRole": "method",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "item-4"
+              ]
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "item-2",
+              "targetInventoryItemId": "item-3",
+              "sourceMessageId": "SEM-H13:user:1",
+              "sourceText": "embolisation maintenant ou en deux temps",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "item-4",
+              "targetInventoryItemId": "item-5",
+              "sourceMessageId": "SEM-H13:user:1",
+              "sourceText": "volume perfusé en cone-beam CT",
+              "normalizedRelation": "MEASURED_BY",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "INTERVENTION",
+            "canonicalMeaning": "Embolisation",
+            "studyRole": "INTERVENTION_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-1"
+            ],
+            "sourceMessageId": "SEM-H13:user:1",
+            "sourceText": "embolisation",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "TIMING",
+            "canonicalMeaning": "Maintenant (immédiat)",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-2"
+            ],
+            "sourceMessageId": "SEM-H13:user:1",
+            "sourceText": "maintenant",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "TIMING",
+            "canonicalMeaning": "En deux temps",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-3"
+            ],
+            "sourceMessageId": "SEM-H13:user:1",
+            "sourceText": "en deux temps",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-4",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Volume perfusé",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-4"
+            ],
+            "sourceMessageId": "SEM-H13:user:1",
+            "sourceText": "volume perfusé",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-5",
+            "type": "METHOD",
+            "canonicalMeaning": "Cone-beam computed tomography",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-5"
+            ],
+            "sourceMessageId": "SEM-H13:user:1",
+            "sourceText": "cone-beam CT",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-elem-1",
+            "sourceClientElementId": "elem-2",
+            "targetClientElementId": "elem-3",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-2",
+            "sourceClientElementId": "elem-4",
+            "targetClientElementId": "elem-5",
+            "relationType": "MEASURED_BY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [
+          "Target anatomical structure or condition for embolization"
+        ],
+        "ellipses": [],
+        "ambiguities": [
+          "The target organ or pathological condition being embolized is not specified."
+        ],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [
+          {
+            "question": "Quel est l'organe ou la pathologie cible pour cette embolisation ?",
+            "reason": "Préciser la condition ou l'organe cible pour compléter le contexte de l'étude.",
+            "resolvesClientElementIds": [
+              "elem-1"
+            ]
+          }
+        ],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "L'utilisateur compare des stratégies d'intervention temporelles et définit une mesure par imagerie, ce qui relève de la conception d'étude.",
+          "expectedCapabilities": [
+            "Define comparison arms",
+            "Associate measurement methods"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "reconstructionDigest": "ke1-262154fe31cd9dda",
+      "critics": [
+        {
+          "criticId": "critic-001",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects (embolisation, maintenant, en deux temps, volume perfusé, cone-beam CT) are represented in the typed candidate elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The comparison between 'maintenant' and 'en deux temps' is fully represented."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The intervention 'embolisation' is represented as elem-1."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No separate broad modality family outside of the named method (cone-beam CT) is present."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Relations rel-1 and rel-2 are correctly mapped to elem-rel-1 and elem-rel-2."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Taxonomy report is COMPLETE with no findings; all elements have correct types."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations are preserved faithfully without weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No inferences were promoted as user-stated elements."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "The missing target organ/condition is explicitly listed in ambiguities."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "All polarities are AFFIRMED as stated."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Timing elements 'maintenant' and 'en deux temps' are fully represented."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Biomarker is correctly classified as MEASUREMENT without unwarranted endpoint promotion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Cone-beam CT and volume perfusé maintain their specific concepts."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No source fragment remains unmapped."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "DESIGN_STUDY is appropriate for a study comparing temporal strategies and measurement methods."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The semantic inventory and typed candidate accurately reflect all explicit elements, timings, methods, biomarkers, and relations from the user message. All reports are complete and verified."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-fedc361eb2549d3a",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "embolisation maintenant ou en deux temps; volume perfusé en cone-beam CT",
+        "normalizedMeaning": "Comparaison entre embolisation en une étape (maintenant) ou en deux temps, et mesure du volume perfusé en cone-beam CT.",
+        "conversationMessageIds": [
+          "SEM-H13:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-1d83e121f7664a45",
+            "type": "INTERVENTION",
+            "canonicalMeaning": "Embolisation",
+            "studyRole": "INTERVENTION_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-1"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H13:user:1",
+              "text": "embolisation",
+              "start": 0,
+              "end": 12
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H13:user:1",
+              "providerCallId": "gemini-call:ke1-4a953cfb386077af",
+              "rawElementId": "elem-1"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-76cf1d127576d76e",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Volume perfusé",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-4"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H13:user:1",
+              "text": "volume perfusé",
+              "start": 42,
+              "end": 56
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-e12e107670e285da"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-78218c8e67e77052",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-50d48579a463f43d",
+                "knowledge-gap:ke1-71b7c2b3040d19b7",
+                "knowledge-gap:ke1-b111adb64ea050da"
+              ],
+              "checkedAt": "2026-08-13T09:16:05.465Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H13:user:1",
+              "providerCallId": "gemini-call:ke1-4a953cfb386077af",
+              "rawElementId": "elem-4"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-b0333e317f06cc9d",
+            "type": "METHOD",
+            "canonicalMeaning": "Cone-beam computed tomography",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-5"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H13:user:1",
+              "text": "cone-beam CT",
+              "start": 60,
+              "end": 72
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-e12e107670e285da"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H13:user:1",
+              "providerCallId": "gemini-call:ke1-4a953cfb386077af",
+              "rawElementId": "elem-5"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-cb6ac97cbe621530",
+            "type": "TIMING",
+            "canonicalMeaning": "En deux temps",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-3"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H13:user:1",
+              "text": "en deux temps",
+              "start": 27,
+              "end": 40
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-a8d1213618ca8912"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H13:user:1",
+              "providerCallId": "gemini-call:ke1-4a953cfb386077af",
+              "rawElementId": "elem-3"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-ed1b9b5a0bf1d086",
+            "type": "TIMING",
+            "canonicalMeaning": "Maintenant (immédiat)",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-2"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H13:user:1",
+              "text": "maintenant",
+              "start": 13,
+              "end": 23
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-a8d1213618ca8912"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H13:user:1",
+              "providerCallId": "gemini-call:ke1-4a953cfb386077af",
+              "rawElementId": "elem-2"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-a8d1213618ca8912",
+            "sourceElementId": "sem-element:ke1-ed1b9b5a0bf1d086",
+            "targetElementId": "sem-element:ke1-cb6ac97cbe621530",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-1"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-e12e107670e285da",
+            "sourceElementId": "sem-element:ke1-76cf1d127576d76e",
+            "targetElementId": "sem-element:ke1-b0333e317f06cc9d",
+            "relationType": "MEASURED_BY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "item-1",
+              "sourceMessageId": "SEM-H13:user:1",
+              "sourceText": "embolisation",
+              "normalizedMeaning": "embolisation",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-2",
+              "sourceMessageId": "SEM-H13:user:1",
+              "sourceText": "maintenant",
+              "normalizedMeaning": "maintenant",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-3",
+              "sourceMessageId": "SEM-H13:user:1",
+              "sourceText": "en deux temps",
+              "normalizedMeaning": "en deux temps",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-4",
+              "sourceMessageId": "SEM-H13:user:1",
+              "sourceText": "volume perfusé",
+              "normalizedMeaning": "volume perfusé",
+              "mappedClientElementIds": [
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-5",
+              "sourceMessageId": "SEM-H13:user:1",
+              "sourceText": "cone-beam CT",
+              "normalizedMeaning": "cone-beam computed tomography",
+              "mappedClientElementIds": [
+                "elem-5"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "item-2",
+              "targetInventoryItemId": "item-3",
+              "normalizedRelation": "COMPARES_WITH",
+              "mappedClientRelationIds": [
+                "rel-elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "item-4",
+              "targetInventoryItemId": "item-5",
+              "normalizedRelation": "MEASURED_BY",
+              "mappedClientRelationIds": [
+                "rel-elem-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [
+          "Target anatomical structure or condition for embolization"
+        ],
+        "ellipses": [],
+        "ambiguities": [
+          "The target organ or pathological condition being embolized is not specified."
+        ],
+        "unknowns": [],
+        "contradictions": [],
+        "clarificationCandidates": [
+          {
+            "question": "Quel est l'organe ou la pathologie cible pour cette embolisation ?",
+            "reason": "Préciser la condition ou l'organe cible pour compléter le contexte de l'étude.",
+            "resolvesElementIds": [
+              "sem-element:ke1-1d83e121f7664a45"
+            ]
+          }
+        ],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "L'utilisateur compare des stratégies d'intervention temporelles et définit une mesure par imagerie, ce qui relève de la conception d'étude.",
+          "expectedCapabilities": [
+            "Associate measurement methods",
+            "Define comparison arms"
+          ]
+        },
+        "summaryForUser": "L'analyse identifie une comparaison entre deux stratégies d'embolisation (maintenant vs en deux temps) et une mesure par cone-beam CT du volume perfusé.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "The semantic inventory and typed candidate accurately reflect all explicit elements, timings, methods, biomarkers, and relations from the user message. All reports are complete and verified."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+          "criticPromptVersion": "SEM-001-CRITIC-1.6",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-4a953cfb386077af",
+          "criticCallId": "gemini-call:ke1-02ad44e9cb957c9d",
+          "criticCallIds": [
+            "gemini-call:ke1-02ad44e9cb957c9d"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:15:54.134Z",
+              "requestFinished": "2026-08-13T09:15:59.981Z",
+              "latencyMs": 5847,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:16:02.237Z",
+              "requestFinished": "2026-08-13T09:16:05.461Z",
+              "latencyMs": 3224,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "cand-001",
+            "language": "fr",
+            "normalizedMeaning": "Comparaison entre embolisation en une étape (maintenant) ou en deux temps, et mesure du volume perfusé en cone-beam CT.",
+            "summaryForUser": "L'analyse identifie une comparaison entre deux stratégies d'embolisation (maintenant vs en deux temps) et une mesure par cone-beam CT du volume perfusé.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "item-1",
+                  "sourceMessageId": "SEM-H13:user:1",
+                  "sourceText": "embolisation",
+                  "normalizedLabel": "embolisation",
+                  "localRole": "intervention",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "item-2",
+                  "sourceMessageId": "SEM-H13:user:1",
+                  "sourceText": "maintenant",
+                  "normalizedLabel": "maintenant",
+                  "localRole": "timing",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "item-1"
+                  ]
+                },
+                {
+                  "inventoryItemId": "item-3",
+                  "sourceMessageId": "SEM-H13:user:1",
+                  "sourceText": "en deux temps",
+                  "normalizedLabel": "en deux temps",
+                  "localRole": "timing",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "item-1"
+                  ]
+                },
+                {
+                  "inventoryItemId": "item-4",
+                  "sourceMessageId": "SEM-H13:user:1",
+                  "sourceText": "volume perfusé",
+                  "normalizedLabel": "volume perfusé",
+                  "localRole": "biomarker",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "item-5",
+                  "sourceMessageId": "SEM-H13:user:1",
+                  "sourceText": "cone-beam CT",
+                  "normalizedLabel": "cone-beam computed tomography",
+                  "localRole": "method",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "item-4"
+                  ]
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel-1",
+                  "sourceInventoryItemId": "item-2",
+                  "targetInventoryItemId": "item-3",
+                  "sourceMessageId": "SEM-H13:user:1",
+                  "sourceText": "embolisation maintenant ou en deux temps",
+                  "normalizedRelation": "COMPARES_WITH",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-2",
+                  "sourceInventoryItemId": "item-4",
+                  "targetInventoryItemId": "item-5",
+                  "sourceMessageId": "SEM-H13:user:1",
+                  "sourceText": "volume perfusé en cone-beam CT",
+                  "normalizedRelation": "MEASURED_BY",
+                  "polarity": "AFFIRMED"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem-1",
+                "type": "INTERVENTION",
+                "canonicalMeaning": "Embolisation",
+                "studyRole": "INTERVENTION_ARM",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "item-1"
+                ],
+                "sourceMessageId": "SEM-H13:user:1",
+                "sourceText": "embolisation",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-2",
+                "type": "TIMING",
+                "canonicalMeaning": "Maintenant (immédiat)",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "item-2"
+                ],
+                "sourceMessageId": "SEM-H13:user:1",
+                "sourceText": "maintenant",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-3",
+                "type": "TIMING",
+                "canonicalMeaning": "En deux temps",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "item-3"
+                ],
+                "sourceMessageId": "SEM-H13:user:1",
+                "sourceText": "en deux temps",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-4",
+                "type": "BIOMARKER",
+                "canonicalMeaning": "Volume perfusé",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "item-4"
+                ],
+                "sourceMessageId": "SEM-H13:user:1",
+                "sourceText": "volume perfusé",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-5",
+                "type": "METHOD",
+                "canonicalMeaning": "Cone-beam computed tomography",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "item-5"
+                ],
+                "sourceMessageId": "SEM-H13:user:1",
+                "sourceText": "cone-beam CT",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel-elem-1",
+                "sourceClientElementId": "elem-2",
+                "targetClientElementId": "elem-3",
+                "relationType": "COMPARES_WITH",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-1"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-elem-2",
+                "sourceClientElementId": "elem-4",
+                "targetClientElementId": "elem-5",
+                "relationType": "MEASURED_BY",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-2"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              }
+            ],
+            "missingConcepts": [
+              "Target anatomical structure or condition for embolization"
+            ],
+            "ellipses": [],
+            "ambiguities": [
+              "The target organ or pathological condition being embolized is not specified."
+            ],
+            "unknowns": [],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [
+              {
+                "question": "Quel est l'organe ou la pathologie cible pour cette embolisation ?",
+                "reason": "Préciser la condition ou l'organe cible pour compléter le contexte de l'étude.",
+                "resolvesClientElementIds": [
+                  "elem-1"
+                ]
+              }
+            ],
+            "routeProposal": {
+              "route": "DESIGN_STUDY",
+              "confidence": 0.9,
+              "reason": "L'utilisateur compare des stratégies d'intervention temporelles et définit une mesure par imagerie, ce qui relève de la conception d'étude.",
+              "expectedCapabilities": [
+                "Define comparison arms",
+                "Associate measurement methods"
+              ]
+            },
+            "semanticWarnings": []
+          },
+          "rawCritic": {
+            "criticId": "critic-001",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit objects (embolisation, maintenant, en deux temps, volume perfusé, cone-beam CT) are represented in the typed candidate elements."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "PASS",
+                "evidence": "The comparison between 'maintenant' and 'en deux temps' is fully represented."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "The intervention 'embolisation' is represented as elem-1."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No separate broad modality family outside of the named method (cone-beam CT) is present."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Relations rel-1 and rel-2 are correctly mapped to elem-rel-1 and elem-rel-2."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "Taxonomy report is COMPLETE with no findings; all elements have correct types."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Explicit relations are preserved faithfully without weakening."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No inferences were promoted as user-stated elements."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "The missing target organ/condition is explicitly listed in ambiguities."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "All polarities are AFFIRMED as stated."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "PASS",
+                "evidence": "Timing elements 'maintenant' and 'en deux temps' are fully represented."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "Biomarker is correctly classified as MEASUREMENT without unwarranted endpoint promotion."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Cone-beam CT and volume perfusé maintain their specific concepts."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "No source fragment remains unmapped."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "DESIGN_STUDY is appropriate for a study comparing temporal strategies and measurement methods."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The semantic inventory and typed candidate accurately reflect all explicit elements, timings, methods, biomarkers, and relations from the user message. All reports are complete and verified."
+          },
+          "rawCritics": [
+            {
+              "criticId": "critic-001",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit objects (embolisation, maintenant, en deux temps, volume perfusé, cone-beam CT) are represented in the typed candidate elements."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The comparison between 'maintenant' and 'en deux temps' is fully represented."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The intervention 'embolisation' is represented as elem-1."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No separate broad modality family outside of the named method (cone-beam CT) is present."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "Relations rel-1 and rel-2 are correctly mapped to elem-rel-1 and elem-rel-2."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "Taxonomy report is COMPLETE with no findings; all elements have correct types."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Explicit relations are preserved faithfully without weakening."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No inferences were promoted as user-stated elements."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "The missing target organ/condition is explicitly listed in ambiguities."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "All polarities are AFFIRMED as stated."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "PASS",
+                  "evidence": "Timing elements 'maintenant' and 'en deux temps' are fully represented."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "Biomarker is correctly classified as MEASUREMENT without unwarranted endpoint promotion."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Cone-beam CT and volume perfusé maintain their specific concepts."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "No source fragment remains unmapped."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "DESIGN_STUDY is appropriate for a study comparing temporal strategies and measurement methods."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "The semantic inventory and typed candidate accurately reflect all explicit elements, timings, methods, biomarkers, and relations from the user message. All reports are complete and verified."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-13T09:16:05.462Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-78218c8e67e77052",
+          "resultDigest": "ke1-78218c8e67e77052",
+          "coverageStatus": "NO_PROVIDER",
+          "verifiedAt": "2026-08-13T09:16:05.465Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-13T09:16:05.462Z",
+        "updatedAt": "2026-08-13T09:16:05.465Z",
+        "digest": "ke1-617f72dc2b00ca38"
+      },
+      "canonicalModelDigest": "ke1-617f72dc2b00ca38",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-78218c8e67e77052",
+        "resultDigest": "ke1-78218c8e67e77052",
+        "coverageStatus": "NO_PROVIDER",
+        "verifiedAt": "2026-08-13T09:16:05.465Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-4a953cfb386077af",
+      "structuredDigest": "ke1-262154fe31cd9dda",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:15:54.134Z",
+          "requestFinished": "2026-08-13T09:15:59.981Z",
+          "latencyMs": 5847,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-02ad44e9cb957c9d",
+      "structuredDigest": "ke1-5b25157da409bcf9",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:16:02.237Z",
+          "requestFinished": "2026-08-13T09:16:05.461Z",
+          "latencyMs": 3224,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-fedc361eb2549d3a",
+    "revision": 1,
+    "status": "CANDIDATE",
+    "originalRequest": "embolisation maintenant ou en deux temps; volume perfusé en cone-beam CT",
+    "normalizedMeaning": "Comparaison entre embolisation en une étape (maintenant) ou en deux temps, et mesure du volume perfusé en cone-beam CT.",
+    "conversationMessageIds": [
+      "SEM-H13:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-1d83e121f7664a45",
+        "type": "INTERVENTION",
+        "canonicalMeaning": "Embolisation",
+        "studyRole": "INTERVENTION_ARM",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "item-1"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H13:user:1",
+          "text": "embolisation",
+          "start": 0,
+          "end": 12
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H13:user:1",
+          "providerCallId": "gemini-call:ke1-4a953cfb386077af",
+          "rawElementId": "elem-1"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-76cf1d127576d76e",
+        "type": "BIOMARKER",
+        "canonicalMeaning": "Volume perfusé",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "item-4"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H13:user:1",
+          "text": "volume perfusé",
+          "start": 42,
+          "end": 56
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-e12e107670e285da"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-78218c8e67e77052",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-50d48579a463f43d",
+            "knowledge-gap:ke1-71b7c2b3040d19b7",
+            "knowledge-gap:ke1-b111adb64ea050da"
+          ],
+          "checkedAt": "2026-08-13T09:16:05.465Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H13:user:1",
+          "providerCallId": "gemini-call:ke1-4a953cfb386077af",
+          "rawElementId": "elem-4"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-b0333e317f06cc9d",
+        "type": "METHOD",
+        "canonicalMeaning": "Cone-beam computed tomography",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "item-5"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H13:user:1",
+          "text": "cone-beam CT",
+          "start": 60,
+          "end": 72
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-e12e107670e285da"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H13:user:1",
+          "providerCallId": "gemini-call:ke1-4a953cfb386077af",
+          "rawElementId": "elem-5"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-cb6ac97cbe621530",
+        "type": "TIMING",
+        "canonicalMeaning": "En deux temps",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "item-3"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H13:user:1",
+          "text": "en deux temps",
+          "start": 27,
+          "end": 40
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-a8d1213618ca8912"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H13:user:1",
+          "providerCallId": "gemini-call:ke1-4a953cfb386077af",
+          "rawElementId": "elem-3"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-ed1b9b5a0bf1d086",
+        "type": "TIMING",
+        "canonicalMeaning": "Maintenant (immédiat)",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "item-2"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H13:user:1",
+          "text": "maintenant",
+          "start": 13,
+          "end": 23
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-a8d1213618ca8912"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H13:user:1",
+          "providerCallId": "gemini-call:ke1-4a953cfb386077af",
+          "rawElementId": "elem-2"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-a8d1213618ca8912",
+        "sourceElementId": "sem-element:ke1-ed1b9b5a0bf1d086",
+        "targetElementId": "sem-element:ke1-cb6ac97cbe621530",
+        "relationType": "COMPARES_WITH",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-1"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-e12e107670e285da",
+        "sourceElementId": "sem-element:ke1-76cf1d127576d76e",
+        "targetElementId": "sem-element:ke1-b0333e317f06cc9d",
+        "relationType": "MEASURED_BY",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-2"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "item-1",
+          "sourceMessageId": "SEM-H13:user:1",
+          "sourceText": "embolisation",
+          "normalizedMeaning": "embolisation",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-2",
+          "sourceMessageId": "SEM-H13:user:1",
+          "sourceText": "maintenant",
+          "normalizedMeaning": "maintenant",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-3",
+          "sourceMessageId": "SEM-H13:user:1",
+          "sourceText": "en deux temps",
+          "normalizedMeaning": "en deux temps",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-4",
+          "sourceMessageId": "SEM-H13:user:1",
+          "sourceText": "volume perfusé",
+          "normalizedMeaning": "volume perfusé",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-5",
+          "sourceMessageId": "SEM-H13:user:1",
+          "sourceText": "cone-beam CT",
+          "normalizedMeaning": "cone-beam computed tomography",
+          "mappedClientElementIds": [
+            "elem-5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-1",
+          "sourceInventoryItemId": "item-2",
+          "targetInventoryItemId": "item-3",
+          "normalizedRelation": "COMPARES_WITH",
+          "mappedClientRelationIds": [
+            "rel-elem-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-2",
+          "sourceInventoryItemId": "item-4",
+          "targetInventoryItemId": "item-5",
+          "normalizedRelation": "MEASURED_BY",
+          "mappedClientRelationIds": [
+            "rel-elem-2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "missingConcepts": [
+      "Target anatomical structure or condition for embolization"
+    ],
+    "ellipses": [],
+    "ambiguities": [
+      "The target organ or pathological condition being embolized is not specified."
+    ],
+    "unknowns": [],
+    "contradictions": [],
+    "clarificationCandidates": [
+      {
+        "question": "Quel est l'organe ou la pathologie cible pour cette embolisation ?",
+        "reason": "Préciser la condition ou l'organe cible pour compléter le contexte de l'étude.",
+        "resolvesElementIds": [
+          "sem-element:ke1-1d83e121f7664a45"
+        ]
+      }
+    ],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "DESIGN_STUDY",
+      "confidence": 0.9,
+      "reason": "L'utilisateur compare des stratégies d'intervention temporelles et définit une mesure par imagerie, ce qui relève de la conception d'étude.",
+      "expectedCapabilities": [
+        "Associate measurement methods",
+        "Define comparison arms"
+      ]
+    },
+    "summaryForUser": "L'analyse identifie une comparaison entre deux stratégies d'embolisation (maintenant vs en deux temps) et une mesure par cone-beam CT du volume perfusé.",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "The semantic inventory and typed candidate accurately reflect all explicit elements, timings, methods, biomarkers, and relations from the user message. All reports are complete and verified."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-4a953cfb386077af",
+      "criticCallId": "gemini-call:ke1-02ad44e9cb957c9d",
+      "criticCallIds": [
+        "gemini-call:ke1-02ad44e9cb957c9d"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:15:54.134Z",
+          "requestFinished": "2026-08-13T09:15:59.981Z",
+          "latencyMs": 5847,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:16:02.237Z",
+          "requestFinished": "2026-08-13T09:16:05.461Z",
+          "latencyMs": 3224,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Comparaison entre embolisation en une étape (maintenant) ou en deux temps, et mesure du volume perfusé en cone-beam CT.",
+        "summaryForUser": "L'analyse identifie une comparaison entre deux stratégies d'embolisation (maintenant vs en deux temps) et une mesure par cone-beam CT du volume perfusé.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "item-1",
+              "sourceMessageId": "SEM-H13:user:1",
+              "sourceText": "embolisation",
+              "normalizedLabel": "embolisation",
+              "localRole": "intervention",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item-2",
+              "sourceMessageId": "SEM-H13:user:1",
+              "sourceText": "maintenant",
+              "normalizedLabel": "maintenant",
+              "localRole": "timing",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "item-1"
+              ]
+            },
+            {
+              "inventoryItemId": "item-3",
+              "sourceMessageId": "SEM-H13:user:1",
+              "sourceText": "en deux temps",
+              "normalizedLabel": "en deux temps",
+              "localRole": "timing",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "item-1"
+              ]
+            },
+            {
+              "inventoryItemId": "item-4",
+              "sourceMessageId": "SEM-H13:user:1",
+              "sourceText": "volume perfusé",
+              "normalizedLabel": "volume perfusé",
+              "localRole": "biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "item-5",
+              "sourceMessageId": "SEM-H13:user:1",
+              "sourceText": "cone-beam CT",
+              "normalizedLabel": "cone-beam computed tomography",
+              "localRole": "method",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "item-4"
+              ]
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "item-2",
+              "targetInventoryItemId": "item-3",
+              "sourceMessageId": "SEM-H13:user:1",
+              "sourceText": "embolisation maintenant ou en deux temps",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "item-4",
+              "targetInventoryItemId": "item-5",
+              "sourceMessageId": "SEM-H13:user:1",
+              "sourceText": "volume perfusé en cone-beam CT",
+              "normalizedRelation": "MEASURED_BY",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "INTERVENTION",
+            "canonicalMeaning": "Embolisation",
+            "studyRole": "INTERVENTION_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-1"
+            ],
+            "sourceMessageId": "SEM-H13:user:1",
+            "sourceText": "embolisation",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "TIMING",
+            "canonicalMeaning": "Maintenant (immédiat)",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-2"
+            ],
+            "sourceMessageId": "SEM-H13:user:1",
+            "sourceText": "maintenant",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "TIMING",
+            "canonicalMeaning": "En deux temps",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-3"
+            ],
+            "sourceMessageId": "SEM-H13:user:1",
+            "sourceText": "en deux temps",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-4",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Volume perfusé",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-4"
+            ],
+            "sourceMessageId": "SEM-H13:user:1",
+            "sourceText": "volume perfusé",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-5",
+            "type": "METHOD",
+            "canonicalMeaning": "Cone-beam computed tomography",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "item-5"
+            ],
+            "sourceMessageId": "SEM-H13:user:1",
+            "sourceText": "cone-beam CT",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-elem-1",
+            "sourceClientElementId": "elem-2",
+            "targetClientElementId": "elem-3",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-2",
+            "sourceClientElementId": "elem-4",
+            "targetClientElementId": "elem-5",
+            "relationType": "MEASURED_BY",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [
+          "Target anatomical structure or condition for embolization"
+        ],
+        "ellipses": [],
+        "ambiguities": [
+          "The target organ or pathological condition being embolized is not specified."
+        ],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [
+          {
+            "question": "Quel est l'organe ou la pathologie cible pour cette embolisation ?",
+            "reason": "Préciser la condition ou l'organe cible pour compléter le contexte de l'étude.",
+            "resolvesClientElementIds": [
+              "elem-1"
+            ]
+          }
+        ],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "L'utilisateur compare des stratégies d'intervention temporelles et définit une mesure par imagerie, ce qui relève de la conception d'étude.",
+          "expectedCapabilities": [
+            "Define comparison arms",
+            "Associate measurement methods"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "rawCritic": {
+        "criticId": "critic-001",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit objects (embolisation, maintenant, en deux temps, volume perfusé, cone-beam CT) are represented in the typed candidate elements."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "PASS",
+            "evidence": "The comparison between 'maintenant' and 'en deux temps' is fully represented."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "The intervention 'embolisation' is represented as elem-1."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No separate broad modality family outside of the named method (cone-beam CT) is present."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Relations rel-1 and rel-2 are correctly mapped to elem-rel-1 and elem-rel-2."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "Taxonomy report is COMPLETE with no findings; all elements have correct types."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "Explicit relations are preserved faithfully without weakening."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No inferences were promoted as user-stated elements."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "The missing target organ/condition is explicitly listed in ambiguities."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "All polarities are AFFIRMED as stated."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "PASS",
+            "evidence": "Timing elements 'maintenant' and 'en deux temps' are fully represented."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "Biomarker is correctly classified as MEASUREMENT without unwarranted endpoint promotion."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Cone-beam CT and volume perfusé maintain their specific concepts."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "No source fragment remains unmapped."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "DESIGN_STUDY is appropriate for a study comparing temporal strategies and measurement methods."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "The semantic inventory and typed candidate accurately reflect all explicit elements, timings, methods, biomarkers, and relations from the user message. All reports are complete and verified."
+      },
+      "rawCritics": [
+        {
+          "criticId": "critic-001",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects (embolisation, maintenant, en deux temps, volume perfusé, cone-beam CT) are represented in the typed candidate elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The comparison between 'maintenant' and 'en deux temps' is fully represented."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The intervention 'embolisation' is represented as elem-1."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No separate broad modality family outside of the named method (cone-beam CT) is present."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Relations rel-1 and rel-2 are correctly mapped to elem-rel-1 and elem-rel-2."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Taxonomy report is COMPLETE with no findings; all elements have correct types."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations are preserved faithfully without weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No inferences were promoted as user-stated elements."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "The missing target organ/condition is explicitly listed in ambiguities."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "All polarities are AFFIRMED as stated."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Timing elements 'maintenant' and 'en deux temps' are fully represented."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Biomarker is correctly classified as MEASUREMENT without unwarranted endpoint promotion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Cone-beam CT and volume perfusé maintain their specific concepts."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No source fragment remains unmapped."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "DESIGN_STUDY is appropriate for a study comparing temporal strategies and measurement methods."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The semantic inventory and typed candidate accurately reflect all explicit elements, timings, methods, biomarkers, and relations from the user message. All reports are complete and verified."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-13T09:16:05.462Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-78218c8e67e77052",
+      "resultDigest": "ke1-78218c8e67e77052",
+      "coverageStatus": "NO_PROVIDER",
+      "verifiedAt": "2026-08-13T09:16:05.465Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-13T09:16:05.462Z",
+    "updatedAt": "2026-08-13T09:16:05.465Z",
+    "digest": "ke1-617f72dc2b00ca38"
+  },
+  "semanticModelDigest": "ke1-617f72dc2b00ca38",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "item-1",
+          "sourceMessageId": "SEM-H13:user:1",
+          "sourceText": "embolisation",
+          "normalizedMeaning": "embolisation",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-2",
+          "sourceMessageId": "SEM-H13:user:1",
+          "sourceText": "maintenant",
+          "normalizedMeaning": "maintenant",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-3",
+          "sourceMessageId": "SEM-H13:user:1",
+          "sourceText": "en deux temps",
+          "normalizedMeaning": "en deux temps",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-4",
+          "sourceMessageId": "SEM-H13:user:1",
+          "sourceText": "volume perfusé",
+          "normalizedMeaning": "volume perfusé",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "item-5",
+          "sourceMessageId": "SEM-H13:user:1",
+          "sourceText": "cone-beam CT",
+          "normalizedMeaning": "cone-beam computed tomography",
+          "mappedClientElementIds": [
+            "elem-5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-1",
+          "sourceInventoryItemId": "item-2",
+          "targetInventoryItemId": "item-3",
+          "normalizedRelation": "COMPARES_WITH",
+          "mappedClientRelationIds": [
+            "rel-elem-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-2",
+          "sourceInventoryItemId": "item-4",
+          "targetInventoryItemId": "item-5",
+          "normalizedRelation": "MEASURED_BY",
+          "mappedClientRelationIds": [
+            "rel-elem-2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-8066258bdfcc6c77",
+    "evaluatedAt": "2026-08-13T09:16:05.467Z",
+    "goldFrameDigest": "ke1-1543b0651ad4af91",
+    "result": {
+      "caseId": "SEM-H13",
+      "explicitObjectRecall": 0.5,
+      "explicitRelationRecall": 0.5,
+      "criticalSemanticRecall": 0.5,
+      "comparatorPreserved": false,
+      "interventionPreserved": true,
+      "modalityPreserved": false,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 1,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": [
+        "EXPLICIT_COMPARATOR_LOST:embolisation en deux temps",
+        "EXPLICIT_MODALITY_LOST:cone-beam CT",
+        "RELATION_LOST:embolisation immédiate->embolisation en deux temps"
+      ]
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H13",
+    "explicitObjectRecall": 0.5,
+    "explicitRelationRecall": 0.5,
+    "criticalSemanticRecall": 0.5,
+    "comparatorPreserved": false,
+    "interventionPreserved": true,
+    "modalityPreserved": false,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 1,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": [
+      "EXPLICIT_COMPARATOR_LOST:embolisation en deux temps",
+      "EXPLICIT_MODALITY_LOST:cone-beam CT",
+      "RELATION_LOST:embolisation immédiate->embolisation en deux temps"
+    ]
+  },
+  "error": null
+}

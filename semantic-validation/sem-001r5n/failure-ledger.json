@@ -1,0 +1,489 @@
+{
+  "campaign": "SEM-001R5N-CLOSURE",
+  "campaignId": "sem-001r5n-closure-2026-08-13T10-04-53-978Z-ke1-dddaa50feb99591b",
+  "failures": [
+    {
+      "caseId": "SEM-H01",
+      "originalRequest": [
+        "On voudrait opposer l'ADC cortical à la perfusion ASL pour caractériser le rein greffé."
+      ],
+      "metricFailures": null,
+      "absoluteBlockers": [],
+      "firstDivergentStage": "BASE_CRITIC_OR_ACCEPTANCE_GUARD",
+      "failureClass": "CRITIC_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_CRITIC_OWNER",
+      "error": {
+        "category": "SEMANTIC_PIPELINE_FAILURE",
+        "failureClass": "CRITIC_FAILURE",
+        "message": "SEM001R4_CRITIC_NOT_ACCEPTED:CRITIC_ACCEPT_INCONSISTENT_WITH_COVERAGE"
+      }
+    },
+    {
+      "caseId": "SEM-H04",
+      "originalRequest": [
+        "Comparer DWI whole-body et PET PSMA pour repérer les métastases, pas pour mesurer la réponse."
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H04",
+        "explicitObjectRecall": 0.75,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 0.8,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_CONSTRAINT_LOST:pas mesure de réponse"
+        ]
+      },
+      "absoluteBlockers": [
+        "EXPLICIT_CONSTRAINT_LOST:pas mesure de réponse"
+      ],
+      "firstDivergentStage": "POST_CANONICAL_HOLDOUT_EVALUATION",
+      "failureClass": "OBJECT_COVERAGE_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_OBJECT_COVERAGE_OWNER"
+    },
+    {
+      "caseId": "SEM-H07",
+      "originalRequest": [
+        "post myocardite : mapping natif et strain, lequel annonce la récupération VG ?"
+      ],
+      "metricFailures": null,
+      "absoluteBlockers": [],
+      "firstDivergentStage": "BASE_CRITIC_OR_ACCEPTANCE_GUARD",
+      "failureClass": "CRITIC_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_CRITIC_OWNER",
+      "error": {
+        "category": "SEMANTIC_PIPELINE_FAILURE",
+        "failureClass": "CRITIC_FAILURE",
+        "message": "SEM001R4_CRITIC_NOT_ACCEPTED:CRITIC_ACCEPT_INCONSISTENT_WITH_COVERAGE"
+      }
+    },
+    {
+      "caseId": "SEM-H08",
+      "originalRequest": [
+        "Tmax 6 s n'est pas mon endpoint; je veux décrire le décalage bolus entre CT perfusion et ASL."
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H08",
+        "explicitObjectRecall": 0.75,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 0.8,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_CONSTRAINT_LOST:Tmax 6 s exclu comme endpoint"
+        ]
+      },
+      "absoluteBlockers": [
+        "EXPLICIT_CONSTRAINT_LOST:Tmax 6 s exclu comme endpoint"
+      ],
+      "firstDivergentStage": "POST_CANONICAL_HOLDOUT_EVALUATION",
+      "failureClass": "OBJECT_COVERAGE_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_OBJECT_COVERAGE_OWNER"
+    },
+    {
+      "caseId": "SEM-H11",
+      "originalRequest": [
+        "On suit diamètre aortique, mais c'est la vitesse de croissance plutôt que le diamètre brut qui doit compter."
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H11",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 0,
+        "criticalSemanticRecall": 0.6666666666666666,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "RELATION_LOST:vitesse de croissance->diamètre aortique"
+        ]
+      },
+      "absoluteBlockers": [
+        "RELATION_LOST:vitesse de croissance->diamètre aortique"
+      ],
+      "firstDivergentStage": "POST_CANONICAL_HOLDOUT_EVALUATION",
+      "failureClass": "RELATION_COVERAGE_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_RELATION_COVERAGE_OWNER"
+    },
+    {
+      "caseId": "SEM-H13",
+      "originalRequest": [
+        "embolisation maintenant ou en deux temps; volume perfusé en cone-beam CT"
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H13",
+        "explicitObjectRecall": 0.75,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 0.8333333333333334,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": false,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_MODALITY_LOST:cone-beam CT"
+        ]
+      },
+      "absoluteBlockers": [
+        "EXPLICIT_MODALITY_LOST:cone-beam CT"
+      ],
+      "firstDivergentStage": "POST_CANONICAL_HOLDOUT_EVALUATION",
+      "failureClass": "OBJECT_COVERAGE_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_OBJECT_COVERAGE_OWNER"
+    },
+    {
+      "caseId": "SEM-H15",
+      "originalRequest": [
+        "Cohorte rétrospective, trois hôpitaux, DICOM incomplets : estimer le taux de non-évaluables."
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H15",
+        "explicitObjectRecall": 0.75,
+        "explicitRelationRecall": 0,
+        "criticalSemanticRecall": 0.6,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_OUTCOME_LOST:taux de non-évaluables",
+          "RELATION_LOST:DICOM incomplets->taux de non-évaluables"
+        ]
+      },
+      "absoluteBlockers": [
+        "EXPLICIT_OUTCOME_LOST:taux de non-évaluables",
+        "RELATION_LOST:DICOM incomplets->taux de non-évaluables"
+      ],
+      "firstDivergentStage": "POST_CANONICAL_HOLDOUT_EVALUATION",
+      "failureClass": "OBJECT_COVERAGE_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_OBJECT_COVERAGE_OWNER"
+    },
+    {
+      "caseId": "SEM-H19",
+      "originalRequest": [
+        "PI-RADS ou radiomique pour prédire upgrading, biopsie comme référence"
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H19",
+        "explicitObjectRecall": 0.75,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 0.8,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_BIOMARKER_LOST:PI-RADS"
+        ]
+      },
+      "absoluteBlockers": [
+        "EXPLICIT_BIOMARKER_LOST:PI-RADS"
+      ],
+      "firstDivergentStage": "POST_CANONICAL_HOLDOUT_EVALUATION",
+      "failureClass": "OBJECT_COVERAGE_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_OBJECT_COVERAGE_OWNER"
+    },
+    {
+      "caseId": "SEM-H21",
+      "originalRequest": [
+        "Fusionner échographie de contraste et CT, non pour les comparer mais pour localiser la même lésion."
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H21",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 0,
+        "criticalSemanticRecall": 0.8,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": false,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "RELATION_LOST:échographie de contraste->CT"
+        ]
+      },
+      "absoluteBlockers": [
+        "RELATION_LOST:échographie de contraste->CT"
+      ],
+      "firstDivergentStage": "POST_CANONICAL_HOLDOUT_EVALUATION",
+      "failureClass": "RELATION_COVERAGE_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_RELATION_COVERAGE_OWNER"
+    },
+    {
+      "caseId": "SEM-H22",
+      "originalRequest": [
+        "pseudoprogression vs récidive: perfusion DSC + spectro, résultat histologique pas toujours dispo"
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H22",
+        "explicitObjectRecall": 0.6,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 0.6666666666666666,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_CONDITION_LOST:pseudoprogression",
+          "EXPLICIT_CONDITION_LOST:récidive"
+        ]
+      },
+      "absoluteBlockers": [
+        "EXPLICIT_CONDITION_LOST:pseudoprogression",
+        "EXPLICIT_CONDITION_LOST:récidive"
+      ],
+      "firstDivergentStage": "POST_CANONICAL_HOLDOUT_EVALUATION",
+      "failureClass": "OBJECT_COVERAGE_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_OBJECT_COVERAGE_OWNER"
+    },
+    {
+      "caseId": "SEM-H23",
+      "originalRequest": [
+        "Test-retest ADC tumeur, même jour, sans traitement entre les deux"
+      ],
+      "metricFailures": null,
+      "absoluteBlockers": [],
+      "firstDivergentStage": "BASE_CRITIC_OR_ACCEPTANCE_GUARD",
+      "failureClass": "CRITIC_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_CRITIC_OWNER",
+      "error": {
+        "category": "SEMANTIC_PIPELINE_FAILURE",
+        "failureClass": "CRITIC_FAILURE",
+        "message": "SEM001R4_CRITIC_NOT_ACCEPTED:CRITIC_ACCEPT_INCONSISTENT_WITH_COVERAGE"
+      }
+    },
+    {
+      "caseId": "SEM-H24",
+      "originalRequest": [
+        "Placenta IVIM et T2*, relation avec croissance fœtale, mais aucune injection."
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H24",
+        "explicitObjectRecall": 0.8,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 0.8333333333333334,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_SCIENTIFIC_OBJECT_LOST:placenta"
+        ]
+      },
+      "absoluteBlockers": [
+        "EXPLICIT_SCIENTIFIC_OBJECT_LOST:placenta"
+      ],
+      "firstDivergentStage": "POST_CANONICAL_HOLDOUT_EVALUATION",
+      "failureClass": "OBJECT_COVERAGE_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_OBJECT_COVERAGE_OWNER"
+    },
+    {
+      "caseId": "SEM-H25",
+      "originalRequest": [
+        "Deux agents K-edge injectés pour séparer inflammation et vascularisation : projet exploratoire."
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H25",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 0,
+        "criticalSemanticRecall": 0.8,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "RELATION_LOST:inflammation->vascularisation"
+        ]
+      },
+      "absoluteBlockers": [
+        "RELATION_LOST:inflammation->vascularisation"
+      ],
+      "firstDivergentStage": "POST_CANONICAL_HOLDOUT_EVALUATION",
+      "failureClass": "RELATION_COVERAGE_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_RELATION_COVERAGE_OWNER"
+    },
+    {
+      "caseId": "SEM-H26",
+      "originalRequest": [
+        "Moi ce qui m'intéresse c'est pas la perfusion, c'est combien de temps l'oxygénation met à revenir après l'effort."
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H26",
+        "explicitObjectRecall": 0,
+        "explicitRelationRecall": 0,
+        "criticalSemanticRecall": 0,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_CONSTRAINT_LOST:perfusion exclue",
+          "EXPLICIT_SCIENTIFIC_OBJECT_LOST:oxygénation",
+          "EXPLICIT_OUTCOME_LOST:temps de récupération",
+          "EXPLICIT_TIMING_LOST:après effort",
+          "RELATION_LOST:oxygénation->effort"
+        ]
+      },
+      "absoluteBlockers": [
+        "EXPLICIT_CONSTRAINT_LOST:perfusion exclue",
+        "EXPLICIT_SCIENTIFIC_OBJECT_LOST:oxygénation",
+        "EXPLICIT_OUTCOME_LOST:temps de récupération",
+        "EXPLICIT_TIMING_LOST:après effort",
+        "RELATION_LOST:oxygénation->effort"
+      ],
+      "firstDivergentStage": "POST_CANONICAL_HOLDOUT_EVALUATION",
+      "failureClass": "OBJECT_COVERAGE_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_OBJECT_COVERAGE_OWNER"
+    },
+    {
+      "caseId": "SEM-H27",
+      "originalRequest": [
+        "Ne pas comparer les constructeurs. Je veux uniquement voir si le changement de logiciel modifie le T1."
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H27",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 0,
+        "criticalSemanticRecall": 0.75,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "RELATION_LOST:changement de logiciel->T1"
+        ]
+      },
+      "absoluteBlockers": [
+        "RELATION_LOST:changement de logiciel->T1"
+      ],
+      "firstDivergentStage": "POST_CANONICAL_HOLDOUT_EVALUATION",
+      "failureClass": "RELATION_COVERAGE_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_RELATION_COVERAGE_OWNER"
+    }
+  ]
+}

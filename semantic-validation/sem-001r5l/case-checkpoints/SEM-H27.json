@@ -1,0 +1,2052 @@
+{
+  "campaign": "SEM-001R5L-CLOSURE",
+  "campaignId": "sem-001r5l-closure-2026-08-13T09-09-28-906Z-ke1-391a23dcb99dc470",
+  "caseId": "SEM-H27",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-391a23dcb99dc470",
+  "semanticConfigurationDigest": "ke1-410eaaec72fd1768",
+  "goldFrameDigest": "ke1-51d516986156e92c",
+  "originalRequest": [
+    "Ne pas comparer les constructeurs. Je veux uniquement voir si le changement de logiciel modifie le T1."
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-13T09:22:21.631Z",
+  "completedAt": "2026-08-13T09:23:01.282Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H27:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "cand_01J9XYZ000000000000000000",
+        "language": "fr",
+        "normalizedMeaning": "Exclusion de la comparaison des constructeurs. Analyse de l'effet d'un changement de logiciel sur le paramètre T1.",
+        "summaryForUser": "Vous souhaitez exclure la comparaison des constructeurs et évaluer uniquement l'impact d'un changement de logiciel sur le paramètre T1.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv_01",
+              "sourceMessageId": "SEM-H27:user:1",
+              "sourceText": "comparer",
+              "normalizedLabel": "comparer",
+              "localRole": "action",
+              "polarity": "NEGATED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_02"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_02",
+              "sourceMessageId": "SEM-H27:user:1",
+              "sourceText": "les constructeurs",
+              "normalizedLabel": "constructeurs",
+              "localRole": "target",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_01"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_03",
+              "sourceMessageId": "SEM-H27:user:1",
+              "sourceText": "changement de logiciel",
+              "normalizedLabel": "changement de logiciel",
+              "localRole": "intervention",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_04",
+              "sourceMessageId": "SEM-H27:user:1",
+              "sourceText": "modifie",
+              "normalizedLabel": "modifie",
+              "localRole": "relation",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_03",
+                "inv_05"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_05",
+              "sourceMessageId": "SEM-H27:user:1",
+              "sourceText": "le T1",
+              "normalizedLabel": "T1",
+              "localRole": "target",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_04"
+              ]
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_inv_01",
+              "sourceInventoryItemId": "inv_01",
+              "targetInventoryItemId": "inv_02",
+              "sourceMessageId": "SEM-H27:user:1",
+              "sourceText": "Ne pas comparer les constructeurs",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "NEGATED"
+            },
+            {
+              "inventoryRelationId": "rel_inv_02",
+              "sourceInventoryItemId": "inv_05",
+              "targetInventoryItemId": "inv_03",
+              "sourceMessageId": "SEM-H27:user:1",
+              "sourceText": "le changement de logiciel modifie le T1",
+              "normalizedRelation": "CHANGES_AFTER",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem_01",
+            "type": "COMPARATOR",
+            "canonicalMeaning": "Constructeurs d'équipements",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv_02"
+            ],
+            "sourceMessageId": "SEM-H27:user:1",
+            "sourceText": "les constructeurs",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_02",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "Exclusion explicite de la comparaison des constructeurs",
+            "studyRole": "NONE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv_01",
+              "inv_02"
+            ],
+            "sourceMessageId": "SEM-H27:user:1",
+            "sourceText": "Ne pas comparer les constructeurs",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_03",
+            "type": "INTERVENTION",
+            "canonicalMeaning": "Changement de logiciel",
+            "studyRole": "INTERVENTION_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_03"
+            ],
+            "sourceMessageId": "SEM-H27:user:1",
+            "sourceText": "changement de logiciel",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_04",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Temps de relaxation T1",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_05"
+            ],
+            "sourceMessageId": "SEM-H27:user:1",
+            "sourceText": "le T1",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel_01",
+            "sourceClientElementId": "elem_04",
+            "targetClientElementId": "elem_03",
+            "relationType": "CHANGES_AFTER",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_02"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_02",
+            "sourceClientElementId": "elem_02",
+            "targetClientElementId": "elem_01",
+            "relationType": "COMPARES_WITH",
+            "polarity": "NEGATED",
+            "inventoryRelationIds": [
+              "rel_inv_01"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.95,
+          "reason": "The user is setting up an evaluation comparing the effect of a software change on T1 while explicitly constraining the design to exclude manufacturer comparison.",
+          "expectedCapabilities": [
+            "Define intervention parameters",
+            "Configure measurement variables",
+            "Apply methodological constraints"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "reconstructionDigest": "ke1-7fb73bc93ea18055",
+      "critics": [
+        {
+          "criticId": "crit_01J9XYZ000000000000000000",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit source objects (les constructeurs, changement de logiciel, le T1) are fully mapped to valid semantic elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Constructors are correctly represented as a comparator element under negative constraint."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The software change is accurately represented as an INTERVENTION element."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit imaging modality is present in the source text."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Both explicit inventory relations (comparison exclusion and modification after software change) are mapped to direct semantic relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All object types comply with the operational taxonomy (BIOMARKER for T1, INTERVENTION for software change, COMPARATOR for constructors, CONSTRAINT for the negative comparison command)."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relation has been weakened or lost."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unwarranted inferences have been promoted to explicit status."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No hidden ambiguities are present; the negative constraint is explicit."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "The negation in 'Ne pas comparer' is properly preserved with NEGATED polarity."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit timing or time point is mentioned."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "T1 is correctly classified as BIOMARKER without unsupported endpoint promotion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts such as software change and T1 are preserved without generalization."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "All text fragments are accounted for in the semantic inventory and typed candidate."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The DESIGN_STUDY route accurately matches the study-construction intent involving intervention, biomarker, and design constraints."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The candidate fully and accurately captures all explicit elements, relations, modalities, and constraints from the user message. All types and roles align with the operational taxonomy, and the routing is correct."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-fb8fa666ab424bd2",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "Ne pas comparer les constructeurs. Je veux uniquement voir si le changement de logiciel modifie le T1.",
+        "normalizedMeaning": "Exclusion de la comparaison des constructeurs. Analyse de l'effet d'un changement de logiciel sur le paramètre T1.",
+        "conversationMessageIds": [
+          "SEM-H27:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-13afc8cc9c8bfc98",
+            "type": "INTERVENTION",
+            "canonicalMeaning": "Changement de logiciel",
+            "studyRole": "INTERVENTION_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_03"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H27:user:1",
+              "text": "changement de logiciel",
+              "start": 65,
+              "end": 87
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-b7f76605f753fcd1"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H27:user:1",
+              "providerCallId": "gemini-call:ke1-8a6183fb499c2877",
+              "rawElementId": "elem_03"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-19accaed18827b09",
+            "type": "COMPARATOR",
+            "canonicalMeaning": "Constructeurs d'équipements",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv_02"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H27:user:1",
+              "text": "les constructeurs",
+              "start": 16,
+              "end": 33
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-b563cbe6461bfa2a"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H27:user:1",
+              "providerCallId": "gemini-call:ke1-8a6183fb499c2877",
+              "rawElementId": "elem_01"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-4223651638ad9f22",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "Exclusion explicite de la comparaison des constructeurs",
+            "studyRole": "NONE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv_01",
+              "inv_02"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H27:user:1",
+              "text": "Ne pas comparer les constructeurs",
+              "start": 0,
+              "end": 33
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-b563cbe6461bfa2a"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H27:user:1",
+              "providerCallId": "gemini-call:ke1-8a6183fb499c2877",
+              "rawElementId": "elem_02"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-82062eaa3536e97e",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Temps de relaxation T1",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_05"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H27:user:1",
+              "text": "le T1",
+              "start": 96,
+              "end": 101
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-b7f76605f753fcd1"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-1ab04bc491acbe30",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-521a0782972eeece",
+                "knowledge-gap:ke1-a01b44a0f64e496c",
+                "knowledge-gap:ke1-af444ad97e94ac5d"
+              ],
+              "checkedAt": "2026-08-13T09:23:01.280Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H27:user:1",
+              "providerCallId": "gemini-call:ke1-8a6183fb499c2877",
+              "rawElementId": "elem_04"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-b563cbe6461bfa2a",
+            "sourceElementId": "sem-element:ke1-4223651638ad9f22",
+            "targetElementId": "sem-element:ke1-19accaed18827b09",
+            "relationType": "COMPARES_WITH",
+            "polarity": "NEGATED",
+            "inventoryRelationIds": [
+              "rel_inv_01"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-b7f76605f753fcd1",
+            "sourceElementId": "sem-element:ke1-82062eaa3536e97e",
+            "targetElementId": "sem-element:ke1-13afc8cc9c8bfc98",
+            "relationType": "CHANGES_AFTER",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_02"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv_01",
+              "sourceMessageId": "SEM-H27:user:1",
+              "sourceText": "comparer",
+              "normalizedMeaning": "comparer",
+              "mappedClientElementIds": [
+                "elem_02"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_02",
+              "sourceMessageId": "SEM-H27:user:1",
+              "sourceText": "les constructeurs",
+              "normalizedMeaning": "constructeurs",
+              "mappedClientElementIds": [
+                "elem_01",
+                "elem_02"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_03",
+              "sourceMessageId": "SEM-H27:user:1",
+              "sourceText": "changement de logiciel",
+              "normalizedMeaning": "changement de logiciel",
+              "mappedClientElementIds": [
+                "elem_03"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_04",
+              "sourceMessageId": "SEM-H27:user:1",
+              "sourceText": "modifie",
+              "normalizedMeaning": "modifie",
+              "mappedClientElementIds": [],
+              "mappedClientRelationIds": [
+                "rel_01"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "The explicit functional fragment is represented by its source-grounded direct Semantic Relation rather than by a false object node."
+            },
+            {
+              "inventoryItemId": "inv_05",
+              "sourceMessageId": "SEM-H27:user:1",
+              "sourceText": "le T1",
+              "normalizedMeaning": "T1",
+              "mappedClientElementIds": [
+                "elem_04"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel_inv_01",
+              "sourceInventoryItemId": "inv_01",
+              "targetInventoryItemId": "inv_02",
+              "normalizedRelation": "COMPARES_WITH",
+              "mappedClientRelationIds": [
+                "coalesced:elem_02",
+                "rel_02"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_inv_02",
+              "sourceInventoryItemId": "inv_05",
+              "targetInventoryItemId": "inv_03",
+              "normalizedRelation": "CHANGES_AFTER",
+              "mappedClientRelationIds": [
+                "rel_01"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "clarificationCandidates": [],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.95,
+          "reason": "The user is setting up an evaluation comparing the effect of a software change on T1 while explicitly constraining the design to exclude manufacturer comparison.",
+          "expectedCapabilities": [
+            "Apply methodological constraints",
+            "Configure measurement variables",
+            "Define intervention parameters"
+          ]
+        },
+        "summaryForUser": "Vous souhaitez exclure la comparaison des constructeurs et évaluer uniquement l'impact d'un changement de logiciel sur le paramètre T1.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "The candidate fully and accurately captures all explicit elements, relations, modalities, and constraints from the user message. All types and roles align with the operational taxonomy, and the routing is correct."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+          "criticPromptVersion": "SEM-001-CRITIC-1.6",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-8a6183fb499c2877",
+          "criticCallId": "gemini-call:ke1-85c8f5f36af27cb7",
+          "criticCallIds": [
+            "gemini-call:ke1-85c8f5f36af27cb7"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:22:23.134Z",
+              "requestFinished": "2026-08-13T09:22:27.873Z",
+              "latencyMs": 4739,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-13T09:22:57.662Z",
+              "requestFinished": "2026-08-13T09:23:01.276Z",
+              "latencyMs": 3614,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "cand_01J9XYZ000000000000000000",
+            "language": "fr",
+            "normalizedMeaning": "Exclusion de la comparaison des constructeurs. Analyse de l'effet d'un changement de logiciel sur le paramètre T1.",
+            "summaryForUser": "Vous souhaitez exclure la comparaison des constructeurs et évaluer uniquement l'impact d'un changement de logiciel sur le paramètre T1.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "inv_01",
+                  "sourceMessageId": "SEM-H27:user:1",
+                  "sourceText": "comparer",
+                  "normalizedLabel": "comparer",
+                  "localRole": "action",
+                  "polarity": "NEGATED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv_02"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv_02",
+                  "sourceMessageId": "SEM-H27:user:1",
+                  "sourceText": "les constructeurs",
+                  "normalizedLabel": "constructeurs",
+                  "localRole": "target",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv_01"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv_03",
+                  "sourceMessageId": "SEM-H27:user:1",
+                  "sourceText": "changement de logiciel",
+                  "normalizedLabel": "changement de logiciel",
+                  "localRole": "intervention",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv_04",
+                  "sourceMessageId": "SEM-H27:user:1",
+                  "sourceText": "modifie",
+                  "normalizedLabel": "modifie",
+                  "localRole": "relation",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv_03",
+                    "inv_05"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv_05",
+                  "sourceMessageId": "SEM-H27:user:1",
+                  "sourceText": "le T1",
+                  "normalizedLabel": "T1",
+                  "localRole": "target",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv_04"
+                  ]
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel_inv_01",
+                  "sourceInventoryItemId": "inv_01",
+                  "targetInventoryItemId": "inv_02",
+                  "sourceMessageId": "SEM-H27:user:1",
+                  "sourceText": "Ne pas comparer les constructeurs",
+                  "normalizedRelation": "COMPARES_WITH",
+                  "polarity": "NEGATED"
+                },
+                {
+                  "inventoryRelationId": "rel_inv_02",
+                  "sourceInventoryItemId": "inv_05",
+                  "targetInventoryItemId": "inv_03",
+                  "sourceMessageId": "SEM-H27:user:1",
+                  "sourceText": "le changement de logiciel modifie le T1",
+                  "normalizedRelation": "CHANGES_AFTER",
+                  "polarity": "AFFIRMED"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem_01",
+                "type": "COMPARATOR",
+                "canonicalMeaning": "Constructeurs d'équipements",
+                "studyRole": "COMPARATOR_ARM",
+                "polarity": "NEGATED",
+                "inventoryItemIds": [
+                  "inv_02"
+                ],
+                "sourceMessageId": "SEM-H27:user:1",
+                "sourceText": "les constructeurs",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_02",
+                "type": "CONSTRAINT",
+                "canonicalMeaning": "Exclusion explicite de la comparaison des constructeurs",
+                "studyRole": "NONE",
+                "polarity": "NEGATED",
+                "inventoryItemIds": [
+                  "inv_01",
+                  "inv_02"
+                ],
+                "sourceMessageId": "SEM-H27:user:1",
+                "sourceText": "Ne pas comparer les constructeurs",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_03",
+                "type": "INTERVENTION",
+                "canonicalMeaning": "Changement de logiciel",
+                "studyRole": "INTERVENTION_ARM",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_03"
+                ],
+                "sourceMessageId": "SEM-H27:user:1",
+                "sourceText": "changement de logiciel",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_04",
+                "type": "BIOMARKER",
+                "canonicalMeaning": "Temps de relaxation T1",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_05"
+                ],
+                "sourceMessageId": "SEM-H27:user:1",
+                "sourceText": "le T1",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel_01",
+                "sourceClientElementId": "elem_04",
+                "targetClientElementId": "elem_03",
+                "relationType": "CHANGES_AFTER",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_inv_02"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel_02",
+                "sourceClientElementId": "elem_02",
+                "targetClientElementId": "elem_01",
+                "relationType": "COMPARES_WITH",
+                "polarity": "NEGATED",
+                "inventoryRelationIds": [
+                  "rel_inv_01"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              }
+            ],
+            "missingConcepts": [],
+            "ellipses": [],
+            "ambiguities": [],
+            "unknowns": [],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [],
+            "routeProposal": {
+              "route": "DESIGN_STUDY",
+              "confidence": 0.95,
+              "reason": "The user is setting up an evaluation comparing the effect of a software change on T1 while explicitly constraining the design to exclude manufacturer comparison.",
+              "expectedCapabilities": [
+                "Define intervention parameters",
+                "Configure measurement variables",
+                "Apply methodological constraints"
+              ]
+            },
+            "semanticWarnings": []
+          },
+          "rawCritic": {
+            "criticId": "crit_01J9XYZ000000000000000000",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit source objects (les constructeurs, changement de logiciel, le T1) are fully mapped to valid semantic elements."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Constructors are correctly represented as a comparator element under negative constraint."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "The software change is accurately represented as an INTERVENTION element."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No explicit imaging modality is present in the source text."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Both explicit inventory relations (comparison exclusion and modification after software change) are mapped to direct semantic relations."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "All object types comply with the operational taxonomy (BIOMARKER for T1, INTERVENTION for software change, COMPARATOR for constructors, CONSTRAINT for the negative comparison command)."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "No explicit relation has been weakened or lost."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No unwarranted inferences have been promoted to explicit status."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "No hidden ambiguities are present; the negative constraint is explicit."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "The negation in 'Ne pas comparer' is properly preserved with NEGATED polarity."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No explicit timing or time point is mentioned."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "T1 is correctly classified as BIOMARKER without unsupported endpoint promotion."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts such as software change and T1 are preserved without generalization."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "All text fragments are accounted for in the semantic inventory and typed candidate."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "The DESIGN_STUDY route accurately matches the study-construction intent involving intervention, biomarker, and design constraints."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The candidate fully and accurately captures all explicit elements, relations, modalities, and constraints from the user message. All types and roles align with the operational taxonomy, and the routing is correct."
+          },
+          "rawCritics": [
+            {
+              "criticId": "crit_01J9XYZ000000000000000000",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit source objects (les constructeurs, changement de logiciel, le T1) are fully mapped to valid semantic elements."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "Constructors are correctly represented as a comparator element under negative constraint."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The software change is accurately represented as an INTERVENTION element."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No explicit imaging modality is present in the source text."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "Both explicit inventory relations (comparison exclusion and modification after software change) are mapped to direct semantic relations."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "All object types comply with the operational taxonomy (BIOMARKER for T1, INTERVENTION for software change, COMPARATOR for constructors, CONSTRAINT for the negative comparison command)."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "No explicit relation has been weakened or lost."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No unwarranted inferences have been promoted to explicit status."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "No hidden ambiguities are present; the negative constraint is explicit."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "The negation in 'Ne pas comparer' is properly preserved with NEGATED polarity."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No explicit timing or time point is mentioned."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "T1 is correctly classified as BIOMARKER without unsupported endpoint promotion."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific concepts such as software change and T1 are preserved without generalization."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All text fragments are accounted for in the semantic inventory and typed candidate."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "The DESIGN_STUDY route accurately matches the study-construction intent involving intervention, biomarker, and design constraints."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "The candidate fully and accurately captures all explicit elements, relations, modalities, and constraints from the user message. All types and roles align with the operational taxonomy, and the routing is correct."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-13T09:23:01.277Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-1ab04bc491acbe30",
+          "resultDigest": "ke1-1ab04bc491acbe30",
+          "coverageStatus": "NO_PROVIDER",
+          "verifiedAt": "2026-08-13T09:23:01.280Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-13T09:23:01.277Z",
+        "updatedAt": "2026-08-13T09:23:01.280Z",
+        "digest": "ke1-ac2d99f2b94000a6"
+      },
+      "canonicalModelDigest": "ke1-ac2d99f2b94000a6",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-1ab04bc491acbe30",
+        "resultDigest": "ke1-1ab04bc491acbe30",
+        "coverageStatus": "NO_PROVIDER",
+        "verifiedAt": "2026-08-13T09:23:01.280Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-8a6183fb499c2877",
+      "structuredDigest": "ke1-7fb73bc93ea18055",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:22:23.134Z",
+          "requestFinished": "2026-08-13T09:22:27.873Z",
+          "latencyMs": 4739,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-85c8f5f36af27cb7",
+      "structuredDigest": "ke1-6bc3e1b1bb4639f5",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:22:57.662Z",
+          "requestFinished": "2026-08-13T09:23:01.276Z",
+          "latencyMs": 3614,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-fb8fa666ab424bd2",
+    "revision": 1,
+    "status": "CANDIDATE",
+    "originalRequest": "Ne pas comparer les constructeurs. Je veux uniquement voir si le changement de logiciel modifie le T1.",
+    "normalizedMeaning": "Exclusion de la comparaison des constructeurs. Analyse de l'effet d'un changement de logiciel sur le paramètre T1.",
+    "conversationMessageIds": [
+      "SEM-H27:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-13afc8cc9c8bfc98",
+        "type": "INTERVENTION",
+        "canonicalMeaning": "Changement de logiciel",
+        "studyRole": "INTERVENTION_ARM",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_03"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H27:user:1",
+          "text": "changement de logiciel",
+          "start": 65,
+          "end": 87
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-b7f76605f753fcd1"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H27:user:1",
+          "providerCallId": "gemini-call:ke1-8a6183fb499c2877",
+          "rawElementId": "elem_03"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-19accaed18827b09",
+        "type": "COMPARATOR",
+        "canonicalMeaning": "Constructeurs d'équipements",
+        "studyRole": "COMPARATOR_ARM",
+        "polarity": "NEGATED",
+        "inventoryItemIds": [
+          "inv_02"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H27:user:1",
+          "text": "les constructeurs",
+          "start": 16,
+          "end": 33
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-b563cbe6461bfa2a"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H27:user:1",
+          "providerCallId": "gemini-call:ke1-8a6183fb499c2877",
+          "rawElementId": "elem_01"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-4223651638ad9f22",
+        "type": "CONSTRAINT",
+        "canonicalMeaning": "Exclusion explicite de la comparaison des constructeurs",
+        "studyRole": "NONE",
+        "polarity": "NEGATED",
+        "inventoryItemIds": [
+          "inv_01",
+          "inv_02"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H27:user:1",
+          "text": "Ne pas comparer les constructeurs",
+          "start": 0,
+          "end": 33
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-b563cbe6461bfa2a"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H27:user:1",
+          "providerCallId": "gemini-call:ke1-8a6183fb499c2877",
+          "rawElementId": "elem_02"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-82062eaa3536e97e",
+        "type": "BIOMARKER",
+        "canonicalMeaning": "Temps de relaxation T1",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_05"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H27:user:1",
+          "text": "le T1",
+          "start": 96,
+          "end": 101
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-b7f76605f753fcd1"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-1ab04bc491acbe30",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-521a0782972eeece",
+            "knowledge-gap:ke1-a01b44a0f64e496c",
+            "knowledge-gap:ke1-af444ad97e94ac5d"
+          ],
+          "checkedAt": "2026-08-13T09:23:01.280Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H27:user:1",
+          "providerCallId": "gemini-call:ke1-8a6183fb499c2877",
+          "rawElementId": "elem_04"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-b563cbe6461bfa2a",
+        "sourceElementId": "sem-element:ke1-4223651638ad9f22",
+        "targetElementId": "sem-element:ke1-19accaed18827b09",
+        "relationType": "COMPARES_WITH",
+        "polarity": "NEGATED",
+        "inventoryRelationIds": [
+          "rel_inv_01"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-b7f76605f753fcd1",
+        "sourceElementId": "sem-element:ke1-82062eaa3536e97e",
+        "targetElementId": "sem-element:ke1-13afc8cc9c8bfc98",
+        "relationType": "CHANGES_AFTER",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_inv_02"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv_01",
+          "sourceMessageId": "SEM-H27:user:1",
+          "sourceText": "comparer",
+          "normalizedMeaning": "comparer",
+          "mappedClientElementIds": [
+            "elem_02"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_02",
+          "sourceMessageId": "SEM-H27:user:1",
+          "sourceText": "les constructeurs",
+          "normalizedMeaning": "constructeurs",
+          "mappedClientElementIds": [
+            "elem_01",
+            "elem_02"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_03",
+          "sourceMessageId": "SEM-H27:user:1",
+          "sourceText": "changement de logiciel",
+          "normalizedMeaning": "changement de logiciel",
+          "mappedClientElementIds": [
+            "elem_03"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_04",
+          "sourceMessageId": "SEM-H27:user:1",
+          "sourceText": "modifie",
+          "normalizedMeaning": "modifie",
+          "mappedClientElementIds": [],
+          "mappedClientRelationIds": [
+            "rel_01"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "The explicit functional fragment is represented by its source-grounded direct Semantic Relation rather than by a false object node."
+        },
+        {
+          "inventoryItemId": "inv_05",
+          "sourceMessageId": "SEM-H27:user:1",
+          "sourceText": "le T1",
+          "normalizedMeaning": "T1",
+          "mappedClientElementIds": [
+            "elem_04"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel_inv_01",
+          "sourceInventoryItemId": "inv_01",
+          "targetInventoryItemId": "inv_02",
+          "normalizedRelation": "COMPARES_WITH",
+          "mappedClientRelationIds": [
+            "coalesced:elem_02",
+            "rel_02"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_inv_02",
+          "sourceInventoryItemId": "inv_05",
+          "targetInventoryItemId": "inv_03",
+          "normalizedRelation": "CHANGES_AFTER",
+          "mappedClientRelationIds": [
+            "rel_01"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "missingConcepts": [],
+    "ellipses": [],
+    "ambiguities": [],
+    "unknowns": [],
+    "contradictions": [],
+    "clarificationCandidates": [],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "DESIGN_STUDY",
+      "confidence": 0.95,
+      "reason": "The user is setting up an evaluation comparing the effect of a software change on T1 while explicitly constraining the design to exclude manufacturer comparison.",
+      "expectedCapabilities": [
+        "Apply methodological constraints",
+        "Configure measurement variables",
+        "Define intervention parameters"
+      ]
+    },
+    "summaryForUser": "Vous souhaitez exclure la comparaison des constructeurs et évaluer uniquement l'impact d'un changement de logiciel sur le paramètre T1.",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "The candidate fully and accurately captures all explicit elements, relations, modalities, and constraints from the user message. All types and roles align with the operational taxonomy, and the routing is correct."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-8a6183fb499c2877",
+      "criticCallId": "gemini-call:ke1-85c8f5f36af27cb7",
+      "criticCallIds": [
+        "gemini-call:ke1-85c8f5f36af27cb7"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:22:23.134Z",
+          "requestFinished": "2026-08-13T09:22:27.873Z",
+          "latencyMs": 4739,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-13T09:22:57.662Z",
+          "requestFinished": "2026-08-13T09:23:01.276Z",
+          "latencyMs": 3614,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "cand_01J9XYZ000000000000000000",
+        "language": "fr",
+        "normalizedMeaning": "Exclusion de la comparaison des constructeurs. Analyse de l'effet d'un changement de logiciel sur le paramètre T1.",
+        "summaryForUser": "Vous souhaitez exclure la comparaison des constructeurs et évaluer uniquement l'impact d'un changement de logiciel sur le paramètre T1.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv_01",
+              "sourceMessageId": "SEM-H27:user:1",
+              "sourceText": "comparer",
+              "normalizedLabel": "comparer",
+              "localRole": "action",
+              "polarity": "NEGATED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_02"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_02",
+              "sourceMessageId": "SEM-H27:user:1",
+              "sourceText": "les constructeurs",
+              "normalizedLabel": "constructeurs",
+              "localRole": "target",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_01"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_03",
+              "sourceMessageId": "SEM-H27:user:1",
+              "sourceText": "changement de logiciel",
+              "normalizedLabel": "changement de logiciel",
+              "localRole": "intervention",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_04",
+              "sourceMessageId": "SEM-H27:user:1",
+              "sourceText": "modifie",
+              "normalizedLabel": "modifie",
+              "localRole": "relation",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_03",
+                "inv_05"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_05",
+              "sourceMessageId": "SEM-H27:user:1",
+              "sourceText": "le T1",
+              "normalizedLabel": "T1",
+              "localRole": "target",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_04"
+              ]
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_inv_01",
+              "sourceInventoryItemId": "inv_01",
+              "targetInventoryItemId": "inv_02",
+              "sourceMessageId": "SEM-H27:user:1",
+              "sourceText": "Ne pas comparer les constructeurs",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "NEGATED"
+            },
+            {
+              "inventoryRelationId": "rel_inv_02",
+              "sourceInventoryItemId": "inv_05",
+              "targetInventoryItemId": "inv_03",
+              "sourceMessageId": "SEM-H27:user:1",
+              "sourceText": "le changement de logiciel modifie le T1",
+              "normalizedRelation": "CHANGES_AFTER",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem_01",
+            "type": "COMPARATOR",
+            "canonicalMeaning": "Constructeurs d'équipements",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv_02"
+            ],
+            "sourceMessageId": "SEM-H27:user:1",
+            "sourceText": "les constructeurs",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_02",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "Exclusion explicite de la comparaison des constructeurs",
+            "studyRole": "NONE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv_01",
+              "inv_02"
+            ],
+            "sourceMessageId": "SEM-H27:user:1",
+            "sourceText": "Ne pas comparer les constructeurs",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_03",
+            "type": "INTERVENTION",
+            "canonicalMeaning": "Changement de logiciel",
+            "studyRole": "INTERVENTION_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_03"
+            ],
+            "sourceMessageId": "SEM-H27:user:1",
+            "sourceText": "changement de logiciel",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_04",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Temps de relaxation T1",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_05"
+            ],
+            "sourceMessageId": "SEM-H27:user:1",
+            "sourceText": "le T1",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel_01",
+            "sourceClientElementId": "elem_04",
+            "targetClientElementId": "elem_03",
+            "relationType": "CHANGES_AFTER",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_02"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_02",
+            "sourceClientElementId": "elem_02",
+            "targetClientElementId": "elem_01",
+            "relationType": "COMPARES_WITH",
+            "polarity": "NEGATED",
+            "inventoryRelationIds": [
+              "rel_inv_01"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.95,
+          "reason": "The user is setting up an evaluation comparing the effect of a software change on T1 while explicitly constraining the design to exclude manufacturer comparison.",
+          "expectedCapabilities": [
+            "Define intervention parameters",
+            "Configure measurement variables",
+            "Apply methodological constraints"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "rawCritic": {
+        "criticId": "crit_01J9XYZ000000000000000000",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit source objects (les constructeurs, changement de logiciel, le T1) are fully mapped to valid semantic elements."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Constructors are correctly represented as a comparator element under negative constraint."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "The software change is accurately represented as an INTERVENTION element."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No explicit imaging modality is present in the source text."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Both explicit inventory relations (comparison exclusion and modification after software change) are mapped to direct semantic relations."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "All object types comply with the operational taxonomy (BIOMARKER for T1, INTERVENTION for software change, COMPARATOR for constructors, CONSTRAINT for the negative comparison command)."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "No explicit relation has been weakened or lost."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No unwarranted inferences have been promoted to explicit status."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "No hidden ambiguities are present; the negative constraint is explicit."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "The negation in 'Ne pas comparer' is properly preserved with NEGATED polarity."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No explicit timing or time point is mentioned."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "T1 is correctly classified as BIOMARKER without unsupported endpoint promotion."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific concepts such as software change and T1 are preserved without generalization."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "All text fragments are accounted for in the semantic inventory and typed candidate."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "The DESIGN_STUDY route accurately matches the study-construction intent involving intervention, biomarker, and design constraints."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "The candidate fully and accurately captures all explicit elements, relations, modalities, and constraints from the user message. All types and roles align with the operational taxonomy, and the routing is correct."
+      },
+      "rawCritics": [
+        {
+          "criticId": "crit_01J9XYZ000000000000000000",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit source objects (les constructeurs, changement de logiciel, le T1) are fully mapped to valid semantic elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Constructors are correctly represented as a comparator element under negative constraint."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The software change is accurately represented as an INTERVENTION element."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit imaging modality is present in the source text."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Both explicit inventory relations (comparison exclusion and modification after software change) are mapped to direct semantic relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All object types comply with the operational taxonomy (BIOMARKER for T1, INTERVENTION for software change, COMPARATOR for constructors, CONSTRAINT for the negative comparison command)."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relation has been weakened or lost."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unwarranted inferences have been promoted to explicit status."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No hidden ambiguities are present; the negative constraint is explicit."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "The negation in 'Ne pas comparer' is properly preserved with NEGATED polarity."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit timing or time point is mentioned."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "T1 is correctly classified as BIOMARKER without unsupported endpoint promotion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts such as software change and T1 are preserved without generalization."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "All text fragments are accounted for in the semantic inventory and typed candidate."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The DESIGN_STUDY route accurately matches the study-construction intent involving intervention, biomarker, and design constraints."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The candidate fully and accurately captures all explicit elements, relations, modalities, and constraints from the user message. All types and roles align with the operational taxonomy, and the routing is correct."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-13T09:23:01.277Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-1ab04bc491acbe30",
+      "resultDigest": "ke1-1ab04bc491acbe30",
+      "coverageStatus": "NO_PROVIDER",
+      "verifiedAt": "2026-08-13T09:23:01.280Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-13T09:23:01.277Z",
+    "updatedAt": "2026-08-13T09:23:01.280Z",
+    "digest": "ke1-ac2d99f2b94000a6"
+  },
+  "semanticModelDigest": "ke1-ac2d99f2b94000a6",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv_01",
+          "sourceMessageId": "SEM-H27:user:1",
+          "sourceText": "comparer",
+          "normalizedMeaning": "comparer",
+          "mappedClientElementIds": [
+            "elem_02"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_02",
+          "sourceMessageId": "SEM-H27:user:1",
+          "sourceText": "les constructeurs",
+          "normalizedMeaning": "constructeurs",
+          "mappedClientElementIds": [
+            "elem_01",
+            "elem_02"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_03",
+          "sourceMessageId": "SEM-H27:user:1",
+          "sourceText": "changement de logiciel",
+          "normalizedMeaning": "changement de logiciel",
+          "mappedClientElementIds": [
+            "elem_03"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_04",
+          "sourceMessageId": "SEM-H27:user:1",
+          "sourceText": "modifie",
+          "normalizedMeaning": "modifie",
+          "mappedClientElementIds": [],
+          "mappedClientRelationIds": [
+            "rel_01"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "The explicit functional fragment is represented by its source-grounded direct Semantic Relation rather than by a false object node."
+        },
+        {
+          "inventoryItemId": "inv_05",
+          "sourceMessageId": "SEM-H27:user:1",
+          "sourceText": "le T1",
+          "normalizedMeaning": "T1",
+          "mappedClientElementIds": [
+            "elem_04"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel_inv_01",
+          "sourceInventoryItemId": "inv_01",
+          "targetInventoryItemId": "inv_02",
+          "normalizedRelation": "COMPARES_WITH",
+          "mappedClientRelationIds": [
+            "coalesced:elem_02",
+            "rel_02"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_inv_02",
+          "sourceInventoryItemId": "inv_05",
+          "targetInventoryItemId": "inv_03",
+          "normalizedRelation": "CHANGES_AFTER",
+          "mappedClientRelationIds": [
+            "rel_01"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-8066258bdfcc6c77",
+    "evaluatedAt": "2026-08-13T09:23:01.282Z",
+    "goldFrameDigest": "ke1-51d516986156e92c",
+    "result": {
+      "caseId": "SEM-H27",
+      "explicitObjectRecall": 0.6666666666666666,
+      "explicitRelationRecall": 0,
+      "criticalSemanticRecall": 0.5,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 1,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": [
+        "EXPLICIT_CONSTRAINT_LOST:constructeurs non comparés",
+        "RELATION_LOST:changement de logiciel->T1"
+      ]
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H27",
+    "explicitObjectRecall": 0.6666666666666666,
+    "explicitRelationRecall": 0,
+    "criticalSemanticRecall": 0.5,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 1,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": [
+      "EXPLICIT_CONSTRAINT_LOST:constructeurs non comparés",
+      "RELATION_LOST:changement de logiciel->T1"
+    ]
+  },
+  "error": null
+}
