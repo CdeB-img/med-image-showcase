@@ -304,11 +304,59 @@ const normalizeDeterministicPriorStateReemission = (
   };
 };
 
+const uniqueOccurrenceIndex = (content: string, fragment: string) => {
+  const first = content.indexOf(fragment);
+  if (first < 0 || content.indexOf(fragment, first + fragment.length) >= 0) return null;
+  return first;
+};
+
+const clauseContaining = (content: string, firstIndex: number, firstLength: number, secondIndex: number, secondLength: number) => {
+  const start = Math.min(firstIndex, secondIndex);
+  const end = Math.max(firstIndex + firstLength, secondIndex + secondLength);
+  const leftBoundaries = [".", "?", "!", "\n"].map((separator) => content.lastIndexOf(separator, Math.max(0, start - 1)));
+  const left = Math.max(...leftBoundaries) + 1;
+  const rightCandidates = [".", "?", "!", "\n"]
+    .map((separator) => content.indexOf(separator, end))
+    .filter((index) => index >= 0);
+  const right = rightCandidates.length ? Math.min(...rightCandidates) + 1 : content.length;
+  return content.slice(left, right).trim();
+};
+
+const normalizeInventoryRelationSourceSpans = (
+  request: SemanticReconstructionRequest,
+  candidate: SemanticReconstructionCandidate,
+) => {
+  const messages = new Map(request.messages.filter((message) => message.role === "USER").map((message) => [message.messageId, message.content]));
+  const fragments = new Map(candidate.semanticInventory.explicitFragments.map((fragment) => [fragment.inventoryItemId, fragment]));
+  let derivedCount = 0;
+  const explicitRelations = candidate.semanticInventory.explicitRelations.map((relation) => {
+    const content = messages.get(relation.sourceMessageId);
+    if (!content || content.includes(relation.sourceText)) return relation;
+    const source = fragments.get(relation.sourceInventoryItemId);
+    const target = fragments.get(relation.targetInventoryItemId);
+    if (!source || !target) return relation;
+    const sourceIndex = uniqueOccurrenceIndex(content, source.sourceText);
+    const targetIndex = uniqueOccurrenceIndex(content, target.sourceText);
+    if (sourceIndex === null || targetIndex === null) return relation;
+    const sourceText = clauseContaining(content, sourceIndex, source.sourceText.length, targetIndex, target.sourceText.length);
+    if (!sourceText || sourceText.length > 1_000 || !sourceText.includes(source.sourceText) || !sourceText.includes(target.sourceText)) return relation;
+    derivedCount += 1;
+    return { ...relation, sourceText };
+  });
+  if (derivedCount === 0) return candidate;
+  return parseSemanticReconstructionCandidate({
+    ...candidate,
+    semanticInventory: { ...candidate.semanticInventory, explicitRelations },
+    semanticWarnings: [...candidate.semanticWarnings, `DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:${derivedCount}`],
+  });
+};
+
 const parseSourceGroundedReconstruction = (
   request: SemanticReconstructionRequest,
   value: unknown,
 ) => {
-  const candidate = parseSemanticReconstructionCandidate(normalizeDeterministicPriorStateReemission(request, value));
+  const parsed = parseSemanticReconstructionCandidate(normalizeDeterministicPriorStateReemission(request, value));
+  const candidate = normalizeInventoryRelationSourceSpans(request, parsed);
   const sourceGroundingCodes = new Set([
     "INVENTORY_FRAGMENT_SOURCE_NOT_CONTIGUOUS",
     "INVENTORY_RELATION_SOURCE_NOT_CONTIGUOUS",
