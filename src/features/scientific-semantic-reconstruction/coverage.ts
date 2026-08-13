@@ -151,7 +151,7 @@ export const buildSemanticIntegrityReport = (
     const activeMeasurementInverted = /^(MEASURES|OBSERVES|DETECTS|QUANTIFIES)$/i.test(relation.relationType)
       && measurementTargetTypes.has(source.type) && toolTypes.has(target.type);
     const repetitionAnchorInvalid = semanticRelationFamily(relation.relationType) === "REPETITION"
-      && (["STUDY_DESIGN", "SCIENTIFIC_INTENT", "OPERATION"].includes(source.type) || target.type !== "TIMING");
+      && (["STUDY_DESIGN", "SCIENTIFIC_INTENT", "OPERATION"].includes(source.type) || !["TIMING", "STUDY_DESIGN"].includes(target.type));
     if (passiveMeasurementInverted || activeMeasurementInverted || repetitionAnchorInvalid) findings.push({
       code: "RELATION_DIRECTION_OR_ROLE_MISMATCH",
       inventoryItemId: null,
@@ -159,7 +159,7 @@ export const buildSemanticIntegrityReport = (
       clientElementId: null,
       clientRelationId: relation.clientRelationId,
       reason: repetitionAnchorInvalid
-        ? "A repetition-at-time relation is anchored from the repeated observable or method to the explicit TIMING, not from the study-design wrapper."
+        ? "A repetition relation is anchored from the repeated observable or method to its explicit TIMING or test-retest STUDY_DESIGN context, not from an intent or operation wrapper."
         : "The active/passive measurement label, endpoint direction and scientific roles are inconsistent.",
     });
   });
@@ -209,6 +209,22 @@ const relationIdsCoveringFunctionalFragment = (
         && relation.polarity === inventoryRelation.polarity)
       .map((relation) => relation.clientRelationId);
   }))].sort();
+};
+
+const relationIdsCoveringLinkedRelationalFragment = (
+  candidate: SemanticReconstructionCandidate,
+  fragment: SemanticReconstructionCandidate["semanticInventory"]["explicitFragments"][number],
+) => {
+  const relationalRole = /relation|link|connector|connecteur|operator|op[ée]rateur|association|comparison|comparaison/i.test(`${fragment.localRole} ${fragment.normalizedLabel}`);
+  if (!relationalRole || fragment.linkedInventoryItemIds.length < 2) return [];
+  const linkedIds = new Set(fragment.linkedInventoryItemIds);
+  return candidate.relations.filter((relation) => relation.epistemicStatus === "EXPLICIT_USER_STATED" && relation.polarity === fragment.polarity).filter((relation) => {
+    const source = candidate.elements.find((element) => element.clientElementId === relation.sourceClientElementId);
+    const target = candidate.elements.find((element) => element.clientElementId === relation.targetClientElementId);
+    if (!source || !target) return false;
+    return source.inventoryItemIds.some((inventoryItemId) => linkedIds.has(inventoryItemId))
+      && target.inventoryItemIds.some((inventoryItemId) => linkedIds.has(inventoryItemId));
+  }).map((relation) => relation.clientRelationId).sort();
 };
 
 const unaryStateTransitionIds = (
@@ -288,7 +304,7 @@ export const buildExplicitCoverageReport = (
       .map((element) => element.clientElementId)
       .sort();
     const mappedClientRelationIds = mappedClientElementIds.length === 0
-      ? [...new Set([...relationIdsCoveringFunctionalFragment(candidate, fragment), ...unaryStateTransitionIds(candidate, fragment)])].sort()
+      ? [...new Set([...relationIdsCoveringFunctionalFragment(candidate, fragment), ...relationIdsCoveringLinkedRelationalFragment(candidate, fragment), ...unaryStateTransitionIds(candidate, fragment)])].sort()
       : [];
     const mapped = mappedClientElementIds.length > 0 || mappedClientRelationIds.length > 0;
     return {
@@ -556,7 +572,10 @@ export const buildSemanticTaxonomyReport = (
     const unambiguouslyPlacedAsArmJudgingVariable = directArmComparison && armStarts.length > 1 && intentStarts.length > 0
       && elementStart > Math.min(...intentStarts) && elementStart < Math.min(...armStarts);
     const supersedesPriorEndpoint = element.supersedesElementIds.some((semanticElementId) => request.previousModel?.elements.some((prior) => prior.semanticElementId === semanticElementId && prior.type === "ENDPOINT"));
-    const selectedAsJudgingVariable = ["BIOMARKER", "OUTCOME", "SCIENTIFIC_OBJECT"].includes(element.type) && explicitEndpointSelection;
+    const endpointSelectionClause = sourceMessage?.content.match(/(?:mais|but)\s+(?:c['’]est|it is)?\s*([^.;!?]+?)\s+(?:plut[oô]t que|rather than)\s+([^.;!?]+)/i);
+    const selectedClauseText = endpointSelectionClause?.[1] ? normalizedTaxonomyText(endpointSelectionClause[1]) : null;
+    const selectedAsJudgingVariable = ["BIOMARKER", "OUTCOME", "SCIENTIFIC_OBJECT"].includes(element.type) && explicitEndpointSelection
+      && (!selectedClauseText || normalizedLiteral.includes(selectedClauseText) || selectedClauseText.includes(normalizedLiteral));
     if (selectedAsJudgingVariable) findings.push({
       code: "SELECTED_JUDGING_VARIABLE_NOT_ENDPOINT",
       clientElementId: element.clientElementId,
@@ -664,7 +683,7 @@ export const buildSemanticTaxonomyReport = (
       code: "METHODOLOGICAL_OBJECTIVE_TYPED_AS_OUTCOME", clientElementId: element.clientElementId, currentType: element.type, expectedType: "SCIENTIFIC_INTENT", expectedStudyRole: "NONE",
       reason: "A sentence-leading methodological property governing the requested work is the scientific intent, not an observed result.",
     });
-    const explicitQuantitativeMarker = /index|indice|fraction|volume|taux|rate|ratio|concentration|score|coefficient|ecv|adc|t1|t2|oef|cmro|cbf|cbv/i.test(`${normalizedLiteral} ${element.canonicalMeaning}`);
+    const explicitQuantitativeMarker = /index|indice|fraction|volume|diamet|taux|rate|ratio|concentration|score|coefficient|ecv|adc|t1|t2|oef|cmro|cbf|cbv/i.test(`${normalizedLiteral} ${element.canonicalMeaning}`);
     const explicitlyStudiedTarget = directlyMeasured || governedByExplicitIntent || element.studyRole === "SUBJECT";
     if (element.type === "BIOMARKER" && !incomingModification && explicitlyStudiedTarget && inventoryRoles.some((role) => /target|subject|objet|cible|outcome|result|phenomen/.test(role)) && !explicitQuantitativeMarker) findings.push({
       code: "TARGET_TYPED_AS_BIOMARKER", clientElementId: element.clientElementId, currentType: element.type, expectedType: "SCIENTIFIC_OBJECT", expectedStudyRole: element.studyRole,
@@ -677,7 +696,7 @@ export const buildSemanticTaxonomyReport = (
       reason: "The explicit aggregate is the comparison context and must preserve COMPARATOR_ARM even though its ontological type remains unchanged.",
     });
     const hasConcreteTimingMarker = /\d|jour|mois|an|heure|avant|apres|baseline|follow.?up|week|month|year|day/i.test(normalizedLiteral);
-    if (["TIMING", "PHENOMENON"].includes(element.type) && /evol|chang|progress|suivi|follow/i.test(normalizedLiteral) && !hasConcreteTimingMarker) findings.push({
+    if (["TIMING", "PHENOMENON"].includes(element.type) && /\b(?:evol\w*|chang\w*|progression|suivi|follow\w*)\b/i.test(normalizedLiteral) && !hasConcreteTimingMarker) findings.push({
       code: "CHANGE_REQUEST_TYPED_AS_TIMING", clientElementId: element.clientElementId, currentType: element.type, expectedType: "SCIENTIFIC_INTENT", expectedStudyRole: "NONE",
       reason: "A bare request for evolution/change without a time point or interval is the scientific intent, not a timing value.",
     });

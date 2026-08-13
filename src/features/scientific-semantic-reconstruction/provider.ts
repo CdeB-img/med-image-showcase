@@ -376,6 +376,72 @@ const normalizeInventoryRelationSourceSpans = (
   });
 };
 
+export const normalizeSemanticRelationEndpointGrounding = (
+  request: SemanticReconstructionRequest,
+  candidate: SemanticReconstructionCandidate,
+) => {
+  const messages = new Map(request.messages.filter((message) => message.role === "USER").map((message) => [message.messageId, message.content]));
+  const fragmentsById = new Map(candidate.semanticInventory.explicitFragments.map((fragment) => [fragment.inventoryItemId, fragment]));
+  const elementsById = new Map(candidate.elements.map((element) => [element.clientElementId, element]));
+  const additions: SemanticReconstructionCandidate["semanticInventory"]["explicitRelations"] = [];
+  let derivedCount = 0;
+  const relations = candidate.relations.map((relation) => {
+    if (relation.epistemicStatus !== "EXPLICIT_USER_STATED") return relation;
+    const source = elementsById.get(relation.sourceClientElementId);
+    const target = elementsById.get(relation.targetClientElementId);
+    if (!source || !target) return relation;
+    const sourceIds = new Set(source.inventoryItemIds);
+    const targetIds = new Set(target.inventoryItemIds);
+    const alreadyGrounded = relation.inventoryRelationIds.some((relationId) => {
+      const inventory = candidate.semanticInventory.explicitRelations.find((item) => item.inventoryRelationId === relationId);
+      if (!inventory) return false;
+      return sourceIds.has(inventory.sourceInventoryItemId) && targetIds.has(inventory.targetInventoryItemId)
+        || sourceIds.has(inventory.targetInventoryItemId) && targetIds.has(inventory.sourceInventoryItemId);
+    });
+    if (alreadyGrounded) return relation;
+    const candidates = source.inventoryItemIds.flatMap((sourceInventoryItemId) => target.inventoryItemIds.flatMap((targetInventoryItemId) => {
+      const sourceFragment = fragmentsById.get(sourceInventoryItemId);
+      const targetFragment = fragmentsById.get(targetInventoryItemId);
+      if (!sourceFragment || !targetFragment || sourceFragment.sourceMessageId !== targetFragment.sourceMessageId) return [];
+      const content = messages.get(sourceFragment.sourceMessageId);
+      if (!content) return [];
+      const sourceIndex = uniqueOccurrenceIndex(content, sourceFragment.sourceText);
+      const targetIndex = uniqueOccurrenceIndex(content, targetFragment.sourceText);
+      if (sourceIndex === null || targetIndex === null) return [];
+      const sourceText = clauseContaining(content, sourceIndex, sourceFragment.sourceText.length, targetIndex, targetFragment.sourceText.length);
+      if (!sourceText || sourceText.length > 1_000) return [];
+      return [{ sourceInventoryItemId, targetInventoryItemId, sourceMessageId: sourceFragment.sourceMessageId, sourceText }];
+    }));
+    if (candidates.length !== 1) return relation;
+    const grounding = candidates[0];
+    const inventoryRelationId = `deterministic-semantic-grounding:${logicalDigest({
+      sourceMessageId: grounding.sourceMessageId,
+      sourceInventoryItemId: grounding.sourceInventoryItemId,
+      targetInventoryItemId: grounding.targetInventoryItemId,
+      relationType: relation.relationType,
+      polarity: relation.polarity,
+    })}`;
+    additions.push({
+      inventoryRelationId,
+      ...grounding,
+      normalizedRelation: relation.relationType,
+      polarity: relation.polarity,
+    });
+    derivedCount += 1;
+    return { ...relation, inventoryRelationIds: [inventoryRelationId] };
+  });
+  if (derivedCount === 0) return candidate;
+  return parseSemanticReconstructionCandidate({
+    ...candidate,
+    semanticInventory: {
+      ...candidate.semanticInventory,
+      explicitRelations: [...candidate.semanticInventory.explicitRelations, ...additions],
+    },
+    relations,
+    semanticWarnings: [...candidate.semanticWarnings, `DETERMINISTIC_SEMANTIC_RELATION_ENDPOINT_GROUNDING_DERIVED:${derivedCount}`],
+  });
+};
+
 const normalizeReplacementRelationTopology = (
   request: SemanticReconstructionRequest,
   candidate: SemanticReconstructionCandidate,
@@ -477,7 +543,8 @@ const parseSourceGroundedReconstruction = (
 ) => {
   const parsed = parseSemanticReconstructionCandidate(normalizeDeterministicPriorStateReemission(request, value));
   const replacementGrounded = normalizeReplacementRelationTopology(request, parsed);
-  const candidate = normalizeInventoryRelationSourceSpans(request, replacementGrounded);
+  const sourceSpansNormalized = normalizeInventoryRelationSourceSpans(request, replacementGrounded);
+  const candidate = normalizeSemanticRelationEndpointGrounding(request, sourceSpansNormalized);
   const sourceGroundingCodes = new Set([
     "INVENTORY_FRAGMENT_SOURCE_NOT_CONTIGUOUS",
     "INVENTORY_RELATION_SOURCE_NOT_CONTIGUOUS",

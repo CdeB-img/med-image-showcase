@@ -40,13 +40,77 @@ export type RelationOwnershipAdjustment = {
   reason: "SEMANTIC_RELATION_OWNS_DIRECTION";
 };
 
+const functionalInventoryRole = (value: string) => /action|operation|predicate|verb|relation|link|operator|op[ée]rateur|connector|connecteur|comparison|comparaison|intent|purpose|objectif/i.test(value);
+
+const semanticRelationHasCollectiveSpokeGrounding = (
+  candidate: SemanticReconstructionCandidate,
+  semanticRelation: SemanticReconstructionCandidate["relations"][number],
+  sourceInventoryIds: Set<string>,
+  targetInventoryIds: Set<string>,
+) => {
+  const cited = candidate.semanticInventory.explicitRelations.filter((relation) => semanticRelation.inventoryRelationIds.includes(relation.inventoryRelationId));
+  if (cited.length < 2) return false;
+  const fragmentsById = new Map(candidate.semanticInventory.explicitFragments.map((fragment) => [fragment.inventoryItemId, fragment]));
+  const endpointCounts = new Map<string, number>();
+  cited.forEach((relation) => {
+    endpointCounts.set(relation.sourceInventoryItemId, (endpointCounts.get(relation.sourceInventoryItemId) ?? 0) + 1);
+    endpointCounts.set(relation.targetInventoryItemId, (endpointCounts.get(relation.targetInventoryItemId) ?? 0) + 1);
+  });
+  return [...endpointCounts.entries()].some(([sharedInventoryId, count]) => {
+    if (count < 2 || sourceInventoryIds.has(sharedInventoryId) || targetInventoryIds.has(sharedInventoryId)) return false;
+    const sharedFragment = fragmentsById.get(sharedInventoryId);
+    const sharedOwnedByFunctionalElement = candidate.elements.some((element) => element.inventoryItemIds.includes(sharedInventoryId)
+      && ["SCIENTIFIC_INTENT", "OPERATION"].includes(element.type));
+    if (!sharedOwnedByFunctionalElement && !functionalInventoryRole(`${sharedFragment?.localRole ?? ""} ${sharedFragment?.normalizedLabel ?? ""}`)) return false;
+    const otherEndpoints = cited.flatMap((relation) => relation.sourceInventoryItemId === sharedInventoryId
+      ? [relation.targetInventoryItemId]
+      : relation.targetInventoryItemId === sharedInventoryId
+        ? [relation.sourceInventoryItemId]
+        : []);
+    return otherEndpoints.some((inventoryId) => sourceInventoryIds.has(inventoryId))
+      && otherEndpoints.some((inventoryId) => targetInventoryIds.has(inventoryId));
+  });
+};
+
 export const stabilizeRelationOwnership = (
   candidate: SemanticReconstructionCandidate,
-): { candidate: SemanticReconstructionCandidate; adjustments: RelationOwnershipAdjustment[] } => {
+): { candidate: SemanticReconstructionCandidate; adjustments: RelationOwnershipAdjustment[]; removedRelationIds: string[] } => {
   const stabilized = structuredClone(candidate);
   const elementsById = new Map(stabilized.elements.map((element) => [element.clientElementId, element]));
   const relationsById = new Map(stabilized.semanticInventory.explicitRelations.map((relation) => [relation.inventoryRelationId, relation]));
   const adjustments: RelationOwnershipAdjustment[] = [];
+  const removedRelationIds: string[] = [];
+
+  const functionalElements = stabilized.elements.filter((element) => ["SCIENTIFIC_INTENT", "OPERATION"].includes(element.type));
+  functionalElements.forEach((functional) => {
+    const incident = stabilized.relations.filter((relation) => relation.epistemicStatus === "EXPLICIT_USER_STATED"
+      && [relation.sourceClientElementId, relation.targetClientElementId].includes(functional.clientElementId));
+    incident.forEach((left, index) => incident.slice(index + 1).forEach((right) => {
+      if (semanticRelationFamily(left.relationType) !== semanticRelationFamily(right.relationType) || left.polarity !== right.polarity) return;
+      const leftNeighborId = left.sourceClientElementId === functional.clientElementId ? left.targetClientElementId : left.sourceClientElementId;
+      const rightNeighborId = right.sourceClientElementId === functional.clientElementId ? right.targetClientElementId : right.sourceClientElementId;
+      if (leftNeighborId === rightNeighborId) return;
+      const leftNeighbor = elementsById.get(leftNeighborId);
+      const rightNeighbor = elementsById.get(rightNeighborId);
+      if (!leftNeighbor || !rightNeighbor || [leftNeighbor.type, rightNeighbor.type].some((type) => ["SCIENTIFIC_INTENT", "OPERATION"].includes(type))) return;
+      const existing = stabilized.relations.some((relation) => semanticRelationFamily(relation.relationType) === semanticRelationFamily(left.relationType)
+        && new Set([relation.sourceClientElementId, relation.targetClientElementId]).has(leftNeighborId)
+        && new Set([relation.sourceClientElementId, relation.targetClientElementId]).has(rightNeighborId));
+      if (existing) return;
+      stabilized.relations.push({
+        clientRelationId: `relation-ownership-direct:${[left.clientRelationId, right.clientRelationId].sort().join(":")}`,
+        sourceClientElementId: leftNeighborId,
+        targetClientElementId: rightNeighborId,
+        relationType: left.relationType,
+        polarity: left.polarity,
+        inventoryRelationIds: [...new Set([...left.inventoryRelationIds, ...right.inventoryRelationIds])].sort(),
+        epistemicStatus: "EXPLICIT_USER_STATED",
+        confidence: Math.min(left.confidence, right.confidence),
+        inferenceReason: null,
+        requiresConfirmation: left.requiresConfirmation || right.requiresConfirmation,
+      });
+    }));
+  });
 
   stabilized.relations.forEach((semanticRelation) => {
     const source = elementsById.get(semanticRelation.sourceClientElementId);
@@ -80,5 +144,47 @@ export const stabilizeRelationOwnership = (
     });
   });
 
-  return { candidate: stabilized, adjustments };
+  stabilized.relations = stabilized.relations.filter((semanticRelation) => {
+    if (semanticRelation.epistemicStatus !== "EXPLICIT_USER_STATED" || semanticRelation.inventoryRelationIds.length === 0) return true;
+    const source = elementsById.get(semanticRelation.sourceClientElementId);
+    const target = elementsById.get(semanticRelation.targetClientElementId);
+    if (!source || !target) return true;
+    const sourceInventoryIds = new Set(source.inventoryItemIds);
+    const targetInventoryIds = new Set(target.inventoryItemIds);
+    const collectivelyGrounded = semanticRelationHasCollectiveSpokeGrounding(stabilized, semanticRelation, sourceInventoryIds, targetInventoryIds);
+    const hasUnsupportedCitation = semanticRelation.inventoryRelationIds.some((inventoryRelationId) => {
+      const inventoryRelation = relationsById.get(inventoryRelationId);
+      if (!inventoryRelation) return true;
+      const direct = sourceInventoryIds.has(inventoryRelation.sourceInventoryItemId) && targetInventoryIds.has(inventoryRelation.targetInventoryItemId);
+      const reversed = sourceInventoryIds.has(inventoryRelation.targetInventoryItemId) && targetInventoryIds.has(inventoryRelation.sourceInventoryItemId);
+      return !direct && !(reversed && relationAllowsReversedInventoryEndpoints(inventoryRelation.normalizedRelation, semanticRelation.relationType));
+    });
+    if (!hasUnsupportedCitation || collectivelyGrounded) return true;
+    removedRelationIds.push(semanticRelation.clientRelationId);
+    return false;
+  });
+
+  const filteredElementsById = new Map(stabilized.elements.map((element) => [element.clientElementId, element]));
+  const directCarriers = stabilized.relations.filter((relation) => {
+    const source = filteredElementsById.get(relation.sourceClientElementId);
+    const target = filteredElementsById.get(relation.targetClientElementId);
+    return source && target && !["SCIENTIFIC_INTENT", "OPERATION"].includes(source.type) && !["SCIENTIFIC_INTENT", "OPERATION"].includes(target.type);
+  });
+  stabilized.relations = stabilized.relations.filter((relation) => {
+    const source = filteredElementsById.get(relation.sourceClientElementId);
+    const target = filteredElementsById.get(relation.targetClientElementId);
+    if (!source || !target || ![source.type, target.type].some((type) => ["SCIENTIFIC_INTENT", "OPERATION"].includes(type))) return true;
+    const redundant = directCarriers.some((carrier) => semanticRelationFamily(carrier.relationType) === semanticRelationFamily(relation.relationType)
+      && carrier.inventoryRelationIds.some((inventoryRelationId) => relation.inventoryRelationIds.includes(inventoryRelationId)));
+    if (!redundant) return true;
+    removedRelationIds.push(relation.clientRelationId);
+    return false;
+  });
+
+  if (removedRelationIds.length) stabilized.semanticWarnings = [...new Set([
+    ...stabilized.semanticWarnings,
+    ...removedRelationIds.map((relationId) => `RELATION_OWNERSHIP_DROPPED_UNGROUNDED_OR_REDUNDANT_RELATION:${relationId}`),
+  ])];
+
+  return { candidate: stabilized, adjustments, removedRelationIds: [...new Set(removedRelationIds)] };
 };
