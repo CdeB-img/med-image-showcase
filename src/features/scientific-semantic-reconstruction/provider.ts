@@ -8,6 +8,7 @@ import {
   SEMANTIC_ATOMIC_COMPOSITION_AUDIT_JSON_SCHEMA,
 } from "./atomic-composition";
 import { parseSemanticCriticResult, parseSemanticReconstructionCandidate, SEMANTIC_CRITIC_JSON_SCHEMA, SEMANTIC_RECONSTRUCTION_JSON_SCHEMA } from "./schema";
+import { applyCriticRepairs, buildSemanticIntegrityReport } from "./coverage";
 import type {
   ScientificSemanticProvider,
   SemanticProviderAttempt,
@@ -218,6 +219,47 @@ const schemaDiagnostic = (
   } : {}) };
 };
 
+const structuredContractFailure = (issues: Array<{ path: Array<string | number>; code: string; message: string }>) => ({ issues });
+
+const parseSourceGroundedReconstruction = (
+  request: SemanticReconstructionRequest,
+  value: unknown,
+) => {
+  const candidate = parseSemanticReconstructionCandidate(value);
+  const sourceGroundingCodes = new Set([
+    "INVENTORY_FRAGMENT_SOURCE_NOT_CONTIGUOUS",
+    "INVENTORY_RELATION_SOURCE_NOT_CONTIGUOUS",
+    "EXPLICIT_ELEMENT_SOURCE_NOT_CONTIGUOUS",
+  ]);
+  const findings = buildSemanticIntegrityReport(request, candidate).findings.filter((finding) => sourceGroundingCodes.has(finding.code));
+  if (findings.length) {
+    throw structuredContractFailure(findings.map((finding, index) => ({
+      path: ["sourceGrounding", index],
+      code: finding.code,
+      message: finding.reason,
+    })));
+  }
+  return candidate;
+};
+
+const parseApplicableCritic = (
+  request: SemanticReconstructionRequest,
+  candidate: SemanticReconstructionCandidate,
+  value: unknown,
+) => {
+  const critic = parseSemanticCriticResult(value);
+  if (critic.verdict !== "REVISE") return critic;
+  const rejected = applyCriticRepairs(request, candidate, critic.proposedRepairs).diagnostics.filter((diagnostic) => diagnostic.status === "REJECTED");
+  if (rejected.length) {
+    throw structuredContractFailure(rejected.map((diagnostic) => ({
+      path: ["proposedRepairs", critic.proposedRepairs.findIndex((repair) => repair.repairId === diagnostic.repairId)],
+      code: diagnostic.reason,
+      message: `Repair ${diagnostic.repairId} is not applicable under the declared action, schema and exact USER source-grounding contract.`,
+    })));
+  }
+  return critic;
+};
+
 const diagnosticSummary = (fallback: string, diagnostic: SemanticProviderDiagnostic) => diagnostic.validationIssues.length
   ? `${fallback} Issues: ${diagnostic.validationIssues.slice(0, 12).map((issue) => `${issue.path}:${issue.code}`).join(", ")}.`
   : fallback;
@@ -392,13 +434,13 @@ export class GeminiScientificSemanticProvider implements ScientificSemanticProvi
     const context = providerContext(request);
     const result = await this.generate(SCIENTIFIC_SEMANTIC_RECONSTRUCTION_PROMPT, context, SEMANTIC_RECONSTRUCTION_JSON_SCHEMA);
     try {
-      return { callId: result.callId, candidate: parseSemanticReconstructionCandidate(result.json), attempts: result.attempts };
+      return { callId: result.callId, candidate: parseSourceGroundedReconstruction(request, result.json), attempts: result.attempts };
     } catch (caught) {
       const diagnostic = schemaDiagnostic(caught, result.rawProviderOutput);
       const correction = diagnosticSummary("The previous structured reconstruction was invalid. Return the same scientific meaning while satisfying every schema and exact source-grounding constraint; never fill or remove scientific content silently.", diagnostic);
       const retried = await this.generate(SCIENTIFIC_SEMANTIC_RECONSTRUCTION_PROMPT, { ...context, structuredValidationCorrection: correction }, SEMANTIC_RECONSTRUCTION_JSON_SCHEMA);
       try {
-        return { callId: retried.callId, candidate: parseSemanticReconstructionCandidate(retried.json), attempts: [...(result.attempts ?? []), ...(retried.attempts ?? [])] };
+        return { callId: retried.callId, candidate: parseSourceGroundedReconstruction(request, retried.json), attempts: [...(result.attempts ?? []), ...(retried.attempts ?? [])] };
       } catch (retryCaught) {
         const retryDiagnostic = schemaDiagnostic(retryCaught, retried.rawProviderOutput);
         const failure = invalidOutputFailure(diagnosticSummary("Structured reconstruction did not satisfy the SEM contract after one bounded correction attempt.", retryDiagnostic));
@@ -426,13 +468,13 @@ export class GeminiScientificSemanticProvider implements ScientificSemanticProvi
     };
     const result = await this.generate(SCIENTIFIC_SEMANTIC_CRITIC_PROMPT, criticPayload, SEMANTIC_CRITIC_JSON_SCHEMA);
     try {
-      return { callId: result.callId, critic: parseSemanticCriticResult(result.json), attempts: result.attempts };
+      return { callId: result.callId, critic: parseApplicableCritic(request, candidate, result.json), attempts: result.attempts };
     } catch (caught) {
       const diagnostic = schemaDiagnostic(caught, result.rawProviderOutput);
-      const correction = diagnosticSummary("The previous structured critic output was invalid. Return exactly the 15 distinct required checklist entries once each and satisfy the response schema.", diagnostic);
+      const correction = diagnosticSummary("The previous structured critic output was invalid. Return exactly the 15 distinct required checklist entries once each. Every proposed repair must use exactly one action payload, be applicable to the supplied candidate, and preserve exact USER source grounding.", diagnostic);
       const retried = await this.generate(SCIENTIFIC_SEMANTIC_CRITIC_PROMPT, { ...criticPayload, structuredValidationCorrection: correction }, SEMANTIC_CRITIC_JSON_SCHEMA);
       try {
-        return { callId: retried.callId, critic: parseSemanticCriticResult(retried.json), attempts: [...(result.attempts ?? []), ...(retried.attempts ?? [])] };
+        return { callId: retried.callId, critic: parseApplicableCritic(request, candidate, retried.json), attempts: [...(result.attempts ?? []), ...(retried.attempts ?? [])] };
       } catch (retryCaught) {
         const retryDiagnostic = schemaDiagnostic(retryCaught, retried.rawProviderOutput);
         const failure = invalidOutputFailure(diagnosticSummary("Structured critic output did not satisfy the SEM contract after one bounded correction attempt.", retryDiagnostic));

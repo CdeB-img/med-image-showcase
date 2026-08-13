@@ -133,6 +133,7 @@ PHASE 1 — SEMANTIC INVENTORY
 6. Inventory an explicit scientific action verb/intention as its own fragment in addition to its scientific endpoints.
 7. Do not silently omit a difficult fragment. Exact sourceText is mandatory for every explicit fragment. In coordinated ellipsis of the form "noun + qualifier A and qualifier B", the second explicit sourceText is only the exact qualifier B span, never the reconstructed "noun + qualifier B" phrase; keep the reconstructed full meaning only in normalizedLabel/canonicalMeaning and preserve the ellipsis separately. Do not invent a fragment to make the inventory complete.
 8. Exact means contiguous and verbatim. Never place ellipsis marks, inserted shared heads, translated words or normalized wording in sourceText. A reconstructed phrase belongs only in normalizedLabel or canonicalMeaning.
+9. Before returning, verify mechanically for every explicit fragment, inventory relation and explicit element that its sourceText is an exact substring of the declared original USER message. When a relation spans separated endpoint words, quote the smallest whole contiguous clause containing both endpoints and every intervening token; never abbreviate it with an ellipsis.
 
 PHASE 2 — SCIENTIFIC CLASSIFICATION
 1. Map every inventory fragment to one or more typed Semantic Elements using inventoryItemIds. If it cannot be typed safely, represent it as UNKNOWN or AMBIGUITY rather than dropping it.
@@ -218,8 +219,10 @@ Verdict rules:
 Repairs:
 - Return proposedRepairs; never return a mutated candidate.
 - Every repair uses the flat repair fields required by the response schema. Populate all fields: use null for irrelevant scalar fields and [] for irrelevant array fields.
+- One repair object performs exactly one action. Never populate fields belonging to another action in the same repair. When both an inventory relation and a Semantic Relation require changes, emit two repairs in dependency order.
 - For each missingExplicitSourceFragments entry that is safely recoverable, first emit UPSERT_INVENTORY_FRAGMENT with an exact source span, then any required UPSERT_INVENTORY_RELATION, UPSERT_ELEMENT and UPSERT_RELATION repairs in dependency order. Inventory IDs must be new or intentionally replace the same grounded item.
 - UPSERT_INVENTORY_FRAGMENT populates only inventory item-prefixed fields. Its sourceText must be an exact contiguous USER span. UPSERT_INVENTORY_RELATION populates only inventory relation-prefixed fields and must use existing or newly proposed inventory endpoints plus an exact contiguous USER span.
+- Never repeat a sourceText already reported as non-contiguous. Verify that each proposed inventorySourceText or inventoryRelationSourceText is an exact substring of its declared original USER message; if no unique safe substring exists, return CLARIFICATION_REQUIRED instead of inventing punctuation, ellipses or omitted words.
 - UPSERT_ELEMENT populates every element-prefixed field and is grounded by sourceInventoryItemIds. Preserve elementClientElementId for type/role/polarity correction when possible; keep all relation-prefixed and route scalar fields null.
 - UPSERT_RELATION populates every relation-prefixed field and is grounded by sourceInventoryRelationIds and existing endpoint client IDs; keep all element-prefixed and route scalar fields null.
 - ADD_AMBIGUITY populates only ambiguity in addition to the common repair fields. SET_ROUTE populates route, routeConfidence, routeReason and routeExpectedCapabilities.
