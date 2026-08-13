@@ -1,0 +1,1333 @@
+[
+  {
+    "campaign": "SEM-001R3F",
+    "caseId": "SEM-D21",
+    "replayedAt": "2026-08-12T15:33:26.576Z",
+    "finalStatus": "FAIL",
+    "llmCalls": 0,
+    "reconstructionReused": true,
+    "baseCriticReused": true,
+    "r3eAuditReused": true,
+    "originalAudit": {
+      "auditId": "audit_sem_d21_01",
+      "schemaVersion": "SEM-001-ATOMIC-COMPOSITION-1.1",
+      "verdict": "ACCEPT",
+      "atomicityReports": [
+        {
+          "reportId": "report_atom_1",
+          "subjectInventoryItemIds": [
+            "item_3"
+          ],
+          "status": "COMPLETE",
+          "constituents": [
+            {
+              "constituentId": "const_1",
+              "sourceMessageId": "SEM-D21:user:1",
+              "sourceText": "1,5T",
+              "normalizedMeaning": "1.5T magnetic field strength",
+              "semanticType": "MODALITY",
+              "studyRole": "NONE",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "constituentId": "const_2",
+              "sourceMessageId": "SEM-D21:user:1",
+              "sourceText": "3T",
+              "normalizedMeaning": "3T magnetic field strength",
+              "semanticType": "MODALITY",
+              "studyRole": "NONE",
+              "polarity": "AFFIRMED"
+            }
+          ],
+          "directRelations": [
+            {
+              "sourceConstituentId": "const_1",
+              "targetConstituentId": "const_2",
+              "sourceMessageId": "SEM-D21:user:1",
+              "sourceText": "1,5T et 3T",
+              "relationType": "COORDINATED_WITH",
+              "polarity": "AFFIRMED"
+            }
+          ],
+          "reason": "The expression 1,5T et 3T coordinates two distinct field strength modalities independently."
+        }
+      ],
+      "compositionReports": [
+        {
+          "reportId": "report_comp_1",
+          "sourceInventoryItemIds": [
+            "item_1",
+            "item_2",
+            "item_3",
+            "item_4"
+          ],
+          "status": "NOT_REQUIRED",
+          "composite": null,
+          "relations": [],
+          "reason": "The user request represents separate independent elements for intent, target, modality, and setting without establishing an explicit higher-level composite object beyond standard typed relations."
+        }
+      ],
+      "routeAssessment": {
+        "status": "CORRECT",
+        "proposedRoute": null,
+        "confidence": 0.95,
+        "reason": "The route DESIGN_STUDY appropriately fits a multi-center harmonization protocol design request.",
+        "expectedCapabilities": [
+          "Define multi-center study workflow",
+          "Protocol harmonization planning"
+        ]
+      },
+      "summary": "The semantic inventory and typed candidate accurately capture the constituents and relations of the user request with correct routing."
+    },
+    "guardedAudit": {
+      "auditId": "audit_sem_d21_01",
+      "schemaVersion": "SEM-001-ATOMIC-COMPOSITION-1.1",
+      "verdict": "REVISE",
+      "atomicityReports": [
+        {
+          "reportId": "report_atom_1",
+          "subjectInventoryItemIds": [
+            "item_3"
+          ],
+          "status": "INCOMPLETE",
+          "constituents": [
+            {
+              "constituentId": "const_1",
+              "sourceMessageId": "SEM-D21:user:1",
+              "sourceText": "1,5T",
+              "normalizedMeaning": "1.5T magnetic field strength",
+              "semanticType": "MODALITY",
+              "studyRole": "NONE",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "constituentId": "const_2",
+              "sourceMessageId": "SEM-D21:user:1",
+              "sourceText": "3T",
+              "normalizedMeaning": "3T magnetic field strength",
+              "semanticType": "MODALITY",
+              "studyRole": "NONE",
+              "polarity": "AFFIRMED"
+            }
+          ],
+          "directRelations": [
+            {
+              "sourceConstituentId": "const_1",
+              "targetConstituentId": "const_2",
+              "sourceMessageId": "SEM-D21:user:1",
+              "sourceText": "1,5T et 3T",
+              "relationType": "COORDINATED_WITH",
+              "polarity": "AFFIRMED"
+            }
+          ],
+          "reason": "The expression 1,5T et 3T coordinates two distinct field strength modalities independently. Deterministic acceptance guard: compatible constituent or relation representation is missing."
+        }
+      ],
+      "compositionReports": [
+        {
+          "reportId": "report_comp_1",
+          "sourceInventoryItemIds": [
+            "item_1",
+            "item_2",
+            "item_3",
+            "item_4"
+          ],
+          "status": "NOT_REQUIRED",
+          "composite": null,
+          "relations": [],
+          "reason": "The user request represents separate independent elements for intent, target, modality, and setting without establishing an explicit higher-level composite object beyond standard typed relations."
+        }
+      ],
+      "routeAssessment": {
+        "status": "CORRECT",
+        "proposedRoute": null,
+        "confidence": 0.95,
+        "reason": "The route DESIGN_STUDY appropriately fits a multi-center harmonization protocol design request.",
+        "expectedCapabilities": [
+          "Define multi-center study workflow",
+          "Protocol harmonization planning"
+        ]
+      },
+      "summary": "The semantic inventory and typed candidate accurately capture the constituents and relations of the user request with correct routing. Deterministic acceptance guard rejected a false COMPLETE finding."
+    },
+    "acceptanceDiagnostics": [
+      {
+        "reportId": "report_atom_1",
+        "scope": "ATOMICITY",
+        "originalStatus": "COMPLETE",
+        "effectiveStatus": "INCOMPLETE",
+        "checks": {
+          "ATOMIC_CONSTITUENTS_REPRESENTED": "FAIL",
+          "DIRECT_REQUIRED_RELATIONS_REPRESENTED": "FAIL",
+          "REQUIRED_COMPOSITE_REPRESENTED": "NOT_APPLICABLE",
+          "AUDIT_FINDINGS_CONSISTENT_WITH_STATUS": "FAIL"
+        },
+        "disposition": "AUDIT_STATUS_INCONSISTENT",
+        "reason": "A COMPLETE atomicity finding cannot be accepted while its autonomous constituents or direct required relations are absent from the candidate."
+      },
+      {
+        "reportId": "report_comp_1",
+        "scope": "COMPOSITION",
+        "originalStatus": "NOT_REQUIRED",
+        "effectiveStatus": "NOT_REQUIRED",
+        "checks": {
+          "ATOMIC_CONSTITUENTS_REPRESENTED": "NOT_APPLICABLE",
+          "DIRECT_REQUIRED_RELATIONS_REPRESENTED": "NOT_APPLICABLE",
+          "REQUIRED_COMPOSITE_REPRESENTED": "NOT_APPLICABLE",
+          "AUDIT_FINDINGS_CONSISTENT_WITH_STATUS": "PASS"
+        },
+        "disposition": "UNCHANGED",
+        "reason": "No required composite finding is asserted."
+      }
+    ],
+    "replayedCriticDiagnostics": [
+      {
+        "repairId": "rep_01",
+        "status": "ACCEPTED",
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+      }
+    ],
+    "compilationDiagnostics": [
+      {
+        "reportId": "report_atom_1",
+        "status": "COMPILED",
+        "reason": "ATOMICITY_REPORT_COMPILED_WITH_AGGREGATE_PRESERVED"
+      }
+    ],
+    "repairDiagnostics": [
+      {
+        "repairId": "r3d-repair-3a5b33f3ae5e1867",
+        "status": "ACCEPTED",
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+      },
+      {
+        "repairId": "r3d-repair-f32a4e0588bdb6a1",
+        "status": "ACCEPTED",
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+      },
+      {
+        "repairId": "r3d-repair-aa07e9014050daed",
+        "status": "ACCEPTED",
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+      },
+      {
+        "repairId": "r3d-repair-e2f307b393df8237",
+        "status": "ACCEPTED",
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+      },
+      {
+        "repairId": "r3d-repair-4b1ba10a04a078be",
+        "status": "ACCEPTED",
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+      },
+      {
+        "repairId": "r3d-repair-9ca26500b6af2c5c",
+        "status": "ACCEPTED",
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+      }
+    ],
+    "semanticModel": {
+      "semanticModelVersion": "1.1",
+      "semanticModelId": "semantic-model:ke1-1f46245a8fb363be",
+      "revision": 1,
+      "status": "CANDIDATE",
+      "originalRequest": "Harmoniser T1 mapping 1,5T et 3T dans 8 centres",
+      "normalizedMeaning": "Harmonisation of T1 mapping between 1.5T and 3T magnetic field strengths across eight centers.",
+      "conversationMessageIds": [
+        "SEM-D21:user:1"
+      ],
+      "elements": [
+        {
+          "semanticElementId": "sem-element:ke1-116fec493baa1de5",
+          "type": "MODALITY",
+          "canonicalMeaning": "1.5T and 3T magnetic field strengths",
+          "studyRole": "NONE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item_3"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D21:user:1",
+            "text": "1,5T et 3T",
+            "start": 22,
+            "end": 32
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-7a44b904716dd390"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D21:user:1",
+            "providerCallId": "gemini-call:ke1-00710f16827c2f72",
+            "rawElementId": "elem_3"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-5bf8ea6cfdecec58",
+          "type": "METHOD",
+          "canonicalMeaning": "T1 mapping",
+          "studyRole": "MEASUREMENT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item_2"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D21:user:1",
+            "text": "T1 mapping",
+            "start": 11,
+            "end": 21
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-7a44b904716dd390",
+            "sem-relation:ke1-d7ebc624a43490a8"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D21:user:1",
+            "providerCallId": "gemini-call:ke1-00710f16827c2f72",
+            "rawElementId": "elem_2"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-6677e27a8961031e",
+          "type": "MODALITY",
+          "canonicalMeaning": "1.5T magnetic field strength",
+          "studyRole": "NONE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "r3d-inventory-5017392c5f0f5e08"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D21:user:1",
+            "text": "1,5T",
+            "start": 22,
+            "end": 26
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-4148211957be225d"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D21:user:1",
+            "providerCallId": "gemini-call:ke1-00710f16827c2f72",
+            "rawElementId": "r3d-element-5017392c5f0f5e08"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-8d9a7b5280a14a9e",
+          "type": "SCIENTIFIC_INTENT",
+          "canonicalMeaning": "Harmonize T1 mapping",
+          "studyRole": "NONE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item_1"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D21:user:1",
+            "text": "Harmoniser",
+            "start": 0,
+            "end": 10
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-d7ebc624a43490a8"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D21:user:1",
+            "providerCallId": "gemini-call:ke1-00710f16827c2f72",
+            "rawElementId": "elem_1"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-af8842297c4794e5",
+          "type": "STUDY_DESIGN",
+          "canonicalMeaning": "8 centers multicentric setting",
+          "studyRole": "NONE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item_4"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D21:user:1",
+            "text": "8 centres",
+            "start": 38,
+            "end": 47
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D21:user:1",
+            "providerCallId": "gemini-call:ke1-00710f16827c2f72",
+            "rawElementId": "elem_4"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-c66ec45b5365cd5f",
+          "type": "MODALITY",
+          "canonicalMeaning": "3T magnetic field strength",
+          "studyRole": "NONE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "r3d-inventory-2fdfc61796b55cdb"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D21:user:1",
+            "text": "3T",
+            "start": 30,
+            "end": 32
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-4148211957be225d"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D21:user:1",
+            "providerCallId": "gemini-call:ke1-00710f16827c2f72",
+            "rawElementId": "r3d-element-2fdfc61796b55cdb"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        }
+      ],
+      "relations": [
+        {
+          "semanticRelationId": "sem-relation:ke1-4148211957be225d",
+          "sourceElementId": "sem-element:ke1-6677e27a8961031e",
+          "targetElementId": "sem-element:ke1-c66ec45b5365cd5f",
+          "relationType": "COORDINATED_WITH",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "r3d-inventory-relation-4e0f5105c980aac9"
+          ],
+          "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "version": 1
+        },
+        {
+          "semanticRelationId": "sem-relation:ke1-7a44b904716dd390",
+          "sourceElementId": "sem-element:ke1-116fec493baa1de5",
+          "targetElementId": "sem-element:ke1-5bf8ea6cfdecec58",
+          "relationType": "RELATED_TO_CANDIDATE",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel_2"
+          ],
+          "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "version": 1
+        },
+        {
+          "semanticRelationId": "sem-relation:ke1-d7ebc624a43490a8",
+          "sourceElementId": "sem-element:ke1-8d9a7b5280a14a9e",
+          "targetElementId": "sem-element:ke1-5bf8ea6cfdecec58",
+          "relationType": "AIMS_TO_MODIFY",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel_1"
+          ],
+          "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "version": 1
+        }
+      ],
+      "explicitCoverageReport": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryItemId": "item_1",
+            "sourceMessageId": "SEM-D21:user:1",
+            "sourceText": "Harmoniser",
+            "normalizedMeaning": "harmoniser",
+            "mappedClientElementIds": [
+              "elem_1"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "item_2",
+            "sourceMessageId": "SEM-D21:user:1",
+            "sourceText": "T1 mapping",
+            "normalizedMeaning": "T1 mapping",
+            "mappedClientElementIds": [
+              "elem_2"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "item_3",
+            "sourceMessageId": "SEM-D21:user:1",
+            "sourceText": "1,5T et 3T",
+            "normalizedMeaning": "1.5T and 3T magnetic field strengths",
+            "mappedClientElementIds": [
+              "elem_3"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "item_4",
+            "sourceMessageId": "SEM-D21:user:1",
+            "sourceText": "8 centres",
+            "normalizedMeaning": "8 centers",
+            "mappedClientElementIds": [
+              "elem_4"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "r3d-inventory-5017392c5f0f5e08",
+            "sourceMessageId": "SEM-D21:user:1",
+            "sourceText": "1,5T",
+            "normalizedMeaning": "1.5T magnetic field strength",
+            "mappedClientElementIds": [
+              "r3d-element-5017392c5f0f5e08"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "r3d-inventory-2fdfc61796b55cdb",
+            "sourceMessageId": "SEM-D21:user:1",
+            "sourceText": "3T",
+            "normalizedMeaning": "3T magnetic field strength",
+            "mappedClientElementIds": [
+              "r3d-element-2fdfc61796b55cdb"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          }
+        ]
+      },
+      "relationCoverageReport": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel_1",
+            "sourceInventoryItemId": "item_1",
+            "targetInventoryItemId": "item_2",
+            "normalizedRelation": "AIMS_TO_MODIFY",
+            "mappedClientRelationIds": [
+              "rel_el_1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel_2",
+            "sourceInventoryItemId": "item_3",
+            "targetInventoryItemId": "item_2",
+            "normalizedRelation": "RELATED_TO_CANDIDATE",
+            "mappedClientRelationIds": [
+              "rel_el_2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "r3d-inventory-relation-4e0f5105c980aac9",
+            "sourceInventoryItemId": "r3d-inventory-5017392c5f0f5e08",
+            "targetInventoryItemId": "r3d-inventory-2fdfc61796b55cdb",
+            "normalizedRelation": "COORDINATED_WITH",
+            "mappedClientRelationIds": [
+              "r3d-relation-4e0f5105c980aac9"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          }
+        ]
+      },
+      "missingConcepts": [],
+      "ellipses": [],
+      "ambiguities": [],
+      "unknowns": [],
+      "contradictions": [],
+      "clarificationCandidates": [],
+      "knowledgeRequests": [],
+      "routeProposal": {
+        "route": "DESIGN_STUDY",
+        "confidence": 0.9,
+        "reason": "The request involves setting up a multi-center study protocol for harmonizing imaging parameters.",
+        "expectedCapabilities": [
+          "Define multi-center study workflow",
+          "Protocol harmonization planning"
+        ]
+      },
+      "summaryForUser": "Harmonisation des mesures de T1 mapping entre des champs magnétiques de 1,5T et 3T sur huit centres.",
+      "critic": {
+        "verdict": "ACCEPT",
+        "issues": [],
+        "summary": "The candidate fully and accurately captures all explicit elements and relations without any semantic violations. The taxonomy is respected, and routing is correct."
+      },
+      "executionSnapshot": {
+        "provider": "GOOGLE_GEMINI",
+        "model": "gemini-3.5-flash-lite",
+        "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+        "criticPromptVersion": "SEM-001-CRITIC-1.3",
+        "schemaVersion": "SEM-001-1.1",
+        "reconstructionCallId": "gemini-call:ke1-00710f16827c2f72",
+        "criticCallId": "gemini-call:ke1-10b27c2f4f3fe39b",
+        "criticCallIds": [
+          "gemini-call:ke1-82318b4fd0ccfbab",
+          "gemini-call:ke1-10b27c2f4f3fe39b"
+        ],
+        "reconstructionAttempts": [],
+        "criticAttempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-12T11:59:47.261Z",
+            "requestFinished": "2026-08-12T11:59:51.731Z",
+            "latencyMs": 4470,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          },
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-12T11:59:51.734Z",
+            "requestFinished": "2026-08-12T11:59:54.634Z",
+            "latencyMs": 2900,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ],
+        "rawReconstruction": {
+          "candidateId": "cand_01J9XYZ0000000000000000000",
+          "language": "fr",
+          "normalizedMeaning": "Harmonisation of T1 mapping between 1.5T and 3T magnetic field strengths across eight centers.",
+          "summaryForUser": "Harmonisation des mesures de T1 mapping entre des champs magnétiques de 1,5T et 3T sur huit centres.",
+          "semanticInventory": {
+            "explicitFragments": [
+              {
+                "inventoryItemId": "item_1",
+                "sourceMessageId": "SEM-D21:user:1",
+                "sourceText": "Harmoniser",
+                "normalizedLabel": "harmoniser",
+                "localRole": "intent",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": [
+                  "item_2",
+                  "item_3",
+                  "item_4"
+                ]
+              },
+              {
+                "inventoryItemId": "item_2",
+                "sourceMessageId": "SEM-D21:user:1",
+                "sourceText": "T1 mapping",
+                "normalizedLabel": "T1 mapping",
+                "localRole": "target",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": []
+              },
+              {
+                "inventoryItemId": "item_3",
+                "sourceMessageId": "SEM-D21:user:1",
+                "sourceText": "1,5T et 3T",
+                "normalizedLabel": "1.5T and 3T magnetic field strengths",
+                "localRole": "modality parameters",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": []
+              },
+              {
+                "inventoryItemId": "item_4",
+                "sourceMessageId": "SEM-D21:user:1",
+                "sourceText": "8 centres",
+                "normalizedLabel": "8 centers",
+                "localRole": "setting",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": []
+              },
+              {
+                "inventoryItemId": "r3d-inventory-5017392c5f0f5e08",
+                "sourceMessageId": "SEM-D21:user:1",
+                "sourceText": "1,5T",
+                "normalizedLabel": "1.5T magnetic field strength",
+                "localRole": "AUTONOMOUS_EXPLICIT_CONSTITUENT",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": [
+                  "item_3"
+                ]
+              },
+              {
+                "inventoryItemId": "r3d-inventory-2fdfc61796b55cdb",
+                "sourceMessageId": "SEM-D21:user:1",
+                "sourceText": "3T",
+                "normalizedLabel": "3T magnetic field strength",
+                "localRole": "AUTONOMOUS_EXPLICIT_CONSTITUENT",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": [
+                  "item_3"
+                ]
+              }
+            ],
+            "explicitRelations": [
+              {
+                "inventoryRelationId": "rel_1",
+                "sourceInventoryItemId": "item_1",
+                "targetInventoryItemId": "item_2",
+                "sourceMessageId": "SEM-D21:user:1",
+                "sourceText": "Harmoniser T1 mapping",
+                "normalizedRelation": "AIMS_TO_MODIFY",
+                "polarity": "AFFIRMED"
+              },
+              {
+                "inventoryRelationId": "rel_2",
+                "sourceInventoryItemId": "item_3",
+                "targetInventoryItemId": "item_2",
+                "sourceMessageId": "SEM-D21:user:1",
+                "sourceText": "T1 mapping 1,5T et 3T",
+                "normalizedRelation": "RELATED_TO_CANDIDATE",
+                "polarity": "AFFIRMED"
+              },
+              {
+                "inventoryRelationId": "r3d-inventory-relation-4e0f5105c980aac9",
+                "sourceInventoryItemId": "r3d-inventory-5017392c5f0f5e08",
+                "targetInventoryItemId": "r3d-inventory-2fdfc61796b55cdb",
+                "sourceMessageId": "SEM-D21:user:1",
+                "sourceText": "1,5T et 3T",
+                "normalizedRelation": "COORDINATED_WITH",
+                "polarity": "AFFIRMED"
+              }
+            ]
+          },
+          "elements": [
+            {
+              "clientElementId": "elem_1",
+              "type": "SCIENTIFIC_INTENT",
+              "canonicalMeaning": "Harmonize T1 mapping",
+              "studyRole": "NONE",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "item_1"
+              ],
+              "sourceMessageId": "SEM-D21:user:1",
+              "sourceText": "Harmoniser",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem_3",
+              "type": "MODALITY",
+              "canonicalMeaning": "1.5T and 3T magnetic field strengths",
+              "studyRole": "NONE",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "item_3"
+              ],
+              "sourceMessageId": "SEM-D21:user:1",
+              "sourceText": "1,5T et 3T",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem_4",
+              "type": "STUDY_DESIGN",
+              "canonicalMeaning": "8 centers multicentric setting",
+              "studyRole": "NONE",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "item_4"
+              ],
+              "sourceMessageId": "SEM-D21:user:1",
+              "sourceText": "8 centres",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem_2",
+              "type": "METHOD",
+              "canonicalMeaning": "T1 mapping",
+              "studyRole": "MEASUREMENT",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "item_2"
+              ],
+              "sourceMessageId": "SEM-D21:user:1",
+              "sourceText": "T1 mapping",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "r3d-element-5017392c5f0f5e08",
+              "type": "MODALITY",
+              "canonicalMeaning": "1.5T magnetic field strength",
+              "studyRole": "NONE",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "r3d-inventory-5017392c5f0f5e08"
+              ],
+              "sourceMessageId": "SEM-D21:user:1",
+              "sourceText": "1,5T",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "r3d-element-2fdfc61796b55cdb",
+              "type": "MODALITY",
+              "canonicalMeaning": "3T magnetic field strength",
+              "studyRole": "NONE",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "r3d-inventory-2fdfc61796b55cdb"
+              ],
+              "sourceMessageId": "SEM-D21:user:1",
+              "sourceText": "3T",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            }
+          ],
+          "relations": [
+            {
+              "clientRelationId": "rel_el_1",
+              "sourceClientElementId": "elem_1",
+              "targetClientElementId": "elem_2",
+              "relationType": "AIMS_TO_MODIFY",
+              "polarity": "AFFIRMED",
+              "inventoryRelationIds": [
+                "rel_1"
+              ],
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false
+            },
+            {
+              "clientRelationId": "rel_el_2",
+              "sourceClientElementId": "elem_3",
+              "targetClientElementId": "elem_2",
+              "relationType": "RELATED_TO_CANDIDATE",
+              "polarity": "AFFIRMED",
+              "inventoryRelationIds": [
+                "rel_2"
+              ],
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false
+            },
+            {
+              "clientRelationId": "r3d-relation-4e0f5105c980aac9",
+              "sourceClientElementId": "r3d-element-5017392c5f0f5e08",
+              "targetClientElementId": "r3d-element-2fdfc61796b55cdb",
+              "relationType": "COORDINATED_WITH",
+              "polarity": "AFFIRMED",
+              "inventoryRelationIds": [
+                "r3d-inventory-relation-4e0f5105c980aac9"
+              ],
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false
+            }
+          ],
+          "missingConcepts": [],
+          "ellipses": [],
+          "ambiguities": [],
+          "unknowns": [],
+          "contradictions": [],
+          "knowledgeRequests": [],
+          "clarificationCandidates": [],
+          "routeProposal": {
+            "route": "DESIGN_STUDY",
+            "confidence": 0.9,
+            "reason": "The request involves setting up a multi-center study protocol for harmonizing imaging parameters.",
+            "expectedCapabilities": [
+              "Define multi-center study workflow",
+              "Protocol harmonization planning"
+            ]
+          },
+          "semanticWarnings": []
+        },
+        "rawCritic": {
+          "criticId": "critic_sem_01",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit fragments including T1 mapping, field strengths, and centers are fully represented."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit comparator arm is stated."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No active experimental intervention is requested beyond the harmonization intent."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Magnetic field strengths (1.5T and 3T) correctly represent constraints/modal parameters."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All inventory relations are mapped correctly to candidate relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All element types adhere strictly to the operational taxonomy."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relations were weakened or lost."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unwarranted inferences were promoted to explicit status."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No hidden ambiguities."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "No negative polarities are present."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "No explicit timing elements were lost."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No unsupported endpoint promotion occurred."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like T1 mapping and field strengths are preserved precisely."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No important source fragments are omitted."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY perfectly matches a multi-center harmonization protocol workflow."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The candidate fully and accurately captures all explicit elements and relations without any semantic violations. The taxonomy is respected, and routing is correct."
+        },
+        "rawCritics": [
+          {
+            "criticId": "crit_01J9XYZ0000000000000000001",
+            "verdict": "REVISE",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit objects and parameters from the text are represented in the typed candidate elements."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No explicit comparator arm is specified."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No clinical intervention or treatment arm is specified."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Modality parameters and field strengths are represented."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit relations in the inventory are mapped to client relations."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "FAIL",
+                "evidence": "The taxonomy report flags T1 mapping (elem_2) as incorrectly typed as BIOMARKER instead of METHOD."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "No explicit relations were weakened."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No unsupported inferences were promoted."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "No ambiguities were hidden."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "Polarity is correctly preserved as AFFIRMED."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No explicit timing interval or time point is specified."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "No endpoints or outcomes were promoted without user text support."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Concepts are faithfully represented without generalization."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "All source fragments are represented in the inventory."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "DESIGN_STUDY matches the complete semantic model for a multicenter harmonization task."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [
+              {
+                "code": "TYPE_MISMATCH",
+                "severity": "CRITICAL",
+                "elementClientIds": [
+                  "elem_2"
+                ],
+                "description": "T1 mapping is typed as BIOMARKER, but the operational taxonomy requires mapping/acquisition techniques producing information to be typed as METHOD.",
+                "recommendedAction": "Upsert element elem_2 to type METHOD.",
+                "resolved": false
+              }
+            ],
+            "proposedRepairs": [
+              {
+                "repairId": "rep_01",
+                "action": "UPSERT_ELEMENT",
+                "reason": "Correct the taxonomy classification of T1 mapping from BIOMARKER to METHOD in accordance with the operational taxonomy.",
+                "sourceInventoryItemIds": [
+                  "item_2"
+                ],
+                "sourceInventoryRelationIds": [],
+                "inventoryItemId": null,
+                "inventorySourceMessageId": null,
+                "inventorySourceText": null,
+                "inventoryNormalizedLabel": null,
+                "inventoryLocalRole": null,
+                "inventoryPolarity": null,
+                "inventoryModifiers": [],
+                "inventoryLinkedItemIds": [],
+                "inventoryRelationId": null,
+                "inventoryRelationSourceItemId": null,
+                "inventoryRelationTargetItemId": null,
+                "inventoryRelationSourceMessageId": null,
+                "inventoryRelationSourceText": null,
+                "inventoryNormalizedRelation": null,
+                "inventoryRelationPolarity": null,
+                "elementClientElementId": "elem_2",
+                "elementType": "METHOD",
+                "elementCanonicalMeaning": "T1 mapping",
+                "elementStudyRole": "MEASUREMENT",
+                "elementPolarity": "AFFIRMED",
+                "elementInventoryItemIds": [
+                  "item_2"
+                ],
+                "elementSourceMessageId": "SEM-D21:user:1",
+                "elementSourceText": "T1 mapping",
+                "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+                "elementConfidence": 1,
+                "elementInferenceReason": null,
+                "elementRequiresConfirmation": false,
+                "elementSupersedesElementIds": [],
+                "relationClientRelationId": null,
+                "relationSourceClientElementId": null,
+                "relationTargetClientElementId": null,
+                "relationType": null,
+                "relationPolarity": null,
+                "relationInventoryRelationIds": [],
+                "relationEpistemicStatus": null,
+                "relationConfidence": null,
+                "relationInferenceReason": null,
+                "relationRequiresConfirmation": null,
+                "ambiguity": null,
+                "route": null,
+                "routeConfidence": null,
+                "routeReason": null,
+                "routeExpectedCapabilities": []
+              }
+            ],
+            "criticSummary": "The candidate correctly captures all explicit elements and relations from the user input. However, the taxonomy report correctly identifies that 'T1 mapping' must be classified as METHOD rather than BIOMARKER under the operational taxonomy precedence. A bounded repair (UPSERT_ELEMENT) has been proposed to resolve this taxonomy mismatch."
+          },
+          {
+            "criticId": "critic_sem_01",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit fragments including T1 mapping, field strengths, and centers are fully represented."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No explicit comparator arm is stated."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No active experimental intervention is requested beyond the harmonization intent."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Magnetic field strengths (1.5T and 3T) correctly represent constraints/modal parameters."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All inventory relations are mapped correctly to candidate relations."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "All element types adhere strictly to the operational taxonomy."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "No explicit relations were weakened or lost."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No unwarranted inferences were promoted to explicit status."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "No hidden ambiguities."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "No negative polarities are present."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "PASS",
+                "evidence": "No explicit timing elements were lost."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "No unsupported endpoint promotion occurred."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts like T1 mapping and field strengths are preserved precisely."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "No important source fragments are omitted."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "Route DESIGN_STUDY perfectly matches a multi-center harmonization protocol workflow."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The candidate fully and accurately captures all explicit elements and relations without any semantic violations. The taxonomy is respected, and routing is correct."
+          }
+        ],
+        "temperature": null,
+        "executedAt": "2026-08-12T15:33:26.568Z"
+      },
+      "knowledgeSnapshot": {
+        "resultId": "knowledge-result:ke1-32d1c09c55916058",
+        "resultDigest": "ke1-32d1c09c55916058",
+        "coverageStatus": "SUPPORTED",
+        "verifiedAt": "2026-08-12T15:33:26.575Z"
+      },
+      "previousModelId": null,
+      "history": [],
+      "acceptedAt": null,
+      "acceptanceRecord": null,
+      "createdAt": "2026-08-12T15:33:26.568Z",
+      "updatedAt": "2026-08-12T15:33:26.575Z",
+      "digest": "ke1-791435a62fba082a"
+    },
+    "metric": {
+      "caseId": "SEM-D21",
+      "explicitObjectRecall": 0.5,
+      "explicitRelationRecall": 0,
+      "criticalSemanticRecall": 0.4,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 1,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": [
+        "EXPLICIT_CONSTRAINT_LOST:1,5T",
+        "EXPLICIT_CONSTRAINT_LOST:3T",
+        "RELATION_LOST:1,5T->3T"
+      ]
+    }
+  }
+]

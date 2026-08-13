@@ -1,0 +1,698 @@
+{
+  "campaign": "SEM-001R5-DIAGNOSTIC",
+  "campaignId": "sem-001r5-diagnostic-2026-08-12T22-15-01-231Z-ke1-75b68ddee7e53412",
+  "classificationStatus": "RUNNER_PROVISIONAL_CLASSIFICATION_SUPERSEDED",
+  "authoritativeForensicClassification": "semantic-validation/sem-001r5/exhaustive-diagnostic.json",
+  "classificationNote": "Metric and pipeline evidence below is preserved unchanged; first-cause attribution is governed by the exhaustive forensic diagnostic.",
+  "failures": [
+    {
+      "caseId": "SEM-H10",
+      "originalRequest": [
+        "Après exercice, phosphore 31P et BOLD musculaire; voir récupération énergétique."
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H10",
+        "explicitObjectRecall": 0.25,
+        "explicitRelationRecall": 0,
+        "criticalSemanticRecall": 0.2,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_METHOD_LOST:spectroscopie 31P",
+          "EXPLICIT_METHOD_LOST:BOLD musculaire",
+          "EXPLICIT_SCIENTIFIC_OBJECT_LOST:récupération énergétique",
+          "RELATION_LOST:spectroscopie 31P->récupération énergétique"
+        ]
+      },
+      "absoluteBlockers": [
+        "EXPLICIT_METHOD_LOST:spectroscopie 31P",
+        "EXPLICIT_METHOD_LOST:BOLD musculaire",
+        "EXPLICIT_SCIENTIFIC_OBJECT_LOST:récupération énergétique",
+        "RELATION_LOST:spectroscopie 31P->récupération énergétique"
+      ],
+      "firstDivergentStage": "GOLD_VERSUS_OPERATIONAL_TAXONOMY_COMPARISON",
+      "failureClass": "GOLD_VERSUS_OPERATIONAL_TAXONOMY_CONFLICT",
+      "genericOrIsolated": "GENUINE_HUMAN_ARBITRATION_REQUIRED",
+      "recommendedOwner": "NOXIA_SCIENTIFIC_SEMANTIC_GOVERNANCE",
+      "disposition": "HOLDOUT_STOPPED_BEFORE_H11",
+      "goldUsedForProductDecision": false,
+      "arbitration": {
+        "source": "semantic-validation/sem-001r4/h10-taxonomy-arbitration-request-r4b.json",
+        "goldChanged": false,
+        "thresholdsChanged": false,
+        "conflict": "Gold requires récupération énergétique=SCIENTIFIC_OBJECT while the operational taxonomy and explicit RECOVERS_AFTER process relation support PHENOMENON.",
+        "methodClassificationRepairAvailable": true,
+        "methodClassificationRepairApplied": false
+      },
+      "inheritedFrom": "SEM-001R4-CLOSURE",
+      "diagnosticDisposition": "PENDING_R5_EXHAUSTIVE_CLASSIFICATION"
+    },
+    {
+      "caseId": "SEM-H11",
+      "originalRequest": [
+        "On suit diamètre aortique, mais c'est la vitesse de croissance plutôt que le diamètre brut qui doit compter."
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H11",
+        "explicitObjectRecall": 0.5,
+        "explicitRelationRecall": 0,
+        "criticalSemanticRecall": 0.3333333333333333,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": false,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_ENDPOINT_LOST:vitesse de croissance",
+          "RELATION_LOST:vitesse de croissance->diamètre aortique"
+        ]
+      },
+      "absoluteBlockers": [
+        "EXPLICIT_ENDPOINT_LOST:vitesse de croissance",
+        "RELATION_LOST:vitesse de croissance->diamètre aortique"
+      ],
+      "firstDivergentStage": "POST_CANONICAL_HOLDOUT_EVALUATION",
+      "failureClass": "OBJECT_COVERAGE_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_OBJECT_COVERAGE_OWNER"
+    },
+    {
+      "caseId": "SEM-H12",
+      "originalRequest": [
+        "delta-radiomics avant et pendant RT pour toxicité pulmonaire tardive"
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H12",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 0,
+        "criticalSemanticRecall": 0.8,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "RELATION_LOST:delta-radiomics->toxicité pulmonaire tardive"
+        ]
+      },
+      "absoluteBlockers": [
+        "RELATION_LOST:delta-radiomics->toxicité pulmonaire tardive"
+      ],
+      "firstDivergentStage": "POST_CANONICAL_HOLDOUT_EVALUATION",
+      "failureClass": "RELATION_COVERAGE_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_RELATION_COVERAGE_OWNER"
+    },
+    {
+      "caseId": "SEM-H13",
+      "originalRequest": [
+        "embolisation maintenant ou en deux temps; volume perfusé en cone-beam CT"
+      ],
+      "metricFailures": null,
+      "absoluteBlockers": [],
+      "firstDivergentStage": "SEMANTIC_PIPELINE",
+      "failureClass": "CANONICALIZATION_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_PIPELINE_OWNER",
+      "error": {
+        "category": "SEMANTIC_PIPELINE_FAILURE",
+        "failureClass": "CANONICALIZATION_FAILURE",
+        "message": "SEMANTIC_CANONICALIZATION_FAILED:EXPLICIT_SOURCE_NOT_CONTIGUOUS"
+      }
+    },
+    {
+      "caseId": "SEM-H14",
+      "originalRequest": [
+        "Double lecture aveugle, mais adjudication seulement si écart au-dessus d'un seuil encore indéfini."
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H14",
+        "explicitObjectRecall": 0.6666666666666666,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 0.75,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_UNKNOWN_LOST:seuil d'écart indéfini"
+        ]
+      },
+      "absoluteBlockers": [
+        "EXPLICIT_UNKNOWN_LOST:seuil d'écart indéfini"
+      ],
+      "firstDivergentStage": "POST_CANONICAL_HOLDOUT_EVALUATION",
+      "failureClass": "OBJECT_COVERAGE_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_OBJECT_COVERAGE_OWNER"
+    },
+    {
+      "caseId": "SEM-H15",
+      "originalRequest": [
+        "Cohorte rétrospective, trois hôpitaux, DICOM incomplets : estimer le taux de non-évaluables."
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H15",
+        "explicitObjectRecall": 0.75,
+        "explicitRelationRecall": 0,
+        "criticalSemanticRecall": 0.6,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_STUDY_DESIGN_LOST:trois hôpitaux",
+          "RELATION_LOST:DICOM incomplets->taux de non-évaluables"
+        ]
+      },
+      "absoluteBlockers": [
+        "EXPLICIT_STUDY_DESIGN_LOST:trois hôpitaux",
+        "RELATION_LOST:DICOM incomplets->taux de non-évaluables"
+      ],
+      "firstDivergentStage": "POST_CANONICAL_HOLDOUT_EVALUATION",
+      "failureClass": "OBJECT_COVERAGE_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_OBJECT_COVERAGE_OWNER"
+    },
+    {
+      "caseId": "SEM-H16",
+      "originalRequest": [
+        "Évaluer une séquence ultracourte pour voir le cortex osseux; le comparateur n'est pas encore choisi."
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H16",
+        "explicitObjectRecall": 0.6666666666666666,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 0.75,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_UNKNOWN_LOST:comparateur non choisi"
+        ]
+      },
+      "absoluteBlockers": [
+        "EXPLICIT_UNKNOWN_LOST:comparateur non choisi"
+      ],
+      "firstDivergentStage": "POST_CANONICAL_HOLDOUT_EVALUATION",
+      "failureClass": "OBJECT_COVERAGE_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_OBJECT_COVERAGE_OWNER"
+    },
+    {
+      "caseId": "SEM-H17",
+      "originalRequest": [
+        "Faut-il regarder l'œdème ou la MVO pour expliquer le no-reflow, sans dire que l'un cause l'autre ?"
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H17",
+        "explicitObjectRecall": 0,
+        "explicitRelationRecall": 0,
+        "criticalSemanticRecall": 0,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_PHENOMENON_LOST:œdème",
+          "EXPLICIT_PHENOMENON_LOST:MVO",
+          "EXPLICIT_SCIENTIFIC_OBJECT_LOST:no-reflow",
+          "EXPLICIT_CONSTRAINT_LOST:ne pas affirmer de causalité",
+          "RELATION_LOST:œdème->MVO"
+        ]
+      },
+      "absoluteBlockers": [
+        "EXPLICIT_PHENOMENON_LOST:œdème",
+        "EXPLICIT_PHENOMENON_LOST:MVO",
+        "EXPLICIT_SCIENTIFIC_OBJECT_LOST:no-reflow",
+        "EXPLICIT_CONSTRAINT_LOST:ne pas affirmer de causalité",
+        "RELATION_LOST:œdème->MVO"
+      ],
+      "firstDivergentStage": "POST_CANONICAL_HOLDOUT_EVALUATION",
+      "failureClass": "OBJECT_COVERAGE_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_OBJECT_COVERAGE_OWNER"
+    },
+    {
+      "caseId": "SEM-H18",
+      "originalRequest": [
+        "fibrose pulmonaire quantitative : progression à 1 an avec CT, mortalité pas concernée"
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H18",
+        "explicitObjectRecall": 0.75,
+        "explicitRelationRecall": 0,
+        "criticalSemanticRecall": 0.6,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_CONSTRAINT_LOST:mortalité exclue",
+          "RELATION_LOST:fibrose pulmonaire quantitative->CT"
+        ]
+      },
+      "absoluteBlockers": [
+        "EXPLICIT_CONSTRAINT_LOST:mortalité exclue",
+        "RELATION_LOST:fibrose pulmonaire quantitative->CT"
+      ],
+      "firstDivergentStage": "POST_CANONICAL_HOLDOUT_EVALUATION",
+      "failureClass": "OBJECT_COVERAGE_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_OBJECT_COVERAGE_OWNER"
+    },
+    {
+      "caseId": "SEM-H20",
+      "originalRequest": [
+        "ASL hépatique sans gadolinium chez insuffisants rénaux, faisable ?"
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H20",
+        "explicitObjectRecall": 0.6666666666666666,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 0.6666666666666666,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_POPULATION_LOST:insuffisance rénale"
+        ]
+      },
+      "absoluteBlockers": [
+        "EXPLICIT_POPULATION_LOST:insuffisance rénale"
+      ],
+      "firstDivergentStage": "POST_CANONICAL_HOLDOUT_EVALUATION",
+      "failureClass": "OBJECT_COVERAGE_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_OBJECT_COVERAGE_OWNER"
+    },
+    {
+      "caseId": "SEM-H21",
+      "originalRequest": [
+        "Fusionner échographie de contraste et CT, non pour les comparer mais pour localiser la même lésion."
+      ],
+      "metricFailures": null,
+      "absoluteBlockers": [],
+      "firstDivergentStage": "BASE_CRITIC_OR_ACCEPTANCE_GUARD",
+      "failureClass": "CRITIC_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_CRITIC_OWNER",
+      "error": {
+        "category": "SEMANTIC_PIPELINE_FAILURE",
+        "failureClass": "CRITIC_FAILURE",
+        "message": "SEM001R4_CRITIC_NOT_ACCEPTED:CRITIC_MAX_CYCLES_EXHAUSTED"
+      }
+    },
+    {
+      "caseId": "SEM-H22",
+      "originalRequest": [
+        "pseudoprogression vs récidive: perfusion DSC + spectro, résultat histologique pas toujours dispo"
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H22",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 0,
+        "criticalSemanticRecall": 0.8333333333333334,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "RELATION_LOST:pseudoprogression->récidive"
+        ]
+      },
+      "absoluteBlockers": [
+        "RELATION_LOST:pseudoprogression->récidive"
+      ],
+      "firstDivergentStage": "POST_CANONICAL_HOLDOUT_EVALUATION",
+      "failureClass": "RELATION_COVERAGE_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_RELATION_COVERAGE_OWNER"
+    },
+    {
+      "caseId": "SEM-H23",
+      "originalRequest": [
+        "Test-retest ADC tumeur, même jour, sans traitement entre les deux"
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H23",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 0,
+        "criticalSemanticRecall": 0.8,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "RELATION_LOST:ADC tumoral->même jour"
+        ]
+      },
+      "absoluteBlockers": [
+        "RELATION_LOST:ADC tumoral->même jour"
+      ],
+      "firstDivergentStage": "POST_CANONICAL_HOLDOUT_EVALUATION",
+      "failureClass": "RELATION_COVERAGE_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_RELATION_COVERAGE_OWNER"
+    },
+    {
+      "caseId": "SEM-H24",
+      "originalRequest": [
+        "Placenta IVIM et T2*, relation avec croissance fœtale, mais aucune injection."
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H24",
+        "explicitObjectRecall": 0.8,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 0.8333333333333334,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_BIOMARKER_LOST:T2*"
+        ]
+      },
+      "absoluteBlockers": [
+        "EXPLICIT_BIOMARKER_LOST:T2*"
+      ],
+      "firstDivergentStage": "POST_CANONICAL_HOLDOUT_EVALUATION",
+      "failureClass": "OBJECT_COVERAGE_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_OBJECT_COVERAGE_OWNER"
+    },
+    {
+      "caseId": "SEM-H25",
+      "originalRequest": [
+        "Deux agents K-edge injectés pour séparer inflammation et vascularisation : projet exploratoire."
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H25",
+        "explicitObjectRecall": 0.25,
+        "explicitRelationRecall": 0,
+        "criticalSemanticRecall": 0.2,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_METHOD_LOST:deux agents K-edge",
+          "EXPLICIT_SCIENTIFIC_OBJECT_LOST:inflammation",
+          "EXPLICIT_SCIENTIFIC_OBJECT_LOST:vascularisation",
+          "RELATION_LOST:inflammation->vascularisation"
+        ]
+      },
+      "absoluteBlockers": [
+        "EXPLICIT_METHOD_LOST:deux agents K-edge",
+        "EXPLICIT_SCIENTIFIC_OBJECT_LOST:inflammation",
+        "EXPLICIT_SCIENTIFIC_OBJECT_LOST:vascularisation",
+        "RELATION_LOST:inflammation->vascularisation"
+      ],
+      "firstDivergentStage": "POST_CANONICAL_HOLDOUT_EVALUATION",
+      "failureClass": "OBJECT_COVERAGE_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_OBJECT_COVERAGE_OWNER"
+    },
+    {
+      "caseId": "SEM-H26",
+      "originalRequest": [
+        "Moi ce qui m'intéresse c'est pas la perfusion, c'est combien de temps l'oxygénation met à revenir après l'effort."
+      ],
+      "metricFailures": null,
+      "absoluteBlockers": [],
+      "firstDivergentStage": "BASE_CRITIC_OR_ACCEPTANCE_GUARD",
+      "failureClass": "CRITIC_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_CRITIC_OWNER",
+      "error": {
+        "category": "SEMANTIC_PIPELINE_FAILURE",
+        "failureClass": "CRITIC_FAILURE",
+        "message": "SEM001R4_CRITIC_NOT_ACCEPTED:CRITIC_ACCEPT_INCONSISTENT_WITH_COVERAGE"
+      }
+    },
+    {
+      "caseId": "SEM-H27",
+      "originalRequest": [
+        "Ne pas comparer les constructeurs. Je veux uniquement voir si le changement de logiciel modifie le T1."
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H27",
+        "explicitObjectRecall": 0.6666666666666666,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 0.75,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_CONSTRAINT_LOST:constructeurs non comparés"
+        ]
+      },
+      "absoluteBlockers": [
+        "EXPLICIT_CONSTRAINT_LOST:constructeurs non comparés"
+      ],
+      "firstDivergentStage": "POST_CANONICAL_HOLDOUT_EVALUATION",
+      "failureClass": "OBJECT_COVERAGE_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_OBJECT_COVERAGE_OWNER"
+    },
+    {
+      "caseId": "SEM-H28",
+      "originalRequest": [
+        "Mesurer perfusion rénale et prédire déclin du DFG; ASL maintenant, suivi deux ans."
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H28",
+        "explicitObjectRecall": 0.5,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 0.6666666666666666,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_SCIENTIFIC_OBJECT_LOST:perfusion rénale",
+          "EXPLICIT_OUTCOME_LOST:déclin du DFG"
+        ]
+      },
+      "absoluteBlockers": [
+        "EXPLICIT_SCIENTIFIC_OBJECT_LOST:perfusion rénale",
+        "EXPLICIT_OUTCOME_LOST:déclin du DFG"
+      ],
+      "firstDivergentStage": "POST_CANONICAL_HOLDOUT_EVALUATION",
+      "failureClass": "OBJECT_COVERAGE_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_OBJECT_COVERAGE_OWNER"
+    },
+    {
+      "caseId": "SEM-H29",
+      "originalRequest": [
+        "Comparer PET et IRM pour la réponse tumorale à trois mois.",
+        "En fait gardez l'IRM, mais le PET n'est plus dans le projet; ajoutez le CT spectral."
+      ],
+      "metricFailures": null,
+      "absoluteBlockers": [],
+      "firstDivergentStage": "LLM_PROVIDER_OPERATION",
+      "failureClass": "STRUCTURED_OUTPUT_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_CROSS_OPERATION_PROVIDER_REVIEW",
+      "recommendedOwner": "SEM_STRUCTURED_OUTPUT_CONTRACT",
+      "error": {
+        "category": "INVALID_STRUCTURED_OUTPUT",
+        "failureClass": "STRUCTURED_OUTPUT_FAILURE",
+        "httpStatus": 200,
+        "providerStatus": null,
+        "providerErrorCode": null,
+        "message": "Structured reconstruction did not satisfy the SEM contract after one bounded correction attempt. Issues: elements.3.inventoryItemIds:custom, elements.4.inventoryItemIds:custom.",
+        "diagnostic": {
+          "rawProviderOutput": "{\n  \"candidateId\": \"candidate-sem-h29-rev2\",\n  \"language\": \"fr\",\n  \"normalizedMeaning\": \"Maintien de l'IRM, suppression de la TEP et ajout du CT spectral pour l'évaluation de la réponse tumorale à trois mois.\",\n  \"summaryForUser\": \"L'utilisateur garde l'IRM, supprime le PET et ajoute le CT spectral dans le projet pour l'évaluation de la réponse tumorale à trois mois.\",\n  \"semanticInventory\": {\n    \"explicitFragments\": [\n      {\n        \"inventoryItemId\": \"inv-u2-1\",\n        \"sourceMessageId\": \"SEM-H29:user:2\",\n        \"sourceText\": \"gardez l'IRM\",\n        \"normalizedLabel\": \"conserver l'IRM\",\n        \"localRole\": \"action\",\n        \"polarity\": \"AFFIRMED\",\n        \"modifiers\": [],\n        \"linkedInventoryItemIds\": [\n          \"inv-u2-2\"\n        ]\n      },\n      {\n        \"inventoryItemId\": \"inv-u2-2\",\n        \"sourceMessageId\": \"SEM-H29:user:2\",\n        \"sourceText\": \"IRM\",\n        \"normalizedLabel\": \"Imagerie par résonance magnétique\",\n        \"localRole\": \"modality\",\n        \"polarity\": \"AFFIRMED\",\n        \"modifiers\": [],\n        \"linkedInventoryItemIds\": []\n      },\n      {\n        \"inventoryItemId\": \"inv-u2-3\",\n        \"sourceMessageId\": \"SEM-H29:user:2\",\n        \"sourceText\": \"le PET n'est plus dans le projet\",\n        \"normalizedLabel\": \"suppression du PET\",\n        \"localRole\": \"exclusion\",\n        \"polarity\": \"NEGATED\",\n        \"modifiers\": [],\n        \"linkedInventoryItemIds\": [\n          \"inv-u2-4\"\n        ]\n      },\n      {\n        \"inventoryItemId\": \"inv-u2-4\",\n        \"sourceMessageId\": \"SEM-H29:user:2\",\n        \"sourceText\": \"PET\",\n        \"normalizedLabel\": \"Tomographie par émission de positons\",\n        \"localRole\": \"modality\",\n        \"polarity\": \"NEGATED\",\n        \"modifiers\": [],\n        \"linkedInventoryItemIds\": []\n      },\n      {\n        \"inventoryItemId\": \"inv-u2-5\",\n        \"sourceMessageId\": \"SEM-H29:user:2\",\n        \"sourceText\": \"ajoutez le CT spectral\",\n        \"normalizedLabel\": \"ajout du CT spectral\",\n        \"localRole\": \"action\",\n        \"polarity\": \"AFFIRMED\",\n        \"modifiers\": [],\n        \"linkedInventoryItemIds\": [\n          \"inv-u2-6\"\n        ]\n      },\n      {\n        \"inventoryItemId\": \"inv-u2-6\",\n        \"sourceMessageId\": \"SEM-H29:user:2\",\n        \"sourceText\": \"CT spectral\",\n        \"normalizedLabel\": \"CT spectral\",\n        \"localRole\": \"modality\",\n        \"polarity\": \"AFFIRMED\",\n        \"modifiers\": [],\n        \"linkedInventoryItemIds\": []\n      }\n    ],\n    \"explicitRelations\": [\n      {\n        \"inventoryRelationId\": \"rel-u2-1\",\n        \"sourceInventoryItemId\": \"inv-u2-6\",\n        \"targetInventoryItemId\": \"inv-u2-2\",\n        \"sourceMessageId\": \"SEM-H29:user:2\",\n        \"sourceText\": \"gardez l'IRM, mais le PET n'est plus dans le projet; ajoutez le CT spectral\",\n        \"normalizedRelation\": \"COMPARES_WITH\",\n        \"polarity\": \"AFFIRMED\"\n      }\n    ]\n  },\n  \"elements\": [\n    {\n      \"clientElementId\": \"elem-u2-1\",\n      \"type\": \"MODALITY\",\n      \"canonicalMeaning\": \"Imagerie par résonance magnétique\",\n      \"studyRole\": \"MEASUREMENT\",\n      \"polarity\": \"AFFIRMED\",\n      \"inventoryItemIds\": [\n        \"inv-u2-2\"\n      ],\n      \"sourceMessageId\": \"SEM-H29:user:2\",\n      \"sourceText\": \"IRM\",\n      \"epistemicStatus\": \"EXPLICIT_USER_STATED\",\n      \"confidence\": 1,\n      \"inferenceReason\": null,\n      \"requiresConfirmation\": false,\n      \"supersedesElementIds\": [\n        \"sem-element:ke1-cee27023bc99f717\"\n      ]\n    },\n    {\n      \"clientElementId\": \"elem-u2-2\",\n      \"type\": \"MODALITY\",\n      \"canonicalMeaning\": \"Tomographie par émission de positons\",\n      \"studyRole\": \"NONE\",\n      \"polarity\": \"NEGATED\",\n      \"inventoryItemIds\": [\n        \"inv-u2-4\"\n      ],\n      \"sourceMessageId\": \"SEM-H29:user:2\",\n      \"sourceText\": \"PET\",\n      \"epistemicStatus\": \"EXPLICIT_USER_STATED\",\n      \"confidence\": 1,\n      \"inferenceReason\": null,\n      \"requiresConfirmation\": false,\n      \"supersedesElementIds\": [\n        \"sem-element:ke1-963ab9c4b72f7778\"\n      ]\n    },\n    {\n      \"clientElementId\": \"elem-u2-3\",\n      \"type\": \"MODALITY\",\n      \"canonicalMeaning\": \"CT spectral\",\n      \"studyRole\": \"MEASUREMENT\",\n      \"polarity\": \"AFFIRMED\",\n      \"inventoryItemIds\": [\n        \"inv-u2-6\"\n      ],\n      \"sourceMessageId\": \"SEM-H29:user:2\",\n      \"sourceText\": \"CT spectral\",\n      \"epistemicStatus\": \"EXPLICIT_USER_STATED\",\n      \"confidence\": 1,\n      \"inferenceReason\": null,\n      \"requiresConfirmation\": false,\n      \"supersedesElementIds\": []\n    },\n    {\n      \"clientElementId\": \"elem-u2-4\",\n      \"type\": \"OUTCOME\",\n      \"canonicalMeaning\": \"Réponse tumorale au traitement\",\n      \"studyRole\": \"OUTCOME_ROLE\",\n      \"polarity\": \"AFFIRMED\",\n      \"inventoryItemIds\": [],\n      \"sourceMessageId\": \"SEM-H29:user:1\",\n      \"sourceText\": \"réponse tumorale\",\n      \"epistemicStatus\": \"EXPLICIT_USER_STATED\",\n      \"confidence\": 1,\n      \"inferenceReason\": null,\n      \"requiresConfirmation\": false,\n      \"supersedesElementIds\": [\n        \"sem-element:ke1-a3ea9e4438197058\"\n      ]\n    },\n    {\n      \"clientElementId\": \"elem-u2-5\",\n      \"type\": \"TIMING\",\n      \"canonicalMeaning\": \"Délai de trois mois\",\n      \"studyRole\": \"NONE\",\n      \"polarity\": \"AFFIRMED\",\n      \"inventoryItemIds\": [],\n      \"sourceMessageId\": \"SEM-H29:user:1\",\n      \"sourceText\": \"trois mois\",\n      \"epistemicStatus\": \"EXPLICIT_USER_STATED\",\n      \"confidence\": 1,\n      \"inferenceReason\": null,\n      \"requiresConfirmation\": false,\n      \"supersedesElementIds\": [\n        \"sem-element:ke1-b87fa50f2b6b0b63\"\n      ]\n    }\n  ],\n  \"relations\": [\n    {\n      \"clientRelationId\": \"rel-u2-1\",\n      \"sourceClientElementId\": \"elem-u2-3\",\n      \"targetClientElementId\": \"elem-u2-1\",\n      \"relationType\": \"COMPARES_WITH\",\n      \"polarity\": \"AFFIRMED\",\n      \"inventoryRelationIds\": [\n        \"rel-u2-1\"\n      ],\n      \"epistemicStatus\": \"EXPLICIT_USER_STATED\",\n      \"confidence\": 1,\n      \"inferenceReason\": null,\n      \"requiresConfirmation\": false\n    }\n  ],\n  \"missingConcepts\": [],\n  \"ellipses\": [],\n  \"ambiguities\": [],\n  \"unknowns\": [],\n  \"contradictions\": [],\n  \"knowledgeRequests\": [],\n  \"clarificationCandidates\": [],\n  \"routeProposal\": {\n    \"route\": \"DESIGN_STUDY\",\n    \"confidence\": 1,\n    \"reason\": \"L'utilisateur modifie les modalités d'imagerie d'un protocole d'étude existant.\",\n    \"expectedCapabilities\": [\n      \"Mise à jour des bras d'imagerie\",\n      \"Gestion des modifications de protocole\"\n    ]\n  },\n  \"semanticWarnings\": []\n}",
+          "validationIssues": [
+            {
+              "path": "elements.3.inventoryItemIds",
+              "code": "custom",
+              "message": "EXPLICIT_ELEMENT_INVENTORY_REQUIRED"
+            },
+            {
+              "path": "elements.4.inventoryItemIds",
+              "code": "custom",
+              "message": "EXPLICIT_ELEMENT_INVENTORY_REQUIRED"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "caseId": "SEM-H30",
+      "originalRequest": [
+        "Comparer deux parcours de consentement et mesurer le taux de refus dans quatre centres."
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H30",
+        "explicitObjectRecall": 0.6666666666666666,
+        "explicitRelationRecall": 0,
+        "criticalSemanticRecall": 0.5,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_OUTCOME_LOST:taux de refus",
+          "RELATION_LOST:deux parcours de consentement->taux de refus"
+        ]
+      },
+      "absoluteBlockers": [
+        "EXPLICIT_OUTCOME_LOST:taux de refus",
+        "RELATION_LOST:deux parcours de consentement->taux de refus"
+      ],
+      "firstDivergentStage": "POST_CANONICAL_HOLDOUT_EVALUATION",
+      "failureClass": "OBJECT_COVERAGE_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_OBJECT_COVERAGE_OWNER"
+    }
+  ]
+}

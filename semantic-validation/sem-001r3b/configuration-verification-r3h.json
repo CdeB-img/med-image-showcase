@@ -1,0 +1,99 @@
+{
+  "campaign": "SEM-001R3H",
+  "verifiedAt": "2026-08-12T17:19:35.141Z",
+  "decision": "R3H_CONFIGURATION_VERIFIED",
+  "allowedMutation": "EXPLICIT_COMPOSITE_METHOD_LOSS_OWNER_ONLY",
+  "currentDigests": {
+    "reconstructionPrompt": "ke1-943568042373de98",
+    "criticPrompt": "ke1-b26ddf632ed1fa57",
+    "baseProviderSchema": "ke1-c849778553bf38b1",
+    "canonicalizer": "ke1-8a56fab704f65083",
+    "coverageAndRepair": "ke1-ca1d80690519c165",
+    "evaluator": "ke1-b5aa14fa96372ad6",
+    "developmentCorpus": "ke1-64d654cfa041a563",
+    "developmentGold": "ke1-1006a72533caf7f9",
+    "atomicCompositionPrompt": "ke1-10b88664b49fca18",
+    "providerTransportSchema": "ke1-55cd50759595b451",
+    "compositeMethodOwner": "ke1-c07cc22d8708c7c9"
+  },
+  "checks": [
+    {
+      "contract": "reconstructionPrompt",
+      "expected": "ke1-943568042373de98",
+      "observed": "ke1-943568042373de98",
+      "pass": true
+    },
+    {
+      "contract": "criticPrompt",
+      "expected": "ke1-b26ddf632ed1fa57",
+      "observed": "ke1-b26ddf632ed1fa57",
+      "pass": true
+    },
+    {
+      "contract": "baseProviderSchema",
+      "expected": "ke1-c849778553bf38b1",
+      "observed": "ke1-c849778553bf38b1",
+      "pass": true
+    },
+    {
+      "contract": "canonicalizer",
+      "expected": "ke1-8a56fab704f65083",
+      "observed": "ke1-8a56fab704f65083",
+      "pass": true
+    },
+    {
+      "contract": "coverageAndRepair",
+      "expected": "ke1-ca1d80690519c165",
+      "observed": "ke1-ca1d80690519c165",
+      "pass": true
+    },
+    {
+      "contract": "evaluator",
+      "expected": "ke1-b5aa14fa96372ad6",
+      "observed": "ke1-b5aa14fa96372ad6",
+      "pass": true
+    },
+    {
+      "contract": "developmentCorpus",
+      "expected": "ke1-64d654cfa041a563",
+      "observed": "ke1-64d654cfa041a563",
+      "pass": true
+    },
+    {
+      "contract": "developmentGold",
+      "expected": "ke1-1006a72533caf7f9",
+      "observed": "ke1-1006a72533caf7f9",
+      "pass": true
+    },
+    {
+      "contract": "atomicCompositionPrompt",
+      "expected": "ke1-10b88664b49fca18",
+      "observed": "ke1-10b88664b49fca18",
+      "pass": true
+    },
+    {
+      "contract": "providerTransportSchema",
+      "expected": "ke1-55cd50759595b451",
+      "observed": "ke1-55cd50759595b451",
+      "pass": true
+    },
+    {
+      "contract": "compositeMethodOwner",
+      "expected": "changed from R3G owner",
+      "observed": "ke1-c07cc22d8708c7c9",
+      "pass": true
+    },
+    {
+      "contract": "primaryGatePreserved",
+      "expected": "PASS with all semantic gates at 1 and no blocker",
+      "observed": "ke1-d3575cafc7d1097b",
+      "pass": true
+    },
+    {
+      "contract": "targetAuditReusable",
+      "expected": "schema-valid R3G audit",
+      "observed": "audit-d28-01",
+      "pass": true
+    }
+  ]
+}

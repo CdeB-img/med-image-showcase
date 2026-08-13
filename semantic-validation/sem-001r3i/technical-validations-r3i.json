@@ -1,0 +1,84 @@
+{
+  "campaign": "SEM-001R3I",
+  "status": "PASS",
+  "validatedAt": "2026-08-12T17:58:23Z",
+  "checks": [
+    {
+      "name": "SEM_COMPLETE",
+      "command": "npm run test:semantic",
+      "status": "PASS",
+      "testFiles": 18,
+      "tests": 196
+    },
+    {
+      "name": "KNOWLEDGE_BOUNDARIES",
+      "command": "npm run test:knowledge",
+      "status": "PASS",
+      "testFiles": 8,
+      "tests": 87,
+      "warnings": "Two React Router future-flag notices; non-blocking."
+    },
+    {
+      "name": "IMG",
+      "command": "npm run test:img",
+      "status": "PASS",
+      "testFiles": 9,
+      "tests": 60
+    },
+    {
+      "name": "PRJ",
+      "command": "npm run test:prj",
+      "status": "PASS",
+      "testFiles": 5,
+      "tests": 56
+    },
+    {
+      "name": "SYS",
+      "command": "npm run test:system-integration",
+      "status": "PASS",
+      "testFiles": 11,
+      "tests": 34
+    },
+    {
+      "name": "TMP",
+      "command": "npm run test:tmp",
+      "status": "PASS",
+      "testFiles": 2,
+      "tests": 18
+    },
+    {
+      "name": "TYPECHECK",
+      "command": "npm run typecheck",
+      "status": "PASS"
+    },
+    {
+      "name": "LINT",
+      "command": "npm run lint",
+      "status": "PASS_WITH_WARNINGS",
+      "errors": 0,
+      "warnings": 7,
+      "note": "Existing Fast Refresh warnings in generated UI components only."
+    },
+    {
+      "name": "BUILD",
+      "command": "npm run build",
+      "status": "PASS",
+      "note": "Non-blocking browserslist, dependency annotation and chunk-size warnings were reported."
+    },
+    {
+      "name": "GIT_DIFF_CHECK",
+      "command": "git diff --check",
+      "status": "PASS"
+    }
+  ],
+  "totals": {
+    "testFiles": 53,
+    "tests": 451,
+    "failedTests": 0
+  },
+  "excludedByProtocol": [
+    "browser live",
+    "ST/IMG/PRJ live",
+    "Holdout"
+  ]
+}

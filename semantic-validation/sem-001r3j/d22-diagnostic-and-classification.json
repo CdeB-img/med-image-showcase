@@ -1,0 +1,401 @@
+{
+  "campaign": "SEM-001R3J",
+  "caseId": "SEM-D22",
+  "diagnosisPerformedWithoutLlm": true,
+  "trace": {
+    "source": [
+      "iode mesuré en dual energy vs photon counting"
+    ],
+    "inventory": {
+      "explicitFragments": [
+        {
+          "inventoryItemId": "inv-1",
+          "sourceMessageId": "SEM-D22:user:1",
+          "sourceText": "iode",
+          "normalizedLabel": "iode",
+          "localRole": "target",
+          "polarity": "AFFIRMED",
+          "modifiers": [],
+          "linkedInventoryItemIds": []
+        },
+        {
+          "inventoryItemId": "inv-2",
+          "sourceMessageId": "SEM-D22:user:1",
+          "sourceText": "mesuré",
+          "normalizedLabel": "mesure",
+          "localRole": "action",
+          "polarity": "AFFIRMED",
+          "modifiers": [],
+          "linkedInventoryItemIds": [
+            "inv-1"
+          ]
+        },
+        {
+          "inventoryItemId": "inv-3",
+          "sourceMessageId": "SEM-D22:user:1",
+          "sourceText": "dual energy",
+          "normalizedLabel": "dual energy",
+          "localRole": "method_a",
+          "polarity": "AFFIRMED",
+          "modifiers": [],
+          "linkedInventoryItemIds": []
+        },
+        {
+          "inventoryItemId": "inv-4",
+          "sourceMessageId": "SEM-D22:user:1",
+          "sourceText": "photon counting",
+          "normalizedLabel": "photon counting",
+          "localRole": "method_b",
+          "polarity": "AFFIRMED",
+          "modifiers": [],
+          "linkedInventoryItemIds": []
+        }
+      ],
+      "explicitRelations": [
+        {
+          "inventoryRelationId": "rel-1",
+          "sourceInventoryItemId": "inv-1",
+          "targetInventoryItemId": "inv-3",
+          "sourceMessageId": "SEM-D22:user:1",
+          "sourceText": "iode mesuré en dual energy",
+          "normalizedRelation": "MEASURED_BY",
+          "polarity": "AFFIRMED"
+        },
+        {
+          "inventoryRelationId": "rel-2",
+          "sourceInventoryItemId": "inv-1",
+          "targetInventoryItemId": "inv-4",
+          "sourceMessageId": "SEM-D22:user:1",
+          "sourceText": "iode mesuré en ... photon counting",
+          "normalizedRelation": "MEASURED_BY",
+          "polarity": "AFFIRMED"
+        },
+        {
+          "inventoryRelationId": "rel-3",
+          "sourceInventoryItemId": "inv-3",
+          "targetInventoryItemId": "inv-4",
+          "sourceMessageId": "SEM-D22:user:1",
+          "sourceText": "dual energy vs photon counting",
+          "normalizedRelation": "COMPARES_WITH",
+          "polarity": "AFFIRMED"
+        }
+      ]
+    },
+    "typedElements": [
+      {
+        "clientElementId": "elem-1",
+        "type": "BIOMARKER",
+        "canonicalMeaning": "Iodine concentration or quantification",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-1"
+        ],
+        "sourceMessageId": "SEM-D22:user:1",
+        "sourceText": "iode",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "supersedesElementIds": []
+      },
+      {
+        "clientElementId": "elem-2",
+        "type": "METHOD",
+        "canonicalMeaning": "Dual-energy imaging technique",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-3"
+        ],
+        "sourceMessageId": "SEM-D22:user:1",
+        "sourceText": "dual energy",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "supersedesElementIds": []
+      },
+      {
+        "clientElementId": "elem-3",
+        "type": "METHOD",
+        "canonicalMeaning": "Photon-counting CT technique",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-4"
+        ],
+        "sourceMessageId": "SEM-D22:user:1",
+        "sourceText": "photon counting",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "supersedesElementIds": []
+      }
+    ],
+    "typedRelations": [
+      {
+        "clientRelationId": "rel-el-1",
+        "sourceClientElementId": "elem-1",
+        "targetClientElementId": "elem-2",
+        "relationType": "MEASURED_BY",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-1"
+        ],
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false
+      },
+      {
+        "clientRelationId": "rel-el-2",
+        "sourceClientElementId": "elem-1",
+        "targetClientElementId": "elem-3",
+        "relationType": "MEASURED_BY",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-2"
+        ],
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false
+      },
+      {
+        "clientRelationId": "rel-el-3",
+        "sourceClientElementId": "elem-2",
+        "targetClientElementId": "elem-3",
+        "relationType": "COMPARES_WITH",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-3"
+        ],
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false
+      }
+    ],
+    "persistedCritic": {
+      "criticId": "critic-1",
+      "verdict": "ACCEPT",
+      "checklist": [
+        {
+          "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+          "result": "PASS",
+          "evidence": "Iodine ('iode', elem-1), dual energy ('dual energy', elem-2), and photon counting ('photon counting', elem-3) are fully represented."
+        },
+        {
+          "check": "EVERY_COMPARATOR_REPRESENTED",
+          "result": "PASS",
+          "evidence": "The comparison between dual energy and photon counting is correctly captured by rel-el-3."
+        },
+        {
+          "check": "EVERY_INTERVENTION_REPRESENTED",
+          "result": "NOT_APPLICABLE",
+          "evidence": "No therapeutic intervention or experimental exposure is present in the source text."
+        },
+        {
+          "check": "EVERY_MODALITY_REPRESENTED",
+          "result": "PASS",
+          "evidence": "Both imaging modalities/methods are represented as methods."
+        },
+        {
+          "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+          "result": "PASS",
+          "evidence": "All three inventory relations are correctly mapped to relation elements."
+        },
+        {
+          "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+          "result": "PASS",
+          "evidence": "Types correctly assigned (BIOMARKER for iodine, METHOD for dual energy and photon counting)."
+        },
+        {
+          "check": "NO_EXPLICIT_RELATION_WEAKENED",
+          "result": "PASS",
+          "evidence": "Explicit MEASURED_BY and COMPARES_WITH relations are directly mapped without weakening."
+        },
+        {
+          "check": "NO_INFERENCE_PROMOTED",
+          "result": "PASS",
+          "evidence": "No ungrounded inferences have been promoted."
+        },
+        {
+          "check": "NO_AMBIGUITY_HIDDEN",
+          "result": "PASS",
+          "evidence": "All potential ambiguities remain transparent."
+        },
+        {
+          "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+          "result": "PASS",
+          "evidence": "Polarities are consistently affirmed."
+        },
+        {
+          "check": "NO_TIMING_LOST",
+          "result": "NOT_APPLICABLE",
+          "evidence": "No specific timing information is expressed in the source span."
+        },
+        {
+          "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+          "result": "PASS",
+          "evidence": "No endpoints promoted without user request."
+        },
+        {
+          "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+          "result": "PASS",
+          "evidence": "Specific terms iode, dual energy, and photon counting are preserved precisely."
+        },
+        {
+          "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+          "result": "PASS",
+          "evidence": "All critical source fragments are captured in inventory and elements."
+        },
+        {
+          "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+          "result": "PASS",
+          "evidence": "DESIGN_STUDY is the correct route given the comparative setup of methods for measurement."
+        }
+      ],
+      "missingExplicitSourceFragments": [],
+      "issues": [],
+      "proposedRepairs": [],
+      "criticSummary": "The typed candidate correctly models the explicit objects and relations in the source text. All checks passed successfully."
+    },
+    "priorDeterministicCoverage": {
+      "explicit": {
+        "status": "INCOMPLETE",
+        "unresolvedInventoryItemIds": [
+          "inv-2"
+        ],
+        "unresolvedSourceText": [
+          "mesuré"
+        ]
+      },
+      "relations": {
+        "status": "COMPLETE"
+      },
+      "taxonomy": {
+        "status": "COMPLETE"
+      },
+      "criticVerdict": "ACCEPT",
+      "criticClaim": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED=PASS"
+    },
+    "correctedDeterministicCoverage": {
+      "explicit": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryItemId": "inv-1",
+            "sourceMessageId": "SEM-D22:user:1",
+            "sourceText": "iode",
+            "normalizedMeaning": "iode",
+            "mappedClientElementIds": [
+              "elem-1"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "inv-2",
+            "sourceMessageId": "SEM-D22:user:1",
+            "sourceText": "mesuré",
+            "normalizedMeaning": "mesure",
+            "mappedClientElementIds": [],
+            "mappedClientRelationIds": [
+              "rel-el-1",
+              "rel-el-2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "The explicit functional fragment is represented by its source-grounded direct Semantic Relation rather than by a false object node."
+          },
+          {
+            "inventoryItemId": "inv-3",
+            "sourceMessageId": "SEM-D22:user:1",
+            "sourceText": "dual energy",
+            "normalizedMeaning": "dual energy",
+            "mappedClientElementIds": [
+              "elem-2"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "inv-4",
+            "sourceMessageId": "SEM-D22:user:1",
+            "sourceText": "photon counting",
+            "normalizedMeaning": "photon counting",
+            "mappedClientElementIds": [
+              "elem-3"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          }
+        ]
+      },
+      "relations": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "inv-1",
+            "targetInventoryItemId": "inv-3",
+            "normalizedRelation": "MEASURED_BY",
+            "mappedClientRelationIds": [
+              "rel-el-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel-2",
+            "sourceInventoryItemId": "inv-1",
+            "targetInventoryItemId": "inv-4",
+            "normalizedRelation": "MEASURED_BY",
+            "mappedClientRelationIds": [
+              "rel-el-2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+          },
+          {
+            "inventoryRelationId": "rel-3",
+            "sourceInventoryItemId": "inv-3",
+            "targetInventoryItemId": "inv-4",
+            "normalizedRelation": "COMPARES_WITH",
+            "mappedClientRelationIds": [
+              "rel-el-3"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          }
+        ]
+      },
+      "taxonomy": {
+        "status": "COMPLETE",
+        "findings": []
+      }
+    },
+    "acceptance": {
+      "prior": "REJECTED_BY_FAIL_CLOSED_GUARD",
+      "current": "ACCEPT_CONSISTENT"
+    }
+  },
+  "semanticFunction": {
+    "inventoryItemId": "inv-2",
+    "observedLocalRole": "action",
+    "classification": "LINGUISTIC_FUNCTIONAL_FRAGMENT_CARRIED_BY_EXPLICIT_RELATIONS",
+    "autonomousScientificObjectRequired": false,
+    "relationEvidence": [
+      "rel-1",
+      "rel-2"
+    ]
+  },
+  "failureClass": "B — COVERAGE_FALSE_POSITIVE",
+  "owner": "DETERMINISTIC_EXPLICIT_COVERAGE",
+  "goldUsedForProductDecision": false
+}

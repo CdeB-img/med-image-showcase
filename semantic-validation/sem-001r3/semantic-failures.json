@@ -1,0 +1,74 @@
+[
+  {
+    "caseId": "SEM-D02",
+    "blocker": "FORBIDDEN_INFERENCE:STEMI confirmé",
+    "classification": "MODEL_REASONING_FAILURE",
+    "canonicalModelDigest": "ke1-dc0b64e4a0178940"
+  },
+  {
+    "caseId": "SEM-D02",
+    "blocker": "FORBIDDEN_INFERENCE:taille d'infarctus confirmée comme critère principal",
+    "classification": "MODEL_REASONING_FAILURE",
+    "canonicalModelDigest": "ke1-dc0b64e4a0178940"
+  },
+  {
+    "caseId": "SEM-D16",
+    "blocker": "EXPLICIT_INTERVENTION_LOST:lecture centrale",
+    "classification": "TAXONOMY_FAILURE",
+    "canonicalModelDigest": "ke1-3afacbf9b99cf2b5"
+  },
+  {
+    "caseId": "SEM-D16",
+    "blocker": "EXPLICIT_OUTCOME_LOST:variabilité interlecteur",
+    "classification": "TAXONOMY_FAILURE",
+    "canonicalModelDigest": "ke1-3afacbf9b99cf2b5"
+  },
+  {
+    "caseId": "SEM-D16",
+    "blocker": "FORBIDDEN_INFERENCE:réduction établie",
+    "classification": "MODEL_REASONING_FAILURE",
+    "canonicalModelDigest": "ke1-3afacbf9b99cf2b5"
+  },
+  {
+    "caseId": "SEM-D19",
+    "blocker": "EXPLICIT_SCIENTIFIC_OBJECT_LOST:remodelage atrial",
+    "classification": "TAXONOMY_FAILURE",
+    "canonicalModelDigest": "ke1-380654ae9dfb7832"
+  },
+  {
+    "caseId": "SEM-D21",
+    "blocker": "EXPLICIT_CONSTRAINT_LOST:1,5T",
+    "classification": "TAXONOMY_FAILURE",
+    "canonicalModelDigest": "ke1-04daac01ed1bc44d"
+  },
+  {
+    "caseId": "SEM-D21",
+    "blocker": "EXPLICIT_CONSTRAINT_LOST:3T",
+    "classification": "TAXONOMY_FAILURE",
+    "canonicalModelDigest": "ke1-04daac01ed1bc44d"
+  },
+  {
+    "caseId": "SEM-D21",
+    "blocker": "RELATION_LOST:1,5T->3T",
+    "classification": "RELATION_COVERAGE_FAILURE",
+    "canonicalModelDigest": "ke1-04daac01ed1bc44d"
+  },
+  {
+    "caseId": "SEM-D23",
+    "blocker": "EXPLICIT_SCIENTIFIC_INTENT_LOST:évolution",
+    "classification": "TAXONOMY_FAILURE",
+    "canonicalModelDigest": "ke1-78402bc32d9fe887"
+  },
+  {
+    "caseId": "SEM-D28",
+    "blocker": "EXPLICIT_CONDITION_LOST:dyspnée",
+    "classification": "TAXONOMY_FAILURE",
+    "canonicalModelDigest": "ke1-0330123b5a70d5af"
+  },
+  {
+    "caseId": "SEM-D28",
+    "blocker": "EXPLICIT_METHOD_LOST:CT inspiration-expiration",
+    "classification": "TAXONOMY_FAILURE",
+    "canonicalModelDigest": "ke1-0330123b5a70d5af"
+  }
+]

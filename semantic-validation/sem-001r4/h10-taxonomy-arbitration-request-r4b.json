@@ -1,0 +1,53 @@
+{
+  "event": "H10_HOLDOUT_STOPPED_FOR_GENUINE_TAXONOMY_ARBITRATION",
+  "campaign": "SEM-001R4-CLOSURE",
+  "caseId": "SEM-H10",
+  "recordedAt": "2026-08-12T22:06:15Z",
+  "configurationDigest": "ke1-75b68ddee7e53412",
+  "semanticConfigurationDigest": "ke1-01d917dec0ebcd82",
+  "sourceText": "Après exercice, phosphore 31P et BOLD musculaire; voir récupération énergétique.",
+  "observedClassification": {
+    "phosphore 31P": "BIOMARKER",
+    "BOLD musculaire": "BIOMARKER",
+    "récupération énergétique": "PHENOMENON"
+  },
+  "goldClassification": {
+    "spectroscopie 31P": "METHOD",
+    "BOLD musculaire": "METHOD",
+    "récupération énergétique": "SCIENTIFIC_OBJECT"
+  },
+  "preservedEvidence": {
+    "explicitObjectsPresent": true,
+    "explicitRelationsPresent": true,
+    "recoveryRelation": "RECOVERS_AFTER",
+    "relationPolarity": "AFFIRMED",
+    "sourceGroundingPreserved": true,
+    "routeCorrect": true,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0
+  },
+  "genericRepairAvailableWithoutArbitration": {
+    "scope": [
+      "phosphore 31P -> METHOD when the expressed relation uses it as the observation-producing technique",
+      "BOLD musculaire -> METHOD when the expressed relation uses it as the observation-producing technique"
+    ],
+    "applied": false,
+    "reasonNotApplied": "No partial configuration change is admitted while the remaining Gold/type conflict is unresolved."
+  },
+  "normativeConflict": {
+    "goldRequirement": "récupération énergétique=SCIENTIFIC_OBJECT",
+    "operationalTaxonomy": "SCIENTIFIC_OBJECT is not a process merely because it is named; PHENOMENON is a physiological process investigated as a process.",
+    "caseEvidence": "The source names recovery as a process after exercise and the explicit model preserves RECOVERS_AFTER.",
+    "decisionRequired": "Determine whether H10 intends recovery as a process (PHENOMENON) or as a merely observed named target (SCIENTIFIC_OBJECT)."
+  },
+  "constraints": {
+    "goldChanged": false,
+    "thresholdsChanged": false,
+    "productCodeChangedAfterH10": false,
+    "checkpointReplayAfterH10": false,
+    "h11ToH30Opened": false,
+    "commit": false,
+    "push": false,
+    "deployment": false
+  }
+}

@@ -1,0 +1,2478 @@
+{
+  "campaign": "SEM-001R4-CLOSURE",
+  "campaignId": "sem-001r4-closure-2026-08-12T19-44-58-552Z-ke1-40860531ff1079a5",
+  "caseId": "SEM-H06",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-75b68ddee7e53412",
+  "semanticConfigurationDigest": "ke1-01d917dec0ebcd82",
+  "goldFrameDigest": "ke1-9eae80502f0351c4",
+  "originalRequest": [
+    "MRE ou élastographie US : laquelle est la plus reproductible pour fibrose hépatique multicentre ?"
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-12T20:14:11.954Z",
+  "completedAt": "2026-08-12T22:03:33.911Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H06:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Comparaison de la reproductibilité entre l'imagerie par résonance magnétique de l'élasticité (MRE) et l'élastographie par ultrasons (US) pour l'évaluation de la fibrose hépatique dans un contexte multicentrique.",
+        "summaryForUser": "Vous souhaitez comparer la reproductibilité de la MRE et de l'élastographie par ultrasons pour la fibrose hépatique dans un cadre multicentrique.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H06:user:1",
+              "sourceText": "MRE",
+              "normalizedLabel": "MRE",
+              "localRole": "method",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H06:user:1",
+              "sourceText": "élastographie US",
+              "normalizedLabel": "élastographie US",
+              "localRole": "method",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H06:user:1",
+              "sourceText": "reproductible",
+              "normalizedLabel": "reproductibilité",
+              "localRole": "endpoint",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H06:user:1",
+              "sourceText": "fibrose hépatique",
+              "normalizedLabel": "fibrose hépatique",
+              "localRole": "target",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H06:user:1",
+              "sourceText": "multicentre",
+              "normalizedLabel": "multicentre",
+              "localRole": "study setting",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H06:user:1",
+              "sourceText": "MRE ou élastographie US : laquelle est la plus",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H06:user:1",
+              "sourceText": "reproductible pour fibrose hépatique",
+              "normalizedRelation": "MEASURES",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "METHOD",
+            "canonicalMeaning": "Magnetic Resonance Elastography",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceMessageId": "SEM-H06:user:1",
+            "sourceText": "MRE",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "METHOD",
+            "canonicalMeaning": "Ultrasound Elastography",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceMessageId": "SEM-H06:user:1",
+            "sourceText": "élastographie US",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Reproducibility",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceMessageId": "SEM-H06:user:1",
+            "sourceText": "reproductible",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-4",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "Hepatic fibrosis",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "sourceMessageId": "SEM-H06:user:1",
+            "sourceText": "fibrose hépatique",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-5",
+            "type": "STUDY_DESIGN",
+            "canonicalMeaning": "Multicenter study setting",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-5"
+            ],
+            "sourceMessageId": "SEM-H06:user:1",
+            "sourceText": "multicentre",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-elem-1",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-2",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-2",
+            "sourceClientElementId": "elem-3",
+            "targetClientElementId": "elem-4",
+            "relationType": "MEASURES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "The user is comparing two methods for a specific biomarker in a multicenter setting, which aligns with study design and comparison.",
+          "expectedCapabilities": [
+            "Compare diagnostic modalities",
+            "Define study endpoints"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "reconstructionDigest": "ke1-cba0b605210db241",
+      "critics": [
+        {
+          "criticId": "critic-001",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects (MRE, ultrasound elastography, reproducibility, hepatic fibrosis, multicenter setting) are fully represented in the element graph."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The comparison between MRE and ultrasound elastography is properly represented via COMPARES_WITH and comparative study roles."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No therapeutic intervention or study exposure is requested in this diagnostic/methodological comparison."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Both MRE and ultrasound elastography are correctly mapped as methods within their respective modality classes."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit relations from the inventory (comparison between methods, measurement relation for fibrosis reproducibility) are mapped."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Types assigned match the operational taxonomy definitions (e.g. methods as METHOD, reproducibility as BIOMARKER, hepatic fibrosis as SCIENTIFIC_OBJECT)."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations retain their exact comparative and measurement properties without weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unverified inferences were treated as explicit user statements."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No hidden ambiguities are present in the user text."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarities are consistently affirmed across all elements and relations."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No specific timing points or intervals are expressed in the source prompt."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Reproducibility is correctly categorized under biomarker/outcome role without improper unsupported promotion to a definitive clinical endpoint."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like MRE and US elastography retain their specific technical identities."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No source spans or inventory fragments were left unrepresented."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The route DESIGN_STUDY perfectly matches a request comparing diagnostic methods across a multicenter setting."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The semantic model is fully complete, consistent with the user prompt, accurate to the operational taxonomy, and correctly routed. No critical issues found."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-7fd16b86464e5ca2",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "MRE ou élastographie US : laquelle est la plus reproductible pour fibrose hépatique multicentre ?",
+        "normalizedMeaning": "Comparaison de la reproductibilité entre l'imagerie par résonance magnétique de l'élasticité (MRE) et l'élastographie par ultrasons (US) pour l'évaluation de la fibrose hépatique dans un contexte multicentrique.",
+        "conversationMessageIds": [
+          "SEM-H06:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-05082bf78a518263",
+            "type": "STUDY_DESIGN",
+            "canonicalMeaning": "Multicenter study setting",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-5"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H06:user:1",
+              "text": "multicentre",
+              "start": 84,
+              "end": 95
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H06:user:1",
+              "providerCallId": "gemini-call:ke1-b38a0ec09356648c",
+              "rawElementId": "elem-5"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-0e7a5cdba21f3137",
+            "type": "METHOD",
+            "canonicalMeaning": "Ultrasound Elastography",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H06:user:1",
+              "text": "élastographie US",
+              "start": 7,
+              "end": 23
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-221d75581d585ccc"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H06:user:1",
+              "providerCallId": "gemini-call:ke1-b38a0ec09356648c",
+              "rawElementId": "elem-2"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-15049cfa3ec985be",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "Hepatic fibrosis",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H06:user:1",
+              "text": "fibrose hépatique",
+              "start": 66,
+              "end": 83
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-b1dfb2dfa4ea37cb"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H06:user:1",
+              "providerCallId": "gemini-call:ke1-b38a0ec09356648c",
+              "rawElementId": "elem-4"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-16e651e6f20cdd22",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Reproducibility",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H06:user:1",
+              "text": "reproductible",
+              "start": 47,
+              "end": 60
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-b1dfb2dfa4ea37cb"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-db61211a6117bf0e",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-2a4f1ad4e7a1aaa0",
+                "knowledge-gap:ke1-93372b03f208904f",
+                "knowledge-gap:ke1-b6719172683df2b6"
+              ],
+              "checkedAt": "2026-08-12T20:14:21.264Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H06:user:1",
+              "providerCallId": "gemini-call:ke1-b38a0ec09356648c",
+              "rawElementId": "elem-3"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-eb538a52849ec4be",
+            "type": "METHOD",
+            "canonicalMeaning": "Magnetic Resonance Elastography",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H06:user:1",
+              "text": "MRE",
+              "start": 0,
+              "end": 3
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-221d75581d585ccc"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H06:user:1",
+              "providerCallId": "gemini-call:ke1-b38a0ec09356648c",
+              "rawElementId": "elem-1"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-221d75581d585ccc",
+            "sourceElementId": "sem-element:ke1-eb538a52849ec4be",
+            "targetElementId": "sem-element:ke1-0e7a5cdba21f3137",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-1"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-b1dfb2dfa4ea37cb",
+            "sourceElementId": "sem-element:ke1-16e651e6f20cdd22",
+            "targetElementId": "sem-element:ke1-15049cfa3ec985be",
+            "relationType": "MEASURES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H06:user:1",
+              "sourceText": "MRE",
+              "normalizedMeaning": "MRE",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H06:user:1",
+              "sourceText": "élastographie US",
+              "normalizedMeaning": "élastographie US",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H06:user:1",
+              "sourceText": "reproductible",
+              "normalizedMeaning": "reproductibilité",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H06:user:1",
+              "sourceText": "fibrose hépatique",
+              "normalizedMeaning": "fibrose hépatique",
+              "mappedClientElementIds": [
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H06:user:1",
+              "sourceText": "multicentre",
+              "normalizedMeaning": "multicentre",
+              "mappedClientElementIds": [
+                "elem-5"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-2",
+              "normalizedRelation": "COMPARES_WITH",
+              "mappedClientRelationIds": [
+                "rel-elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-4",
+              "normalizedRelation": "MEASURES",
+              "mappedClientRelationIds": [
+                "rel-elem-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "clarificationCandidates": [],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "The user is comparing two methods for a specific biomarker in a multicenter setting, which aligns with study design and comparison.",
+          "expectedCapabilities": [
+            "Compare diagnostic modalities",
+            "Define study endpoints"
+          ]
+        },
+        "summaryForUser": "Vous souhaitez comparer la reproductibilité de la MRE et de l'élastographie par ultrasons pour la fibrose hépatique dans un cadre multicentrique.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "The semantic model is fully complete, consistent with the user prompt, accurate to the operational taxonomy, and correctly routed. No critical issues found."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+          "criticPromptVersion": "SEM-001-CRITIC-1.3",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-b38a0ec09356648c",
+          "criticCallId": "gemini-call:ke1-a91f527ec4c4c2e2",
+          "criticCallIds": [
+            "gemini-call:ke1-a91f527ec4c4c2e2"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-12T20:14:11.955Z",
+              "requestFinished": "2026-08-12T20:14:17.695Z",
+              "latencyMs": 5740,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-12T20:14:17.706Z",
+              "requestFinished": "2026-08-12T20:14:21.247Z",
+              "latencyMs": 3541,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "cand-001",
+            "language": "fr",
+            "normalizedMeaning": "Comparaison de la reproductibilité entre l'imagerie par résonance magnétique de l'élasticité (MRE) et l'élastographie par ultrasons (US) pour l'évaluation de la fibrose hépatique dans un contexte multicentrique.",
+            "summaryForUser": "Vous souhaitez comparer la reproductibilité de la MRE et de l'élastographie par ultrasons pour la fibrose hépatique dans un cadre multicentrique.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "inv-1",
+                  "sourceMessageId": "SEM-H06:user:1",
+                  "sourceText": "MRE",
+                  "normalizedLabel": "MRE",
+                  "localRole": "method",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-2",
+                  "sourceMessageId": "SEM-H06:user:1",
+                  "sourceText": "élastographie US",
+                  "normalizedLabel": "élastographie US",
+                  "localRole": "method",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-3",
+                  "sourceMessageId": "SEM-H06:user:1",
+                  "sourceText": "reproductible",
+                  "normalizedLabel": "reproductibilité",
+                  "localRole": "endpoint",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-4",
+                  "sourceMessageId": "SEM-H06:user:1",
+                  "sourceText": "fibrose hépatique",
+                  "normalizedLabel": "fibrose hépatique",
+                  "localRole": "target",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-5",
+                  "sourceMessageId": "SEM-H06:user:1",
+                  "sourceText": "multicentre",
+                  "normalizedLabel": "multicentre",
+                  "localRole": "study setting",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel-1",
+                  "sourceInventoryItemId": "inv-1",
+                  "targetInventoryItemId": "inv-2",
+                  "sourceMessageId": "SEM-H06:user:1",
+                  "sourceText": "MRE ou élastographie US : laquelle est la plus",
+                  "normalizedRelation": "COMPARES_WITH",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-2",
+                  "sourceInventoryItemId": "inv-3",
+                  "targetInventoryItemId": "inv-4",
+                  "sourceMessageId": "SEM-H06:user:1",
+                  "sourceText": "reproductible pour fibrose hépatique",
+                  "normalizedRelation": "MEASURES",
+                  "polarity": "AFFIRMED"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem-1",
+                "type": "METHOD",
+                "canonicalMeaning": "Magnetic Resonance Elastography",
+                "studyRole": "COMPARATOR_ARM",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-1"
+                ],
+                "sourceMessageId": "SEM-H06:user:1",
+                "sourceText": "MRE",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-2",
+                "type": "METHOD",
+                "canonicalMeaning": "Ultrasound Elastography",
+                "studyRole": "COMPARATOR_ARM",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-2"
+                ],
+                "sourceMessageId": "SEM-H06:user:1",
+                "sourceText": "élastographie US",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-3",
+                "type": "BIOMARKER",
+                "canonicalMeaning": "Reproducibility",
+                "studyRole": "OUTCOME_ROLE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-3"
+                ],
+                "sourceMessageId": "SEM-H06:user:1",
+                "sourceText": "reproductible",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-4",
+                "type": "SCIENTIFIC_OBJECT",
+                "canonicalMeaning": "Hepatic fibrosis",
+                "studyRole": "SUBJECT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-4"
+                ],
+                "sourceMessageId": "SEM-H06:user:1",
+                "sourceText": "fibrose hépatique",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-5",
+                "type": "STUDY_DESIGN",
+                "canonicalMeaning": "Multicenter study setting",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-5"
+                ],
+                "sourceMessageId": "SEM-H06:user:1",
+                "sourceText": "multicentre",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel-elem-1",
+                "sourceClientElementId": "elem-1",
+                "targetClientElementId": "elem-2",
+                "relationType": "COMPARES_WITH",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-1"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-elem-2",
+                "sourceClientElementId": "elem-3",
+                "targetClientElementId": "elem-4",
+                "relationType": "MEASURES",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-2"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              }
+            ],
+            "missingConcepts": [],
+            "ellipses": [],
+            "ambiguities": [],
+            "unknowns": [],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [],
+            "routeProposal": {
+              "route": "DESIGN_STUDY",
+              "confidence": 0.9,
+              "reason": "The user is comparing two methods for a specific biomarker in a multicenter setting, which aligns with study design and comparison.",
+              "expectedCapabilities": [
+                "Compare diagnostic modalities",
+                "Define study endpoints"
+              ]
+            },
+            "semanticWarnings": []
+          },
+          "rawCritic": {
+            "criticId": "critic-001",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit objects (MRE, ultrasound elastography, reproducibility, hepatic fibrosis, multicenter setting) are fully represented in the element graph."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "PASS",
+                "evidence": "The comparison between MRE and ultrasound elastography is properly represented via COMPARES_WITH and comparative study roles."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No therapeutic intervention or study exposure is requested in this diagnostic/methodological comparison."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Both MRE and ultrasound elastography are correctly mapped as methods within their respective modality classes."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit relations from the inventory (comparison between methods, measurement relation for fibrosis reproducibility) are mapped."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "Types assigned match the operational taxonomy definitions (e.g. methods as METHOD, reproducibility as BIOMARKER, hepatic fibrosis as SCIENTIFIC_OBJECT)."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Explicit relations retain their exact comparative and measurement properties without weakening."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No unverified inferences were treated as explicit user statements."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "No hidden ambiguities are present in the user text."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "Polarities are consistently affirmed across all elements and relations."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No specific timing points or intervals are expressed in the source prompt."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "Reproducibility is correctly categorized under biomarker/outcome role without improper unsupported promotion to a definitive clinical endpoint."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts like MRE and US elastography retain their specific technical identities."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "No source spans or inventory fragments were left unrepresented."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "The route DESIGN_STUDY perfectly matches a request comparing diagnostic methods across a multicenter setting."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The semantic model is fully complete, consistent with the user prompt, accurate to the operational taxonomy, and correctly routed. No critical issues found."
+          },
+          "rawCritics": [
+            {
+              "criticId": "critic-001",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit objects (MRE, ultrasound elastography, reproducibility, hepatic fibrosis, multicenter setting) are fully represented in the element graph."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The comparison between MRE and ultrasound elastography is properly represented via COMPARES_WITH and comparative study roles."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No therapeutic intervention or study exposure is requested in this diagnostic/methodological comparison."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "Both MRE and ultrasound elastography are correctly mapped as methods within their respective modality classes."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit relations from the inventory (comparison between methods, measurement relation for fibrosis reproducibility) are mapped."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "Types assigned match the operational taxonomy definitions (e.g. methods as METHOD, reproducibility as BIOMARKER, hepatic fibrosis as SCIENTIFIC_OBJECT)."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Explicit relations retain their exact comparative and measurement properties without weakening."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No unverified inferences were treated as explicit user statements."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "No hidden ambiguities are present in the user text."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "Polarities are consistently affirmed across all elements and relations."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No specific timing points or intervals are expressed in the source prompt."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "Reproducibility is correctly categorized under biomarker/outcome role without improper unsupported promotion to a definitive clinical endpoint."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific concepts like MRE and US elastography retain their specific technical identities."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "No source spans or inventory fragments were left unrepresented."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "The route DESIGN_STUDY perfectly matches a request comparing diagnostic methods across a multicenter setting."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "The semantic model is fully complete, consistent with the user prompt, accurate to the operational taxonomy, and correctly routed. No critical issues found."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-12T20:14:21.250Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-db61211a6117bf0e",
+          "resultDigest": "ke1-db61211a6117bf0e",
+          "coverageStatus": "NO_PROVIDER",
+          "verifiedAt": "2026-08-12T20:14:21.264Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-12T20:14:21.250Z",
+        "updatedAt": "2026-08-12T20:14:21.264Z",
+        "digest": "ke1-a0941be40d8a5910"
+      },
+      "canonicalModelDigest": "ke1-a0941be40d8a5910",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-db61211a6117bf0e",
+        "resultDigest": "ke1-db61211a6117bf0e",
+        "coverageStatus": "NO_PROVIDER",
+        "verifiedAt": "2026-08-12T20:14:21.264Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-b38a0ec09356648c",
+      "structuredDigest": "ke1-cba0b605210db241",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T20:14:11.955Z",
+          "requestFinished": "2026-08-12T20:14:17.695Z",
+          "latencyMs": 5740,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-a91f527ec4c4c2e2",
+      "structuredDigest": "ke1-8eea8d3965f83ffd",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T20:14:17.706Z",
+          "requestFinished": "2026-08-12T20:14:21.247Z",
+          "latencyMs": 3541,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-2290c9cade7dedbe",
+    "revision": 1,
+    "status": "CANDIDATE",
+    "originalRequest": "MRE ou élastographie US : laquelle est la plus reproductible pour fibrose hépatique multicentre ?",
+    "normalizedMeaning": "Comparaison de la reproductibilité entre l'imagerie par résonance magnétique de l'élasticité (MRE) et l'élastographie par ultrasons (US) pour l'évaluation de la fibrose hépatique dans un contexte multicentrique.",
+    "conversationMessageIds": [
+      "SEM-H06:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-05082bf78a518263",
+        "type": "STUDY_DESIGN",
+        "canonicalMeaning": "Multicenter study setting",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-5"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H06:user:1",
+          "text": "multicentre",
+          "start": 84,
+          "end": 95
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H06:user:1",
+          "providerCallId": "gemini-call:ke1-b38a0ec09356648c",
+          "rawElementId": "elem-5"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-0e7a5cdba21f3137",
+        "type": "METHOD",
+        "canonicalMeaning": "Ultrasound Elastography",
+        "studyRole": "COMPARATOR_ARM",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-2"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H06:user:1",
+          "text": "élastographie US",
+          "start": 7,
+          "end": 23
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-221d75581d585ccc"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H06:user:1",
+          "providerCallId": "gemini-call:ke1-b38a0ec09356648c",
+          "rawElementId": "elem-2"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-15049cfa3ec985be",
+        "type": "SCIENTIFIC_OBJECT",
+        "canonicalMeaning": "Hepatic fibrosis",
+        "studyRole": "SUBJECT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-4"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H06:user:1",
+          "text": "fibrose hépatique",
+          "start": 66,
+          "end": 83
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-b1dfb2dfa4ea37cb"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H06:user:1",
+          "providerCallId": "gemini-call:ke1-b38a0ec09356648c",
+          "rawElementId": "elem-4"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-16e651e6f20cdd22",
+        "type": "BIOMARKER",
+        "canonicalMeaning": "Reproducibility",
+        "studyRole": "OUTCOME_ROLE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-3"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H06:user:1",
+          "text": "reproductible",
+          "start": 47,
+          "end": 60
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-b1dfb2dfa4ea37cb"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-fc9517cb28afcb77",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-2a4f1ad4e7a1aaa0",
+            "knowledge-gap:ke1-93372b03f208904f",
+            "knowledge-gap:ke1-b6719172683df2b6"
+          ],
+          "checkedAt": "2026-08-12T22:03:33.911Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H06:user:1",
+          "providerCallId": "gemini-call:ke1-b38a0ec09356648c",
+          "rawElementId": "elem-3"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-eb538a52849ec4be",
+        "type": "METHOD",
+        "canonicalMeaning": "Magnetic Resonance Elastography",
+        "studyRole": "COMPARATOR_ARM",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-1"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H06:user:1",
+          "text": "MRE",
+          "start": 0,
+          "end": 3
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-221d75581d585ccc"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H06:user:1",
+          "providerCallId": "gemini-call:ke1-b38a0ec09356648c",
+          "rawElementId": "elem-1"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-221d75581d585ccc",
+        "sourceElementId": "sem-element:ke1-eb538a52849ec4be",
+        "targetElementId": "sem-element:ke1-0e7a5cdba21f3137",
+        "relationType": "COMPARES_WITH",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-1"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-b1dfb2dfa4ea37cb",
+        "sourceElementId": "sem-element:ke1-16e651e6f20cdd22",
+        "targetElementId": "sem-element:ke1-15049cfa3ec985be",
+        "relationType": "MEASURES",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-2"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-1",
+          "sourceMessageId": "SEM-H06:user:1",
+          "sourceText": "MRE",
+          "normalizedMeaning": "MRE",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-2",
+          "sourceMessageId": "SEM-H06:user:1",
+          "sourceText": "élastographie US",
+          "normalizedMeaning": "élastographie US",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-3",
+          "sourceMessageId": "SEM-H06:user:1",
+          "sourceText": "reproductible",
+          "normalizedMeaning": "reproductibilité",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-4",
+          "sourceMessageId": "SEM-H06:user:1",
+          "sourceText": "fibrose hépatique",
+          "normalizedMeaning": "fibrose hépatique",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-5",
+          "sourceMessageId": "SEM-H06:user:1",
+          "sourceText": "multicentre",
+          "normalizedMeaning": "multicentre",
+          "mappedClientElementIds": [
+            "elem-5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-1",
+          "sourceInventoryItemId": "inv-1",
+          "targetInventoryItemId": "inv-2",
+          "normalizedRelation": "COMPARES_WITH",
+          "mappedClientRelationIds": [
+            "rel-elem-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-2",
+          "sourceInventoryItemId": "inv-3",
+          "targetInventoryItemId": "inv-4",
+          "normalizedRelation": "MEASURES",
+          "mappedClientRelationIds": [
+            "rel-elem-2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "missingConcepts": [],
+    "ellipses": [],
+    "ambiguities": [],
+    "unknowns": [],
+    "contradictions": [],
+    "clarificationCandidates": [],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "DESIGN_STUDY",
+      "confidence": 0.9,
+      "reason": "The user is comparing two methods for a specific biomarker in a multicenter setting, which aligns with study design and comparison.",
+      "expectedCapabilities": [
+        "Compare diagnostic modalities",
+        "Define study endpoints"
+      ]
+    },
+    "summaryForUser": "Vous souhaitez comparer la reproductibilité de la MRE et de l'élastographie par ultrasons pour la fibrose hépatique dans un cadre multicentrique.",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "Persisted provider reconstruction was replayed from the first invalidated deterministic guard; no new provider judgment was fabricated."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI_PERSISTED_R4_CLOSURE_EVIDENCE",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+      "criticPromptVersion": "SEM-001-CRITIC-1.3",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-b38a0ec09356648c",
+      "criticCallId": "deterministic-rebase:SEM-H06",
+      "criticCallIds": [
+        "gemini-call:ke1-a91f527ec4c4c2e2",
+        "deterministic-rebase:SEM-H06",
+        "deterministic-rebase:SEM-H06",
+        "deterministic-rebase:SEM-H06",
+        "deterministic-rebase:SEM-H06"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T20:14:11.955Z",
+          "requestFinished": "2026-08-12T20:14:17.695Z",
+          "latencyMs": 5740,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T20:14:17.706Z",
+          "requestFinished": "2026-08-12T20:14:21.247Z",
+          "latencyMs": 3541,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Comparaison de la reproductibilité entre l'imagerie par résonance magnétique de l'élasticité (MRE) et l'élastographie par ultrasons (US) pour l'évaluation de la fibrose hépatique dans un contexte multicentrique.",
+        "summaryForUser": "Vous souhaitez comparer la reproductibilité de la MRE et de l'élastographie par ultrasons pour la fibrose hépatique dans un cadre multicentrique.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H06:user:1",
+              "sourceText": "MRE",
+              "normalizedLabel": "MRE",
+              "localRole": "method",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H06:user:1",
+              "sourceText": "élastographie US",
+              "normalizedLabel": "élastographie US",
+              "localRole": "method",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H06:user:1",
+              "sourceText": "reproductible",
+              "normalizedLabel": "reproductibilité",
+              "localRole": "endpoint",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H06:user:1",
+              "sourceText": "fibrose hépatique",
+              "normalizedLabel": "fibrose hépatique",
+              "localRole": "target",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H06:user:1",
+              "sourceText": "multicentre",
+              "normalizedLabel": "multicentre",
+              "localRole": "study setting",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H06:user:1",
+              "sourceText": "MRE ou élastographie US : laquelle est la plus",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H06:user:1",
+              "sourceText": "reproductible pour fibrose hépatique",
+              "normalizedRelation": "MEASURES",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "METHOD",
+            "canonicalMeaning": "Magnetic Resonance Elastography",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceMessageId": "SEM-H06:user:1",
+            "sourceText": "MRE",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "METHOD",
+            "canonicalMeaning": "Ultrasound Elastography",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceMessageId": "SEM-H06:user:1",
+            "sourceText": "élastographie US",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Reproducibility",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceMessageId": "SEM-H06:user:1",
+            "sourceText": "reproductible",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-4",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "Hepatic fibrosis",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "sourceMessageId": "SEM-H06:user:1",
+            "sourceText": "fibrose hépatique",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-5",
+            "type": "STUDY_DESIGN",
+            "canonicalMeaning": "Multicenter study setting",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-5"
+            ],
+            "sourceMessageId": "SEM-H06:user:1",
+            "sourceText": "multicentre",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-elem-1",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-2",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-2",
+            "sourceClientElementId": "elem-3",
+            "targetClientElementId": "elem-4",
+            "relationType": "MEASURES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.9,
+          "reason": "The user is comparing two methods for a specific biomarker in a multicenter setting, which aligns with study design and comparison.",
+          "expectedCapabilities": [
+            "Compare diagnostic modalities",
+            "Define study endpoints"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "rawCritic": {
+        "criticId": "critic-r4-closure-deterministic-rebase-SEM-H06",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "Persisted provider reconstruction was replayed from the first invalidated deterministic guard; no new provider judgment was fabricated."
+      },
+      "rawCritics": [
+        {
+          "criticId": "critic-001",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects (MRE, ultrasound elastography, reproducibility, hepatic fibrosis, multicenter setting) are fully represented in the element graph."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The comparison between MRE and ultrasound elastography is properly represented via COMPARES_WITH and comparative study roles."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No therapeutic intervention or study exposure is requested in this diagnostic/methodological comparison."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Both MRE and ultrasound elastography are correctly mapped as methods within their respective modality classes."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit relations from the inventory (comparison between methods, measurement relation for fibrosis reproducibility) are mapped."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Types assigned match the operational taxonomy definitions (e.g. methods as METHOD, reproducibility as BIOMARKER, hepatic fibrosis as SCIENTIFIC_OBJECT)."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations retain their exact comparative and measurement properties without weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unverified inferences were treated as explicit user statements."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No hidden ambiguities are present in the user text."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarities are consistently affirmed across all elements and relations."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No specific timing points or intervals are expressed in the source prompt."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Reproducibility is correctly categorized under biomarker/outcome role without improper unsupported promotion to a definitive clinical endpoint."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like MRE and US elastography retain their specific technical identities."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No source spans or inventory fragments were left unrepresented."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The route DESIGN_STUDY perfectly matches a request comparing diagnostic methods across a multicenter setting."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The semantic model is fully complete, consistent with the user prompt, accurate to the operational taxonomy, and correctly routed. No critical issues found."
+        },
+        {
+          "criticId": "critic-r4-closure-deterministic-rebase-SEM-H06",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "Persisted provider reconstruction was replayed from the first invalidated deterministic guard; no new provider judgment was fabricated."
+        },
+        {
+          "criticId": "critic-r4-closure-deterministic-rebase-SEM-H06",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "Persisted provider reconstruction was replayed from the first invalidated deterministic guard; no new provider judgment was fabricated."
+        },
+        {
+          "criticId": "critic-r4-closure-deterministic-rebase-SEM-H06",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "Persisted provider reconstruction was replayed from the first invalidated deterministic guard; no new provider judgment was fabricated."
+        },
+        {
+          "criticId": "critic-r4-closure-deterministic-rebase-SEM-H06",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "Persisted provider reconstruction was replayed from the first invalidated deterministic guard; no new provider judgment was fabricated."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-12T22:03:33.910Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-fc9517cb28afcb77",
+      "resultDigest": "ke1-fc9517cb28afcb77",
+      "coverageStatus": "NO_PROVIDER",
+      "verifiedAt": "2026-08-12T22:03:33.911Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-12T22:03:33.910Z",
+    "updatedAt": "2026-08-12T22:03:33.911Z",
+    "digest": "ke1-dacb4ddc385869a8"
+  },
+  "semanticModelDigest": "ke1-dacb4ddc385869a8",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-1",
+          "sourceMessageId": "SEM-H06:user:1",
+          "sourceText": "MRE",
+          "normalizedMeaning": "MRE",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-2",
+          "sourceMessageId": "SEM-H06:user:1",
+          "sourceText": "élastographie US",
+          "normalizedMeaning": "élastographie US",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-3",
+          "sourceMessageId": "SEM-H06:user:1",
+          "sourceText": "reproductible",
+          "normalizedMeaning": "reproductibilité",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-4",
+          "sourceMessageId": "SEM-H06:user:1",
+          "sourceText": "fibrose hépatique",
+          "normalizedMeaning": "fibrose hépatique",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-5",
+          "sourceMessageId": "SEM-H06:user:1",
+          "sourceText": "multicentre",
+          "normalizedMeaning": "multicentre",
+          "mappedClientElementIds": [
+            "elem-5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-1",
+          "sourceInventoryItemId": "inv-1",
+          "targetInventoryItemId": "inv-2",
+          "normalizedRelation": "COMPARES_WITH",
+          "mappedClientRelationIds": [
+            "rel-elem-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-2",
+          "sourceInventoryItemId": "inv-3",
+          "targetInventoryItemId": "inv-4",
+          "normalizedRelation": "MEASURES",
+          "mappedClientRelationIds": [
+            "rel-elem-2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-ee0dc35e0f97ec2a",
+    "evaluatedAt": "2026-08-12T22:03:33.911Z",
+    "goldFrameDigest": "ke1-9eae80502f0351c4",
+    "result": {
+      "caseId": "SEM-H06",
+      "explicitObjectRecall": 1,
+      "explicitRelationRecall": 1,
+      "criticalSemanticRecall": 1,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 0,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": []
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H06",
+    "explicitObjectRecall": 1,
+    "explicitRelationRecall": 1,
+    "criticalSemanticRecall": 1,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 0,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": []
+  },
+  "error": null,
+  "deterministicRebase": {
+    "firstInvalidatedStage": "DEPENDENCY_DIGEST_REBASE",
+    "sourceConfigurationDigest": "ke1-90d945aefc3d0442",
+    "targetConfigurationDigest": "ke1-75b68ddee7e53412",
+    "initialTaxonomyFindings": [],
+    "llmCallsPerformed": 0,
+    "compatibleProviderOperationsReused": 2
+  }
+}

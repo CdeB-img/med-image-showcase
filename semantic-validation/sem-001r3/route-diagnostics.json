@@ -1,0 +1,48 @@
+{
+  "runId": "sem-001r3-development-2026-08-11T10-52-30-106Z",
+  "cases": [
+    {
+      "caseId": "SEM-D14",
+      "routeCorrect": false,
+      "actual": "UNDERSTAND",
+      "allowed": [
+        "DESIGN_STUDY"
+      ]
+    },
+    {
+      "caseId": "SEM-D20",
+      "routeCorrect": false,
+      "actual": "UNDERSTAND",
+      "allowed": [
+        "FORMALIZE_IDEA",
+        "DESIGN_STUDY"
+      ]
+    },
+    {
+      "caseId": "SEM-D23",
+      "routeCorrect": false,
+      "actual": "UNDERSTAND",
+      "allowed": [
+        "FORMALIZE_IDEA",
+        "DESIGN_STUDY"
+      ]
+    },
+    {
+      "caseId": "SEM-D27",
+      "routeCorrect": false,
+      "actual": "FORMALIZE_IDEA",
+      "allowed": [
+        "DESIGN_STUDY"
+      ]
+    },
+    {
+      "caseId": "SEM-D28",
+      "routeCorrect": false,
+      "actual": "UNDERSTAND",
+      "allowed": [
+        "DESIGN_STUDY",
+        "FORMALIZE_IDEA"
+      ]
+    }
+  ]
+}

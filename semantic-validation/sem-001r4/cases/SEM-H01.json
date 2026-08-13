@@ -1,0 +1,98 @@
+{
+  "campaign": "SEM-001R4",
+  "campaignId": "sem-001r4-2026-08-12T19-14-19-051Z-ke1-8251dd1f215442bb",
+  "caseId": "SEM-H01",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-8251dd1f215442bb",
+  "semanticConfigurationDigest": "ke1-01606892072503be",
+  "goldFrameDigest": "ke1-db4a6b9753f7d543",
+  "originalRequest": [
+    "On voudrait opposer l'ADC cortical à la perfusion ASL pour caractériser le rein greffé."
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "FAILED",
+  "startedAt": "2026-08-12T19:14:59.197Z",
+  "completedAt": "2026-08-12T19:15:13.015Z",
+  "turns": [],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-e12c448c6c823d78",
+      "structuredDigest": "ke1-fe2406f994e2bbe5",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T19:14:59.198Z",
+          "requestFinished": "2026-08-12T19:15:04.669Z",
+          "latencyMs": 5471,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-0743d005ddb61659",
+      "structuredDigest": "ke1-df6df63122aec115",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T19:15:04.677Z",
+          "requestFinished": "2026-08-12T19:15:08.852Z",
+          "latencyMs": 4175,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_MAX_CYCLES_EXHAUSTED"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 2,
+      "callId": "gemini-call:ke1-6b49c2ceba6c46c2",
+      "structuredDigest": "ke1-8df98e990fa4456d",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T19:15:08.857Z",
+          "requestFinished": "2026-08-12T19:15:13.013Z",
+          "latencyMs": 4156,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_MAX_CYCLES_EXHAUSTED"
+    }
+  ],
+  "semanticModel": null,
+  "semanticModelDigest": null,
+  "coverageReports": null,
+  "evaluation": null,
+  "metric": null,
+  "error": {
+    "category": "SEMANTIC_PIPELINE_FAILURE",
+    "failureClass": "CRITIC_FAILURE",
+    "message": "SEM001R4_CRITIC_NOT_ACCEPTED:CRITIC_MAX_CYCLES_EXHAUSTED"
+  }
+}

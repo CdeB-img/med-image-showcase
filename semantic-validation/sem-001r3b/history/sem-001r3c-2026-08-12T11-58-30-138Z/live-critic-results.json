@@ -1,0 +1,1974 @@
+[
+  {
+    "caseId": "SEM-D02",
+    "finalStatus": "COMPLETE",
+    "firstImpactedStage": 2,
+    "reconstructionReused": true,
+    "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+    "criticPromptVersion": "SEM-001-CRITIC-1.3",
+    "reconstructionCandidateDigest": "ke1-4b56b1db76d30cd7",
+    "criticPromptDigest": "ke1-b26ddf632ed1fa57",
+    "requestStarted": "2026-08-12T10:49:50.247Z",
+    "completedAt": "2026-08-12T10:49:58.019Z",
+    "operationTraces": [
+      {
+        "operation": "CRITIC",
+        "cycle": 1,
+        "callId": "gemini-call:ke1-5fa58244fb6b6e70",
+        "structuredDigest": "ke1-19b1bc14e5f38280",
+        "attempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-12T10:49:50.251Z",
+            "requestFinished": "2026-08-12T10:49:54.759Z",
+            "latencyMs": 4508,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ]
+      },
+      {
+        "operation": "CRITIC",
+        "cycle": 2,
+        "callId": "gemini-call:ke1-c9848a1b64b33797",
+        "structuredDigest": "ke1-9403a3f6ef018a62",
+        "attempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-12T10:49:54.764Z",
+            "requestFinished": "2026-08-12T10:49:57.999Z",
+            "latencyMs": 3235,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ]
+      }
+    ],
+    "critics": [
+      {
+        "criticId": "critic_01",
+        "verdict": "REVISE",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit objects ('lésions') are represented."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Both immediate and deferred stent placement comparison arms are represented."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "The reperfusion strategy and stent placement interventions are fully represented."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "FAIL",
+            "evidence": "IRM is typed as METHOD instead of MODALITY in accordance with the taxonomy report."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit inventory relations are mapped correctly."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "FAIL",
+            "evidence": "Element elem_08 'IRM' is typed as METHOD, but the taxonomy report designates it as MODALITY."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "No explicit relations were weakened."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No unjustified inferences were promoted."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "No ambiguities were hidden."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "Polarities are correctly preserved."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "PASS",
+            "evidence": "Timing modifiers ('immédiat', 'différé') are properly represented."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "No unsupported endpoint promotions were made."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "No specific concepts were generalized improperly."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "All source fragments are represented in the model."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "The DESIGN_STUDY route matches the study-construction intent."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [
+          {
+            "code": "TYPE_MISMATCH",
+            "severity": "CRITICAL",
+            "elementClientIds": [
+              "elem_08"
+            ],
+            "description": "Imaging family 'IRM' is incorrectly typed as METHOD instead of MODALITY.",
+            "recommendedAction": "Upsert element elem_08 to type MODALITY.",
+            "resolved": false
+          }
+        ],
+        "proposedRepairs": [
+          {
+            "repairId": "rep_01",
+            "action": "UPSERT_ELEMENT",
+            "reason": "Correct the type of IRM from METHOD to MODALITY as required by the taxonomy report.",
+            "sourceInventoryItemIds": [
+              "inv_08"
+            ],
+            "sourceInventoryRelationIds": [],
+            "inventoryItemId": null,
+            "inventorySourceMessageId": null,
+            "inventorySourceText": null,
+            "inventoryNormalizedLabel": null,
+            "inventoryLocalRole": null,
+            "inventoryPolarity": null,
+            "inventoryModifiers": [],
+            "inventoryLinkedItemIds": [],
+            "inventoryRelationId": null,
+            "inventoryRelationSourceItemId": null,
+            "inventoryRelationTargetItemId": null,
+            "inventoryRelationSourceMessageId": null,
+            "inventoryRelationSourceText": null,
+            "inventoryNormalizedRelation": null,
+            "inventoryRelationPolarity": null,
+            "elementClientElementId": "elem_08",
+            "elementType": "MODALITY",
+            "elementCanonicalMeaning": "Imagerie par résonance magnétique",
+            "elementStudyRole": "MEASUREMENT",
+            "elementPolarity": "AFFIRMED",
+            "elementInventoryItemIds": [
+              "inv_08"
+            ],
+            "elementSourceMessageId": "SEM-D02:user:1",
+            "elementSourceText": "IRM",
+            "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+            "elementConfidence": 1,
+            "elementInferenceReason": null,
+            "elementRequiresConfirmation": false,
+            "elementSupersedesElementIds": [
+              "elem_08"
+            ],
+            "relationClientRelationId": null,
+            "relationSourceClientElementId": null,
+            "relationTargetClientElementId": null,
+            "relationType": null,
+            "relationPolarity": null,
+            "relationInventoryRelationIds": [],
+            "relationEpistemicStatus": null,
+            "relationConfidence": null,
+            "relationInferenceReason": null,
+            "relationRequiresConfirmation": null,
+            "ambiguity": null,
+            "route": null,
+            "routeConfidence": null,
+            "routeReason": null,
+            "routeExpectedCapabilities": []
+          }
+        ],
+        "criticSummary": "Audit completed with a taxonomy mismatch for IRM, which must be classified as MODALITY rather than METHOD. A bounded repair has been formulated."
+      },
+      {
+        "criticId": "critic_01",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit objects ('lésions') are represented in the typed candidate."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Both immediate and delayed stent placement comparators are fully represented."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Reperfusion strategy and stent placement interventions are fully represented."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "PASS",
+            "evidence": "MRI modality is fully represented."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit relations from the inventory are mapped to relations in the candidate."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "All entity types are aligned with the operational taxonomy."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "No explicit relations were weakened or converted into ungrounded inferences."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No low-confidence inferences have been promoted to explicit user stated status."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "No ambiguities were suppressed or hidden."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "Polarities are correctly preserved across all inventory items."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "PASS",
+            "evidence": "Timing modifiers ('immédiat', 'différé') are properly preserved."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "No outcomes or endpoints were improperly promoted without source backing."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific concepts such as MRI and stent placement remain faithful to source."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "No source fragments were left unrepresented in the final model."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "Route DESIGN_STUDY perfectly matches the study evaluation and protocol construction intent."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "The typed candidate perfectly aligns with the user message, semantic inventory, and taxonomy guidelines. All explicit elements, relations, modalities, and interventions are accurately captured and routed."
+      }
+    ],
+    "repairDiagnostics": [
+      {
+        "repairId": "rep_01",
+        "status": "ACCEPTED",
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+      }
+    ],
+    "semanticModel": {
+      "semanticModelVersion": "1.1",
+      "semanticModelId": "semantic-model:ke1-f4a3ac1adccaf5c6",
+      "revision": 1,
+      "status": "CANDIDATE",
+      "originalRequest": "Je veux évaluer une stratégie de reperfusion avec mise en place d'un stent immédiat vs différé et quantifier les lésions à l'IRM.",
+      "normalizedMeaning": "L'utilisateur souhaite évaluer une stratégie de reperfusion comparant la pose immédiate de stent versus une pose différée, tout en quantifiant les lésions par imagerie par résonance magnétique (IRM).",
+      "conversationMessageIds": [
+        "SEM-D02:user:1"
+      ],
+      "elements": [
+        {
+          "semanticElementId": "sem-element:ke1-2f9656cd9d242e89",
+          "type": "OPERATION",
+          "canonicalMeaning": "Quantification des lésions",
+          "studyRole": "NONE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_04"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D02:user:1",
+            "text": "quantifier",
+            "start": 98,
+            "end": 108
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-6425d64faed98b93"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D02:user:1",
+            "providerCallId": "gemini-call:ke1-d92a809e3acf258a",
+            "rawElementId": "elem_09"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-34edf3536980caff",
+          "type": "TIMING",
+          "canonicalMeaning": "Différé",
+          "studyRole": "NONE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_06"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D02:user:1",
+            "text": "différé",
+            "start": 87,
+            "end": 94
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D02:user:1",
+            "providerCallId": "gemini-call:ke1-d92a809e3acf258a",
+            "rawElementId": "elem_06"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-4ac7ca58027e8e14",
+          "type": "SCIENTIFIC_INTENT",
+          "canonicalMeaning": "Intention d'évaluer une stratégie de reperfusion",
+          "studyRole": "NONE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_01"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D02:user:1",
+            "text": "évaluer",
+            "start": 8,
+            "end": 15
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-118e7a9a8666636e"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D02:user:1",
+            "providerCallId": "gemini-call:ke1-d92a809e3acf258a",
+            "rawElementId": "elem_01"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-74272f58b2bb1e9c",
+          "type": "SCIENTIFIC_OBJECT",
+          "canonicalMeaning": "Lésions",
+          "studyRole": "SUBJECT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_07"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D02:user:1",
+            "text": "lésions",
+            "start": 113,
+            "end": 120
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-08c08b9b94a24e87",
+            "sem-relation:ke1-6425d64faed98b93"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D02:user:1",
+            "providerCallId": "gemini-call:ke1-d92a809e3acf258a",
+            "rawElementId": "elem_07"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-95a9bafd07aec3d1",
+          "type": "INTERVENTION",
+          "canonicalMeaning": "Mise en place d'un stent immédiat",
+          "studyRole": "INTERVENTION_ARM",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_03",
+            "inv_05"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D02:user:1",
+            "text": "mise en place d'un stent immédiat",
+            "start": 50,
+            "end": 83
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-a84c321ccfd89a98",
+            "sem-relation:ke1-fb979250a9f7562c"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D02:user:1",
+            "providerCallId": "gemini-call:ke1-d92a809e3acf258a",
+            "rawElementId": "elem_03"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-99d060dace64e1ee",
+          "type": "INTERVENTION",
+          "canonicalMeaning": "Mise en place d'un stent différé",
+          "studyRole": "COMPARATOR_ARM",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_03",
+            "inv_06"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D02:user:1",
+            "text": "différé",
+            "start": 87,
+            "end": 94
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-a84c321ccfd89a98"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D02:user:1",
+            "providerCallId": "gemini-call:ke1-d92a809e3acf258a",
+            "rawElementId": "elem_04"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-cee27023bc99f717",
+          "type": "MODALITY",
+          "canonicalMeaning": "Imagerie par résonance magnétique",
+          "studyRole": "MEASUREMENT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_08"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D02:user:1",
+            "text": "IRM",
+            "start": 125,
+            "end": 128
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-08c08b9b94a24e87"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D02:user:1",
+            "providerCallId": "gemini-call:ke1-d92a809e3acf258a",
+            "rawElementId": "elem_08"
+          },
+          "supersedesElementIds": [
+            "elem_08"
+          ],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-f7a38b6aa7db81ce",
+          "type": "INTERVENTION",
+          "canonicalMeaning": "Stratégie de reperfusion",
+          "studyRole": "INTERVENTION_ARM",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_02"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D02:user:1",
+            "text": "stratégie de reperfusion",
+            "start": 20,
+            "end": 44
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-118e7a9a8666636e"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D02:user:1",
+            "providerCallId": "gemini-call:ke1-d92a809e3acf258a",
+            "rawElementId": "elem_02"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-fdc7e9a47c60bcc0",
+          "type": "TIMING",
+          "canonicalMeaning": "Immédiat",
+          "studyRole": "NONE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_05"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D02:user:1",
+            "text": "immédiat",
+            "start": 75,
+            "end": 83
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-fb979250a9f7562c"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D02:user:1",
+            "providerCallId": "gemini-call:ke1-d92a809e3acf258a",
+            "rawElementId": "elem_05"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        }
+      ],
+      "relations": [
+        {
+          "semanticRelationId": "sem-relation:ke1-08c08b9b94a24e87",
+          "sourceElementId": "sem-element:ke1-74272f58b2bb1e9c",
+          "targetElementId": "sem-element:ke1-cee27023bc99f717",
+          "relationType": "MEASURED_BY",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel_inv_05"
+          ],
+          "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "version": 1
+        },
+        {
+          "semanticRelationId": "sem-relation:ke1-118e7a9a8666636e",
+          "sourceElementId": "sem-element:ke1-4ac7ca58027e8e14",
+          "targetElementId": "sem-element:ke1-f7a38b6aa7db81ce",
+          "relationType": "AIMS_TO_EVALUATE",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel_inv_01"
+          ],
+          "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "version": 1
+        },
+        {
+          "semanticRelationId": "sem-relation:ke1-6425d64faed98b93",
+          "sourceElementId": "sem-element:ke1-2f9656cd9d242e89",
+          "targetElementId": "sem-element:ke1-74272f58b2bb1e9c",
+          "relationType": "MEASURES",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel_inv_04"
+          ],
+          "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "version": 1
+        },
+        {
+          "semanticRelationId": "sem-relation:ke1-a84c321ccfd89a98",
+          "sourceElementId": "sem-element:ke1-95a9bafd07aec3d1",
+          "targetElementId": "sem-element:ke1-99d060dace64e1ee",
+          "relationType": "COMPARES_WITH",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel_inv_03"
+          ],
+          "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "version": 1
+        },
+        {
+          "semanticRelationId": "sem-relation:ke1-fb979250a9f7562c",
+          "sourceElementId": "sem-element:ke1-95a9bafd07aec3d1",
+          "targetElementId": "sem-element:ke1-fdc7e9a47c60bcc0",
+          "relationType": "TRIGGERED_BY",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel_inv_02"
+          ],
+          "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "version": 1
+        }
+      ],
+      "explicitCoverageReport": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryItemId": "inv_01",
+            "sourceMessageId": "SEM-D02:user:1",
+            "sourceText": "évaluer",
+            "normalizedMeaning": "évaluer",
+            "mappedClientElementIds": [
+              "elem_01"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "inv_02",
+            "sourceMessageId": "SEM-D02:user:1",
+            "sourceText": "stratégie de reperfusion",
+            "normalizedMeaning": "stratégie de reperfusion",
+            "mappedClientElementIds": [
+              "elem_02"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "inv_03",
+            "sourceMessageId": "SEM-D02:user:1",
+            "sourceText": "mise en place d'un stent immédiat vs différé",
+            "normalizedMeaning": "mise en place d'un stent immédiat vs différé",
+            "mappedClientElementIds": [
+              "elem_03",
+              "elem_04"
+            ],
+            "mappedClientRelationIds": [
+              "rel_02",
+              "rel_03"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "inv_04",
+            "sourceMessageId": "SEM-D02:user:1",
+            "sourceText": "quantifier",
+            "normalizedMeaning": "quantifier",
+            "mappedClientElementIds": [
+              "elem_09"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "inv_05",
+            "sourceMessageId": "SEM-D02:user:1",
+            "sourceText": "immédiat",
+            "normalizedMeaning": "immédiat",
+            "mappedClientElementIds": [
+              "elem_03",
+              "elem_05"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "inv_06",
+            "sourceMessageId": "SEM-D02:user:1",
+            "sourceText": "différé",
+            "normalizedMeaning": "différé",
+            "mappedClientElementIds": [
+              "elem_04",
+              "elem_06"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "inv_07",
+            "sourceMessageId": "SEM-D02:user:1",
+            "sourceText": "lésions",
+            "normalizedMeaning": "lésions",
+            "mappedClientElementIds": [
+              "elem_07"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "inv_08",
+            "sourceMessageId": "SEM-D02:user:1",
+            "sourceText": "IRM",
+            "normalizedMeaning": "IRM",
+            "mappedClientElementIds": [
+              "elem_08"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          }
+        ]
+      },
+      "relationCoverageReport": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel_inv_01",
+            "sourceInventoryItemId": "inv_01",
+            "targetInventoryItemId": "inv_02",
+            "normalizedRelation": "AIMS_TO_EVALUATE",
+            "mappedClientRelationIds": [
+              "rel_01"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel_inv_02",
+            "sourceInventoryItemId": "inv_03",
+            "targetInventoryItemId": "inv_05",
+            "normalizedRelation": "HAS_TIMING",
+            "mappedClientRelationIds": [
+              "coalesced:elem_03",
+              "rel_02"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel_inv_03",
+            "sourceInventoryItemId": "inv_03",
+            "targetInventoryItemId": "inv_06",
+            "normalizedRelation": "COMPARES_WITH",
+            "mappedClientRelationIds": [
+              "coalesced:elem_04",
+              "rel_03"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel_inv_04",
+            "sourceInventoryItemId": "inv_04",
+            "targetInventoryItemId": "inv_07",
+            "normalizedRelation": "MEASURES",
+            "mappedClientRelationIds": [
+              "rel_04"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel_inv_05",
+            "sourceInventoryItemId": "inv_08",
+            "targetInventoryItemId": "inv_07",
+            "normalizedRelation": "MEASURED_BY",
+            "mappedClientRelationIds": [
+              "rel_05"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          }
+        ]
+      },
+      "missingConcepts": [],
+      "ellipses": [],
+      "ambiguities": [],
+      "unknowns": [],
+      "contradictions": [],
+      "clarificationCandidates": [],
+      "knowledgeRequests": [],
+      "routeProposal": {
+        "route": "DESIGN_STUDY",
+        "confidence": 0.95,
+        "reason": "L'utilisateur exprime clairement une intention d'évaluer une stratégie thérapeutique comparative (stent immédiat vs différé) avec une méthode de mesure précise (IRM), ce qui correspond à la construction d'un protocole d'étude.",
+        "expectedCapabilities": [
+          "Définition des bras d'intervention",
+          "Paramétrage de l'imagerie",
+          "Sélection des critères d'évaluation"
+        ]
+      },
+      "summaryForUser": "Évaluation d'une stratégie de reperfusion par stent immédiat versus différé avec quantification des lésions par IRM.",
+      "critic": {
+        "verdict": "ACCEPT",
+        "issues": [],
+        "summary": "The typed candidate perfectly aligns with the user message, semantic inventory, and taxonomy guidelines. All explicit elements, relations, modalities, and interventions are accurately captured and routed."
+      },
+      "executionSnapshot": {
+        "provider": "GOOGLE_GEMINI",
+        "model": "gemini-3.5-flash-lite",
+        "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+        "criticPromptVersion": "SEM-001-CRITIC-1.3",
+        "schemaVersion": "SEM-001-1.1",
+        "reconstructionCallId": "gemini-call:ke1-d92a809e3acf258a",
+        "criticCallId": "gemini-call:ke1-c9848a1b64b33797",
+        "criticCallIds": [
+          "gemini-call:ke1-5fa58244fb6b6e70",
+          "gemini-call:ke1-c9848a1b64b33797"
+        ],
+        "reconstructionAttempts": [],
+        "criticAttempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-12T10:49:50.251Z",
+            "requestFinished": "2026-08-12T10:49:54.759Z",
+            "latencyMs": 4508,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          },
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-12T10:49:54.764Z",
+            "requestFinished": "2026-08-12T10:49:57.999Z",
+            "latencyMs": 3235,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ],
+        "rawReconstruction": {
+          "candidateId": "cand_01J8FXY2Z5N3Q8W1V7K9P4M6X2",
+          "language": "fr",
+          "normalizedMeaning": "L'utilisateur souhaite évaluer une stratégie de reperfusion comparant la pose immédiate de stent versus une pose différée, tout en quantifiant les lésions par imagerie par résonance magnétique (IRM).",
+          "summaryForUser": "Évaluation d'une stratégie de reperfusion par stent immédiat versus différé avec quantification des lésions par IRM.",
+          "semanticInventory": {
+            "explicitFragments": [
+              {
+                "inventoryItemId": "inv_01",
+                "sourceMessageId": "SEM-D02:user:1",
+                "sourceText": "évaluer",
+                "normalizedLabel": "évaluer",
+                "localRole": "action",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": [
+                  "inv_02",
+                  "inv_03"
+                ]
+              },
+              {
+                "inventoryItemId": "inv_02",
+                "sourceMessageId": "SEM-D02:user:1",
+                "sourceText": "stratégie de reperfusion",
+                "normalizedLabel": "stratégie de reperfusion",
+                "localRole": "target",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": [
+                  "inv_03",
+                  "inv_04"
+                ]
+              },
+              {
+                "inventoryItemId": "inv_03",
+                "sourceMessageId": "SEM-D02:user:1",
+                "sourceText": "mise en place d'un stent immédiat vs différé",
+                "normalizedLabel": "mise en place d'un stent immédiat vs différé",
+                "localRole": "intervention_comparison",
+                "polarity": "AFFIRMED",
+                "modifiers": [
+                  "immédiat",
+                  "différé"
+                ],
+                "linkedInventoryItemIds": [
+                  "inv_05",
+                  "inv_06"
+                ]
+              },
+              {
+                "inventoryItemId": "inv_04",
+                "sourceMessageId": "SEM-D02:user:1",
+                "sourceText": "quantifier",
+                "normalizedLabel": "quantifier",
+                "localRole": "action",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": [
+                  "inv_07",
+                  "inv_08"
+                ]
+              },
+              {
+                "inventoryItemId": "inv_05",
+                "sourceMessageId": "SEM-D02:user:1",
+                "sourceText": "immédiat",
+                "normalizedLabel": "immédiat",
+                "localRole": "timing",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": []
+              },
+              {
+                "inventoryItemId": "inv_06",
+                "sourceMessageId": "SEM-D02:user:1",
+                "sourceText": "différé",
+                "normalizedLabel": "différé",
+                "localRole": "timing",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": []
+              },
+              {
+                "inventoryItemId": "inv_07",
+                "sourceMessageId": "SEM-D02:user:1",
+                "sourceText": "lésions",
+                "normalizedLabel": "lésions",
+                "localRole": "target",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": []
+              },
+              {
+                "inventoryItemId": "inv_08",
+                "sourceMessageId": "SEM-D02:user:1",
+                "sourceText": "IRM",
+                "normalizedLabel": "IRM",
+                "localRole": "method",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": []
+              }
+            ],
+            "explicitRelations": [
+              {
+                "inventoryRelationId": "rel_inv_01",
+                "sourceInventoryItemId": "inv_01",
+                "targetInventoryItemId": "inv_02",
+                "sourceMessageId": "SEM-D02:user:1",
+                "sourceText": "évaluer une stratégie de reperfusion",
+                "normalizedRelation": "AIMS_TO_EVALUATE",
+                "polarity": "AFFIRMED"
+              },
+              {
+                "inventoryRelationId": "rel_inv_02",
+                "sourceInventoryItemId": "inv_03",
+                "targetInventoryItemId": "inv_05",
+                "sourceMessageId": "SEM-D02:user:1",
+                "sourceText": "mise en place d'un stent immédiat",
+                "normalizedRelation": "HAS_TIMING",
+                "polarity": "AFFIRMED"
+              },
+              {
+                "inventoryRelationId": "rel_inv_03",
+                "sourceInventoryItemId": "inv_03",
+                "targetInventoryItemId": "inv_06",
+                "sourceMessageId": "SEM-D02:user:1",
+                "sourceText": "vs différé",
+                "normalizedRelation": "COMPARES_WITH",
+                "polarity": "AFFIRMED"
+              },
+              {
+                "inventoryRelationId": "rel_inv_04",
+                "sourceInventoryItemId": "inv_04",
+                "targetInventoryItemId": "inv_07",
+                "sourceMessageId": "SEM-D02:user:1",
+                "sourceText": "quantifier les lésions",
+                "normalizedRelation": "MEASURES",
+                "polarity": "AFFIRMED"
+              },
+              {
+                "inventoryRelationId": "rel_inv_05",
+                "sourceInventoryItemId": "inv_08",
+                "targetInventoryItemId": "inv_07",
+                "sourceMessageId": "SEM-D02:user:1",
+                "sourceText": "quantifier les lésions à l'IRM",
+                "normalizedRelation": "MEASURED_BY",
+                "polarity": "AFFIRMED"
+              }
+            ]
+          },
+          "elements": [
+            {
+              "clientElementId": "elem_01",
+              "type": "SCIENTIFIC_INTENT",
+              "canonicalMeaning": "Intention d'évaluer une stratégie de reperfusion",
+              "studyRole": "NONE",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "inv_01"
+              ],
+              "sourceMessageId": "SEM-D02:user:1",
+              "sourceText": "évaluer",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem_02",
+              "type": "INTERVENTION",
+              "canonicalMeaning": "Stratégie de reperfusion",
+              "studyRole": "INTERVENTION_ARM",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "inv_02"
+              ],
+              "sourceMessageId": "SEM-D02:user:1",
+              "sourceText": "stratégie de reperfusion",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem_03",
+              "type": "INTERVENTION",
+              "canonicalMeaning": "Mise en place d'un stent immédiat",
+              "studyRole": "INTERVENTION_ARM",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "inv_03",
+                "inv_05"
+              ],
+              "sourceMessageId": "SEM-D02:user:1",
+              "sourceText": "mise en place d'un stent immédiat",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem_04",
+              "type": "INTERVENTION",
+              "canonicalMeaning": "Mise en place d'un stent différé",
+              "studyRole": "COMPARATOR_ARM",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "inv_03",
+                "inv_06"
+              ],
+              "sourceMessageId": "SEM-D02:user:1",
+              "sourceText": "différé",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem_05",
+              "type": "TIMING",
+              "canonicalMeaning": "Immédiat",
+              "studyRole": "NONE",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "inv_05"
+              ],
+              "sourceMessageId": "SEM-D02:user:1",
+              "sourceText": "immédiat",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem_06",
+              "type": "TIMING",
+              "canonicalMeaning": "Différé",
+              "studyRole": "NONE",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "inv_06"
+              ],
+              "sourceMessageId": "SEM-D02:user:1",
+              "sourceText": "différé",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem_07",
+              "type": "SCIENTIFIC_OBJECT",
+              "canonicalMeaning": "Lésions",
+              "studyRole": "SUBJECT",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "inv_07"
+              ],
+              "sourceMessageId": "SEM-D02:user:1",
+              "sourceText": "lésions",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem_09",
+              "type": "OPERATION",
+              "canonicalMeaning": "Quantification des lésions",
+              "studyRole": "NONE",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "inv_04"
+              ],
+              "sourceMessageId": "SEM-D02:user:1",
+              "sourceText": "quantifier",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem_08",
+              "type": "MODALITY",
+              "canonicalMeaning": "Imagerie par résonance magnétique",
+              "studyRole": "MEASUREMENT",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "inv_08"
+              ],
+              "sourceMessageId": "SEM-D02:user:1",
+              "sourceText": "IRM",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": [
+                "elem_08"
+              ]
+            }
+          ],
+          "relations": [
+            {
+              "clientRelationId": "rel_01",
+              "sourceClientElementId": "elem_01",
+              "targetClientElementId": "elem_02",
+              "relationType": "AIMS_TO_EVALUATE",
+              "polarity": "AFFIRMED",
+              "inventoryRelationIds": [
+                "rel_inv_01"
+              ],
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false
+            },
+            {
+              "clientRelationId": "rel_02",
+              "sourceClientElementId": "elem_03",
+              "targetClientElementId": "elem_05",
+              "relationType": "TRIGGERED_BY",
+              "polarity": "AFFIRMED",
+              "inventoryRelationIds": [
+                "rel_inv_02"
+              ],
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false
+            },
+            {
+              "clientRelationId": "rel_03",
+              "sourceClientElementId": "elem_03",
+              "targetClientElementId": "elem_04",
+              "relationType": "COMPARES_WITH",
+              "polarity": "AFFIRMED",
+              "inventoryRelationIds": [
+                "rel_inv_03"
+              ],
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false
+            },
+            {
+              "clientRelationId": "rel_04",
+              "sourceClientElementId": "elem_09",
+              "targetClientElementId": "elem_07",
+              "relationType": "MEASURES",
+              "polarity": "AFFIRMED",
+              "inventoryRelationIds": [
+                "rel_inv_04"
+              ],
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false
+            },
+            {
+              "clientRelationId": "rel_05",
+              "sourceClientElementId": "elem_07",
+              "targetClientElementId": "elem_08",
+              "relationType": "MEASURED_BY",
+              "polarity": "AFFIRMED",
+              "inventoryRelationIds": [
+                "rel_inv_05"
+              ],
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false
+            }
+          ],
+          "missingConcepts": [],
+          "ellipses": [],
+          "ambiguities": [],
+          "unknowns": [],
+          "contradictions": [],
+          "knowledgeRequests": [],
+          "clarificationCandidates": [],
+          "routeProposal": {
+            "route": "DESIGN_STUDY",
+            "confidence": 0.95,
+            "reason": "L'utilisateur exprime clairement une intention d'évaluer une stratégie thérapeutique comparative (stent immédiat vs différé) avec une méthode de mesure précise (IRM), ce qui correspond à la construction d'un protocole d'étude.",
+            "expectedCapabilities": [
+              "Définition des bras d'intervention",
+              "Sélection des critères d'évaluation",
+              "Paramétrage de l'imagerie"
+            ]
+          },
+          "semanticWarnings": []
+        },
+        "rawCritic": {
+          "criticId": "critic_01",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects ('lésions') are represented in the typed candidate."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Both immediate and delayed stent placement comparators are fully represented."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Reperfusion strategy and stent placement interventions are fully represented."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "MRI modality is fully represented."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit relations from the inventory are mapped to relations in the candidate."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All entity types are aligned with the operational taxonomy."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relations were weakened or converted into ungrounded inferences."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No low-confidence inferences have been promoted to explicit user stated status."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No ambiguities were suppressed or hidden."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarities are correctly preserved across all inventory items."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Timing modifiers ('immédiat', 'différé') are properly preserved."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No outcomes or endpoints were improperly promoted without source backing."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts such as MRI and stent placement remain faithful to source."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No source fragments were left unrepresented in the final model."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY perfectly matches the study evaluation and protocol construction intent."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The typed candidate perfectly aligns with the user message, semantic inventory, and taxonomy guidelines. All explicit elements, relations, modalities, and interventions are accurately captured and routed."
+        },
+        "rawCritics": [
+          {
+            "criticId": "critic_01",
+            "verdict": "REVISE",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit objects ('lésions') are represented."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Both immediate and deferred stent placement comparison arms are represented."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "The reperfusion strategy and stent placement interventions are fully represented."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "FAIL",
+                "evidence": "IRM is typed as METHOD instead of MODALITY in accordance with the taxonomy report."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit inventory relations are mapped correctly."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "FAIL",
+                "evidence": "Element elem_08 'IRM' is typed as METHOD, but the taxonomy report designates it as MODALITY."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "No explicit relations were weakened."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No unjustified inferences were promoted."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "No ambiguities were hidden."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "Polarities are correctly preserved."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "PASS",
+                "evidence": "Timing modifiers ('immédiat', 'différé') are properly represented."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "No unsupported endpoint promotions were made."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "No specific concepts were generalized improperly."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "All source fragments are represented in the model."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "The DESIGN_STUDY route matches the study-construction intent."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [
+              {
+                "code": "TYPE_MISMATCH",
+                "severity": "CRITICAL",
+                "elementClientIds": [
+                  "elem_08"
+                ],
+                "description": "Imaging family 'IRM' is incorrectly typed as METHOD instead of MODALITY.",
+                "recommendedAction": "Upsert element elem_08 to type MODALITY.",
+                "resolved": false
+              }
+            ],
+            "proposedRepairs": [
+              {
+                "repairId": "rep_01",
+                "action": "UPSERT_ELEMENT",
+                "reason": "Correct the type of IRM from METHOD to MODALITY as required by the taxonomy report.",
+                "sourceInventoryItemIds": [
+                  "inv_08"
+                ],
+                "sourceInventoryRelationIds": [],
+                "inventoryItemId": null,
+                "inventorySourceMessageId": null,
+                "inventorySourceText": null,
+                "inventoryNormalizedLabel": null,
+                "inventoryLocalRole": null,
+                "inventoryPolarity": null,
+                "inventoryModifiers": [],
+                "inventoryLinkedItemIds": [],
+                "inventoryRelationId": null,
+                "inventoryRelationSourceItemId": null,
+                "inventoryRelationTargetItemId": null,
+                "inventoryRelationSourceMessageId": null,
+                "inventoryRelationSourceText": null,
+                "inventoryNormalizedRelation": null,
+                "inventoryRelationPolarity": null,
+                "elementClientElementId": "elem_08",
+                "elementType": "MODALITY",
+                "elementCanonicalMeaning": "Imagerie par résonance magnétique",
+                "elementStudyRole": "MEASUREMENT",
+                "elementPolarity": "AFFIRMED",
+                "elementInventoryItemIds": [
+                  "inv_08"
+                ],
+                "elementSourceMessageId": "SEM-D02:user:1",
+                "elementSourceText": "IRM",
+                "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+                "elementConfidence": 1,
+                "elementInferenceReason": null,
+                "elementRequiresConfirmation": false,
+                "elementSupersedesElementIds": [
+                  "elem_08"
+                ],
+                "relationClientRelationId": null,
+                "relationSourceClientElementId": null,
+                "relationTargetClientElementId": null,
+                "relationType": null,
+                "relationPolarity": null,
+                "relationInventoryRelationIds": [],
+                "relationEpistemicStatus": null,
+                "relationConfidence": null,
+                "relationInferenceReason": null,
+                "relationRequiresConfirmation": null,
+                "ambiguity": null,
+                "route": null,
+                "routeConfidence": null,
+                "routeReason": null,
+                "routeExpectedCapabilities": []
+              }
+            ],
+            "criticSummary": "Audit completed with a taxonomy mismatch for IRM, which must be classified as MODALITY rather than METHOD. A bounded repair has been formulated."
+          },
+          {
+            "criticId": "critic_01",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit objects ('lésions') are represented in the typed candidate."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Both immediate and delayed stent placement comparators are fully represented."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Reperfusion strategy and stent placement interventions are fully represented."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "PASS",
+                "evidence": "MRI modality is fully represented."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit relations from the inventory are mapped to relations in the candidate."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "All entity types are aligned with the operational taxonomy."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "No explicit relations were weakened or converted into ungrounded inferences."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No low-confidence inferences have been promoted to explicit user stated status."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "No ambiguities were suppressed or hidden."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "Polarities are correctly preserved across all inventory items."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "PASS",
+                "evidence": "Timing modifiers ('immédiat', 'différé') are properly preserved."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "No outcomes or endpoints were improperly promoted without source backing."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts such as MRI and stent placement remain faithful to source."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "No source fragments were left unrepresented in the final model."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "Route DESIGN_STUDY perfectly matches the study evaluation and protocol construction intent."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The typed candidate perfectly aligns with the user message, semantic inventory, and taxonomy guidelines. All explicit elements, relations, modalities, and interventions are accurately captured and routed."
+          }
+        ],
+        "temperature": null,
+        "executedAt": "2026-08-12T10:49:58.002Z"
+      },
+      "knowledgeSnapshot": {
+        "resultId": "knowledge-result:ke1-c0816556ed379f22",
+        "resultDigest": "ke1-c0816556ed379f22",
+        "coverageStatus": "NO_PROVIDER",
+        "verifiedAt": "2026-08-12T10:49:58.014Z"
+      },
+      "previousModelId": null,
+      "history": [],
+      "acceptedAt": null,
+      "acceptanceRecord": null,
+      "createdAt": "2026-08-12T10:49:58.002Z",
+      "updatedAt": "2026-08-12T10:49:58.014Z",
+      "digest": "ke1-9c9efb990ffca725"
+    },
+    "metric": {
+      "caseId": "SEM-D02",
+      "explicitObjectRecall": 1,
+      "explicitRelationRecall": 1,
+      "criticalSemanticRecall": 1,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 1,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": []
+    },
+    "error": null,
+    "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+    "latencyMs": 7772
+  },
+  {
+    "caseId": "SEM-D16",
+    "finalStatus": "FAILED",
+    "firstImpactedStage": 2,
+    "reconstructionReused": true,
+    "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+    "criticPromptVersion": "SEM-001-CRITIC-1.3",
+    "reconstructionCandidateDigest": "ke1-54b765689489cc5c",
+    "criticPromptDigest": "ke1-b26ddf632ed1fa57",
+    "requestStarted": "2026-08-12T10:52:07.883Z",
+    "completedAt": null,
+    "operationTraces": [
+      {
+        "operation": "CRITIC",
+        "cycle": null,
+        "callId": null,
+        "structuredDigest": null,
+        "attempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-12T10:52:07.886Z",
+            "requestFinished": "2026-08-12T10:52:17.155Z",
+            "latencyMs": 9269,
+            "outcome": "FAILED",
+            "category": "SERVER_ERROR",
+            "httpStatus": 503,
+            "providerStatus": "UNAVAILABLE",
+            "providerCode": "503",
+            "providerError": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+            "retryable": true
+          }
+        ]
+      }
+    ],
+    "critics": [],
+    "repairDiagnostics": [],
+    "semanticModel": null,
+    "metric": null,
+    "error": {
+      "category": "SERVER_ERROR",
+      "httpStatus": 503,
+      "providerStatus": "UNAVAILABLE",
+      "message": "SEMANTIC_PROVIDER_SERVER_ERROR"
+    },
+    "latencyMs": 9272
+  },
+  {
+    "caseId": "SEM-D19",
+    "finalStatus": "FAILED",
+    "firstImpactedStage": 2,
+    "reconstructionReused": true,
+    "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+    "criticPromptVersion": "SEM-001-CRITIC-1.3",
+    "reconstructionCandidateDigest": "ke1-d1ed181a279ad096",
+    "criticPromptDigest": "ke1-b26ddf632ed1fa57",
+    "requestStarted": "2026-08-12T10:52:17.157Z",
+    "completedAt": null,
+    "operationTraces": [
+      {
+        "operation": "CRITIC",
+        "cycle": null,
+        "callId": null,
+        "structuredDigest": null,
+        "attempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-12T10:52:17.158Z",
+            "requestFinished": "2026-08-12T10:52:18.622Z",
+            "latencyMs": 1464,
+            "outcome": "FAILED",
+            "category": "SERVER_ERROR",
+            "httpStatus": 503,
+            "providerStatus": "UNAVAILABLE",
+            "providerCode": "503",
+            "providerError": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+            "retryable": true
+          }
+        ]
+      }
+    ],
+    "critics": [],
+    "repairDiagnostics": [],
+    "semanticModel": null,
+    "metric": null,
+    "error": {
+      "category": "SERVER_ERROR",
+      "httpStatus": 503,
+      "providerStatus": "UNAVAILABLE",
+      "message": "SEMANTIC_PROVIDER_SERVER_ERROR"
+    },
+    "latencyMs": 1465
+  },
+  {
+    "caseId": "SEM-D21",
+    "finalStatus": "FAILED",
+    "firstImpactedStage": 2,
+    "reconstructionReused": true,
+    "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+    "criticPromptVersion": "SEM-001-CRITIC-1.3",
+    "reconstructionCandidateDigest": "ke1-27ec096e2213a5ea",
+    "criticPromptDigest": "ke1-b26ddf632ed1fa57",
+    "requestStarted": "2026-08-12T10:52:18.625Z",
+    "completedAt": null,
+    "operationTraces": [
+      {
+        "operation": "CRITIC",
+        "cycle": null,
+        "callId": null,
+        "structuredDigest": null,
+        "attempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-12T10:52:18.626Z",
+            "requestFinished": "2026-08-12T10:52:21.080Z",
+            "latencyMs": 2454,
+            "outcome": "FAILED",
+            "category": "SERVER_ERROR",
+            "httpStatus": 503,
+            "providerStatus": "UNAVAILABLE",
+            "providerCode": "503",
+            "providerError": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+            "retryable": true
+          }
+        ]
+      }
+    ],
+    "critics": [],
+    "repairDiagnostics": [],
+    "semanticModel": null,
+    "metric": null,
+    "error": {
+      "category": "SERVER_ERROR",
+      "httpStatus": 503,
+      "providerStatus": "UNAVAILABLE",
+      "message": "SEMANTIC_PROVIDER_SERVER_ERROR"
+    },
+    "latencyMs": 2455
+  },
+  {
+    "caseId": "SEM-D23",
+    "finalStatus": "FAILED",
+    "firstImpactedStage": 2,
+    "reconstructionReused": true,
+    "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+    "criticPromptVersion": "SEM-001-CRITIC-1.3",
+    "reconstructionCandidateDigest": "ke1-6e1f49d54d08f529",
+    "criticPromptDigest": "ke1-b26ddf632ed1fa57",
+    "requestStarted": "2026-08-12T10:52:21.083Z",
+    "completedAt": null,
+    "operationTraces": [
+      {
+        "operation": "CRITIC",
+        "cycle": null,
+        "callId": null,
+        "structuredDigest": null,
+        "attempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-12T10:52:21.084Z",
+            "requestFinished": "2026-08-12T10:52:21.692Z",
+            "latencyMs": 608,
+            "outcome": "FAILED",
+            "category": "SERVER_ERROR",
+            "httpStatus": 503,
+            "providerStatus": "UNAVAILABLE",
+            "providerCode": "503",
+            "providerError": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+            "retryable": true
+          }
+        ]
+      }
+    ],
+    "critics": [],
+    "repairDiagnostics": [],
+    "semanticModel": null,
+    "metric": null,
+    "error": {
+      "category": "SERVER_ERROR",
+      "httpStatus": 503,
+      "providerStatus": "UNAVAILABLE",
+      "message": "SEMANTIC_PROVIDER_SERVER_ERROR"
+    },
+    "latencyMs": 609
+  },
+  {
+    "caseId": "SEM-D28",
+    "finalStatus": "FAILED",
+    "firstImpactedStage": 2,
+    "reconstructionReused": true,
+    "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+    "criticPromptVersion": "SEM-001-CRITIC-1.3",
+    "reconstructionCandidateDigest": "ke1-80def0293de30725",
+    "criticPromptDigest": "ke1-b26ddf632ed1fa57",
+    "requestStarted": "2026-08-12T10:52:21.696Z",
+    "completedAt": null,
+    "operationTraces": [
+      {
+        "operation": "CRITIC",
+        "cycle": null,
+        "callId": null,
+        "structuredDigest": null,
+        "attempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-12T10:52:32.737Z",
+            "requestFinished": "2026-08-12T10:52:33.613Z",
+            "latencyMs": 876,
+            "outcome": "FAILED",
+            "category": "SERVER_ERROR",
+            "httpStatus": 503,
+            "providerStatus": "UNAVAILABLE",
+            "providerCode": "503",
+            "providerError": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+            "retryable": true
+          }
+        ]
+      }
+    ],
+    "critics": [],
+    "repairDiagnostics": [],
+    "semanticModel": null,
+    "metric": null,
+    "error": {
+      "category": "SERVER_ERROR",
+      "httpStatus": 503,
+      "providerStatus": "UNAVAILABLE",
+      "message": "SEMANTIC_PROVIDER_SERVER_ERROR"
+    },
+    "latencyMs": 11917
+  }
+]

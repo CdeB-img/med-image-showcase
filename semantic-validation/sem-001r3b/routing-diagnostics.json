@@ -1,0 +1,13 @@
+{
+  "baselineIncorrectCases": ["SEM-D14", "SEM-D20", "SEM-D23", "SEM-D27", "SEM-D28"],
+  "diagnosis": [
+    { "caseId": "SEM-D14", "semanticModelCorrect": true, "actual": "UNDERSTAND", "owner": "CRITIC_ROUTE_AUDIT" },
+    { "caseId": "SEM-D20", "semanticModelCorrect": true, "actual": "UNDERSTAND", "owner": "CRITIC_ROUTE_AUDIT" },
+    { "caseId": "SEM-D23", "semanticModelCorrect": false, "actual": "UNDERSTAND", "owner": "REPAIR_SEMANTIC_INTENT_BEFORE_ROUTE" },
+    { "caseId": "SEM-D27", "semanticModelCorrect": true, "actual": "FORMALIZE_IDEA", "owner": "CRITIC_ROUTE_AUDIT" },
+    { "caseId": "SEM-D28", "semanticModelCorrect": false, "actual": "UNDERSTAND", "owner": "REPAIR_COMPOSITE_MODEL_BEFORE_ROUTE" }
+  ],
+  "change": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL is audited only after source completeness and semantic repairs; SET_ROUTE remains source/model-grounded.",
+  "fixtureSpecificRules": 0,
+  "liveStatus": "NOT_CALCULATED_PROVIDER_BLOCK"
+}

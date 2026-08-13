@@ -1,0 +1,35 @@
+{
+  "runId": "sem-001r3-development-2026-08-11T10-52-30-106Z",
+  "failures": [
+    {
+      "caseId": "SEM-D02",
+      "blocker": "FORBIDDEN_INFERENCE:STEMI confirmé",
+      "classification": "MODEL_REASONING_FAILURE",
+      "canonicalModelDigest": "ke1-dc0b64e4a0178940"
+    },
+    {
+      "caseId": "SEM-D02",
+      "blocker": "FORBIDDEN_INFERENCE:taille d'infarctus confirmée comme critère principal",
+      "classification": "MODEL_REASONING_FAILURE",
+      "canonicalModelDigest": "ke1-dc0b64e4a0178940"
+    },
+    {
+      "caseId": "SEM-D16",
+      "blocker": "FORBIDDEN_INFERENCE:réduction établie",
+      "classification": "MODEL_REASONING_FAILURE",
+      "canonicalModelDigest": "ke1-3afacbf9b99cf2b5"
+    }
+  ],
+  "negatedElements": [
+    {
+      "caseId": "SEM-D14",
+      "type": "CONSTRAINT",
+      "meaning": "No contrast agent injection"
+    },
+    {
+      "caseId": "SEM-D29",
+      "type": "ENDPOINT",
+      "meaning": "Taille d'infarctus rejetée comme critère"
+    }
+  ]
+}

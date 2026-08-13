@@ -1,0 +1,126 @@
+{
+  "campaign": "SEM-001R3C",
+  "verifiedAt": "2026-08-12T12:01:48.219Z",
+  "decision": "CONFIGURATION_IDENTITY_VERIFIED",
+  "semanticConfigurationUnchanged": true,
+  "operationalPolicyDisposition": "R3C_EXPLICIT_RESILIENCE_OVERRIDE_APPLIED",
+  "aggregateCorpusDigestPreviouslyPersisted": false,
+  "currentDigests": {
+    "reconstructionPrompt": "ke1-943568042373de98",
+    "criticPrompt": "ke1-b26ddf632ed1fa57",
+    "providerSchema": "ke1-c849778553bf38b1",
+    "canonicalizer": "ke1-8a56fab704f65083",
+    "coverage": "ke1-ca1d80690519c165",
+    "repair": "ke1-ca1d80690519c165",
+    "evaluator": "ke1-b5aa14fa96372ad6",
+    "developmentCorpus": "ke1-64d654cfa041a563",
+    "developmentGold": "ke1-1006a72533caf7f9"
+  },
+  "checks": [
+    {
+      "contract": "provider",
+      "expected": "GOOGLE_GEMINI",
+      "observed": "GOOGLE_GEMINI",
+      "pass": true
+    },
+    {
+      "contract": "modelId",
+      "expected": "gemini-3.5-flash-lite",
+      "observed": "gemini-3.5-flash-lite",
+      "pass": true
+    },
+    {
+      "contract": "reconstructionPromptVersion",
+      "expected": "SEM-001-RECONSTRUCTION-1.2",
+      "observed": "SEM-001-RECONSTRUCTION-1.2",
+      "pass": true
+    },
+    {
+      "contract": "criticPromptVersion",
+      "expected": "SEM-001-CRITIC-1.3",
+      "observed": "SEM-001-CRITIC-1.3",
+      "pass": true
+    },
+    {
+      "contract": "criticPromptDigest",
+      "expected": "ke1-b26ddf632ed1fa57",
+      "observed": "ke1-b26ddf632ed1fa57",
+      "pass": true
+    },
+    {
+      "contract": "schemaVersion",
+      "expected": "SEM-001-1.1",
+      "observed": "SEM-001-1.1",
+      "pass": true
+    },
+    {
+      "contract": "canonicalModelVersion",
+      "expected": "1.1",
+      "observed": "1.1",
+      "pass": true
+    },
+    {
+      "contract": "providerSchemaDigest",
+      "expected": "ke1-c849778553bf38b1",
+      "observed": "ke1-c849778553bf38b1",
+      "pass": true
+    },
+    {
+      "contract": "canonicalizerDigest",
+      "expected": "ke1-8a56fab704f65083",
+      "observed": "ke1-8a56fab704f65083",
+      "pass": true
+    },
+    {
+      "contract": "coverageDigest",
+      "expected": "ke1-ca1d80690519c165",
+      "observed": "ke1-ca1d80690519c165",
+      "pass": true
+    },
+    {
+      "contract": "repairDigest",
+      "expected": "ke1-ca1d80690519c165",
+      "observed": "ke1-ca1d80690519c165",
+      "pass": true,
+      "note": "Coverage and bounded repair share the same frozen source owner."
+    },
+    {
+      "contract": "evaluatorVersion",
+      "expected": "SEM-001-EVALUATOR-1.2",
+      "observed": "SEM-001-EVALUATOR-1.2",
+      "pass": true
+    },
+    {
+      "contract": "evaluatorDigest",
+      "expected": "ke1-b5aa14fa96372ad6",
+      "observed": "ke1-b5aa14fa96372ad6",
+      "pass": true
+    },
+    {
+      "contract": "GoldFrameDigests",
+      "expected": "30 stored per-case digests",
+      "observed": "30/30",
+      "pass": true
+    },
+    {
+      "contract": "DevelopmentCorpusIdentity",
+      "expected": "unchanged fixture source predating R3B plus identical 30 case IDs",
+      "observed": "ke1-64d654cfa041a563",
+      "pass": true,
+      "note": "R3B did not persist an aggregate corpus digest; the current aggregate is derived after pairwise identity and source-timestamp verification."
+    },
+    {
+      "contract": "rateLimiter",
+      "expected": "5 starts/rolling 60s; concurrency 1",
+      "observed": "5/min; concurrency 1",
+      "pass": true
+    },
+    {
+      "contract": "retryPolicy",
+      "expected": "R3C addendum: 5 attempts; 60s transient wait; concurrency 1",
+      "observed": "5 attempts; 60000ms; concurrency 1",
+      "pass": true,
+      "note": "Explicit R3C provider-resilience addendum supersedes the R3B retryReserve=0 operational plan without changing semantic dependencies."
+    }
+  ]
+}

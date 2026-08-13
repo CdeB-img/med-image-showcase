@@ -1,0 +1,3734 @@
+{
+  "caseCount": 30,
+  "cases": [
+    {
+      "caseId": "SEM-D01",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-D01:user:1",
+              "sourceText": "évaluer",
+              "normalizedMeaning": "évaluer",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-D01:user:1",
+              "sourceText": "carotidienne",
+              "normalizedMeaning": "carotidienne",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-D01:user:1",
+              "sourceText": "différentes modalités",
+              "normalizedMeaning": "différentes modalités",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relations": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-2",
+              "normalizedRelation": "COMPARE_FOR",
+              "mappedClientRelationIds": [
+                "rel-elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-2",
+              "normalizedRelation": "OBSERVES",
+              "mappedClientRelationIds": [
+                "rel-elem-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "taxonomy": {
+          "status": "COMPLETE",
+          "findings": []
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D01",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 1,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 0,
+        "ambiguityPreservationRate": 0,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": []
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    },
+    {
+      "caseId": "SEM-D02",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv_01",
+              "sourceMessageId": "SEM-D02:user:1",
+              "sourceText": "évaluer",
+              "normalizedMeaning": "évaluer",
+              "mappedClientElementIds": [
+                "elem_01"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_02",
+              "sourceMessageId": "SEM-D02:user:1",
+              "sourceText": "stratégie de reperfusion",
+              "normalizedMeaning": "stratégie de reperfusion",
+              "mappedClientElementIds": [
+                "elem_02"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_03",
+              "sourceMessageId": "SEM-D02:user:1",
+              "sourceText": "mise en place d'un stent immédiat vs différé",
+              "normalizedMeaning": "mise en place d'un stent immédiat vs différé",
+              "mappedClientElementIds": [
+                "elem_03",
+                "elem_04"
+              ],
+              "mappedClientRelationIds": [
+                "rel_02",
+                "rel_03"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_04",
+              "sourceMessageId": "SEM-D02:user:1",
+              "sourceText": "quantifier",
+              "normalizedMeaning": "quantifier",
+              "mappedClientElementIds": [
+                "elem_09"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_05",
+              "sourceMessageId": "SEM-D02:user:1",
+              "sourceText": "immédiat",
+              "normalizedMeaning": "immédiat",
+              "mappedClientElementIds": [
+                "elem_03",
+                "elem_05"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_06",
+              "sourceMessageId": "SEM-D02:user:1",
+              "sourceText": "différé",
+              "normalizedMeaning": "différé",
+              "mappedClientElementIds": [
+                "elem_04",
+                "elem_06"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_07",
+              "sourceMessageId": "SEM-D02:user:1",
+              "sourceText": "lésions",
+              "normalizedMeaning": "lésions",
+              "mappedClientElementIds": [
+                "elem_07"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_08",
+              "sourceMessageId": "SEM-D02:user:1",
+              "sourceText": "IRM",
+              "normalizedMeaning": "IRM",
+              "mappedClientElementIds": [
+                "elem_08"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relations": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel_inv_01",
+              "sourceInventoryItemId": "inv_01",
+              "targetInventoryItemId": "inv_02",
+              "normalizedRelation": "AIMS_TO_EVALUATE",
+              "mappedClientRelationIds": [
+                "rel_01"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_inv_02",
+              "sourceInventoryItemId": "inv_03",
+              "targetInventoryItemId": "inv_05",
+              "normalizedRelation": "HAS_TIMING",
+              "mappedClientRelationIds": [
+                "coalesced:elem_03",
+                "rel_02"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_inv_03",
+              "sourceInventoryItemId": "inv_03",
+              "targetInventoryItemId": "inv_06",
+              "normalizedRelation": "COMPARES_WITH",
+              "mappedClientRelationIds": [
+                "coalesced:elem_04",
+                "rel_03"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_inv_04",
+              "sourceInventoryItemId": "inv_04",
+              "targetInventoryItemId": "inv_07",
+              "normalizedRelation": "MEASURES",
+              "mappedClientRelationIds": [
+                "rel_04"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_inv_05",
+              "sourceInventoryItemId": "inv_08",
+              "targetInventoryItemId": "inv_07",
+              "normalizedRelation": "MEASURED_BY",
+              "mappedClientRelationIds": [
+                "rel_05"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "taxonomy": {
+          "status": "INCOMPLETE",
+          "findings": [
+            {
+              "code": "IMAGING_FAMILY_TYPED_AS_METHOD",
+              "clientElementId": "elem_08",
+              "currentType": "METHOD",
+              "expectedType": "MODALITY",
+              "expectedStudyRole": "MEASUREMENT",
+              "reason": "The exact source names a broad imaging family without a sequence, acquisition or processing qualifier; the operational taxonomy requires MODALITY."
+            }
+          ]
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D02",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 1,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": []
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    },
+    {
+      "caseId": "SEM-D03",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-D03:user:1",
+              "sourceText": "patients présentant un STEMI antérieur",
+              "normalizedMeaning": "patients with anterior STEMI",
+              "mappedClientElementIds": [
+                "elem-1",
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-D03:user:1",
+              "sourceText": "comparer",
+              "normalizedMeaning": "compare",
+              "mappedClientElementIds": [
+                "elem-9"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-D03:user:1",
+              "sourceText": "à 5 jours",
+              "normalizedMeaning": "at 5 days",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-D03:user:1",
+              "sourceText": "taille d'infarctus",
+              "normalizedMeaning": "infarct size",
+              "mappedClientElementIds": [
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-D03:user:1",
+              "sourceText": "LGE",
+              "normalizedMeaning": "late gadolinium enhancement",
+              "mappedClientElementIds": [
+                "elem-5"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-6",
+              "sourceMessageId": "SEM-D03:user:1",
+              "sourceText": "stenting immédiat",
+              "normalizedMeaning": "immediate stenting",
+              "mappedClientElementIds": [
+                "elem-6"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-7",
+              "sourceMessageId": "SEM-D03:user:1",
+              "sourceText": "différé",
+              "normalizedMeaning": "delayed stenting",
+              "mappedClientElementIds": [
+                "elem-7"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-8",
+              "sourceMessageId": "SEM-D03:user:1",
+              "sourceText": "MVO",
+              "normalizedMeaning": "microvascular obstruction",
+              "mappedClientElementIds": [
+                "elem-8"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relations": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-inv-1",
+              "sourceInventoryItemId": "inv-6",
+              "targetInventoryItemId": "inv-7",
+              "normalizedRelation": "COMPARES_WITH",
+              "mappedClientRelationIds": [
+                "rel-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-inv-2",
+              "sourceInventoryItemId": "inv-4",
+              "targetInventoryItemId": "inv-5",
+              "normalizedRelation": "MEASURED_BY",
+              "mappedClientRelationIds": [
+                "rel-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "taxonomy": {
+          "status": "INCOMPLETE",
+          "findings": [
+            {
+              "code": "ARM_JUDGING_VARIABLE_NOT_ENDPOINT",
+              "clientElementId": "elem-4",
+              "currentType": "BIOMARKER",
+              "expectedType": "ENDPOINT",
+              "expectedStudyRole": "OUTCOME_ROLE",
+              "reason": "The explicit variable is placed as the variable being compared before two explicit study arms; the operational precedence requires ENDPOINT with OUTCOME_ROLE."
+            }
+          ]
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D03",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 1,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": []
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    },
+    {
+      "caseId": "SEM-D04",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-D04:user:1",
+              "sourceText": "comparer",
+              "normalizedMeaning": "comparer",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-D04:user:1",
+              "sourceText": "CT",
+              "normalizedMeaning": "tomodensitometrie",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-D04:user:1",
+              "sourceText": "IRM cardiaque",
+              "normalizedMeaning": "IRM cardiaque",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relations": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-3",
+              "normalizedRelation": "COMPARES_WITH",
+              "mappedClientRelationIds": [
+                "rel-elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "taxonomy": {
+          "status": "COMPLETE",
+          "findings": []
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D04",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 1,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 0,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": []
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    },
+    {
+      "caseId": "SEM-D05",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-D05:user:1",
+              "sourceText": "je veux",
+              "normalizedMeaning": "vouloir",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-D05:user:1",
+              "sourceText": "étudier",
+              "normalizedMeaning": "étudier",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-D05:user:1",
+              "sourceText": "la fibrose",
+              "normalizedMeaning": "fibrose",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relations": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-inv-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-2",
+              "normalizedRelation": "AIMS_TO",
+              "mappedClientRelationIds": [
+                "coalesced:elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "Both inventory fragments are explicitly preserved inside one typed Semantic Element; a redundant self-relation is not required."
+            },
+            {
+              "inventoryRelationId": "rel-inv-2",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-3",
+              "normalizedRelation": "OBSERVES",
+              "mappedClientRelationIds": [
+                "rel-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "taxonomy": {
+          "status": "COMPLETE",
+          "findings": []
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D05",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 1,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 0,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": []
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    },
+    {
+      "caseId": "SEM-D06",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "item-1",
+              "sourceMessageId": "SEM-D06:user:1",
+              "sourceText": "je veux",
+              "normalizedMeaning": "vouloir",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-2",
+              "sourceMessageId": "SEM-D06:user:1",
+              "sourceText": "mesurer",
+              "normalizedMeaning": "mesurer",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-3",
+              "sourceMessageId": "SEM-D06:user:1",
+              "sourceText": "la fibrose myocardique diffuse",
+              "normalizedMeaning": "fibrose myocardique diffuse",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-4",
+              "sourceMessageId": "SEM-D06:user:1",
+              "sourceText": "Fabry",
+              "normalizedMeaning": "maladie de Fabry",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-5",
+              "sourceMessageId": "SEM-D06:user:1",
+              "sourceText": "ECV",
+              "normalizedMeaning": "fraction volumique extracellulaire",
+              "mappedClientElementIds": [
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relations": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "item-1",
+              "targetInventoryItemId": "item-2",
+              "normalizedRelation": "AIMS_TO",
+              "mappedClientRelationIds": [
+                "coalesced:elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "Both inventory fragments are explicitly preserved inside one typed Semantic Element; a redundant self-relation is not required."
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "item-3",
+              "targetInventoryItemId": "item-5",
+              "normalizedRelation": "MEASURED_BY",
+              "mappedClientRelationIds": [
+                "rel-elem-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+            }
+          ]
+        },
+        "taxonomy": {
+          "status": "COMPLETE",
+          "findings": []
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D06",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 1,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": []
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    },
+    {
+      "caseId": "SEM-D07",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "item-1",
+              "sourceMessageId": "SEM-D07:user:1",
+              "sourceText": "T1",
+              "normalizedMeaning": "T1",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [
+                "rel-elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-2",
+              "sourceMessageId": "SEM-D07:user:1",
+              "sourceText": "T2",
+              "normalizedMeaning": "T2",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-3",
+              "sourceMessageId": "SEM-D07:user:1",
+              "sourceText": "est-ce que le T1 est meilleur que le T2 ?",
+              "normalizedMeaning": "better than comparison",
+              "mappedClientElementIds": [],
+              "mappedClientRelationIds": [
+                "rel-elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "The explicit relational marker is represented by its source-grounded direct Semantic Relation rather than by a false object node."
+            }
+          ]
+        },
+        "relations": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "item-1",
+              "targetInventoryItemId": "item-2",
+              "normalizedRelation": "COMPARES_WITH",
+              "mappedClientRelationIds": [
+                "rel-elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "taxonomy": {
+          "status": "INCOMPLETE",
+          "findings": [
+            {
+              "code": "QUANTITATIVE_COMPARAND_TYPED_AS_METHOD",
+              "clientElementId": "elem-1",
+              "currentType": "METHOD",
+              "expectedType": "BIOMARKER",
+              "expectedStudyRole": "SUBJECT",
+              "reason": "A short alphanumeric quantitative parameter is itself compared without explicit sequence, acquisition or procedure wording; the operational precedence requires BIOMARKER."
+            },
+            {
+              "code": "QUANTITATIVE_COMPARAND_TYPED_AS_METHOD",
+              "clientElementId": "elem-2",
+              "currentType": "METHOD",
+              "expectedType": "BIOMARKER",
+              "expectedStudyRole": "COMPARATOR_ARM",
+              "reason": "A short alphanumeric quantitative parameter is itself compared without explicit sequence, acquisition or procedure wording; the operational precedence requires BIOMARKER."
+            }
+          ]
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D07",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 1,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 0,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": []
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    },
+    {
+      "caseId": "SEM-D08",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "INCOMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "item_1",
+              "sourceMessageId": "SEM-D08:user:1",
+              "sourceText": "regarder",
+              "normalizedMeaning": "observer",
+              "mappedClientElementIds": [
+                "elem_1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item_2",
+              "sourceMessageId": "SEM-D08:user:1",
+              "sourceText": "les lésions",
+              "normalizedMeaning": "lésions",
+              "mappedClientElementIds": [
+                "elem_2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item_3",
+              "sourceMessageId": "SEM-D08:user:1",
+              "sourceText": "diminuent",
+              "normalizedMeaning": "diminution",
+              "mappedClientElementIds": [
+                "elem_3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item_4",
+              "sourceMessageId": "SEM-D08:user:1",
+              "sourceText": "après traitement",
+              "normalizedMeaning": "après traitement",
+              "mappedClientElementIds": [],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "UNRESOLVED_EXPLICIT_FRAGMENT",
+              "reason": "The exact inventory fragment has no source-grounded typed Semantic Element mapping."
+            },
+            {
+              "inventoryItemId": "item_5",
+              "sourceMessageId": "SEM-D08:user:1",
+              "sourceText": "traitement",
+              "normalizedMeaning": "traitement",
+              "mappedClientElementIds": [
+                "elem_4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relations": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel_1",
+              "sourceInventoryItemId": "item_1",
+              "targetInventoryItemId": "item_2",
+              "normalizedRelation": "OBSERVES",
+              "mappedClientRelationIds": [
+                "rel_elem_1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_2",
+              "sourceInventoryItemId": "item_2",
+              "targetInventoryItemId": "item_3",
+              "normalizedRelation": "EXPECTED_DIRECTION",
+              "mappedClientRelationIds": [
+                "rel_elem_2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_3",
+              "sourceInventoryItemId": "item_2",
+              "targetInventoryItemId": "item_5",
+              "normalizedRelation": "CHANGES_AFTER",
+              "mappedClientRelationIds": [
+                "rel_elem_3"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "taxonomy": {
+          "status": "COMPLETE",
+          "findings": []
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D08",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 1,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 0,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": []
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    },
+    {
+      "caseId": "SEM-D09",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-D09:user:1",
+              "sourceText": "fais-moi",
+              "normalizedMeaning": "créer",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-D09:user:1",
+              "sourceText": "un protocole PHRC",
+              "normalizedMeaning": "protocole PHRC",
+              "mappedClientElementIds": [
+                "elem-1",
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-D09:user:1",
+              "sourceText": "multicentrique",
+              "normalizedMeaning": "multicentrique",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-D09:user:1",
+              "sourceText": "sur la myocardite",
+              "normalizedMeaning": "myocardite",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relations": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-2",
+              "normalizedRelation": "AIMS_TO_CREATE",
+              "mappedClientRelationIds": [
+                "coalesced:elem-1",
+                "rel-elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-2",
+              "normalizedRelation": "QUALIFIES",
+              "mappedClientRelationIds": [
+                "coalesced:elem-2",
+                "rel-elem-1",
+                "rel-elem-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "Both inventory fragments are explicitly preserved inside one typed Semantic Element; a redundant self-relation is not required."
+            },
+            {
+              "inventoryRelationId": "rel-3",
+              "sourceInventoryItemId": "inv-4",
+              "targetInventoryItemId": "inv-2",
+              "normalizedRelation": "TARGETS",
+              "mappedClientRelationIds": [
+                "rel-elem-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "taxonomy": {
+          "status": "COMPLETE",
+          "findings": []
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D09",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 1,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 0.3333333333333333,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": []
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    },
+    {
+      "caseId": "SEM-D10",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "item-1",
+              "sourceMessageId": "SEM-D10:user:1",
+              "sourceText": "DSC",
+              "normalizedMeaning": "DSC",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-2",
+              "sourceMessageId": "SEM-D10:user:1",
+              "sourceText": "ASL",
+              "normalizedMeaning": "ASL",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-3",
+              "sourceMessageId": "SEM-D10:user:1",
+              "sourceText": "CBF",
+              "normalizedMeaning": "CBF",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-4",
+              "sourceMessageId": "SEM-D10:user:1",
+              "sourceText": "tumoral",
+              "normalizedMeaning": "tumoral",
+              "mappedClientElementIds": [
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-5",
+              "sourceMessageId": "SEM-D10:user:1",
+              "sourceText": "Comparer",
+              "normalizedMeaning": "comparer",
+              "mappedClientElementIds": [
+                "elem-5"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relations": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "item-1",
+              "targetInventoryItemId": "item-2",
+              "normalizedRelation": "COMPARES_WITH",
+              "mappedClientRelationIds": [
+                "rel-elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "item-3",
+              "targetInventoryItemId": "item-1",
+              "normalizedRelation": "MEASURED_BY",
+              "mappedClientRelationIds": [
+                "rel-elem-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+            },
+            {
+              "inventoryRelationId": "rel-3",
+              "sourceInventoryItemId": "item-3",
+              "targetInventoryItemId": "item-2",
+              "normalizedRelation": "MEASURED_BY",
+              "mappedClientRelationIds": [
+                "rel-elem-3"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+            }
+          ]
+        },
+        "taxonomy": {
+          "status": "COMPLETE",
+          "findings": []
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D10",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 1,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": []
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    },
+    {
+      "caseId": "SEM-D11",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "INCOMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv_01",
+              "sourceMessageId": "SEM-D11:user:1",
+              "sourceText": "Est-ce que",
+              "normalizedMeaning": "interrogation",
+              "mappedClientElementIds": [
+                "elem_01"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_02",
+              "sourceMessageId": "SEM-D11:user:1",
+              "sourceText": "le photon-counting",
+              "normalizedMeaning": "scanner a comptage de photons",
+              "mappedClientElementIds": [
+                "elem_02"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_03",
+              "sourceMessageId": "SEM-D11:user:1",
+              "sourceText": "détecte",
+              "normalizedMeaning": "detecte",
+              "mappedClientElementIds": [],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "UNRESOLVED_EXPLICIT_FRAGMENT",
+              "reason": "The exact inventory fragment has no source-grounded typed Semantic Element mapping."
+            },
+            {
+              "inventoryItemId": "inv_04",
+              "sourceMessageId": "SEM-D11:user:1",
+              "sourceText": "mieux",
+              "normalizedMeaning": "mieux",
+              "mappedClientElementIds": [],
+              "mappedClientRelationIds": [
+                "rel_01",
+                "rel_03"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "The explicit relational marker is represented by its source-grounded direct Semantic Relation rather than by a false object node."
+            },
+            {
+              "inventoryItemId": "inv_05",
+              "sourceMessageId": "SEM-D11:user:1",
+              "sourceText": "les nodules pulmonaires",
+              "normalizedMeaning": "nodules pulmonaires",
+              "mappedClientElementIds": [
+                "elem_03"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_06",
+              "sourceMessageId": "SEM-D11:user:1",
+              "sourceText": "le CT conventionnel",
+              "normalizedMeaning": "CT conventionnel",
+              "mappedClientElementIds": [
+                "elem_04"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relations": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel_inv_01",
+              "sourceInventoryItemId": "inv_02",
+              "targetInventoryItemId": "inv_05",
+              "normalizedRelation": "MEASURES",
+              "mappedClientRelationIds": [
+                "rel_01"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_inv_02",
+              "sourceInventoryItemId": "inv_06",
+              "targetInventoryItemId": "inv_05",
+              "normalizedRelation": "MEASURES",
+              "mappedClientRelationIds": [
+                "rel_02"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_inv_03",
+              "sourceInventoryItemId": "inv_02",
+              "targetInventoryItemId": "inv_06",
+              "normalizedRelation": "COMPARES_WITH",
+              "mappedClientRelationIds": [
+                "rel_03"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+            }
+          ]
+        },
+        "taxonomy": {
+          "status": "INCOMPLETE",
+          "findings": [
+            {
+              "code": "IMAGING_FAMILY_TYPED_AS_METHOD",
+              "clientElementId": "elem_04",
+              "currentType": "METHOD",
+              "expectedType": "MODALITY",
+              "expectedStudyRole": "COMPARATOR_ARM",
+              "reason": "The exact source names a broad imaging family without a sequence, acquisition or processing qualifier; the operational taxonomy requires MODALITY."
+            },
+            {
+              "code": "IMAGING_FAMILY_TYPED_AS_METHOD",
+              "clientElementId": "elem_02",
+              "currentType": "METHOD",
+              "expectedType": "MODALITY",
+              "expectedStudyRole": "INTERVENTION_ARM",
+              "reason": "This compared element denotes a whole imaging family and its counterpart is a modality; no source qualifier identifies a subordinate technique."
+            }
+          ]
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D11",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 1,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 0,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": []
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    },
+    {
+      "caseId": "SEM-D12",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "item-1",
+              "sourceMessageId": "SEM-D12:user:1",
+              "sourceText": "quantifier",
+              "normalizedMeaning": "quantifier",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-2",
+              "sourceMessageId": "SEM-D12:user:1",
+              "sourceText": "la graisse hépatique",
+              "normalizedMeaning": "graisse hépatique",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-3",
+              "sourceMessageId": "SEM-D12:user:1",
+              "sourceText": "en IRM",
+              "normalizedMeaning": "IRM",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-4",
+              "sourceMessageId": "SEM-D12:user:1",
+              "sourceText": "avant",
+              "normalizedMeaning": "avant",
+              "mappedClientElementIds": [
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-5",
+              "sourceMessageId": "SEM-D12:user:1",
+              "sourceText": "après",
+              "normalizedMeaning": "après",
+              "mappedClientElementIds": [
+                "elem-5"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-6",
+              "sourceMessageId": "SEM-D12:user:1",
+              "sourceText": "intervention",
+              "normalizedMeaning": "intervention",
+              "mappedClientElementIds": [
+                "elem-6"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relations": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "item-3",
+              "targetInventoryItemId": "item-2",
+              "normalizedRelation": "MEASURES",
+              "mappedClientRelationIds": [
+                "rel-elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "item-2",
+              "targetInventoryItemId": "item-6",
+              "normalizedRelation": "CHANGES_AFTER",
+              "mappedClientRelationIds": [
+                "rel-elem-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+            }
+          ]
+        },
+        "taxonomy": {
+          "status": "INCOMPLETE",
+          "findings": [
+            {
+              "code": "TARGET_TYPED_AS_BIOMARKER",
+              "clientElementId": "elem-2",
+              "currentType": "BIOMARKER",
+              "expectedType": "SCIENTIFIC_OBJECT",
+              "expectedStudyRole": "SUBJECT",
+              "reason": "The inventory identifies this phrase as the material/physiological target itself and no quantitative value, index or parameter is expressed; the operational taxonomy requires SCIENTIFIC_OBJECT."
+            }
+          ]
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D12",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 1,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": []
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    },
+    {
+      "caseId": "SEM-D13",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "item-1",
+              "sourceMessageId": "SEM-D13:user:1",
+              "sourceText": "cartilage",
+              "normalizedMeaning": "cartilage",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-2",
+              "sourceMessageId": "SEM-D13:user:1",
+              "sourceText": "genou",
+              "normalizedMeaning": "genou",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-3",
+              "sourceMessageId": "SEM-D13:user:1",
+              "sourceText": "T2 mapping",
+              "normalizedMeaning": "T2 mapping",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-4",
+              "sourceMessageId": "SEM-D13:user:1",
+              "sourceText": "suivi",
+              "normalizedMeaning": "suivi",
+              "mappedClientElementIds": [
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-5",
+              "sourceMessageId": "SEM-D13:user:1",
+              "sourceText": "12 mois",
+              "normalizedMeaning": "12 mois",
+              "mappedClientElementIds": [
+                "elem-5"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relations": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "item-3",
+              "targetInventoryItemId": "item-1",
+              "normalizedRelation": "MEASURES",
+              "mappedClientRelationIds": [
+                "rel-elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "item-4",
+              "targetInventoryItemId": "item-5",
+              "normalizedRelation": "REPEATED_AT",
+              "mappedClientRelationIds": [
+                "rel-elem-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "taxonomy": {
+          "status": "COMPLETE",
+          "findings": []
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D13",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 1,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": []
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    },
+    {
+      "caseId": "SEM-D14",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv_1",
+              "sourceMessageId": "SEM-D14:user:1",
+              "sourceText": "Perfusion cérébrale",
+              "normalizedMeaning": "Perfusion cérébrale",
+              "mappedClientElementIds": [
+                "elem_1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_2",
+              "sourceMessageId": "SEM-D14:user:1",
+              "sourceText": "enfant",
+              "normalizedMeaning": "enfant",
+              "mappedClientElementIds": [
+                "elem_2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_3",
+              "sourceMessageId": "SEM-D14:user:1",
+              "sourceText": "ASL",
+              "normalizedMeaning": "ASL",
+              "mappedClientElementIds": [
+                "elem_3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_4",
+              "sourceMessageId": "SEM-D14:user:1",
+              "sourceText": "sans injection",
+              "normalizedMeaning": "sans injection",
+              "mappedClientElementIds": [
+                "elem_4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relations": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel_1",
+              "sourceInventoryItemId": "inv_3",
+              "targetInventoryItemId": "inv_1",
+              "normalizedRelation": "MEASURES",
+              "mappedClientRelationIds": [
+                "rel_el_1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_2",
+              "sourceInventoryItemId": "inv_4",
+              "targetInventoryItemId": "inv_3",
+              "normalizedRelation": "EXCLUDES",
+              "mappedClientRelationIds": [
+                "rel_el_2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "taxonomy": {
+          "status": "INCOMPLETE",
+          "findings": [
+            {
+              "code": "TARGET_TYPED_AS_BIOMARKER",
+              "clientElementId": "elem_1",
+              "currentType": "BIOMARKER",
+              "expectedType": "SCIENTIFIC_OBJECT",
+              "expectedStudyRole": "SUBJECT",
+              "reason": "The inventory identifies this phrase as the material/physiological target itself and no quantitative value, index or parameter is expressed; the operational taxonomy requires SCIENTIFIC_OBJECT."
+            }
+          ]
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D14",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 1,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": false,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": []
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    },
+    {
+      "caseId": "SEM-D15",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-D15:user:1",
+              "sourceText": "Valider",
+              "normalizedMeaning": "valider",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-D15:user:1",
+              "sourceText": "la répétabilité",
+              "normalizedMeaning": "répétabilité",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-D15:user:1",
+              "sourceText": "de l'ECV",
+              "normalizedMeaning": "ECV",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-D15:user:1",
+              "sourceText": "entre deux scanners",
+              "normalizedMeaning": "deux scanners",
+              "mappedClientElementIds": [
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [
+                "rel-elem-3"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relations": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-2",
+              "normalizedRelation": "AIMS_TO_MODIFY",
+              "mappedClientRelationIds": [
+                "rel-elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-3",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "mappedClientRelationIds": [
+                "rel-elem-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-3",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-4",
+              "normalizedRelation": "COMPARES_WITH",
+              "mappedClientRelationIds": [
+                "rel-elem-3"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "taxonomy": {
+          "status": "INCOMPLETE",
+          "findings": [
+            {
+              "code": "METHODOLOGICAL_OBJECTIVE_TYPED_AS_OUTCOME",
+              "clientElementId": "elem-2",
+              "currentType": "OUTCOME",
+              "expectedType": "SCIENTIFIC_INTENT",
+              "expectedStudyRole": "NONE",
+              "reason": "A sentence-leading methodological property governing the requested work is the scientific intent, not an observed result."
+            }
+          ]
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D15",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 1,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": []
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    },
+    {
+      "caseId": "SEM-D16",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "item-1",
+              "sourceMessageId": "SEM-D16:user:1",
+              "sourceText": "savoir",
+              "normalizedMeaning": "savoir",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-2",
+              "sourceMessageId": "SEM-D16:user:1",
+              "sourceText": "lecture centrale",
+              "normalizedMeaning": "lecture centrale",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-3",
+              "sourceMessageId": "SEM-D16:user:1",
+              "sourceText": "réduit",
+              "normalizedMeaning": "réduit",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-4",
+              "sourceMessageId": "SEM-D16:user:1",
+              "sourceText": "variabilité interlecteur",
+              "normalizedMeaning": "variabilité interlecteur",
+              "mappedClientElementIds": [
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relations": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "item-2",
+              "targetInventoryItemId": "item-4",
+              "normalizedRelation": "INFLUENCES",
+              "mappedClientRelationIds": [
+                "rel-elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "taxonomy": {
+          "status": "INCOMPLETE",
+          "findings": [
+            {
+              "code": "INTERVENTION_ROLE_TYPED_AS_METHOD",
+              "clientElementId": "elem-2",
+              "currentType": "METHOD",
+              "expectedType": "INTERVENTION",
+              "expectedStudyRole": "INTERVENTION_ARM",
+              "reason": "A technical process explicitly installed as a study arm to modify or compare a result retains semantic type INTERVENTION; its arm role does not erase its action nature."
+            },
+            {
+              "code": "MODIFICATION_TARGET_NOT_OUTCOME",
+              "clientElementId": "elem-4",
+              "currentType": "BIOMARKER",
+              "expectedType": "OUTCOME",
+              "expectedStudyRole": "OUTCOME_ROLE",
+              "reason": "The explicit result targeted for modification by the studied action is an OUTCOME, without promoting it to a formal ENDPOINT."
+            }
+          ]
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D16",
+        "explicitObjectRecall": 0,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 0.3333333333333333,
+        "comparatorPreserved": true,
+        "interventionPreserved": false,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_INTERVENTION_LOST:lecture centrale",
+          "EXPLICIT_OUTCOME_LOST:variabilité interlecteur"
+        ]
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    },
+    {
+      "caseId": "SEM-D17",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "item-1",
+              "sourceMessageId": "SEM-D17:user:1",
+              "sourceText": "volume tumoral métabolique",
+              "normalizedMeaning": "volume tumoral métabolique",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-2",
+              "sourceMessageId": "SEM-D17:user:1",
+              "sourceText": "survie",
+              "normalizedMeaning": "survie",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-3",
+              "sourceMessageId": "SEM-D17:user:1",
+              "sourceText": "prédit",
+              "normalizedMeaning": "prédit",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [
+                "rel-elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relations": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "item-1",
+              "targetInventoryItemId": "item-2",
+              "normalizedRelation": "PREDICTS_CANDIDATE",
+              "mappedClientRelationIds": [
+                "rel-elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "taxonomy": {
+          "status": "COMPLETE",
+          "findings": []
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D17",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 1,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": []
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    },
+    {
+      "caseId": "SEM-D18",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-D18:user:1",
+              "sourceText": "TDM faible dose",
+              "normalizedMeaning": "TDM faible dose",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-D18:user:1",
+              "sourceText": "radio",
+              "normalizedMeaning": "radiographie",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-D18:user:1",
+              "sourceText": "versus",
+              "normalizedMeaning": "versus",
+              "mappedClientElementIds": [],
+              "mappedClientRelationIds": [
+                "rel-elem-1",
+                "rel-elem-2",
+                "rel-elem-3"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "The explicit relational marker is represented by its source-grounded direct Semantic Relation rather than by a false object node."
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-D18:user:1",
+              "sourceText": "diagnostic",
+              "normalizedMeaning": "diagnostic",
+              "mappedClientElementIds": [
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-D18:user:1",
+              "sourceText": "pneumonie",
+              "normalizedMeaning": "pneumonie",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relations": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-2",
+              "normalizedRelation": "COMPARES_WITH",
+              "mappedClientRelationIds": [
+                "rel-elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-5",
+              "normalizedRelation": "OBSERVES",
+              "mappedClientRelationIds": [
+                "rel-elem-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+            },
+            {
+              "inventoryRelationId": "rel-3",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-5",
+              "normalizedRelation": "OBSERVES",
+              "mappedClientRelationIds": [
+                "rel-elem-3"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+            }
+          ]
+        },
+        "taxonomy": {
+          "status": "INCOMPLETE",
+          "findings": [
+            {
+              "code": "IMAGING_FAMILY_TYPED_AS_METHOD",
+              "clientElementId": "elem-1",
+              "currentType": "METHOD",
+              "expectedType": "MODALITY",
+              "expectedStudyRole": "MEASUREMENT",
+              "reason": "The exact source names a broad imaging family without a sequence, acquisition or processing qualifier; the operational taxonomy requires MODALITY."
+            },
+            {
+              "code": "IMAGING_FAMILY_TYPED_AS_METHOD",
+              "clientElementId": "elem-2",
+              "currentType": "METHOD",
+              "expectedType": "MODALITY",
+              "expectedStudyRole": "COMPARATOR_ARM",
+              "reason": "The exact source names a broad imaging family without a sequence, acquisition or processing qualifier; the operational taxonomy requires MODALITY."
+            }
+          ]
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D18",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 1,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": []
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    },
+    {
+      "caseId": "SEM-D19",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-D19:user:1",
+              "sourceText": "Ablation précoce",
+              "normalizedMeaning": "ablation précoce",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-D19:user:1",
+              "sourceText": "tardive",
+              "normalizedMeaning": "ablation tardive",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-D19:user:1",
+              "sourceText": "remodelage atrial",
+              "normalizedMeaning": "remodelage atrial",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-D19:user:1",
+              "sourceText": "IRM",
+              "normalizedMeaning": "imagerie par résonance magnétique",
+              "mappedClientElementIds": [
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relations": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-2",
+              "normalizedRelation": "COMPARES_WITH",
+              "mappedClientRelationIds": [
+                "rel-elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-1",
+              "normalizedRelation": "INFLUENCES",
+              "mappedClientRelationIds": [
+                "rel-elem-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-3",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-4",
+              "normalizedRelation": "MEASURED_BY",
+              "mappedClientRelationIds": [
+                "rel-elem-3"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "taxonomy": {
+          "status": "INCOMPLETE",
+          "findings": [
+            {
+              "code": "MEASURED_TARGET_TYPED_AS_PHENOMENON",
+              "clientElementId": "elem-3",
+              "currentType": "PHENOMENON",
+              "expectedType": "SCIENTIFIC_OBJECT",
+              "expectedStudyRole": "OUTCOME_ROLE",
+              "reason": "The phrase is used as the named target of direct observation or measurement, not as a process whose mechanism is being explained."
+            }
+          ]
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D19",
+        "explicitObjectRecall": 0.75,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 0.8333333333333334,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_SCIENTIFIC_OBJECT_LOST:remodelage atrial"
+        ]
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    },
+    {
+      "caseId": "SEM-D20",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-D20:user:1",
+              "sourceText": "association",
+              "normalizedMeaning": "association",
+              "mappedClientElementIds": [],
+              "mappedClientRelationIds": [
+                "rel-1",
+                "rel-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "The explicit relational marker is represented by its source-grounded direct Semantic Relation rather than by a false object node."
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-D20:user:1",
+              "sourceText": "calcifications coronaires",
+              "normalizedMeaning": "calcifications coronaires",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-D20:user:1",
+              "sourceText": "événements",
+              "normalizedMeaning": "événements cliniques",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-D20:user:1",
+              "sourceText": "3 ans",
+              "normalizedMeaning": "3 ans",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relations": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-inv-1",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-3",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "mappedClientRelationIds": [
+                "rel-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-inv-2",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-4",
+              "normalizedRelation": "REPEATED_AT",
+              "mappedClientRelationIds": [
+                "rel-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "taxonomy": {
+          "status": "COMPLETE",
+          "findings": []
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D20",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 1,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": false,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": []
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    },
+    {
+      "caseId": "SEM-D21",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "item_1",
+              "sourceMessageId": "SEM-D21:user:1",
+              "sourceText": "Harmoniser",
+              "normalizedMeaning": "harmoniser",
+              "mappedClientElementIds": [
+                "elem_1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item_2",
+              "sourceMessageId": "SEM-D21:user:1",
+              "sourceText": "T1 mapping",
+              "normalizedMeaning": "T1 mapping",
+              "mappedClientElementIds": [
+                "elem_2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item_3",
+              "sourceMessageId": "SEM-D21:user:1",
+              "sourceText": "1,5T et 3T",
+              "normalizedMeaning": "1.5T and 3T magnetic field strengths",
+              "mappedClientElementIds": [
+                "elem_3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item_4",
+              "sourceMessageId": "SEM-D21:user:1",
+              "sourceText": "8 centres",
+              "normalizedMeaning": "8 centers",
+              "mappedClientElementIds": [
+                "elem_4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relations": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel_1",
+              "sourceInventoryItemId": "item_1",
+              "targetInventoryItemId": "item_2",
+              "normalizedRelation": "AIMS_TO_MODIFY",
+              "mappedClientRelationIds": [
+                "rel_el_1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_2",
+              "sourceInventoryItemId": "item_3",
+              "targetInventoryItemId": "item_2",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "mappedClientRelationIds": [
+                "rel_el_2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "taxonomy": {
+          "status": "INCOMPLETE",
+          "findings": [
+            {
+              "code": "MAPPING_TECHNIQUE_TYPED_AS_BIOMARKER",
+              "clientElementId": "elem_2",
+              "currentType": "BIOMARKER",
+              "expectedType": "METHOD",
+              "expectedStudyRole": "MEASUREMENT",
+              "reason": "The exact phrase denotes a mapping, acquisition or analysis technique that produces information; the operational taxonomy requires METHOD."
+            }
+          ]
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D21",
+        "explicitObjectRecall": 0.5,
+        "explicitRelationRecall": 0,
+        "criticalSemanticRecall": 0.4,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_CONSTRAINT_LOST:1,5T",
+          "EXPLICIT_CONSTRAINT_LOST:3T",
+          "RELATION_LOST:1,5T->3T"
+        ]
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    },
+    {
+      "caseId": "SEM-D22",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "INCOMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-D22:user:1",
+              "sourceText": "iode",
+              "normalizedMeaning": "iode",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-D22:user:1",
+              "sourceText": "mesuré",
+              "normalizedMeaning": "mesure",
+              "mappedClientElementIds": [],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "UNRESOLVED_EXPLICIT_FRAGMENT",
+              "reason": "The exact inventory fragment has no source-grounded typed Semantic Element mapping."
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-D22:user:1",
+              "sourceText": "dual energy",
+              "normalizedMeaning": "dual energy",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-D22:user:1",
+              "sourceText": "photon counting",
+              "normalizedMeaning": "photon counting",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relations": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-3",
+              "normalizedRelation": "MEASURED_BY",
+              "mappedClientRelationIds": [
+                "rel-el-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-4",
+              "normalizedRelation": "MEASURED_BY",
+              "mappedClientRelationIds": [
+                "rel-el-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+            },
+            {
+              "inventoryRelationId": "rel-3",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-4",
+              "normalizedRelation": "COMPARES_WITH",
+              "mappedClientRelationIds": [
+                "rel-el-3"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "taxonomy": {
+          "status": "COMPLETE",
+          "findings": []
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D22",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 1,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": []
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    },
+    {
+      "caseId": "SEM-D23",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-D23:user:1",
+              "sourceText": "OEF",
+              "normalizedMeaning": "fraction d'extraction d'oxygène",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-D23:user:1",
+              "sourceText": "CMRO2",
+              "normalizedMeaning": "consommation métabolique cérébrale d'oxygène",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-D23:user:1",
+              "sourceText": "après AVC",
+              "normalizedMeaning": "après accident vasculaire cérébral",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-D23:user:1",
+              "sourceText": "AVC",
+              "normalizedMeaning": "accident vasculaire cérébral",
+              "mappedClientElementIds": [
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-D23:user:1",
+              "sourceText": "évolution",
+              "normalizedMeaning": "évolution temporelle",
+              "mappedClientElementIds": [
+                "elem-5"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relations": {
+          "status": "INCOMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-5",
+              "normalizedRelation": "CHANGES_AFTER",
+              "mappedClientRelationIds": [
+                "rel-elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-5",
+              "normalizedRelation": "CHANGES_AFTER",
+              "mappedClientRelationIds": [
+                "rel-elem-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+            },
+            {
+              "inventoryRelationId": "rel-3",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-4",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "mappedClientRelationIds": [
+                "rel-elem-3"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+            },
+            {
+              "inventoryRelationId": "rel-4",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-4",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "mappedClientRelationIds": [
+                "rel-elem-4"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+            },
+            {
+              "inventoryRelationId": "structural:inventory-coordinated:elem-1:elem-2",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-2",
+              "normalizedRelation": "DIRECT_RELATED_TO_REQUIRED_FOR_COORDINATED_SCIENTIFIC_SUBJECTS_GROUNDED_BY_rel-1+rel-2",
+              "mappedClientRelationIds": [],
+              "coverageStatus": "EXPLICIT_RELATION_UNMAPPED",
+              "reason": "The inventory coordinates scientific subjects through the same requested change/outcome; their direct scientific relationship must be preserved even when the shared hub fragment is not yet classified."
+            }
+          ]
+        },
+        "taxonomy": {
+          "status": "INCOMPLETE",
+          "findings": [
+            {
+              "code": "CHANGE_REQUEST_TYPED_AS_TIMING",
+              "clientElementId": "elem-5",
+              "currentType": "PHENOMENON",
+              "expectedType": "SCIENTIFIC_INTENT",
+              "expectedStudyRole": "NONE",
+              "reason": "A bare request for evolution/change without a time point or interval is the scientific intent, not a timing value."
+            }
+          ]
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D23",
+        "explicitObjectRecall": 0.75,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 0.8,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 0,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": false,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_SCIENTIFIC_INTENT_LOST:évolution"
+        ]
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    },
+    {
+      "caseId": "SEM-D24",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "INCOMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "item-1",
+              "sourceMessageId": "SEM-D24:user:1",
+              "sourceText": "radiomique CT",
+              "normalizedMeaning": "radiomique CT",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-2",
+              "sourceMessageId": "SEM-D24:user:1",
+              "sourceText": "réponse immunothérapie",
+              "normalizedMeaning": "reponse a l'immunotherapie",
+              "mappedClientElementIds": [
+                "elem-2",
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-3",
+              "sourceMessageId": "SEM-D24:user:1",
+              "sourceText": "prédiction",
+              "normalizedMeaning": "prediction",
+              "mappedClientElementIds": [],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "UNRESOLVED_EXPLICIT_FRAGMENT",
+              "reason": "The exact inventory fragment has no source-grounded typed Semantic Element mapping."
+            },
+            {
+              "inventoryItemId": "item-4",
+              "sourceMessageId": "SEM-D24:user:1",
+              "sourceText": "baseline",
+              "normalizedMeaning": "ligne de base",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relations": {
+          "status": "INCOMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "item-1",
+              "targetInventoryItemId": "item-3",
+              "normalizedRelation": "MEASURES",
+              "mappedClientRelationIds": [],
+              "coverageStatus": "EXPLICIT_RELATION_UNMAPPED",
+              "reason": "The explicit relational construction has no mapped direct Semantic Relation between elements grounded to its inventory endpoints."
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "item-3",
+              "targetInventoryItemId": "item-2",
+              "normalizedRelation": "PREDICTS_CANDIDATE",
+              "mappedClientRelationIds": [],
+              "coverageStatus": "EXPLICIT_RELATION_UNMAPPED",
+              "reason": "The explicit relational construction has no mapped direct Semantic Relation between elements grounded to its inventory endpoints."
+            },
+            {
+              "inventoryRelationId": "rel-3",
+              "sourceInventoryItemId": "item-4",
+              "targetInventoryItemId": "item-1",
+              "normalizedRelation": "REPEATED_AT",
+              "mappedClientRelationIds": [
+                "rel-elem-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+            }
+          ]
+        },
+        "taxonomy": {
+          "status": "COMPLETE",
+          "findings": []
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D24",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 1,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": []
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    },
+    {
+      "caseId": "SEM-D25",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "item-1",
+              "sourceMessageId": "SEM-D25:user:1",
+              "sourceText": "Suivre",
+              "normalizedMeaning": "suivre",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-2",
+              "sourceMessageId": "SEM-D25:user:1",
+              "sourceText": "deux traceurs PET",
+              "normalizedMeaning": "deux traceurs PET",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-3",
+              "sourceMessageId": "SEM-D25:user:1",
+              "sourceText": "dans le temps",
+              "normalizedMeaning": "dans le temps",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relations": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "item-1",
+              "targetInventoryItemId": "item-2",
+              "normalizedRelation": "OBSERVES",
+              "mappedClientRelationIds": [
+                "rel-elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "item-1",
+              "targetInventoryItemId": "item-3",
+              "normalizedRelation": "REPEATED_AT",
+              "mappedClientRelationIds": [
+                "rel-elem-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+            }
+          ]
+        },
+        "taxonomy": {
+          "status": "COMPLETE",
+          "findings": []
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D25",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 1,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 0.5,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": []
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    },
+    {
+      "caseId": "SEM-D26",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-D26:user:1",
+              "sourceText": "plaque vulnérable",
+              "normalizedMeaning": "plaque vulnérable",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-D26:user:1",
+              "sourceText": "écho",
+              "normalizedMeaning": "échographie",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-D26:user:1",
+              "sourceText": "IRM",
+              "normalizedMeaning": "imagerie par résonance magnétique",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relations": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-3",
+              "normalizedRelation": "COMPARES_WITH",
+              "mappedClientRelationIds": [
+                "rel-elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-1",
+              "normalizedRelation": "OBSERVES",
+              "mappedClientRelationIds": [
+                "rel-elem-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-3",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-1",
+              "normalizedRelation": "OBSERVES",
+              "mappedClientRelationIds": [
+                "rel-elem-3"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+            }
+          ]
+        },
+        "taxonomy": {
+          "status": "COMPLETE",
+          "findings": []
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D26",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 1,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 0,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": []
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    },
+    {
+      "caseId": "SEM-D27",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-D27:user:1",
+              "sourceText": "reproductibilité",
+              "normalizedMeaning": "reproductibilité",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-D27:user:1",
+              "sourceText": "intersite",
+              "normalizedMeaning": "intersite",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-D27:user:1",
+              "sourceText": "segmentation",
+              "normalizedMeaning": "segmentation",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-D27:user:1",
+              "sourceText": "foie",
+              "normalizedMeaning": "foie",
+              "mappedClientElementIds": [
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-D27:user:1",
+              "sourceText": "IA",
+              "normalizedMeaning": "intelligence artificielle",
+              "mappedClientElementIds": [
+                "elem-5"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relations": {
+          "status": "COMPLETE",
+          "entries": []
+        },
+        "taxonomy": {
+          "status": "INCOMPLETE",
+          "findings": [
+            {
+              "code": "METHODOLOGICAL_OBJECTIVE_TYPED_AS_OUTCOME",
+              "clientElementId": "elem-1",
+              "currentType": "OUTCOME",
+              "expectedType": "SCIENTIFIC_INTENT",
+              "expectedStudyRole": "NONE",
+              "reason": "A sentence-leading methodological property governing the requested work is the scientific intent, not an observed result."
+            }
+          ]
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D27",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 1,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": false,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": []
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    },
+    {
+      "caseId": "SEM-D28",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-D28:user:1",
+              "sourceText": "Dyspnée",
+              "normalizedMeaning": "Dyspnée",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-D28:user:1",
+              "sourceText": "CT",
+              "normalizedMeaning": "Computed Tomography",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-D28:user:1",
+              "sourceText": "inspiration expiration",
+              "normalizedMeaning": "inspiration expiration phases",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-D28:user:1",
+              "sourceText": "air trapping",
+              "normalizedMeaning": "air trapping",
+              "mappedClientElementIds": [
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-D28:user:1",
+              "sourceText": "quantifié",
+              "normalizedMeaning": "quantification",
+              "mappedClientElementIds": [
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relations": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-4",
+              "targetInventoryItemId": "inv-2",
+              "normalizedRelation": "MEASURED_BY",
+              "mappedClientRelationIds": [
+                "rel-elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+            }
+          ]
+        },
+        "taxonomy": {
+          "status": "COMPLETE",
+          "findings": []
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D28",
+        "explicitObjectRecall": 0.3333333333333333,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 0.5,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": false,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_CONDITION_LOST:dyspnée",
+          "EXPLICIT_METHOD_LOST:CT inspiration-expiration"
+        ]
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    },
+    {
+      "caseId": "SEM-D29",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-u2-1",
+              "sourceMessageId": "SEM-D29:user:2",
+              "sourceText": "Non, ce n'est pas la taille de l'infarctus",
+              "normalizedMeaning": "Rejet de la taille de l'infarctus comme critère",
+              "mappedClientElementIds": [
+                "elem-ke1-0024c6e07992a364-neg"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-u2-2",
+              "sourceMessageId": "SEM-D29:user:2",
+              "sourceText": "taille de l'infarctus",
+              "normalizedMeaning": "Taille d'infarctus",
+              "mappedClientElementIds": [
+                "elem-ke1-0024c6e07992a364-neg"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-u2-3",
+              "sourceMessageId": "SEM-D29:user:2",
+              "sourceText": "la MVO",
+              "normalizedMeaning": "MVO",
+              "mappedClientElementIds": [
+                "elem-ke1-mvo-endpoint"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relations": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-u2-1",
+              "sourceInventoryItemId": "inv-u2-3",
+              "targetInventoryItemId": "inv-u2-2",
+              "normalizedRelation": "REPLACES",
+              "mappedClientRelationIds": [
+                "rel-ke1-mvo-replaces"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "taxonomy": {
+          "status": "COMPLETE",
+          "findings": []
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D29",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 1,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": []
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    },
+    {
+      "caseId": "SEM-D30",
+      "reusedReconstruction": true,
+      "coverage": {
+        "explicit": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "item-1",
+              "sourceMessageId": "SEM-D30:user:1",
+              "sourceText": "Rédige",
+              "normalizedMeaning": "rédiger",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "item-2",
+              "sourceMessageId": "SEM-D30:user:1",
+              "sourceText": "le synopsis de mon étude",
+              "normalizedMeaning": "synopsis de l'étude",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relations": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "item-1",
+              "targetInventoryItemId": "item-2",
+              "normalizedRelation": "AIMS_TO_MODIFY",
+              "mappedClientRelationIds": [
+                "coalesced:elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "Both inventory fragments are explicitly preserved inside one typed Semantic Element; a redundant self-relation is not required."
+            }
+          ]
+        },
+        "taxonomy": {
+          "status": "COMPLETE",
+          "findings": []
+        }
+      },
+      "reevaluatedCachedCanonicalModel": {
+        "caseId": "SEM-D30",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 1,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 0,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": []
+      },
+      "llmRequired": true,
+      "reason": "CRITIC_PROMPT_AND_PROVIDER_SCHEMA_INVALIDATED_STAGE_2"
+    }
+  ]
+}

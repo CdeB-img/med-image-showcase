@@ -1,0 +1,13 @@
+{
+  "status": "DETERMINISTIC_RULES_VALIDATED_LIVE_CONFIRMATION_PARTIAL",
+  "genericRepairs": [
+    { "code": "INTERVENTION_ROLE_TYPED_AS_METHOD", "caseEvidence": ["SEM-D16"], "rule": "A technical process explicitly installed as an arm to modify a result retains INTERVENTION semantic type and its independent arm role." },
+    { "code": "MODIFICATION_TARGET_NOT_OUTCOME", "caseEvidence": ["SEM-D16"], "rule": "A result explicitly targeted for modification is OUTCOME without endpoint promotion." },
+    { "code": "MEASURED_TARGET_TYPED_AS_PHENOMENON", "caseEvidence": ["SEM-D19"], "rule": "A named target directly observed or measured remains SCIENTIFIC_OBJECT unless its mechanism/process is the question." },
+    { "code": "CHANGE_REQUEST_TYPED_AS_TIMING", "caseEvidence": ["SEM-D23"], "rule": "A bare evolution/change request without time point is SCIENTIFIC_INTENT." },
+    { "code": "SOURCE_AUDITED_COMPOSITE_AND_CLINICAL_STATE", "caseEvidence": ["SEM-D28"], "rule": "Critic audits composite acquisition concepts and clinical states against the source independently of the initial inventory." }
+  ],
+  "fixtureSpecificMappings": 0,
+  "liveConfirmedCases": ["SEM-D02"],
+  "liveBlockedCases": ["SEM-D16", "SEM-D19", "SEM-D21", "SEM-D23", "SEM-D28"]
+}

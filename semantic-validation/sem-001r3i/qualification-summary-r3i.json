@@ -1,0 +1,14 @@
+{
+  "campaign": "SEM-001R3I",
+  "decision": "R3I_DEVELOPMENT_REQUIRES_FURTHER_REPAIR",
+  "development": "29/30 COMPLETE",
+  "llm": {
+    "actualLlmCalls": 35,
+    "actualRequestStarts": 35,
+    "retries": 0,
+    "avoided": 44,
+      "deferredDevelopmentCalls": 0,
+      "deferredHoldoutCases": 30
+  },
+  "holdout": "NOT_STARTED_FORBIDDEN"
+}

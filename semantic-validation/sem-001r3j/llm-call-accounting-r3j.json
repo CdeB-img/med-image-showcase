@@ -1,0 +1,23 @@
+{
+  "campaign": "SEM-001R3J",
+  "provider": "GOOGLE_GEMINI",
+  "model": "gemini-3.5-flash-lite",
+  "llmCallsPerformed": 0,
+  "requestStarts": 0,
+  "llmRetries": 0,
+  "structuredRegenerations": 0,
+  "llmCallsAvoidedByReuse": 79,
+  "avoidedDetail": {
+    "inheritedCompatibleCache": 44,
+    "persistedR3iProviderOutputs": 35
+  },
+  "deterministicCaseReplays": 1,
+  "deterministicStageExecutions": 4,
+  "casesReusedUnchanged": 29,
+  "casesInvalidated": 1,
+  "invalidatedCaseIds": [
+    "SEM-D22"
+  ],
+  "providerIncidents": [],
+  "holdoutCalls": 0
+}

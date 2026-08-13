@@ -1,0 +1,26 @@
+{
+  "phase": "TARGETED",
+  "selectedCases": [
+    "SEM-D02",
+    "SEM-D16",
+    "SEM-D19",
+    "SEM-D21",
+    "SEM-D23",
+    "SEM-D28"
+  ],
+  "limiter": {
+    "maxRequests": 5,
+    "windowMs": 60000,
+    "totalStarts": 11,
+    "retainedStarts": [
+      "2026-08-12T10:52:07.886Z",
+      "2026-08-12T10:52:17.158Z",
+      "2026-08-12T10:52:18.626Z",
+      "2026-08-12T10:52:21.084Z",
+      "2026-08-12T10:52:32.737Z"
+    ]
+  },
+  "stoppedForProvider": false,
+  "criticPromptVersion": "SEM-001-CRITIC-1.3",
+  "providerSchemaDigest": "ke1-c849778553bf38b1"
+}

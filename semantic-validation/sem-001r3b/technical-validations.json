@@ -1,0 +1,31 @@
+{
+  "preProvider": {
+    "r3bTargetedTests": "15/15 PASS",
+    "semanticSuite": "128/128 PASS",
+    "typecheck": "PASS",
+    "gitDiffCheck": "PASS"
+  },
+  "postBlock": {
+    "semanticSuite": "128/128 PASS",
+    "typecheck": "PASS",
+    "lint": "PASS_WITH_7_PREEXISTING_FAST_REFRESH_WARNINGS",
+    "build": "PASS_WITH_NON_BLOCKING_CHUNK_SIZE_WARNING",
+    "gitDiffCheck": "PASS",
+    "globalSuite": "1161/1164 PASS; 3 failures caused exclusively by pre-existing dirty external editorial-engine checkout"
+  },
+  "postCompatibleDevelopmentSuites": "NOT_RUN_AS_GATE_BECAUSE_R3B_30_OF_30_WAS_NOT_REACHED",
+  "r3cContinuation": {
+    "configurationIdentityBeforeProvider": "17/17 PASS",
+    "configurationIdentityAfterProvider": "17/17 PASS",
+    "targetedProviderResilienceAndIntegrity": "21/21 PASS",
+    "semanticSuite": "132/132 PASS",
+    "typecheck": "PASS",
+    "lint": "PASS_WITH_7_PREEXISTING_FAST_REFRESH_WARNINGS",
+    "build": "PASS_WITH_NON_BLOCKING_CHUNK_SIZE_AND_BROWSERSLIST_WARNINGS",
+    "gitDiffCheck": "PASS",
+    "targetedGate": "REQUIRES_FURTHER_WORK",
+    "remainingCriticPhase": "NOT_RUN_BY_FAILED_TARGETED_GATE"
+  },
+  "browser": "NOT_RUN_BY_SCOPE",
+  "liveDownstream": "NOT_RUN_BY_SCOPE"
+}

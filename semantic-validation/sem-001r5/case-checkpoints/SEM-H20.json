@@ -1,0 +1,2203 @@
+{
+  "campaign": "SEM-001R5-DIAGNOSTIC",
+  "campaignId": "sem-001r5-diagnostic-2026-08-12T22-15-01-231Z-ke1-75b68ddee7e53412",
+  "caseId": "SEM-H20",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-75b68ddee7e53412",
+  "semanticConfigurationDigest": "ke1-01d917dec0ebcd82",
+  "goldFrameDigest": "ke1-efe03c0b1e57f937",
+  "originalRequest": [
+    "ASL hépatique sans gadolinium chez insuffisants rénaux, faisable ?"
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-12T22:19:35.349Z",
+  "completedAt": "2026-08-12T22:19:47.371Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H20:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Évaluation de la faisabilité de l'imagerie ASL hépatique sans agent de contraste au gadolinium chez des patients présentant une insuffisance rénale",
+        "summaryForUser": "Évaluation de la faisabilité de l'ASL hépatique sans gadolinium en cas d'insuffisance rénale.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H20:user:1",
+              "sourceText": "ASL hépatique",
+              "normalizedLabel": "ASL hépatique",
+              "localRole": "target_method",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "hépatique"
+              ],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H20:user:1",
+              "sourceText": "sans gadolinium",
+              "normalizedLabel": "sans gadolinium",
+              "localRole": "constraint",
+              "polarity": "NEGATED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-1"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H20:user:1",
+              "sourceText": "insuffisants rénaux",
+              "normalizedLabel": "insuffisance rénale",
+              "localRole": "population_condition",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H20:user:1",
+              "sourceText": "faisable",
+              "normalizedLabel": "faisabilité",
+              "localRole": "evaluation",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-1"
+              ]
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H20:user:1",
+              "sourceText": "ASL hépatique sans gadolinium",
+              "normalizedRelation": "EXCLUDES",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-4",
+              "targetInventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H20:user:1",
+              "sourceText": "ASL hépatique [...] faisable",
+              "normalizedRelation": "EVALUATES",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "METHOD",
+            "canonicalMeaning": "Imagerie par marquage des spins artériels (ASL) hépatique",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceMessageId": "SEM-H20:user:1",
+            "sourceText": "ASL hépatique",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "Exclusion du produit de contraste gadolinium",
+            "studyRole": "NONE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceMessageId": "SEM-H20:user:1",
+            "sourceText": "sans gadolinium",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "CONDITION",
+            "canonicalMeaning": "Insuffisance rénale chez les sujets",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceMessageId": "SEM-H20:user:1",
+            "sourceText": "insuffisants rénaux",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-4",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Évaluer la faisabilité clinique ou technique",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "sourceMessageId": "SEM-H20:user:1",
+            "sourceText": "faisable",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-5",
+            "type": "ANATOMICAL_CONTEXT",
+            "canonicalMeaning": "Foie",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceMessageId": "SEM-H20:user:1",
+            "sourceText": "hépatique",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-elem-1",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-2",
+            "relationType": "EXCLUDES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-2",
+            "sourceClientElementId": "elem-4",
+            "targetClientElementId": "elem-1",
+            "relationType": "EVALUATES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-3",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-3",
+            "relationType": "APPLIED_TO",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [],
+            "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+            "confidence": 0.9,
+            "inferenceReason": "Method applied to patients with the condition",
+            "requiresConfirmation": true
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [
+          "Critères précis de faisabilité non spécifiés"
+        ],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [
+          {
+            "question": "Souhaitez-vous préciser le contexte clinique ou les critères de mesure de la faisabilité pour cette évaluation ?",
+            "reason": "Préciser l'objectif exact de l'évaluation de faisabilité.",
+            "resolvesClientElementIds": [
+              "elem-4"
+            ]
+          }
+        ],
+        "routeProposal": {
+          "route": "UNDERSTAND",
+          "confidence": 0.85,
+          "reason": "L'utilisateur interroge sur la faisabilité générale d'une méthode sans protocole formel de recherche détaillé.",
+          "expectedCapabilities": [
+            "Exploration de faisabilité méthodologique",
+            "Analyse d'imagerie sans agent de contraste"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "reconstructionDigest": "ke1-5c2fecc7393d63f3",
+      "critics": [
+        {
+          "criticId": "crit-001",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects (ASL hépatique, insuffisants rénaux, gadolinium) are fully represented."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is explicitly requested in the prompt."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No specific therapeutic or technical intervention study arm is requested."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "MRI modality is implicit in ASL, and represented properly via METHOD."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit inventory relations are mapped."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Taxonomy taxonomyReport status is COMPLETE with no findings."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations are faithfully preserved."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Inferences are appropriately marked with epistemic status."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Ambiguity regarding feasibility criteria is appropriately surfaced."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "The constraint 'sans gadolinium' is correctly typed as NEGATED."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No specific timing is expressed in the query."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No ungrounded endpoint promotion was performed."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like ASL hépatique are preserved accurately."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No source fragments are missing from the inventory."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The UNDERSTAND route fits the methodological feasibility query."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The typed candidate perfectly aligns with the user query, with complete explicit coverage, valid classification taxonomy, and correct epistemic statuses."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-52c97448cf24d6c4",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "ASL hépatique sans gadolinium chez insuffisants rénaux, faisable ?",
+        "normalizedMeaning": "Évaluation de la faisabilité de l'imagerie ASL hépatique sans agent de contraste au gadolinium chez des patients présentant une insuffisance rénale",
+        "conversationMessageIds": [
+          "SEM-H20:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-5db85fe268210216",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "Exclusion du produit de contraste gadolinium",
+            "studyRole": "NONE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H20:user:1",
+              "text": "sans gadolinium",
+              "start": 14,
+              "end": 29
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-fcb81128a72a9a84"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H20:user:1",
+              "providerCallId": "gemini-call:ke1-9154f178690c1664",
+              "rawElementId": "elem-2"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-5f5476b4cd8c3550",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Évaluer la faisabilité clinique ou technique",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H20:user:1",
+              "text": "faisable",
+              "start": 56,
+              "end": 64
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-bb1a380eaca410ea"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H20:user:1",
+              "providerCallId": "gemini-call:ke1-9154f178690c1664",
+              "rawElementId": "elem-4"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-788e948ae30fd656",
+            "type": "ANATOMICAL_CONTEXT",
+            "canonicalMeaning": "Foie",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H20:user:1",
+              "text": "hépatique",
+              "start": 4,
+              "end": 13
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H20:user:1",
+              "providerCallId": "gemini-call:ke1-9154f178690c1664",
+              "rawElementId": "elem-5"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-90561fa4480a6e58",
+            "type": "CONDITION",
+            "canonicalMeaning": "Insuffisance rénale chez les sujets",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H20:user:1",
+              "text": "insuffisants rénaux",
+              "start": 35,
+              "end": 54
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-9a50d5626d37dc46"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-8b4c6d9b5d8a8347",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-ba84b1aefa1c0c9a",
+                "knowledge-gap:ke1-c27502930d9ad6a7",
+                "knowledge-gap:ke1-f532e5341fc5e910"
+              ],
+              "checkedAt": "2026-08-12T22:19:47.369Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H20:user:1",
+              "providerCallId": "gemini-call:ke1-9154f178690c1664",
+              "rawElementId": "elem-3"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-be7de331b394366d",
+            "type": "METHOD",
+            "canonicalMeaning": "Imagerie par marquage des spins artériels (ASL) hépatique",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H20:user:1",
+              "text": "ASL hépatique",
+              "start": 0,
+              "end": 13
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-9a50d5626d37dc46",
+              "sem-relation:ke1-bb1a380eaca410ea",
+              "sem-relation:ke1-fcb81128a72a9a84"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H20:user:1",
+              "providerCallId": "gemini-call:ke1-9154f178690c1664",
+              "rawElementId": "elem-1"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-9a50d5626d37dc46",
+            "sourceElementId": "sem-element:ke1-be7de331b394366d",
+            "targetElementId": "sem-element:ke1-90561fa4480a6e58",
+            "relationType": "APPLIED_TO",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+            "confidence": 0.9,
+            "inferenceReason": "Method applied to patients with the condition",
+            "requiresConfirmation": true,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-bb1a380eaca410ea",
+            "sourceElementId": "sem-element:ke1-5f5476b4cd8c3550",
+            "targetElementId": "sem-element:ke1-be7de331b394366d",
+            "relationType": "EVALUATES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-fcb81128a72a9a84",
+            "sourceElementId": "sem-element:ke1-be7de331b394366d",
+            "targetElementId": "sem-element:ke1-5db85fe268210216",
+            "relationType": "EXCLUDES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-1"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H20:user:1",
+              "sourceText": "ASL hépatique",
+              "normalizedMeaning": "ASL hépatique",
+              "mappedClientElementIds": [
+                "elem-1",
+                "elem-5"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H20:user:1",
+              "sourceText": "sans gadolinium",
+              "normalizedMeaning": "sans gadolinium",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H20:user:1",
+              "sourceText": "insuffisants rénaux",
+              "normalizedMeaning": "insuffisance rénale",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H20:user:1",
+              "sourceText": "faisable",
+              "normalizedMeaning": "faisabilité",
+              "mappedClientElementIds": [
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-2",
+              "normalizedRelation": "EXCLUDES",
+              "mappedClientRelationIds": [
+                "rel-elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-4",
+              "targetInventoryItemId": "inv-1",
+              "normalizedRelation": "EVALUATES",
+              "mappedClientRelationIds": [
+                "rel-elem-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+            }
+          ]
+        },
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [
+          "Critères précis de faisabilité non spécifiés"
+        ],
+        "unknowns": [],
+        "contradictions": [],
+        "clarificationCandidates": [
+          {
+            "question": "Souhaitez-vous préciser le contexte clinique ou les critères de mesure de la faisabilité pour cette évaluation ?",
+            "reason": "Préciser l'objectif exact de l'évaluation de faisabilité.",
+            "resolvesElementIds": [
+              "sem-element:ke1-5f5476b4cd8c3550"
+            ]
+          }
+        ],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "UNDERSTAND",
+          "confidence": 0.85,
+          "reason": "L'utilisateur interroge sur la faisabilité générale d'une méthode sans protocole formel de recherche détaillé.",
+          "expectedCapabilities": [
+            "Analyse d'imagerie sans agent de contraste",
+            "Exploration de faisabilité méthodologique"
+          ]
+        },
+        "summaryForUser": "Évaluation de la faisabilité de l'ASL hépatique sans gadolinium en cas d'insuffisance rénale.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "The typed candidate perfectly aligns with the user query, with complete explicit coverage, valid classification taxonomy, and correct epistemic statuses."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+          "criticPromptVersion": "SEM-001-CRITIC-1.3",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-9154f178690c1664",
+          "criticCallId": "gemini-call:ke1-7cb4e5a33397f35f",
+          "criticCallIds": [
+            "gemini-call:ke1-7cb4e5a33397f35f"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-12T22:19:38.204Z",
+              "requestFinished": "2026-08-12T22:19:44.175Z",
+              "latencyMs": 5971,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-12T22:19:44.178Z",
+              "requestFinished": "2026-08-12T22:19:47.366Z",
+              "latencyMs": 3188,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "cand-001",
+            "language": "fr",
+            "normalizedMeaning": "Évaluation de la faisabilité de l'imagerie ASL hépatique sans agent de contraste au gadolinium chez des patients présentant une insuffisance rénale",
+            "summaryForUser": "Évaluation de la faisabilité de l'ASL hépatique sans gadolinium en cas d'insuffisance rénale.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "inv-1",
+                  "sourceMessageId": "SEM-H20:user:1",
+                  "sourceText": "ASL hépatique",
+                  "normalizedLabel": "ASL hépatique",
+                  "localRole": "target_method",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [
+                    "hépatique"
+                  ],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-2",
+                  "sourceMessageId": "SEM-H20:user:1",
+                  "sourceText": "sans gadolinium",
+                  "normalizedLabel": "sans gadolinium",
+                  "localRole": "constraint",
+                  "polarity": "NEGATED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-1"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-3",
+                  "sourceMessageId": "SEM-H20:user:1",
+                  "sourceText": "insuffisants rénaux",
+                  "normalizedLabel": "insuffisance rénale",
+                  "localRole": "population_condition",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-4",
+                  "sourceMessageId": "SEM-H20:user:1",
+                  "sourceText": "faisable",
+                  "normalizedLabel": "faisabilité",
+                  "localRole": "evaluation",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-1"
+                  ]
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel-1",
+                  "sourceInventoryItemId": "inv-1",
+                  "targetInventoryItemId": "inv-2",
+                  "sourceMessageId": "SEM-H20:user:1",
+                  "sourceText": "ASL hépatique sans gadolinium",
+                  "normalizedRelation": "EXCLUDES",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-2",
+                  "sourceInventoryItemId": "inv-4",
+                  "targetInventoryItemId": "inv-1",
+                  "sourceMessageId": "SEM-H20:user:1",
+                  "sourceText": "ASL hépatique [...] faisable",
+                  "normalizedRelation": "EVALUATES",
+                  "polarity": "AFFIRMED"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem-1",
+                "type": "METHOD",
+                "canonicalMeaning": "Imagerie par marquage des spins artériels (ASL) hépatique",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-1"
+                ],
+                "sourceMessageId": "SEM-H20:user:1",
+                "sourceText": "ASL hépatique",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-2",
+                "type": "CONSTRAINT",
+                "canonicalMeaning": "Exclusion du produit de contraste gadolinium",
+                "studyRole": "NONE",
+                "polarity": "NEGATED",
+                "inventoryItemIds": [
+                  "inv-2"
+                ],
+                "sourceMessageId": "SEM-H20:user:1",
+                "sourceText": "sans gadolinium",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-3",
+                "type": "CONDITION",
+                "canonicalMeaning": "Insuffisance rénale chez les sujets",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-3"
+                ],
+                "sourceMessageId": "SEM-H20:user:1",
+                "sourceText": "insuffisants rénaux",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-4",
+                "type": "SCIENTIFIC_INTENT",
+                "canonicalMeaning": "Évaluer la faisabilité clinique ou technique",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-4"
+                ],
+                "sourceMessageId": "SEM-H20:user:1",
+                "sourceText": "faisable",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-5",
+                "type": "ANATOMICAL_CONTEXT",
+                "canonicalMeaning": "Foie",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-1"
+                ],
+                "sourceMessageId": "SEM-H20:user:1",
+                "sourceText": "hépatique",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel-elem-1",
+                "sourceClientElementId": "elem-1",
+                "targetClientElementId": "elem-2",
+                "relationType": "EXCLUDES",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-1"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-elem-2",
+                "sourceClientElementId": "elem-4",
+                "targetClientElementId": "elem-1",
+                "relationType": "EVALUATES",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-2"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-elem-3",
+                "sourceClientElementId": "elem-1",
+                "targetClientElementId": "elem-3",
+                "relationType": "APPLIED_TO",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [],
+                "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+                "confidence": 0.9,
+                "inferenceReason": "Method applied to patients with the condition",
+                "requiresConfirmation": true
+              }
+            ],
+            "missingConcepts": [],
+            "ellipses": [],
+            "ambiguities": [
+              "Critères précis de faisabilité non spécifiés"
+            ],
+            "unknowns": [],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [
+              {
+                "question": "Souhaitez-vous préciser le contexte clinique ou les critères de mesure de la faisabilité pour cette évaluation ?",
+                "reason": "Préciser l'objectif exact de l'évaluation de faisabilité.",
+                "resolvesClientElementIds": [
+                  "elem-4"
+                ]
+              }
+            ],
+            "routeProposal": {
+              "route": "UNDERSTAND",
+              "confidence": 0.85,
+              "reason": "L'utilisateur interroge sur la faisabilité générale d'une méthode sans protocole formel de recherche détaillé.",
+              "expectedCapabilities": [
+                "Exploration de faisabilité méthodologique",
+                "Analyse d'imagerie sans agent de contraste"
+              ]
+            },
+            "semanticWarnings": []
+          },
+          "rawCritic": {
+            "criticId": "crit-001",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit objects (ASL hépatique, insuffisants rénaux, gadolinium) are fully represented."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No comparator is explicitly requested in the prompt."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No specific therapeutic or technical intervention study arm is requested."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "PASS",
+                "evidence": "MRI modality is implicit in ASL, and represented properly via METHOD."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit inventory relations are mapped."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "Taxonomy taxonomyReport status is COMPLETE with no findings."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Explicit relations are faithfully preserved."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "Inferences are appropriately marked with epistemic status."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "Ambiguity regarding feasibility criteria is appropriately surfaced."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "The constraint 'sans gadolinium' is correctly typed as NEGATED."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No specific timing is expressed in the query."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "No ungrounded endpoint promotion was performed."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts like ASL hépatique are preserved accurately."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "No source fragments are missing from the inventory."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "The UNDERSTAND route fits the methodological feasibility query."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The typed candidate perfectly aligns with the user query, with complete explicit coverage, valid classification taxonomy, and correct epistemic statuses."
+          },
+          "rawCritics": [
+            {
+              "criticId": "crit-001",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit objects (ASL hépatique, insuffisants rénaux, gadolinium) are fully represented."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No comparator is explicitly requested in the prompt."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No specific therapeutic or technical intervention study arm is requested."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "MRI modality is implicit in ASL, and represented properly via METHOD."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit inventory relations are mapped."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "Taxonomy taxonomyReport status is COMPLETE with no findings."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Explicit relations are faithfully preserved."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "Inferences are appropriately marked with epistemic status."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "Ambiguity regarding feasibility criteria is appropriately surfaced."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "The constraint 'sans gadolinium' is correctly typed as NEGATED."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No specific timing is expressed in the query."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "No ungrounded endpoint promotion was performed."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific concepts like ASL hépatique are preserved accurately."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "No source fragments are missing from the inventory."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "The UNDERSTAND route fits the methodological feasibility query."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "The typed candidate perfectly aligns with the user query, with complete explicit coverage, valid classification taxonomy, and correct epistemic statuses."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-12T22:19:47.367Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-8b4c6d9b5d8a8347",
+          "resultDigest": "ke1-8b4c6d9b5d8a8347",
+          "coverageStatus": "NO_PROVIDER",
+          "verifiedAt": "2026-08-12T22:19:47.369Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-12T22:19:47.367Z",
+        "updatedAt": "2026-08-12T22:19:47.369Z",
+        "digest": "ke1-b1019c8bf6f633ef"
+      },
+      "canonicalModelDigest": "ke1-b1019c8bf6f633ef",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-8b4c6d9b5d8a8347",
+        "resultDigest": "ke1-8b4c6d9b5d8a8347",
+        "coverageStatus": "NO_PROVIDER",
+        "verifiedAt": "2026-08-12T22:19:47.369Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-9154f178690c1664",
+      "structuredDigest": "ke1-5c2fecc7393d63f3",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T22:19:38.204Z",
+          "requestFinished": "2026-08-12T22:19:44.175Z",
+          "latencyMs": 5971,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-7cb4e5a33397f35f",
+      "structuredDigest": "ke1-8c46378ba5ba6f17",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T22:19:44.178Z",
+          "requestFinished": "2026-08-12T22:19:47.366Z",
+          "latencyMs": 3188,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-52c97448cf24d6c4",
+    "revision": 1,
+    "status": "CANDIDATE",
+    "originalRequest": "ASL hépatique sans gadolinium chez insuffisants rénaux, faisable ?",
+    "normalizedMeaning": "Évaluation de la faisabilité de l'imagerie ASL hépatique sans agent de contraste au gadolinium chez des patients présentant une insuffisance rénale",
+    "conversationMessageIds": [
+      "SEM-H20:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-5db85fe268210216",
+        "type": "CONSTRAINT",
+        "canonicalMeaning": "Exclusion du produit de contraste gadolinium",
+        "studyRole": "NONE",
+        "polarity": "NEGATED",
+        "inventoryItemIds": [
+          "inv-2"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H20:user:1",
+          "text": "sans gadolinium",
+          "start": 14,
+          "end": 29
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-fcb81128a72a9a84"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H20:user:1",
+          "providerCallId": "gemini-call:ke1-9154f178690c1664",
+          "rawElementId": "elem-2"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-5f5476b4cd8c3550",
+        "type": "SCIENTIFIC_INTENT",
+        "canonicalMeaning": "Évaluer la faisabilité clinique ou technique",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-4"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H20:user:1",
+          "text": "faisable",
+          "start": 56,
+          "end": 64
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-bb1a380eaca410ea"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H20:user:1",
+          "providerCallId": "gemini-call:ke1-9154f178690c1664",
+          "rawElementId": "elem-4"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-788e948ae30fd656",
+        "type": "ANATOMICAL_CONTEXT",
+        "canonicalMeaning": "Foie",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-1"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H20:user:1",
+          "text": "hépatique",
+          "start": 4,
+          "end": 13
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H20:user:1",
+          "providerCallId": "gemini-call:ke1-9154f178690c1664",
+          "rawElementId": "elem-5"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-90561fa4480a6e58",
+        "type": "CONDITION",
+        "canonicalMeaning": "Insuffisance rénale chez les sujets",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-3"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H20:user:1",
+          "text": "insuffisants rénaux",
+          "start": 35,
+          "end": 54
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-9a50d5626d37dc46"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-8b4c6d9b5d8a8347",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-ba84b1aefa1c0c9a",
+            "knowledge-gap:ke1-c27502930d9ad6a7",
+            "knowledge-gap:ke1-f532e5341fc5e910"
+          ],
+          "checkedAt": "2026-08-12T22:19:47.369Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H20:user:1",
+          "providerCallId": "gemini-call:ke1-9154f178690c1664",
+          "rawElementId": "elem-3"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-be7de331b394366d",
+        "type": "METHOD",
+        "canonicalMeaning": "Imagerie par marquage des spins artériels (ASL) hépatique",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-1"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H20:user:1",
+          "text": "ASL hépatique",
+          "start": 0,
+          "end": 13
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-9a50d5626d37dc46",
+          "sem-relation:ke1-bb1a380eaca410ea",
+          "sem-relation:ke1-fcb81128a72a9a84"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H20:user:1",
+          "providerCallId": "gemini-call:ke1-9154f178690c1664",
+          "rawElementId": "elem-1"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-9a50d5626d37dc46",
+        "sourceElementId": "sem-element:ke1-be7de331b394366d",
+        "targetElementId": "sem-element:ke1-90561fa4480a6e58",
+        "relationType": "APPLIED_TO",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+        "confidence": 0.9,
+        "inferenceReason": "Method applied to patients with the condition",
+        "requiresConfirmation": true,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-bb1a380eaca410ea",
+        "sourceElementId": "sem-element:ke1-5f5476b4cd8c3550",
+        "targetElementId": "sem-element:ke1-be7de331b394366d",
+        "relationType": "EVALUATES",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-2"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-fcb81128a72a9a84",
+        "sourceElementId": "sem-element:ke1-be7de331b394366d",
+        "targetElementId": "sem-element:ke1-5db85fe268210216",
+        "relationType": "EXCLUDES",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-1"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-1",
+          "sourceMessageId": "SEM-H20:user:1",
+          "sourceText": "ASL hépatique",
+          "normalizedMeaning": "ASL hépatique",
+          "mappedClientElementIds": [
+            "elem-1",
+            "elem-5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-2",
+          "sourceMessageId": "SEM-H20:user:1",
+          "sourceText": "sans gadolinium",
+          "normalizedMeaning": "sans gadolinium",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-3",
+          "sourceMessageId": "SEM-H20:user:1",
+          "sourceText": "insuffisants rénaux",
+          "normalizedMeaning": "insuffisance rénale",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-4",
+          "sourceMessageId": "SEM-H20:user:1",
+          "sourceText": "faisable",
+          "normalizedMeaning": "faisabilité",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-1",
+          "sourceInventoryItemId": "inv-1",
+          "targetInventoryItemId": "inv-2",
+          "normalizedRelation": "EXCLUDES",
+          "mappedClientRelationIds": [
+            "rel-elem-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-2",
+          "sourceInventoryItemId": "inv-4",
+          "targetInventoryItemId": "inv-1",
+          "normalizedRelation": "EVALUATES",
+          "mappedClientRelationIds": [
+            "rel-elem-2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+        }
+      ]
+    },
+    "missingConcepts": [],
+    "ellipses": [],
+    "ambiguities": [
+      "Critères précis de faisabilité non spécifiés"
+    ],
+    "unknowns": [],
+    "contradictions": [],
+    "clarificationCandidates": [
+      {
+        "question": "Souhaitez-vous préciser le contexte clinique ou les critères de mesure de la faisabilité pour cette évaluation ?",
+        "reason": "Préciser l'objectif exact de l'évaluation de faisabilité.",
+        "resolvesElementIds": [
+          "sem-element:ke1-5f5476b4cd8c3550"
+        ]
+      }
+    ],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "UNDERSTAND",
+      "confidence": 0.85,
+      "reason": "L'utilisateur interroge sur la faisabilité générale d'une méthode sans protocole formel de recherche détaillé.",
+      "expectedCapabilities": [
+        "Analyse d'imagerie sans agent de contraste",
+        "Exploration de faisabilité méthodologique"
+      ]
+    },
+    "summaryForUser": "Évaluation de la faisabilité de l'ASL hépatique sans gadolinium en cas d'insuffisance rénale.",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "The typed candidate perfectly aligns with the user query, with complete explicit coverage, valid classification taxonomy, and correct epistemic statuses."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+      "criticPromptVersion": "SEM-001-CRITIC-1.3",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-9154f178690c1664",
+      "criticCallId": "gemini-call:ke1-7cb4e5a33397f35f",
+      "criticCallIds": [
+        "gemini-call:ke1-7cb4e5a33397f35f"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T22:19:38.204Z",
+          "requestFinished": "2026-08-12T22:19:44.175Z",
+          "latencyMs": 5971,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T22:19:44.178Z",
+          "requestFinished": "2026-08-12T22:19:47.366Z",
+          "latencyMs": 3188,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Évaluation de la faisabilité de l'imagerie ASL hépatique sans agent de contraste au gadolinium chez des patients présentant une insuffisance rénale",
+        "summaryForUser": "Évaluation de la faisabilité de l'ASL hépatique sans gadolinium en cas d'insuffisance rénale.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H20:user:1",
+              "sourceText": "ASL hépatique",
+              "normalizedLabel": "ASL hépatique",
+              "localRole": "target_method",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "hépatique"
+              ],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H20:user:1",
+              "sourceText": "sans gadolinium",
+              "normalizedLabel": "sans gadolinium",
+              "localRole": "constraint",
+              "polarity": "NEGATED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-1"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H20:user:1",
+              "sourceText": "insuffisants rénaux",
+              "normalizedLabel": "insuffisance rénale",
+              "localRole": "population_condition",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H20:user:1",
+              "sourceText": "faisable",
+              "normalizedLabel": "faisabilité",
+              "localRole": "evaluation",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-1"
+              ]
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H20:user:1",
+              "sourceText": "ASL hépatique sans gadolinium",
+              "normalizedRelation": "EXCLUDES",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-4",
+              "targetInventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H20:user:1",
+              "sourceText": "ASL hépatique [...] faisable",
+              "normalizedRelation": "EVALUATES",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "METHOD",
+            "canonicalMeaning": "Imagerie par marquage des spins artériels (ASL) hépatique",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceMessageId": "SEM-H20:user:1",
+            "sourceText": "ASL hépatique",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "Exclusion du produit de contraste gadolinium",
+            "studyRole": "NONE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceMessageId": "SEM-H20:user:1",
+            "sourceText": "sans gadolinium",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "CONDITION",
+            "canonicalMeaning": "Insuffisance rénale chez les sujets",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceMessageId": "SEM-H20:user:1",
+            "sourceText": "insuffisants rénaux",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-4",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Évaluer la faisabilité clinique ou technique",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "sourceMessageId": "SEM-H20:user:1",
+            "sourceText": "faisable",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-5",
+            "type": "ANATOMICAL_CONTEXT",
+            "canonicalMeaning": "Foie",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceMessageId": "SEM-H20:user:1",
+            "sourceText": "hépatique",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-elem-1",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-2",
+            "relationType": "EXCLUDES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-2",
+            "sourceClientElementId": "elem-4",
+            "targetClientElementId": "elem-1",
+            "relationType": "EVALUATES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-3",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-3",
+            "relationType": "APPLIED_TO",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [],
+            "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+            "confidence": 0.9,
+            "inferenceReason": "Method applied to patients with the condition",
+            "requiresConfirmation": true
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [
+          "Critères précis de faisabilité non spécifiés"
+        ],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [
+          {
+            "question": "Souhaitez-vous préciser le contexte clinique ou les critères de mesure de la faisabilité pour cette évaluation ?",
+            "reason": "Préciser l'objectif exact de l'évaluation de faisabilité.",
+            "resolvesClientElementIds": [
+              "elem-4"
+            ]
+          }
+        ],
+        "routeProposal": {
+          "route": "UNDERSTAND",
+          "confidence": 0.85,
+          "reason": "L'utilisateur interroge sur la faisabilité générale d'une méthode sans protocole formel de recherche détaillé.",
+          "expectedCapabilities": [
+            "Exploration de faisabilité méthodologique",
+            "Analyse d'imagerie sans agent de contraste"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "rawCritic": {
+        "criticId": "crit-001",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit objects (ASL hépatique, insuffisants rénaux, gadolinium) are fully represented."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No comparator is explicitly requested in the prompt."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No specific therapeutic or technical intervention study arm is requested."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "PASS",
+            "evidence": "MRI modality is implicit in ASL, and represented properly via METHOD."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit inventory relations are mapped."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "Taxonomy taxonomyReport status is COMPLETE with no findings."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "Explicit relations are faithfully preserved."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "Inferences are appropriately marked with epistemic status."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "Ambiguity regarding feasibility criteria is appropriately surfaced."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "The constraint 'sans gadolinium' is correctly typed as NEGATED."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No specific timing is expressed in the query."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "No ungrounded endpoint promotion was performed."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific concepts like ASL hépatique are preserved accurately."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "No source fragments are missing from the inventory."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "The UNDERSTAND route fits the methodological feasibility query."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "The typed candidate perfectly aligns with the user query, with complete explicit coverage, valid classification taxonomy, and correct epistemic statuses."
+      },
+      "rawCritics": [
+        {
+          "criticId": "crit-001",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects (ASL hépatique, insuffisants rénaux, gadolinium) are fully represented."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is explicitly requested in the prompt."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No specific therapeutic or technical intervention study arm is requested."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "MRI modality is implicit in ASL, and represented properly via METHOD."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit inventory relations are mapped."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Taxonomy taxonomyReport status is COMPLETE with no findings."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations are faithfully preserved."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Inferences are appropriately marked with epistemic status."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Ambiguity regarding feasibility criteria is appropriately surfaced."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "The constraint 'sans gadolinium' is correctly typed as NEGATED."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No specific timing is expressed in the query."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No ungrounded endpoint promotion was performed."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like ASL hépatique are preserved accurately."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No source fragments are missing from the inventory."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The UNDERSTAND route fits the methodological feasibility query."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The typed candidate perfectly aligns with the user query, with complete explicit coverage, valid classification taxonomy, and correct epistemic statuses."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-12T22:19:47.367Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-8b4c6d9b5d8a8347",
+      "resultDigest": "ke1-8b4c6d9b5d8a8347",
+      "coverageStatus": "NO_PROVIDER",
+      "verifiedAt": "2026-08-12T22:19:47.369Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-12T22:19:47.367Z",
+    "updatedAt": "2026-08-12T22:19:47.369Z",
+    "digest": "ke1-b1019c8bf6f633ef"
+  },
+  "semanticModelDigest": "ke1-b1019c8bf6f633ef",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-1",
+          "sourceMessageId": "SEM-H20:user:1",
+          "sourceText": "ASL hépatique",
+          "normalizedMeaning": "ASL hépatique",
+          "mappedClientElementIds": [
+            "elem-1",
+            "elem-5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-2",
+          "sourceMessageId": "SEM-H20:user:1",
+          "sourceText": "sans gadolinium",
+          "normalizedMeaning": "sans gadolinium",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-3",
+          "sourceMessageId": "SEM-H20:user:1",
+          "sourceText": "insuffisants rénaux",
+          "normalizedMeaning": "insuffisance rénale",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-4",
+          "sourceMessageId": "SEM-H20:user:1",
+          "sourceText": "faisable",
+          "normalizedMeaning": "faisabilité",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-1",
+          "sourceInventoryItemId": "inv-1",
+          "targetInventoryItemId": "inv-2",
+          "normalizedRelation": "EXCLUDES",
+          "mappedClientRelationIds": [
+            "rel-elem-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-2",
+          "sourceInventoryItemId": "inv-4",
+          "targetInventoryItemId": "inv-1",
+          "normalizedRelation": "EVALUATES",
+          "mappedClientRelationIds": [
+            "rel-elem-2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-ee0dc35e0f97ec2a",
+    "evaluatedAt": "2026-08-12T22:19:47.371Z",
+    "goldFrameDigest": "ke1-efe03c0b1e57f937",
+    "result": {
+      "caseId": "SEM-H20",
+      "explicitObjectRecall": 0.6666666666666666,
+      "explicitRelationRecall": 1,
+      "criticalSemanticRecall": 0.6666666666666666,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 1,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": [
+        "EXPLICIT_POPULATION_LOST:insuffisance rénale"
+      ]
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H20",
+    "explicitObjectRecall": 0.6666666666666666,
+    "explicitRelationRecall": 1,
+    "criticalSemanticRecall": 0.6666666666666666,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 1,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": [
+      "EXPLICIT_POPULATION_LOST:insuffisance rénale"
+    ]
+  },
+  "error": null
+}

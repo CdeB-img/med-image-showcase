@@ -1,0 +1,8 @@
+{
+  "status": "PARTIAL_TARGETED_ONLY",
+  "compatibleCases": 1,
+  "expectedCases": 30,
+  "aggregateOnCompatibleCases": { "issuesDetected": 1, "repairsProposed": 1, "repairsAccepted": 1, "repairsRejected": 0, "missingSourceFragments": 0, "newUnsupportedInferences": 0, "falsePositiveCriticRate": 0 },
+  "case": { "caseId": "SEM-D02", "criticCycles": 2, "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT", "absoluteBlockers": 0 },
+  "fullDevelopmentAggregate": "NOT_CALCULATED_PROVIDER_BLOCK"
+}

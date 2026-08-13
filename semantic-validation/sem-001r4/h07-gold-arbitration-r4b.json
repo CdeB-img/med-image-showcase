@@ -1,0 +1,33 @@
+{
+  "event": "H07_GOLD_CORRECTED_AFTER_HUMAN_ARBITRATION",
+  "campaign": "SEM-001R4B",
+  "caseId": "SEM-H07",
+  "effectiveDate": "2026-08-12",
+  "humanAuthority": {
+    "name": "NOXIA Project Governance",
+    "representative": "Charles de Bourguignon",
+    "role": "Project owner and current documentary governance authority",
+    "evidence": "Explicit SEM-001R4B instruction in the current task"
+  },
+  "sourceTextUnchanged": "post myocardite : mapping natif et strain, lequel annonce la récupération VG ?",
+  "correctedExpectation": {
+    "term": "mapping natif",
+    "previousType": "BIOMARKER",
+    "newType": "METHOD",
+    "conceptualReason": "The phrase names the technique used to obtain a quantitative observation, not the unnamed quantitative value produced by that technique. No Native T1 value, variation or other derived biomarker may be inferred.",
+    "applicableAuthority": [
+      "docs/pd-003-v2-research-object-model.md — MeasurementDefinition is distinct from ObservableProperty and BiomarkerRole",
+      "api/prompts/scientific-semantic-reconstruction-prompt.ts — current SEM runtime METHOD/BIOMARKER distinction",
+      "Human arbitration SEM-001R4B"
+    ]
+  },
+  "preserved": {
+    "corpusText": true,
+    "otherExpectedObjects": true,
+    "expectedRelations": true,
+    "thresholds": true
+  },
+  "notAProductRepair": true,
+  "goldUsedAsProductOracle": false,
+  "normativeMigration": "NOT_PERFORMED"
+}

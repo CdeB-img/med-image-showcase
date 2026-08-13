@@ -1,0 +1,51 @@
+{
+  "campaign": "SEM-001R5A",
+  "decision": "R5A_BLOCKED_BY_CONFIGURATION_DRIFT",
+  "development": "30/30 COMPLETE_REUSED_FROM_R5",
+  "holdout": "NOT_RERUN",
+  "repairs": {
+    "A_CONTEXTUAL_CLASSIFICATION_ROLES_AND_ROUTING": "PASS",
+    "B_GRAPH_PROVENANCE_AND_RELATION_INTEGRITY": "PASS",
+    "C_EVALUATOR_COMPOSITIONAL_EQUIVALENCE": "PASS"
+  },
+  "tests": {
+    "genericR5a": { "passed": 13, "failed": 0, "total": 13 },
+    "semanticSuite": { "passed": 270, "failed": 0, "total": 270 },
+    "typecheck": "PASS",
+    "gitDiffCheck": "PASS"
+  },
+  "h29": {
+    "status": "NOT_EXECUTED_ON_R5A",
+    "reason": "FIRST_TURN_CHECKPOINT_INCOMPATIBLE_WITH_R5A_INTEGRITY_CONTRACT",
+    "firstDivergentInvariant": "INVENTORY_RELATION_SOURCE_NOT_CONTIGUOUS",
+    "providerRequestStartsAttemptedOnExactR5Configuration": 5,
+    "providerHttpResponses": 0,
+    "llmCallsConsumed": 0,
+    "llmCallsAvoidedByCompatibleReuseOnExactR5Attempt": 2,
+    "llmCallsAvoidedByCompatibleReuseOnR5a": 0
+  },
+  "humanArbitrationsPrepared": {
+    "prepared": 7,
+    "required": 7,
+    "caseIds": ["SEM-H10", "SEM-H12", "SEM-H17", "SEM-H22", "SEM-H25", "SEM-H28", "SEM-H30"]
+  },
+  "goldDigest": {
+    "historicalBeforeR4b": "ke1-34ef12e65473a7f2",
+    "authorizedCurrent": "ke1-471d78570da30acb",
+    "holdoutTextCorpus": "ke1-08392b87b2cc140b",
+    "authority": "semantic-validation/sem-001r4/h07-gold-arbitration-r4b.json",
+    "goldChangedDuringR5a": false
+  },
+  "exclusions": {
+    "fullHoldoutRun": false,
+    "goldChanged": false,
+    "normativeTaxonomyOrCategorySetChanged": false,
+    "thresholdChanged": false,
+    "liveBrowser": false,
+    "downstreamLiveRun": false,
+    "commit": false,
+    "push": false,
+    "deployment": false
+  },
+  "report": "docs/sem-001r5a-generic-repairs-and-normative-arbitration-preparation-report.md"
+}

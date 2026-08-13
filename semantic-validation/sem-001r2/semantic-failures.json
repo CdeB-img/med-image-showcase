@@ -1,0 +1,440 @@
+[
+  {
+    "caseId": "SEM-H01",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_BIOMARKER_LOST:perfusion ASL",
+    "canonicalModelDigest": "ke1-c72e294763376a03"
+  },
+  {
+    "caseId": "SEM-H02",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "RELATION_LOST:T2*->traitement",
+    "canonicalModelDigest": "ke1-1a36f6034556d54f"
+  },
+  {
+    "caseId": "SEM-H04",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_METHOD_LOST:DWI whole-body",
+    "canonicalModelDigest": "ke1-81cb97a8ac12a7c4"
+  },
+  {
+    "caseId": "SEM-H04",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_METHOD_LOST:PET PSMA",
+    "canonicalModelDigest": "ke1-81cb97a8ac12a7c4"
+  },
+  {
+    "caseId": "SEM-H04",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_CONSTRAINT_LOST:pas mesure de réponse",
+    "canonicalModelDigest": "ke1-81cb97a8ac12a7c4"
+  },
+  {
+    "caseId": "SEM-H05",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_SCIENTIFIC_OBJECT_LOST:ventilation",
+    "canonicalModelDigest": "ke1-7787bde3e793a8e7"
+  },
+  {
+    "caseId": "SEM-H05",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "RELATION_LOST:ventilation->IRM pulmonaire",
+    "canonicalModelDigest": "ke1-7787bde3e793a8e7"
+  },
+  {
+    "caseId": "SEM-H06",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_METHOD_LOST:MRE",
+    "canonicalModelDigest": "ke1-17c2348f0db2fcfb"
+  },
+  {
+    "caseId": "SEM-H06",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_METHOD_LOST:élastographie ultrasonore",
+    "canonicalModelDigest": "ke1-17c2348f0db2fcfb"
+  },
+  {
+    "caseId": "SEM-H06",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_SCIENTIFIC_OBJECT_LOST:fibrose hépatique",
+    "canonicalModelDigest": "ke1-17c2348f0db2fcfb"
+  },
+  {
+    "caseId": "SEM-H06",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_STUDY_DESIGN_LOST:multicentrique",
+    "canonicalModelDigest": "ke1-17c2348f0db2fcfb"
+  },
+  {
+    "caseId": "SEM-H06",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "RELATION_LOST:MRE->élastographie ultrasonore",
+    "canonicalModelDigest": "ke1-17c2348f0db2fcfb"
+  },
+  {
+    "caseId": "SEM-H07",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_BIOMARKER_LOST:mapping natif",
+    "canonicalModelDigest": "ke1-5c89c71ee66d6b82"
+  },
+  {
+    "caseId": "SEM-H08",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_CONSTRAINT_LOST:Tmax 6 s exclu comme endpoint",
+    "canonicalModelDigest": "ke1-c54bda6b0e81874f"
+  },
+  {
+    "caseId": "SEM-H08",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_SCIENTIFIC_OBJECT_LOST:décalage de bolus",
+    "canonicalModelDigest": "ke1-c54bda6b0e81874f"
+  },
+  {
+    "caseId": "SEM-H08",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_METHOD_LOST:CT perfusion",
+    "canonicalModelDigest": "ke1-c54bda6b0e81874f"
+  },
+  {
+    "caseId": "SEM-H08",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_METHOD_LOST:ASL",
+    "canonicalModelDigest": "ke1-c54bda6b0e81874f"
+  },
+  {
+    "caseId": "SEM-H08",
+    "classification": "EVALUATOR_FAILURE",
+    "blocker": "FORBIDDEN_INFERENCE:Tmax 6 s adopté comme endpoint",
+    "canonicalModelDigest": "ke1-c54bda6b0e81874f"
+  },
+  {
+    "caseId": "SEM-H09",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_METHOD_LOST:virtual non contrast",
+    "canonicalModelDigest": "ke1-6f7db840f40a120c"
+  },
+  {
+    "caseId": "SEM-H09",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_COMPARATOR_LOST:acquisition sans injection",
+    "canonicalModelDigest": "ke1-6f7db840f40a120c"
+  },
+  {
+    "caseId": "SEM-H09",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "RELATION_LOST:virtual non contrast->acquisition sans injection",
+    "canonicalModelDigest": "ke1-6f7db840f40a120c"
+  },
+  {
+    "caseId": "SEM-H10",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_METHOD_LOST:spectroscopie 31P",
+    "canonicalModelDigest": "ke1-5aa774deb40e6d12"
+  },
+  {
+    "caseId": "SEM-H10",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_METHOD_LOST:BOLD musculaire",
+    "canonicalModelDigest": "ke1-5aa774deb40e6d12"
+  },
+  {
+    "caseId": "SEM-H10",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_SCIENTIFIC_OBJECT_LOST:récupération énergétique",
+    "canonicalModelDigest": "ke1-5aa774deb40e6d12"
+  },
+  {
+    "caseId": "SEM-H10",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "RELATION_LOST:spectroscopie 31P->récupération énergétique",
+    "canonicalModelDigest": "ke1-5aa774deb40e6d12"
+  },
+  {
+    "caseId": "SEM-H11",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_ENDPOINT_LOST:vitesse de croissance",
+    "canonicalModelDigest": "ke1-fdbb2492d4e740be"
+  },
+  {
+    "caseId": "SEM-H11",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "RELATION_LOST:vitesse de croissance->diamètre aortique",
+    "canonicalModelDigest": "ke1-fdbb2492d4e740be"
+  },
+  {
+    "caseId": "SEM-H12",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_METHOD_LOST:delta-radiomics",
+    "canonicalModelDigest": "ke1-3a93a2b23dadfc1e"
+  },
+  {
+    "caseId": "SEM-H12",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_TIMING_LOST:pendant radiothérapie",
+    "canonicalModelDigest": "ke1-3a93a2b23dadfc1e"
+  },
+  {
+    "caseId": "SEM-H12",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "RELATION_LOST:delta-radiomics->toxicité pulmonaire tardive",
+    "canonicalModelDigest": "ke1-3a93a2b23dadfc1e"
+  },
+  {
+    "caseId": "SEM-H13",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_INTERVENTION_LOST:embolisation immédiate",
+    "canonicalModelDigest": "ke1-78735c973d5778fb"
+  },
+  {
+    "caseId": "SEM-H13",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "RELATION_LOST:embolisation immédiate->embolisation en deux temps",
+    "canonicalModelDigest": "ke1-78735c973d5778fb"
+  },
+  {
+    "caseId": "SEM-H14",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "RELATION_LOST:adjudication conditionnelle->seuil d'écart indéfini",
+    "canonicalModelDigest": "ke1-49756dc9cf8cf5ed"
+  },
+  {
+    "caseId": "SEM-H15",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "RELATION_LOST:DICOM incomplets->taux de non-évaluables",
+    "canonicalModelDigest": "ke1-cc1530bf8ed4e413"
+  },
+  {
+    "caseId": "SEM-H16",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_METHOD_LOST:séquence ultracourte",
+    "canonicalModelDigest": "ke1-27d9de26e613c322"
+  },
+  {
+    "caseId": "SEM-H16",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "RELATION_LOST:séquence ultracourte->cortex osseux",
+    "canonicalModelDigest": "ke1-27d9de26e613c322"
+  },
+  {
+    "caseId": "SEM-H17",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_PHENOMENON_LOST:œdème",
+    "canonicalModelDigest": "ke1-095cd605621875d1"
+  },
+  {
+    "caseId": "SEM-H17",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_PHENOMENON_LOST:MVO",
+    "canonicalModelDigest": "ke1-095cd605621875d1"
+  },
+  {
+    "caseId": "SEM-H17",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_SCIENTIFIC_OBJECT_LOST:no-reflow",
+    "canonicalModelDigest": "ke1-095cd605621875d1"
+  },
+  {
+    "caseId": "SEM-H17",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_CONSTRAINT_LOST:ne pas affirmer de causalité",
+    "canonicalModelDigest": "ke1-095cd605621875d1"
+  },
+  {
+    "caseId": "SEM-H17",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "RELATION_LOST:œdème->MVO",
+    "canonicalModelDigest": "ke1-095cd605621875d1"
+  },
+  {
+    "caseId": "SEM-H17",
+    "classification": "EVALUATOR_FAILURE",
+    "blocker": "FORBIDDEN_INFERENCE:causalité",
+    "canonicalModelDigest": "ke1-095cd605621875d1"
+  },
+  {
+    "caseId": "SEM-H18",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_SCIENTIFIC_OBJECT_LOST:fibrose pulmonaire quantitative",
+    "canonicalModelDigest": "ke1-c761260c99d94920"
+  },
+  {
+    "caseId": "SEM-H18",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_CONSTRAINT_LOST:mortalité exclue",
+    "canonicalModelDigest": "ke1-c761260c99d94920"
+  },
+  {
+    "caseId": "SEM-H18",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "RELATION_LOST:fibrose pulmonaire quantitative->CT",
+    "canonicalModelDigest": "ke1-c761260c99d94920"
+  },
+  {
+    "caseId": "SEM-H19",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_BIOMARKER_LOST:PI-RADS",
+    "canonicalModelDigest": "ke1-320ef65a7bdf85ae"
+  },
+  {
+    "caseId": "SEM-H19",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_METHOD_LOST:biopsie de référence",
+    "canonicalModelDigest": "ke1-320ef65a7bdf85ae"
+  },
+  {
+    "caseId": "SEM-H20",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_METHOD_LOST:ASL hépatique",
+    "canonicalModelDigest": "ke1-c350c9521c80d71e"
+  },
+  {
+    "caseId": "SEM-H21",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_CONSTRAINT_LOST:pas une comparaison",
+    "canonicalModelDigest": "ke1-d498ab94e3c294e8"
+  },
+  {
+    "caseId": "SEM-H21",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "RELATION_LOST:échographie de contraste->CT",
+    "canonicalModelDigest": "ke1-d498ab94e3c294e8"
+  },
+  {
+    "caseId": "SEM-H22",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_CONDITION_LOST:pseudoprogression",
+    "canonicalModelDigest": "ke1-2fd8325c16168500"
+  },
+  {
+    "caseId": "SEM-H22",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_COMPARATOR_LOST:récidive",
+    "canonicalModelDigest": "ke1-2fd8325c16168500"
+  },
+  {
+    "caseId": "SEM-H22",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_METHOD_LOST:perfusion DSC",
+    "canonicalModelDigest": "ke1-2fd8325c16168500"
+  },
+  {
+    "caseId": "SEM-H22",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_METHOD_LOST:spectroscopie",
+    "canonicalModelDigest": "ke1-2fd8325c16168500"
+  },
+  {
+    "caseId": "SEM-H22",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "RELATION_LOST:pseudoprogression->récidive",
+    "canonicalModelDigest": "ke1-2fd8325c16168500"
+  },
+  {
+    "caseId": "SEM-H23",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_BIOMARKER_LOST:ADC tumoral",
+    "canonicalModelDigest": "ke1-e66acdd445cb6748"
+  },
+  {
+    "caseId": "SEM-H23",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_STUDY_DESIGN_LOST:test-retest",
+    "canonicalModelDigest": "ke1-e66acdd445cb6748"
+  },
+  {
+    "caseId": "SEM-H23",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "RELATION_LOST:ADC tumoral->même jour",
+    "canonicalModelDigest": "ke1-e66acdd445cb6748"
+  },
+  {
+    "caseId": "SEM-H24",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_SCIENTIFIC_OBJECT_LOST:placenta",
+    "canonicalModelDigest": "ke1-21a488d10d006575"
+  },
+  {
+    "caseId": "SEM-H24",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_METHOD_LOST:IVIM",
+    "canonicalModelDigest": "ke1-21a488d10d006575"
+  },
+  {
+    "caseId": "SEM-H25",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_METHOD_LOST:deux agents K-edge",
+    "canonicalModelDigest": "ke1-df06a07298f61b46"
+  },
+  {
+    "caseId": "SEM-H25",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "RELATION_LOST:inflammation->vascularisation",
+    "canonicalModelDigest": "ke1-df06a07298f61b46"
+  },
+  {
+    "caseId": "SEM-H26",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_CONSTRAINT_LOST:perfusion exclue",
+    "canonicalModelDigest": "ke1-e53148d67d46d4aa"
+  },
+  {
+    "caseId": "SEM-H26",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_SCIENTIFIC_OBJECT_LOST:oxygénation",
+    "canonicalModelDigest": "ke1-e53148d67d46d4aa"
+  },
+  {
+    "caseId": "SEM-H26",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_OUTCOME_LOST:temps de récupération",
+    "canonicalModelDigest": "ke1-e53148d67d46d4aa"
+  },
+  {
+    "caseId": "SEM-H26",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_TIMING_LOST:après effort",
+    "canonicalModelDigest": "ke1-e53148d67d46d4aa"
+  },
+  {
+    "caseId": "SEM-H26",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "RELATION_LOST:oxygénation->effort",
+    "canonicalModelDigest": "ke1-e53148d67d46d4aa"
+  },
+  {
+    "caseId": "SEM-H27",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_CONSTRAINT_LOST:constructeurs non comparés",
+    "canonicalModelDigest": "ke1-b4d7aa568ae4ea22"
+  },
+  {
+    "caseId": "SEM-H28",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_OUTCOME_LOST:déclin du DFG",
+    "canonicalModelDigest": "ke1-ba3a33b83a3c734c"
+  },
+  {
+    "caseId": "SEM-H28",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_METHOD_LOST:ASL",
+    "canonicalModelDigest": "ke1-ba3a33b83a3c734c"
+  },
+  {
+    "caseId": "SEM-H29",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_OUTCOME_LOST:réponse tumorale",
+    "canonicalModelDigest": "ke1-9cfdd5cce1b5a610"
+  },
+  {
+    "caseId": "SEM-H30",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "EXPLICIT_OUTCOME_LOST:taux de refus",
+    "canonicalModelDigest": "ke1-695cbb195c222e45"
+  },
+  {
+    "caseId": "SEM-H30",
+    "classification": "PROMPT_FAILURE",
+    "blocker": "RELATION_LOST:deux parcours de consentement->taux de refus",
+    "canonicalModelDigest": "ke1-695cbb195c222e45"
+  }
+]

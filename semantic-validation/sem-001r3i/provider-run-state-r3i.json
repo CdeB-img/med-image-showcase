@@ -1,0 +1,19 @@
+{
+  "runId": "sem-001r3i-2026-08-12T17-48-36-261Z",
+  "semanticConfigurationDigest": "ke1-d34d45911dbf8b5d",
+  "limiter": {
+    "maxRequests": 5,
+    "windowMs": 60000,
+    "totalStarts": 35,
+    "retainedStarts": [
+      "2026-08-12T17:54:39.257Z",
+      "2026-08-12T17:54:44.415Z",
+      "2026-08-12T17:54:49.100Z",
+      "2026-08-12T17:54:55.568Z",
+      "2026-08-12T17:54:58.390Z"
+    ]
+  },
+  "stoppedForProvider": false,
+  "stopReason": null,
+  "exhaustedComparableFailures": {}
+}

@@ -1,0 +1,25 @@
+{
+  "phase": "TARGETED",
+  "runId": "sem-001r3d-2026-08-12T14-02-42-101Z",
+  "selectedCases": [
+    "SEM-D21",
+    "SEM-D28"
+  ],
+  "limiter": {
+    "maxRequests": 5,
+    "windowMs": 60000,
+    "totalStarts": 3,
+    "retainedStarts": [
+      "2026-08-12T14:02:42.103Z",
+      "2026-08-12T14:02:44.726Z",
+      "2026-08-12T14:02:46.863Z"
+    ]
+  },
+  "stoppedForProvider": true,
+  "stopReason": "NON_RETRYABLE_PROVIDER_FAILURE:INVALID_STRUCTURED_OUTPUT",
+  "auditPromptVersion": "SEM-001-ATOMIC-COMPOSITION-AUDIT-1.0",
+  "auditPromptDigest": "ke1-c9a31eaef35041ea",
+  "auditSchemaVersion": "SEM-001-ATOMIC-COMPOSITION-1.0",
+  "auditSchemaDigest": "ke1-7d96a2fa4cc7f9c6",
+  "resumeCondition": "Resume only with unchanged R3D prompt, schema, model and checkpoint digests."
+}

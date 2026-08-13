@@ -1,0 +1,87 @@
+{
+  "campaign": "SEM-001R3E",
+  "fixtures": [
+    {
+      "fixture": "A",
+      "description": "minimal valid R3D response",
+      "providerShape": "PASS",
+      "parser": "PASS",
+      "internalSchema": "PASS",
+      "semanticInvariants": "PASS",
+      "roundTrip": "PASS"
+    },
+    {
+      "fixture": "B",
+      "description": "complete valid response",
+      "providerShape": "PASS",
+      "parser": "PASS",
+      "internalSchema": "PASS",
+      "semanticInvariants": "PASS",
+      "roundTrip": "PASS"
+    },
+    {
+      "fixture": "C",
+      "description": "NOT_APPLICABLE atomicity",
+      "providerShape": "PASS",
+      "parser": "PASS",
+      "internalSchema": "PASS",
+      "semanticInvariants": "PASS",
+      "roundTrip": "PASS"
+    },
+    {
+      "fixture": "D",
+      "description": "INCOMPLETE atomicity",
+      "providerShape": "PASS",
+      "parser": "PASS",
+      "internalSchema": "PASS",
+      "semanticInvariants": "PASS",
+      "roundTrip": "PASS"
+    },
+    {
+      "fixture": "E",
+      "description": "absent composition NOT_REQUIRED",
+      "providerShape": "PASS",
+      "parser": "PASS",
+      "internalSchema": "PASS",
+      "semanticInvariants": "PASS",
+      "roundTrip": "PASS"
+    },
+    {
+      "fixture": "F",
+      "description": "present composition",
+      "providerShape": "PASS",
+      "parser": "PASS",
+      "internalSchema": "PASS",
+      "semanticInvariants": "PASS",
+      "roundTrip": "PASS"
+    },
+    {
+      "fixture": "G",
+      "description": "unchanged route",
+      "providerShape": "PASS",
+      "parser": "PASS",
+      "internalSchema": "PASS",
+      "semanticInvariants": "PASS",
+      "roundTrip": "PASS"
+    },
+    {
+      "fixture": "H",
+      "description": "proposed route",
+      "providerShape": "PASS",
+      "parser": "PASS",
+      "internalSchema": "PASS",
+      "semanticInvariants": "PASS",
+      "roundTrip": "PASS"
+    },
+    {
+      "fixture": "I",
+      "description": "ambiguous state",
+      "providerShape": "PASS",
+      "parser": "PASS",
+      "internalSchema": "PASS",
+      "semanticInvariants": "PASS",
+      "roundTrip": "PASS"
+    }
+  ],
+  "decision": "OFFLINE_FIXTURES_9_OF_9_PASS"
+}

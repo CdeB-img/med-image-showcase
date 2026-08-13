@@ -1,0 +1,147 @@
+{
+  "campaign": "SEM-001R3D",
+  "verifiedAt": "2026-08-12T14:02:42.100Z",
+  "decision": "R3D_CONFIGURATION_VERIFIED",
+  "interpretation": "The base critic remains version 1.3. The atomicity/composition audit is an additive conditional stage, so unchanged base checkpoints are not globally invalidated.",
+  "currentDigests": {
+    "reconstructionPrompt": "ke1-943568042373de98",
+    "criticPrompt": "ke1-b26ddf632ed1fa57",
+    "baseProviderSchema": "ke1-c849778553bf38b1",
+    "canonicalizer": "ke1-8a56fab704f65083",
+    "coverageAndRepair": "ke1-ca1d80690519c165",
+    "evaluator": "ke1-b5aa14fa96372ad6",
+    "developmentCorpus": "ke1-64d654cfa041a563",
+    "developmentGold": "ke1-1006a72533caf7f9",
+    "atomicCompositionPrompt": "ke1-c9a31eaef35041ea",
+    "atomicCompositionSchema": "ke1-7d96a2fa4cc7f9c6",
+    "atomicCompositionOwner": "ke1-379e82f28cb8e0a6"
+  },
+  "checks": [
+    {
+      "contract": "R3C checkpoint",
+      "expected": "CONFIGURATION_IDENTITY_VERIFIED",
+      "observed": "CONFIGURATION_IDENTITY_VERIFIED",
+      "pass": true
+    },
+    {
+      "contract": "provider",
+      "expected": "GOOGLE_GEMINI",
+      "observed": "GOOGLE_GEMINI",
+      "pass": true
+    },
+    {
+      "contract": "modelId",
+      "expected": "gemini-3.5-flash-lite",
+      "observed": "gemini-3.5-flash-lite",
+      "pass": true
+    },
+    {
+      "contract": "reconstructionPromptVersion",
+      "expected": "SEM-001-RECONSTRUCTION-1.2",
+      "observed": "SEM-001-RECONSTRUCTION-1.2",
+      "pass": true
+    },
+    {
+      "contract": "baseCriticPromptVersion",
+      "expected": "SEM-001-CRITIC-1.3",
+      "observed": "SEM-001-CRITIC-1.3",
+      "pass": true
+    },
+    {
+      "contract": "reconstructionPromptDigest",
+      "expected": "ke1-943568042373de98",
+      "observed": "ke1-943568042373de98",
+      "pass": true
+    },
+    {
+      "contract": "baseCriticPromptDigest",
+      "expected": "ke1-b26ddf632ed1fa57",
+      "observed": "ke1-b26ddf632ed1fa57",
+      "pass": true
+    },
+    {
+      "contract": "schemaVersion",
+      "expected": "SEM-001-1.1",
+      "observed": "SEM-001-1.1",
+      "pass": true
+    },
+    {
+      "contract": "canonicalModelVersion",
+      "expected": "1.1",
+      "observed": "1.1",
+      "pass": true
+    },
+    {
+      "contract": "baseProviderSchemaDigest",
+      "expected": "ke1-c849778553bf38b1",
+      "observed": "ke1-c849778553bf38b1",
+      "pass": true
+    },
+    {
+      "contract": "canonicalizerDigest",
+      "expected": "ke1-8a56fab704f65083",
+      "observed": "ke1-8a56fab704f65083",
+      "pass": true
+    },
+    {
+      "contract": "coverageAndRepairDigest",
+      "expected": "ke1-ca1d80690519c165",
+      "observed": "ke1-ca1d80690519c165",
+      "pass": true
+    },
+    {
+      "contract": "evaluatorDigest",
+      "expected": "ke1-b5aa14fa96372ad6",
+      "observed": "ke1-b5aa14fa96372ad6",
+      "pass": true
+    },
+    {
+      "contract": "developmentCount",
+      "expected": 30,
+      "observed": 30,
+      "pass": true
+    },
+    {
+      "contract": "developmentCorpusDigest",
+      "expected": "ke1-64d654cfa041a563",
+      "observed": "ke1-64d654cfa041a563",
+      "pass": true
+    },
+    {
+      "contract": "developmentGoldFrames",
+      "expected": "30 unchanged per-case digests",
+      "observed": "30/30",
+      "pass": true
+    },
+    {
+      "contract": "targetCases",
+      "expected": 2,
+      "observed": 2,
+      "pass": true
+    },
+    {
+      "contract": "priorCompatibleCases",
+      "expected": 6,
+      "observed": 6,
+      "pass": true
+    },
+    {
+      "contract": "auditPromptVersion",
+      "expected": "SEM-001-ATOMIC-COMPOSITION-AUDIT-1.0",
+      "observed": "SEM-001-ATOMIC-COMPOSITION-AUDIT-1.0",
+      "pass": true
+    },
+    {
+      "contract": "auditSchemaVersion",
+      "expected": "SEM-001-ATOMIC-COMPOSITION-1.0",
+      "observed": "SEM-001-ATOMIC-COMPOSITION-1.0",
+      "pass": true
+    },
+    {
+      "contract": "retryPolicy",
+      "expected": "5 attempts; 60s transient wait; concurrency 1",
+      "observed": "5 attempts; 60000ms; concurrency 1",
+      "pass": true
+    }
+  ]
+}

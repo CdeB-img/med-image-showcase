@@ -1,0 +1,251 @@
+{
+  "campaignId": "sem-001r3-development-2026-08-11T10-52-30-106Z",
+  "generatedAt": "2026-08-12T09:30:05.335Z",
+  "diagnostic": "NON_SEMANTIC_EQUIVALENT_CHANGE",
+  "disposition": "NON_SEMANTIC_DIGEST_DRIFT_ACCEPTED",
+  "source": {
+    "file": "src/features/scientific-semantic-reconstruction/coverage.ts",
+    "gitTrackingState": "UNTRACKED_IN_CURRENT_WORKTREE",
+    "historicalCommit": null,
+    "historicalSourceReconstruction": "EXACT_PRE_LINT_LINE_CAPTURED_IN_VALIDATION_OUTPUT",
+    "checkpointModifiedAt": "2026-08-11T11:04:07.812Z",
+    "currentSourceModifiedAt": "2026-08-11T11:06:57.976Z",
+    "reason": "ESLINT_NO_USELESS_ESCAPE_REMOVAL_IN_FINAL_CHARACTER_CLASS_POSITION",
+    "previousExpression": "/^[A-Za-zÀ-ÖØ-öø-ÿ]\\d(?:[A-Za-zÀ-ÖØ-öø-ÿ0-9*+\\-]*)$/u",
+    "currentExpression": "/^[A-Za-zÀ-ÖØ-öø-ÿ]\\d(?:[A-Za-zÀ-ÖØ-öø-ÿ0-9*+-]*)$/u",
+    "previousCoverageAndRepairDigest": "ke1-01579ca67586df12",
+    "currentCoverageAndRepairDigest": "ke1-38e38b3ef0d37d0a"
+  },
+  "equivalenceProof": {
+    "languageReasoning": "A hyphen in the final position of a JavaScript regular-expression character class denotes the literal hyphen whether escaped or unescaped.",
+    "unicodeScalarValuesExercised": 1112064,
+    "stringComparisons": 6672397,
+    "behavioralDifferences": 0,
+    "checkpointReplay": {
+      "cases": 13,
+      "functionallyIdentical": 13,
+      "llmCalls": 0,
+      "results": [
+        {
+          "caseId": "SEM-D01",
+          "explicitCoverageIdentical": true,
+          "relationCoverageIdentical": true,
+          "repairsIdentical": true,
+          "canonicalFunctionalDigestIdentical": true,
+          "evaluatorFunctionalInputIdentical": true,
+          "evaluatorOutputIdentical": true,
+          "unitMetricsIdentical": true,
+          "blockersIdentical": true,
+          "taxonomyCurrent": "COMPLETE",
+          "onlyNonSemanticReplayDifference": [
+            "semanticModelId"
+          ],
+          "functionalIdentity": true
+        },
+        {
+          "caseId": "SEM-D02",
+          "explicitCoverageIdentical": true,
+          "relationCoverageIdentical": true,
+          "repairsIdentical": true,
+          "canonicalFunctionalDigestIdentical": true,
+          "evaluatorFunctionalInputIdentical": true,
+          "evaluatorOutputIdentical": true,
+          "unitMetricsIdentical": true,
+          "blockersIdentical": true,
+          "taxonomyCurrent": "COMPLETE",
+          "onlyNonSemanticReplayDifference": [
+            "semanticModelId"
+          ],
+          "functionalIdentity": true
+        },
+        {
+          "caseId": "SEM-D03",
+          "explicitCoverageIdentical": true,
+          "relationCoverageIdentical": true,
+          "repairsIdentical": true,
+          "canonicalFunctionalDigestIdentical": true,
+          "evaluatorFunctionalInputIdentical": true,
+          "evaluatorOutputIdentical": true,
+          "unitMetricsIdentical": true,
+          "blockersIdentical": true,
+          "taxonomyCurrent": "COMPLETE",
+          "onlyNonSemanticReplayDifference": [
+            "semanticModelId"
+          ],
+          "functionalIdentity": true
+        },
+        {
+          "caseId": "SEM-D04",
+          "explicitCoverageIdentical": true,
+          "relationCoverageIdentical": true,
+          "repairsIdentical": true,
+          "canonicalFunctionalDigestIdentical": true,
+          "evaluatorFunctionalInputIdentical": true,
+          "evaluatorOutputIdentical": true,
+          "unitMetricsIdentical": true,
+          "blockersIdentical": true,
+          "taxonomyCurrent": "COMPLETE",
+          "onlyNonSemanticReplayDifference": [
+            "semanticModelId"
+          ],
+          "functionalIdentity": true
+        },
+        {
+          "caseId": "SEM-D05",
+          "explicitCoverageIdentical": true,
+          "relationCoverageIdentical": true,
+          "repairsIdentical": true,
+          "canonicalFunctionalDigestIdentical": true,
+          "evaluatorFunctionalInputIdentical": true,
+          "evaluatorOutputIdentical": true,
+          "unitMetricsIdentical": true,
+          "blockersIdentical": true,
+          "taxonomyCurrent": "COMPLETE",
+          "onlyNonSemanticReplayDifference": [
+            "semanticModelId"
+          ],
+          "functionalIdentity": true
+        },
+        {
+          "caseId": "SEM-D06",
+          "explicitCoverageIdentical": true,
+          "relationCoverageIdentical": true,
+          "repairsIdentical": true,
+          "canonicalFunctionalDigestIdentical": true,
+          "evaluatorFunctionalInputIdentical": true,
+          "evaluatorOutputIdentical": true,
+          "unitMetricsIdentical": true,
+          "blockersIdentical": true,
+          "taxonomyCurrent": "COMPLETE",
+          "onlyNonSemanticReplayDifference": [
+            "semanticModelId"
+          ],
+          "functionalIdentity": true
+        },
+        {
+          "caseId": "SEM-D07",
+          "explicitCoverageIdentical": true,
+          "relationCoverageIdentical": true,
+          "repairsIdentical": true,
+          "canonicalFunctionalDigestIdentical": true,
+          "evaluatorFunctionalInputIdentical": true,
+          "evaluatorOutputIdentical": true,
+          "unitMetricsIdentical": true,
+          "blockersIdentical": true,
+          "taxonomyCurrent": "COMPLETE",
+          "onlyNonSemanticReplayDifference": [
+            "semanticModelId"
+          ],
+          "functionalIdentity": true
+        },
+        {
+          "caseId": "SEM-D08",
+          "explicitCoverageIdentical": true,
+          "relationCoverageIdentical": true,
+          "repairsIdentical": true,
+          "canonicalFunctionalDigestIdentical": true,
+          "evaluatorFunctionalInputIdentical": true,
+          "evaluatorOutputIdentical": true,
+          "unitMetricsIdentical": true,
+          "blockersIdentical": true,
+          "taxonomyCurrent": "COMPLETE",
+          "onlyNonSemanticReplayDifference": [
+            "semanticModelId"
+          ],
+          "functionalIdentity": true
+        },
+        {
+          "caseId": "SEM-D09",
+          "explicitCoverageIdentical": true,
+          "relationCoverageIdentical": true,
+          "repairsIdentical": true,
+          "canonicalFunctionalDigestIdentical": true,
+          "evaluatorFunctionalInputIdentical": true,
+          "evaluatorOutputIdentical": true,
+          "unitMetricsIdentical": true,
+          "blockersIdentical": true,
+          "taxonomyCurrent": "COMPLETE",
+          "onlyNonSemanticReplayDifference": [
+            "semanticModelId"
+          ],
+          "functionalIdentity": true
+        },
+        {
+          "caseId": "SEM-D10",
+          "explicitCoverageIdentical": true,
+          "relationCoverageIdentical": true,
+          "repairsIdentical": true,
+          "canonicalFunctionalDigestIdentical": true,
+          "evaluatorFunctionalInputIdentical": true,
+          "evaluatorOutputIdentical": true,
+          "unitMetricsIdentical": true,
+          "blockersIdentical": true,
+          "taxonomyCurrent": "COMPLETE",
+          "onlyNonSemanticReplayDifference": [
+            "semanticModelId"
+          ],
+          "functionalIdentity": true
+        },
+        {
+          "caseId": "SEM-D11",
+          "explicitCoverageIdentical": true,
+          "relationCoverageIdentical": true,
+          "repairsIdentical": true,
+          "canonicalFunctionalDigestIdentical": true,
+          "evaluatorFunctionalInputIdentical": true,
+          "evaluatorOutputIdentical": true,
+          "unitMetricsIdentical": true,
+          "blockersIdentical": true,
+          "taxonomyCurrent": "COMPLETE",
+          "onlyNonSemanticReplayDifference": [
+            "semanticModelId"
+          ],
+          "functionalIdentity": true
+        },
+        {
+          "caseId": "SEM-D12",
+          "explicitCoverageIdentical": true,
+          "relationCoverageIdentical": true,
+          "repairsIdentical": true,
+          "canonicalFunctionalDigestIdentical": true,
+          "evaluatorFunctionalInputIdentical": true,
+          "evaluatorOutputIdentical": true,
+          "unitMetricsIdentical": true,
+          "blockersIdentical": true,
+          "taxonomyCurrent": "COMPLETE",
+          "onlyNonSemanticReplayDifference": [
+            "semanticModelId"
+          ],
+          "functionalIdentity": true
+        },
+        {
+          "caseId": "SEM-D13",
+          "explicitCoverageIdentical": true,
+          "relationCoverageIdentical": true,
+          "repairsIdentical": true,
+          "canonicalFunctionalDigestIdentical": true,
+          "evaluatorFunctionalInputIdentical": true,
+          "evaluatorOutputIdentical": true,
+          "unitMetricsIdentical": true,
+          "blockersIdentical": true,
+          "taxonomyCurrent": "COMPLETE",
+          "onlyNonSemanticReplayDifference": [
+            "semanticModelId"
+          ],
+          "functionalIdentity": true
+        }
+      ]
+    }
+  },
+  "impact": {
+    "semanticInventory": "NONE",
+    "canonicalization": "NONE",
+    "explicitCoverage": "NONE",
+    "relationCoverage": "NONE",
+    "criticInput": "NONE",
+    "evaluator": "NONE",
+    "metrics": "NONE",
+    "technicalDigest": "CHANGED"
+  },
+  "decision": "PRESERVE_SEM_D01_TO_SEM_D13_COMPLETE_AND_RESUME_AT_SEM_D14"
+}

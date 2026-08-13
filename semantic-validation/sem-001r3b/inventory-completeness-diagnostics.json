@@ -1,0 +1,13 @@
+{
+  "baselineGap": "Runtime coverage proved inventory-to-model completeness, not source-to-inventory completeness.",
+  "change": {
+    "criticPromptVersion": "SEM-001-CRITIC-1.3",
+    "independentSourceAudit": true,
+    "field": "missingExplicitSourceFragments",
+    "entryFields": ["sourceMessageId", "sourceText", "normalizedMeaning", "reason", "suggestedLocalRole", "confidence"],
+    "repairActions": ["UPSERT_INVENTORY_FRAGMENT", "UPSERT_INVENTORY_RELATION"],
+    "guards": ["exact contiguous USER span", "schema validation", "known inventory endpoints", "candidate canonicalization before use", "ACCEPT forbidden while missing list is non-empty"]
+  },
+  "tests": { "sourceAuditDetectsOmission": "PASS", "completePhraseNoAddition": "PASS", "groundedRepairAccepted": "PASS", "inventedSourceRejected": "PASS" },
+  "liveEvidence": { "SEM-D02": "No missing source fragment reported after independent audit", "SEM-D21": "NOT_DEMONSTRATED_PROVIDER_503" }
+}

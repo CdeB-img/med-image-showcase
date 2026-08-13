@@ -1,0 +1,1007 @@
+{
+  "runId": "sem-001r3-development-2026-08-11T10-52-30-106Z",
+  "failures": [
+    {
+      "caseId": "SEM-D21",
+      "blocker": "RELATION_LOST:1,5T->3T",
+      "classification": "RELATION_COVERAGE_FAILURE",
+      "canonicalModelDigest": "ke1-04daac01ed1bc44d"
+    }
+  ],
+  "coverage": [
+    {
+      "caseId": "SEM-D01",
+      "report": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "inv-3",
+            "targetInventoryItemId": "inv-2",
+            "normalizedRelation": "COMPARE_FOR",
+            "mappedClientRelationIds": [
+              "rel-elem-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel-2",
+            "sourceInventoryItemId": "inv-3",
+            "targetInventoryItemId": "inv-2",
+            "normalizedRelation": "OBSERVES",
+            "mappedClientRelationIds": [
+              "rel-elem-2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "SEM-D02",
+      "report": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel_inv_01",
+            "sourceInventoryItemId": "inv_01",
+            "targetInventoryItemId": "inv_02",
+            "normalizedRelation": "AIMS_TO_EVALUATE",
+            "mappedClientRelationIds": [
+              "rel_01"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel_inv_02",
+            "sourceInventoryItemId": "inv_03",
+            "targetInventoryItemId": "inv_05",
+            "normalizedRelation": "HAS_TIMING",
+            "mappedClientRelationIds": [
+              "coalesced:elem_03",
+              "rel_02"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel_inv_03",
+            "sourceInventoryItemId": "inv_03",
+            "targetInventoryItemId": "inv_06",
+            "normalizedRelation": "COMPARES_WITH",
+            "mappedClientRelationIds": [
+              "coalesced:elem_04",
+              "rel_03"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel_inv_04",
+            "sourceInventoryItemId": "inv_04",
+            "targetInventoryItemId": "inv_07",
+            "normalizedRelation": "MEASURES",
+            "mappedClientRelationIds": [
+              "rel_04"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel_inv_05",
+            "sourceInventoryItemId": "inv_08",
+            "targetInventoryItemId": "inv_07",
+            "normalizedRelation": "MEASURED_BY",
+            "mappedClientRelationIds": [
+              "rel_05"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "SEM-D03",
+      "report": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-inv-1",
+            "sourceInventoryItemId": "inv-6",
+            "targetInventoryItemId": "inv-7",
+            "normalizedRelation": "COMPARES_WITH",
+            "mappedClientRelationIds": [
+              "rel-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel-inv-2",
+            "sourceInventoryItemId": "inv-4",
+            "targetInventoryItemId": "inv-5",
+            "normalizedRelation": "MEASURED_BY",
+            "mappedClientRelationIds": [
+              "rel-2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "SEM-D04",
+      "report": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "inv-2",
+            "targetInventoryItemId": "inv-3",
+            "normalizedRelation": "COMPARES_WITH",
+            "mappedClientRelationIds": [
+              "rel-elem-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "SEM-D05",
+      "report": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-inv-1",
+            "sourceInventoryItemId": "inv-1",
+            "targetInventoryItemId": "inv-2",
+            "normalizedRelation": "AIMS_TO",
+            "mappedClientRelationIds": [
+              "coalesced:elem-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "Both inventory fragments are explicitly preserved inside one typed Semantic Element; a redundant self-relation is not required."
+          },
+          {
+            "inventoryRelationId": "rel-inv-2",
+            "sourceInventoryItemId": "inv-2",
+            "targetInventoryItemId": "inv-3",
+            "normalizedRelation": "OBSERVES",
+            "mappedClientRelationIds": [
+              "rel-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "SEM-D06",
+      "report": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "item-1",
+            "targetInventoryItemId": "item-2",
+            "normalizedRelation": "AIMS_TO",
+            "mappedClientRelationIds": [
+              "coalesced:elem-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "Both inventory fragments are explicitly preserved inside one typed Semantic Element; a redundant self-relation is not required."
+          },
+          {
+            "inventoryRelationId": "rel-2",
+            "sourceInventoryItemId": "item-3",
+            "targetInventoryItemId": "item-5",
+            "normalizedRelation": "MEASURED_BY",
+            "mappedClientRelationIds": [
+              "rel-elem-2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "SEM-D07",
+      "report": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "item-1",
+            "targetInventoryItemId": "item-2",
+            "normalizedRelation": "COMPARES_WITH",
+            "mappedClientRelationIds": [
+              "rel-elem-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "SEM-D08",
+      "report": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel_1",
+            "sourceInventoryItemId": "item_1",
+            "targetInventoryItemId": "item_2",
+            "normalizedRelation": "OBSERVES",
+            "mappedClientRelationIds": [
+              "rel_elem_1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel_2",
+            "sourceInventoryItemId": "item_2",
+            "targetInventoryItemId": "item_3",
+            "normalizedRelation": "EXPECTED_DIRECTION",
+            "mappedClientRelationIds": [
+              "rel_elem_2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel_3",
+            "sourceInventoryItemId": "item_2",
+            "targetInventoryItemId": "item_5",
+            "normalizedRelation": "CHANGES_AFTER",
+            "mappedClientRelationIds": [
+              "rel_elem_3"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "SEM-D09",
+      "report": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "inv-1",
+            "targetInventoryItemId": "inv-2",
+            "normalizedRelation": "AIMS_TO_CREATE",
+            "mappedClientRelationIds": [
+              "coalesced:elem-1",
+              "rel-elem-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel-2",
+            "sourceInventoryItemId": "inv-3",
+            "targetInventoryItemId": "inv-2",
+            "normalizedRelation": "QUALIFIES",
+            "mappedClientRelationIds": [
+              "coalesced:elem-2",
+              "rel-elem-1",
+              "rel-elem-2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "Both inventory fragments are explicitly preserved inside one typed Semantic Element; a redundant self-relation is not required."
+          },
+          {
+            "inventoryRelationId": "rel-3",
+            "sourceInventoryItemId": "inv-4",
+            "targetInventoryItemId": "inv-2",
+            "normalizedRelation": "TARGETS",
+            "mappedClientRelationIds": [
+              "rel-elem-2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "SEM-D10",
+      "report": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "item-1",
+            "targetInventoryItemId": "item-2",
+            "normalizedRelation": "COMPARES_WITH",
+            "mappedClientRelationIds": [
+              "rel-elem-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel-2",
+            "sourceInventoryItemId": "item-3",
+            "targetInventoryItemId": "item-1",
+            "normalizedRelation": "MEASURED_BY",
+            "mappedClientRelationIds": [
+              "rel-elem-2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+          },
+          {
+            "inventoryRelationId": "rel-3",
+            "sourceInventoryItemId": "item-3",
+            "targetInventoryItemId": "item-2",
+            "normalizedRelation": "MEASURED_BY",
+            "mappedClientRelationIds": [
+              "rel-elem-3"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "SEM-D11",
+      "report": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel_inv_01",
+            "sourceInventoryItemId": "inv_02",
+            "targetInventoryItemId": "inv_05",
+            "normalizedRelation": "MEASURES",
+            "mappedClientRelationIds": [
+              "rel_01"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel_inv_02",
+            "sourceInventoryItemId": "inv_06",
+            "targetInventoryItemId": "inv_05",
+            "normalizedRelation": "MEASURES",
+            "mappedClientRelationIds": [
+              "rel_02"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel_inv_03",
+            "sourceInventoryItemId": "inv_02",
+            "targetInventoryItemId": "inv_06",
+            "normalizedRelation": "COMPARES_WITH",
+            "mappedClientRelationIds": [
+              "rel_03"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "SEM-D12",
+      "report": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "item-3",
+            "targetInventoryItemId": "item-2",
+            "normalizedRelation": "MEASURES",
+            "mappedClientRelationIds": [
+              "rel-elem-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel-2",
+            "sourceInventoryItemId": "item-2",
+            "targetInventoryItemId": "item-6",
+            "normalizedRelation": "CHANGES_AFTER",
+            "mappedClientRelationIds": [
+              "rel-elem-2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "SEM-D13",
+      "report": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "item-3",
+            "targetInventoryItemId": "item-1",
+            "normalizedRelation": "MEASURES",
+            "mappedClientRelationIds": [
+              "rel-elem-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel-2",
+            "sourceInventoryItemId": "item-4",
+            "targetInventoryItemId": "item-5",
+            "normalizedRelation": "REPEATED_AT",
+            "mappedClientRelationIds": [
+              "rel-elem-2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "SEM-D14",
+      "report": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel_1",
+            "sourceInventoryItemId": "inv_3",
+            "targetInventoryItemId": "inv_1",
+            "normalizedRelation": "MEASURES",
+            "mappedClientRelationIds": [
+              "rel_el_1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel_2",
+            "sourceInventoryItemId": "inv_4",
+            "targetInventoryItemId": "inv_3",
+            "normalizedRelation": "EXCLUDES",
+            "mappedClientRelationIds": [
+              "rel_el_2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "SEM-D15",
+      "report": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "inv-1",
+            "targetInventoryItemId": "inv-2",
+            "normalizedRelation": "AIMS_TO_MODIFY",
+            "mappedClientRelationIds": [
+              "rel-elem-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel-2",
+            "sourceInventoryItemId": "inv-2",
+            "targetInventoryItemId": "inv-3",
+            "normalizedRelation": "RELATED_TO_CANDIDATE",
+            "mappedClientRelationIds": [
+              "rel-elem-2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel-3",
+            "sourceInventoryItemId": "inv-3",
+            "targetInventoryItemId": "inv-4",
+            "normalizedRelation": "COMPARES_WITH",
+            "mappedClientRelationIds": [
+              "rel-elem-3"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "SEM-D16",
+      "report": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "item-2",
+            "targetInventoryItemId": "item-4",
+            "normalizedRelation": "INFLUENCES",
+            "mappedClientRelationIds": [
+              "rel-elem-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "SEM-D17",
+      "report": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "item-1",
+            "targetInventoryItemId": "item-2",
+            "normalizedRelation": "PREDICTS_CANDIDATE",
+            "mappedClientRelationIds": [
+              "rel-elem-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "SEM-D18",
+      "report": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "inv-1",
+            "targetInventoryItemId": "inv-2",
+            "normalizedRelation": "COMPARES_WITH",
+            "mappedClientRelationIds": [
+              "rel-elem-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel-2",
+            "sourceInventoryItemId": "inv-1",
+            "targetInventoryItemId": "inv-5",
+            "normalizedRelation": "OBSERVES",
+            "mappedClientRelationIds": [
+              "rel-elem-2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+          },
+          {
+            "inventoryRelationId": "rel-3",
+            "sourceInventoryItemId": "inv-2",
+            "targetInventoryItemId": "inv-5",
+            "normalizedRelation": "OBSERVES",
+            "mappedClientRelationIds": [
+              "rel-elem-3"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "SEM-D19",
+      "report": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "inv-1",
+            "targetInventoryItemId": "inv-2",
+            "normalizedRelation": "COMPARES_WITH",
+            "mappedClientRelationIds": [
+              "rel-elem-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel-2",
+            "sourceInventoryItemId": "inv-3",
+            "targetInventoryItemId": "inv-1",
+            "normalizedRelation": "INFLUENCES",
+            "mappedClientRelationIds": [
+              "rel-elem-2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel-3",
+            "sourceInventoryItemId": "inv-3",
+            "targetInventoryItemId": "inv-4",
+            "normalizedRelation": "MEASURED_BY",
+            "mappedClientRelationIds": [
+              "rel-elem-3"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "SEM-D20",
+      "report": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-inv-1",
+            "sourceInventoryItemId": "inv-2",
+            "targetInventoryItemId": "inv-3",
+            "normalizedRelation": "RELATED_TO_CANDIDATE",
+            "mappedClientRelationIds": [
+              "rel-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel-inv-2",
+            "sourceInventoryItemId": "inv-3",
+            "targetInventoryItemId": "inv-4",
+            "normalizedRelation": "REPEATED_AT",
+            "mappedClientRelationIds": [
+              "rel-2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "SEM-D21",
+      "report": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel_1",
+            "sourceInventoryItemId": "item_1",
+            "targetInventoryItemId": "item_2",
+            "normalizedRelation": "AIMS_TO_MODIFY",
+            "mappedClientRelationIds": [
+              "rel_el_1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel_2",
+            "sourceInventoryItemId": "item_3",
+            "targetInventoryItemId": "item_2",
+            "normalizedRelation": "RELATED_TO_CANDIDATE",
+            "mappedClientRelationIds": [
+              "rel_el_2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "SEM-D22",
+      "report": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "inv-1",
+            "targetInventoryItemId": "inv-3",
+            "normalizedRelation": "MEASURED_BY",
+            "mappedClientRelationIds": [
+              "rel-el-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel-2",
+            "sourceInventoryItemId": "inv-1",
+            "targetInventoryItemId": "inv-4",
+            "normalizedRelation": "MEASURED_BY",
+            "mappedClientRelationIds": [
+              "rel-el-2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+          },
+          {
+            "inventoryRelationId": "rel-3",
+            "sourceInventoryItemId": "inv-3",
+            "targetInventoryItemId": "inv-4",
+            "normalizedRelation": "COMPARES_WITH",
+            "mappedClientRelationIds": [
+              "rel-el-3"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "SEM-D23",
+      "report": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "inv-1",
+            "targetInventoryItemId": "inv-5",
+            "normalizedRelation": "CHANGES_AFTER",
+            "mappedClientRelationIds": [
+              "rel-elem-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+          },
+          {
+            "inventoryRelationId": "rel-2",
+            "sourceInventoryItemId": "inv-2",
+            "targetInventoryItemId": "inv-5",
+            "normalizedRelation": "CHANGES_AFTER",
+            "mappedClientRelationIds": [
+              "rel-elem-2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+          },
+          {
+            "inventoryRelationId": "rel-3",
+            "sourceInventoryItemId": "inv-1",
+            "targetInventoryItemId": "inv-4",
+            "normalizedRelation": "RELATED_TO_CANDIDATE",
+            "mappedClientRelationIds": [
+              "rel-elem-3"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+          },
+          {
+            "inventoryRelationId": "rel-4",
+            "sourceInventoryItemId": "inv-2",
+            "targetInventoryItemId": "inv-4",
+            "normalizedRelation": "RELATED_TO_CANDIDATE",
+            "mappedClientRelationIds": [
+              "rel-elem-4"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+          },
+          {
+            "inventoryRelationId": "structural:inventory-coordinated:elem-1:elem-2",
+            "sourceInventoryItemId": "inv-1",
+            "targetInventoryItemId": "inv-2",
+            "normalizedRelation": "DIRECT_RELATED_TO_REQUIRED_FOR_COORDINATED_SCIENTIFIC_SUBJECTS_GROUNDED_BY_rel-1+rel-2",
+            "mappedClientRelationIds": [
+              "rel-elem-coordinated-1-2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "Scientific subjects coordinated through the same explicit requested change/outcome retain a direct relationship."
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "SEM-D24",
+      "report": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "item-1",
+            "targetInventoryItemId": "item-3",
+            "normalizedRelation": "MEASURES",
+            "mappedClientRelationIds": [
+              "rel-elem-1",
+              "rel-elem-3"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+          },
+          {
+            "inventoryRelationId": "rel-2",
+            "sourceInventoryItemId": "item-3",
+            "targetInventoryItemId": "item-2",
+            "normalizedRelation": "PREDICTS_CANDIDATE",
+            "mappedClientRelationIds": [
+              "rel-elem-1",
+              "rel-elem-4"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+          },
+          {
+            "inventoryRelationId": "rel-3",
+            "sourceInventoryItemId": "item-4",
+            "targetInventoryItemId": "item-1",
+            "normalizedRelation": "REPEATED_AT",
+            "mappedClientRelationIds": [
+              "rel-elem-2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+          },
+          {
+            "inventoryRelationId": "structural:elem-5:elem-1:elem-2",
+            "sourceInventoryItemId": "item-1",
+            "targetInventoryItemId": "item-2",
+            "normalizedRelation": "DIRECT_SCIENTIFIC_RELATION_REQUIRED_FROM_INTENT_SPOKES",
+            "mappedClientRelationIds": [
+              "rel-elem-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "The scientific tool/method and target connected through an intent also have a direct scientific relation."
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "SEM-D25",
+      "report": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "item-1",
+            "targetInventoryItemId": "item-2",
+            "normalizedRelation": "OBSERVES",
+            "mappedClientRelationIds": [
+              "rel-elem-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel-2",
+            "sourceInventoryItemId": "item-1",
+            "targetInventoryItemId": "item-3",
+            "normalizedRelation": "REPEATED_AT",
+            "mappedClientRelationIds": [
+              "rel-elem-2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "SEM-D26",
+      "report": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "inv-2",
+            "targetInventoryItemId": "inv-3",
+            "normalizedRelation": "COMPARES_WITH",
+            "mappedClientRelationIds": [
+              "rel-elem-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel-2",
+            "sourceInventoryItemId": "inv-2",
+            "targetInventoryItemId": "inv-1",
+            "normalizedRelation": "OBSERVES",
+            "mappedClientRelationIds": [
+              "rel-elem-2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel-3",
+            "sourceInventoryItemId": "inv-3",
+            "targetInventoryItemId": "inv-1",
+            "normalizedRelation": "OBSERVES",
+            "mappedClientRelationIds": [
+              "rel-elem-3"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "SEM-D27",
+      "report": {
+        "status": "COMPLETE",
+        "entries": []
+      }
+    },
+    {
+      "caseId": "SEM-D28",
+      "report": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "inv-4",
+            "targetInventoryItemId": "inv-2",
+            "normalizedRelation": "MEASURED_BY",
+            "mappedClientRelationIds": [
+              "rel-elem-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "SEM-D29",
+      "report": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-u2-1",
+            "sourceInventoryItemId": "inv-u2-3",
+            "targetInventoryItemId": "inv-u2-2",
+            "normalizedRelation": "REPLACES",
+            "mappedClientRelationIds": [
+              "rel-ke1-mvo-replaces"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "SEM-D30",
+      "report": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "item-1",
+            "targetInventoryItemId": "item-2",
+            "normalizedRelation": "AIMS_TO_MODIFY",
+            "mappedClientRelationIds": [
+              "coalesced:elem-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "Both inventory fragments are explicitly preserved inside one typed Semantic Element; a redundant self-relation is not required."
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,117 @@
+{
+  "campaign": "SEM-001R3E",
+  "verifiedAt": "2026-08-12T14:36:33.981Z",
+  "decision": "R3E_CONFIGURATION_VERIFIED",
+  "classification": "STRUCTURED_OUTPUT_CONTRACT_FAILURE",
+  "currentDigests": {
+    "reconstructionPrompt": "ke1-943568042373de98",
+    "criticPrompt": "ke1-b26ddf632ed1fa57",
+    "baseProviderSchema": "ke1-c849778553bf38b1",
+    "canonicalizer": "ke1-8a56fab704f65083",
+    "coverageAndRepair": "ke1-ca1d80690519c165",
+    "evaluator": "ke1-b5aa14fa96372ad6",
+    "developmentCorpus": "ke1-64d654cfa041a563",
+    "developmentGold": "ke1-1006a72533caf7f9",
+    "atomicCompositionPrompt": "ke1-10b88664b49fca18",
+    "providerTransportSchema": "ke1-55cd50759595b451",
+    "internalSemanticSchema": "ke1-4369054e1bb3d37a"
+  },
+  "checks": [
+    {
+      "contract": "provider",
+      "expected": "GOOGLE_GEMINI",
+      "observed": "GOOGLE_GEMINI",
+      "pass": true
+    },
+    {
+      "contract": "model",
+      "expected": "gemini-3.5-flash-lite",
+      "observed": "gemini-3.5-flash-lite",
+      "pass": true
+    },
+    {
+      "contract": "reconstructionPromptVersion",
+      "expected": "SEM-001-RECONSTRUCTION-1.2",
+      "observed": "SEM-001-RECONSTRUCTION-1.2",
+      "pass": true
+    },
+    {
+      "contract": "criticPromptVersion",
+      "expected": "SEM-001-CRITIC-1.3",
+      "observed": "SEM-001-CRITIC-1.3",
+      "pass": true
+    },
+    {
+      "contract": "schemaVersion",
+      "expected": "SEM-001-1.1",
+      "observed": "SEM-001-1.1",
+      "pass": true
+    },
+    {
+      "contract": "modelVersion",
+      "expected": "1.1",
+      "observed": "1.1",
+      "pass": true
+    },
+    {
+      "contract": "reconstructionPromptDigest",
+      "expected": "ke1-943568042373de98",
+      "observed": "ke1-943568042373de98",
+      "pass": true
+    },
+    {
+      "contract": "criticPromptDigest",
+      "expected": "ke1-b26ddf632ed1fa57",
+      "observed": "ke1-b26ddf632ed1fa57",
+      "pass": true
+    },
+    {
+      "contract": "baseProviderSchemaDigest",
+      "expected": "ke1-c849778553bf38b1",
+      "observed": "ke1-c849778553bf38b1",
+      "pass": true
+    },
+    {
+      "contract": "canonicalizerDigest",
+      "expected": "ke1-8a56fab704f65083",
+      "observed": "ke1-8a56fab704f65083",
+      "pass": true
+    },
+    {
+      "contract": "coverageAndRepairDigest",
+      "expected": "ke1-ca1d80690519c165",
+      "observed": "ke1-ca1d80690519c165",
+      "pass": true
+    },
+    {
+      "contract": "evaluatorDigest",
+      "expected": "ke1-b5aa14fa96372ad6",
+      "observed": "ke1-b5aa14fa96372ad6",
+      "pass": true
+    },
+    {
+      "contract": "developmentCorpusDigest",
+      "expected": "ke1-64d654cfa041a563",
+      "observed": "ke1-64d654cfa041a563",
+      "pass": true
+    },
+    {
+      "contract": "developmentGoldFrames",
+      "expected": "30 unchanged",
+      "observed": "30 unchanged",
+      "pass": true
+    },
+    {
+      "contract": "auditPromptVersion",
+      "expected": "SEM-001-ATOMIC-COMPOSITION-AUDIT-1.1",
+      "observed": "SEM-001-ATOMIC-COMPOSITION-AUDIT-1.1",
+      "pass": true
+    },
+    {
+      "contract": "auditSchemaVersion",
+      "expected": "SEM-001-ATOMIC-COMPOSITION-1.1",
+      "observed": "SEM-001-ATOMIC-COMPOSITION-1.1",
+      "pass": true
+    }
+  ]
+}

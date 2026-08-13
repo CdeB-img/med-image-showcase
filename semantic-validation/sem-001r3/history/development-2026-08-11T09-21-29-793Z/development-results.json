@@ -1,0 +1,4802 @@
+[
+  {
+    "caseId": "SEM-D03",
+    "split": "DEVELOPMENT_CASES",
+    "goldFrameDigest": "ke1-70b1081ba50939ff",
+    "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+    "criticPromptVersion": "SEM-001-CRITIC-1.2",
+    "provider": "GOOGLE_GEMINI",
+    "model": "gemini-3.5-flash-lite",
+    "requestStarted": "2026-08-11T09:21:29.793Z",
+    "completedAt": "2026-08-11T09:21:43.941Z",
+    "reconstructionStatus": "SUCCESS",
+    "criticStatus": "SUCCESS",
+    "canonicalizationStatus": "SUCCESS",
+    "evaluationStatus": "READY",
+    "finalStatus": "COMPLETE",
+    "retryCount": 0,
+    "latencyMs": 14148,
+    "operationTraces": [
+      {
+        "operation": "RECONSTRUCTION",
+        "turn": 1,
+        "cycle": null,
+        "callId": "gemini-call:ke1-6a8ff429eafa4dd5",
+        "structuredDigest": "ke1-efe9067e4887a042",
+        "attempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T09:21:29.793Z",
+            "requestFinished": "2026-08-11T09:21:36.857Z",
+            "latencyMs": 7064,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ]
+      },
+      {
+        "operation": "CRITIC",
+        "turn": 1,
+        "cycle": 1,
+        "callId": "gemini-call:ke1-a03c9c1655201f7a",
+        "structuredDigest": "ke1-c71eaa2a65f2a10e",
+        "attempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T09:21:36.863Z",
+            "requestFinished": "2026-08-11T09:21:41.261Z",
+            "latencyMs": 4398,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ]
+      },
+      {
+        "operation": "CRITIC",
+        "turn": 1,
+        "cycle": 2,
+        "callId": "gemini-call:ke1-8ba926fe95ea96a2",
+        "structuredDigest": "ke1-0bc1b2b9f03a77e5",
+        "attempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T09:21:41.264Z",
+            "requestFinished": "2026-08-11T09:21:43.919Z",
+            "latencyMs": 2655,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ]
+      }
+    ],
+    "reconstructionCandidate": {
+      "candidateId": "cand-001",
+      "language": "fr",
+      "normalizedMeaning": "Comparaison à 5 jours de la taille d'infarctus mesurée par LGE entre stenting immédiat et stenting différé chez des patients avec STEMI antérieur, en évaluant la MVO en critère secondaire.",
+      "summaryForUser": "Vous souhaitez comparer la taille de l'infarctus à 5 jours entre un stenting immédiat et différé chez des patients ayant eu un STEMI antérieur, en mesurant le LGE et en utilisant la MVO comme critère secondaire.",
+      "semanticInventory": {
+        "explicitFragments": [
+          {
+            "inventoryItemId": "item-1",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "patients présentant un STEMI antérieur",
+            "normalizedLabel": "patients présentant un STEMI antérieur",
+            "localRole": "population",
+            "polarity": "AFFIRMED",
+            "modifiers": [
+              "antérieur"
+            ],
+            "linkedInventoryItemIds": []
+          },
+          {
+            "inventoryItemId": "item-2",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "comparer",
+            "normalizedLabel": "comparer",
+            "localRole": "action",
+            "polarity": "AFFIRMED",
+            "modifiers": [],
+            "linkedInventoryItemIds": [
+              "item-6",
+              "item-7"
+            ]
+          },
+          {
+            "inventoryItemId": "item-3",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "à 5 jours",
+            "normalizedLabel": "à 5 jours",
+            "localRole": "timing",
+            "polarity": "AFFIRMED",
+            "modifiers": [],
+            "linkedInventoryItemIds": []
+          },
+          {
+            "inventoryItemId": "item-4",
+            "sourceMessageId": "STEM-D03:user:1",
+            "sourceText": "taille d'infarctus",
+            "normalizedLabel": "taille d'infarctus",
+            "localRole": "biomarker",
+            "polarity": "AFFIRMED",
+            "modifiers": [],
+            "linkedInventoryItemIds": []
+          },
+          {
+            "inventoryItemId": "item-5",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "LGE",
+            "normalizedLabel": "LGE",
+            "localRole": "method",
+            "polarity": "AFFIRMED",
+            "modifiers": [],
+            "linkedInventoryItemIds": []
+          },
+          {
+            "inventoryItemId": "item-6",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "stenting immédiat",
+            "normalizedLabel": "stenting immédiat",
+            "localRole": "intervention",
+            "polarity": "AFFIRMED",
+            "modifiers": [
+              "immédiat"
+            ],
+            "linkedInventoryItemIds": []
+          },
+          {
+            "inventoryItemId": "item-7",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "différé",
+            "normalizedLabel": "stenting différé",
+            "localRole": "intervention",
+            "polarity": "AFFIRMED",
+            "modifiers": [
+              "différé"
+            ],
+            "linkedInventoryItemIds": []
+          },
+          {
+            "inventoryItemId": "item-8",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "MVO",
+            "normalizedLabel": "MVO",
+            "localRole": "endpoint",
+            "polarity": "AFFIRMED",
+            "modifiers": [
+              "secondaire"
+            ],
+            "linkedInventoryItemIds": []
+          }
+        ],
+        "explicitRelations": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "item-6",
+            "targetInventoryItemId": "item-7",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "entre stenting immédiat et différé",
+            "normalizedRelation": "COMPARES_WITH",
+            "polarity": "AFFIRMED"
+          },
+          {
+            "inventoryRelationId": "rel-2",
+            "sourceInventoryItemId": "item-4",
+            "targetInventoryItemId": "item-5",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "taille d'infarctus mesurée en LGE",
+            "normalizedRelation": "MEASURED_BY",
+            "polarity": "AFFIRMED"
+          }
+        ]
+      },
+      "elements": [
+        {
+          "clientElementId": "elem-1",
+          "type": "POPULATION",
+          "canonicalMeaning": "Patients présentant un STEMI antérieur",
+          "studyRole": "SUBJECT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-1"
+          ],
+          "sourceMessageId": "SEM-D03:user:1",
+          "sourceText": "patients présentant un STEMI antérieur",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        },
+        {
+          "clientElementId": "elem-2",
+          "type": "SCIENTIFIC_INTENT",
+          "canonicalMeaning": "Comparer les bras d'intervention",
+          "studyRole": "NONE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-2"
+          ],
+          "sourceMessageId": "SEM-D03:user:1",
+          "sourceText": "comparer",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        },
+        {
+          "clientElementId": "elem-3",
+          "type": "TIMING",
+          "canonicalMeaning": "5 jours",
+          "studyRole": "NONE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-3"
+          ],
+          "sourceMessageId": "SEM-D03:user:1",
+          "sourceText": "à 5 jours",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        },
+        {
+          "clientElementId": "elem-4",
+          "type": "BIOMARKER",
+          "canonicalMeaning": "Taille d'infarctus",
+          "studyRole": "MEASUREMENT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-4"
+          ],
+          "sourceMessageId": "SEM-D03:user:1",
+          "sourceText": "taille d'infarctus",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        },
+        {
+          "clientElementId": "elem-5",
+          "type": "METHOD",
+          "canonicalMeaning": "LGE (Late Gadolinium Enhancement)",
+          "studyRole": "MEASUREMENT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-5"
+          ],
+          "sourceMessageId": "SEM-D03:user:1",
+          "sourceText": "LGE",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        },
+        {
+          "clientElementId": "elem-6",
+          "type": "INTERVENTION",
+          "canonicalMeaning": "Stenting immédiat",
+          "studyRole": "INTERVENTION_ARM",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-6"
+          ],
+          "sourceMessageId": "SEM-D03:user:1",
+          "sourceText": "stenting immédiat",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        },
+        {
+          "clientElementId": "elem-7",
+          "type": "INTERVENTION",
+          "canonicalMeaning": "Stenting différé",
+          "studyRole": "COMPARATOR_ARM",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-7"
+          ],
+          "sourceMessageId": "SEM-D03:user:1",
+          "sourceText": "différé",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        },
+        {
+          "clientElementId": "elem-8",
+          "type": "ENDPOINT",
+          "canonicalMeaning": "Microvascular obstruction (MVO) en critère secondaire",
+          "studyRole": "OUTCOME_ROLE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-8"
+          ],
+          "sourceMessageId": "SEM-D03:user:1",
+          "sourceText": "MVO",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        }
+      ],
+      "relations": [
+        {
+          "clientRelationId": "rel-elem-1",
+          "sourceClientElementId": "elem-6",
+          "targetClientElementId": "elem-7",
+          "relationType": "COMPARES_WITH",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel-1"
+          ],
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false
+        },
+        {
+          "clientRelationId": "rel-elem-2",
+          "sourceClientElementId": "elem-4",
+          "targetClientElementId": "elem-5",
+          "relationType": "MEASURED_BY",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel-2"
+          ],
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false
+        }
+      ],
+      "missingConcepts": [],
+      "ellipses": [],
+      "ambiguities": [],
+      "unknowns": [],
+      "contradictions": [],
+      "knowledgeRequests": [],
+      "clarificationCandidates": [],
+      "routeProposal": {
+        "route": "DESIGN_STUDY",
+        "confidence": 1,
+        "reason": "The user is setting up a comparative intervention study with population, timing, biomarkers, methods, and endpoints.",
+        "expectedCapabilities": [
+          "Study design structuring",
+          "Arm configuration",
+          "Endpoint specification"
+        ]
+      },
+      "semanticWarnings": []
+    },
+    "critics": [
+      {
+        "criticId": "critic-sem-d03-1",
+        "verdict": "REVISE",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All objects (STEMI antérieur population, taille d'infarctus biomarker, LGE method, stenting immédiat & différé interventions, MVO endpoint) are represented."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Both stenting immédiat and différé are represented with appropriate INTERVENTION types and study roles."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Both stenting interventions are represented."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No broader acquisition family modality was explicitly stated outside of the specific method (LGE)."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "COMPARES_WITH and MEASURED_BY relations are both represented."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "FAIL",
+            "evidence": "Taxonomy report indicates the arm-judging variable 'taille d'infarctus' is typed as BIOMARKER instead of ENDPOINT under operational precedence."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "Explicit relations are preserved without weakening."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No unwarranted inferences were promoted."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "No ambiguities were hidden."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "Polarity is correctly affirmed throughout."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "PASS",
+            "evidence": "Timing 'à 5 jours' is preserved."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "Endpoint promotion rules are followed once taxonomy correction is applied."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific concepts remain faithful to source text."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit fragments are represented in the typed candidate elements."
+          }
+        ],
+        "issues": [
+          {
+            "code": "TYPE_MISMATCH",
+            "severity": "CRITICAL",
+            "elementClientIds": [
+              "elem-4"
+            ],
+            "description": "The explicit variable 'taille d'infarctus' is compared between study arms and must be classified as ENDPOINT with OUTCOME_ROLE under operational precedence.",
+            "recommendedAction": "Upsert element elem-4 to type ENDPOINT and studyRole OUTCOME_ROLE.",
+            "resolved": false
+          }
+        ],
+        "proposedRepairs": [
+          {
+            "repairId": "repair-1",
+            "action": "UPSERT_ELEMENT",
+            "reason": "Correct the element type of 'taille d'infarctus' to ENDPOINT and studyRole to OUTCOME_ROLE per operational classification precedence for arm-compared variables.",
+            "sourceInventoryItemIds": [
+              "item-4"
+            ],
+            "sourceInventoryRelationIds": [],
+            "elementClientElementId": "elem-4",
+            "elementType": "ENDPOINT",
+            "elementCanonicalMeaning": "Taille d'infarctus",
+            "elementStudyRole": "OUTCOME_ROLE",
+            "elementPolarity": "AFFIRMED",
+            "elementInventoryItemIds": [
+              "item-4"
+            ],
+            "elementSourceMessageId": "SEM-D03:user:1",
+            "elementSourceText": "taille d'infarctus",
+            "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+            "elementConfidence": 1,
+            "elementInferenceReason": null,
+            "elementRequiresConfirmation": false,
+            "elementSupersedesElementIds": [
+              "elem-4"
+            ],
+            "relationClientRelationId": null,
+            "relationSourceClientElementId": null,
+            "relationTargetClientElementId": null,
+            "relationType": null,
+            "relationPolarity": null,
+            "relationInventoryRelationIds": [],
+            "relationEpistemicStatus": null,
+            "relationConfidence": null,
+            "relationInferenceReason": null,
+            "relationRequiresConfirmation": null,
+            "ambiguity": null,
+            "route": null,
+            "routeConfidence": null,
+            "routeReason": null,
+            "routeExpectedCapabilities": []
+          }
+        ],
+        "criticSummary": "The candidate captures all elements and relations accurately, but the taxonomy report correctly flags that 'taille d'infarctus', being the primary variable compared between study arms, must be classified as an ENDPOINT with an OUTCOME_ROLE rather than a BIOMARKER. A revision repair is provided to correct this classification."
+      },
+      {
+        "criticId": "crit-002",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit fragments including patient population, timing, interventions, biomarker, method, and endpoint are fully represented."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Stenting immédiat and stenting différé are fully represented with appropriate comparison roles."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Both immediate and deferred stenting interventions are represented."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No broader modality family was explicitly stated beyond the specific LGE method."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All inventory relations are explicitly mapped."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "Taxonomy report is complete and elements conform strictly to operational guidelines."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "Explicit relations are preserved without weakening."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No ungrounded inferences have been promoted as user-stated."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "No hidden ambiguities were detected."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "Polarities are correctly preserved."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "PASS",
+            "evidence": "The timing element 'à 5 jours' is accurately represented."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "Infarct size and MVO are appropriately classified as endpoints given the direct comparative and secondary endpoint context."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Concepts retain their specific wording and canonical meaning."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "Explicit coverage and relation coverage reports are both complete."
+          }
+        ],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "All checklist items pass successfully. The semantic model is complete, robust, and correctly structured for study design."
+      }
+    ],
+    "repairDiagnostics": [
+      {
+        "repairId": "repair-1",
+        "status": "ACCEPTED",
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+      }
+    ],
+    "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+    "semanticModel": {
+      "semanticModelVersion": "1.1",
+      "semanticModelId": "semantic-model:ke1-209ae38fdffd4103",
+      "revision": 1,
+      "status": "CANDIDATE",
+      "originalRequest": "Chez des patients présentant un STEMI antérieur, je veux comparer à 5 jours la taille d'infarctus mesurée en LGE entre stenting immédiat et différé, avec MVO en critère secondaire.",
+      "normalizedMeaning": "Comparaison à 5 jours de la taille d'infarctus mesurée par LGE entre stenting immédiat et stenting différé chez des patients avec STEMI antérieur, en évaluant la MVO en critère secondaire.",
+      "conversationMessageIds": [
+        "SEM-D03:user:1"
+      ],
+      "elements": [
+        {
+          "semanticElementId": "sem-element:ke1-14c4cabb768d579f",
+          "type": "SCIENTIFIC_INTENT",
+          "canonicalMeaning": "Comparer les bras d'intervention",
+          "studyRole": "NONE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-2"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D03:user:1",
+            "text": "comparer",
+            "start": 57,
+            "end": 65
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D03:user:1",
+            "providerCallId": "gemini-call:ke1-6a8ff429eafa4dd5",
+            "rawElementId": "elem-2"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-6974e5f666ce021a",
+          "type": "ENDPOINT",
+          "canonicalMeaning": "Microvascular obstruction (MVO) en critère secondaire",
+          "studyRole": "OUTCOME_ROLE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-8"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D03:user:1",
+            "text": "MVO",
+            "start": 154,
+            "end": 157
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "PARTIAL",
+            "resultRef": "knowledge-result:ke1-d10cca215f690a4d",
+            "assertionRefs": [
+              "RB-004:v1.1:block:1:ke1-e39816a6bdc6356a",
+              "RB-004:v1.1:block:10:ke1-f5d808a0c27812a4",
+              "RB-004:v1.1:block:11:ke1-660fe893123efedf",
+              "RB-004:v1.1:block:12:ke1-4b093dc51508ad01",
+              "RB-004:v1.1:block:13:ke1-b823cbd4b7316c50",
+              "RB-004:v1.1:block:14:ke1-3dd28cef8bb9003b",
+              "RB-004:v1.1:block:15:ke1-593b6ff0f373f344",
+              "RB-004:v1.1:block:16:ke1-795caa8bc49b57c7",
+              "RB-004:v1.1:block:17:ke1-b0f815cb8f1c773f",
+              "RB-004:v1.1:block:18:ke1-5a8000fced8f23a8",
+              "RB-004:v1.1:block:2:ke1-8fb56766b011127a",
+              "RB-004:v1.1:block:3:ke1-caed666c73f1b230",
+              "RB-004:v1.1:block:4:ke1-a3e762d90a2309bd",
+              "RB-004:v1.1:block:5:ke1-b92d8f8738854273",
+              "RB-004:v1.1:block:6:ke1-5d646824a19d5f88",
+              "RB-004:v1.1:block:7:ke1-ecc539bec6136d82",
+              "RB-004:v1.1:block:8:ke1-c5e1465f566a604b",
+              "RB-004:v1.1:block:9:ke1-58a432651f80bb01"
+            ],
+            "gapRefs": [
+              "knowledge-gap:ke1-785f5e3904259b0d",
+              "knowledge-gap:ke1-b3173cc4dda55f68"
+            ],
+            "checkedAt": "2026-08-11T09:21:43.937Z"
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D03:user:1",
+            "providerCallId": "gemini-call:ke1-6a8ff429eafa4dd5",
+            "rawElementId": "elem-8"
+          },
+          "supersedesElementIds": [],
+          "version": 2
+        },
+        {
+          "semanticElementId": "sem-element:ke1-84241a21684b46cd",
+          "type": "POPULATION",
+          "canonicalMeaning": "Patients présentant un STEMI antérieur",
+          "studyRole": "SUBJECT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-1"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D03:user:1",
+            "text": "patients présentant un STEMI antérieur",
+            "start": 9,
+            "end": 47
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D03:user:1",
+            "providerCallId": "gemini-call:ke1-6a8ff429eafa4dd5",
+            "rawElementId": "elem-1"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-aa0429caac5f4c9e",
+          "type": "TIMING",
+          "canonicalMeaning": "5 jours",
+          "studyRole": "NONE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-3"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D03:user:1",
+            "text": "à 5 jours",
+            "start": 66,
+            "end": 75
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D03:user:1",
+            "providerCallId": "gemini-call:ke1-6a8ff429eafa4dd5",
+            "rawElementId": "elem-3"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-acfc579d3d14b769",
+          "type": "METHOD",
+          "canonicalMeaning": "LGE (Late Gadolinium Enhancement)",
+          "studyRole": "MEASUREMENT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-5"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D03:user:1",
+            "text": "LGE",
+            "start": 109,
+            "end": 112
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-5d1adffbd50ffd77"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D03:user:1",
+            "providerCallId": "gemini-call:ke1-6a8ff429eafa4dd5",
+            "rawElementId": "elem-5"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-bba4d3c400c60798",
+          "type": "ENDPOINT",
+          "canonicalMeaning": "Taille d'infarctus",
+          "studyRole": "OUTCOME_ROLE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-4"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D03:user:1",
+            "text": "taille d'infarctus",
+            "start": 79,
+            "end": 97
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-5d1adffbd50ffd77"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "KNOWLEDGE_GAP",
+            "resultRef": "knowledge-result:ke1-d10cca215f690a4d",
+            "assertionRefs": [],
+            "gapRefs": [
+              "knowledge-gap:ke1-785f5e3904259b0d",
+              "knowledge-gap:ke1-b3173cc4dda55f68"
+            ],
+            "checkedAt": "2026-08-11T09:21:43.937Z"
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D03:user:1",
+            "providerCallId": "gemini-call:ke1-6a8ff429eafa4dd5",
+            "rawElementId": "elem-4"
+          },
+          "supersedesElementIds": [
+            "elem-4"
+          ],
+          "version": 2
+        },
+        {
+          "semanticElementId": "sem-element:ke1-d15f3af537254171",
+          "type": "INTERVENTION",
+          "canonicalMeaning": "Stenting immédiat",
+          "studyRole": "INTERVENTION_ARM",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-6"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D03:user:1",
+            "text": "stenting immédiat",
+            "start": 119,
+            "end": 136
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-ebe2289aee1c1ebe"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D03:user:1",
+            "providerCallId": "gemini-call:ke1-6a8ff429eafa4dd5",
+            "rawElementId": "elem-6"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-fc8ac2e27a71200e",
+          "type": "INTERVENTION",
+          "canonicalMeaning": "Stenting différé",
+          "studyRole": "COMPARATOR_ARM",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-7"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D03:user:1",
+            "text": "différé",
+            "start": 140,
+            "end": 147
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-ebe2289aee1c1ebe"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D03:user:1",
+            "providerCallId": "gemini-call:ke1-6a8ff429eafa4dd5",
+            "rawElementId": "elem-7"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        }
+      ],
+      "relations": [
+        {
+          "semanticRelationId": "sem-relation:ke1-5d1adffbd50ffd77",
+          "sourceElementId": "sem-element:ke1-bba4d3c400c60798",
+          "targetElementId": "sem-element:ke1-acfc579d3d14b769",
+          "relationType": "MEASURED_BY",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel-2"
+          ],
+          "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "version": 1
+        },
+        {
+          "semanticRelationId": "sem-relation:ke1-ebe2289aee1c1ebe",
+          "sourceElementId": "sem-element:ke1-d15f3af537254171",
+          "targetElementId": "sem-element:ke1-fc8ac2e27a71200e",
+          "relationType": "COMPARES_WITH",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel-1"
+          ],
+          "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "version": 1
+        }
+      ],
+      "explicitCoverageReport": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryItemId": "item-1",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "patients présentant un STEMI antérieur",
+            "normalizedMeaning": "patients présentant un STEMI antérieur",
+            "mappedClientElementIds": [
+              "elem-1"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "item-2",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "comparer",
+            "normalizedMeaning": "comparer",
+            "mappedClientElementIds": [
+              "elem-2"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "item-3",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "à 5 jours",
+            "normalizedMeaning": "à 5 jours",
+            "mappedClientElementIds": [
+              "elem-3"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "item-4",
+            "sourceMessageId": "STEM-D03:user:1",
+            "sourceText": "taille d'infarctus",
+            "normalizedMeaning": "taille d'infarctus",
+            "mappedClientElementIds": [
+              "elem-4"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "The inventory label is non-contiguous, but a mapped Semantic Element supplies an exact source-grounded span."
+          },
+          {
+            "inventoryItemId": "item-5",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "LGE",
+            "normalizedMeaning": "LGE",
+            "mappedClientElementIds": [
+              "elem-5"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "item-6",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "stenting immédiat",
+            "normalizedMeaning": "stenting immédiat",
+            "mappedClientElementIds": [
+              "elem-6"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "item-7",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "différé",
+            "normalizedMeaning": "stenting différé",
+            "mappedClientElementIds": [
+              "elem-7"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "item-8",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "MVO",
+            "normalizedMeaning": "MVO",
+            "mappedClientElementIds": [
+              "elem-8"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          }
+        ]
+      },
+      "relationCoverageReport": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "item-6",
+            "targetInventoryItemId": "item-7",
+            "normalizedRelation": "COMPARES_WITH",
+            "mappedClientRelationIds": [
+              "rel-elem-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel-2",
+            "sourceInventoryItemId": "item-4",
+            "targetInventoryItemId": "item-5",
+            "normalizedRelation": "MEASURED_BY",
+            "mappedClientRelationIds": [
+              "rel-elem-2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          }
+        ]
+      },
+      "missingConcepts": [],
+      "ellipses": [],
+      "ambiguities": [],
+      "unknowns": [],
+      "contradictions": [],
+      "clarificationCandidates": [],
+      "knowledgeRequests": [],
+      "routeProposal": {
+        "route": "DESIGN_STUDY",
+        "confidence": 1,
+        "reason": "The user is setting up a comparative intervention study with population, timing, biomarkers, methods, and endpoints.",
+        "expectedCapabilities": [
+          "Arm configuration",
+          "Endpoint specification",
+          "Study design structuring"
+        ]
+      },
+      "summaryForUser": "Vous souhaitez comparer la taille de l'infarctus à 5 jours entre un stenting immédiat et différé chez des patients ayant eu un STEMI antérieur, en mesurant le LGE et en utilisant la MVO comme critère secondaire.",
+      "critic": {
+        "verdict": "ACCEPT",
+        "issues": [],
+        "summary": "All checklist items pass successfully. The semantic model is complete, robust, and correctly structured for study design."
+      },
+      "executionSnapshot": {
+        "provider": "GOOGLE_GEMINI",
+        "model": "gemini-3.5-flash-lite",
+        "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+        "criticPromptVersion": "SEM-001-CRITIC-1.2",
+        "schemaVersion": "SEM-001-1.1",
+        "reconstructionCallId": "gemini-call:ke1-6a8ff429eafa4dd5",
+        "criticCallId": "gemini-call:ke1-8ba926fe95ea96a2",
+        "criticCallIds": [
+          "gemini-call:ke1-a03c9c1655201f7a",
+          "gemini-call:ke1-8ba926fe95ea96a2"
+        ],
+        "reconstructionAttempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T09:21:29.793Z",
+            "requestFinished": "2026-08-11T09:21:36.857Z",
+            "latencyMs": 7064,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ],
+        "criticAttempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T09:21:36.863Z",
+            "requestFinished": "2026-08-11T09:21:41.261Z",
+            "latencyMs": 4398,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          },
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T09:21:41.264Z",
+            "requestFinished": "2026-08-11T09:21:43.919Z",
+            "latencyMs": 2655,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ],
+        "rawReconstruction": {
+          "candidateId": "cand-001",
+          "language": "fr",
+          "normalizedMeaning": "Comparaison à 5 jours de la taille d'infarctus mesurée par LGE entre stenting immédiat et stenting différé chez des patients avec STEMI antérieur, en évaluant la MVO en critère secondaire.",
+          "summaryForUser": "Vous souhaitez comparer la taille de l'infarctus à 5 jours entre un stenting immédiat et différé chez des patients ayant eu un STEMI antérieur, en mesurant le LGE et en utilisant la MVO comme critère secondaire.",
+          "semanticInventory": {
+            "explicitFragments": [
+              {
+                "inventoryItemId": "item-1",
+                "sourceMessageId": "SEM-D03:user:1",
+                "sourceText": "patients présentant un STEMI antérieur",
+                "normalizedLabel": "patients présentant un STEMI antérieur",
+                "localRole": "population",
+                "polarity": "AFFIRMED",
+                "modifiers": [
+                  "antérieur"
+                ],
+                "linkedInventoryItemIds": []
+              },
+              {
+                "inventoryItemId": "item-2",
+                "sourceMessageId": "SEM-D03:user:1",
+                "sourceText": "comparer",
+                "normalizedLabel": "comparer",
+                "localRole": "action",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": [
+                  "item-6",
+                  "item-7"
+                ]
+              },
+              {
+                "inventoryItemId": "item-3",
+                "sourceMessageId": "SEM-D03:user:1",
+                "sourceText": "à 5 jours",
+                "normalizedLabel": "à 5 jours",
+                "localRole": "timing",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": []
+              },
+              {
+                "inventoryItemId": "item-4",
+                "sourceMessageId": "STEM-D03:user:1",
+                "sourceText": "taille d'infarctus",
+                "normalizedLabel": "taille d'infarctus",
+                "localRole": "biomarker",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": []
+              },
+              {
+                "inventoryItemId": "item-5",
+                "sourceMessageId": "SEM-D03:user:1",
+                "sourceText": "LGE",
+                "normalizedLabel": "LGE",
+                "localRole": "method",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": []
+              },
+              {
+                "inventoryItemId": "item-6",
+                "sourceMessageId": "SEM-D03:user:1",
+                "sourceText": "stenting immédiat",
+                "normalizedLabel": "stenting immédiat",
+                "localRole": "intervention",
+                "polarity": "AFFIRMED",
+                "modifiers": [
+                  "immédiat"
+                ],
+                "linkedInventoryItemIds": []
+              },
+              {
+                "inventoryItemId": "item-7",
+                "sourceMessageId": "SEM-D03:user:1",
+                "sourceText": "différé",
+                "normalizedLabel": "stenting différé",
+                "localRole": "intervention",
+                "polarity": "AFFIRMED",
+                "modifiers": [
+                  "différé"
+                ],
+                "linkedInventoryItemIds": []
+              },
+              {
+                "inventoryItemId": "item-8",
+                "sourceMessageId": "SEM-D03:user:1",
+                "sourceText": "MVO",
+                "normalizedLabel": "MVO",
+                "localRole": "endpoint",
+                "polarity": "AFFIRMED",
+                "modifiers": [
+                  "secondaire"
+                ],
+                "linkedInventoryItemIds": []
+              }
+            ],
+            "explicitRelations": [
+              {
+                "inventoryRelationId": "rel-1",
+                "sourceInventoryItemId": "item-6",
+                "targetInventoryItemId": "item-7",
+                "sourceMessageId": "SEM-D03:user:1",
+                "sourceText": "entre stenting immédiat et différé",
+                "normalizedRelation": "COMPARES_WITH",
+                "polarity": "AFFIRMED"
+              },
+              {
+                "inventoryRelationId": "rel-2",
+                "sourceInventoryItemId": "item-4",
+                "targetInventoryItemId": "item-5",
+                "sourceMessageId": "SEM-D03:user:1",
+                "sourceText": "taille d'infarctus mesurée en LGE",
+                "normalizedRelation": "MEASURED_BY",
+                "polarity": "AFFIRMED"
+              }
+            ]
+          },
+          "elements": [
+            {
+              "clientElementId": "elem-1",
+              "type": "POPULATION",
+              "canonicalMeaning": "Patients présentant un STEMI antérieur",
+              "studyRole": "SUBJECT",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "item-1"
+              ],
+              "sourceMessageId": "SEM-D03:user:1",
+              "sourceText": "patients présentant un STEMI antérieur",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem-2",
+              "type": "SCIENTIFIC_INTENT",
+              "canonicalMeaning": "Comparer les bras d'intervention",
+              "studyRole": "NONE",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "item-2"
+              ],
+              "sourceMessageId": "SEM-D03:user:1",
+              "sourceText": "comparer",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem-3",
+              "type": "TIMING",
+              "canonicalMeaning": "5 jours",
+              "studyRole": "NONE",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "item-3"
+              ],
+              "sourceMessageId": "SEM-D03:user:1",
+              "sourceText": "à 5 jours",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem-5",
+              "type": "METHOD",
+              "canonicalMeaning": "LGE (Late Gadolinium Enhancement)",
+              "studyRole": "MEASUREMENT",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "item-5"
+              ],
+              "sourceMessageId": "SEM-D03:user:1",
+              "sourceText": "LGE",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem-6",
+              "type": "INTERVENTION",
+              "canonicalMeaning": "Stenting immédiat",
+              "studyRole": "INTERVENTION_ARM",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "item-6"
+              ],
+              "sourceMessageId": "SEM-D03:user:1",
+              "sourceText": "stenting immédiat",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem-7",
+              "type": "INTERVENTION",
+              "canonicalMeaning": "Stenting différé",
+              "studyRole": "COMPARATOR_ARM",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "item-7"
+              ],
+              "sourceMessageId": "SEM-D03:user:1",
+              "sourceText": "différé",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem-8",
+              "type": "ENDPOINT",
+              "canonicalMeaning": "Microvascular obstruction (MVO) en critère secondaire",
+              "studyRole": "OUTCOME_ROLE",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "item-8"
+              ],
+              "sourceMessageId": "SEM-D03:user:1",
+              "sourceText": "MVO",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem-4",
+              "type": "ENDPOINT",
+              "canonicalMeaning": "Taille d'infarctus",
+              "studyRole": "OUTCOME_ROLE",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "item-4"
+              ],
+              "sourceMessageId": "SEM-D03:user:1",
+              "sourceText": "taille d'infarctus",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": [
+                "elem-4"
+              ]
+            }
+          ],
+          "relations": [
+            {
+              "clientRelationId": "rel-elem-1",
+              "sourceClientElementId": "elem-6",
+              "targetClientElementId": "elem-7",
+              "relationType": "COMPARES_WITH",
+              "polarity": "AFFIRMED",
+              "inventoryRelationIds": [
+                "rel-1"
+              ],
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false
+            },
+            {
+              "clientRelationId": "rel-elem-2",
+              "sourceClientElementId": "elem-4",
+              "targetClientElementId": "elem-5",
+              "relationType": "MEASURED_BY",
+              "polarity": "AFFIRMED",
+              "inventoryRelationIds": [
+                "rel-2"
+              ],
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false
+            }
+          ],
+          "missingConcepts": [],
+          "ellipses": [],
+          "ambiguities": [],
+          "unknowns": [],
+          "contradictions": [],
+          "knowledgeRequests": [],
+          "clarificationCandidates": [],
+          "routeProposal": {
+            "route": "DESIGN_STUDY",
+            "confidence": 1,
+            "reason": "The user is setting up a comparative intervention study with population, timing, biomarkers, methods, and endpoints.",
+            "expectedCapabilities": [
+              "Study design structuring",
+              "Arm configuration",
+              "Endpoint specification"
+            ]
+          },
+          "semanticWarnings": []
+        },
+        "rawCritic": {
+          "criticId": "crit-002",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit fragments including patient population, timing, interventions, biomarker, method, and endpoint are fully represented."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Stenting immédiat and stenting différé are fully represented with appropriate comparison roles."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Both immediate and deferred stenting interventions are represented."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No broader modality family was explicitly stated beyond the specific LGE method."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All inventory relations are explicitly mapped."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Taxonomy report is complete and elements conform strictly to operational guidelines."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations are preserved without weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No ungrounded inferences have been promoted as user-stated."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No hidden ambiguities were detected."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarities are correctly preserved."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "The timing element 'à 5 jours' is accurately represented."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Infarct size and MVO are appropriately classified as endpoints given the direct comparative and secondary endpoint context."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Concepts retain their specific wording and canonical meaning."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "Explicit coverage and relation coverage reports are both complete."
+            }
+          ],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "All checklist items pass successfully. The semantic model is complete, robust, and correctly structured for study design."
+        },
+        "rawCritics": [
+          {
+            "criticId": "critic-sem-d03-1",
+            "verdict": "REVISE",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All objects (STEMI antérieur population, taille d'infarctus biomarker, LGE method, stenting immédiat & différé interventions, MVO endpoint) are represented."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Both stenting immédiat and différé are represented with appropriate INTERVENTION types and study roles."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Both stenting interventions are represented."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No broader acquisition family modality was explicitly stated outside of the specific method (LGE)."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "COMPARES_WITH and MEASURED_BY relations are both represented."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "FAIL",
+                "evidence": "Taxonomy report indicates the arm-judging variable 'taille d'infarctus' is typed as BIOMARKER instead of ENDPOINT under operational precedence."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Explicit relations are preserved without weakening."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No unwarranted inferences were promoted."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "No ambiguities were hidden."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "Polarity is correctly affirmed throughout."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "PASS",
+                "evidence": "Timing 'à 5 jours' is preserved."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "Endpoint promotion rules are followed once taxonomy correction is applied."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts remain faithful to source text."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit fragments are represented in the typed candidate elements."
+              }
+            ],
+            "issues": [
+              {
+                "code": "TYPE_MISMATCH",
+                "severity": "CRITICAL",
+                "elementClientIds": [
+                  "elem-4"
+                ],
+                "description": "The explicit variable 'taille d'infarctus' is compared between study arms and must be classified as ENDPOINT with OUTCOME_ROLE under operational precedence.",
+                "recommendedAction": "Upsert element elem-4 to type ENDPOINT and studyRole OUTCOME_ROLE.",
+                "resolved": false
+              }
+            ],
+            "proposedRepairs": [
+              {
+                "repairId": "repair-1",
+                "action": "UPSERT_ELEMENT",
+                "reason": "Correct the element type of 'taille d'infarctus' to ENDPOINT and studyRole to OUTCOME_ROLE per operational classification precedence for arm-compared variables.",
+                "sourceInventoryItemIds": [
+                  "item-4"
+                ],
+                "sourceInventoryRelationIds": [],
+                "elementClientElementId": "elem-4",
+                "elementType": "ENDPOINT",
+                "elementCanonicalMeaning": "Taille d'infarctus",
+                "elementStudyRole": "OUTCOME_ROLE",
+                "elementPolarity": "AFFIRMED",
+                "elementInventoryItemIds": [
+                  "item-4"
+                ],
+                "elementSourceMessageId": "SEM-D03:user:1",
+                "elementSourceText": "taille d'infarctus",
+                "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+                "elementConfidence": 1,
+                "elementInferenceReason": null,
+                "elementRequiresConfirmation": false,
+                "elementSupersedesElementIds": [
+                  "elem-4"
+                ],
+                "relationClientRelationId": null,
+                "relationSourceClientElementId": null,
+                "relationTargetClientElementId": null,
+                "relationType": null,
+                "relationPolarity": null,
+                "relationInventoryRelationIds": [],
+                "relationEpistemicStatus": null,
+                "relationConfidence": null,
+                "relationInferenceReason": null,
+                "relationRequiresConfirmation": null,
+                "ambiguity": null,
+                "route": null,
+                "routeConfidence": null,
+                "routeReason": null,
+                "routeExpectedCapabilities": []
+              }
+            ],
+            "criticSummary": "The candidate captures all elements and relations accurately, but the taxonomy report correctly flags that 'taille d'infarctus', being the primary variable compared between study arms, must be classified as an ENDPOINT with an OUTCOME_ROLE rather than a BIOMARKER. A revision repair is provided to correct this classification."
+          },
+          {
+            "criticId": "crit-002",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit fragments including patient population, timing, interventions, biomarker, method, and endpoint are fully represented."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Stenting immédiat and stenting différé are fully represented with appropriate comparison roles."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Both immediate and deferred stenting interventions are represented."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No broader modality family was explicitly stated beyond the specific LGE method."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All inventory relations are explicitly mapped."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "Taxonomy report is complete and elements conform strictly to operational guidelines."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Explicit relations are preserved without weakening."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No ungrounded inferences have been promoted as user-stated."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "No hidden ambiguities were detected."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "Polarities are correctly preserved."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "PASS",
+                "evidence": "The timing element 'à 5 jours' is accurately represented."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "Infarct size and MVO are appropriately classified as endpoints given the direct comparative and secondary endpoint context."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Concepts retain their specific wording and canonical meaning."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "Explicit coverage and relation coverage reports are both complete."
+              }
+            ],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "All checklist items pass successfully. The semantic model is complete, robust, and correctly structured for study design."
+          }
+        ],
+        "temperature": null,
+        "executedAt": "2026-08-11T09:21:43.925Z"
+      },
+      "knowledgeSnapshot": {
+        "resultId": "knowledge-result:ke1-d10cca215f690a4d",
+        "resultDigest": "ke1-d10cca215f690a4d",
+        "coverageStatus": "PARTIAL",
+        "verifiedAt": "2026-08-11T09:21:43.937Z"
+      },
+      "previousModelId": null,
+      "history": [],
+      "acceptedAt": null,
+      "acceptanceRecord": null,
+      "createdAt": "2026-08-11T09:21:43.925Z",
+      "updatedAt": "2026-08-11T09:21:43.937Z",
+      "digest": "ke1-baf9c66e91e5e5da"
+    },
+    "beforeCriticModel": {
+      "semanticModelVersion": "1.1",
+      "semanticModelId": "semantic-model:ke1-209ae38fdffd4103",
+      "revision": 1,
+      "status": "CANDIDATE",
+      "originalRequest": "Chez des patients présentant un STEMI antérieur, je veux comparer à 5 jours la taille d'infarctus mesurée en LGE entre stenting immédiat et différé, avec MVO en critère secondaire.",
+      "normalizedMeaning": "Comparaison à 5 jours de la taille d'infarctus mesurée par LGE entre stenting immédiat et stenting différé chez des patients avec STEMI antérieur, en évaluant la MVO en critère secondaire.",
+      "conversationMessageIds": [
+        "SEM-D03:user:1"
+      ],
+      "elements": [
+        {
+          "semanticElementId": "sem-element:ke1-14c4cabb768d579f",
+          "type": "SCIENTIFIC_INTENT",
+          "canonicalMeaning": "Comparer les bras d'intervention",
+          "studyRole": "NONE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-2"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D03:user:1",
+            "text": "comparer",
+            "start": 57,
+            "end": 65
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D03:user:1",
+            "providerCallId": "gemini-call:ke1-6a8ff429eafa4dd5",
+            "rawElementId": "elem-2"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-6974e5f666ce021a",
+          "type": "ENDPOINT",
+          "canonicalMeaning": "Microvascular obstruction (MVO) en critère secondaire",
+          "studyRole": "OUTCOME_ROLE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-8"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D03:user:1",
+            "text": "MVO",
+            "start": 154,
+            "end": 157
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D03:user:1",
+            "providerCallId": "gemini-call:ke1-6a8ff429eafa4dd5",
+            "rawElementId": "elem-8"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-73623f3d389789c1",
+          "type": "BIOMARKER",
+          "canonicalMeaning": "Taille d'infarctus",
+          "studyRole": "MEASUREMENT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-4"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D03:user:1",
+            "text": "taille d'infarctus",
+            "start": 79,
+            "end": 97
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-2e5008713969488d"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D03:user:1",
+            "providerCallId": "gemini-call:ke1-6a8ff429eafa4dd5",
+            "rawElementId": "elem-4"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-84241a21684b46cd",
+          "type": "POPULATION",
+          "canonicalMeaning": "Patients présentant un STEMI antérieur",
+          "studyRole": "SUBJECT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-1"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D03:user:1",
+            "text": "patients présentant un STEMI antérieur",
+            "start": 9,
+            "end": 47
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D03:user:1",
+            "providerCallId": "gemini-call:ke1-6a8ff429eafa4dd5",
+            "rawElementId": "elem-1"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-aa0429caac5f4c9e",
+          "type": "TIMING",
+          "canonicalMeaning": "5 jours",
+          "studyRole": "NONE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-3"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D03:user:1",
+            "text": "à 5 jours",
+            "start": 66,
+            "end": 75
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D03:user:1",
+            "providerCallId": "gemini-call:ke1-6a8ff429eafa4dd5",
+            "rawElementId": "elem-3"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-acfc579d3d14b769",
+          "type": "METHOD",
+          "canonicalMeaning": "LGE (Late Gadolinium Enhancement)",
+          "studyRole": "MEASUREMENT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-5"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D03:user:1",
+            "text": "LGE",
+            "start": 109,
+            "end": 112
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-2e5008713969488d"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D03:user:1",
+            "providerCallId": "gemini-call:ke1-6a8ff429eafa4dd5",
+            "rawElementId": "elem-5"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-d15f3af537254171",
+          "type": "INTERVENTION",
+          "canonicalMeaning": "Stenting immédiat",
+          "studyRole": "INTERVENTION_ARM",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-6"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D03:user:1",
+            "text": "stenting immédiat",
+            "start": 119,
+            "end": 136
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-ebe2289aee1c1ebe"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D03:user:1",
+            "providerCallId": "gemini-call:ke1-6a8ff429eafa4dd5",
+            "rawElementId": "elem-6"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-fc8ac2e27a71200e",
+          "type": "INTERVENTION",
+          "canonicalMeaning": "Stenting différé",
+          "studyRole": "COMPARATOR_ARM",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-7"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D03:user:1",
+            "text": "différé",
+            "start": 140,
+            "end": 147
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-ebe2289aee1c1ebe"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D03:user:1",
+            "providerCallId": "gemini-call:ke1-6a8ff429eafa4dd5",
+            "rawElementId": "elem-7"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        }
+      ],
+      "relations": [
+        {
+          "semanticRelationId": "sem-relation:ke1-2e5008713969488d",
+          "sourceElementId": "sem-element:ke1-73623f3d389789c1",
+          "targetElementId": "sem-element:ke1-acfc579d3d14b769",
+          "relationType": "MEASURED_BY",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel-2"
+          ],
+          "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "version": 1
+        },
+        {
+          "semanticRelationId": "sem-relation:ke1-ebe2289aee1c1ebe",
+          "sourceElementId": "sem-element:ke1-d15f3af537254171",
+          "targetElementId": "sem-element:ke1-fc8ac2e27a71200e",
+          "relationType": "COMPARES_WITH",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel-1"
+          ],
+          "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "version": 1
+        }
+      ],
+      "explicitCoverageReport": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryItemId": "item-1",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "patients présentant un STEMI antérieur",
+            "normalizedMeaning": "patients présentant un STEMI antérieur",
+            "mappedClientElementIds": [
+              "elem-1"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "item-2",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "comparer",
+            "normalizedMeaning": "comparer",
+            "mappedClientElementIds": [
+              "elem-2"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "item-3",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "à 5 jours",
+            "normalizedMeaning": "à 5 jours",
+            "mappedClientElementIds": [
+              "elem-3"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "item-4",
+            "sourceMessageId": "STEM-D03:user:1",
+            "sourceText": "taille d'infarctus",
+            "normalizedMeaning": "taille d'infarctus",
+            "mappedClientElementIds": [
+              "elem-4"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "The inventory label is non-contiguous, but a mapped Semantic Element supplies an exact source-grounded span."
+          },
+          {
+            "inventoryItemId": "item-5",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "LGE",
+            "normalizedMeaning": "LGE",
+            "mappedClientElementIds": [
+              "elem-5"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "item-6",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "stenting immédiat",
+            "normalizedMeaning": "stenting immédiat",
+            "mappedClientElementIds": [
+              "elem-6"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "item-7",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "différé",
+            "normalizedMeaning": "stenting différé",
+            "mappedClientElementIds": [
+              "elem-7"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "item-8",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "MVO",
+            "normalizedMeaning": "MVO",
+            "mappedClientElementIds": [
+              "elem-8"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          }
+        ]
+      },
+      "relationCoverageReport": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "item-6",
+            "targetInventoryItemId": "item-7",
+            "normalizedRelation": "COMPARES_WITH",
+            "mappedClientRelationIds": [
+              "rel-elem-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel-2",
+            "sourceInventoryItemId": "item-4",
+            "targetInventoryItemId": "item-5",
+            "normalizedRelation": "MEASURED_BY",
+            "mappedClientRelationIds": [
+              "rel-elem-2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          }
+        ]
+      },
+      "missingConcepts": [],
+      "ellipses": [],
+      "ambiguities": [],
+      "unknowns": [],
+      "contradictions": [],
+      "clarificationCandidates": [],
+      "knowledgeRequests": [],
+      "routeProposal": {
+        "route": "DESIGN_STUDY",
+        "confidence": 1,
+        "reason": "The user is setting up a comparative intervention study with population, timing, biomarkers, methods, and endpoints.",
+        "expectedCapabilities": [
+          "Arm configuration",
+          "Endpoint specification",
+          "Study design structuring"
+        ]
+      },
+      "summaryForUser": "Vous souhaitez comparer la taille de l'infarctus à 5 jours entre un stenting immédiat et différé chez des patients ayant eu un STEMI antérieur, en mesurant le LGE et en utilisant la MVO comme critère secondaire.",
+      "critic": {
+        "verdict": "ACCEPT",
+        "issues": [],
+        "summary": "Metric-only pre-critic snapshot."
+      },
+      "executionSnapshot": {
+        "provider": "GOOGLE_GEMINI",
+        "model": "gemini-3.5-flash-lite",
+        "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+        "criticPromptVersion": "SEM-001-CRITIC-1.2",
+        "schemaVersion": "SEM-001-1.1",
+        "reconstructionCallId": "gemini-call:ke1-6a8ff429eafa4dd5",
+        "criticCallId": "pre-critic-metric-only",
+        "criticCallIds": [
+          "pre-critic-metric-only"
+        ],
+        "reconstructionAttempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T09:21:29.793Z",
+            "requestFinished": "2026-08-11T09:21:36.857Z",
+            "latencyMs": 7064,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ],
+        "criticAttempts": [],
+        "rawReconstruction": {
+          "candidateId": "cand-001",
+          "language": "fr",
+          "normalizedMeaning": "Comparaison à 5 jours de la taille d'infarctus mesurée par LGE entre stenting immédiat et stenting différé chez des patients avec STEMI antérieur, en évaluant la MVO en critère secondaire.",
+          "summaryForUser": "Vous souhaitez comparer la taille de l'infarctus à 5 jours entre un stenting immédiat et différé chez des patients ayant eu un STEMI antérieur, en mesurant le LGE et en utilisant la MVO comme critère secondaire.",
+          "semanticInventory": {
+            "explicitFragments": [
+              {
+                "inventoryItemId": "item-1",
+                "sourceMessageId": "SEM-D03:user:1",
+                "sourceText": "patients présentant un STEMI antérieur",
+                "normalizedLabel": "patients présentant un STEMI antérieur",
+                "localRole": "population",
+                "polarity": "AFFIRMED",
+                "modifiers": [
+                  "antérieur"
+                ],
+                "linkedInventoryItemIds": []
+              },
+              {
+                "inventoryItemId": "item-2",
+                "sourceMessageId": "SEM-D03:user:1",
+                "sourceText": "comparer",
+                "normalizedLabel": "comparer",
+                "localRole": "action",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": [
+                  "item-6",
+                  "item-7"
+                ]
+              },
+              {
+                "inventoryItemId": "item-3",
+                "sourceMessageId": "SEM-D03:user:1",
+                "sourceText": "à 5 jours",
+                "normalizedLabel": "à 5 jours",
+                "localRole": "timing",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": []
+              },
+              {
+                "inventoryItemId": "item-4",
+                "sourceMessageId": "STEM-D03:user:1",
+                "sourceText": "taille d'infarctus",
+                "normalizedLabel": "taille d'infarctus",
+                "localRole": "biomarker",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": []
+              },
+              {
+                "inventoryItemId": "item-5",
+                "sourceMessageId": "SEM-D03:user:1",
+                "sourceText": "LGE",
+                "normalizedLabel": "LGE",
+                "localRole": "method",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": []
+              },
+              {
+                "inventoryItemId": "item-6",
+                "sourceMessageId": "SEM-D03:user:1",
+                "sourceText": "stenting immédiat",
+                "normalizedLabel": "stenting immédiat",
+                "localRole": "intervention",
+                "polarity": "AFFIRMED",
+                "modifiers": [
+                  "immédiat"
+                ],
+                "linkedInventoryItemIds": []
+              },
+              {
+                "inventoryItemId": "item-7",
+                "sourceMessageId": "SEM-D03:user:1",
+                "sourceText": "différé",
+                "normalizedLabel": "stenting différé",
+                "localRole": "intervention",
+                "polarity": "AFFIRMED",
+                "modifiers": [
+                  "différé"
+                ],
+                "linkedInventoryItemIds": []
+              },
+              {
+                "inventoryItemId": "item-8",
+                "sourceMessageId": "SEM-D03:user:1",
+                "sourceText": "MVO",
+                "normalizedLabel": "MVO",
+                "localRole": "endpoint",
+                "polarity": "AFFIRMED",
+                "modifiers": [
+                  "secondaire"
+                ],
+                "linkedInventoryItemIds": []
+              }
+            ],
+            "explicitRelations": [
+              {
+                "inventoryRelationId": "rel-1",
+                "sourceInventoryItemId": "item-6",
+                "targetInventoryItemId": "item-7",
+                "sourceMessageId": "SEM-D03:user:1",
+                "sourceText": "entre stenting immédiat et différé",
+                "normalizedRelation": "COMPARES_WITH",
+                "polarity": "AFFIRMED"
+              },
+              {
+                "inventoryRelationId": "rel-2",
+                "sourceInventoryItemId": "item-4",
+                "targetInventoryItemId": "item-5",
+                "sourceMessageId": "SEM-D03:user:1",
+                "sourceText": "taille d'infarctus mesurée en LGE",
+                "normalizedRelation": "MEASURED_BY",
+                "polarity": "AFFIRMED"
+              }
+            ]
+          },
+          "elements": [
+            {
+              "clientElementId": "elem-1",
+              "type": "POPULATION",
+              "canonicalMeaning": "Patients présentant un STEMI antérieur",
+              "studyRole": "SUBJECT",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "item-1"
+              ],
+              "sourceMessageId": "SEM-D03:user:1",
+              "sourceText": "patients présentant un STEMI antérieur",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem-2",
+              "type": "SCIENTIFIC_INTENT",
+              "canonicalMeaning": "Comparer les bras d'intervention",
+              "studyRole": "NONE",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "item-2"
+              ],
+              "sourceMessageId": "SEM-D03:user:1",
+              "sourceText": "comparer",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem-3",
+              "type": "TIMING",
+              "canonicalMeaning": "5 jours",
+              "studyRole": "NONE",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "item-3"
+              ],
+              "sourceMessageId": "SEM-D03:user:1",
+              "sourceText": "à 5 jours",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem-4",
+              "type": "BIOMARKER",
+              "canonicalMeaning": "Taille d'infarctus",
+              "studyRole": "MEASUREMENT",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "item-4"
+              ],
+              "sourceMessageId": "SEM-D03:user:1",
+              "sourceText": "taille d'infarctus",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem-5",
+              "type": "METHOD",
+              "canonicalMeaning": "LGE (Late Gadolinium Enhancement)",
+              "studyRole": "MEASUREMENT",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "item-5"
+              ],
+              "sourceMessageId": "SEM-D03:user:1",
+              "sourceText": "LGE",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem-6",
+              "type": "INTERVENTION",
+              "canonicalMeaning": "Stenting immédiat",
+              "studyRole": "INTERVENTION_ARM",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "item-6"
+              ],
+              "sourceMessageId": "SEM-D03:user:1",
+              "sourceText": "stenting immédiat",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem-7",
+              "type": "INTERVENTION",
+              "canonicalMeaning": "Stenting différé",
+              "studyRole": "COMPARATOR_ARM",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "item-7"
+              ],
+              "sourceMessageId": "SEM-D03:user:1",
+              "sourceText": "différé",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem-8",
+              "type": "ENDPOINT",
+              "canonicalMeaning": "Microvascular obstruction (MVO) en critère secondaire",
+              "studyRole": "OUTCOME_ROLE",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "item-8"
+              ],
+              "sourceMessageId": "SEM-D03:user:1",
+              "sourceText": "MVO",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            }
+          ],
+          "relations": [
+            {
+              "clientRelationId": "rel-elem-1",
+              "sourceClientElementId": "elem-6",
+              "targetClientElementId": "elem-7",
+              "relationType": "COMPARES_WITH",
+              "polarity": "AFFIRMED",
+              "inventoryRelationIds": [
+                "rel-1"
+              ],
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false
+            },
+            {
+              "clientRelationId": "rel-elem-2",
+              "sourceClientElementId": "elem-4",
+              "targetClientElementId": "elem-5",
+              "relationType": "MEASURED_BY",
+              "polarity": "AFFIRMED",
+              "inventoryRelationIds": [
+                "rel-2"
+              ],
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false
+            }
+          ],
+          "missingConcepts": [],
+          "ellipses": [],
+          "ambiguities": [],
+          "unknowns": [],
+          "contradictions": [],
+          "knowledgeRequests": [],
+          "clarificationCandidates": [],
+          "routeProposal": {
+            "route": "DESIGN_STUDY",
+            "confidence": 1,
+            "reason": "The user is setting up a comparative intervention study with population, timing, biomarkers, methods, and endpoints.",
+            "expectedCapabilities": [
+              "Study design structuring",
+              "Arm configuration",
+              "Endpoint specification"
+            ]
+          },
+          "semanticWarnings": []
+        },
+        "rawCritic": {
+          "criticId": "pre-critic-metric-only",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            }
+          ],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "Metric-only pre-critic snapshot."
+        },
+        "rawCritics": [
+          {
+            "criticId": "pre-critic-metric-only",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              }
+            ],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "Metric-only pre-critic snapshot."
+          }
+        ],
+        "temperature": null,
+        "executedAt": "2026-08-11T09:21:43.921Z"
+      },
+      "knowledgeSnapshot": null,
+      "previousModelId": null,
+      "history": [],
+      "acceptedAt": null,
+      "acceptanceRecord": null,
+      "createdAt": "2026-08-11T09:21:43.921Z",
+      "updatedAt": "2026-08-11T09:21:43.921Z",
+      "digest": "ke1-b338ec1267da33de"
+    },
+    "criticImpact": {
+      "caseId": "SEM-D03",
+      "beforeCriticObjectRecall": 0.8571428571428571,
+      "afterCriticObjectRecall": 1,
+      "beforeCriticRelationRecall": 1,
+      "afterCriticRelationRecall": 1,
+      "issuesDetected": 1,
+      "repairsProposed": 1,
+      "repairsAccepted": 1,
+      "repairsRejected": 0,
+      "newUnsupportedInferences": 0,
+      "falsePositiveCritic": false,
+      "criticAccepted": true,
+      "criticCycles": 2,
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    },
+    "error": null
+  },
+  {
+    "caseId": "SEM-D07",
+    "split": "DEVELOPMENT_CASES",
+    "goldFrameDigest": "ke1-dc23062612e30df2",
+    "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+    "criticPromptVersion": "SEM-001-CRITIC-1.2",
+    "provider": "GOOGLE_GEMINI",
+    "model": "gemini-3.5-flash-lite",
+    "requestStarted": "2026-08-11T09:21:43.943Z",
+    "completedAt": "2026-08-11T09:22:33.326Z",
+    "reconstructionStatus": "SUCCESS",
+    "criticStatus": "SUCCESS",
+    "canonicalizationStatus": "SUCCESS",
+    "evaluationStatus": "READY",
+    "finalStatus": "COMPLETE",
+    "retryCount": 0,
+    "latencyMs": 49383,
+    "operationTraces": [
+      {
+        "operation": "RECONSTRUCTION",
+        "turn": 1,
+        "cycle": null,
+        "callId": "gemini-call:ke1-258a9e3362b0b74f",
+        "structuredDigest": "ke1-74e3149fd32b1653",
+        "attempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T09:21:43.943Z",
+            "requestFinished": "2026-08-11T09:21:48.728Z",
+            "latencyMs": 4785,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ]
+      },
+      {
+        "operation": "CRITIC",
+        "turn": 1,
+        "cycle": 1,
+        "callId": "gemini-call:ke1-4731df362c841312",
+        "structuredDigest": "ke1-f4426fd0b5edd6b4",
+        "attempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T09:21:48.730Z",
+            "requestFinished": "2026-08-11T09:21:53.661Z",
+            "latencyMs": 4931,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ]
+      },
+      {
+        "operation": "CRITIC",
+        "turn": 1,
+        "cycle": 2,
+        "callId": "gemini-call:ke1-c054dae1ff221e35",
+        "structuredDigest": "ke1-d5eed7d611b59b02",
+        "attempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T09:22:30.295Z",
+            "requestFinished": "2026-08-11T09:22:33.316Z",
+            "latencyMs": 3021,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ]
+      }
+    ],
+    "reconstructionCandidate": {
+      "candidateId": "cand_01J8F01K8V8P5W9X2Z3Q4R5S6T",
+      "language": "fr",
+      "normalizedMeaning": "Comparaison de performance entre la méthode ou modalité T1 et la méthode ou modalité T2",
+      "summaryForUser": "Vous souhaitez savoir si T1 est supérieur à T2.",
+      "semanticInventory": {
+        "explicitFragments": [
+          {
+            "inventoryItemId": "inv_1",
+            "sourceMessageId": "SEM-D07:user:1",
+            "sourceText": "T1",
+            "normalizedLabel": "T1",
+            "localRole": "target_comparison_a",
+            "polarity": "AFFIRMED",
+            "modifiers": [],
+            "linkedInventoryItemIds": []
+          },
+          {
+            "inventoryItemId": "inv_2",
+            "sourceMessageId": "SEM-D07:user:1",
+            "sourceText": "T2",
+            "normalizedLabel": "T2",
+            "localRole": "target_comparison_b",
+            "polarity": "AFFIRMED",
+            "modifiers": [],
+            "linkedInventoryItemIds": []
+          },
+          {
+            "inventoryItemId": "inv_3",
+            "sourceMessageId": "SEM-D07:user:1",
+            "sourceText": "meilleur",
+            "normalizedLabel": "meilleur",
+            "localRole": "evaluation_criterion",
+            "polarity": "AFFIRMED",
+            "modifiers": [],
+            "linkedInventoryItemIds": [
+              "inv_1",
+              "inv_2"
+            ]
+          },
+          {
+            "inventoryItemId": "inv_4",
+            "sourceMessageId": "SEM-D07:user:1",
+            "sourceText": "est-ce que",
+            "normalizedLabel": "interrogation",
+            "localRole": "scientific_intent",
+            "polarity": "UNCERTAIN",
+            "modifiers": [],
+            "linkedInventoryItemIds": [
+              "inv_1",
+              "inv_2"
+            ]
+          }
+        ],
+        "explicitRelations": [
+          {
+            "inventoryRelationId": "rel_inv_1",
+            "sourceInventoryItemId": "inv_1",
+            "targetInventoryItemId": "inv_2",
+            "sourceMessageId": "SEM-D07:user:1",
+            "sourceText": "est-ce que le T1 est meilleur que le T2 ?",
+            "normalizedRelation": "COMPARES_WITH",
+            "polarity": "AFFIRMED"
+          }
+        ]
+      },
+      "elements": [
+        {
+          "clientElementId": "elem_1",
+          "type": "METHOD",
+          "canonicalMeaning": "Méthode ou modalité T1",
+          "studyRole": "COMPARATOR_ARM",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_1"
+          ],
+          "sourceMessageId": "SEM-D07:user:1",
+          "sourceText": "T1",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        },
+        {
+          "clientElementId": "elem_2",
+          "type": "METHOD",
+          "canonicalMeaning": "Méthode ou modalité T2",
+          "studyRole": "COMPARATOR_ARM",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_2"
+          ],
+          "sourceMessageId": "SEM-D07:user:1",
+          "sourceText": "T2",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        },
+        {
+          "clientElementId": "elem_3",
+          "type": "SCIENTIFIC_INTENT",
+          "canonicalMeaning": "Evaluer si T1 est supérieur à T2",
+          "studyRole": "NONE",
+          "polarity": "UNCERTAIN",
+          "inventoryItemIds": [
+            "inv_3",
+            "inv_4"
+          ],
+          "sourceMessageId": "SEM-D07:user:1",
+          "sourceText": "est-ce que le T1 est meilleur que le T2 ?",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        }
+      ],
+      "relations": [
+        {
+          "clientRelationId": "rel_1",
+          "sourceClientElementId": "elem_1",
+          "targetClientElementId": "elem_2",
+          "relationType": "COMPARES_WITH",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel_inv_1"
+          ],
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false
+        }
+      ],
+      "missingConcepts": [],
+      "ellipses": [],
+      "ambiguities": [
+        "La nature exacte de T1 et T2 (méthode, modalité ou biomarqueur) n'est pas explicitée."
+      ],
+      "unknowns": [],
+      "contradictions": [],
+      "knowledgeRequests": [],
+      "clarificationCandidates": [
+        {
+          "question": "Que représentent précisément T1 et T2 (par exemple, des séquences d'imagerie, des biomarqueurs ou des méthodes) ?",
+          "reason": "Préciser la nature des éléments comparés pour affiner la classification ontologique.",
+          "resolvesClientElementIds": [
+            "elem_1",
+            "elem_2"
+          ]
+        }
+      ],
+      "routeProposal": {
+        "route": "FORMALIZE_IDEA",
+        "confidence": 0.9,
+        "reason": "L'utilisateur formule une question comparative directe entre deux entités nécessitant une formalisation conceptuelle avant toute construction d'étude.",
+        "expectedCapabilities": [
+          "Clarification des objets comparés",
+          "Cadrage de l'hypothèse d'évaluation"
+        ]
+      },
+      "semanticWarnings": []
+    },
+    "critics": [
+      {
+        "criticId": "crit_01J8F01K8V8P5W9X2Z3Q4R5S6T",
+        "verdict": "REVISE",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "T1 and T2 are both represented by elements elem_1 and elem_2."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "PASS",
+            "evidence": "The comparison between T1 and T2 is explicitly preserved in relation rel_1."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No active intervention or treatment is requested."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No broad acquisition modality family is explicitly mentioned."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "rel_inv_1 is mapped to rel_1."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "FAIL",
+            "evidence": "Taxonomy report indicates QUANTITATIVE_COMPARAND_TYPED_AS_METHOD for elem_1 and elem_2, which should be BIOMARKER."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "Explicit comparison is preserved as COMPARES_WITH."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No unsupported inferences were promoted as explicit facts."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "Ambiguity regarding the exact nature of T1 and T2 is exposed."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "Polarities are correctly affirmed/uncertain."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No timing elements are present."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "No outcomes or endpoints were improperly promoted."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Concepts are maintained at their precise terms."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit fragments in inventory are fully mapped."
+          }
+        ],
+        "issues": [
+          {
+            "code": "TYPE_MISMATCH",
+            "severity": "CRITICAL",
+            "elementClientIds": [
+              "elem_1",
+              "elem_2"
+            ],
+            "description": "Short quantitative comparands T1 and T2 are typed as METHOD instead of BIOMARKER according to operational taxonomy precedence.",
+            "recommendedAction": "Upsert elements elem_1 and elem_2 with type BIOMARKER.",
+            "resolved": false
+          }
+        ],
+        "proposedRepairs": [
+          {
+            "repairId": "rep_1",
+            "action": "UPSERT_ELEMENT",
+            "reason": "Correct the element type from METHOD to BIOMARKER per taxonomy report finding QUANTITATIVE_COMPARAND_TYPED_AS_METHOD.",
+            "sourceInventoryItemIds": [
+              "inv_1"
+            ],
+            "sourceInventoryRelationIds": [],
+            "elementClientElementId": "elem_1",
+            "elementType": "BIOMARKER",
+            "elementCanonicalMeaning": "Biomarqueur ou paramètre quantitatif T1",
+            "elementStudyRole": "COMPARATOR_ARM",
+            "elementPolarity": "AFFIRMED",
+            "elementInventoryItemIds": [
+              "inv_1"
+            ],
+            "elementSourceMessageId": "SEM-D07:user:1",
+            "elementSourceText": "T1",
+            "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+            "elementConfidence": 1,
+            "elementInferenceReason": null,
+            "elementRequiresConfirmation": false,
+            "elementSupersedesElementIds": [
+              "elem_1"
+            ],
+            "relationClientRelationId": null,
+            "relationSourceClientElementId": null,
+            "relationTargetClientElementId": null,
+            "relationType": null,
+            "relationPolarity": null,
+            "relationInventoryRelationIds": [],
+            "relationEpistemicStatus": null,
+            "relationConfidence": null,
+            "relationInferenceReason": null,
+            "relationRequiresConfirmation": null,
+            "ambiguity": null,
+            "route": null,
+            "routeConfidence": null,
+            "routeReason": null,
+            "routeExpectedCapabilities": []
+          },
+          {
+            "repairId": "rep_2",
+            "action": "UPSERT_ELEMENT",
+            "reason": "Correct the element type from METHOD to BIOMARKER per taxonomy report finding QUANTITATIVE_COMPARAND_TYPED_AS_METHOD.",
+            "sourceInventoryItemIds": [
+              "inv_2"
+            ],
+            "sourceInventoryRelationIds": [],
+            "elementClientElementId": "elem_2",
+            "elementType": "BIOMARKER",
+            "elementCanonicalMeaning": "Biomarqueur ou paramètre quantitatif T2",
+            "elementStudyRole": "COMPARATOR_ARM",
+            "elementPolarity": "AFFIRMED",
+            "elementInventoryItemIds": [
+              "inv_2"
+            ],
+            "elementSourceMessageId": "SEM-D07:user:1",
+            "elementSourceText": "T2",
+            "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+            "elementConfidence": 1,
+            "elementInferenceReason": null,
+            "elementRequiresConfirmation": false,
+            "elementSupersedesElementIds": [
+              "elem_2"
+            ],
+            "relationClientRelationId": null,
+            "relationSourceClientElementId": null,
+            "relationTargetClientElementId": null,
+            "relationType": null,
+            "relationPolarity": null,
+            "relationInventoryRelationIds": [],
+            "relationEpistemicStatus": null,
+            "relationConfidence": null,
+            "relationInferenceReason": null,
+            "relationRequiresConfirmation": null,
+            "ambiguity": null,
+            "route": null,
+            "routeConfidence": null,
+            "routeReason": null,
+            "routeExpectedCapabilities": []
+          }
+        ],
+        "criticSummary": "The initial model correctly captured all explicit fragments and relations, but typed the quantitative comparands T1 and T2 as METHOD instead of BIOMARKER. Bounded repairs have been proposed to correct both element types."
+      },
+      {
+        "criticId": "critic_sem_d07_02",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Both T1 and T2 are fully represented by elem_1 and elem_2."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "PASS",
+            "evidence": "T1 and T2 are compared directly with study roles set as comparator arms."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No explicit treatment intervention is present in the text."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "Specific modalities are not explicitly stated, left as ambiguous types."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "rel_inv_1 is directly mapped to rel_1."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "Taxonomy report is complete with no incompatible types."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "The comparison relation is fully preserved as COMPARES_WITH."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No speculative inferences have been promoted to explicit certainties."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "Ambiguity about the exact nature of T1 and T2 is properly exposed."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "No negations exist in the user message."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No timing elements are expressed in the user message."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "No unsupported endpoint promotions made."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "T1 and T2 are preserved without unjustified generalization."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit fragments are fully mapped in the coverage report."
+          }
+        ],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "The typed candidate correctly maps all explicit fragments and relations, captures the user's scientific intent, exposes necessary ambiguity regarding the exact nature of T1 and T2, and maintains complete coverage and taxonomy reports."
+      }
+    ],
+    "repairDiagnostics": [
+      {
+        "repairId": "rep_1",
+        "status": "ACCEPTED",
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+      },
+      {
+        "repairId": "rep_2",
+        "status": "ACCEPTED",
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+      }
+    ],
+    "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+    "semanticModel": {
+      "semanticModelVersion": "1.1",
+      "semanticModelId": "semantic-model:ke1-2cd8c84f45c94f83",
+      "revision": 1,
+      "status": "CANDIDATE",
+      "originalRequest": "est-ce que le T1 est meilleur que le T2 ?",
+      "normalizedMeaning": "Comparaison de performance entre la méthode ou modalité T1 et la méthode ou modalité T2",
+      "conversationMessageIds": [
+        "SEM-D07:user:1"
+      ],
+      "elements": [
+        {
+          "semanticElementId": "sem-element:ke1-08a7fb27cabac3d3",
+          "type": "SCIENTIFIC_INTENT",
+          "canonicalMeaning": "Evaluer si T1 est supérieur à T2",
+          "studyRole": "NONE",
+          "polarity": "UNCERTAIN",
+          "inventoryItemIds": [
+            "inv_3",
+            "inv_4"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D07:user:1",
+            "text": "est-ce que le T1 est meilleur que le T2 ?",
+            "start": 0,
+            "end": 41
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D07:user:1",
+            "providerCallId": "gemini-call:ke1-258a9e3362b0b74f",
+            "rawElementId": "elem_3"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-4ac13e7d18d02ed9",
+          "type": "BIOMARKER",
+          "canonicalMeaning": "Biomarqueur ou paramètre quantitatif T1",
+          "studyRole": "COMPARATOR_ARM",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_1"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D07:user:1",
+            "text": "T1",
+            "start": 14,
+            "end": 16
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-9c643c55f0901299"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "KNOWLEDGE_GAP",
+            "resultRef": "knowledge-result:ke1-558dae94a954f060",
+            "assertionRefs": [],
+            "gapRefs": [
+              "knowledge-gap:ke1-bc93ebbd39868729",
+              "knowledge-gap:ke1-bee46eb74bdfc97b",
+              "knowledge-gap:ke1-dfafc38651b7737a"
+            ],
+            "checkedAt": "2026-08-11T09:22:33.324Z"
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D07:user:1",
+            "providerCallId": "gemini-call:ke1-258a9e3362b0b74f",
+            "rawElementId": "elem_1"
+          },
+          "supersedesElementIds": [
+            "elem_1"
+          ],
+          "version": 2
+        },
+        {
+          "semanticElementId": "sem-element:ke1-6b92a9da6e69d916",
+          "type": "BIOMARKER",
+          "canonicalMeaning": "Biomarqueur ou paramètre quantitatif T2",
+          "studyRole": "COMPARATOR_ARM",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_2"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D07:user:1",
+            "text": "T2",
+            "start": 37,
+            "end": 39
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-9c643c55f0901299"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "KNOWLEDGE_GAP",
+            "resultRef": "knowledge-result:ke1-558dae94a954f060",
+            "assertionRefs": [],
+            "gapRefs": [
+              "knowledge-gap:ke1-bc93ebbd39868729",
+              "knowledge-gap:ke1-bee46eb74bdfc97b",
+              "knowledge-gap:ke1-dfafc38651b7737a"
+            ],
+            "checkedAt": "2026-08-11T09:22:33.324Z"
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D07:user:1",
+            "providerCallId": "gemini-call:ke1-258a9e3362b0b74f",
+            "rawElementId": "elem_2"
+          },
+          "supersedesElementIds": [
+            "elem_2"
+          ],
+          "version": 2
+        }
+      ],
+      "relations": [
+        {
+          "semanticRelationId": "sem-relation:ke1-9c643c55f0901299",
+          "sourceElementId": "sem-element:ke1-4ac13e7d18d02ed9",
+          "targetElementId": "sem-element:ke1-6b92a9da6e69d916",
+          "relationType": "COMPARES_WITH",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel_inv_1"
+          ],
+          "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "version": 1
+        }
+      ],
+      "explicitCoverageReport": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryItemId": "inv_1",
+            "sourceMessageId": "SEM-D07:user:1",
+            "sourceText": "T1",
+            "normalizedMeaning": "T1",
+            "mappedClientElementIds": [
+              "elem_1"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "inv_2",
+            "sourceMessageId": "SEM-D07:user:1",
+            "sourceText": "T2",
+            "normalizedMeaning": "T2",
+            "mappedClientElementIds": [
+              "elem_2"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "inv_3",
+            "sourceMessageId": "SEM-D07:user:1",
+            "sourceText": "meilleur",
+            "normalizedMeaning": "meilleur",
+            "mappedClientElementIds": [
+              "elem_3"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "inv_4",
+            "sourceMessageId": "SEM-D07:user:1",
+            "sourceText": "est-ce que",
+            "normalizedMeaning": "interrogation",
+            "mappedClientElementIds": [
+              "elem_3"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          }
+        ]
+      },
+      "relationCoverageReport": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel_inv_1",
+            "sourceInventoryItemId": "inv_1",
+            "targetInventoryItemId": "inv_2",
+            "normalizedRelation": "COMPARES_WITH",
+            "mappedClientRelationIds": [
+              "rel_1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          }
+        ]
+      },
+      "missingConcepts": [],
+      "ellipses": [],
+      "ambiguities": [
+        "La nature exacte de T1 et T2 (méthode, modalité ou biomarqueur) n'est pas explicitée."
+      ],
+      "unknowns": [],
+      "contradictions": [],
+      "clarificationCandidates": [
+        {
+          "question": "Que représentent précisément T1 et T2 (par exemple, des séquences d'imagerie, des biomarqueurs ou des méthodes) ?",
+          "reason": "Préciser la nature des éléments comparés pour affiner la classification ontologique.",
+          "resolvesElementIds": [
+            "sem-element:ke1-4ac13e7d18d02ed9",
+            "sem-element:ke1-6b92a9da6e69d916"
+          ]
+        }
+      ],
+      "knowledgeRequests": [],
+      "routeProposal": {
+        "route": "FORMALIZE_IDEA",
+        "confidence": 0.9,
+        "reason": "L'utilisateur formule une question comparative directe entre deux entités nécessitant une formalisation conceptuelle avant toute construction d'étude.",
+        "expectedCapabilities": [
+          "Cadrage de l'hypothèse d'évaluation",
+          "Clarification des objets comparés"
+        ]
+      },
+      "summaryForUser": "Vous souhaitez savoir si T1 est supérieur à T2.",
+      "critic": {
+        "verdict": "ACCEPT",
+        "issues": [],
+        "summary": "The typed candidate correctly maps all explicit fragments and relations, captures the user's scientific intent, exposes necessary ambiguity regarding the exact nature of T1 and T2, and maintains complete coverage and taxonomy reports."
+      },
+      "executionSnapshot": {
+        "provider": "GOOGLE_GEMINI",
+        "model": "gemini-3.5-flash-lite",
+        "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+        "criticPromptVersion": "SEM-001-CRITIC-1.2",
+        "schemaVersion": "SEM-001-1.1",
+        "reconstructionCallId": "gemini-call:ke1-258a9e3362b0b74f",
+        "criticCallId": "gemini-call:ke1-c054dae1ff221e35",
+        "criticCallIds": [
+          "gemini-call:ke1-4731df362c841312",
+          "gemini-call:ke1-c054dae1ff221e35"
+        ],
+        "reconstructionAttempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T09:21:43.943Z",
+            "requestFinished": "2026-08-11T09:21:48.728Z",
+            "latencyMs": 4785,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ],
+        "criticAttempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T09:21:48.730Z",
+            "requestFinished": "2026-08-11T09:21:53.661Z",
+            "latencyMs": 4931,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          },
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T09:22:30.295Z",
+            "requestFinished": "2026-08-11T09:22:33.316Z",
+            "latencyMs": 3021,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ],
+        "rawReconstruction": {
+          "candidateId": "cand_01J8F01K8V8P5W9X2Z3Q4R5S6T",
+          "language": "fr",
+          "normalizedMeaning": "Comparaison de performance entre la méthode ou modalité T1 et la méthode ou modalité T2",
+          "summaryForUser": "Vous souhaitez savoir si T1 est supérieur à T2.",
+          "semanticInventory": {
+            "explicitFragments": [
+              {
+                "inventoryItemId": "inv_1",
+                "sourceMessageId": "SEM-D07:user:1",
+                "sourceText": "T1",
+                "normalizedLabel": "T1",
+                "localRole": "target_comparison_a",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": []
+              },
+              {
+                "inventoryItemId": "inv_2",
+                "sourceMessageId": "SEM-D07:user:1",
+                "sourceText": "T2",
+                "normalizedLabel": "T2",
+                "localRole": "target_comparison_b",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": []
+              },
+              {
+                "inventoryItemId": "inv_3",
+                "sourceMessageId": "SEM-D07:user:1",
+                "sourceText": "meilleur",
+                "normalizedLabel": "meilleur",
+                "localRole": "evaluation_criterion",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": [
+                  "inv_1",
+                  "inv_2"
+                ]
+              },
+              {
+                "inventoryItemId": "inv_4",
+                "sourceMessageId": "SEM-D07:user:1",
+                "sourceText": "est-ce que",
+                "normalizedLabel": "interrogation",
+                "localRole": "scientific_intent",
+                "polarity": "UNCERTAIN",
+                "modifiers": [],
+                "linkedInventoryItemIds": [
+                  "inv_1",
+                  "inv_2"
+                ]
+              }
+            ],
+            "explicitRelations": [
+              {
+                "inventoryRelationId": "rel_inv_1",
+                "sourceInventoryItemId": "inv_1",
+                "targetInventoryItemId": "inv_2",
+                "sourceMessageId": "SEM-D07:user:1",
+                "sourceText": "est-ce que le T1 est meilleur que le T2 ?",
+                "normalizedRelation": "COMPARES_WITH",
+                "polarity": "AFFIRMED"
+              }
+            ]
+          },
+          "elements": [
+            {
+              "clientElementId": "elem_3",
+              "type": "SCIENTIFIC_INTENT",
+              "canonicalMeaning": "Evaluer si T1 est supérieur à T2",
+              "studyRole": "NONE",
+              "polarity": "UNCERTAIN",
+              "inventoryItemIds": [
+                "inv_3",
+                "inv_4"
+              ],
+              "sourceMessageId": "SEM-D07:user:1",
+              "sourceText": "est-ce que le T1 est meilleur que le T2 ?",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem_1",
+              "type": "BIOMARKER",
+              "canonicalMeaning": "Biomarqueur ou paramètre quantitatif T1",
+              "studyRole": "COMPARATOR_ARM",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "inv_1"
+              ],
+              "sourceMessageId": "SEM-D07:user:1",
+              "sourceText": "T1",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": [
+                "elem_1"
+              ]
+            },
+            {
+              "clientElementId": "elem_2",
+              "type": "BIOMARKER",
+              "canonicalMeaning": "Biomarqueur ou paramètre quantitatif T2",
+              "studyRole": "COMPARATOR_ARM",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "inv_2"
+              ],
+              "sourceMessageId": "SEM-D07:user:1",
+              "sourceText": "T2",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": [
+                "elem_2"
+              ]
+            }
+          ],
+          "relations": [
+            {
+              "clientRelationId": "rel_1",
+              "sourceClientElementId": "elem_1",
+              "targetClientElementId": "elem_2",
+              "relationType": "COMPARES_WITH",
+              "polarity": "AFFIRMED",
+              "inventoryRelationIds": [
+                "rel_inv_1"
+              ],
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false
+            }
+          ],
+          "missingConcepts": [],
+          "ellipses": [],
+          "ambiguities": [
+            "La nature exacte de T1 et T2 (méthode, modalité ou biomarqueur) n'est pas explicitée."
+          ],
+          "unknowns": [],
+          "contradictions": [],
+          "knowledgeRequests": [],
+          "clarificationCandidates": [
+            {
+              "question": "Que représentent précisément T1 et T2 (par exemple, des séquences d'imagerie, des biomarqueurs ou des méthodes) ?",
+              "reason": "Préciser la nature des éléments comparés pour affiner la classification ontologique.",
+              "resolvesClientElementIds": [
+                "elem_1",
+                "elem_2"
+              ]
+            }
+          ],
+          "routeProposal": {
+            "route": "FORMALIZE_IDEA",
+            "confidence": 0.9,
+            "reason": "L'utilisateur formule une question comparative directe entre deux entités nécessitant une formalisation conceptuelle avant toute construction d'étude.",
+            "expectedCapabilities": [
+              "Clarification des objets comparés",
+              "Cadrage de l'hypothèse d'évaluation"
+            ]
+          },
+          "semanticWarnings": []
+        },
+        "rawCritic": {
+          "criticId": "critic_sem_d07_02",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Both T1 and T2 are fully represented by elem_1 and elem_2."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "T1 and T2 are compared directly with study roles set as comparator arms."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit treatment intervention is present in the text."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "Specific modalities are not explicitly stated, left as ambiguous types."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "rel_inv_1 is directly mapped to rel_1."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Taxonomy report is complete with no incompatible types."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "The comparison relation is fully preserved as COMPARES_WITH."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No speculative inferences have been promoted to explicit certainties."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Ambiguity about the exact nature of T1 and T2 is properly exposed."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "No negations exist in the user message."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No timing elements are expressed in the user message."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No unsupported endpoint promotions made."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "T1 and T2 are preserved without unjustified generalization."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit fragments are fully mapped in the coverage report."
+            }
+          ],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The typed candidate correctly maps all explicit fragments and relations, captures the user's scientific intent, exposes necessary ambiguity regarding the exact nature of T1 and T2, and maintains complete coverage and taxonomy reports."
+        },
+        "rawCritics": [
+          {
+            "criticId": "crit_01J8F01K8V8P5W9X2Z3Q4R5S6T",
+            "verdict": "REVISE",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "T1 and T2 are both represented by elements elem_1 and elem_2."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "PASS",
+                "evidence": "The comparison between T1 and T2 is explicitly preserved in relation rel_1."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No active intervention or treatment is requested."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No broad acquisition modality family is explicitly mentioned."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "rel_inv_1 is mapped to rel_1."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "FAIL",
+                "evidence": "Taxonomy report indicates QUANTITATIVE_COMPARAND_TYPED_AS_METHOD for elem_1 and elem_2, which should be BIOMARKER."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Explicit comparison is preserved as COMPARES_WITH."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No unsupported inferences were promoted as explicit facts."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "Ambiguity regarding the exact nature of T1 and T2 is exposed."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "Polarities are correctly affirmed/uncertain."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No timing elements are present."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "No outcomes or endpoints were improperly promoted."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Concepts are maintained at their precise terms."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit fragments in inventory are fully mapped."
+              }
+            ],
+            "issues": [
+              {
+                "code": "TYPE_MISMATCH",
+                "severity": "CRITICAL",
+                "elementClientIds": [
+                  "elem_1",
+                  "elem_2"
+                ],
+                "description": "Short quantitative comparands T1 and T2 are typed as METHOD instead of BIOMARKER according to operational taxonomy precedence.",
+                "recommendedAction": "Upsert elements elem_1 and elem_2 with type BIOMARKER.",
+                "resolved": false
+              }
+            ],
+            "proposedRepairs": [
+              {
+                "repairId": "rep_1",
+                "action": "UPSERT_ELEMENT",
+                "reason": "Correct the element type from METHOD to BIOMARKER per taxonomy report finding QUANTITATIVE_COMPARAND_TYPED_AS_METHOD.",
+                "sourceInventoryItemIds": [
+                  "inv_1"
+                ],
+                "sourceInventoryRelationIds": [],
+                "elementClientElementId": "elem_1",
+                "elementType": "BIOMARKER",
+                "elementCanonicalMeaning": "Biomarqueur ou paramètre quantitatif T1",
+                "elementStudyRole": "COMPARATOR_ARM",
+                "elementPolarity": "AFFIRMED",
+                "elementInventoryItemIds": [
+                  "inv_1"
+                ],
+                "elementSourceMessageId": "SEM-D07:user:1",
+                "elementSourceText": "T1",
+                "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+                "elementConfidence": 1,
+                "elementInferenceReason": null,
+                "elementRequiresConfirmation": false,
+                "elementSupersedesElementIds": [
+                  "elem_1"
+                ],
+                "relationClientRelationId": null,
+                "relationSourceClientElementId": null,
+                "relationTargetClientElementId": null,
+                "relationType": null,
+                "relationPolarity": null,
+                "relationInventoryRelationIds": [],
+                "relationEpistemicStatus": null,
+                "relationConfidence": null,
+                "relationInferenceReason": null,
+                "relationRequiresConfirmation": null,
+                "ambiguity": null,
+                "route": null,
+                "routeConfidence": null,
+                "routeReason": null,
+                "routeExpectedCapabilities": []
+              },
+              {
+                "repairId": "rep_2",
+                "action": "UPSERT_ELEMENT",
+                "reason": "Correct the element type from METHOD to BIOMARKER per taxonomy report finding QUANTITATIVE_COMPARAND_TYPED_AS_METHOD.",
+                "sourceInventoryItemIds": [
+                  "inv_2"
+                ],
+                "sourceInventoryRelationIds": [],
+                "elementClientElementId": "elem_2",
+                "elementType": "BIOMARKER",
+                "elementCanonicalMeaning": "Biomarqueur ou paramètre quantitatif T2",
+                "elementStudyRole": "COMPARATOR_ARM",
+                "elementPolarity": "AFFIRMED",
+                "elementInventoryItemIds": [
+                  "inv_2"
+                ],
+                "elementSourceMessageId": "SEM-D07:user:1",
+                "elementSourceText": "T2",
+                "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+                "elementConfidence": 1,
+                "elementInferenceReason": null,
+                "elementRequiresConfirmation": false,
+                "elementSupersedesElementIds": [
+                  "elem_2"
+                ],
+                "relationClientRelationId": null,
+                "relationSourceClientElementId": null,
+                "relationTargetClientElementId": null,
+                "relationType": null,
+                "relationPolarity": null,
+                "relationInventoryRelationIds": [],
+                "relationEpistemicStatus": null,
+                "relationConfidence": null,
+                "relationInferenceReason": null,
+                "relationRequiresConfirmation": null,
+                "ambiguity": null,
+                "route": null,
+                "routeConfidence": null,
+                "routeReason": null,
+                "routeExpectedCapabilities": []
+              }
+            ],
+            "criticSummary": "The initial model correctly captured all explicit fragments and relations, but typed the quantitative comparands T1 and T2 as METHOD instead of BIOMARKER. Bounded repairs have been proposed to correct both element types."
+          },
+          {
+            "criticId": "critic_sem_d07_02",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Both T1 and T2 are fully represented by elem_1 and elem_2."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "PASS",
+                "evidence": "T1 and T2 are compared directly with study roles set as comparator arms."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No explicit treatment intervention is present in the text."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "Specific modalities are not explicitly stated, left as ambiguous types."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "rel_inv_1 is directly mapped to rel_1."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "Taxonomy report is complete with no incompatible types."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "The comparison relation is fully preserved as COMPARES_WITH."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No speculative inferences have been promoted to explicit certainties."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "Ambiguity about the exact nature of T1 and T2 is properly exposed."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "No negations exist in the user message."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No timing elements are expressed in the user message."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "No unsupported endpoint promotions made."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "T1 and T2 are preserved without unjustified generalization."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit fragments are fully mapped in the coverage report."
+              }
+            ],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The typed candidate correctly maps all explicit fragments and relations, captures the user's scientific intent, exposes necessary ambiguity regarding the exact nature of T1 and T2, and maintains complete coverage and taxonomy reports."
+          }
+        ],
+        "temperature": null,
+        "executedAt": "2026-08-11T09:22:33.319Z"
+      },
+      "knowledgeSnapshot": {
+        "resultId": "knowledge-result:ke1-558dae94a954f060",
+        "resultDigest": "ke1-558dae94a954f060",
+        "coverageStatus": "PROVIDER_NOT_APPLICABLE",
+        "verifiedAt": "2026-08-11T09:22:33.324Z"
+      },
+      "previousModelId": null,
+      "history": [],
+      "acceptedAt": null,
+      "acceptanceRecord": null,
+      "createdAt": "2026-08-11T09:22:33.319Z",
+      "updatedAt": "2026-08-11T09:22:33.324Z",
+      "digest": "ke1-313a36799c40c895"
+    },
+    "beforeCriticModel": {
+      "semanticModelVersion": "1.1",
+      "semanticModelId": "semantic-model:ke1-2cd8c84f45c94f83",
+      "revision": 1,
+      "status": "CANDIDATE",
+      "originalRequest": "est-ce que le T1 est meilleur que le T2 ?",
+      "normalizedMeaning": "Comparaison de performance entre la méthode ou modalité T1 et la méthode ou modalité T2",
+      "conversationMessageIds": [
+        "SEM-D07:user:1"
+      ],
+      "elements": [
+        {
+          "semanticElementId": "sem-element:ke1-08a7fb27cabac3d3",
+          "type": "SCIENTIFIC_INTENT",
+          "canonicalMeaning": "Evaluer si T1 est supérieur à T2",
+          "studyRole": "NONE",
+          "polarity": "UNCERTAIN",
+          "inventoryItemIds": [
+            "inv_3",
+            "inv_4"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D07:user:1",
+            "text": "est-ce que le T1 est meilleur que le T2 ?",
+            "start": 0,
+            "end": 41
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D07:user:1",
+            "providerCallId": "gemini-call:ke1-258a9e3362b0b74f",
+            "rawElementId": "elem_3"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-aa1a7b73294e5cf7",
+          "type": "METHOD",
+          "canonicalMeaning": "Méthode ou modalité T1",
+          "studyRole": "COMPARATOR_ARM",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_1"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D07:user:1",
+            "text": "T1",
+            "start": 14,
+            "end": 16
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-73054922345ec8ce"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D07:user:1",
+            "providerCallId": "gemini-call:ke1-258a9e3362b0b74f",
+            "rawElementId": "elem_1"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-af403c0af21daa16",
+          "type": "METHOD",
+          "canonicalMeaning": "Méthode ou modalité T2",
+          "studyRole": "COMPARATOR_ARM",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_2"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D07:user:1",
+            "text": "T2",
+            "start": 37,
+            "end": 39
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-73054922345ec8ce"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D07:user:1",
+            "providerCallId": "gemini-call:ke1-258a9e3362b0b74f",
+            "rawElementId": "elem_2"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        }
+      ],
+      "relations": [
+        {
+          "semanticRelationId": "sem-relation:ke1-73054922345ec8ce",
+          "sourceElementId": "sem-element:ke1-aa1a7b73294e5cf7",
+          "targetElementId": "sem-element:ke1-af403c0af21daa16",
+          "relationType": "COMPARES_WITH",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel_inv_1"
+          ],
+          "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "version": 1
+        }
+      ],
+      "explicitCoverageReport": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryItemId": "inv_1",
+            "sourceMessageId": "SEM-D07:user:1",
+            "sourceText": "T1",
+            "normalizedMeaning": "T1",
+            "mappedClientElementIds": [
+              "elem_1"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "inv_2",
+            "sourceMessageId": "SEM-D07:user:1",
+            "sourceText": "T2",
+            "normalizedMeaning": "T2",
+            "mappedClientElementIds": [
+              "elem_2"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "inv_3",
+            "sourceMessageId": "SEM-D07:user:1",
+            "sourceText": "meilleur",
+            "normalizedMeaning": "meilleur",
+            "mappedClientElementIds": [
+              "elem_3"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "inv_4",
+            "sourceMessageId": "SEM-D07:user:1",
+            "sourceText": "est-ce que",
+            "normalizedMeaning": "interrogation",
+            "mappedClientElementIds": [
+              "elem_3"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          }
+        ]
+      },
+      "relationCoverageReport": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel_inv_1",
+            "sourceInventoryItemId": "inv_1",
+            "targetInventoryItemId": "inv_2",
+            "normalizedRelation": "COMPARES_WITH",
+            "mappedClientRelationIds": [
+              "rel_1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          }
+        ]
+      },
+      "missingConcepts": [],
+      "ellipses": [],
+      "ambiguities": [
+        "La nature exacte de T1 et T2 (méthode, modalité ou biomarqueur) n'est pas explicitée."
+      ],
+      "unknowns": [],
+      "contradictions": [],
+      "clarificationCandidates": [
+        {
+          "question": "Que représentent précisément T1 et T2 (par exemple, des séquences d'imagerie, des biomarqueurs ou des méthodes) ?",
+          "reason": "Préciser la nature des éléments comparés pour affiner la classification ontologique.",
+          "resolvesElementIds": [
+            "sem-element:ke1-aa1a7b73294e5cf7",
+            "sem-element:ke1-af403c0af21daa16"
+          ]
+        }
+      ],
+      "knowledgeRequests": [],
+      "routeProposal": {
+        "route": "FORMALIZE_IDEA",
+        "confidence": 0.9,
+        "reason": "L'utilisateur formule une question comparative directe entre deux entités nécessitant une formalisation conceptuelle avant toute construction d'étude.",
+        "expectedCapabilities": [
+          "Cadrage de l'hypothèse d'évaluation",
+          "Clarification des objets comparés"
+        ]
+      },
+      "summaryForUser": "Vous souhaitez savoir si T1 est supérieur à T2.",
+      "critic": {
+        "verdict": "ACCEPT",
+        "issues": [],
+        "summary": "Metric-only pre-critic snapshot."
+      },
+      "executionSnapshot": {
+        "provider": "GOOGLE_GEMINI",
+        "model": "gemini-3.5-flash-lite",
+        "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+        "criticPromptVersion": "SEM-001-CRITIC-1.2",
+        "schemaVersion": "SEM-001-1.1",
+        "reconstructionCallId": "gemini-call:ke1-258a9e3362b0b74f",
+        "criticCallId": "pre-critic-metric-only",
+        "criticCallIds": [
+          "pre-critic-metric-only"
+        ],
+        "reconstructionAttempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T09:21:43.943Z",
+            "requestFinished": "2026-08-11T09:21:48.728Z",
+            "latencyMs": 4785,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ],
+        "criticAttempts": [],
+        "rawReconstruction": {
+          "candidateId": "cand_01J8F01K8V8P5W9X2Z3Q4R5S6T",
+          "language": "fr",
+          "normalizedMeaning": "Comparaison de performance entre la méthode ou modalité T1 et la méthode ou modalité T2",
+          "summaryForUser": "Vous souhaitez savoir si T1 est supérieur à T2.",
+          "semanticInventory": {
+            "explicitFragments": [
+              {
+                "inventoryItemId": "inv_1",
+                "sourceMessageId": "SEM-D07:user:1",
+                "sourceText": "T1",
+                "normalizedLabel": "T1",
+                "localRole": "target_comparison_a",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": []
+              },
+              {
+                "inventoryItemId": "inv_2",
+                "sourceMessageId": "SEM-D07:user:1",
+                "sourceText": "T2",
+                "normalizedLabel": "T2",
+                "localRole": "target_comparison_b",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": []
+              },
+              {
+                "inventoryItemId": "inv_3",
+                "sourceMessageId": "SEM-D07:user:1",
+                "sourceText": "meilleur",
+                "normalizedLabel": "meilleur",
+                "localRole": "evaluation_criterion",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": [
+                  "inv_1",
+                  "inv_2"
+                ]
+              },
+              {
+                "inventoryItemId": "inv_4",
+                "sourceMessageId": "SEM-D07:user:1",
+                "sourceText": "est-ce que",
+                "normalizedLabel": "interrogation",
+                "localRole": "scientific_intent",
+                "polarity": "UNCERTAIN",
+                "modifiers": [],
+                "linkedInventoryItemIds": [
+                  "inv_1",
+                  "inv_2"
+                ]
+              }
+            ],
+            "explicitRelations": [
+              {
+                "inventoryRelationId": "rel_inv_1",
+                "sourceInventoryItemId": "inv_1",
+                "targetInventoryItemId": "inv_2",
+                "sourceMessageId": "SEM-D07:user:1",
+                "sourceText": "est-ce que le T1 est meilleur que le T2 ?",
+                "normalizedRelation": "COMPARES_WITH",
+                "polarity": "AFFIRMED"
+              }
+            ]
+          },
+          "elements": [
+            {
+              "clientElementId": "elem_1",
+              "type": "METHOD",
+              "canonicalMeaning": "Méthode ou modalité T1",
+              "studyRole": "COMPARATOR_ARM",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "inv_1"
+              ],
+              "sourceMessageId": "SEM-D07:user:1",
+              "sourceText": "T1",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem_2",
+              "type": "METHOD",
+              "canonicalMeaning": "Méthode ou modalité T2",
+              "studyRole": "COMPARATOR_ARM",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "inv_2"
+              ],
+              "sourceMessageId": "SEM-D07:user:1",
+              "sourceText": "T2",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem_3",
+              "type": "SCIENTIFIC_INTENT",
+              "canonicalMeaning": "Evaluer si T1 est supérieur à T2",
+              "studyRole": "NONE",
+              "polarity": "UNCERTAIN",
+              "inventoryItemIds": [
+                "inv_3",
+                "inv_4"
+              ],
+              "sourceMessageId": "SEM-D07:user:1",
+              "sourceText": "est-ce que le T1 est meilleur que le T2 ?",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            }
+          ],
+          "relations": [
+            {
+              "clientRelationId": "rel_1",
+              "sourceClientElementId": "elem_1",
+              "targetClientElementId": "elem_2",
+              "relationType": "COMPARES_WITH",
+              "polarity": "AFFIRMED",
+              "inventoryRelationIds": [
+                "rel_inv_1"
+              ],
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false
+            }
+          ],
+          "missingConcepts": [],
+          "ellipses": [],
+          "ambiguities": [
+            "La nature exacte de T1 et T2 (méthode, modalité ou biomarqueur) n'est pas explicitée."
+          ],
+          "unknowns": [],
+          "contradictions": [],
+          "knowledgeRequests": [],
+          "clarificationCandidates": [
+            {
+              "question": "Que représentent précisément T1 et T2 (par exemple, des séquences d'imagerie, des biomarqueurs ou des méthodes) ?",
+              "reason": "Préciser la nature des éléments comparés pour affiner la classification ontologique.",
+              "resolvesClientElementIds": [
+                "elem_1",
+                "elem_2"
+              ]
+            }
+          ],
+          "routeProposal": {
+            "route": "FORMALIZE_IDEA",
+            "confidence": 0.9,
+            "reason": "L'utilisateur formule une question comparative directe entre deux entités nécessitant une formalisation conceptuelle avant toute construction d'étude.",
+            "expectedCapabilities": [
+              "Clarification des objets comparés",
+              "Cadrage de l'hypothèse d'évaluation"
+            ]
+          },
+          "semanticWarnings": []
+        },
+        "rawCritic": {
+          "criticId": "pre-critic-metric-only",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            }
+          ],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "Metric-only pre-critic snapshot."
+        },
+        "rawCritics": [
+          {
+            "criticId": "pre-critic-metric-only",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              }
+            ],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "Metric-only pre-critic snapshot."
+          }
+        ],
+        "temperature": null,
+        "executedAt": "2026-08-11T09:22:33.318Z"
+      },
+      "knowledgeSnapshot": null,
+      "previousModelId": null,
+      "history": [],
+      "acceptedAt": null,
+      "acceptanceRecord": null,
+      "createdAt": "2026-08-11T09:22:33.318Z",
+      "updatedAt": "2026-08-11T09:22:33.318Z",
+      "digest": "ke1-4e672ee4cd02e8c0"
+    },
+    "criticImpact": {
+      "caseId": "SEM-D07",
+      "beforeCriticObjectRecall": 0,
+      "afterCriticObjectRecall": 1,
+      "beforeCriticRelationRecall": 1,
+      "afterCriticRelationRecall": 1,
+      "issuesDetected": 1,
+      "repairsProposed": 2,
+      "repairsAccepted": 2,
+      "repairsRejected": 0,
+      "newUnsupportedInferences": 0,
+      "falsePositiveCritic": false,
+      "criticAccepted": true,
+      "criticCycles": 2,
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    },
+    "error": null
+  }
+]

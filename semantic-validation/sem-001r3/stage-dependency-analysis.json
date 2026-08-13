@@ -1,0 +1,89 @@
+{
+  "campaignId": "sem-001r3-development-2026-08-11T10-52-30-106Z",
+  "generatedAt": "2026-08-12T09:30:05.335Z",
+  "selectionPolicy": {
+    "llm": "INCOMPLETE_ONLY",
+    "deterministic": "AFFECTED_ONLY",
+    "completeCasesDefault": "REUSE_COMPATIBLE"
+  },
+  "physicalChangeFirstStage": 4,
+  "firstFunctionallyImpactedStage": null,
+  "stages": [
+    {
+      "stage": 1,
+      "name": "LLM_RECONSTRUCTION",
+      "version": "SEM-001-RECONSTRUCTION-1.2",
+      "status": "UNCHANGED_COMPATIBLE",
+      "completeCasesReused": 13,
+      "llmCallsRequiredForCompleteCases": 0
+    },
+    {
+      "stage": 2,
+      "name": "LLM_CRITIC",
+      "version": "SEM-001-CRITIC-1.2",
+      "status": "UNCHANGED_COMPATIBLE",
+      "completeCasesReused": 13,
+      "llmCallsRequiredForCompleteCases": 0
+    },
+    {
+      "stage": 3,
+      "name": "DETERMINISTIC_CANONICALIZATION",
+      "version": "1.1",
+      "status": "UNCHANGED_COMPATIBLE",
+      "completeCasesReused": 13,
+      "recalculatedForProof": 13
+    },
+    {
+      "stage": 4,
+      "name": "DETERMINISTIC_COVERAGE_AND_REPAIRS",
+      "previousDigest": "ke1-01579ca67586df12",
+      "currentDigest": "ke1-38e38b3ef0d37d0a",
+      "status": "NON_SEMANTIC_DIGEST_DRIFT_ACCEPTED",
+      "completeCasesReused": 13,
+      "recalculatedForProof": 13
+    },
+    {
+      "stage": 5,
+      "name": "DETERMINISTIC_EVALUATION",
+      "version": "SEM-001-EVALUATOR-1.2",
+      "status": "UNCHANGED_COMPATIBLE",
+      "completeCasesReused": 13,
+      "recalculatedForProof": 13
+    },
+    {
+      "stage": 6,
+      "name": "METRICS_AND_DIAGNOSTICS",
+      "version": "SEM-001-EVALUATOR-1.2",
+      "status": "UNCHANGED_COMPATIBLE",
+      "completeCasesReused": 13,
+      "recalculatedForProof": 13
+    }
+  ],
+  "invalidatedCases": [],
+  "replayProof": {
+    "cases": 13,
+    "functionallyIdentical": 13,
+    "llmCalls": 0
+  },
+  "decision": "NO_STAGE_INVALIDATION_FOR_SEM_D01_TO_SEM_D13",
+  "developmentContinuation": {
+    "initialSelection": "INCOMPLETE_ONLY",
+    "providerCasesInitiallyAttempted": 17,
+    "completeCasesReusedWithoutLlm": 13,
+    "exceptionalRecovery": {
+      "caseId": "SEM-D18",
+      "failedAttemptPreservedAt": "history/development-2026-08-12T09-58-02-394Z/SEM-D18-failed-stage-snapshot.json",
+      "observedFailure": "CRITIC_MAX_CYCLES_EXHAUSTED",
+      "firstInvalidStage": 1,
+      "reason": "The reconstruction inventory isolated the functional token 'pour' as an explicit item. The critic repair contract cannot mutate semanticInventory, so the stored reconstruction could not be reused to obtain a valid downstream result.",
+      "selection": "AFFECTED_ONLY_SEM_D18",
+      "providerCasesReplayed": 1,
+      "otherCasesReplayed": 0,
+      "productCodeChanged": false
+    },
+    "finalCompleteCases": 30,
+    "stageCheckpointCases": 30,
+    "stageCheckpointArtifacts": 180,
+    "holdoutCalls": 0
+  }
+}

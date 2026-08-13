@@ -1,0 +1,75 @@
+{
+  "campaign": "SEM-001R3E",
+  "caseId": "SEM-D21",
+  "reconciliationStatus": "RECOVERED_FROM_PERSISTED_SESSION_OUTPUT",
+  "recoveryEvidence": {
+    "successfulAttemptArtifact": "semantic-validation/sem-001r3b/provider-attempts-r3e.json",
+    "reportEvidence": "docs/sem-001r3b-development-semantic-repair-report.md#57-d21-live-targeted-gate",
+    "capturedAt": "2026-08-12T14:36:49.020Z",
+    "runId": "sem-001r3e-2026-08-12T14-36-33-986Z",
+    "httpStatus": 200,
+    "rawProviderResponseAvailable": false,
+    "structuredAuditWasPersistedInSessionOutput": true
+  },
+  "audit": {
+    "auditId": "audit_sem_d21_01",
+    "schemaVersion": "SEM-001-ATOMIC-COMPOSITION-1.1",
+    "verdict": "ACCEPT",
+    "atomicityReports": [
+      {
+        "reportId": "report_atom_1",
+        "subjectInventoryItemIds": ["item_3"],
+        "status": "COMPLETE",
+        "constituents": [
+          {
+            "constituentId": "const_1",
+            "sourceMessageId": "SEM-D21:user:1",
+            "sourceText": "1,5T",
+            "normalizedMeaning": "1.5T magnetic field strength",
+            "semanticType": "MODALITY",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED"
+          },
+          {
+            "constituentId": "const_2",
+            "sourceMessageId": "SEM-D21:user:1",
+            "sourceText": "3T",
+            "normalizedMeaning": "3T magnetic field strength",
+            "semanticType": "MODALITY",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED"
+          }
+        ],
+        "directRelations": [
+          {
+            "sourceConstituentId": "const_1",
+            "targetConstituentId": "const_2",
+            "sourceMessageId": "SEM-D21:user:1",
+            "sourceText": "1,5T et 3T",
+            "relationType": "COORDINATED_WITH",
+            "polarity": "AFFIRMED"
+          }
+        ],
+        "reason": "The expression 1,5T et 3T coordinates two distinct field strength modalities independently."
+      }
+    ],
+    "compositionReports": [
+      {
+        "reportId": "report_comp_1",
+        "sourceInventoryItemIds": ["item_1", "item_2", "item_3", "item_4"],
+        "status": "NOT_REQUIRED",
+        "composite": null,
+        "relations": [],
+        "reason": "The user request represents separate independent elements for intent, target, modality, and setting without establishing an explicit higher-level composite object beyond standard typed relations."
+      }
+    ],
+    "routeAssessment": {
+      "status": "CORRECT",
+      "proposedRoute": null,
+      "confidence": 0.95,
+      "reason": "The route DESIGN_STUDY appropriately fits a multi-center harmonization protocol design request.",
+      "expectedCapabilities": ["Define multi-center study workflow", "Protocol harmonization planning"]
+    },
+    "summary": "The semantic inventory and typed candidate accurately capture the constituents and relations of the user request with correct routing."
+  }
+}

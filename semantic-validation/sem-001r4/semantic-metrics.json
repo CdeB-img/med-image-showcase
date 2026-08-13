@@ -1,0 +1,10 @@
+{
+  "campaign": "SEM-001R4-CLOSURE",
+  "campaignId": "sem-001r4-closure-2026-08-12T19-44-58-552Z-ke1-40860531ff1079a5",
+  "status": "NOT_CALCULATED",
+  "reason": "H10_HUMAN_ARBITRATION_GATE; REQUIRES_30_OF_30_COMPLETE",
+  "complete": 10,
+  "required": 30,
+  "blockingCaseId": "SEM-H10",
+  "officialPartialMetrics": "FORBIDDEN"
+}

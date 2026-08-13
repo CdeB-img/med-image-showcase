@@ -1,0 +1,11 @@
+{
+  "classificationCorrection": {
+    "SEM-D02": "EVALUATOR_FAILURE_NOT_MODEL_REASONING_FAILURE",
+    "SEM-D16": "EVALUATOR_FAILURE_COMBINED_WITH_TAXONOMY_FAILURE"
+  },
+  "genericCause": "The prior matcher accepted partial overlap and ignored assertion-bearing qualifiers such as confirmed, established, primary or criterion.",
+  "repair": "Forbidden propositions now require every material forbidden term to be present; relation-family equivalence is limited to actual relational claims.",
+  "deterministicReplay": { "SEM-D02": 0, "SEM-D16": 0 },
+  "liveEvidence": { "SEM-D02": { "criticalUnsupportedInferenceCount": 0, "absoluteBlockers": 0 }, "SEM-D16": "NOT_DEMONSTRATED_PROVIDER_503" },
+  "newInferenceGeneration": 0
+}

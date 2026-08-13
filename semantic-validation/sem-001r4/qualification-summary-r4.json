@@ -1,0 +1,38 @@
+{
+  "campaign": "SEM-001R4",
+  "campaignId": "sem-001r4-2026-08-12T19-14-19-051Z-ke1-8251dd1f215442bb",
+  "decision": "R4_HOLDOUT_FAILED_REQUIRES_SEPARATE_REPAIR",
+  "decisionReason": "CRITIC_FAILURE:SEM-H01",
+  "holdout": "0/30 COMPLETE",
+  "officialMetrics": "NOT_CALCULATED",
+  "aggregate": null,
+  "absoluteBlockers": [],
+  "llm": {
+    "campaign": "SEM-001R4",
+    "campaignId": "sem-001r4-2026-08-12T19-14-19-051Z-ke1-8251dd1f215442bb",
+    "provider": "GOOGLE_GEMINI",
+    "model": "gemini-3.5-flash-lite",
+    "actualRequestStarts": 3,
+    "llmCallsPerformed": 3,
+    "retries": 0,
+    "structuredRegenerations": 0,
+    "providerCapacityFailures": 0,
+    "completedCasesReusedOnResume": 0,
+    "llmCallsAvoidedByResume": 0,
+    "developmentOutputsReusedAsHoldoutResults": 0,
+    "conditionalAuditCases": [],
+    "noSecretsStored": true
+  },
+  "providerIncidents": [],
+  "technicalValidations": {
+    "status": "PASS",
+    "artifact": "semantic-validation/sem-001r4/technical-validations-r4.json",
+    "semanticTests": "204/204 PASS",
+    "typecheck": "PASS",
+    "lint": "PASS_WITH_7_PREEXISTING_FAST_REFRESH_WARNINGS",
+    "build": "PASS_WITH_NON_BLOCKING_WARNINGS",
+    "gitDiffCheck": "PASS"
+  },
+  "finalLiveValidation": "NOT_STARTED_BY_MANDATE",
+  "completedAt": "2026-08-12T19:15:13.018Z"
+}

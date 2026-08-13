@@ -1,0 +1,92 @@
+{
+  "campaign": "SEM-001R3E",
+  "globalBaseConfiguration": "UNCHANGED",
+  "rows": [
+    {
+      "stage": "LLM_RECONSTRUCTION",
+      "beforeDigest": "ke1-943568042373de98",
+      "afterDigest": "ke1-943568042373de98",
+      "affectedCases": "none",
+      "llmRequired": false,
+      "disposition": "COMPLETE_REUSED"
+    },
+    {
+      "stage": "BASE_CRITIC_1_3",
+      "beforeDigest": "ke1-b26ddf632ed1fa57",
+      "afterDigest": "ke1-b26ddf632ed1fa57",
+      "affectedCases": "none",
+      "llmRequired": false,
+      "disposition": "COMPLETE_REUSED"
+    },
+    {
+      "stage": "CANONICALIZER",
+      "beforeDigest": "ke1-8a56fab704f65083",
+      "afterDigest": "ke1-8a56fab704f65083",
+      "affectedCases": "none until new targeted audit",
+      "llmRequired": false,
+      "disposition": "IMPLEMENTATION_UNCHANGED"
+    },
+    {
+      "stage": "CONDITIONAL_AUDIT_PROMPT",
+      "beforeDigest": "ke1-c9a31eaef35041ea",
+      "afterDigest": "ke1-10b88664b49fca18",
+      "affectedCases": [
+        "SEM-D21",
+        "SEM-D28"
+      ],
+      "llmRequired": true,
+      "disposition": "INVALIDATED_TARGETED"
+    },
+    {
+      "stage": "PROVIDER_TRANSPORT_SCHEMA",
+      "beforeDigest": "ke1-7d96a2fa4cc7f9c6",
+      "afterDigest": "ke1-55cd50759595b451",
+      "affectedCases": [
+        "SEM-D21",
+        "SEM-D28"
+      ],
+      "llmRequired": true,
+      "disposition": "INVALIDATED_TARGETED"
+    },
+    {
+      "stage": "INTERNAL_SEMANTIC_SCHEMA",
+      "beforeDigest": "ke1-379e82f28cb8e0a6",
+      "afterDigest": "ke1-4369054e1bb3d37a",
+      "affectedCases": [
+        "SEM-D21",
+        "SEM-D28"
+      ],
+      "llmRequired": false,
+      "disposition": "LOCAL_REVALIDATION_COMPLETE"
+    },
+    {
+      "stage": "D21_DOWNSTREAM",
+      "beforeDigest": "R3D_NOT_PRODUCED",
+      "afterDigest": "PENDING_D21",
+      "affectedCases": [
+        "SEM-D21"
+      ],
+      "llmRequired": false,
+      "disposition": "INVALIDATED_DOWNSTREAM"
+    },
+    {
+      "stage": "D28_AND_REMAINING",
+      "beforeDigest": "R3D_GATE_CLOSED",
+      "afterDigest": "GATE_CLOSED",
+      "affectedCases": [
+        "SEM-D28",
+        "24 remaining Development"
+      ],
+      "llmRequired": false,
+      "disposition": "DEFERRED_BY_GATE"
+    },
+    {
+      "stage": "HOLDOUT",
+      "beforeDigest": "FORBIDDEN",
+      "afterDigest": "FORBIDDEN",
+      "affectedCases": "30 Holdout",
+      "llmRequired": false,
+      "disposition": "CLOSED"
+    }
+  ]
+}

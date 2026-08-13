@@ -1,0 +1,97 @@
+{
+  "campaign": "SEM-001R5B",
+  "configurationName": "SEM_LEGACY_R5B",
+  "caseId": "SEM-H29",
+  "status": "READY_FOR_MINIMAL_REPLAY_NOT_EXECUTED",
+  "authorization": "H29_REPLAY_ONLY_AFTER_EXPLICIT_HUMAN_START",
+  "purpose": "Rebuild one homogeneous H29 evidence chain under the proposed governed legacy configuration.",
+  "compatibility": {
+    "classification": "LLM_REQUIRED",
+    "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+    "historicalR5CheckpointsReusableAsQualificationInput": false,
+    "historicalR5aNetworkAttemptsReusableAsQualificationInput": false,
+    "reusableNonResultInputs": [
+      "SEM-H29 governed fixture and text corpus",
+      "provider and model identity",
+      "unchanged provider schemas",
+      "unchanged acceptance thresholds",
+      "unchanged retry and rate-limit policies",
+      "historical artifacts as audit evidence only"
+    ],
+    "excludedInputs": [
+      "R5 turn-one reconstruction",
+      "R5 turn-one critic",
+      "R5 turn-two reconstruction",
+      "R5 turn-two critic",
+      "R5 or R5A canonical results",
+      "R5 or R5A evaluation results",
+      "R5A provider/network attempts"
+    ]
+  },
+  "orderedPlan": [
+    {
+      "step": 1,
+      "stage": "TURN_1_RECONSTRUCTION",
+      "kind": "LLM_OPERATION",
+      "reuse": "NONE"
+    },
+    {
+      "step": 2,
+      "stage": "TURN_1_CRITIC",
+      "kind": "LLM_OPERATION",
+      "reuse": "NONE",
+      "maximumCriticCycles": 2
+    },
+    {
+      "step": 3,
+      "stage": "TURN_1_CANONICALIZATION_AND_EVALUATION",
+      "kind": "DETERMINISTIC",
+      "reuse": "NONE"
+    },
+    {
+      "step": 4,
+      "stage": "TURN_2_RECONSTRUCTION_WITH_NEW_TURN_1_MODEL",
+      "kind": "LLM_OPERATION",
+      "reuse": "NONE"
+    },
+    {
+      "step": 5,
+      "stage": "TURN_2_CRITIC",
+      "kind": "LLM_OPERATION",
+      "reuse": "NONE",
+      "maximumCriticCycles": 2
+    },
+    {
+      "step": 6,
+      "stage": "TURN_2_CANONICALIZATION_AND_EVALUATION",
+      "kind": "DETERMINISTIC",
+      "reuse": "NONE"
+    }
+  ],
+  "llmBudget": {
+    "operationsMinimum": 4,
+    "operationsMaximum": 6,
+    "maximumAttemptsPerOperation": 5,
+    "maximumProviderRequestStarts": 30,
+    "consumedDuringR5b": 0
+  },
+  "providerPolicy": {
+    "provider": "GOOGLE_GEMINI",
+    "model": "gemini-3.5-flash-lite",
+    "concurrency": 1,
+    "maximumStartsPerRollingMinute": 5,
+    "rollingWindowMs": 60000,
+    "maximumAttemptsPerLlmOperation": 5,
+    "transientWaitMs": 60000,
+    "retryAfterHasPriority": true,
+    "retryScope": "FAILED_LLM_OPERATION_ONLY"
+  },
+  "stopConditions": [
+    "configuration or dependency digest drift",
+    "non-retryable provider/configuration failure",
+    "systemic provider unavailability",
+    "normative contradiction requiring human arbitration"
+  ],
+  "holdoutAuthorization": "NOT_GRANTED",
+  "browserOrDownstreamLiveRun": false
+}

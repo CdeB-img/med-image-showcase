@@ -1,0 +1,16 @@
+[
+  {
+    "caseId": "SEM-D21",
+    "stage": "ATOMIC_COMPOSITION_AUDIT",
+    "cycle": 1,
+    "attempt": 1,
+    "startedAt": "2026-08-12T14:36:33.986Z",
+    "finishedAt": "2026-08-12T14:36:36.457Z",
+    "providerStatus": null,
+    "httpStatus": 200,
+    "providerErrorCode": null,
+    "category": null,
+    "waitDuration": 0,
+    "finalDisposition": "SUCCESS"
+  }
+]

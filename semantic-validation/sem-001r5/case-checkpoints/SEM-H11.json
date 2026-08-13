@@ -1,0 +1,2593 @@
+{
+  "campaign": "SEM-001R5-DIAGNOSTIC",
+  "campaignId": "sem-001r5-diagnostic-2026-08-12T22-15-01-231Z-ke1-75b68ddee7e53412",
+  "caseId": "SEM-H11",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-75b68ddee7e53412",
+  "semanticConfigurationDigest": "ke1-01d917dec0ebcd82",
+  "goldFrameDigest": "ke1-205402ea8197ee06",
+  "originalRequest": [
+    "On suit diamètre aortique, mais c'est la vitesse de croissance plutôt que le diamètre brut qui doit compter."
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-12T22:15:24.017Z",
+  "completedAt": "2026-08-12T22:15:36.461Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H11:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "cand_001",
+        "language": "fr",
+        "normalizedMeaning": "Le suivi actuel repose sur le diamètre aortique, mais la vitesse de croissance est considérée comme plus pertinente que le diamètre brut.",
+        "summaryForUser": "Analyse de la préférence pour la vitesse de croissance de l'aorte par rapport au diamètre brut pour le suivi.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv_001",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "diamètre aortique",
+              "normalizedLabel": "diamètre aortique",
+              "localRole": "target",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_002",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "On suit",
+              "normalizedLabel": "suivi",
+              "localRole": "action",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_001"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_003",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "vitesse de croissance",
+              "normalizedLabel": "vitesse de croissance",
+              "localRole": "parameter",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_004",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "diamètre brut",
+              "normalizedLabel": "diamètre brut",
+              "localRole": "parameter",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_inv_001",
+              "sourceInventoryItemId": "inv_002",
+              "targetInventoryItemId": "inv_001",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "On suit diamètre aortique",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_inv_002",
+              "sourceInventoryItemId": "inv_003",
+              "targetInventoryItemId": "inv_004",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "vitesse de croissance plutôt que le diamètre brut",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem_001",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "aorte",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_001"
+            ],
+            "sourceMessageId": "SEM-H11:user:1",
+            "sourceText": "diamètre aortique",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_002",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "diamètre aortique",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_001"
+            ],
+            "sourceMessageId": "SEM-H11:user:1",
+            "sourceText": "diamètre aortique",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_003",
+            "type": "OPERATION",
+            "canonicalMeaning": "suivi",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_002"
+            ],
+            "sourceMessageId": "SEM-H11:user:1",
+            "sourceText": "On suit",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_004",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "vitesse de croissance",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_003"
+            ],
+            "sourceMessageId": "SEM-H11:user:1",
+            "sourceText": "vitesse de croissance",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_005",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "diamètre brut",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_004"
+            ],
+            "sourceMessageId": "SEM-H11:user:1",
+            "sourceText": "diamètre brut",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel_001",
+            "sourceClientElementId": "elem_003",
+            "targetClientElementId": "elem_002",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_001"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_002",
+            "sourceClientElementId": "elem_004",
+            "targetClientElementId": "elem_005",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_002"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "FORMALIZE_IDEA",
+          "confidence": 0.9,
+          "reason": "The user is contrasting two monitoring metrics (growth rate vs raw diameter) to formalize a conceptual preference.",
+          "expectedCapabilities": [
+            "Define metrics",
+            "Compare observation strategies"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "reconstructionDigest": "ke1-7e038403a358e13f",
+      "critics": [
+        {
+          "criticId": "crit_001",
+          "verdict": "REVISE",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit object fragments are mapped to elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Comparator relationship is represented."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No intervention is present."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No modality is present."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All inventory relations are mapped."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "FAIL",
+              "evidence": "Taxonomy report flags elem_002 as targeted for type correction to SCIENTIFIC_OBJECT."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Relations are preserved faithfully."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unauthorized inferences promoted."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No ambiguities hidden."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarities correctly affirmed."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "No timing expressions present."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No endpoint promotions without basis."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts preserved."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No important source fragments omitted."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route FORMALIZE_IDEA matches conceptual preference mapping."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [
+            {
+              "code": "TYPE_MISMATCH",
+              "severity": "CRITICAL",
+              "elementClientIds": [
+                "elem_002"
+              ],
+              "description": "Taxonomy report requires elem_002 to be SCIENTIFIC_OBJECT instead of BIOMARKER.",
+              "recommendedAction": "Upsert element elem_002 with type SCIENTIFIC_OBJECT.",
+              "resolved": false
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "repairId": "rep_001",
+              "action": "UPSERT_ELEMENT",
+              "reason": "Correct the taxonomy classification of element elem_002 from BIOMARKER to SCIENTIFIC_OBJECT per the taxonomy finding.",
+              "sourceInventoryItemIds": [
+                "inv_001"
+              ],
+              "sourceInventoryRelationIds": [],
+              "inventoryItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "inventoryNormalizedLabel": null,
+              "inventoryLocalRole": null,
+              "inventoryPolarity": null,
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": "elem_002",
+              "elementType": "SCIENTIFIC_OBJECT",
+              "elementCanonicalMeaning": "diamètre aortique",
+              "elementStudyRole": "MEASUREMENT",
+              "elementPolarity": "AFFIRMED",
+              "elementInventoryItemIds": [
+                "inv_001"
+              ],
+              "elementSourceMessageId": "SEM-H11:user:1",
+              "elementSourceText": "diamètre aortique",
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementConfidence": 1,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": false,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "relationPolarity": null,
+              "relationInventoryRelationIds": [],
+              "relationEpistemicStatus": null,
+              "relationConfidence": null,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": null,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            }
+          ],
+          "criticSummary": "The critic reviewed the candidate and found one taxonomy mismatch where elem_002 must be classified as SCIENTIFIC_OBJECT rather than BIOMARKER. A bounded repair is proposed to fix this issue."
+        },
+        {
+          "criticId": "critic_001",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit entities (diamètre aortique, vitesse de croissance, diamètre brut) are represented as elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The comparison between growth rate and raw diameter is fully represented."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No interventions are mentioned in the text."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No modalities are mentioned in the text."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit relations (OBSERVES, COMPARES_WITH) are present in the typed relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All taxonomy report findings are empty and types match correctly."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Relations are accurately mapped without weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No ungrounded inferences are promoted as explicit user facts."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No hidden ambiguities."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarity is properly preserved as AFFIRMED."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit timing elements are present in the short source sentence."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No unsupported endpoint promotion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like aortic diameter and growth rate are precisely kept."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "All source fragments are fully covered in the inventory and candidate."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The routing rule FORMALIZE_IDEA appropriately matches the conceptual metric preference discussion."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "All elements and explicit relations are fully accounted for, taxonomy findings are clear, and the candidate model is sound."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [
+        {
+          "repairId": "rep_001",
+          "status": "ACCEPTED",
+          "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+        }
+      ],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-953d9fb41883f080",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "On suit diamètre aortique, mais c'est la vitesse de croissance plutôt que le diamètre brut qui doit compter.",
+        "normalizedMeaning": "Le suivi actuel repose sur le diamètre aortique, mais la vitesse de croissance est considérée comme plus pertinente que le diamètre brut.",
+        "conversationMessageIds": [
+          "SEM-H11:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-2be0590aafdb5596",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "vitesse de croissance",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_003"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H11:user:1",
+              "text": "vitesse de croissance",
+              "start": 41,
+              "end": 62
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-89822ce0c229f824"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-566d55c5045bf279",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-169fccf0c0a96b74",
+                "knowledge-gap:ke1-2fdd08a7f3036d3b",
+                "knowledge-gap:ke1-d4801ce6adf44452"
+              ],
+              "checkedAt": "2026-08-12T22:15:36.455Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H11:user:1",
+              "providerCallId": "gemini-call:ke1-3857a0f617fd69d2",
+              "rawElementId": "elem_004"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-32eacdb76ee686d3",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "diamètre brut",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_004"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H11:user:1",
+              "text": "diamètre brut",
+              "start": 77,
+              "end": 90
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-89822ce0c229f824"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-566d55c5045bf279",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-169fccf0c0a96b74",
+                "knowledge-gap:ke1-2fdd08a7f3036d3b",
+                "knowledge-gap:ke1-d4801ce6adf44452"
+              ],
+              "checkedAt": "2026-08-12T22:15:36.455Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H11:user:1",
+              "providerCallId": "gemini-call:ke1-3857a0f617fd69d2",
+              "rawElementId": "elem_005"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-6a311d22b164bc9e",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "aorte",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_001"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H11:user:1",
+              "text": "diamètre aortique",
+              "start": 8,
+              "end": 25
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H11:user:1",
+              "providerCallId": "gemini-call:ke1-3857a0f617fd69d2",
+              "rawElementId": "elem_001"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-b1d033a320c8515f",
+            "type": "OPERATION",
+            "canonicalMeaning": "suivi",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_002"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H11:user:1",
+              "text": "On suit",
+              "start": 0,
+              "end": 7
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-f1ddb61b3ed1d35f"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H11:user:1",
+              "providerCallId": "gemini-call:ke1-3857a0f617fd69d2",
+              "rawElementId": "elem_003"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-c6eb482be2da5287",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "diamètre aortique",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_001"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H11:user:1",
+              "text": "diamètre aortique",
+              "start": 8,
+              "end": 25
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-f1ddb61b3ed1d35f"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H11:user:1",
+              "providerCallId": "gemini-call:ke1-3857a0f617fd69d2",
+              "rawElementId": "elem_002"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-89822ce0c229f824",
+            "sourceElementId": "sem-element:ke1-2be0590aafdb5596",
+            "targetElementId": "sem-element:ke1-32eacdb76ee686d3",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_002"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-f1ddb61b3ed1d35f",
+            "sourceElementId": "sem-element:ke1-b1d033a320c8515f",
+            "targetElementId": "sem-element:ke1-c6eb482be2da5287",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_001"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv_001",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "diamètre aortique",
+              "normalizedMeaning": "diamètre aortique",
+              "mappedClientElementIds": [
+                "elem_001",
+                "elem_002"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_002",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "On suit",
+              "normalizedMeaning": "suivi",
+              "mappedClientElementIds": [
+                "elem_003"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_003",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "vitesse de croissance",
+              "normalizedMeaning": "vitesse de croissance",
+              "mappedClientElementIds": [
+                "elem_004"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv_004",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "diamètre brut",
+              "normalizedMeaning": "diamètre brut",
+              "mappedClientElementIds": [
+                "elem_005"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel_inv_001",
+              "sourceInventoryItemId": "inv_002",
+              "targetInventoryItemId": "inv_001",
+              "normalizedRelation": "OBSERVES",
+              "mappedClientRelationIds": [
+                "rel_001"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel_inv_002",
+              "sourceInventoryItemId": "inv_003",
+              "targetInventoryItemId": "inv_004",
+              "normalizedRelation": "COMPARES_WITH",
+              "mappedClientRelationIds": [
+                "rel_002"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "clarificationCandidates": [],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "FORMALIZE_IDEA",
+          "confidence": 0.9,
+          "reason": "The user is contrasting two monitoring metrics (growth rate vs raw diameter) to formalize a conceptual preference.",
+          "expectedCapabilities": [
+            "Compare observation strategies",
+            "Define metrics"
+          ]
+        },
+        "summaryForUser": "Analyse de la préférence pour la vitesse de croissance de l'aorte par rapport au diamètre brut pour le suivi.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "All elements and explicit relations are fully accounted for, taxonomy findings are clear, and the candidate model is sound."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+          "criticPromptVersion": "SEM-001-CRITIC-1.3",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-3857a0f617fd69d2",
+          "criticCallId": "gemini-call:ke1-4188dceba4c3f697",
+          "criticCallIds": [
+            "gemini-call:ke1-efaf471c10432090",
+            "gemini-call:ke1-4188dceba4c3f697"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-12T22:15:24.017Z",
+              "requestFinished": "2026-08-12T22:15:29.210Z",
+              "latencyMs": 5193,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-12T22:15:29.220Z",
+              "requestFinished": "2026-08-12T22:15:33.476Z",
+              "latencyMs": 4256,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            },
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-12T22:15:33.484Z",
+              "requestFinished": "2026-08-12T22:15:36.442Z",
+              "latencyMs": 2958,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "cand_001",
+            "language": "fr",
+            "normalizedMeaning": "Le suivi actuel repose sur le diamètre aortique, mais la vitesse de croissance est considérée comme plus pertinente que le diamètre brut.",
+            "summaryForUser": "Analyse de la préférence pour la vitesse de croissance de l'aorte par rapport au diamètre brut pour le suivi.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "inv_001",
+                  "sourceMessageId": "SEM-H11:user:1",
+                  "sourceText": "diamètre aortique",
+                  "normalizedLabel": "diamètre aortique",
+                  "localRole": "target",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv_002",
+                  "sourceMessageId": "SEM-H11:user:1",
+                  "sourceText": "On suit",
+                  "normalizedLabel": "suivi",
+                  "localRole": "action",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv_001"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv_003",
+                  "sourceMessageId": "SEM-H11:user:1",
+                  "sourceText": "vitesse de croissance",
+                  "normalizedLabel": "vitesse de croissance",
+                  "localRole": "parameter",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv_004",
+                  "sourceMessageId": "SEM-H11:user:1",
+                  "sourceText": "diamètre brut",
+                  "normalizedLabel": "diamètre brut",
+                  "localRole": "parameter",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel_inv_001",
+                  "sourceInventoryItemId": "inv_002",
+                  "targetInventoryItemId": "inv_001",
+                  "sourceMessageId": "SEM-H11:user:1",
+                  "sourceText": "On suit diamètre aortique",
+                  "normalizedRelation": "OBSERVES",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel_inv_002",
+                  "sourceInventoryItemId": "inv_003",
+                  "targetInventoryItemId": "inv_004",
+                  "sourceMessageId": "SEM-H11:user:1",
+                  "sourceText": "vitesse de croissance plutôt que le diamètre brut",
+                  "normalizedRelation": "COMPARES_WITH",
+                  "polarity": "AFFIRMED"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem_001",
+                "type": "SCIENTIFIC_OBJECT",
+                "canonicalMeaning": "aorte",
+                "studyRole": "SUBJECT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_001"
+                ],
+                "sourceMessageId": "SEM-H11:user:1",
+                "sourceText": "diamètre aortique",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_003",
+                "type": "OPERATION",
+                "canonicalMeaning": "suivi",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_002"
+                ],
+                "sourceMessageId": "SEM-H11:user:1",
+                "sourceText": "On suit",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_004",
+                "type": "BIOMARKER",
+                "canonicalMeaning": "vitesse de croissance",
+                "studyRole": "OUTCOME_ROLE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_003"
+                ],
+                "sourceMessageId": "SEM-H11:user:1",
+                "sourceText": "vitesse de croissance",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_005",
+                "type": "BIOMARKER",
+                "canonicalMeaning": "diamètre brut",
+                "studyRole": "COMPARATOR_ARM",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_004"
+                ],
+                "sourceMessageId": "SEM-H11:user:1",
+                "sourceText": "diamètre brut",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem_002",
+                "type": "SCIENTIFIC_OBJECT",
+                "canonicalMeaning": "diamètre aortique",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv_001"
+                ],
+                "sourceMessageId": "SEM-H11:user:1",
+                "sourceText": "diamètre aortique",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel_001",
+                "sourceClientElementId": "elem_003",
+                "targetClientElementId": "elem_002",
+                "relationType": "OBSERVES",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_inv_001"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel_002",
+                "sourceClientElementId": "elem_004",
+                "targetClientElementId": "elem_005",
+                "relationType": "COMPARES_WITH",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel_inv_002"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              }
+            ],
+            "missingConcepts": [],
+            "ellipses": [],
+            "ambiguities": [],
+            "unknowns": [],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [],
+            "routeProposal": {
+              "route": "FORMALIZE_IDEA",
+              "confidence": 0.9,
+              "reason": "The user is contrasting two monitoring metrics (growth rate vs raw diameter) to formalize a conceptual preference.",
+              "expectedCapabilities": [
+                "Define metrics",
+                "Compare observation strategies"
+              ]
+            },
+            "semanticWarnings": []
+          },
+          "rawCritic": {
+            "criticId": "critic_001",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit entities (diamètre aortique, vitesse de croissance, diamètre brut) are represented as elements."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "PASS",
+                "evidence": "The comparison between growth rate and raw diameter is fully represented."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No interventions are mentioned in the text."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No modalities are mentioned in the text."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit relations (OBSERVES, COMPARES_WITH) are present in the typed relations."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "All taxonomy report findings are empty and types match correctly."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Relations are accurately mapped without weakening."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No ungrounded inferences are promoted as explicit user facts."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "No hidden ambiguities."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "Polarity is properly preserved as AFFIRMED."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No explicit timing elements are present in the short source sentence."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "No unsupported endpoint promotion."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts like aortic diameter and growth rate are precisely kept."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "All source fragments are fully covered in the inventory and candidate."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "The routing rule FORMALIZE_IDEA appropriately matches the conceptual metric preference discussion."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "All elements and explicit relations are fully accounted for, taxonomy findings are clear, and the candidate model is sound."
+          },
+          "rawCritics": [
+            {
+              "criticId": "crit_001",
+              "verdict": "REVISE",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit object fragments are mapped to elements."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "Comparator relationship is represented."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No intervention is present."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No modality is present."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All inventory relations are mapped."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "FAIL",
+                  "evidence": "Taxonomy report flags elem_002 as targeted for type correction to SCIENTIFIC_OBJECT."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Relations are preserved faithfully."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No unauthorized inferences promoted."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "No ambiguities hidden."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "Polarities correctly affirmed."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "PASS",
+                  "evidence": "No timing expressions present."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "No endpoint promotions without basis."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific concepts preserved."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "No important source fragments omitted."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "Route FORMALIZE_IDEA matches conceptual preference mapping."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [
+                {
+                  "code": "TYPE_MISMATCH",
+                  "severity": "CRITICAL",
+                  "elementClientIds": [
+                    "elem_002"
+                  ],
+                  "description": "Taxonomy report requires elem_002 to be SCIENTIFIC_OBJECT instead of BIOMARKER.",
+                  "recommendedAction": "Upsert element elem_002 with type SCIENTIFIC_OBJECT.",
+                  "resolved": false
+                }
+              ],
+              "proposedRepairs": [
+                {
+                  "repairId": "rep_001",
+                  "action": "UPSERT_ELEMENT",
+                  "reason": "Correct the taxonomy classification of element elem_002 from BIOMARKER to SCIENTIFIC_OBJECT per the taxonomy finding.",
+                  "sourceInventoryItemIds": [
+                    "inv_001"
+                  ],
+                  "sourceInventoryRelationIds": [],
+                  "inventoryItemId": null,
+                  "inventorySourceMessageId": null,
+                  "inventorySourceText": null,
+                  "inventoryNormalizedLabel": null,
+                  "inventoryLocalRole": null,
+                  "inventoryPolarity": null,
+                  "inventoryModifiers": [],
+                  "inventoryLinkedItemIds": [],
+                  "inventoryRelationId": null,
+                  "inventoryRelationSourceItemId": null,
+                  "inventoryRelationTargetItemId": null,
+                  "inventoryRelationSourceMessageId": null,
+                  "inventoryRelationSourceText": null,
+                  "inventoryNormalizedRelation": null,
+                  "inventoryRelationPolarity": null,
+                  "elementClientElementId": "elem_002",
+                  "elementType": "SCIENTIFIC_OBJECT",
+                  "elementCanonicalMeaning": "diamètre aortique",
+                  "elementStudyRole": "MEASUREMENT",
+                  "elementPolarity": "AFFIRMED",
+                  "elementInventoryItemIds": [
+                    "inv_001"
+                  ],
+                  "elementSourceMessageId": "SEM-H11:user:1",
+                  "elementSourceText": "diamètre aortique",
+                  "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+                  "elementConfidence": 1,
+                  "elementInferenceReason": null,
+                  "elementRequiresConfirmation": false,
+                  "elementSupersedesElementIds": [],
+                  "relationClientRelationId": null,
+                  "relationSourceClientElementId": null,
+                  "relationTargetClientElementId": null,
+                  "relationType": null,
+                  "relationPolarity": null,
+                  "relationInventoryRelationIds": [],
+                  "relationEpistemicStatus": null,
+                  "relationConfidence": null,
+                  "relationInferenceReason": null,
+                  "relationRequiresConfirmation": null,
+                  "ambiguity": null,
+                  "route": null,
+                  "routeConfidence": null,
+                  "routeReason": null,
+                  "routeExpectedCapabilities": []
+                }
+              ],
+              "criticSummary": "The critic reviewed the candidate and found one taxonomy mismatch where elem_002 must be classified as SCIENTIFIC_OBJECT rather than BIOMARKER. A bounded repair is proposed to fix this issue."
+            },
+            {
+              "criticId": "critic_001",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit entities (diamètre aortique, vitesse de croissance, diamètre brut) are represented as elements."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The comparison between growth rate and raw diameter is fully represented."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No interventions are mentioned in the text."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No modalities are mentioned in the text."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit relations (OBSERVES, COMPARES_WITH) are present in the typed relations."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "All taxonomy report findings are empty and types match correctly."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Relations are accurately mapped without weakening."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No ungrounded inferences are promoted as explicit user facts."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "No hidden ambiguities."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "Polarity is properly preserved as AFFIRMED."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No explicit timing elements are present in the short source sentence."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "No unsupported endpoint promotion."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific concepts like aortic diameter and growth rate are precisely kept."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All source fragments are fully covered in the inventory and candidate."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "The routing rule FORMALIZE_IDEA appropriately matches the conceptual metric preference discussion."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "All elements and explicit relations are fully accounted for, taxonomy findings are clear, and the candidate model is sound."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-12T22:15:36.446Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-566d55c5045bf279",
+          "resultDigest": "ke1-566d55c5045bf279",
+          "coverageStatus": "NO_PROVIDER",
+          "verifiedAt": "2026-08-12T22:15:36.455Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-12T22:15:36.446Z",
+        "updatedAt": "2026-08-12T22:15:36.455Z",
+        "digest": "ke1-388fc3c0d52d75dc"
+      },
+      "canonicalModelDigest": "ke1-388fc3c0d52d75dc",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-566d55c5045bf279",
+        "resultDigest": "ke1-566d55c5045bf279",
+        "coverageStatus": "NO_PROVIDER",
+        "verifiedAt": "2026-08-12T22:15:36.455Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-3857a0f617fd69d2",
+      "structuredDigest": "ke1-7e038403a358e13f",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T22:15:24.017Z",
+          "requestFinished": "2026-08-12T22:15:29.210Z",
+          "latencyMs": 5193,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-efaf471c10432090",
+      "structuredDigest": "ke1-7a72ea2e5bce3e3a",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T22:15:29.220Z",
+          "requestFinished": "2026-08-12T22:15:33.476Z",
+          "latencyMs": 4256,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 2,
+      "callId": "gemini-call:ke1-4188dceba4c3f697",
+      "structuredDigest": "ke1-27f08643926caad7",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T22:15:33.484Z",
+          "requestFinished": "2026-08-12T22:15:36.442Z",
+          "latencyMs": 2958,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-953d9fb41883f080",
+    "revision": 1,
+    "status": "CANDIDATE",
+    "originalRequest": "On suit diamètre aortique, mais c'est la vitesse de croissance plutôt que le diamètre brut qui doit compter.",
+    "normalizedMeaning": "Le suivi actuel repose sur le diamètre aortique, mais la vitesse de croissance est considérée comme plus pertinente que le diamètre brut.",
+    "conversationMessageIds": [
+      "SEM-H11:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-2be0590aafdb5596",
+        "type": "BIOMARKER",
+        "canonicalMeaning": "vitesse de croissance",
+        "studyRole": "OUTCOME_ROLE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_003"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H11:user:1",
+          "text": "vitesse de croissance",
+          "start": 41,
+          "end": 62
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-89822ce0c229f824"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-566d55c5045bf279",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-169fccf0c0a96b74",
+            "knowledge-gap:ke1-2fdd08a7f3036d3b",
+            "knowledge-gap:ke1-d4801ce6adf44452"
+          ],
+          "checkedAt": "2026-08-12T22:15:36.455Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H11:user:1",
+          "providerCallId": "gemini-call:ke1-3857a0f617fd69d2",
+          "rawElementId": "elem_004"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-32eacdb76ee686d3",
+        "type": "BIOMARKER",
+        "canonicalMeaning": "diamètre brut",
+        "studyRole": "COMPARATOR_ARM",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_004"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H11:user:1",
+          "text": "diamètre brut",
+          "start": 77,
+          "end": 90
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-89822ce0c229f824"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-566d55c5045bf279",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-169fccf0c0a96b74",
+            "knowledge-gap:ke1-2fdd08a7f3036d3b",
+            "knowledge-gap:ke1-d4801ce6adf44452"
+          ],
+          "checkedAt": "2026-08-12T22:15:36.455Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H11:user:1",
+          "providerCallId": "gemini-call:ke1-3857a0f617fd69d2",
+          "rawElementId": "elem_005"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-6a311d22b164bc9e",
+        "type": "SCIENTIFIC_OBJECT",
+        "canonicalMeaning": "aorte",
+        "studyRole": "SUBJECT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_001"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H11:user:1",
+          "text": "diamètre aortique",
+          "start": 8,
+          "end": 25
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H11:user:1",
+          "providerCallId": "gemini-call:ke1-3857a0f617fd69d2",
+          "rawElementId": "elem_001"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-b1d033a320c8515f",
+        "type": "OPERATION",
+        "canonicalMeaning": "suivi",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_002"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H11:user:1",
+          "text": "On suit",
+          "start": 0,
+          "end": 7
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-f1ddb61b3ed1d35f"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H11:user:1",
+          "providerCallId": "gemini-call:ke1-3857a0f617fd69d2",
+          "rawElementId": "elem_003"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-c6eb482be2da5287",
+        "type": "SCIENTIFIC_OBJECT",
+        "canonicalMeaning": "diamètre aortique",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv_001"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H11:user:1",
+          "text": "diamètre aortique",
+          "start": 8,
+          "end": 25
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-f1ddb61b3ed1d35f"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H11:user:1",
+          "providerCallId": "gemini-call:ke1-3857a0f617fd69d2",
+          "rawElementId": "elem_002"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-89822ce0c229f824",
+        "sourceElementId": "sem-element:ke1-2be0590aafdb5596",
+        "targetElementId": "sem-element:ke1-32eacdb76ee686d3",
+        "relationType": "COMPARES_WITH",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_inv_002"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-f1ddb61b3ed1d35f",
+        "sourceElementId": "sem-element:ke1-b1d033a320c8515f",
+        "targetElementId": "sem-element:ke1-c6eb482be2da5287",
+        "relationType": "OBSERVES",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel_inv_001"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv_001",
+          "sourceMessageId": "SEM-H11:user:1",
+          "sourceText": "diamètre aortique",
+          "normalizedMeaning": "diamètre aortique",
+          "mappedClientElementIds": [
+            "elem_001",
+            "elem_002"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_002",
+          "sourceMessageId": "SEM-H11:user:1",
+          "sourceText": "On suit",
+          "normalizedMeaning": "suivi",
+          "mappedClientElementIds": [
+            "elem_003"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_003",
+          "sourceMessageId": "SEM-H11:user:1",
+          "sourceText": "vitesse de croissance",
+          "normalizedMeaning": "vitesse de croissance",
+          "mappedClientElementIds": [
+            "elem_004"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_004",
+          "sourceMessageId": "SEM-H11:user:1",
+          "sourceText": "diamètre brut",
+          "normalizedMeaning": "diamètre brut",
+          "mappedClientElementIds": [
+            "elem_005"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel_inv_001",
+          "sourceInventoryItemId": "inv_002",
+          "targetInventoryItemId": "inv_001",
+          "normalizedRelation": "OBSERVES",
+          "mappedClientRelationIds": [
+            "rel_001"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_inv_002",
+          "sourceInventoryItemId": "inv_003",
+          "targetInventoryItemId": "inv_004",
+          "normalizedRelation": "COMPARES_WITH",
+          "mappedClientRelationIds": [
+            "rel_002"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "missingConcepts": [],
+    "ellipses": [],
+    "ambiguities": [],
+    "unknowns": [],
+    "contradictions": [],
+    "clarificationCandidates": [],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "FORMALIZE_IDEA",
+      "confidence": 0.9,
+      "reason": "The user is contrasting two monitoring metrics (growth rate vs raw diameter) to formalize a conceptual preference.",
+      "expectedCapabilities": [
+        "Compare observation strategies",
+        "Define metrics"
+      ]
+    },
+    "summaryForUser": "Analyse de la préférence pour la vitesse de croissance de l'aorte par rapport au diamètre brut pour le suivi.",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "All elements and explicit relations are fully accounted for, taxonomy findings are clear, and the candidate model is sound."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+      "criticPromptVersion": "SEM-001-CRITIC-1.3",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-3857a0f617fd69d2",
+      "criticCallId": "gemini-call:ke1-4188dceba4c3f697",
+      "criticCallIds": [
+        "gemini-call:ke1-efaf471c10432090",
+        "gemini-call:ke1-4188dceba4c3f697"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T22:15:24.017Z",
+          "requestFinished": "2026-08-12T22:15:29.210Z",
+          "latencyMs": 5193,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T22:15:29.220Z",
+          "requestFinished": "2026-08-12T22:15:33.476Z",
+          "latencyMs": 4256,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T22:15:33.484Z",
+          "requestFinished": "2026-08-12T22:15:36.442Z",
+          "latencyMs": 2958,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "cand_001",
+        "language": "fr",
+        "normalizedMeaning": "Le suivi actuel repose sur le diamètre aortique, mais la vitesse de croissance est considérée comme plus pertinente que le diamètre brut.",
+        "summaryForUser": "Analyse de la préférence pour la vitesse de croissance de l'aorte par rapport au diamètre brut pour le suivi.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv_001",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "diamètre aortique",
+              "normalizedLabel": "diamètre aortique",
+              "localRole": "target",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_002",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "On suit",
+              "normalizedLabel": "suivi",
+              "localRole": "action",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv_001"
+              ]
+            },
+            {
+              "inventoryItemId": "inv_003",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "vitesse de croissance",
+              "normalizedLabel": "vitesse de croissance",
+              "localRole": "parameter",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv_004",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "diamètre brut",
+              "normalizedLabel": "diamètre brut",
+              "localRole": "parameter",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_inv_001",
+              "sourceInventoryItemId": "inv_002",
+              "targetInventoryItemId": "inv_001",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "On suit diamètre aortique",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel_inv_002",
+              "sourceInventoryItemId": "inv_003",
+              "targetInventoryItemId": "inv_004",
+              "sourceMessageId": "SEM-H11:user:1",
+              "sourceText": "vitesse de croissance plutôt que le diamètre brut",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem_001",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "aorte",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_001"
+            ],
+            "sourceMessageId": "SEM-H11:user:1",
+            "sourceText": "diamètre aortique",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_003",
+            "type": "OPERATION",
+            "canonicalMeaning": "suivi",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_002"
+            ],
+            "sourceMessageId": "SEM-H11:user:1",
+            "sourceText": "On suit",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_004",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "vitesse de croissance",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_003"
+            ],
+            "sourceMessageId": "SEM-H11:user:1",
+            "sourceText": "vitesse de croissance",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_005",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "diamètre brut",
+            "studyRole": "COMPARATOR_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_004"
+            ],
+            "sourceMessageId": "SEM-H11:user:1",
+            "sourceText": "diamètre brut",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem_002",
+            "type": "SCIENTIFIC_OBJECT",
+            "canonicalMeaning": "diamètre aortique",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv_001"
+            ],
+            "sourceMessageId": "SEM-H11:user:1",
+            "sourceText": "diamètre aortique",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel_001",
+            "sourceClientElementId": "elem_003",
+            "targetClientElementId": "elem_002",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_001"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel_002",
+            "sourceClientElementId": "elem_004",
+            "targetClientElementId": "elem_005",
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel_inv_002"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "FORMALIZE_IDEA",
+          "confidence": 0.9,
+          "reason": "The user is contrasting two monitoring metrics (growth rate vs raw diameter) to formalize a conceptual preference.",
+          "expectedCapabilities": [
+            "Define metrics",
+            "Compare observation strategies"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "rawCritic": {
+        "criticId": "critic_001",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit entities (diamètre aortique, vitesse de croissance, diamètre brut) are represented as elements."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "PASS",
+            "evidence": "The comparison between growth rate and raw diameter is fully represented."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No interventions are mentioned in the text."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No modalities are mentioned in the text."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit relations (OBSERVES, COMPARES_WITH) are present in the typed relations."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "All taxonomy report findings are empty and types match correctly."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "Relations are accurately mapped without weakening."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No ungrounded inferences are promoted as explicit user facts."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "No hidden ambiguities."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "Polarity is properly preserved as AFFIRMED."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No explicit timing elements are present in the short source sentence."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "No unsupported endpoint promotion."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific concepts like aortic diameter and growth rate are precisely kept."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "All source fragments are fully covered in the inventory and candidate."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "The routing rule FORMALIZE_IDEA appropriately matches the conceptual metric preference discussion."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "All elements and explicit relations are fully accounted for, taxonomy findings are clear, and the candidate model is sound."
+      },
+      "rawCritics": [
+        {
+          "criticId": "crit_001",
+          "verdict": "REVISE",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit object fragments are mapped to elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Comparator relationship is represented."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No intervention is present."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No modality is present."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All inventory relations are mapped."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "FAIL",
+              "evidence": "Taxonomy report flags elem_002 as targeted for type correction to SCIENTIFIC_OBJECT."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Relations are preserved faithfully."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unauthorized inferences promoted."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No ambiguities hidden."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarities correctly affirmed."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "No timing expressions present."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No endpoint promotions without basis."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts preserved."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No important source fragments omitted."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route FORMALIZE_IDEA matches conceptual preference mapping."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [
+            {
+              "code": "TYPE_MISMATCH",
+              "severity": "CRITICAL",
+              "elementClientIds": [
+                "elem_002"
+              ],
+              "description": "Taxonomy report requires elem_002 to be SCIENTIFIC_OBJECT instead of BIOMARKER.",
+              "recommendedAction": "Upsert element elem_002 with type SCIENTIFIC_OBJECT.",
+              "resolved": false
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "repairId": "rep_001",
+              "action": "UPSERT_ELEMENT",
+              "reason": "Correct the taxonomy classification of element elem_002 from BIOMARKER to SCIENTIFIC_OBJECT per the taxonomy finding.",
+              "sourceInventoryItemIds": [
+                "inv_001"
+              ],
+              "sourceInventoryRelationIds": [],
+              "inventoryItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "inventoryNormalizedLabel": null,
+              "inventoryLocalRole": null,
+              "inventoryPolarity": null,
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": "elem_002",
+              "elementType": "SCIENTIFIC_OBJECT",
+              "elementCanonicalMeaning": "diamètre aortique",
+              "elementStudyRole": "MEASUREMENT",
+              "elementPolarity": "AFFIRMED",
+              "elementInventoryItemIds": [
+                "inv_001"
+              ],
+              "elementSourceMessageId": "SEM-H11:user:1",
+              "elementSourceText": "diamètre aortique",
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementConfidence": 1,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": false,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "relationPolarity": null,
+              "relationInventoryRelationIds": [],
+              "relationEpistemicStatus": null,
+              "relationConfidence": null,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": null,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            }
+          ],
+          "criticSummary": "The critic reviewed the candidate and found one taxonomy mismatch where elem_002 must be classified as SCIENTIFIC_OBJECT rather than BIOMARKER. A bounded repair is proposed to fix this issue."
+        },
+        {
+          "criticId": "critic_001",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit entities (diamètre aortique, vitesse de croissance, diamètre brut) are represented as elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The comparison between growth rate and raw diameter is fully represented."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No interventions are mentioned in the text."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No modalities are mentioned in the text."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit relations (OBSERVES, COMPARES_WITH) are present in the typed relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All taxonomy report findings are empty and types match correctly."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Relations are accurately mapped without weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No ungrounded inferences are promoted as explicit user facts."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No hidden ambiguities."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarity is properly preserved as AFFIRMED."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit timing elements are present in the short source sentence."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No unsupported endpoint promotion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like aortic diameter and growth rate are precisely kept."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "All source fragments are fully covered in the inventory and candidate."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The routing rule FORMALIZE_IDEA appropriately matches the conceptual metric preference discussion."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "All elements and explicit relations are fully accounted for, taxonomy findings are clear, and the candidate model is sound."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-12T22:15:36.446Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-566d55c5045bf279",
+      "resultDigest": "ke1-566d55c5045bf279",
+      "coverageStatus": "NO_PROVIDER",
+      "verifiedAt": "2026-08-12T22:15:36.455Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-12T22:15:36.446Z",
+    "updatedAt": "2026-08-12T22:15:36.455Z",
+    "digest": "ke1-388fc3c0d52d75dc"
+  },
+  "semanticModelDigest": "ke1-388fc3c0d52d75dc",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv_001",
+          "sourceMessageId": "SEM-H11:user:1",
+          "sourceText": "diamètre aortique",
+          "normalizedMeaning": "diamètre aortique",
+          "mappedClientElementIds": [
+            "elem_001",
+            "elem_002"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_002",
+          "sourceMessageId": "SEM-H11:user:1",
+          "sourceText": "On suit",
+          "normalizedMeaning": "suivi",
+          "mappedClientElementIds": [
+            "elem_003"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_003",
+          "sourceMessageId": "SEM-H11:user:1",
+          "sourceText": "vitesse de croissance",
+          "normalizedMeaning": "vitesse de croissance",
+          "mappedClientElementIds": [
+            "elem_004"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv_004",
+          "sourceMessageId": "SEM-H11:user:1",
+          "sourceText": "diamètre brut",
+          "normalizedMeaning": "diamètre brut",
+          "mappedClientElementIds": [
+            "elem_005"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel_inv_001",
+          "sourceInventoryItemId": "inv_002",
+          "targetInventoryItemId": "inv_001",
+          "normalizedRelation": "OBSERVES",
+          "mappedClientRelationIds": [
+            "rel_001"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel_inv_002",
+          "sourceInventoryItemId": "inv_003",
+          "targetInventoryItemId": "inv_004",
+          "normalizedRelation": "COMPARES_WITH",
+          "mappedClientRelationIds": [
+            "rel_002"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-ee0dc35e0f97ec2a",
+    "evaluatedAt": "2026-08-12T22:15:36.461Z",
+    "goldFrameDigest": "ke1-205402ea8197ee06",
+    "result": {
+      "caseId": "SEM-H11",
+      "explicitObjectRecall": 0.5,
+      "explicitRelationRecall": 0,
+      "criticalSemanticRecall": 0.3333333333333333,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 1,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": false,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": [
+        "EXPLICIT_ENDPOINT_LOST:vitesse de croissance",
+        "RELATION_LOST:vitesse de croissance->diamètre aortique"
+      ]
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H11",
+    "explicitObjectRecall": 0.5,
+    "explicitRelationRecall": 0,
+    "criticalSemanticRecall": 0.3333333333333333,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 1,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": false,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": [
+      "EXPLICIT_ENDPOINT_LOST:vitesse de croissance",
+      "RELATION_LOST:vitesse de croissance->diamètre aortique"
+    ]
+  },
+  "error": null
+}

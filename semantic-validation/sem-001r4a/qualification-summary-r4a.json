@@ -1,0 +1,40 @@
+{
+  "campaign": "SEM-001R4A",
+  "decision": "R4A_H01_REPAIR_PASSED_READY_FOR_HOLDOUT_RESUME",
+  "case": "SEM-H01",
+  "status": "PASS",
+  "failureClass": "RELATION_COVERAGE_FALSE_POSITIVE",
+  "firstDivergentStage": "DETERMINISTIC_RELATION_COVERAGE",
+  "llm": {
+    "actualCalls": 0,
+    "retries": 0,
+    "callsAvoidedByCompatibleReuse": 3,
+    "providerStatus": "NOT_CALLED"
+  },
+  "holdout": {
+    "SEM_H01": "PASS_R4A_ISOLATED_REPLAY",
+    "SEM_H02_to_SEM_H30": "NOT_STARTED",
+    "fullHoldout": "NOT_RUN",
+    "officialAggregateMetrics": "NOT_CALCULATED"
+  },
+  "metric": {
+    "caseId": "SEM-H01",
+    "explicitObjectRecall": 1,
+    "explicitRelationRecall": 1,
+    "criticalSemanticRecall": 1,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 1,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": []
+  }
+}

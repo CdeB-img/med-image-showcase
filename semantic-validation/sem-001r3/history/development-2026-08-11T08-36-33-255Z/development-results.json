@@ -1,0 +1,161 @@
+[
+  {
+    "caseId": "SEM-D01",
+    "split": "DEVELOPMENT_CASES",
+    "goldFrameDigest": "ke1-95832d16d5fb7dfa",
+    "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+    "criticPromptVersion": "SEM-001-CRITIC-1.2",
+    "provider": "GOOGLE_GEMINI",
+    "model": "gemini-3.5-flash-lite",
+    "requestStarted": "2026-08-11T08:36:33.255Z",
+    "completedAt": null,
+    "reconstructionStatus": "SUCCESS",
+    "criticStatus": "NOT_STARTED",
+    "canonicalizationStatus": "NOT_STARTED",
+    "evaluationStatus": "NOT_READY",
+    "finalStatus": "FAILED",
+    "retryCount": 0,
+    "latencyMs": 4981,
+    "operationTraces": [
+      {
+        "operation": "RECONSTRUCTION",
+        "turn": 1,
+        "cycle": null,
+        "callId": "gemini-call:ke1-0b6e9054598aee08",
+        "structuredDigest": "ke1-c9ca9b2f63ec7243",
+        "attempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T08:36:33.255Z",
+            "requestFinished": "2026-08-11T08:36:37.731Z",
+            "latencyMs": 4476,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ]
+      }
+    ],
+    "semanticModel": null,
+    "beforeCriticModel": null,
+    "criticImpact": null,
+    "error": {
+      "category": "CLIENT_ERROR",
+      "failureClass": "STRUCTURED_OUTPUT_FAILURE",
+      "httpStatus": 400,
+      "providerStatus": "INVALID_ARGUMENT",
+      "providerCode": "400",
+      "message": "Request contains an invalid argument."
+    }
+  },
+  {
+    "caseId": "SEM-D02",
+    "split": "DEVELOPMENT_CASES",
+    "goldFrameDigest": "ke1-07f255c5800a6459",
+    "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+    "criticPromptVersion": "SEM-001-CRITIC-1.2",
+    "provider": "GOOGLE_GEMINI",
+    "model": "gemini-3.5-flash-lite",
+    "requestStarted": "2026-08-11T08:36:38.239Z",
+    "completedAt": null,
+    "reconstructionStatus": "SUCCESS",
+    "criticStatus": "NOT_STARTED",
+    "canonicalizationStatus": "NOT_STARTED",
+    "evaluationStatus": "NOT_READY",
+    "finalStatus": "FAILED",
+    "retryCount": 0,
+    "latencyMs": 6128,
+    "operationTraces": [
+      {
+        "operation": "RECONSTRUCTION",
+        "turn": 1,
+        "cycle": null,
+        "callId": "gemini-call:ke1-3b8d78c7dba87ceb",
+        "structuredDigest": "ke1-1e2d1f3b47d7cc3f",
+        "attempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T08:36:38.239Z",
+            "requestFinished": "2026-08-11T08:36:44.364Z",
+            "latencyMs": 6125,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ]
+      }
+    ],
+    "semanticModel": null,
+    "beforeCriticModel": null,
+    "criticImpact": null,
+    "error": {
+      "category": "SEMANTIC_PIPELINE_FAILURE",
+      "failureClass": "SEMANTIC_PIPELINE_FAILURE",
+      "httpStatus": null,
+      "providerStatus": null,
+      "providerCode": null,
+      "message": "SEMANTIC_COVERAGE_FAILED:INVENTORY_SOURCE_NOT_CONTIGUOUS"
+    }
+  },
+  {
+    "caseId": "SEM-D03",
+    "split": "DEVELOPMENT_CASES",
+    "goldFrameDigest": "ke1-70b1081ba50939ff",
+    "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+    "criticPromptVersion": "SEM-001-CRITIC-1.2",
+    "provider": "GOOGLE_GEMINI",
+    "model": "gemini-3.5-flash-lite",
+    "requestStarted": "2026-08-11T08:36:44.370Z",
+    "completedAt": null,
+    "reconstructionStatus": "SUCCESS",
+    "criticStatus": "NOT_STARTED",
+    "canonicalizationStatus": "NOT_STARTED",
+    "evaluationStatus": "NOT_READY",
+    "finalStatus": "FAILED",
+    "retryCount": 0,
+    "latencyMs": 7491,
+    "operationTraces": [
+      {
+        "operation": "RECONSTRUCTION",
+        "turn": 1,
+        "cycle": null,
+        "callId": "gemini-call:ke1-226e8f18f53861d4",
+        "structuredDigest": "ke1-8e0bedce9be467da",
+        "attempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T08:36:44.370Z",
+            "requestFinished": "2026-08-11T08:36:51.860Z",
+            "latencyMs": 7490,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ]
+      }
+    ],
+    "semanticModel": null,
+    "beforeCriticModel": null,
+    "criticImpact": null,
+    "error": {
+      "category": "SEMANTIC_PIPELINE_FAILURE",
+      "failureClass": "SEMANTIC_PIPELINE_FAILURE",
+      "httpStatus": null,
+      "providerStatus": null,
+      "providerCode": null,
+      "message": "SEMANTIC_COVERAGE_FAILED:INVENTORY_SOURCE_NOT_CONTIGUOUS"
+    }
+  }
+]

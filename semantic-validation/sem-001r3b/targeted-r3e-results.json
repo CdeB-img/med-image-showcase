@@ -1,0 +1,92 @@
+[
+  {
+    "caseId": "SEM-D21",
+    "runId": "sem-001r3e-2026-08-12T14-34-15-959Z",
+    "finalStatus": "PROVIDER_CAPACITY_FAILURE",
+    "reconstructionReused": true,
+    "baseCriticReused": true,
+    "firstImpactedStage": "CONDITIONAL_ATOMIC_COMPOSITION_AUDIT",
+    "audit": null,
+    "compilationDiagnostics": [],
+    "repairDiagnostics": [],
+    "metric": null,
+    "semanticModel": null,
+    "error": {
+      "category": "NETWORK",
+      "classification": "PROVIDER_CAPACITY_FAILURE",
+      "httpStatus": null,
+      "providerStatus": null,
+      "validationIssues": [],
+      "diagnosticArtifact": null
+    },
+    "attempts": [
+      {
+        "attempt": 1,
+        "requestStarted": "2026-08-12T14:34:15.960Z",
+        "requestFinished": "2026-08-12T14:34:15.970Z",
+        "latencyMs": 10,
+        "outcome": "FAILED",
+        "category": "NETWORK",
+        "httpStatus": 200,
+        "providerStatus": null,
+        "providerCode": null,
+        "providerError": "Provider network request failed.",
+        "retryable": true
+      },
+      {
+        "attempt": 1,
+        "requestStarted": "2026-08-12T14:35:15.973Z",
+        "requestFinished": "2026-08-12T14:35:15.979Z",
+        "latencyMs": 6,
+        "outcome": "FAILED",
+        "category": "NETWORK",
+        "httpStatus": 200,
+        "providerStatus": null,
+        "providerCode": null,
+        "providerError": "Provider network request failed.",
+        "retryable": true
+      },
+      {
+        "attempt": 1,
+        "requestStarted": "2026-08-12T14:36:15.981Z",
+        "requestFinished": "2026-08-12T14:36:15.987Z",
+        "latencyMs": 6,
+        "outcome": "FAILED",
+        "category": "NETWORK",
+        "httpStatus": 200,
+        "providerStatus": null,
+        "providerCode": null,
+        "providerError": "Provider network request failed.",
+        "retryable": true
+      },
+      {
+        "attempt": 1,
+        "requestStarted": "2026-08-12T14:37:15.989Z",
+        "requestFinished": "2026-08-12T14:37:15.994Z",
+        "latencyMs": 5,
+        "outcome": "FAILED",
+        "category": "NETWORK",
+        "httpStatus": 200,
+        "providerStatus": null,
+        "providerCode": null,
+        "providerError": "Provider network request failed.",
+        "retryable": true
+      },
+      {
+        "attempt": 1,
+        "requestStarted": "2026-08-12T14:38:15.996Z",
+        "requestFinished": "2026-08-12T14:38:16.000Z",
+        "latencyMs": 4,
+        "outcome": "FAILED",
+        "category": "NETWORK",
+        "httpStatus": 200,
+        "providerStatus": null,
+        "providerCode": null,
+        "providerError": "Provider network request failed.",
+        "retryable": true
+      }
+    ],
+    "completedAt": "2026-08-12T14:38:16.000Z",
+    "latencyMs": 240041
+  }
+]

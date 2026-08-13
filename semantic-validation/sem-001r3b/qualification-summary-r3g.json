@@ -1,0 +1,13 @@
+{
+  "campaign": "SEM-001R3G",
+  "decision": "R3G_PRIMARY_GATE_PASSED_SECONDARY_REPAIR_REQUIRED",
+  "primary": "PASS",
+  "secondary": "FAIL",
+  "llm": {
+    "actualCalls": 1,
+    "callsAvoided": 43,
+    "retries": 0
+  },
+  "holdout": "NOT_STARTED_FORBIDDEN",
+  "remainingDevelopment": "24_NOT_AUTHORIZED"
+}

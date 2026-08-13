@@ -1,0 +1,3420 @@
+{
+  "campaign": "SEM-001R5-DIAGNOSTIC",
+  "campaignId": "sem-001r5-diagnostic-2026-08-12T22-15-01-231Z-ke1-75b68ddee7e53412",
+  "caseId": "SEM-H03",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-75b68ddee7e53412",
+  "semanticConfigurationDigest": "ke1-01d917dec0ebcd82",
+  "goldFrameDigest": "ke1-4c3c7941093f5edd",
+  "originalRequest": [
+    "Chez SEP, le QSM serait lié au handicap mais je ne sais pas si je cherche une association ou du pronostic."
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-12T19:46:44.896Z",
+  "completedAt": "2026-08-12T22:03:33.905Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H03:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Dans la sclérose en plaques, la quantification de la susceptibilité magnétique est liée au handicap, mais la nature exacte de cette relation entre association et pronostic est incertaine.",
+        "summaryForUser": "Vous étudiez le lien entre le QSM et le handicap chez les patients atteints de sclérose en plaques, avec une incertitude sur la nature exacte (association versus pronostic) de cette relation.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "SEP",
+              "normalizedLabel": "Sclérose en plaques",
+              "localRole": "condition",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "QSM",
+              "normalizedLabel": "Quantification de la susceptibilité magnétique",
+              "localRole": "biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "handicap",
+              "normalizedLabel": "Handicap",
+              "localRole": "outcome",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "lié au",
+              "normalizedLabel": "lié à",
+              "localRole": "relation",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-2",
+                "inv-3"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "association",
+              "normalizedLabel": "association",
+              "localRole": "relation_type",
+              "polarity": "UNCERTAIN",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-6",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "pronostic",
+              "normalizedLabel": "pronostic",
+              "localRole": "relation_type",
+              "polarity": "UNCERTAIN",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-7",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "je ne sais pas si je cherche",
+              "normalizedLabel": "incertitude sur l'objectif",
+              "localRole": "intent",
+              "polarity": "UNCERTAIN",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-5",
+                "inv-6"
+              ]
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "le QSM serait lié au handicap",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "polarity": "UNCERTAIN"
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-5",
+              "targetInventoryItemId": "inv-6",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "association ou du pronostic",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "UNCERTAIN"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "CONDITION",
+            "canonicalMeaning": "Sclérose en plaques",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceMessageId": "SEM-H03:user:1",
+            "sourceText": "SEP",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Quantification de la susceptibilité magnétique (QSM)",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceMessageId": "SEM-H03:user:1",
+            "sourceText": "QSM",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "OUTCOME",
+            "canonicalMeaning": "Handicap",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceMessageId": "SEM-H03:user:1",
+            "sourceText": "handicap",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-4",
+            "type": "COMPARATOR",
+            "canonicalMeaning": "Association",
+            "studyRole": "NONE",
+            "polarity": "UNCERTAIN",
+            "inventoryItemIds": [
+              "inv-5"
+            ],
+            "sourceMessageId": "SEM-H03:user:1",
+            "sourceText": "association",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": true,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-5",
+            "type": "COMPARATOR",
+            "canonicalMeaning": "Pronostic",
+            "studyRole": "NONE",
+            "polarity": "UNCERTAIN",
+            "inventoryItemIds": [
+              "inv-6"
+            ],
+            "sourceMessageId": "SEM-H03:user:1",
+            "sourceText": "pronostic",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": true,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-elem-1",
+            "sourceClientElementId": "elem-2",
+            "targetClientElementId": "elem-3",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "UNCERTAIN",
+            "inventoryRelationIds": [
+              "rel-1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": true
+          },
+          {
+            "clientRelationId": "rel-elem-2",
+            "sourceClientElementId": "elem-4",
+            "targetClientElementId": "elem-5",
+            "relationType": "COMPARES_WITH",
+            "polarity": "UNCERTAIN",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": true
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [
+          "Hésitation entre une relation d'association simple et une relation pronostique pour le lien entre le QSM et le handicap."
+        ],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [
+          {
+            "question": "Souhaitez-vous évaluer une simple association statistique entre le QSM et le handicap, ou recherchez-vous une relation de nature pronostique (valeur prédictive du QSM) ?",
+            "reason": "Clarifier l'objectif analytique entre association et pronostic.",
+            "resolvesClientElementIds": [
+              "elem-4",
+              "elem-5"
+            ]
+          }
+        ],
+        "routeProposal": {
+          "route": "FORMALIZE_IDEA",
+          "confidence": 0.9,
+          "reason": "L'idée scientifique est présente mais nécessite d'être formalisée quant au type exact de relation recherchée (association vs pronostic) avant d'entrer dans la conception formelle de l'étude.",
+          "expectedCapabilities": [
+            "Clarification de l'hypothèse d'association ou de pronostic",
+            "Structuration conceptuelle du lien entre biomarqueur et devenir clinique"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "reconstructionDigest": "ke1-c18b7fe65900a6c2",
+      "critics": [
+        {
+          "criticId": "critic-001",
+          "verdict": "REVISE",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects SEP, QSM, and handicap are represented."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator arm is present."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No intervention is present."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "QSM covers the modality/biomarker appropriately."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Explicit relations are represented by typed client relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All elements follow taxonomic rules."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Relations retain their explicit characteristics."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unwarranted inferences promoted."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Ambiguity between association and pronostic is exposed."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarities are correctly preserved."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit timing constraint is mentioned."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No unselected outcome was promoted to endpoint."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts remain exact."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "FAIL",
+              "evidence": "Fragment inv-7 ('je ne sais pas si je cherche') is unresolved and unmapped in the explicit coverage report."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route FORMALIZE_IDEA matches the idea needing formalization."
+            }
+          ],
+          "missingExplicitSourceFragments": [
+            {
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "je ne sais pas si je cherche",
+              "normalizedMeaning": "incertitude sur l'objectif",
+              "reason": "Unmapped explicit intent fragment inv-7 in coverage report.",
+              "suggestedLocalRole": "intent",
+              "confidence": 1
+            }
+          ],
+          "issues": [
+            {
+              "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+              "severity": "WARNING",
+              "elementClientIds": [],
+              "description": "Inventory fragment inv-7 ('je ne sais pas si je cherche') is unmapped.",
+              "recommendedAction": "Map inv-7 to a SCIENTIFIC_INTENT element representing epistemic uncertainty.",
+              "resolved": false
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "repairId": "rep-1",
+              "action": "UPSERT_ELEMENT",
+              "reason": "Represent the explicit user intent/uncertainty fragment inv-7 as a SCIENTIFIC_INTENT element.",
+              "sourceInventoryItemIds": [
+                "inv-7"
+              ],
+              "sourceInventoryRelationIds": [],
+              "inventoryItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "inventoryNormalizedLabel": null,
+              "inventoryLocalRole": null,
+              "inventoryPolarity": null,
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": "elem-6",
+              "elementType": "SCIENTIFIC_INTENT",
+              "elementCanonicalMeaning": "Incertitude sur l'objectif de recherche (association ou pronostic)",
+              "elementStudyRole": "NONE",
+              "elementPolarity": "UNCERTAIN",
+              "elementInventoryItemIds": [
+                "inv-7"
+              ],
+              "elementSourceMessageId": "SEM-H03:user:1",
+              "elementSourceText": "je ne sais pas si je cherche",
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementConfidence": 1,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": true,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "relationPolarity": null,
+              "relationInventoryRelationIds": [],
+              "relationEpistemicStatus": null,
+              "relationConfidence": null,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": null,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            }
+          ],
+          "criticSummary": "The inventory fragment 'je ne sais pas si je cherche' (inv-7) was left unmapped in the explicit coverage report. A repair is proposed to add a SCIENTIFIC_INTENT element capturing this uncertainty."
+        },
+        {
+          "criticId": "critic-01",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit entities (SEP, QSM, handicap, association, pronostic) are correctly represented as semantic elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Association and pronostic as alternative objectives are fully represented."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No interventions are present in the user text."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "QSM is correctly captured as a biomarker/measurement."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The relation between QSM and handicap, and the comparison relation between association and pronostic, are fully mapped."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All types adhere strictly to the operational taxonomy."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Relations retain their original polarity and epistemic status."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Uncertainties and hypotheses are appropriately marked as uncertain/explicit user-stated without unwarranted promotion."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "The hesitation between association and prognostic is explicitly retained in ambiguities and clarification candidates."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "No negations are present; uncertainties are properly preserved."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit temporal points or durations are mentioned."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Outcomes and measurements are appropriately typed without unsupported endpoint promotion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like QSM and SEP are preserved."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "The source-to-inventory comparison is complete with no missing fragments."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The FORMALIZE_IDEA route correctly matches the semantic model and the user's need to clarify their study objective."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The typed candidate and semantic model are fully sound, complete, and properly typed. All user fragments and relations are accurately represented, and routing is appropriate."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [
+        {
+          "repairId": "rep-1",
+          "status": "ACCEPTED",
+          "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+        }
+      ],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-d10f7e14d2a4d538",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "Chez SEP, le QSM serait lié au handicap mais je ne sais pas si je cherche une association ou du pronostic.",
+        "normalizedMeaning": "Dans la sclérose en plaques, la quantification de la susceptibilité magnétique est liée au handicap, mais la nature exacte de cette relation entre association et pronostic est incertaine.",
+        "conversationMessageIds": [
+          "SEM-H03:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-04c292595f8140b5",
+            "type": "COMPARATOR",
+            "canonicalMeaning": "Association",
+            "studyRole": "NONE",
+            "polarity": "UNCERTAIN",
+            "inventoryItemIds": [
+              "inv-5"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H03:user:1",
+              "text": "association",
+              "start": 78,
+              "end": 89
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-70c31bbeb7a1021a"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H03:user:1",
+              "providerCallId": "gemini-call:ke1-94c528840aacc9d0",
+              "rawElementId": "elem-4"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-1be1de6ae351fb0e",
+            "type": "OUTCOME",
+            "canonicalMeaning": "Handicap",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H03:user:1",
+              "text": "handicap",
+              "start": 31,
+              "end": 39
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-e3c5a2c3b8959cf7"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H03:user:1",
+              "providerCallId": "gemini-call:ke1-94c528840aacc9d0",
+              "rawElementId": "elem-3"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-3adf21254e120021",
+            "type": "CONDITION",
+            "canonicalMeaning": "Sclérose en plaques",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H03:user:1",
+              "text": "SEP",
+              "start": 5,
+              "end": 8
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-c31a5ec29ce49a0e",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-507b7b199928638d",
+                "knowledge-gap:ke1-7a6eabe4f3b700e8",
+                "knowledge-gap:ke1-dcdfda33c341cc67"
+              ],
+              "checkedAt": "2026-08-12T19:47:08.751Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H03:user:1",
+              "providerCallId": "gemini-call:ke1-94c528840aacc9d0",
+              "rawElementId": "elem-1"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-3e40eb7a9679fe46",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Quantification de la susceptibilité magnétique (QSM)",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H03:user:1",
+              "text": "QSM",
+              "start": 13,
+              "end": 16
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-e3c5a2c3b8959cf7"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-c31a5ec29ce49a0e",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-507b7b199928638d",
+                "knowledge-gap:ke1-7a6eabe4f3b700e8",
+                "knowledge-gap:ke1-dcdfda33c341cc67"
+              ],
+              "checkedAt": "2026-08-12T19:47:08.751Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H03:user:1",
+              "providerCallId": "gemini-call:ke1-94c528840aacc9d0",
+              "rawElementId": "elem-2"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-5bb4235a1be3b4ae",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Incertitude sur l'objectif de recherche (association ou pronostic)",
+            "studyRole": "NONE",
+            "polarity": "UNCERTAIN",
+            "inventoryItemIds": [
+              "inv-7"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H03:user:1",
+              "text": "je ne sais pas si je cherche",
+              "start": 45,
+              "end": 73
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H03:user:1",
+              "providerCallId": "gemini-call:ke1-94c528840aacc9d0",
+              "rawElementId": "elem-6"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-ae7c6645c73637f1",
+            "type": "COMPARATOR",
+            "canonicalMeaning": "Pronostic",
+            "studyRole": "NONE",
+            "polarity": "UNCERTAIN",
+            "inventoryItemIds": [
+              "inv-6"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H03:user:1",
+              "text": "pronostic",
+              "start": 96,
+              "end": 105
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-70c31bbeb7a1021a"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H03:user:1",
+              "providerCallId": "gemini-call:ke1-94c528840aacc9d0",
+              "rawElementId": "elem-5"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-70c31bbeb7a1021a",
+            "sourceElementId": "sem-element:ke1-04c292595f8140b5",
+            "targetElementId": "sem-element:ke1-ae7c6645c73637f1",
+            "relationType": "COMPARES_WITH",
+            "polarity": "UNCERTAIN",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-e3c5a2c3b8959cf7",
+            "sourceElementId": "sem-element:ke1-3e40eb7a9679fe46",
+            "targetElementId": "sem-element:ke1-1be1de6ae351fb0e",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "UNCERTAIN",
+            "inventoryRelationIds": [
+              "rel-1"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "SEP",
+              "normalizedMeaning": "Sclérose en plaques",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "QSM",
+              "normalizedMeaning": "Quantification de la susceptibilité magnétique",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "handicap",
+              "normalizedMeaning": "Handicap",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "lié au",
+              "normalizedMeaning": "lié à",
+              "mappedClientElementIds": [],
+              "mappedClientRelationIds": [
+                "rel-elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "The explicit functional fragment is represented by its source-grounded direct Semantic Relation rather than by a false object node."
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "association",
+              "normalizedMeaning": "association",
+              "mappedClientElementIds": [
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-6",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "pronostic",
+              "normalizedMeaning": "pronostic",
+              "mappedClientElementIds": [
+                "elem-5"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-7",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "je ne sais pas si je cherche",
+              "normalizedMeaning": "incertitude sur l'objectif",
+              "mappedClientElementIds": [
+                "elem-6"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-3",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "mappedClientRelationIds": [
+                "rel-elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-5",
+              "targetInventoryItemId": "inv-6",
+              "normalizedRelation": "COMPARES_WITH",
+              "mappedClientRelationIds": [
+                "rel-elem-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [
+          "Hésitation entre une relation d'association simple et une relation pronostique pour le lien entre le QSM et le handicap."
+        ],
+        "unknowns": [],
+        "contradictions": [],
+        "clarificationCandidates": [
+          {
+            "question": "Souhaitez-vous évaluer une simple association statistique entre le QSM et le handicap, ou recherchez-vous une relation de nature pronostique (valeur prédictive du QSM) ?",
+            "reason": "Clarifier l'objectif analytique entre association et pronostic.",
+            "resolvesElementIds": [
+              "sem-element:ke1-04c292595f8140b5",
+              "sem-element:ke1-ae7c6645c73637f1"
+            ]
+          }
+        ],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "FORMALIZE_IDEA",
+          "confidence": 0.9,
+          "reason": "L'idée scientifique est présente mais nécessite d'être formalisée quant au type exact de relation recherchée (association vs pronostic) avant d'entrer dans la conception formelle de l'étude.",
+          "expectedCapabilities": [
+            "Clarification de l'hypothèse d'association ou de pronostic",
+            "Structuration conceptuelle du lien entre biomarqueur et devenir clinique"
+          ]
+        },
+        "summaryForUser": "Vous étudiez le lien entre le QSM et le handicap chez les patients atteints de sclérose en plaques, avec une incertitude sur la nature exacte (association versus pronostic) de cette relation.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "The typed candidate and semantic model are fully sound, complete, and properly typed. All user fragments and relations are accurately represented, and routing is appropriate."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+          "criticPromptVersion": "SEM-001-CRITIC-1.3",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-94c528840aacc9d0",
+          "criticCallId": "gemini-call:ke1-23684428d4f1e5ec",
+          "criticCallIds": [
+            "gemini-call:ke1-f5adc5d69551f7e2",
+            "gemini-call:ke1-23684428d4f1e5ec"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-12T19:46:44.896Z",
+              "requestFinished": "2026-08-12T19:46:50.929Z",
+              "latencyMs": 6033,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-12T19:46:50.933Z",
+              "requestFinished": "2026-08-12T19:46:55.441Z",
+              "latencyMs": 4508,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            },
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-12T19:47:05.474Z",
+              "requestFinished": "2026-08-12T19:47:08.743Z",
+              "latencyMs": 3269,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "cand-001",
+            "language": "fr",
+            "normalizedMeaning": "Dans la sclérose en plaques, la quantification de la susceptibilité magnétique est liée au handicap, mais la nature exacte de cette relation entre association et pronostic est incertaine.",
+            "summaryForUser": "Vous étudiez le lien entre le QSM et le handicap chez les patients atteints de sclérose en plaques, avec une incertitude sur la nature exacte (association versus pronostic) de cette relation.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "inv-1",
+                  "sourceMessageId": "SEM-H03:user:1",
+                  "sourceText": "SEP",
+                  "normalizedLabel": "Sclérose en plaques",
+                  "localRole": "condition",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-2",
+                  "sourceMessageId": "SEM-H03:user:1",
+                  "sourceText": "QSM",
+                  "normalizedLabel": "Quantification de la susceptibilité magnétique",
+                  "localRole": "biomarker",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-3",
+                  "sourceMessageId": "SEM-H03:user:1",
+                  "sourceText": "handicap",
+                  "normalizedLabel": "Handicap",
+                  "localRole": "outcome",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-4",
+                  "sourceMessageId": "SEM-H03:user:1",
+                  "sourceText": "lié au",
+                  "normalizedLabel": "lié à",
+                  "localRole": "relation",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-2",
+                    "inv-3"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-5",
+                  "sourceMessageId": "SEM-H03:user:1",
+                  "sourceText": "association",
+                  "normalizedLabel": "association",
+                  "localRole": "relation_type",
+                  "polarity": "UNCERTAIN",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-6",
+                  "sourceMessageId": "SEM-H03:user:1",
+                  "sourceText": "pronostic",
+                  "normalizedLabel": "pronostic",
+                  "localRole": "relation_type",
+                  "polarity": "UNCERTAIN",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-7",
+                  "sourceMessageId": "SEM-H03:user:1",
+                  "sourceText": "je ne sais pas si je cherche",
+                  "normalizedLabel": "incertitude sur l'objectif",
+                  "localRole": "intent",
+                  "polarity": "UNCERTAIN",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-5",
+                    "inv-6"
+                  ]
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel-1",
+                  "sourceInventoryItemId": "inv-2",
+                  "targetInventoryItemId": "inv-3",
+                  "sourceMessageId": "SEM-H03:user:1",
+                  "sourceText": "le QSM serait lié au handicap",
+                  "normalizedRelation": "RELATED_TO_CANDIDATE",
+                  "polarity": "UNCERTAIN"
+                },
+                {
+                  "inventoryRelationId": "rel-2",
+                  "sourceInventoryItemId": "inv-5",
+                  "targetInventoryItemId": "inv-6",
+                  "sourceMessageId": "SEM-H03:user:1",
+                  "sourceText": "association ou du pronostic",
+                  "normalizedRelation": "COMPARES_WITH",
+                  "polarity": "UNCERTAIN"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem-1",
+                "type": "CONDITION",
+                "canonicalMeaning": "Sclérose en plaques",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-1"
+                ],
+                "sourceMessageId": "SEM-H03:user:1",
+                "sourceText": "SEP",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-2",
+                "type": "BIOMARKER",
+                "canonicalMeaning": "Quantification de la susceptibilité magnétique (QSM)",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-2"
+                ],
+                "sourceMessageId": "SEM-H03:user:1",
+                "sourceText": "QSM",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-3",
+                "type": "OUTCOME",
+                "canonicalMeaning": "Handicap",
+                "studyRole": "OUTCOME_ROLE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-3"
+                ],
+                "sourceMessageId": "SEM-H03:user:1",
+                "sourceText": "handicap",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-4",
+                "type": "COMPARATOR",
+                "canonicalMeaning": "Association",
+                "studyRole": "NONE",
+                "polarity": "UNCERTAIN",
+                "inventoryItemIds": [
+                  "inv-5"
+                ],
+                "sourceMessageId": "SEM-H03:user:1",
+                "sourceText": "association",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": true,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-5",
+                "type": "COMPARATOR",
+                "canonicalMeaning": "Pronostic",
+                "studyRole": "NONE",
+                "polarity": "UNCERTAIN",
+                "inventoryItemIds": [
+                  "inv-6"
+                ],
+                "sourceMessageId": "SEM-H03:user:1",
+                "sourceText": "pronostic",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": true,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-6",
+                "type": "SCIENTIFIC_INTENT",
+                "canonicalMeaning": "Incertitude sur l'objectif de recherche (association ou pronostic)",
+                "studyRole": "NONE",
+                "polarity": "UNCERTAIN",
+                "inventoryItemIds": [
+                  "inv-7"
+                ],
+                "sourceMessageId": "SEM-H03:user:1",
+                "sourceText": "je ne sais pas si je cherche",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": true,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel-elem-1",
+                "sourceClientElementId": "elem-2",
+                "targetClientElementId": "elem-3",
+                "relationType": "RELATED_TO_CANDIDATE",
+                "polarity": "UNCERTAIN",
+                "inventoryRelationIds": [
+                  "rel-1"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": true
+              },
+              {
+                "clientRelationId": "rel-elem-2",
+                "sourceClientElementId": "elem-4",
+                "targetClientElementId": "elem-5",
+                "relationType": "COMPARES_WITH",
+                "polarity": "UNCERTAIN",
+                "inventoryRelationIds": [
+                  "rel-2"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": true
+              }
+            ],
+            "missingConcepts": [],
+            "ellipses": [],
+            "ambiguities": [
+              "Hésitation entre une relation d'association simple et une relation pronostique pour le lien entre le QSM et le handicap."
+            ],
+            "unknowns": [],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [
+              {
+                "question": "Souhaitez-vous évaluer une simple association statistique entre le QSM et le handicap, ou recherchez-vous une relation de nature pronostique (valeur prédictive du QSM) ?",
+                "reason": "Clarifier l'objectif analytique entre association et pronostic.",
+                "resolvesClientElementIds": [
+                  "elem-4",
+                  "elem-5"
+                ]
+              }
+            ],
+            "routeProposal": {
+              "route": "FORMALIZE_IDEA",
+              "confidence": 0.9,
+              "reason": "L'idée scientifique est présente mais nécessite d'être formalisée quant au type exact de relation recherchée (association vs pronostic) avant d'entrer dans la conception formelle de l'étude.",
+              "expectedCapabilities": [
+                "Clarification de l'hypothèse d'association ou de pronostic",
+                "Structuration conceptuelle du lien entre biomarqueur et devenir clinique"
+              ]
+            },
+            "semanticWarnings": []
+          },
+          "rawCritic": {
+            "criticId": "critic-01",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit entities (SEP, QSM, handicap, association, pronostic) are correctly represented as semantic elements."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Association and pronostic as alternative objectives are fully represented."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No interventions are present in the user text."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "PASS",
+                "evidence": "QSM is correctly captured as a biomarker/measurement."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "The relation between QSM and handicap, and the comparison relation between association and pronostic, are fully mapped."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "All types adhere strictly to the operational taxonomy."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Relations retain their original polarity and epistemic status."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "Uncertainties and hypotheses are appropriately marked as uncertain/explicit user-stated without unwarranted promotion."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "The hesitation between association and prognostic is explicitly retained in ambiguities and clarification candidates."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "No negations are present; uncertainties are properly preserved."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No explicit temporal points or durations are mentioned."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "Outcomes and measurements are appropriately typed without unsupported endpoint promotion."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts like QSM and SEP are preserved."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "The source-to-inventory comparison is complete with no missing fragments."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "The FORMALIZE_IDEA route correctly matches the semantic model and the user's need to clarify their study objective."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The typed candidate and semantic model are fully sound, complete, and properly typed. All user fragments and relations are accurately represented, and routing is appropriate."
+          },
+          "rawCritics": [
+            {
+              "criticId": "critic-001",
+              "verdict": "REVISE",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit objects SEP, QSM, and handicap are represented."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No comparator arm is present."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No intervention is present."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "QSM covers the modality/biomarker appropriately."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "Explicit relations are represented by typed client relations."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "All elements follow taxonomic rules."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Relations retain their explicit characteristics."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No unwarranted inferences promoted."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "Ambiguity between association and pronostic is exposed."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "Polarities are correctly preserved."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No explicit timing constraint is mentioned."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "No unselected outcome was promoted to endpoint."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific concepts remain exact."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "FAIL",
+                  "evidence": "Fragment inv-7 ('je ne sais pas si je cherche') is unresolved and unmapped in the explicit coverage report."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "Route FORMALIZE_IDEA matches the idea needing formalization."
+                }
+              ],
+              "missingExplicitSourceFragments": [
+                {
+                  "sourceMessageId": "SEM-H03:user:1",
+                  "sourceText": "je ne sais pas si je cherche",
+                  "normalizedMeaning": "incertitude sur l'objectif",
+                  "reason": "Unmapped explicit intent fragment inv-7 in coverage report.",
+                  "suggestedLocalRole": "intent",
+                  "confidence": 1
+                }
+              ],
+              "issues": [
+                {
+                  "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+                  "severity": "WARNING",
+                  "elementClientIds": [],
+                  "description": "Inventory fragment inv-7 ('je ne sais pas si je cherche') is unmapped.",
+                  "recommendedAction": "Map inv-7 to a SCIENTIFIC_INTENT element representing epistemic uncertainty.",
+                  "resolved": false
+                }
+              ],
+              "proposedRepairs": [
+                {
+                  "repairId": "rep-1",
+                  "action": "UPSERT_ELEMENT",
+                  "reason": "Represent the explicit user intent/uncertainty fragment inv-7 as a SCIENTIFIC_INTENT element.",
+                  "sourceInventoryItemIds": [
+                    "inv-7"
+                  ],
+                  "sourceInventoryRelationIds": [],
+                  "inventoryItemId": null,
+                  "inventorySourceMessageId": null,
+                  "inventorySourceText": null,
+                  "inventoryNormalizedLabel": null,
+                  "inventoryLocalRole": null,
+                  "inventoryPolarity": null,
+                  "inventoryModifiers": [],
+                  "inventoryLinkedItemIds": [],
+                  "inventoryRelationId": null,
+                  "inventoryRelationSourceItemId": null,
+                  "inventoryRelationTargetItemId": null,
+                  "inventoryRelationSourceMessageId": null,
+                  "inventoryRelationSourceText": null,
+                  "inventoryNormalizedRelation": null,
+                  "inventoryRelationPolarity": null,
+                  "elementClientElementId": "elem-6",
+                  "elementType": "SCIENTIFIC_INTENT",
+                  "elementCanonicalMeaning": "Incertitude sur l'objectif de recherche (association ou pronostic)",
+                  "elementStudyRole": "NONE",
+                  "elementPolarity": "UNCERTAIN",
+                  "elementInventoryItemIds": [
+                    "inv-7"
+                  ],
+                  "elementSourceMessageId": "SEM-H03:user:1",
+                  "elementSourceText": "je ne sais pas si je cherche",
+                  "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+                  "elementConfidence": 1,
+                  "elementInferenceReason": null,
+                  "elementRequiresConfirmation": true,
+                  "elementSupersedesElementIds": [],
+                  "relationClientRelationId": null,
+                  "relationSourceClientElementId": null,
+                  "relationTargetClientElementId": null,
+                  "relationType": null,
+                  "relationPolarity": null,
+                  "relationInventoryRelationIds": [],
+                  "relationEpistemicStatus": null,
+                  "relationConfidence": null,
+                  "relationInferenceReason": null,
+                  "relationRequiresConfirmation": null,
+                  "ambiguity": null,
+                  "route": null,
+                  "routeConfidence": null,
+                  "routeReason": null,
+                  "routeExpectedCapabilities": []
+                }
+              ],
+              "criticSummary": "The inventory fragment 'je ne sais pas si je cherche' (inv-7) was left unmapped in the explicit coverage report. A repair is proposed to add a SCIENTIFIC_INTENT element capturing this uncertainty."
+            },
+            {
+              "criticId": "critic-01",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit entities (SEP, QSM, handicap, association, pronostic) are correctly represented as semantic elements."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "Association and pronostic as alternative objectives are fully represented."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No interventions are present in the user text."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "QSM is correctly captured as a biomarker/measurement."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The relation between QSM and handicap, and the comparison relation between association and pronostic, are fully mapped."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "All types adhere strictly to the operational taxonomy."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Relations retain their original polarity and epistemic status."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "Uncertainties and hypotheses are appropriately marked as uncertain/explicit user-stated without unwarranted promotion."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "The hesitation between association and prognostic is explicitly retained in ambiguities and clarification candidates."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "No negations are present; uncertainties are properly preserved."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No explicit temporal points or durations are mentioned."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "Outcomes and measurements are appropriately typed without unsupported endpoint promotion."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific concepts like QSM and SEP are preserved."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "The source-to-inventory comparison is complete with no missing fragments."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "The FORMALIZE_IDEA route correctly matches the semantic model and the user's need to clarify their study objective."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "The typed candidate and semantic model are fully sound, complete, and properly typed. All user fragments and relations are accurately represented, and routing is appropriate."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-12T19:47:08.745Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-c31a5ec29ce49a0e",
+          "resultDigest": "ke1-c31a5ec29ce49a0e",
+          "coverageStatus": "NO_PROVIDER",
+          "verifiedAt": "2026-08-12T19:47:08.751Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-12T19:47:08.745Z",
+        "updatedAt": "2026-08-12T19:47:08.751Z",
+        "digest": "ke1-15acef96b4d43972"
+      },
+      "canonicalModelDigest": "ke1-15acef96b4d43972",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-c31a5ec29ce49a0e",
+        "resultDigest": "ke1-c31a5ec29ce49a0e",
+        "coverageStatus": "NO_PROVIDER",
+        "verifiedAt": "2026-08-12T19:47:08.751Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-94c528840aacc9d0",
+      "structuredDigest": "ke1-c18b7fe65900a6c2",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T19:46:44.896Z",
+          "requestFinished": "2026-08-12T19:46:50.929Z",
+          "latencyMs": 6033,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-f5adc5d69551f7e2",
+      "structuredDigest": "ke1-41311af0974b2d14",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T19:46:50.933Z",
+          "requestFinished": "2026-08-12T19:46:55.441Z",
+          "latencyMs": 4508,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 2,
+      "callId": "gemini-call:ke1-23684428d4f1e5ec",
+      "structuredDigest": "ke1-28658bd3a4f381b7",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T19:47:05.474Z",
+          "requestFinished": "2026-08-12T19:47:08.743Z",
+          "latencyMs": 3269,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-b2fd49c467fd0c30",
+    "revision": 1,
+    "status": "CANDIDATE",
+    "originalRequest": "Chez SEP, le QSM serait lié au handicap mais je ne sais pas si je cherche une association ou du pronostic.",
+    "normalizedMeaning": "Dans la sclérose en plaques, la quantification de la susceptibilité magnétique est liée au handicap, mais la nature exacte de cette relation entre association et pronostic est incertaine.",
+    "conversationMessageIds": [
+      "SEM-H03:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-04c292595f8140b5",
+        "type": "COMPARATOR",
+        "canonicalMeaning": "Association",
+        "studyRole": "NONE",
+        "polarity": "UNCERTAIN",
+        "inventoryItemIds": [
+          "inv-5"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H03:user:1",
+          "text": "association",
+          "start": 78,
+          "end": 89
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-70c31bbeb7a1021a"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H03:user:1",
+          "providerCallId": "gemini-call:ke1-94c528840aacc9d0",
+          "rawElementId": "elem-4"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-1be1de6ae351fb0e",
+        "type": "OUTCOME",
+        "canonicalMeaning": "Handicap",
+        "studyRole": "OUTCOME_ROLE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-3"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H03:user:1",
+          "text": "handicap",
+          "start": 31,
+          "end": 39
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-e3c5a2c3b8959cf7"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H03:user:1",
+          "providerCallId": "gemini-call:ke1-94c528840aacc9d0",
+          "rawElementId": "elem-3"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-3adf21254e120021",
+        "type": "CONDITION",
+        "canonicalMeaning": "Sclérose en plaques",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-1"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H03:user:1",
+          "text": "SEP",
+          "start": 5,
+          "end": 8
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-237852c6cc0e08ea",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-507b7b199928638d",
+            "knowledge-gap:ke1-7a6eabe4f3b700e8",
+            "knowledge-gap:ke1-dcdfda33c341cc67"
+          ],
+          "checkedAt": "2026-08-12T22:03:33.904Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H03:user:1",
+          "providerCallId": "gemini-call:ke1-94c528840aacc9d0",
+          "rawElementId": "elem-1"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-3e40eb7a9679fe46",
+        "type": "BIOMARKER",
+        "canonicalMeaning": "Quantification de la susceptibilité magnétique (QSM)",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-2"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H03:user:1",
+          "text": "QSM",
+          "start": 13,
+          "end": 16
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-e3c5a2c3b8959cf7"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-237852c6cc0e08ea",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-507b7b199928638d",
+            "knowledge-gap:ke1-7a6eabe4f3b700e8",
+            "knowledge-gap:ke1-dcdfda33c341cc67"
+          ],
+          "checkedAt": "2026-08-12T22:03:33.904Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H03:user:1",
+          "providerCallId": "gemini-call:ke1-94c528840aacc9d0",
+          "rawElementId": "elem-2"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-5bb4235a1be3b4ae",
+        "type": "SCIENTIFIC_INTENT",
+        "canonicalMeaning": "Incertitude sur l'objectif de recherche (association ou pronostic)",
+        "studyRole": "NONE",
+        "polarity": "UNCERTAIN",
+        "inventoryItemIds": [
+          "inv-7"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H03:user:1",
+          "text": "je ne sais pas si je cherche",
+          "start": 45,
+          "end": 73
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H03:user:1",
+          "providerCallId": "gemini-call:ke1-94c528840aacc9d0",
+          "rawElementId": "elem-6"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-ae7c6645c73637f1",
+        "type": "COMPARATOR",
+        "canonicalMeaning": "Pronostic",
+        "studyRole": "NONE",
+        "polarity": "UNCERTAIN",
+        "inventoryItemIds": [
+          "inv-6"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H03:user:1",
+          "text": "pronostic",
+          "start": 96,
+          "end": 105
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-70c31bbeb7a1021a"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H03:user:1",
+          "providerCallId": "gemini-call:ke1-94c528840aacc9d0",
+          "rawElementId": "elem-5"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-70c31bbeb7a1021a",
+        "sourceElementId": "sem-element:ke1-04c292595f8140b5",
+        "targetElementId": "sem-element:ke1-ae7c6645c73637f1",
+        "relationType": "COMPARES_WITH",
+        "polarity": "UNCERTAIN",
+        "inventoryRelationIds": [
+          "rel-2"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-e3c5a2c3b8959cf7",
+        "sourceElementId": "sem-element:ke1-3e40eb7a9679fe46",
+        "targetElementId": "sem-element:ke1-1be1de6ae351fb0e",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "polarity": "UNCERTAIN",
+        "inventoryRelationIds": [
+          "rel-1"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-1",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "SEP",
+          "normalizedMeaning": "Sclérose en plaques",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-2",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "QSM",
+          "normalizedMeaning": "Quantification de la susceptibilité magnétique",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-3",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "handicap",
+          "normalizedMeaning": "Handicap",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-4",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "lié au",
+          "normalizedMeaning": "lié à",
+          "mappedClientElementIds": [],
+          "mappedClientRelationIds": [
+            "rel-elem-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "The explicit functional fragment is represented by its source-grounded direct Semantic Relation rather than by a false object node."
+        },
+        {
+          "inventoryItemId": "inv-5",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "association",
+          "normalizedMeaning": "association",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-6",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "pronostic",
+          "normalizedMeaning": "pronostic",
+          "mappedClientElementIds": [
+            "elem-5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-7",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "je ne sais pas si je cherche",
+          "normalizedMeaning": "incertitude sur l'objectif",
+          "mappedClientElementIds": [
+            "elem-6"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-1",
+          "sourceInventoryItemId": "inv-2",
+          "targetInventoryItemId": "inv-3",
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "mappedClientRelationIds": [
+            "rel-elem-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-2",
+          "sourceInventoryItemId": "inv-5",
+          "targetInventoryItemId": "inv-6",
+          "normalizedRelation": "COMPARES_WITH",
+          "mappedClientRelationIds": [
+            "rel-elem-2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "missingConcepts": [],
+    "ellipses": [],
+    "ambiguities": [
+      "Hésitation entre une relation d'association simple et une relation pronostique pour le lien entre le QSM et le handicap."
+    ],
+    "unknowns": [],
+    "contradictions": [],
+    "clarificationCandidates": [
+      {
+        "question": "Souhaitez-vous évaluer une simple association statistique entre le QSM et le handicap, ou recherchez-vous une relation de nature pronostique (valeur prédictive du QSM) ?",
+        "reason": "Clarifier l'objectif analytique entre association et pronostic.",
+        "resolvesElementIds": [
+          "sem-element:ke1-04c292595f8140b5",
+          "sem-element:ke1-ae7c6645c73637f1"
+        ]
+      }
+    ],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "FORMALIZE_IDEA",
+      "confidence": 0.9,
+      "reason": "L'idée scientifique est présente mais nécessite d'être formalisée quant au type exact de relation recherchée (association vs pronostic) avant d'entrer dans la conception formelle de l'étude.",
+      "expectedCapabilities": [
+        "Clarification de l'hypothèse d'association ou de pronostic",
+        "Structuration conceptuelle du lien entre biomarqueur et devenir clinique"
+      ]
+    },
+    "summaryForUser": "Vous étudiez le lien entre le QSM et le handicap chez les patients atteints de sclérose en plaques, avec une incertitude sur la nature exacte (association versus pronostic) de cette relation.",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "Persisted provider reconstruction was replayed from the first invalidated deterministic guard; no new provider judgment was fabricated."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI_PERSISTED_R4_CLOSURE_EVIDENCE",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+      "criticPromptVersion": "SEM-001-CRITIC-1.3",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-94c528840aacc9d0",
+      "criticCallId": "deterministic-rebase:SEM-H03",
+      "criticCallIds": [
+        "gemini-call:ke1-f5adc5d69551f7e2",
+        "gemini-call:ke1-23684428d4f1e5ec",
+        "deterministic-rebase:SEM-H03",
+        "deterministic-rebase:SEM-H03",
+        "deterministic-rebase:SEM-H03",
+        "deterministic-rebase:SEM-H03",
+        "deterministic-rebase:SEM-H03"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T19:46:44.896Z",
+          "requestFinished": "2026-08-12T19:46:50.929Z",
+          "latencyMs": 6033,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T19:46:50.933Z",
+          "requestFinished": "2026-08-12T19:46:55.441Z",
+          "latencyMs": 4508,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T19:47:05.474Z",
+          "requestFinished": "2026-08-12T19:47:08.743Z",
+          "latencyMs": 3269,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Dans la sclérose en plaques, la quantification de la susceptibilité magnétique est liée au handicap, mais la nature exacte de cette relation entre association et pronostic est incertaine.",
+        "summaryForUser": "Vous étudiez le lien entre le QSM et le handicap chez les patients atteints de sclérose en plaques, avec une incertitude sur la nature exacte (association versus pronostic) de cette relation.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "SEP",
+              "normalizedLabel": "Sclérose en plaques",
+              "localRole": "condition",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "QSM",
+              "normalizedLabel": "Quantification de la susceptibilité magnétique",
+              "localRole": "biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "handicap",
+              "normalizedLabel": "Handicap",
+              "localRole": "outcome",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "lié au",
+              "normalizedLabel": "lié à",
+              "localRole": "relation",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-2",
+                "inv-3"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "association",
+              "normalizedLabel": "association",
+              "localRole": "relation_type",
+              "polarity": "UNCERTAIN",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-6",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "pronostic",
+              "normalizedLabel": "pronostic",
+              "localRole": "relation_type",
+              "polarity": "UNCERTAIN",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-7",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "je ne sais pas si je cherche",
+              "normalizedLabel": "incertitude sur l'objectif",
+              "localRole": "intent",
+              "polarity": "UNCERTAIN",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-5",
+                "inv-6"
+              ]
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "le QSM serait lié au handicap",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "polarity": "UNCERTAIN"
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-5",
+              "targetInventoryItemId": "inv-6",
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "association ou du pronostic",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "UNCERTAIN"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "CONDITION",
+            "canonicalMeaning": "Sclérose en plaques",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceMessageId": "SEM-H03:user:1",
+            "sourceText": "SEP",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Quantification de la susceptibilité magnétique (QSM)",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceMessageId": "SEM-H03:user:1",
+            "sourceText": "QSM",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "OUTCOME",
+            "canonicalMeaning": "Handicap",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceMessageId": "SEM-H03:user:1",
+            "sourceText": "handicap",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-4",
+            "type": "COMPARATOR",
+            "canonicalMeaning": "Association",
+            "studyRole": "NONE",
+            "polarity": "UNCERTAIN",
+            "inventoryItemIds": [
+              "inv-5"
+            ],
+            "sourceMessageId": "SEM-H03:user:1",
+            "sourceText": "association",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": true,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-5",
+            "type": "COMPARATOR",
+            "canonicalMeaning": "Pronostic",
+            "studyRole": "NONE",
+            "polarity": "UNCERTAIN",
+            "inventoryItemIds": [
+              "inv-6"
+            ],
+            "sourceMessageId": "SEM-H03:user:1",
+            "sourceText": "pronostic",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": true,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-6",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Incertitude sur l'objectif de recherche (association ou pronostic)",
+            "studyRole": "NONE",
+            "polarity": "UNCERTAIN",
+            "inventoryItemIds": [
+              "inv-7"
+            ],
+            "sourceMessageId": "SEM-H03:user:1",
+            "sourceText": "je ne sais pas si je cherche",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": true,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-elem-1",
+            "sourceClientElementId": "elem-2",
+            "targetClientElementId": "elem-3",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "UNCERTAIN",
+            "inventoryRelationIds": [
+              "rel-1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": true
+          },
+          {
+            "clientRelationId": "rel-elem-2",
+            "sourceClientElementId": "elem-4",
+            "targetClientElementId": "elem-5",
+            "relationType": "COMPARES_WITH",
+            "polarity": "UNCERTAIN",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": true
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [
+          "Hésitation entre une relation d'association simple et une relation pronostique pour le lien entre le QSM et le handicap."
+        ],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [
+          {
+            "question": "Souhaitez-vous évaluer une simple association statistique entre le QSM et le handicap, ou recherchez-vous une relation de nature pronostique (valeur prédictive du QSM) ?",
+            "reason": "Clarifier l'objectif analytique entre association et pronostic.",
+            "resolvesClientElementIds": [
+              "elem-4",
+              "elem-5"
+            ]
+          }
+        ],
+        "routeProposal": {
+          "route": "FORMALIZE_IDEA",
+          "confidence": 0.9,
+          "reason": "L'idée scientifique est présente mais nécessite d'être formalisée quant au type exact de relation recherchée (association vs pronostic) avant d'entrer dans la conception formelle de l'étude.",
+          "expectedCapabilities": [
+            "Clarification de l'hypothèse d'association ou de pronostic",
+            "Structuration conceptuelle du lien entre biomarqueur et devenir clinique"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "rawCritic": {
+        "criticId": "critic-r4-closure-deterministic-rebase-SEM-H03",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "Persisted provider reconstruction was replayed from the first invalidated deterministic guard; no new provider judgment was fabricated."
+      },
+      "rawCritics": [
+        {
+          "criticId": "critic-001",
+          "verdict": "REVISE",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects SEP, QSM, and handicap are represented."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator arm is present."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No intervention is present."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "QSM covers the modality/biomarker appropriately."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Explicit relations are represented by typed client relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All elements follow taxonomic rules."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Relations retain their explicit characteristics."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unwarranted inferences promoted."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Ambiguity between association and pronostic is exposed."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarities are correctly preserved."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit timing constraint is mentioned."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No unselected outcome was promoted to endpoint."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts remain exact."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "FAIL",
+              "evidence": "Fragment inv-7 ('je ne sais pas si je cherche') is unresolved and unmapped in the explicit coverage report."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route FORMALIZE_IDEA matches the idea needing formalization."
+            }
+          ],
+          "missingExplicitSourceFragments": [
+            {
+              "sourceMessageId": "SEM-H03:user:1",
+              "sourceText": "je ne sais pas si je cherche",
+              "normalizedMeaning": "incertitude sur l'objectif",
+              "reason": "Unmapped explicit intent fragment inv-7 in coverage report.",
+              "suggestedLocalRole": "intent",
+              "confidence": 1
+            }
+          ],
+          "issues": [
+            {
+              "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+              "severity": "WARNING",
+              "elementClientIds": [],
+              "description": "Inventory fragment inv-7 ('je ne sais pas si je cherche') is unmapped.",
+              "recommendedAction": "Map inv-7 to a SCIENTIFIC_INTENT element representing epistemic uncertainty.",
+              "resolved": false
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "repairId": "rep-1",
+              "action": "UPSERT_ELEMENT",
+              "reason": "Represent the explicit user intent/uncertainty fragment inv-7 as a SCIENTIFIC_INTENT element.",
+              "sourceInventoryItemIds": [
+                "inv-7"
+              ],
+              "sourceInventoryRelationIds": [],
+              "inventoryItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "inventoryNormalizedLabel": null,
+              "inventoryLocalRole": null,
+              "inventoryPolarity": null,
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": "elem-6",
+              "elementType": "SCIENTIFIC_INTENT",
+              "elementCanonicalMeaning": "Incertitude sur l'objectif de recherche (association ou pronostic)",
+              "elementStudyRole": "NONE",
+              "elementPolarity": "UNCERTAIN",
+              "elementInventoryItemIds": [
+                "inv-7"
+              ],
+              "elementSourceMessageId": "SEM-H03:user:1",
+              "elementSourceText": "je ne sais pas si je cherche",
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementConfidence": 1,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": true,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "relationPolarity": null,
+              "relationInventoryRelationIds": [],
+              "relationEpistemicStatus": null,
+              "relationConfidence": null,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": null,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            }
+          ],
+          "criticSummary": "The inventory fragment 'je ne sais pas si je cherche' (inv-7) was left unmapped in the explicit coverage report. A repair is proposed to add a SCIENTIFIC_INTENT element capturing this uncertainty."
+        },
+        {
+          "criticId": "critic-01",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit entities (SEP, QSM, handicap, association, pronostic) are correctly represented as semantic elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Association and pronostic as alternative objectives are fully represented."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No interventions are present in the user text."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "QSM is correctly captured as a biomarker/measurement."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The relation between QSM and handicap, and the comparison relation between association and pronostic, are fully mapped."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All types adhere strictly to the operational taxonomy."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Relations retain their original polarity and epistemic status."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Uncertainties and hypotheses are appropriately marked as uncertain/explicit user-stated without unwarranted promotion."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "The hesitation between association and prognostic is explicitly retained in ambiguities and clarification candidates."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "No negations are present; uncertainties are properly preserved."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit temporal points or durations are mentioned."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Outcomes and measurements are appropriately typed without unsupported endpoint promotion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like QSM and SEP are preserved."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "The source-to-inventory comparison is complete with no missing fragments."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The FORMALIZE_IDEA route correctly matches the semantic model and the user's need to clarify their study objective."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The typed candidate and semantic model are fully sound, complete, and properly typed. All user fragments and relations are accurately represented, and routing is appropriate."
+        },
+        {
+          "criticId": "critic-r4-closure-deterministic-rebase-SEM-H03",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "Persisted provider reconstruction was replayed from the first invalidated deterministic guard; no new provider judgment was fabricated."
+        },
+        {
+          "criticId": "critic-r4-closure-deterministic-rebase-SEM-H03",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "Persisted provider reconstruction was replayed from the first invalidated deterministic guard; no new provider judgment was fabricated."
+        },
+        {
+          "criticId": "critic-r4-closure-deterministic-rebase-SEM-H03",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "Persisted provider reconstruction was replayed from the first invalidated deterministic guard; no new provider judgment was fabricated."
+        },
+        {
+          "criticId": "critic-r4-closure-deterministic-rebase-SEM-H03",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "Persisted provider reconstruction was replayed from the first invalidated deterministic guard; no new provider judgment was fabricated."
+        },
+        {
+          "criticId": "critic-r4-closure-deterministic-rebase-SEM-H03",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Deterministic coverage, relation and taxonomy guards are complete after bounded source-grounded rebase."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "Persisted provider reconstruction was replayed from the first invalidated deterministic guard; no new provider judgment was fabricated."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-12T22:03:33.903Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-237852c6cc0e08ea",
+      "resultDigest": "ke1-237852c6cc0e08ea",
+      "coverageStatus": "NO_PROVIDER",
+      "verifiedAt": "2026-08-12T22:03:33.904Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-12T22:03:33.903Z",
+    "updatedAt": "2026-08-12T22:03:33.904Z",
+    "digest": "ke1-fdee4864f898bd50"
+  },
+  "semanticModelDigest": "ke1-fdee4864f898bd50",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-1",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "SEP",
+          "normalizedMeaning": "Sclérose en plaques",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-2",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "QSM",
+          "normalizedMeaning": "Quantification de la susceptibilité magnétique",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-3",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "handicap",
+          "normalizedMeaning": "Handicap",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-4",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "lié au",
+          "normalizedMeaning": "lié à",
+          "mappedClientElementIds": [],
+          "mappedClientRelationIds": [
+            "rel-elem-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "The explicit functional fragment is represented by its source-grounded direct Semantic Relation rather than by a false object node."
+        },
+        {
+          "inventoryItemId": "inv-5",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "association",
+          "normalizedMeaning": "association",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-6",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "pronostic",
+          "normalizedMeaning": "pronostic",
+          "mappedClientElementIds": [
+            "elem-5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-7",
+          "sourceMessageId": "SEM-H03:user:1",
+          "sourceText": "je ne sais pas si je cherche",
+          "normalizedMeaning": "incertitude sur l'objectif",
+          "mappedClientElementIds": [
+            "elem-6"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-1",
+          "sourceInventoryItemId": "inv-2",
+          "targetInventoryItemId": "inv-3",
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "mappedClientRelationIds": [
+            "rel-elem-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-2",
+          "sourceInventoryItemId": "inv-5",
+          "targetInventoryItemId": "inv-6",
+          "normalizedRelation": "COMPARES_WITH",
+          "mappedClientRelationIds": [
+            "rel-elem-2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-ee0dc35e0f97ec2a",
+    "evaluatedAt": "2026-08-12T22:03:33.905Z",
+    "goldFrameDigest": "ke1-4c3c7941093f5edd",
+    "result": {
+      "caseId": "SEM-H03",
+      "explicitObjectRecall": 1,
+      "explicitRelationRecall": 1,
+      "criticalSemanticRecall": 1,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 0,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": []
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H03",
+    "explicitObjectRecall": 1,
+    "explicitRelationRecall": 1,
+    "criticalSemanticRecall": 1,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 0,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": []
+  },
+  "error": null,
+  "deterministicRebase": {
+    "firstInvalidatedStage": "DEPENDENCY_DIGEST_REBASE",
+    "sourceConfigurationDigest": "ke1-90d945aefc3d0442",
+    "targetConfigurationDigest": "ke1-75b68ddee7e53412",
+    "initialTaxonomyFindings": [],
+    "llmCallsPerformed": 0,
+    "compatibleProviderOperationsReused": 3
+  },
+  "diagnosticReuse": {
+    "source": "semantic-validation/sem-001r4/case-checkpoints/SEM-H03.json",
+    "sourceCampaignId": "sem-001r4-closure-2026-08-12T19-44-58-552Z-ke1-40860531ff1079a5",
+    "compatibleConfigurationDigest": "ke1-75b68ddee7e53412",
+    "llmRecalled": false
+  }
+}

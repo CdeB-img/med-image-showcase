@@ -1,0 +1,18 @@
+{
+  "runId": "sem-001r3-development-2026-08-11T09-21-29-608Z",
+  "split": "DEVELOPMENT_CASES",
+  "status": "NOT_DEMONSTRATED",
+  "decision": "DEVELOPMENT_ONLY_NOT_QUALIFYING",
+  "completeCount": 2,
+  "expectedCount": 30,
+  "totalRequestStarts": 6,
+  "retries": 0,
+  "observed429": 0,
+  "metricsCalculated": false,
+  "thresholdsPassed": false,
+  "absoluteBlockerCount": 0,
+  "criticFunctional": true,
+  "semanticGate": false,
+  "durationMs": 63722,
+  "completedAt": "2026-08-11T09:22:33.330Z"
+}

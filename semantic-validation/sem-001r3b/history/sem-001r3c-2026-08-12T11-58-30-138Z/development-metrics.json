@@ -1,0 +1,6 @@
+{
+  "status": "NOT_CALCULATED",
+  "reason": "REQUIRES_COMPATIBLE_30_OF_30_BUT_ONLY_1_CASE_HAS_R3B_CRITIC_OUTPUT",
+  "targetedValidatedMetrics": { "SEM-D02": { "criticalSemanticRecall": 1, "explicitObjectRecall": 1, "explicitRelationRecall": 1, "criticalUnsupportedInferenceCount": 0, "absoluteBlockers": 0 } },
+  "thresholdDecision": "NOT_DEMONSTRATED"
+}

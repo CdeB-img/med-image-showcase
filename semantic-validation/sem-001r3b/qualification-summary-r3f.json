@@ -1,0 +1,18 @@
+{
+  "campaign": "SEM-001R3F",
+  "decision": "R3F_TARGETED_REPAIR_REQUIRES_FURTHER_WORK",
+  "targeted": {
+    "SEM-D21": "FAIL",
+    "SEM-D28": "NOT_RUN_GATE_CLOSED"
+  },
+  "development": {
+    "compatible": 4,
+    "expected": 30
+  },
+  "llm": {
+    "actualCalls": 0,
+    "callsAvoided": 43,
+    "retries": 0
+  },
+  "holdout": "NOT_STARTED_FORBIDDEN"
+}

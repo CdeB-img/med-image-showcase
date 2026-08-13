@@ -1,0 +1,7 @@
+{
+  "campaign": "SEM-001R4-CLOSURE",
+  "status": "NOT_STARTED_GATE_CLOSED",
+  "requiredPrecondition": "30/30 Holdout COMPLETE with all official metrics passing",
+  "observedPrecondition": "7/30 COMPLETE; human arbitration required at SEM-H07",
+  "degradedModeAccepted": false
+}

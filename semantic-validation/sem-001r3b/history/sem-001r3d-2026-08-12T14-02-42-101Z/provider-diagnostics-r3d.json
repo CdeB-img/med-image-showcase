@@ -1,0 +1,55 @@
+{
+  "campaign": "SEM-001R3D",
+  "provider": "GOOGLE_GEMINI",
+  "model": "gemini-3.5-flash-lite",
+  "noSecretsStored": true,
+  "resiliencePolicy": {
+    "maxAttemptsPerLlmOperation": 5,
+    "transientWaitMs": 60000,
+    "concurrency": 1,
+    "structuredCorrectionGenerations": 2
+  },
+  "runs": [
+    {
+      "runId": "sem-001r3d-2026-08-12T14-00-23-438Z",
+      "phase": "TARGETED",
+      "startedAt": "2026-08-12T14:00:23.439Z",
+      "selectedCases": [
+        "SEM-D21",
+        "SEM-D28"
+      ]
+    }
+  ],
+  "attempts": [
+    {
+      "runId": "sem-001r3d-2026-08-12T14-00-23-438Z",
+      "caseId": "SEM-D21",
+      "stage": "ATOMIC_COMPOSITION_AUDIT",
+      "cycle": 1,
+      "attempt": 1,
+      "startedAt": "2026-08-12T14:00:23.440Z",
+      "finishedAt": "2026-08-12T14:00:23.452Z",
+      "providerStatus": null,
+      "httpStatus": 200,
+      "providerErrorCode": null,
+      "category": "NETWORK",
+      "waitDuration": 60000,
+      "finalDisposition": "RETRY_SCHEDULED"
+    },
+    {
+      "runId": "sem-001r3d-2026-08-12T14-00-23-438Z",
+      "caseId": "SEM-D21",
+      "stage": "ATOMIC_COMPOSITION_AUDIT",
+      "cycle": 1,
+      "attempt": 2,
+      "startedAt": "2026-08-12T14:01:23.455Z",
+      "finishedAt": "2026-08-12T14:01:23.462Z",
+      "providerStatus": null,
+      "httpStatus": 200,
+      "providerErrorCode": null,
+      "category": "NETWORK",
+      "waitDuration": 60000,
+      "finalDisposition": "RETRY_SCHEDULED"
+    }
+  ]
+}

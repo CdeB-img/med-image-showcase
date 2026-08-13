@@ -1,0 +1,8 @@
+{
+  "status": "NOT_AVAILABLE",
+  "reason": "PROVIDER_503_BLOCKED_CRITIC_STAGE_2",
+  "compatibleCases": 1,
+  "expectedCases": 30,
+  "compatibleCaseIds": ["SEM-D02"],
+  "holdoutOpened": false
+}

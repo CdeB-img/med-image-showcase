@@ -1,0 +1,3226 @@
+{
+  "campaign": "SEM-001R4-CLOSURE",
+  "campaignId": "sem-001r4-closure-2026-08-12T19-44-58-552Z-ke1-40860531ff1079a5",
+  "caseId": "SEM-H10",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-75b68ddee7e53412",
+  "semanticConfigurationDigest": "ke1-01d917dec0ebcd82",
+  "goldFrameDigest": "ke1-e536b7eeef013faa",
+  "originalRequest": [
+    "Après exercice, phosphore 31P et BOLD musculaire; voir récupération énergétique."
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-12T22:03:54.834Z",
+  "completedAt": "2026-08-12T22:04:09.925Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H10:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Analyse de la récupération énergétique musculaire par spectroscopie du phosphore 31P et imagerie BOLD après un exercice.",
+        "summaryForUser": "Évaluation de la récupération énergétique musculaire après l'exercice en utilisant le phosphore (31P) et le signal BOLD.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H10:user:1",
+              "sourceText": "Après",
+              "normalizedLabel": "après",
+              "localRole": "timing preposition",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-2"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H10:user:1",
+              "sourceText": "exercice",
+              "normalizedLabel": "exercice",
+              "localRole": "intervention or condition",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-1"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H10:user:1",
+              "sourceText": "phosphore 31P",
+              "normalizedLabel": "phosphore 31P",
+              "localRole": "biomarker or method",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "31P"
+              ],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H10:user:1",
+              "sourceText": "BOLD",
+              "normalizedLabel": "BOLD",
+              "localRole": "modality or biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-5"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H10:user:1",
+              "sourceText": "musculaire",
+              "normalizedLabel": "musculaire",
+              "localRole": "anatomical context",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-4"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-6",
+              "sourceMessageId": "SEM-H10:user:1",
+              "sourceText": "voir",
+              "normalizedLabel": "voir",
+              "localRole": "scientific intent",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-7"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-7",
+              "sourceMessageId": "SEM-H10:user:1",
+              "sourceText": "récupération énergétique",
+              "normalizedLabel": "récupération énergétique",
+              "localRole": "phenomenon or outcome",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "énergétique"
+              ],
+              "linkedInventoryItemIds": [
+                "inv-6"
+              ]
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-7",
+              "sourceMessageId": "SEM-H10:user:1",
+              "sourceText": "phosphore 31P ... voir récupération énergétique",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-4",
+              "targetInventoryItemId": "inv-7",
+              "sourceMessageId": "SEM-H10:user:1",
+              "sourceText": "BOLD ... voir récupération énergétique",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-3",
+              "sourceInventoryItemId": "inv-7",
+              "targetInventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H10:user:1",
+              "sourceText": "Après exercice ... voir récupération",
+              "normalizedRelation": "RECOVERS_AFTER",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "TIMING",
+            "canonicalMeaning": "Après l'exercice",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1",
+              "inv-2"
+            ],
+            "sourceMessageId": "SEM-H10:user:1",
+            "sourceText": "Après exercice",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "INTERVENTION",
+            "canonicalMeaning": "Exercice physique",
+            "studyRole": "INTERVENTION_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceMessageId": "SEM-H10:user:1",
+            "sourceText": "exercice",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Phosphore 31P (spectroscopie)",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceMessageId": "SEM-H10:user:1",
+            "sourceText": "phosphore 31P",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-4",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Signal BOLD musculaire",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-4",
+              "inv-5"
+            ],
+            "sourceMessageId": "SEM-H10:user:1",
+            "sourceText": "BOLD musculaire",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-5",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Voir ou évaluer",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-6"
+            ],
+            "sourceMessageId": "SEM-H10:user:1",
+            "sourceText": "voir",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-6",
+            "type": "PHENOMENON",
+            "canonicalMeaning": "Récupération énergétique",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-7"
+            ],
+            "sourceMessageId": "SEM-H10:user:1",
+            "sourceText": "récupération énergétique",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-elem-1",
+            "sourceClientElementId": "elem-3",
+            "targetClientElementId": "elem-6",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-2",
+            "sourceClientElementId": "elem-4",
+            "targetClientElementId": "elem-6",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-3",
+            "sourceClientElementId": "elem-6",
+            "targetClientElementId": "elem-2",
+            "relationType": "RECOVERS_AFTER",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-3"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.85,
+          "reason": "L'utilisateur spécifie des mesures (phosphore 31P, BOLD), un contexte (musculaire, après exercice) et un objectif d'évaluation (récupération énergétique), ce qui relève de la conception d'étude.",
+          "expectedCapabilities": [
+            "Définition des paramètres de mesure",
+            "Structuration du protocole post-exercice"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "reconstructionDigest": "ke1-a69870d65c61cb6a",
+      "critics": [
+        {
+          "criticId": "critic-1",
+          "verdict": "REVISE",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects (phosphore 31P, BOLD) are represented."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is present in the source."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Exercise is represented as an intervention."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "BOLD is correctly integrated."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "FAIL",
+              "evidence": "The coordinated scientific subjects (phosphore 31P and BOLD) require a direct relation between them as flagged by the coverage report."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All types adhere to the taxonomy precedence rules."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations are preserved faithfully."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unsupported inferences were promoted."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No ambiguities are hidden."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarity is maintained."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Timing (Après) is fully represented."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No unsupported endpoint promotion occurred."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Concepts are kept at their exact specificity."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit fragments are represented in the elements."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY appropriately matches the intent, parameters, and design context."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [
+            {
+              "code": "EXPLICIT_RELATION_UNMAPPED",
+              "severity": "WARNING",
+              "elementClientIds": [
+                "elem-3",
+                "elem-4"
+              ],
+              "description": "Coordinated scientific subjects lack a direct relation between them.",
+              "recommendedAction": "Add a direct RELATED_TO relation between elem-3 and elem-4 grounded by rel-1 and rel-2.",
+              "resolved": false
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "repairId": "rep-1",
+              "action": "UPSERT_RELATION",
+              "reason": "Preserve the explicit relation between coordinated scientific subjects sharing the outcome.",
+              "sourceInventoryItemIds": [],
+              "sourceInventoryRelationIds": [
+                "rel-1",
+                "rel-2"
+              ],
+              "inventoryItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "inventoryNormalizedLabel": null,
+              "inventoryLocalRole": null,
+              "inventoryPolarity": null,
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": null,
+              "elementType": null,
+              "elementCanonicalMeaning": null,
+              "elementStudyRole": null,
+              "elementPolarity": null,
+              "elementInventoryItemIds": [],
+              "elementSourceMessageId": null,
+              "elementSourceText": null,
+              "elementEpistemicStatus": null,
+              "elementConfidence": null,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": null,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": "rel-elem-4",
+              "relationSourceClientElementId": "elem-3",
+              "relationTargetClientElementId": "elem-4",
+              "relationType": "RELATED_TO",
+              "relationPolarity": "AFFIRMED",
+              "relationInventoryRelationIds": [
+                "rel-1",
+                "rel-2"
+              ],
+              "relationEpistemicStatus": "EXPLICIT_USER_STATED",
+              "relationConfidence": 1,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": false,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            }
+          ],
+          "criticSummary": "The typed candidate is structurally sound and accurately captures the explicit objects, intervention, timing, and intent. However, a missing direct relation between the coordinated scientific subjects (phosphore 31P and BOLD) has been identified by the coverage report. A repair adding this direct relation is provided."
+        },
+        {
+          "criticId": "critic-h10-1",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Phosphorus 31P and BOLD muscular signals are fully represented as biomarker elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit comparator is present in the source."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Exercise intervention is fully represented."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "BOLD and phosphorus 31P references are adequately typed and preserved."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All inventory relations are completely and correctly mapped to client relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All types adhere to operational taxonomy rules and taxonomy report is complete with no findings."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Direct explicit relations are preserved without weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unjustified inferences were promoted to explicit status."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Ambiguities are appropriately handled and none are hidden."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "All polarities are affirmed and consistent with the source."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Timing ('Après') and its link to exercise are fully preserved."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Phenomenon and outcomes are correctly typed without unsupported endpoint promotion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like 31P and BOLD are retained with high specificity."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "Explicit coverage report is complete with zero unmapped items."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY perfectly matches the study-construction intent involving measurements, timing, intervention, and objectives."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "Audit completed successfully. All explicit fragments and relations are fully covered, properly typed, and correctly routed with no critical defects."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [
+        {
+          "repairId": "rep-1",
+          "status": "ACCEPTED",
+          "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+        }
+      ],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-65f495b4d99d4f58",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "Après exercice, phosphore 31P et BOLD musculaire; voir récupération énergétique.",
+        "normalizedMeaning": "Analyse de la récupération énergétique musculaire par spectroscopie du phosphore 31P et imagerie BOLD après un exercice.",
+        "conversationMessageIds": [
+          "SEM-H10:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-6a8497d5505e3999",
+            "type": "INTERVENTION",
+            "canonicalMeaning": "Exercice physique",
+            "studyRole": "INTERVENTION_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H10:user:1",
+              "text": "exercice",
+              "start": 6,
+              "end": 14
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-6a2242150504fab9"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H10:user:1",
+              "providerCallId": "gemini-call:ke1-6a60eddd39495ca9",
+              "rawElementId": "elem-2"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-7439846e63d86b62",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Voir ou évaluer",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-6"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H10:user:1",
+              "text": "voir",
+              "start": 50,
+              "end": 54
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H10:user:1",
+              "providerCallId": "gemini-call:ke1-6a60eddd39495ca9",
+              "rawElementId": "elem-5"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-80add11198e7fa95",
+            "type": "TIMING",
+            "canonicalMeaning": "Après l'exercice",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1",
+              "inv-2"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H10:user:1",
+              "text": "Après exercice",
+              "start": 0,
+              "end": 14
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H10:user:1",
+              "providerCallId": "gemini-call:ke1-6a60eddd39495ca9",
+              "rawElementId": "elem-1"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-8abd529c08ee55a0",
+            "type": "PHENOMENON",
+            "canonicalMeaning": "Récupération énergétique",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-7"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H10:user:1",
+              "text": "récupération énergétique",
+              "start": 55,
+              "end": 79
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-6a2242150504fab9",
+              "sem-relation:ke1-84b50d613ac74c15",
+              "sem-relation:ke1-ffaf757231eaad06"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-6af39119376e4565",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-361936828d5ef7d6",
+                "knowledge-gap:ke1-4cceaef3d2f477ef",
+                "knowledge-gap:ke1-fc1318a434f87600"
+              ],
+              "checkedAt": "2026-08-12T22:04:09.920Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H10:user:1",
+              "providerCallId": "gemini-call:ke1-6a60eddd39495ca9",
+              "rawElementId": "elem-6"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-d57cf7d39297f957",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Signal BOLD musculaire",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-4",
+              "inv-5"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H10:user:1",
+              "text": "BOLD musculaire",
+              "start": 33,
+              "end": 48
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-c72b92478b69adbb",
+              "sem-relation:ke1-ffaf757231eaad06"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-6af39119376e4565",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-361936828d5ef7d6",
+                "knowledge-gap:ke1-4cceaef3d2f477ef",
+                "knowledge-gap:ke1-fc1318a434f87600"
+              ],
+              "checkedAt": "2026-08-12T22:04:09.920Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H10:user:1",
+              "providerCallId": "gemini-call:ke1-6a60eddd39495ca9",
+              "rawElementId": "elem-4"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-efdf34921973f2c6",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Phosphore 31P (spectroscopie)",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H10:user:1",
+              "text": "phosphore 31P",
+              "start": 16,
+              "end": 29
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-84b50d613ac74c15",
+              "sem-relation:ke1-c72b92478b69adbb"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-6af39119376e4565",
+              "assertionRefs": [],
+              "gapRefs": [
+                "knowledge-gap:ke1-361936828d5ef7d6",
+                "knowledge-gap:ke1-4cceaef3d2f477ef",
+                "knowledge-gap:ke1-fc1318a434f87600"
+              ],
+              "checkedAt": "2026-08-12T22:04:09.920Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H10:user:1",
+              "providerCallId": "gemini-call:ke1-6a60eddd39495ca9",
+              "rawElementId": "elem-3"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-6a2242150504fab9",
+            "sourceElementId": "sem-element:ke1-8abd529c08ee55a0",
+            "targetElementId": "sem-element:ke1-6a8497d5505e3999",
+            "relationType": "RECOVERS_AFTER",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-3"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-84b50d613ac74c15",
+            "sourceElementId": "sem-element:ke1-efdf34921973f2c6",
+            "targetElementId": "sem-element:ke1-8abd529c08ee55a0",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-1"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-c72b92478b69adbb",
+            "sourceElementId": "sem-element:ke1-efdf34921973f2c6",
+            "targetElementId": "sem-element:ke1-d57cf7d39297f957",
+            "relationType": "RELATED_TO",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-1",
+              "rel-2"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-ffaf757231eaad06",
+            "sourceElementId": "sem-element:ke1-d57cf7d39297f957",
+            "targetElementId": "sem-element:ke1-8abd529c08ee55a0",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H10:user:1",
+              "sourceText": "Après",
+              "normalizedMeaning": "après",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H10:user:1",
+              "sourceText": "exercice",
+              "normalizedMeaning": "exercice",
+              "mappedClientElementIds": [
+                "elem-1",
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H10:user:1",
+              "sourceText": "phosphore 31P",
+              "normalizedMeaning": "phosphore 31P",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H10:user:1",
+              "sourceText": "BOLD",
+              "normalizedMeaning": "BOLD",
+              "mappedClientElementIds": [
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H10:user:1",
+              "sourceText": "musculaire",
+              "normalizedMeaning": "musculaire",
+              "mappedClientElementIds": [
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-6",
+              "sourceMessageId": "SEM-H10:user:1",
+              "sourceText": "voir",
+              "normalizedMeaning": "voir",
+              "mappedClientElementIds": [
+                "elem-5"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-7",
+              "sourceMessageId": "SEM-H10:user:1",
+              "sourceText": "récupération énergétique",
+              "normalizedMeaning": "récupération énergétique",
+              "mappedClientElementIds": [
+                "elem-6"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-7",
+              "normalizedRelation": "OBSERVES",
+              "mappedClientRelationIds": [
+                "rel-elem-1"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-4",
+              "targetInventoryItemId": "inv-7",
+              "normalizedRelation": "OBSERVES",
+              "mappedClientRelationIds": [
+                "rel-elem-2"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+            },
+            {
+              "inventoryRelationId": "rel-3",
+              "sourceInventoryItemId": "inv-7",
+              "targetInventoryItemId": "inv-2",
+              "normalizedRelation": "RECOVERS_AFTER",
+              "mappedClientRelationIds": [
+                "rel-elem-3"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+            },
+            {
+              "inventoryRelationId": "structural:inventory-coordinated:elem-3:elem-4",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-4",
+              "normalizedRelation": "DIRECT_RELATED_TO_REQUIRED_FOR_COORDINATED_SCIENTIFIC_SUBJECTS_GROUNDED_BY_rel-1+rel-2",
+              "mappedClientRelationIds": [
+                "rel-elem-4"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "Scientific subjects coordinated through the same explicit requested change/outcome retain a direct relationship."
+            }
+          ]
+        },
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "clarificationCandidates": [],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.85,
+          "reason": "L'utilisateur spécifie des mesures (phosphore 31P, BOLD), un contexte (musculaire, après exercice) et un objectif d'évaluation (récupération énergétique), ce qui relève de la conception d'étude.",
+          "expectedCapabilities": [
+            "Définition des paramètres de mesure",
+            "Structuration du protocole post-exercice"
+          ]
+        },
+        "summaryForUser": "Évaluation de la récupération énergétique musculaire après l'exercice en utilisant le phosphore (31P) et le signal BOLD.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "Audit completed successfully. All explicit fragments and relations are fully covered, properly typed, and correctly routed with no critical defects."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+          "criticPromptVersion": "SEM-001-CRITIC-1.3",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-6a60eddd39495ca9",
+          "criticCallId": "gemini-call:ke1-4062864decd8db89",
+          "criticCallIds": [
+            "gemini-call:ke1-6be333abb59482e7",
+            "gemini-call:ke1-4062864decd8db89"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-12T22:03:54.835Z",
+              "requestFinished": "2026-08-12T22:04:02.172Z",
+              "latencyMs": 7337,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-12T22:04:02.183Z",
+              "requestFinished": "2026-08-12T22:04:06.581Z",
+              "latencyMs": 4398,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            },
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-12T22:04:06.586Z",
+              "requestFinished": "2026-08-12T22:04:09.905Z",
+              "latencyMs": 3319,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "cand-001",
+            "language": "fr",
+            "normalizedMeaning": "Analyse de la récupération énergétique musculaire par spectroscopie du phosphore 31P et imagerie BOLD après un exercice.",
+            "summaryForUser": "Évaluation de la récupération énergétique musculaire après l'exercice en utilisant le phosphore (31P) et le signal BOLD.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "inv-1",
+                  "sourceMessageId": "SEM-H10:user:1",
+                  "sourceText": "Après",
+                  "normalizedLabel": "après",
+                  "localRole": "timing preposition",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-2"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-2",
+                  "sourceMessageId": "SEM-H10:user:1",
+                  "sourceText": "exercice",
+                  "normalizedLabel": "exercice",
+                  "localRole": "intervention or condition",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-1"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-3",
+                  "sourceMessageId": "SEM-H10:user:1",
+                  "sourceText": "phosphore 31P",
+                  "normalizedLabel": "phosphore 31P",
+                  "localRole": "biomarker or method",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [
+                    "31P"
+                  ],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-4",
+                  "sourceMessageId": "SEM-H10:user:1",
+                  "sourceText": "BOLD",
+                  "normalizedLabel": "BOLD",
+                  "localRole": "modality or biomarker",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-5"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-5",
+                  "sourceMessageId": "SEM-H10:user:1",
+                  "sourceText": "musculaire",
+                  "normalizedLabel": "musculaire",
+                  "localRole": "anatomical context",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-4"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-6",
+                  "sourceMessageId": "SEM-H10:user:1",
+                  "sourceText": "voir",
+                  "normalizedLabel": "voir",
+                  "localRole": "scientific intent",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-7"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-7",
+                  "sourceMessageId": "SEM-H10:user:1",
+                  "sourceText": "récupération énergétique",
+                  "normalizedLabel": "récupération énergétique",
+                  "localRole": "phenomenon or outcome",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [
+                    "énergétique"
+                  ],
+                  "linkedInventoryItemIds": [
+                    "inv-6"
+                  ]
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel-1",
+                  "sourceInventoryItemId": "inv-3",
+                  "targetInventoryItemId": "inv-7",
+                  "sourceMessageId": "SEM-H10:user:1",
+                  "sourceText": "phosphore 31P ... voir récupération énergétique",
+                  "normalizedRelation": "OBSERVES",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-2",
+                  "sourceInventoryItemId": "inv-4",
+                  "targetInventoryItemId": "inv-7",
+                  "sourceMessageId": "SEM-H10:user:1",
+                  "sourceText": "BOLD ... voir récupération énergétique",
+                  "normalizedRelation": "OBSERVES",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-3",
+                  "sourceInventoryItemId": "inv-7",
+                  "targetInventoryItemId": "inv-2",
+                  "sourceMessageId": "SEM-H10:user:1",
+                  "sourceText": "Après exercice ... voir récupération",
+                  "normalizedRelation": "RECOVERS_AFTER",
+                  "polarity": "AFFIRMED"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem-1",
+                "type": "TIMING",
+                "canonicalMeaning": "Après l'exercice",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-1",
+                  "inv-2"
+                ],
+                "sourceMessageId": "SEM-H10:user:1",
+                "sourceText": "Après exercice",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-2",
+                "type": "INTERVENTION",
+                "canonicalMeaning": "Exercice physique",
+                "studyRole": "INTERVENTION_ARM",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-2"
+                ],
+                "sourceMessageId": "SEM-H10:user:1",
+                "sourceText": "exercice",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-3",
+                "type": "BIOMARKER",
+                "canonicalMeaning": "Phosphore 31P (spectroscopie)",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-3"
+                ],
+                "sourceMessageId": "SEM-H10:user:1",
+                "sourceText": "phosphore 31P",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-4",
+                "type": "BIOMARKER",
+                "canonicalMeaning": "Signal BOLD musculaire",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-4",
+                  "inv-5"
+                ],
+                "sourceMessageId": "SEM-H10:user:1",
+                "sourceText": "BOLD musculaire",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-5",
+                "type": "SCIENTIFIC_INTENT",
+                "canonicalMeaning": "Voir ou évaluer",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-6"
+                ],
+                "sourceMessageId": "SEM-H10:user:1",
+                "sourceText": "voir",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-6",
+                "type": "PHENOMENON",
+                "canonicalMeaning": "Récupération énergétique",
+                "studyRole": "OUTCOME_ROLE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-7"
+                ],
+                "sourceMessageId": "SEM-H10:user:1",
+                "sourceText": "récupération énergétique",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel-elem-1",
+                "sourceClientElementId": "elem-3",
+                "targetClientElementId": "elem-6",
+                "relationType": "OBSERVES",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-1"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-elem-2",
+                "sourceClientElementId": "elem-4",
+                "targetClientElementId": "elem-6",
+                "relationType": "OBSERVES",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-2"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-elem-3",
+                "sourceClientElementId": "elem-6",
+                "targetClientElementId": "elem-2",
+                "relationType": "RECOVERS_AFTER",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-3"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-elem-4",
+                "sourceClientElementId": "elem-3",
+                "targetClientElementId": "elem-4",
+                "relationType": "RELATED_TO",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-1",
+                  "rel-2"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              }
+            ],
+            "missingConcepts": [],
+            "ellipses": [],
+            "ambiguities": [],
+            "unknowns": [],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [],
+            "routeProposal": {
+              "route": "DESIGN_STUDY",
+              "confidence": 0.85,
+              "reason": "L'utilisateur spécifie des mesures (phosphore 31P, BOLD), un contexte (musculaire, après exercice) et un objectif d'évaluation (récupération énergétique), ce qui relève de la conception d'étude.",
+              "expectedCapabilities": [
+                "Définition des paramètres de mesure",
+                "Structuration du protocole post-exercice"
+              ]
+            },
+            "semanticWarnings": []
+          },
+          "rawCritic": {
+            "criticId": "critic-h10-1",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Phosphorus 31P and BOLD muscular signals are fully represented as biomarker elements."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No explicit comparator is present in the source."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Exercise intervention is fully represented."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "PASS",
+                "evidence": "BOLD and phosphorus 31P references are adequately typed and preserved."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All inventory relations are completely and correctly mapped to client relations."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "All types adhere to operational taxonomy rules and taxonomy report is complete with no findings."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Direct explicit relations are preserved without weakening."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No unjustified inferences were promoted to explicit status."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "Ambiguities are appropriately handled and none are hidden."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "All polarities are affirmed and consistent with the source."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "PASS",
+                "evidence": "Timing ('Après') and its link to exercise are fully preserved."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "Phenomenon and outcomes are correctly typed without unsupported endpoint promotion."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts like 31P and BOLD are retained with high specificity."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "Explicit coverage report is complete with zero unmapped items."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "Route DESIGN_STUDY perfectly matches the study-construction intent involving measurements, timing, intervention, and objectives."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "Audit completed successfully. All explicit fragments and relations are fully covered, properly typed, and correctly routed with no critical defects."
+          },
+          "rawCritics": [
+            {
+              "criticId": "critic-1",
+              "verdict": "REVISE",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit objects (phosphore 31P, BOLD) are represented."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No comparator is present in the source."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "Exercise is represented as an intervention."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "BOLD is correctly integrated."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "FAIL",
+                  "evidence": "The coordinated scientific subjects (phosphore 31P and BOLD) require a direct relation between them as flagged by the coverage report."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "All types adhere to the taxonomy precedence rules."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Explicit relations are preserved faithfully."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No unsupported inferences were promoted."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "No ambiguities are hidden."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "Polarity is maintained."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "PASS",
+                  "evidence": "Timing (Après) is fully represented."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "No unsupported endpoint promotion occurred."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Concepts are kept at their exact specificity."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit fragments are represented in the elements."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "Route DESIGN_STUDY appropriately matches the intent, parameters, and design context."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [
+                {
+                  "code": "EXPLICIT_RELATION_UNMAPPED",
+                  "severity": "WARNING",
+                  "elementClientIds": [
+                    "elem-3",
+                    "elem-4"
+                  ],
+                  "description": "Coordinated scientific subjects lack a direct relation between them.",
+                  "recommendedAction": "Add a direct RELATED_TO relation between elem-3 and elem-4 grounded by rel-1 and rel-2.",
+                  "resolved": false
+                }
+              ],
+              "proposedRepairs": [
+                {
+                  "repairId": "rep-1",
+                  "action": "UPSERT_RELATION",
+                  "reason": "Preserve the explicit relation between coordinated scientific subjects sharing the outcome.",
+                  "sourceInventoryItemIds": [],
+                  "sourceInventoryRelationIds": [
+                    "rel-1",
+                    "rel-2"
+                  ],
+                  "inventoryItemId": null,
+                  "inventorySourceMessageId": null,
+                  "inventorySourceText": null,
+                  "inventoryNormalizedLabel": null,
+                  "inventoryLocalRole": null,
+                  "inventoryPolarity": null,
+                  "inventoryModifiers": [],
+                  "inventoryLinkedItemIds": [],
+                  "inventoryRelationId": null,
+                  "inventoryRelationSourceItemId": null,
+                  "inventoryRelationTargetItemId": null,
+                  "inventoryRelationSourceMessageId": null,
+                  "inventoryRelationSourceText": null,
+                  "inventoryNormalizedRelation": null,
+                  "inventoryRelationPolarity": null,
+                  "elementClientElementId": null,
+                  "elementType": null,
+                  "elementCanonicalMeaning": null,
+                  "elementStudyRole": null,
+                  "elementPolarity": null,
+                  "elementInventoryItemIds": [],
+                  "elementSourceMessageId": null,
+                  "elementSourceText": null,
+                  "elementEpistemicStatus": null,
+                  "elementConfidence": null,
+                  "elementInferenceReason": null,
+                  "elementRequiresConfirmation": null,
+                  "elementSupersedesElementIds": [],
+                  "relationClientRelationId": "rel-elem-4",
+                  "relationSourceClientElementId": "elem-3",
+                  "relationTargetClientElementId": "elem-4",
+                  "relationType": "RELATED_TO",
+                  "relationPolarity": "AFFIRMED",
+                  "relationInventoryRelationIds": [
+                    "rel-1",
+                    "rel-2"
+                  ],
+                  "relationEpistemicStatus": "EXPLICIT_USER_STATED",
+                  "relationConfidence": 1,
+                  "relationInferenceReason": null,
+                  "relationRequiresConfirmation": false,
+                  "ambiguity": null,
+                  "route": null,
+                  "routeConfidence": null,
+                  "routeReason": null,
+                  "routeExpectedCapabilities": []
+                }
+              ],
+              "criticSummary": "The typed candidate is structurally sound and accurately captures the explicit objects, intervention, timing, and intent. However, a missing direct relation between the coordinated scientific subjects (phosphore 31P and BOLD) has been identified by the coverage report. A repair adding this direct relation is provided."
+            },
+            {
+              "criticId": "critic-h10-1",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "Phosphorus 31P and BOLD muscular signals are fully represented as biomarker elements."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No explicit comparator is present in the source."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "Exercise intervention is fully represented."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "BOLD and phosphorus 31P references are adequately typed and preserved."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All inventory relations are completely and correctly mapped to client relations."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "All types adhere to operational taxonomy rules and taxonomy report is complete with no findings."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Direct explicit relations are preserved without weakening."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No unjustified inferences were promoted to explicit status."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "Ambiguities are appropriately handled and none are hidden."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "All polarities are affirmed and consistent with the source."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "PASS",
+                  "evidence": "Timing ('Après') and its link to exercise are fully preserved."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "Phenomenon and outcomes are correctly typed without unsupported endpoint promotion."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific concepts like 31P and BOLD are retained with high specificity."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "Explicit coverage report is complete with zero unmapped items."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "Route DESIGN_STUDY perfectly matches the study-construction intent involving measurements, timing, intervention, and objectives."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "Audit completed successfully. All explicit fragments and relations are fully covered, properly typed, and correctly routed with no critical defects."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-12T22:04:09.908Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-6af39119376e4565",
+          "resultDigest": "ke1-6af39119376e4565",
+          "coverageStatus": "NO_PROVIDER",
+          "verifiedAt": "2026-08-12T22:04:09.920Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-12T22:04:09.908Z",
+        "updatedAt": "2026-08-12T22:04:09.920Z",
+        "digest": "ke1-8c18a20f4a03470b"
+      },
+      "canonicalModelDigest": "ke1-8c18a20f4a03470b",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-6af39119376e4565",
+        "resultDigest": "ke1-6af39119376e4565",
+        "coverageStatus": "NO_PROVIDER",
+        "verifiedAt": "2026-08-12T22:04:09.920Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-6a60eddd39495ca9",
+      "structuredDigest": "ke1-a69870d65c61cb6a",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T22:03:54.835Z",
+          "requestFinished": "2026-08-12T22:04:02.172Z",
+          "latencyMs": 7337,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-6be333abb59482e7",
+      "structuredDigest": "ke1-bac567821f2031fe",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T22:04:02.183Z",
+          "requestFinished": "2026-08-12T22:04:06.581Z",
+          "latencyMs": 4398,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 2,
+      "callId": "gemini-call:ke1-4062864decd8db89",
+      "structuredDigest": "ke1-caa24260e67b547c",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T22:04:06.586Z",
+          "requestFinished": "2026-08-12T22:04:09.905Z",
+          "latencyMs": 3319,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-65f495b4d99d4f58",
+    "revision": 1,
+    "status": "CANDIDATE",
+    "originalRequest": "Après exercice, phosphore 31P et BOLD musculaire; voir récupération énergétique.",
+    "normalizedMeaning": "Analyse de la récupération énergétique musculaire par spectroscopie du phosphore 31P et imagerie BOLD après un exercice.",
+    "conversationMessageIds": [
+      "SEM-H10:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-6a8497d5505e3999",
+        "type": "INTERVENTION",
+        "canonicalMeaning": "Exercice physique",
+        "studyRole": "INTERVENTION_ARM",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-2"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H10:user:1",
+          "text": "exercice",
+          "start": 6,
+          "end": 14
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-6a2242150504fab9"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H10:user:1",
+          "providerCallId": "gemini-call:ke1-6a60eddd39495ca9",
+          "rawElementId": "elem-2"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-7439846e63d86b62",
+        "type": "SCIENTIFIC_INTENT",
+        "canonicalMeaning": "Voir ou évaluer",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-6"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H10:user:1",
+          "text": "voir",
+          "start": 50,
+          "end": 54
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H10:user:1",
+          "providerCallId": "gemini-call:ke1-6a60eddd39495ca9",
+          "rawElementId": "elem-5"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-80add11198e7fa95",
+        "type": "TIMING",
+        "canonicalMeaning": "Après l'exercice",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-1",
+          "inv-2"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H10:user:1",
+          "text": "Après exercice",
+          "start": 0,
+          "end": 14
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H10:user:1",
+          "providerCallId": "gemini-call:ke1-6a60eddd39495ca9",
+          "rawElementId": "elem-1"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-8abd529c08ee55a0",
+        "type": "PHENOMENON",
+        "canonicalMeaning": "Récupération énergétique",
+        "studyRole": "OUTCOME_ROLE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-7"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H10:user:1",
+          "text": "récupération énergétique",
+          "start": 55,
+          "end": 79
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-6a2242150504fab9",
+          "sem-relation:ke1-84b50d613ac74c15",
+          "sem-relation:ke1-ffaf757231eaad06"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-6af39119376e4565",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-361936828d5ef7d6",
+            "knowledge-gap:ke1-4cceaef3d2f477ef",
+            "knowledge-gap:ke1-fc1318a434f87600"
+          ],
+          "checkedAt": "2026-08-12T22:04:09.920Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H10:user:1",
+          "providerCallId": "gemini-call:ke1-6a60eddd39495ca9",
+          "rawElementId": "elem-6"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-d57cf7d39297f957",
+        "type": "BIOMARKER",
+        "canonicalMeaning": "Signal BOLD musculaire",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-4",
+          "inv-5"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H10:user:1",
+          "text": "BOLD musculaire",
+          "start": 33,
+          "end": 48
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-c72b92478b69adbb",
+          "sem-relation:ke1-ffaf757231eaad06"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-6af39119376e4565",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-361936828d5ef7d6",
+            "knowledge-gap:ke1-4cceaef3d2f477ef",
+            "knowledge-gap:ke1-fc1318a434f87600"
+          ],
+          "checkedAt": "2026-08-12T22:04:09.920Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H10:user:1",
+          "providerCallId": "gemini-call:ke1-6a60eddd39495ca9",
+          "rawElementId": "elem-4"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-efdf34921973f2c6",
+        "type": "BIOMARKER",
+        "canonicalMeaning": "Phosphore 31P (spectroscopie)",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-3"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H10:user:1",
+          "text": "phosphore 31P",
+          "start": 16,
+          "end": 29
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-84b50d613ac74c15",
+          "sem-relation:ke1-c72b92478b69adbb"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-6af39119376e4565",
+          "assertionRefs": [],
+          "gapRefs": [
+            "knowledge-gap:ke1-361936828d5ef7d6",
+            "knowledge-gap:ke1-4cceaef3d2f477ef",
+            "knowledge-gap:ke1-fc1318a434f87600"
+          ],
+          "checkedAt": "2026-08-12T22:04:09.920Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H10:user:1",
+          "providerCallId": "gemini-call:ke1-6a60eddd39495ca9",
+          "rawElementId": "elem-3"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-6a2242150504fab9",
+        "sourceElementId": "sem-element:ke1-8abd529c08ee55a0",
+        "targetElementId": "sem-element:ke1-6a8497d5505e3999",
+        "relationType": "RECOVERS_AFTER",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-3"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-84b50d613ac74c15",
+        "sourceElementId": "sem-element:ke1-efdf34921973f2c6",
+        "targetElementId": "sem-element:ke1-8abd529c08ee55a0",
+        "relationType": "OBSERVES",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-1"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-c72b92478b69adbb",
+        "sourceElementId": "sem-element:ke1-efdf34921973f2c6",
+        "targetElementId": "sem-element:ke1-d57cf7d39297f957",
+        "relationType": "RELATED_TO",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-1",
+          "rel-2"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-ffaf757231eaad06",
+        "sourceElementId": "sem-element:ke1-d57cf7d39297f957",
+        "targetElementId": "sem-element:ke1-8abd529c08ee55a0",
+        "relationType": "OBSERVES",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-2"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-1",
+          "sourceMessageId": "SEM-H10:user:1",
+          "sourceText": "Après",
+          "normalizedMeaning": "après",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-2",
+          "sourceMessageId": "SEM-H10:user:1",
+          "sourceText": "exercice",
+          "normalizedMeaning": "exercice",
+          "mappedClientElementIds": [
+            "elem-1",
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-3",
+          "sourceMessageId": "SEM-H10:user:1",
+          "sourceText": "phosphore 31P",
+          "normalizedMeaning": "phosphore 31P",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-4",
+          "sourceMessageId": "SEM-H10:user:1",
+          "sourceText": "BOLD",
+          "normalizedMeaning": "BOLD",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-5",
+          "sourceMessageId": "SEM-H10:user:1",
+          "sourceText": "musculaire",
+          "normalizedMeaning": "musculaire",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-6",
+          "sourceMessageId": "SEM-H10:user:1",
+          "sourceText": "voir",
+          "normalizedMeaning": "voir",
+          "mappedClientElementIds": [
+            "elem-5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-7",
+          "sourceMessageId": "SEM-H10:user:1",
+          "sourceText": "récupération énergétique",
+          "normalizedMeaning": "récupération énergétique",
+          "mappedClientElementIds": [
+            "elem-6"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-1",
+          "sourceInventoryItemId": "inv-3",
+          "targetInventoryItemId": "inv-7",
+          "normalizedRelation": "OBSERVES",
+          "mappedClientRelationIds": [
+            "rel-elem-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+        },
+        {
+          "inventoryRelationId": "rel-2",
+          "sourceInventoryItemId": "inv-4",
+          "targetInventoryItemId": "inv-7",
+          "normalizedRelation": "OBSERVES",
+          "mappedClientRelationIds": [
+            "rel-elem-2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+        },
+        {
+          "inventoryRelationId": "rel-3",
+          "sourceInventoryItemId": "inv-7",
+          "targetInventoryItemId": "inv-2",
+          "normalizedRelation": "RECOVERS_AFTER",
+          "mappedClientRelationIds": [
+            "rel-elem-3"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+        },
+        {
+          "inventoryRelationId": "structural:inventory-coordinated:elem-3:elem-4",
+          "sourceInventoryItemId": "inv-3",
+          "targetInventoryItemId": "inv-4",
+          "normalizedRelation": "DIRECT_RELATED_TO_REQUIRED_FOR_COORDINATED_SCIENTIFIC_SUBJECTS_GROUNDED_BY_rel-1+rel-2",
+          "mappedClientRelationIds": [
+            "rel-elem-4"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "Scientific subjects coordinated through the same explicit requested change/outcome retain a direct relationship."
+        }
+      ]
+    },
+    "missingConcepts": [],
+    "ellipses": [],
+    "ambiguities": [],
+    "unknowns": [],
+    "contradictions": [],
+    "clarificationCandidates": [],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "DESIGN_STUDY",
+      "confidence": 0.85,
+      "reason": "L'utilisateur spécifie des mesures (phosphore 31P, BOLD), un contexte (musculaire, après exercice) et un objectif d'évaluation (récupération énergétique), ce qui relève de la conception d'étude.",
+      "expectedCapabilities": [
+        "Définition des paramètres de mesure",
+        "Structuration du protocole post-exercice"
+      ]
+    },
+    "summaryForUser": "Évaluation de la récupération énergétique musculaire après l'exercice en utilisant le phosphore (31P) et le signal BOLD.",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "Audit completed successfully. All explicit fragments and relations are fully covered, properly typed, and correctly routed with no critical defects."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+      "criticPromptVersion": "SEM-001-CRITIC-1.3",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-6a60eddd39495ca9",
+      "criticCallId": "gemini-call:ke1-4062864decd8db89",
+      "criticCallIds": [
+        "gemini-call:ke1-6be333abb59482e7",
+        "gemini-call:ke1-4062864decd8db89"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T22:03:54.835Z",
+          "requestFinished": "2026-08-12T22:04:02.172Z",
+          "latencyMs": 7337,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T22:04:02.183Z",
+          "requestFinished": "2026-08-12T22:04:06.581Z",
+          "latencyMs": 4398,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T22:04:06.586Z",
+          "requestFinished": "2026-08-12T22:04:09.905Z",
+          "latencyMs": 3319,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "cand-001",
+        "language": "fr",
+        "normalizedMeaning": "Analyse de la récupération énergétique musculaire par spectroscopie du phosphore 31P et imagerie BOLD après un exercice.",
+        "summaryForUser": "Évaluation de la récupération énergétique musculaire après l'exercice en utilisant le phosphore (31P) et le signal BOLD.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H10:user:1",
+              "sourceText": "Après",
+              "normalizedLabel": "après",
+              "localRole": "timing preposition",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-2"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H10:user:1",
+              "sourceText": "exercice",
+              "normalizedLabel": "exercice",
+              "localRole": "intervention or condition",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-1"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H10:user:1",
+              "sourceText": "phosphore 31P",
+              "normalizedLabel": "phosphore 31P",
+              "localRole": "biomarker or method",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "31P"
+              ],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H10:user:1",
+              "sourceText": "BOLD",
+              "normalizedLabel": "BOLD",
+              "localRole": "modality or biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-5"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H10:user:1",
+              "sourceText": "musculaire",
+              "normalizedLabel": "musculaire",
+              "localRole": "anatomical context",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-4"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-6",
+              "sourceMessageId": "SEM-H10:user:1",
+              "sourceText": "voir",
+              "normalizedLabel": "voir",
+              "localRole": "scientific intent",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-7"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-7",
+              "sourceMessageId": "SEM-H10:user:1",
+              "sourceText": "récupération énergétique",
+              "normalizedLabel": "récupération énergétique",
+              "localRole": "phenomenon or outcome",
+              "polarity": "AFFIRMED",
+              "modifiers": [
+                "énergétique"
+              ],
+              "linkedInventoryItemIds": [
+                "inv-6"
+              ]
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-7",
+              "sourceMessageId": "SEM-H10:user:1",
+              "sourceText": "phosphore 31P ... voir récupération énergétique",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-4",
+              "targetInventoryItemId": "inv-7",
+              "sourceMessageId": "SEM-H10:user:1",
+              "sourceText": "BOLD ... voir récupération énergétique",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-3",
+              "sourceInventoryItemId": "inv-7",
+              "targetInventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H10:user:1",
+              "sourceText": "Après exercice ... voir récupération",
+              "normalizedRelation": "RECOVERS_AFTER",
+              "polarity": "AFFIRMED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "TIMING",
+            "canonicalMeaning": "Après l'exercice",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-1",
+              "inv-2"
+            ],
+            "sourceMessageId": "SEM-H10:user:1",
+            "sourceText": "Après exercice",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "INTERVENTION",
+            "canonicalMeaning": "Exercice physique",
+            "studyRole": "INTERVENTION_ARM",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceMessageId": "SEM-H10:user:1",
+            "sourceText": "exercice",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Phosphore 31P (spectroscopie)",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceMessageId": "SEM-H10:user:1",
+            "sourceText": "phosphore 31P",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-4",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Signal BOLD musculaire",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-4",
+              "inv-5"
+            ],
+            "sourceMessageId": "SEM-H10:user:1",
+            "sourceText": "BOLD musculaire",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-5",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Voir ou évaluer",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-6"
+            ],
+            "sourceMessageId": "SEM-H10:user:1",
+            "sourceText": "voir",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-6",
+            "type": "PHENOMENON",
+            "canonicalMeaning": "Récupération énergétique",
+            "studyRole": "OUTCOME_ROLE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-7"
+            ],
+            "sourceMessageId": "SEM-H10:user:1",
+            "sourceText": "récupération énergétique",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-elem-1",
+            "sourceClientElementId": "elem-3",
+            "targetClientElementId": "elem-6",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-2",
+            "sourceClientElementId": "elem-4",
+            "targetClientElementId": "elem-6",
+            "relationType": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-3",
+            "sourceClientElementId": "elem-6",
+            "targetClientElementId": "elem-2",
+            "relationType": "RECOVERS_AFTER",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-3"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-4",
+            "sourceClientElementId": "elem-3",
+            "targetClientElementId": "elem-4",
+            "relationType": "RELATED_TO",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-1",
+              "rel-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "DESIGN_STUDY",
+          "confidence": 0.85,
+          "reason": "L'utilisateur spécifie des mesures (phosphore 31P, BOLD), un contexte (musculaire, après exercice) et un objectif d'évaluation (récupération énergétique), ce qui relève de la conception d'étude.",
+          "expectedCapabilities": [
+            "Définition des paramètres de mesure",
+            "Structuration du protocole post-exercice"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "rawCritic": {
+        "criticId": "critic-h10-1",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Phosphorus 31P and BOLD muscular signals are fully represented as biomarker elements."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No explicit comparator is present in the source."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Exercise intervention is fully represented."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "PASS",
+            "evidence": "BOLD and phosphorus 31P references are adequately typed and preserved."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All inventory relations are completely and correctly mapped to client relations."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "All types adhere to operational taxonomy rules and taxonomy report is complete with no findings."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "Direct explicit relations are preserved without weakening."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No unjustified inferences were promoted to explicit status."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "Ambiguities are appropriately handled and none are hidden."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "All polarities are affirmed and consistent with the source."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "PASS",
+            "evidence": "Timing ('Après') and its link to exercise are fully preserved."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "Phenomenon and outcomes are correctly typed without unsupported endpoint promotion."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific concepts like 31P and BOLD are retained with high specificity."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "Explicit coverage report is complete with zero unmapped items."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "Route DESIGN_STUDY perfectly matches the study-construction intent involving measurements, timing, intervention, and objectives."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "Audit completed successfully. All explicit fragments and relations are fully covered, properly typed, and correctly routed with no critical defects."
+      },
+      "rawCritics": [
+        {
+          "criticId": "critic-1",
+          "verdict": "REVISE",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects (phosphore 31P, BOLD) are represented."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is present in the source."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Exercise is represented as an intervention."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "BOLD is correctly integrated."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "FAIL",
+              "evidence": "The coordinated scientific subjects (phosphore 31P and BOLD) require a direct relation between them as flagged by the coverage report."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All types adhere to the taxonomy precedence rules."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit relations are preserved faithfully."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unsupported inferences were promoted."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No ambiguities are hidden."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarity is maintained."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Timing (Après) is fully represented."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No unsupported endpoint promotion occurred."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Concepts are kept at their exact specificity."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit fragments are represented in the elements."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY appropriately matches the intent, parameters, and design context."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [
+            {
+              "code": "EXPLICIT_RELATION_UNMAPPED",
+              "severity": "WARNING",
+              "elementClientIds": [
+                "elem-3",
+                "elem-4"
+              ],
+              "description": "Coordinated scientific subjects lack a direct relation between them.",
+              "recommendedAction": "Add a direct RELATED_TO relation between elem-3 and elem-4 grounded by rel-1 and rel-2.",
+              "resolved": false
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "repairId": "rep-1",
+              "action": "UPSERT_RELATION",
+              "reason": "Preserve the explicit relation between coordinated scientific subjects sharing the outcome.",
+              "sourceInventoryItemIds": [],
+              "sourceInventoryRelationIds": [
+                "rel-1",
+                "rel-2"
+              ],
+              "inventoryItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "inventoryNormalizedLabel": null,
+              "inventoryLocalRole": null,
+              "inventoryPolarity": null,
+              "inventoryModifiers": [],
+              "inventoryLinkedItemIds": [],
+              "inventoryRelationId": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationTargetItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryRelationPolarity": null,
+              "elementClientElementId": null,
+              "elementType": null,
+              "elementCanonicalMeaning": null,
+              "elementStudyRole": null,
+              "elementPolarity": null,
+              "elementInventoryItemIds": [],
+              "elementSourceMessageId": null,
+              "elementSourceText": null,
+              "elementEpistemicStatus": null,
+              "elementConfidence": null,
+              "elementInferenceReason": null,
+              "elementRequiresConfirmation": null,
+              "elementSupersedesElementIds": [],
+              "relationClientRelationId": "rel-elem-4",
+              "relationSourceClientElementId": "elem-3",
+              "relationTargetClientElementId": "elem-4",
+              "relationType": "RELATED_TO",
+              "relationPolarity": "AFFIRMED",
+              "relationInventoryRelationIds": [
+                "rel-1",
+                "rel-2"
+              ],
+              "relationEpistemicStatus": "EXPLICIT_USER_STATED",
+              "relationConfidence": 1,
+              "relationInferenceReason": null,
+              "relationRequiresConfirmation": false,
+              "ambiguity": null,
+              "route": null,
+              "routeConfidence": null,
+              "routeReason": null,
+              "routeExpectedCapabilities": []
+            }
+          ],
+          "criticSummary": "The typed candidate is structurally sound and accurately captures the explicit objects, intervention, timing, and intent. However, a missing direct relation between the coordinated scientific subjects (phosphore 31P and BOLD) has been identified by the coverage report. A repair adding this direct relation is provided."
+        },
+        {
+          "criticId": "critic-h10-1",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Phosphorus 31P and BOLD muscular signals are fully represented as biomarker elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No explicit comparator is present in the source."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Exercise intervention is fully represented."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "BOLD and phosphorus 31P references are adequately typed and preserved."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All inventory relations are completely and correctly mapped to client relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All types adhere to operational taxonomy rules and taxonomy report is complete with no findings."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Direct explicit relations are preserved without weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unjustified inferences were promoted to explicit status."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Ambiguities are appropriately handled and none are hidden."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "All polarities are affirmed and consistent with the source."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Timing ('Après') and its link to exercise are fully preserved."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Phenomenon and outcomes are correctly typed without unsupported endpoint promotion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like 31P and BOLD are retained with high specificity."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "Explicit coverage report is complete with zero unmapped items."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route DESIGN_STUDY perfectly matches the study-construction intent involving measurements, timing, intervention, and objectives."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "Audit completed successfully. All explicit fragments and relations are fully covered, properly typed, and correctly routed with no critical defects."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-12T22:04:09.908Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-6af39119376e4565",
+      "resultDigest": "ke1-6af39119376e4565",
+      "coverageStatus": "NO_PROVIDER",
+      "verifiedAt": "2026-08-12T22:04:09.920Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-12T22:04:09.908Z",
+    "updatedAt": "2026-08-12T22:04:09.920Z",
+    "digest": "ke1-8c18a20f4a03470b"
+  },
+  "semanticModelDigest": "ke1-8c18a20f4a03470b",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-1",
+          "sourceMessageId": "SEM-H10:user:1",
+          "sourceText": "Après",
+          "normalizedMeaning": "après",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-2",
+          "sourceMessageId": "SEM-H10:user:1",
+          "sourceText": "exercice",
+          "normalizedMeaning": "exercice",
+          "mappedClientElementIds": [
+            "elem-1",
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-3",
+          "sourceMessageId": "SEM-H10:user:1",
+          "sourceText": "phosphore 31P",
+          "normalizedMeaning": "phosphore 31P",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-4",
+          "sourceMessageId": "SEM-H10:user:1",
+          "sourceText": "BOLD",
+          "normalizedMeaning": "BOLD",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-5",
+          "sourceMessageId": "SEM-H10:user:1",
+          "sourceText": "musculaire",
+          "normalizedMeaning": "musculaire",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-6",
+          "sourceMessageId": "SEM-H10:user:1",
+          "sourceText": "voir",
+          "normalizedMeaning": "voir",
+          "mappedClientElementIds": [
+            "elem-5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-7",
+          "sourceMessageId": "SEM-H10:user:1",
+          "sourceText": "récupération énergétique",
+          "normalizedMeaning": "récupération énergétique",
+          "mappedClientElementIds": [
+            "elem-6"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-1",
+          "sourceInventoryItemId": "inv-3",
+          "targetInventoryItemId": "inv-7",
+          "normalizedRelation": "OBSERVES",
+          "mappedClientRelationIds": [
+            "rel-elem-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+        },
+        {
+          "inventoryRelationId": "rel-2",
+          "sourceInventoryItemId": "inv-4",
+          "targetInventoryItemId": "inv-7",
+          "normalizedRelation": "OBSERVES",
+          "mappedClientRelationIds": [
+            "rel-elem-2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+        },
+        {
+          "inventoryRelationId": "rel-3",
+          "sourceInventoryItemId": "inv-7",
+          "targetInventoryItemId": "inv-2",
+          "normalizedRelation": "RECOVERS_AFTER",
+          "mappedClientRelationIds": [
+            "rel-elem-3"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+        },
+        {
+          "inventoryRelationId": "structural:inventory-coordinated:elem-3:elem-4",
+          "sourceInventoryItemId": "inv-3",
+          "targetInventoryItemId": "inv-4",
+          "normalizedRelation": "DIRECT_RELATED_TO_REQUIRED_FOR_COORDINATED_SCIENTIFIC_SUBJECTS_GROUNDED_BY_rel-1+rel-2",
+          "mappedClientRelationIds": [
+            "rel-elem-4"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "Scientific subjects coordinated through the same explicit requested change/outcome retain a direct relationship."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-ee0dc35e0f97ec2a",
+    "evaluatedAt": "2026-08-12T22:04:09.925Z",
+    "goldFrameDigest": "ke1-e536b7eeef013faa",
+    "result": {
+      "caseId": "SEM-H10",
+      "explicitObjectRecall": 0.25,
+      "explicitRelationRecall": 0,
+      "criticalSemanticRecall": 0.2,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 1,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": [
+        "EXPLICIT_METHOD_LOST:spectroscopie 31P",
+        "EXPLICIT_METHOD_LOST:BOLD musculaire",
+        "EXPLICIT_SCIENTIFIC_OBJECT_LOST:récupération énergétique",
+        "RELATION_LOST:spectroscopie 31P->récupération énergétique"
+      ]
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H10",
+    "explicitObjectRecall": 0.25,
+    "explicitRelationRecall": 0,
+    "criticalSemanticRecall": 0.2,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 1,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": [
+      "EXPLICIT_METHOD_LOST:spectroscopie 31P",
+      "EXPLICIT_METHOD_LOST:BOLD musculaire",
+      "EXPLICIT_SCIENTIFIC_OBJECT_LOST:récupération énergétique",
+      "RELATION_LOST:spectroscopie 31P->récupération énergétique"
+    ]
+  },
+  "error": null
+}

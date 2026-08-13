@@ -1,0 +1,8 @@
+{
+  "campaign": "SEM-001R5-DIAGNOSTIC",
+  "campaignId": "sem-001r5-diagnostic-2026-08-12T22-15-01-231Z-ke1-75b68ddee7e53412",
+  "status": "NOT_CALCULATED",
+  "reason": "REQUIRES_30_OF_30_COMPLETE",
+  "complete": 26,
+  "required": 30
+}

@@ -1,0 +1,6 @@
+{
+  "status": "NOT_CALCULATED",
+  "compatibleComplete": 6,
+  "required": 30,
+  "reason": "Metrics require 30/30 configuration-compatible critic results."
+}

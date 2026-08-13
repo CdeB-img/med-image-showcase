@@ -1,0 +1,64 @@
+{
+  "campaign": "SEM-001R3C",
+  "provider": "GOOGLE_GEMINI",
+  "model": "gemini-3.5-flash-lite",
+  "maxRequestsPerMinute": 5,
+  "concurrency": 1,
+  "historicalR3bCallsRealized": 11,
+  "continuationCallsRealized": 10,
+  "cumulativeR3bAndR3cCallsRealized": 21,
+  "reconstructionCallsRealizedInContinuation": 0,
+  "criticCallsRealizedInContinuation": 10,
+  "retriesInContinuation": 0,
+  "callsAvoidedByCompatibleCache": 32,
+  "avoidedDetail": {
+    "reconstructionCalls": 30,
+    "completedD02CriticCalls": 2
+  },
+  "minimumCallsDeferredByGate": 24,
+  "providerFailuresInContinuation": 0,
+  "completeCompatibleCriticCases": 6,
+  "accountingTable": [
+    {
+      "stage": "RECONSTRUCTION",
+      "cases": 30,
+      "potentialCalls": 30,
+      "actualCalls": 0,
+      "retries": 0,
+      "avoidedByCompatibleCache": 30,
+      "deferredByGate": 0,
+      "providerFailures": 0
+    },
+    {
+      "stage": "CRITIC_D02_COMPLETE",
+      "cases": 1,
+      "potentialCalls": 2,
+      "actualCalls": 0,
+      "retries": 0,
+      "avoidedByCompatibleCache": 2,
+      "deferredByGate": 0,
+      "providerFailures": 0
+    },
+    {
+      "stage": "CRITIC_TARGETED_R3C",
+      "cases": 5,
+      "potentialCalls": "5 initial plus bounded second critic cycles and retries",
+      "actualCalls": 10,
+      "retries": 0,
+      "avoidedByCompatibleCache": 0,
+      "deferredByGate": 0,
+      "providerFailures": 0
+    },
+    {
+      "stage": "CRITIC_REMAINDER",
+      "cases": 24,
+      "potentialCalls": "24 initial plus bounded second critic cycles and retries",
+      "actualCalls": 0,
+      "retries": 0,
+      "avoidedByCompatibleCache": 0,
+      "deferredByGate": 24,
+      "providerFailures": 0
+    }
+  ],
+  "distinction": "Compatible-cache avoidance is distinct from calls not yet required or deferred by the targeted gate."
+}

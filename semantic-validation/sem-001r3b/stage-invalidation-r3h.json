@@ -1,0 +1,62 @@
+{
+  "campaign": "SEM-001R3H",
+  "rule": "Only deterministic composite-method acceptance, compilation, canonicalization, routing, and target evaluation are invalidated.",
+  "rows": [
+    {
+      "stage": "RECONSTRUCTION",
+      "affectedCases": "none",
+      "llmRequired": false,
+      "disposition": "30_COMPLETE_REUSED"
+    },
+    {
+      "stage": "BASE_CRITIC_1_3",
+      "affectedCases": "none",
+      "llmRequired": false,
+      "disposition": "COMPLETE_REUSED"
+    },
+    {
+      "stage": "PRIMARY_TARGET",
+      "affectedCases": [
+        "SEM-D21"
+      ],
+      "llmRequired": false,
+      "disposition": "CLOSED_UNCHANGED"
+    },
+    {
+      "stage": "TARGET_ATOMIC_AUDIT",
+      "affectedCases": [
+        "SEM-D28"
+      ],
+      "llmRequired": false,
+      "disposition": "VALID_R3G_AUDIT_REUSED"
+    },
+    {
+      "stage": "COMPOSITE_REQUIREMENT_ACCEPTANCE_GUARD",
+      "affectedCases": [
+        "SEM-D28"
+      ],
+      "llmRequired": false,
+      "disposition": "FIRST_INVALIDATED_STAGE"
+    },
+    {
+      "stage": "TARGET_DOWNSTREAM",
+      "affectedCases": [
+        "SEM-D28"
+      ],
+      "llmRequired": false,
+      "disposition": "REPLAYED"
+    },
+    {
+      "stage": "REMAINING_DEVELOPMENT",
+      "affectedCases": "24 cases",
+      "llmRequired": false,
+      "disposition": "NOT_AUTHORIZED"
+    },
+    {
+      "stage": "HOLDOUT",
+      "affectedCases": "30 cases",
+      "llmRequired": false,
+      "disposition": "NOT_STARTED_FORBIDDEN"
+    }
+  ]
+}

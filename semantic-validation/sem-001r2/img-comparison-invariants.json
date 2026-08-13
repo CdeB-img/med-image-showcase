@@ -1,0 +1,24 @@
+{
+  "campaignId": "sem-001r2-2026-08-11T01-17-41-951Z-ke1-3bb807034f670217",
+  "status": "PASS",
+  "contract": "IMG-1.2.1",
+  "result": {
+    "passed": 7,
+    "expected": 7
+  },
+  "cases": [
+    { "left": "CT", "right": "IRM", "status": "PASS" },
+    { "left": "T1", "right": "T2", "status": "PASS" },
+    { "left": "PET", "right": "CT", "status": "PASS" },
+    { "left": "Echo", "right": "CMR", "status": "PASS" },
+    { "left": "ADC", "right": "perfusion", "status": "PASS" },
+    { "left": "élastographie par résonance magnétique", "right": "élastographie ultrasonore", "status": "PASS" },
+    { "left": "DWI corps entier", "right": "PET PSMA", "status": "PASS" }
+  ],
+  "evidence": {
+    "testFile": "src/features/scientific-semantic-reconstruction/__tests__/downstream-diagnostics.test.ts",
+    "testFileResult": "10/10 PASS",
+    "comparisonInvariantSubset": "7/7 PASS",
+    "executedAt": "2026-08-11T01:30:53.000Z"
+  }
+}

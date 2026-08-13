@@ -1,0 +1,86 @@
+{
+  "campaign": "SEM-001R3C",
+  "decidedAt": "2026-08-12T12:00:50.794Z",
+  "targetedExpected": 5,
+  "targetedComplete": 5,
+  "allFiveComplete": true,
+  "evidence": [
+    {
+      "caseId": "SEM-D16",
+      "finalStatus": "COMPLETE",
+      "absoluteBlockers": [],
+      "criticalUnsupportedInferenceCount": 0,
+      "newUnsupportedInferences": 0,
+      "acceptedRepairCount": 2,
+      "rejectedRepairCount": 0,
+      "sourceGroundedRepairs": true,
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "providerError": null
+    },
+    {
+      "caseId": "SEM-D19",
+      "finalStatus": "COMPLETE",
+      "absoluteBlockers": [],
+      "criticalUnsupportedInferenceCount": 0,
+      "newUnsupportedInferences": 0,
+      "acceptedRepairCount": 1,
+      "rejectedRepairCount": 0,
+      "sourceGroundedRepairs": true,
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "providerError": null
+    },
+    {
+      "caseId": "SEM-D21",
+      "finalStatus": "COMPLETE",
+      "absoluteBlockers": [
+        "EXPLICIT_CONSTRAINT_LOST:1,5T",
+        "EXPLICIT_CONSTRAINT_LOST:3T",
+        "RELATION_LOST:1,5T->3T"
+      ],
+      "criticalUnsupportedInferenceCount": 0,
+      "newUnsupportedInferences": 0,
+      "acceptedRepairCount": 1,
+      "rejectedRepairCount": 0,
+      "sourceGroundedRepairs": true,
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "providerError": null
+    },
+    {
+      "caseId": "SEM-D23",
+      "finalStatus": "COMPLETE",
+      "absoluteBlockers": [],
+      "criticalUnsupportedInferenceCount": 0,
+      "newUnsupportedInferences": 0,
+      "acceptedRepairCount": 2,
+      "rejectedRepairCount": 0,
+      "sourceGroundedRepairs": true,
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "providerError": null
+    },
+    {
+      "caseId": "SEM-D28",
+      "finalStatus": "COMPLETE",
+      "absoluteBlockers": [
+        "EXPLICIT_METHOD_LOST:CT inspiration-expiration"
+      ],
+      "criticalUnsupportedInferenceCount": 0,
+      "newUnsupportedInferences": 0,
+      "acceptedRepairCount": 1,
+      "rejectedRepairCount": 0,
+      "sourceGroundedRepairs": true,
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "providerError": null
+    }
+  ],
+  "conditions": {
+    "genericRepairsCoherent": false,
+    "noNewMajorDefect": false,
+    "noSpecificRepair": true,
+    "noInferenceExplosion": true,
+    "sourceGroundedRepairs": true,
+    "noNewBlockers": false
+  },
+  "decision": "TARGETED_GATE_REQUIRES_FURTHER_WORK",
+  "remainingCriticCallsAuthorized": false,
+  "holdout": "FORBIDDEN"
+}

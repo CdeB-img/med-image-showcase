@@ -1,0 +1,41 @@
+{
+  "campaign": "SEM-001R3E",
+  "historicalDecisionPreserved": "R3D_BLOCKED_BY_PROVIDER",
+  "correctedTechnicalClassification": "STRUCTURED_OUTPUT_CONTRACT_FAILURE",
+  "providerCapacityFailure": false,
+  "evidence": {
+    "httpStatus": 200,
+    "providerSchemaAccepted": true,
+    "generations": 3,
+    "rawOutputHistoricallyPersisted": false
+  },
+  "failurePaths": [
+    {
+      "path": "atomicityReports.0.status:custom",
+      "cause": "INTERNAL_INVARIANT_OVERCONSTRAINED",
+      "explanation": "R3D forbade COMPLETE reports from carrying valid constituent evidence."
+    },
+    {
+      "path": "compositionReports.0.composite:custom",
+      "cause": "INTERNAL_INVARIANT_OVERCONSTRAINED",
+      "explanation": "R3D forbade COMPLETE reports from identifying the existing composite."
+    },
+    {
+      "path": "routeAssessment.proposedRoute:custom",
+      "cause": "PROMPT_CONDITIONAL_UNDERSPECIFIED",
+      "explanation": "The transport allowed nullable routes but the prompt did not state the status/null matrix explicitly."
+    }
+  ],
+  "taxonomy": {
+    "primary": "D_OVERCONSTRAINED_INTERNAL_INVARIANT",
+    "contributing": [
+      "B_PROMPT_UNDERSPECIFICATION",
+      "C_PROVIDER_INTERNAL_CONDITIONAL_MISMATCH"
+    ],
+    "notDemonstrated": [
+      "A_PROVIDER_SCHEMA_REJECTION",
+      "E_PARSER_TRANSFORMATION",
+      "F_PURE_MODEL_NON_COMPLIANCE"
+    ]
+  }
+}

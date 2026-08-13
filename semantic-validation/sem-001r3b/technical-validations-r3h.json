@@ -1,0 +1,47 @@
+{
+  "campaign": "SEM-001R3H",
+  "validatedAt": "2026-08-12T17:18:40Z",
+  "decision": "PASS",
+  "checks": [
+    {
+      "name": "R3D_R3F_R3G_R3H_TARGETED_TESTS",
+      "status": "PASS",
+      "observed": "43/43"
+    },
+    {
+      "name": "R3H_GENERIC_CONTRACT_TESTS",
+      "status": "PASS",
+      "observed": "8/8"
+    },
+    {
+      "name": "TYPECHECK",
+      "status": "PASS",
+      "observed": "0 errors"
+    },
+    {
+      "name": "LINT",
+      "status": "PASS",
+      "observed": "0 errors; 7 pre-existing Fast Refresh warnings"
+    },
+    {
+      "name": "PRODUCTION_BUILD",
+      "status": "PASS",
+      "observed": "build completed; pre-existing non-blocking warnings"
+    },
+    {
+      "name": "PRODUCT_FORBIDDEN_LITERAL_SCAN",
+      "status": "PASS",
+      "observed": "no targeted case identifier or fixture expression in atomic-composition.ts"
+    },
+    {
+      "name": "CONFIGURATION_DIGESTS",
+      "status": "PASS",
+      "observed": "13/13 R3H configuration checks"
+    },
+    {
+      "name": "GIT_DIFF_CHECK",
+      "status": "PASS",
+      "observed": "no whitespace errors"
+    }
+  ]
+}

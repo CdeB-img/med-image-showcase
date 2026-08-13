@@ -1,0 +1,43 @@
+{
+  "campaign": "SEM-001R3D",
+  "decidedAt": "2026-08-12T14:02:49.966Z",
+  "decision": "R3D_BLOCKED_BY_PROVIDER",
+  "evidence": [
+    {
+      "caseId": "SEM-D21",
+      "finalStatus": "INVALID_STRUCTURED_OUTPUT_FAILURE",
+      "explicitObjectRecall": null,
+      "explicitRelationRecall": null,
+      "criticalSemanticRecall": null,
+      "routeCorrect": null,
+      "absoluteBlockers": null,
+      "providerError": {
+        "category": "INVALID_STRUCTURED_OUTPUT",
+        "httpStatus": 200,
+        "providerStatus": null,
+        "message": "SEMANTIC_PROVIDER_INVALID_STRUCTURED_OUTPUT"
+      },
+      "auditTerminalReason": null
+    },
+    {
+      "caseId": "SEM-D28",
+      "finalStatus": "NOT_RUN_GATE_STOP_AFTER_D21",
+      "explicitObjectRecall": null,
+      "explicitRelationRecall": null,
+      "criticalSemanticRecall": null,
+      "routeCorrect": null,
+      "absoluteBlockers": null,
+      "providerError": null,
+      "auditTerminalReason": null
+    }
+  ],
+  "conditions": {
+    "atomicInventoryTargetPass": false,
+    "semanticCompositionTargetPass": false,
+    "noAbsoluteBlockers": false,
+    "routesCorrect": false
+  },
+  "remainingDevelopmentCriticCallsAuthorized": false,
+  "remainingDevelopmentCriticCallsExecuted": 0,
+  "holdout": "FORBIDDEN"
+}

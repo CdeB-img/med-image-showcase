@@ -1,0 +1,75 @@
+{
+  "caseId": "SEM-D21",
+  "runId": "sem-001r3d-2026-08-12T14-02-42-101Z",
+  "finalStatus": "FAILED",
+  "reconstructionReused": true,
+  "baseCriticReused": true,
+  "firstImpactedStage": "2b",
+  "requestStarted": "2026-08-12T14:02:42.103Z",
+  "completedAt": null,
+  "baseCandidateDigest": "ke1-845b0697782d3feb",
+  "auditPromptVersion": "SEM-001-ATOMIC-COMPOSITION-AUDIT-1.0",
+  "auditPromptDigest": "ke1-c9a31eaef35041ea",
+  "auditSchemaVersion": "SEM-001-ATOMIC-COMPOSITION-1.0",
+  "operationTraces": [
+    {
+      "operation": "ATOMIC_COMPOSITION_AUDIT",
+      "cycle": null,
+      "callId": null,
+      "structuredDigest": null,
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T14:02:42.103Z",
+          "requestFinished": "2026-08-12T14:02:44.725Z",
+          "latencyMs": 2622,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T14:02:44.726Z",
+          "requestFinished": "2026-08-12T14:02:46.862Z",
+          "latencyMs": 2136,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T14:02:46.863Z",
+          "requestFinished": "2026-08-12T14:02:49.960Z",
+          "latencyMs": 3097,
+          "outcome": "FAILED",
+          "category": "INVALID_STRUCTURED_OUTPUT",
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": "Structured atomicity/composition audit did not satisfy the contract after two bounded correction generations. Issues: atomicityReports.0.status:custom, compositionReports.0.composite:custom, routeAssessment.proposedRoute:custom.",
+          "retryable": false
+        }
+      ]
+    }
+  ],
+  "audits": [],
+  "compilationDiagnostics": [],
+  "repairDiagnostics": [],
+  "semanticModel": null,
+  "metric": null,
+  "error": {
+    "category": "INVALID_STRUCTURED_OUTPUT",
+    "httpStatus": 200,
+    "providerStatus": null,
+    "message": "SEMANTIC_PROVIDER_INVALID_STRUCTURED_OUTPUT"
+  },
+  "latencyMs": 7860
+}

@@ -1,0 +1,40 @@
+{
+  "campaign": "SEM-001R3I",
+  "decision": "R3I_DEVELOPMENT_REQUIRES_FURTHER_REPAIR",
+  "failures": [
+    {
+      "caseId": "SEM-D22",
+      "metricFailure": null,
+      "absoluteBlocker": [],
+      "firstDivergentStage": "BASE_CRITIC_ACCEPTANCE_CONSISTENCY",
+      "failureClass": "CRITIC_FAILURE",
+      "genericOrIsolated": "ISOLATED_1_OF_24_CURRENT_CRITICS",
+      "recommendedOwner": "SEM_CRITIC_PROMPT_OR_ACCEPTANCE_CONTRACT",
+      "deterministicCoverageAtDivergence": {
+        "explicit": {
+          "status": "INCOMPLETE",
+          "unresolvedInventoryItemIds": [
+            "inv-2"
+          ],
+          "unresolvedSourceText": [
+            "mesuré"
+          ]
+        },
+        "relations": {
+          "status": "COMPLETE"
+        },
+        "taxonomy": {
+          "status": "COMPLETE"
+        },
+        "criticVerdict": "ACCEPT",
+        "criticClaim": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED=PASS"
+      },
+      "error": {
+        "category": "SEMANTIC_PIPELINE_FAILURE",
+        "message": "SEM001R3I_CRITIC_NOT_ACCEPTED:CRITIC_ACCEPT_INCONSISTENT_WITH_COVERAGE"
+      }
+    }
+  ],
+  "disposition": "STOP_FOR_HUMAN_REVIEW",
+  "noAutomaticCorrectionApplied": true
+}

@@ -1,0 +1,103 @@
+{
+  "campaign": "SEM-001R3D",
+  "calculatedAt": "2026-08-12T14:02:42.101Z",
+  "decisionRule": "Invalidate only the new conditional audit and its downstream products for the two independently evidenced structural failures.",
+  "globalBaseConfiguration": "UNCHANGED",
+  "stages": [
+    {
+      "stage": 1,
+      "name": "LLM_RECONSTRUCTION",
+      "scope": "30 Development cases",
+      "disposition": "COMPLETE_REUSED",
+      "llmRequired": false,
+      "reason": "Prompt, schema, model and candidate digests are unchanged."
+    },
+    {
+      "stage": 2,
+      "name": "BASE_LLM_CRITIC_1_3",
+      "scope": "6 R3C compatible cases",
+      "disposition": "COMPLETE_REUSED",
+      "llmRequired": false,
+      "reason": "The base critic prompt and schema are unchanged."
+    },
+    {
+      "stage": "2b",
+      "name": "CONDITIONAL_ATOMIC_COMPOSITION_AUDIT",
+      "scope": [
+        "SEM-D21",
+        "SEM-D28"
+      ],
+      "disposition": "INVALIDATED_REQUIRED",
+      "llmRequired": true,
+      "reason": "Independent evaluation evidence identifies an atomic inventory gap and a composite-object gap."
+    },
+    {
+      "stage": "2b",
+      "name": "CONDITIONAL_ATOMIC_COMPOSITION_AUDIT",
+      "scope": "four other R3C-compatible cases",
+      "disposition": "NOT_APPLICABLE",
+      "llmRequired": false,
+      "reason": "No atomicity/composition defect was established; this is a demand-driven bounded control, not a global critic replacement."
+    },
+    {
+      "stage": 3,
+      "name": "CANONICALIZATION",
+      "scope": [
+        "SEM-D21",
+        "SEM-D28"
+      ],
+      "disposition": "INVALIDATED_DOWNSTREAM",
+      "llmRequired": false,
+      "reason": "Depends on the repaired candidate."
+    },
+    {
+      "stage": 4,
+      "name": "COVERAGE_AND_REPAIRS",
+      "scope": [
+        "SEM-D21",
+        "SEM-D28"
+      ],
+      "disposition": "INVALIDATED_DOWNSTREAM",
+      "llmRequired": false,
+      "reason": "Depends on new source-grounded inventory objects and relations."
+    },
+    {
+      "stage": 5,
+      "name": "EVALUATION",
+      "scope": [
+        "SEM-D21",
+        "SEM-D28"
+      ],
+      "disposition": "INVALIDATED_DOWNSTREAM",
+      "llmRequired": false,
+      "reason": "Evaluator is unchanged but must assess the new canonical model."
+    },
+    {
+      "stage": 6,
+      "name": "CASE_METRICS",
+      "scope": [
+        "SEM-D21",
+        "SEM-D28"
+      ],
+      "disposition": "INVALIDATED_DOWNSTREAM",
+      "llmRequired": false,
+      "reason": "Metrics depend on the re-evaluated models."
+    },
+    {
+      "stage": 2,
+      "name": "REMAINING_DEVELOPMENT_CRITIC",
+      "scope": "24 cases",
+      "disposition": "DEFERRED_BY_TARGETED_GATE",
+      "llmRequired": false,
+      "reason": "The targeted gate must pass first."
+    },
+    {
+      "stage": "HOLDOUT",
+      "name": "HUMAN_HOLDOUT",
+      "scope": "30 cases",
+      "disposition": "FORBIDDEN",
+      "llmRequired": false,
+      "reason": "Development is not globally qualified."
+    }
+  ]
+}

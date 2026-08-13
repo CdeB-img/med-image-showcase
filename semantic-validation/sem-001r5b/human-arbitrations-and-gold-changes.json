@@ -1,0 +1,152 @@
+{
+  "campaign": "SEM-001R5B",
+  "configurationName": "SEM_LEGACY_R5B",
+  "recordedAt": "2026-08-13",
+  "authority": "HUMAN_ARBITRATION_R5B_USER_INSTRUCTION",
+  "arbitrationsRecorded": 7,
+  "arbitrationsRequired": 7,
+  "decisionsDigest": "ke1-900fba5c2229f7f8",
+  "gold": {
+    "holdoutCorpusDigest": "ke1-08392b87b2cc140b",
+    "beforeDigest": "ke1-471d78570da30acb",
+    "afterDigest": "ke1-9208b3d2f1d0698e",
+    "beforeFixtureDigest": "ke1-fc953456b8da4602",
+    "afterFixtureDigest": "ke1-8ad1c8df44cc5323",
+    "changedCaseIds": [
+      "SEM-H12",
+      "SEM-H22",
+      "SEM-H25",
+      "SEM-H30"
+    ]
+  },
+  "arbitrations": [
+    {
+      "caseId": "SEM-H10",
+      "decision": "LEGACY_MAPPING_UNRESOLVED",
+      "sourceText": "Après exercice, phosphore 31P et BOLD musculaire; voir récupération énergétique.",
+      "action": "NO_ENGINE_CHANGE_NO_GOLD_CHANGE",
+      "compatibilityStatus": "NEW_MAPPING_REQUIRED",
+      "reason": "The legacy METHOD/BIOMARKER/PHENOMENON/SCIENTIFIC_OBJECT taxonomy cannot represent the PD-003 V2 separation without loss.",
+      "goldChanged": false
+    },
+    {
+      "caseId": "SEM-H12",
+      "decision": "CHANGE_GOLD",
+      "sourceText": "delta-radiomics avant et pendant RT pour toxicité pulmonaire tardive",
+      "reason": "The phrase 'pour toxicité pulmonaire tardive' does not explicitly ground a predictive relation.",
+      "beforeGoldDigest": "ke1-486aaf4c9e098340",
+      "afterGoldDigest": "ke1-6cde19cdd202bfb9",
+      "changes": [
+        {
+          "assertionKind": "RELATION",
+          "before": "delta-radiomics PREDICTS_CANDIDATE toxicité pulmonaire tardive",
+          "after": "delta-radiomics RELATED_TO_CANDIDATE toxicité pulmonaire tardive",
+          "justification": "The new relation preserves a source-grounded candidate association without adding predictive force."
+        }
+      ],
+      "goldChanged": true
+    },
+    {
+      "caseId": "SEM-H17",
+      "decision": "LEGACY_MAPPING_UNRESOLVED",
+      "sourceText": "Faut-il regarder l'œdème ou la MVO pour expliquer le no-reflow, sans dire que l'un cause l'autre ?",
+      "action": "NO_ENGINE_CHANGE_NO_GOLD_CHANGE",
+      "compatibilityStatus": "NEW_MAPPING_REQUIRED",
+      "reason": "The legacy taxonomy forces an artificial reduction between phenomenon, observable property and biomarker role.",
+      "goldChanged": false
+    },
+    {
+      "caseId": "SEM-H22",
+      "decision": "CHANGE_GOLD",
+      "sourceText": "pseudoprogression vs récidive: perfusion DSC + spectro, résultat histologique pas toujours dispo",
+      "reason": "The source grounds comparison, while COMPARATOR is a study role and must not replace the ontological CONDITION type.",
+      "beforeGoldDigest": "ke1-f0e5291329d2ed2f",
+      "afterGoldDigest": "ke1-3e3339709c51fb9c",
+      "changes": [
+        {
+          "assertionKind": "OBJECT_TYPE",
+          "before": "récidive COMPARATOR",
+          "after": "récidive CONDITION",
+          "justification": "The recurrence remains a condition; its comparator function remains a contextual role."
+        },
+        {
+          "assertionKind": "RELATION",
+          "before": "pseudoprogression DISTINGUISHED_FROM récidive",
+          "after": "pseudoprogression COMPARES_WITH récidive",
+          "justification": "The lexical source 'vs' demonstrates comparison, not the stronger distinction relation."
+        }
+      ],
+      "goldChanged": true
+    },
+    {
+      "caseId": "SEM-H25",
+      "decision": "CHANGE_GOLD",
+      "sourceText": "Deux agents K-edge injectés pour séparer inflammation et vascularisation : projet exploratoire.",
+      "reason": "An injected agent is an intervention/exposure in the legacy operational model; inflammation and vascularisation are phenomena/targets.",
+      "beforeGoldDigest": "ke1-ed0b42b5fc1bb7c9",
+      "afterGoldDigest": "ke1-7faf143f525ab413",
+      "changes": [
+        {
+          "assertionKind": "OBJECT_TYPE",
+          "before": "deux agents K-edge METHOD",
+          "after": "deux agents K-edge INTERVENTION",
+          "justification": "The source explicitly describes injected agents, not a measurement technique."
+        },
+        {
+          "assertionKind": "OBJECT_TYPE",
+          "before": "inflammation SCIENTIFIC_OBJECT",
+          "after": "inflammation PHENOMENON",
+          "justification": "Inflammation is the targeted phenomenon in the stated exploratory design."
+        },
+        {
+          "assertionKind": "OBJECT_TYPE",
+          "before": "vascularisation SCIENTIFIC_OBJECT",
+          "after": "vascularisation PHENOMENON",
+          "justification": "Vascularisation is the targeted phenomenon in the stated exploratory design."
+        }
+      ],
+      "unchangedAssertions": [
+        "inflammation DISTINGUISHED_FROM vascularisation"
+      ],
+      "goldChanged": true
+    },
+    {
+      "caseId": "SEM-H28",
+      "decision": "PD003_V2_REALIGNMENT_REQUIRED",
+      "sourceText": "Mesurer perfusion rénale et prédire déclin du DFG; ASL maintenant, suivi deux ans.",
+      "action": "NO_PD003_V2_CHANGE_NO_ENGINE_CHANGE_NO_GOLD_CHANGE",
+      "compatibilityStatus": "NEW_MAPPING_REQUIRED",
+      "reason": "PD-003 V2 already separates ObservableProperty, MeasurementDefinition and BiomarkerRole; the legacy SEM model cannot fully represent that separation.",
+      "goldChanged": false
+    },
+    {
+      "caseId": "SEM-H30",
+      "decision": "CHANGE_GOLD_RELATION_AND_LEGACY_MAPPING_UNRESOLVED",
+      "sourceText": "Comparer deux parcours de consentement et mesurer le taux de refus dans quatre centres.",
+      "reason": "Measuring a refusal rate does not express an intention to modify it. The ENDPOINT/OUTCOME legacy mapping remains unresolved and is not forced in this mission.",
+      "compatibilityStatus": "NEW_MAPPING_REQUIRED",
+      "beforeGoldDigest": "ke1-5abe8bf801de41cc",
+      "afterGoldDigest": "ke1-6b0b12cfa7e91c9b",
+      "changes": [
+        {
+          "assertionKind": "RELATION",
+          "before": "deux parcours de consentement AIMS_TO_MODIFY taux de refus",
+          "after": null,
+          "justification": "The relation is removed because it is not source-grounded."
+        }
+      ],
+      "unchangedAssertions": [
+        "taux de refus OUTCOME"
+      ],
+      "unresolvedIssue": "ENDPOINT_VS_OUTCOME_LEGACY_MAPPING",
+      "goldChanged": true
+    }
+  ],
+  "normativeBoundaries": {
+    "pd003V2IsCurrentAuthority": true,
+    "legacyPassEqualsPd003V2Pass": false,
+    "pd003V2Changed": false,
+    "semanticEngineChangedForArbitration": false,
+    "thresholdsChanged": false
+  }
+}

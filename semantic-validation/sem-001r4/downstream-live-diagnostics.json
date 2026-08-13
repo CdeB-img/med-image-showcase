@@ -1,0 +1,11 @@
+{
+  "campaign": "SEM-001R4-CLOSURE",
+  "status": "NOT_STARTED_GATE_CLOSED",
+  "requiredFlows": [
+    "SEM_TO_ST",
+    "SEM_TO_IMG",
+    "SEM_TO_PRJ"
+  ],
+  "requiredPrecondition": "Holdout PASS and browser LIVE_LLM PASS",
+  "observedPrecondition": "Human arbitration required at SEM-H07"
+}

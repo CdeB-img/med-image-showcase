@@ -1,0 +1,311 @@
+{
+  "campaign": "SEM-001R5-DIAGNOSTIC",
+  "campaignId": "sem-001r5-diagnostic-2026-08-12T22-15-01-231Z-ke1-75b68ddee7e53412",
+  "decision": "SEM_FINAL_DIAGNOSTIC_COMPLETE",
+  "configurationDigest": "ke1-75b68ddee7e53412",
+  "semanticConfigurationDigest": "ke1-01d917dec0ebcd82",
+  "development": {
+    "complete": 30,
+    "total": 30
+  },
+  "holdout": {
+    "terminal": 30,
+    "canonicalComplete": 26,
+    "pipelineFailed": 4,
+    "pass": 10,
+    "fail": 20,
+    "total": 30,
+    "passCaseIds": [
+      "SEM-H01",
+      "SEM-H02",
+      "SEM-H03",
+      "SEM-H04",
+      "SEM-H05",
+      "SEM-H06",
+      "SEM-H07",
+      "SEM-H08",
+      "SEM-H09",
+      "SEM-H19"
+    ],
+    "pipelineFailureCaseIds": [
+      "SEM-H13",
+      "SEM-H21",
+      "SEM-H26",
+      "SEM-H29"
+    ]
+  },
+  "summary": {
+    "errorFamilyCount": 4,
+    "normativeArbitrationCount": 7,
+    "confirmedGenericRepairCount": 3,
+    "isolatedProviderRequalificationCount": 1,
+    "additionalTechnicalBlockerCount": 1,
+    "estimatedRemainingCampaigns": 2,
+    "estimatedRemainingCampaignsConditionalMaximum": 3
+  },
+  "families": [
+    {
+      "family": "GOLD_NORMATIVE",
+      "count": 7,
+      "caseIds": ["SEM-H10", "SEM-H12", "SEM-H17", "SEM-H22", "SEM-H25", "SEM-H28", "SEM-H30"]
+    },
+    {
+      "family": "PROMPT_RECONSTRUCTION",
+      "count": 9,
+      "caseIds": ["SEM-H11", "SEM-H13", "SEM-H15", "SEM-H16", "SEM-H20", "SEM-H21", "SEM-H23", "SEM-H24", "SEM-H26"]
+    },
+    {
+      "family": "EVALUATOR",
+      "count": 3,
+      "caseIds": ["SEM-H14", "SEM-H18", "SEM-H27"]
+    },
+    {
+      "family": "PROVIDER_STRUCTURED_OUTPUT",
+      "count": 1,
+      "caseIds": ["SEM-H29"]
+    }
+  ],
+  "failures": [
+    {
+      "caseId": "SEM-H10",
+      "firstDivergentStage": "POST_CANONICAL_GOLD_COMPARISON",
+      "failureClass": "GOLD_VS_OPERATIONAL_TAXONOMY_CONFLICT",
+      "recommendedOwner": "NOXIA_SCIENTIFIC_SEMANTIC_GOVERNANCE",
+      "blockage": "NORMATIVE",
+      "firstCause": {"product": false, "gold": true, "taxonomy": true, "prompt": false, "coverage": false, "critic": false, "evaluator": false, "canonicalization": false, "routing": false, "provider": false},
+      "arbitrationRequired": true
+    },
+    {
+      "caseId": "SEM-H11",
+      "firstDivergentStage": "RECONSTRUCTION",
+      "failureClass": "EXPLICIT_ENDPOINT_AND_DERIVATION_NOT_RECONSTRUCTED",
+      "recommendedOwner": "SEM_RECONSTRUCTION_OWNER",
+      "blockage": "GENERIC",
+      "firstCause": {"product": true, "gold": false, "taxonomy": false, "prompt": true, "coverage": false, "critic": false, "evaluator": false, "canonicalization": false, "routing": false, "provider": false},
+      "arbitrationRequired": false
+    },
+    {
+      "caseId": "SEM-H12",
+      "firstDivergentStage": "POST_CANONICAL_GOLD_COMPARISON",
+      "failureClass": "GOLD_RELATION_NOT_SOURCE_GROUNDED",
+      "recommendedOwner": "SEM_GOLD_GOVERNANCE",
+      "blockage": "NORMATIVE",
+      "firstCause": {"product": false, "gold": true, "taxonomy": false, "prompt": false, "coverage": false, "critic": false, "evaluator": false, "canonicalization": false, "routing": false, "provider": false},
+      "arbitrationRequired": true
+    },
+    {
+      "caseId": "SEM-H13",
+      "firstDivergentStage": "RECONSTRUCTION_SOURCE_GROUNDING",
+      "failureClass": "NON_CONTIGUOUS_EXPLICIT_SOURCE_SPAN",
+      "recommendedOwner": "SEM_RECONSTRUCTION_OWNER",
+      "blockage": "GENERIC",
+      "firstCause": {"product": true, "gold": false, "taxonomy": false, "prompt": true, "coverage": false, "critic": false, "evaluator": false, "canonicalization": false, "routing": false, "provider": false},
+      "arbitrationRequired": false
+    },
+    {
+      "caseId": "SEM-H14",
+      "firstDivergentStage": "POST_CANONICAL_EVALUATION",
+      "failureClass": "COMPOSITE_UNKNOWN_EQUIVALENCE_FALSE_NEGATIVE",
+      "recommendedOwner": "SEM_EVALUATOR_OWNER",
+      "blockage": "GENERIC",
+      "firstCause": {"product": true, "gold": false, "taxonomy": false, "prompt": false, "coverage": false, "critic": false, "evaluator": true, "canonicalization": false, "routing": false, "provider": false},
+      "arbitrationRequired": false
+    },
+    {
+      "caseId": "SEM-H15",
+      "firstDivergentStage": "RECONSTRUCTION_CLASSIFICATION",
+      "failureClass": "STUDY_SETTING_TYPED_AS_POPULATION",
+      "recommendedOwner": "SEM_RECONSTRUCTION_OWNER",
+      "blockage": "GENERIC",
+      "firstCause": {"product": true, "gold": false, "taxonomy": false, "prompt": true, "coverage": false, "critic": false, "evaluator": false, "canonicalization": false, "routing": false, "provider": false},
+      "arbitrationRequired": false
+    },
+    {
+      "caseId": "SEM-H16",
+      "firstDivergentStage": "RECONSTRUCTION_CLASSIFICATION",
+      "failureClass": "UNSELECTED_CHOICE_TYPED_AS_COMPARATOR",
+      "recommendedOwner": "SEM_RECONSTRUCTION_OWNER",
+      "blockage": "GENERIC",
+      "firstCause": {"product": true, "gold": false, "taxonomy": false, "prompt": true, "coverage": false, "critic": false, "evaluator": false, "canonicalization": false, "routing": false, "provider": false},
+      "arbitrationRequired": false
+    },
+    {
+      "caseId": "SEM-H17",
+      "firstDivergentStage": "POST_CANONICAL_GOLD_COMPARISON",
+      "failureClass": "GOLD_VS_ONTOLOGY_BOUNDARY_CONFLICT",
+      "recommendedOwner": "NOXIA_SCIENTIFIC_SEMANTIC_GOVERNANCE",
+      "blockage": "NORMATIVE",
+      "firstCause": {"product": false, "gold": true, "taxonomy": true, "prompt": false, "coverage": false, "critic": false, "evaluator": false, "canonicalization": false, "routing": false, "provider": false},
+      "arbitrationRequired": true
+    },
+    {
+      "caseId": "SEM-H18",
+      "firstDivergentStage": "POST_CANONICAL_EVALUATION",
+      "failureClass": "NEGATED_CONSTRAINT_PARAPHRASE_FALSE_NEGATIVE",
+      "recommendedOwner": "SEM_EVALUATOR_OWNER",
+      "blockage": "GENERIC",
+      "firstCause": {"product": true, "gold": false, "taxonomy": false, "prompt": false, "coverage": false, "critic": false, "evaluator": true, "canonicalization": false, "routing": false, "provider": false},
+      "arbitrationRequired": false
+    },
+    {
+      "caseId": "SEM-H20",
+      "firstDivergentStage": "RECONSTRUCTION_CLASSIFICATION",
+      "failureClass": "PARTICIPANT_GROUP_REDUCED_TO_CONDITION",
+      "recommendedOwner": "SEM_RECONSTRUCTION_OWNER",
+      "blockage": "GENERIC",
+      "firstCause": {"product": true, "gold": false, "taxonomy": false, "prompt": true, "coverage": false, "critic": false, "evaluator": false, "canonicalization": false, "routing": false, "provider": false},
+      "arbitrationRequired": false
+    },
+    {
+      "caseId": "SEM-H21",
+      "firstDivergentStage": "RECONSTRUCTION_INVENTORY_RELATION",
+      "failureClass": "INVENTORY_RELATION_ENDPOINT_INCONSISTENCY",
+      "recommendedOwner": "SEM_RECONSTRUCTION_OWNER",
+      "blockage": "GENERIC",
+      "firstCause": {"product": true, "gold": false, "taxonomy": false, "prompt": true, "coverage": false, "critic": false, "evaluator": false, "canonicalization": false, "routing": false, "provider": false},
+      "arbitrationRequired": false
+    },
+    {
+      "caseId": "SEM-H22",
+      "firstDivergentStage": "POST_CANONICAL_GOLD_COMPARISON",
+      "failureClass": "GOLD_DISTINCTION_RELATION_NOT_SOURCE_GROUNDED",
+      "recommendedOwner": "SEM_GOLD_GOVERNANCE",
+      "blockage": "NORMATIVE",
+      "firstCause": {"product": false, "gold": true, "taxonomy": false, "prompt": false, "coverage": false, "critic": false, "evaluator": false, "canonicalization": false, "routing": false, "provider": false},
+      "arbitrationRequired": true
+    },
+    {
+      "caseId": "SEM-H23",
+      "firstDivergentStage": "RECONSTRUCTION_RELATION",
+      "failureClass": "EXPLICIT_REPETITION_RELATION_ENDPOINT_MISMATCH",
+      "recommendedOwner": "SEM_RECONSTRUCTION_OWNER",
+      "blockage": "GENERIC",
+      "firstCause": {"product": true, "gold": false, "taxonomy": false, "prompt": true, "coverage": false, "critic": false, "evaluator": false, "canonicalization": false, "routing": false, "provider": false},
+      "arbitrationRequired": false
+    },
+    {
+      "caseId": "SEM-H24",
+      "firstDivergentStage": "RECONSTRUCTION_CLASSIFICATION",
+      "failureClass": "QUANTITATIVE_OBSERVABLE_TYPED_AS_METHOD",
+      "recommendedOwner": "SEM_RECONSTRUCTION_OWNER",
+      "blockage": "GENERIC",
+      "firstCause": {"product": true, "gold": false, "taxonomy": false, "prompt": true, "coverage": false, "critic": false, "evaluator": false, "canonicalization": false, "routing": false, "provider": false},
+      "arbitrationRequired": false
+    },
+    {
+      "caseId": "SEM-H25",
+      "firstDivergentStage": "POST_CANONICAL_GOLD_COMPARISON",
+      "failureClass": "GOLD_VS_INTERVENTION_AND_PHENOMENON_TAXONOMY_CONFLICT",
+      "recommendedOwner": "NOXIA_SCIENTIFIC_SEMANTIC_GOVERNANCE",
+      "blockage": "NORMATIVE",
+      "firstCause": {"product": false, "gold": true, "taxonomy": true, "prompt": false, "coverage": false, "critic": false, "evaluator": false, "canonicalization": false, "routing": false, "provider": false},
+      "arbitrationRequired": true
+    },
+    {
+      "caseId": "SEM-H26",
+      "firstDivergentStage": "RECONSTRUCTION_PROVENANCE_AND_RELATION",
+      "failureClass": "NON_CONTIGUOUS_SOURCE_AND_RELATION_ENDPOINT_INCONSISTENCY",
+      "recommendedOwner": "SEM_RECONSTRUCTION_OWNER",
+      "blockage": "GENERIC",
+      "firstCause": {"product": true, "gold": false, "taxonomy": false, "prompt": true, "coverage": false, "critic": false, "evaluator": false, "canonicalization": false, "routing": false, "provider": false},
+      "arbitrationRequired": false
+    },
+    {
+      "caseId": "SEM-H27",
+      "firstDivergentStage": "POST_CANONICAL_EVALUATION",
+      "failureClass": "NEGATED_CONSTRAINT_PARAPHRASE_FALSE_NEGATIVE",
+      "recommendedOwner": "SEM_EVALUATOR_OWNER",
+      "blockage": "GENERIC",
+      "firstCause": {"product": true, "gold": false, "taxonomy": false, "prompt": false, "coverage": false, "critic": false, "evaluator": true, "canonicalization": false, "routing": false, "provider": false},
+      "arbitrationRequired": false
+    },
+    {
+      "caseId": "SEM-H28",
+      "firstDivergentStage": "POST_CANONICAL_GOLD_COMPARISON",
+      "failureClass": "GOLD_VS_QUANTITATIVE_TARGET_OUTCOME_BOUNDARY_CONFLICT",
+      "recommendedOwner": "NOXIA_SCIENTIFIC_SEMANTIC_GOVERNANCE",
+      "blockage": "NORMATIVE",
+      "firstCause": {"product": false, "gold": true, "taxonomy": true, "prompt": false, "coverage": false, "critic": false, "evaluator": false, "canonicalization": false, "routing": false, "provider": false},
+      "arbitrationRequired": true
+    },
+    {
+      "caseId": "SEM-H29",
+      "firstDivergentStage": "PROVIDER_STRUCTURED_OUTPUT",
+      "failureClass": "MULTITURN_RETAINED_INVENTORY_STRUCTURED_NONCOMPLIANCE",
+      "recommendedOwner": "SEM_PROVIDER_CONTRACT_OWNER",
+      "blockage": "ISOLATED",
+      "firstCause": {"product": false, "gold": false, "taxonomy": false, "prompt": false, "coverage": false, "critic": false, "evaluator": false, "canonicalization": false, "routing": false, "provider": true},
+      "arbitrationRequired": false
+    },
+    {
+      "caseId": "SEM-H30",
+      "firstDivergentStage": "POST_CANONICAL_GOLD_COMPARISON",
+      "failureClass": "GOLD_VS_ENDPOINT_OUTCOME_AND_MODIFICATION_RELATION_CONFLICT",
+      "recommendedOwner": "NOXIA_SCIENTIFIC_SEMANTIC_GOVERNANCE",
+      "blockage": "NORMATIVE",
+      "firstCause": {"product": false, "gold": true, "taxonomy": true, "prompt": false, "coverage": false, "critic": false, "evaluator": false, "canonicalization": false, "routing": false, "provider": false},
+      "arbitrationRequired": true
+    }
+  ],
+  "closurePlan": [
+    {
+      "id": "GENERIC_REPAIR_A",
+      "scope": "CONTEXTUAL_CLASSIFICATION_ROLES_AND_ROUTING",
+      "caseIdsForTraceabilityOnly": ["SEM-H11", "SEM-H15", "SEM-H16", "SEM-H20", "SEM-H24"],
+      "implementationConstraint": "NO_CASE_ID_NO_DOMAIN_TERM_NO_GOLD_NO_LITERAL_VALUE"
+    },
+    {
+      "id": "GENERIC_REPAIR_B",
+      "scope": "RECONSTRUCTION_GRAPH_PROVENANCE_AND_RELATION_INTEGRITY",
+      "caseIdsForTraceabilityOnly": ["SEM-H11", "SEM-H13", "SEM-H15", "SEM-H21", "SEM-H23", "SEM-H26"],
+      "implementationConstraint": "NO_CASE_ID_NO_DOMAIN_TERM_NO_GOLD_NO_LITERAL_VALUE"
+    },
+    {
+      "id": "GENERIC_REPAIR_C",
+      "scope": "EVALUATOR_COMPOSITIONAL_EQUIVALENCE",
+      "caseIdsForTraceabilityOnly": ["SEM-H14", "SEM-H18", "SEM-H27"],
+      "implementationConstraint": "NO_CASE_ID_NO_DOMAIN_TERM_NO_GOLD_NO_LITERAL_VALUE"
+    },
+    {
+      "id": "NORMATIVE_ARBITRATION_D",
+      "scope": "SOURCE_GOLD_OPERATIONAL_TAXONOMY_DECISIONS",
+      "caseIdsForTraceabilityOnly": ["SEM-H10", "SEM-H12", "SEM-H17", "SEM-H22", "SEM-H25", "SEM-H28", "SEM-H30"]
+    },
+    {
+      "id": "PROVIDER_REQUALIFICATION_E",
+      "scope": "MULTITURN_STRUCTURED_OUTPUT_REPRODUCIBILITY",
+      "caseIdsForTraceabilityOnly": ["SEM-H29"]
+    }
+  ],
+  "llm": {
+    "consumed": 49,
+    "avoided": 26,
+    "reusedOperations": 26,
+    "reusedCases": 10,
+    "deterministicReplays": 0,
+    "structuredRegenerations": 1,
+    "transientRetries": 0,
+    "providerCapacityFailures": 0
+  },
+  "technicalValidation": {
+    "typecheck": "PASS",
+    "semanticTests": {
+      "passed": 256,
+      "failed": 1,
+      "total": 257,
+      "status": "FAIL"
+    },
+    "blocker": {
+      "class": "FROZEN_GOLD_DIGEST_ASSERTION_STALE_AFTER_AUTHORIZED_ARBITRATION",
+      "scope": "OUTSIDE_HOLDOUT_CASE_FAILURE_FAMILIES",
+      "changedDuringR5": false,
+      "repairAppliedDuringR5": false
+    }
+  },
+  "repairAppliedDuringCampaign": false,
+  "goldChangedDuringCampaign": false,
+  "thresholdChangedDuringCampaign": false,
+  "commit": false,
+  "push": false,
+  "deployment": false
+}

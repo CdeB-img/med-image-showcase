@@ -1,0 +1,223 @@
+{
+  "campaign": "SEM-001R4-CLOSURE",
+  "repairs": [
+    {
+      "repairId": "R4A-RELATION-COVERAGE-001",
+      "failureClass": "RELATION_COVERAGE_FALSE_POSITIVE",
+      "owner": "DETERMINISTIC_RELATION_COVERAGE",
+      "affectedCaseIds": [
+        "SEM-H01"
+      ],
+      "status": "VALIDATED",
+      "source": "semantic-validation/sem-001r4a/h01-deterministic-replay-r4a.json",
+      "changedConfigurationOwners": [
+        "coverageAndRepair"
+      ]
+    },
+    {
+      "repairId": "R4-CLOSURE-H07-ARBITRATION-005",
+      "failureClass": "NORMATIVE_GOLD_TAXONOMY_CONTRADICTION",
+      "owner": "NOXIA_SCIENTIFIC_SEMANTIC_GOVERNANCE",
+      "affectedCaseIds": [
+        "SEM-H07"
+      ],
+      "status": "NOT_APPLIED_REQUIRES_HUMAN_ARBITRATION",
+      "changedConfigurationOwners": [],
+      "goldUsedForProductDecision": false,
+      "requiredDecision": "Choose whether mapping natif denotes the named METHOD or an explicitly intended quantitative BIOMARKER in H07; any Gold or normative taxonomy change requires a new governed configuration.",
+      "partialRepairForbidden": "The generic strain guard remains unapplied until the blocking mapping-natif decision is made."
+    },
+    {
+      "repairId": "R4-CLOSURE-TAXONOMY-002",
+      "failureClass": "DETERMINISTIC_TAXONOMY_GUARD_GAP",
+      "owner": "DETERMINISTIC_TAXONOMY_COVERAGE",
+      "affectedCaseIds": [
+        "SEM-H05"
+      ],
+      "revalidatedCompatibleCaseIds": [
+        "SEM-H01",
+        "SEM-H02",
+        "SEM-H03",
+        "SEM-H04",
+        "SEM-H06",
+        "SEM-H07",
+        "SEM-H08",
+        "SEM-H09"
+      ],
+      "status": "VALIDATED",
+      "changedConfigurationOwners": [
+        "evaluator"
+      ],
+      "testEvidence": "src/features/scientific-semantic-reconstruction/__tests__/r4-closure-taxonomy-guard.test.ts:8/8 PASS",
+      "goldUsedForProductDecision": false,
+      "minimalReplay": "SEM-H01..SEM-H05 deterministic only; provider outputs reused"
+    },
+    {
+      "repairId": "R4-CLOSURE-EVALUATOR-EQUIVALENCE-003",
+      "failureClass": "MULTILINGUAL_EVALUATOR_FALSE_NEGATIVE",
+      "owner": "SEM_POST_CANONICAL_EVALUATOR",
+      "affectedCaseIds": [
+        "SEM-H05"
+      ],
+      "revalidatedCompatibleCaseIds": [
+        "SEM-H01",
+        "SEM-H02",
+        "SEM-H03",
+        "SEM-H04",
+        "SEM-H06",
+        "SEM-H07",
+        "SEM-H08",
+        "SEM-H09"
+      ],
+      "status": "VALIDATED",
+      "changedConfigurationOwners": [
+        "evaluator"
+      ],
+      "testEvidence": "src/features/scientific-semantic-reconstruction/__tests__/r4-closure-evaluator-equivalence.test.ts:9/9 PASS",
+      "goldUsedForProductDecision": false,
+      "scope": "Generic cross-language modality synonym normalization; Gold and product semantic model unchanged"
+    },
+    {
+      "repairId": "R4-CLOSURE-EVALUATOR-EQUIVALENCE-004",
+      "failureClass": "MULTILINGUAL_EVALUATOR_FALSE_NEGATIVE",
+      "owner": "SEM_POST_CANONICAL_EVALUATOR",
+      "affectedCaseIds": [
+        "SEM-H06"
+      ],
+      "revalidatedCompatibleCaseIds": [
+        "SEM-H01",
+        "SEM-H02",
+        "SEM-H03",
+        "SEM-H04",
+        "SEM-H05",
+        "SEM-H07",
+        "SEM-H08",
+        "SEM-H09"
+      ],
+      "status": "VALIDATED",
+      "changedConfigurationOwners": [
+        "evaluator"
+      ],
+      "testEvidence": "src/features/scientific-semantic-reconstruction/__tests__/r4-closure-evaluator-equivalence.test.ts:9/9 PASS",
+      "goldUsedForProductDecision": false,
+      "scope": "Generic ultrasound terminology equivalence; Gold and product semantic model unchanged"
+    },
+    {
+      "repairId": "R4B-H07-GOLD-ARBITRATION-005",
+      "failureClass": "GOLD_CONFLICT",
+      "owner": "HOLDOUT_GOLD_GOVERNANCE",
+      "affectedCaseIds": [
+        "SEM-H07"
+      ],
+      "status": "HUMAN_ARBITRATION_APPLIED",
+      "changedConfigurationOwners": [
+        "holdoutGold"
+      ],
+      "source": "semantic-validation/sem-001r4/h07-gold-arbitration-r4b.json",
+      "oldExpectation": "mapping natif=BIOMARKER",
+      "newExpectation": "mapping natif=METHOD",
+      "productCodeChangedForThisCorrection": false
+    },
+    {
+      "repairId": "R4B-CONTEXTUAL-OBSERVABLE-006",
+      "failureClass": "DETERMINISTIC_TAXONOMY_GUARD_GAP",
+      "owner": "DETERMINISTIC_TAXONOMY_COVERAGE",
+      "affectedCaseIds": [
+        "SEM-H07"
+      ],
+      "revalidatedCompatibleCaseIds": [
+        "SEM-H01",
+        "SEM-H02",
+        "SEM-H03",
+        "SEM-H04",
+        "SEM-H05",
+        "SEM-H06",
+        "SEM-H08",
+        "SEM-H09"
+      ],
+      "status": "VALIDATED",
+      "changedConfigurationOwners": [
+        "coverageAndRepair"
+      ],
+      "testEvidence": "src/features/scientific-semantic-reconstruction/__tests__/r4b-method-observable-context.test.ts:11/11 PASS",
+      "genericRule": "Relational use as a quantitative observable/predictor is distinguished from explicit production-method semantics; no strain/GLS/H07 lexical mapping exists.",
+      "ambiguityPreservation": "An unnamed quantitative output of a predictive method remains explicit as ambiguity; no output value is fabricated.",
+      "goldUsedForProductDecision": false
+    },
+    {
+      "repairId": "R4B-NEGATED-CONSTRAINT-EQUIVALENCE-007",
+      "failureClass": "EVALUATOR_PARAPHRASE_FALSE_NEGATIVE",
+      "owner": "SEM_POST_CANONICAL_EVALUATOR",
+      "affectedCaseIds": [
+        "SEM-H08"
+      ],
+      "revalidatedCompatibleCaseIds": [
+        "SEM-H01",
+        "SEM-H02",
+        "SEM-H03",
+        "SEM-H04",
+        "SEM-H05",
+        "SEM-H06",
+        "SEM-H07",
+        "SEM-H09"
+      ],
+      "status": "VALIDATED",
+      "changedConfigurationOwners": [
+        "evaluator"
+      ],
+      "testEvidence": "src/features/scientific-semantic-reconstruction/__tests__/r4b-constraint-and-target-equivalence.test.ts: exclusion-equivalence scenarios PASS",
+      "genericRule": "Equivalent explicit exclusion and negated-copula formulations are normalized without weakening the excluded scientific object.",
+      "goldUsedForProductDecision": false
+    },
+    {
+      "repairId": "R4B-STUDIED-TARGET-TAXONOMY-008",
+      "failureClass": "DETERMINISTIC_TAXONOMY_GUARD_GAP",
+      "owner": "DETERMINISTIC_TAXONOMY_COVERAGE",
+      "affectedCaseIds": [
+        "SEM-H08"
+      ],
+      "revalidatedCompatibleCaseIds": [
+        "SEM-H01",
+        "SEM-H02",
+        "SEM-H03",
+        "SEM-H04",
+        "SEM-H05",
+        "SEM-H06",
+        "SEM-H07",
+        "SEM-H09"
+      ],
+      "status": "VALIDATED",
+      "changedConfigurationOwners": [
+        "coverageAndRepair"
+      ],
+      "testEvidence": "src/features/scientific-semantic-reconstruction/__tests__/r4b-constraint-and-target-equivalence.test.ts: studied-target scenarios PASS",
+      "genericRule": "An unquantified target explicitly governed by a scientific intent and identified as the study subject remains SCIENTIFIC_OBJECT; explicit values, indices and parameters remain BIOMARKER.",
+      "goldUsedForProductDecision": false
+    },
+    {
+      "repairId": "R4B-REFERENCE-METHOD-EVALUATOR-009",
+      "failureClass": "MULTILINGUAL_EVALUATOR_AND_STUDY_ROLE_FALSE_NEGATIVE",
+      "owner": "SEM_POST_CANONICAL_EVALUATOR",
+      "affectedCaseIds": [
+        "SEM-H09"
+      ],
+      "revalidatedCompatibleCaseIds": [
+        "SEM-H01",
+        "SEM-H02",
+        "SEM-H03",
+        "SEM-H04",
+        "SEM-H05",
+        "SEM-H06",
+        "SEM-H07",
+        "SEM-H08"
+      ],
+      "status": "VALIDATED",
+      "changedConfigurationOwners": [
+        "evaluator"
+      ],
+      "testEvidence": "src/features/scientific-semantic-reconstruction/__tests__/r4-closure-evaluator-equivalence.test.ts:13/13 PASS",
+      "genericRule": "Equivalent multilingual virtual non-contrast labels match, and a typed METHOD with REFERENCE_STANDARD study role satisfies a comparator-role Gold without mutating its scientific type.",
+      "goldUsedForProductDecision": false
+    }
+  ]
+}

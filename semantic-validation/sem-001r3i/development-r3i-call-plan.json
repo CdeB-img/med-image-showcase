@@ -1,0 +1,48 @@
+{
+  "campaign": "SEM-001R3I",
+  "generatedAt": "2026-08-12T17:48:36.248Z",
+  "mustPrecedeProviderExecution": true,
+  "configurationDecision": "R3I_CONFIGURATION_VERIFIED",
+  "semanticConfigurationDigest": "ke1-d34d45911dbf8b5d",
+  "caseCount": 30,
+  "provider": "GOOGLE_GEMINI",
+  "model": "gemini-3.5-flash-lite",
+  "concurrency": 1,
+  "maxRequestStartsPerRollingMinute": 5,
+  "required": {
+    "reconstructionOperations": 0,
+    "criticCases": 24,
+    "criticSuccessfulOperationsLow": 24,
+    "criticSuccessfulOperationsHigh": 48,
+    "conditionalAuditCasesPreauthorized": 0,
+    "conditionalAuditCasesMaximumAfterGenericActivation": 24,
+    "conditionalAuditSuccessfulOperationsLow": 0,
+    "conditionalAuditSuccessfulOperationsHigh": 48,
+    "deterministicCasePipelines": 25,
+    "deterministicStageExecutions": 125
+  },
+  "retryPolicy": {
+    "maximumAttemptsPerLlmOperation": 5,
+    "minimumTransientWaitMs": 60000,
+    "retryAfterHasPriority": true,
+    "systemicCircuitBreaker": "3 independent exhausted operations with comparable provider failure"
+  },
+  "callsAvoidedByCompatibleCache": 44,
+  "avoidedDetail": {
+    "reconstruction": 30,
+    "closedBaseCritic": 12,
+    "validConditionalAudits": 2
+  },
+  "consumptionEstimate": {
+    "successfulLlmOperationsLow": 24,
+    "successfulLlmOperationsHigh": 96,
+    "boundedRequestStartsLow": 24,
+    "boundedRequestStartsHighIncludingRetriesAndStructuredCorrections": 720,
+    "note": "The high bound is a safety bound, not a quota target; fail-closed provider classification and the generic audit gate prevent speculative consumption."
+  },
+  "holdout": {
+    "cases": 30,
+    "callsAuthorized": 0,
+    "status": "NOT_STARTED_FORBIDDEN"
+  }
+}

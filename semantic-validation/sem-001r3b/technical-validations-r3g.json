@@ -1,0 +1,45 @@
+{
+  "campaign": "SEM-001R3G",
+  "validatedAt": "2026-08-12T16:41:53Z",
+  "results": [
+    {
+      "validation": "R3G dedicated generic contracts",
+      "result": "PASS",
+      "detail": "8/8"
+    },
+    {
+      "validation": "R3D, R3F and R3G affected contracts",
+      "result": "PASS",
+      "detail": "35/35"
+    },
+    {
+      "validation": "typecheck",
+      "result": "PASS",
+      "detail": "tsc -p tsconfig.app.json --noEmit"
+    },
+    {
+      "validation": "lint",
+      "result": "PASS",
+      "detail": "0 errors; 7 pre-existing Fast Refresh warnings"
+    },
+    {
+      "validation": "production build",
+      "result": "PASS",
+      "detail": "Vite production build completed; existing non-blocking Browserslist, annotation and chunk-size warnings"
+    },
+    {
+      "validation": "forbidden targeted literals in product owner",
+      "result": "PASS",
+      "detail": "No targeted identifier, value, modality or domain literal in atomic-composition.ts"
+    },
+    {
+      "validation": "git diff --check",
+      "result": "PASS",
+      "detail": "No whitespace errors"
+    }
+  ],
+  "configuration": "R3G_CONFIGURATION_VERIFIED",
+  "goldFrames": "30_UNCHANGED",
+  "holdout": "NOT_STARTED_FORBIDDEN",
+  "remainingDevelopment": "24_NOT_AUTHORIZED"
+}

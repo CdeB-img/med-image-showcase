@@ -1,0 +1,59 @@
+{
+  "campaign": "SEM-001R3J",
+  "recordedAt": "2026-08-12T18:52:23.822Z",
+  "status": "PASS",
+  "tests": {
+    "r3jTargeted": {
+      "passed": 8,
+      "total": 8
+    },
+    "SEM": {
+      "files": 19,
+      "passed": 204,
+      "total": 204
+    },
+    "Knowledge": {
+      "files": 8,
+      "passed": 87,
+      "total": 87
+    },
+    "IMG": {
+      "files": 9,
+      "passed": 60,
+      "total": 60
+    },
+    "PRJ": {
+      "files": 5,
+      "passed": 56,
+      "total": 56
+    },
+    "SYS": {
+      "files": 11,
+      "passed": 34,
+      "total": 34
+    },
+    "TMP": {
+      "files": 2,
+      "passed": 18,
+      "total": 18
+    },
+    "aggregateRequiredSuites": {
+      "files": 54,
+      "passed": 459,
+      "total": 459
+    }
+  },
+  "commands": {
+    "typecheck": "PASS",
+    "lint": "PASS_WITH_7_PREEXISTING_FAST_REFRESH_WARNINGS",
+    "build": "PASS_WITH_NON_BLOCKING_WARNINGS",
+    "gitDiffCheck": "PASS"
+  },
+  "excludedByMandate": [
+    "HOLDOUT",
+    "FINAL_BROWSER",
+    "ST_LIVE",
+    "IMG_LIVE",
+    "PRJ_LIVE"
+  ]
+}

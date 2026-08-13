@@ -1,0 +1,3451 @@
+[
+  {
+    "caseId": "SEM-D03",
+    "split": "DEVELOPMENT_CASES",
+    "goldFrameDigest": "ke1-70b1081ba50939ff",
+    "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+    "criticPromptVersion": "SEM-001-CRITIC-1.2",
+    "provider": "GOOGLE_GEMINI",
+    "model": "gemini-3.5-flash-lite",
+    "requestStarted": "2026-08-11T10:12:46.236Z",
+    "completedAt": null,
+    "reconstructionStatus": "SUCCESS",
+    "criticStatus": "SUCCESS",
+    "canonicalizationStatus": "NOT_STARTED",
+    "evaluationStatus": "NOT_READY",
+    "finalStatus": "FAILED",
+    "retryCount": 0,
+    "latencyMs": 17016,
+    "operationTraces": [
+      {
+        "operation": "RECONSTRUCTION",
+        "turn": 1,
+        "cycle": null,
+        "callId": "gemini-call:ke1-4faed26774269a8b",
+        "structuredDigest": "ke1-23ee3b3d21ffc069",
+        "attempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T10:12:46.236Z",
+            "requestFinished": "2026-08-11T10:12:54.172Z",
+            "latencyMs": 7936,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ]
+      },
+      {
+        "operation": "CRITIC",
+        "turn": 1,
+        "cycle": 1,
+        "callId": "gemini-call:ke1-3aae4cc9a77a9395",
+        "structuredDigest": "ke1-00567f2296744f56",
+        "attempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T10:12:54.183Z",
+            "requestFinished": "2026-08-11T10:12:59.098Z",
+            "latencyMs": 4915,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ]
+      },
+      {
+        "operation": "CRITIC",
+        "turn": 1,
+        "cycle": 2,
+        "callId": "gemini-call:ke1-b0535683aed89c17",
+        "structuredDigest": "ke1-a2a304228b0c3776",
+        "attempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T10:12:59.103Z",
+            "requestFinished": "2026-08-11T10:13:03.248Z",
+            "latencyMs": 4145,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ]
+      }
+    ],
+    "reconstructionCandidate": {
+      "candidateId": "CAN-SEM-001",
+      "language": "fr",
+      "normalizedMeaning": "Comparaison à 5 jours de la taille d'infarctus mesurée par LGE entre stenting immédiat et stenting différé chez des patients avec STEMI antérieur, avec la MVO comme critère secondaire.",
+      "summaryForUser": "Vous souhaitez comparer, 5 jours après un STEMI antérieur, la taille de l'infarctus mesurée par LGE entre un stenting immédiat et un stenting différé, en évaluant la MVO en critère secondaire.",
+      "semanticInventory": {
+        "explicitFragments": [
+          {
+            "inventoryItemId": "inv_1",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "patients présentant un STEMI antérieur",
+            "normalizedLabel": "patients avec STEMI antérieur",
+            "localRole": "population",
+            "polarity": "AFFIRMED",
+            "modifiers": [
+              "antérieur"
+            ],
+            "linkedInventoryItemIds": [
+              "inv_2"
+            ]
+          },
+          {
+            "inventoryItemId": "inv_2",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "STEMI antérieur",
+            "normalizedLabel": "infarctus du myocarde avec sus-décalage du segment ST antérieur",
+            "localRole": "condition",
+            "polarity": "AFFIRMED",
+            "modifiers": [
+              "antérieur"
+            ],
+            "linkedInventoryItemIds": []
+          },
+          {
+            "inventoryItemId": "inv_3",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "comparer",
+            "normalizedLabel": "comparer",
+            "localRole": "action",
+            "polarity": "AFFIRMED",
+            "modifiers": [],
+            "linkedInventoryItemIds": [
+              "inv_5",
+              "inv_9",
+              "inv_10"
+            ]
+          },
+          {
+            "inventoryItemId": "inv_4",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "5 jours",
+            "normalizedLabel": "5 jours",
+            "localRole": "timing",
+            "polarity": "AFFIRMED",
+            "modifiers": [],
+            "linkedInventoryItemIds": []
+          },
+          {
+            "inventoryItemId": "inv_5",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "taille d'infarctus",
+            "normalizedLabel": "taille de l'infarctus",
+            "localRole": "biomarker",
+            "polarity": "AFFIRMED",
+            "modifiers": [],
+            "linkedInventoryItemIds": [
+              "inv_6"
+            ]
+          },
+          {
+            "inventoryItemId": "inv_6",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "LGE",
+            "normalizedLabel": "rehaussement tardif au gadolinium",
+            "localRole": "method",
+            "polarity": "AFFIRMED",
+            "modifiers": [],
+            "linkedInventoryItemIds": []
+          },
+          {
+            "inventoryItemId": "inv_7",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "stenting immédiat",
+            "normalizedLabel": "stenting immédiat",
+            "localRole": "intervention",
+            "polarity": "AFFIRMED",
+            "modifiers": [
+              "immédiat"
+            ],
+            "linkedInventoryItemIds": []
+          },
+          {
+            "inventoryItemId": "inv_8",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "différé",
+            "normalizedLabel": "stenting différé",
+            "localRole": "intervention",
+            "polarity": "AFFIRMED",
+            "modifiers": [
+              "différé"
+            ],
+            "linkedInventoryItemIds": []
+          },
+          {
+            "inventoryItemId": "inv_9",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "stenting immédiat et différé",
+            "normalizedLabel": "comparaison de stenting immédiat et différé",
+            "localRole": "comparison",
+            "polarity": "AFFIRMED",
+            "modifiers": [],
+            "linkedInventoryItemIds": [
+              "inv_7",
+              "inv_8"
+            ]
+          },
+          {
+            "inventoryItemId": "inv_10",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "MVO",
+            "normalizedLabel": "obstruction micro-vasculaire",
+            "localRole": "endpoint",
+            "polarity": "AFFIRMED",
+            "modifiers": [
+              "secondaire"
+            ],
+            "linkedInventoryItemIds": []
+          }
+        ],
+        "explicitRelations": [
+          {
+            "inventoryRelationId": "rel_1",
+            "sourceInventoryItemId": "inv_2",
+            "targetInventoryItemId": "inv_1",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "patients présentant un STEMI antérieur",
+            "normalizedRelation": "AFFECTED_BY",
+            "polarity": "AFFIRMED"
+          },
+          {
+            "inventoryRelationId": "rel_2",
+            "sourceInventoryItemId": "inv_5",
+            "targetInventoryItemId": "inv_6",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "taille d'infarctus mesurée en LGE",
+            "normalizedRelation": "MEASURED_BY",
+            "polarity": "AFFIRMED"
+          },
+          {
+            "inventoryRelationId": "rel_3",
+            "sourceInventoryItemId": "inv_5",
+            "targetInventoryItemId": "inv_4",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "à 5 jours la taille d'infarctus",
+            "normalizedRelation": "REPEATED_AT",
+            "polarity": "AFFIRMED"
+          },
+          {
+            "inventoryRelationId": "rel_4",
+            "sourceInventoryItemId": "inv_7",
+            "targetInventoryItemId": "inv_8",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "stenting immédiat et différé",
+            "normalizedRelation": "COMPARES_WITH",
+            "polarity": "AFFIRMED"
+          },
+          {
+            "inventoryRelationId": "rel_5",
+            "sourceInventoryItemId": "inv_3",
+            "targetInventoryItemId": "inv_5",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "comparer [...] la taille d'infarctus",
+            "normalizedRelation": "OBSERVES",
+            "polarity": "AFFIRMED"
+          },
+          {
+            "inventoryRelationId": "rel_6",
+            "sourceInventoryItemId": "inv_3",
+            "targetInventoryItemId": "inv_9",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "comparer [...] entre stenting immédiat et différé",
+            "normalizedRelation": "COMPARES_WITH",
+            "polarity": "AFFIRMED"
+          },
+          {
+            "inventoryRelationId": "rel_7",
+            "sourceInventoryItemId": "inv_10",
+            "targetInventoryItemId": "inv_4",
+            "sourceMessageId": "SEM-D03:user:1",
+            "sourceText": "à 5 jours [...] avec MVO en critère secondaire",
+            "normalizedRelation": "REPEATED_AT",
+            "polarity": "AFFIRMED"
+          }
+        ]
+      },
+      "elements": [
+        {
+          "clientElementId": "elem_1",
+          "type": "POPULATION",
+          "canonicalMeaning": "Patients avec infarctus du myocarde avec sus-décalage du segment ST antérieur",
+          "studyRole": "SUBJECT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_1"
+          ],
+          "sourceMessageId": "SEM-D03:user:1",
+          "sourceText": "patients présentant un STEMI antérieur",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        },
+        {
+          "clientElementId": "elem_2",
+          "type": "CONDITION",
+          "canonicalMeaning": "Infarctus du myocarde avec sus-décalage du segment ST (STEMI) antérieur",
+          "studyRole": "NONE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_2"
+          ],
+          "sourceMessageId": "SEM-D03:user:1",
+          "sourceText": "STEMI antérieur",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        },
+        {
+          "clientElementId": "elem_3",
+          "type": "SCIENTIFIC_INTENT",
+          "canonicalMeaning": "Comparaison d'interventions et de mesures",
+          "studyRole": "NONE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_3"
+          ],
+          "sourceMessageId": "SEM-D03:user:1",
+          "sourceText": "comparer",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        },
+        {
+          "clientElementId": "elem_4",
+          "type": "TIMING",
+          "canonicalMeaning": "5 jours",
+          "studyRole": "NONE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_4"
+          ],
+          "sourceMessageId": "SEM-D03:user:1",
+          "sourceText": "5 jours",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        },
+        {
+          "clientElementId": "elem_5",
+          "type": "BIOMARKER",
+          "canonicalMeaning": "Taille de l'infarctus",
+          "studyRole": "MEASUREMENT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_5"
+          ],
+          "sourceMessageId": "SEM-D03:user:1",
+          "sourceText": "taille d'infarctus",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        },
+        {
+          "clientElementId": "elem_6",
+          "type": "METHOD",
+          "canonicalMeaning": "Rehaussement tardif au gadolinium (LGE) en imagerie par resonance magnétique",
+          "studyRole": "MEASUREMENT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_6"
+          ],
+          "sourceMessageId": "SEM-D03:user:1",
+          "sourceText": "LGE",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        },
+        {
+          "clientElementId": "elem_7",
+          "type": "INTERVENTION",
+          "canonicalMeaning": "Stenting immédiat",
+          "studyRole": "INTERVENTION_ARM",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_7"
+          ],
+          "sourceMessageId": "SEM-D03:user:1",
+          "sourceText": "stenting immédiat",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        },
+        {
+          "clientElementId": "elem_8",
+          "type": "INTERVENTION",
+          "canonicalMeaning": "Stenting différé",
+          "studyRole": "COMPARATOR_ARM",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_8"
+          ],
+          "sourceMessageId": "SEM-D03:user:1",
+          "sourceText": "différé",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        },
+        {
+          "clientElementId": "elem_9",
+          "type": "ENDPOINT",
+          "canonicalMeaning": "Obstruction micro-vasculaire (MVO) en critère secondaire",
+          "studyRole": "OUTCOME_ROLE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_10"
+          ],
+          "sourceMessageId": "SEM-D03:user:1",
+          "sourceText": "MVO",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        }
+      ],
+      "relations": [
+        {
+          "clientRelationId": "rel_elem_1",
+          "sourceClientElementId": "elem_2",
+          "targetClientElementId": "elem_1",
+          "relationType": "RELATED_TO_CANDIDATE",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel_1"
+          ],
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false
+        },
+        {
+          "clientRelationId": "rel_elem_2",
+          "sourceClientElementId": "elem_5",
+          "targetClientElementId": "elem_6",
+          "relationType": "MEASURED_BY",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel_2"
+          ],
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false
+        },
+        {
+          "clientRelationId": "rel_elem_3",
+          "sourceClientElementId": "elem_5",
+          "targetClientElementId": "elem_4",
+          "relationType": "REPEATED_AT",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel_3"
+          ],
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false
+        },
+        {
+          "clientRelationId": "rel_elem_4",
+          "sourceClientElementId": "elem_7",
+          "targetClientElementId": "elem_8",
+          "relationType": "COMPARES_WITH",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel_4"
+          ],
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false
+        },
+        {
+          "clientRelationId": "rel_elem_5",
+          "sourceClientElementId": "elem_3",
+          "targetClientElementId": "elem_5",
+          "relationType": "OBSERVES",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel_5"
+          ],
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false
+        },
+        {
+          "clientRelationId": "rel_elem_6",
+          "sourceClientElementId": "elem_3",
+          "targetClientElementId": "elem_7",
+          "relationType": "COMPARES_WITH",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel_6"
+          ],
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false
+        },
+        {
+          "clientRelationId": "rel_elem_7",
+          "sourceClientElementId": "elem_9",
+          "targetClientElementId": "elem_4",
+          "relationType": "REPEATED_AT",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel_7"
+          ],
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false
+        }
+      ],
+      "missingConcepts": [],
+      "ellipses": [],
+      "ambiguities": [],
+      "unknowns": [],
+      "contradictions": [],
+      "knowledgeRequests": [],
+      "clarificationCandidates": [],
+      "routeProposal": {
+        "route": "DESIGN_STUDY",
+        "confidence": 1,
+        "reason": "L'utilisateur formule un projet d'étude comparant deux interventions thérapeutiques (stenting immédiat versus différé) avec des critères de jugement et un délai précis.",
+        "expectedCapabilities": [
+          "Study design structuring",
+          "Intervention comparison configuration",
+          "Endpoint definition"
+        ]
+      },
+      "semanticWarnings": []
+    },
+    "critics": [
+      {
+        "criticId": "critic_001",
+        "verdict": "REVISE",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit object fragments are mapped to source-grounded elements."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Both comparative interventions are represented."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Both immediate and deferred stenting are represented."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No explicit broad modality family is present (only LGE method)."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "FAIL",
+            "evidence": "Inventory relation rel_6 (comparaison entre stenting immédiat et différé) is unmapped due to lack of a direct relation."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "FAIL",
+            "evidence": "Taxonomy report flagged element elem_5 as BIOMARKER instead of ENDPOINT under arm judging criteria precedence."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "No explicit relations were weakened."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No inferences promoted improperly."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "No ambiguities hidden."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "No negations present to reverse."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "PASS",
+            "evidence": "Timing '5 jours' is preserved."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "Endpoint promotion is supported by arm-judging precedence."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "No concepts generalized."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "All significant fragments are represented."
+          }
+        ],
+        "issues": [
+          {
+            "code": "EXPLICIT_RELATION_UNMAPPED",
+            "severity": "CRITICAL",
+            "elementClientIds": [
+              "elem_3",
+              "elem_7",
+              "elem_8"
+            ],
+            "description": "Inventory relation rel_6 is unmapped because the comparison action is not directly connected to both intervention arms.",
+            "recommendedAction": "Add direct relation connecting intent/arms or replace spokes.",
+            "resolved": false
+          },
+          {
+            "code": "TYPE_MISMATCH",
+            "severity": "CRITICAL",
+            "elementClientIds": [
+              "elem_5"
+            ],
+            "description": "Element elem_5 is classified as BIOMARKER but must be ENDPOINT with OUTCOME_ROLE per arm judging variable precedence.",
+            "recommendedAction": "Upsert element elem_5 to change type to ENDPOINT and studyRole to OUTCOME_ROLE.",
+            "resolved": false
+          }
+        ],
+        "proposedRepairs": [
+          {
+            "repairId": "rep_1",
+            "action": "UPSERT_ELEMENT",
+            "reason": "Correct element type for infarct size used to judge the comparative arms, changing from BIOMARKER to ENDPOINT per operational taxonomy.",
+            "sourceInventoryItemIds": [
+              "inv_5"
+            ],
+            "sourceInventoryRelationIds": [],
+            "elementClientElementId": "elem_5",
+            "elementType": "ENDPOINT",
+            "elementCanonicalMeaning": "Taille de l'infarctus",
+            "elementStudyRole": "OUTCOME_ROLE",
+            "elementPolarity": "AFFIRMED",
+            "elementInventoryItemIds": [
+              "inv_5"
+            ],
+            "elementSourceMessageId": "SEM-D03:user:1",
+            "elementSourceText": "taille d'infarctus",
+            "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+            "elementConfidence": 1,
+            "elementInferenceReason": null,
+            "elementRequiresConfirmation": false,
+            "elementSupersedesElementIds": [],
+            "relationClientRelationId": null,
+            "relationSourceClientElementId": null,
+            "relationTargetClientElementId": null,
+            "relationType": null,
+            "relationPolarity": null,
+            "relationInventoryRelationIds": [],
+            "relationEpistemicStatus": null,
+            "relationConfidence": null,
+            "relationInferenceReason": null,
+            "relationRequiresConfirmation": null,
+            "ambiguity": null,
+            "route": null,
+            "routeConfidence": null,
+            "routeReason": null,
+            "routeExpectedCapabilities": []
+          },
+          {
+            "repairId": "rep_2",
+            "action": "UPSERT_RELATION",
+            "reason": "Ground explicit relation rel_6 representing the comparison between immediate and deferred stenting intent.",
+            "sourceInventoryItemIds": [],
+            "sourceInventoryRelationIds": [
+              "rel_6"
+            ],
+            "elementClientElementId": null,
+            "elementType": null,
+            "elementCanonicalMeaning": null,
+            "elementStudyRole": null,
+            "elementPolarity": null,
+            "elementInventoryItemIds": [],
+            "elementSourceMessageId": null,
+            "elementSourceText": null,
+            "elementEpistemicStatus": null,
+            "elementConfidence": null,
+            "elementInferenceReason": null,
+            "elementRequiresConfirmation": null,
+            "elementSupersedesElementIds": [],
+            "relationClientRelationId": "rel_elem_6",
+            "relationSourceClientElementId": "elem_3",
+            "relationTargetClientElementId": "elem_7",
+            "relationType": "COMPARES_WITH",
+            "relationPolarity": "AFFIRMED",
+            "relationInventoryRelationIds": [
+              "rel_6"
+            ],
+            "relationEpistemicStatus": "EXPLICIT_USER_STATED",
+            "relationConfidence": 1,
+            "relationInferenceReason": null,
+            "relationRequiresConfirmation": false,
+            "ambiguity": null,
+            "route": null,
+            "routeConfidence": null,
+            "routeReason": null,
+            "routeExpectedCapabilities": []
+          }
+        ],
+        "criticSummary": "The initial analysis captured all explicit objects and most relations, but missed proper mapping for relation rel_6 and misclassified the primary infarct size variable as BIOMARKER instead of ENDPOINT according to the arm-judging precedence rule. Two repairs have been proposed to correct these discrepancies."
+      },
+      {
+        "criticId": "CRITIC-SEM-001",
+        "verdict": "REVISE",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit objects from the inventory are mapped to typed candidate elements."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Intervention arms for comparison are fully represented."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Immediate and delayed stenting interventions are represented."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "PASS",
+            "evidence": "LGE method modality is present."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "FAIL",
+            "evidence": "Relation rel_6 from inv_3 to inv_9 is unmapped due to coordinate comparison target representation."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "All elements respect operational taxonomy."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "Relations are preserved without weakening."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No unsupported inferences promoted."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "No ambiguities concealed."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "Polarities correctly preserved."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "PASS",
+            "evidence": "Timing at 5 days is fully retained."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "Endpoints and outcomes correctly classified."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific medical terms retained accurately."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "All inventory items mapped."
+          }
+        ],
+        "issues": [
+          {
+            "code": "EXPLICIT_RELATION_UNMAPPED",
+            "severity": "CRITICAL",
+            "elementClientIds": [
+              "elem_3",
+              "elem_7",
+              "elem_8"
+            ],
+            "description": "The explicit relation rel_6 connecting inventory intent (inv_3) to the comparison coordination (inv_9) lacks a direct candidate relation mapped between elem_3 and the intervention comparison arms.",
+            "recommendedAction": "Add a direct relation from elem_3 to elem_7 (or a comparative relation) grounded by rel_6.",
+            "resolved": false
+          }
+        ],
+        "proposedRepairs": [
+          {
+            "repairId": "rep_rel_6",
+            "action": "UPSERT_RELATION",
+            "reason": "Map the unmapped explicit relation rel_6 directly from the comparison intent element to the intervention arm.",
+            "sourceInventoryItemIds": [],
+            "sourceInventoryRelationIds": [
+              "rel_6"
+            ],
+            "elementClientElementId": null,
+            "elementType": null,
+            "elementCanonicalMeaning": null,
+            "elementStudyRole": null,
+            "elementPolarity": null,
+            "elementInventoryItemIds": [],
+            "elementSourceMessageId": null,
+            "elementSourceText": null,
+            "elementEpistemicStatus": null,
+            "elementConfidence": null,
+            "elementInferenceReason": null,
+            "elementRequiresConfirmation": null,
+            "elementSupersedesElementIds": [],
+            "relationClientRelationId": "rel_elem_6",
+            "relationSourceClientElementId": "elem_3",
+            "relationTargetClientElementId": "elem_7",
+            "relationType": "COMPARES_WITH",
+            "relationPolarity": "AFFIRMED",
+            "relationInventoryRelationIds": [
+              "rel_6"
+            ],
+            "relationEpistemicStatus": "EXPLICIT_USER_STATED",
+            "relationConfidence": 1,
+            "relationInferenceReason": null,
+            "relationRequiresConfirmation": false,
+            "ambiguity": null,
+            "route": null,
+            "routeConfidence": null,
+            "routeReason": null,
+            "routeExpectedCapabilities": []
+          }
+        ],
+        "criticSummary": "The candidate is well-formed overall and respects object typing and taxonomy rules. However, relation rel_6 is unmapped due to an unrepresented direct edge from the comparison intent to the intervention arms. A bounded repair is proposed to add this relation."
+      }
+    ],
+    "repairDiagnostics": [
+      {
+        "repairId": "rep_1",
+        "status": "ACCEPTED",
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+      },
+      {
+        "repairId": "rep_2",
+        "status": "ACCEPTED",
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+      },
+      {
+        "repairId": "rep_rel_6",
+        "status": "ACCEPTED",
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+      }
+    ],
+    "criticTerminalReason": "CRITIC_MAX_CYCLES_EXHAUSTED",
+    "semanticModel": null,
+    "beforeCriticModel": null,
+    "criticImpact": null,
+    "error": {
+      "category": "SEMANTIC_PIPELINE_FAILURE",
+      "failureClass": "SEMANTIC_PIPELINE_FAILURE",
+      "httpStatus": null,
+      "providerStatus": null,
+      "providerCode": null,
+      "message": "SEM001R3_CRITIC_NOT_ACCEPTED:CRITIC_MAX_CYCLES_EXHAUSTED"
+    }
+  },
+  {
+    "caseId": "SEM-D15",
+    "split": "DEVELOPMENT_CASES",
+    "goldFrameDigest": "ke1-0010efd1d95d9495",
+    "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+    "criticPromptVersion": "SEM-001-CRITIC-1.2",
+    "provider": "GOOGLE_GEMINI",
+    "model": "gemini-3.5-flash-lite",
+    "requestStarted": "2026-08-11T10:13:03.256Z",
+    "completedAt": null,
+    "reconstructionStatus": "SUCCESS",
+    "criticStatus": "SUCCESS",
+    "canonicalizationStatus": "NOT_STARTED",
+    "evaluationStatus": "NOT_READY",
+    "finalStatus": "FAILED",
+    "retryCount": 0,
+    "latencyMs": 47508,
+    "operationTraces": [
+      {
+        "operation": "RECONSTRUCTION",
+        "turn": 1,
+        "cycle": null,
+        "callId": "gemini-call:ke1-bc870ca9e1e94df5",
+        "structuredDigest": "ke1-d5ee3d2ec90696fa",
+        "attempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T10:13:03.256Z",
+            "requestFinished": "2026-08-11T10:13:07.768Z",
+            "latencyMs": 4512,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ]
+      },
+      {
+        "operation": "CRITIC",
+        "turn": 1,
+        "cycle": 1,
+        "callId": "gemini-call:ke1-4db9d9ab02211567",
+        "structuredDigest": "ke1-550fb9ab601bff77",
+        "attempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T10:13:07.771Z",
+            "requestFinished": "2026-08-11T10:13:13.489Z",
+            "latencyMs": 5718,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ]
+      },
+      {
+        "operation": "CRITIC",
+        "turn": 1,
+        "cycle": 2,
+        "callId": "gemini-call:ke1-9148b06a978c9466",
+        "structuredDigest": "ke1-2b7798c629c2fcba",
+        "attempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T10:13:46.738Z",
+            "requestFinished": "2026-08-11T10:13:50.762Z",
+            "latencyMs": 4024,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ]
+      }
+    ],
+    "reconstructionCandidate": {
+      "candidateId": "cand-01",
+      "language": "fr",
+      "normalizedMeaning": "Valider la répétabilité de l'ECV entre deux scanners",
+      "summaryForUser": "Validation de la répétabilité de l'ECV entre deux scanners.",
+      "semanticInventory": {
+        "explicitFragments": [
+          {
+            "inventoryItemId": "item-1",
+            "sourceMessageId": "SEM-D15:user:1",
+            "sourceText": "Valider",
+            "normalizedLabel": "Valider",
+            "localRole": "action",
+            "polarity": "AFFIRMED",
+            "modifiers": [],
+            "linkedInventoryItemIds": [
+              "item-2"
+            ]
+          },
+          {
+            "inventoryItemId": "item-2",
+            "sourceMessageId": "SEM-D15:user:1",
+            "sourceText": "répétabilité",
+            "normalizedLabel": "répétabilité",
+            "localRole": "property",
+            "polarity": "AFFIRMED",
+            "modifiers": [],
+            "linkedInventoryItemIds": [
+              "item-3"
+            ]
+          },
+          {
+            "inventoryItemId": "item-3",
+            "sourceMessageId": "SEM-D15:user:1",
+            "sourceText": "l'ECV",
+            "normalizedLabel": "ECV",
+            "localRole": "biomarker",
+            "polarity": "AFFIRMED",
+            "modifiers": [],
+            "linkedInventoryItemIds": []
+          },
+          {
+            "inventoryItemId": "item-4",
+            "sourceMessageId": "SEM-D15:user:1",
+            "sourceText": "deux scanners",
+            "normalizedLabel": "deux scanners",
+            "localRole": "method",
+            "polarity": "AFFIRMED",
+            "modifiers": [
+              "deux"
+            ],
+            "linkedInventoryItemIds": []
+          }
+        ],
+        "explicitRelations": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "item-1",
+            "targetInventoryItemId": "item-2",
+            "sourceMessageId": "SEM-D15:user:1",
+            "sourceText": "Valider la répétabilité",
+            "normalizedRelation": "AIMS_TO_MODIFY",
+            "polarity": "AFFIRMED"
+          },
+          {
+            "inventoryRelationId": "rel-2",
+            "sourceInventoryItemId": "item-3",
+            "targetInventoryItemId": "item-4",
+            "sourceMessageId": "SEM-D15:user:1",
+            "sourceText": "l'ECV entre deux scanners",
+            "normalizedRelation": "MEASURED_BY",
+            "polarity": "AFFIRMED"
+          },
+          {
+            "inventoryRelationId": "rel-3",
+            "sourceInventoryItemId": "item-4",
+            "targetInventoryItemId": "item-4",
+            "sourceMessageId": "SEM-D15:user:1",
+            "sourceText": "entre deux scanners",
+            "normalizedRelation": "COMPARES_WITH",
+            "polarity": "AFFIRMED"
+          }
+        ]
+      },
+      "elements": [
+        {
+          "clientElementId": "elem-1",
+          "type": "SCIENTIFIC_INTENT",
+          "canonicalMeaning": "Valider la répétabilité",
+          "studyRole": "NONE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-1"
+          ],
+          "sourceMessageId": "SEM-D15:user:1",
+          "sourceText": "Valider",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        },
+        {
+          "clientElementId": "elem-2",
+          "type": "BIOMARKER",
+          "canonicalMeaning": "ECV",
+          "studyRole": "MEASUREMENT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-3"
+          ],
+          "sourceMessageId": "SEM-D15:user:1",
+          "sourceText": "l'ECV",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        },
+        {
+          "clientElementId": "elem-3",
+          "type": "METHOD",
+          "canonicalMeaning": "scanners",
+          "studyRole": "MEASUREMENT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-4"
+          ],
+          "sourceMessageId": "SEM-D15:user:1",
+          "sourceText": "deux scanners",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        }
+      ],
+      "relations": [
+        {
+          "clientRelationId": "rel-elem-1",
+          "sourceClientElementId": "elem-1",
+          "targetClientElementId": "elem-2",
+          "relationType": "AIMS_TO_MODIFY",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel-1"
+          ],
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false
+        },
+        {
+          "clientRelationId": "rel-elem-2",
+          "sourceClientElementId": "elem-2",
+          "targetClientElementId": "elem-3",
+          "relationType": "MEASURED_BY",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel-2"
+          ],
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false
+        },
+        {
+          "clientRelationId": "rel-elem-3",
+          "sourceClientElementId": "elem-3",
+          "targetClientElementId": "elem-3",
+          "relationType": "COMPARES_WITH",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel-3"
+          ],
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false
+        }
+      ],
+      "missingConcepts": [],
+      "ellipses": [],
+      "ambiguities": [],
+      "unknowns": [],
+      "contradictions": [],
+      "knowledgeRequests": [],
+      "clarificationCandidates": [],
+      "routeProposal": {
+        "route": "DESIGN_STUDY",
+        "confidence": 0.9,
+        "reason": "The user specifies a goal to validate repeatability between methods using a biomarker.",
+        "expectedCapabilities": [
+          "Study design formulation",
+          "Repeatability assessment configuration"
+        ]
+      },
+      "semanticWarnings": []
+    },
+    "critics": [
+      {
+        "criticId": "crit-01",
+        "verdict": "REVISE",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "FAIL",
+            "evidence": "Inventory item item-2 (répétabilité) is omitted from typed elements."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "PASS",
+            "evidence": "The scanners comparator is represented as a method element."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No interventions are stated in the message."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Scanners modality context is included."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "FAIL",
+            "evidence": "Relation rel-1 and the structural aggregate comparison relation are unmapped or invalid."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "FAIL",
+            "evidence": "Method element elem-3 is missing the required COMPARATOR_ARM study role."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "No explicit relations were weakened."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No inferences promoted."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "No ambiguity hidden."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "No negations present."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "PASS",
+            "evidence": "No timing present."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "No unsupported endpoint promotions."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "No specific concepts generalized."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "FAIL",
+            "evidence": "Fragment 'répétabilité' (item-2) is unrepresented."
+          }
+        ],
+        "issues": [
+          {
+            "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+            "severity": "CRITICAL",
+            "elementClientIds": [],
+            "description": "Fragment item-2 'répétabilité' is unmapped in the elements list.",
+            "recommendedAction": "Upsert an element for 'répétabilité' as a SCIENTIFIC_OBJECT or property equivalent.",
+            "resolved": false
+          },
+          {
+            "code": "EXPLICIT_RELATION_UNMAPPED",
+            "severity": "CRITICAL",
+            "elementClientIds": [
+              "elem-1",
+              "elem-4"
+            ],
+            "description": "Relation rel-1 is unmapped, and self-comparison relation rel-3 must be repaired to point between variable and aggregate.",
+            "recommendedAction": "Create element for répétabilité, relink relations with UPSERT_RELATION.",
+            "resolved": false
+          },
+          {
+            "code": "TYPE_MISMATCH",
+            "severity": "WARNING",
+            "elementClientIds": [
+              "elem-3"
+            ],
+            "description": "Method element missing COMPARATOR_ARM studyRole.",
+            "recommendedAction": "Update elem-3 studyRole to COMPARATOR_ARM.",
+            "resolved": false
+          }
+        ],
+        "proposedRepairs": [
+          {
+            "repairId": "rep-1",
+            "action": "UPSERT_ELEMENT",
+            "reason": "Map explicit fragment item-2 'répétabilité' to a scientific object element.",
+            "sourceInventoryItemIds": [
+              "item-2"
+            ],
+            "sourceInventoryRelationIds": [],
+            "elementClientElementId": "elem-4",
+            "elementType": "SCIENTIFIC_OBJECT",
+            "elementCanonicalMeaning": "répétabilité",
+            "elementStudyRole": "MEASUREMENT",
+            "elementPolarity": "AFFIRMED",
+            "elementInventoryItemIds": [
+              "item-2"
+            ],
+            "elementSourceMessageId": "SEM-D15:user:1",
+            "elementSourceText": "répétabilité",
+            "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+            "elementConfidence": 1,
+            "elementInferenceReason": null,
+            "elementRequiresConfirmation": false,
+            "elementSupersedesElementIds": [],
+            "relationClientRelationId": null,
+            "relationSourceClientElementId": null,
+            "relationTargetClientElementId": null,
+            "relationType": null,
+            "relationPolarity": null,
+            "relationInventoryRelationIds": [],
+            "relationEpistemicStatus": null,
+            "relationConfidence": null,
+            "relationInferenceReason": null,
+            "relationRequiresConfirmation": null,
+            "ambiguity": null,
+            "route": null,
+            "routeConfidence": null,
+            "routeReason": null,
+            "routeExpectedCapabilities": []
+          },
+          {
+            "repairId": "rep-2",
+            "action": "UPSERT_ELEMENT",
+            "reason": "Update elem-3 studyRole to COMPARATOR_ARM per taxonomy report findings.",
+            "sourceInventoryItemIds": [
+              "item-4"
+            ],
+            "sourceInventoryRelationIds": [],
+            "elementClientElementId": "elem-3",
+            "elementType": "METHOD",
+            "elementCanonicalMeaning": "scanners",
+            "elementStudyRole": "COMPARATOR_ARM",
+            "elementPolarity": "AFFIRMED",
+            "elementInventoryItemIds": [
+              "item-4"
+            ],
+            "elementSourceMessageId": "SEM-D15:user:1",
+            "elementSourceText": "deux scanners",
+            "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+            "elementConfidence": 1,
+            "elementInferenceReason": null,
+            "elementRequiresConfirmation": false,
+            "elementSupersedesElementIds": [],
+            "relationClientRelationId": null,
+            "relationSourceClientElementId": null,
+            "relationTargetClientElementId": null,
+            "relationType": null,
+            "relationPolarity": null,
+            "relationInventoryRelationIds": [],
+            "relationEpistemicStatus": null,
+            "relationConfidence": null,
+            "relationInferenceReason": null,
+            "relationRequiresConfirmation": null,
+            "ambiguity": null,
+            "route": null,
+            "routeConfidence": null,
+            "routeReason": null,
+            "routeExpectedCapabilities": []
+          },
+          {
+            "repairId": "rep-3",
+            "action": "UPSERT_RELATION",
+            "reason": "Establish direct COMPARED_ACROSS relation between the measured variable and the aggregate comparator instead of a self-edge.",
+            "sourceInventoryItemIds": [],
+            "sourceInventoryRelationIds": [
+              "rel-2",
+              "rel-3"
+            ],
+            "elementClientElementId": null,
+            "elementType": null,
+            "elementCanonicalMeaning": null,
+            "elementStudyRole": null,
+            "elementPolarity": null,
+            "elementInventoryItemIds": [],
+            "elementSourceMessageId": null,
+            "elementSourceText": null,
+            "elementEpistemicStatus": null,
+            "elementConfidence": null,
+            "elementInferenceReason": null,
+            "elementRequiresConfirmation": null,
+            "elementSupersedesElementIds": [],
+            "relationClientRelationId": "rel-elem-3",
+            "relationSourceClientElementId": "elem-2",
+            "relationTargetClientElementId": "elem-3",
+            "relationType": "COMPARED_ACROSS",
+            "relationPolarity": "AFFIRMED",
+            "relationInventoryRelationIds": [
+              "rel-2",
+              "rel-3"
+            ],
+            "relationEpistemicStatus": "EXPLICIT_USER_STATED",
+            "relationConfidence": 1,
+            "relationInferenceReason": null,
+            "relationRequiresConfirmation": false,
+            "ambiguity": null,
+            "route": null,
+            "routeConfidence": null,
+            "routeReason": null,
+            "routeExpectedCapabilities": []
+          }
+        ],
+        "criticSummary": "The initial candidate omitted item-2 ('répétabilité'), lacked the COMPARATOR_ARM study role on the aggregate method element, and suffered from a self-comparison edge. These are corrected via UPSERT_ELEMENT and UPSERT_RELATION."
+      },
+      {
+        "criticId": "crit-02",
+        "verdict": "REVISE",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit fragments are represented by typed elements."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "PASS",
+            "evidence": "The two scanners are represented as a comparator method."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No active intervention is requested."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Scanners represent the imaging modality/method."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "FAIL",
+            "evidence": "Inventory relation rel-1 (Valider la répétabilité) is unmapped in the candidate."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "All types conform to the operational taxonomy."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "Represented relations retain their explicit direction."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No unsupported inferences are promoted."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "No ambiguities are hidden."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "Polarity is correctly affirmed."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No explicit time points are stated."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "No unsupported endpoint promotion exists."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific concepts remain exact."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "All fragments are represented."
+          }
+        ],
+        "issues": [
+          {
+            "code": "EXPLICIT_RELATION_UNMAPPED",
+            "severity": "CRITICAL",
+            "elementClientIds": [
+              "elem-1",
+              "elem-4"
+            ],
+            "description": "Explicit inventory relation rel-1 between item-1 ('Valider') and item-2 ('répétabilité') is unmapped.",
+            "recommendedAction": "Add UPSERT_RELATION for rel-1 connecting elem-1 and elem-4.",
+            "resolved": false
+          }
+        ],
+        "proposedRepairs": [
+          {
+            "repairId": "rep-rel-1",
+            "action": "UPSERT_RELATION",
+            "reason": "Ground explicit inventory relation rel-1 between the intent (elem-1) and the target property (elem-4).",
+            "sourceInventoryItemIds": [],
+            "sourceInventoryRelationIds": [
+              "rel-1"
+            ],
+            "elementClientElementId": null,
+            "elementType": null,
+            "elementCanonicalMeaning": null,
+            "elementStudyRole": null,
+            "elementPolarity": null,
+            "elementInventoryItemIds": [],
+            "elementSourceMessageId": null,
+            "elementSourceText": null,
+            "elementEpistemicStatus": null,
+            "elementConfidence": null,
+            "elementInferenceReason": null,
+            "elementRequiresConfirmation": null,
+            "elementSupersedesElementIds": [],
+            "relationClientRelationId": "rel-elem-1",
+            "relationSourceClientElementId": "elem-1",
+            "relationTargetClientElementId": "elem-4",
+            "relationType": "AIMS_TO_MODIFY",
+            "relationPolarity": "AFFIRMED",
+            "relationInventoryRelationIds": [
+              "rel-1"
+            ],
+            "relationEpistemicStatus": "EXPLICIT_USER_STATED",
+            "relationConfidence": 1,
+            "relationInferenceReason": null,
+            "relationRequiresConfirmation": false,
+            "ambiguity": null,
+            "route": null,
+            "routeConfidence": null,
+            "routeReason": null,
+            "routeExpectedCapabilities": []
+          }
+        ],
+        "criticSummary": "The candidate correctly types all explicit fragments and maps relations rel-2 and rel-3, but omits the explicit relation rel-1 between the intent and the repeatability property. A bounded repair adds rel-elem-1 to fully cover explicit relations."
+      }
+    ],
+    "repairDiagnostics": [
+      {
+        "repairId": "rep-1",
+        "status": "ACCEPTED",
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+      },
+      {
+        "repairId": "rep-2",
+        "status": "ACCEPTED",
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+      },
+      {
+        "repairId": "rep-3",
+        "status": "ACCEPTED",
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+      },
+      {
+        "repairId": "rep-rel-1",
+        "status": "ACCEPTED",
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+      }
+    ],
+    "criticTerminalReason": "CRITIC_MAX_CYCLES_EXHAUSTED",
+    "semanticModel": null,
+    "beforeCriticModel": null,
+    "criticImpact": null,
+    "error": {
+      "category": "SEMANTIC_PIPELINE_FAILURE",
+      "failureClass": "SEMANTIC_PIPELINE_FAILURE",
+      "httpStatus": null,
+      "providerStatus": null,
+      "providerCode": null,
+      "message": "SEM001R3_CRITIC_NOT_ACCEPTED:CRITIC_MAX_CYCLES_EXHAUSTED"
+    }
+  },
+  {
+    "caseId": "SEM-D19",
+    "split": "DEVELOPMENT_CASES",
+    "goldFrameDigest": "ke1-2e39d8a82cc83adc",
+    "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+    "criticPromptVersion": "SEM-001-CRITIC-1.2",
+    "provider": "GOOGLE_GEMINI",
+    "model": "gemini-3.5-flash-lite",
+    "requestStarted": "2026-08-11T10:13:50.767Z",
+    "completedAt": "2026-08-11T10:14:03.481Z",
+    "reconstructionStatus": "SUCCESS",
+    "criticStatus": "SUCCESS",
+    "canonicalizationStatus": "SUCCESS",
+    "evaluationStatus": "READY",
+    "finalStatus": "COMPLETE",
+    "retryCount": 0,
+    "latencyMs": 12714,
+    "operationTraces": [
+      {
+        "operation": "RECONSTRUCTION",
+        "turn": 1,
+        "cycle": null,
+        "callId": "gemini-call:ke1-048ac4b04efdf00c",
+        "structuredDigest": "ke1-abd24e9763bfe28b",
+        "attempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T10:13:54.685Z",
+            "requestFinished": "2026-08-11T10:14:00.144Z",
+            "latencyMs": 5459,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ]
+      },
+      {
+        "operation": "CRITIC",
+        "turn": 1,
+        "cycle": 1,
+        "callId": "gemini-call:ke1-9dc422aad8f9821e",
+        "structuredDigest": "ke1-bd2e823bd3d79e47",
+        "attempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T10:14:00.146Z",
+            "requestFinished": "2026-08-11T10:14:03.460Z",
+            "latencyMs": 3314,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ]
+      }
+    ],
+    "reconstructionCandidate": {
+      "candidateId": "cand_01H123456789",
+      "language": "fr",
+      "normalizedMeaning": "Comparison of early versus late ablation on atrial remodeling evaluated using magnetic resonance imaging.",
+      "summaryForUser": "Étude comparant l'ablation précoce ou tardive sur le remodelage atrial en utilisant l'imagerie par résonance magnétique.",
+      "semanticInventory": {
+        "explicitFragments": [
+          {
+            "inventoryItemId": "inv_1",
+            "sourceMessageId": "SEM-D19:user:1",
+            "sourceText": "Ablation précoce",
+            "normalizedLabel": "ablation précoce",
+            "localRole": "intervention_early",
+            "polarity": "AFFIRMED",
+            "modifiers": [
+              "précoce"
+            ],
+            "linkedInventoryItemIds": [
+              "inv_3"
+            ]
+          },
+          {
+            "inventoryItemId": "inv_2",
+            "sourceMessageId": "SEM-D19:user:1",
+            "sourceText": "tardive",
+            "normalizedLabel": "ablation tardive",
+            "localRole": "intervention_late",
+            "polarity": "AFFIRMED",
+            "modifiers": [
+              "tardive"
+            ],
+            "linkedInventoryItemIds": [
+              "inv_1",
+              "inv_3"
+            ]
+          },
+          {
+            "inventoryItemId": "inv_3",
+            "sourceMessageId": "SEM-D19:user:1",
+            "sourceText": "Ablation",
+            "normalizedLabel": "ablation",
+            "localRole": "action",
+            "polarity": "AFFIRMED",
+            "modifiers": [],
+            "linkedInventoryItemIds": [
+              "inv_1",
+              "inv_2"
+            ]
+          },
+          {
+            "inventoryItemId": "inv_4",
+            "sourceMessageId": "SEM-D19:user:1",
+            "sourceText": "remodelage atrial",
+            "normalizedLabel": "remodelage atrial",
+            "localRole": "target",
+            "polarity": "AFFIRMED",
+            "modifiers": [
+              "atrial"
+            ],
+            "linkedInventoryItemIds": []
+          },
+          {
+            "inventoryItemId": "inv_5",
+            "sourceMessageId": "SEM-D19:user:1",
+            "sourceText": "IRM",
+            "normalizedLabel": "imagerie par résonance magnétique",
+            "localRole": "modality",
+            "polarity": "AFFIRMED",
+            "modifiers": [],
+            "linkedInventoryItemIds": []
+          }
+        ],
+        "explicitRelations": [
+          {
+            "inventoryRelationId": "rel_1",
+            "sourceInventoryItemId": "inv_1",
+            "targetInventoryItemId": "inv_2",
+            "sourceMessageId": "SEM-D19:user:1",
+            "sourceText": "Ablation précoce ou tardive",
+            "normalizedRelation": "COMPARES_WITH",
+            "polarity": "AFFIRMED"
+          },
+          {
+            "inventoryRelationId": "rel_2",
+            "sourceInventoryItemId": "inv_4",
+            "targetInventoryItemId": "inv_5",
+            "sourceMessageId": "SEM-D19:user:1",
+            "sourceText": "remodelage atrial en IRM",
+            "normalizedRelation": "MEASURED_BY",
+            "polarity": "AFFIRMED"
+          }
+        ]
+      },
+      "elements": [
+        {
+          "clientElementId": "elem_1",
+          "type": "INTERVENTION",
+          "canonicalMeaning": "Ablation précoce",
+          "studyRole": "INTERVENTION_ARM",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_1",
+            "inv_3"
+          ],
+          "sourceMessageId": "SEM-D19:user:1",
+          "sourceText": "Ablation précoce",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        },
+        {
+          "clientElementId": "elem_2",
+          "type": "INTERVENTION",
+          "canonicalMeaning": "Ablation tardive",
+          "studyRole": "COMPARATOR_ARM",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_2",
+            "inv_3"
+          ],
+          "sourceMessageId": "SEM-D19:user:1",
+          "sourceText": "tardive",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        },
+        {
+          "clientElementId": "elem_3",
+          "type": "PHENOMENON",
+          "canonicalMeaning": "Remodelage atrial",
+          "studyRole": "SUBJECT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_4"
+          ],
+          "sourceMessageId": "SEM-D19:user:1",
+          "sourceText": "remodelage atrial",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        },
+        {
+          "clientElementId": "elem_4",
+          "type": "MODALITY",
+          "canonicalMeaning": "Imagerie par résonance magnétique",
+          "studyRole": "MEASUREMENT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_5"
+          ],
+          "sourceMessageId": "SEM-D19:user:1",
+          "sourceText": "IRM",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        }
+      ],
+      "relations": [
+        {
+          "clientRelationId": "rel_elem_1",
+          "sourceClientElementId": "elem_1",
+          "targetClientElementId": "elem_2",
+          "relationType": "COMPARES_WITH",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel_1"
+          ],
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false
+        },
+        {
+          "clientRelationId": "rel_elem_2",
+          "sourceClientElementId": "elem_3",
+          "targetClientElementId": "elem_4",
+          "relationType": "MEASURED_BY",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel_2"
+          ],
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false
+        }
+      ],
+      "missingConcepts": [],
+      "ellipses": [
+        "Coordinated ellipsis in 'Ablation précoce ou tardive'"
+      ],
+      "ambiguities": [],
+      "unknowns": [],
+      "contradictions": [],
+      "knowledgeRequests": [],
+      "clarificationCandidates": [],
+      "routeProposal": {
+        "route": "DESIGN_STUDY",
+        "confidence": 0.9,
+        "reason": "The user presents comparative study arms (early vs late ablation) and an evaluation modality targeting a phenomenon, which maps cleanly to study design construction.",
+        "expectedCapabilities": [
+          "Define population and condition details",
+          "Specify timing details",
+          "Establish primary endpoints"
+        ]
+      },
+      "semanticWarnings": []
+    },
+    "critics": [
+      {
+        "criticId": "critic_SEM_D19_01",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit objects (ablation, remodelage atrial, IRM) are faithfully represented in the semantic inventory and typed candidate elements."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "PASS",
+            "evidence": "The early versus late ablation comparison is fully captured via elem_1, elem_2, and relation rel_elem_1."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "Both early and late ablation interventions are fully represented as INTERVENTION elements."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "PASS",
+            "evidence": "IRM is correctly represented as a MODALITY element (elem_4)."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit relations (comparison between early and late ablation, and measurement of atrial remodeling by MRI) are preserved via direct relations."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "Taxonomy report is complete and contains zero findings; all object types align with operational precedence rules."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "Explicit comparison and measurement relations maintain their exact semantic strengths without weakening."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No unverified inferences have been promoted to explicit user status."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "Coordinated ellipsis in the comparative intervention is explicitly acknowledged."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "No negations are present in the text, so polarity remains uniformly affirmed."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "PASS",
+            "evidence": "Temporal modifiers 'précoce' and 'tardive' are fully preserved within the intervention elements."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "Remodelage atrial is typed as PHENOMENON/SUBJECT and IRM as MODALITY/MEASUREMENT without unjustified endpoint promotion."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific concepts such as MRI, early ablation, and late ablation remain exact and ungeneralized."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "Explicit coverage and relation coverage reports are both COMPLETE with all source tokens mapped."
+          }
+        ],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "All explicit objects, interventions, modalities, and relations are completely and accurately represented. Coverage and taxonomy reports are fully COMPLETE with no issues detected. The route is correctly set to DESIGN_STUDY."
+      }
+    ],
+    "repairDiagnostics": [],
+    "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+    "semanticModel": {
+      "semanticModelVersion": "1.1",
+      "semanticModelId": "semantic-model:ke1-4abfe63b4ae82937",
+      "revision": 1,
+      "status": "CANDIDATE",
+      "originalRequest": "Ablation précoce ou tardive et remodelage atrial en IRM",
+      "normalizedMeaning": "Comparison of early versus late ablation on atrial remodeling evaluated using magnetic resonance imaging.",
+      "conversationMessageIds": [
+        "SEM-D19:user:1"
+      ],
+      "elements": [
+        {
+          "semanticElementId": "sem-element:ke1-16f77b713307d02d",
+          "type": "PHENOMENON",
+          "canonicalMeaning": "Remodelage atrial",
+          "studyRole": "SUBJECT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_4"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D19:user:1",
+            "text": "remodelage atrial",
+            "start": 31,
+            "end": 48
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-da5913720edf946e"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "KNOWLEDGE_GAP",
+            "resultRef": "knowledge-result:ke1-3a1cd012ea48849e",
+            "assertionRefs": [],
+            "gapRefs": [
+              "knowledge-gap:ke1-04dad697407f2513",
+              "knowledge-gap:ke1-62ca376a080e4e4e",
+              "knowledge-gap:ke1-e039e50aa6ac1bf6"
+            ],
+            "checkedAt": "2026-08-11T10:14:03.477Z"
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D19:user:1",
+            "providerCallId": "gemini-call:ke1-048ac4b04efdf00c",
+            "rawElementId": "elem_3"
+          },
+          "supersedesElementIds": [],
+          "version": 2
+        },
+        {
+          "semanticElementId": "sem-element:ke1-48b82fb6da169ffa",
+          "type": "INTERVENTION",
+          "canonicalMeaning": "Ablation tardive",
+          "studyRole": "COMPARATOR_ARM",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_2",
+            "inv_3"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D19:user:1",
+            "text": "tardive",
+            "start": 20,
+            "end": 27
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-21a109c847892264"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D19:user:1",
+            "providerCallId": "gemini-call:ke1-048ac4b04efdf00c",
+            "rawElementId": "elem_2"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-cee27023bc99f717",
+          "type": "MODALITY",
+          "canonicalMeaning": "Imagerie par résonance magnétique",
+          "studyRole": "MEASUREMENT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_5"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D19:user:1",
+            "text": "IRM",
+            "start": 52,
+            "end": 55
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-da5913720edf946e"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D19:user:1",
+            "providerCallId": "gemini-call:ke1-048ac4b04efdf00c",
+            "rawElementId": "elem_4"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-f0d56e5092d2898c",
+          "type": "INTERVENTION",
+          "canonicalMeaning": "Ablation précoce",
+          "studyRole": "INTERVENTION_ARM",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_1",
+            "inv_3"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D19:user:1",
+            "text": "Ablation précoce",
+            "start": 0,
+            "end": 16
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-21a109c847892264"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D19:user:1",
+            "providerCallId": "gemini-call:ke1-048ac4b04efdf00c",
+            "rawElementId": "elem_1"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        }
+      ],
+      "relations": [
+        {
+          "semanticRelationId": "sem-relation:ke1-21a109c847892264",
+          "sourceElementId": "sem-element:ke1-f0d56e5092d2898c",
+          "targetElementId": "sem-element:ke1-48b82fb6da169ffa",
+          "relationType": "COMPARES_WITH",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel_1"
+          ],
+          "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "version": 1
+        },
+        {
+          "semanticRelationId": "sem-relation:ke1-da5913720edf946e",
+          "sourceElementId": "sem-element:ke1-16f77b713307d02d",
+          "targetElementId": "sem-element:ke1-cee27023bc99f717",
+          "relationType": "MEASURED_BY",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel_2"
+          ],
+          "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "version": 1
+        }
+      ],
+      "explicitCoverageReport": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryItemId": "inv_1",
+            "sourceMessageId": "SEM-D19:user:1",
+            "sourceText": "Ablation précoce",
+            "normalizedMeaning": "ablation précoce",
+            "mappedClientElementIds": [
+              "elem_1"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "inv_2",
+            "sourceMessageId": "SEM-D19:user:1",
+            "sourceText": "tardive",
+            "normalizedMeaning": "ablation tardive",
+            "mappedClientElementIds": [
+              "elem_2"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "inv_3",
+            "sourceMessageId": "SEM-D19:user:1",
+            "sourceText": "Ablation",
+            "normalizedMeaning": "ablation",
+            "mappedClientElementIds": [
+              "elem_1",
+              "elem_2"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "inv_4",
+            "sourceMessageId": "SEM-D19:user:1",
+            "sourceText": "remodelage atrial",
+            "normalizedMeaning": "remodelage atrial",
+            "mappedClientElementIds": [
+              "elem_3"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "inv_5",
+            "sourceMessageId": "SEM-D19:user:1",
+            "sourceText": "IRM",
+            "normalizedMeaning": "imagerie par résonance magnétique",
+            "mappedClientElementIds": [
+              "elem_4"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          }
+        ]
+      },
+      "relationCoverageReport": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel_1",
+            "sourceInventoryItemId": "inv_1",
+            "targetInventoryItemId": "inv_2",
+            "normalizedRelation": "COMPARES_WITH",
+            "mappedClientRelationIds": [
+              "rel_elem_1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel_2",
+            "sourceInventoryItemId": "inv_4",
+            "targetInventoryItemId": "inv_5",
+            "normalizedRelation": "MEASURED_BY",
+            "mappedClientRelationIds": [
+              "rel_elem_2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          }
+        ]
+      },
+      "missingConcepts": [],
+      "ellipses": [
+        "Coordinated ellipsis in 'Ablation précoce ou tardive'"
+      ],
+      "ambiguities": [],
+      "unknowns": [],
+      "contradictions": [],
+      "clarificationCandidates": [],
+      "knowledgeRequests": [],
+      "routeProposal": {
+        "route": "DESIGN_STUDY",
+        "confidence": 0.9,
+        "reason": "The user presents comparative study arms (early vs late ablation) and an evaluation modality targeting a phenomenon, which maps cleanly to study design construction.",
+        "expectedCapabilities": [
+          "Define population and condition details",
+          "Establish primary endpoints",
+          "Specify timing details"
+        ]
+      },
+      "summaryForUser": "Étude comparant l'ablation précoce ou tardive sur le remodelage atrial en utilisant l'imagerie par résonance magnétique.",
+      "critic": {
+        "verdict": "ACCEPT",
+        "issues": [],
+        "summary": "All explicit objects, interventions, modalities, and relations are completely and accurately represented. Coverage and taxonomy reports are fully COMPLETE with no issues detected. The route is correctly set to DESIGN_STUDY."
+      },
+      "executionSnapshot": {
+        "provider": "GOOGLE_GEMINI",
+        "model": "gemini-3.5-flash-lite",
+        "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+        "criticPromptVersion": "SEM-001-CRITIC-1.2",
+        "schemaVersion": "SEM-001-1.1",
+        "reconstructionCallId": "gemini-call:ke1-048ac4b04efdf00c",
+        "criticCallId": "gemini-call:ke1-9dc422aad8f9821e",
+        "criticCallIds": [
+          "gemini-call:ke1-9dc422aad8f9821e"
+        ],
+        "reconstructionAttempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T10:13:54.685Z",
+            "requestFinished": "2026-08-11T10:14:00.144Z",
+            "latencyMs": 5459,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ],
+        "criticAttempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T10:14:00.146Z",
+            "requestFinished": "2026-08-11T10:14:03.460Z",
+            "latencyMs": 3314,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ],
+        "rawReconstruction": {
+          "candidateId": "cand_01H123456789",
+          "language": "fr",
+          "normalizedMeaning": "Comparison of early versus late ablation on atrial remodeling evaluated using magnetic resonance imaging.",
+          "summaryForUser": "Étude comparant l'ablation précoce ou tardive sur le remodelage atrial en utilisant l'imagerie par résonance magnétique.",
+          "semanticInventory": {
+            "explicitFragments": [
+              {
+                "inventoryItemId": "inv_1",
+                "sourceMessageId": "SEM-D19:user:1",
+                "sourceText": "Ablation précoce",
+                "normalizedLabel": "ablation précoce",
+                "localRole": "intervention_early",
+                "polarity": "AFFIRMED",
+                "modifiers": [
+                  "précoce"
+                ],
+                "linkedInventoryItemIds": [
+                  "inv_3"
+                ]
+              },
+              {
+                "inventoryItemId": "inv_2",
+                "sourceMessageId": "SEM-D19:user:1",
+                "sourceText": "tardive",
+                "normalizedLabel": "ablation tardive",
+                "localRole": "intervention_late",
+                "polarity": "AFFIRMED",
+                "modifiers": [
+                  "tardive"
+                ],
+                "linkedInventoryItemIds": [
+                  "inv_1",
+                  "inv_3"
+                ]
+              },
+              {
+                "inventoryItemId": "inv_3",
+                "sourceMessageId": "SEM-D19:user:1",
+                "sourceText": "Ablation",
+                "normalizedLabel": "ablation",
+                "localRole": "action",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": [
+                  "inv_1",
+                  "inv_2"
+                ]
+              },
+              {
+                "inventoryItemId": "inv_4",
+                "sourceMessageId": "SEM-D19:user:1",
+                "sourceText": "remodelage atrial",
+                "normalizedLabel": "remodelage atrial",
+                "localRole": "target",
+                "polarity": "AFFIRMED",
+                "modifiers": [
+                  "atrial"
+                ],
+                "linkedInventoryItemIds": []
+              },
+              {
+                "inventoryItemId": "inv_5",
+                "sourceMessageId": "SEM-D19:user:1",
+                "sourceText": "IRM",
+                "normalizedLabel": "imagerie par résonance magnétique",
+                "localRole": "modality",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": []
+              }
+            ],
+            "explicitRelations": [
+              {
+                "inventoryRelationId": "rel_1",
+                "sourceInventoryItemId": "inv_1",
+                "targetInventoryItemId": "inv_2",
+                "sourceMessageId": "SEM-D19:user:1",
+                "sourceText": "Ablation précoce ou tardive",
+                "normalizedRelation": "COMPARES_WITH",
+                "polarity": "AFFIRMED"
+              },
+              {
+                "inventoryRelationId": "rel_2",
+                "sourceInventoryItemId": "inv_4",
+                "targetInventoryItemId": "inv_5",
+                "sourceMessageId": "SEM-D19:user:1",
+                "sourceText": "remodelage atrial en IRM",
+                "normalizedRelation": "MEASURED_BY",
+                "polarity": "AFFIRMED"
+              }
+            ]
+          },
+          "elements": [
+            {
+              "clientElementId": "elem_1",
+              "type": "INTERVENTION",
+              "canonicalMeaning": "Ablation précoce",
+              "studyRole": "INTERVENTION_ARM",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "inv_1",
+                "inv_3"
+              ],
+              "sourceMessageId": "SEM-D19:user:1",
+              "sourceText": "Ablation précoce",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem_2",
+              "type": "INTERVENTION",
+              "canonicalMeaning": "Ablation tardive",
+              "studyRole": "COMPARATOR_ARM",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "inv_2",
+                "inv_3"
+              ],
+              "sourceMessageId": "SEM-D19:user:1",
+              "sourceText": "tardive",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem_3",
+              "type": "PHENOMENON",
+              "canonicalMeaning": "Remodelage atrial",
+              "studyRole": "SUBJECT",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "inv_4"
+              ],
+              "sourceMessageId": "SEM-D19:user:1",
+              "sourceText": "remodelage atrial",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem_4",
+              "type": "MODALITY",
+              "canonicalMeaning": "Imagerie par résonance magnétique",
+              "studyRole": "MEASUREMENT",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "inv_5"
+              ],
+              "sourceMessageId": "SEM-D19:user:1",
+              "sourceText": "IRM",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            }
+          ],
+          "relations": [
+            {
+              "clientRelationId": "rel_elem_1",
+              "sourceClientElementId": "elem_1",
+              "targetClientElementId": "elem_2",
+              "relationType": "COMPARES_WITH",
+              "polarity": "AFFIRMED",
+              "inventoryRelationIds": [
+                "rel_1"
+              ],
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false
+            },
+            {
+              "clientRelationId": "rel_elem_2",
+              "sourceClientElementId": "elem_3",
+              "targetClientElementId": "elem_4",
+              "relationType": "MEASURED_BY",
+              "polarity": "AFFIRMED",
+              "inventoryRelationIds": [
+                "rel_2"
+              ],
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false
+            }
+          ],
+          "missingConcepts": [],
+          "ellipses": [
+            "Coordinated ellipsis in 'Ablation précoce ou tardive'"
+          ],
+          "ambiguities": [],
+          "unknowns": [],
+          "contradictions": [],
+          "knowledgeRequests": [],
+          "clarificationCandidates": [],
+          "routeProposal": {
+            "route": "DESIGN_STUDY",
+            "confidence": 0.9,
+            "reason": "The user presents comparative study arms (early vs late ablation) and an evaluation modality targeting a phenomenon, which maps cleanly to study design construction.",
+            "expectedCapabilities": [
+              "Define population and condition details",
+              "Specify timing details",
+              "Establish primary endpoints"
+            ]
+          },
+          "semanticWarnings": []
+        },
+        "rawCritic": {
+          "criticId": "critic_SEM_D19_01",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects (ablation, remodelage atrial, IRM) are faithfully represented in the semantic inventory and typed candidate elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The early versus late ablation comparison is fully captured via elem_1, elem_2, and relation rel_elem_1."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Both early and late ablation interventions are fully represented as INTERVENTION elements."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "IRM is correctly represented as a MODALITY element (elem_4)."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit relations (comparison between early and late ablation, and measurement of atrial remodeling by MRI) are preserved via direct relations."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Taxonomy report is complete and contains zero findings; all object types align with operational precedence rules."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Explicit comparison and measurement relations maintain their exact semantic strengths without weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unverified inferences have been promoted to explicit user status."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Coordinated ellipsis in the comparative intervention is explicitly acknowledged."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "No negations are present in the text, so polarity remains uniformly affirmed."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Temporal modifiers 'précoce' and 'tardive' are fully preserved within the intervention elements."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Remodelage atrial is typed as PHENOMENON/SUBJECT and IRM as MODALITY/MEASUREMENT without unjustified endpoint promotion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts such as MRI, early ablation, and late ablation remain exact and ungeneralized."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "Explicit coverage and relation coverage reports are both COMPLETE with all source tokens mapped."
+            }
+          ],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "All explicit objects, interventions, modalities, and relations are completely and accurately represented. Coverage and taxonomy reports are fully COMPLETE with no issues detected. The route is correctly set to DESIGN_STUDY."
+        },
+        "rawCritics": [
+          {
+            "criticId": "critic_SEM_D19_01",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit objects (ablation, remodelage atrial, IRM) are faithfully represented in the semantic inventory and typed candidate elements."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "PASS",
+                "evidence": "The early versus late ablation comparison is fully captured via elem_1, elem_2, and relation rel_elem_1."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Both early and late ablation interventions are fully represented as INTERVENTION elements."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "PASS",
+                "evidence": "IRM is correctly represented as a MODALITY element (elem_4)."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit relations (comparison between early and late ablation, and measurement of atrial remodeling by MRI) are preserved via direct relations."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "Taxonomy report is complete and contains zero findings; all object types align with operational precedence rules."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Explicit comparison and measurement relations maintain their exact semantic strengths without weakening."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No unverified inferences have been promoted to explicit user status."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "Coordinated ellipsis in the comparative intervention is explicitly acknowledged."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "No negations are present in the text, so polarity remains uniformly affirmed."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "PASS",
+                "evidence": "Temporal modifiers 'précoce' and 'tardive' are fully preserved within the intervention elements."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "Remodelage atrial is typed as PHENOMENON/SUBJECT and IRM as MODALITY/MEASUREMENT without unjustified endpoint promotion."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts such as MRI, early ablation, and late ablation remain exact and ungeneralized."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "Explicit coverage and relation coverage reports are both COMPLETE with all source tokens mapped."
+              }
+            ],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "All explicit objects, interventions, modalities, and relations are completely and accurately represented. Coverage and taxonomy reports are fully COMPLETE with no issues detected. The route is correctly set to DESIGN_STUDY."
+          }
+        ],
+        "temperature": null,
+        "executedAt": "2026-08-11T10:14:03.466Z"
+      },
+      "knowledgeSnapshot": {
+        "resultId": "knowledge-result:ke1-3a1cd012ea48849e",
+        "resultDigest": "ke1-3a1cd012ea48849e",
+        "coverageStatus": "NO_PROVIDER",
+        "verifiedAt": "2026-08-11T10:14:03.477Z"
+      },
+      "previousModelId": null,
+      "history": [],
+      "acceptedAt": null,
+      "acceptanceRecord": null,
+      "createdAt": "2026-08-11T10:14:03.466Z",
+      "updatedAt": "2026-08-11T10:14:03.477Z",
+      "digest": "ke1-d8d5c05168b5842d"
+    },
+    "beforeCriticModel": {
+      "semanticModelVersion": "1.1",
+      "semanticModelId": "semantic-model:ke1-4abfe63b4ae82937",
+      "revision": 1,
+      "status": "CANDIDATE",
+      "originalRequest": "Ablation précoce ou tardive et remodelage atrial en IRM",
+      "normalizedMeaning": "Comparison of early versus late ablation on atrial remodeling evaluated using magnetic resonance imaging.",
+      "conversationMessageIds": [
+        "SEM-D19:user:1"
+      ],
+      "elements": [
+        {
+          "semanticElementId": "sem-element:ke1-16f77b713307d02d",
+          "type": "PHENOMENON",
+          "canonicalMeaning": "Remodelage atrial",
+          "studyRole": "SUBJECT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_4"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D19:user:1",
+            "text": "remodelage atrial",
+            "start": 31,
+            "end": 48
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-da5913720edf946e"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D19:user:1",
+            "providerCallId": "gemini-call:ke1-048ac4b04efdf00c",
+            "rawElementId": "elem_3"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-48b82fb6da169ffa",
+          "type": "INTERVENTION",
+          "canonicalMeaning": "Ablation tardive",
+          "studyRole": "COMPARATOR_ARM",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_2",
+            "inv_3"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D19:user:1",
+            "text": "tardive",
+            "start": 20,
+            "end": 27
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-21a109c847892264"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D19:user:1",
+            "providerCallId": "gemini-call:ke1-048ac4b04efdf00c",
+            "rawElementId": "elem_2"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-cee27023bc99f717",
+          "type": "MODALITY",
+          "canonicalMeaning": "Imagerie par résonance magnétique",
+          "studyRole": "MEASUREMENT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_5"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D19:user:1",
+            "text": "IRM",
+            "start": 52,
+            "end": 55
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-da5913720edf946e"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D19:user:1",
+            "providerCallId": "gemini-call:ke1-048ac4b04efdf00c",
+            "rawElementId": "elem_4"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-f0d56e5092d2898c",
+          "type": "INTERVENTION",
+          "canonicalMeaning": "Ablation précoce",
+          "studyRole": "INTERVENTION_ARM",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv_1",
+            "inv_3"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D19:user:1",
+            "text": "Ablation précoce",
+            "start": 0,
+            "end": 16
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-21a109c847892264"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D19:user:1",
+            "providerCallId": "gemini-call:ke1-048ac4b04efdf00c",
+            "rawElementId": "elem_1"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        }
+      ],
+      "relations": [
+        {
+          "semanticRelationId": "sem-relation:ke1-21a109c847892264",
+          "sourceElementId": "sem-element:ke1-f0d56e5092d2898c",
+          "targetElementId": "sem-element:ke1-48b82fb6da169ffa",
+          "relationType": "COMPARES_WITH",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel_1"
+          ],
+          "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "version": 1
+        },
+        {
+          "semanticRelationId": "sem-relation:ke1-da5913720edf946e",
+          "sourceElementId": "sem-element:ke1-16f77b713307d02d",
+          "targetElementId": "sem-element:ke1-cee27023bc99f717",
+          "relationType": "MEASURED_BY",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel_2"
+          ],
+          "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "version": 1
+        }
+      ],
+      "explicitCoverageReport": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryItemId": "inv_1",
+            "sourceMessageId": "SEM-D19:user:1",
+            "sourceText": "Ablation précoce",
+            "normalizedMeaning": "ablation précoce",
+            "mappedClientElementIds": [
+              "elem_1"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "inv_2",
+            "sourceMessageId": "SEM-D19:user:1",
+            "sourceText": "tardive",
+            "normalizedMeaning": "ablation tardive",
+            "mappedClientElementIds": [
+              "elem_2"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "inv_3",
+            "sourceMessageId": "SEM-D19:user:1",
+            "sourceText": "Ablation",
+            "normalizedMeaning": "ablation",
+            "mappedClientElementIds": [
+              "elem_1",
+              "elem_2"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "inv_4",
+            "sourceMessageId": "SEM-D19:user:1",
+            "sourceText": "remodelage atrial",
+            "normalizedMeaning": "remodelage atrial",
+            "mappedClientElementIds": [
+              "elem_3"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "inv_5",
+            "sourceMessageId": "SEM-D19:user:1",
+            "sourceText": "IRM",
+            "normalizedMeaning": "imagerie par résonance magnétique",
+            "mappedClientElementIds": [
+              "elem_4"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          }
+        ]
+      },
+      "relationCoverageReport": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel_1",
+            "sourceInventoryItemId": "inv_1",
+            "targetInventoryItemId": "inv_2",
+            "normalizedRelation": "COMPARES_WITH",
+            "mappedClientRelationIds": [
+              "rel_elem_1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel_2",
+            "sourceInventoryItemId": "inv_4",
+            "targetInventoryItemId": "inv_5",
+            "normalizedRelation": "MEASURED_BY",
+            "mappedClientRelationIds": [
+              "rel_elem_2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          }
+        ]
+      },
+      "missingConcepts": [],
+      "ellipses": [
+        "Coordinated ellipsis in 'Ablation précoce ou tardive'"
+      ],
+      "ambiguities": [],
+      "unknowns": [],
+      "contradictions": [],
+      "clarificationCandidates": [],
+      "knowledgeRequests": [],
+      "routeProposal": {
+        "route": "DESIGN_STUDY",
+        "confidence": 0.9,
+        "reason": "The user presents comparative study arms (early vs late ablation) and an evaluation modality targeting a phenomenon, which maps cleanly to study design construction.",
+        "expectedCapabilities": [
+          "Define population and condition details",
+          "Establish primary endpoints",
+          "Specify timing details"
+        ]
+      },
+      "summaryForUser": "Étude comparant l'ablation précoce ou tardive sur le remodelage atrial en utilisant l'imagerie par résonance magnétique.",
+      "critic": {
+        "verdict": "ACCEPT",
+        "issues": [],
+        "summary": "Metric-only pre-critic snapshot."
+      },
+      "executionSnapshot": {
+        "provider": "GOOGLE_GEMINI",
+        "model": "gemini-3.5-flash-lite",
+        "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+        "criticPromptVersion": "SEM-001-CRITIC-1.2",
+        "schemaVersion": "SEM-001-1.1",
+        "reconstructionCallId": "gemini-call:ke1-048ac4b04efdf00c",
+        "criticCallId": "pre-critic-metric-only",
+        "criticCallIds": [
+          "pre-critic-metric-only"
+        ],
+        "reconstructionAttempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T10:13:54.685Z",
+            "requestFinished": "2026-08-11T10:14:00.144Z",
+            "latencyMs": 5459,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ],
+        "criticAttempts": [],
+        "rawReconstruction": {
+          "candidateId": "cand_01H123456789",
+          "language": "fr",
+          "normalizedMeaning": "Comparison of early versus late ablation on atrial remodeling evaluated using magnetic resonance imaging.",
+          "summaryForUser": "Étude comparant l'ablation précoce ou tardive sur le remodelage atrial en utilisant l'imagerie par résonance magnétique.",
+          "semanticInventory": {
+            "explicitFragments": [
+              {
+                "inventoryItemId": "inv_1",
+                "sourceMessageId": "SEM-D19:user:1",
+                "sourceText": "Ablation précoce",
+                "normalizedLabel": "ablation précoce",
+                "localRole": "intervention_early",
+                "polarity": "AFFIRMED",
+                "modifiers": [
+                  "précoce"
+                ],
+                "linkedInventoryItemIds": [
+                  "inv_3"
+                ]
+              },
+              {
+                "inventoryItemId": "inv_2",
+                "sourceMessageId": "SEM-D19:user:1",
+                "sourceText": "tardive",
+                "normalizedLabel": "ablation tardive",
+                "localRole": "intervention_late",
+                "polarity": "AFFIRMED",
+                "modifiers": [
+                  "tardive"
+                ],
+                "linkedInventoryItemIds": [
+                  "inv_1",
+                  "inv_3"
+                ]
+              },
+              {
+                "inventoryItemId": "inv_3",
+                "sourceMessageId": "SEM-D19:user:1",
+                "sourceText": "Ablation",
+                "normalizedLabel": "ablation",
+                "localRole": "action",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": [
+                  "inv_1",
+                  "inv_2"
+                ]
+              },
+              {
+                "inventoryItemId": "inv_4",
+                "sourceMessageId": "SEM-D19:user:1",
+                "sourceText": "remodelage atrial",
+                "normalizedLabel": "remodelage atrial",
+                "localRole": "target",
+                "polarity": "AFFIRMED",
+                "modifiers": [
+                  "atrial"
+                ],
+                "linkedInventoryItemIds": []
+              },
+              {
+                "inventoryItemId": "inv_5",
+                "sourceMessageId": "SEM-D19:user:1",
+                "sourceText": "IRM",
+                "normalizedLabel": "imagerie par résonance magnétique",
+                "localRole": "modality",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": []
+              }
+            ],
+            "explicitRelations": [
+              {
+                "inventoryRelationId": "rel_1",
+                "sourceInventoryItemId": "inv_1",
+                "targetInventoryItemId": "inv_2",
+                "sourceMessageId": "SEM-D19:user:1",
+                "sourceText": "Ablation précoce ou tardive",
+                "normalizedRelation": "COMPARES_WITH",
+                "polarity": "AFFIRMED"
+              },
+              {
+                "inventoryRelationId": "rel_2",
+                "sourceInventoryItemId": "inv_4",
+                "targetInventoryItemId": "inv_5",
+                "sourceMessageId": "SEM-D19:user:1",
+                "sourceText": "remodelage atrial en IRM",
+                "normalizedRelation": "MEASURED_BY",
+                "polarity": "AFFIRMED"
+              }
+            ]
+          },
+          "elements": [
+            {
+              "clientElementId": "elem_1",
+              "type": "INTERVENTION",
+              "canonicalMeaning": "Ablation précoce",
+              "studyRole": "INTERVENTION_ARM",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "inv_1",
+                "inv_3"
+              ],
+              "sourceMessageId": "SEM-D19:user:1",
+              "sourceText": "Ablation précoce",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem_2",
+              "type": "INTERVENTION",
+              "canonicalMeaning": "Ablation tardive",
+              "studyRole": "COMPARATOR_ARM",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "inv_2",
+                "inv_3"
+              ],
+              "sourceMessageId": "SEM-D19:user:1",
+              "sourceText": "tardive",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem_3",
+              "type": "PHENOMENON",
+              "canonicalMeaning": "Remodelage atrial",
+              "studyRole": "SUBJECT",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "inv_4"
+              ],
+              "sourceMessageId": "SEM-D19:user:1",
+              "sourceText": "remodelage atrial",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem_4",
+              "type": "MODALITY",
+              "canonicalMeaning": "Imagerie par résonance magnétique",
+              "studyRole": "MEASUREMENT",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "inv_5"
+              ],
+              "sourceMessageId": "SEM-D19:user:1",
+              "sourceText": "IRM",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            }
+          ],
+          "relations": [
+            {
+              "clientRelationId": "rel_elem_1",
+              "sourceClientElementId": "elem_1",
+              "targetClientElementId": "elem_2",
+              "relationType": "COMPARES_WITH",
+              "polarity": "AFFIRMED",
+              "inventoryRelationIds": [
+                "rel_1"
+              ],
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false
+            },
+            {
+              "clientRelationId": "rel_elem_2",
+              "sourceClientElementId": "elem_3",
+              "targetClientElementId": "elem_4",
+              "relationType": "MEASURED_BY",
+              "polarity": "AFFIRMED",
+              "inventoryRelationIds": [
+                "rel_2"
+              ],
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false
+            }
+          ],
+          "missingConcepts": [],
+          "ellipses": [
+            "Coordinated ellipsis in 'Ablation précoce ou tardive'"
+          ],
+          "ambiguities": [],
+          "unknowns": [],
+          "contradictions": [],
+          "knowledgeRequests": [],
+          "clarificationCandidates": [],
+          "routeProposal": {
+            "route": "DESIGN_STUDY",
+            "confidence": 0.9,
+            "reason": "The user presents comparative study arms (early vs late ablation) and an evaluation modality targeting a phenomenon, which maps cleanly to study design construction.",
+            "expectedCapabilities": [
+              "Define population and condition details",
+              "Specify timing details",
+              "Establish primary endpoints"
+            ]
+          },
+          "semanticWarnings": []
+        },
+        "rawCritic": {
+          "criticId": "pre-critic-metric-only",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            }
+          ],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "Metric-only pre-critic snapshot."
+        },
+        "rawCritics": [
+          {
+            "criticId": "pre-critic-metric-only",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              }
+            ],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "Metric-only pre-critic snapshot."
+          }
+        ],
+        "temperature": null,
+        "executedAt": "2026-08-11T10:14:03.462Z"
+      },
+      "knowledgeSnapshot": null,
+      "previousModelId": null,
+      "history": [],
+      "acceptedAt": null,
+      "acceptanceRecord": null,
+      "createdAt": "2026-08-11T10:14:03.462Z",
+      "updatedAt": "2026-08-11T10:14:03.462Z",
+      "digest": "ke1-38968e2c84642440"
+    },
+    "criticImpact": {
+      "caseId": "SEM-D19",
+      "beforeCriticObjectRecall": 0.75,
+      "afterCriticObjectRecall": 0.75,
+      "beforeCriticRelationRecall": 1,
+      "afterCriticRelationRecall": 1,
+      "issuesDetected": 0,
+      "repairsProposed": 0,
+      "repairsAccepted": 0,
+      "repairsRejected": 0,
+      "newUnsupportedInferences": 0,
+      "falsePositiveCritic": false,
+      "criticAccepted": true,
+      "criticCycles": 1,
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    },
+    "error": null
+  }
+]

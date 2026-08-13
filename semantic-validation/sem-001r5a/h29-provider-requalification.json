@@ -1,0 +1,138 @@
+{
+  "campaign": "SEM-001R5A",
+  "caseId": "SEM-H29",
+  "decision": "R5A_BLOCKED_BY_CONFIGURATION_DRIFT",
+  "immutableInputsPreserved": true,
+  "firstTurnCoverage": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-1",
+          "sourceMessageId": "SEM-H29:user:1",
+          "sourceText": "Comparer",
+          "normalizedMeaning": "comparer",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-2",
+          "sourceMessageId": "SEM-H29:user:1",
+          "sourceText": "PET",
+          "normalizedMeaning": "TEP",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-3",
+          "sourceMessageId": "SEM-H29:user:1",
+          "sourceText": "IRM",
+          "normalizedMeaning": "IRM",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-4",
+          "sourceMessageId": "SEM-H29:user:1",
+          "sourceText": "réponse tumorale",
+          "normalizedMeaning": "réponse tumorale",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-5",
+          "sourceMessageId": "SEM-H29:user:1",
+          "sourceText": "trois mois",
+          "normalizedMeaning": "trois mois",
+          "mappedClientElementIds": [
+            "elem-5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-1",
+          "sourceInventoryItemId": "inv-2",
+          "targetInventoryItemId": "inv-3",
+          "normalizedRelation": "COMPARES_WITH",
+          "mappedClientRelationIds": [
+            "rel-elem-1"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-2",
+          "sourceInventoryItemId": "inv-2",
+          "targetInventoryItemId": "inv-4",
+          "normalizedRelation": "OBSERVES",
+          "mappedClientRelationIds": [
+            "rel-elem-2"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+        },
+        {
+          "inventoryRelationId": "rel-3",
+          "sourceInventoryItemId": "inv-3",
+          "targetInventoryItemId": "inv-4",
+          "normalizedRelation": "OBSERVES",
+          "mappedClientRelationIds": [
+            "rel-elem-3"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "taxonomy": {
+      "status": "COMPLETE",
+      "findings": []
+    },
+    "integrity": {
+      "status": "INCOMPLETE",
+      "findings": [
+        {
+          "code": "INVENTORY_RELATION_SOURCE_NOT_CONTIGUOUS",
+          "inventoryItemId": null,
+          "inventoryRelationId": "rel-2",
+          "clientElementId": null,
+          "clientRelationId": null,
+          "reason": "Every explicit inventory relation must quote one exact contiguous clause from its declared USER message."
+        }
+      ]
+    }
+  },
+  "changedOwnersFromR5": [
+    "reconstructionPrompt",
+    "criticPrompt",
+    "canonicalModel",
+    "canonicalizer",
+    "coverageAndRepair",
+    "evaluator",
+    "routing"
+  ],
+  "providerCalls": 0
+}

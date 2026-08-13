@@ -1,0 +1,11 @@
+{
+  "decision": "SEM001R3B_BLOCKED_BY_PROVIDER",
+  "developmentBaselineComplete": "30/30 R3",
+  "developmentR3bCompatible": "1/30",
+  "targetedLive": { "complete": 1, "expected": 6, "completeCaseIds": ["SEM-D02"], "providerBlockedCaseIds": ["SEM-D16", "SEM-D19", "SEM-D21", "SEM-D23", "SEM-D28"] },
+  "providerEvidence": { "model": "gemini-3.5-flash-lite", "callsRealized": 11, "successfulStructuredCalls": 2, "invalidStructuredCalls": 1, "http503": 8, "observed429": 0 },
+  "holdout": "NOT_STARTED",
+  "technicalValidations": "SEM_128_PASS_TYPECHECK_PASS_LINT_PASS_BUILD_PASS_DIFF_CHECK_PASS_GLOBAL_1161_OF_1164_EXTERNAL_DIRTY_REPO_ONLY",
+  "reason": "A 30/30 configuration-compatible R3B Development view cannot be constructed without the invalidated critic stages.",
+  "nextMinimalAction": "Resume only incomplete R3B critic checkpoints when the same provider/model/configuration is available; do not rerun reconstruction or D02."
+}

@@ -1,0 +1,19 @@
+{
+  "campaign": "SEM-001R3F",
+  "actualLlmCalls": 0,
+  "providerRetries": 0,
+  "structuredRegenerations": 0,
+  "callsAvoidedByCompatibleReuse": 43,
+  "avoidedDetail": {
+    "reconstruction": 30,
+    "baseCritic": 12,
+    "validR3eAudit": 1
+  },
+  "callsDeferredByGate": {
+    "secondaryTargetAudit": 1,
+    "remainingDevelopmentCritics": 24,
+    "totalMinimum": 25
+  },
+  "holdoutCalls": 0,
+  "holdoutStatus": "NOT_STARTED_FORBIDDEN"
+}

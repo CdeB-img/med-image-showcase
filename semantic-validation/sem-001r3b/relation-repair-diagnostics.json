@@ -1,0 +1,12 @@
+{
+  "SEM-D21": {
+    "firstDivergenceStage": 1,
+    "classification": "A_PLUS_B",
+    "finding": "The reconstruction collapsed 1.5T and 3T into one aggregate inventory item and produced no direct comparison between distinct constraint endpoints.",
+    "relationCoverageWeakness": "The runtime report could only audit relations declared by the incomplete inventory.",
+    "owner": "SOURCE_TO_INVENTORY_CRITIC_THEN_DIRECT_RELATION_REPAIR",
+    "liveStatus": "BLOCKED_BY_PROVIDER_503"
+  },
+  "genericGuards": ["two quantitative comparison endpoints remain distinct", "direct relation cannot be replaced by intent/action spokes", "inventory relation endpoints must exist", "repair source span must be exact"],
+  "tests": "PASS"
+}

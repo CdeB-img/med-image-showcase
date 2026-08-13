@@ -1,0 +1,153 @@
+{
+  "campaign": "SEM-001R3I",
+  "verifiedAt": "2026-08-12T17:48:36.246Z",
+  "decision": "R3I_CONFIGURATION_VERIFIED",
+  "semanticConfigurationDigest": "ke1-d34d45911dbf8b5d",
+  "model": "gemini-3.5-flash-lite",
+  "currentDigests": {
+    "developmentCorpus": "ke1-64d654cfa041a563",
+    "developmentGold": "ke1-1006a72533caf7f9",
+    "holdoutCorpus": "ke1-08392b87b2cc140b",
+    "holdoutGold": "ke1-34ef12e65473a7f2",
+    "reconstructionPrompt": "ke1-943568042373de98",
+    "criticPrompt": "ke1-b26ddf632ed1fa57",
+    "auditPrompt": "ke1-10b88664b49fca18",
+    "baseProviderSchema": "ke1-c849778553bf38b1",
+    "auditProviderSchema": "ke1-55cd50759595b451",
+    "canonicalModel": "ke1-35c6944619051b8a",
+    "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+    "canonicalizer": "ke1-8a56fab704f65083",
+    "coverageAndRepair": "ke1-ca1d80690519c165",
+    "evaluator": "ke1-b5aa14fa96372ad6",
+    "routing": "ke1-cca7e14c70f0d788"
+  },
+  "checks": [
+    {
+      "contract": "R3H gate",
+      "expected": "R3H_TARGETED_DEVELOPMENT_REPAIRS_PASSED",
+      "observed": "R3H_TARGETED_DEVELOPMENT_REPAIRS_PASSED",
+      "pass": true
+    },
+    {
+      "contract": "R3H configuration",
+      "expected": "R3H_CONFIGURATION_VERIFIED",
+      "observed": "R3H_CONFIGURATION_VERIFIED",
+      "pass": true
+    },
+    {
+      "contract": "model ID",
+      "expected": "gemini-3.5-flash-lite",
+      "observed": "gemini-3.5-flash-lite",
+      "pass": true
+    },
+    {
+      "contract": "Development corpus",
+      "expected": "ke1-64d654cfa041a563",
+      "observed": "ke1-64d654cfa041a563",
+      "pass": true
+    },
+    {
+      "contract": "Development Gold",
+      "expected": "ke1-1006a72533caf7f9",
+      "observed": "ke1-1006a72533caf7f9",
+      "pass": true
+    },
+    {
+      "contract": "reconstruction prompt",
+      "expected": "ke1-943568042373de98",
+      "observed": "ke1-943568042373de98",
+      "pass": true
+    },
+    {
+      "contract": "critic prompt",
+      "expected": "ke1-b26ddf632ed1fa57",
+      "observed": "ke1-b26ddf632ed1fa57",
+      "pass": true
+    },
+    {
+      "contract": "base provider schema",
+      "expected": "ke1-c849778553bf38b1",
+      "observed": "ke1-c849778553bf38b1",
+      "pass": true
+    },
+    {
+      "contract": "canonicalizer",
+      "expected": "ke1-8a56fab704f65083",
+      "observed": "ke1-8a56fab704f65083",
+      "pass": true
+    },
+    {
+      "contract": "coverage and repair",
+      "expected": "ke1-ca1d80690519c165",
+      "observed": "ke1-ca1d80690519c165",
+      "pass": true
+    },
+    {
+      "contract": "evaluator",
+      "expected": "ke1-b5aa14fa96372ad6",
+      "observed": "ke1-b5aa14fa96372ad6",
+      "pass": true
+    },
+    {
+      "contract": "audit prompt",
+      "expected": "ke1-10b88664b49fca18",
+      "observed": "ke1-10b88664b49fca18",
+      "pass": true
+    },
+    {
+      "contract": "audit provider schema",
+      "expected": "ke1-55cd50759595b451",
+      "observed": "ke1-55cd50759595b451",
+      "pass": true
+    },
+    {
+      "contract": "acceptance guard owner",
+      "expected": "ke1-c07cc22d8708c7c9",
+      "observed": "ke1-c07cc22d8708c7c9",
+      "pass": true
+    },
+    {
+      "contract": "Development cases",
+      "expected": 30,
+      "observed": 30,
+      "pass": true
+    },
+    {
+      "contract": "Holdout identity only",
+      "expected": 30,
+      "observed": 30,
+      "pass": true
+    },
+    {
+      "contract": "reconstruction checkpoints",
+      "expected": "30/30 COMPLETE",
+      "observed": "30/30",
+      "pass": true
+    },
+    {
+      "contract": "closed base critics",
+      "expected": "6/6 COMPLETE",
+      "observed": "6/6",
+      "pass": true
+    },
+    {
+      "contract": "D21 deterministic closure",
+      "expected": "PASS",
+      "observed": "PASS",
+      "pass": true
+    },
+    {
+      "contract": "D28 current closure",
+      "expected": "PASS",
+      "observed": "PASS",
+      "pass": true
+    },
+    {
+      "contract": "provider resilience",
+      "expected": "5 attempts; >=60s; concurrency 1",
+      "observed": "5 attempts; 60000ms; concurrency 1",
+      "pass": true
+    }
+  ],
+  "holdout": "IDENTITY_DIGESTED_NOT_EXECUTED"
+}

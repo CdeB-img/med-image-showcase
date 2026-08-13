@@ -1,0 +1,1421 @@
+[
+  {
+    "campaign": "SEM-001R3H",
+    "caseId": "SEM-D28",
+    "executedAt": "2026-08-12T17:19:35.153Z",
+    "finalStatus": "PASS",
+    "firstInvalidatedStage": "COMPOSITE_REQUIREMENT_ACCEPTANCE_GUARD",
+    "llmCalls": 0,
+    "reused": {
+      "reconstruction": true,
+      "baseCritic": true,
+      "validAtomicAudit": true
+    },
+    "originalAudit": {
+      "auditId": "audit-d28-01",
+      "schemaVersion": "SEM-001-ATOMIC-COMPOSITION-1.1",
+      "verdict": "ACCEPT",
+      "atomicityReports": [
+        {
+          "reportId": "rep-atom-1",
+          "subjectInventoryItemIds": [
+            "inv-2",
+            "inv-3"
+          ],
+          "status": "COMPLETE",
+          "constituents": [],
+          "directRelations": [],
+          "reason": "The CT modality and inspiration expiration phases are correctly represented as separate constituents."
+        },
+        {
+          "reportId": "rep-atom-2",
+          "subjectInventoryItemIds": [
+            "inv-4",
+            "inv-5"
+          ],
+          "status": "COMPLETE",
+          "constituents": [],
+          "directRelations": [],
+          "reason": "Air trapping and its quantification are correctly combined as a measurable biomarker entity."
+        }
+      ],
+      "compositionReports": [
+        {
+          "reportId": "rep-comp-1",
+          "sourceInventoryItemIds": [
+            "inv-2",
+            "inv-3"
+          ],
+          "status": "NOT_REQUIRED",
+          "composite": null,
+          "relations": [],
+          "reason": "No additional composite object is required beyond the individual items and explicit relations."
+        }
+      ],
+      "routeAssessment": {
+        "status": "CORRECT",
+        "proposedRoute": null,
+        "confidence": 0.95,
+        "reason": "The UNDERSTAND route aligns with the user's observational parameter listing.",
+        "expectedCapabilities": [
+          "Explain physiological measurement",
+          "Clarify clinical observation protocol"
+        ]
+      },
+      "summary": "The semantic inventory and typed candidate successfully capture all distinct entities, modifiers, and relations from the user text."
+    },
+    "guardedAudit": {
+      "auditId": "audit-d28-01",
+      "schemaVersion": "SEM-001-ATOMIC-COMPOSITION-1.1",
+      "verdict": "REVISE",
+      "atomicityReports": [
+        {
+          "reportId": "rep-atom-1",
+          "subjectInventoryItemIds": [
+            "inv-2",
+            "inv-3"
+          ],
+          "status": "COMPLETE",
+          "constituents": [],
+          "directRelations": [],
+          "reason": "The CT modality and inspiration expiration phases are correctly represented as separate constituents."
+        },
+        {
+          "reportId": "rep-atom-2",
+          "subjectInventoryItemIds": [
+            "inv-4",
+            "inv-5"
+          ],
+          "status": "COMPLETE",
+          "constituents": [],
+          "directRelations": [],
+          "reason": "Air trapping and its quantification are correctly combined as a measurable biomarker entity."
+        }
+      ],
+      "compositionReports": [
+        {
+          "reportId": "rep-comp-1",
+          "sourceInventoryItemIds": [
+            "inv-2",
+            "inv-3"
+          ],
+          "status": "INCOMPLETE",
+          "composite": {
+            "compositeId": "explicit-composite-method-dbb63934c234c0b0",
+            "sourceMessageId": "SEM-D28:user:1",
+            "sourceText": "CT inspiration expiration",
+            "normalizedMeaning": "Computed Tomography inspiration expiration phases",
+            "semanticType": "METHOD",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED"
+          },
+          "relations": [
+            {
+              "sourceInventoryItemId": null,
+              "sourceIsComposite": true,
+              "targetInventoryItemId": "inv-2",
+              "targetIsComposite": false,
+              "sourceMessageId": "SEM-D28:user:1",
+              "sourceText": "CT inspiration expiration",
+              "relationType": "COMPOSES",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "sourceInventoryItemId": null,
+              "sourceIsComposite": true,
+              "targetInventoryItemId": "inv-3",
+              "targetIsComposite": false,
+              "sourceMessageId": "SEM-D28:user:1",
+              "sourceText": "CT inspiration expiration",
+              "relationType": "COMPOSES",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "sourceInventoryItemId": "inv-4",
+              "sourceIsComposite": false,
+              "targetInventoryItemId": null,
+              "targetIsComposite": true,
+              "sourceMessageId": "SEM-D28:user:1",
+              "sourceText": "CT inspiration expiration, air trapping",
+              "relationType": "MEASURED_BY",
+              "polarity": "AFFIRMED"
+            }
+          ],
+          "reason": "No additional composite object is required beyond the individual items and explicit relations. Deterministic acceptance guard: structured source evidence requires a distinct composite METHOD while preserving its components."
+        }
+      ],
+      "routeAssessment": {
+        "status": "CORRECT",
+        "proposedRoute": null,
+        "confidence": 0.95,
+        "reason": "The UNDERSTAND route aligns with the user's observational parameter listing.",
+        "expectedCapabilities": [
+          "Explain physiological measurement",
+          "Clarify clinical observation protocol"
+        ]
+      },
+      "summary": "The semantic inventory and typed candidate successfully capture all distinct entities, modifiers, and relations from the user text. Deterministic acceptance guard rejected a false completion or composition finding."
+    },
+    "acceptanceDiagnostics": [
+      {
+        "reportId": "rep-atom-1",
+        "scope": "ATOMICITY",
+        "originalStatus": "COMPLETE",
+        "effectiveStatus": "COMPLETE",
+        "checks": {
+          "ATOMIC_CONSTITUENTS_REPRESENTED": "NOT_APPLICABLE",
+          "DIRECT_REQUIRED_RELATIONS_REPRESENTED": "NOT_APPLICABLE",
+          "REQUIRED_COMPOSITE_REPRESENTED": "NOT_APPLICABLE",
+          "AUDIT_FINDINGS_CONSISTENT_WITH_STATUS": "PASS"
+        },
+        "disposition": "UNCHANGED",
+        "reason": "No autonomous constituent finding requires a representation check."
+      },
+      {
+        "reportId": "rep-atom-2",
+        "scope": "ATOMICITY",
+        "originalStatus": "COMPLETE",
+        "effectiveStatus": "COMPLETE",
+        "checks": {
+          "ATOMIC_CONSTITUENTS_REPRESENTED": "NOT_APPLICABLE",
+          "DIRECT_REQUIRED_RELATIONS_REPRESENTED": "NOT_APPLICABLE",
+          "REQUIRED_COMPOSITE_REPRESENTED": "NOT_APPLICABLE",
+          "AUDIT_FINDINGS_CONSISTENT_WITH_STATUS": "PASS"
+        },
+        "disposition": "UNCHANGED",
+        "reason": "No autonomous constituent finding requires a representation check."
+      },
+      {
+        "reportId": "rep-comp-1",
+        "scope": "COMPOSITION",
+        "originalStatus": "NOT_REQUIRED",
+        "effectiveStatus": "INCOMPLETE",
+        "checks": {
+          "ATOMIC_CONSTITUENTS_REPRESENTED": "PASS",
+          "DIRECT_REQUIRED_RELATIONS_REPRESENTED": "FAIL",
+          "REQUIRED_COMPOSITE_REPRESENTED": "FAIL",
+          "AUDIT_FINDINGS_CONSISTENT_WITH_STATUS": "FAIL"
+        },
+        "disposition": "AUDIT_STATUS_INCONSISTENT",
+        "reason": "A source-contiguous, linked modality-or-method plus acquisition qualifier is an explicit composite method; NOT_REQUIRED cannot hide that object."
+      },
+      {
+        "reportId": "rep-atom-1",
+        "scope": "ATOMICITY",
+        "originalStatus": "COMPLETE",
+        "effectiveStatus": "COMPLETE",
+        "checks": {
+          "ATOMIC_CONSTITUENTS_REPRESENTED": "NOT_APPLICABLE",
+          "DIRECT_REQUIRED_RELATIONS_REPRESENTED": "NOT_APPLICABLE",
+          "REQUIRED_COMPOSITE_REPRESENTED": "NOT_APPLICABLE",
+          "AUDIT_FINDINGS_CONSISTENT_WITH_STATUS": "PASS"
+        },
+        "disposition": "UNCHANGED",
+        "reason": "No autonomous constituent finding requires a representation check."
+      },
+      {
+        "reportId": "rep-atom-2",
+        "scope": "ATOMICITY",
+        "originalStatus": "COMPLETE",
+        "effectiveStatus": "COMPLETE",
+        "checks": {
+          "ATOMIC_CONSTITUENTS_REPRESENTED": "NOT_APPLICABLE",
+          "DIRECT_REQUIRED_RELATIONS_REPRESENTED": "NOT_APPLICABLE",
+          "REQUIRED_COMPOSITE_REPRESENTED": "NOT_APPLICABLE",
+          "AUDIT_FINDINGS_CONSISTENT_WITH_STATUS": "PASS"
+        },
+        "disposition": "UNCHANGED",
+        "reason": "No autonomous constituent finding requires a representation check."
+      },
+      {
+        "reportId": "rep-comp-1",
+        "scope": "COMPOSITION",
+        "originalStatus": "NOT_REQUIRED",
+        "effectiveStatus": "NOT_REQUIRED",
+        "checks": {
+          "ATOMIC_CONSTITUENTS_REPRESENTED": "PASS",
+          "DIRECT_REQUIRED_RELATIONS_REPRESENTED": "PASS",
+          "REQUIRED_COMPOSITE_REPRESENTED": "PASS",
+          "AUDIT_FINDINGS_CONSISTENT_WITH_STATUS": "PASS"
+        },
+        "disposition": "UNCHANGED",
+        "reason": "The source-grounded composite method is already represented without suppressing its components."
+      }
+    ],
+    "compilationDiagnostics": [
+      {
+        "reportId": "rep-comp-1",
+        "status": "COMPILED",
+        "reason": "COMPOSITION_REPORT_COMPILED_WITH_CONSTITUENTS_PRESERVED"
+      }
+    ],
+    "replayedCriticDiagnostics": [
+      {
+        "repairId": "rep-1",
+        "status": "ACCEPTED",
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+      }
+    ],
+    "repairDiagnostics": [
+      {
+        "repairId": "r3d-repair-748ae74831959a74",
+        "status": "ACCEPTED",
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+      },
+      {
+        "repairId": "r3d-repair-10ac3c16c6f5c83a",
+        "status": "ACCEPTED",
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+      },
+      {
+        "repairId": "r3d-repair-4e59b1d3479e5b57",
+        "status": "ACCEPTED",
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+      },
+      {
+        "repairId": "r3d-repair-f68a73a1cd9738dd",
+        "status": "ACCEPTED",
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+      },
+      {
+        "repairId": "r3d-repair-80f07ae241e515b6",
+        "status": "ACCEPTED",
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+      },
+      {
+        "repairId": "r3d-repair-176ba6b4098de180",
+        "status": "ACCEPTED",
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+      },
+      {
+        "repairId": "r3d-repair-a8cbb192192ed7a6",
+        "status": "ACCEPTED",
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+      },
+      {
+        "repairId": "r3d-repair-d4e369d47b2a4180",
+        "status": "ACCEPTED",
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+      },
+      {
+        "repairId": "r3d-repair-49bdf29bcdb1bfef",
+        "status": "ACCEPTED",
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED"
+      }
+    ],
+    "componentsPreserved": true,
+    "postRepairAuditAccepted": true,
+    "semanticModel": {
+      "semanticModelVersion": "1.1",
+      "semanticModelId": "semantic-model:ke1-ab3d059c42afbd88",
+      "revision": 1,
+      "status": "CANDIDATE",
+      "originalRequest": "Dyspnée, CT inspiration expiration, air trapping quantifié",
+      "normalizedMeaning": "Evaluation of dyspnea using inspiratory and expiratory computed tomography to quantify air trapping.",
+      "conversationMessageIds": [
+        "SEM-D28:user:1"
+      ],
+      "elements": [
+        {
+          "semanticElementId": "sem-element:ke1-396e268b5e3a3147",
+          "type": "METHOD",
+          "canonicalMeaning": "Computed Tomography inspiration expiration phases",
+          "studyRole": "MEASUREMENT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "r3d-inventory-f4ffb925d85a2f19"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D28:user:1",
+            "text": "CT inspiration expiration",
+            "start": 9,
+            "end": 34
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-49a0b764d712faa8",
+            "sem-relation:ke1-90395362082abade",
+            "sem-relation:ke1-edf6cbec98827aa0"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D28:user:1",
+            "providerCallId": "gemini-call:ke1-3ed8e185b7b86a19",
+            "rawElementId": "r3d-element-f4ffb925d85a2f19"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-58891170a71fb074",
+          "type": "BIOMARKER",
+          "canonicalMeaning": "Air trapping quantification",
+          "studyRole": "MEASUREMENT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv-4",
+            "inv-5"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D28:user:1",
+            "text": "air trapping quantifié",
+            "start": 36,
+            "end": 58
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-69712c5006641774",
+            "sem-relation:ke1-edf6cbec98827aa0"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "KNOWLEDGE_GAP",
+            "resultRef": "knowledge-result:ke1-95c2e9100fad020c",
+            "assertionRefs": [],
+            "gapRefs": [
+              "knowledge-gap:ke1-50d48579a463f43d",
+              "knowledge-gap:ke1-b111adb64ea050da"
+            ],
+            "checkedAt": "2026-08-12T17:19:35.152Z"
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D28:user:1",
+            "providerCallId": "gemini-call:ke1-3ed8e185b7b86a19",
+            "rawElementId": "elem-4"
+          },
+          "supersedesElementIds": [],
+          "version": 2
+        },
+        {
+          "semanticElementId": "sem-element:ke1-bcebee3d569c7a59",
+          "type": "CONDITION",
+          "canonicalMeaning": "Dyspnea",
+          "studyRole": "SUBJECT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv-1"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D28:user:1",
+            "text": "Dyspnée",
+            "start": 0,
+            "end": 7
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "KNOWLEDGE_GAP",
+            "resultRef": "knowledge-result:ke1-95c2e9100fad020c",
+            "assertionRefs": [],
+            "gapRefs": [
+              "knowledge-gap:ke1-50d48579a463f43d",
+              "knowledge-gap:ke1-b111adb64ea050da"
+            ],
+            "checkedAt": "2026-08-12T17:19:35.152Z"
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D28:user:1",
+            "providerCallId": "gemini-call:ke1-3ed8e185b7b86a19",
+            "rawElementId": "elem-1"
+          },
+          "supersedesElementIds": [],
+          "version": 2
+        },
+        {
+          "semanticElementId": "sem-element:ke1-e54eb66235d8a3c6",
+          "type": "MODALITY",
+          "canonicalMeaning": "Computed Tomography",
+          "studyRole": "MEASUREMENT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv-2"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D28:user:1",
+            "text": "CT",
+            "start": 9,
+            "end": 11
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-69712c5006641774",
+            "sem-relation:ke1-90395362082abade"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D28:user:1",
+            "providerCallId": "gemini-call:ke1-3ed8e185b7b86a19",
+            "rawElementId": "elem-2"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-ef69face2bc3f1aa",
+          "type": "TIMING",
+          "canonicalMeaning": "Inspiratory and expiratory phases",
+          "studyRole": "NONE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv-3"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D28:user:1",
+            "text": "inspiration expiration",
+            "start": 12,
+            "end": 34
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-49a0b764d712faa8"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D28:user:1",
+            "providerCallId": "gemini-call:ke1-3ed8e185b7b86a19",
+            "rawElementId": "elem-3"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        }
+      ],
+      "relations": [
+        {
+          "semanticRelationId": "sem-relation:ke1-49a0b764d712faa8",
+          "sourceElementId": "sem-element:ke1-396e268b5e3a3147",
+          "targetElementId": "sem-element:ke1-ef69face2bc3f1aa",
+          "relationType": "COMPOSES",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "r3d-inventory-relation-f5c6197ba79f905f"
+          ],
+          "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "version": 1
+        },
+        {
+          "semanticRelationId": "sem-relation:ke1-69712c5006641774",
+          "sourceElementId": "sem-element:ke1-58891170a71fb074",
+          "targetElementId": "sem-element:ke1-e54eb66235d8a3c6",
+          "relationType": "MEASURED_BY",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel-1"
+          ],
+          "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "version": 1
+        },
+        {
+          "semanticRelationId": "sem-relation:ke1-90395362082abade",
+          "sourceElementId": "sem-element:ke1-396e268b5e3a3147",
+          "targetElementId": "sem-element:ke1-e54eb66235d8a3c6",
+          "relationType": "COMPOSES",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "r3d-inventory-relation-7e60638a055803ae"
+          ],
+          "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "version": 1
+        },
+        {
+          "semanticRelationId": "sem-relation:ke1-edf6cbec98827aa0",
+          "sourceElementId": "sem-element:ke1-58891170a71fb074",
+          "targetElementId": "sem-element:ke1-396e268b5e3a3147",
+          "relationType": "MEASURED_BY",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "r3d-inventory-relation-ada12b64745452b0"
+          ],
+          "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "version": 1
+        }
+      ],
+      "explicitCoverageReport": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryItemId": "inv-1",
+            "sourceMessageId": "SEM-D28:user:1",
+            "sourceText": "Dyspnée",
+            "normalizedMeaning": "Dyspnée",
+            "mappedClientElementIds": [
+              "elem-1"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "inv-2",
+            "sourceMessageId": "SEM-D28:user:1",
+            "sourceText": "CT",
+            "normalizedMeaning": "Computed Tomography",
+            "mappedClientElementIds": [
+              "elem-2"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "inv-3",
+            "sourceMessageId": "SEM-D28:user:1",
+            "sourceText": "inspiration expiration",
+            "normalizedMeaning": "inspiration expiration phases",
+            "mappedClientElementIds": [
+              "elem-3"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "inv-4",
+            "sourceMessageId": "SEM-D28:user:1",
+            "sourceText": "air trapping",
+            "normalizedMeaning": "air trapping",
+            "mappedClientElementIds": [
+              "elem-4"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "inv-5",
+            "sourceMessageId": "SEM-D28:user:1",
+            "sourceText": "quantifié",
+            "normalizedMeaning": "quantification",
+            "mappedClientElementIds": [
+              "elem-4"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "r3d-inventory-f4ffb925d85a2f19",
+            "sourceMessageId": "SEM-D28:user:1",
+            "sourceText": "CT inspiration expiration",
+            "normalizedMeaning": "Computed Tomography inspiration expiration phases",
+            "mappedClientElementIds": [
+              "elem-2",
+              "elem-3",
+              "r3d-element-f4ffb925d85a2f19"
+            ],
+            "mappedClientRelationIds": [],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          }
+        ]
+      },
+      "relationCoverageReport": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "inv-4",
+            "targetInventoryItemId": "inv-2",
+            "normalizedRelation": "MEASURED_BY",
+            "mappedClientRelationIds": [
+              "rel-elem-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+          },
+          {
+            "inventoryRelationId": "r3d-inventory-relation-7e60638a055803ae",
+            "sourceInventoryItemId": "r3d-inventory-f4ffb925d85a2f19",
+            "targetInventoryItemId": "inv-2",
+            "normalizedRelation": "COMPOSES",
+            "mappedClientRelationIds": [
+              "coalesced:elem-2",
+              "r3d-relation-7e60638a055803ae"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "r3d-inventory-relation-f5c6197ba79f905f",
+            "sourceInventoryItemId": "r3d-inventory-f4ffb925d85a2f19",
+            "targetInventoryItemId": "inv-3",
+            "normalizedRelation": "COMPOSES",
+            "mappedClientRelationIds": [
+              "coalesced:elem-3",
+              "r3d-relation-f5c6197ba79f905f"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "r3d-inventory-relation-ada12b64745452b0",
+            "sourceInventoryItemId": "inv-4",
+            "targetInventoryItemId": "r3d-inventory-f4ffb925d85a2f19",
+            "normalizedRelation": "MEASURED_BY",
+            "mappedClientRelationIds": [
+              "r3d-relation-ada12b64745452b0"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          }
+        ]
+      },
+      "missingConcepts": [],
+      "ellipses": [],
+      "ambiguities": [],
+      "unknowns": [],
+      "contradictions": [],
+      "clarificationCandidates": [],
+      "knowledgeRequests": [],
+      "routeProposal": {
+        "route": "FORMALIZE_IDEA",
+        "confidence": 1,
+        "reason": "The complete repaired graph contains an explicit composite method, an explicit measurement relation, and a source-grounded scientific action; it requires formalization rather than explanation-only exploration.",
+        "expectedCapabilities": [
+          "METHOD_COMPOSITION",
+          "SCIENTIFIC_FORMALIZATION"
+        ]
+      },
+      "summaryForUser": "Analyse de la dyspnée par tomodensitométrie en inspiration et expiration avec quantification du piège aérodynamique (air trapping).",
+      "critic": {
+        "verdict": "ACCEPT",
+        "issues": [],
+        "summary": "The semantic model is fully compliant, complete, and accurately reflects all source tokens and explicit relations without any critical issues or coverage failures."
+      },
+      "executionSnapshot": {
+        "provider": "GOOGLE_GEMINI",
+        "model": "gemini-3.5-flash-lite",
+        "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+        "criticPromptVersion": "SEM-001-CRITIC-1.3",
+        "schemaVersion": "SEM-001-1.1",
+        "reconstructionCallId": "gemini-call:ke1-3ed8e185b7b86a19",
+        "criticCallId": "gemini-call:ke1-afd5f1bab1a06abe",
+        "criticCallIds": [
+          "gemini-call:ke1-f5f1bb0899ce678c",
+          "gemini-call:ke1-afd5f1bab1a06abe"
+        ],
+        "reconstructionAttempts": [],
+        "criticAttempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-12T12:00:03.721Z",
+            "requestFinished": "2026-08-12T12:00:08.332Z",
+            "latencyMs": 4611,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          },
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-12T12:00:47.763Z",
+            "requestFinished": "2026-08-12T12:00:50.781Z",
+            "latencyMs": 3018,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ],
+        "rawReconstruction": {
+          "candidateId": "cand-001",
+          "language": "fr",
+          "normalizedMeaning": "Evaluation of dyspnea using inspiratory and expiratory computed tomography to quantify air trapping.",
+          "summaryForUser": "Analyse de la dyspnée par tomodensitométrie en inspiration et expiration avec quantification du piège aérodynamique (air trapping).",
+          "semanticInventory": {
+            "explicitFragments": [
+              {
+                "inventoryItemId": "inv-1",
+                "sourceMessageId": "SEM-D28:user:1",
+                "sourceText": "Dyspnée",
+                "normalizedLabel": "Dyspnée",
+                "localRole": "target",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": []
+              },
+              {
+                "inventoryItemId": "inv-2",
+                "sourceMessageId": "SEM-D28:user:1",
+                "sourceText": "CT",
+                "normalizedLabel": "Computed Tomography",
+                "localRole": "modality",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": [
+                  "inv-3"
+                ]
+              },
+              {
+                "inventoryItemId": "inv-3",
+                "sourceMessageId": "SEM-D28:user:1",
+                "sourceText": "inspiration expiration",
+                "normalizedLabel": "inspiration expiration phases",
+                "localRole": "timing",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": [
+                  "inv-2"
+                ]
+              },
+              {
+                "inventoryItemId": "inv-4",
+                "sourceMessageId": "SEM-D28:user:1",
+                "sourceText": "air trapping",
+                "normalizedLabel": "air trapping",
+                "localRole": "biomarker",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": [
+                  "inv-5"
+                ]
+              },
+              {
+                "inventoryItemId": "inv-5",
+                "sourceMessageId": "SEM-D28:user:1",
+                "sourceText": "quantifié",
+                "normalizedLabel": "quantification",
+                "localRole": "action",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": [
+                  "inv-4"
+                ]
+              },
+              {
+                "inventoryItemId": "r3d-inventory-f4ffb925d85a2f19",
+                "sourceMessageId": "SEM-D28:user:1",
+                "sourceText": "CT inspiration expiration",
+                "normalizedLabel": "Computed Tomography inspiration expiration phases",
+                "localRole": "EXPLICIT_COMPOSITE_OBJECT",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": [
+                  "inv-2",
+                  "inv-3"
+                ]
+              }
+            ],
+            "explicitRelations": [
+              {
+                "inventoryRelationId": "rel-1",
+                "sourceInventoryItemId": "inv-4",
+                "targetInventoryItemId": "inv-2",
+                "sourceMessageId": "SEM-D28:user:1",
+                "sourceText": "CT ... air trapping quantifié",
+                "normalizedRelation": "MEASURED_BY",
+                "polarity": "AFFIRMED"
+              },
+              {
+                "inventoryRelationId": "r3d-inventory-relation-7e60638a055803ae",
+                "sourceInventoryItemId": "r3d-inventory-f4ffb925d85a2f19",
+                "targetInventoryItemId": "inv-2",
+                "sourceMessageId": "SEM-D28:user:1",
+                "sourceText": "CT inspiration expiration",
+                "normalizedRelation": "COMPOSES",
+                "polarity": "AFFIRMED"
+              },
+              {
+                "inventoryRelationId": "r3d-inventory-relation-f5c6197ba79f905f",
+                "sourceInventoryItemId": "r3d-inventory-f4ffb925d85a2f19",
+                "targetInventoryItemId": "inv-3",
+                "sourceMessageId": "SEM-D28:user:1",
+                "sourceText": "CT inspiration expiration",
+                "normalizedRelation": "COMPOSES",
+                "polarity": "AFFIRMED"
+              },
+              {
+                "inventoryRelationId": "r3d-inventory-relation-ada12b64745452b0",
+                "sourceInventoryItemId": "inv-4",
+                "targetInventoryItemId": "r3d-inventory-f4ffb925d85a2f19",
+                "sourceMessageId": "SEM-D28:user:1",
+                "sourceText": "CT inspiration expiration, air trapping",
+                "normalizedRelation": "MEASURED_BY",
+                "polarity": "AFFIRMED"
+              }
+            ]
+          },
+          "elements": [
+            {
+              "clientElementId": "elem-2",
+              "type": "MODALITY",
+              "canonicalMeaning": "Computed Tomography",
+              "studyRole": "MEASUREMENT",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "inv-2"
+              ],
+              "sourceMessageId": "SEM-D28:user:1",
+              "sourceText": "CT",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem-3",
+              "type": "TIMING",
+              "canonicalMeaning": "Inspiratory and expiratory phases",
+              "studyRole": "NONE",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "inv-3"
+              ],
+              "sourceMessageId": "SEM-D28:user:1",
+              "sourceText": "inspiration expiration",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem-4",
+              "type": "BIOMARKER",
+              "canonicalMeaning": "Air trapping quantification",
+              "studyRole": "MEASUREMENT",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "inv-4",
+                "inv-5"
+              ],
+              "sourceMessageId": "SEM-D28:user:1",
+              "sourceText": "air trapping quantifié",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem-1",
+              "type": "CONDITION",
+              "canonicalMeaning": "Dyspnea",
+              "studyRole": "SUBJECT",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "inv-1"
+              ],
+              "sourceMessageId": "SEM-D28:user:1",
+              "sourceText": "Dyspnée",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "r3d-element-f4ffb925d85a2f19",
+              "type": "METHOD",
+              "canonicalMeaning": "Computed Tomography inspiration expiration phases",
+              "studyRole": "MEASUREMENT",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "r3d-inventory-f4ffb925d85a2f19"
+              ],
+              "sourceMessageId": "SEM-D28:user:1",
+              "sourceText": "CT inspiration expiration",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            }
+          ],
+          "relations": [
+            {
+              "clientRelationId": "rel-elem-1",
+              "sourceClientElementId": "elem-4",
+              "targetClientElementId": "elem-2",
+              "relationType": "MEASURED_BY",
+              "polarity": "AFFIRMED",
+              "inventoryRelationIds": [
+                "rel-1"
+              ],
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false
+            },
+            {
+              "clientRelationId": "r3d-relation-7e60638a055803ae",
+              "sourceClientElementId": "r3d-element-f4ffb925d85a2f19",
+              "targetClientElementId": "elem-2",
+              "relationType": "COMPOSES",
+              "polarity": "AFFIRMED",
+              "inventoryRelationIds": [
+                "r3d-inventory-relation-7e60638a055803ae"
+              ],
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false
+            },
+            {
+              "clientRelationId": "r3d-relation-f5c6197ba79f905f",
+              "sourceClientElementId": "r3d-element-f4ffb925d85a2f19",
+              "targetClientElementId": "elem-3",
+              "relationType": "COMPOSES",
+              "polarity": "AFFIRMED",
+              "inventoryRelationIds": [
+                "r3d-inventory-relation-f5c6197ba79f905f"
+              ],
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false
+            },
+            {
+              "clientRelationId": "r3d-relation-ada12b64745452b0",
+              "sourceClientElementId": "elem-4",
+              "targetClientElementId": "r3d-element-f4ffb925d85a2f19",
+              "relationType": "MEASURED_BY",
+              "polarity": "AFFIRMED",
+              "inventoryRelationIds": [
+                "r3d-inventory-relation-ada12b64745452b0"
+              ],
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false
+            }
+          ],
+          "missingConcepts": [],
+          "ellipses": [],
+          "ambiguities": [],
+          "unknowns": [],
+          "contradictions": [],
+          "knowledgeRequests": [],
+          "clarificationCandidates": [],
+          "routeProposal": {
+            "route": "FORMALIZE_IDEA",
+            "confidence": 1,
+            "reason": "The complete repaired graph contains an explicit composite method, an explicit measurement relation, and a source-grounded scientific action; it requires formalization rather than explanation-only exploration.",
+            "expectedCapabilities": [
+              "SCIENTIFIC_FORMALIZATION",
+              "METHOD_COMPOSITION"
+            ]
+          },
+          "semanticWarnings": []
+        },
+        "rawCritic": {
+          "criticId": "critic-001",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit entities (Dyspnée, CT, air trapping) are fully represented as elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is present in the source text."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No intervention is present in the source text."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "CT is correctly represented as MODALITY."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The explicit relation between air trapping and CT is correctly mapped."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All types adhere to operational taxonomy definitions."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No relation was weakened."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unauthorized inference was promoted."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No hidden ambiguities."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarities are consistently affirmed."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Inspiration expiration phases are fully preserved as TIMING."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No unsupported endpoint promotion."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts remain exact."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "All source fragments are represented."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "Route UNDERSTAND correctly matches the observational request."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The semantic model is fully compliant, complete, and accurately reflects all source tokens and explicit relations without any critical issues or coverage failures."
+        },
+        "rawCritics": [
+          {
+            "criticId": "critic-001",
+            "verdict": "REVISE",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit objects and entities like dyspnea and air trapping are represented in the elements inventory."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No comparator is present in the source text."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No intervention is present in the source text."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Computed Tomography (CT) modality is correctly represented as elem-2."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "The measurement relation between air trapping and CT is represented by rel-elem-1."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "FAIL",
+                "evidence": "Dyspnea is typed as PHENOMENON, but per taxonomy rules, a symptom/clinical condition or state stated as context or complaint should be CONDITION or SUBJECT."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Explicit relations are preserved without weakening."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No unsupported inferences were promoted as explicit facts."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "No ambiguities were hidden."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "No negation is present."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "PASS",
+                "evidence": "Inspiration/expiration phases are preserved as elem-3."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "No unsupported endpoint promotion occurred."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts remain exact."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit source fragments are mapped."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "The UNDERSTAND route correctly matches the observational parameter listing without study design request."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [
+              {
+                "code": "TYPE_MISMATCH",
+                "severity": "WARNING",
+                "elementClientIds": [
+                  "elem-1"
+                ],
+                "description": "Dyspnea is classified as PHENOMENON, but a symptom or clinical state context is better classified as CONDITION.",
+                "recommendedAction": "Change type of elem-1 from PHENOMENON to CONDITION.",
+                "resolved": false
+              }
+            ],
+            "proposedRepairs": [
+              {
+                "repairId": "rep-1",
+                "action": "UPSERT_ELEMENT",
+                "reason": "Correct element type for dyspnea from PHENOMENON to CONDITION per operational taxonomy.",
+                "sourceInventoryItemIds": [
+                  "inv-1"
+                ],
+                "sourceInventoryRelationIds": [],
+                "inventoryItemId": null,
+                "inventorySourceMessageId": null,
+                "inventorySourceText": null,
+                "inventoryNormalizedLabel": null,
+                "inventoryLocalRole": null,
+                "inventoryPolarity": null,
+                "inventoryModifiers": [],
+                "inventoryLinkedItemIds": [],
+                "inventoryRelationId": null,
+                "inventoryRelationSourceItemId": null,
+                "inventoryRelationTargetItemId": null,
+                "inventoryRelationSourceMessageId": null,
+                "inventoryRelationSourceText": null,
+                "inventoryNormalizedRelation": null,
+                "inventoryRelationPolarity": null,
+                "elementClientElementId": "elem-1",
+                "elementType": "CONDITION",
+                "elementCanonicalMeaning": "Dyspnea",
+                "elementStudyRole": "SUBJECT",
+                "elementPolarity": "AFFIRMED",
+                "elementInventoryItemIds": [
+                  "inv-1"
+                ],
+                "elementSourceMessageId": "SEM-D28:user:1",
+                "elementSourceText": "Dyspnée",
+                "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+                "elementConfidence": 1,
+                "elementInferenceReason": null,
+                "elementRequiresConfirmation": false,
+                "elementSupersedesElementIds": [],
+                "relationClientRelationId": null,
+                "relationSourceClientElementId": null,
+                "relationTargetClientElementId": null,
+                "relationType": null,
+                "relationPolarity": null,
+                "relationInventoryRelationIds": [],
+                "relationEpistemicStatus": null,
+                "relationConfidence": null,
+                "relationInferenceReason": null,
+                "relationRequiresConfirmation": null,
+                "ambiguity": null,
+                "route": null,
+                "routeConfidence": null,
+                "routeReason": null,
+                "routeExpectedCapabilities": []
+              }
+            ],
+            "criticSummary": "The semantic elements and relations are generally well-extracted, but the classification of 'Dyspnée' as PHENOMENON should be corrected to CONDITION to align with the operational taxonomy."
+          },
+          {
+            "criticId": "critic-001",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit entities (Dyspnée, CT, air trapping) are fully represented as elements."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No comparator is present in the source text."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No intervention is present in the source text."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "PASS",
+                "evidence": "CT is correctly represented as MODALITY."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "The explicit relation between air trapping and CT is correctly mapped."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "All types adhere to operational taxonomy definitions."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "No relation was weakened."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No unauthorized inference was promoted."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "No hidden ambiguities."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "Polarities are consistently affirmed."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "PASS",
+                "evidence": "Inspiration expiration phases are fully preserved as TIMING."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "No unsupported endpoint promotion."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts remain exact."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "All source fragments are represented."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "Route UNDERSTAND correctly matches the observational request."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The semantic model is fully compliant, complete, and accurately reflects all source tokens and explicit relations without any critical issues or coverage failures."
+          }
+        ],
+        "temperature": null,
+        "executedAt": "2026-08-12T17:19:35.146Z"
+      },
+      "knowledgeSnapshot": {
+        "resultId": "knowledge-result:ke1-95c2e9100fad020c",
+        "resultDigest": "ke1-95c2e9100fad020c",
+        "coverageStatus": "NO_PROVIDER",
+        "verifiedAt": "2026-08-12T17:19:35.152Z"
+      },
+      "previousModelId": null,
+      "history": [],
+      "acceptedAt": null,
+      "acceptanceRecord": null,
+      "createdAt": "2026-08-12T17:19:35.146Z",
+      "updatedAt": "2026-08-12T17:19:35.152Z",
+      "digest": "ke1-66b187d9972677c5"
+    },
+    "metric": {
+      "caseId": "SEM-D28",
+      "explicitObjectRecall": 1,
+      "explicitRelationRecall": 1,
+      "criticalSemanticRecall": 1,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 1,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": []
+    }
+  }
+]

@@ -1,0 +1,33 @@
+{
+  "campaign": "SEM-001R3E",
+  "decision": "R3E_BLOCKED_BY_PROVIDER_CAPACITY",
+  "classification": "STRUCTURED_OUTPUT_CONTRACT_FAILURE",
+  "historicalR3dDecisionPreserved": "R3D_BLOCKED_BY_PROVIDER",
+  "evidence": [
+    {
+      "caseId": "SEM-D21",
+      "finalStatus": "PROVIDER_CAPACITY_FAILURE",
+      "metric": null,
+      "error": {
+        "category": "NETWORK",
+        "classification": "PROVIDER_CAPACITY_FAILURE",
+        "httpStatus": null,
+        "providerStatus": null,
+        "validationIssues": [],
+        "diagnosticArtifact": null
+      }
+    },
+    {
+      "caseId": "SEM-D28",
+      "finalStatus": "NOT_RUN_GATE_CLOSED",
+      "metric": null,
+      "error": null
+    }
+  ],
+  "gates": {
+    "d21Pass": false,
+    "d28Pass": false,
+    "remainingDevelopmentCritics": "NOT_AUTHORIZED",
+    "holdout": "NOT_STARTED_FORBIDDEN"
+  }
+}

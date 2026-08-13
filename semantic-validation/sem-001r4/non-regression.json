@@ -1,0 +1,29 @@
+{
+  "campaign": "SEM-001R4-CLOSURE",
+  "status": "PARTIAL_TARGETED_PASS_FULL_GATE_CLOSED",
+  "targetedValidations": [
+    {
+      "scope": "R4 closure taxonomy guard, evaluator equivalence and competence evaluator",
+      "result": "26/26 PASS",
+      "testFiles": 3
+    },
+    {
+      "scope": "R4 closure evaluator equivalence, R4A relation coverage, R4 closure taxonomy guard, competence evaluator and R3 competence repair",
+      "result": "78/78 PASS",
+      "testFiles": 5
+    }
+  ],
+  "fullSemanticSuite": "NOT_RUN_AFTER_H07_ARBITRATION_GATE",
+  "knowledge": "NOT_RUN_AFTER_H07_ARBITRATION_GATE",
+  "scientificThinking": "NOT_RUN_AFTER_H07_ARBITRATION_GATE",
+  "imaging": "NOT_RUN_AFTER_H07_ARBITRATION_GATE",
+  "project": "NOT_RUN_AFTER_H07_ARBITRATION_GATE",
+  "system": "NOT_RUN_AFTER_H07_ARBITRATION_GATE",
+  "templates": "NOT_RUN_AFTER_H07_ARBITRATION_GATE",
+  "documents": "NOT_RUN_AFTER_H07_ARBITRATION_GATE",
+  "regulatory": "NOT_APPLICABLE_NO_REG_CHANGE",
+  "typecheck": "NOT_RUN_AFTER_H07_ARBITRATION_GATE",
+  "lint": "NOT_RUN_AFTER_H07_ARBITRATION_GATE",
+  "build": "NOT_RUN_AFTER_H07_ARBITRATION_GATE",
+  "global": "NOT_RUN_AFTER_H07_ARBITRATION_GATE"
+}

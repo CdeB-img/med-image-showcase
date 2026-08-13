@@ -1,0 +1,1449 @@
+{
+  "campaign": "SEM-001R3I",
+  "generatedAt": "2026-08-12T17:48:36.246Z",
+  "configurationDecision": "R3I_CONFIGURATION_VERIFIED",
+  "semanticConfigurationDigest": "ke1-d34d45911dbf8b5d",
+  "caseCount": 30,
+  "cases": [
+    {
+      "caseId": "SEM-D01",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-a57a9cca85098876"
+      },
+      "baseCritic": {
+        "status": "NOT_RUN_CURRENT_CONFIGURATION",
+        "classification": "LLM_REQUIRED",
+        "digest": null
+      },
+      "atomicCompositionAudit": {
+        "status": "CONDITIONAL_NOT_ACTIVATED",
+        "classification": "LLM_REQUIRED",
+        "executionCondition": "GENERIC_ATOMIC_OR_COMPOSITE_ACTIVATION_ONLY"
+      },
+      "canonicalization": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "evaluation": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "metrics": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    },
+    {
+      "caseId": "SEM-D02",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-4b56b1db76d30cd7"
+      },
+      "baseCritic": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-faa73c8b53e2235f"
+      },
+      "atomicCompositionAudit": {
+        "status": "NOT_APPLICABLE",
+        "classification": "REUSE_COMPATIBLE",
+        "executionCondition": "NONE"
+      },
+      "canonicalization": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE"
+      },
+      "evaluation": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE"
+      },
+      "metrics": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    },
+    {
+      "caseId": "SEM-D03",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-0a3cbf458af58911"
+      },
+      "baseCritic": {
+        "status": "NOT_RUN_CURRENT_CONFIGURATION",
+        "classification": "LLM_REQUIRED",
+        "digest": null
+      },
+      "atomicCompositionAudit": {
+        "status": "CONDITIONAL_NOT_ACTIVATED",
+        "classification": "LLM_REQUIRED",
+        "executionCondition": "GENERIC_ATOMIC_OR_COMPOSITE_ACTIVATION_ONLY"
+      },
+      "canonicalization": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "evaluation": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "metrics": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    },
+    {
+      "caseId": "SEM-D04",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-3cd2f359e197ff25"
+      },
+      "baseCritic": {
+        "status": "NOT_RUN_CURRENT_CONFIGURATION",
+        "classification": "LLM_REQUIRED",
+        "digest": null
+      },
+      "atomicCompositionAudit": {
+        "status": "CONDITIONAL_NOT_ACTIVATED",
+        "classification": "LLM_REQUIRED",
+        "executionCondition": "GENERIC_ATOMIC_OR_COMPOSITE_ACTIVATION_ONLY"
+      },
+      "canonicalization": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "evaluation": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "metrics": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    },
+    {
+      "caseId": "SEM-D05",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-ea31cfdce2a48ce0"
+      },
+      "baseCritic": {
+        "status": "NOT_RUN_CURRENT_CONFIGURATION",
+        "classification": "LLM_REQUIRED",
+        "digest": null
+      },
+      "atomicCompositionAudit": {
+        "status": "CONDITIONAL_NOT_ACTIVATED",
+        "classification": "LLM_REQUIRED",
+        "executionCondition": "GENERIC_ATOMIC_OR_COMPOSITE_ACTIVATION_ONLY"
+      },
+      "canonicalization": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "evaluation": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "metrics": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    },
+    {
+      "caseId": "SEM-D06",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-b06ade5920fb80dd"
+      },
+      "baseCritic": {
+        "status": "NOT_RUN_CURRENT_CONFIGURATION",
+        "classification": "LLM_REQUIRED",
+        "digest": null
+      },
+      "atomicCompositionAudit": {
+        "status": "CONDITIONAL_NOT_ACTIVATED",
+        "classification": "LLM_REQUIRED",
+        "executionCondition": "GENERIC_ATOMIC_OR_COMPOSITE_ACTIVATION_ONLY"
+      },
+      "canonicalization": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "evaluation": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "metrics": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    },
+    {
+      "caseId": "SEM-D07",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-973af33c865f6a50"
+      },
+      "baseCritic": {
+        "status": "NOT_RUN_CURRENT_CONFIGURATION",
+        "classification": "LLM_REQUIRED",
+        "digest": null
+      },
+      "atomicCompositionAudit": {
+        "status": "CONDITIONAL_NOT_ACTIVATED",
+        "classification": "LLM_REQUIRED",
+        "executionCondition": "GENERIC_ATOMIC_OR_COMPOSITE_ACTIVATION_ONLY"
+      },
+      "canonicalization": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "evaluation": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "metrics": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    },
+    {
+      "caseId": "SEM-D08",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-cc8694ff3977e1c3"
+      },
+      "baseCritic": {
+        "status": "NOT_RUN_CURRENT_CONFIGURATION",
+        "classification": "LLM_REQUIRED",
+        "digest": null
+      },
+      "atomicCompositionAudit": {
+        "status": "CONDITIONAL_NOT_ACTIVATED",
+        "classification": "LLM_REQUIRED",
+        "executionCondition": "GENERIC_ATOMIC_OR_COMPOSITE_ACTIVATION_ONLY"
+      },
+      "canonicalization": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "evaluation": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "metrics": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    },
+    {
+      "caseId": "SEM-D09",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-dff8ea7b2c060127"
+      },
+      "baseCritic": {
+        "status": "NOT_RUN_CURRENT_CONFIGURATION",
+        "classification": "LLM_REQUIRED",
+        "digest": null
+      },
+      "atomicCompositionAudit": {
+        "status": "CONDITIONAL_NOT_ACTIVATED",
+        "classification": "LLM_REQUIRED",
+        "executionCondition": "GENERIC_ATOMIC_OR_COMPOSITE_ACTIVATION_ONLY"
+      },
+      "canonicalization": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "evaluation": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "metrics": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    },
+    {
+      "caseId": "SEM-D10",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-65f60d48fb7fbaf4"
+      },
+      "baseCritic": {
+        "status": "NOT_RUN_CURRENT_CONFIGURATION",
+        "classification": "LLM_REQUIRED",
+        "digest": null
+      },
+      "atomicCompositionAudit": {
+        "status": "CONDITIONAL_NOT_ACTIVATED",
+        "classification": "LLM_REQUIRED",
+        "executionCondition": "GENERIC_ATOMIC_OR_COMPOSITE_ACTIVATION_ONLY"
+      },
+      "canonicalization": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "evaluation": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "metrics": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    },
+    {
+      "caseId": "SEM-D11",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-481c14b518fd4a31"
+      },
+      "baseCritic": {
+        "status": "NOT_RUN_CURRENT_CONFIGURATION",
+        "classification": "LLM_REQUIRED",
+        "digest": null
+      },
+      "atomicCompositionAudit": {
+        "status": "CONDITIONAL_NOT_ACTIVATED",
+        "classification": "LLM_REQUIRED",
+        "executionCondition": "GENERIC_ATOMIC_OR_COMPOSITE_ACTIVATION_ONLY"
+      },
+      "canonicalization": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "evaluation": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "metrics": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    },
+    {
+      "caseId": "SEM-D12",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-df71a9c318b9c14f"
+      },
+      "baseCritic": {
+        "status": "NOT_RUN_CURRENT_CONFIGURATION",
+        "classification": "LLM_REQUIRED",
+        "digest": null
+      },
+      "atomicCompositionAudit": {
+        "status": "CONDITIONAL_NOT_ACTIVATED",
+        "classification": "LLM_REQUIRED",
+        "executionCondition": "GENERIC_ATOMIC_OR_COMPOSITE_ACTIVATION_ONLY"
+      },
+      "canonicalization": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "evaluation": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "metrics": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    },
+    {
+      "caseId": "SEM-D13",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-02b5403afea4c19e"
+      },
+      "baseCritic": {
+        "status": "NOT_RUN_CURRENT_CONFIGURATION",
+        "classification": "LLM_REQUIRED",
+        "digest": null
+      },
+      "atomicCompositionAudit": {
+        "status": "CONDITIONAL_NOT_ACTIVATED",
+        "classification": "LLM_REQUIRED",
+        "executionCondition": "GENERIC_ATOMIC_OR_COMPOSITE_ACTIVATION_ONLY"
+      },
+      "canonicalization": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "evaluation": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "metrics": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    },
+    {
+      "caseId": "SEM-D14",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-d59681e3f2e28e07"
+      },
+      "baseCritic": {
+        "status": "NOT_RUN_CURRENT_CONFIGURATION",
+        "classification": "LLM_REQUIRED",
+        "digest": null
+      },
+      "atomicCompositionAudit": {
+        "status": "CONDITIONAL_NOT_ACTIVATED",
+        "classification": "LLM_REQUIRED",
+        "executionCondition": "GENERIC_ATOMIC_OR_COMPOSITE_ACTIVATION_ONLY"
+      },
+      "canonicalization": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "evaluation": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "metrics": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    },
+    {
+      "caseId": "SEM-D15",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-8b518fdd9b74ef11"
+      },
+      "baseCritic": {
+        "status": "NOT_RUN_CURRENT_CONFIGURATION",
+        "classification": "LLM_REQUIRED",
+        "digest": null
+      },
+      "atomicCompositionAudit": {
+        "status": "CONDITIONAL_NOT_ACTIVATED",
+        "classification": "LLM_REQUIRED",
+        "executionCondition": "GENERIC_ATOMIC_OR_COMPOSITE_ACTIVATION_ONLY"
+      },
+      "canonicalization": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "evaluation": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "metrics": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    },
+    {
+      "caseId": "SEM-D16",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-54b765689489cc5c"
+      },
+      "baseCritic": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-70c4c8a357cedb0f"
+      },
+      "atomicCompositionAudit": {
+        "status": "NOT_APPLICABLE",
+        "classification": "REUSE_COMPATIBLE",
+        "executionCondition": "NONE"
+      },
+      "canonicalization": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE"
+      },
+      "evaluation": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE"
+      },
+      "metrics": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    },
+    {
+      "caseId": "SEM-D17",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-d9a22ce27bd503ce"
+      },
+      "baseCritic": {
+        "status": "NOT_RUN_CURRENT_CONFIGURATION",
+        "classification": "LLM_REQUIRED",
+        "digest": null
+      },
+      "atomicCompositionAudit": {
+        "status": "CONDITIONAL_NOT_ACTIVATED",
+        "classification": "LLM_REQUIRED",
+        "executionCondition": "GENERIC_ATOMIC_OR_COMPOSITE_ACTIVATION_ONLY"
+      },
+      "canonicalization": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "evaluation": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "metrics": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    },
+    {
+      "caseId": "SEM-D18",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-91c6a17ebabc18fa"
+      },
+      "baseCritic": {
+        "status": "NOT_RUN_CURRENT_CONFIGURATION",
+        "classification": "LLM_REQUIRED",
+        "digest": null
+      },
+      "atomicCompositionAudit": {
+        "status": "CONDITIONAL_NOT_ACTIVATED",
+        "classification": "LLM_REQUIRED",
+        "executionCondition": "GENERIC_ATOMIC_OR_COMPOSITE_ACTIVATION_ONLY"
+      },
+      "canonicalization": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "evaluation": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "metrics": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    },
+    {
+      "caseId": "SEM-D19",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-d1ed181a279ad096"
+      },
+      "baseCritic": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-a0be906f24f0630b"
+      },
+      "atomicCompositionAudit": {
+        "status": "NOT_APPLICABLE",
+        "classification": "REUSE_COMPATIBLE",
+        "executionCondition": "NONE"
+      },
+      "canonicalization": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE"
+      },
+      "evaluation": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE"
+      },
+      "metrics": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    },
+    {
+      "caseId": "SEM-D20",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-68ae7445de8f5319"
+      },
+      "baseCritic": {
+        "status": "NOT_RUN_CURRENT_CONFIGURATION",
+        "classification": "LLM_REQUIRED",
+        "digest": null
+      },
+      "atomicCompositionAudit": {
+        "status": "CONDITIONAL_NOT_ACTIVATED",
+        "classification": "LLM_REQUIRED",
+        "executionCondition": "GENERIC_ATOMIC_OR_COMPOSITE_ACTIVATION_ONLY"
+      },
+      "canonicalization": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "evaluation": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "metrics": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    },
+    {
+      "caseId": "SEM-D21",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-27ec096e2213a5ea"
+      },
+      "baseCritic": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-0f5088cfbe6acc23"
+      },
+      "atomicCompositionAudit": {
+        "status": "COMPLETE_REUSABLE",
+        "classification": "REUSE_COMPATIBLE",
+        "executionCondition": "NONE"
+      },
+      "canonicalization": {
+        "status": "COMPLETE",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "evaluation": {
+        "status": "COMPLETE",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "metrics": {
+        "status": "COMPLETE",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    },
+    {
+      "caseId": "SEM-D22",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-27598a1c9ff7e278"
+      },
+      "baseCritic": {
+        "status": "NOT_RUN_CURRENT_CONFIGURATION",
+        "classification": "LLM_REQUIRED",
+        "digest": null
+      },
+      "atomicCompositionAudit": {
+        "status": "CONDITIONAL_NOT_ACTIVATED",
+        "classification": "LLM_REQUIRED",
+        "executionCondition": "GENERIC_ATOMIC_OR_COMPOSITE_ACTIVATION_ONLY"
+      },
+      "canonicalization": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "evaluation": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "metrics": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    },
+    {
+      "caseId": "SEM-D23",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-6e1f49d54d08f529"
+      },
+      "baseCritic": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-2e71c7ca8b17f4ae"
+      },
+      "atomicCompositionAudit": {
+        "status": "NOT_APPLICABLE",
+        "classification": "REUSE_COMPATIBLE",
+        "executionCondition": "NONE"
+      },
+      "canonicalization": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE"
+      },
+      "evaluation": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE"
+      },
+      "metrics": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    },
+    {
+      "caseId": "SEM-D24",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-7b2932450e2de0c1"
+      },
+      "baseCritic": {
+        "status": "NOT_RUN_CURRENT_CONFIGURATION",
+        "classification": "LLM_REQUIRED",
+        "digest": null
+      },
+      "atomicCompositionAudit": {
+        "status": "CONDITIONAL_NOT_ACTIVATED",
+        "classification": "LLM_REQUIRED",
+        "executionCondition": "GENERIC_ATOMIC_OR_COMPOSITE_ACTIVATION_ONLY"
+      },
+      "canonicalization": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "evaluation": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "metrics": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    },
+    {
+      "caseId": "SEM-D25",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-9dc8344e8d01413a"
+      },
+      "baseCritic": {
+        "status": "NOT_RUN_CURRENT_CONFIGURATION",
+        "classification": "LLM_REQUIRED",
+        "digest": null
+      },
+      "atomicCompositionAudit": {
+        "status": "CONDITIONAL_NOT_ACTIVATED",
+        "classification": "LLM_REQUIRED",
+        "executionCondition": "GENERIC_ATOMIC_OR_COMPOSITE_ACTIVATION_ONLY"
+      },
+      "canonicalization": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "evaluation": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "metrics": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    },
+    {
+      "caseId": "SEM-D26",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-350339b51ac88bd1"
+      },
+      "baseCritic": {
+        "status": "NOT_RUN_CURRENT_CONFIGURATION",
+        "classification": "LLM_REQUIRED",
+        "digest": null
+      },
+      "atomicCompositionAudit": {
+        "status": "CONDITIONAL_NOT_ACTIVATED",
+        "classification": "LLM_REQUIRED",
+        "executionCondition": "GENERIC_ATOMIC_OR_COMPOSITE_ACTIVATION_ONLY"
+      },
+      "canonicalization": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "evaluation": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "metrics": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    },
+    {
+      "caseId": "SEM-D27",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-34207e74be743a98"
+      },
+      "baseCritic": {
+        "status": "NOT_RUN_CURRENT_CONFIGURATION",
+        "classification": "LLM_REQUIRED",
+        "digest": null
+      },
+      "atomicCompositionAudit": {
+        "status": "CONDITIONAL_NOT_ACTIVATED",
+        "classification": "LLM_REQUIRED",
+        "executionCondition": "GENERIC_ATOMIC_OR_COMPOSITE_ACTIVATION_ONLY"
+      },
+      "canonicalization": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "evaluation": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "metrics": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    },
+    {
+      "caseId": "SEM-D28",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-80def0293de30725"
+      },
+      "baseCritic": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-ff0037dd995c78e9"
+      },
+      "atomicCompositionAudit": {
+        "status": "COMPLETE_REUSABLE",
+        "classification": "REUSE_COMPATIBLE",
+        "executionCondition": "NONE"
+      },
+      "canonicalization": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE"
+      },
+      "evaluation": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE"
+      },
+      "metrics": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    },
+    {
+      "caseId": "SEM-D29",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-851de909691d872d"
+      },
+      "baseCritic": {
+        "status": "NOT_RUN_CURRENT_CONFIGURATION",
+        "classification": "LLM_REQUIRED",
+        "digest": null
+      },
+      "atomicCompositionAudit": {
+        "status": "CONDITIONAL_NOT_ACTIVATED",
+        "classification": "LLM_REQUIRED",
+        "executionCondition": "GENERIC_ATOMIC_OR_COMPOSITE_ACTIVATION_ONLY"
+      },
+      "canonicalization": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "evaluation": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "metrics": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    },
+    {
+      "caseId": "SEM-D30",
+      "reconstruction": {
+        "status": "COMPLETE",
+        "classification": "REUSE_COMPATIBLE",
+        "digest": "ke1-6e5e4284d3e48708"
+      },
+      "baseCritic": {
+        "status": "NOT_RUN_CURRENT_CONFIGURATION",
+        "classification": "LLM_REQUIRED",
+        "digest": null
+      },
+      "atomicCompositionAudit": {
+        "status": "CONDITIONAL_NOT_ACTIVATED",
+        "classification": "LLM_REQUIRED",
+        "executionCondition": "GENERIC_ATOMIC_OR_COMPOSITE_ACTIVATION_ONLY"
+      },
+      "canonicalization": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "evaluation": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "metrics": {
+        "status": "BLOCKED_BY_CRITIC",
+        "classification": "DETERMINISTIC_RECOMPUTE"
+      },
+      "dependencyDigests": {
+        "developmentCorpus": "ke1-64d654cfa041a563",
+        "developmentGold": "ke1-1006a72533caf7f9",
+        "holdoutCorpus": "ke1-08392b87b2cc140b",
+        "holdoutGold": "ke1-34ef12e65473a7f2",
+        "reconstructionPrompt": "ke1-943568042373de98",
+        "criticPrompt": "ke1-b26ddf632ed1fa57",
+        "auditPrompt": "ke1-10b88664b49fca18",
+        "baseProviderSchema": "ke1-c849778553bf38b1",
+        "auditProviderSchema": "ke1-55cd50759595b451",
+        "canonicalModel": "ke1-35c6944619051b8a",
+        "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+        "canonicalizer": "ke1-8a56fab704f65083",
+        "coverageAndRepair": "ke1-ca1d80690519c165",
+        "evaluator": "ke1-b5aa14fa96372ad6",
+        "routing": "ke1-cca7e14c70f0d788"
+      },
+      "r3hCompatible": true
+    }
+  ]
+}

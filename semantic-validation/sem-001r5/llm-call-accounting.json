@@ -1,0 +1,18 @@
+{
+  "campaign": "SEM-001R5-DIAGNOSTIC",
+  "campaignId": "sem-001r5-diagnostic-2026-08-12T22-15-01-231Z-ke1-75b68ddee7e53412",
+  "provider": "GOOGLE_GEMINI",
+  "model": "gemini-3.5-flash-lite",
+  "actualRequestStarts": 49,
+  "llmCallsPerformed": 49,
+  "retries": 0,
+  "structuredRegenerations": 1,
+  "providerCapacityFailures": 0,
+  "completedCasesReusedOnResume": 10,
+  "llmCallsAvoidedByResume": 26,
+  "deterministicReplays": 0,
+  "historicalR4CallsExcludedFromClosure": 3,
+  "developmentOutputsReusedAsHoldoutResults": 0,
+  "conditionalAuditCases": [],
+  "noSecretsStored": true
+}

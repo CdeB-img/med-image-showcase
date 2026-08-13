@@ -1,0 +1,27 @@
+{
+  "campaign": "SEM-001R4",
+  "campaignId": "sem-001r4-2026-08-12T19-14-19-051Z-ke1-8251dd1f215442bb",
+  "recordedAt": "2026-08-12T19:17:15.000Z",
+  "status": "PASS",
+  "validations": {
+    "semanticSuite": {
+      "status": "PASS",
+      "testFilesPassed": 19,
+      "testFilesTotal": 19,
+      "testsPassed": 204,
+      "testsTotal": 204
+    },
+    "typecheck": "PASS",
+    "lint": "PASS_WITH_7_PREEXISTING_FAST_REFRESH_WARNINGS",
+    "build": "PASS_WITH_NON_BLOCKING_BROWSERSLIST_ROLLUP_AND_CHUNK_WARNINGS",
+    "gitDiffCheck": "PASS"
+  },
+  "excludedByMandate": [
+    "FINAL_BROWSER",
+    "SEM_TO_ST_LIVE",
+    "SEM_TO_IMG_LIVE",
+    "SEM_TO_PRJ_LIVE",
+    "SECONDARY_HOLDOUT",
+    "PUBLICATION"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "campaign": "SEM-001R3H",
+  "decision": "R3H_TARGETED_DEVELOPMENT_REPAIRS_PASSED",
+  "primary": "CLOSED_UNCHANGED",
+  "target": "PASS",
+  "metric": {
+    "caseId": "SEM-D28",
+    "explicitObjectRecall": 1,
+    "explicitRelationRecall": 1,
+    "criticalSemanticRecall": 1,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 1,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": []
+  },
+  "llm": {
+    "actualCalls": 0,
+    "callsAvoided": 43
+  },
+  "holdout": "NOT_STARTED_FORBIDDEN"
+}

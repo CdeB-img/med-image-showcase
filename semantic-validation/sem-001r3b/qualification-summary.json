@@ -1,0 +1,27 @@
+{
+  "campaign": "SEM-001R3C",
+  "decision": "R3B_TARGETED_REPAIR_REQUIRES_FURTHER_WORK",
+  "targeted": {
+    "complete": 5,
+    "expected": 5,
+    "gate": "TARGETED_GATE_REQUIRES_FURTHER_WORK"
+  },
+  "developmentCompatible": {
+    "complete": 6,
+    "expected": 30
+  },
+  "provider": {
+    "name": "GOOGLE_GEMINI",
+    "model": "gemini-3.5-flash-lite",
+    "stopped": false,
+    "stopReason": null
+  },
+  "llm": {
+    "continuationCalls": 10,
+    "cumulativeCalls": 21,
+    "callsAvoidedByCompatibleCache": 32,
+    "minimumCallsDeferredByGate": 24
+  },
+  "holdout": "NOT_STARTED_FORBIDDEN",
+  "metrics": null
+}

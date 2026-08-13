@@ -1,0 +1,118 @@
+{
+  "campaign": "SEM-001R3D",
+  "status": "4_OF_6_BASE_COMPATIBLE_TWO_TARGETS_NOT_QUALIFIED",
+  "cases": [
+    {
+      "caseId": "SEM-D02",
+      "baseCritic": "COMPLETE_REUSED",
+      "conditionalAudit": "NOT_APPLICABLE",
+      "metric": {
+        "caseId": "SEM-D02",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 1,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": []
+      }
+    },
+    {
+      "caseId": "SEM-D16",
+      "baseCritic": "COMPLETE_REUSED",
+      "conditionalAudit": "NOT_APPLICABLE",
+      "metric": {
+        "caseId": "SEM-D16",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 1,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": []
+      }
+    },
+    {
+      "caseId": "SEM-D19",
+      "baseCritic": "COMPLETE_REUSED",
+      "conditionalAudit": "NOT_APPLICABLE",
+      "metric": {
+        "caseId": "SEM-D19",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 1,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": []
+      }
+    },
+    {
+      "caseId": "SEM-D21",
+      "baseCritic": "COMPLETE_REUSED",
+      "conditionalAudit": "NOT_QUALIFIED",
+      "metric": null
+    },
+    {
+      "caseId": "SEM-D23",
+      "baseCritic": "COMPLETE_REUSED",
+      "conditionalAudit": "NOT_APPLICABLE",
+      "metric": {
+        "caseId": "SEM-D23",
+        "explicitObjectRecall": 1,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 1,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 0,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": false,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": []
+      }
+    },
+    {
+      "caseId": "SEM-D28",
+      "baseCritic": "COMPLETE_REUSED",
+      "conditionalAudit": "NOT_QUALIFIED",
+      "metric": null
+    }
+  ]
+}

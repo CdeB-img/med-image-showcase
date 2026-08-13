@@ -1,0 +1,45 @@
+{
+  "campaign": "SEM-001R3F",
+  "decision": "R3F_TARGETED_REPAIR_REQUIRES_FURTHER_WORK",
+  "targets": {
+    "SEM-D21": {
+      "status": "FAIL",
+      "metric": {
+        "caseId": "SEM-D21",
+        "explicitObjectRecall": 0.5,
+        "explicitRelationRecall": 0,
+        "criticalSemanticRecall": 0.4,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_CONSTRAINT_LOST:1,5T",
+          "EXPLICIT_CONSTRAINT_LOST:3T",
+          "RELATION_LOST:1,5T->3T"
+        ]
+      }
+    },
+    "SEM-D28": {
+      "status": "NOT_RUN_GATE_CLOSED"
+    }
+  },
+  "developmentCompatibleCount": 4,
+  "compatibleCaseIds": [
+    "SEM-D02",
+    "SEM-D16",
+    "SEM-D19",
+    "SEM-D23"
+  ],
+  "holdout": "NOT_STARTED_FORBIDDEN",
+  "nextGate": "STOP_PRIMARY_TARGET_FAILED"
+}

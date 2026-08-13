@@ -1,0 +1,53 @@
+{
+  "caseId": "SEM-D18",
+  "campaignId": "sem-001r3-development-2026-08-11T10-52-30-106Z",
+  "requestStarted": "2026-08-12T09:58:02.394Z",
+  "finalStatus": "FAILED",
+  "reconstructionStatus": "SUCCESS",
+  "criticStatus": "SUCCESS",
+  "canonicalizationStatus": "NOT_STARTED",
+  "evaluationStatus": "NOT_READY",
+  "criticTerminalReason": "CRITIC_MAX_CYCLES_EXHAUSTED",
+  "failureClass": "SEMANTIC_PIPELINE_FAILURE",
+  "failureMessage": "SEM001R3_CRITIC_NOT_ACCEPTED:CRITIC_MAX_CYCLES_EXHAUSTED",
+  "firstInvalidStage": "STAGE_1_LLM_RECONSTRUCTION",
+  "reuseDecision": "RECONSTRUCTION_ARTIFACT_NOT_REUSABLE",
+  "reason": "The reconstruction inventory isolated the functional token 'pour' as item-4. The bounded critic repair contract cannot modify semanticInventory, and both critic cycles therefore exhausted without producing complete explicit and taxonomy coverage.",
+  "inventoryEvidence": {
+    "inventoryItemId": "item-4",
+    "sourceMessageId": "SEM-D18:user:1",
+    "sourceText": "pour",
+    "normalizedLabel": "pour",
+    "localRole": "purpose_link"
+  },
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-aac33c8b73d3db5f",
+      "structuredDigest": "ke1-d4edfb1571c9e839",
+      "attemptCount": 1,
+      "httpStatus": 200
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-d7ffbbfae267cc26",
+      "structuredDigest": "ke1-993273b654bd802a",
+      "attemptCount": 1,
+      "httpStatus": 200
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 2,
+      "callId": "gemini-call:ke1-5d442cfd0e4290a9",
+      "structuredDigest": "ke1-daf0c39c65d3b7c8",
+      "attemptCount": 1,
+      "httpStatus": 200
+    }
+  ],
+  "preservationScope": "Historical failure evidence only; no product, prompt, schema, critic, fixture, threshold or Gold Frame change."
+}

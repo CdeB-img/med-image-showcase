@@ -1,0 +1,23 @@
+{
+  "campaign": "SEM-001R4",
+  "campaignId": "sem-001r4-2026-08-12T19-14-19-051Z-ke1-8251dd1f215442bb",
+  "failures": [
+    {
+      "caseId": "SEM-H01",
+      "originalRequest": [
+        "On voudrait opposer l'ADC cortical à la perfusion ASL pour caractériser le rein greffé."
+      ],
+      "metricFailures": null,
+      "absoluteBlockers": [],
+      "firstDivergentStage": "BASE_CRITIC_OR_ACCEPTANCE_GUARD",
+      "failureClass": "CRITIC_FAILURE",
+      "genericOrIsolated": "ISOLATED_UNTIL_SEPARATE_REPAIR_CAMPAIGN",
+      "recommendedOwner": "SEM_CRITIC_OWNER",
+      "error": {
+        "category": "SEMANTIC_PIPELINE_FAILURE",
+        "failureClass": "CRITIC_FAILURE",
+        "message": "SEM001R4_CRITIC_NOT_ACCEPTED:CRITIC_MAX_CYCLES_EXHAUSTED"
+      }
+    }
+  ]
+}

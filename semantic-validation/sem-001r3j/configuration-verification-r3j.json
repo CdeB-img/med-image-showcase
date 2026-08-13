@@ -1,0 +1,87 @@
+{
+  "campaign": "SEM-001R3J",
+  "verifiedAt": "2026-08-12T18:52:23.815Z",
+  "decision": "R3J_CONFIGURATION_VERIFIED_BOUNDED_OWNER_CHANGE",
+  "priorSemanticConfigurationDigest": "ke1-d34d45911dbf8b5d",
+  "semanticConfigurationDigest": "ke1-01606892072503be",
+  "model": "gemini-3.5-flash-lite",
+  "changedDigestKeys": [
+    "coverageAndRepair"
+  ],
+  "currentDigests": {
+    "developmentCorpus": "ke1-64d654cfa041a563",
+    "developmentGold": "ke1-1006a72533caf7f9",
+    "holdoutCorpus": "ke1-08392b87b2cc140b",
+    "holdoutGold": "ke1-34ef12e65473a7f2",
+    "reconstructionPrompt": "ke1-943568042373de98",
+    "criticPrompt": "ke1-b26ddf632ed1fa57",
+    "auditPrompt": "ke1-10b88664b49fca18",
+    "baseProviderSchema": "ke1-c849778553bf38b1",
+    "auditProviderSchema": "ke1-55cd50759595b451",
+    "canonicalModel": "ke1-35c6944619051b8a",
+    "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+    "canonicalizer": "ke1-8a56fab704f65083",
+    "coverageAndRepair": "ke1-07d6e2904ee94524",
+    "evaluator": "ke1-b5aa14fa96372ad6",
+    "routing": "ke1-cca7e14c70f0d788"
+  },
+  "checks": [
+    {
+      "contract": "R3I decision",
+      "expected": "R3I_DEVELOPMENT_REQUIRES_FURTHER_REPAIR",
+      "observed": "R3I_DEVELOPMENT_REQUIRES_FURTHER_REPAIR",
+      "pass": true
+    },
+    {
+      "contract": "R3I Development",
+      "expected": "29/30 COMPLETE",
+      "observed": "29/30 COMPLETE",
+      "pass": true
+    },
+    {
+      "contract": "R3I only incomplete case",
+      "expected": [
+        "SEM-D22"
+      ],
+      "observed": [
+        "SEM-D22"
+      ],
+      "pass": true
+    },
+    {
+      "contract": "R3I divergence",
+      "expected": "BASE_CRITIC_ACCEPTANCE_CONSISTENCY",
+      "observed": "BASE_CRITIC_ACCEPTANCE_CONSISTENCY",
+      "pass": true
+    },
+    {
+      "contract": "Authorized generic owner change",
+      "expected": [
+        "coverageAndRepair"
+      ],
+      "observed": [
+        "coverageAndRepair"
+      ],
+      "pass": true
+    },
+    {
+      "contract": "Development identities",
+      "expected": 30,
+      "observed": 30,
+      "pass": true
+    },
+    {
+      "contract": "Holdout identity only",
+      "expected": 30,
+      "observed": 30,
+      "pass": true
+    },
+    {
+      "contract": "Model",
+      "expected": "gemini-3.5-flash-lite",
+      "observed": "gemini-3.5-flash-lite",
+      "pass": true
+    }
+  ],
+  "holdout": "NOT_STARTED_FORBIDDEN"
+}

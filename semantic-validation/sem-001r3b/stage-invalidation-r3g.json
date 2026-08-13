@@ -1,0 +1,66 @@
+{
+  "campaign": "SEM-001R3G",
+  "rule": "Only canonical interpretation of source-grounded atomic findings and deterministic downstream products are invalidated.",
+  "rows": [
+    {
+      "stage": "RECONSTRUCTION",
+      "affectedCases": "none",
+      "llmRequired": false,
+      "disposition": "30_COMPLETE_REUSED"
+    },
+    {
+      "stage": "BASE_CRITIC_1_3",
+      "affectedCases": "none",
+      "llmRequired": false,
+      "disposition": "12_COMPLETE_REUSED"
+    },
+    {
+      "stage": "PRIMARY_ATOMIC_AUDIT",
+      "affectedCases": [
+        "SEM-D21"
+      ],
+      "llmRequired": false,
+      "disposition": "VALID_R3E_AUDIT_REUSED"
+    },
+    {
+      "stage": "AUDIT_TO_CANONICAL_CLASSIFICATION",
+      "beforeDigest": "ke1-38244d485ead6644",
+      "afterDigest": "ke1-decdaae9dc024c1d",
+      "affectedCases": [
+        "SEM-D21",
+        "SEM-D28"
+      ],
+      "llmRequired": false,
+      "disposition": "GENERIC_OWNER_REPAIRED"
+    },
+    {
+      "stage": "PRIMARY_DOWNSTREAM",
+      "affectedCases": [
+        "SEM-D21"
+      ],
+      "llmRequired": false,
+      "disposition": "PENDING_OR_COMPLETE"
+    },
+    {
+      "stage": "SECONDARY_ATOMIC_AUDIT",
+      "affectedCases": [
+        "SEM-D28"
+      ],
+      "llmRequired": true,
+      "maximumCalls": 1,
+      "disposition": "ONE_TARGETED_EXECUTION"
+    },
+    {
+      "stage": "REMAINING_DEVELOPMENT",
+      "affectedCases": "24 cases",
+      "llmRequired": false,
+      "disposition": "NOT_AUTHORIZED"
+    },
+    {
+      "stage": "HOLDOUT",
+      "affectedCases": "30 cases",
+      "llmRequired": false,
+      "disposition": "NOT_STARTED_FORBIDDEN"
+    }
+  ]
+}

@@ -1,0 +1,1573 @@
+[
+  {
+    "caseId": "SEM-D01",
+    "split": "DEVELOPMENT_CASES",
+    "goldFrameDigest": "ke1-95832d16d5fb7dfa",
+    "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+    "criticPromptVersion": "SEM-001-CRITIC-1.2",
+    "provider": "GOOGLE_GEMINI",
+    "model": "gemini-3.5-flash-lite",
+    "requestStarted": "2026-08-11T08:43:29.837Z",
+    "completedAt": "2026-08-11T08:43:37.093Z",
+    "reconstructionStatus": "SUCCESS",
+    "criticStatus": "SUCCESS",
+    "canonicalizationStatus": "SUCCESS",
+    "evaluationStatus": "READY",
+    "finalStatus": "COMPLETE",
+    "retryCount": 0,
+    "latencyMs": 7256,
+    "operationTraces": [
+      {
+        "operation": "RECONSTRUCTION",
+        "turn": 1,
+        "cycle": null,
+        "callId": "gemini-call:ke1-14e1fc3232b26fc6",
+        "structuredDigest": "ke1-e80af713d2218697",
+        "attempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T08:43:29.837Z",
+            "requestFinished": "2026-08-11T08:43:34.131Z",
+            "latencyMs": 4294,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ]
+      },
+      {
+        "operation": "CRITIC",
+        "turn": 1,
+        "cycle": 1,
+        "callId": "gemini-call:ke1-6bb32f1ccf0117c0",
+        "structuredDigest": "ke1-367c7085cb15c709",
+        "attempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T08:43:34.136Z",
+            "requestFinished": "2026-08-11T08:43:37.077Z",
+            "latencyMs": 2941,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ]
+      }
+    ],
+    "reconstructionCandidate": {
+      "candidateId": "cand-001",
+      "language": "fr",
+      "normalizedMeaning": "Évaluation de l'artère carotidienne à l'aide de différentes modalités d'imagerie ou d'exploration.",
+      "summaryForUser": "Vous souhaitez évaluer la carotide en utilisant plusieurs modalités différentes.",
+      "semanticInventory": {
+        "explicitFragments": [
+          {
+            "inventoryItemId": "item-1",
+            "sourceMessageId": "SEM-D01:user:1",
+            "sourceText": "évaluer",
+            "normalizedLabel": "evaluer",
+            "localRole": "operation",
+            "polarity": "AFFIRMED",
+            "modifiers": [],
+            "linkedInventoryItemIds": [
+              "item-2",
+              "item-3"
+            ]
+          },
+          {
+            "inventoryItemId": "item-2",
+            "sourceMessageId": "SEM-D01:user:1",
+            "sourceText": "la carotidienne",
+            "normalizedLabel": "artere carotide",
+            "localRole": "target",
+            "polarity": "AFFIRMED",
+            "modifiers": [],
+            "linkedInventoryItemIds": [
+              "item-1"
+            ]
+          },
+          {
+            "inventoryItemId": "item-3",
+            "sourceMessageId": "SEM-D01:user:1",
+            "sourceText": "différentes modalités",
+            "normalizedLabel": "modalites multiples",
+            "localRole": "instrument",
+            "polarity": "AFFIRMED",
+            "modifiers": [
+              "differentes"
+            ],
+            "linkedInventoryItemIds": [
+              "item-1"
+            ]
+          }
+        ],
+        "explicitRelations": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "item-1",
+            "targetInventoryItemId": "item-2",
+            "sourceMessageId": "SEM-D01:user:1",
+            "sourceText": "évaluer la carotidienne",
+            "normalizedRelation": "OBSERVES",
+            "polarity": "AFFIRMED"
+          },
+          {
+            "inventoryRelationId": "rel-2",
+            "sourceInventoryItemId": "item-1",
+            "targetInventoryItemId": "item-3",
+            "sourceMessageId": "SEM-D01:user:1",
+            "sourceText": "évaluer ... via différentes modalités",
+            "normalizedRelation": "PERFORMED_VIA",
+            "polarity": "AFFIRMED"
+          }
+        ]
+      },
+      "elements": [
+        {
+          "clientElementId": "elem-1",
+          "type": "SCIENTIFIC_INTENT",
+          "canonicalMeaning": "Evaluation intention",
+          "studyRole": "NONE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-1"
+          ],
+          "sourceMessageId": "SEM-D01:user:1",
+          "sourceText": "évaluer",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        },
+        {
+          "clientElementId": "elem-2",
+          "type": "SCIENTIFIC_OBJECT",
+          "canonicalMeaning": "Carotid artery",
+          "studyRole": "SUBJECT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-2"
+          ],
+          "sourceMessageId": "SEM-D01:user:1",
+          "sourceText": "la carotidienne",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        },
+        {
+          "clientElementId": "elem-3",
+          "type": "MODALITY",
+          "canonicalMeaning": "Multiple modalities",
+          "studyRole": "NONE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-3"
+          ],
+          "sourceMessageId": "SEM-D01:user:1",
+          "sourceText": "différentes modalités",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        }
+      ],
+      "relations": [
+        {
+          "clientRelationId": "rel-elem-1",
+          "sourceClientElementId": "elem-1",
+          "targetClientElementId": "elem-2",
+          "relationType": "OBSERVES",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel-1"
+          ],
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false
+        },
+        {
+          "clientRelationId": "rel-elem-2",
+          "sourceClientElementId": "elem-1",
+          "targetClientElementId": "elem-3",
+          "relationType": "PERFORMED_VIA",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel-2"
+          ],
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false
+        }
+      ],
+      "missingConcepts": [
+        "Specific modalities not named",
+        "Study endpoints not defined"
+      ],
+      "ellipses": [],
+      "ambiguities": [
+        "Exact modalities are unspecified"
+      ],
+      "unknowns": [],
+      "contradictions": [],
+      "knowledgeRequests": [],
+      "clarificationCandidates": [
+        {
+          "question": "Quelles sont les modalités spécifiques que vous souhaitez utiliser pour évaluer l'artère carotide ?",
+          "reason": "Clarifier les modalités pour affiner la conception de l'étude.",
+          "resolvesClientElementIds": [
+            "elem-3"
+          ]
+        }
+      ],
+      "routeProposal": {
+        "route": "DESIGN_STUDY",
+        "confidence": 0.85,
+        "reason": "The user is outlining an intention to construct a study involving evaluation of a target across modalities.",
+        "expectedCapabilities": [
+          "Define modalities",
+          "Specify study design",
+          "Set endpoints"
+        ]
+      },
+      "semanticWarnings": []
+    },
+    "semanticModel": {
+      "semanticModelVersion": "1.1",
+      "semanticModelId": "semantic-model:ke1-cad48a6033af077c",
+      "revision": 1,
+      "status": "CANDIDATE",
+      "originalRequest": "Je voudrais évaluer la carotidienne via différentes modalités.",
+      "normalizedMeaning": "Évaluation de l'artère carotidienne à l'aide de différentes modalités d'imagerie ou d'exploration.",
+      "conversationMessageIds": [
+        "SEM-D01:user:1"
+      ],
+      "elements": [
+        {
+          "semanticElementId": "sem-element:ke1-08520a1c9e228910",
+          "type": "SCIENTIFIC_OBJECT",
+          "canonicalMeaning": "Carotid artery",
+          "studyRole": "SUBJECT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-2"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D01:user:1",
+            "text": "la carotidienne",
+            "start": 20,
+            "end": 35
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-39053c90f84bc55c"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D01:user:1",
+            "providerCallId": "gemini-call:ke1-14e1fc3232b26fc6",
+            "rawElementId": "elem-2"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-9d8bcdb8456cb114",
+          "type": "SCIENTIFIC_INTENT",
+          "canonicalMeaning": "Evaluation intention",
+          "studyRole": "NONE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-1"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D01:user:1",
+            "text": "évaluer",
+            "start": 12,
+            "end": 19
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-39053c90f84bc55c",
+            "sem-relation:ke1-c4188823be0089bf"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D01:user:1",
+            "providerCallId": "gemini-call:ke1-14e1fc3232b26fc6",
+            "rawElementId": "elem-1"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-c20d5b4a5c7dbed6",
+          "type": "MODALITY",
+          "canonicalMeaning": "Multiple modalities",
+          "studyRole": "NONE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-3"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D01:user:1",
+            "text": "différentes modalités",
+            "start": 40,
+            "end": 61
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-c4188823be0089bf"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D01:user:1",
+            "providerCallId": "gemini-call:ke1-14e1fc3232b26fc6",
+            "rawElementId": "elem-3"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        }
+      ],
+      "relations": [
+        {
+          "semanticRelationId": "sem-relation:ke1-39053c90f84bc55c",
+          "sourceElementId": "sem-element:ke1-9d8bcdb8456cb114",
+          "targetElementId": "sem-element:ke1-08520a1c9e228910",
+          "relationType": "OBSERVES",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel-1"
+          ],
+          "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "version": 1
+        },
+        {
+          "semanticRelationId": "sem-relation:ke1-c4188823be0089bf",
+          "sourceElementId": "sem-element:ke1-9d8bcdb8456cb114",
+          "targetElementId": "sem-element:ke1-c20d5b4a5c7dbed6",
+          "relationType": "PERFORMED_VIA",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel-2"
+          ],
+          "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "version": 1
+        }
+      ],
+      "explicitCoverageReport": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryItemId": "item-1",
+            "sourceMessageId": "SEM-D01:user:1",
+            "sourceText": "évaluer",
+            "normalizedMeaning": "evaluer",
+            "mappedClientElementIds": [
+              "elem-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "item-2",
+            "sourceMessageId": "SEM-D01:user:1",
+            "sourceText": "la carotidienne",
+            "normalizedMeaning": "artere carotide",
+            "mappedClientElementIds": [
+              "elem-2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "item-3",
+            "sourceMessageId": "SEM-D01:user:1",
+            "sourceText": "différentes modalités",
+            "normalizedMeaning": "modalites multiples",
+            "mappedClientElementIds": [
+              "elem-3"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          }
+        ]
+      },
+      "relationCoverageReport": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "item-1",
+            "targetInventoryItemId": "item-2",
+            "normalizedRelation": "OBSERVES",
+            "mappedClientRelationIds": [
+              "rel-elem-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel-2",
+            "sourceInventoryItemId": "item-1",
+            "targetInventoryItemId": "item-3",
+            "normalizedRelation": "PERFORMED_VIA",
+            "mappedClientRelationIds": [
+              "rel-elem-2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+          }
+        ]
+      },
+      "missingConcepts": [
+        "Specific modalities not named",
+        "Study endpoints not defined"
+      ],
+      "ellipses": [],
+      "ambiguities": [
+        "Exact modalities are unspecified"
+      ],
+      "unknowns": [],
+      "contradictions": [],
+      "clarificationCandidates": [
+        {
+          "question": "Quelles sont les modalités spécifiques que vous souhaitez utiliser pour évaluer l'artère carotide ?",
+          "reason": "Clarifier les modalités pour affiner la conception de l'étude.",
+          "resolvesElementIds": [
+            "sem-element:ke1-c20d5b4a5c7dbed6"
+          ]
+        }
+      ],
+      "knowledgeRequests": [],
+      "routeProposal": {
+        "route": "DESIGN_STUDY",
+        "confidence": 0.85,
+        "reason": "The user is outlining an intention to construct a study involving evaluation of a target across modalities.",
+        "expectedCapabilities": [
+          "Define modalities",
+          "Set endpoints",
+          "Specify study design"
+        ]
+      },
+      "summaryForUser": "Vous souhaitez évaluer la carotide en utilisant plusieurs modalités différentes.",
+      "critic": {
+        "verdict": "ACCEPT",
+        "issues": [],
+        "summary": "The typed candidate correctly and completely models the user's intent, preserving all explicit objects, modalities, relations, and uncertainties without unsupported generalizations or inferences. Coverage reports are fully complete."
+      },
+      "executionSnapshot": {
+        "provider": "GOOGLE_GEMINI",
+        "model": "gemini-3.5-flash-lite",
+        "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+        "criticPromptVersion": "SEM-001-CRITIC-1.2",
+        "schemaVersion": "SEM-001-1.1",
+        "reconstructionCallId": "gemini-call:ke1-14e1fc3232b26fc6",
+        "criticCallId": "gemini-call:ke1-6bb32f1ccf0117c0",
+        "criticCallIds": [
+          "gemini-call:ke1-6bb32f1ccf0117c0"
+        ],
+        "reconstructionAttempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T08:43:29.837Z",
+            "requestFinished": "2026-08-11T08:43:34.131Z",
+            "latencyMs": 4294,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ],
+        "criticAttempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T08:43:34.136Z",
+            "requestFinished": "2026-08-11T08:43:37.077Z",
+            "latencyMs": 2941,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ],
+        "rawReconstruction": {
+          "candidateId": "cand-001",
+          "language": "fr",
+          "normalizedMeaning": "Évaluation de l'artère carotidienne à l'aide de différentes modalités d'imagerie ou d'exploration.",
+          "summaryForUser": "Vous souhaitez évaluer la carotide en utilisant plusieurs modalités différentes.",
+          "semanticInventory": {
+            "explicitFragments": [
+              {
+                "inventoryItemId": "item-1",
+                "sourceMessageId": "SEM-D01:user:1",
+                "sourceText": "évaluer",
+                "normalizedLabel": "evaluer",
+                "localRole": "operation",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": [
+                  "item-2",
+                  "item-3"
+                ]
+              },
+              {
+                "inventoryItemId": "item-2",
+                "sourceMessageId": "SEM-D01:user:1",
+                "sourceText": "la carotidienne",
+                "normalizedLabel": "artere carotide",
+                "localRole": "target",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": [
+                  "item-1"
+                ]
+              },
+              {
+                "inventoryItemId": "item-3",
+                "sourceMessageId": "SEM-D01:user:1",
+                "sourceText": "différentes modalités",
+                "normalizedLabel": "modalites multiples",
+                "localRole": "instrument",
+                "polarity": "AFFIRMED",
+                "modifiers": [
+                  "differentes"
+                ],
+                "linkedInventoryItemIds": [
+                  "item-1"
+                ]
+              }
+            ],
+            "explicitRelations": [
+              {
+                "inventoryRelationId": "rel-1",
+                "sourceInventoryItemId": "item-1",
+                "targetInventoryItemId": "item-2",
+                "sourceMessageId": "SEM-D01:user:1",
+                "sourceText": "évaluer la carotidienne",
+                "normalizedRelation": "OBSERVES",
+                "polarity": "AFFIRMED"
+              },
+              {
+                "inventoryRelationId": "rel-2",
+                "sourceInventoryItemId": "item-1",
+                "targetInventoryItemId": "item-3",
+                "sourceMessageId": "SEM-D01:user:1",
+                "sourceText": "évaluer ... via différentes modalités",
+                "normalizedRelation": "PERFORMED_VIA",
+                "polarity": "AFFIRMED"
+              }
+            ]
+          },
+          "elements": [
+            {
+              "clientElementId": "elem-1",
+              "type": "SCIENTIFIC_INTENT",
+              "canonicalMeaning": "Evaluation intention",
+              "studyRole": "NONE",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "item-1"
+              ],
+              "sourceMessageId": "SEM-D01:user:1",
+              "sourceText": "évaluer",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem-2",
+              "type": "SCIENTIFIC_OBJECT",
+              "canonicalMeaning": "Carotid artery",
+              "studyRole": "SUBJECT",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "item-2"
+              ],
+              "sourceMessageId": "SEM-D01:user:1",
+              "sourceText": "la carotidienne",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem-3",
+              "type": "MODALITY",
+              "canonicalMeaning": "Multiple modalities",
+              "studyRole": "NONE",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "item-3"
+              ],
+              "sourceMessageId": "SEM-D01:user:1",
+              "sourceText": "différentes modalités",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            }
+          ],
+          "relations": [
+            {
+              "clientRelationId": "rel-elem-1",
+              "sourceClientElementId": "elem-1",
+              "targetClientElementId": "elem-2",
+              "relationType": "OBSERVES",
+              "polarity": "AFFIRMED",
+              "inventoryRelationIds": [
+                "rel-1"
+              ],
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false
+            },
+            {
+              "clientRelationId": "rel-elem-2",
+              "sourceClientElementId": "elem-1",
+              "targetClientElementId": "elem-3",
+              "relationType": "PERFORMED_VIA",
+              "polarity": "AFFIRMED",
+              "inventoryRelationIds": [
+                "rel-2"
+              ],
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false
+            }
+          ],
+          "missingConcepts": [
+            "Specific modalities not named",
+            "Study endpoints not defined"
+          ],
+          "ellipses": [],
+          "ambiguities": [
+            "Exact modalities are unspecified"
+          ],
+          "unknowns": [],
+          "contradictions": [],
+          "knowledgeRequests": [],
+          "clarificationCandidates": [
+            {
+              "question": "Quelles sont les modalités spécifiques que vous souhaitez utiliser pour évaluer l'artère carotide ?",
+              "reason": "Clarifier les modalités pour affiner la conception de l'étude.",
+              "resolvesClientElementIds": [
+                "elem-3"
+              ]
+            }
+          ],
+          "routeProposal": {
+            "route": "DESIGN_STUDY",
+            "confidence": 0.85,
+            "reason": "The user is outlining an intention to construct a study involving evaluation of a target across modalities.",
+            "expectedCapabilities": [
+              "Define modalities",
+              "Specify study design",
+              "Set endpoints"
+            ]
+          },
+          "semanticWarnings": []
+        },
+        "rawCritic": {
+          "criticId": "crit-001",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects ('la carotidienne') are fully represented as SCIENTIFIC_OBJECT."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is expressed in the user message."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No intervention is expressed in the user message."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "The explicit modality mention ('différentes modalités') is correctly typed as MODALITY."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All inventory relations are mapped correctly in the typed candidate."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "All object and concept types comply with the operational taxonomy."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "No explicit relation has been weakened or distorted."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No ungrounded inferences have been promoted to explicit statements."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Unspecified modalities are transparently captured under ambiguities and clarification candidates."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Polarities are correctly preserved as AFFIRMED."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No timing elements are present in the user text."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No outcome has been improperly promoted to endpoint without user specification."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts remain faithfully represented."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "Both explicit coverage and relation coverage reports are COMPLETE, leaving no fragment unrepresented."
+            }
+          ],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The typed candidate correctly and completely models the user's intent, preserving all explicit objects, modalities, relations, and uncertainties without unsupported generalizations or inferences. Coverage reports are fully complete."
+        },
+        "rawCritics": [
+          {
+            "criticId": "crit-001",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit objects ('la carotidienne') are fully represented as SCIENTIFIC_OBJECT."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No comparator is expressed in the user message."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No intervention is expressed in the user message."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "PASS",
+                "evidence": "The explicit modality mention ('différentes modalités') is correctly typed as MODALITY."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All inventory relations are mapped correctly in the typed candidate."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "All object and concept types comply with the operational taxonomy."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "No explicit relation has been weakened or distorted."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No ungrounded inferences have been promoted to explicit statements."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "Unspecified modalities are transparently captured under ambiguities and clarification candidates."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "Polarities are correctly preserved as AFFIRMED."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No timing elements are present in the user text."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "No outcome has been improperly promoted to endpoint without user specification."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts remain faithfully represented."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "Both explicit coverage and relation coverage reports are COMPLETE, leaving no fragment unrepresented."
+              }
+            ],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The typed candidate correctly and completely models the user's intent, preserving all explicit objects, modalities, relations, and uncertainties without unsupported generalizations or inferences. Coverage reports are fully complete."
+          }
+        ],
+        "temperature": null,
+        "executedAt": "2026-08-11T08:43:37.081Z"
+      },
+      "knowledgeSnapshot": {
+        "resultId": "knowledge-result:ke1-aba14a2f4f102fc3",
+        "resultDigest": "ke1-aba14a2f4f102fc3",
+        "coverageStatus": "NO_PROVIDER",
+        "verifiedAt": "2026-08-11T08:43:37.090Z"
+      },
+      "previousModelId": null,
+      "history": [],
+      "acceptedAt": null,
+      "acceptanceRecord": null,
+      "createdAt": "2026-08-11T08:43:37.081Z",
+      "updatedAt": "2026-08-11T08:43:37.090Z",
+      "digest": "ke1-30169658d27db3ec"
+    },
+    "beforeCriticModel": {
+      "semanticModelVersion": "1.1",
+      "semanticModelId": "semantic-model:ke1-cad48a6033af077c",
+      "revision": 1,
+      "status": "CANDIDATE",
+      "originalRequest": "Je voudrais évaluer la carotidienne via différentes modalités.",
+      "normalizedMeaning": "Évaluation de l'artère carotidienne à l'aide de différentes modalités d'imagerie ou d'exploration.",
+      "conversationMessageIds": [
+        "SEM-D01:user:1"
+      ],
+      "elements": [
+        {
+          "semanticElementId": "sem-element:ke1-08520a1c9e228910",
+          "type": "SCIENTIFIC_OBJECT",
+          "canonicalMeaning": "Carotid artery",
+          "studyRole": "SUBJECT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-2"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D01:user:1",
+            "text": "la carotidienne",
+            "start": 20,
+            "end": 35
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-39053c90f84bc55c"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D01:user:1",
+            "providerCallId": "gemini-call:ke1-14e1fc3232b26fc6",
+            "rawElementId": "elem-2"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-9d8bcdb8456cb114",
+          "type": "SCIENTIFIC_INTENT",
+          "canonicalMeaning": "Evaluation intention",
+          "studyRole": "NONE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-1"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D01:user:1",
+            "text": "évaluer",
+            "start": 12,
+            "end": 19
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-39053c90f84bc55c",
+            "sem-relation:ke1-c4188823be0089bf"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D01:user:1",
+            "providerCallId": "gemini-call:ke1-14e1fc3232b26fc6",
+            "rawElementId": "elem-1"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        },
+        {
+          "semanticElementId": "sem-element:ke1-c20d5b4a5c7dbed6",
+          "type": "MODALITY",
+          "canonicalMeaning": "Multiple modalities",
+          "studyRole": "NONE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "item-3"
+          ],
+          "sourceSpan": {
+            "messageId": "SEM-D01:user:1",
+            "text": "différentes modalités",
+            "start": 40,
+            "end": 61
+          },
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "relationships": [
+            "sem-relation:ke1-c4188823be0089bf"
+          ],
+          "inferenceReason": null,
+          "knowledgeSupport": {
+            "status": "NOT_CHECKED",
+            "resultRef": null,
+            "assertionRefs": [],
+            "gapRefs": [],
+            "checkedAt": null
+          },
+          "requiresConfirmation": false,
+          "provenance": {
+            "source": "USER_LANGUAGE",
+            "messageId": "SEM-D01:user:1",
+            "providerCallId": "gemini-call:ke1-14e1fc3232b26fc6",
+            "rawElementId": "elem-3"
+          },
+          "supersedesElementIds": [],
+          "version": 1
+        }
+      ],
+      "relations": [
+        {
+          "semanticRelationId": "sem-relation:ke1-39053c90f84bc55c",
+          "sourceElementId": "sem-element:ke1-9d8bcdb8456cb114",
+          "targetElementId": "sem-element:ke1-08520a1c9e228910",
+          "relationType": "OBSERVES",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel-1"
+          ],
+          "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "version": 1
+        },
+        {
+          "semanticRelationId": "sem-relation:ke1-c4188823be0089bf",
+          "sourceElementId": "sem-element:ke1-9d8bcdb8456cb114",
+          "targetElementId": "sem-element:ke1-c20d5b4a5c7dbed6",
+          "relationType": "PERFORMED_VIA",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel-2"
+          ],
+          "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "version": 1
+        }
+      ],
+      "explicitCoverageReport": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryItemId": "item-1",
+            "sourceMessageId": "SEM-D01:user:1",
+            "sourceText": "évaluer",
+            "normalizedMeaning": "evaluer",
+            "mappedClientElementIds": [
+              "elem-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "item-2",
+            "sourceMessageId": "SEM-D01:user:1",
+            "sourceText": "la carotidienne",
+            "normalizedMeaning": "artere carotide",
+            "mappedClientElementIds": [
+              "elem-2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          },
+          {
+            "inventoryItemId": "item-3",
+            "sourceMessageId": "SEM-D01:user:1",
+            "sourceText": "différentes modalités",
+            "normalizedMeaning": "modalites multiples",
+            "mappedClientElementIds": [
+              "elem-3"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+          }
+        ]
+      },
+      "relationCoverageReport": {
+        "status": "COMPLETE",
+        "entries": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "item-1",
+            "targetInventoryItemId": "item-2",
+            "normalizedRelation": "OBSERVES",
+            "mappedClientRelationIds": [
+              "rel-elem-1"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+          },
+          {
+            "inventoryRelationId": "rel-2",
+            "sourceInventoryItemId": "item-1",
+            "targetInventoryItemId": "item-3",
+            "normalizedRelation": "PERFORMED_VIA",
+            "mappedClientRelationIds": [
+              "rel-elem-2"
+            ],
+            "coverageStatus": "MAPPED",
+            "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+          }
+        ]
+      },
+      "missingConcepts": [
+        "Specific modalities not named",
+        "Study endpoints not defined"
+      ],
+      "ellipses": [],
+      "ambiguities": [
+        "Exact modalities are unspecified"
+      ],
+      "unknowns": [],
+      "contradictions": [],
+      "clarificationCandidates": [
+        {
+          "question": "Quelles sont les modalités spécifiques que vous souhaitez utiliser pour évaluer l'artère carotide ?",
+          "reason": "Clarifier les modalités pour affiner la conception de l'étude.",
+          "resolvesElementIds": [
+            "sem-element:ke1-c20d5b4a5c7dbed6"
+          ]
+        }
+      ],
+      "knowledgeRequests": [],
+      "routeProposal": {
+        "route": "DESIGN_STUDY",
+        "confidence": 0.85,
+        "reason": "The user is outlining an intention to construct a study involving evaluation of a target across modalities.",
+        "expectedCapabilities": [
+          "Define modalities",
+          "Set endpoints",
+          "Specify study design"
+        ]
+      },
+      "summaryForUser": "Vous souhaitez évaluer la carotide en utilisant plusieurs modalités différentes.",
+      "critic": {
+        "verdict": "ACCEPT",
+        "issues": [],
+        "summary": "Metric-only pre-critic snapshot."
+      },
+      "executionSnapshot": {
+        "provider": "GOOGLE_GEMINI",
+        "model": "gemini-3.5-flash-lite",
+        "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+        "criticPromptVersion": "SEM-001-CRITIC-1.2",
+        "schemaVersion": "SEM-001-1.1",
+        "reconstructionCallId": "gemini-call:ke1-14e1fc3232b26fc6",
+        "criticCallId": "pre-critic-metric-only",
+        "criticCallIds": [
+          "pre-critic-metric-only"
+        ],
+        "reconstructionAttempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T08:43:29.837Z",
+            "requestFinished": "2026-08-11T08:43:34.131Z",
+            "latencyMs": 4294,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ],
+        "criticAttempts": [],
+        "rawReconstruction": {
+          "candidateId": "cand-001",
+          "language": "fr",
+          "normalizedMeaning": "Évaluation de l'artère carotidienne à l'aide de différentes modalités d'imagerie ou d'exploration.",
+          "summaryForUser": "Vous souhaitez évaluer la carotide en utilisant plusieurs modalités différentes.",
+          "semanticInventory": {
+            "explicitFragments": [
+              {
+                "inventoryItemId": "item-1",
+                "sourceMessageId": "SEM-D01:user:1",
+                "sourceText": "évaluer",
+                "normalizedLabel": "evaluer",
+                "localRole": "operation",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": [
+                  "item-2",
+                  "item-3"
+                ]
+              },
+              {
+                "inventoryItemId": "item-2",
+                "sourceMessageId": "SEM-D01:user:1",
+                "sourceText": "la carotidienne",
+                "normalizedLabel": "artere carotide",
+                "localRole": "target",
+                "polarity": "AFFIRMED",
+                "modifiers": [],
+                "linkedInventoryItemIds": [
+                  "item-1"
+                ]
+              },
+              {
+                "inventoryItemId": "item-3",
+                "sourceMessageId": "SEM-D01:user:1",
+                "sourceText": "différentes modalités",
+                "normalizedLabel": "modalites multiples",
+                "localRole": "instrument",
+                "polarity": "AFFIRMED",
+                "modifiers": [
+                  "differentes"
+                ],
+                "linkedInventoryItemIds": [
+                  "item-1"
+                ]
+              }
+            ],
+            "explicitRelations": [
+              {
+                "inventoryRelationId": "rel-1",
+                "sourceInventoryItemId": "item-1",
+                "targetInventoryItemId": "item-2",
+                "sourceMessageId": "SEM-D01:user:1",
+                "sourceText": "évaluer la carotidienne",
+                "normalizedRelation": "OBSERVES",
+                "polarity": "AFFIRMED"
+              },
+              {
+                "inventoryRelationId": "rel-2",
+                "sourceInventoryItemId": "item-1",
+                "targetInventoryItemId": "item-3",
+                "sourceMessageId": "SEM-D01:user:1",
+                "sourceText": "évaluer ... via différentes modalités",
+                "normalizedRelation": "PERFORMED_VIA",
+                "polarity": "AFFIRMED"
+              }
+            ]
+          },
+          "elements": [
+            {
+              "clientElementId": "elem-1",
+              "type": "SCIENTIFIC_INTENT",
+              "canonicalMeaning": "Evaluation intention",
+              "studyRole": "NONE",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "item-1"
+              ],
+              "sourceMessageId": "SEM-D01:user:1",
+              "sourceText": "évaluer",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem-2",
+              "type": "SCIENTIFIC_OBJECT",
+              "canonicalMeaning": "Carotid artery",
+              "studyRole": "SUBJECT",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "item-2"
+              ],
+              "sourceMessageId": "SEM-D01:user:1",
+              "sourceText": "la carotidienne",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            },
+            {
+              "clientElementId": "elem-3",
+              "type": "MODALITY",
+              "canonicalMeaning": "Multiple modalities",
+              "studyRole": "NONE",
+              "polarity": "AFFIRMED",
+              "inventoryItemIds": [
+                "item-3"
+              ],
+              "sourceMessageId": "SEM-D01:user:1",
+              "sourceText": "différentes modalités",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false,
+              "supersedesElementIds": []
+            }
+          ],
+          "relations": [
+            {
+              "clientRelationId": "rel-elem-1",
+              "sourceClientElementId": "elem-1",
+              "targetClientElementId": "elem-2",
+              "relationType": "OBSERVES",
+              "polarity": "AFFIRMED",
+              "inventoryRelationIds": [
+                "rel-1"
+              ],
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false
+            },
+            {
+              "clientRelationId": "rel-elem-2",
+              "sourceClientElementId": "elem-1",
+              "targetClientElementId": "elem-3",
+              "relationType": "PERFORMED_VIA",
+              "polarity": "AFFIRMED",
+              "inventoryRelationIds": [
+                "rel-2"
+              ],
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "confidence": 1,
+              "inferenceReason": null,
+              "requiresConfirmation": false
+            }
+          ],
+          "missingConcepts": [
+            "Specific modalities not named",
+            "Study endpoints not defined"
+          ],
+          "ellipses": [],
+          "ambiguities": [
+            "Exact modalities are unspecified"
+          ],
+          "unknowns": [],
+          "contradictions": [],
+          "knowledgeRequests": [],
+          "clarificationCandidates": [
+            {
+              "question": "Quelles sont les modalités spécifiques que vous souhaitez utiliser pour évaluer l'artère carotide ?",
+              "reason": "Clarifier les modalités pour affiner la conception de l'étude.",
+              "resolvesClientElementIds": [
+                "elem-3"
+              ]
+            }
+          ],
+          "routeProposal": {
+            "route": "DESIGN_STUDY",
+            "confidence": 0.85,
+            "reason": "The user is outlining an intention to construct a study involving evaluation of a target across modalities.",
+            "expectedCapabilities": [
+              "Define modalities",
+              "Specify study design",
+              "Set endpoints"
+            ]
+          },
+          "semanticWarnings": []
+        },
+        "rawCritic": {
+          "criticId": "pre-critic-metric-only",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "Metric-only pre-critic snapshot."
+            }
+          ],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "Metric-only pre-critic snapshot."
+        },
+        "rawCritics": [
+          {
+            "criticId": "pre-critic-metric-only",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "Metric-only pre-critic snapshot."
+              }
+            ],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "Metric-only pre-critic snapshot."
+          }
+        ],
+        "temperature": null,
+        "executedAt": "2026-08-11T08:43:37.079Z"
+      },
+      "knowledgeSnapshot": null,
+      "previousModelId": null,
+      "history": [],
+      "acceptedAt": null,
+      "acceptanceRecord": null,
+      "createdAt": "2026-08-11T08:43:37.079Z",
+      "updatedAt": "2026-08-11T08:43:37.079Z",
+      "digest": "ke1-3dd6da85046eeb39"
+    },
+    "criticImpact": {
+      "caseId": "SEM-D01",
+      "beforeCriticObjectRecall": 0.5,
+      "afterCriticObjectRecall": 0.5,
+      "beforeCriticRelationRecall": 0,
+      "afterCriticRelationRecall": 0,
+      "issuesDetected": 0,
+      "repairsProposed": 0,
+      "repairsAccepted": 0,
+      "repairsRejected": 0,
+      "newUnsupportedInferences": 0,
+      "falsePositiveCritic": false,
+      "criticAccepted": true,
+      "criticCycles": 1,
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    },
+    "error": null
+  }
+]

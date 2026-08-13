@@ -1,0 +1,16 @@
+{
+  "campaign": "SEM-001R3E",
+  "model": "gemini-3.5-flash-lite",
+  "actualLLMCalls": 5,
+  "structuredRegenerations": 0,
+  "providerRetries": 4,
+  "callsAvoidedByCompatibleCache": 42,
+  "callsDeferredByGate": {
+    "d28Audit": 1,
+    "remainingDevelopmentCritics": 24,
+    "holdout": 30
+  },
+  "reconstructionCalls": 0,
+  "baseCriticCalls": 0,
+  "conditionalAuditCalls": 5
+}

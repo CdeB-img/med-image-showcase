@@ -1,0 +1,442 @@
+{
+  "campaign": "SEM-001R5B",
+  "configurationName": "SEM_LEGACY_R5B",
+  "status": "PROPOSED_NOT_ACTIVATED",
+  "classifiedAt": "2026-08-13",
+  "policy": {
+    "callLlmOnlyIfRequired": true,
+    "compatibleCheckpointMustMatchAllDependencyDigests": true,
+    "historicalEvidenceMayBeRetainedForAuditOnly": true,
+    "historicalCheckpointPromotion": false
+  },
+  "classifications": {
+    "REUSE_COMPATIBLE": 0,
+    "DETERMINISTIC_RECOMPUTE": 0,
+    "LLM_REQUIRED": 56,
+    "INVALID": 0,
+    "UNRESOLVED_BY_LEGACY_MODEL": 4
+  },
+  "totalCases": 60,
+  "cases": [
+    {
+      "caseId": "SEM-D01",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-D02",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-D03",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-D04",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-D05",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-D06",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-D07",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-D08",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-D09",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-D10",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-D11",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-D12",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-D13",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-D14",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-D15",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-D16",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-D17",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-D18",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-D19",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-D20",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-D21",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-D22",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-D23",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-D24",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-D25",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-D26",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-D27",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-D28",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-D29",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-D30",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-H01",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-H02",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-H03",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-H04",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-H05",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-H06",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-H07",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-H08",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-H09",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-H10",
+      "classification": "UNRESOLVED_BY_LEGACY_MODEL",
+      "firstInvalidStage": "NORMATIVE_MAPPING_BEFORE_EXECUTION",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "Human arbitration records a PD-003 V2 concept separation that the governed legacy model cannot represent without a new mapping."
+    },
+    {
+      "caseId": "SEM-H11",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-H12",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-H13",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-H14",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-H15",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-H16",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-H17",
+      "classification": "UNRESOLVED_BY_LEGACY_MODEL",
+      "firstInvalidStage": "NORMATIVE_MAPPING_BEFORE_EXECUTION",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "Human arbitration records a PD-003 V2 concept separation that the governed legacy model cannot represent without a new mapping."
+    },
+    {
+      "caseId": "SEM-H18",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-H19",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-H20",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-H21",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-H22",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-H23",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-H24",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-H25",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-H26",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-H27",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-H28",
+      "classification": "UNRESOLVED_BY_LEGACY_MODEL",
+      "firstInvalidStage": "NORMATIVE_MAPPING_BEFORE_EXECUTION",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "Human arbitration records a PD-003 V2 concept separation that the governed legacy model cannot represent without a new mapping."
+    },
+    {
+      "caseId": "SEM-H29",
+      "classification": "LLM_REQUIRED",
+      "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "The SEM_LEGACY_R5B reconstruction prompt/configuration digest differs from the historical checkpoint dependency chain; a homogeneous reconstruction is required before any critic or deterministic replay can qualify."
+    },
+    {
+      "caseId": "SEM-H30",
+      "classification": "UNRESOLVED_BY_LEGACY_MODEL",
+      "firstInvalidStage": "NORMATIVE_MAPPING_BEFORE_EXECUTION",
+      "checkpointReuse": "NONE_AS_QUALIFICATION_INPUT",
+      "reason": "Human arbitration records a PD-003 V2 concept separation that the governed legacy model cannot represent without a new mapping."
+    }
+  ]
+}

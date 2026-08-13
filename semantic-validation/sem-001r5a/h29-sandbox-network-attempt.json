@@ -1,0 +1,29 @@
+{
+  "campaign": "SEM-001R5A",
+  "caseId": "SEM-H29",
+  "scope": "TARGETED_PROVIDER_REQUALIFICATION_ON_EXACT_R5_CONFIGURATION",
+  "sourceConfigurationDigest": "ke1-01d917dec0ebcd82",
+  "reusedFirstTurnSemanticModelDigest": "ke1-a213c569cb4b9bbd",
+  "decision": "PROVIDER_NETWORK_UNREACHABLE_BEFORE_HTTP",
+  "provider": "GOOGLE_GEMINI",
+  "model": "gemini-3.5-flash-lite",
+  "providerRequestStartsAttempted": 5,
+  "providerHttpResponses": 0,
+  "llmCallsConsumed": 0,
+  "attempts": [
+    { "attempt": 1, "startedAt": "2026-08-12T22:51:48.740Z", "finishedAt": "2026-08-12T22:51:48.751Z", "category": "NETWORK", "waitDuration": 60000, "finalDisposition": "RETRY_SCHEDULED" },
+    { "attempt": 2, "startedAt": "2026-08-12T22:52:48.751Z", "finishedAt": "2026-08-12T22:52:48.757Z", "category": "NETWORK", "waitDuration": 60000, "finalDisposition": "RETRY_SCHEDULED" },
+    { "attempt": 3, "startedAt": "2026-08-12T22:53:48.757Z", "finishedAt": "2026-08-12T22:53:48.762Z", "category": "NETWORK", "waitDuration": 60000, "finalDisposition": "RETRY_SCHEDULED" },
+    { "attempt": 4, "startedAt": "2026-08-12T22:54:48.763Z", "finishedAt": "2026-08-12T22:54:48.767Z", "category": "NETWORK", "waitDuration": 60000, "finalDisposition": "RETRY_SCHEDULED" },
+    { "attempt": 5, "startedAt": "2026-08-12T22:55:48.767Z", "finishedAt": "2026-08-12T22:55:48.771Z", "category": "NETWORK", "waitDuration": 0, "finalDisposition": "PROVIDER_CAPACITY_FAILURE" }
+  ],
+  "retryPolicy": {
+    "maximumAttemptsPerOperation": 5,
+    "concurrency": 1,
+    "transientWaitMs": 60000
+  },
+  "noHttpStatusObserved": true,
+  "noRawProviderResponseProduced": true,
+  "noSecretStored": true,
+  "noOtherHoldoutCaseRun": true
+}

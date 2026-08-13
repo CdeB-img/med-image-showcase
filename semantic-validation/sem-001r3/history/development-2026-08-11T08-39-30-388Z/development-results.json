@@ -1,0 +1,234 @@
+[
+  {
+    "caseId": "SEM-D01",
+    "split": "DEVELOPMENT_CASES",
+    "goldFrameDigest": "ke1-95832d16d5fb7dfa",
+    "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+    "criticPromptVersion": "SEM-001-CRITIC-1.2",
+    "provider": "GOOGLE_GEMINI",
+    "model": "gemini-3.5-flash-lite",
+    "requestStarted": "2026-08-11T08:39:30.388Z",
+    "completedAt": null,
+    "reconstructionStatus": "SUCCESS",
+    "criticStatus": "NOT_STARTED",
+    "canonicalizationStatus": "NOT_STARTED",
+    "evaluationStatus": "NOT_READY",
+    "finalStatus": "FAILED",
+    "retryCount": 0,
+    "latencyMs": 5276,
+    "operationTraces": [
+      {
+        "operation": "RECONSTRUCTION",
+        "turn": 1,
+        "cycle": null,
+        "callId": "gemini-call:ke1-d912eaf84bb7657c",
+        "structuredDigest": "ke1-4dc47e332a376517",
+        "attempts": [
+          {
+            "attempt": 1,
+            "requestStarted": "2026-08-11T08:39:30.388Z",
+            "requestFinished": "2026-08-11T08:39:35.048Z",
+            "latencyMs": 4660,
+            "outcome": "SUCCESS",
+            "category": null,
+            "httpStatus": 200,
+            "providerStatus": null,
+            "providerCode": null,
+            "providerError": null,
+            "retryable": false
+          }
+        ]
+      }
+    ],
+    "reconstructionCandidate": {
+      "candidateId": "cand-001",
+      "language": "fr",
+      "normalizedMeaning": "Evaluation de l'artere carotidienne en utilisant differentes modalites d'imagerie ou d'observation.",
+      "summaryForUser": "Vous souhaitez evaluer l'artere carotidienne en comparant ou combinant plusieurs modalites.",
+      "semanticInventory": {
+        "explicitFragments": [
+          {
+            "inventoryItemId": "inv-1",
+            "sourceMessageId": "SEM-D01:user:1",
+            "sourceText": "évaluer",
+            "normalizedLabel": "evaluer",
+            "localRole": "action",
+            "polarity": "AFFIRMED",
+            "modifiers": [],
+            "linkedInventoryItemIds": [
+              "inv-2",
+              "inv-3"
+            ]
+          },
+          {
+            "inventoryItemId": "inv-2",
+            "sourceMessageId": "SEM-D01:user:1",
+            "sourceText": "carotidienne",
+            "normalizedLabel": "artere carotidienne",
+            "localRole": "target",
+            "polarity": "AFFIRMED",
+            "modifiers": [],
+            "linkedInventoryItemIds": [
+              "inv-1"
+            ]
+          },
+          {
+            "inventoryItemId": "inv-3",
+            "sourceMessageId": "SEM-D01:user:1",
+            "sourceText": "différentes modalités",
+            "normalizedLabel": "modalites multiples",
+            "localRole": "instrument",
+            "polarity": "AFFIRMED",
+            "modifiers": [
+              "differentes"
+            ],
+            "linkedInventoryItemIds": [
+              "inv-1"
+            ]
+          }
+        ],
+        "explicitRelations": [
+          {
+            "inventoryRelationId": "rel-1",
+            "sourceInventoryItemId": "inv-1",
+            "targetInventoryItemId": "inv-2",
+            "sourceMessageId": "SEM-D01:user:1",
+            "sourceText": "évaluer la carotidienne",
+            "normalizedRelation": "EVALUATES",
+            "polarity": "AFFIRMED"
+          },
+          {
+            "inventoryRelationId": "rel-2",
+            "sourceInventoryItemId": "inv-1",
+            "targetInventoryItemId": "inv-3",
+            "sourceMessageId": "SEM-D01:user:1",
+            "sourceText": "évaluer ... via différentes modalités",
+            "normalizedRelation": "PERFORMED_VIA",
+            "polarity": "AFFIRMED"
+          }
+        ]
+      },
+      "elements": [
+        {
+          "clientElementId": "elem-1",
+          "type": "OPERATION",
+          "canonicalMeaning": "Evaluation",
+          "studyRole": "NONE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv-1"
+          ],
+          "sourceMessageId": "SEM-D01:user:1",
+          "sourceText": "évaluer",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        },
+        {
+          "clientElementId": "elem-2",
+          "type": "SCIENTIFIC_OBJECT",
+          "canonicalMeaning": "Artere carotidienne",
+          "studyRole": "SUBJECT",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv-2"
+          ],
+          "sourceMessageId": "SEM-D01:user:1",
+          "sourceText": "carotidienne",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        },
+        {
+          "clientElementId": "elem-3",
+          "type": "MODALITY",
+          "canonicalMeaning": "Modalites multiples",
+          "studyRole": "NONE",
+          "polarity": "AFFIRMED",
+          "inventoryItemIds": [
+            "inv-3"
+          ],
+          "sourceMessageId": "SEM-D01:user:1",
+          "sourceText": "différentes modalités",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false,
+          "supersedesElementIds": []
+        }
+      ],
+      "relations": [
+        {
+          "clientRelationId": "rel-elem-1",
+          "sourceClientElementId": "elem-1",
+          "targetClientElementId": "elem-2",
+          "relationType": "EVALUATES",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel-1"
+          ],
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false
+        },
+        {
+          "clientRelationId": "rel-elem-2",
+          "sourceClientElementId": "elem-1",
+          "targetClientElementId": "elem-3",
+          "relationType": "PERFORMED_VIA",
+          "polarity": "AFFIRMED",
+          "inventoryRelationIds": [
+            "rel-2"
+          ],
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "confidence": 1,
+          "inferenceReason": null,
+          "requiresConfirmation": false
+        }
+      ],
+      "missingConcepts": [],
+      "ellipses": [],
+      "ambiguities": [
+        "Quelles modalites exactes sont envisagees ?"
+      ],
+      "unknowns": [],
+      "contradictions": [],
+      "knowledgeRequests": [],
+      "clarificationCandidates": [
+        {
+          "question": "Quelles modalites precisez-vous pour evaluer l'artere carotidienne ?",
+          "reason": "Les modalites mentionnees sont generales.",
+          "resolvesClientElementIds": [
+            "elem-3"
+          ]
+        }
+      ],
+      "routeProposal": {
+        "route": "DESIGN_STUDY",
+        "confidence": 0.85,
+        "reason": "L'utilisateur exprime une intention d'evaluation avec des variables de modalite et un sujet cible.",
+        "expectedCapabilities": [
+          "Definir les modalites",
+          "Precisier le protocole d'evaluation"
+        ]
+      },
+      "semanticWarnings": []
+    },
+    "semanticModel": null,
+    "beforeCriticModel": null,
+    "criticImpact": null,
+    "error": {
+      "category": "CLIENT_ERROR",
+      "failureClass": "STRUCTURED_OUTPUT_FAILURE",
+      "httpStatus": 400,
+      "providerStatus": "INVALID_ARGUMENT",
+      "providerCode": "400",
+      "message": "Request contains an invalid argument."
+    }
+  }
+]

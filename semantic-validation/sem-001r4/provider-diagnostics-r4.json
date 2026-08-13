@@ -1,0 +1,84 @@
+{
+  "campaign": "SEM-001R4",
+  "campaignId": "sem-001r4-2026-08-12T19-14-19-051Z-ke1-8251dd1f215442bb",
+  "provider": "GOOGLE_GEMINI",
+  "model": "gemini-3.5-flash-lite",
+  "noSecretsStored": true,
+  "policy": {
+    "concurrency": 1,
+    "maxRequestStartsPerRollingMinute": 5,
+    "rollingWindowMs": 60000,
+    "maximumAttemptsPerLlmOperation": 5,
+    "transientWaitMs": 60000,
+    "retryAfterHasPriority": true,
+    "structuredCorrection": "FROZEN_PROVIDER_CONTRACT_ONLY",
+    "systemicCircuitBreaker": "3 independent exhausted operations with comparable provider failure"
+  },
+  "runs": [
+    {
+      "runId": "sem-001r4-run-2026-08-12T19-14-59-195Z",
+      "startedAt": "2026-08-12T19:14:59.195Z",
+      "completedCaseIdsAtResume": [],
+      "completedAt": "2026-08-12T19:15:13.018Z",
+      "decision": "R4_HOLDOUT_FAILED_REQUIRES_SEPARATE_REPAIR",
+      "complete": 0
+    }
+  ],
+  "attempts": [
+    {
+      "runId": "sem-001r4-run-2026-08-12T19-14-59-195Z",
+      "caseId": "SEM-H01",
+      "stage": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "operationAttempt": 1,
+      "attempt": 1,
+      "startedAt": "2026-08-12T19:14:59.198Z",
+      "finishedAt": "2026-08-12T19:15:04.669Z",
+      "providerStatus": null,
+      "httpStatus": 200,
+      "providerErrorCode": null,
+      "category": null,
+      "waitDuration": 0,
+      "finalDisposition": "SUCCESS",
+      "rawArtifact": "semantic-validation/sem-001r4/raw-provider-responses/0001-SEM-H01-reconstruction-t1-c0.json"
+    },
+    {
+      "runId": "sem-001r4-run-2026-08-12T19-14-59-195Z",
+      "caseId": "SEM-H01",
+      "stage": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "operationAttempt": 1,
+      "attempt": 1,
+      "startedAt": "2026-08-12T19:15:04.677Z",
+      "finishedAt": "2026-08-12T19:15:08.852Z",
+      "providerStatus": null,
+      "httpStatus": 200,
+      "providerErrorCode": null,
+      "category": null,
+      "waitDuration": 0,
+      "finalDisposition": "SUCCESS",
+      "rawArtifact": "semantic-validation/sem-001r4/raw-provider-responses/0002-SEM-H01-critic-t1-c1.json"
+    },
+    {
+      "runId": "sem-001r4-run-2026-08-12T19-14-59-195Z",
+      "caseId": "SEM-H01",
+      "stage": "CRITIC",
+      "turn": 1,
+      "cycle": 2,
+      "operationAttempt": 1,
+      "attempt": 1,
+      "startedAt": "2026-08-12T19:15:08.857Z",
+      "finishedAt": "2026-08-12T19:15:13.013Z",
+      "providerStatus": null,
+      "httpStatus": 200,
+      "providerErrorCode": null,
+      "category": null,
+      "waitDuration": 0,
+      "finalDisposition": "SUCCESS",
+      "rawArtifact": "semantic-validation/sem-001r4/raw-provider-responses/0003-SEM-H01-critic-t1-c2.json"
+    }
+  ],
+  "structuredOutputIncidents": []
+}

@@ -1,0 +1,43 @@
+{
+  "campaign": "SEM-001R4A",
+  "caseId": "SEM-H01",
+  "actualLlmCalls": 0,
+  "retries": 0,
+  "callsAvoidedByCompatibleReuse": 3,
+  "reused": [
+    "R4 H01 reconstruction",
+    "R4 H01 critic cycle 1",
+    "R4 H01 critic cycle 2"
+  ],
+  "holdoutCasesNotStarted": [
+    "SEM-H02",
+    "SEM-H03",
+    "SEM-H04",
+    "SEM-H05",
+    "SEM-H06",
+    "SEM-H07",
+    "SEM-H08",
+    "SEM-H09",
+    "SEM-H10",
+    "SEM-H11",
+    "SEM-H12",
+    "SEM-H13",
+    "SEM-H14",
+    "SEM-H15",
+    "SEM-H16",
+    "SEM-H17",
+    "SEM-H18",
+    "SEM-H19",
+    "SEM-H20",
+    "SEM-H21",
+    "SEM-H22",
+    "SEM-H23",
+    "SEM-H24",
+    "SEM-H25",
+    "SEM-H26",
+    "SEM-H27",
+    "SEM-H28",
+    "SEM-H29",
+    "SEM-H30"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "campaign": "SEM-001R3D",
+  "decision": "R3D_BLOCKED_BY_PROVIDER",
+  "targeted": {
+    "complete": 0,
+    "expected": 2,
+    "atomicPass": false,
+    "compositionPass": false
+  },
+  "development": {
+    "configurationCompatible": 4,
+    "expectedAtThisGate": 6,
+    "remainingCriticCallsDeferred": 24
+  },
+  "llm": {
+    "actualCalls": 3,
+    "retries": 0,
+    "structuredRegenerations": 2,
+    "transportAttemptsBlockedBeforeProvider": 2,
+    "localTransportRetries": 2,
+    "callsAvoidedByReuseOrCache": 42
+  },
+  "provider": {
+    "name": "GOOGLE_GEMINI",
+    "model": "gemini-3.5-flash-lite",
+    "stopped": true,
+    "stopReason": "NON_RETRYABLE_PROVIDER_FAILURE:INVALID_STRUCTURED_OUTPUT"
+  },
+  "holdout": "NOT_STARTED_FORBIDDEN",
+  "remainingDevelopment": "NOT_EXECUTED"
+}

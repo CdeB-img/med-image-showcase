@@ -1,0 +1,13 @@
+{
+  "campaign": "SEM-001R3H",
+  "actualLlmCalls": 0,
+  "callsAvoidedByCompatibleReuse": 43,
+  "avoidedDetail": {
+    "reconstruction": 30,
+    "baseCritic": 12,
+    "validTargetAudit": 1
+  },
+  "providerRetries": 0,
+  "structuredRegenerations": 0,
+  "holdoutCalls": 0
+}

@@ -1,0 +1,99 @@
+{
+  "campaign": "SEM-001R3G",
+  "verifiedAt": "2026-08-12T16:41:02.880Z",
+  "decision": "R3G_CONFIGURATION_VERIFIED",
+  "allowedMutation": "ATOMIC_AUDIT_TO_CANONICAL_CLASSIFICATION_OWNER_ONLY",
+  "currentDigests": {
+    "reconstructionPrompt": "ke1-943568042373de98",
+    "criticPrompt": "ke1-b26ddf632ed1fa57",
+    "baseProviderSchema": "ke1-c849778553bf38b1",
+    "canonicalizer": "ke1-8a56fab704f65083",
+    "coverageAndRepair": "ke1-ca1d80690519c165",
+    "evaluator": "ke1-b5aa14fa96372ad6",
+    "developmentCorpus": "ke1-64d654cfa041a563",
+    "developmentGold": "ke1-1006a72533caf7f9",
+    "atomicCompositionPrompt": "ke1-10b88664b49fca18",
+    "providerTransportSchema": "ke1-55cd50759595b451",
+    "atomicClassificationOwner": "ke1-decdaae9dc024c1d"
+  },
+  "checks": [
+    {
+      "contract": "reconstructionPrompt",
+      "expected": "ke1-943568042373de98",
+      "observed": "ke1-943568042373de98",
+      "pass": true
+    },
+    {
+      "contract": "criticPrompt",
+      "expected": "ke1-b26ddf632ed1fa57",
+      "observed": "ke1-b26ddf632ed1fa57",
+      "pass": true
+    },
+    {
+      "contract": "baseProviderSchema",
+      "expected": "ke1-c849778553bf38b1",
+      "observed": "ke1-c849778553bf38b1",
+      "pass": true
+    },
+    {
+      "contract": "canonicalizer",
+      "expected": "ke1-8a56fab704f65083",
+      "observed": "ke1-8a56fab704f65083",
+      "pass": true
+    },
+    {
+      "contract": "coverageAndRepair",
+      "expected": "ke1-ca1d80690519c165",
+      "observed": "ke1-ca1d80690519c165",
+      "pass": true
+    },
+    {
+      "contract": "evaluator",
+      "expected": "ke1-b5aa14fa96372ad6",
+      "observed": "ke1-b5aa14fa96372ad6",
+      "pass": true
+    },
+    {
+      "contract": "developmentCorpus",
+      "expected": "ke1-64d654cfa041a563",
+      "observed": "ke1-64d654cfa041a563",
+      "pass": true
+    },
+    {
+      "contract": "developmentGold",
+      "expected": "ke1-1006a72533caf7f9",
+      "observed": "ke1-1006a72533caf7f9",
+      "pass": true
+    },
+    {
+      "contract": "atomicCompositionPrompt",
+      "expected": "ke1-10b88664b49fca18",
+      "observed": "ke1-10b88664b49fca18",
+      "pass": true
+    },
+    {
+      "contract": "providerTransportSchema",
+      "expected": "ke1-55cd50759595b451",
+      "observed": "ke1-55cd50759595b451",
+      "pass": true
+    },
+    {
+      "contract": "developmentGoldFrames",
+      "expected": "30 unchanged",
+      "observed": "30 unchanged",
+      "pass": true
+    },
+    {
+      "contract": "atomicClassificationOwner",
+      "expected": "changed from R3F owner",
+      "observed": "ke1-decdaae9dc024c1d",
+      "pass": true
+    },
+    {
+      "contract": "recoveredPrimaryAudit",
+      "expected": "schema-valid reusable audit",
+      "observed": "audit_sem_d21_01",
+      "pass": true
+    }
+  ]
+}

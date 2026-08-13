@@ -1,0 +1,285 @@
+{
+  "campaign": "SEM-001R4-CLOSURE",
+  "campaignId": "sem-001r4-closure-2026-08-12T19-44-58-552Z-ke1-40860531ff1079a5",
+  "failures": [
+    {
+      "caseId": "SEM-H01",
+      "failureClass": "RELATION_COVERAGE_FALSE_POSITIVE",
+      "firstDivergentStage": "DETERMINISTIC_RELATION_COVERAGE",
+      "disposition": "REPAIRED_AND_REPLAYED",
+      "source": "semantic-validation/sem-001r4a/h01-forensic-classification-before-repair.json"
+    },
+    {
+      "caseId": "SEM-H05",
+      "originalRequest": [
+        "sans sédation, IRM poumon chez mucoviscidose, suivre ventilation"
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H05",
+        "explicitObjectRecall": 0.5,
+        "explicitRelationRecall": 0,
+        "criticalSemanticRecall": 0.4,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": false,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_MODALITY_LOST:IRM pulmonaire",
+          "EXPLICIT_SCIENTIFIC_OBJECT_LOST:ventilation",
+          "RELATION_LOST:ventilation->IRM pulmonaire"
+        ]
+      },
+      "absoluteBlockers": [],
+      "firstDivergentStage": "DETERMINISTIC_TAXONOMY_COVERAGE",
+      "failureClass": "DETERMINISTIC_TAXONOMY_GUARD_GAP",
+      "genericOrIsolated": "GENERIC_REPAIR_VALIDATED",
+      "recommendedOwner": "SEM_OBJECT_COVERAGE_OWNER",
+      "disposition": "REPAIRED_AND_MINIMALLY_REPLAYED",
+      "goldUsedForProductDecision": false,
+      "observedAbsoluteBlockers": [
+        "EXPLICIT_MODALITY_LOST:IRM pulmonaire",
+        "EXPLICIT_SCIENTIFIC_OBJECT_LOST:ventilation",
+        "RELATION_LOST:ventilation->IRM pulmonaire"
+      ]
+    },
+    {
+      "caseId": "SEM-H06",
+      "originalRequest": [
+        "MRE ou élastographie US : laquelle est la plus reproductible pour fibrose hépatique multicentre ?"
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H06",
+        "explicitObjectRecall": 0.75,
+        "explicitRelationRecall": 0,
+        "criticalSemanticRecall": 0.6,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 0,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_METHOD_LOST:élastographie ultrasonore",
+          "RELATION_LOST:MRE->élastographie ultrasonore"
+        ]
+      },
+      "absoluteBlockers": [],
+      "firstDivergentStage": "POST_CANONICAL_EVALUATOR_EQUIVALENCE",
+      "failureClass": "MULTILINGUAL_EVALUATOR_FALSE_NEGATIVE",
+      "genericOrIsolated": "GENERIC_REPAIR_VALIDATED",
+      "recommendedOwner": "SEM_OBJECT_COVERAGE_OWNER",
+      "disposition": "REPAIRED_AND_MINIMALLY_REPLAYED",
+      "goldUsedForProductDecision": false,
+      "observedAbsoluteBlockers": [
+        "EXPLICIT_METHOD_LOST:élastographie ultrasonore",
+        "RELATION_LOST:MRE->élastographie ultrasonore"
+      ]
+    },
+    {
+      "caseId": "SEM-H07",
+      "originalRequest": [
+        "post myocardite : mapping natif et strain, lequel annonce la récupération VG ?"
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H07",
+        "explicitObjectRecall": 0.5,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 0.6,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_BIOMARKER_LOST:mapping natif",
+          "EXPLICIT_BIOMARKER_LOST:strain"
+        ]
+      },
+      "absoluteBlockers": [],
+      "firstDivergentStage": "AUTHORIZED_GOLD_AND_DETERMINISTIC_TAXONOMY",
+      "failureClass": "GOLD_CONFLICT_AND_DETERMINISTIC_TAXONOMY_GUARD_GAP",
+      "genericOrIsolated": "HUMAN_ARBITRATION_APPLIED_AND_GENERIC_REPAIR_VALIDATED",
+      "recommendedOwner": "NOXIA_SCIENTIFIC_SEMANTIC_GOVERNANCE",
+      "disposition": "REPAIRED_AND_MINIMALLY_REPLAYED",
+      "goldUsedForProductDecision": false,
+      "arbitration": {
+        "normativeRule": "A named mapping or acquisition technique is METHOD; a quantitative observable or value is BIOMARKER.",
+        "observedCanonicalClassification": {
+          "mapping natif": "METHOD",
+          "strain": "METHOD"
+        },
+        "holdoutGoldClassification": {
+          "mapping natif": "BIOMARKER",
+          "strain": "BIOMARKER"
+        },
+        "blockingConflict": "The mapping natif Gold type contradicts the frozen operational taxonomy and deterministic mapping-technique guard.",
+        "nonBlockingRepairDeferred": "The strain classification is a generic taxonomy-guard gap, but no partial H07 repair is applied while the normative conflict is unresolved.",
+        "goldChanged": true,
+        "normativeAuthorityChanged": false,
+        "decisionApplied": "mapping natif=METHOD; strain=BIOMARKER in this relational context",
+        "source": "semantic-validation/sem-001r4/h07-gold-arbitration-r4b.json"
+      },
+      "observedAbsoluteBlockers": [
+        "EXPLICIT_BIOMARKER_LOST:mapping natif",
+        "EXPLICIT_BIOMARKER_LOST:strain"
+      ]
+    },
+    {
+      "caseId": "SEM-H08",
+      "originalRequest": [
+        "Tmax 6 s n'est pas mon endpoint; je veux décrire le décalage bolus entre CT perfusion et ASL."
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H08",
+        "explicitObjectRecall": 0.5,
+        "explicitRelationRecall": 1,
+        "criticalSemanticRecall": 0.6,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_CONSTRAINT_LOST:Tmax 6 s exclu comme endpoint",
+          "EXPLICIT_SCIENTIFIC_OBJECT_LOST:décalage de bolus"
+        ]
+      },
+      "absoluteBlockers": [],
+      "firstDivergentStage": "DETERMINISTIC_TAXONOMY_AND_EVALUATOR",
+      "failureClass": "DETERMINISTIC_TAXONOMY_AND_EVALUATOR_GAP",
+      "genericOrIsolated": "GENERIC_REPAIR_VALIDATED",
+      "recommendedOwner": "SEM_OBJECT_COVERAGE_OWNER",
+      "disposition": "REPAIRED_AND_MINIMALLY_REPLAYED",
+      "goldUsedForProductDecision": false,
+      "observedAbsoluteBlockers": [
+        "EXPLICIT_CONSTRAINT_LOST:Tmax 6 s exclu comme endpoint",
+        "EXPLICIT_SCIENTIFIC_OBJECT_LOST:décalage de bolus"
+      ]
+    },
+    {
+      "caseId": "SEM-H09",
+      "originalRequest": [
+        "Le virtuel sans contraste peut-il remplacer le sans injection pour les calculs de calcium ?"
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H09",
+        "explicitObjectRecall": 0.3333333333333333,
+        "explicitRelationRecall": 0,
+        "criticalSemanticRecall": 0.25,
+        "comparatorPreserved": false,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_METHOD_LOST:virtual non contrast",
+          "EXPLICIT_COMPARATOR_LOST:acquisition sans injection",
+          "RELATION_LOST:virtual non contrast->acquisition sans injection"
+        ]
+      },
+      "absoluteBlockers": [],
+      "firstDivergentStage": "POST_CANONICAL_EVALUATOR_EQUIVALENCE",
+      "failureClass": "MULTILINGUAL_EVALUATOR_AND_STUDY_ROLE_FALSE_NEGATIVE",
+      "genericOrIsolated": "GENERIC_REPAIR_VALIDATED",
+      "recommendedOwner": "SEM_OBJECT_COVERAGE_OWNER",
+      "disposition": "REPAIRED_AND_MINIMALLY_REPLAYED",
+      "goldUsedForProductDecision": false,
+      "observedAbsoluteBlockers": [
+        "EXPLICIT_METHOD_LOST:virtual non contrast",
+        "EXPLICIT_COMPARATOR_LOST:acquisition sans injection",
+        "RELATION_LOST:virtual non contrast->acquisition sans injection"
+      ]
+    },
+    {
+      "caseId": "SEM-H10",
+      "originalRequest": [
+        "Après exercice, phosphore 31P et BOLD musculaire; voir récupération énergétique."
+      ],
+      "metricFailures": {
+        "caseId": "SEM-H10",
+        "explicitObjectRecall": 0.25,
+        "explicitRelationRecall": 0,
+        "criticalSemanticRecall": 0.2,
+        "comparatorPreserved": true,
+        "interventionPreserved": true,
+        "modalityPreserved": true,
+        "semanticDriftRate": 0,
+        "unsupportedInferenceRate": 0,
+        "criticalUnsupportedInferenceCount": 0,
+        "ellipsisDetectionRate": 1,
+        "ambiguityPreservationRate": 1,
+        "unnecessaryClarificationRate": 0,
+        "routeCorrect": true,
+        "correctionPropagation": true,
+        "multiTurnContextPreserved": true,
+        "genericDomainCollapse": false,
+        "absoluteBlockers": [
+          "EXPLICIT_METHOD_LOST:spectroscopie 31P",
+          "EXPLICIT_METHOD_LOST:BOLD musculaire",
+          "EXPLICIT_SCIENTIFIC_OBJECT_LOST:récupération énergétique",
+          "RELATION_LOST:spectroscopie 31P->récupération énergétique"
+        ]
+      },
+      "absoluteBlockers": [
+        "EXPLICIT_METHOD_LOST:spectroscopie 31P",
+        "EXPLICIT_METHOD_LOST:BOLD musculaire",
+        "EXPLICIT_SCIENTIFIC_OBJECT_LOST:récupération énergétique",
+        "RELATION_LOST:spectroscopie 31P->récupération énergétique"
+      ],
+      "firstDivergentStage": "GOLD_VERSUS_OPERATIONAL_TAXONOMY_COMPARISON",
+      "failureClass": "GOLD_VERSUS_OPERATIONAL_TAXONOMY_CONFLICT",
+      "genericOrIsolated": "GENUINE_HUMAN_ARBITRATION_REQUIRED",
+      "recommendedOwner": "NOXIA_SCIENTIFIC_SEMANTIC_GOVERNANCE",
+      "disposition": "HOLDOUT_STOPPED_BEFORE_H11",
+      "goldUsedForProductDecision": false,
+      "arbitration": {
+        "source": "semantic-validation/sem-001r4/h10-taxonomy-arbitration-request-r4b.json",
+        "goldChanged": false,
+        "thresholdsChanged": false,
+        "conflict": "Gold requires récupération énergétique=SCIENTIFIC_OBJECT while the operational taxonomy and explicit RECOVERS_AFTER process relation support PHENOMENON.",
+        "methodClassificationRepairAvailable": true,
+        "methodClassificationRepairApplied": false
+      }
+    }
+  ]
+}

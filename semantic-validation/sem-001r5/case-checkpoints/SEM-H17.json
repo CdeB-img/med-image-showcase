@@ -1,0 +1,2763 @@
+{
+  "campaign": "SEM-001R5-DIAGNOSTIC",
+  "campaignId": "sem-001r5-diagnostic-2026-08-12T22-15-01-231Z-ke1-75b68ddee7e53412",
+  "caseId": "SEM-H17",
+  "split": "HOLDOUT_CASES",
+  "configurationDigest": "ke1-75b68ddee7e53412",
+  "semanticConfigurationDigest": "ke1-01d917dec0ebcd82",
+  "goldFrameDigest": "ke1-3014ffa0c477aebc",
+  "originalRequest": [
+    "Faut-il regarder l'œdème ou la MVO pour expliquer le no-reflow, sans dire que l'un cause l'autre ?"
+  ],
+  "goldUse": "POST_CANONICAL_EVALUATION_ONLY",
+  "finalStatus": "COMPLETE",
+  "startedAt": "2026-08-12T22:17:43.889Z",
+  "completedAt": "2026-08-12T22:18:28.738Z",
+  "turns": [
+    {
+      "turn": 1,
+      "requestMessageIds": [
+        "SEM-H17:user:1"
+      ],
+      "reconstruction": {
+        "candidateId": "cand-019b5b29-4171-7000-8000-88031d87e221",
+        "language": "fr",
+        "normalizedMeaning": "Evaluation de l'oedeme ou de la MVO pour expliquer le no-reflow sans etablir de lien de causalite direct entre eux.",
+        "summaryForUser": "Vous souhaitez examiner si l'œdème ou la MVO permettent d'expliquer le no-reflow, tout en précisant qu'aucun lien de causalité direct n'est affirmé entre ces deux facteurs.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H17:user:1",
+              "sourceText": "Faut-il regarder",
+              "normalizedLabel": "examiner",
+              "localRole": "action",
+              "polarity": "UNCERTAIN",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-2",
+                "inv-3"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H17:user:1",
+              "sourceText": "l'œdème",
+              "normalizedLabel": "oedeme",
+              "localRole": "biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H17:user:1",
+              "sourceText": "la MVO",
+              "normalizedLabel": "MVO",
+              "localRole": "biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H17:user:1",
+              "sourceText": "pour expliquer",
+              "normalizedLabel": "expliquer",
+              "localRole": "intent",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-5"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H17:user:1",
+              "sourceText": "le no-reflow",
+              "normalizedLabel": "no-reflow",
+              "localRole": "phenomenon",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-6",
+              "sourceMessageId": "SEM-H17:user:1",
+              "sourceText": "sans dire que l'un cause l'autre",
+              "normalizedLabel": "sans causalite entre l'oedeme et la MVO",
+              "localRole": "constraint",
+              "polarity": "NEGATED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-2",
+                "inv-3"
+              ]
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H17:user:1",
+              "sourceText": "Faut-il regarder l'œdème",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "UNCERTAIN"
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H17:user:1",
+              "sourceText": "Faut-il regarder ... la MVO",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "UNCERTAIN"
+            },
+            {
+              "inventoryRelationId": "rel-3",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H17:user:1",
+              "sourceText": "l'œdème ... pour expliquer le no-reflow",
+              "normalizedRelation": "EXPLAINS",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-4",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H17:user:1",
+              "sourceText": "la MVO ... pour expliquer le no-reflow",
+              "normalizedRelation": "EXPLAINS",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-5",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H17:user:1",
+              "sourceText": "sans dire que l'un cause l'autre",
+              "normalizedRelation": "INFLUENCES",
+              "polarity": "NEGATED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Examiner l'oedeme ou la MVO",
+            "studyRole": "NONE",
+            "polarity": "UNCERTAIN",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceMessageId": "SEM-H17:user:1",
+            "sourceText": "Faut-il regarder",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Oedeme",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceMessageId": "SEM-H17:user:1",
+            "sourceText": "l'œdème",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "MVO (microvascular obstruction)",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceMessageId": "SEM-H17:user:1",
+            "sourceText": "la MVO",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-4",
+            "type": "OPERATION",
+            "canonicalMeaning": "Expliquer",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "sourceMessageId": "SEM-H17:user:1",
+            "sourceText": "pour expliquer",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-5",
+            "type": "PHENOMENON",
+            "canonicalMeaning": "No-reflow",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-5"
+            ],
+            "sourceMessageId": "SEM-H17:user:1",
+            "sourceText": "le no-reflow",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-6",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "Absence de lien de causalite direct entre l'oedeme et la MVO",
+            "studyRole": "NONE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv-6"
+            ],
+            "sourceMessageId": "SEM-H17:user:1",
+            "sourceText": "sans dire que l'un cause l'autre",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-elem-1",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-2",
+            "relationType": "OBSERVES",
+            "polarity": "UNCERTAIN",
+            "inventoryRelationIds": [
+              "rel-1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-2",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-3",
+            "relationType": "OBSERVES",
+            "polarity": "UNCERTAIN",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-3",
+            "sourceClientElementId": "elem-2",
+            "targetClientElementId": "elem-5",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-3"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-4",
+            "sourceClientElementId": "elem-3",
+            "targetClientElementId": "elem-5",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-4"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-5",
+            "sourceClientElementId": "elem-2",
+            "targetClientElementId": "elem-3",
+            "relationType": "INFLUENCES",
+            "polarity": "NEGATED",
+            "inventoryRelationIds": [
+              "rel-5"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "FORMALIZE_IDEA",
+          "confidence": 0.9,
+          "reason": "L'utilisateur cherche a formaliser la relation conceptuelle et explicative entre l'oedeme, la MVO et le no-reflow sans causalite directe avant de concevoir une etude.",
+          "expectedCapabilities": [
+            "Clarification des relations conceptuelles",
+            "Analyse des liens entre biomarqueurs et phenomene"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "reconstructionDigest": "ke1-94ece3205212ff0c",
+      "critics": [
+        {
+          "criticId": "crit-SEM-H17",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects (l'œdème, la MVO, le no-reflow) are represented as typed elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is present in the source text."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No intervention is present in the source text."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No modality is explicitly named in the source text."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit relations from the semantic inventory are mapped faithfully."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Taxonomy report is complete with no findings; element types conform strictly to definitions."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Relations like explanation and negative causal constraint are fully represented without weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unauthorized inferences are promoted as explicit user states."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No ambiguities were suppressed."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "The negative constraint regarding direct causality between edema and MVO is properly captured with NEGATED polarity."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No temporal expressions are present in the source text."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No endpoints were unjustifiably promoted."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like MVO and no-reflow are preserved precisely."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No source fragments remain unrepresented."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The FORMALIZE_IDEA route correctly matches the conceptual inquiry regarding biomarker relationships before study design."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The semantic model accurately reflects all explicit objects, intentions, operations, biomarkers, phenomena, and constraints from the user message. All explicit relations are faithfully mapped, and the routing correctly identifies FORMALIZE_IDEA."
+        }
+      ],
+      "criticTerminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT",
+      "criticRepairs": [],
+      "conditionalAuditActivation": {
+        "activated": false,
+        "class": "NONE",
+        "evidence": null
+      },
+      "conditionalAudits": [],
+      "auditTerminalReason": "NOT_APPLICABLE",
+      "auditAcceptanceDiagnostics": [],
+      "auditCompilationDiagnostics": [],
+      "auditRepairDiagnostics": [],
+      "canonicalModel": {
+        "semanticModelVersion": "1.1",
+        "semanticModelId": "semantic-model:ke1-dd6ad624d8bdb110",
+        "revision": 1,
+        "status": "CANDIDATE",
+        "originalRequest": "Faut-il regarder l'œdème ou la MVO pour expliquer le no-reflow, sans dire que l'un cause l'autre ?",
+        "normalizedMeaning": "Evaluation de l'oedeme ou de la MVO pour expliquer le no-reflow sans etablir de lien de causalite direct entre eux.",
+        "conversationMessageIds": [
+          "SEM-H17:user:1"
+        ],
+        "elements": [
+          {
+            "semanticElementId": "sem-element:ke1-4dff3dc230309876",
+            "type": "OPERATION",
+            "canonicalMeaning": "Expliquer",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H17:user:1",
+              "text": "pour expliquer",
+              "start": 35,
+              "end": 49
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H17:user:1",
+              "providerCallId": "gemini-call:ke1-1ddd3272d51b2b7e",
+              "rawElementId": "elem-4"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-7a0ee8eeabdfb31a",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Examiner l'oedeme ou la MVO",
+            "studyRole": "NONE",
+            "polarity": "UNCERTAIN",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H17:user:1",
+              "text": "Faut-il regarder",
+              "start": 0,
+              "end": 16
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-9b7d0512b4643c66",
+              "sem-relation:ke1-d479df90a45fcd5c"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H17:user:1",
+              "providerCallId": "gemini-call:ke1-1ddd3272d51b2b7e",
+              "rawElementId": "elem-1"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-83b95419001ca875",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Oedeme",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H17:user:1",
+              "text": "l'œdème",
+              "start": 17,
+              "end": 24
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-0b9b1d71f20debc5",
+              "sem-relation:ke1-4243f99d53802a09",
+              "sem-relation:ke1-d479df90a45fcd5c"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "KNOWLEDGE_GAP",
+              "resultRef": "knowledge-result:ke1-ecebfa901ed38cd4",
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": "2026-08-12T22:18:28.734Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H17:user:1",
+              "providerCallId": "gemini-call:ke1-1ddd3272d51b2b7e",
+              "rawElementId": "elem-2"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-d46ee3b89163d234",
+            "type": "PHENOMENON",
+            "canonicalMeaning": "No-reflow",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-5"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H17:user:1",
+              "text": "le no-reflow",
+              "start": 50,
+              "end": 62
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-0b9b1d71f20debc5",
+              "sem-relation:ke1-4169d85344ecc9cf"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "UNSUPPORTED",
+              "resultRef": "knowledge-result:ke1-ecebfa901ed38cd4",
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": "2026-08-12T22:18:28.734Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H17:user:1",
+              "providerCallId": "gemini-call:ke1-1ddd3272d51b2b7e",
+              "rawElementId": "elem-5"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          },
+          {
+            "semanticElementId": "sem-element:ke1-e318bc3e9c887a6a",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "Absence de lien de causalite direct entre l'oedeme et la MVO",
+            "studyRole": "NONE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv-6"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H17:user:1",
+              "text": "sans dire que l'un cause l'autre",
+              "start": 64,
+              "end": 96
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "NOT_CHECKED",
+              "resultRef": null,
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": null
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H17:user:1",
+              "providerCallId": "gemini-call:ke1-1ddd3272d51b2b7e",
+              "rawElementId": "elem-6"
+            },
+            "supersedesElementIds": [],
+            "version": 1
+          },
+          {
+            "semanticElementId": "sem-element:ke1-f5a226c278252096",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "MVO (microvascular obstruction)",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceSpan": {
+              "messageId": "SEM-H17:user:1",
+              "text": "la MVO",
+              "start": 28,
+              "end": 34
+            },
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "relationships": [
+              "sem-relation:ke1-4169d85344ecc9cf",
+              "sem-relation:ke1-4243f99d53802a09",
+              "sem-relation:ke1-9b7d0512b4643c66"
+            ],
+            "inferenceReason": null,
+            "knowledgeSupport": {
+              "status": "UNSUPPORTED",
+              "resultRef": "knowledge-result:ke1-ecebfa901ed38cd4",
+              "assertionRefs": [],
+              "gapRefs": [],
+              "checkedAt": "2026-08-12T22:18:28.734Z"
+            },
+            "requiresConfirmation": false,
+            "provenance": {
+              "source": "USER_LANGUAGE",
+              "messageId": "SEM-H17:user:1",
+              "providerCallId": "gemini-call:ke1-1ddd3272d51b2b7e",
+              "rawElementId": "elem-3"
+            },
+            "supersedesElementIds": [],
+            "version": 2
+          }
+        ],
+        "relations": [
+          {
+            "semanticRelationId": "sem-relation:ke1-0b9b1d71f20debc5",
+            "sourceElementId": "sem-element:ke1-83b95419001ca875",
+            "targetElementId": "sem-element:ke1-d46ee3b89163d234",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-3"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-4169d85344ecc9cf",
+            "sourceElementId": "sem-element:ke1-f5a226c278252096",
+            "targetElementId": "sem-element:ke1-d46ee3b89163d234",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-4"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-4243f99d53802a09",
+            "sourceElementId": "sem-element:ke1-83b95419001ca875",
+            "targetElementId": "sem-element:ke1-f5a226c278252096",
+            "relationType": "INFLUENCES",
+            "polarity": "NEGATED",
+            "inventoryRelationIds": [
+              "rel-5"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-9b7d0512b4643c66",
+            "sourceElementId": "sem-element:ke1-7a0ee8eeabdfb31a",
+            "targetElementId": "sem-element:ke1-f5a226c278252096",
+            "relationType": "OBSERVES",
+            "polarity": "UNCERTAIN",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          },
+          {
+            "semanticRelationId": "sem-relation:ke1-d479df90a45fcd5c",
+            "sourceElementId": "sem-element:ke1-7a0ee8eeabdfb31a",
+            "targetElementId": "sem-element:ke1-83b95419001ca875",
+            "relationType": "OBSERVES",
+            "polarity": "UNCERTAIN",
+            "inventoryRelationIds": [
+              "rel-1"
+            ],
+            "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "version": 1
+          }
+        ],
+        "explicitCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H17:user:1",
+              "sourceText": "Faut-il regarder",
+              "normalizedMeaning": "examiner",
+              "mappedClientElementIds": [
+                "elem-1"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H17:user:1",
+              "sourceText": "l'œdème",
+              "normalizedMeaning": "oedeme",
+              "mappedClientElementIds": [
+                "elem-2"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H17:user:1",
+              "sourceText": "la MVO",
+              "normalizedMeaning": "MVO",
+              "mappedClientElementIds": [
+                "elem-3"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H17:user:1",
+              "sourceText": "pour expliquer",
+              "normalizedMeaning": "expliquer",
+              "mappedClientElementIds": [
+                "elem-4"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H17:user:1",
+              "sourceText": "le no-reflow",
+              "normalizedMeaning": "no-reflow",
+              "mappedClientElementIds": [
+                "elem-5"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            },
+            {
+              "inventoryItemId": "inv-6",
+              "sourceMessageId": "SEM-H17:user:1",
+              "sourceText": "sans dire que l'un cause l'autre",
+              "normalizedMeaning": "sans causalite entre l'oedeme et la MVO",
+              "mappedClientElementIds": [
+                "elem-6"
+              ],
+              "mappedClientRelationIds": [],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+            }
+          ]
+        },
+        "relationCoverageReport": {
+          "status": "COMPLETE",
+          "entries": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-2",
+              "normalizedRelation": "OBSERVES",
+              "mappedClientRelationIds": [
+                "rel-elem-1",
+                "rel-elem-5"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-3",
+              "normalizedRelation": "OBSERVES",
+              "mappedClientRelationIds": [
+                "rel-elem-2",
+                "rel-elem-5"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+            },
+            {
+              "inventoryRelationId": "rel-3",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-5",
+              "normalizedRelation": "EXPLAINS",
+              "mappedClientRelationIds": [
+                "rel-elem-3"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+            },
+            {
+              "inventoryRelationId": "rel-4",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-5",
+              "normalizedRelation": "EXPLAINS",
+              "mappedClientRelationIds": [
+                "rel-elem-4"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+            },
+            {
+              "inventoryRelationId": "rel-5",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-3",
+              "normalizedRelation": "INFLUENCES",
+              "mappedClientRelationIds": [
+                "rel-elem-5"
+              ],
+              "coverageStatus": "MAPPED",
+              "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+            }
+          ]
+        },
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "clarificationCandidates": [],
+        "knowledgeRequests": [],
+        "routeProposal": {
+          "route": "FORMALIZE_IDEA",
+          "confidence": 0.9,
+          "reason": "L'utilisateur cherche a formaliser la relation conceptuelle et explicative entre l'oedeme, la MVO et le no-reflow sans causalite directe avant de concevoir une etude.",
+          "expectedCapabilities": [
+            "Analyse des liens entre biomarqueurs et phenomene",
+            "Clarification des relations conceptuelles"
+          ]
+        },
+        "summaryForUser": "Vous souhaitez examiner si l'œdème ou la MVO permettent d'expliquer le no-reflow, tout en précisant qu'aucun lien de causalité direct n'est affirmé entre ces deux facteurs.",
+        "critic": {
+          "verdict": "ACCEPT",
+          "issues": [],
+          "summary": "The semantic model accurately reflects all explicit objects, intentions, operations, biomarkers, phenomena, and constraints from the user message. All explicit relations are faithfully mapped, and the routing correctly identifies FORMALIZE_IDEA."
+        },
+        "executionSnapshot": {
+          "provider": "GOOGLE_GEMINI",
+          "model": "gemini-3.5-flash-lite",
+          "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+          "criticPromptVersion": "SEM-001-CRITIC-1.3",
+          "schemaVersion": "SEM-001-1.1",
+          "reconstructionCallId": "gemini-call:ke1-1ddd3272d51b2b7e",
+          "criticCallId": "gemini-call:ke1-c97871f75c11a983",
+          "criticCallIds": [
+            "gemini-call:ke1-c97871f75c11a983"
+          ],
+          "reconstructionAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-12T22:17:44.689Z",
+              "requestFinished": "2026-08-12T22:17:52.108Z",
+              "latencyMs": 7419,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "criticAttempts": [
+            {
+              "attempt": 1,
+              "requestStarted": "2026-08-12T22:18:25.525Z",
+              "requestFinished": "2026-08-12T22:18:28.723Z",
+              "latencyMs": 3198,
+              "outcome": "SUCCESS",
+              "category": null,
+              "httpStatus": 200,
+              "providerStatus": null,
+              "providerCode": null,
+              "providerError": null,
+              "retryable": false
+            }
+          ],
+          "rawReconstruction": {
+            "candidateId": "cand-019b5b29-4171-7000-8000-88031d87e221",
+            "language": "fr",
+            "normalizedMeaning": "Evaluation de l'oedeme ou de la MVO pour expliquer le no-reflow sans etablir de lien de causalite direct entre eux.",
+            "summaryForUser": "Vous souhaitez examiner si l'œdème ou la MVO permettent d'expliquer le no-reflow, tout en précisant qu'aucun lien de causalité direct n'est affirmé entre ces deux facteurs.",
+            "semanticInventory": {
+              "explicitFragments": [
+                {
+                  "inventoryItemId": "inv-1",
+                  "sourceMessageId": "SEM-H17:user:1",
+                  "sourceText": "Faut-il regarder",
+                  "normalizedLabel": "examiner",
+                  "localRole": "action",
+                  "polarity": "UNCERTAIN",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-2",
+                    "inv-3"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-2",
+                  "sourceMessageId": "SEM-H17:user:1",
+                  "sourceText": "l'œdème",
+                  "normalizedLabel": "oedeme",
+                  "localRole": "biomarker",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-3",
+                  "sourceMessageId": "SEM-H17:user:1",
+                  "sourceText": "la MVO",
+                  "normalizedLabel": "MVO",
+                  "localRole": "biomarker",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-4",
+                  "sourceMessageId": "SEM-H17:user:1",
+                  "sourceText": "pour expliquer",
+                  "normalizedLabel": "expliquer",
+                  "localRole": "intent",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-5"
+                  ]
+                },
+                {
+                  "inventoryItemId": "inv-5",
+                  "sourceMessageId": "SEM-H17:user:1",
+                  "sourceText": "le no-reflow",
+                  "normalizedLabel": "no-reflow",
+                  "localRole": "phenomenon",
+                  "polarity": "AFFIRMED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": []
+                },
+                {
+                  "inventoryItemId": "inv-6",
+                  "sourceMessageId": "SEM-H17:user:1",
+                  "sourceText": "sans dire que l'un cause l'autre",
+                  "normalizedLabel": "sans causalite entre l'oedeme et la MVO",
+                  "localRole": "constraint",
+                  "polarity": "NEGATED",
+                  "modifiers": [],
+                  "linkedInventoryItemIds": [
+                    "inv-2",
+                    "inv-3"
+                  ]
+                }
+              ],
+              "explicitRelations": [
+                {
+                  "inventoryRelationId": "rel-1",
+                  "sourceInventoryItemId": "inv-1",
+                  "targetInventoryItemId": "inv-2",
+                  "sourceMessageId": "SEM-H17:user:1",
+                  "sourceText": "Faut-il regarder l'œdème",
+                  "normalizedRelation": "OBSERVES",
+                  "polarity": "UNCERTAIN"
+                },
+                {
+                  "inventoryRelationId": "rel-2",
+                  "sourceInventoryItemId": "inv-1",
+                  "targetInventoryItemId": "inv-3",
+                  "sourceMessageId": "SEM-H17:user:1",
+                  "sourceText": "Faut-il regarder ... la MVO",
+                  "normalizedRelation": "OBSERVES",
+                  "polarity": "UNCERTAIN"
+                },
+                {
+                  "inventoryRelationId": "rel-3",
+                  "sourceInventoryItemId": "inv-2",
+                  "targetInventoryItemId": "inv-5",
+                  "sourceMessageId": "SEM-H17:user:1",
+                  "sourceText": "l'œdème ... pour expliquer le no-reflow",
+                  "normalizedRelation": "EXPLAINS",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-4",
+                  "sourceInventoryItemId": "inv-3",
+                  "targetInventoryItemId": "inv-5",
+                  "sourceMessageId": "SEM-H17:user:1",
+                  "sourceText": "la MVO ... pour expliquer le no-reflow",
+                  "normalizedRelation": "EXPLAINS",
+                  "polarity": "AFFIRMED"
+                },
+                {
+                  "inventoryRelationId": "rel-5",
+                  "sourceInventoryItemId": "inv-2",
+                  "targetInventoryItemId": "inv-3",
+                  "sourceMessageId": "SEM-H17:user:1",
+                  "sourceText": "sans dire que l'un cause l'autre",
+                  "normalizedRelation": "INFLUENCES",
+                  "polarity": "NEGATED"
+                }
+              ]
+            },
+            "elements": [
+              {
+                "clientElementId": "elem-1",
+                "type": "SCIENTIFIC_INTENT",
+                "canonicalMeaning": "Examiner l'oedeme ou la MVO",
+                "studyRole": "NONE",
+                "polarity": "UNCERTAIN",
+                "inventoryItemIds": [
+                  "inv-1"
+                ],
+                "sourceMessageId": "SEM-H17:user:1",
+                "sourceText": "Faut-il regarder",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-2",
+                "type": "BIOMARKER",
+                "canonicalMeaning": "Oedeme",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-2"
+                ],
+                "sourceMessageId": "SEM-H17:user:1",
+                "sourceText": "l'œdème",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-3",
+                "type": "BIOMARKER",
+                "canonicalMeaning": "MVO (microvascular obstruction)",
+                "studyRole": "MEASUREMENT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-3"
+                ],
+                "sourceMessageId": "SEM-H17:user:1",
+                "sourceText": "la MVO",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-4",
+                "type": "OPERATION",
+                "canonicalMeaning": "Expliquer",
+                "studyRole": "NONE",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-4"
+                ],
+                "sourceMessageId": "SEM-H17:user:1",
+                "sourceText": "pour expliquer",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-5",
+                "type": "PHENOMENON",
+                "canonicalMeaning": "No-reflow",
+                "studyRole": "SUBJECT",
+                "polarity": "AFFIRMED",
+                "inventoryItemIds": [
+                  "inv-5"
+                ],
+                "sourceMessageId": "SEM-H17:user:1",
+                "sourceText": "le no-reflow",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              },
+              {
+                "clientElementId": "elem-6",
+                "type": "CONSTRAINT",
+                "canonicalMeaning": "Absence de lien de causalite direct entre l'oedeme et la MVO",
+                "studyRole": "NONE",
+                "polarity": "NEGATED",
+                "inventoryItemIds": [
+                  "inv-6"
+                ],
+                "sourceMessageId": "SEM-H17:user:1",
+                "sourceText": "sans dire que l'un cause l'autre",
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false,
+                "supersedesElementIds": []
+              }
+            ],
+            "relations": [
+              {
+                "clientRelationId": "rel-elem-1",
+                "sourceClientElementId": "elem-1",
+                "targetClientElementId": "elem-2",
+                "relationType": "OBSERVES",
+                "polarity": "UNCERTAIN",
+                "inventoryRelationIds": [
+                  "rel-1"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-elem-2",
+                "sourceClientElementId": "elem-1",
+                "targetClientElementId": "elem-3",
+                "relationType": "OBSERVES",
+                "polarity": "UNCERTAIN",
+                "inventoryRelationIds": [
+                  "rel-2"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-elem-3",
+                "sourceClientElementId": "elem-2",
+                "targetClientElementId": "elem-5",
+                "relationType": "RELATED_TO_CANDIDATE",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-3"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-elem-4",
+                "sourceClientElementId": "elem-3",
+                "targetClientElementId": "elem-5",
+                "relationType": "RELATED_TO_CANDIDATE",
+                "polarity": "AFFIRMED",
+                "inventoryRelationIds": [
+                  "rel-4"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              },
+              {
+                "clientRelationId": "rel-elem-5",
+                "sourceClientElementId": "elem-2",
+                "targetClientElementId": "elem-3",
+                "relationType": "INFLUENCES",
+                "polarity": "NEGATED",
+                "inventoryRelationIds": [
+                  "rel-5"
+                ],
+                "epistemicStatus": "EXPLICIT_USER_STATED",
+                "confidence": 1,
+                "inferenceReason": null,
+                "requiresConfirmation": false
+              }
+            ],
+            "missingConcepts": [],
+            "ellipses": [],
+            "ambiguities": [],
+            "unknowns": [],
+            "contradictions": [],
+            "knowledgeRequests": [],
+            "clarificationCandidates": [],
+            "routeProposal": {
+              "route": "FORMALIZE_IDEA",
+              "confidence": 0.9,
+              "reason": "L'utilisateur cherche a formaliser la relation conceptuelle et explicative entre l'oedeme, la MVO et le no-reflow sans causalite directe avant de concevoir une etude.",
+              "expectedCapabilities": [
+                "Clarification des relations conceptuelles",
+                "Analyse des liens entre biomarqueurs et phenomene"
+              ]
+            },
+            "semanticWarnings": []
+          },
+          "rawCritic": {
+            "criticId": "crit-SEM-H17",
+            "verdict": "ACCEPT",
+            "checklist": [
+              {
+                "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit objects (l'œdème, la MVO, le no-reflow) are represented as typed elements."
+              },
+              {
+                "check": "EVERY_COMPARATOR_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No comparator is present in the source text."
+              },
+              {
+                "check": "EVERY_INTERVENTION_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No intervention is present in the source text."
+              },
+              {
+                "check": "EVERY_MODALITY_REPRESENTED",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No modality is explicitly named in the source text."
+              },
+              {
+                "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                "result": "PASS",
+                "evidence": "All explicit relations from the semantic inventory are mapped faithfully."
+              },
+              {
+                "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                "result": "PASS",
+                "evidence": "Taxonomy report is complete with no findings; element types conform strictly to definitions."
+              },
+              {
+                "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                "result": "PASS",
+                "evidence": "Relations like explanation and negative causal constraint are fully represented without weakening."
+              },
+              {
+                "check": "NO_INFERENCE_PROMOTED",
+                "result": "PASS",
+                "evidence": "No unauthorized inferences are promoted as explicit user states."
+              },
+              {
+                "check": "NO_AMBIGUITY_HIDDEN",
+                "result": "PASS",
+                "evidence": "No ambiguities were suppressed."
+              },
+              {
+                "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                "result": "PASS",
+                "evidence": "The negative constraint regarding direct causality between edema and MVO is properly captured with NEGATED polarity."
+              },
+              {
+                "check": "NO_TIMING_LOST",
+                "result": "NOT_APPLICABLE",
+                "evidence": "No temporal expressions are present in the source text."
+              },
+              {
+                "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                "result": "PASS",
+                "evidence": "No endpoints were unjustifiably promoted."
+              },
+              {
+                "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                "result": "PASS",
+                "evidence": "Specific concepts like MVO and no-reflow are preserved precisely."
+              },
+              {
+                "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                "result": "PASS",
+                "evidence": "No source fragments remain unrepresented."
+              },
+              {
+                "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                "result": "PASS",
+                "evidence": "The FORMALIZE_IDEA route correctly matches the conceptual inquiry regarding biomarker relationships before study design."
+              }
+            ],
+            "missingExplicitSourceFragments": [],
+            "issues": [],
+            "proposedRepairs": [],
+            "criticSummary": "The semantic model accurately reflects all explicit objects, intentions, operations, biomarkers, phenomena, and constraints from the user message. All explicit relations are faithfully mapped, and the routing correctly identifies FORMALIZE_IDEA."
+          },
+          "rawCritics": [
+            {
+              "criticId": "crit-SEM-H17",
+              "verdict": "ACCEPT",
+              "checklist": [
+                {
+                  "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit objects (l'œdème, la MVO, le no-reflow) are represented as typed elements."
+                },
+                {
+                  "check": "EVERY_COMPARATOR_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No comparator is present in the source text."
+                },
+                {
+                  "check": "EVERY_INTERVENTION_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No intervention is present in the source text."
+                },
+                {
+                  "check": "EVERY_MODALITY_REPRESENTED",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No modality is explicitly named in the source text."
+                },
+                {
+                  "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+                  "result": "PASS",
+                  "evidence": "All explicit relations from the semantic inventory are mapped faithfully."
+                },
+                {
+                  "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+                  "result": "PASS",
+                  "evidence": "Taxonomy report is complete with no findings; element types conform strictly to definitions."
+                },
+                {
+                  "check": "NO_EXPLICIT_RELATION_WEAKENED",
+                  "result": "PASS",
+                  "evidence": "Relations like explanation and negative causal constraint are fully represented without weakening."
+                },
+                {
+                  "check": "NO_INFERENCE_PROMOTED",
+                  "result": "PASS",
+                  "evidence": "No unauthorized inferences are promoted as explicit user states."
+                },
+                {
+                  "check": "NO_AMBIGUITY_HIDDEN",
+                  "result": "PASS",
+                  "evidence": "No ambiguities were suppressed."
+                },
+                {
+                  "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+                  "result": "PASS",
+                  "evidence": "The negative constraint regarding direct causality between edema and MVO is properly captured with NEGATED polarity."
+                },
+                {
+                  "check": "NO_TIMING_LOST",
+                  "result": "NOT_APPLICABLE",
+                  "evidence": "No temporal expressions are present in the source text."
+                },
+                {
+                  "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+                  "result": "PASS",
+                  "evidence": "No endpoints were unjustifiably promoted."
+                },
+                {
+                  "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+                  "result": "PASS",
+                  "evidence": "Specific concepts like MVO and no-reflow are preserved precisely."
+                },
+                {
+                  "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+                  "result": "PASS",
+                  "evidence": "No source fragments remain unrepresented."
+                },
+                {
+                  "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+                  "result": "PASS",
+                  "evidence": "The FORMALIZE_IDEA route correctly matches the conceptual inquiry regarding biomarker relationships before study design."
+                }
+              ],
+              "missingExplicitSourceFragments": [],
+              "issues": [],
+              "proposedRepairs": [],
+              "criticSummary": "The semantic model accurately reflects all explicit objects, intentions, operations, biomarkers, phenomena, and constraints from the user message. All explicit relations are faithfully mapped, and the routing correctly identifies FORMALIZE_IDEA."
+            }
+          ],
+          "temperature": null,
+          "executedAt": "2026-08-12T22:18:28.725Z"
+        },
+        "knowledgeSnapshot": {
+          "resultId": "knowledge-result:ke1-ecebfa901ed38cd4",
+          "resultDigest": "ke1-ecebfa901ed38cd4",
+          "coverageStatus": "SUPPORTED",
+          "verifiedAt": "2026-08-12T22:18:28.734Z"
+        },
+        "previousModelId": null,
+        "history": [],
+        "acceptedAt": null,
+        "acceptanceRecord": null,
+        "createdAt": "2026-08-12T22:18:28.725Z",
+        "updatedAt": "2026-08-12T22:18:28.734Z",
+        "digest": "ke1-4f4685bb775754df"
+      },
+      "canonicalModelDigest": "ke1-4f4685bb775754df",
+      "knowledgeVerification": {
+        "resultId": "knowledge-result:ke1-ecebfa901ed38cd4",
+        "resultDigest": "ke1-ecebfa901ed38cd4",
+        "coverageStatus": "SUPPORTED",
+        "verifiedAt": "2026-08-12T22:18:28.734Z"
+      }
+    }
+  ],
+  "operationTraces": [
+    {
+      "operation": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "callId": "gemini-call:ke1-1ddd3272d51b2b7e",
+      "structuredDigest": "ke1-94ece3205212ff0c",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T22:17:44.689Z",
+          "requestFinished": "2026-08-12T22:17:52.108Z",
+          "latencyMs": 7419,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "deterministicSchemaValidation": "PASS"
+    },
+    {
+      "operation": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "callId": "gemini-call:ke1-c97871f75c11a983",
+      "structuredDigest": "ke1-f573d85ed9d4aa72",
+      "attempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T22:18:25.525Z",
+          "requestFinished": "2026-08-12T22:18:28.723Z",
+          "latencyMs": 3198,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+    }
+  ],
+  "semanticModel": {
+    "semanticModelVersion": "1.1",
+    "semanticModelId": "semantic-model:ke1-dd6ad624d8bdb110",
+    "revision": 1,
+    "status": "CANDIDATE",
+    "originalRequest": "Faut-il regarder l'œdème ou la MVO pour expliquer le no-reflow, sans dire que l'un cause l'autre ?",
+    "normalizedMeaning": "Evaluation de l'oedeme ou de la MVO pour expliquer le no-reflow sans etablir de lien de causalite direct entre eux.",
+    "conversationMessageIds": [
+      "SEM-H17:user:1"
+    ],
+    "elements": [
+      {
+        "semanticElementId": "sem-element:ke1-4dff3dc230309876",
+        "type": "OPERATION",
+        "canonicalMeaning": "Expliquer",
+        "studyRole": "NONE",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-4"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H17:user:1",
+          "text": "pour expliquer",
+          "start": 35,
+          "end": 49
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H17:user:1",
+          "providerCallId": "gemini-call:ke1-1ddd3272d51b2b7e",
+          "rawElementId": "elem-4"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-7a0ee8eeabdfb31a",
+        "type": "SCIENTIFIC_INTENT",
+        "canonicalMeaning": "Examiner l'oedeme ou la MVO",
+        "studyRole": "NONE",
+        "polarity": "UNCERTAIN",
+        "inventoryItemIds": [
+          "inv-1"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H17:user:1",
+          "text": "Faut-il regarder",
+          "start": 0,
+          "end": 16
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-9b7d0512b4643c66",
+          "sem-relation:ke1-d479df90a45fcd5c"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H17:user:1",
+          "providerCallId": "gemini-call:ke1-1ddd3272d51b2b7e",
+          "rawElementId": "elem-1"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-83b95419001ca875",
+        "type": "BIOMARKER",
+        "canonicalMeaning": "Oedeme",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-2"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H17:user:1",
+          "text": "l'œdème",
+          "start": 17,
+          "end": 24
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-0b9b1d71f20debc5",
+          "sem-relation:ke1-4243f99d53802a09",
+          "sem-relation:ke1-d479df90a45fcd5c"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "KNOWLEDGE_GAP",
+          "resultRef": "knowledge-result:ke1-ecebfa901ed38cd4",
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": "2026-08-12T22:18:28.734Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H17:user:1",
+          "providerCallId": "gemini-call:ke1-1ddd3272d51b2b7e",
+          "rawElementId": "elem-2"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-d46ee3b89163d234",
+        "type": "PHENOMENON",
+        "canonicalMeaning": "No-reflow",
+        "studyRole": "SUBJECT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-5"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H17:user:1",
+          "text": "le no-reflow",
+          "start": 50,
+          "end": 62
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-0b9b1d71f20debc5",
+          "sem-relation:ke1-4169d85344ecc9cf"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "UNSUPPORTED",
+          "resultRef": "knowledge-result:ke1-ecebfa901ed38cd4",
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": "2026-08-12T22:18:28.734Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H17:user:1",
+          "providerCallId": "gemini-call:ke1-1ddd3272d51b2b7e",
+          "rawElementId": "elem-5"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      },
+      {
+        "semanticElementId": "sem-element:ke1-e318bc3e9c887a6a",
+        "type": "CONSTRAINT",
+        "canonicalMeaning": "Absence de lien de causalite direct entre l'oedeme et la MVO",
+        "studyRole": "NONE",
+        "polarity": "NEGATED",
+        "inventoryItemIds": [
+          "inv-6"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H17:user:1",
+          "text": "sans dire que l'un cause l'autre",
+          "start": 64,
+          "end": 96
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "NOT_CHECKED",
+          "resultRef": null,
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": null
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H17:user:1",
+          "providerCallId": "gemini-call:ke1-1ddd3272d51b2b7e",
+          "rawElementId": "elem-6"
+        },
+        "supersedesElementIds": [],
+        "version": 1
+      },
+      {
+        "semanticElementId": "sem-element:ke1-f5a226c278252096",
+        "type": "BIOMARKER",
+        "canonicalMeaning": "MVO (microvascular obstruction)",
+        "studyRole": "MEASUREMENT",
+        "polarity": "AFFIRMED",
+        "inventoryItemIds": [
+          "inv-3"
+        ],
+        "sourceSpan": {
+          "messageId": "SEM-H17:user:1",
+          "text": "la MVO",
+          "start": 28,
+          "end": 34
+        },
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "relationships": [
+          "sem-relation:ke1-4169d85344ecc9cf",
+          "sem-relation:ke1-4243f99d53802a09",
+          "sem-relation:ke1-9b7d0512b4643c66"
+        ],
+        "inferenceReason": null,
+        "knowledgeSupport": {
+          "status": "UNSUPPORTED",
+          "resultRef": "knowledge-result:ke1-ecebfa901ed38cd4",
+          "assertionRefs": [],
+          "gapRefs": [],
+          "checkedAt": "2026-08-12T22:18:28.734Z"
+        },
+        "requiresConfirmation": false,
+        "provenance": {
+          "source": "USER_LANGUAGE",
+          "messageId": "SEM-H17:user:1",
+          "providerCallId": "gemini-call:ke1-1ddd3272d51b2b7e",
+          "rawElementId": "elem-3"
+        },
+        "supersedesElementIds": [],
+        "version": 2
+      }
+    ],
+    "relations": [
+      {
+        "semanticRelationId": "sem-relation:ke1-0b9b1d71f20debc5",
+        "sourceElementId": "sem-element:ke1-83b95419001ca875",
+        "targetElementId": "sem-element:ke1-d46ee3b89163d234",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-3"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-4169d85344ecc9cf",
+        "sourceElementId": "sem-element:ke1-f5a226c278252096",
+        "targetElementId": "sem-element:ke1-d46ee3b89163d234",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "polarity": "AFFIRMED",
+        "inventoryRelationIds": [
+          "rel-4"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-4243f99d53802a09",
+        "sourceElementId": "sem-element:ke1-83b95419001ca875",
+        "targetElementId": "sem-element:ke1-f5a226c278252096",
+        "relationType": "INFLUENCES",
+        "polarity": "NEGATED",
+        "inventoryRelationIds": [
+          "rel-5"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-9b7d0512b4643c66",
+        "sourceElementId": "sem-element:ke1-7a0ee8eeabdfb31a",
+        "targetElementId": "sem-element:ke1-f5a226c278252096",
+        "relationType": "OBSERVES",
+        "polarity": "UNCERTAIN",
+        "inventoryRelationIds": [
+          "rel-2"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      },
+      {
+        "semanticRelationId": "sem-relation:ke1-d479df90a45fcd5c",
+        "sourceElementId": "sem-element:ke1-7a0ee8eeabdfb31a",
+        "targetElementId": "sem-element:ke1-83b95419001ca875",
+        "relationType": "OBSERVES",
+        "polarity": "UNCERTAIN",
+        "inventoryRelationIds": [
+          "rel-1"
+        ],
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "confidence": 1,
+        "inferenceReason": null,
+        "requiresConfirmation": false,
+        "version": 1
+      }
+    ],
+    "explicitCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-1",
+          "sourceMessageId": "SEM-H17:user:1",
+          "sourceText": "Faut-il regarder",
+          "normalizedMeaning": "examiner",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-2",
+          "sourceMessageId": "SEM-H17:user:1",
+          "sourceText": "l'œdème",
+          "normalizedMeaning": "oedeme",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-3",
+          "sourceMessageId": "SEM-H17:user:1",
+          "sourceText": "la MVO",
+          "normalizedMeaning": "MVO",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-4",
+          "sourceMessageId": "SEM-H17:user:1",
+          "sourceText": "pour expliquer",
+          "normalizedMeaning": "expliquer",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-5",
+          "sourceMessageId": "SEM-H17:user:1",
+          "sourceText": "le no-reflow",
+          "normalizedMeaning": "no-reflow",
+          "mappedClientElementIds": [
+            "elem-5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-6",
+          "sourceMessageId": "SEM-H17:user:1",
+          "sourceText": "sans dire que l'un cause l'autre",
+          "normalizedMeaning": "sans causalite entre l'oedeme et la MVO",
+          "mappedClientElementIds": [
+            "elem-6"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relationCoverageReport": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-1",
+          "sourceInventoryItemId": "inv-1",
+          "targetInventoryItemId": "inv-2",
+          "normalizedRelation": "OBSERVES",
+          "mappedClientRelationIds": [
+            "rel-elem-1",
+            "rel-elem-5"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-2",
+          "sourceInventoryItemId": "inv-1",
+          "targetInventoryItemId": "inv-3",
+          "normalizedRelation": "OBSERVES",
+          "mappedClientRelationIds": [
+            "rel-elem-2",
+            "rel-elem-5"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+        },
+        {
+          "inventoryRelationId": "rel-3",
+          "sourceInventoryItemId": "inv-2",
+          "targetInventoryItemId": "inv-5",
+          "normalizedRelation": "EXPLAINS",
+          "mappedClientRelationIds": [
+            "rel-elem-3"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+        },
+        {
+          "inventoryRelationId": "rel-4",
+          "sourceInventoryItemId": "inv-3",
+          "targetInventoryItemId": "inv-5",
+          "normalizedRelation": "EXPLAINS",
+          "mappedClientRelationIds": [
+            "rel-elem-4"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+        },
+        {
+          "inventoryRelationId": "rel-5",
+          "sourceInventoryItemId": "inv-2",
+          "targetInventoryItemId": "inv-3",
+          "normalizedRelation": "INFLUENCES",
+          "mappedClientRelationIds": [
+            "rel-elem-5"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    },
+    "missingConcepts": [],
+    "ellipses": [],
+    "ambiguities": [],
+    "unknowns": [],
+    "contradictions": [],
+    "clarificationCandidates": [],
+    "knowledgeRequests": [],
+    "routeProposal": {
+      "route": "FORMALIZE_IDEA",
+      "confidence": 0.9,
+      "reason": "L'utilisateur cherche a formaliser la relation conceptuelle et explicative entre l'oedeme, la MVO et le no-reflow sans causalite directe avant de concevoir une etude.",
+      "expectedCapabilities": [
+        "Analyse des liens entre biomarqueurs et phenomene",
+        "Clarification des relations conceptuelles"
+      ]
+    },
+    "summaryForUser": "Vous souhaitez examiner si l'œdème ou la MVO permettent d'expliquer le no-reflow, tout en précisant qu'aucun lien de causalité direct n'est affirmé entre ces deux facteurs.",
+    "critic": {
+      "verdict": "ACCEPT",
+      "issues": [],
+      "summary": "The semantic model accurately reflects all explicit objects, intentions, operations, biomarkers, phenomena, and constraints from the user message. All explicit relations are faithfully mapped, and the routing correctly identifies FORMALIZE_IDEA."
+    },
+    "executionSnapshot": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.2",
+      "criticPromptVersion": "SEM-001-CRITIC-1.3",
+      "schemaVersion": "SEM-001-1.1",
+      "reconstructionCallId": "gemini-call:ke1-1ddd3272d51b2b7e",
+      "criticCallId": "gemini-call:ke1-c97871f75c11a983",
+      "criticCallIds": [
+        "gemini-call:ke1-c97871f75c11a983"
+      ],
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T22:17:44.689Z",
+          "requestFinished": "2026-08-12T22:17:52.108Z",
+          "latencyMs": 7419,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "requestStarted": "2026-08-12T22:18:25.525Z",
+          "requestFinished": "2026-08-12T22:18:28.723Z",
+          "latencyMs": 3198,
+          "outcome": "SUCCESS",
+          "category": null,
+          "httpStatus": 200,
+          "providerStatus": null,
+          "providerCode": null,
+          "providerError": null,
+          "retryable": false
+        }
+      ],
+      "rawReconstruction": {
+        "candidateId": "cand-019b5b29-4171-7000-8000-88031d87e221",
+        "language": "fr",
+        "normalizedMeaning": "Evaluation de l'oedeme ou de la MVO pour expliquer le no-reflow sans etablir de lien de causalite direct entre eux.",
+        "summaryForUser": "Vous souhaitez examiner si l'œdème ou la MVO permettent d'expliquer le no-reflow, tout en précisant qu'aucun lien de causalité direct n'est affirmé entre ces deux facteurs.",
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-1",
+              "sourceMessageId": "SEM-H17:user:1",
+              "sourceText": "Faut-il regarder",
+              "normalizedLabel": "examiner",
+              "localRole": "action",
+              "polarity": "UNCERTAIN",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-2",
+                "inv-3"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H17:user:1",
+              "sourceText": "l'œdème",
+              "normalizedLabel": "oedeme",
+              "localRole": "biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H17:user:1",
+              "sourceText": "la MVO",
+              "normalizedLabel": "MVO",
+              "localRole": "biomarker",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "sourceMessageId": "SEM-H17:user:1",
+              "sourceText": "pour expliquer",
+              "normalizedLabel": "expliquer",
+              "localRole": "intent",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-5"
+              ]
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H17:user:1",
+              "sourceText": "le no-reflow",
+              "normalizedLabel": "no-reflow",
+              "localRole": "phenomenon",
+              "polarity": "AFFIRMED",
+              "modifiers": [],
+              "linkedInventoryItemIds": []
+            },
+            {
+              "inventoryItemId": "inv-6",
+              "sourceMessageId": "SEM-H17:user:1",
+              "sourceText": "sans dire que l'un cause l'autre",
+              "normalizedLabel": "sans causalite entre l'oedeme et la MVO",
+              "localRole": "constraint",
+              "polarity": "NEGATED",
+              "modifiers": [],
+              "linkedInventoryItemIds": [
+                "inv-2",
+                "inv-3"
+              ]
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-1",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-2",
+              "sourceMessageId": "SEM-H17:user:1",
+              "sourceText": "Faut-il regarder l'œdème",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "UNCERTAIN"
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "sourceInventoryItemId": "inv-1",
+              "targetInventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H17:user:1",
+              "sourceText": "Faut-il regarder ... la MVO",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "UNCERTAIN"
+            },
+            {
+              "inventoryRelationId": "rel-3",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H17:user:1",
+              "sourceText": "l'œdème ... pour expliquer le no-reflow",
+              "normalizedRelation": "EXPLAINS",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-4",
+              "sourceInventoryItemId": "inv-3",
+              "targetInventoryItemId": "inv-5",
+              "sourceMessageId": "SEM-H17:user:1",
+              "sourceText": "la MVO ... pour expliquer le no-reflow",
+              "normalizedRelation": "EXPLAINS",
+              "polarity": "AFFIRMED"
+            },
+            {
+              "inventoryRelationId": "rel-5",
+              "sourceInventoryItemId": "inv-2",
+              "targetInventoryItemId": "inv-3",
+              "sourceMessageId": "SEM-H17:user:1",
+              "sourceText": "sans dire que l'un cause l'autre",
+              "normalizedRelation": "INFLUENCES",
+              "polarity": "NEGATED"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "clientElementId": "elem-1",
+            "type": "SCIENTIFIC_INTENT",
+            "canonicalMeaning": "Examiner l'oedeme ou la MVO",
+            "studyRole": "NONE",
+            "polarity": "UNCERTAIN",
+            "inventoryItemIds": [
+              "inv-1"
+            ],
+            "sourceMessageId": "SEM-H17:user:1",
+            "sourceText": "Faut-il regarder",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-2",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "Oedeme",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-2"
+            ],
+            "sourceMessageId": "SEM-H17:user:1",
+            "sourceText": "l'œdème",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-3",
+            "type": "BIOMARKER",
+            "canonicalMeaning": "MVO (microvascular obstruction)",
+            "studyRole": "MEASUREMENT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "sourceMessageId": "SEM-H17:user:1",
+            "sourceText": "la MVO",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-4",
+            "type": "OPERATION",
+            "canonicalMeaning": "Expliquer",
+            "studyRole": "NONE",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "sourceMessageId": "SEM-H17:user:1",
+            "sourceText": "pour expliquer",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-5",
+            "type": "PHENOMENON",
+            "canonicalMeaning": "No-reflow",
+            "studyRole": "SUBJECT",
+            "polarity": "AFFIRMED",
+            "inventoryItemIds": [
+              "inv-5"
+            ],
+            "sourceMessageId": "SEM-H17:user:1",
+            "sourceText": "le no-reflow",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          },
+          {
+            "clientElementId": "elem-6",
+            "type": "CONSTRAINT",
+            "canonicalMeaning": "Absence de lien de causalite direct entre l'oedeme et la MVO",
+            "studyRole": "NONE",
+            "polarity": "NEGATED",
+            "inventoryItemIds": [
+              "inv-6"
+            ],
+            "sourceMessageId": "SEM-H17:user:1",
+            "sourceText": "sans dire que l'un cause l'autre",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false,
+            "supersedesElementIds": []
+          }
+        ],
+        "relations": [
+          {
+            "clientRelationId": "rel-elem-1",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-2",
+            "relationType": "OBSERVES",
+            "polarity": "UNCERTAIN",
+            "inventoryRelationIds": [
+              "rel-1"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-2",
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-3",
+            "relationType": "OBSERVES",
+            "polarity": "UNCERTAIN",
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-3",
+            "sourceClientElementId": "elem-2",
+            "targetClientElementId": "elem-5",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-3"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-4",
+            "sourceClientElementId": "elem-3",
+            "targetClientElementId": "elem-5",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "inventoryRelationIds": [
+              "rel-4"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          },
+          {
+            "clientRelationId": "rel-elem-5",
+            "sourceClientElementId": "elem-2",
+            "targetClientElementId": "elem-3",
+            "relationType": "INFLUENCES",
+            "polarity": "NEGATED",
+            "inventoryRelationIds": [
+              "rel-5"
+            ],
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "confidence": 1,
+            "inferenceReason": null,
+            "requiresConfirmation": false
+          }
+        ],
+        "missingConcepts": [],
+        "ellipses": [],
+        "ambiguities": [],
+        "unknowns": [],
+        "contradictions": [],
+        "knowledgeRequests": [],
+        "clarificationCandidates": [],
+        "routeProposal": {
+          "route": "FORMALIZE_IDEA",
+          "confidence": 0.9,
+          "reason": "L'utilisateur cherche a formaliser la relation conceptuelle et explicative entre l'oedeme, la MVO et le no-reflow sans causalite directe avant de concevoir une etude.",
+          "expectedCapabilities": [
+            "Clarification des relations conceptuelles",
+            "Analyse des liens entre biomarqueurs et phenomene"
+          ]
+        },
+        "semanticWarnings": []
+      },
+      "rawCritic": {
+        "criticId": "crit-SEM-H17",
+        "verdict": "ACCEPT",
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit objects (l'œdème, la MVO, le no-reflow) are represented as typed elements."
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No comparator is present in the source text."
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No intervention is present in the source text."
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No modality is explicitly named in the source text."
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "result": "PASS",
+            "evidence": "All explicit relations from the semantic inventory are mapped faithfully."
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "result": "PASS",
+            "evidence": "Taxonomy report is complete with no findings; element types conform strictly to definitions."
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "result": "PASS",
+            "evidence": "Relations like explanation and negative causal constraint are fully represented without weakening."
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "result": "PASS",
+            "evidence": "No unauthorized inferences are promoted as explicit user states."
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "result": "PASS",
+            "evidence": "No ambiguities were suppressed."
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "result": "PASS",
+            "evidence": "The negative constraint regarding direct causality between edema and MVO is properly captured with NEGATED polarity."
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "result": "NOT_APPLICABLE",
+            "evidence": "No temporal expressions are present in the source text."
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "result": "PASS",
+            "evidence": "No endpoints were unjustifiably promoted."
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "result": "PASS",
+            "evidence": "Specific concepts like MVO and no-reflow are preserved precisely."
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "result": "PASS",
+            "evidence": "No source fragments remain unrepresented."
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "result": "PASS",
+            "evidence": "The FORMALIZE_IDEA route correctly matches the conceptual inquiry regarding biomarker relationships before study design."
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "issues": [],
+        "proposedRepairs": [],
+        "criticSummary": "The semantic model accurately reflects all explicit objects, intentions, operations, biomarkers, phenomena, and constraints from the user message. All explicit relations are faithfully mapped, and the routing correctly identifies FORMALIZE_IDEA."
+      },
+      "rawCritics": [
+        {
+          "criticId": "crit-SEM-H17",
+          "verdict": "ACCEPT",
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit objects (l'œdème, la MVO, le no-reflow) are represented as typed elements."
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No comparator is present in the source text."
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No intervention is present in the source text."
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No modality is explicitly named in the source text."
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "result": "PASS",
+              "evidence": "All explicit relations from the semantic inventory are mapped faithfully."
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "result": "PASS",
+              "evidence": "Taxonomy report is complete with no findings; element types conform strictly to definitions."
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "result": "PASS",
+              "evidence": "Relations like explanation and negative causal constraint are fully represented without weakening."
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "result": "PASS",
+              "evidence": "No unauthorized inferences are promoted as explicit user states."
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "result": "PASS",
+              "evidence": "No ambiguities were suppressed."
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "result": "PASS",
+              "evidence": "The negative constraint regarding direct causality between edema and MVO is properly captured with NEGATED polarity."
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "result": "NOT_APPLICABLE",
+              "evidence": "No temporal expressions are present in the source text."
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "result": "PASS",
+              "evidence": "No endpoints were unjustifiably promoted."
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "result": "PASS",
+              "evidence": "Specific concepts like MVO and no-reflow are preserved precisely."
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "result": "PASS",
+              "evidence": "No source fragments remain unrepresented."
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "result": "PASS",
+              "evidence": "The FORMALIZE_IDEA route correctly matches the conceptual inquiry regarding biomarker relationships before study design."
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "issues": [],
+          "proposedRepairs": [],
+          "criticSummary": "The semantic model accurately reflects all explicit objects, intentions, operations, biomarkers, phenomena, and constraints from the user message. All explicit relations are faithfully mapped, and the routing correctly identifies FORMALIZE_IDEA."
+        }
+      ],
+      "temperature": null,
+      "executedAt": "2026-08-12T22:18:28.725Z"
+    },
+    "knowledgeSnapshot": {
+      "resultId": "knowledge-result:ke1-ecebfa901ed38cd4",
+      "resultDigest": "ke1-ecebfa901ed38cd4",
+      "coverageStatus": "SUPPORTED",
+      "verifiedAt": "2026-08-12T22:18:28.734Z"
+    },
+    "previousModelId": null,
+    "history": [],
+    "acceptedAt": null,
+    "acceptanceRecord": null,
+    "createdAt": "2026-08-12T22:18:28.725Z",
+    "updatedAt": "2026-08-12T22:18:28.734Z",
+    "digest": "ke1-4f4685bb775754df"
+  },
+  "semanticModelDigest": "ke1-4f4685bb775754df",
+  "coverageReports": {
+    "explicit": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryItemId": "inv-1",
+          "sourceMessageId": "SEM-H17:user:1",
+          "sourceText": "Faut-il regarder",
+          "normalizedMeaning": "examiner",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-2",
+          "sourceMessageId": "SEM-H17:user:1",
+          "sourceText": "l'œdème",
+          "normalizedMeaning": "oedeme",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-3",
+          "sourceMessageId": "SEM-H17:user:1",
+          "sourceText": "la MVO",
+          "normalizedMeaning": "MVO",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-4",
+          "sourceMessageId": "SEM-H17:user:1",
+          "sourceText": "pour expliquer",
+          "normalizedMeaning": "expliquer",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-5",
+          "sourceMessageId": "SEM-H17:user:1",
+          "sourceText": "le no-reflow",
+          "normalizedMeaning": "no-reflow",
+          "mappedClientElementIds": [
+            "elem-5"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        },
+        {
+          "inventoryItemId": "inv-6",
+          "sourceMessageId": "SEM-H17:user:1",
+          "sourceText": "sans dire que l'un cause l'autre",
+          "normalizedMeaning": "sans causalite entre l'oedeme et la MVO",
+          "mappedClientElementIds": [
+            "elem-6"
+          ],
+          "mappedClientRelationIds": [],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment."
+        }
+      ]
+    },
+    "relations": {
+      "status": "COMPLETE",
+      "entries": [
+        {
+          "inventoryRelationId": "rel-1",
+          "sourceInventoryItemId": "inv-1",
+          "targetInventoryItemId": "inv-2",
+          "normalizedRelation": "OBSERVES",
+          "mappedClientRelationIds": [
+            "rel-elem-1",
+            "rel-elem-5"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        },
+        {
+          "inventoryRelationId": "rel-2",
+          "sourceInventoryItemId": "inv-1",
+          "targetInventoryItemId": "inv-3",
+          "normalizedRelation": "OBSERVES",
+          "mappedClientRelationIds": [
+            "rel-elem-2",
+            "rel-elem-5"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+        },
+        {
+          "inventoryRelationId": "rel-3",
+          "sourceInventoryItemId": "inv-2",
+          "targetInventoryItemId": "inv-5",
+          "normalizedRelation": "EXPLAINS",
+          "mappedClientRelationIds": [
+            "rel-elem-3"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+        },
+        {
+          "inventoryRelationId": "rel-4",
+          "sourceInventoryItemId": "inv-3",
+          "targetInventoryItemId": "inv-5",
+          "normalizedRelation": "EXPLAINS",
+          "mappedClientRelationIds": [
+            "rel-elem-4"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation references the inventory relation; its exact endpoint spans remain source-grounded."
+        },
+        {
+          "inventoryRelationId": "rel-5",
+          "sourceInventoryItemId": "inv-2",
+          "targetInventoryItemId": "inv-3",
+          "normalizedRelation": "INFLUENCES",
+          "mappedClientRelationIds": [
+            "rel-elem-5"
+          ],
+          "coverageStatus": "MAPPED",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span."
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "evaluatorDigest": "ke1-ee0dc35e0f97ec2a",
+    "evaluatedAt": "2026-08-12T22:18:28.738Z",
+    "goldFrameDigest": "ke1-3014ffa0c477aebc",
+    "result": {
+      "caseId": "SEM-H17",
+      "explicitObjectRecall": 0,
+      "explicitRelationRecall": 0,
+      "criticalSemanticRecall": 0,
+      "comparatorPreserved": true,
+      "interventionPreserved": true,
+      "modalityPreserved": true,
+      "semanticDriftRate": 0,
+      "unsupportedInferenceRate": 0,
+      "criticalUnsupportedInferenceCount": 0,
+      "ellipsisDetectionRate": 1,
+      "ambiguityPreservationRate": 1,
+      "unnecessaryClarificationRate": 0,
+      "routeCorrect": true,
+      "correctionPropagation": true,
+      "multiTurnContextPreserved": true,
+      "genericDomainCollapse": false,
+      "absoluteBlockers": [
+        "EXPLICIT_PHENOMENON_LOST:œdème",
+        "EXPLICIT_PHENOMENON_LOST:MVO",
+        "EXPLICIT_SCIENTIFIC_OBJECT_LOST:no-reflow",
+        "EXPLICIT_CONSTRAINT_LOST:ne pas affirmer de causalité",
+        "RELATION_LOST:œdème->MVO"
+      ]
+    }
+  },
+  "metric": {
+    "caseId": "SEM-H17",
+    "explicitObjectRecall": 0,
+    "explicitRelationRecall": 0,
+    "criticalSemanticRecall": 0,
+    "comparatorPreserved": true,
+    "interventionPreserved": true,
+    "modalityPreserved": true,
+    "semanticDriftRate": 0,
+    "unsupportedInferenceRate": 0,
+    "criticalUnsupportedInferenceCount": 0,
+    "ellipsisDetectionRate": 1,
+    "ambiguityPreservationRate": 1,
+    "unnecessaryClarificationRate": 0,
+    "routeCorrect": true,
+    "correctionPropagation": true,
+    "multiTurnContextPreserved": true,
+    "genericDomainCollapse": false,
+    "absoluteBlockers": [
+      "EXPLICIT_PHENOMENON_LOST:œdème",
+      "EXPLICIT_PHENOMENON_LOST:MVO",
+      "EXPLICIT_SCIENTIFIC_OBJECT_LOST:no-reflow",
+      "EXPLICIT_CONSTRAINT_LOST:ne pas affirmer de causalité",
+      "RELATION_LOST:œdème->MVO"
+    ]
+  },
+  "error": null
+}

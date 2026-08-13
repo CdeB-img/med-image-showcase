@@ -1,0 +1,105 @@
+{
+  "campaign": "SEM-001R3E",
+  "providerTransportSchemaVersion": "SEM-001-ATOMIC-COMPOSITION-1.1",
+  "principle": "Transport fixes shape, types, required nullable fields and enums. Internal validation adds conditional and semantic invariants without filling absent values.",
+  "fields": [
+    {
+      "requestedField": "atomicityReports[]",
+      "provider": "required array 1..30",
+      "internal": "same plus verdict consistency",
+      "parser": "identity",
+      "conditionalInvariant": "each report is independently validated"
+    },
+    {
+      "requestedField": "atomicityReports[].status",
+      "provider": "COMPLETE|INCOMPLETE|NOT_APPLICABLE|AMBIGUOUS",
+      "internal": "same",
+      "parser": "identity",
+      "conditionalInvariant": "INCOMPLETE >=2 constituents; COMPLETE 0 or >=2; NOT_APPLICABLE none"
+    },
+    {
+      "requestedField": "atomicityReports[].sourceSpan",
+      "provider": "not a direct field",
+      "internal": "not a direct field",
+      "parser": "no mapping",
+      "conditionalInvariant": "source spans remain on constituents[] and directRelations[] as sourceMessageId+sourceText"
+    },
+    {
+      "requestedField": "atomicityReports[].constituents",
+      "provider": "required array",
+      "internal": "same objects",
+      "parser": "identity",
+      "conditionalInvariant": "unique constituentId and relation endpoints known"
+    },
+    {
+      "requestedField": "atomicityReports[].reason",
+      "provider": "required non-empty string",
+      "internal": "same",
+      "parser": "identity",
+      "conditionalInvariant": "none"
+    },
+    {
+      "requestedField": "compositionReports[]",
+      "provider": "required array 1..30",
+      "internal": "same plus verdict consistency",
+      "parser": "identity",
+      "conditionalInvariant": "each report is independently validated"
+    },
+    {
+      "requestedField": "compositionReports[].status",
+      "provider": "COMPLETE|INCOMPLETE|NOT_REQUIRED|AMBIGUOUS",
+      "internal": "same",
+      "parser": "identity",
+      "conditionalInvariant": "COMPLETE/INCOMPLETE require composite; NOT_REQUIRED forbids composite and relations"
+    },
+    {
+      "requestedField": "compositionReports[].composite",
+      "provider": "required nullable complete object",
+      "internal": "same",
+      "parser": "identity",
+      "conditionalInvariant": "null is correct only when status does not require a composite"
+    },
+    {
+      "requestedField": "compositionReports[].componentElementIds",
+      "provider": "not present at audit transport stage",
+      "internal": "sourceInventoryItemIds carry bounded source ownership",
+      "parser": "no mapping",
+      "conditionalInvariant": "typed element IDs are resolved only by deterministic repair compilation"
+    },
+    {
+      "requestedField": "compositionReports[].sourceSpans",
+      "provider": "not a direct field",
+      "internal": "not a direct field",
+      "parser": "no mapping",
+      "conditionalInvariant": "composite and relations retain sourceMessageId+sourceText"
+    },
+    {
+      "requestedField": "routeAssessment",
+      "provider": "required strict object",
+      "internal": "same",
+      "parser": "identity",
+      "conditionalInvariant": "status/proposedRoute dependency"
+    },
+    {
+      "requestedField": "routeAssessment.status",
+      "provider": "CORRECT|INCORRECT|UNCERTAIN",
+      "internal": "same",
+      "parser": "identity",
+      "conditionalInvariant": "INCORRECT requires proposal"
+    },
+    {
+      "requestedField": "routeAssessment.proposedRoute",
+      "provider": "required nullable route enum",
+      "internal": "same",
+      "parser": "identity",
+      "conditionalInvariant": "null for CORRECT/UNCERTAIN; non-null for INCORRECT"
+    },
+    {
+      "requestedField": "routeAssessment.reason",
+      "provider": "required non-empty string",
+      "internal": "same",
+      "parser": "identity",
+      "conditionalInvariant": "none"
+    }
+  ]
+}

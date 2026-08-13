@@ -1,0 +1,7 @@
+{
+  "campaign": "SEM-001R5-DIAGNOSTIC",
+  "campaignId": "sem-001r5-diagnostic-2026-08-12T22-15-01-231Z-ke1-75b68ddee7e53412",
+  "repairs": [],
+  "policy": "NO_REPAIR_DURING_R5",
+  "inheritedRepairEvidence": "semantic-validation/sem-001r4/repair-ledger.json"
+}

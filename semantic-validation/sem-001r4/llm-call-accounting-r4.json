@@ -1,0 +1,16 @@
+{
+  "campaign": "SEM-001R4",
+  "campaignId": "sem-001r4-2026-08-12T19-14-19-051Z-ke1-8251dd1f215442bb",
+  "provider": "GOOGLE_GEMINI",
+  "model": "gemini-3.5-flash-lite",
+  "actualRequestStarts": 3,
+  "llmCallsPerformed": 3,
+  "retries": 0,
+  "structuredRegenerations": 0,
+  "providerCapacityFailures": 0,
+  "completedCasesReusedOnResume": 0,
+  "llmCallsAvoidedByResume": 0,
+  "developmentOutputsReusedAsHoldoutResults": 0,
+  "conditionalAuditCases": [],
+  "noSecretsStored": true
+}

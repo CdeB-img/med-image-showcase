@@ -1,0 +1,44 @@
+{
+  "campaignId": "sem-001r2-2026-08-11T01-17-41-951Z-ke1-3bb807034f670217",
+  "status": "FAIL",
+  "decision": "SCIENTIFIC_SEMANTIC_RECONSTRUCTION_NOT_READY",
+  "provider": "GOOGLE_GEMINI",
+  "model": {
+    "endpoint": "v1beta/models",
+    "httpStatus": 200,
+    "apiName": "models/gemini-3.5-flash-lite",
+    "modelId": "gemini-3.5-flash-lite",
+    "displayName": "Gemini 3.5 Flash Lite",
+    "version": "3.5-flash-lite-07-2026",
+    "supportedGenerationMethods": [
+      "generateContent",
+      "countTokens",
+      "createCachedContent",
+      "batchGenerateContent"
+    ],
+    "inputTokenLimit": 1048576,
+    "outputTokenLimit": 65536,
+    "structuredOutputsSupportedByOfficialDocumentation": true
+  },
+  "completeCount": 30,
+  "expectedCount": 30,
+  "totalRequestStarts": 62,
+  "retries": 0,
+  "observed429": 0,
+  "durationMs": 733516,
+  "durationSeconds": 734,
+  "metricsCalculated": true,
+  "thresholdsPassed": false,
+  "absoluteBlockerCount": 73,
+  "failureClassification": {
+    "PROMPT_FAILURE": 71,
+    "EVALUATOR_FAILURE": 2,
+    "contributingSystemicFailure": "CRITIC_FAILURE:30_OF_30_ZERO_ISSUE_ACCEPT"
+  },
+  "imgComparisonInvariants": "7/7 PASS",
+  "browserLiveValidation": "BLOCKED_NOT_EXECUTED",
+  "downstreamLiveDiagnostics": "BLOCKED_NOT_EXECUTED",
+  "resumeAvailable": false,
+  "resumeCommand": null,
+  "completedAt": "2026-08-11T01:29:55.471Z"
+}

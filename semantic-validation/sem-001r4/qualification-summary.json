@@ -1,0 +1,81 @@
+{
+  "campaign": "SEM-001R4-CLOSURE",
+  "campaignId": "sem-001r4-closure-2026-08-12T19-44-58-552Z-ke1-40860531ff1079a5",
+  "decision": "SEM_CLOSURE_REQUIRES_HUMAN_ARBITRATION",
+  "decisionReason": "GENUINE_TAXONOMY_CONFLICT:SEM-H10:récupération énergétique PHENOMENON versus SCIENTIFIC_OBJECT Gold",
+  "holdout": "10/30 COMPLETE",
+  "officialMetrics": "NOT_CALCULATED",
+  "aggregate": null,
+  "absoluteBlockers": [
+    "EXPLICIT_METHOD_LOST:spectroscopie 31P",
+    "EXPLICIT_METHOD_LOST:BOLD musculaire",
+    "EXPLICIT_SCIENTIFIC_OBJECT_LOST:récupération énergétique",
+    "RELATION_LOST:spectroscopie 31P->récupération énergétique"
+  ],
+  "arbitration": {
+    "caseId": "SEM-H10",
+    "artifact": "semantic-validation/sem-001r4/h10-taxonomy-arbitration-request-r4b.json",
+    "goldChanged": false,
+    "thresholdsChanged": false,
+    "h11ToH30": "NOT_OPENED_GATE_CLOSED"
+  },
+  "llm": {
+    "campaign": "SEM-001R4-CLOSURE",
+    "campaignId": "sem-001r4-closure-2026-08-12T19-44-58-552Z-ke1-40860531ff1079a5",
+    "provider": "GOOGLE_GEMINI",
+    "model": "gemini-3.5-flash-lite",
+    "actualRequestStarts": 25,
+    "llmCallsPerformed": 25,
+    "retries": 2,
+    "structuredRegenerations": 0,
+    "providerCapacityFailures": 0,
+    "completedCasesReusedOnResume": 9,
+    "llmCallsAvoidedByResume": 23,
+    "deterministicReplays": 9,
+    "historicalR4CallsExcludedFromClosure": 3,
+    "developmentOutputsReusedAsHoldoutResults": 0,
+    "conditionalAuditCases": [],
+    "noSecretsStored": true
+  },
+  "providerIncidents": [
+    {
+      "runId": "sem-001r4-run-2026-08-12T19-45-04-950Z",
+      "caseId": "SEM-H02",
+      "stage": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "operationAttempt": 1,
+      "attempt": 1,
+      "startedAt": "2026-08-12T19:45:04.955Z",
+      "finishedAt": "2026-08-12T19:45:04.966Z",
+      "providerStatus": null,
+      "httpStatus": 200,
+      "providerErrorCode": null,
+      "category": "NETWORK",
+      "waitDuration": 60000,
+      "finalDisposition": "RETRY_SCHEDULED",
+      "rawArtifact": null
+    },
+    {
+      "runId": "sem-001r4-run-2026-08-12T19-45-04-950Z",
+      "caseId": "SEM-H02",
+      "stage": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "operationAttempt": 2,
+      "attempt": 2,
+      "startedAt": "2026-08-12T19:46:04.970Z",
+      "finishedAt": "2026-08-12T19:46:04.975Z",
+      "providerStatus": null,
+      "httpStatus": 200,
+      "providerErrorCode": null,
+      "category": "NETWORK",
+      "waitDuration": 60000,
+      "finalDisposition": "RETRY_SCHEDULED",
+      "rawArtifact": null
+    }
+  ],
+  "technicalValidations": "TARGETED_98_OF_98_PASS; POST_CAMPAIGN_GLOBAL_GATE_CLOSED",
+  "finalLiveValidation": "NOT_STARTED_GATE_CLOSED",
+  "completedAt": "2026-08-12T22:06:15Z"
+}

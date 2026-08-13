@@ -1,0 +1,31 @@
+{
+  "campaign": "SEM-001R3D",
+  "validatedAt": "2026-08-12T14:05:30.000Z",
+  "preProvider": {
+    "r3dGenericContracts": "17/17 PASS",
+    "semanticSuite": "149/149 PASS",
+    "typecheck": "PASS",
+    "gitDiffCheck": "PASS",
+    "configurationIdentity": "21/21 PASS",
+    "developmentGoldFrames": "30/30 UNCHANGED",
+    "forbiddenProductLiteralScan": "PASS"
+  },
+  "postGate": {
+    "r3dGenericContracts": "17/17 PASS",
+    "r3dProviderResilienceContracts": "3/3 PASS",
+    "semanticSuite": "152/152 PASS",
+    "typecheck": "PASS",
+    "lint": "PASS_WITH_7_PRE_EXISTING_FAST_REFRESH_WARNINGS",
+    "productionBuild": "PASS_WITH_NON_BLOCKING_BROWSERSLIST_AND_CHUNK_SIZE_WARNINGS",
+    "gitDiffCheck": "PASS",
+    "forbiddenProductLiteralScan": "PASS"
+  },
+  "notRun": [
+    "remaining 24 Development critic operations",
+    "Holdout",
+    "browser campaign",
+    "downstream live campaign",
+    "publication",
+    "deployment"
+  ]
+}
