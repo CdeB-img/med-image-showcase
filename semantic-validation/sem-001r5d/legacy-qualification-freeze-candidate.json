@@ -1,0 +1,142 @@
+{
+  "campaign": "SEM-001R5D",
+  "decision": "R5D_GENERIC_PROVIDER_CONTRACT_CONFIGURATION_READY_FOR_H29_REPLAY",
+  "status": "PROPOSED_NOT_ACTIVATED",
+  "createdAt": "2026-08-13",
+  "configurationName": "SEM_LEGACY_R5D",
+  "configurationDigest": "ke1-273156595eeaae4d",
+  "qualificationTarget": "SEM_LEGACY_COMPETENCE",
+  "pd003V2Compliance": "NOT_CLAIMED",
+  "pd003V2Realignment": "REQUIRED",
+  "unresolvedLegacyMappings": [
+    "SEM-H10",
+    "SEM-H17",
+    "SEM-H28",
+    "SEM-H30"
+  ],
+  "sourceConfiguration": "semantic-validation/sem-001r5c/legacy-qualification-freeze-candidate.json",
+  "sourceConfigurationDigest": "ke1-393ae3e73014eff3",
+  "sourceDisposition": "INVALIDATED_BY_CONFIGURATION_CHANGE",
+  "holdoutAuthorization": "NOT_GRANTED_BEFORE_H29_PASS",
+  "activationEffect": "NONE",
+  "configurationMaterial": {
+    "configurationName": "SEM_LEGACY_R5D",
+    "qualificationTarget": "SEM_LEGACY_COMPETENCE",
+    "status": "PROPOSED_NOT_ACTIVATED",
+    "baseline": "SEM_LEGACY_R5C",
+    "repairs": {
+      "A_CONTEXTUAL_CLASSIFICATION_ROLES_AND_ROUTING": "PASS",
+      "B_GRAPH_PROVENANCE_AND_RELATION_INTEGRITY": "PASS",
+      "C_EVALUATOR_COMPOSITIONAL_EQUIVALENCE": "PASS",
+      "D_OUTCOME_ENDPOINT_SELECTION_GUARD": "PASS",
+      "E_MULTI_TURN_REJECTION_PROPAGATION": "PASS",
+      "F_PROVIDER_STRUCTURED_SEMANTIC_CONTRACT": "PASS"
+    },
+    "provider": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "temperature": null,
+      "concurrency": 1,
+      "maximumStartsPerRollingMinute": 5,
+      "maximumAttemptsPerLlmOperation": 5,
+      "transientWaitMs": 60000
+    },
+    "versions": {
+      "reconstructionPrompt": "SEM-001-RECONSTRUCTION-1.5",
+      "criticPrompt": "SEM-001-CRITIC-1.6",
+      "semanticSchema": "SEM-001-1.1",
+      "canonicalModel": "1.1"
+    },
+    "digests": {
+      "developmentCorpus": "ke1-64d654cfa041a563",
+      "developmentGold": "ke1-1006a72533caf7f9",
+      "holdoutCorpus": "ke1-08392b87b2cc140b",
+      "holdoutGold": "ke1-9208b3d2f1d0698e",
+      "reconstructionPrompt": "ke1-66477433098746b7",
+      "criticPrompt": "ke1-9ae6db2190a318f5",
+      "auditPrompt": "ke1-10b88664b49fca18",
+      "baseProviderSchema": "ke1-c849778553bf38b1",
+      "providerContract": "ke1-c85f5841cb9d6b25",
+      "auditProviderSchema": "ke1-55cd50759595b451",
+      "canonicalModel": "ke1-f3422f17d4660f2b",
+      "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+      "canonicalizer": "ke1-ecb0ab388eb54254",
+      "coverageAndIntegrity": "ke1-2e13c40a2f1abd66",
+      "evaluator": "ke1-8066258bdfcc6c77",
+      "routing": "ke1-1f4de2e194034095"
+    },
+    "thresholds": {
+      "criticalSemanticRecall": { "operator": ">=", "value": 0.98 },
+      "explicitObjectRecall": { "operator": ">=", "value": 0.98 },
+      "explicitRelationRecall": { "operator": ">=", "value": 0.95 },
+      "comparatorPreservation": { "operator": "=", "value": 1 },
+      "interventionPreservation": { "operator": "=", "value": 1 },
+      "modalityPreservation": { "operator": "=", "value": 1 },
+      "criticalUnsupportedInferenceRate": { "operator": "=", "value": 0 },
+      "genericDomainCollapseRate": { "operator": "=", "value": 0 },
+      "correctionPropagationRate": { "operator": "=", "value": 1 },
+      "multiTurnCriticalContextLoss": { "operator": "=", "value": 0 }
+    },
+    "humanDecisions": [
+      ["SEM-H10", "LEGACY_MAPPING_UNRESOLVED"],
+      ["SEM-H12", "CHANGE_GOLD"],
+      ["SEM-H17", "LEGACY_MAPPING_UNRESOLVED"],
+      ["SEM-H22", "CHANGE_GOLD"],
+      ["SEM-H25", "CHANGE_GOLD"],
+      ["SEM-H28", "PD003_V2_REALIGNMENT_REQUIRED"],
+      ["SEM-H30", "CHANGE_GOLD_RELATION_AND_LEGACY_MAPPING_UNRESOLVED"]
+    ],
+    "unresolvedLegacyMappings": [
+      "SEM-H10",
+      "SEM-H17",
+      "SEM-H28",
+      "SEM-H30"
+    ],
+    "pd003V2Compliance": "NOT_CLAIMED",
+    "pd003V2Realignment": "REQUIRED"
+  },
+  "repairs": [
+    {
+      "repairId": "R5C-D",
+      "class": "TAXONOMY_FAILURE",
+      "owner": "SEM_TAXONOMY_AND_PROMPT",
+      "scope": "Generic distinction between a stated outcome and an explicitly selected endpoint.",
+      "commits": ["6b216d0", "d386081"]
+    },
+    {
+      "repairId": "R5C-E",
+      "class": "CANONICALIZATION_FAILURE",
+      "owner": "SEM_MULTI_TURN_CANONICALIZATION",
+      "scope": "Generic propagation of explicit identity rejection and retirement of incident active relations.",
+      "commits": ["3585ed0", "e5bb0b6"]
+    },
+    {
+      "repairId": "R5D-F",
+      "class": "STRUCTURED_OUTPUT_FAILURE",
+      "owner": "SEM_PROVIDER_STRUCTURED_CONTRACT",
+      "scope": "Generic bounded regeneration for non-contiguous USER provenance and inapplicable critic repair payloads.",
+      "commits": ["0d32338"]
+    }
+  ],
+  "h29": {
+    "status": "READY_FOR_HOMOGENEOUS_R5D_REPLAY_NOT_EXECUTED",
+    "historicalR5bResult": "AUDIT_ONLY_FAIL",
+    "historicalR5cResult": "AUDIT_ONLY_FAIL",
+    "llmOperationsMinimum": 4,
+    "llmOperationsMaximum": 6
+  },
+  "execution": {
+    "providerCallsUnderR5d": 0,
+    "llmOperationsUnderR5d": 0,
+    "retriesUnderR5d": 0,
+    "fullHoldout": "NOT_STARTED",
+    "browser": false,
+    "downstreamLiveRun": false
+  },
+  "prohibitions": {
+    "claimPd003V2Compliance": true,
+    "mixPriorAndR5dQualificationResults": true,
+    "changeProviderOrModel": true,
+    "changeGoldOrThresholds": true
+  }
+}

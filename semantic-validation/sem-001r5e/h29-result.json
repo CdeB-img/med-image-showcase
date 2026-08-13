@@ -1,0 +1,31 @@
+{
+  "campaign": "SEM-001R5E",
+  "caseId": "SEM-H29",
+  "configurationName": "SEM_LEGACY_R5E",
+  "configurationDigest": "ke1-63fa5c00c7be4ab4",
+  "chain": "HOMOGENEOUS_R5E_NO_PRIOR_RESULT_REUSE",
+  "sourceFreeze": "semantic-validation/sem-001r5e/legacy-qualification-freeze-candidate.json",
+  "sourceFreezeDigest": "ke1-9b8d5bcce8c1d990",
+  "provider": "GOOGLE_GEMINI",
+  "model": "gemini-3.5-flash-lite",
+  "promptVersions": {
+    "reconstruction": "SEM-001-RECONSTRUCTION-1.5",
+    "critic": "SEM-001-CRITIC-1.6"
+  },
+  "schemaVersion": "SEM-001-1.1",
+  "semanticModelVersion": "1.1",
+  "startedAt": "2026-08-13T01:05:58.218Z",
+  "completedAt": "2026-08-13T01:06:12.737Z",
+  "decision": "H29_FAIL",
+  "turns": [],
+  "metric": null,
+  "firstDivergentStage": "TURN_1_CRITIC",
+  "failureClass": "CRITIC_FAILURE",
+  "error": {
+    "message": "SEM001R5E_CRITIC_NOT_ACCEPTED:CRITIC_MAX_CYCLES_EXHAUSTED"
+  },
+  "llmOperations": 3,
+  "providerRequestStarts": 3,
+  "retries": 0,
+  "structuredOutputIncidents": 0
+}

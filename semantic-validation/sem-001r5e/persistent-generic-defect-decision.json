@@ -1,0 +1,83 @@
+{
+  "campaign": "SEM-001R5C",
+  "terminalConfiguration": "SEM_LEGACY_R5E",
+  "terminalConfigurationDigest": "ke1-63fa5c00c7be4ab4",
+  "decision": "SEM_LEGACY_CLOSURE_BLOCKED_BY_PERSISTENT_GENERIC_DEFECT",
+  "caseId": "SEM-H29",
+  "h29": {
+    "status": "FAIL",
+    "firstDivergentStage": "TURN_1_CRITIC",
+    "failureClass": "CRITIC_FAILURE",
+    "terminalReason": "CRITIC_MAX_CYCLES_EXHAUSTED",
+    "causalClass": "INVENTORY_RELATION_DIRECTION_AND_CRITIC_REPAIR_OSCILLATION",
+    "owner": "SEM_CRITIC_AND_RELATION_INTEGRITY",
+    "persistentAfterTwoSuccessiveRepairCycles": true
+  },
+  "proof": {
+    "candidate": "semantic-validation/sem-001r5e/raw-provider-responses/001-SEM-H29-reconstruction-t1-c0.json",
+    "criticCycle1": "semantic-validation/sem-001r5e/raw-provider-responses/002-SEM-H29-critic-t1-c1.json",
+    "criticCycle2": "semantic-validation/sem-001r5e/raw-provider-responses/003-SEM-H29-critic-t1-c2.json",
+    "result": "semantic-validation/sem-001r5e/h29-result.json",
+    "observedOscillation": [
+      "The candidate Semantic Relation correctly anchors the outcome to TIMING, while its cited inventory relation reverses the endpoint order.",
+      "Critic cycle 1 reverses the Semantic Relation to match the invalid inventory endpoint order.",
+      "Critic cycle 2 restores the scientifically valid outcome-to-timing direction without repairing the inventory relation.",
+      "The two-cycle critic budget is exhausted with the same integrity inconsistency active."
+    ]
+  },
+  "repairCycles": [
+    {
+      "configuration": "SEM_LEGACY_R5D",
+      "digest": "ke1-273156595eeaae4d",
+      "result": "FAIL_CLOSED_INVALID_STRUCTURED_OUTPUT",
+      "historicalEvidence": "semantic-validation/sem-001r5d/history/r5d-h29-failure/"
+    },
+    {
+      "configuration": "SEM_LEGACY_R5E",
+      "digest": "ke1-63fa5c00c7be4ab4",
+      "result": "CRITIC_MAX_CYCLES_EXHAUSTED",
+      "historicalEvidence": "semantic-validation/sem-001r5e/"
+    }
+  ],
+  "gates": {
+    "h29Qualified": false,
+    "freezeActivated": false,
+    "campaignManifestCreated": false,
+    "fullHoldout": "NOT_AUTHORIZED_AFTER_H29_FAIL",
+    "browserLive": "NOT_AUTHORIZED_AFTER_H29_FAIL",
+    "downstreamLive": "NOT_AUTHORIZED_AFTER_H29_FAIL"
+  },
+  "legacyUnresolvedMappings": [
+    "SEM-H10",
+    "SEM-H17",
+    "SEM-H28",
+    "SEM-H30"
+  ],
+  "configurationIntegrity": {
+    "provider": "GOOGLE_GEMINI",
+    "model": "gemini-3.5-flash-lite",
+    "constituentsVerified": "16/16",
+    "goldChanged": false,
+    "thresholdsChanged": false,
+    "pd003V2Compliance": "NOT_CLAIMED",
+    "pd003V2Realignment": "REQUIRED"
+  },
+  "missionAccounting": {
+    "semanticLlmOperationsWithProviderResponses": 14,
+    "successfulHttp200ProviderGenerations": 15,
+    "networkFailedRequestStarts": 5,
+    "totalProviderRequestStarts": 20,
+    "transientRetries": 4,
+    "qualifyingCallsAvoidedByReuse": 0,
+    "structuredOutputIncidents": 1
+  },
+  "prohibitionsPreserved": {
+    "benchmarkSpecificPatch": true,
+    "goldMutation": true,
+    "thresholdMutation": true,
+    "providerOrModelChange": true,
+    "thirdRepairHeuristic": true,
+    "push": true,
+    "deployment": true
+  }
+}

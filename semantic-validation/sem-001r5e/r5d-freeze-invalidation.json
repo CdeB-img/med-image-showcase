@@ -1,0 +1,18 @@
+{
+  "campaign": "SEM-001R5E",
+  "decision": "R5D_FREEZE_INVALIDATED_BY_CONFIGURATION_CHANGE",
+  "invalidatedConfiguration": "SEM_LEGACY_R5D",
+  "invalidatedConfigurationDigest": "ke1-273156595eeaae4d",
+  "invalidatedArtifact": "semantic-validation/sem-001r5d/legacy-qualification-freeze-candidate.json",
+  "invalidatedStatus": "PROPOSED_NOT_ACTIVATED",
+  "replacementConfiguration": "SEM_LEGACY_R5E",
+  "replacementConfigurationDigest": "ke1-63fa5c00c7be4ab4",
+  "reason": "R5D correctly rejected non-source-grounded structured output but used only one of the two governed new-generation opportunities. R5E exhausts exactly two bounded corrections before failing closed.",
+  "resultReuse": "FORBIDDEN_FOR_QUALIFICATION",
+  "historicalEvidence": "semantic-validation/sem-001r5d/history/r5d-h29-failure/",
+  "providerChanged": false,
+  "modelChanged": false,
+  "goldChanged": false,
+  "thresholdsChanged": false,
+  "activationEffect": "NONE"
+}

@@ -1,0 +1,13 @@
+{
+  "campaign": "SEM-001R5E",
+  "caseId": "SEM-H29",
+  "configurationName": "SEM_LEGACY_R5E",
+  "configurationDigest": "ke1-63fa5c00c7be4ab4",
+  "llmOperations": 3,
+  "providerRequestStarts": 3,
+  "retries": 0,
+  "structuredOutputIncidents": 0,
+  "qualifyingResultCallsAvoidedByReuse": 0,
+  "historicalArtifactsRetainedAuditOnly": true,
+  "noSecretsStored": true
+}

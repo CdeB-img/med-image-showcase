@@ -1,0 +1,36 @@
+{
+  "campaign": "SEM-001R5D",
+  "caseId": "SEM-H29",
+  "configurationName": "SEM_LEGACY_R5D",
+  "configurationDigest": "ke1-273156595eeaae4d",
+  "chain": "HOMOGENEOUS_R5D_NO_PRIOR_RESULT_REUSE",
+  "sourceFreeze": "semantic-validation/sem-001r5d/legacy-qualification-freeze-candidate.json",
+  "sourceFreezeDigest": "ke1-67811b232767001f",
+  "provider": "GOOGLE_GEMINI",
+  "model": "gemini-3.5-flash-lite",
+  "promptVersions": {
+    "reconstruction": "SEM-001-RECONSTRUCTION-1.5",
+    "critic": "SEM-001-CRITIC-1.6"
+  },
+  "schemaVersion": "SEM-001-1.1",
+  "semanticModelVersion": "1.1",
+  "startedAt": "2026-08-13T00:57:18.658Z",
+  "completedAt": "2026-08-13T01:01:18.708Z",
+  "decision": "SEM_LEGACY_CLOSURE_BLOCKED_BY_PROVIDER",
+  "turns": [],
+  "metric": null,
+  "firstDivergentStage": "LLM_PROVIDER_OPERATION",
+  "failureClass": "PROVIDER_FAILURE",
+  "error": {
+    "category": "NETWORK",
+    "httpStatus": null,
+    "providerStatus": null,
+    "providerErrorCode": null,
+    "message": "Provider network request failed.",
+    "diagnostic": null
+  },
+  "llmOperations": 1,
+  "providerRequestStarts": 5,
+  "retries": 4,
+  "structuredOutputIncidents": 0
+}

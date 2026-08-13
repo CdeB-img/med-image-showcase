@@ -1,0 +1,18 @@
+{
+  "campaign": "SEM-001R5D",
+  "decision": "R5C_FREEZE_INVALIDATED_BY_CONFIGURATION_CHANGE",
+  "invalidatedConfiguration": "SEM_LEGACY_R5C",
+  "invalidatedConfigurationDigest": "ke1-393ae3e73014eff3",
+  "invalidatedArtifact": "semantic-validation/sem-001r5c/legacy-qualification-freeze-candidate.json",
+  "invalidatedStatus": "PROPOSED_NOT_ACTIVATED",
+  "replacementConfiguration": "SEM_LEGACY_R5D",
+  "replacementConfigurationDigest": "ke1-273156595eeaae4d",
+  "reason": "The R5C H29 replay exposed a generic structured semantic-contract defect: non-contiguous USER provenance and inapplicable critic repairs were syntactically valid provider outputs. The bounded provider contract now rejects them without filling or inventing content.",
+  "resultReuse": "FORBIDDEN_FOR_QUALIFICATION",
+  "historicalEvidence": "semantic-validation/sem-001r5c/history/r5c-h29-failure/",
+  "providerChanged": false,
+  "modelChanged": false,
+  "goldChanged": false,
+  "thresholdsChanged": false,
+  "activationEffect": "NONE"
+}

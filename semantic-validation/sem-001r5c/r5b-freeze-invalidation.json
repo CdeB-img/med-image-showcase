@@ -1,0 +1,23 @@
+{
+  "campaign": "SEM-001R5C",
+  "invalidatedConfigurationName": "SEM_LEGACY_R5B",
+  "invalidatedConfigurationDigest": "ke1-f7893e6c21710ec8",
+  "sourceFreeze": "semantic-validation/sem-001r5b/legacy-qualification-freeze-candidate.json",
+  "sourceFreezeDigest": "ke1-face19cd3d22c289",
+  "previousStatus": "PROPOSED_NOT_ACTIVATED",
+  "currentDisposition": "INVALIDATED_BY_CONFIGURATION_CHANGE",
+  "replacementConfigurationName": "SEM_LEGACY_R5C",
+  "replacementConfigurationDigest": "ke1-393ae3e73014eff3",
+  "firstInvalidStage": "RECONSTRUCTION_CONFIGURATION_DIGEST",
+  "changedOwners": [
+    "reconstructionPrompt",
+    "criticPrompt",
+    "canonicalModel",
+    "canonicalizer",
+    "coverageAndIntegrity",
+    "routing"
+  ],
+  "reason": "H29 exposed two independently defensible generic defects: unsupported OUTCOME-to-ENDPOINT promotion and incomplete propagation of an explicit multi-turn rejection. R5B evidence remains audit-only and cannot qualify R5C.",
+  "historicalEvidencePreserved": true,
+  "invalidatedAt": "2026-08-13"
+}

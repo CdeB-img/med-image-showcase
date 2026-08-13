@@ -1,0 +1,71 @@
+{
+  "campaign": "SEM-001R5E",
+  "configurationName": "SEM_LEGACY_R5E",
+  "configurationDigest": "ke1-63fa5c00c7be4ab4",
+  "provider": "GOOGLE_GEMINI",
+  "model": "gemini-3.5-flash-lite",
+  "policy": {
+    "concurrency": 1,
+    "maximumStartsPerRollingMinute": 5,
+    "maximumAttemptsPerOperation": 5,
+    "transientWaitMs": 60000
+  },
+  "attempts": [
+    {
+      "caseId": "SEM-H29",
+      "stage": "RECONSTRUCTION",
+      "turn": 1,
+      "cycle": null,
+      "operation": 1,
+      "operationAttempt": 1,
+      "requestStart": 1,
+      "startedAt": "2026-08-13T01:05:58.218Z",
+      "completedAt": "2026-08-13T01:06:03.884Z",
+      "providerStatus": null,
+      "httpStatus": 200,
+      "providerErrorCode": null,
+      "category": null,
+      "waitDuration": 0,
+      "finalDisposition": "SUCCESS",
+      "rawArtifact": "semantic-validation/sem-001r5e/raw-provider-responses/001-SEM-H29-reconstruction-t1-c0.json"
+    },
+    {
+      "caseId": "SEM-H29",
+      "stage": "CRITIC",
+      "turn": 1,
+      "cycle": 1,
+      "operation": 2,
+      "operationAttempt": 1,
+      "requestStart": 1,
+      "startedAt": "2026-08-13T01:06:03.893Z",
+      "completedAt": "2026-08-13T01:06:08.185Z",
+      "providerStatus": null,
+      "httpStatus": 200,
+      "providerErrorCode": null,
+      "category": null,
+      "waitDuration": 0,
+      "finalDisposition": "SUCCESS",
+      "rawArtifact": "semantic-validation/sem-001r5e/raw-provider-responses/002-SEM-H29-critic-t1-c1.json"
+    },
+    {
+      "caseId": "SEM-H29",
+      "stage": "CRITIC",
+      "turn": 1,
+      "cycle": 2,
+      "operation": 3,
+      "operationAttempt": 1,
+      "requestStart": 1,
+      "startedAt": "2026-08-13T01:06:08.191Z",
+      "completedAt": "2026-08-13T01:06:12.734Z",
+      "providerStatus": null,
+      "httpStatus": 200,
+      "providerErrorCode": null,
+      "category": null,
+      "waitDuration": 0,
+      "finalDisposition": "SUCCESS",
+      "rawArtifact": "semantic-validation/sem-001r5e/raw-provider-responses/003-SEM-H29-critic-t1-c2.json"
+    }
+  ],
+  "structuredOutputIncidents": [],
+  "noSecretsStored": true
+}
