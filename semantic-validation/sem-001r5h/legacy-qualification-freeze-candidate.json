@@ -1,0 +1,183 @@
+{
+  "campaign": "SEM-001R5H",
+  "decision": "R5G_STRUCTURED_OUTPUT_FAILURE_REPAIRED_READY_FOR_H29_REQUALIFICATION",
+  "status": "PROPOSED_NOT_ACTIVATED",
+  "createdAt": "2026-08-13",
+  "configurationName": "SEM_LEGACY_R5H",
+  "configurationDigest": "ke1-47ec8722a8d10fc6",
+  "qualificationTarget": "SEM_LEGACY_COMPETENCE",
+  "pd003V2Compliance": "NOT_CLAIMED",
+  "pd003V2Realignment": "REQUIRED",
+  "unresolvedLegacyMappings": [
+    "SEM-H10",
+    "SEM-H17",
+    "SEM-H28",
+    "SEM-H30"
+  ],
+  "sourceConfiguration": "semantic-validation/sem-001r5g/legacy-qualification-freeze-candidate.json",
+  "sourceConfigurationDigest": "ke1-4038cddfb0ba8763",
+  "sourceDisposition": "INVALIDATED_BY_CONFIGURATION_CHANGE",
+  "reasonForChange": "DETERMINISTIC_PRIOR_STATE_REEMISSION_DEDUPLICATION",
+  "holdoutAuthorization": "NOT_GRANTED_BEFORE_H29_PASS",
+  "activationEffect": "NONE",
+  "configurationMaterial": {
+    "configurationName": "SEM_LEGACY_R5H",
+    "qualificationTarget": "SEM_LEGACY_COMPETENCE",
+    "status": "PROPOSED_NOT_ACTIVATED",
+    "baseline": "SEM_LEGACY_R5G",
+    "parentConfigurationDigest": "ke1-4038cddfb0ba8763",
+    "reasonForChange": "DETERMINISTIC_PRIOR_STATE_REEMISSION_DEDUPLICATION",
+    "repairs": {
+      "A_CONTEXTUAL_CLASSIFICATION_ROLES_AND_ROUTING": "PASS",
+      "B_GRAPH_PROVENANCE_AND_RELATION_INTEGRITY": "PASS",
+      "C_EVALUATOR_COMPOSITIONAL_EQUIVALENCE": "PASS",
+      "D_OUTCOME_ENDPOINT_SELECTION_GUARD": "PASS",
+      "E_MULTI_TURN_REJECTION_PROPAGATION": "PASS",
+      "F_PROVIDER_STRUCTURED_SEMANTIC_CONTRACT": "PASS",
+      "G_TWO_BOUNDED_STRUCTURED_REGENERATIONS": "PASS",
+      "H_RELATION_OWNERSHIP_STABILIZATION": "PASS",
+      "H_CONTEXTUAL_OUTCOME_CLASSIFICATION": "PASS",
+      "H_RELATION_REPLACEMENT_TOPOLOGY": "PASS",
+      "H_PRIOR_STATE_REEMISSION_DEDUPLICATION": "PASS"
+    },
+    "relationOwnershipContract": {
+      "decision": "RELATION_OWNERSHIP_ALREADY_DEFINED_IMPLEMENTATION_VIOLATION",
+      "strategy": "OPTION_A_SEMANTIC_RELATION_OWNS_DIRECTION",
+      "inventoryRole": "SOURCE_PROVENANCE_AND_COVERAGE_WITH_DERIVED_ENDPOINT_ORIENTATION",
+      "criticRole": "DETECT_AND_PROPOSE_ONLY",
+      "integrityRole": "READ_ONLY_VALIDATION"
+    },
+    "provider": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "temperature": null,
+      "concurrency": 1,
+      "maximumStartsPerRollingMinute": 5,
+      "maximumAttemptsPerLlmOperation": 5,
+      "transientWaitMs": 60000
+    },
+    "versions": {
+      "reconstructionPrompt": "SEM-001-RECONSTRUCTION-1.6",
+      "criticPrompt": "SEM-001-CRITIC-1.6",
+      "semanticSchema": "SEM-001-1.1",
+      "canonicalModel": "1.1"
+    },
+    "digests": {
+      "developmentCorpus": "ke1-64d654cfa041a563",
+      "developmentGold": "ke1-1006a72533caf7f9",
+      "holdoutCorpus": "ke1-08392b87b2cc140b",
+      "holdoutGold": "ke1-9208b3d2f1d0698e",
+      "reconstructionPrompt": "ke1-a2f55612381ac9ee",
+      "criticPrompt": "ke1-9ae6db2190a318f5",
+      "auditPrompt": "ke1-10b88664b49fca18",
+      "baseProviderSchema": "ke1-c849778553bf38b1",
+      "providerContract": "ke1-493d9e2b8d17de37",
+      "auditProviderSchema": "ke1-55cd50759595b451",
+      "canonicalModel": "ke1-443905dedde8900a",
+      "acceptanceGuards": "ke1-c07cc22d8708c7c9",
+      "canonicalizer": "ke1-cf56d05755b2b05b",
+      "coverageAndIntegrity": "ke1-9d05495ec107c8f2",
+      "relationOwnership": "ke1-93d289f0b3d1f384",
+      "evaluator": "ke1-8066258bdfcc6c77",
+      "routing": "ke1-d5e9fbdce07f0730"
+    },
+    "thresholds": {
+      "criticalSemanticRecall": {
+        "operator": ">=",
+        "value": 0.98
+      },
+      "explicitObjectRecall": {
+        "operator": ">=",
+        "value": 0.98
+      },
+      "explicitRelationRecall": {
+        "operator": ">=",
+        "value": 0.95
+      },
+      "comparatorPreservation": {
+        "operator": "=",
+        "value": 1
+      },
+      "interventionPreservation": {
+        "operator": "=",
+        "value": 1
+      },
+      "modalityPreservation": {
+        "operator": "=",
+        "value": 1
+      },
+      "criticalUnsupportedInferenceRate": {
+        "operator": "=",
+        "value": 0
+      },
+      "genericDomainCollapseRate": {
+        "operator": "=",
+        "value": 0
+      },
+      "correctionPropagationRate": {
+        "operator": "=",
+        "value": 1
+      },
+      "multiTurnCriticalContextLoss": {
+        "operator": "=",
+        "value": 0
+      }
+    },
+    "humanDecisions": [
+      [
+        "SEM-H10",
+        "LEGACY_MAPPING_UNRESOLVED"
+      ],
+      [
+        "SEM-H12",
+        "CHANGE_GOLD"
+      ],
+      [
+        "SEM-H17",
+        "LEGACY_MAPPING_UNRESOLVED"
+      ],
+      [
+        "SEM-H22",
+        "CHANGE_GOLD"
+      ],
+      [
+        "SEM-H25",
+        "CHANGE_GOLD"
+      ],
+      [
+        "SEM-H28",
+        "PD003_V2_REALIGNMENT_REQUIRED"
+      ],
+      [
+        "SEM-H30",
+        "CHANGE_GOLD_RELATION_AND_LEGACY_MAPPING_UNRESOLVED"
+      ]
+    ],
+    "unresolvedLegacyMappings": [
+      "SEM-H10",
+      "SEM-H17",
+      "SEM-H28",
+      "SEM-H30"
+    ],
+    "pd003V2Compliance": "NOT_CLAIMED",
+    "pd003V2Realignment": "REQUIRED"
+  },
+  "h29": {
+    "status": "READY_FOR_HOMOGENEOUS_R5H_REPLAY_NOT_EXECUTED",
+    "priorR5gResult": "H29_FAIL_INVALID_STRUCTURED_OUTPUT_PRIOR_STATE_REEMISSION"
+  },
+  "execution": {
+    "providerCallsUnderR5h": 0,
+    "llmOperationsUnderR5h": 0,
+    "retriesUnderR5h": 0,
+    "fullHoldout": "NOT_STARTED",
+    "browser": false,
+    "downstreamLiveRun": false
+  },
+  "prohibitions": {
+    "claimPd003V2Compliance": true,
+    "mixPriorAndR5hQualificationResults": true,
+    "changeProviderOrModel": true,
+    "changeGoldOrThresholds": true
+  }
+}
