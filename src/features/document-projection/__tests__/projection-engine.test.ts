@@ -2,18 +2,9 @@ import { stableStringify } from "@/features/knowledge-engine/canonical";
 import { describe, expect, it } from "vitest";
 import { planProjection, projectDocument, renderProjectionHtml, renderProjectionMarkdown } from "..";
 import type { DocumentProjection, DocumentProjectionRequest } from "../types";
-import { makeAuthorizedImagingProject, makeAuthorizedProject, reviseProject } from "./fixtures";
+import { makeAuthorizedImagingProject, makeAuthorizedProject, makeTemplateProjectionRequest, reviseProject } from "./fixtures";
 
-const requestFor = (session: ReturnType<typeof makeAuthorizedProject>, overrides: Partial<DocumentProjectionRequest> = {}): DocumentProjectionRequest => ({
-  project: session.result,
-  decisionRecords: session.decisionHistory,
-  projectionType: "PROTOCOL",
-  profile: "RESEARCH_PROTOCOL",
-  usage: "SCIENTIFIC_REVIEW",
-  audience: "RESEARCH_TEAM",
-  requestedAt: "2026-08-10T16:00:00.000Z",
-  ...overrides,
-});
+const requestFor = (session: ReturnType<typeof makeAuthorizedProject>, overrides: Partial<DocumentProjectionRequest> = {}): DocumentProjectionRequest => makeTemplateProjectionRequest(session, overrides);
 
 const projectionFrom = (request: DocumentProjectionRequest): DocumentProjection => {
   const result = projectDocument(request);
@@ -50,7 +41,8 @@ describe("DOC-001 — Projection Protocol", () => {
   it("refuse de générer la substance statistique sans Biostatistics Engine", () => {
     const session = makeAuthorizedProject();
     const section = projectionFrom(requestFor(session)).sections.find((item) => item.sectionId === "analysis-statistics")!;
-    expect(section.status).toBe("PARTIALLY_GENERATABLE");
+    expect(section.status).toBe("FUTURE");
+    expect(section.futureReason).toMatch(/futur|future/i);
     expect(section.blocks.flatMap((item) => item.items).join(" ")).toContain("NO_STATISTICAL_VALUE_INVENTED");
   });
 

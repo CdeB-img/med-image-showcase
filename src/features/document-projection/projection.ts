@@ -5,7 +5,7 @@ import { composeEditorialProjection } from "./editorial";
 import { planProjection } from "./planner";
 import { assessProjectionReadiness } from "./readiness";
 import { isDeterministicReplay, nextProjectionVersion } from "./versioning";
-import type { DocumentProjection, DocumentProjectionRequest, ProjectionExecutionResult, ProjectionVersions } from "./types";
+import type { DocumentProjection, LegacyDirectProjectProjectionRequest, ProjectionExecutionResult, ProjectionVersions } from "./types";
 import { DOCUMENT_PROJECTION_ENGINE_VERSION } from "./types";
 
 const deepFreeze = <T>(value: T): T => {
@@ -16,14 +16,22 @@ const deepFreeze = <T>(value: T): T => {
   return value;
 };
 
-const projectionVersions = (request: DocumentProjectionRequest, definitionVersion: string | null): ProjectionVersions => ({
+export const LEGACY_DIRECT_PROJECT_PROJECTION = Object.freeze({
+  path: "LEGACY_DIRECT_PROJECT_PROJECTION" as const,
+  deprecated: true as const,
+  replacement: "StudyTemplateInstance -> DocumentProjection",
+});
+
+const projectionVersions = (request: LegacyDirectProjectProjectionRequest, definitionVersion: string | null): ProjectionVersions => ({
   engine: DOCUMENT_PROJECTION_ENGINE_VERSION,
   template: request.versions?.template ?? definitionVersion ?? DEFAULT_PROJECTION_VERSIONS.template,
   pattern: request.versions?.pattern ?? DEFAULT_PROJECTION_VERSIONS.pattern,
   compositionPolicy: request.versions?.compositionPolicy ?? DEFAULT_PROJECTION_VERSIONS.compositionPolicy,
+  projectionDefinition: request.versions?.projectionDefinition ?? definitionVersion ?? DEFAULT_PROJECTION_VERSIONS.projectionDefinition,
+  renderer: request.versions?.renderer ?? DEFAULT_PROJECTION_VERSIONS.renderer,
 });
 
-export const projectDocument = (request: DocumentProjectionRequest): ProjectionExecutionResult => {
+export const projectDocumentLegacyDirect = (request: LegacyDirectProjectProjectionRequest): ProjectionExecutionResult => {
   const sourceBefore = stableStringify(request.project);
   const plan = planProjection(request.project, request.projectionType, request.definitions);
   if (plan.refusal || !plan.supported) return { ok: false, plan, projection: null };
@@ -71,8 +79,19 @@ export const projectDocument = (request: DocumentProjectionRequest): ProjectionE
       projectVersion: composition.sourceProjectVersion,
       projectDigest: composition.sourceProjectDigest,
       handoffVersion: request.project.documentHandoff.handoffVersion,
+      template: null,
+      regulatoryResolution: null,
+      documentaryPatternSnapshot: null,
     },
     versions,
+    ownership: {
+      structure: "LEGACY_DOC001_PROJECTION_DEFINITION",
+      content: "RESEARCH_PROJECT_AND_UPSTREAM_OWNERS",
+      requirements: "REG-001",
+      patterns: "DOC-002",
+      editorialForm: "DOC-001",
+    },
+    documentDefinition: null,
     sections,
     unknowns: uniqueSorted(sections.flatMap((section) => section.unknowns)),
     limitations: uniqueSorted(sections.flatMap((section) => section.limitations)),
@@ -80,6 +99,7 @@ export const projectDocument = (request: DocumentProjectionRequest): ProjectionE
     humanDecisions: composition.humanDecisions,
     provenanceRefs: uniqueSorted(sections.flatMap((section) => section.provenanceRefs)),
     projectionDigest,
+    legacy: { path: LEGACY_DIRECT_PROJECT_PROJECTION.path, deprecated: true },
     boundary: "READ_ONLY_PROJECTION_NOT_PROJECT_TRUTH_NOT_CLINICAL_PROTOCOL",
   };
   if (stableStringify(request.project) !== sourceBefore) throw new Error("SOURCE_PROJECT_MUTATED_BY_DOCUMENT_PROJECTION");

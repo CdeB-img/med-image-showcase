@@ -5,6 +5,8 @@ export * from "./section-planner";
 export * from "./composition";
 export * from "./editorial";
 export * from "./projection";
+export * from "./template-integration";
+export * from "./audit";
 export * from "./versioning";
 export * from "./diff";
 export * from "./history";

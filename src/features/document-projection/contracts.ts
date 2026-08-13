@@ -1,11 +1,13 @@
 import type { CommitmentRule, FactDefinition, GenerabilityDefinition, ProjectionDefinition, ProjectionType, ProjectionVersions, SectionDefinition, TextDefinition } from "./types";
-import { DOCUMENT_PROJECTION_ENGINE_VERSION } from "./types";
+import { DOCUMENT_PROJECTION_ENGINE_VERSION, DOCUMENT_PROJECTION_RENDERER_VERSION } from "./types";
 
 export const DEFAULT_PROJECTION_VERSIONS: ProjectionVersions = Object.freeze({
   engine: DOCUMENT_PROJECTION_ENGINE_VERSION,
   template: "projection-definition-1.0",
   pattern: "editorial-patterns-1.0",
   compositionPolicy: "noxia-document-composition-1.0",
+  projectionDefinition: "1.0",
+  renderer: DOCUMENT_PROJECTION_RENDERER_VERSION,
 });
 
 export const PROJECTION_CATALOG: ReadonlyArray<{ type: ProjectionType; label: string; implemented: boolean }> = Object.freeze([
@@ -227,3 +229,22 @@ export const PROTOCOL_PROJECTION_DEFINITION: ProjectionDefinition = Object.freez
 
 export const PROJECTION_DEFINITIONS: ReadonlyArray<ProjectionDefinition> = Object.freeze([PROTOCOL_PROJECTION_DEFINITION]);
 export const projectionCatalogEntry = (type: ProjectionType) => PROJECTION_CATALOG.find((item) => item.type === type) ?? null;
+
+export const PROTOCOL_TEMPLATE_SECTION_BINDINGS: Readonly<Record<string, readonly string[]>> = Object.freeze({
+  "document-control": ["TMP-NODE:PROJECT_IDENTITY", "TMP-BLOCK:PROTOCOL:SPECIFIC", "TMP-NODE:PROVENANCE"],
+  synopsis: ["TMP-NODE:SCIENTIFIC_QUESTION", "TMP-NODE:OBJECTIVES", "TMP-NODE:POPULATION", "TMP-NODE:STUDY_DESIGN"],
+  "scientific-question": ["TMP-NODE:SCIENTIFIC_QUESTION"],
+  "objectives-hypotheses": ["TMP-NODE:OBJECTIVES", "TMP-NODE:HYPOTHESES"],
+  population: ["TMP-NODE:POPULATION"],
+  "study-design": ["TMP-NODE:STUDY_DESIGN"],
+  "groups-comparators": ["TMP-NODE:STUDY_DESIGN"],
+  "visits-temporal": ["TMP-NODE:STUDY_DESIGN"],
+  "endpoints-variables": ["TMP-NODE:ENDPOINTS"],
+  imaging: ["TMP-NODE:IMAGING_CONTRIBUTION"],
+  "analysis-statistics": ["TMP-NODE:REQUIREMENT_REGISTER", "TMP-NODE:FUTURE_SPECIALIZED_INPUTS"],
+  "data-management": ["TMP-NODE:REQUIREMENT_REGISTER", "TMP-NODE:FUTURE_SPECIALIZED_INPUTS"],
+  "safety-regulatory-operations": ["TMP-NODE:REQUIREMENT_REGISTER", "TMP-NODE:FUTURE_SPECIALIZED_INPUTS"],
+  "risks-biases-limitations": ["TMP-NODE:LIMITATIONS", "TMP-NODE:CONFLICTS"],
+  "open-elements": ["TMP-NODE:HUMAN_DECISIONS", "TMP-NODE:UNKNOWNS", "TMP-NODE:CONFLICTS"],
+  "provenance-version": ["TMP-NODE:PROVENANCE", "TMP-NODE:TRACE_ANNEX"],
+});

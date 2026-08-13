@@ -52,6 +52,17 @@ export const composeEditorialSection = (section: CompositionPlanSection): Docume
     contradictions: section.contradictions,
     humanDecisionIds: section.humanDecisionIds,
     provenanceRefs: section.provenanceRefs,
+    templateNodeIds: section.templateNodeIds,
+    templateSectionIds: section.templateSectionIds,
+    templateBlockIds: section.templateBlockIds,
+    projectObjectIds: section.projectObjectIds,
+    requirementIds: section.requirementIds,
+    patternIds: section.patternIds,
+    sourceEngine: section.sourceEngine,
+    templateStatus: section.templateStatus,
+    templateReadiness: section.templateReadiness,
+    futureReason: section.futureReason,
+    conflicts: section.conflicts,
   };
   return {
     sectionId: section.definition.sectionId,
@@ -68,6 +79,17 @@ export const composeEditorialSection = (section: CompositionPlanSection): Docume
     contradictions: section.contradictions,
     humanDecisionIds: section.humanDecisionIds,
     provenanceRefs: section.provenanceRefs,
+    templateNodeIds: section.templateNodeIds,
+    templateSectionIds: section.templateSectionIds,
+    templateBlockIds: section.templateBlockIds,
+    projectObjectIds: section.projectObjectIds,
+    requirementIds: section.requirementIds,
+    patternIds: section.patternIds,
+    sourceEngine: section.sourceEngine,
+    templateStatus: section.templateStatus,
+    templateReadiness: section.templateReadiness,
+    futureReason: section.futureReason,
+    conflicts: section.conflicts,
     contentDigest: logicalDigest(material),
   };
 };
@@ -75,4 +97,3 @@ export const composeEditorialSection = (section: CompositionPlanSection): Docume
 export const composeEditorialProjection = (plan: CompositionPlan) => plan.sections
   .map(composeEditorialSection)
   .sort((left, right) => left.order - right.order);
-
