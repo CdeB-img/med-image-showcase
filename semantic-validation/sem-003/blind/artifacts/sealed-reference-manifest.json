@@ -1,0 +1,142 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003C_SEALED_REFERENCE_MANIFEST",
+  "blindSetId": "SEM003C-BLIND-QUALIFICATION-SET-01",
+  "version": "1.0.0",
+  "sealedAt": "2026-08-14T12:00:00.000Z",
+  "runtimeAccess": "DENIED",
+  "files": [
+    {
+      "path": "sealed-reference/cases/amyloid-ecv-purpose-gap.case.json",
+      "sha256": "07363cda2aa60171ebee062afd2b3ea64d7a6a4c85b3573bd7bdb0704cc0295a"
+    },
+    {
+      "path": "sealed-reference/cases/breast-bpe-ambiguous-change.case.json",
+      "sha256": "a3ba03b562b20f8c712eb9af813ef347ac4f85e87e36e0208943b96bfbcbef98"
+    },
+    {
+      "path": "sealed-reference/cases/corneal-nerve-method-measure.case.json",
+      "sha256": "68fecc1710144a85e2dd42bb981be84e2297b6c16c6eb8fbd8a6c9821e285e14"
+    },
+    {
+      "path": "sealed-reference/cases/epilepsy-discordant-region-ellipsis.case.json",
+      "sha256": "b0662672ea39f0fe7afe3a72dbbcd252fad6dd5bb76bb204a0d63b0cea3d4016"
+    },
+    {
+      "path": "sealed-reference/cases/focused-ultrasound-bbb-mri.case.json",
+      "sha256": "88597913803c72a8e7c899ef8c1158225d138278f641cf56f16943ab0f68b316"
+    },
+    {
+      "path": "sealed-reference/cases/hfpef-exercise-state.case.json",
+      "sha256": "51d1846a4f47a898ba33332cf158b3f14696ffb783c2e3eeaff1c9f919bedd38"
+    },
+    {
+      "path": "sealed-reference/cases/laa-closure-seal-assessment.case.json",
+      "sha256": "9d52b1a931a3d538aec24b9b85d044c9fddc4bbc79881e4b2590ee86c22315f8"
+    },
+    {
+      "path": "sealed-reference/cases/microbiome-antibiotic-candidates.case.json",
+      "sha256": "0228ddc176ef55c840287554db97404ed695545234ce1961477d541dd834b066"
+    },
+    {
+      "path": "sealed-reference/cases/orthodontic-cbct-outcome-correction.case.json",
+      "sha256": "0dce42b19c336432dfa797ca9d13368d075c341876c7342786433e54135dfdef"
+    },
+    {
+      "path": "sealed-reference/cases/postpartum-myocardial-work-noncausal.case.json",
+      "sha256": "2a5c7582c9629277015623f582fdfe44044541c325e6ec3baf33351b6dfae1c9"
+    },
+    {
+      "path": "sealed-reference/cases/prosthetic-valve-infection-context.case.json",
+      "sha256": "e00b22678d25b8f98bf352ac72925ab827907bbc7f1899e3f5b4ff5c26f911f9"
+    },
+    {
+      "path": "sealed-reference/cases/rare-disease-control-change.case.json",
+      "sha256": "842db8323a953d20dee24957684749aa97ba92342b444bee69e39e832ee97675"
+    },
+    {
+      "path": "sealed-reference/cases/transplant-rejection-timing.case.json",
+      "sha256": "1559c799780c740d91920e4bd2fd389ee1a00bed695bd121d015cf90c1daf57f"
+    },
+    {
+      "path": "sealed-reference/cases/vaccine-single-cell-multidimensional.case.json",
+      "sha256": "1fa16d583d2c839ac6a40fc3abc4fd7ff27870e83dc9838b0530fed2c84361ca"
+    },
+    {
+      "path": "sealed-reference/cases/wearable-sleep-phenomenon-observable.case.json",
+      "sha256": "2dfad26a574875f78c5d13efa8b0e998441c850c2084fb3b05c5dff5468ce971"
+    },
+    {
+      "path": "sealed-reference/envelopes/amyloid-ecv-purpose-gap.envelope.json",
+      "sha256": "06d46d6da654f5514870e88b3f07a7d74e13b53d9b946a8a70291b4d396bd754"
+    },
+    {
+      "path": "sealed-reference/envelopes/breast-bpe-ambiguous-change.envelope.json",
+      "sha256": "e217ab1ae25bf35d72223ea26cd06e84cdff2ef16a0d0f4c1d2fb1ce0e2eb5e0"
+    },
+    {
+      "path": "sealed-reference/envelopes/corneal-nerve-method-measure.envelope.json",
+      "sha256": "bb246795baecd6106bbf5856ce268bb06c91d067212683b1657eb8bc29b9a079"
+    },
+    {
+      "path": "sealed-reference/envelopes/epilepsy-discordant-region-ellipsis.envelope.json",
+      "sha256": "0d729435b42139bb132544d3d39f5d89897cdd5404f433d34de1566b872682d7"
+    },
+    {
+      "path": "sealed-reference/envelopes/focused-ultrasound-bbb-mri.envelope.json",
+      "sha256": "4f0dd260ec8218e0ec96540cf98705f3e63534e2421553045ea6b26d3073d2cb"
+    },
+    {
+      "path": "sealed-reference/envelopes/hfpef-exercise-state.envelope.json",
+      "sha256": "ff8a7e56078d0a17e7f4456460b4b1fd6d8cad9d3ebc9b48685740f1c3faeefe"
+    },
+    {
+      "path": "sealed-reference/envelopes/laa-closure-seal-assessment.envelope.json",
+      "sha256": "faa8594a256af3ddf803f4a71fef05c3076249f9b12decea77836efbef78c3e0"
+    },
+    {
+      "path": "sealed-reference/envelopes/microbiome-antibiotic-candidates.envelope.json",
+      "sha256": "c2dce3ba56e2492f66b649dff0fcca92b17a4ed11eca2c85da95fd472c6a0ad5"
+    },
+    {
+      "path": "sealed-reference/envelopes/orthodontic-cbct-outcome-correction.envelope.json",
+      "sha256": "038ce2ec366c8edbc649c57071688a57e31bb77891d258c0aefd42302862f1d7"
+    },
+    {
+      "path": "sealed-reference/envelopes/postpartum-myocardial-work-noncausal.envelope.json",
+      "sha256": "9070232808a0753e0321afaf0f099059df12f09fd5b4b245961d9a0464c8a1dc"
+    },
+    {
+      "path": "sealed-reference/envelopes/prosthetic-valve-infection-context.envelope.json",
+      "sha256": "362c8a31a8849d69dddaf67d0ae6ba982a922d43c0ba590470dc6efeab150251"
+    },
+    {
+      "path": "sealed-reference/envelopes/rare-disease-control-change.envelope.json",
+      "sha256": "1246c5a247f78729870dc4fa8bbeb94ae18b9edbec6b83ae73c47124dfc1e2ba"
+    },
+    {
+      "path": "sealed-reference/envelopes/transplant-rejection-timing.envelope.json",
+      "sha256": "e38c113ad15081c25401e4dde17943a1813f2bafa58eb73f8a1a37c632ad578b"
+    },
+    {
+      "path": "sealed-reference/envelopes/vaccine-single-cell-multidimensional.envelope.json",
+      "sha256": "ae7d989376dd0cba0c0f59fe90cc4c45fca6d3133189ffbfa0f78da860a58f36"
+    },
+    {
+      "path": "sealed-reference/envelopes/wearable-sleep-phenomenon-observable.envelope.json",
+      "sha256": "31c8cead68cde39c5a0ccb7d2494fa7282e6d0046fd77c869eb802054060ac4f"
+    },
+    {
+      "path": "review/blind-parentage-review.json",
+      "sha256": "70e9bc9f9164337b0a36afc2cb9812c70aeaa69aa8594d8eeb8711c7306c4bb5"
+    },
+    {
+      "path": "review/blind-reference-review.json",
+      "sha256": "fca1435e591132ea667fa5c16eacd8bf2f8cecf1ee9ced76d3a3212cfc7bc637"
+    }
+  ],
+  "referencePackageDigest": "23f0544d84d105501ead27e23740777f650f8bf83be72cf77b383f5730018304",
+  "reviewBasis": "SIMULATED_PLURALISTIC_REFERENCE_REVIEW_BEFORE_SEM_OUTPUT",
+  "realHumanReferenceReview": "NOT_PERFORMED",
+  "finalPD011ReferenceEligibility": "NO"
+}

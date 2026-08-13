@@ -40,6 +40,17 @@ const PROPERTY_REGISTRY = Object.freeze({
   [P.P18]: ["CONTEXTUAL_ENRICHMENT", "DISTRIBUTION", false],
 });
 
+if (fs.existsSync(CASES_ROOT)) {
+  const sealedCase = fs
+    .readdirSync(CASES_ROOT)
+    .filter((entry) => entry.endsWith(".case.json"))
+    .map((entry) => readJson(path.join(CASES_ROOT, entry)))
+    .find((entry) => entry.exposure?.exposureStatus === "BLIND_SEALED");
+  if (sealedCase) {
+    throw new Error(`IMMUTABLE_BLIND_SET: ${sealedCase.caseId} is already BLIND_SEALED`);
+  }
+}
+
 const propertyDeclaration = (propertyId) => {
   const [family, evaluationMode, absolute] = PROPERTY_REGISTRY[propertyId];
   return {

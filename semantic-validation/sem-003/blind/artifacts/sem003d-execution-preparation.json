@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003D_EXECUTION_PREPARATION_ONLY",
+  "status": "PREPARED_NOT_EXECUTED",
+  "execute": false,
+  "nextMission": "SEM-003D — Qualification of Frozen SEM Against Sealed Blind Set",
+  "blindSetId": "SEM003C-BLIND-QUALIFICATION-SET-01",
+  "blindSetVersion": "1.0.0",
+  "evaluator": {
+    "version": "1.1.0",
+    "configurationDigest": "b05bc0ac66cb3e4dc5f135ba278cac8cadebe7443e57b1003dca580c9bd0e9bd"
+  },
+  "semConfiguration": "MUST_BE_FROZEN_AND_DIGESTED_IN_SEM003D",
+  "providerModelPromptsSchemas": "MUST_BE_FROZEN_AND_DIGESTED_IN_SEM003D",
+  "repetitions": "MUST_USE_PD011_PRECOMMITTED_VALUE; NOT_SET_BY_SEM003C",
+  "p13ToP18FinalDecision": "UNRESOLVED_FOR_FINAL_PD011_DECISION",
+  "thresholds": "NO_NEW_THRESHOLD_CREATED_BY_SEM003C",
+  "rules": [
+    "No SEM modification during blind execution.",
+    "No reference access by SEM or the campaign operator.",
+    "No best-run selection and no silent exclusion.",
+    "All provider, non-evaluable and semantic outcomes remain visible.",
+    "No repair or reference amendment during the campaign."
+  ]
+}

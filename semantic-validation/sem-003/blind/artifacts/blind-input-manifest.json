@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003C_BLIND_INPUT_MANIFEST",
+  "blindSetId": "SEM003C-BLIND-QUALIFICATION-SET-01",
+  "version": "1.0.0",
+  "runtimeInjectionAllowlistRoot": "input/",
+  "containsAcceptanceEnvelopes": false,
+  "containsReferenceJudgments": false,
+  "containsSEMResults": false,
+  "files": [
+    {
+      "path": "input/cases/amyloid-ecv-purpose-gap.input.json",
+      "sha256": "08c4ca6ba503cceaefe45d24e6d0074d48e3f2ac9baa6c70068639a2210d9bac"
+    },
+    {
+      "path": "input/cases/breast-bpe-ambiguous-change.input.json",
+      "sha256": "5f12f707487910f02f83e9a3b8fe6a8d7b3388a55e4a14ec699bf4b8e401725c"
+    },
+    {
+      "path": "input/cases/corneal-nerve-method-measure.input.json",
+      "sha256": "de11d08bd966c09d2a6694141412fc5239cc8f92470a376654fc8ff857617dcd"
+    },
+    {
+      "path": "input/cases/epilepsy-discordant-region-ellipsis.input.json",
+      "sha256": "e09e42230446ac0cc76a0ac60a7e3f57cc38d70291c8ae497dba4a7cfc152f1f"
+    },
+    {
+      "path": "input/cases/focused-ultrasound-bbb-mri.input.json",
+      "sha256": "91d0d26750c53156049772c540a7cd488f99e287c16eb5f3c6068ddc9060486b"
+    },
+    {
+      "path": "input/cases/hfpef-exercise-state.input.json",
+      "sha256": "0df26c2f350232ee5bb197e34e800fbde1d1a7e32d808a2a66a0fe9317ffb007"
+    },
+    {
+      "path": "input/cases/laa-closure-seal-assessment.input.json",
+      "sha256": "43d25abc6865d84936cfbfa0149e26f53c8df6ed544da850f1a04222128c84ac"
+    },
+    {
+      "path": "input/cases/microbiome-antibiotic-candidates.input.json",
+      "sha256": "cae765209e28b70f4957f3fd9775cdfd344e6954ff08ca7d15fa0b2fff22c03e"
+    },
+    {
+      "path": "input/cases/orthodontic-cbct-outcome-correction.input.json",
+      "sha256": "c2dde16f465b4267401842b9485f44b2479b96ff5633acc68966d311c5630114"
+    },
+    {
+      "path": "input/cases/postpartum-myocardial-work-noncausal.input.json",
+      "sha256": "e77caa89aa3120ddfafd3d10337cceb509c9fa16d8845bae6e4ca26a827cfb6e"
+    },
+    {
+      "path": "input/cases/prosthetic-valve-infection-context.input.json",
+      "sha256": "a65092466db4c2ebb5d633145ccbe19f8297bdde49cce0041e11610bdb650168"
+    },
+    {
+      "path": "input/cases/rare-disease-control-change.input.json",
+      "sha256": "048c9ff3c9398df0e902b77ee7dcdf476441b7998c56ed18ded8e60a27e1d231"
+    },
+    {
+      "path": "input/cases/transplant-rejection-timing.input.json",
+      "sha256": "48514975a9fccf81afe6a2e9692c7ed571f8e0427c6238c6df94b2623d2e6a47"
+    },
+    {
+      "path": "input/cases/vaccine-single-cell-multidimensional.input.json",
+      "sha256": "bdccf996fc2ab0aaa23354dc63236a6ae414f00ebfb14f0579ff14cd316a241e"
+    },
+    {
+      "path": "input/cases/wearable-sleep-phenomenon-observable.input.json",
+      "sha256": "1b4aae386a595673d297a45c5fcf2aecbfd9fb4a3e71da4178aac6507bc2d91a"
+    }
+  ],
+  "inputPackageDigest": "2fc328eb1bf81520979029db345355450bf38114be711406ee05bc6f55d9892f"
+}

@@ -88,7 +88,7 @@
     ]
   },
   "exposure": {
-    "exposureStatus": "BLIND_DESIGN_ONLY",
+    "exposureStatus": "BLIND_SEALED",
     "exposureHistory": [
       {
         "eventId": "exposure-rare-disease-control-change-authored",
@@ -97,6 +97,14 @@
         "occurredAt": "2026-08-14T10:00:00.000Z",
         "actorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
         "reason": "Independent authoring before parentage review, reference review and sealing."
+      },
+      {
+        "eventId": "exposure-sem3-blind-rare-disease-control-change-sealed",
+        "fromStatus": "BLIND_DESIGN_ONLY",
+        "toStatus": "BLIND_SEALED",
+        "occurredAt": "2026-08-14T12:00:00.000Z",
+        "actorRole": "NOXIA_PROJECT_GOVERNANCE_SEALING_OPERATION",
+        "reason": "All SEM-003C structural, reference, parentage and anti-leakage gates completed before any SEM output."
       }
     ],
     "parentageStatus": "BLIND_PARENTAGE_CLEAR",

@@ -1,0 +1,355 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003C_BLIND_REGISTRY",
+  "blindSetId": "SEM003C-BLIND-QUALIFICATION-SET-01",
+  "version": "1.0.0",
+  "exposureStatus": "BLIND_SEALED",
+  "immutableAfterSeal": true,
+  "entries": [
+    {
+      "caseId": "SEM3-BLIND-AMYLOID-ECV-PURPOSE-GAP",
+      "version": "1.0.0",
+      "exposureStatus": "BLIND_SEALED",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR",
+      "qualificationStatus": "NOT_YET_EXECUTED",
+      "input": {
+        "path": "input/cases/amyloid-ecv-purpose-gap.input.json",
+        "sha256": "08c4ca6ba503cceaefe45d24e6d0074d48e3f2ac9baa6c70068639a2210d9bac"
+      },
+      "reference": {
+        "casePath": "sealed-reference/cases/amyloid-ecv-purpose-gap.case.json",
+        "caseSha256": "07363cda2aa60171ebee062afd2b3ea64d7a6a4c85b3573bd7bdb0704cc0295a",
+        "envelopeId": "SEM3-AE-BLIND-AMYLOID-ECV-PURPOSE-GAP",
+        "envelopeVersion": "1.0.0",
+        "envelopePath": "sealed-reference/envelopes/amyloid-ecv-purpose-gap.envelope.json",
+        "envelopeSha256": "06d46d6da654f5514870e88b3f07a7d74e13b53d9b946a8a70291b4d396bd754",
+        "referencePairSha256": "e5e1ee989bcff30ca7ca1e8cad1ccf2e639748fc9bab40c3b65534f960bb7acc"
+      },
+      "simulatedReferenceReview": "COMPLETE_NOT_HUMAN",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    },
+    {
+      "caseId": "SEM3-BLIND-BREAST-BPE-AMBIGUOUS-CHANGE",
+      "version": "1.0.0",
+      "exposureStatus": "BLIND_SEALED",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR",
+      "qualificationStatus": "NOT_YET_EXECUTED",
+      "input": {
+        "path": "input/cases/breast-bpe-ambiguous-change.input.json",
+        "sha256": "5f12f707487910f02f83e9a3b8fe6a8d7b3388a55e4a14ec699bf4b8e401725c"
+      },
+      "reference": {
+        "casePath": "sealed-reference/cases/breast-bpe-ambiguous-change.case.json",
+        "caseSha256": "a3ba03b562b20f8c712eb9af813ef347ac4f85e87e36e0208943b96bfbcbef98",
+        "envelopeId": "SEM3-AE-BLIND-BREAST-BPE-AMBIGUOUS-CHANGE",
+        "envelopeVersion": "1.0.0",
+        "envelopePath": "sealed-reference/envelopes/breast-bpe-ambiguous-change.envelope.json",
+        "envelopeSha256": "e217ab1ae25bf35d72223ea26cd06e84cdff2ef16a0d0f4c1d2fb1ce0e2eb5e0",
+        "referencePairSha256": "bcc9c3a1c2fee323e297f170888b80b5498dff070d9672c9e19d506a19240927"
+      },
+      "simulatedReferenceReview": "COMPLETE_NOT_HUMAN",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    },
+    {
+      "caseId": "SEM3-BLIND-CORNEAL-NERVE-METHOD-MEASURE",
+      "version": "1.0.0",
+      "exposureStatus": "BLIND_SEALED",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR",
+      "qualificationStatus": "NOT_YET_EXECUTED",
+      "input": {
+        "path": "input/cases/corneal-nerve-method-measure.input.json",
+        "sha256": "de11d08bd966c09d2a6694141412fc5239cc8f92470a376654fc8ff857617dcd"
+      },
+      "reference": {
+        "casePath": "sealed-reference/cases/corneal-nerve-method-measure.case.json",
+        "caseSha256": "68fecc1710144a85e2dd42bb981be84e2297b6c16c6eb8fbd8a6c9821e285e14",
+        "envelopeId": "SEM3-AE-BLIND-CORNEAL-NERVE-METHOD-MEASURE",
+        "envelopeVersion": "1.0.0",
+        "envelopePath": "sealed-reference/envelopes/corneal-nerve-method-measure.envelope.json",
+        "envelopeSha256": "bb246795baecd6106bbf5856ce268bb06c91d067212683b1657eb8bc29b9a079",
+        "referencePairSha256": "fd66bc8e4ed6d251bfec6376f3232cb68430ab117f2307635b4018c138f3e8e0"
+      },
+      "simulatedReferenceReview": "COMPLETE_NOT_HUMAN",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    },
+    {
+      "caseId": "SEM3-BLIND-EPILEPSY-DISCORDANT-REGION-ELLIPSIS",
+      "version": "1.0.0",
+      "exposureStatus": "BLIND_SEALED",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR",
+      "qualificationStatus": "NOT_YET_EXECUTED",
+      "input": {
+        "path": "input/cases/epilepsy-discordant-region-ellipsis.input.json",
+        "sha256": "e09e42230446ac0cc76a0ac60a7e3f57cc38d70291c8ae497dba4a7cfc152f1f"
+      },
+      "reference": {
+        "casePath": "sealed-reference/cases/epilepsy-discordant-region-ellipsis.case.json",
+        "caseSha256": "b0662672ea39f0fe7afe3a72dbbcd252fad6dd5bb76bb204a0d63b0cea3d4016",
+        "envelopeId": "SEM3-AE-BLIND-EPILEPSY-DISCORDANT-REGION-ELLIPSIS",
+        "envelopeVersion": "1.0.0",
+        "envelopePath": "sealed-reference/envelopes/epilepsy-discordant-region-ellipsis.envelope.json",
+        "envelopeSha256": "0d729435b42139bb132544d3d39f5d89897cdd5404f433d34de1566b872682d7",
+        "referencePairSha256": "21cfff6aa74d8b29cfe2703f2b40832840823c921d119d65ca0e23b004d89345"
+      },
+      "simulatedReferenceReview": "COMPLETE_NOT_HUMAN",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    },
+    {
+      "caseId": "SEM3-BLIND-FOCUSED-ULTRASOUND-BBB-MRI",
+      "version": "1.0.0",
+      "exposureStatus": "BLIND_SEALED",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR",
+      "qualificationStatus": "NOT_YET_EXECUTED",
+      "input": {
+        "path": "input/cases/focused-ultrasound-bbb-mri.input.json",
+        "sha256": "91d0d26750c53156049772c540a7cd488f99e287c16eb5f3c6068ddc9060486b"
+      },
+      "reference": {
+        "casePath": "sealed-reference/cases/focused-ultrasound-bbb-mri.case.json",
+        "caseSha256": "88597913803c72a8e7c899ef8c1158225d138278f641cf56f16943ab0f68b316",
+        "envelopeId": "SEM3-AE-BLIND-FOCUSED-ULTRASOUND-BBB-MRI",
+        "envelopeVersion": "1.0.0",
+        "envelopePath": "sealed-reference/envelopes/focused-ultrasound-bbb-mri.envelope.json",
+        "envelopeSha256": "4f0dd260ec8218e0ec96540cf98705f3e63534e2421553045ea6b26d3073d2cb",
+        "referencePairSha256": "371030c585d70d5570e3b4c20e3845d80163f8ecc3498540d6d3c305c90c4b65"
+      },
+      "simulatedReferenceReview": "COMPLETE_NOT_HUMAN",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    },
+    {
+      "caseId": "SEM3-BLIND-HFPEF-EXERCISE-STATE",
+      "version": "1.0.0",
+      "exposureStatus": "BLIND_SEALED",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR",
+      "qualificationStatus": "NOT_YET_EXECUTED",
+      "input": {
+        "path": "input/cases/hfpef-exercise-state.input.json",
+        "sha256": "0df26c2f350232ee5bb197e34e800fbde1d1a7e32d808a2a66a0fe9317ffb007"
+      },
+      "reference": {
+        "casePath": "sealed-reference/cases/hfpef-exercise-state.case.json",
+        "caseSha256": "51d1846a4f47a898ba33332cf158b3f14696ffb783c2e3eeaff1c9f919bedd38",
+        "envelopeId": "SEM3-AE-BLIND-HFPEF-EXERCISE-STATE",
+        "envelopeVersion": "1.0.0",
+        "envelopePath": "sealed-reference/envelopes/hfpef-exercise-state.envelope.json",
+        "envelopeSha256": "ff8a7e56078d0a17e7f4456460b4b1fd6d8cad9d3ebc9b48685740f1c3faeefe",
+        "referencePairSha256": "09a69df1c81e435a135deb65c440d935fb4733d9ed85f656ef9d257ffdc1b7dd"
+      },
+      "simulatedReferenceReview": "COMPLETE_NOT_HUMAN",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    },
+    {
+      "caseId": "SEM3-BLIND-LAA-CLOSURE-SEAL-ASSESSMENT",
+      "version": "1.0.0",
+      "exposureStatus": "BLIND_SEALED",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR",
+      "qualificationStatus": "NOT_YET_EXECUTED",
+      "input": {
+        "path": "input/cases/laa-closure-seal-assessment.input.json",
+        "sha256": "43d25abc6865d84936cfbfa0149e26f53c8df6ed544da850f1a04222128c84ac"
+      },
+      "reference": {
+        "casePath": "sealed-reference/cases/laa-closure-seal-assessment.case.json",
+        "caseSha256": "9d52b1a931a3d538aec24b9b85d044c9fddc4bbc79881e4b2590ee86c22315f8",
+        "envelopeId": "SEM3-AE-BLIND-LAA-CLOSURE-SEAL-ASSESSMENT",
+        "envelopeVersion": "1.0.0",
+        "envelopePath": "sealed-reference/envelopes/laa-closure-seal-assessment.envelope.json",
+        "envelopeSha256": "faa8594a256af3ddf803f4a71fef05c3076249f9b12decea77836efbef78c3e0",
+        "referencePairSha256": "a8a7b65e0f93d579215273d5a089e677a6bf6f5cffa8a676062fbbc14b367f18"
+      },
+      "simulatedReferenceReview": "COMPLETE_NOT_HUMAN",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    },
+    {
+      "caseId": "SEM3-BLIND-MICROBIOME-ANTIBIOTIC-CANDIDATES",
+      "version": "1.0.0",
+      "exposureStatus": "BLIND_SEALED",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR",
+      "qualificationStatus": "NOT_YET_EXECUTED",
+      "input": {
+        "path": "input/cases/microbiome-antibiotic-candidates.input.json",
+        "sha256": "cae765209e28b70f4957f3fd9775cdfd344e6954ff08ca7d15fa0b2fff22c03e"
+      },
+      "reference": {
+        "casePath": "sealed-reference/cases/microbiome-antibiotic-candidates.case.json",
+        "caseSha256": "0228ddc176ef55c840287554db97404ed695545234ce1961477d541dd834b066",
+        "envelopeId": "SEM3-AE-BLIND-MICROBIOME-ANTIBIOTIC-CANDIDATES",
+        "envelopeVersion": "1.0.0",
+        "envelopePath": "sealed-reference/envelopes/microbiome-antibiotic-candidates.envelope.json",
+        "envelopeSha256": "c2dce3ba56e2492f66b649dff0fcca92b17a4ed11eca2c85da95fd472c6a0ad5",
+        "referencePairSha256": "df74a4bb7c311b56ccdb5b615dee83283d29c245d0a3699707d87ea95cd2b271"
+      },
+      "simulatedReferenceReview": "COMPLETE_NOT_HUMAN",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    },
+    {
+      "caseId": "SEM3-BLIND-ORTHODONTIC-CBCT-OUTCOME-CORRECTION",
+      "version": "1.0.0",
+      "exposureStatus": "BLIND_SEALED",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR",
+      "qualificationStatus": "NOT_YET_EXECUTED",
+      "input": {
+        "path": "input/cases/orthodontic-cbct-outcome-correction.input.json",
+        "sha256": "c2dde16f465b4267401842b9485f44b2479b96ff5633acc68966d311c5630114"
+      },
+      "reference": {
+        "casePath": "sealed-reference/cases/orthodontic-cbct-outcome-correction.case.json",
+        "caseSha256": "0dce42b19c336432dfa797ca9d13368d075c341876c7342786433e54135dfdef",
+        "envelopeId": "SEM3-AE-BLIND-ORTHODONTIC-CBCT-OUTCOME-CORRECTION",
+        "envelopeVersion": "1.0.0",
+        "envelopePath": "sealed-reference/envelopes/orthodontic-cbct-outcome-correction.envelope.json",
+        "envelopeSha256": "038ce2ec366c8edbc649c57071688a57e31bb77891d258c0aefd42302862f1d7",
+        "referencePairSha256": "d1d8a9a98fbda6c19e5c79a8dd7fb8735eaec64778ff94f8626e273c53df2494"
+      },
+      "simulatedReferenceReview": "COMPLETE_NOT_HUMAN",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    },
+    {
+      "caseId": "SEM3-BLIND-POSTPARTUM-MYOCARDIAL-WORK-NONCAUSAL",
+      "version": "1.0.0",
+      "exposureStatus": "BLIND_SEALED",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR",
+      "qualificationStatus": "NOT_YET_EXECUTED",
+      "input": {
+        "path": "input/cases/postpartum-myocardial-work-noncausal.input.json",
+        "sha256": "e77caa89aa3120ddfafd3d10337cceb509c9fa16d8845bae6e4ca26a827cfb6e"
+      },
+      "reference": {
+        "casePath": "sealed-reference/cases/postpartum-myocardial-work-noncausal.case.json",
+        "caseSha256": "2a5c7582c9629277015623f582fdfe44044541c325e6ec3baf33351b6dfae1c9",
+        "envelopeId": "SEM3-AE-BLIND-POSTPARTUM-MYOCARDIAL-WORK-NONCAUSAL",
+        "envelopeVersion": "1.0.0",
+        "envelopePath": "sealed-reference/envelopes/postpartum-myocardial-work-noncausal.envelope.json",
+        "envelopeSha256": "9070232808a0753e0321afaf0f099059df12f09fd5b4b245961d9a0464c8a1dc",
+        "referencePairSha256": "3faa97027d3d280d00ba6c95d5c16fa128ea5c83a00eef4f408825545dd756c3"
+      },
+      "simulatedReferenceReview": "COMPLETE_NOT_HUMAN",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    },
+    {
+      "caseId": "SEM3-BLIND-PROSTHETIC-VALVE-INFECTION-CONTEXT",
+      "version": "1.0.0",
+      "exposureStatus": "BLIND_SEALED",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR",
+      "qualificationStatus": "NOT_YET_EXECUTED",
+      "input": {
+        "path": "input/cases/prosthetic-valve-infection-context.input.json",
+        "sha256": "a65092466db4c2ebb5d633145ccbe19f8297bdde49cce0041e11610bdb650168"
+      },
+      "reference": {
+        "casePath": "sealed-reference/cases/prosthetic-valve-infection-context.case.json",
+        "caseSha256": "e00b22678d25b8f98bf352ac72925ab827907bbc7f1899e3f5b4ff5c26f911f9",
+        "envelopeId": "SEM3-AE-BLIND-PROSTHETIC-VALVE-INFECTION-CONTEXT",
+        "envelopeVersion": "1.0.0",
+        "envelopePath": "sealed-reference/envelopes/prosthetic-valve-infection-context.envelope.json",
+        "envelopeSha256": "362c8a31a8849d69dddaf67d0ae6ba982a922d43c0ba590470dc6efeab150251",
+        "referencePairSha256": "ef89bec3076b9a5b3fe80c1b294648319413a35598e157a5740933e1246adb7c"
+      },
+      "simulatedReferenceReview": "COMPLETE_NOT_HUMAN",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    },
+    {
+      "caseId": "SEM3-BLIND-RARE-DISEASE-CONTROL-CHANGE",
+      "version": "1.0.0",
+      "exposureStatus": "BLIND_SEALED",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR",
+      "qualificationStatus": "NOT_YET_EXECUTED",
+      "input": {
+        "path": "input/cases/rare-disease-control-change.input.json",
+        "sha256": "048c9ff3c9398df0e902b77ee7dcdf476441b7998c56ed18ded8e60a27e1d231"
+      },
+      "reference": {
+        "casePath": "sealed-reference/cases/rare-disease-control-change.case.json",
+        "caseSha256": "842db8323a953d20dee24957684749aa97ba92342b444bee69e39e832ee97675",
+        "envelopeId": "SEM3-AE-BLIND-RARE-DISEASE-CONTROL-CHANGE",
+        "envelopeVersion": "1.0.0",
+        "envelopePath": "sealed-reference/envelopes/rare-disease-control-change.envelope.json",
+        "envelopeSha256": "1246c5a247f78729870dc4fa8bbeb94ae18b9edbec6b83ae73c47124dfc1e2ba",
+        "referencePairSha256": "d76f19f6e043f90b34772317544834a03ae92dbe64230b0d8e64f26135c5d4b4"
+      },
+      "simulatedReferenceReview": "COMPLETE_NOT_HUMAN",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    },
+    {
+      "caseId": "SEM3-BLIND-TRANSPLANT-REJECTION-TIMING",
+      "version": "1.0.0",
+      "exposureStatus": "BLIND_SEALED",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR",
+      "qualificationStatus": "NOT_YET_EXECUTED",
+      "input": {
+        "path": "input/cases/transplant-rejection-timing.input.json",
+        "sha256": "48514975a9fccf81afe6a2e9692c7ed571f8e0427c6238c6df94b2623d2e6a47"
+      },
+      "reference": {
+        "casePath": "sealed-reference/cases/transplant-rejection-timing.case.json",
+        "caseSha256": "1559c799780c740d91920e4bd2fd389ee1a00bed695bd121d015cf90c1daf57f",
+        "envelopeId": "SEM3-AE-BLIND-TRANSPLANT-REJECTION-TIMING",
+        "envelopeVersion": "1.0.0",
+        "envelopePath": "sealed-reference/envelopes/transplant-rejection-timing.envelope.json",
+        "envelopeSha256": "e38c113ad15081c25401e4dde17943a1813f2bafa58eb73f8a1a37c632ad578b",
+        "referencePairSha256": "84d44d40a7bf229d748b9d1630a4d0079aade554239a1dc7d6f03b4fef35bf4d"
+      },
+      "simulatedReferenceReview": "COMPLETE_NOT_HUMAN",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    },
+    {
+      "caseId": "SEM3-BLIND-VACCINE-SINGLE-CELL-MULTIDIMENSIONAL",
+      "version": "1.0.0",
+      "exposureStatus": "BLIND_SEALED",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR",
+      "qualificationStatus": "NOT_YET_EXECUTED",
+      "input": {
+        "path": "input/cases/vaccine-single-cell-multidimensional.input.json",
+        "sha256": "bdccf996fc2ab0aaa23354dc63236a6ae414f00ebfb14f0579ff14cd316a241e"
+      },
+      "reference": {
+        "casePath": "sealed-reference/cases/vaccine-single-cell-multidimensional.case.json",
+        "caseSha256": "1fa16d583d2c839ac6a40fc3abc4fd7ff27870e83dc9838b0530fed2c84361ca",
+        "envelopeId": "SEM3-AE-BLIND-VACCINE-SINGLE-CELL-MULTIDIMENSIONAL",
+        "envelopeVersion": "1.0.0",
+        "envelopePath": "sealed-reference/envelopes/vaccine-single-cell-multidimensional.envelope.json",
+        "envelopeSha256": "ae7d989376dd0cba0c0f59fe90cc4c45fca6d3133189ffbfa0f78da860a58f36",
+        "referencePairSha256": "e3137569c15e7261fdec3f508e2f2c705cf5b6cdd23e2701d04714e843f503f7"
+      },
+      "simulatedReferenceReview": "COMPLETE_NOT_HUMAN",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    },
+    {
+      "caseId": "SEM3-BLIND-WEARABLE-SLEEP-PHENOMENON-OBSERVABLE",
+      "version": "1.0.0",
+      "exposureStatus": "BLIND_SEALED",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR",
+      "qualificationStatus": "NOT_YET_EXECUTED",
+      "input": {
+        "path": "input/cases/wearable-sleep-phenomenon-observable.input.json",
+        "sha256": "1b4aae386a595673d297a45c5fcf2aecbfd9fb4a3e71da4178aac6507bc2d91a"
+      },
+      "reference": {
+        "casePath": "sealed-reference/cases/wearable-sleep-phenomenon-observable.case.json",
+        "caseSha256": "2dfad26a574875f78c5d13efa8b0e998441c850c2084fb3b05c5dff5468ce971",
+        "envelopeId": "SEM3-AE-BLIND-WEARABLE-SLEEP-PHENOMENON-OBSERVABLE",
+        "envelopeVersion": "1.0.0",
+        "envelopePath": "sealed-reference/envelopes/wearable-sleep-phenomenon-observable.envelope.json",
+        "envelopeSha256": "31c8cead68cde39c5a0ccb7d2494fa7282e6d0046fd77c869eb802054060ac4f",
+        "referencePairSha256": "5a7698adf59bf1c7a068043b7ac6a8233eeb9d9f018d576d5630b0eff99ad705"
+      },
+      "simulatedReferenceReview": "COMPLETE_NOT_HUMAN",
+      "realHumanReferenceReview": "NOT_PERFORMED",
+      "finalPD011ReferenceEligibility": "NO"
+    }
+  ]
+}

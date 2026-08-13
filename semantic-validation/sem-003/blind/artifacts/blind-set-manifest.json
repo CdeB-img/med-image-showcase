@@ -1,0 +1,181 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003C_BLIND_SET_MANIFEST",
+  "blindSetId": "SEM003C-BLIND-QUALIFICATION-SET-01",
+  "version": "1.0.0",
+  "createdAt": "2026-08-14T10:00:00.000Z",
+  "sealedAt": "2026-08-14T12:00:00.000Z",
+  "git": {
+    "branch": "main",
+    "constructionBaselineCommit": "38039f4220773f7265be60873e5c0fa680acc63e",
+    "sealCommitIdentity": "RECORDED_BY_THE_GIT_COMMIT_CONTAINING_THIS_MANIFEST"
+  },
+  "cases": [
+    {
+      "caseId": "SEM3-BLIND-AMYLOID-ECV-PURPOSE-GAP",
+      "version": "1.0.0",
+      "inputDigest": "08c4ca6ba503cceaefe45d24e6d0074d48e3f2ac9baa6c70068639a2210d9bac",
+      "caseDigest": "07363cda2aa60171ebee062afd2b3ea64d7a6a4c85b3573bd7bdb0704cc0295a",
+      "envelopeDigest": "06d46d6da654f5514870e88b3f07a7d74e13b53d9b946a8a70291b4d396bd754",
+      "referenceDigest": "e5e1ee989bcff30ca7ca1e8cad1ccf2e639748fc9bab40c3b65534f960bb7acc",
+      "reviewDigest": "fca1435e591132ea667fa5c16eacd8bf2f8cecf1ee9ced76d3a3212cfc7bc637",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR"
+    },
+    {
+      "caseId": "SEM3-BLIND-BREAST-BPE-AMBIGUOUS-CHANGE",
+      "version": "1.0.0",
+      "inputDigest": "5f12f707487910f02f83e9a3b8fe6a8d7b3388a55e4a14ec699bf4b8e401725c",
+      "caseDigest": "a3ba03b562b20f8c712eb9af813ef347ac4f85e87e36e0208943b96bfbcbef98",
+      "envelopeDigest": "e217ab1ae25bf35d72223ea26cd06e84cdff2ef16a0d0f4c1d2fb1ce0e2eb5e0",
+      "referenceDigest": "bcc9c3a1c2fee323e297f170888b80b5498dff070d9672c9e19d506a19240927",
+      "reviewDigest": "fca1435e591132ea667fa5c16eacd8bf2f8cecf1ee9ced76d3a3212cfc7bc637",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR"
+    },
+    {
+      "caseId": "SEM3-BLIND-CORNEAL-NERVE-METHOD-MEASURE",
+      "version": "1.0.0",
+      "inputDigest": "de11d08bd966c09d2a6694141412fc5239cc8f92470a376654fc8ff857617dcd",
+      "caseDigest": "68fecc1710144a85e2dd42bb981be84e2297b6c16c6eb8fbd8a6c9821e285e14",
+      "envelopeDigest": "bb246795baecd6106bbf5856ce268bb06c91d067212683b1657eb8bc29b9a079",
+      "referenceDigest": "fd66bc8e4ed6d251bfec6376f3232cb68430ab117f2307635b4018c138f3e8e0",
+      "reviewDigest": "fca1435e591132ea667fa5c16eacd8bf2f8cecf1ee9ced76d3a3212cfc7bc637",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR"
+    },
+    {
+      "caseId": "SEM3-BLIND-EPILEPSY-DISCORDANT-REGION-ELLIPSIS",
+      "version": "1.0.0",
+      "inputDigest": "e09e42230446ac0cc76a0ac60a7e3f57cc38d70291c8ae497dba4a7cfc152f1f",
+      "caseDigest": "b0662672ea39f0fe7afe3a72dbbcd252fad6dd5bb76bb204a0d63b0cea3d4016",
+      "envelopeDigest": "0d729435b42139bb132544d3d39f5d89897cdd5404f433d34de1566b872682d7",
+      "referenceDigest": "21cfff6aa74d8b29cfe2703f2b40832840823c921d119d65ca0e23b004d89345",
+      "reviewDigest": "fca1435e591132ea667fa5c16eacd8bf2f8cecf1ee9ced76d3a3212cfc7bc637",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR"
+    },
+    {
+      "caseId": "SEM3-BLIND-FOCUSED-ULTRASOUND-BBB-MRI",
+      "version": "1.0.0",
+      "inputDigest": "91d0d26750c53156049772c540a7cd488f99e287c16eb5f3c6068ddc9060486b",
+      "caseDigest": "88597913803c72a8e7c899ef8c1158225d138278f641cf56f16943ab0f68b316",
+      "envelopeDigest": "4f0dd260ec8218e0ec96540cf98705f3e63534e2421553045ea6b26d3073d2cb",
+      "referenceDigest": "371030c585d70d5570e3b4c20e3845d80163f8ecc3498540d6d3c305c90c4b65",
+      "reviewDigest": "fca1435e591132ea667fa5c16eacd8bf2f8cecf1ee9ced76d3a3212cfc7bc637",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR"
+    },
+    {
+      "caseId": "SEM3-BLIND-HFPEF-EXERCISE-STATE",
+      "version": "1.0.0",
+      "inputDigest": "0df26c2f350232ee5bb197e34e800fbde1d1a7e32d808a2a66a0fe9317ffb007",
+      "caseDigest": "51d1846a4f47a898ba33332cf158b3f14696ffb783c2e3eeaff1c9f919bedd38",
+      "envelopeDigest": "ff8a7e56078d0a17e7f4456460b4b1fd6d8cad9d3ebc9b48685740f1c3faeefe",
+      "referenceDigest": "09a69df1c81e435a135deb65c440d935fb4733d9ed85f656ef9d257ffdc1b7dd",
+      "reviewDigest": "fca1435e591132ea667fa5c16eacd8bf2f8cecf1ee9ced76d3a3212cfc7bc637",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR"
+    },
+    {
+      "caseId": "SEM3-BLIND-LAA-CLOSURE-SEAL-ASSESSMENT",
+      "version": "1.0.0",
+      "inputDigest": "43d25abc6865d84936cfbfa0149e26f53c8df6ed544da850f1a04222128c84ac",
+      "caseDigest": "9d52b1a931a3d538aec24b9b85d044c9fddc4bbc79881e4b2590ee86c22315f8",
+      "envelopeDigest": "faa8594a256af3ddf803f4a71fef05c3076249f9b12decea77836efbef78c3e0",
+      "referenceDigest": "a8a7b65e0f93d579215273d5a089e677a6bf6f5cffa8a676062fbbc14b367f18",
+      "reviewDigest": "fca1435e591132ea667fa5c16eacd8bf2f8cecf1ee9ced76d3a3212cfc7bc637",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR"
+    },
+    {
+      "caseId": "SEM3-BLIND-MICROBIOME-ANTIBIOTIC-CANDIDATES",
+      "version": "1.0.0",
+      "inputDigest": "cae765209e28b70f4957f3fd9775cdfd344e6954ff08ca7d15fa0b2fff22c03e",
+      "caseDigest": "0228ddc176ef55c840287554db97404ed695545234ce1961477d541dd834b066",
+      "envelopeDigest": "c2dce3ba56e2492f66b649dff0fcca92b17a4ed11eca2c85da95fd472c6a0ad5",
+      "referenceDigest": "df74a4bb7c311b56ccdb5b615dee83283d29c245d0a3699707d87ea95cd2b271",
+      "reviewDigest": "fca1435e591132ea667fa5c16eacd8bf2f8cecf1ee9ced76d3a3212cfc7bc637",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR"
+    },
+    {
+      "caseId": "SEM3-BLIND-ORTHODONTIC-CBCT-OUTCOME-CORRECTION",
+      "version": "1.0.0",
+      "inputDigest": "c2dde16f465b4267401842b9485f44b2479b96ff5633acc68966d311c5630114",
+      "caseDigest": "0dce42b19c336432dfa797ca9d13368d075c341876c7342786433e54135dfdef",
+      "envelopeDigest": "038ce2ec366c8edbc649c57071688a57e31bb77891d258c0aefd42302862f1d7",
+      "referenceDigest": "d1d8a9a98fbda6c19e5c79a8dd7fb8735eaec64778ff94f8626e273c53df2494",
+      "reviewDigest": "fca1435e591132ea667fa5c16eacd8bf2f8cecf1ee9ced76d3a3212cfc7bc637",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR"
+    },
+    {
+      "caseId": "SEM3-BLIND-POSTPARTUM-MYOCARDIAL-WORK-NONCAUSAL",
+      "version": "1.0.0",
+      "inputDigest": "e77caa89aa3120ddfafd3d10337cceb509c9fa16d8845bae6e4ca26a827cfb6e",
+      "caseDigest": "2a5c7582c9629277015623f582fdfe44044541c325e6ec3baf33351b6dfae1c9",
+      "envelopeDigest": "9070232808a0753e0321afaf0f099059df12f09fd5b4b245961d9a0464c8a1dc",
+      "referenceDigest": "3faa97027d3d280d00ba6c95d5c16fa128ea5c83a00eef4f408825545dd756c3",
+      "reviewDigest": "fca1435e591132ea667fa5c16eacd8bf2f8cecf1ee9ced76d3a3212cfc7bc637",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR"
+    },
+    {
+      "caseId": "SEM3-BLIND-PROSTHETIC-VALVE-INFECTION-CONTEXT",
+      "version": "1.0.0",
+      "inputDigest": "a65092466db4c2ebb5d633145ccbe19f8297bdde49cce0041e11610bdb650168",
+      "caseDigest": "e00b22678d25b8f98bf352ac72925ab827907bbc7f1899e3f5b4ff5c26f911f9",
+      "envelopeDigest": "362c8a31a8849d69dddaf67d0ae6ba982a922d43c0ba590470dc6efeab150251",
+      "referenceDigest": "ef89bec3076b9a5b3fe80c1b294648319413a35598e157a5740933e1246adb7c",
+      "reviewDigest": "fca1435e591132ea667fa5c16eacd8bf2f8cecf1ee9ced76d3a3212cfc7bc637",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR"
+    },
+    {
+      "caseId": "SEM3-BLIND-RARE-DISEASE-CONTROL-CHANGE",
+      "version": "1.0.0",
+      "inputDigest": "048c9ff3c9398df0e902b77ee7dcdf476441b7998c56ed18ded8e60a27e1d231",
+      "caseDigest": "842db8323a953d20dee24957684749aa97ba92342b444bee69e39e832ee97675",
+      "envelopeDigest": "1246c5a247f78729870dc4fa8bbeb94ae18b9edbec6b83ae73c47124dfc1e2ba",
+      "referenceDigest": "d76f19f6e043f90b34772317544834a03ae92dbe64230b0d8e64f26135c5d4b4",
+      "reviewDigest": "fca1435e591132ea667fa5c16eacd8bf2f8cecf1ee9ced76d3a3212cfc7bc637",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR"
+    },
+    {
+      "caseId": "SEM3-BLIND-TRANSPLANT-REJECTION-TIMING",
+      "version": "1.0.0",
+      "inputDigest": "48514975a9fccf81afe6a2e9692c7ed571f8e0427c6238c6df94b2623d2e6a47",
+      "caseDigest": "1559c799780c740d91920e4bd2fd389ee1a00bed695bd121d015cf90c1daf57f",
+      "envelopeDigest": "e38c113ad15081c25401e4dde17943a1813f2bafa58eb73f8a1a37c632ad578b",
+      "referenceDigest": "84d44d40a7bf229d748b9d1630a4d0079aade554239a1dc7d6f03b4fef35bf4d",
+      "reviewDigest": "fca1435e591132ea667fa5c16eacd8bf2f8cecf1ee9ced76d3a3212cfc7bc637",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR"
+    },
+    {
+      "caseId": "SEM3-BLIND-VACCINE-SINGLE-CELL-MULTIDIMENSIONAL",
+      "version": "1.0.0",
+      "inputDigest": "bdccf996fc2ab0aaa23354dc63236a6ae414f00ebfb14f0579ff14cd316a241e",
+      "caseDigest": "1fa16d583d2c839ac6a40fc3abc4fd7ff27870e83dc9838b0530fed2c84361ca",
+      "envelopeDigest": "ae7d989376dd0cba0c0f59fe90cc4c45fca6d3133189ffbfa0f78da860a58f36",
+      "referenceDigest": "e3137569c15e7261fdec3f508e2f2c705cf5b6cdd23e2701d04714e843f503f7",
+      "reviewDigest": "fca1435e591132ea667fa5c16eacd8bf2f8cecf1ee9ced76d3a3212cfc7bc637",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR"
+    },
+    {
+      "caseId": "SEM3-BLIND-WEARABLE-SLEEP-PHENOMENON-OBSERVABLE",
+      "version": "1.0.0",
+      "inputDigest": "1b4aae386a595673d297a45c5fcf2aecbfd9fb4a3e71da4178aac6507bc2d91a",
+      "caseDigest": "2dfad26a574875f78c5d13efa8b0e998441c850c2084fb3b05c5dff5468ce971",
+      "envelopeDigest": "31c8cead68cde39c5a0ccb7d2494fa7282e6d0046fd77c869eb802054060ac4f",
+      "referenceDigest": "5a7698adf59bf1c7a068043b7ac6a8233eeb9d9f018d576d5630b0eff99ad705",
+      "reviewDigest": "fca1435e591132ea667fa5c16eacd8bf2f8cecf1ee9ced76d3a3212cfc7bc637",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR"
+    }
+  ],
+  "referenceReviewDigest": "fca1435e591132ea667fa5c16eacd8bf2f8cecf1ee9ced76d3a3212cfc7bc637",
+  "parentageReviewDigest": "70e9bc9f9164337b0a36afc2cb9812c70aeaa69aa8594d8eeb8711c7306c4bb5",
+  "coverageDigest": "51fb71fe21f196dec3549e2963c91fdb45954a8e571d6579734f02c5840b5e61",
+  "inputPackageDigest": "2fc328eb1bf81520979029db345355450bf38114be711406ee05bc6f55d9892f",
+  "referencePackageDigest": "23f0544d84d105501ead27e23740777f650f8bf83be72cf77b383f5730018304",
+  "evaluatorTarget": {
+    "version": "1.1.0",
+    "configurationDigest": "b05bc0ac66cb3e4dc5f135ba278cac8cadebe7443e57b1003dca580c9bd0e9bd"
+  },
+  "qualificationStatus": "NOT_YET_EXECUTED",
+  "sealStatus": "SEALED_FOR_SEM003D",
+  "exposureStatus": "BLIND_SEALED",
+  "immutableAfterSeal": true,
+  "allSealGatesGreen": true,
+  "realHumanReferenceReview": "NOT_PERFORMED",
+  "finalPD011ReferenceEligibility": "NO"
+}

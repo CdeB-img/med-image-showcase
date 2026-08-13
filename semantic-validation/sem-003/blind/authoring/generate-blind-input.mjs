@@ -20,6 +20,17 @@ const clearJson = (directory) => {
   }
 };
 
+if (fs.existsSync(REFERENCE_CASES_ROOT)) {
+  const sealedCase = fs
+    .readdirSync(REFERENCE_CASES_ROOT)
+    .filter((entry) => entry.endsWith(".case.json"))
+    .map((entry) => JSON.parse(fs.readFileSync(path.join(REFERENCE_CASES_ROOT, entry), "utf8")))
+    .find((entry) => entry.exposure?.exposureStatus === "BLIND_SEALED");
+  if (sealedCase) {
+    throw new Error(`IMMUTABLE_BLIND_SET: ${sealedCase.caseId} is already BLIND_SEALED`);
+  }
+}
+
 clearJson(INPUT_CASES_ROOT);
 clearJson(REFERENCE_CASES_ROOT);
 
@@ -130,4 +141,3 @@ for (const spec of blindCaseSpecs) {
 }
 
 console.log(`Generated ${blindCaseSpecs.length} BLIND_DESIGN_ONLY cases and runtime inputs.`);
-

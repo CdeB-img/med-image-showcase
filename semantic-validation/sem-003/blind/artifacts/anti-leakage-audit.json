@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003C_ANTI_LEAKAGE_AUDIT",
+  "auditedAt": "2026-08-14T12:00:00.000Z",
+  "semOutputUsedForAuthoring": false,
+  "providerOrLLMCalled": false,
+  "developmentOrCalibrationFixtureCopied": false,
+  "goldFrameCreated": false,
+  "blindReferencesPresentInRuntimeInputPackage": false,
+  "runtimeInjectionAllowlist": [
+    "input/cases/*.input.json",
+    "artifacts/blind-input-manifest.json"
+  ],
+  "runtimeReferenceDenylist": [
+    "sealed-reference/**",
+    "review/**",
+    "registry/**",
+    "coverage/**"
+  ],
+  "storageBoundary": "LOGICAL_AND_PATH_SEPARATION_IN_CANONICAL_GIT_REPOSITORY",
+  "confidentialityLimitation": "Repository access control remains an external operational responsibility; a digest proves identity and immutability, not confidentiality.",
+  "operationalRequirement": "SEM-003D must inject only the input package and must not mount or expose the sealed-reference package to SEM or the campaign operator.",
+  "result": "PASS_WITH_DECLARED_STORAGE_LIMITATION"
+}
