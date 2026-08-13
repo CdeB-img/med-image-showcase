@@ -66,6 +66,59 @@ const ungroundedPriorReemission = (changedMeaning = false) => {
   return { nextRequest, raw };
 };
 
+const inferredReplacementTopology = (ambiguous = false) => {
+  const firstRequest = makeSemanticRequest();
+  const firstCandidate = comparisonCandidate();
+  const previousModel = canonicalizeSemanticReconstruction({
+    request: firstRequest,
+    candidate: firstCandidate,
+    critic: acceptedCritic(firstCandidate),
+    metadata: { provider: "TEST", model: "test", temperature: null },
+    reconstructionCallId: "prior-reconstruction",
+    criticCallId: "prior-critic",
+    now: "2026-08-13T08:00:00.000Z",
+  });
+  const priorCt = previousModel.elements.find((element) => element.canonicalMeaning === "CT")!;
+  const priorMri = previousModel.elements.find((element) => element.canonicalMeaning === "IRM")!;
+  const currentText = ambiguous
+    ? "Conservez IRM, retirez CT et ajoutez échographie et radiographie."
+    : "Conservez IRM, retirez CT et ajoutez échographie.";
+  const nextRequest = makeSemanticRequest([
+    ...firstRequest.messages,
+    { messageId: "user-2", role: "USER", content: currentText, createdAt: "2026-08-13T08:01:00.000Z" },
+  ], previousModel);
+  const raw = comparisonCandidate() as unknown as Record<string, unknown>;
+  raw.candidateId = "candidate-replacement-topology";
+  raw.normalizedMeaning = "Remplacement d'un bras d'une comparaison existante.";
+  raw.summaryForUser = "Le bras antérieur est remplacé.";
+  raw.semanticInventory = {
+    explicitFragments: [
+      { inventoryItemId: "i-mri-current", sourceMessageId: "user-2", sourceText: "IRM", normalizedLabel: "IRM", localRole: "retained comparison arm", polarity: "AFFIRMED", modifiers: [], linkedInventoryItemIds: [] },
+      { inventoryItemId: "i-ct-current", sourceMessageId: "user-2", sourceText: "CT", normalizedLabel: "CT", localRole: "rejected comparison arm", polarity: "NEGATED", modifiers: [], linkedInventoryItemIds: [] },
+      { inventoryItemId: "i-us-current", sourceMessageId: "user-2", sourceText: "échographie", normalizedLabel: "échographie", localRole: "replacement comparison arm", polarity: "AFFIRMED", modifiers: [], linkedInventoryItemIds: [] },
+      ...(ambiguous ? [{ inventoryItemId: "i-xray-current", sourceMessageId: "user-2", sourceText: "radiographie", normalizedLabel: "radiographie", localRole: "additional comparison arm", polarity: "AFFIRMED" as const, modifiers: [], linkedInventoryItemIds: [] }] : []),
+    ],
+    explicitRelations: [],
+  };
+  raw.elements = [
+    { clientElementId: "e-mri-current", type: priorMri.type, canonicalMeaning: priorMri.canonicalMeaning, studyRole: priorMri.studyRole, polarity: "AFFIRMED", inventoryItemIds: ["i-mri-current"], sourceMessageId: "user-2", sourceText: "IRM", epistemicStatus: "EXPLICIT_USER_STATED", confidence: 1, inferenceReason: null, requiresConfirmation: false, supersedesElementIds: [priorMri.semanticElementId] },
+    { clientElementId: "e-ct-rejected", type: priorCt.type, canonicalMeaning: priorCt.canonicalMeaning, studyRole: priorCt.studyRole, polarity: "NEGATED", inventoryItemIds: ["i-ct-current"], sourceMessageId: "user-2", sourceText: "CT", epistemicStatus: "EXPLICIT_USER_STATED", confidence: 1, inferenceReason: null, requiresConfirmation: false, supersedesElementIds: [priorCt.semanticElementId] },
+    { clientElementId: "e-us-new", type: priorCt.type, canonicalMeaning: "échographie", studyRole: priorCt.studyRole, polarity: "AFFIRMED", inventoryItemIds: ["i-us-current"], sourceMessageId: "user-2", sourceText: "échographie", epistemicStatus: "EXPLICIT_USER_STATED", confidence: 1, inferenceReason: null, requiresConfirmation: false, supersedesElementIds: [] },
+    ...(ambiguous ? [{ clientElementId: "e-xray-new", type: priorCt.type, canonicalMeaning: "radiographie", studyRole: priorCt.studyRole, polarity: "AFFIRMED" as const, inventoryItemIds: ["i-xray-current"], sourceMessageId: "user-2", sourceText: "radiographie", epistemicStatus: "EXPLICIT_USER_STATED" as const, confidence: 1, inferenceReason: null, requiresConfirmation: false, supersedesElementIds: [] }] : []),
+  ];
+  raw.relations = [{ clientRelationId: "r-us-mri", sourceClientElementId: "e-us-new", targetClientElementId: "e-mri-current", relationType: "COMPARES_WITH", polarity: "AFFIRMED", inventoryRelationIds: [], epistemicStatus: "INFERRED_HIGH_CONFIDENCE", confidence: .9, inferenceReason: "The new arm replaces the rejected arm in the active comparison.", requiresConfirmation: false }];
+  raw.missingConcepts = [];
+  raw.ellipses = [];
+  raw.ambiguities = [];
+  raw.unknowns = [];
+  raw.contradictions = [];
+  raw.knowledgeRequests = [];
+  raw.clarificationCandidates = [];
+  raw.routeProposal = { route: "DESIGN_STUDY", confidence: 1, reason: "A comparison arm is replaced.", expectedCapabilities: ["SCIENTIFIC_THINKING"] };
+  raw.semanticWarnings = [];
+  return { nextRequest, raw };
+};
+
 const emptyRepairFields = (): Omit<SemanticCriticRepair, "repairId" | "action" | "reason" | "sourceInventoryItemIds" | "sourceInventoryRelationIds"> => ({
   inventoryItemId: null,
   inventorySourceMessageId: null,
@@ -148,6 +201,25 @@ const invalidRepairCritic = (): SemanticCriticResult => ({
 });
 
 describe("SEM generic provider structured-contract validation", () => {
+  it("grounds a unique same-role replacement in the explicit prior relation topology", async () => {
+    const { nextRequest, raw } = inferredReplacementTopology();
+    const fetchImpl = vi.fn(async () => response(raw)) as unknown as typeof fetch;
+    const result = await provider(fetchImpl).reconstruct(nextRequest);
+    expect(result.candidate.relations[0]).toMatchObject({ epistemicStatus: "EXPLICIT_USER_STATED", confidence: 1, inferenceReason: null, requiresConfirmation: false });
+    const inventoryRelation = result.candidate.semanticInventory.explicitRelations.find((relation) => result.candidate.relations[0].inventoryRelationIds.includes(relation.inventoryRelationId));
+    expect(inventoryRelation).toMatchObject({ sourceInventoryItemId: "i-us-current", targetInventoryItemId: "i-mri-current", sourceMessageId: "user-2", sourceText: "Conservez IRM, retirez CT et ajoutez échographie.", normalizedRelation: "COMPARES_WITH" });
+    expect(result.candidate.semanticWarnings).toContain("DETERMINISTIC_REPLACEMENT_RELATION_GROUNDED:1");
+  });
+
+  it("does not choose a replacement relation when multiple same-role additions remain", async () => {
+    const { nextRequest, raw } = inferredReplacementTopology(true);
+    const fetchImpl = vi.fn(async () => response(raw)) as unknown as typeof fetch;
+    const result = await provider(fetchImpl).reconstruct(nextRequest);
+    expect(result.candidate.relations[0].epistemicStatus).toBe("INFERRED_HIGH_CONFIDENCE");
+    expect(result.candidate.semanticInventory.explicitRelations).toEqual([]);
+    expect(result.candidate.semanticWarnings).not.toContain("DETERMINISTIC_REPLACEMENT_RELATION_GROUNDED:1");
+  });
+
   it("deduplicates exact ungrounded prior-state reemission and leaves carry-forward to the canonicalizer", async () => {
     const { nextRequest, raw } = ungroundedPriorReemission();
     const fetchImpl = vi.fn(async () => response(raw)) as unknown as typeof fetch;
