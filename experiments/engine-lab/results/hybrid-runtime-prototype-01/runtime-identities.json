@@ -1,0 +1,48 @@
+{
+  "createdAt": "2026-08-14T17:32:26.678553Z",
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "runtimes": [
+    {
+      "configurationDigest": "ffe6c51e69a3c56e82af225703c43989b8d8a36822e322cf107c31c3c7ac8542",
+      "model": "gemini-3.5-flash-lite",
+      "promptDigest": "dfca464950d208f3146ec48cd75d876b07cfcc21b5161d8e835bb77fcdaf30e4",
+      "provider": "GOOGLE_GEMINI",
+      "runtimeId": "PYDANTIC_AI_DIRECT",
+      "runtimeVersion": "0.1.0-experimental",
+      "schemaDigest": "a8555b9478aa05f95128a696beb99fcd7eee17ee7480b1101fdc29e85fefa906"
+    },
+    {
+      "model": null,
+      "provider": "LOCAL_DETERMINISTIC",
+      "runtimeId": "SEM_AUDIT_D",
+      "runtimeVersion": "0.1.0",
+      "sourceDigest": "f53a08dbf9b2b323282e92e8eb2a0c13d64a1afdf272a3748e0cf11cf93b3ab1"
+    },
+    {
+      "model": "gemini-3.5-flash-lite",
+      "promptIdentityDigest": "45d9a6b9d5bc0bf50276437a6bee33ed28d5dca8917482872acd11cef9ff6145",
+      "promptSource": "NOXIA_SEM_SINGLE_PROMPT_PLUS_FINDINGS_ONLY_ADAPTER",
+      "provider": "GOOGLE_GEMINI",
+      "runtimeId": "NOXIA_SEM_SINGLE_PROMPTED_SECOND_READER",
+      "runtimeVersion": "0.1.0-experimental",
+      "schemaDigest": "113f758a214d2339fc05d58f8b7aa9294b9bb17852953dfe83ac589fff5819d6",
+      "temperature": null
+    },
+    {
+      "configurationDigest": "105f603b88eddc0cb9e48b594bd5a805f8a88c5c5ff84ffe01f05bf6111a4743",
+      "model": "gemini-3.5-flash-lite",
+      "promptDigest": "e0f6888060ac457342434391a141d08fe9fb7210faefdc4523e5e85def776749",
+      "provider": "GOOGLE_GEMINI",
+      "runtimeId": "PYDANTIC_TYPED_ADJUDICATOR",
+      "runtimeVersion": "0.1.0-experimental",
+      "schemaDigest": "6d1f03697aa2f97e2e0e5d527ea04ac769cfad0b4ee8e71885d2f2a5af31fb34",
+      "temperature": null
+    },
+    {
+      "qryImplemented": false,
+      "runtimeId": "HYBRID_RUNTIME_PIPELINE",
+      "runtimeVersion": "0.1.0-experimental",
+      "writesResearchProject": false
+    }
+  ]
+}

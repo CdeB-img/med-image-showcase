@@ -1,0 +1,9 @@
+{
+  "ablation": "P1_PYDANTIC_PLUS_AUDIT_D",
+  "candidateMutated": false,
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "findings": [],
+  "primaryOutputIdentity": "HCS-4544298448d705c8efe7eea8",
+  "scenario": "I02",
+  "turn": "T2"
+}

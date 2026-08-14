@@ -1,0 +1,994 @@
+{
+  "candidateStateRef": "HCS-3f740699fd521f7571e08de5",
+  "configuration": "PYDANTIC_PRIMARY",
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "model": "gemini-3.5-flash-lite",
+  "operationKey": "HYBRID-RUNTIME-PROTOTYPE-01:I05:T2:PRIMARY",
+  "parseResult": "VALID",
+  "promptDigest": "dfca464950d208f3146ec48cd75d876b07cfcc21b5161d8e835bb77fcdaf30e4",
+  "promptVersion": "HYBRID-PRIMARY-PYDANTIC-0.1.0-experimental",
+  "provider": "GOOGLE_GEMINI",
+  "providerStartedAt": "2026-08-14T17:39:17.316122Z",
+  "rawDigest": "230a0de951fa6b3e66831db70807e560e36cd7f95282486426fbab4a3e5e77b9",
+  "rawPersistedAt": "2026-08-14T17:39:25.873458Z",
+  "rawResponse": {
+    "kind": "PROVIDER_RESPONSE",
+    "response": {
+      "automaticFunctionCallingHistory": null,
+      "candidates": [
+        {
+          "avgLogprobs": null,
+          "citationMetadata": null,
+          "content": {
+            "parts": [
+              {
+                "audioTranscription": null,
+                "codeExecutionResult": null,
+                "executableCode": null,
+                "fileData": null,
+                "functionCall": {
+                  "args": {
+                    "ambiguities": [],
+                    "clarificationNeeds": [],
+                    "contextualCandidates": [],
+                    "correctionsAndSupersessions": [
+                      {
+                        "correctionId": "corr-02",
+                        "currentContent": "Pour ceux qui n'ont pas la seconde IRM, on ne peut pas calculer le delta ADC, mais je veux garder les analyses baseline-only si elles restent valides.",
+                        "currentSemanticIdentity": null,
+                        "disposition": "MODIFIED",
+                        "previousContent": "Ceux qui n'ont pas la seconde, on en fait quoi ?",
+                        "previousSemanticIdentity": null,
+                        "sourceText": "Pour ceux qui n'ont pas la seconde IRM, on ne peut pas calculer le delta ADC, mais je veux garder les analyses baseline-only si elles restent valides.",
+                        "sourceTurnIds": [
+                          "R2"
+                        ]
+                      }
+                    ],
+                    "explicitStatements": [
+                      {
+                        "activeState": true,
+                        "adoptionStatus": null,
+                        "availabilityClaim": null,
+                        "availabilityScope": null,
+                        "confidence": null,
+                        "content": "On a une IRM avant et après radiochimiothérapie.",
+                        "decisionId": null,
+                        "elementId": "element:3655b36ec674fd80ce63",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "evidenceRefs": [],
+                        "originStatus": null,
+                        "originType": null,
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "previousElementIds": [],
+                        "semanticIdentity": "semantic:31002250f7dedda97a72",
+                        "semanticType": "STATEMENT",
+                        "sourceText": "On a une IRM avant et après radiochimiothérapie.",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "BACKGROUND",
+                        "temporalContext": null
+                      },
+                      {
+                        "activeState": false,
+                        "adoptionStatus": null,
+                        "availabilityClaim": null,
+                        "availabilityScope": null,
+                        "confidence": null,
+                        "content": "Je veux savoir si ça change et si ça prédit la récidive.",
+                        "decisionId": null,
+                        "elementId": "element:e40c90b2f59a499b0774",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "evidenceRefs": [],
+                        "originStatus": null,
+                        "originType": null,
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "previousElementIds": [],
+                        "semanticIdentity": "semantic:f6133cbf31cbb2d065f7",
+                        "semanticType": "STATEMENT",
+                        "sourceText": "Je veux savoir si ça change et si ça prédit la récidive.",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "OBJECTIVE",
+                        "temporalContext": null
+                      },
+                      {
+                        "activeState": false,
+                        "adoptionStatus": null,
+                        "availabilityClaim": null,
+                        "availabilityScope": null,
+                        "confidence": null,
+                        "content": "Ceux qui n'ont pas la seconde, on en fait quoi ?",
+                        "decisionId": null,
+                        "elementId": "element:509f56f2985a1ca9bea5",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "evidenceRefs": [],
+                        "originStatus": null,
+                        "originType": null,
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "previousElementIds": [],
+                        "semanticIdentity": "semantic:957f17c8c4a48ca324ab",
+                        "semanticType": "STATEMENT",
+                        "sourceText": "Ceux qui n'ont pas la seconde, on en fait quoi ?",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "QUESTION",
+                        "temporalContext": null
+                      },
+                      {
+                        "activeState": true,
+                        "adoptionStatus": null,
+                        "availabilityClaim": null,
+                        "availabilityScope": null,
+                        "confidence": null,
+                        "content": "Je me suis mal exprimé : la récidive n'est pas le critère principal, c'est la réponse pathologique. La récidive sera exploratoire.",
+                        "decisionId": null,
+                        "elementId": "element:f1e95d914894dcd8e41c",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "evidenceRefs": [],
+                        "originStatus": null,
+                        "originType": null,
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "previousElementIds": [
+                          "element:e40c90b2f59a499b0774"
+                        ],
+                        "semanticIdentity": "semantic:r1_correction_id",
+                        "semanticType": "STATEMENT",
+                        "sourceText": "Je me suis mal exprimé : la récidive n'est pas le critère principal, c'sest la réponse pathologique. La récidive sera exploratoire.",
+                        "sourceTurnIds": [
+                          "R1"
+                        ],
+                        "studyRole": "OBJECTIVE",
+                        "temporalContext": null
+                      },
+                      {
+                        "activeState": true,
+                        "adoptionStatus": null,
+                        "availabilityClaim": null,
+                        "availabilityScope": null,
+                        "confidence": null,
+                        "content": "Pour ceux qui n'ont pas la seconde IRM, on ne peut pas calculer le delta ADC, mais je veux garder les analyses baseline-only si elles restent valides.",
+                        "decisionId": null,
+                        "elementId": "element:r2_statement_id",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "evidenceRefs": [],
+                        "originStatus": null,
+                        "originType": null,
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "previousElementIds": [
+                          "element:509f56f2985a1ca9bea5"
+                        ],
+                        "semanticIdentity": "semantic:r2_statement_identity",
+                        "semanticType": "STATEMENT",
+                        "sourceText": "Pour ceux qui n'ont pas la seconde IRM, on ne peut pas calculer le delta ADC, mais je veux garder les analyses baseline-only si elles restent valides.",
+                        "sourceTurnIds": [
+                          "R2"
+                        ],
+                        "studyRole": "QUESTION",
+                        "temporalContext": null
+                      }
+                    ],
+                    "inferredContext": [],
+                    "missingInformation": [],
+                    "negationsAndConstraints": [],
+                    "normalizedUnderstanding": "L'utilisateur précise que pour les patients sans seconde IRM, le delta ADC ne peut pas être calculé, mais il souhaite conserver les analyses baseline-only si elles restent valides, tout en maintenant la réponse pathologique comme critère principal et la récidive comme critère exploratoire.",
+                    "objects": [
+                      {
+                        "activeState": true,
+                        "adoptionStatus": null,
+                        "availabilityClaim": null,
+                        "availabilityScope": null,
+                        "confidence": null,
+                        "content": "IRM avant radiochimiothérapie",
+                        "decisionId": null,
+                        "elementId": "element:241c1807f23bb908ac1d",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "evidenceRefs": [],
+                        "originStatus": null,
+                        "originType": null,
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "previousElementIds": [],
+                        "semanticIdentity": "semantic:5697cbb03d7925f68cc7",
+                        "semanticType": "BIOMARKER",
+                        "sourceText": "une IRM avant et après radiochimiothérapie",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "VARIABLE",
+                        "temporalContext": null
+                      },
+                      {
+                        "activeState": true,
+                        "adoptionStatus": null,
+                        "availabilityClaim": null,
+                        "availabilityScope": null,
+                        "confidence": null,
+                        "content": "IRM après radiochimiothérapie",
+                        "decisionId": null,
+                        "elementId": "element:241c1807f23bb908ac1d_after",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "evidenceRefs": [],
+                        "originStatus": null,
+                        "originType": null,
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "previousElementIds": [],
+                        "semanticIdentity": "semantic:5697cbb03d7925f68cc7_after",
+                        "semanticType": "BIOMARKER",
+                        "sourceText": "une IRM avant et après radiochimiothérapie",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "VARIABLE",
+                        "temporalContext": null
+                      },
+                      {
+                        "activeState": false,
+                        "adoptionStatus": null,
+                        "availabilityClaim": null,
+                        "availabilityScope": null,
+                        "confidence": null,
+                        "content": "Récidive",
+                        "decisionId": null,
+                        "elementId": "element:8a67505652a2e7e02e22",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "evidenceRefs": [],
+                        "originStatus": null,
+                        "originType": null,
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "previousElementIds": [],
+                        "semanticIdentity": "semantic:59c0e4c694be7a0fd748",
+                        "semanticType": "ENDPOINT",
+                        "sourceText": "si ça prédit la récidive",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "ENDPOINT",
+                        "temporalContext": null
+                      },
+                      {
+                        "activeState": true,
+                        "adoptionStatus": null,
+                        "availabilityClaim": null,
+                        "availabilityScope": null,
+                        "confidence": null,
+                        "content": "Réponse pathologique",
+                        "decisionId": null,
+                        "elementId": "element:22dc153d1ed5ae814e7b",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "evidenceRefs": [],
+                        "originStatus": null,
+                        "originType": null,
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "previousElementIds": [
+                          "element:8a67505652a2e7e02e22"
+                        ],
+                        "semanticIdentity": "semantic:pathological_response_id",
+                        "semanticType": "ENDPOINT",
+                        "sourceText": "la réponse pathologique",
+                        "sourceTurnIds": [
+                          "R1"
+                        ],
+                        "studyRole": "ENDPOINT",
+                        "temporalContext": null
+                      },
+                      {
+                        "activeState": true,
+                        "adoptionStatus": null,
+                        "availabilityClaim": null,
+                        "availabilityScope": null,
+                        "confidence": null,
+                        "content": "Récidive (exploratoire)",
+                        "decisionId": null,
+                        "elementId": "element:e4afabd2c7f8003e8b9d",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "evidenceRefs": [],
+                        "originStatus": null,
+                        "originType": null,
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "previousElementIds": [
+                          "element:8a67505652a2e7e02e22"
+                        ],
+                        "semanticIdentity": "semantic:recurrence_exploratory_id",
+                        "semanticType": "ENDPOINT",
+                        "sourceText": "La récidive sera exploratoire.",
+                        "sourceTurnIds": [
+                          "R1"
+                        ],
+                        "studyRole": "ENDPOINT",
+                        "temporalContext": null
+                      },
+                      {
+                        "activeState": true,
+                        "adoptionStatus": null,
+                        "availabilityClaim": null,
+                        "availabilityScope": null,
+                        "confidence": null,
+                        "content": "Delta ADC",
+                        "decisionId": null,
+                        "elementId": "element:delta_adc_id",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "evidenceRefs": [],
+                        "originStatus": null,
+                        "originType": null,
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "previousElementIds": [],
+                        "semanticIdentity": "semantic:delta_adc_identity",
+                        "semanticType": "BIOMARKER",
+                        "sourceText": "le delta ADC",
+                        "sourceTurnIds": [
+                          "R2"
+                        ],
+                        "studyRole": "VARIABLE",
+                        "temporalContext": null
+                      },
+                      {
+                        "activeState": true,
+                        "adoptionStatus": null,
+                        "availabilityClaim": null,
+                        "availabilityScope": null,
+                        "confidence": null,
+                        "content": "Analyses baseline-only",
+                        "decisionId": null,
+                        "elementId": "element:baseline_only_id",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "evidenceRefs": [],
+                        "originStatus": null,
+                        "originType": null,
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "previousElementIds": [],
+                        "semanticIdentity": "semantic:baseline_only_identity",
+                        "semanticType": "METHOD",
+                        "sourceText": "les analyses baseline-only",
+                        "sourceTurnIds": [
+                          "R2"
+                        ],
+                        "studyRole": "VARIABLE",
+                        "temporalContext": null
+                      }
+                    ],
+                    "openDecisions": [],
+                    "ownershipAndEpistemicStates": [
+                      {
+                        "content": "On a une IRM avant et après radiochimiothérapie.",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "sourceText": null,
+                        "sourceTurnIds": [],
+                        "statementId": "S0"
+                      },
+                      {
+                        "content": "Je veux savoir si ça change et si ça prédit la récidive.",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "sourceText": null,
+                        "sourceTurnIds": [],
+                        "statementId": "S1"
+                      },
+                      {
+                        "content": "Ceux qui n'ont pas la seconde, on en fait quoi ?",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "sourceText": null,
+                        "sourceTurnIds": [],
+                        "statementId": "S2"
+                      },
+                      {
+                        "content": "Je me suis mal exprimé : la récidive n'est pas le critère principal, c'est la réponse pathologique. La récidive sera exploratoire.",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "sourceText": "Je me suis mal exprimé : la récidive n'est pas le critère principal, c'est la réponse pathologique. La récidive sera exploratoire.",
+                        "sourceTurnIds": [
+                          "R1"
+                        ],
+                        "statementId": "S3"
+                      },
+                      {
+                        "content": "Pour ceux qui n'ont pas la seconde IRM, on ne peut pas calculer le delta ADC, mais je veux garder les analyses baseline-only si elles restent valides.",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "sourceText": "Pour ceux qui n'ont pas la seconde IRM, on ne peut pas calculer le delta ADC, mais je veux garder les analyses baseline-only si elles restent valides.",
+                        "sourceTurnIds": [
+                          "R2"
+                        ],
+                        "statementId": "S4"
+                      }
+                    ],
+                    "relations": [
+                      {
+                        "activeState": false,
+                        "confidence": null,
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "evidenceRefs": [],
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "previousRelationIds": [],
+                        "relationId": "relation:87e8d6dac99a2b7bbdef",
+                        "relationType": "PREDICTS",
+                        "sourceElementId": "element:241c1807f23bb908ac1d",
+                        "sourceText": "si ça prédit la récidive",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "targetElementId": "element:8a67505652a2e7e02e22",
+                        "temporalContext": null
+                      },
+                      {
+                        "activeState": true,
+                        "confidence": null,
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "evidenceRefs": [],
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "previousRelationIds": [
+                          "relation:87e8d6dac99a2b7bbdef"
+                        ],
+                        "relationId": "relation:9bf985aec6a4fcfb6bea",
+                        "relationType": "PREDICTS",
+                        "sourceElementId": "element:241c1807f23bb908ac1d",
+                        "sourceText": "c'est la réponse pathologique",
+                        "sourceTurnIds": [
+                          "R1"
+                        ],
+                        "targetElementId": "element:22dc153d1ed5ae814e7b",
+                        "temporalContext": null
+                      },
+                      {
+                        "activeState": true,
+                        "confidence": null,
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "evidenceRefs": [],
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "previousRelationIds": [],
+                        "relationId": "relation:5f0ac48234345cbec1d0",
+                        "relationType": "PREDICTS",
+                        "sourceElementId": "element:241c1807f23bb908ac1d",
+                        "sourceText": "La récidive sera exploratoire.",
+                        "sourceTurnIds": [
+                          "R1"
+                        ],
+                        "targetElementId": "element:e4afabd2c7f8003e8b9d",
+                        "temporalContext": null
+                      }
+                    ],
+                    "unknowns": []
+                  },
+                  "id": "call_781276",
+                  "name": "final_result",
+                  "partialArgs": null,
+                  "willContinue": null
+                },
+                "functionResponse": null,
+                "inlineData": null,
+                "mediaResolution": null,
+                "partMetadata": null,
+                "text": null,
+                "thought": null,
+                "thoughtSignature": "El4KXAERTTIPJqzzeS6W6RJP2yBHnEMj4cJLddgp3RL99xR42EA0c5mo7TrXCA2WnB6vh5qjGc3FlM5rMHVIAQIc7zQhG-qg7rUH5ffpxdG7qYG1WpBkkjuLn7X94jm0",
+                "toolCall": null,
+                "toolResponse": null,
+                "videoMetadata": null
+              }
+            ],
+            "role": "model"
+          },
+          "finishMessage": null,
+          "finishReason": "STOP",
+          "groundingMetadata": null,
+          "index": 0,
+          "logprobsResult": null,
+          "safetyRatings": null,
+          "tokenCount": null,
+          "urlContextMetadata": null
+        }
+      ],
+      "createTime": null,
+      "modelStatus": null,
+      "modelVersion": "gemini-3.5-flash-lite",
+      "parsed": null,
+      "promptFeedback": null,
+      "responseId": "xVJ_atO4Lf2dvdIP7cGAmAI",
+      "sdkHttpResponse": {
+        "body": null,
+        "headers": {
+          "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+          "content-encoding": "gzip",
+          "content-type": "application/json; charset=UTF-8",
+          "date": "Fri, 14 Aug 2026 17:39:25 GMT",
+          "server": "scaffolding on HTTPServer2",
+          "server-timing": "gfet4t7; dur=8393",
+          "transfer-encoding": "chunked",
+          "vary": "Origin, X-Origin, Referer",
+          "x-content-type-options": "nosniff",
+          "x-frame-options": "SAMEORIGIN",
+          "x-gemini-service-tier": "standard",
+          "x-xss-protection": "0"
+        }
+      },
+      "usageMetadata": {
+        "cacheTokensDetails": null,
+        "cachedContentTokenCount": null,
+        "candidatesTokenCount": 3557,
+        "candidatesTokensDetails": null,
+        "promptTokenCount": 10082,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 10082
+          }
+        ],
+        "thoughtsTokenCount": null,
+        "toolUsePromptTokenCount": null,
+        "toolUsePromptTokensDetails": null,
+        "totalTokenCount": 13639,
+        "trafficType": null
+      }
+    }
+  },
+  "requestNumber": 33,
+  "requestPayload": {
+    "contextInputs": [],
+    "conversation": [
+      {
+        "content": "On a une IRM avant et après radiochimiothérapie. Je veux savoir si ça change et si ça prédit la récidive. Ceux qui n'ont pas la seconde, on en fait quoi ?",
+        "role": "USER",
+        "turnId": "T0"
+      },
+      {
+        "content": "Je me suis mal exprimé : la récidive n'est pas le critère principal, c'est la réponse pathologique. La récidive sera exploratoire.",
+        "role": "USER",
+        "turnId": "R1"
+      },
+      {
+        "content": "Pour ceux qui n'ont pas la seconde IRM, on ne peut pas calculer le delta ADC, mais je veux garder les analyses baseline-only si elles restent valides.",
+        "role": "USER",
+        "turnId": "R2"
+      }
+    ],
+    "previousCandidateState": {
+      "adjudicationStatus": "NOT_REQUIRED",
+      "ambiguities": [],
+      "auditStatus": "NOT_RUN",
+      "clarificationNeeds": [],
+      "contextInputs": [],
+      "contextualCandidates": [],
+      "correctionsAndSupersessions": [
+        {
+          "correctionId": "corr-01",
+          "currentContent": "Je me suis mal exprimé : la récidive n'est pas le critère principal, c'est la réponse pathologique. La récidive sera exploratoire.",
+          "currentSemanticIdentity": null,
+          "disposition": "MODIFIED",
+          "previousContent": "Je veux savoir si ça change et si ça prédit la récidive.",
+          "previousSemanticIdentity": null,
+          "sourceText": "Je me suis mal exprimé : la récidive n'est pas le critère principal, c'est la réponse pathologique. La récidive sera exploratoire.",
+          "sourceTurnIds": [
+            "R1"
+          ]
+        }
+      ],
+      "explicitStatements": [
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "On a une IRM avant et après radiochimiothérapie.",
+          "decisionId": null,
+          "elementId": "element:3655b36ec674fd80ce63",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:31002250f7dedda97a72",
+          "semanticType": "STATEMENT",
+          "sourceText": "On a une IRM avant et après radiochimiothérapie.",
+          "sourceTurnIds": [
+            "T0"
+          ],
+          "studyRole": "BACKGROUND",
+          "temporalContext": null
+        },
+        {
+          "activeState": false,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "Je veux savoir si ça change et si ça prédit la récidive.",
+          "decisionId": null,
+          "elementId": "element:e40c90b2f59a499b0774",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:f6133cbf31cbb2d065f7",
+          "semanticType": "STATEMENT",
+          "sourceText": "Je veux savoir si ça change et si ça prédit la récidive.",
+          "sourceTurnIds": [
+            "T0"
+          ],
+          "studyRole": "OBJECTIVE",
+          "temporalContext": null
+        },
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "Ceux qui n'ont pas la seconde, on en fait quoi ?",
+          "decisionId": null,
+          "elementId": "element:509f56f2985a1ca9bea5",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:957f17c8c4a48ca324ab",
+          "semanticType": "STATEMENT",
+          "sourceText": "Ceux qui n'ont pas la seconde, on en fait quoi ?",
+          "sourceTurnIds": [
+            "T0"
+          ],
+          "studyRole": "QUESTION",
+          "temporalContext": null
+        },
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "Je me suis mal exprimé : la récidive n'est pas le critère principal, c'est la réponse pathologique. La récidive sera exploratoire.",
+          "decisionId": null,
+          "elementId": "element:f1e95d914894dcd8e41c",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [
+            "element:e40c90b2f59a499b0774"
+          ],
+          "semanticIdentity": "semantic:r1_correction_id",
+          "semanticType": "STATEMENT",
+          "sourceText": "Je me suis mal exprimé : la récidive n'est pas le critère principal, c'est la réponse pathologique. La récidive sera exploratoire.",
+          "sourceTurnIds": [
+            "R1"
+          ],
+          "studyRole": "OBJECTIVE",
+          "temporalContext": null
+        }
+      ],
+      "identity": {
+        "conversationId": "HYBRID-I05",
+        "generatedAt": "2026-08-14T17:39:13.047459Z",
+        "previousStateId": "HCS-9c4ff449bd65fa4b1bc7ca31",
+        "runtimeIdentity": {
+          "configurationDigest": "ffe6c51e69a3c56e82af225703c43989b8d8a36822e322cf107c31c3c7ac8542",
+          "model": "gemini-3.5-flash-lite",
+          "promptDigest": "dfca464950d208f3146ec48cd75d876b07cfcc21b5161d8e835bb77fcdaf30e4",
+          "provider": "GOOGLE_GEMINI",
+          "runtimeId": "PYDANTIC_AI_DIRECT",
+          "runtimeVersion": "0.1.0-experimental",
+          "schemaDigest": "a8555b9478aa05f95128a696beb99fcd7eee17ee7480b1101fdc29e85fefa906"
+        },
+        "stateId": "HCS-f4287fb7a3d07d0943bf2ff4",
+        "version": "0.1.0-experimental"
+      },
+      "inferredContext": [],
+      "missingInformation": [
+        {
+          "blocking": true,
+          "content": "Gestion des patients n'ayant pas la seconde IRM",
+          "decisionalImpact": "HIGH",
+          "epistemicStatus": "UNKNOWN",
+          "missingId": "M0",
+          "owner": "USER",
+          "sourceText": "Ceux qui n'ont pas la seconde, on en fait quoi ?",
+          "sourceTurnIds": [
+            "T0"
+          ]
+        }
+      ],
+      "negationsAndConstraints": [],
+      "objects": [
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "IRM avant radiochimiothérapie",
+          "decisionId": null,
+          "elementId": "element:241c1807f23bb908ac1d",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:5697cbb03d7925f68cc7",
+          "semanticType": "BIOMARKER",
+          "sourceText": "une IRM avant et après radiochimiothérapie",
+          "sourceTurnIds": [
+            "T0"
+          ],
+          "studyRole": "VARIABLE",
+          "temporalContext": null
+        },
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "IRM après radiochimiothérapie",
+          "decisionId": null,
+          "elementId": "element:241c1807f23bb908ac1d",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:5697cbb03d7925f68cc7",
+          "semanticType": "BIOMARKER",
+          "sourceText": "une IRM avant et après radiochimiothérapie",
+          "sourceTurnIds": [
+            "T0"
+          ],
+          "studyRole": "VARIABLE",
+          "temporalContext": null
+        },
+        {
+          "activeState": false,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "Récidive",
+          "decisionId": null,
+          "elementId": "element:8a67505652a2e7e02e22",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:59c0e4c694be7a0fd748",
+          "semanticType": "ENDPOINT",
+          "sourceText": "si ça prédit la récidive",
+          "sourceTurnIds": [
+            "T0"
+          ],
+          "studyRole": "ENDPOINT",
+          "temporalContext": null
+        },
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "Réponse pathologique",
+          "decisionId": null,
+          "elementId": "element:22dc153d1ed5ae814e7b",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [
+            "element:8a67505652a2e7e02e22"
+          ],
+          "semanticIdentity": "semantic:pathological_response_id",
+          "semanticType": "ENDPOINT",
+          "sourceText": "la réponse pathologique",
+          "sourceTurnIds": [
+            "R1"
+          ],
+          "studyRole": "ENDPOINT",
+          "temporalContext": null
+        },
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "Récidive (exploratoire)",
+          "decisionId": null,
+          "elementId": "element:e4afabd2c7f8003e8b9d",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [
+            "element:8a67505652a2e7e02e22"
+          ],
+          "semanticIdentity": "semantic:recurrence_exploratory_id",
+          "semanticType": "ENDPOINT",
+          "sourceText": "La récidive sera exploratoire.",
+          "sourceTurnIds": [
+            "R1"
+          ],
+          "studyRole": "ENDPOINT",
+          "temporalContext": null
+        }
+      ],
+      "openDecisions": [],
+      "ownershipAndEpistemicStates": [
+        {
+          "content": "On a une IRM avant et après radiochimiothérapie.",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "ownership": "USER",
+          "sourceText": null,
+          "sourceTurnIds": [],
+          "statementId": "S0"
+        },
+        {
+          "content": "Je veux savoir si ça change et si ça prédit la récidive.",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "ownership": "USER",
+          "sourceText": null,
+          "sourceTurnIds": [],
+          "statementId": "S1"
+        },
+        {
+          "content": "Ceux qui n'ont pas la seconde, on en fait quoi ?",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "ownership": "USER",
+          "sourceText": null,
+          "sourceTurnIds": [],
+          "statementId": "S2"
+        },
+        {
+          "content": "Je me suis mal exprimé : la récidive n'est pas le critère principal, c'est la réponse pathologique. La récidive sera exploratoire.",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "ownership": "USER",
+          "sourceText": null,
+          "sourceTurnIds": [
+            "R1"
+          ],
+          "statementId": "S3"
+        }
+      ],
+      "relations": [
+        {
+          "activeState": false,
+          "confidence": null,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousRelationIds": [],
+          "relationId": "relation:87e8d6dac99a2b7bbdef",
+          "relationType": "PREDICTS",
+          "sourceElementId": "element:241c1807f23bb908ac1d",
+          "sourceText": "si ça prédit la récidive",
+          "sourceTurnIds": [
+            "T0"
+          ],
+          "targetElementId": "element:8a67505652a2e7e02e22",
+          "temporalContext": null
+        },
+        {
+          "activeState": true,
+          "confidence": null,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousRelationIds": [
+            "relation:87e8d6dac99a2b7bbdef"
+          ],
+          "relationId": "relation:9bf985aec6a4fcfb6bea",
+          "relationType": "PREDICTS",
+          "sourceElementId": "element:241c1807f23bb908ac1d",
+          "sourceText": "c'est la réponse pathologique",
+          "sourceTurnIds": [
+            "R1"
+          ],
+          "targetElementId": "element:22dc153d1ed5ae814e7b",
+          "temporalContext": null
+        },
+        {
+          "activeState": true,
+          "confidence": null,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousRelationIds": [],
+          "relationId": "relation:5f0ac48234345cbec1d0",
+          "relationType": "PREDICTS",
+          "sourceElementId": "element:241c1807f23bb908ac1d",
+          "sourceText": "La récidive sera exploratoire.",
+          "sourceTurnIds": [
+            "R1"
+          ],
+          "targetElementId": "element:e4afabd2c7f8003e8b9d",
+          "temporalContext": null
+        }
+      ],
+      "source": {
+        "originalRequest": "On a une IRM avant et après radiochimiothérapie. Je veux savoir si ça change et si ça prédit la récidive. Ceux qui n'ont pas la seconde, on en fait quoi ?",
+        "rawOutputRef": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/experiments/engine-lab/results/hybrid-runtime-prototype-01/raw/request-0031-primary-i05-t1.json",
+        "turns": [
+          {
+            "content": "On a une IRM avant et après radiochimiothérapie. Je veux savoir si ça change et si ça prédit la récidive. Ceux qui n'ont pas la seconde, on en fait quoi ?",
+            "role": "USER",
+            "turnId": "T0"
+          },
+          {
+            "content": "Je me suis mal exprimé : la récidive n'est pas le critère principal, c'est la réponse pathologique. La récidive sera exploratoire.",
+            "role": "USER",
+            "turnId": "R1"
+          }
+        ]
+      },
+      "technicalStatus": "STRUCTURED_CONTRACT_VALID",
+      "temporalElements": [],
+      "understanding": {
+        "normalizedUnderstanding": "L'utilisateur précise que le critère principal est la réponse pathologique (la récidive devenant exploratoire), tout en conservant l'analyse des IRM avant/après radiochimiothérapie et la question des patients sans seconde IRM.",
+        "scientificGoalCandidates": [],
+        "studyIntentCandidates": []
+      },
+      "unknowns": [
+        {
+          "blocking": true,
+          "content": "Gestion des patients n'ayant pas la seconde IRM",
+          "decisionalImpact": "HIGH",
+          "epistemicStatus": "UNKNOWN",
+          "missingId": "M0",
+          "owner": "USER",
+          "sourceText": "Ceux qui n'ont pas la seconde, on en fait quoi ?",
+          "sourceTurnIds": [
+            "T0"
+          ]
+        }
+      ]
+    }
+  },
+  "requestPayloadDigest": "8ce1d2fa103dbff45be77d808b8b7f71be24fff7ce4e1c75eade92a8e9ec512b",
+  "role": "PRIMARY_INTERPRETER",
+  "scenario": "I05",
+  "schemaDigest": "a8555b9478aa05f95128a696beb99fcd7eee17ee7480b1101fdc29e85fefa906",
+  "schemaVersion": "PRIMARY_SCIENTIFIC_INTERPRETATION_0.1.0-experimental",
+  "temperature": null,
+  "turn": "T2",
+  "validationCompletedAt": "2026-08-14T17:39:25.878419Z",
+  "validationErrors": []
+}

@@ -1,0 +1,55 @@
+{
+  "configuration": "SEM_AUDIT_L",
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "httpStatus": 200,
+  "model": "gemini-3.5-flash-lite",
+  "operationKey": "HYBRID-RUNTIME-PROTOTYPE-01:I03:T0:SEM_AUDIT_L",
+  "parseResult": "VALID",
+  "promptDigest": "e90d4812be54466fc4f01eb13887cf9840a905e89d90c732a46105cd6bc89149",
+  "promptVersion": "SEM-AUDIT-L-NOXIA-SEM-SINGLE-0.1.0-experimental",
+  "provider": "GOOGLE_GEMINI",
+  "providerStartedAt": "2026-08-14T17:37:30.643Z",
+  "rawDigest": "a42b3e4348bbb562bb78e81e1e281e9d2ae3699cbd47073610396d868e53a7df",
+  "rawPersistedAt": "2026-08-14T17:37:30.643Z",
+  "rawResponse": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"findings\": [\n    {\n      \"findingId\": \"finding:001\",\n      \"findingClass\": \"SEMANTIC_DISTORTION\",\n      \"sourceEvidence\": [\n        {\n          \"turnId\": \"T0\",\n          \"sourceText\": \"pas avec le SUVmax seul\"\n        }\n      ],\n      \"candidatePointer\": \"immutablePrimaryCandidate.items[element:d98769d79a3e10af1a81]\",\n      \"auditJudgment\": \"NEW\",\n      \"rationale\": \"SUVmax is incorrectly marked with NEGATED polarity; the user negates its exclusive use ('pas ... seul'), not the biomarker itself as an entity.\",\n      \"severity\": \"MAJOR\",\n      \"resolutionOwner\": \"SEM_AUDIT_L\",\n      \"confidence\": 0.95,\n      \"status\": \"OPEN\",\n      \"origin\": \"SEM_AUDIT_L\",\n      \"structuralOnly\": false,\n      \"confirmsFindingIds\": []\n    }\n  ]\n}",
+              "thoughtSignature": "El4KXAERTTIPpdcfzkyVpKLYcTIgE9jGI+o5FdYDSQbEjpqcoe/rXES+2mhEV+rJ9hPXDvUVVS3v/BkyGkG4JOiQB9orJi5h2BqPiBkdaIGsCuQwPsbyao5oVOcVrSbu"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "modelVersion": "gemini-3.5-flash-lite",
+    "responseId": "WVJ_apeDIuKk1MkPgoHb4Ag",
+    "usageMetadata": {
+      "candidatesTokenCount": 238,
+      "promptTokenCount": 5474,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 5474
+        }
+      ],
+      "serviceTier": "standard",
+      "totalTokenCount": 5712
+    }
+  },
+  "requestNumber": 17,
+  "requestPayloadDigest": "bc1c04b8b6ff567da9ab9ccfcaa6c665e166de05a4abc0dc261304d19c9808d7",
+  "role": "SEMANTIC_AUDITOR",
+  "scenario": "I03",
+  "schemaDigest": "fc59a9f9be391a8234c2761d4621b2bc14955e084753aa54b2e0b54521bb6df9",
+  "schemaVersion": "SEM_AUDIT_L_BATCH_0.1.0-experimental",
+  "temperature": null,
+  "turn": "T0",
+  "validationCompletedAt": "2026-08-14T17:37:30.651Z",
+  "validationErrors": []
+}

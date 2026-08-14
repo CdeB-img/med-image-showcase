@@ -1,0 +1,41 @@
+{
+  "ablation": "P2_PYDANTIC_PLUS_AUDIT_D_PLUS_AUDIT_L",
+  "candidateMutated": false,
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "finalDisposition": "SUCCESS",
+  "findings": [
+    {
+      "auditJudgment": "CONFIRMED",
+      "candidatePointer": "immutablePrimaryCandidate.items",
+      "confidence": 1.0,
+      "confirmsFindingIds": [],
+      "findingClass": "SEMANTIC_CORRECTION_PRESERVATION",
+      "findingId": "finding-01",
+      "origin": "SEM_AUDIT_L",
+      "rationale": "The user explicitly corrected the primary endpoint from recurrence to pathological response while retaining recurrence as exploratory.",
+      "resolutionOwner": "SYSTEM",
+      "severity": "INFO",
+      "sourceEvidence": [
+        {
+          "sourceText": "Je me suis mal exprimé : la récidive n'est pas le critère principal, c'est la réponse pathologique. La récidive sera exploratoire.",
+          "turnId": "R1"
+        }
+      ],
+      "status": "RESOLVED",
+      "structuralOnly": false
+    }
+  ],
+  "latencyMs": 4263,
+  "primaryOutputIdentity": "HCS-f4287fb7a3d07d0943bf2ff4",
+  "providerCalls": 1,
+  "rawOutputRef": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/experiments/engine-lab/results/hybrid-runtime-prototype-01/raw/request-0032-audit-l-i05-t1.json",
+  "scenario": "I05",
+  "technicalFailure": false,
+  "triggerReasons": [
+    "CORRECTION_OR_SUPERSESSION",
+    "BLOCKING_MISSING_INFORMATION",
+    "CAUSAL_CONDITIONAL_OR_UNCERTAIN_RELATION"
+  ],
+  "triggered": true,
+  "turn": "T1"
+}

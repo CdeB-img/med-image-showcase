@@ -1,0 +1,50 @@
+{
+  "ablation": "P1_PYDANTIC_PLUS_AUDIT_D",
+  "candidateMutated": false,
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "findings": [
+    {
+      "auditJudgment": "NEW",
+      "candidatePointer": "relation:element:caa43f5eeb2ea8d5c6be->dec_0",
+      "confidence": null,
+      "confirmsFindingIds": [],
+      "findingClass": "RELATION_MISMATCH",
+      "findingId": "SAF-169b25160be7af8a",
+      "origin": "SEM_AUDIT_D",
+      "rationale": "The candidate changed the established relation semantics.",
+      "resolutionOwner": "SEMANTIC_RECONSTRUCTION",
+      "severity": "MAJOR",
+      "sourceEvidence": [
+        {
+          "sourceText": "Je préfère donc partir sur le T1 natif comme candidat principal",
+          "turnId": "R2"
+        }
+      ],
+      "status": "OPEN",
+      "structuralOnly": false
+    },
+    {
+      "auditJudgment": "NEW",
+      "candidatePointer": "ambiguity:amb_0",
+      "confidence": null,
+      "confirmsFindingIds": [],
+      "findingClass": "AMBIGUITY_SILENTLY_CLOSED",
+      "findingId": "SAF-db3eb49a472b51ea",
+      "origin": "SEM_AUDIT_D",
+      "rationale": "The candidate removed or resolved an open ambiguity without a confirmed decision.",
+      "resolutionOwner": "QRY",
+      "severity": "CRITICAL",
+      "sourceEvidence": [
+        {
+          "sourceText": "mais je n'ai pas décidé d'en faire le critère principal. À Lyon ils font aussi de l'ECV. Je veux surtout trouver un marqueur précoce qui soit utilisable dans tous les centres.",
+          "turnId": "T0"
+        }
+      ],
+      "status": "OPEN",
+      "structuralOnly": false
+    }
+  ],
+  "primaryOutputIdentity": "HCS-b096c05e6c6df5195578e8a0",
+  "scenario": "I08",
+  "turn": "T2"
+}

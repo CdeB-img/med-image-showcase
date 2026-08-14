@@ -1,0 +1,46 @@
+{
+  "consolidated": {
+    "adjudicationResolutions": [],
+    "candidateState": null,
+    "clarificationNeeds": [],
+    "consolidatedStateId": "HCCS-9995d0bda5c0075921284b1d",
+    "deterministicFindingIds": [],
+    "disposition": "FAIL_CLOSED",
+    "latencyMs": 26380,
+    "openDecisions": [
+      {
+        "affectedElementIds": [
+          "obj_0",
+          "obj_1",
+          "obj_2"
+        ],
+        "content": "Détermination du critère principal (marqueur précoce) pour la maladie de Fabry",
+        "decisionId": "dec_0",
+        "decisionOwner": "USER",
+        "sourceText": "mais je n'ai pas décidé d'en faire le critère principal. Je veux surtout trouver un marqueur précoce qui soit utilisable dans tous les centres.",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "status": "OPEN"
+      }
+    ],
+    "pipelineVersion": "0.1.0-experimental",
+    "primaryCandidateStateId": "HCS-c105abc8528157f469d02c48",
+    "providerCalls": 3,
+    "rawOutputRef": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/experiments/engine-lab/results/hybrid-runtime-prototype-01/raw/request-0050-primary-i08-t0.json",
+    "semanticAuditFindingIds": [
+      "finding:001"
+    ],
+    "unresolvedFindingIds": [
+      "finding:001"
+    ]
+  },
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "p0CandidateStateId": "HCS-c105abc8528157f469d02c48",
+  "p1CandidateStateId": "HCS-c105abc8528157f469d02c48",
+  "p2CandidateStateId": "HCS-c105abc8528157f469d02c48",
+  "p3PrimaryCandidateStateId": "HCS-c105abc8528157f469d02c48",
+  "primaryOutputIdentity": "HCS-c105abc8528157f469d02c48",
+  "scenario": "I08",
+  "turn": "T0"
+}

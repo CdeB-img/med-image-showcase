@@ -1,0 +1,55 @@
+{
+  "configuration": "SEM_AUDIT_L",
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "httpStatus": 200,
+  "model": "gemini-3.5-flash-lite",
+  "operationKey": "HYBRID-RUNTIME-PROTOTYPE-01:I03:T1:SEM_AUDIT_L",
+  "parseResult": "VALID",
+  "promptDigest": "e90d4812be54466fc4f01eb13887cf9840a905e89d90c732a46105cd6bc89149",
+  "promptVersion": "SEM-AUDIT-L-NOXIA-SEM-SINGLE-0.1.0-experimental",
+  "provider": "GOOGLE_GEMINI",
+  "providerStartedAt": "2026-08-14T17:37:39.464Z",
+  "rawDigest": "69ea909bb40e03c471554d50e8035901b2fcd541c8d3dab5d897a41fe2a57ca3",
+  "rawPersistedAt": "2026-08-14T17:37:39.464Z",
+  "rawResponse": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\"findings\":[{\"findingId\":\"FINDING_01\",\"findingClass\":\"POLARITY_MISMATCH\",\"sourceEvidence\":[{\"turnId\":\"T0\",\"sourceText\":\"pas avec le SUVmax seul\"}],\"candidatePointer\":\"element:d98769d79a3e10af1a81\",\"auditJudgment\":\"CONFIRMED\",\"rationale\":\"SUVmax is assigned negative polarity because it is explicitly constrained as excluded by the user constraint.\",\"severity\":\"MINOR\",\"resolutionOwner\":\"SEM_AUDIT_L\",\"confidence\":1.0,\"status\":\"ACKNOWLEDGED\",\"origin\":\"SEM_AUDIT_L\",\"structuralOnly\":false,\"confirmsFindingIds\":[]}]}",
+              "thoughtSignature": "El4KXAERTTIPigXhkfvBCwjnQxti992jEksjsGQF0THXdG/Qf7deXpClrxW2Ma9tNEc1q2JTExd/L6APPHRvi2Lo7Lb7gb6nlgsIP9T8V32OuGCqY2NQZg/UntokmYwy"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "modelVersion": "gemini-3.5-flash-lite",
+    "responseId": "YlJ_avrmJMq-vdIPlI_zwAE",
+    "usageMetadata": {
+      "candidatesTokenCount": 143,
+      "promptTokenCount": 6059,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 6059
+        }
+      ],
+      "serviceTier": "standard",
+      "totalTokenCount": 6202
+    }
+  },
+  "requestNumber": 20,
+  "requestPayloadDigest": "e28849e2aaac538257f893f32ef3134dba4b1f9e77a0de108736ed4b7e099611",
+  "role": "SEMANTIC_AUDITOR",
+  "scenario": "I03",
+  "schemaDigest": "fc59a9f9be391a8234c2761d4621b2bc14955e084753aa54b2e0b54521bb6df9",
+  "schemaVersion": "SEM_AUDIT_L_BATCH_0.1.0-experimental",
+  "temperature": null,
+  "turn": "T1",
+  "validationCompletedAt": "2026-08-14T17:37:39.472Z",
+  "validationErrors": []
+}

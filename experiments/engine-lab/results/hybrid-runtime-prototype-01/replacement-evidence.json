@@ -1,0 +1,24 @@
+{
+  "decision": "PYDANTIC_PLUS_SEM_AUDIT_RUNTIME_CANDIDATE",
+  "evidence": {
+    "adjudicatorCalls": 11,
+    "auditLCalls": 23,
+    "callsPerState": 2.4166666666666665,
+    "p0CriticalViolations": 3,
+    "p3CriticalViolations": null,
+    "p3CriticalViolationsOnEvaluableStates": 0,
+    "p3EvaluableStates": 13,
+    "p3NonEvaluableStates": 11,
+    "providerCalls": 58,
+    "sharedPrimaryOutputAcrossAblations": true
+  },
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "limitations": [
+    "Visible I01-I08 corpus only; this is not independent qualification evidence.",
+    "Campaign-only expectation matching is a transparent review aid, not a semantic Gold or composite score.",
+    "All 11 adjudicator requests were rejected with HTTP 400 INVALID_ARGUMENT before scientific output; P3 cannot be compared scientifically with P0–P2.",
+    "The adjudicator failure does not demonstrate that the primary Pydantic interpreter is insufficient.",
+    "No QRY, Knowledge/document retrieval or Research Project integration was implemented."
+  ],
+  "productRuntimeReplaced": false
+}

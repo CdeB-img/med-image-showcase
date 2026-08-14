@@ -1,0 +1,339 @@
+{
+  "candidateStateRef": "HCS-2c2c7b9b1b3a0efb6fd5b7c0",
+  "configuration": "PYDANTIC_PRIMARY",
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "model": "gemini-3.5-flash-lite",
+  "operationKey": "HYBRID-RUNTIME-PROTOTYPE-01:I06:T0:PRIMARY",
+  "parseResult": "VALID",
+  "promptDigest": "dfca464950d208f3146ec48cd75d876b07cfcc21b5161d8e835bb77fcdaf30e4",
+  "promptVersion": "HYBRID-PRIMARY-PYDANTIC-0.1.0-experimental",
+  "provider": "GOOGLE_GEMINI",
+  "providerStartedAt": "2026-08-14T17:39:26.911458Z",
+  "rawDigest": "cdec3e025494644c898c6972ca5643bb82bffca0f10800960f76ef8a57888fab",
+  "rawPersistedAt": "2026-08-14T17:39:31.239793Z",
+  "rawResponse": {
+    "kind": "PROVIDER_RESPONSE",
+    "response": {
+      "automaticFunctionCallingHistory": null,
+      "candidates": [
+        {
+          "avgLogprobs": null,
+          "citationMetadata": null,
+          "content": {
+            "parts": [
+              {
+                "audioTranscription": null,
+                "codeExecutionResult": null,
+                "executableCode": null,
+                "fileData": null,
+                "functionCall": {
+                  "args": {
+                    "ambiguities": [
+                      {
+                        "ambiguityId": "AMB_0",
+                        "content": "Conflict between DSC and ASL results regarding glioma progression",
+                        "decisionalImpact": "HIGH",
+                        "interpretations": [
+                          "DSC is more useful",
+                          "ASL is more useful"
+                        ],
+                        "sourceText": "Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression.",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "status": "OPEN"
+                      }
+                    ],
+                    "clarificationNeeds": [],
+                    "contextualCandidates": [
+                      {
+                        "activeState": true,
+                        "content": "Comparison of DSC and ASL perfusion methods in gliomas",
+                        "elementId": "CC_0",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "semanticType": "STUDY_INTENT",
+                        "sourceText": "Je compare DSC et ASL chez mes gliomes.",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "COMPARATIVE_INTENT"
+                      }
+                    ],
+                    "correctionsAndSupersessions": [],
+                    "explicitStatements": [
+                      {
+                        "activeState": true,
+                        "content": "Comparison of DSC and ASL in gliomas",
+                        "elementId": "ES_0",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "semanticType": "SCIENTIFIC_STATEMENT",
+                        "sourceText": "Je compare DSC et ASL chez mes gliomes.",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "PRIMARY_INTENT"
+                      },
+                      {
+                        "activeState": true,
+                        "content": "Desire to determine which method is more useful for progression when DSC and ASL disagree",
+                        "elementId": "ES_1",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "semanticType": "SCIENTIFIC_STATEMENT",
+                        "sourceText": "Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression.",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "STUDY_GOAL"
+                      },
+                      {
+                        "activeState": true,
+                        "content": "Preference to keep cases that only have ASL if possible",
+                        "elementId": "ES_2",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "semanticType": "SCIENTIFIC_STATEMENT",
+                        "sourceText": "Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "COHORT_MANAGEMENT"
+                      }
+                    ],
+                    "inferredContext": [],
+                    "missingInformation": [],
+                    "negationsAndConstraints": [],
+                    "normalizedUnderstanding": "The user is comparing DSC and ASL perfusion imaging in gliomas, seeking to determine which method is more useful for assessing progression when discordant results occur, and expresses a preference to retain cases that only have ASL data if feasible.",
+                    "objects": [
+                      {
+                        "activeState": true,
+                        "content": "DSC perfusion",
+                        "elementId": "OBJ_0",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "semanticType": "IMAGING_METHOD",
+                        "sourceText": "DSC",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "COMPARISON_SUBJECT"
+                      },
+                      {
+                        "activeState": true,
+                        "content": "ASL perfusion",
+                        "elementId": "OBJ_1",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "semanticType": "IMAGING_METHOD",
+                        "sourceText": "ASL",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "COMPARISON_SUBJECT"
+                      },
+                      {
+                        "activeState": true,
+                        "content": "Gliomas",
+                        "elementId": "OBJ_2",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "semanticType": "PATHOLOGY",
+                        "sourceText": "mes gliomes",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "POPULATION"
+                      }
+                    ],
+                    "openDecisions": [
+                      {
+                        "affectedElementIds": [
+                          "ES_1",
+                          "ES_2"
+                        ],
+                        "content": "Determine which method is more useful for progression during discordance and decide whether to retain single-modality ASL cases",
+                        "decisionId": "DEC_0",
+                        "decisionOwner": "USER",
+                        "sourceText": "Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression. Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "status": "OPEN"
+                      }
+                    ],
+                    "ownershipAndEpistemicStates": [
+                      {
+                        "content": "Je compare DSC et ASL chez mes gliomes.",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "statementId": "ST_0"
+                      },
+                      {
+                        "content": "Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression.",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "statementId": "ST_1"
+                      },
+                      {
+                        "content": "Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "statementId": "ST_2"
+                      }
+                    ],
+                    "relations": [
+                      {
+                        "activeState": true,
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "relationId": "REL_0",
+                        "relationType": "COMPARES",
+                        "sourceElementId": "OBJ_0",
+                        "sourceText": "Je compare DSC et ASL",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "targetElementId": "OBJ_1"
+                      },
+                      {
+                        "activeState": true,
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "relationId": "REL_1",
+                        "relationType": "APPLIED_TO",
+                        "sourceElementId": "OBJ_0",
+                        "sourceText": "DSC et ASL chez mes gliomes",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "targetElementId": "OBJ_2"
+                      },
+                      {
+                        "activeState": true,
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "relationId": "REL_2",
+                        "relationType": "APPLIED_TO",
+                        "sourceElementId": "OBJ_1",
+                        "sourceText": "DSC et ASL chez mes gliomes",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "targetElementId": "OBJ_2"
+                      }
+                    ],
+                    "scientificGoalCandidates": [
+                      "Determine whether DSC or ASL is more useful for progression in gliomas when results diverge"
+                    ],
+                    "studyIntentCandidates": [
+                      "Compare DSC and ASL perfusion in gliomas"
+                    ],
+                    "temporalElements": [],
+                    "unknowns": []
+                  },
+                  "id": "call_1434130",
+                  "name": "final_result",
+                  "partialArgs": null,
+                  "willContinue": null
+                },
+                "functionResponse": null,
+                "inlineData": null,
+                "mediaResolution": null,
+                "partMetadata": null,
+                "text": null,
+                "thought": null,
+                "thoughtSignature": "El4KXAERTTIP9DOYvD0hcG8Kvne-qX7V1ks2kLgsA7wmXrVPUtO-SgTiG26SuDNZ1CBm7ENsL6a_Z_eODCDq4EYuK0N76DqOknZqOBkAkMg2nKUqYhSCDNFIBOBMOS-e",
+                "toolCall": null,
+                "toolResponse": null,
+                "videoMetadata": null
+              }
+            ],
+            "role": "model"
+          },
+          "finishMessage": null,
+          "finishReason": "STOP",
+          "groundingMetadata": null,
+          "index": 0,
+          "logprobsResult": null,
+          "safetyRatings": null,
+          "tokenCount": null,
+          "urlContextMetadata": null
+        }
+      ],
+      "createTime": null,
+      "modelStatus": null,
+      "modelVersion": "gemini-3.5-flash-lite",
+      "parsed": null,
+      "promptFeedback": null,
+      "responseId": "z1J_ao7HFLGjnsEPoO2bwA8",
+      "sdkHttpResponse": {
+        "body": null,
+        "headers": {
+          "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+          "content-encoding": "gzip",
+          "content-type": "application/json; charset=UTF-8",
+          "date": "Fri, 14 Aug 2026 17:39:31 GMT",
+          "server": "scaffolding on HTTPServer2",
+          "server-timing": "gfet4t7; dur=4233",
+          "transfer-encoding": "chunked",
+          "vary": "Origin, X-Origin, Referer",
+          "x-content-type-options": "nosniff",
+          "x-frame-options": "SAMEORIGIN",
+          "x-gemini-service-tier": "standard",
+          "x-xss-protection": "0"
+        }
+      },
+      "usageMetadata": {
+        "cacheTokensDetails": null,
+        "cachedContentTokenCount": null,
+        "candidatesTokenCount": 1568,
+        "candidatesTokensDetails": null,
+        "promptTokenCount": 5283,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 5283
+          }
+        ],
+        "thoughtsTokenCount": null,
+        "toolUsePromptTokenCount": null,
+        "toolUsePromptTokensDetails": null,
+        "totalTokenCount": 6851,
+        "trafficType": null
+      }
+    }
+  },
+  "requestNumber": 35,
+  "requestPayload": {
+    "contextInputs": [],
+    "conversation": [
+      {
+        "content": "Je compare DSC et ASL chez mes gliomes. Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression. Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+        "role": "USER",
+        "turnId": "T0"
+      }
+    ],
+    "previousCandidateState": null
+  },
+  "requestPayloadDigest": "ef903a9b991eb5cf8b950141f6ff8455c4e7bfdfb964672476828331df169cdb",
+  "role": "PRIMARY_INTERPRETER",
+  "scenario": "I06",
+  "schemaDigest": "a8555b9478aa05f95128a696beb99fcd7eee17ee7480b1101fdc29e85fefa906",
+  "schemaVersion": "PRIMARY_SCIENTIFIC_INTERPRETATION_0.1.0-experimental",
+  "temperature": null,
+  "turn": "T0",
+  "validationCompletedAt": "2026-08-14T17:39:31.242822Z",
+  "validationErrors": []
+}

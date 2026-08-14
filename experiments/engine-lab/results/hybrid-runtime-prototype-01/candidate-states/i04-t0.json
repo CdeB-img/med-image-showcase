@@ -1,0 +1,192 @@
+{
+  "ablation": "P0_PYDANTIC_DIRECT",
+  "candidateState": {
+    "adjudicationStatus": "NOT_REQUIRED",
+    "ambiguities": [],
+    "auditStatus": "NOT_RUN",
+    "clarificationNeeds": [],
+    "contextInputs": [],
+    "contextualCandidates": [],
+    "correctionsAndSupersessions": [],
+    "explicitStatements": [
+      {
+        "activeState": true,
+        "adoptionStatus": null,
+        "availabilityClaim": null,
+        "availabilityScope": null,
+        "confidence": null,
+        "content": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible.",
+        "decisionId": null,
+        "elementId": "element:bb9da708c41ff6fcd517",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "originStatus": null,
+        "originType": null,
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousElementIds": [],
+        "semanticIdentity": "semantic:ed774d2f88f1455cf3ce",
+        "semanticType": "GOAL",
+        "sourceText": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible.",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "studyRole": "PRIMARY_INTENT",
+        "temporalContext": null
+      }
+    ],
+    "identity": {
+      "conversationId": "HYBRID-I04",
+      "generatedAt": "2026-08-14T17:38:19.283119Z",
+      "previousStateId": null,
+      "runtimeIdentity": {
+        "configurationDigest": "ffe6c51e69a3c56e82af225703c43989b8d8a36822e322cf107c31c3c7ac8542",
+        "model": "gemini-3.5-flash-lite",
+        "promptDigest": "dfca464950d208f3146ec48cd75d876b07cfcc21b5161d8e835bb77fcdaf30e4",
+        "provider": "GOOGLE_GEMINI",
+        "runtimeId": "PYDANTIC_AI_DIRECT",
+        "runtimeVersion": "0.1.0-experimental",
+        "schemaDigest": "a8555b9478aa05f95128a696beb99fcd7eee17ee7480b1101fdc29e85fefa906"
+      },
+      "stateId": "HCS-d1d46617651daea24f7870b1",
+      "version": "0.1.0-experimental"
+    },
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [],
+    "objects": [
+      {
+        "activeState": true,
+        "adoptionStatus": null,
+        "availabilityClaim": null,
+        "availabilityScope": null,
+        "confidence": null,
+        "content": "atteinte cardiaque précoce dans Fabry avant la fibrose visible",
+        "decisionId": null,
+        "elementId": "element:bed2d6800b4160583d00",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "originStatus": null,
+        "originType": null,
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousElementIds": [],
+        "semanticIdentity": "semantic:e60cf45847c49dac5047",
+        "semanticType": "CLINICAL_CONDITION",
+        "sourceText": "l'atteinte cardiaque précoce dans Fabry avant la fibrose visible",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "studyRole": "TARGET",
+        "temporalContext": null
+      },
+      {
+        "activeState": true,
+        "adoptionStatus": null,
+        "availabilityClaim": null,
+        "availabilityScope": null,
+        "confidence": null,
+        "content": "plusieurs centres",
+        "decisionId": null,
+        "elementId": "element:05e77621b6eb073a9295",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "originStatus": null,
+        "originType": null,
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousElementIds": [],
+        "semanticIdentity": "semantic:dac50e8cde253111e6e5",
+        "semanticType": "STUDY_SETTING",
+        "sourceText": "plusieurs centres",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "studyRole": "SETTING",
+        "temporalContext": null
+      }
+    ],
+    "openDecisions": [],
+    "ownershipAndEpistemicStates": [
+      {
+        "content": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "ownership": "USER",
+        "sourceText": null,
+        "sourceTurnIds": [],
+        "statementId": "S0"
+      },
+      {
+        "content": "On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "ownership": "USER",
+        "sourceText": null,
+        "sourceTurnIds": [],
+        "statementId": "S1"
+      }
+    ],
+    "relations": [
+      {
+        "activeState": true,
+        "confidence": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousRelationIds": [],
+        "relationId": "relation:03cecf814a42ee870425",
+        "relationType": "TARGET_POPULATION_OR_CONDITION",
+        "sourceElementId": "element:05e77621b6eb073a9295",
+        "sourceText": "On a plusieurs centres",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "targetElementId": "element:bed2d6800b4160583d00",
+        "temporalContext": null
+      }
+    ],
+    "source": {
+      "originalRequest": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+      "rawOutputRef": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/experiments/engine-lab/results/hybrid-runtime-prototype-01/raw/request-0023-primary-i04-t0.json",
+      "turns": [
+        {
+          "content": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+          "role": "USER",
+          "turnId": "T0"
+        }
+      ]
+    },
+    "technicalStatus": "STRUCTURED_CONTRACT_VALID",
+    "temporalElements": [],
+    "understanding": {
+      "normalizedUnderstanding": "User wants to detect early cardiac involvement in Fabry disease before visible fibrosis, across multiple centers with heterogeneous imaging sequences.",
+      "scientificGoalCandidates": [
+        "Détecter l'atteinte cardiaque précoce dans la maladie de Fabry avant la fibrose visible"
+      ],
+      "studyIntentCandidates": [
+        "Étude multicentrique avec hétérogénéité des séquences d'imagerie"
+      ]
+    },
+    "unknowns": [
+      {
+        "blocking": false,
+        "content": "Hétérogénéité des séquences d'imagerie entre les différents centres",
+        "decisionalImpact": "HIGH",
+        "epistemicStatus": "UNKNOWN",
+        "missingId": "M0",
+        "owner": "USER",
+        "sourceText": "tout le monde n'a pas les mêmes séquences.",
+        "sourceTurnIds": [
+          "T0"
+        ]
+      }
+    ]
+  },
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "primaryLatencyMs": 2658,
+  "primaryOutputIdentity": "HCS-d1d46617651daea24f7870b1",
+  "primaryProviderCalls": 1,
+  "rawOutputRef": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/experiments/engine-lab/results/hybrid-runtime-prototype-01/raw/request-0023-primary-i04-t0.json",
+  "scenario": "I04",
+  "turn": "T0"
+}

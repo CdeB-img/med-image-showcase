@@ -1,0 +1,61 @@
+{
+  "ablation": "P2_PYDANTIC_PLUS_AUDIT_D_PLUS_AUDIT_L",
+  "candidateMutated": false,
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "finalDisposition": "SUCCESS",
+  "findings": [
+    {
+      "auditJudgment": "NEW",
+      "candidatePointer": "/immutablePrimaryCandidate/items/0",
+      "confidence": 0.8,
+      "confirmsFindingIds": [],
+      "findingClass": "CONCEPT_CLASS_MISMATCH",
+      "findingId": "FIND_001",
+      "origin": "SEM_AUDIT_L",
+      "rationale": "DSC is classified as IMAGING_METHOD, but under operational taxonomy a technique/acquisition method without modality family or when specifically named should follow method precedence; however, DSC is a perfusion method often treated as METHOD.",
+      "resolutionOwner": "SEM_AUDIT_L",
+      "severity": "MINOR",
+      "sourceEvidence": [
+        {
+          "sourceText": "DSC",
+          "turnId": "T0"
+        }
+      ],
+      "status": "OPEN",
+      "structuralOnly": false
+    },
+    {
+      "auditJudgment": "NEW",
+      "candidatePointer": "/immutablePrimaryCandidate/items/2",
+      "confidence": 0.9,
+      "confirmsFindingIds": [],
+      "findingClass": "POPULATION_CONDITION_SEPARATION",
+      "findingId": "FIND_002",
+      "origin": "SEM_AUDIT_L",
+      "rationale": "Mes gliomes fuses population and condition into a single element. According to the taxonomy, condition (glioma) and population should be represented separately when both aspects are present.",
+      "resolutionOwner": "SEM_AUDIT_L",
+      "severity": "MAJOR",
+      "sourceEvidence": [
+        {
+          "sourceText": "mes gliomes",
+          "turnId": "T0"
+        }
+      ],
+      "status": "OPEN",
+      "structuralOnly": false
+    }
+  ],
+  "latencyMs": 2238,
+  "primaryOutputIdentity": "HCS-2c2c7b9b1b3a0efb6fd5b7c0",
+  "providerCalls": 1,
+  "rawOutputRef": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/experiments/engine-lab/results/hybrid-runtime-prototype-01/raw/request-0036-audit-l-i06-t0.json",
+  "scenario": "I06",
+  "technicalFailure": false,
+  "triggerReasons": [
+    "CANDIDATE_VERSUS_ADOPTED",
+    "HIGH_IMPACT_AMBIGUITY",
+    "CRITICAL_MILESTONE"
+  ],
+  "triggered": true,
+  "turn": "T0"
+}

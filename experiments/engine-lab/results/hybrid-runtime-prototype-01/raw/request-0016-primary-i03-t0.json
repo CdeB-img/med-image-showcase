@@ -1,0 +1,290 @@
+{
+  "candidateStateRef": "HCS-4fcc6d811c46f749733761f8",
+  "configuration": "PYDANTIC_PRIMARY",
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "model": "gemini-3.5-flash-lite",
+  "operationKey": "HYBRID-RUNTIME-PROTOTYPE-01:I03:T0:PRIMARY",
+  "parseResult": "VALID",
+  "promptDigest": "dfca464950d208f3146ec48cd75d876b07cfcc21b5161d8e835bb77fcdaf30e4",
+  "promptVersion": "HYBRID-PRIMARY-PYDANTIC-0.1.0-experimental",
+  "provider": "GOOGLE_GEMINI",
+  "providerStartedAt": "2026-08-14T17:37:24.889287Z",
+  "rawDigest": "ef66d9c53b02fdac23874edb19fd3380f93a795b85bbb6a7d8f40521b1691b3e",
+  "rawPersistedAt": "2026-08-14T17:37:28.367927Z",
+  "rawResponse": {
+    "kind": "PROVIDER_RESPONSE",
+    "response": {
+      "automaticFunctionCallingHistory": null,
+      "candidates": [
+        {
+          "avgLogprobs": null,
+          "citationMetadata": null,
+          "content": {
+            "parts": [
+              {
+                "audioTranscription": null,
+                "codeExecutionResult": null,
+                "executableCode": null,
+                "fileData": null,
+                "functionCall": {
+                  "args": {
+                    "ambiguities": [],
+                    "clarificationNeeds": [],
+                    "contextualCandidates": [],
+                    "correctionsAndSupersessions": [],
+                    "explicitStatements": [
+                      {
+                        "activeState": true,
+                        "content": "Je veux utiliser le TEP pour prédire la réponse à l'immunothérapie, mais pas avec le SUVmax seul.",
+                        "elementId": "stmt_0",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "semanticType": "INTENT_OR_GOAL",
+                        "sourceText": "Je veux utiliser le TEP pour prédire la réponse à l'immunothérapie, mais pas avec le SUVmax seul.",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "PRIMARY_INTENT"
+                      },
+                      {
+                        "activeState": true,
+                        "content": "Le scanner est déjà fait en routine.",
+                        "elementId": "stmt_1",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "semanticType": "CLINICAL_CONTEXT",
+                        "sourceText": "Le scanner est déjà fait en routine.",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "CONTEXT"
+                      }
+                    ],
+                    "inferredContext": [],
+                    "missingInformation": [],
+                    "negationsAndConstraints": [
+                      {
+                        "activeState": true,
+                        "content": "pas avec le SUVmax seul",
+                        "elementId": "neg_0",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "NEGATED",
+                        "semanticType": "METHOD_CONSTRAINT",
+                        "sourceText": "pas avec le SUVmax seul",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "CONSTRAINT"
+                      }
+                    ],
+                    "normalizedUnderstanding": "The user wants to use PET to predict response to immunotherapy, explicitly excluding the use of SUVmax alone. The CT scan is already performed as part of routine practice.",
+                    "objects": [
+                      {
+                        "activeState": true,
+                        "content": "TEP",
+                        "elementId": "obj_0",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "semanticType": "IMAGING_MODALITY",
+                        "sourceText": "TEP",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "IMAGING_MODALITY"
+                      },
+                      {
+                        "activeState": true,
+                        "content": "immunothérapie",
+                        "elementId": "obj_1",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "semanticType": "TREATMENT",
+                        "sourceText": "l'immunothérapie",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "TREATMENT"
+                      },
+                      {
+                        "activeState": true,
+                        "content": "SUVmax",
+                        "elementId": "obj_2",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "NEGATED",
+                        "semanticType": "BIOMARKER",
+                        "sourceText": "SUVmax",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "BIOMARKER_CANDIDATE"
+                      },
+                      {
+                        "activeState": true,
+                        "content": "scanner",
+                        "elementId": "obj_3",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "semanticType": "IMAGING_MODALITY",
+                        "sourceText": "Le scanner",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "ROUTINE_IMAGING"
+                      }
+                    ],
+                    "openDecisions": [],
+                    "ownershipAndEpistemicStates": [
+                      {
+                        "content": "Je veux utiliser le TEP pour prédire la réponse à l'immunothérapie, mais pas avec le SUVmax seul.",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "sourceText": "Je veux utiliser le TEP pour prédire la réponse à l'immunothérapie, mais pas avec le SUVmax seul.",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "statementId": "stmt_0"
+                      },
+                      {
+                        "content": "Le scanner est déjà fait en routine.",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "sourceText": "Le scanner est déjà fait en routine.",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "statementId": "stmt_1"
+                      }
+                    ],
+                    "relations": [
+                      {
+                        "activeState": true,
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "relationId": "rel_0",
+                        "relationType": "PREDICTION",
+                        "sourceElementId": "obj_0",
+                        "sourceText": "utiliser le TEP pour prédire la réponse à l'immunothérapie",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "targetElementId": "obj_1"
+                      },
+                      {
+                        "activeState": true,
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "NEGATED",
+                        "relationId": "rel_1",
+                        "relationType": "EXCLUSION",
+                        "sourceElementId": "obj_0",
+                        "sourceText": "pas avec le SUVmax seul",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "targetElementId": "obj_2"
+                      }
+                    ],
+                    "unknowns": []
+                  },
+                  "id": "call_1108543",
+                  "name": "final_result",
+                  "partialArgs": null,
+                  "willContinue": null
+                },
+                "functionResponse": null,
+                "inlineData": null,
+                "mediaResolution": null,
+                "partMetadata": null,
+                "text": null,
+                "thought": null,
+                "thoughtSignature": "El4KXAERTTIPK8xq2uhaqAmu7Z2SR5GbwL1_Ci1Urk6pQr_Bc0li72aC8BGWORNZoftkV5d8mecYecUZ-aolGfFQHntWM5dl-Nmpsr_8XAQHi_Ocle8U7x59YYhLNQ0D",
+                "toolCall": null,
+                "toolResponse": null,
+                "videoMetadata": null
+              }
+            ],
+            "role": "model"
+          },
+          "finishMessage": null,
+          "finishReason": "STOP",
+          "groundingMetadata": null,
+          "index": 0,
+          "logprobsResult": null,
+          "safetyRatings": null,
+          "tokenCount": null,
+          "urlContextMetadata": null
+        }
+      ],
+      "createTime": null,
+      "modelStatus": null,
+      "modelVersion": "gemini-3.5-flash-lite",
+      "parsed": null,
+      "promptFeedback": null,
+      "responseId": "VVJ_av3kDdDonsEP0d3ekQs",
+      "sdkHttpResponse": {
+        "body": null,
+        "headers": {
+          "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+          "content-encoding": "gzip",
+          "content-type": "application/json; charset=UTF-8",
+          "date": "Fri, 14 Aug 2026 17:37:28 GMT",
+          "server": "scaffolding on HTTPServer2",
+          "server-timing": "gfet4t7; dur=3383",
+          "transfer-encoding": "chunked",
+          "vary": "Origin, X-Origin, Referer",
+          "x-content-type-options": "nosniff",
+          "x-frame-options": "SAMEORIGIN",
+          "x-gemini-service-tier": "standard",
+          "x-xss-protection": "0"
+        }
+      },
+      "usageMetadata": {
+        "cacheTokensDetails": null,
+        "cachedContentTokenCount": null,
+        "candidatesTokenCount": 1162,
+        "candidatesTokensDetails": null,
+        "promptTokenCount": 5259,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 5259
+          }
+        ],
+        "thoughtsTokenCount": null,
+        "toolUsePromptTokenCount": null,
+        "toolUsePromptTokensDetails": null,
+        "totalTokenCount": 6421,
+        "trafficType": null
+      }
+    }
+  },
+  "requestNumber": 16,
+  "requestPayload": {
+    "contextInputs": [],
+    "conversation": [
+      {
+        "content": "Je veux utiliser le TEP pour prédire la réponse à l'immunothérapie, mais pas avec le SUVmax seul. Le scanner est déjà fait en routine.",
+        "role": "USER",
+        "turnId": "T0"
+      }
+    ],
+    "previousCandidateState": null
+  },
+  "requestPayloadDigest": "c3a9fe0e5be3de7c962a1fa1b64724e34c607d03760484b7dc24cb37f4046839",
+  "role": "PRIMARY_INTERPRETER",
+  "scenario": "I03",
+  "schemaDigest": "a8555b9478aa05f95128a696beb99fcd7eee17ee7480b1101fdc29e85fefa906",
+  "schemaVersion": "PRIMARY_SCIENTIFIC_INTERPRETATION_0.1.0-experimental",
+  "temperature": null,
+  "turn": "T0",
+  "validationCompletedAt": "2026-08-14T17:37:28.374906Z",
+  "validationErrors": []
+}

@@ -1,0 +1,19 @@
+{
+  "ablation": "P2_PYDANTIC_PLUS_AUDIT_D_PLUS_AUDIT_L",
+  "candidateMutated": false,
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "finalDisposition": "SUCCESS",
+  "findings": [],
+  "latencyMs": 3229,
+  "primaryOutputIdentity": "HCS-589d89a1dd69dc934bf7ff25",
+  "providerCalls": 1,
+  "rawOutputRef": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/experiments/engine-lab/results/hybrid-runtime-prototype-01/raw/request-0054-audit-l-i08-t1.json",
+  "scenario": "I08",
+  "technicalFailure": false,
+  "triggerReasons": [
+    "NEGATION_OR_NON_CAUSALITY",
+    "HIGH_IMPACT_AMBIGUITY"
+  ],
+  "triggered": true,
+  "turn": "T1"
+}

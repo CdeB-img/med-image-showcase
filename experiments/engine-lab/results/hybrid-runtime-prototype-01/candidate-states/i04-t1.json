@@ -1,0 +1,352 @@
+{
+  "ablation": "P0_PYDANTIC_DIRECT",
+  "candidateState": {
+    "adjudicationStatus": "NOT_REQUIRED",
+    "ambiguities": [],
+    "auditStatus": "NOT_RUN",
+    "clarificationNeeds": [],
+    "contextInputs": [],
+    "contextualCandidates": [],
+    "correctionsAndSupersessions": [],
+    "explicitStatements": [
+      {
+        "activeState": true,
+        "adoptionStatus": null,
+        "availabilityClaim": null,
+        "availabilityScope": null,
+        "confidence": null,
+        "content": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible.",
+        "decisionId": null,
+        "elementId": "element:bb9da708c41ff6fcd517",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "originStatus": null,
+        "originType": null,
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousElementIds": [],
+        "semanticIdentity": "semantic:ed774d2f88f1455cf3ce",
+        "semanticType": "GOAL",
+        "sourceText": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible.",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "studyRole": "PRIMARY_INTENT",
+        "temporalContext": null
+      },
+      {
+        "activeState": true,
+        "adoptionStatus": null,
+        "availabilityClaim": null,
+        "availabilityScope": null,
+        "confidence": null,
+        "content": "Tous les centres ont cine et T1 natif. Non, le T2 n'est pas disponible partout.",
+        "decisionId": null,
+        "elementId": "element:1f9061cd0055c741cafd",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "originStatus": null,
+        "originType": null,
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousElementIds": [],
+        "semanticIdentity": "semantic:r1_statement_1",
+        "semanticType": "STATEMENT",
+        "sourceText": "Tous les centres ont cine et T1 natif. Non, le T2 n'est pas disponible partout.",
+        "sourceTurnIds": [
+          "R1"
+        ],
+        "studyRole": "CONTEXT",
+        "temporalContext": null
+      }
+    ],
+    "identity": {
+      "conversationId": "HYBRID-I04",
+      "generatedAt": "2026-08-14T17:38:24.811441Z",
+      "previousStateId": "HCS-d1d46617651daea24f7870b1",
+      "runtimeIdentity": {
+        "configurationDigest": "ffe6c51e69a3c56e82af225703c43989b8d8a36822e322cf107c31c3c7ac8542",
+        "model": "gemini-3.5-flash-lite",
+        "promptDigest": "dfca464950d208f3146ec48cd75d876b07cfcc21b5161d8e835bb77fcdaf30e4",
+        "provider": "GOOGLE_GEMINI",
+        "runtimeId": "PYDANTIC_AI_DIRECT",
+        "runtimeVersion": "0.1.0-experimental",
+        "schemaDigest": "a8555b9478aa05f95128a696beb99fcd7eee17ee7480b1101fdc29e85fefa906"
+      },
+      "stateId": "HCS-e7eef369fffe497dabe48aac",
+      "version": "0.1.0-experimental"
+    },
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [
+      {
+        "activeState": true,
+        "adoptionStatus": null,
+        "availabilityClaim": null,
+        "availabilityScope": null,
+        "confidence": null,
+        "content": "le T2 n'est pas disponible partout",
+        "decisionId": null,
+        "elementId": "element:44eb3a03bd0b864e4103",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "originStatus": null,
+        "originType": null,
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "previousElementIds": [],
+        "semanticIdentity": "semantic:r1_neg_1",
+        "semanticType": "METHOD",
+        "sourceText": "le T2 n'est pas disponible partout.",
+        "sourceTurnIds": [
+          "R1"
+        ],
+        "studyRole": "CONSTRAINT",
+        "temporalContext": null
+      }
+    ],
+    "objects": [
+      {
+        "activeState": true,
+        "adoptionStatus": null,
+        "availabilityClaim": null,
+        "availabilityScope": null,
+        "confidence": null,
+        "content": "atteinte cardiaque précoce dans Fabry avant la fibrose visible",
+        "decisionId": null,
+        "elementId": "element:bed2d6800b4160583d00",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "originStatus": null,
+        "originType": null,
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousElementIds": [],
+        "semanticIdentity": "semantic:e60cf45847c49dac5047",
+        "semanticType": "CLINICAL_CONDITION",
+        "sourceText": "l'atteinte cardiaque précoce dans Fabry avant la fibrose visible",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "studyRole": "TARGET",
+        "temporalContext": null
+      },
+      {
+        "activeState": true,
+        "adoptionStatus": null,
+        "availabilityClaim": null,
+        "availabilityScope": null,
+        "confidence": null,
+        "content": "plusieurs centres",
+        "decisionId": null,
+        "elementId": "element:05e77621b6eb073a9295",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "originStatus": null,
+        "originType": null,
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousElementIds": [],
+        "semanticIdentity": "semantic:dac50e8cde253111e6e5",
+        "semanticType": "STUDY_SETTING",
+        "sourceText": "plusieurs centres",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "studyRole": "SETTING",
+        "temporalContext": null
+      },
+      {
+        "activeState": true,
+        "adoptionStatus": null,
+        "availabilityClaim": null,
+        "availabilityScope": null,
+        "confidence": null,
+        "content": "cine",
+        "decisionId": null,
+        "elementId": "element:98052239a096ee1943da",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "originStatus": null,
+        "originType": null,
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousElementIds": [],
+        "semanticIdentity": "semantic:r1_obj_cine",
+        "semanticType": "METHOD",
+        "sourceText": "cine",
+        "sourceTurnIds": [
+          "R1"
+        ],
+        "studyRole": "METHOD",
+        "temporalContext": null
+      },
+      {
+        "activeState": true,
+        "adoptionStatus": null,
+        "availabilityClaim": null,
+        "availabilityScope": null,
+        "confidence": null,
+        "content": "T1 natif",
+        "decisionId": null,
+        "elementId": "element:1a19171e63c7e31430bd",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "originStatus": null,
+        "originType": null,
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousElementIds": [],
+        "semanticIdentity": "semantic:r1_obj_t1",
+        "semanticType": "METHOD",
+        "sourceText": "T1 natif",
+        "sourceTurnIds": [
+          "R1"
+        ],
+        "studyRole": "METHOD",
+        "temporalContext": null
+      },
+      {
+        "activeState": true,
+        "adoptionStatus": null,
+        "availabilityClaim": null,
+        "availabilityScope": null,
+        "confidence": null,
+        "content": "T2",
+        "decisionId": null,
+        "elementId": "element:b4d4a9e27ed3ae18463a",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "originStatus": null,
+        "originType": null,
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "previousElementIds": [],
+        "semanticIdentity": "semantic:r1_obj_t2",
+        "semanticType": "METHOD",
+        "sourceText": "T2",
+        "sourceTurnIds": [
+          "R1"
+        ],
+        "studyRole": "METHOD",
+        "temporalContext": null
+      }
+    ],
+    "openDecisions": [],
+    "ownershipAndEpistemicStates": [
+      {
+        "content": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "ownership": "USER",
+        "sourceText": null,
+        "sourceTurnIds": [],
+        "statementId": "S0"
+      },
+      {
+        "content": "On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "ownership": "USER",
+        "sourceText": null,
+        "sourceTurnIds": [],
+        "statementId": "S1"
+      },
+      {
+        "content": "Tous les centres ont cine et T1 natif. Non, le T2 n'est pas disponible partout.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "ownership": "USER",
+        "sourceText": null,
+        "sourceTurnIds": [
+          "R1"
+        ],
+        "statementId": "S2"
+      }
+    ],
+    "relations": [
+      {
+        "activeState": true,
+        "confidence": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousRelationIds": [],
+        "relationId": "relation:03cecf814a42ee870425",
+        "relationType": "TARGET_POPULATION_OR_CONDITION",
+        "sourceElementId": "element:05e77621b6eb073a9295",
+        "sourceText": "On a plusieurs centres",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "targetElementId": "element:bed2d6800b4160583d00",
+        "temporalContext": null
+      },
+      {
+        "activeState": true,
+        "confidence": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousRelationIds": [],
+        "relationId": "relation:9fc65f942a2506ceeb90",
+        "relationType": "METHOD_AVAILABILITY",
+        "sourceElementId": "element:05e77621b6eb073a9295",
+        "sourceText": "Tous les centres ont cine et T1 natif",
+        "sourceTurnIds": [
+          "R1"
+        ],
+        "targetElementId": "element:98052239a096ee1943da",
+        "temporalContext": null
+      },
+      {
+        "activeState": true,
+        "confidence": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousRelationIds": [],
+        "relationId": "relation:30a4ba30c254df976b20",
+        "relationType": "METHOD_AVAILABILITY",
+        "sourceElementId": "element:05e77621b6eb073a9295",
+        "sourceText": "Tous les centres ont cine et T1 natif",
+        "sourceTurnIds": [
+          "R1"
+        ],
+        "targetElementId": "element:1a19171e63c7e31430bd",
+        "temporalContext": null
+      }
+    ],
+    "source": {
+      "originalRequest": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+      "rawOutputRef": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/experiments/engine-lab/results/hybrid-runtime-prototype-01/raw/request-0024-primary-i04-t1.json",
+      "turns": [
+        {
+          "content": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+          "role": "USER",
+          "turnId": "T0"
+        },
+        {
+          "content": "Tous les centres ont cine et T1 natif. Non, le T2 n'est pas disponible partout.",
+          "role": "USER",
+          "turnId": "R1"
+        }
+      ]
+    },
+    "technicalStatus": "STRUCTURED_CONTRACT_VALID",
+    "temporalElements": [],
+    "understanding": {
+      "normalizedUnderstanding": "User wants to detect early cardiac involvement in Fabry disease before visible fibrosis across multiple centers. All centers have cine and native T1, but T2 is not available everywhere.",
+      "scientificGoalCandidates": [],
+      "studyIntentCandidates": []
+    },
+    "unknowns": []
+  },
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "primaryLatencyMs": 5525,
+  "primaryOutputIdentity": "HCS-e7eef369fffe497dabe48aac",
+  "primaryProviderCalls": 1,
+  "rawOutputRef": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/experiments/engine-lab/results/hybrid-runtime-prototype-01/raw/request-0024-primary-i04-t1.json",
+  "scenario": "I04",
+  "turn": "T1"
+}

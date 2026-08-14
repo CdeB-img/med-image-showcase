@@ -1,0 +1,23 @@
+{
+  "ablation": "P3_FULL_HYBRID_CANDIDATE",
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "latencyMs": 8687,
+  "output": {
+    "consolidatedInterpretation": null,
+    "disposition": "FAIL_CLOSED",
+    "resolutions": [],
+    "unresolvedFindingIds": [
+      "finding:001"
+    ]
+  },
+  "primaryOutputIdentity": "HCS-c105abc8528157f469d02c48",
+  "providerCalls": 1,
+  "rawOutputRef": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/experiments/engine-lab/results/hybrid-runtime-prototype-01/raw/request-0052-adjudicator-i08-t0.json",
+  "scenario": "I08",
+  "technicalFailure": true,
+  "triggerReasons": [
+    "MAJOR_AMBIGUITY_MUST_REMAIN_EXPLICIT"
+  ],
+  "triggered": true,
+  "turn": "T0"
+}

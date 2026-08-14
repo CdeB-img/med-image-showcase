@@ -1,0 +1,386 @@
+{
+  "conditionalStages": {
+    "adjudicator": {
+      "calls": 11,
+      "noValueCalls": 11,
+      "resolutions": 0,
+      "triggerRate": 0.4583333333333333,
+      "triggeredStates": 11
+    },
+    "auditL": {
+      "calls": 23,
+      "findingsConfirmed": 7,
+      "findingsRejected": 0,
+      "newFindings": 6,
+      "noValueCalls": 13,
+      "triggerRate": 0.9583333333333334,
+      "triggeredStates": 23
+    },
+    "criticalViolationsIntroducedByP3": null,
+    "criticalViolationsRemovedByP3": null,
+    "unresolvedStates": 9
+  },
+  "decision": "PYDANTIC_PLUS_SEM_AUDIT_RUNTIME_CANDIDATE",
+  "postRunClassification": {
+    "adjudicatorFailureClass": "ADJUDICATOR_PROVIDER_REQUEST_CONTRACT_FAILURE",
+    "adjudicatorHttpStatus": 400,
+    "adjudicatorProviderStatus": "INVALID_ARGUMENT",
+    "adjudicatorScientificOutputsGenerated": 0,
+    "candidateCriticalViolationCountP0P1P2": 3,
+    "comparisonP0ToP3Valid": false,
+    "comparisonP0ToP3InvalidReason": "P3 is non-evaluable on 11 states because every adjudicator request was rejected before scientific generation.",
+    "p3CriticalViolationCountOnEvaluableStates": 0,
+    "p3EvaluableExpectationRetention": {
+      "applicable": 36,
+      "met": 36,
+      "rate": 1.0
+    },
+    "p3EvaluableStates": 13,
+    "p3NonEvaluableStates": 11,
+    "primaryInterpreterStructuredFailures": 0,
+    "reportingRule": "NOT_EVALUABLE and provider request failures are technical evidence and are not scientific critical violations.",
+    "semanticAuditLFindings": 13,
+    "semanticAuditLScientificOutputsGenerated": 23
+  },
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "latency": {
+    "callsPerState": 2.4166666666666665,
+    "meanStateLatencyMs": 14484.333333333334,
+    "totalStateLatencyMs": 347624
+  },
+  "operations": {
+    "callsByRole": {
+      "PRIMARY_INTERPRETER": 24,
+      "SEMANTIC_ADJUDICATOR": 11,
+      "SEMANTIC_AUDITOR": 23
+    },
+    "completedOperations": 58,
+    "providerCalls": 58,
+    "rawPersistence": {
+      "completed": 58,
+      "completedWithRaw": 58,
+      "rate": 1.0
+    },
+    "retries": 0,
+    "technicalFailures": 11
+  },
+  "stages": {
+    "P0_PYDANTIC_DIRECT": {
+      "criticalViolationCount": 3,
+      "criticalViolations": [
+        {
+          "scenario": "I01",
+          "turn": "T1",
+          "violation": "SELF_RELATION:relation:d04bbdf8c0698020c553"
+        },
+        {
+          "scenario": "I01",
+          "turn": "T2",
+          "violation": "SELF_RELATION:relation:d04bbdf8c0698020c553"
+        },
+        {
+          "scenario": "I08",
+          "turn": "T0",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:Lyon local practice not Project decision"
+        }
+      ],
+      "evaluableStates": 24,
+      "explicitAndCriticalExpectationRetention": {
+        "applicable": 65,
+        "met": 64,
+        "rate": 0.9846153846153847
+      },
+      "states": 24
+    },
+    "P1_PYDANTIC_PLUS_AUDIT_D": {
+      "criticalViolationCount": 4,
+      "criticalViolations": [
+        {
+          "scenario": "I01",
+          "turn": "T1",
+          "violation": "SELF_RELATION:relation:d04bbdf8c0698020c553"
+        },
+        {
+          "scenario": "I01",
+          "turn": "T2",
+          "violation": "SELF_RELATION:relation:d04bbdf8c0698020c553"
+        },
+        {
+          "scenario": "I08",
+          "turn": "T0",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:Lyon local practice not Project decision"
+        },
+        {
+          "scenario": "I08",
+          "turn": "T2",
+          "violation": "OPEN_FINDING:AMBIGUITY_SILENTLY_CLOSED"
+        }
+      ],
+      "evaluableStates": 24,
+      "explicitAndCriticalExpectationRetention": {
+        "applicable": 65,
+        "met": 64,
+        "rate": 0.9846153846153847
+      },
+      "findings": 4,
+      "states": 24
+    },
+    "P2_PYDANTIC_PLUS_AUDIT_D_PLUS_AUDIT_L": {
+      "criticalViolationCount": 5,
+      "criticalViolations": [
+        {
+          "scenario": "I01",
+          "turn": "T1",
+          "violation": "SELF_RELATION:relation:d04bbdf8c0698020c553"
+        },
+        {
+          "scenario": "I01",
+          "turn": "T2",
+          "violation": "SELF_RELATION:relation:d04bbdf8c0698020c553"
+        },
+        {
+          "scenario": "I08",
+          "turn": "T0",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:Lyon local practice not Project decision"
+        },
+        {
+          "scenario": "I08",
+          "turn": "T2",
+          "violation": "OPEN_FINDING:AMBIGUITY_SILENTLY_CLOSED"
+        },
+        {
+          "scenario": "I08",
+          "turn": "T2",
+          "violation": "OPEN_FINDING:AMBIGUITY_SILENTLY_CLOSED"
+        }
+      ],
+      "evaluableStates": 24,
+      "explicitAndCriticalExpectationRetention": {
+        "applicable": 65,
+        "met": 64,
+        "rate": 0.9846153846153847
+      },
+      "semanticFindings": 13,
+      "states": 24
+    },
+    "P3_FULL_HYBRID_CANDIDATE": {
+      "criticalViolationCount": 40,
+      "criticalViolations": [
+        {
+          "scenario": "I01",
+          "turn": "T0",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:stent strategies and infarction context"
+        },
+        {
+          "scenario": "I01",
+          "turn": "T0",
+          "violation": "NOT_EVALUABLE"
+        },
+        {
+          "scenario": "I01",
+          "turn": "T1",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:stent strategies and infarction context"
+        },
+        {
+          "scenario": "I01",
+          "turn": "T1",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:culprit lesion treated immediately"
+        },
+        {
+          "scenario": "I01",
+          "turn": "T1",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:non-culprit timing comparison"
+        },
+        {
+          "scenario": "I01",
+          "turn": "T1",
+          "violation": "NOT_EVALUABLE"
+        },
+        {
+          "scenario": "I01",
+          "turn": "T2",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:stent strategies and infarction context"
+        },
+        {
+          "scenario": "I01",
+          "turn": "T2",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:culprit lesion treated immediately"
+        },
+        {
+          "scenario": "I01",
+          "turn": "T2",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:non-culprit timing comparison"
+        },
+        {
+          "scenario": "I01",
+          "turn": "T2",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:infarct size primary"
+        },
+        {
+          "scenario": "I01",
+          "turn": "T2",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:MVO secondary"
+        },
+        {
+          "scenario": "I01",
+          "turn": "T2",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:strain rejected"
+        },
+        {
+          "scenario": "I01",
+          "turn": "T2",
+          "violation": "NOT_EVALUABLE"
+        },
+        {
+          "scenario": "I03",
+          "turn": "T0",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:SUVmax alone insufficient"
+        },
+        {
+          "scenario": "I03",
+          "turn": "T0",
+          "violation": "NOT_EVALUABLE"
+        },
+        {
+          "scenario": "I05",
+          "turn": "T0",
+          "violation": "NOT_EVALUABLE"
+        },
+        {
+          "scenario": "I06",
+          "turn": "T0",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:DSC and ASL distinct methods"
+        },
+        {
+          "scenario": "I06",
+          "turn": "T0",
+          "violation": "NOT_EVALUABLE"
+        },
+        {
+          "scenario": "I06",
+          "turn": "T1",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:DSC and ASL distinct methods"
+        },
+        {
+          "scenario": "I06",
+          "turn": "T1",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:true progression versus pseudoprogression at 3 months"
+        },
+        {
+          "scenario": "I06",
+          "turn": "T1",
+          "violation": "NOT_EVALUABLE"
+        },
+        {
+          "scenario": "I06",
+          "turn": "T2",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:DSC and ASL distinct methods"
+        },
+        {
+          "scenario": "I06",
+          "turn": "T2",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:true progression versus pseudoprogression at 3 months"
+        },
+        {
+          "scenario": "I06",
+          "turn": "T2",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:paired comparison requires both"
+        },
+        {
+          "scenario": "I06",
+          "turn": "T2",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:ASL-only secondary branch"
+        },
+        {
+          "scenario": "I06",
+          "turn": "T2",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:principal measure remains unknown"
+        },
+        {
+          "scenario": "I06",
+          "turn": "T2",
+          "violation": "NOT_EVALUABLE"
+        },
+        {
+          "scenario": "I08",
+          "turn": "T0",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:Lyon local practice not Project decision"
+        },
+        {
+          "scenario": "I08",
+          "turn": "T0",
+          "violation": "NOT_EVALUABLE"
+        },
+        {
+          "scenario": "I08",
+          "turn": "T1",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:Lyon local practice not Project decision"
+        },
+        {
+          "scenario": "I08",
+          "turn": "T1",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:native T1 available all sites"
+        },
+        {
+          "scenario": "I08",
+          "turn": "T1",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:ECV only two sites"
+        },
+        {
+          "scenario": "I08",
+          "turn": "T1",
+          "violation": "NOT_EVALUABLE"
+        },
+        {
+          "scenario": "I08",
+          "turn": "T2",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:Lyon local practice not Project decision"
+        },
+        {
+          "scenario": "I08",
+          "turn": "T2",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:native T1 available all sites"
+        },
+        {
+          "scenario": "I08",
+          "turn": "T2",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:ECV only two sites"
+        },
+        {
+          "scenario": "I08",
+          "turn": "T2",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:native T1 principal candidate"
+        },
+        {
+          "scenario": "I08",
+          "turn": "T2",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:principal candidate not adopted endpoint"
+        },
+        {
+          "scenario": "I08",
+          "turn": "T2",
+          "violation": "VISIBLE_EXPECTATION_NOT_RECONSTRUCTIBLE:ECV exploratory where available"
+        },
+        {
+          "scenario": "I08",
+          "turn": "T2",
+          "violation": "NOT_EVALUABLE"
+        }
+      ],
+      "evaluableStates": 13,
+      "explicitAndCriticalExpectationRetention": {
+        "applicable": 65,
+        "met": 36,
+        "rate": 0.5538461538461539
+      },
+      "states": 24
+    }
+  },
+  "stateCount": 24,
+  "technicalStatus": {
+    "adjudicatorTechnicalFailures": 11,
+    "auditLTechnicalFailures": 0,
+    "notEvaluableP3": 11,
+    "structuredContractFailures": 0
+  }
+}

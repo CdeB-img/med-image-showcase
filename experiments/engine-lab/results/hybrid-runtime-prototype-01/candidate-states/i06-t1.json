@@ -1,0 +1,431 @@
+{
+  "ablation": "P0_PYDANTIC_DIRECT",
+  "candidateState": {
+    "adjudicationStatus": "NOT_REQUIRED",
+    "ambiguities": [
+      {
+        "ambiguityId": "AMB_0",
+        "content": "Conflict between DSC and ASL results regarding glioma progression",
+        "decisionId": null,
+        "decisionalImpact": "HIGH",
+        "interpretations": [
+          "DSC is more useful",
+          "ASL is more useful"
+        ],
+        "sourceText": "Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression.",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "status": "OPEN"
+      },
+      {
+        "ambiguityId": "AMB_1",
+        "content": "Distinction between true progression and pseudoprogression at 3 months",
+        "decisionId": null,
+        "decisionalImpact": "HIGH",
+        "interpretations": [
+          "True progression",
+          "Pseudoprogression"
+        ],
+        "sourceText": "Je veux distinguer progression vraie et pseudoprogression à 3 mois.",
+        "sourceTurnIds": [
+          "R1"
+        ],
+        "status": "OPEN"
+      }
+    ],
+    "auditStatus": "NOT_RUN",
+    "clarificationNeeds": [],
+    "contextInputs": [],
+    "contextualCandidates": [
+      {
+        "activeState": true,
+        "adoptionStatus": null,
+        "availabilityClaim": null,
+        "availabilityScope": null,
+        "confidence": null,
+        "content": "Comparison of DSC and ASL perfusion methods in gliomas",
+        "decisionId": null,
+        "elementId": "element:de61999ca8bc378b069d",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "originStatus": null,
+        "originType": null,
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousElementIds": [],
+        "semanticIdentity": "semantic:b5d70d4895d4375e6f1f",
+        "semanticType": "STUDY_INTENT",
+        "sourceText": "Je compare DSC et ASL chez mes gliomes.",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "studyRole": "COMPARATIVE_INTENT",
+        "temporalContext": null
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitStatements": [
+      {
+        "activeState": true,
+        "adoptionStatus": null,
+        "availabilityClaim": null,
+        "availabilityScope": null,
+        "confidence": null,
+        "content": "Comparison of DSC and ASL in gliomas",
+        "decisionId": null,
+        "elementId": "element:14886685c018fb7ad2cb",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "originStatus": null,
+        "originType": null,
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousElementIds": [],
+        "semanticIdentity": "semantic:93be31f0b500b70d6eab",
+        "semanticType": "SCIENTIFIC_STATEMENT",
+        "sourceText": "Je compare DSC et ASL chez mes gliomes.",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "studyRole": "PRIMARY_INTENT",
+        "temporalContext": null
+      },
+      {
+        "activeState": true,
+        "adoptionStatus": null,
+        "availabilityClaim": null,
+        "availabilityScope": null,
+        "confidence": null,
+        "content": "Desire to determine which method is more useful for progression when DSC and ASL disagree",
+        "decisionId": null,
+        "elementId": "element:1b435fdc2aeb35e9fdbb",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "originStatus": null,
+        "originType": null,
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousElementIds": [],
+        "semanticIdentity": "semantic:55a3697006fc2ed6cf95",
+        "semanticType": "SCIENTIFIC_STATEMENT",
+        "sourceText": "Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression.",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "studyRole": "STUDY_GOAL",
+        "temporalContext": null
+      },
+      {
+        "activeState": true,
+        "adoptionStatus": null,
+        "availabilityClaim": null,
+        "availabilityScope": null,
+        "confidence": null,
+        "content": "Preference to keep cases that only have ASL if possible",
+        "decisionId": null,
+        "elementId": "element:63b212e7c81e1f1232f3",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "originStatus": null,
+        "originType": null,
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousElementIds": [],
+        "semanticIdentity": "semantic:b7beb3edbdcf36eb6288",
+        "semanticType": "SCIENTIFIC_STATEMENT",
+        "sourceText": "Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "studyRole": "COHORT_MANAGEMENT",
+        "temporalContext": null
+      },
+      {
+        "activeState": true,
+        "adoptionStatus": null,
+        "availabilityClaim": null,
+        "availabilityScope": null,
+        "confidence": null,
+        "content": "Distinction between true progression and pseudoprogression at 3 months",
+        "decisionId": null,
+        "elementId": "element:88697ff07566b9bce17f",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "originStatus": null,
+        "originType": null,
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousElementIds": [],
+        "semanticIdentity": "semantic:c2937e81b1924a2e8c5d",
+        "semanticType": "SCIENTIFIC_STATEMENT",
+        "sourceText": "Je veux distinguer progression vraie et pseudoprogression à 3 mois.",
+        "sourceTurnIds": [
+          "R1"
+        ],
+        "studyRole": "STUDY_GOAL",
+        "temporalContext": null
+      }
+    ],
+    "identity": {
+      "conversationId": "HYBRID-I06",
+      "generatedAt": "2026-08-14T17:39:42.261868Z",
+      "previousStateId": "HCS-2c2c7b9b1b3a0efb6fd5b7c0",
+      "runtimeIdentity": {
+        "configurationDigest": "ffe6c51e69a3c56e82af225703c43989b8d8a36822e322cf107c31c3c7ac8542",
+        "model": "gemini-3.5-flash-lite",
+        "promptDigest": "dfca464950d208f3146ec48cd75d876b07cfcc21b5161d8e835bb77fcdaf30e4",
+        "provider": "GOOGLE_GEMINI",
+        "runtimeId": "PYDANTIC_AI_DIRECT",
+        "runtimeVersion": "0.1.0-experimental",
+        "schemaDigest": "a8555b9478aa05f95128a696beb99fcd7eee17ee7480b1101fdc29e85fefa906"
+      },
+      "stateId": "HCS-c3d8031f92f106fc26acba2e",
+      "version": "0.1.0-experimental"
+    },
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [],
+    "objects": [
+      {
+        "activeState": true,
+        "adoptionStatus": null,
+        "availabilityClaim": null,
+        "availabilityScope": null,
+        "confidence": null,
+        "content": "DSC perfusion",
+        "decisionId": null,
+        "elementId": "element:6653c2f948de2a3259d6",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "originStatus": null,
+        "originType": null,
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousElementIds": [],
+        "semanticIdentity": "semantic:e61a839c58d60f7b25b4",
+        "semanticType": "IMAGING_METHOD",
+        "sourceText": "DSC",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "studyRole": "COMPARISON_SUBJECT",
+        "temporalContext": null
+      },
+      {
+        "activeState": true,
+        "adoptionStatus": null,
+        "availabilityClaim": null,
+        "availabilityScope": null,
+        "confidence": null,
+        "content": "ASL perfusion",
+        "decisionId": null,
+        "elementId": "element:01fa36e4a76612c0ffb6",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "originStatus": null,
+        "originType": null,
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousElementIds": [],
+        "semanticIdentity": "semantic:189c428df61727be5a89",
+        "semanticType": "IMAGING_METHOD",
+        "sourceText": "ASL",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "studyRole": "COMPARISON_SUBJECT",
+        "temporalContext": null
+      },
+      {
+        "activeState": true,
+        "adoptionStatus": null,
+        "availabilityClaim": null,
+        "availabilityScope": null,
+        "confidence": null,
+        "content": "Gliomas",
+        "decisionId": null,
+        "elementId": "element:94ba7703861dcdd130c7",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "originStatus": null,
+        "originType": null,
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousElementIds": [],
+        "semanticIdentity": "semantic:1dd72f52cae15a6972a1",
+        "semanticType": "PATHOLOGY",
+        "sourceText": "mes gliomes",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "studyRole": "POPULATION",
+        "temporalContext": null
+      },
+      {
+        "activeState": true,
+        "adoptionStatus": null,
+        "availabilityClaim": null,
+        "availabilityScope": null,
+        "confidence": null,
+        "content": "True progression vs pseudoprogression at 3 months",
+        "decisionId": null,
+        "elementId": "element:1f60ed64c8e02894a545",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "originStatus": null,
+        "originType": null,
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousElementIds": [],
+        "semanticIdentity": "semantic:3e912b48a1c84f29a73e",
+        "semanticType": "ENDPOINT",
+        "sourceText": "progression vraie et pseudoprogression à 3 mois",
+        "sourceTurnIds": [
+          "R1"
+        ],
+        "studyRole": "TARGET_ENDPOINT",
+        "temporalContext": null
+      }
+    ],
+    "openDecisions": [
+      {
+        "affectedElementIds": [
+          "element:14886685c018fb7ad2cb",
+          "element:1b435fdc2aeb35e9fdbb",
+          "element:f184b2c1c0984f1a8e9d"
+        ],
+        "content": "Determine which method is more useful for progression during discordance, distinguish true progression from pseudoprogression at 3 months, and decide whether to retain single-modality ASL cases",
+        "decisionId": "DEC_0",
+        "decisionOwner": "USER",
+        "sourceText": "Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression. Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible. Je veux distinguer progression vraie et pseudoprogression à 3 mois.",
+        "sourceTurnIds": [
+          "T0",
+          "R1"
+        ],
+        "status": "OPEN"
+      }
+    ],
+    "ownershipAndEpistemicStates": [
+      {
+        "content": "Je compare DSC et ASL chez mes gliomes.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "ownership": "USER",
+        "sourceText": null,
+        "sourceTurnIds": [],
+        "statementId": "ST_0"
+      },
+      {
+        "content": "Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "ownership": "USER",
+        "sourceText": null,
+        "sourceTurnIds": [],
+        "statementId": "ST_1"
+      },
+      {
+        "content": "Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "ownership": "USER",
+        "sourceText": null,
+        "sourceTurnIds": [],
+        "statementId": "ST_2"
+      },
+      {
+        "content": "Par \\\"la seconde\\\", je parle de l'ASL. Je veux distinguer progression vraie et pseudoprogression à 3 mois.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "ownership": "USER",
+        "sourceText": null,
+        "sourceTurnIds": [],
+        "statementId": "ST_3"
+      }
+    ],
+    "relations": [
+      {
+        "activeState": true,
+        "confidence": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousRelationIds": [],
+        "relationId": "relation:d594a9768b9aaef97b1a",
+        "relationType": "COMPARES",
+        "sourceElementId": "element:6653c2f948de2a3259d6",
+        "sourceText": "Je compare DSC et ASL",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "targetElementId": "element:01fa36e4a76612c0ffb6",
+        "temporalContext": null
+      },
+      {
+        "activeState": true,
+        "confidence": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousRelationIds": [],
+        "relationId": "relation:59c9dfa9324d0baa7b5e",
+        "relationType": "APPLIED_TO",
+        "sourceElementId": "element:6653c2f948de2a3259d6",
+        "sourceText": "DSC et ASL chez mes gliomes",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "targetElementId": "element:94ba7703861dcdd130c7",
+        "temporalContext": null
+      },
+      {
+        "activeState": true,
+        "confidence": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousRelationIds": [],
+        "relationId": "relation:43f9e18dcf5e47f65549",
+        "relationType": "APPLIED_TO",
+        "sourceElementId": "element:01fa36e4a76612c0ffb6",
+        "sourceText": "DSC et ASL chez mes gliomes",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "targetElementId": "element:94ba7703861dcdd130c7",
+        "temporalContext": null
+      }
+    ],
+    "source": {
+      "originalRequest": "Je compare DSC et ASL chez mes gliomes. Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression. Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+      "rawOutputRef": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/experiments/engine-lab/results/hybrid-runtime-prototype-01/raw/request-0038-primary-i06-t1.json",
+      "turns": [
+        {
+          "content": "Je compare DSC et ASL chez mes gliomes. Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression. Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+          "role": "USER",
+          "turnId": "T0"
+        },
+        {
+          "content": "Par \"la seconde\", je parle de l'ASL. Je veux distinguer progression vraie et pseudoprogression à 3 mois.",
+          "role": "USER",
+          "turnId": "R1"
+        }
+      ]
+    },
+    "technicalStatus": "STRUCTURED_CONTRACT_VALID",
+    "temporalElements": [],
+    "understanding": {
+      "normalizedUnderstanding": "The user is comparing DSC and ASL perfusion imaging in gliomas, aiming to distinguish true progression from pseudoprogression at 3 months. They seek to determine which method is more useful for progression when discordant results occur, and express a preference to retain cases that only have ASL data if feasible.",
+      "scientificGoalCandidates": [],
+      "studyIntentCandidates": []
+    },
+    "unknowns": []
+  },
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "primaryLatencyMs": 7027,
+  "primaryOutputIdentity": "HCS-c3d8031f92f106fc26acba2e",
+  "primaryProviderCalls": 1,
+  "rawOutputRef": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/experiments/engine-lab/results/hybrid-runtime-prototype-01/raw/request-0038-primary-i06-t1.json",
+  "scenario": "I06",
+  "turn": "T1"
+}

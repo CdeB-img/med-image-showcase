@@ -1,0 +1,41 @@
+{
+  "ablation": "P2_PYDANTIC_PLUS_AUDIT_D_PLUS_AUDIT_L",
+  "candidateMutated": false,
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "finalDisposition": "SUCCESS",
+  "findings": [
+    {
+      "auditJudgment": "CONFIRMED",
+      "candidatePointer": "/candidateState/relations/1",
+      "confidence": 1.0,
+      "confirmsFindingIds": [],
+      "findingClass": "SELF_REFERENTIAL_RELATION",
+      "findingId": "SAF-4586ee83eca79f3c",
+      "origin": "SEM_AUDIT_L",
+      "rationale": "The candidate relation incorrectly points from element:5154dab60f71ea403664 to itself instead of connecting the comparative timelines or alternative procedures.",
+      "resolutionOwner": "SEMANTIC_RECONSTRUCTION",
+      "severity": "MAJOR",
+      "sourceEvidence": [
+        {
+          "sourceText": "Je compare les autres lésions pendant l'hospitalisation à un traitement 4–6 semaines plus tard.",
+          "turnId": "R1"
+        }
+      ],
+      "status": "OPEN",
+      "structuralOnly": true
+    }
+  ],
+  "latencyMs": 1759,
+  "primaryOutputIdentity": "HCS-f0bacdd0a2cdce23d3fc477a",
+  "providerCalls": 1,
+  "rawOutputRef": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/experiments/engine-lab/results/hybrid-runtime-prototype-01/raw/request-0008-audit-l-i01-t2.json",
+  "scenario": "I01",
+  "technicalFailure": false,
+  "triggerReasons": [
+    "NEGATION_OR_NON_CAUSALITY",
+    "CRITICAL_MILESTONE",
+    "EXPERIMENTAL_FINAL_STATE"
+  ],
+  "triggered": true,
+  "turn": "T2"
+}

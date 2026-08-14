@@ -1,0 +1,73 @@
+{
+  "ablation": "P2_PYDANTIC_PLUS_AUDIT_D_PLUS_AUDIT_L",
+  "candidateMutated": false,
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "finalDisposition": "SUCCESS",
+  "findings": [
+    {
+      "auditJudgment": "CONFIRMED",
+      "candidatePointer": "relation:relation:dfea60d3060ac56de962",
+      "confidence": 0.95,
+      "confirmsFindingIds": [
+        "SAF-169b25160be7af8a"
+      ],
+      "findingClass": "RELATION_MISMATCH",
+      "findingId": "FIN-AUDIT-01",
+      "origin": "SEM_AUDIT_L",
+      "rationale": "Confirmed the relation update reflecting the user preference shift from T0 to R2.",
+      "resolutionOwner": "SEMANTIC_RECONSTRUCTION",
+      "severity": "MAJOR",
+      "sourceEvidence": [
+        {
+          "sourceText": "Je préfère donc partir sur le T1 natif comme candidat principal",
+          "turnId": "R2"
+        }
+      ],
+      "status": "ACKNOWLEDGED",
+      "structuralOnly": false
+    },
+    {
+      "auditJudgment": "CONFIRMED",
+      "candidatePointer": "ambiguity:amb_0",
+      "confidence": 0.98,
+      "confirmsFindingIds": [
+        "SAF-db3eb49a472b51ea"
+      ],
+      "findingClass": "AMBIGUITY_SILENTLY_CLOSED",
+      "findingId": "FIN-AUDIT-02",
+      "origin": "SEM_AUDIT_L",
+      "rationale": "Confirmed that the prior undecided status regarding the primary criterion was explicitly resolved by the user in turn R2.",
+      "resolutionOwner": "SEMANTIC_RECONSTRUCTION",
+      "severity": "CRITICAL",
+      "sourceEvidence": [
+        {
+          "sourceText": "mais je n'ai pas décidé d'en faire le critère principal.",
+          "turnId": "T0"
+        },
+        {
+          "sourceText": "Je préfère donc partir sur le T1 natif comme candidat principal",
+          "turnId": "R2"
+        }
+      ],
+      "status": "ACKNOWLEDGED",
+      "structuralOnly": false
+    }
+  ],
+  "latencyMs": 13418,
+  "primaryOutputIdentity": "HCS-b096c05e6c6df5195578e8a0",
+  "providerCalls": 1,
+  "rawOutputRef": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/experiments/engine-lab/results/hybrid-runtime-prototype-01/raw/request-0057-audit-l-i08-t2.json",
+  "scenario": "I08",
+  "technicalFailure": false,
+  "triggerReasons": [
+    "CRITICAL_DETERMINISTIC_FINDING",
+    "MAJOR_SEMANTIC_DETERMINISTIC_FINDING",
+    "NEGATION_OR_NON_CAUSALITY",
+    "CORRECTION_OR_SUPERSESSION",
+    "CANDIDATE_VERSUS_ADOPTED",
+    "HIGH_IMPACT_AMBIGUITY",
+    "EXPERIMENTAL_FINAL_STATE"
+  ],
+  "triggered": true,
+  "turn": "T2"
+}

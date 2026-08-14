@@ -1,0 +1,269 @@
+{
+  "candidateStateRef": "HCS-279d7515b7150c312b9ddddd",
+  "configuration": "PYDANTIC_PRIMARY",
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "model": "gemini-3.5-flash-lite",
+  "operationKey": "HYBRID-RUNTIME-PROTOTYPE-01:I02:T0:PRIMARY",
+  "parseResult": "VALID",
+  "promptDigest": "dfca464950d208f3146ec48cd75d876b07cfcc21b5161d8e835bb77fcdaf30e4",
+  "promptVersion": "HYBRID-PRIMARY-PYDANTIC-0.1.0-experimental",
+  "provider": "GOOGLE_GEMINI",
+  "providerStartedAt": "2026-08-14T17:36:30.295451Z",
+  "rawDigest": "39e74f30894978530533af19ec6cc4a6faa53adb23a3f3a6269d8eb019aab55a",
+  "rawPersistedAt": "2026-08-14T17:36:33.616423Z",
+  "rawResponse": {
+    "kind": "PROVIDER_RESPONSE",
+    "response": {
+      "automaticFunctionCallingHistory": null,
+      "candidates": [
+        {
+          "avgLogprobs": null,
+          "citationMetadata": null,
+          "content": {
+            "parts": [
+              {
+                "audioTranscription": null,
+                "codeExecutionResult": null,
+                "executableCode": null,
+                "fileData": null,
+                "functionCall": {
+                  "args": {
+                    "ambiguities": [],
+                    "clarificationNeeds": [],
+                    "contextualCandidates": [],
+                    "correctionsAndSupersessions": [],
+                    "explicitStatements": [
+                      {
+                        "activeState": true,
+                        "content": "Chez les patients thrombectomisés, je veux savoir si l'OEF se normalise quand la perfusion s'améliore, mais je n'ai pas toujours l'IRM avant le geste.",
+                        "elementId": "E0",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "semanticType": "STATEMENT",
+                        "sourceText": "Chez les patients thrombectomisés, je veux savoir si l'OEF se normalise quand la perfusion s'améliore, mais je n'ai pas toujours l'IRM avant le geste.",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "PRIMARY_INTENT"
+                      }
+                    ],
+                    "inferredContext": [],
+                    "missingInformation": [],
+                    "negationsAndConstraints": [
+                      {
+                        "activeState": true,
+                        "content": "je n'ai pas toujours l'IRM avant le geste",
+                        "elementId": "N0",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "NEGATED",
+                        "semanticType": "CONSTRAINT",
+                        "sourceText": "je n'ai pas toujours l'IRM avant le geste",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "CONSTRAINT"
+                      }
+                    ],
+                    "normalizedUnderstanding": "The user wants to investigate whether oxygen extraction fraction (OEF) normalizes when perfusion improves in thrombectomized patients, while noting a constraint that pre-procedure MRI is not always available.",
+                    "objects": [
+                      {
+                        "activeState": true,
+                        "content": "patients thrombectomisés",
+                        "elementId": "O0",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "semanticType": "POPULATION",
+                        "sourceText": "patients thrombectomisés",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "POPULATION"
+                      },
+                      {
+                        "activeState": true,
+                        "content": "OEF",
+                        "elementId": "O1",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "semanticType": "BIOMARKER",
+                        "sourceText": "l'OEF",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "BIOMARKER_OR_MEASUREMENT"
+                      },
+                      {
+                        "activeState": true,
+                        "content": "perfusion",
+                        "elementId": "O2",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "semanticType": "BIOMARKER",
+                        "sourceText": "la perfusion",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "BIOMARKER_OR_MEASUREMENT"
+                      },
+                      {
+                        "activeState": true,
+                        "content": "IRM avant le geste",
+                        "elementId": "O3",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "semanticType": "METHOD",
+                        "sourceText": "l'IRM avant le geste",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "METHOD"
+                      }
+                    ],
+                    "openDecisions": [],
+                    "ownershipAndEpistemicStates": [
+                      {
+                        "content": "Chez les patients thrombectomisés, je veux savoir si l'OEF se normalise quand la perfusion s'améliore, mais je n'ai pas toujours l'IRM avant le geste.",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "statementId": "S0"
+                      }
+                    ],
+                    "relations": [
+                      {
+                        "activeState": true,
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "relationId": "R0",
+                        "relationType": "STUDY_TARGET",
+                        "sourceElementId": "E0",
+                        "sourceText": "je veux savoir si l'OEF se normalise quand la perfusion s'améliore",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "targetElementId": "O1"
+                      },
+                      {
+                        "activeState": true,
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "relationId": "R1",
+                        "relationType": "STUDY_TARGET",
+                        "sourceElementId": "E0",
+                        "sourceText": "je veux savoir si l'OEF se normalise quand la perfusion s'améliore",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "targetElementId": "O2"
+                      }
+                    ],
+                    "scientificGoalCandidates": [
+                      "Investigate whether OEF normalizes when perfusion improves in thrombectomized patients"
+                    ],
+                    "studyIntentCandidates": [
+                      "Determine the relationship between OEF normalization and perfusion improvement after thrombectomy"
+                    ],
+                    "temporalElements": [],
+                    "unknowns": []
+                  },
+                  "id": "call_1162952",
+                  "name": "final_result",
+                  "partialArgs": null,
+                  "willContinue": null
+                },
+                "functionResponse": null,
+                "inlineData": null,
+                "mediaResolution": null,
+                "partMetadata": null,
+                "text": null,
+                "thought": null,
+                "thoughtSignature": "El4KXAERTTIP62cZMGLtYN87rjGrTCz_T5at1-Dl-OKpJ6XifJR59JevUDG4UgMNIJsZbFK-oGr1XIS-JioQkSt5FHVz-nM47HbWJoJcXT3uT0QeB2KPpOBrNMiiB5Vg",
+                "toolCall": null,
+                "toolResponse": null,
+                "videoMetadata": null
+              }
+            ],
+            "role": "model"
+          },
+          "finishMessage": null,
+          "finishReason": "STOP",
+          "groundingMetadata": null,
+          "index": 0,
+          "logprobsResult": null,
+          "safetyRatings": null,
+          "tokenCount": null,
+          "urlContextMetadata": null
+        }
+      ],
+      "createTime": null,
+      "modelStatus": null,
+      "modelVersion": "gemini-3.5-flash-lite",
+      "parsed": null,
+      "promptFeedback": null,
+      "responseId": "HlJ_at-0J4LpkdUP-J-4qAo",
+      "sdkHttpResponse": {
+        "body": null,
+        "headers": {
+          "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+          "content-encoding": "gzip",
+          "content-type": "application/json; charset=UTF-8",
+          "date": "Fri, 14 Aug 2026 17:36:33 GMT",
+          "server": "scaffolding on HTTPServer2",
+          "server-timing": "gfet4t7; dur=3208",
+          "transfer-encoding": "chunked",
+          "vary": "Origin, X-Origin, Referer",
+          "x-content-type-options": "nosniff",
+          "x-frame-options": "SAMEORIGIN",
+          "x-gemini-service-tier": "standard",
+          "x-xss-protection": "0"
+        }
+      },
+      "usageMetadata": {
+        "cacheTokensDetails": null,
+        "cachedContentTokenCount": null,
+        "candidatesTokenCount": 1073,
+        "candidatesTokensDetails": null,
+        "promptTokenCount": 5267,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 5267
+          }
+        ],
+        "thoughtsTokenCount": null,
+        "toolUsePromptTokenCount": null,
+        "toolUsePromptTokensDetails": null,
+        "totalTokenCount": 6340,
+        "trafficType": null
+      }
+    }
+  },
+  "requestNumber": 10,
+  "requestPayload": {
+    "contextInputs": [],
+    "conversation": [
+      {
+        "content": "Chez les patients thrombectomisés, je veux savoir si l'OEF se normalise quand la perfusion s'améliore, mais je n'ai pas toujours l'IRM avant le geste.",
+        "role": "USER",
+        "turnId": "T0"
+      }
+    ],
+    "previousCandidateState": null
+  },
+  "requestPayloadDigest": "6d99d9dde4339a3603c40c9683b859f3e68fb58632180de58350c7669902c6e4",
+  "role": "PRIMARY_INTERPRETER",
+  "scenario": "I02",
+  "schemaDigest": "a8555b9478aa05f95128a696beb99fcd7eee17ee7480b1101fdc29e85fefa906",
+  "schemaVersion": "PRIMARY_SCIENTIFIC_INTERPRETATION_0.1.0-experimental",
+  "temperature": null,
+  "turn": "T0",
+  "validationCompletedAt": "2026-08-14T17:36:33.621323Z",
+  "validationErrors": []
+}

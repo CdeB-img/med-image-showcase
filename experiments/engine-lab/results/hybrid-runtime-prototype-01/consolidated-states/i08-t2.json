@@ -1,0 +1,53 @@
+{
+  "consolidated": {
+    "adjudicationResolutions": [],
+    "candidateState": null,
+    "clarificationNeeds": [],
+    "consolidatedStateId": "HCCS-7e33ce7f2d0452e3bac35bac",
+    "deterministicFindingIds": [
+      "SAF-169b25160be7af8a",
+      "SAF-db3eb49a472b51ea"
+    ],
+    "disposition": "FAIL_CLOSED",
+    "latencyMs": 22117,
+    "openDecisions": [
+      {
+        "affectedElementIds": [
+          "element:caa43f5eeb2ea8d5c6be",
+          "element:e3d4c525c7be16191533",
+          "element:fb8b16eacf3dec4b87e1"
+        ],
+        "content": "Détermination du critère principal (marqueur précoce) pour la maladie de Fabry",
+        "decisionId": "dec_0",
+        "decisionOwner": "USER",
+        "sourceText": "Je préfère donc partir sur le T1 natif comme candidat principal, mais garder l'ECV exploratoire là où il est disponible.",
+        "sourceTurnIds": [
+          "R2"
+        ],
+        "status": "CONFIRMED"
+      }
+    ],
+    "pipelineVersion": "0.1.0-experimental",
+    "primaryCandidateStateId": "HCS-b096c05e6c6df5195578e8a0",
+    "providerCalls": 3,
+    "rawOutputRef": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/experiments/engine-lab/results/hybrid-runtime-prototype-01/raw/request-0056-primary-i08-t2.json",
+    "semanticAuditFindingIds": [
+      "FIN-AUDIT-01",
+      "FIN-AUDIT-02"
+    ],
+    "unresolvedFindingIds": [
+      "SAF-169b25160be7af8a",
+      "SAF-db3eb49a472b51ea",
+      "FIN-AUDIT-01",
+      "FIN-AUDIT-02"
+    ]
+  },
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "p0CandidateStateId": "HCS-b096c05e6c6df5195578e8a0",
+  "p1CandidateStateId": "HCS-b096c05e6c6df5195578e8a0",
+  "p2CandidateStateId": "HCS-b096c05e6c6df5195578e8a0",
+  "p3PrimaryCandidateStateId": "HCS-b096c05e6c6df5195578e8a0",
+  "primaryOutputIdentity": "HCS-b096c05e6c6df5195578e8a0",
+  "scenario": "I08",
+  "turn": "T2"
+}

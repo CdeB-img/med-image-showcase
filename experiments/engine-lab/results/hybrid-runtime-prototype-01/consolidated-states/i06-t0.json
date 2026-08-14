@@ -1,0 +1,47 @@
+{
+  "consolidated": {
+    "adjudicationResolutions": [],
+    "candidateState": null,
+    "clarificationNeeds": [],
+    "consolidatedStateId": "HCCS-a83de55481719668a4fc4721",
+    "deterministicFindingIds": [],
+    "disposition": "FAIL_CLOSED",
+    "latencyMs": 8321,
+    "openDecisions": [
+      {
+        "affectedElementIds": [
+          "ES_1",
+          "ES_2"
+        ],
+        "content": "Determine which method is more useful for progression during discordance and decide whether to retain single-modality ASL cases",
+        "decisionId": "DEC_0",
+        "decisionOwner": "USER",
+        "sourceText": "Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression. Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "status": "OPEN"
+      }
+    ],
+    "pipelineVersion": "0.1.0-experimental",
+    "primaryCandidateStateId": "HCS-2c2c7b9b1b3a0efb6fd5b7c0",
+    "providerCalls": 3,
+    "rawOutputRef": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/experiments/engine-lab/results/hybrid-runtime-prototype-01/raw/request-0035-primary-i06-t0.json",
+    "semanticAuditFindingIds": [
+      "FIND_001",
+      "FIND_002"
+    ],
+    "unresolvedFindingIds": [
+      "FIND_001",
+      "FIND_002"
+    ]
+  },
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "p0CandidateStateId": "HCS-2c2c7b9b1b3a0efb6fd5b7c0",
+  "p1CandidateStateId": "HCS-2c2c7b9b1b3a0efb6fd5b7c0",
+  "p2CandidateStateId": "HCS-2c2c7b9b1b3a0efb6fd5b7c0",
+  "p3PrimaryCandidateStateId": "HCS-2c2c7b9b1b3a0efb6fd5b7c0",
+  "primaryOutputIdentity": "HCS-2c2c7b9b1b3a0efb6fd5b7c0",
+  "scenario": "I06",
+  "turn": "T0"
+}

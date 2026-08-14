@@ -1,0 +1,60 @@
+{
+  "ablation": "P2_PYDANTIC_PLUS_AUDIT_D_PLUS_AUDIT_L",
+  "candidateMutated": false,
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "finalDisposition": "SUCCESS",
+  "findings": [
+    {
+      "auditJudgment": "NEW",
+      "candidatePointer": "items[element:241c1807f23bb908ac1d]",
+      "confidence": 0.95,
+      "confirmsFindingIds": [],
+      "findingClass": "SEMANTIC_GAP",
+      "findingId": "finding-01",
+      "origin": "SEM_AUDIT_L",
+      "rationale": "Radiochimiothérapie is an explicit intervention present in the text but omitted as a distinct typed element in the primary candidate.",
+      "resolutionOwner": "SEM_AUDIT_L",
+      "severity": "MAJOR",
+      "sourceEvidence": [
+        {
+          "sourceText": "On a une IRM avant et après radiochimiothérapie.",
+          "turnId": "T0"
+        }
+      ],
+      "status": "OPEN",
+      "structuralOnly": false
+    },
+    {
+      "auditJudgment": "NEW",
+      "candidatePointer": "items[element:241c1807f23bb908ac1d]",
+      "confidence": 0.9,
+      "confirmsFindingIds": [],
+      "findingClass": "SEMANTIC_GAP",
+      "findingId": "finding-02",
+      "origin": "SEM_AUDIT_L",
+      "rationale": "Timing constraints (before and after chemoradiotherapy) are present in the text but not represented as explicit TIMING elements.",
+      "resolutionOwner": "SEM_AUDIT_L",
+      "severity": "MINOR",
+      "sourceEvidence": [
+        {
+          "sourceText": "avant et après",
+          "turnId": "T0"
+        }
+      ],
+      "status": "OPEN",
+      "structuralOnly": false
+    }
+  ],
+  "latencyMs": 2246,
+  "primaryOutputIdentity": "HCS-9c4ff449bd65fa4b1bc7ca31",
+  "providerCalls": 1,
+  "rawOutputRef": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/experiments/engine-lab/results/hybrid-runtime-prototype-01/raw/request-0029-audit-l-i05-t0.json",
+  "scenario": "I05",
+  "technicalFailure": false,
+  "triggerReasons": [
+    "BLOCKING_MISSING_INFORMATION",
+    "CAUSAL_CONDITIONAL_OR_UNCERTAIN_RELATION"
+  ],
+  "triggered": true,
+  "turn": "T0"
+}

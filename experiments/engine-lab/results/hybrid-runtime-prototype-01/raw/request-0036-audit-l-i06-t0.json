@@ -1,0 +1,55 @@
+{
+  "configuration": "SEM_AUDIT_L",
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "httpStatus": 200,
+  "model": "gemini-3.5-flash-lite",
+  "operationKey": "HYBRID-RUNTIME-PROTOTYPE-01:I06:T0:SEM_AUDIT_L",
+  "parseResult": "VALID",
+  "promptDigest": "e90d4812be54466fc4f01eb13887cf9840a905e89d90c732a46105cd6bc89149",
+  "promptVersion": "SEM-AUDIT-L-NOXIA-SEM-SINGLE-0.1.0-experimental",
+  "provider": "GOOGLE_GEMINI",
+  "providerStartedAt": "2026-08-14T17:39:33.451Z",
+  "rawDigest": "cdb115381ac261614a0a58b01357267b1f067fb63d99806e7cdfd4c18af7c850",
+  "rawPersistedAt": "2026-08-14T17:39:33.451Z",
+  "rawResponse": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"findings\": [\n    {\n      \"findingId\": \"FIND_001\",\n      \"findingClass\": \"CONCEPT_CLASS_MISMATCH\",\n      \"sourceEvidence\": [\n        {\n          \"turnId\": \"T0\",\n          \"sourceText\": \"DSC\"\n        }\n      ],\n      \"candidatePointer\": \"/immutablePrimaryCandidate/items/0\",\n      \"auditJudgment\": \"NEW\",\n      \"rationale\": \"DSC is classified as IMAGING_METHOD, but under operational taxonomy a technique/acquisition method without modality family or when specifically named should follow method precedence; however, DSC is a perfusion method often treated as METHOD.\",\n      \"severity\": \"MINOR\",\n      \"resolutionOwner\": \"SEM_AUDIT_L\",\n      \"confidence\": 0.8,\n      \"status\": \"OPEN\",\n      \"origin\": \"SEM_AUDIT_L\",\n      \"structuralOnly\": false,\n      \"confirmsFindingIds\": []\n    },\n    {\n      \"findingId\": \"FIND_002\",\n      \"findingClass\": \"POPULATION_CONDITION_SEPARATION\",\n      \"sourceEvidence\": [\n        {\n          \"turnId\": \"T0\",\n          \"sourceText\": \"mes gliomes\"\n        }\n      ],\n      \"candidatePointer\": \"/immutablePrimaryCandidate/items/2\",\n      \"auditJudgment\": \"NEW\",\n      \"rationale\": \"Mes gliomes fuses population and condition into a single element. According to the taxonomy, condition (glioma) and population should be represented separately when both aspects are present.\",\n      \"severity\": \"MAJOR\",\n      \"resolutionOwner\": \"SEM_AUDIT_L\",\n      \"confidence\": 0.9,\n      \"status\": \"OPEN\",\n      \"origin\": \"SEM_AUDIT_L\",\n      \"structuralOnly\": false,\n      \"confirmsFindingIds\": []\n    }\n  ]\n}",
+              "thoughtSignature": "El4KXAERTTIPH0OC4j4wCj5cyo+sDyjH0azFTHk+smbxtAq2Ms752KCFCCCr8TXI2CQlbZ9l5o1jtA/nM9foaGSRyx1mJvrCq2kwU6wCpat5KJrukoEMLCKHdpqYMd1r"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "modelVersion": "gemini-3.5-flash-lite",
+    "responseId": "01J_atb3L76MkdUP5OP-4Aw",
+    "usageMetadata": {
+      "candidatesTokenCount": 429,
+      "promptTokenCount": 5822,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 5822
+        }
+      ],
+      "serviceTier": "standard",
+      "totalTokenCount": 6251
+    }
+  },
+  "requestNumber": 36,
+  "requestPayloadDigest": "0eb61cf4224952e0fa18d033e8cfa200dc5d645ab1143ae53fc326a9924f865c",
+  "role": "SEMANTIC_AUDITOR",
+  "scenario": "I06",
+  "schemaDigest": "fc59a9f9be391a8234c2761d4621b2bc14955e084753aa54b2e0b54521bb6df9",
+  "schemaVersion": "SEM_AUDIT_L_BATCH_0.1.0-experimental",
+  "temperature": null,
+  "turn": "T0",
+  "validationCompletedAt": "2026-08-14T17:39:33.457Z",
+  "validationErrors": []
+}

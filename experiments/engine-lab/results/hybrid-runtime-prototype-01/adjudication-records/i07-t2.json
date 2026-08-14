@@ -1,0 +1,14 @@
+{
+  "ablation": "P3_FULL_HYBRID_CANDIDATE",
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "latencyMs": 0,
+  "output": null,
+  "primaryOutputIdentity": "HCS-a3adb356b1ce7dd26098ce8a",
+  "providerCalls": 0,
+  "rawOutputRef": null,
+  "scenario": "I07",
+  "technicalFailure": false,
+  "triggerReasons": [],
+  "triggered": false,
+  "turn": "T2"
+}

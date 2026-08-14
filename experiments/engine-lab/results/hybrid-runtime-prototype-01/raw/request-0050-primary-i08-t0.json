@@ -1,0 +1,306 @@
+{
+  "candidateStateRef": "HCS-c105abc8528157f469d02c48",
+  "configuration": "PYDANTIC_PRIMARY",
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "model": "gemini-3.5-flash-lite",
+  "operationKey": "HYBRID-RUNTIME-PROTOTYPE-01:I08:T0:PRIMARY",
+  "parseResult": "VALID",
+  "promptDigest": "dfca464950d208f3146ec48cd75d876b07cfcc21b5161d8e835bb77fcdaf30e4",
+  "promptVersion": "HYBRID-PRIMARY-PYDANTIC-0.1.0-experimental",
+  "provider": "GOOGLE_GEMINI",
+  "providerStartedAt": "2026-08-14T17:40:49.970380Z",
+  "rawDigest": "11f3d5ce28fa3f02da330b69cdac5724173b697584e5db285e995bc9317cc314",
+  "rawPersistedAt": "2026-08-14T17:40:54.106180Z",
+  "rawResponse": {
+    "kind": "PROVIDER_RESPONSE",
+    "response": {
+      "automaticFunctionCallingHistory": null,
+      "candidates": [
+        {
+          "avgLogprobs": null,
+          "citationMetadata": null,
+          "content": {
+            "parts": [
+              {
+                "audioTranscription": null,
+                "codeExecutionResult": null,
+                "executableCode": null,
+                "fileData": null,
+                "functionCall": {
+                  "args": {
+                    "ambiguities": [
+                      {
+                        "ambiguityId": "amb_0",
+                        "content": "Choix du critère principal pour la maladie de Fabry",
+                        "decisionalImpact": "HIGH",
+                        "interpretations": [
+                          "T1 natif avant la fibrose",
+                          "ECV (pratiqué à Lyon)",
+                          "Autre marqueur précoce utilisable dans tous les centres"
+                        ],
+                        "sourceText": "mais je n'ai pas décidé d'en faire le critère principal. À Lyon ils font aussi de l'ECV. Je veux surtout trouver un marqueur précoce qui soit utilisable dans tous les centres.",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "status": "OPEN"
+                      }
+                    ],
+                    "clarificationNeeds": [],
+                    "contextualCandidates": [],
+                    "correctionsAndSupersessions": [],
+                    "explicitStatements": [
+                      {
+                        "activeState": true,
+                        "content": "Dans Fabry, on pense que le T1 natif pourrait être intéressant avant la fibrose",
+                        "elementId": "e_0",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "semanticType": "STATEMENT",
+                        "sourceText": "Dans Fabry, on pense que le T1 natif pourrait être intéressant avant la fibrose",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "BACKGROUND"
+                      },
+                      {
+                        "activeState": true,
+                        "content": "À Lyon ils font aussi de l'ECV",
+                        "elementId": "e_1",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "semanticType": "STATEMENT",
+                        "sourceText": "À Lyon ils font aussi de l'ECV",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "BACKGROUND"
+                      },
+                      {
+                        "activeState": true,
+                        "content": "Je veux surtout trouver un marqueur précoce qui soit utilisable dans tous les centres.",
+                        "elementId": "e_2",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "semanticType": "OBJECTIVE",
+                        "sourceText": "Je veux surtout trouver un marqueur précoce qui soit utilisable dans tous les centres.",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "STUDY_OBJECTIVE"
+                      }
+                    ],
+                    "inferredContext": [],
+                    "missingInformation": [],
+                    "negationsAndConstraints": [
+                      {
+                        "activeState": true,
+                        "content": "je n'ai pas décidé d'en faire le critère principal (concernant le T1 natif)",
+                        "elementId": "n_0",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "NEGATED",
+                        "semanticType": "CONSTRAINT",
+                        "sourceText": "mais je n'ai pas décidé d'en faire le critère principal.",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "DESIGN_CONSTRAINT"
+                      }
+                    ],
+                    "normalizedUnderstanding": "The user is considering native T1 before fibrosis in Fabry disease and notes that ECV is performed in Lyon, but has not decided on the primary endpoint yet, focusing primarily on finding an early biomarker usable across all centers.",
+                    "objects": [
+                      {
+                        "activeState": true,
+                        "content": "T1 natif",
+                        "elementId": "obj_0",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "semanticType": "BIOMARKER",
+                        "sourceText": "T1 natif",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "CANDIDATE_BIOMARKER"
+                      },
+                      {
+                        "activeState": true,
+                        "content": "ECV",
+                        "elementId": "obj_1",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "semanticType": "BIOMARKER",
+                        "sourceText": "ECV",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "CANDIDATE_BIOMARKER"
+                      },
+                      {
+                        "activeState": true,
+                        "content": "Marqueur précoce utilisable dans tous les centres",
+                        "elementId": "obj_2",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "semanticType": "BIOMARKER",
+                        "sourceText": "marqueur précoce qui soit utilisable dans tous les centres",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "STUDY_OBJECTIVE"
+                      }
+                    ],
+                    "openDecisions": [
+                      {
+                        "affectedElementIds": [
+                          "obj_0",
+                          "obj_1",
+                          "obj_2"
+                        ],
+                        "content": "Détermination du critère principal (marqueur précoce) pour la maladie de Fabry",
+                        "decisionId": "dec_0",
+                        "decisionOwner": "USER",
+                        "sourceText": "mais je n'ai pas décidé d'en faire le critère principal. Je veux surtout trouver un marqueur précoce qui soit utilisable dans tous les centres.",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "status": "OPEN"
+                      }
+                    ],
+                    "ownershipAndEpistemicStates": [
+                      {
+                        "content": "Dans Fabry, on pense que le T1 natif pourrait être intéressant avant la fibrose",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "statementId": "st_0"
+                      },
+                      {
+                        "content": "À Lyon ils font aussi de l'ECV",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "statementId": "st_1"
+                      },
+                      {
+                        "content": "Je veux surtout trouver un marqueur précoce qui soit utilisable dans tous les centres.",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "statementId": "st_2"
+                      }
+                    ],
+                    "relations": [
+                      {
+                        "activeState": true,
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "NEGATED",
+                        "relationId": "rel_0",
+                        "relationType": "IS_NOT_PRIMARY_ENDPOINT",
+                        "sourceElementId": "obj_0",
+                        "sourceText": "mais je n'ai pas décidé d'en faire le critère principal.",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "targetElementId": "dec_0"
+                      }
+                    ],
+                    "unknowns": []
+                  },
+                  "id": "call_1120024",
+                  "name": "final_result",
+                  "partialArgs": null,
+                  "willContinue": null
+                },
+                "functionResponse": null,
+                "inlineData": null,
+                "mediaResolution": null,
+                "partMetadata": null,
+                "text": null,
+                "thought": null,
+                "thoughtSignature": "El4KXAERTTIPk0fQYQl61TGLQZwxqPDNFazbEGgNrUGtaUDxttRz1e1W1Jv0legOKCJJGU0QpMlEFlsvQjT4ExamFdGNyiO4EM5SS-ccFCUvWZNpfrCXjP82Y0MPP40H",
+                "toolCall": null,
+                "toolResponse": null,
+                "videoMetadata": null
+              }
+            ],
+            "role": "model"
+          },
+          "finishMessage": null,
+          "finishReason": "STOP",
+          "groundingMetadata": null,
+          "index": 0,
+          "logprobsResult": null,
+          "safetyRatings": null,
+          "tokenCount": null,
+          "urlContextMetadata": null
+        }
+      ],
+      "createTime": null,
+      "modelStatus": null,
+      "modelVersion": "gemini-3.5-flash-lite",
+      "parsed": null,
+      "promptFeedback": null,
+      "responseId": "IlN_asetE7CN7M8P3sG8kAo",
+      "sdkHttpResponse": {
+        "body": null,
+        "headers": {
+          "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+          "content-encoding": "gzip",
+          "content-type": "application/json; charset=UTF-8",
+          "date": "Fri, 14 Aug 2026 17:40:54 GMT",
+          "server": "scaffolding on HTTPServer2",
+          "server-timing": "gfet4t7; dur=3920",
+          "transfer-encoding": "chunked",
+          "vary": "Origin, X-Origin, Referer",
+          "x-content-type-options": "nosniff",
+          "x-frame-options": "SAMEORIGIN",
+          "x-gemini-service-tier": "standard",
+          "x-xss-protection": "0"
+        }
+      },
+      "usageMetadata": {
+        "cacheTokensDetails": null,
+        "cachedContentTokenCount": null,
+        "candidatesTokenCount": 1403,
+        "candidatesTokensDetails": null,
+        "promptTokenCount": 5292,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 5292
+          }
+        ],
+        "thoughtsTokenCount": null,
+        "toolUsePromptTokenCount": null,
+        "toolUsePromptTokensDetails": null,
+        "totalTokenCount": 6695,
+        "trafficType": null
+      }
+    }
+  },
+  "requestNumber": 50,
+  "requestPayload": {
+    "contextInputs": [],
+    "conversation": [
+      {
+        "content": "Dans Fabry, on pense que le T1 natif pourrait être intéressant avant la fibrose, mais je n'ai pas décidé d'en faire le critère principal. À Lyon ils font aussi de l'ECV. Je veux surtout trouver un marqueur précoce qui soit utilisable dans tous les centres.",
+        "role": "USER",
+        "turnId": "T0"
+      }
+    ],
+    "previousCandidateState": null
+  },
+  "requestPayloadDigest": "cbbdc48b59e086712206907c65890572c91933adece5114ba25a891af12c770f",
+  "role": "PRIMARY_INTERPRETER",
+  "scenario": "I08",
+  "schemaDigest": "a8555b9478aa05f95128a696beb99fcd7eee17ee7480b1101fdc29e85fefa906",
+  "schemaVersion": "PRIMARY_SCIENTIFIC_INTERPRETATION_0.1.0-experimental",
+  "temperature": null,
+  "turn": "T0",
+  "validationCompletedAt": "2026-08-14T17:40:54.112603Z",
+  "validationErrors": []
+}

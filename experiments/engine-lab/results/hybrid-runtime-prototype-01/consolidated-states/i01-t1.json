@@ -1,0 +1,33 @@
+{
+  "consolidated": {
+    "adjudicationResolutions": [],
+    "candidateState": null,
+    "clarificationNeeds": [],
+    "consolidatedStateId": "HCCS-9c8538b322a74b2e2876b04a",
+    "deterministicFindingIds": [
+      "SAF-4586ee83eca79f3c"
+    ],
+    "disposition": "FAIL_CLOSED",
+    "latencyMs": 8054,
+    "openDecisions": [],
+    "pipelineVersion": "0.1.0-experimental",
+    "primaryCandidateStateId": "HCS-a96df5244e8da00a6db4105a",
+    "providerCalls": 3,
+    "rawOutputRef": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/experiments/engine-lab/results/hybrid-runtime-prototype-01/raw/request-0004-primary-i01-t1.json",
+    "semanticAuditFindingIds": [
+      "SAF-4586ee83eca79f3c"
+    ],
+    "unresolvedFindingIds": [
+      "SAF-4586ee83eca79f3c",
+      "SAF-4586ee83eca79f3c"
+    ]
+  },
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "p0CandidateStateId": "HCS-a96df5244e8da00a6db4105a",
+  "p1CandidateStateId": "HCS-a96df5244e8da00a6db4105a",
+  "p2CandidateStateId": "HCS-a96df5244e8da00a6db4105a",
+  "p3PrimaryCandidateStateId": "HCS-a96df5244e8da00a6db4105a",
+  "primaryOutputIdentity": "HCS-a96df5244e8da00a6db4105a",
+  "scenario": "I01",
+  "turn": "T1"
+}

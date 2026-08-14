@@ -1,0 +1,43 @@
+{
+  "consolidated": {
+    "adjudicationResolutions": [],
+    "candidateState": null,
+    "clarificationNeeds": [],
+    "consolidatedStateId": "HCCS-db648c0959ce038bc4d2519b",
+    "deterministicFindingIds": [],
+    "disposition": "FAIL_CLOSED",
+    "latencyMs": 8829,
+    "openDecisions": [
+      {
+        "affectedElementIds": [
+          "element:14886685c018fb7ad2cb",
+          "element:1b435fdc2aeb35e9fdbb",
+          "element:f184b2c1c0984f1a8e9d"
+        ],
+        "content": "Determine which method is more useful for progression during discordance, distinguish true progression from pseudoprogression at 3 months, and decide whether to retain single-modality ASL cases",
+        "decisionId": "DEC_0",
+        "decisionOwner": "USER",
+        "sourceText": "Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression. Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible. Je veux distinguer progression vraie et pseudoprogression à 3 mois.",
+        "sourceTurnIds": [
+          "T0",
+          "R1"
+        ],
+        "status": "OPEN"
+      }
+    ],
+    "pipelineVersion": "0.1.0-experimental",
+    "primaryCandidateStateId": "HCS-c3d8031f92f106fc26acba2e",
+    "providerCalls": 3,
+    "rawOutputRef": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/experiments/engine-lab/results/hybrid-runtime-prototype-01/raw/request-0038-primary-i06-t1.json",
+    "semanticAuditFindingIds": [],
+    "unresolvedFindingIds": []
+  },
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "p0CandidateStateId": "HCS-c3d8031f92f106fc26acba2e",
+  "p1CandidateStateId": "HCS-c3d8031f92f106fc26acba2e",
+  "p2CandidateStateId": "HCS-c3d8031f92f106fc26acba2e",
+  "p3PrimaryCandidateStateId": "HCS-c3d8031f92f106fc26acba2e",
+  "primaryOutputIdentity": "HCS-c3d8031f92f106fc26acba2e",
+  "scenario": "I06",
+  "turn": "T1"
+}

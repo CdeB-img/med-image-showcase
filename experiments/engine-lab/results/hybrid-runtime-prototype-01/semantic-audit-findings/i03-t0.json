@@ -1,0 +1,39 @@
+{
+  "ablation": "P2_PYDANTIC_PLUS_AUDIT_D_PLUS_AUDIT_L",
+  "candidateMutated": false,
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "finalDisposition": "SUCCESS",
+  "findings": [
+    {
+      "auditJudgment": "NEW",
+      "candidatePointer": "immutablePrimaryCandidate.items[element:d98769d79a3e10af1a81]",
+      "confidence": 0.95,
+      "confirmsFindingIds": [],
+      "findingClass": "SEMANTIC_DISTORTION",
+      "findingId": "finding:001",
+      "origin": "SEM_AUDIT_L",
+      "rationale": "SUVmax is incorrectly marked with NEGATED polarity; the user negates its exclusive use ('pas ... seul'), not the biomarker itself as an entity.",
+      "resolutionOwner": "SEM_AUDIT_L",
+      "severity": "MAJOR",
+      "sourceEvidence": [
+        {
+          "sourceText": "pas avec le SUVmax seul",
+          "turnId": "T0"
+        }
+      ],
+      "status": "OPEN",
+      "structuralOnly": false
+    }
+  ],
+  "latencyMs": 2305,
+  "primaryOutputIdentity": "HCS-4fcc6d811c46f749733761f8",
+  "providerCalls": 1,
+  "rawOutputRef": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/experiments/engine-lab/results/hybrid-runtime-prototype-01/raw/request-0017-audit-l-i03-t0.json",
+  "scenario": "I03",
+  "technicalFailure": false,
+  "triggerReasons": [
+    "NEGATION_OR_NON_CAUSALITY"
+  ],
+  "triggered": true,
+  "turn": "T0"
+}

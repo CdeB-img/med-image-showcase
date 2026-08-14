@@ -1,0 +1,55 @@
+{
+  "configuration": "SEM_AUDIT_L",
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "httpStatus": 200,
+  "model": "gemini-3.5-flash-lite",
+  "operationKey": "HYBRID-RUNTIME-PROTOTYPE-01:I04:T1:SEM_AUDIT_L",
+  "parseResult": "VALID",
+  "promptDigest": "e90d4812be54466fc4f01eb13887cf9840a905e89d90c732a46105cd6bc89149",
+  "promptVersion": "SEM-AUDIT-L-NOXIA-SEM-SINGLE-0.1.0-experimental",
+  "provider": "GOOGLE_GEMINI",
+  "providerStartedAt": "2026-08-14T17:38:26.040Z",
+  "rawDigest": "144b42b5b69b28dd140ee235733403e157d1994291c2f273715f4e93974e1e17",
+  "rawPersistedAt": "2026-08-14T17:38:26.040Z",
+  "rawResponse": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"findings\": []\n}",
+              "thoughtSignature": "El4KXAERTTIPsmEK9hkEQuMndgwP68y06ENa7eKAepYzUIVn4DyhmpK0PU+drhIPDn5O07xLbcJs+pOHMS377JBYGAMTc0ImPozGblqBAOXtDyhsnt4jURErey7fWLuB"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "modelVersion": "gemini-3.5-flash-lite",
+    "responseId": "kVJ_at2yGezU7M8P0d2mCQ",
+    "usageMetadata": {
+      "candidatesTokenCount": 9,
+      "promptTokenCount": 5738,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 5738
+        }
+      ],
+      "serviceTier": "standard",
+      "totalTokenCount": 5747
+    }
+  },
+  "requestNumber": 25,
+  "requestPayloadDigest": "4e1401a7da423d73b2436377f51bcf85dd1d253f7f422b6aa3d3565b9f929aad",
+  "role": "SEMANTIC_AUDITOR",
+  "scenario": "I04",
+  "schemaDigest": "fc59a9f9be391a8234c2761d4621b2bc14955e084753aa54b2e0b54521bb6df9",
+  "schemaVersion": "SEM_AUDIT_L_BATCH_0.1.0-experimental",
+  "temperature": null,
+  "turn": "T1",
+  "validationCompletedAt": "2026-08-14T17:38:26.045Z",
+  "validationErrors": []
+}

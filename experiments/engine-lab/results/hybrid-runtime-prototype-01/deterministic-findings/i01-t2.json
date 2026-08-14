@@ -1,0 +1,30 @@
+{
+  "ablation": "P1_PYDANTIC_PLUS_AUDIT_D",
+  "candidateMutated": false,
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "findings": [
+    {
+      "auditJudgment": "NEW",
+      "candidatePointer": "/candidateState/relations/1",
+      "confidence": null,
+      "confirmsFindingIds": [],
+      "findingClass": "SELF_REFERENTIAL_RELATION",
+      "findingId": "SAF-4586ee83eca79f3c",
+      "origin": "SEM_AUDIT_D",
+      "rationale": "The candidate relation points from an object to itself.",
+      "resolutionOwner": "SEMANTIC_RECONSTRUCTION",
+      "severity": "MAJOR",
+      "sourceEvidence": [
+        {
+          "sourceText": "Je compare les autres lésions pendant l'hospitalisation à un traitement 4–6 semaines plus tard.",
+          "turnId": "R1"
+        }
+      ],
+      "status": "OPEN",
+      "structuralOnly": true
+    }
+  ],
+  "primaryOutputIdentity": "HCS-f0bacdd0a2cdce23d3fc477a",
+  "scenario": "I01",
+  "turn": "T2"
+}

@@ -1,0 +1,55 @@
+{
+  "configuration": "SEM_AUDIT_L",
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "httpStatus": 200,
+  "model": "gemini-3.5-flash-lite",
+  "operationKey": "HYBRID-RUNTIME-PROTOTYPE-01:I05:T0:SEM_AUDIT_L",
+  "parseResult": "VALID",
+  "promptDigest": "e90d4812be54466fc4f01eb13887cf9840a905e89d90c732a46105cd6bc89149",
+  "promptVersion": "SEM-AUDIT-L-NOXIA-SEM-SINGLE-0.1.0-experimental",
+  "provider": "GOOGLE_GEMINI",
+  "providerStartedAt": "2026-08-14T17:38:41.524Z",
+  "rawDigest": "64cba006893ae38578906f6fb03a12078d7e88e8980f7e0992d45e84eeb82314",
+  "rawPersistedAt": "2026-08-14T17:38:41.524Z",
+  "rawResponse": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"findings\": [\n    {\n      \"findingId\": \"finding-01\",\n      \"findingClass\": \"SEMANTIC_GAP\",\n      \"sourceEvidence\": [\n        {\n          \"turnId\": \"T0\",\n          \"sourceText\": \"On a une IRM avant et après radiochimiothérapie.\"\n        }\n      ],\n      \"candidatePointer\": \"items[element:241c1807f23bb908ac1d]\",\n      \"auditJudgment\": \"NEW\",\n      \"rationale\": \"Radiochimiothérapie is an explicit intervention present in the text but omitted as a distinct typed element in the primary candidate.\",\n      \"severity\": \"MAJOR\",\n      \"resolutionOwner\": \"SEM_AUDIT_L\",\n      \"confidence\": 0.95,\n      \"status\": \"OPEN\",\n      \"origin\": \"SEM_AUDIT_L\",\n      \"structuralOnly\": false,\n      \"confirmsFindingIds\": []\n    },\n    {\n      \"findingId\": \"finding-02\",\n      \"findingClass\": \"SEMANTIC_GAP\",\n      \"sourceEvidence\": [\n        {\n          \"turnId\": \"T0\",\n          \"sourceText\": \"avant et après\"\n        }\n      ],\n      \"candidatePointer\": \"items[element:241c1807f23bb908ac1d]\",\n      \"auditJudgment\": \"NEW\",\n      \"rationale\": \"Timing constraints (before and after chemoradiotherapy) are present in the text but not represented as explicit TIMING elements.\",\n      \"severity\": \"MINOR\",\n      \"resolutionOwner\": \"SEM_AUDIT_L\",\n      \"confidence\": 0.9,\n      \"status\": \"OPEN\",\n      \"origin\": \"SEM_AUDIT_L\",\n      \"structuralOnly\": false,\n      \"confirmsFindingIds\": []\n    }\n  ]\n}",
+              "thoughtSignature": "El4KXAERTTIPapMWHNonv3NPmc3tOnwchZu9yiGTFiam+8YkJ5tuR3IBFUFc04oC8UAeWHvj/7a7Jx2Y3XfVql40bZtCz8gy3vMu7O38SzgBAxCy+8db8MdHsr3JuoFX"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "modelVersion": "gemini-3.5-flash-lite",
+    "responseId": "n1J_atf7M_TonsEP_rmNSA",
+    "usageMetadata": {
+      "candidatesTokenCount": 436,
+      "promptTokenCount": 5196,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 5196
+        }
+      ],
+      "serviceTier": "standard",
+      "totalTokenCount": 5632
+    }
+  },
+  "requestNumber": 29,
+  "requestPayloadDigest": "00cd0de0f3d2fbcaae04542ea37719c8f069a612c8b146f4d923d92a92955397",
+  "role": "SEMANTIC_AUDITOR",
+  "scenario": "I05",
+  "schemaDigest": "fc59a9f9be391a8234c2761d4621b2bc14955e084753aa54b2e0b54521bb6df9",
+  "schemaVersion": "SEM_AUDIT_L_BATCH_0.1.0-experimental",
+  "temperature": null,
+  "turn": "T0",
+  "validationCompletedAt": "2026-08-14T17:38:41.530Z",
+  "validationErrors": []
+}

@@ -1,0 +1,365 @@
+{
+  "configuration": "PYDANTIC_TYPED_ADJUDICATOR",
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "model": "gemini-3.5-flash-lite",
+  "operationKey": "HYBRID-RUNTIME-PROTOTYPE-01:I05:T0:ADJUDICATOR",
+  "parseResult": "STRUCTURED_CONTRACT_FAILURE",
+  "promptDigest": "e0f6888060ac457342434391a141d08fe9fb7210faefdc4523e5e85def776749",
+  "promptVersion": "HYBRID-ADJUDICATOR-PYDANTIC-0.1.0-experimental",
+  "provider": "GOOGLE_GEMINI",
+  "providerStartedAt": "2026-08-14T17:38:41.562861Z",
+  "rawDigest": "82896c5599a97dcbaa359daf8559e847cfb2e5ff864496a1e48e327e6ecbcd7d",
+  "rawPersistedAt": "2026-08-14T17:38:42.250811Z",
+  "rawResponse": {
+    "exception": "status_code: 400, model_name: gemini-3.5-flash-lite, body: {'error': {'code': 400, 'message': 'Request contains an invalid argument.', 'status': 'INVALID_ARGUMENT'}}",
+    "exceptionType": "ModelHTTPError",
+    "kind": "PROVIDER_EXCEPTION"
+  },
+  "requestNumber": 30,
+  "requestPayload": {
+    "confirmedDecisions": [],
+    "conversation": [
+      {
+        "content": "On a une IRM avant et après radiochimiothérapie. Je veux savoir si ça change et si ça prédit la récidive. Ceux qui n'ont pas la seconde, on en fait quoi ?",
+        "role": "USER",
+        "turnId": "T0"
+      }
+    ],
+    "deterministicFindings": [],
+    "immutablePrimaryCandidate": {
+      "adjudicationStatus": "NOT_REQUIRED",
+      "ambiguities": [],
+      "auditStatus": "NOT_RUN",
+      "clarificationNeeds": [],
+      "contextInputs": [],
+      "contextualCandidates": [],
+      "correctionsAndSupersessions": [],
+      "explicitStatements": [
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "On a une IRM avant et après radiochimiothérapie.",
+          "decisionId": null,
+          "elementId": "element:3655b36ec674fd80ce63",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:31002250f7dedda97a72",
+          "semanticType": "STATEMENT",
+          "sourceText": "On a une IRM avant et efter radiochimiothérapie.",
+          "sourceTurnIds": [
+            "T0"
+          ],
+          "studyRole": "BACKGROUND",
+          "temporalContext": null
+        },
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "Je veux savoir si ça change et si ça prédit la récidive.",
+          "decisionId": null,
+          "elementId": "element:e40c90b2f59a499b0774",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:f6133cbf31cbb2d065f7",
+          "semanticType": "STATEMENT",
+          "sourceText": "Je veux savoir si ça change et si ça prédit la récidive.",
+          "sourceTurnIds": [
+            "T0"
+          ],
+          "studyRole": "OBJECTIVE",
+          "temporalContext": null
+        },
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "Ceux qui n'ont pas la seconde, on en fait quoi ?",
+          "decisionId": null,
+          "elementId": "element:509f56f2985a1ca9bea5",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:957f17c8c4a48ca324ab",
+          "semanticType": "STATEMENT",
+          "sourceText": "Ceux qui n'ont pas la seconde, on en fait quoi ?",
+          "sourceTurnIds": [
+            "T0"
+          ],
+          "studyRole": "QUESTION",
+          "temporalContext": null
+        }
+      ],
+      "identity": {
+        "conversationId": "HYBRID-I05",
+        "generatedAt": "2026-08-14T17:38:39.312309Z",
+        "previousStateId": null,
+        "runtimeIdentity": {
+          "configurationDigest": "ffe6c51e69a3c56e82af225703c43989b8d8a36822e322cf107c31c3c7ac8542",
+          "model": "gemini-3.5-flash-lite",
+          "promptDigest": "dfca464950d208f3146ec48cd75d876b07cfcc21b5161d8e835bb77fcdaf30e4",
+          "provider": "GOOGLE_GEMINI",
+          "runtimeId": "PYDANTIC_AI_DIRECT",
+          "runtimeVersion": "0.1.0-experimental",
+          "schemaDigest": "a8555b9478aa05f95128a696beb99fcd7eee17ee7480b1101fdc29e85fefa906"
+        },
+        "stateId": "HCS-9c4ff449bd65fa4b1bc7ca31",
+        "version": "0.1.0-experimental"
+      },
+      "inferredContext": [],
+      "missingInformation": [
+        {
+          "blocking": true,
+          "content": "Gestion des patients n'ayant pas la seconde IRM",
+          "decisionalImpact": "HIGH",
+          "epistemicStatus": "UNKNOWN",
+          "missingId": "M0",
+          "owner": "USER",
+          "sourceText": "Ceux qui n'ont pas la seconde, on en fait quoi ?",
+          "sourceTurnIds": [
+            "T0"
+          ]
+        }
+      ],
+      "negationsAndConstraints": [],
+      "objects": [
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "IRM avant radiochimiothérapie",
+          "decisionId": null,
+          "elementId": "element:241c1807f23bb908ac1d",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:5697cbb03d7925f68cc7",
+          "semanticType": "BIOMARKER",
+          "sourceText": "une IRM avant et après radiochimiothérapie",
+          "sourceTurnIds": [
+            "T0"
+          ],
+          "studyRole": "VARIABLE",
+          "temporalContext": null
+        },
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "IRM après radiochimiothérapie",
+          "decisionId": null,
+          "elementId": "element:241c1807f23bb908ac1d",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:5697cbb03d7925f68cc7",
+          "semanticType": "BIOMARKER",
+          "sourceText": "une IRM avant et après radiochimiothérapie",
+          "sourceTurnIds": [
+            "T0"
+          ],
+          "studyRole": "VARIABLE",
+          "temporalContext": null
+        },
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "Récidive",
+          "decisionId": null,
+          "elementId": "element:8a67505652a2e7e02e22",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:59c0e4c694be7a0fd748",
+          "semanticType": "ENDPOINT",
+          "sourceText": "si ça prédit la récidive",
+          "sourceTurnIds": [
+            "T0"
+          ],
+          "studyRole": "ENDPOINT",
+          "temporalContext": null
+        }
+      ],
+      "openDecisions": [],
+      "ownershipAndEpistemicStates": [
+        {
+          "content": "On a une IRM avant et après radiochimiothérapie.",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "ownership": "USER",
+          "sourceText": null,
+          "sourceTurnIds": [],
+          "statementId": "S0"
+        },
+        {
+          "content": "Je veux savoir si ça change et si ça prédit la récidive.",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "ownership": "USER",
+          "sourceText": null,
+          "sourceTurnIds": [],
+          "statementId": "S1"
+        },
+        {
+          "content": "Ceux qui n'ont pas la seconde, on en fait quoi ?",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "ownership": "USER",
+          "sourceText": null,
+          "sourceTurnIds": [],
+          "statementId": "S2"
+        }
+      ],
+      "relations": [
+        {
+          "activeState": true,
+          "confidence": null,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousRelationIds": [],
+          "relationId": "relation:87e8d6dac99a2b7bbdef",
+          "relationType": "PREDICTS",
+          "sourceElementId": "element:241c1807f23bb908ac1d",
+          "sourceText": "si ça prédit la récidive",
+          "sourceTurnIds": [
+            "T0"
+          ],
+          "targetElementId": "element:8a67505652a2e7e02e22",
+          "temporalContext": null
+        }
+      ],
+      "source": {
+        "originalRequest": "On a une IRM avant et après radiochimiothérapie. Je veux savoir si ça change et si ça prédit la récidive. Ceux qui n'ont pas la seconde, on en fait quoi ?",
+        "rawOutputRef": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/experiments/engine-lab/results/hybrid-runtime-prototype-01/raw/request-0028-primary-i05-t0.json",
+        "turns": [
+          {
+            "content": "On a une IRM avant et après radiochimiothérapie. Je veux savoir si ça change et si ça prédit la récidive. Ceux qui n'ont pas la seconde, on en fait quoi ?",
+            "role": "USER",
+            "turnId": "T0"
+          }
+        ]
+      },
+      "technicalStatus": "STRUCTURED_CONTRACT_VALID",
+      "temporalElements": [],
+      "understanding": {
+        "normalizedUnderstanding": "L'utilisateur dispose d'IRM avant et après radiochimiothérapie, souhaite étudier leur évolution et leur valeur prédictive de la récidive, et pose la question de la prise en charge des patients ne disposant pas de la seconde IRM.",
+        "scientificGoalCandidates": [
+          "Évaluer la valeur prédictive de la variation des IRM avant et après radiochimiothérapie sur la récidive"
+        ],
+        "studyIntentCandidates": [
+          "Analyse longitudinale de l'IRM en lien avec la récidive"
+        ]
+      },
+      "unknowns": [
+        {
+          "blocking": true,
+          "content": "Gestion des patients n'ayant pas la seconde IRM",
+          "decisionalImpact": "HIGH",
+          "epistemicStatus": "UNKNOWN",
+          "missingId": "M0",
+          "owner": "USER",
+          "sourceText": "Ceux qui n'ont pas la seconde, on en fait quoi ?",
+          "sourceTurnIds": [
+            "T0"
+          ]
+        }
+      ]
+    },
+    "previousState": null,
+    "semanticAuditFindings": [
+      {
+        "auditJudgment": "NEW",
+        "candidatePointer": "items[element:241c1807f23bb908ac1d]",
+        "confidence": 0.95,
+        "confirmsFindingIds": [],
+        "findingClass": "SEMANTIC_GAP",
+        "findingId": "finding-01",
+        "origin": "SEM_AUDIT_L",
+        "rationale": "Radiochimiothérapie is an explicit intervention present in the text but omitted as a distinct typed element in the primary candidate.",
+        "resolutionOwner": "SEM_AUDIT_L",
+        "severity": "MAJOR",
+        "sourceEvidence": [
+          {
+            "sourceText": "On a une IRM avant et après radiochimiothérapie.",
+            "turnId": "T0"
+          }
+        ],
+        "status": "OPEN",
+        "structuralOnly": false
+      },
+      {
+        "auditJudgment": "NEW",
+        "candidatePointer": "items[element:241c1807f23bb908ac1d]",
+        "confidence": 0.9,
+        "confirmsFindingIds": [],
+        "findingClass": "SEMANTIC_GAP",
+        "findingId": "finding-02",
+        "origin": "SEM_AUDIT_L",
+        "rationale": "Timing constraints (before and after chemoradiotherapy) are present in the text but not represented as explicit TIMING elements.",
+        "resolutionOwner": "SEM_AUDIT_L",
+        "severity": "MINOR",
+        "sourceEvidence": [
+          {
+            "sourceText": "avant et après",
+            "turnId": "T0"
+          }
+        ],
+        "status": "OPEN",
+        "structuralOnly": false
+      }
+    ]
+  },
+  "requestPayloadDigest": "505997d26eded42b9fd538b796917dc81313b9505d3a6aff0bb3159e86b81c42",
+  "role": "SEMANTIC_ADJUDICATOR",
+  "scenario": "I05",
+  "schemaDigest": "6d1f03697aa2f97e2e0e5d527ea04ac769cfad0b4ee8e71885d2f2a5af31fb34",
+  "schemaVersion": "SEMANTIC_ADJUDICATION_OUTPUT_0.1.0-experimental",
+  "temperature": null,
+  "turn": "T0",
+  "validationCompletedAt": "2026-08-14T17:38:42.254010Z",
+  "validationErrors": [
+    {
+      "errorType": "ModelHTTPError",
+      "message": "status_code: 400, model_name: gemini-3.5-flash-lite, body: {'error': {'code': 400, 'message': 'Request contains an invalid argument.', 'status': 'INVALID_ARGUMENT'}}"
+    }
+  ]
+}

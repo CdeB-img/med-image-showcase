@@ -1,0 +1,242 @@
+{
+  "candidateStateRef": "HCS-86e18e0057bad91909bb4004",
+  "configuration": "PYDANTIC_PRIMARY",
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "model": "gemini-3.5-flash-lite",
+  "operationKey": "HYBRID-RUNTIME-PROTOTYPE-01:I01:T0:PRIMARY",
+  "parseResult": "VALID",
+  "promptDigest": "dfca464950d208f3146ec48cd75d876b07cfcc21b5161d8e835bb77fcdaf30e4",
+  "promptVersion": "HYBRID-PRIMARY-PYDANTIC-0.1.0-experimental",
+  "provider": "GOOGLE_GEMINI",
+  "providerStartedAt": "2026-08-14T17:36:05.856721Z",
+  "rawDigest": "8866ff07a6fb2e12a07dda831b583017562512cf3bce0aad485b46ecd2bf0972",
+  "rawPersistedAt": "2026-08-14T17:36:08.717057Z",
+  "rawResponse": {
+    "kind": "PROVIDER_RESPONSE",
+    "response": {
+      "automaticFunctionCallingHistory": null,
+      "candidates": [
+        {
+          "avgLogprobs": null,
+          "citationMetadata": null,
+          "content": {
+            "parts": [
+              {
+                "audioTranscription": null,
+                "codeExecutionResult": null,
+                "executableCode": null,
+                "fileData": null,
+                "functionCall": {
+                  "args": {
+                    "ambiguities": [],
+                    "clarificationNeeds": [],
+                    "contextualCandidates": [],
+                    "correctionsAndSupersessions": [],
+                    "explicitStatements": [
+                      {
+                        "activeState": true,
+                        "content": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+                        "elementId": "E0",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "semanticType": "GOAL",
+                        "sourceText": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "PRIMARY_GOAL"
+                      }
+                    ],
+                    "inferredContext": [],
+                    "missingInformation": [],
+                    "negationsAndConstraints": [],
+                    "normalizedUnderstanding": "User wants to compare immediate stenting with deferred stenting in myocardial infarction and evaluate lesions using MRI.",
+                    "objects": [
+                      {
+                        "activeState": true,
+                        "content": "stent immédiat",
+                        "elementId": "O0",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "semanticType": "INTERVENTION",
+                        "sourceText": "stent immédiat",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "INTERVENTION_ARM"
+                      },
+                      {
+                        "activeState": true,
+                        "content": "stent différé",
+                        "elementId": "O1",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "semanticType": "INTERVENTION",
+                        "sourceText": "stent différé",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "COMPARATOR_ARM"
+                      },
+                      {
+                        "activeState": true,
+                        "content": "infarctus",
+                        "elementId": "O2",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "semanticType": "CONDITION",
+                        "sourceText": "infarctus",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "POPULATION_CONDITION"
+                      },
+                      {
+                        "activeState": true,
+                        "content": "lésions en IRM",
+                        "elementId": "O3",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "semanticType": "OUTCOME",
+                        "sourceText": "lésions en IRM",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "OUTCOME_MEASURE"
+                      }
+                    ],
+                    "openDecisions": [],
+                    "ownershipAndEpistemicStates": [
+                      {
+                        "content": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "sourceText": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "statementId": "S0"
+                      }
+                    ],
+                    "relations": [
+                      {
+                        "activeState": true,
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "relationId": "R0",
+                        "relationType": "COMPARES",
+                        "sourceElementId": "O0",
+                        "sourceText": "comparer le stent immédiat au stent différé",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "targetElementId": "O1"
+                      }
+                    ],
+                    "scientificGoalCandidates": [
+                      "Comparer le stent immédiat et le stent différé dans l'infarctus avec évaluation des lésions par IRM"
+                    ],
+                    "studyIntentCandidates": [],
+                    "temporalElements": [],
+                    "unknowns": []
+                  },
+                  "id": "call_239787",
+                  "name": "final_result",
+                  "partialArgs": null,
+                  "willContinue": null
+                },
+                "functionResponse": null,
+                "inlineData": null,
+                "mediaResolution": null,
+                "partMetadata": null,
+                "text": null,
+                "thought": null,
+                "thoughtSignature": "El4KXAERTTIPRcee4XBEzgD-2e55su6auVszTew1l7nYNNiXTQZVcxjGcgrlh4d0k759qm1VGqgyzCbKTZvOvlfCn6u67k6PVIYObh4amKjpVp9L-TGlViAT71LYrirU",
+                "toolCall": null,
+                "toolResponse": null,
+                "videoMetadata": null
+              }
+            ],
+            "role": "model"
+          },
+          "finishMessage": null,
+          "finishReason": "STOP",
+          "groundingMetadata": null,
+          "index": 0,
+          "logprobsResult": null,
+          "safetyRatings": null,
+          "tokenCount": null,
+          "urlContextMetadata": null
+        }
+      ],
+      "createTime": null,
+      "modelStatus": null,
+      "modelVersion": "gemini-3.5-flash-lite",
+      "parsed": null,
+      "promptFeedback": null,
+      "responseId": "BlJ_arLlE5bFvdIPsfeD4QE",
+      "sdkHttpResponse": {
+        "body": null,
+        "headers": {
+          "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+          "content-encoding": "gzip",
+          "content-type": "application/json; charset=UTF-8",
+          "date": "Fri, 14 Aug 2026 17:36:08 GMT",
+          "server": "scaffolding on HTTPServer2",
+          "server-timing": "gfet4t7; dur=2710",
+          "transfer-encoding": "chunked",
+          "vary": "Origin, X-Origin, Referer",
+          "x-content-type-options": "nosniff",
+          "x-frame-options": "SAMEORIGIN",
+          "x-gemini-service-tier": "standard",
+          "x-xss-protection": "0"
+        }
+      },
+      "usageMetadata": {
+        "cacheTokensDetails": null,
+        "cachedContentTokenCount": null,
+        "candidatesTokenCount": 822,
+        "candidatesTokensDetails": null,
+        "promptTokenCount": 5251,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 5251
+          }
+        ],
+        "thoughtsTokenCount": null,
+        "toolUsePromptTokenCount": null,
+        "toolUsePromptTokensDetails": null,
+        "totalTokenCount": 6073,
+        "trafficType": null
+      }
+    }
+  },
+  "requestNumber": 1,
+  "requestPayload": {
+    "contextInputs": [],
+    "conversation": [
+      {
+        "content": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "role": "USER",
+        "turnId": "T0"
+      }
+    ],
+    "previousCandidateState": null
+  },
+  "requestPayloadDigest": "64de108ceee813ee59294d79e50d1f225a3d1884136cf53413ff8c1fd4f27e65",
+  "role": "PRIMARY_INTERPRETER",
+  "scenario": "I01",
+  "schemaDigest": "a8555b9478aa05f95128a696beb99fcd7eee17ee7480b1101fdc29e85fefa906",
+  "schemaVersion": "PRIMARY_SCIENTIFIC_INTERPRETATION_0.1.0-experimental",
+  "temperature": null,
+  "turn": "T0",
+  "validationCompletedAt": "2026-08-14T17:36:08.730075Z",
+  "validationErrors": []
+}

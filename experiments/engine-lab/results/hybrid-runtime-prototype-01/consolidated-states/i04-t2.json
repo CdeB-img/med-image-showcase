@@ -1,0 +1,554 @@
+{
+  "consolidated": {
+    "adjudicationResolutions": [],
+    "candidateState": {
+      "adjudicationStatus": "NOT_REQUIRED",
+      "ambiguities": [],
+      "auditStatus": "NOT_RUN",
+      "clarificationNeeds": [],
+      "contextInputs": [],
+      "contextualCandidates": [],
+      "correctionsAndSupersessions": [],
+      "explicitStatements": [
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible.",
+          "decisionId": null,
+          "elementId": "element:bb9da708c41ff6fcd517",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:ed774d2f88f1455cf3ce",
+          "semanticType": "GOAL",
+          "sourceText": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible.",
+          "sourceTurnIds": [
+            "T0"
+          ],
+          "studyRole": "PRIMARY_INTENT",
+          "temporalContext": null
+        },
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "Tous les centres ont cine et T1 natif. Non, le T2 n'est pas disponible partout.",
+          "decisionId": null,
+          "elementId": "element:1f9061cd0055c741cafd",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:r1_statement_1",
+          "semanticType": "STATEMENT",
+          "sourceText": "Tous les centres ont cine et T1 natif. Non, le T2 n'est pas disponible partout.",
+          "sourceTurnIds": [
+            "R1"
+          ],
+          "studyRole": "CONTEXT",
+          "temporalContext": null
+        },
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "LGE n'est pas disponible partout non plus et je ne veux pas en faire le critère principal. L'ECV est possible seulement si contraste et hématocrite sont disponibles.",
+          "decisionId": null,
+          "elementId": "element:d6602faa2842547ec64d",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:r2_statement_1",
+          "semanticType": "STATEMENT",
+          "sourceText": "LGE n'est pas disponible partout non plus et je ne veux pas en faire le critère principal. L'ECV est possible seulement si contraste et hématocrite sont disponibles.",
+          "sourceTurnIds": [
+            "R2"
+          ],
+          "studyRole": "CONTEXT",
+          "temporalContext": null
+        }
+      ],
+      "identity": {
+        "conversationId": "HYBRID-I04",
+        "generatedAt": "2026-08-14T17:38:34.613389Z",
+        "previousStateId": "HCS-e7eef369fffe497dabe48aac",
+        "runtimeIdentity": {
+          "configurationDigest": "ffe6c51e69a3c56e82af225703c43989b8d8a36822e322cf107c31c3c7ac8542",
+          "model": "gemini-3.5-flash-lite",
+          "promptDigest": "dfca464950d208f3146ec48cd75d876b07cfcc21b5161d8e835bb77fcdaf30e4",
+          "provider": "GOOGLE_GEMINI",
+          "runtimeId": "PYDANTIC_AI_DIRECT",
+          "runtimeVersion": "0.1.0-experimental",
+          "schemaDigest": "a8555b9478aa05f95128a696beb99fcd7eee17ee7480b1101fdc29e85fefa906"
+        },
+        "stateId": "HCS-40ae76c6bfc0b8fac59ca009",
+        "version": "0.1.0-experimental"
+      },
+      "inferredContext": [],
+      "missingInformation": [],
+      "negationsAndConstraints": [
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "le T2 n'est pas disponible partout",
+          "decisionId": null,
+          "elementId": "element:44eb3a03bd0b864e4103",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "NEGATED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:r1_neg_1",
+          "semanticType": "METHOD",
+          "sourceText": "le T2 n'est pas disponible partout.",
+          "sourceTurnIds": [
+            "R1"
+          ],
+          "studyRole": "CONSTRAINT",
+          "temporalContext": null
+        },
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "LGE n'est pas disponible partout non plus et je ne veux pas en faire le critère principal",
+          "decisionId": null,
+          "elementId": "element:8546bdc3ac8e5e48db49",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "NEGATED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:r2_neg_lge",
+          "semanticType": "METHOD",
+          "sourceText": "LGE n'est pas disponible partout non plus et je ne veux pas en faire le critère principal.",
+          "sourceTurnIds": [
+            "R2"
+          ],
+          "studyRole": "CONSTRAINT",
+          "temporalContext": null
+        }
+      ],
+      "objects": [
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "atteinte cardiaque précoce dans Fabry avant la fibrose visible",
+          "decisionId": null,
+          "elementId": "element:bed2d6800b4160583d00",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:e60cf45847c49dac5047",
+          "semanticType": "CLINICAL_CONDITION",
+          "sourceText": "l'atteinte cardiaque précoce dans Fabry avant la fibrose visible",
+          "sourceTurnIds": [
+            "T0"
+          ],
+          "studyRole": "TARGET",
+          "temporalContext": null
+        },
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "plusieurs centres",
+          "decisionId": null,
+          "elementId": "element:05e77621b6eb073a9295",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:dac50e8cde253111e6e5",
+          "semanticType": "STUDY_SETTING",
+          "sourceText": "plusieurs centres",
+          "sourceTurnIds": [
+            "T0"
+          ],
+          "studyRole": "SETTING",
+          "temporalContext": null
+        },
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "cine",
+          "decisionId": null,
+          "elementId": "element:98052239a096ee1943da",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:r1_obj_cine",
+          "semanticType": "METHOD",
+          "sourceText": "cine",
+          "sourceTurnIds": [
+            "R1"
+          ],
+          "studyRole": "METHOD",
+          "temporalContext": null
+        },
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "T1 natif",
+          "decisionId": null,
+          "elementId": "element:1a19171e63c7e31430bd",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:r1_obj_t1",
+          "semanticType": "METHOD",
+          "sourceText": "T1 natif",
+          "sourceTurnIds": [
+            "R1"
+          ],
+          "studyRole": "METHOD",
+          "temporalContext": null
+        },
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "T2",
+          "decisionId": null,
+          "elementId": "element:b4d4a9e27ed3ae18463a",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "NEGATED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:r1_obj_t2",
+          "semanticType": "METHOD",
+          "sourceText": "T2",
+          "sourceTurnIds": [
+            "R1"
+          ],
+          "studyRole": "METHOD",
+          "temporalContext": null
+        },
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "LGE",
+          "decisionId": null,
+          "elementId": "element:d204f9e68393ead4db83",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "NEGATED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:r2_obj_lge",
+          "semanticType": "METHOD",
+          "sourceText": "LGE",
+          "sourceTurnIds": [
+            "R2"
+          ],
+          "studyRole": "METHOD",
+          "temporalContext": null
+        },
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "ECV",
+          "decisionId": null,
+          "elementId": "element:f02c46c9eae2eea459e3",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:r2_obj_ecv",
+          "semanticType": "METHOD",
+          "sourceText": "ECV",
+          "sourceTurnIds": [
+            "R2"
+          ],
+          "studyRole": "METHOD",
+          "temporalContext": null
+        },
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "contraste",
+          "decisionId": null,
+          "elementId": "element:c52458d4ae40eca2e7e0",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:r2_obj_contrast",
+          "semanticType": "METHOD",
+          "sourceText": "contraste",
+          "sourceTurnIds": [
+            "R2"
+          ],
+          "studyRole": "METHOD",
+          "temporalContext": null
+        },
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "hématocrite",
+          "decisionId": null,
+          "elementId": "element:b7e685fcf70d98636390",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:r2_obj_hematocrit",
+          "semanticType": "METHOD",
+          "sourceText": "hématocrite",
+          "sourceTurnIds": [
+            "R2"
+          ],
+          "studyRole": "METHOD",
+          "temporalContext": null
+        }
+      ],
+      "openDecisions": [],
+      "ownershipAndEpistemicStates": [
+        {
+          "content": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible.",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "ownership": "USER",
+          "sourceText": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible.",
+          "sourceTurnIds": [
+            "T0"
+          ],
+          "statementId": "S0"
+        },
+        {
+          "content": "On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "ownership": "USER",
+          "sourceText": "On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+          "sourceTurnIds": [
+            "T0"
+          ],
+          "statementId": "S1"
+        },
+        {
+          "content": "Tous les centres ont cine et T1 natif. Non, le T2 n'est pas disponible partout.",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "ownership": "USER",
+          "sourceText": "Tous les centres ont cine et T1 natif. Non, le T2 n'est pas disponible partout.",
+          "sourceTurnIds": [
+            "R1"
+          ],
+          "statementId": "S2"
+        },
+        {
+          "content": "LGE n'est pas disponible partout non plus et je ne veux pas en faire le critère principal. L'ECV est possible seulement si contraste et hématocrite sont disponibles.",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "ownership": "USER",
+          "sourceText": "LGE n'est pas disponible partout non plus et je ne veux pas en faire le critère principal. L'ECV est possible seulement si contraste et hématocrite sont disponibles.",
+          "sourceTurnIds": [
+            "R2"
+          ],
+          "statementId": "S3"
+        }
+      ],
+      "relations": [
+        {
+          "activeState": true,
+          "confidence": null,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousRelationIds": [],
+          "relationId": "relation:03cecf814a42ee870425",
+          "relationType": "TARGET_POPULATION_OR_CONDITION",
+          "sourceElementId": "element:05e77621b6eb073a9295",
+          "sourceText": "On a plusieurs centres",
+          "sourceTurnIds": [
+            "T0"
+          ],
+          "targetElementId": "element:bed2d6800b4160583d00",
+          "temporalContext": null
+        },
+        {
+          "activeState": true,
+          "confidence": null,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousRelationIds": [],
+          "relationId": "relation:9fc65f942a2506ceeb90",
+          "relationType": "METHOD_AVAILABILITY",
+          "sourceElementId": "element:05e77621b6eb073a9295",
+          "sourceText": "Tous les centres ont cine et T1 natif",
+          "sourceTurnIds": [
+            "R1"
+          ],
+          "targetElementId": "element:98052239a096ee1943da",
+          "temporalContext": null
+        },
+        {
+          "activeState": true,
+          "confidence": null,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousRelationIds": [],
+          "relationId": "relation:30a4ba30c254df976b20",
+          "relationType": "METHOD_AVAILABILITY",
+          "sourceElementId": "element:05e77621b6eb073a9295",
+          "sourceText": "Tous les centres ont cine et T1 natif",
+          "sourceTurnIds": [
+            "R1"
+          ],
+          "targetElementId": "element:1a19171e63c7e31430bd",
+          "temporalContext": null
+        },
+        {
+          "activeState": true,
+          "confidence": null,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "ownership": "USER",
+          "polarity": "CONDITIONAL",
+          "previousRelationIds": [],
+          "relationId": "relation:4bc04171b7535cd3d77a",
+          "relationType": "METHOD_AVAILABILITY",
+          "sourceElementId": "element:f02c46c9eae2eea459e3",
+          "sourceText": "L'ECV est possible seulement si contraste et hématocrite sont disponibles.",
+          "sourceTurnIds": [
+            "R2"
+          ],
+          "targetElementId": "element:c52458d4ae40eca2e7e0",
+          "temporalContext": null
+        }
+      ],
+      "source": {
+        "originalRequest": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+        "rawOutputRef": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/experiments/engine-lab/results/hybrid-runtime-prototype-01/raw/request-0026-primary-i04-t2.json",
+        "turns": [
+          {
+            "content": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+            "role": "USER",
+            "turnId": "T0"
+          },
+          {
+            "content": "Tous les centres ont cine et T1 natif. Non, le T2 n'est pas disponible partout.",
+            "role": "USER",
+            "turnId": "R1"
+          },
+          {
+            "content": "LGE n'est pas disponible partout non plus et je ne veux pas en faire le critère principal. L'ECV est possible seulement si contraste et hématocrite sont disponibles.",
+            "role": "USER",
+            "turnId": "R2"
+          }
+        ]
+      },
+      "technicalStatus": "STRUCTURED_CONTRACT_VALID",
+      "temporalElements": [],
+      "understanding": {
+        "normalizedUnderstanding": "User wants to detect early cardiac involvement in Fabry disease before visible fibrosis across multiple centers. Cine and native T1 are available everywhere, whereas T2 and LGE are not available everywhere and LGE is not the main criterion. ECV requires contrast and hematocrit availability.",
+        "scientificGoalCandidates": [],
+        "studyIntentCandidates": []
+      },
+      "unknowns": []
+    },
+    "clarificationNeeds": [],
+    "consolidatedStateId": "HCCS-902ff4217e2ef2d4d0c9e761",
+    "deterministicFindingIds": [],
+    "disposition": "CANDIDATE_ACCEPTABLE",
+    "latencyMs": 9701,
+    "openDecisions": [],
+    "pipelineVersion": "0.1.0-experimental",
+    "primaryCandidateStateId": "HCS-40ae76c6bfc0b8fac59ca009",
+    "providerCalls": 2,
+    "rawOutputRef": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/experiments/engine-lab/results/hybrid-runtime-prototype-01/raw/request-0026-primary-i04-t2.json",
+    "semanticAuditFindingIds": [],
+    "unresolvedFindingIds": []
+  },
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "p0CandidateStateId": "HCS-40ae76c6bfc0b8fac59ca009",
+  "p1CandidateStateId": "HCS-40ae76c6bfc0b8fac59ca009",
+  "p2CandidateStateId": "HCS-40ae76c6bfc0b8fac59ca009",
+  "p3PrimaryCandidateStateId": "HCS-40ae76c6bfc0b8fac59ca009",
+  "primaryOutputIdentity": "HCS-40ae76c6bfc0b8fac59ca009",
+  "scenario": "I04",
+  "turn": "T2"
+}

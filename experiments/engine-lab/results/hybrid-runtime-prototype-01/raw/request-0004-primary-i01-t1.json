@@ -1,0 +1,645 @@
+{
+  "candidateStateRef": "HCS-a96df5244e8da00a6db4105a",
+  "configuration": "PYDANTIC_PRIMARY",
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "model": "gemini-3.5-flash-lite",
+  "operationKey": "HYBRID-RUNTIME-PROTOTYPE-01:I01:T1:PRIMARY",
+  "parseResult": "VALID",
+  "promptDigest": "dfca464950d208f3146ec48cd75d876b07cfcc21b5161d8e835bb77fcdaf30e4",
+  "promptVersion": "HYBRID-PRIMARY-PYDANTIC-0.1.0-experimental",
+  "provider": "GOOGLE_GEMINI",
+  "providerStartedAt": "2026-08-14T17:36:11.043138Z",
+  "rawDigest": "77450571fd2d21878cc7222676ed743919fbfdf56f90043b2160e025ae485366",
+  "rawPersistedAt": "2026-08-14T17:36:16.874614Z",
+  "rawResponse": {
+    "kind": "PROVIDER_RESPONSE",
+    "response": {
+      "automaticFunctionCallingHistory": null,
+      "candidates": [
+        {
+          "avgLogprobs": null,
+          "citationMetadata": null,
+          "content": {
+            "parts": [
+              {
+                "audioTranscription": null,
+                "codeExecutionResult": null,
+                "executableCode": null,
+                "fileData": null,
+                "functionCall": {
+                  "args": {
+                    "ambiguities": [],
+                    "clarificationNeeds": [],
+                    "contextualCandidates": [],
+                    "correctionsAndSupersessions": [],
+                    "explicitStatements": [
+                      {
+                        "activeState": true,
+                        "adoptionStatus": null,
+                        "availabilityClaim": null,
+                        "availabilityScope": null,
+                        "confidence": null,
+                        "content": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+                        "decisionId": null,
+                        "elementId": "element:70d2a45987531313d07d",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "evidenceRefs": [],
+                        "originStatus": null,
+                        "originType": null,
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "previousElementIds": [],
+                        "semanticIdentity": "semantic:0bdc1f30d795f7e07047",
+                        "semanticType": "GOAL",
+                        "sourceText": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "PRIMARY_GOAL",
+                        "temporalContext": null
+                      },
+                      {
+                        "activeState": true,
+                        "adoptionStatus": null,
+                        "availabilityClaim": null,
+                        "availabilityScope": null,
+                        "confidence": null,
+                        "content": "Oui, la lésion coupable est traitée tout de suite dans les deux groupes. Je compare les autres lésions pendant l'hospitalisation à un traitement 4–6 semaines plus tard.",
+                        "decisionId": null,
+                        "elementId": "element:r1_statement_1",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "evidenceRefs": [],
+                        "originStatus": null,
+                        "originType": null,
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "previousElementIds": [],
+                        "semanticIdentity": "semantic:r1_statement_1",
+                        "semanticType": "PROCEDURE",
+                        "sourceText": "Oui, la lésion coupable est traitée tout de suite dans les deux groupes. Je compare les autres lésions pendant l'hospitalisation à un traitement 4–6 semaines plus tard.",
+                        "sourceTurnIds": [
+                          "R1"
+                        ],
+                        "studyRole": "METHOD_DETAIL",
+                        "temporalContext": null
+                      }
+                    ],
+                    "inferredContext": [],
+                    "missingInformation": [],
+                    "negationsAndConstraints": [],
+                    "normalizedUnderstanding": "The user clarifies that the culprit lesion is treated immediately in both groups, and they are comparing the treatment of non-culprit lesions during hospitalization versus 4-6 weeks later.",
+                    "objects": [
+                      {
+                        "activeState": true,
+                        "adoptionStatus": null,
+                        "availabilityClaim": null,
+                        "availabilityScope": null,
+                        "confidence": null,
+                        "content": "stent immédiat",
+                        "decisionId": null,
+                        "elementId": "element:f7b3f5243a91413fdb71",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "evidenceRefs": [],
+                        "originStatus": null,
+                        "originType": null,
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "previousElementIds": [],
+                        "semanticIdentity": "semantic:517a63dc11bfeefa1b15",
+                        "semanticType": "INTERVENTION",
+                        "sourceText": "stent immédiat",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "INTERVENTION_ARM",
+                        "temporalContext": null
+                      },
+                      {
+                        "activeState": true,
+                        "adoptionStatus": null,
+                        "availabilityClaim": null,
+                        "availabilityScope": null,
+                        "confidence": null,
+                        "content": "stent différé",
+                        "decisionId": null,
+                        "elementId": "element:544381e06d1a5d47397e",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "evidenceRefs": [],
+                        "originStatus": null,
+                        "originType": null,
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "previousElementIds": [],
+                        "semanticIdentity": "semantic:b855e2c83d21057d4360",
+                        "semanticType": "INTERVENTION",
+                        "sourceText": "stent différé",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "COMPARATOR_ARM",
+                        "temporalContext": null
+                      },
+                      {
+                        "activeState": true,
+                        "adoptionStatus": null,
+                        "availabilityClaim": null,
+                        "availabilityScope": null,
+                        "confidence": null,
+                        "content": "infarctus",
+                        "decisionId": null,
+                        "elementId": "element:6b0388fb2b3cf3a4bd00",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "evidenceRefs": [],
+                        "originStatus": null,
+                        "originType": null,
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "previousElementIds": [],
+                        "semanticIdentity": "semantic:c9a7a1c471342c1f5d2e",
+                        "semanticType": "CONDITION",
+                        "sourceText": "infarctus",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "POPULATION_CONDITION",
+                        "temporalContext": null
+                      },
+                      {
+                        "activeState": true,
+                        "adoptionStatus": null,
+                        "availabilityClaim": null,
+                        "availabilityScope": null,
+                        "confidence": null,
+                        "content": "lésions en IRM",
+                        "decisionId": null,
+                        "elementId": "element:a012915fc31eb53b894e",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "evidenceRefs": [],
+                        "originStatus": null,
+                        "originType": null,
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "previousElementIds": [],
+                        "semanticIdentity": "semantic:15185954d3963da8e9a1",
+                        "semanticType": "OUTCOME",
+                        "sourceText": "lésions en IRM",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "studyRole": "OUTCOME_MEASURE",
+                        "temporalContext": null
+                      },
+                      {
+                        "activeState": true,
+                        "adoptionStatus": null,
+                        "availabilityClaim": null,
+                        "availabilityScope": null,
+                        "confidence": null,
+                        "content": "lésion coupable",
+                        "decisionId": null,
+                        "elementId": "element:r1_obj_culprit",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "evidenceRefs": [],
+                        "originStatus": null,
+                        "originType": null,
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "previousElementIds": [],
+                        "semanticIdentity": "semantic:r1_obj_culprit",
+                        "semanticType": "INTERVENTION",
+                        "sourceText": "lésion coupable est traitée tout de suite dans les deux groupes",
+                        "sourceTurnIds": [
+                          "R1"
+                        ],
+                        "studyRole": "PROCEDURE",
+                        "temporalContext": null
+                      },
+                      {
+                        "activeState": true,
+                        "adoptionStatus": null,
+                        "availabilityClaim": null,
+                        "availabilityScope": null,
+                        "confidence": null,
+                        "content": "autres lésions",
+                        "decisionId": null,
+                        "elementId": "element:r1_obj_other",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "evidenceRefs": [],
+                        "originStatus": null,
+                        "originType": null,
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "previousElementIds": [],
+                        "semanticIdentity": "semantic:r1_obj_other",
+                        "semanticType": "INTERVENTION",
+                        "sourceText": "autres lésions pendant l'hospitalisation à un traitement 4–6 semaines plus tard",
+                        "sourceTurnIds": [
+                          "R1"
+                        ],
+                        "studyRole": "PROCEDURE",
+                        "temporalContext": "4-6 weeks later"
+                      }
+                    ],
+                    "openDecisions": [],
+                    "ownershipAndEpistemicStates": [
+                      {
+                        "content": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "sourceText": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "statementId": "S0"
+                      },
+                      {
+                        "content": "Oui, la lésion coupable est traitée tout de suite dans les deux groupes. Je compare les autres lésions pendant l'hospitalisation à un traitement 4–6 semaines plus tard.",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "ownership": "USER",
+                        "sourceText": "Oui, la lésion coupable est traitée tout de suite dans les deux groupes. Je compare les autres lésions pendant l'hospitalisation à un traitement 4–6 semaines plus tard.",
+                        "sourceTurnIds": [
+                          "R1"
+                        ],
+                        "statementId": "S1"
+                      }
+                    ],
+                    "relations": [
+                      {
+                        "activeState": true,
+                        "confidence": null,
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "evidenceRefs": [],
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "previousRelationIds": [],
+                        "relationId": "relation:52d050b7e8f8eb8fc344",
+                        "relationType": "COMPARES",
+                        "sourceElementId": "element:f7b3f5243a91413fdb71",
+                        "sourceText": "comparer le stent immédiat au stent différé",
+                        "sourceTurnIds": [
+                          "T0"
+                        ],
+                        "targetElementId": "element:544381e06d1a5d47397e",
+                        "temporalContext": null
+                      },
+                      {
+                        "activeState": true,
+                        "confidence": null,
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "evidenceRefs": [],
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "previousRelationIds": [],
+                        "relationId": "relation:r1_rel_compare",
+                        "relationType": "COMPARES",
+                        "sourceElementId": "element:r1_obj_other",
+                        "sourceText": "Je compare les autres lésions pendant l'hospitalisation à un traitement 4–6 semaines plus tard.",
+                        "sourceTurnIds": [
+                          "R1"
+                        ],
+                        "targetElementId": "element:r1_obj_other",
+                        "temporalContext": "4-6 weeks later"
+                      }
+                    ],
+                    "scientificGoalCandidates": [
+                      "Comparer le stent immédiat et le stent différé dans l'infarctus avec évaluation des lésions par IRM"
+                    ],
+                    "studyIntentCandidates": [],
+                    "temporalElements": [
+                      {
+                        "activeState": true,
+                        "adoptionStatus": null,
+                        "availabilityClaim": null,
+                        "availabilityScope": null,
+                        "confidence": null,
+                        "content": "4–6 semaines plus tard",
+                        "decisionId": null,
+                        "elementId": "element:r1_temp_delay",
+                        "epistemicStatus": "EXPLICIT_USER_STATED",
+                        "evidenceRefs": [],
+                        "originStatus": null,
+                        "originType": null,
+                        "ownership": "USER",
+                        "polarity": "AFFIRMED",
+                        "previousElementIds": [],
+                        "semanticIdentity": "semantic:r1_temp_delay",
+                        "semanticType": "TEMPORAL",
+                        "sourceText": "4–6 semaines plus tard",
+                        "sourceTurnIds": [
+                          "R1"
+                        ],
+                        "studyRole": "TIMING",
+                        "temporalContext": "4-6 weeks later"
+                      }
+                    ],
+                    "unknowns": []
+                  },
+                  "id": "call_1105530",
+                  "name": "final_result",
+                  "partialArgs": null,
+                  "willContinue": null
+                },
+                "functionResponse": null,
+                "inlineData": null,
+                "mediaResolution": null,
+                "partMetadata": null,
+                "text": null,
+                "thought": null,
+                "thoughtSignature": "El4KXAERTTIPvyZNSkO4Y2RJCAdITnDyB3eKbClcfl5fsslmhcY_clutcLdKsi2bkfz3AmpgUMxZS57V1sbGRArO2BVD48pHnxJvjW0mN6lMSoOlHhlMOUlPa1ydd-Ti",
+                "toolCall": null,
+                "toolResponse": null,
+                "videoMetadata": null
+              }
+            ],
+            "role": "model"
+          },
+          "finishMessage": null,
+          "finishReason": "STOP",
+          "groundingMetadata": null,
+          "index": 0,
+          "logprobsResult": null,
+          "safetyRatings": null,
+          "tokenCount": null,
+          "urlContextMetadata": null
+        }
+      ],
+      "createTime": null,
+      "modelStatus": null,
+      "modelVersion": "gemini-3.5-flash-lite",
+      "parsed": null,
+      "promptFeedback": null,
+      "responseId": "C1J_atTnGLi8nsEPwanG0QI",
+      "sdkHttpResponse": {
+        "body": null,
+        "headers": {
+          "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+          "content-encoding": "gzip",
+          "content-type": "application/json; charset=UTF-8",
+          "date": "Fri, 14 Aug 2026 17:36:16 GMT",
+          "server": "scaffolding on HTTPServer2",
+          "server-timing": "gfet4t7; dur=5720",
+          "transfer-encoding": "chunked",
+          "vary": "Origin, X-Origin, Referer",
+          "x-content-type-options": "nosniff",
+          "x-frame-options": "SAMEORIGIN",
+          "x-gemini-service-tier": "standard",
+          "x-xss-protection": "0"
+        }
+      },
+      "usageMetadata": {
+        "cacheTokensDetails": null,
+        "cachedContentTokenCount": null,
+        "candidatesTokenCount": 2391,
+        "candidatesTokensDetails": null,
+        "promptTokenCount": 7723,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 7723
+          }
+        ],
+        "thoughtsTokenCount": null,
+        "toolUsePromptTokenCount": null,
+        "toolUsePromptTokensDetails": null,
+        "totalTokenCount": 10114,
+        "trafficType": null
+      }
+    }
+  },
+  "requestNumber": 4,
+  "requestPayload": {
+    "contextInputs": [],
+    "conversation": [
+      {
+        "content": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "role": "USER",
+        "turnId": "T0"
+      },
+      {
+        "content": "Oui, la lésion coupable est traitée tout de suite dans les deux groupes. Je compare les autres lésions pendant l'hospitalisation à un traitement 4–6 semaines plus tard.",
+        "role": "USER",
+        "turnId": "R1"
+      }
+    ],
+    "previousCandidateState": {
+      "adjudicationStatus": "NOT_REQUIRED",
+      "ambiguities": [],
+      "auditStatus": "NOT_RUN",
+      "clarificationNeeds": [],
+      "contextInputs": [],
+      "contextualCandidates": [],
+      "correctionsAndSupersessions": [],
+      "explicitStatements": [
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+          "decisionId": null,
+          "elementId": "element:70d2a45987531313d07d",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:0bdc1f30d795f7e07047",
+          "semanticType": "GOAL",
+          "sourceText": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+          "sourceTurnIds": [
+            "T0"
+          ],
+          "studyRole": "PRIMARY_GOAL",
+          "temporalContext": null
+        }
+      ],
+      "identity": {
+        "conversationId": "HYBRID-I01",
+        "generatedAt": "2026-08-14T17:36:08.731677Z",
+        "previousStateId": null,
+        "runtimeIdentity": {
+          "configurationDigest": "ffe6c51e69a3c56e82af225703c43989b8d8a36822e322cf107c31c3c7ac8542",
+          "model": "gemini-3.5-flash-lite",
+          "promptDigest": "dfca464950d208f3146ec48cd75d876b07cfcc21b5161d8e835bb77fcdaf30e4",
+          "provider": "GOOGLE_GEMINI",
+          "runtimeId": "PYDANTIC_AI_DIRECT",
+          "runtimeVersion": "0.1.0-experimental",
+          "schemaDigest": "a8555b9478aa05f95128a696beb99fcd7eee17ee7480b1101fdc29e85fefa906"
+        },
+        "stateId": "HCS-86e18e0057bad91909bb4004",
+        "version": "0.1.0-experimental"
+      },
+      "inferredContext": [],
+      "missingInformation": [],
+      "negationsAndConstraints": [],
+      "objects": [
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "stent immédiat",
+          "decisionId": null,
+          "elementId": "element:f7b3f5243a91413fdb71",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:517a63dc11bfeefa1b15",
+          "semanticType": "INTERVENTION",
+          "sourceText": "stent immédiat",
+          "sourceTurnIds": [
+            "T0"
+          ],
+          "studyRole": "INTERVENTION_ARM",
+          "temporalContext": null
+        },
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "stent différé",
+          "decisionId": null,
+          "elementId": "element:544381e06d1a5d47397e",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:b855e2c83d21057d4360",
+          "semanticType": "INTERVENTION",
+          "sourceText": "stent différé",
+          "sourceTurnIds": [
+            "T0"
+          ],
+          "studyRole": "COMPARATOR_ARM",
+          "temporalContext": null
+        },
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "infarctus",
+          "decisionId": null,
+          "elementId": "element:6b0388fb2b3cf3a4bd00",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:c9a7a1c471342c1f5d2e",
+          "semanticType": "CONDITION",
+          "sourceText": "infarctus",
+          "sourceTurnIds": [
+            "T0"
+          ],
+          "studyRole": "POPULATION_CONDITION",
+          "temporalContext": null
+        },
+        {
+          "activeState": true,
+          "adoptionStatus": null,
+          "availabilityClaim": null,
+          "availabilityScope": null,
+          "confidence": null,
+          "content": "lésions en IRM",
+          "decisionId": null,
+          "elementId": "element:a012915fc31eb53b894e",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "originStatus": null,
+          "originType": null,
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousElementIds": [],
+          "semanticIdentity": "semantic:15185954d3963da8e9a1",
+          "semanticType": "OUTCOME",
+          "sourceText": "lésions en IRM",
+          "sourceTurnIds": [
+            "T0"
+          ],
+          "studyRole": "OUTCOME_MEASURE",
+          "temporalContext": null
+        }
+      ],
+      "openDecisions": [],
+      "ownershipAndEpistemicStates": [
+        {
+          "content": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "ownership": "USER",
+          "sourceText": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+          "sourceTurnIds": [
+            "T0"
+          ],
+          "statementId": "S0"
+        }
+      ],
+      "relations": [
+        {
+          "activeState": true,
+          "confidence": null,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "evidenceRefs": [],
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "previousRelationIds": [],
+          "relationId": "relation:52d050b7e8f8eb8fc344",
+          "relationType": "COMPARES",
+          "sourceElementId": "element:f7b3f5243a91413fdb71",
+          "sourceText": "comparer le stent immédiat au stent différé",
+          "sourceTurnIds": [
+            "T0"
+          ],
+          "targetElementId": "element:544381e06d1a5d47397e",
+          "temporalContext": null
+        }
+      ],
+      "source": {
+        "originalRequest": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "rawOutputRef": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/experiments/engine-lab/results/hybrid-runtime-prototype-01/raw/request-0001-primary-i01-t0.json",
+        "turns": [
+          {
+            "content": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+            "role": "USER",
+            "turnId": "T0"
+          }
+        ]
+      },
+      "technicalStatus": "STRUCTURED_CONTRACT_VALID",
+      "temporalElements": [],
+      "understanding": {
+        "normalizedUnderstanding": "User wants to compare immediate stenting with deferred stenting in myocardial infarction and evaluate lesions using MRI.",
+        "scientificGoalCandidates": [
+          "Comparer le stent immédiat et le stent différé dans l'infarctus avec évaluation des lésions par IRM"
+        ],
+        "studyIntentCandidates": []
+      },
+      "unknowns": []
+    }
+  },
+  "requestPayloadDigest": "fdf13bfec9f836cffe41901152d82fcfbc530fafd890c8cd2fe35c416b26dbed",
+  "role": "PRIMARY_INTERPRETER",
+  "scenario": "I01",
+  "schemaDigest": "a8555b9478aa05f95128a696beb99fcd7eee17ee7480b1101fdc29e85fefa906",
+  "schemaVersion": "PRIMARY_SCIENTIFIC_INTERPRETATION_0.1.0-experimental",
+  "temperature": null,
+  "turn": "T1",
+  "validationCompletedAt": "2026-08-14T17:36:16.881750Z",
+  "validationErrors": []
+}

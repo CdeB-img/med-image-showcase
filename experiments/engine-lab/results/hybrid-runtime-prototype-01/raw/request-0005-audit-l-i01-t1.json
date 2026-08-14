@@ -1,0 +1,55 @@
+{
+  "configuration": "SEM_AUDIT_L",
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "httpStatus": 200,
+  "model": "gemini-3.5-flash-lite",
+  "operationKey": "HYBRID-RUNTIME-PROTOTYPE-01:I01:T1:SEM_AUDIT_L",
+  "parseResult": "VALID",
+  "promptDigest": "e90d4812be54466fc4f01eb13887cf9840a905e89d90c732a46105cd6bc89149",
+  "promptVersion": "SEM-AUDIT-L-NOXIA-SEM-SINGLE-0.1.0-experimental",
+  "provider": "GOOGLE_GEMINI",
+  "providerStartedAt": "2026-08-14T17:36:18.389Z",
+  "rawDigest": "40188896f0aca04fecf132c53d562adbe0471cb6ed228b2bbd8c27191ebb8608",
+  "rawPersistedAt": "2026-08-14T17:36:18.389Z",
+  "rawResponse": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\n  \"findings\": [\n    {\n      \"findingId\": \"SAF-4586ee83eca79f3c\",\n      \"findingClass\": \"SELF_REFERENTIAL_RELATION\",\n      \"sourceEvidence\": [\n        {\n          \"turnId\": \"R1\",\n          \"sourceText\": \"Je compare les autres lésions pendant l'hospitalisation à un traitement 4–6 semaines plus tard.\"\n        }\n      ],\n      \"candidatePointer\": \"/candidateState/relations/1\",\n      \"auditJudgment\": \"CONFIRMED\",\n      \"rationale\": \"The candidate relation points from an object to itself.\",\n      \"severity\": \"MAJOR\",\n      \"resolutionOwner\": \"SEMANTIC_RECONSTRUCTION\",\n      \"confidence\": 1.0,\n      \"status\": \"OPEN\",\n      \"origin\": \"SEM_AUDIT_L\",\n      \"structuralOnly\": true,\n      \"confirmsFindingIds\": []\n    }\n  ]\n}",
+              "thoughtSignature": "El4KXAERTTIP3PK0JewEFozkuR25y9NfLFraQZj+F2gIiEdZ7XU4ZX30JPvgk2RKqRhBL2f5XYro/VycZPBOgAtbhcwfFOpsThOmfHuUi1uwCVMXZBFI6wPu4lY7kFZM"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "modelVersion": "gemini-3.5-flash-lite",
+    "responseId": "EVJ_arPfGqmL7M8PteOp0AI",
+    "usageMetadata": {
+      "candidatesTokenCount": 222,
+      "promptTokenCount": 5990,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 5990
+        }
+      ],
+      "serviceTier": "standard",
+      "totalTokenCount": 6212
+    }
+  },
+  "requestNumber": 5,
+  "requestPayloadDigest": "f9ee31787d6f7bc5b89756a0781673dc96d552b4e360ecbfc442746ac6b98270",
+  "role": "SEMANTIC_AUDITOR",
+  "scenario": "I01",
+  "schemaDigest": "fc59a9f9be391a8234c2761d4621b2bc14955e084753aa54b2e0b54521bb6df9",
+  "schemaVersion": "SEM_AUDIT_L_BATCH_0.1.0-experimental",
+  "temperature": null,
+  "turn": "T1",
+  "validationCompletedAt": "2026-08-14T17:36:18.397Z",
+  "validationErrors": []
+}

@@ -1,0 +1,298 @@
+{
+  "ablation": "P0_PYDANTIC_DIRECT",
+  "candidateState": {
+    "adjudicationStatus": "NOT_REQUIRED",
+    "ambiguities": [],
+    "auditStatus": "NOT_RUN",
+    "clarificationNeeds": [],
+    "contextInputs": [],
+    "contextualCandidates": [],
+    "correctionsAndSupersessions": [],
+    "explicitStatements": [
+      {
+        "activeState": true,
+        "adoptionStatus": null,
+        "availabilityClaim": null,
+        "availabilityScope": null,
+        "confidence": null,
+        "content": "Je veux utiliser le TEP pour prédire la réponse à l'immunothérapie, mais pas avec le SUVmax seul.",
+        "decisionId": null,
+        "elementId": "element:3dab295ff118b7d89328",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "originStatus": null,
+        "originType": null,
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousElementIds": [],
+        "semanticIdentity": "semantic:612be7e904e837442737",
+        "semanticType": "INTENT_OR_GOAL",
+        "sourceText": "Je veux utiliser le TEP pour prédire la réponse à l'immunothérapie, mais pas avec le SUVmax seul.",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "studyRole": "PRIMARY_INTENT",
+        "temporalContext": null
+      },
+      {
+        "activeState": true,
+        "adoptionStatus": null,
+        "availabilityClaim": null,
+        "availabilityScope": null,
+        "confidence": null,
+        "content": "Le scanner est déjà fait en routine.",
+        "decisionId": null,
+        "elementId": "element:2b19207e51f41dbf240b",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "originStatus": null,
+        "originType": null,
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousElementIds": [],
+        "semanticIdentity": "semantic:c9c5a6035d669b550c48",
+        "semanticType": "CLINICAL_CONTEXT",
+        "sourceText": "Le scanner est déjà fait en routine.",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "studyRole": "CONTEXT",
+        "temporalContext": null
+      }
+    ],
+    "identity": {
+      "conversationId": "HYBRID-I03",
+      "generatedAt": "2026-08-14T17:37:28.376986Z",
+      "previousStateId": null,
+      "runtimeIdentity": {
+        "configurationDigest": "ffe6c51e69a3c56e82af225703c43989b8d8a36822e322cf107c31c3c7ac8542",
+        "model": "gemini-3.5-flash-lite",
+        "promptDigest": "dfca464950d208f3146ec48cd75d876b07cfcc21b5161d8e835bb77fcdaf30e4",
+        "provider": "GOOGLE_GEMINI",
+        "runtimeId": "PYDANTIC_AI_DIRECT",
+        "runtimeVersion": "0.1.0-experimental",
+        "schemaDigest": "a8555b9478aa05f95128a696beb99fcd7eee17ee7480b1101fdc29e85fefa906"
+      },
+      "stateId": "HCS-4fcc6d811c46f749733761f8",
+      "version": "0.1.0-experimental"
+    },
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [
+      {
+        "activeState": true,
+        "adoptionStatus": null,
+        "availabilityClaim": null,
+        "availabilityScope": null,
+        "confidence": null,
+        "content": "pas avec le SUVmax seul",
+        "decisionId": null,
+        "elementId": "element:5994bf2b8025dae4c749",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "originStatus": null,
+        "originType": null,
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "previousElementIds": [],
+        "semanticIdentity": "semantic:7ef833945ffd8603b504",
+        "semanticType": "METHOD_CONSTRAINT",
+        "sourceText": "pas avec le SUVmax seul",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "studyRole": "CONSTRAINT",
+        "temporalContext": null
+      }
+    ],
+    "objects": [
+      {
+        "activeState": true,
+        "adoptionStatus": null,
+        "availabilityClaim": null,
+        "availabilityScope": null,
+        "confidence": null,
+        "content": "TEP",
+        "decisionId": null,
+        "elementId": "element:ab5349de6d59309c2ce6",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "originStatus": null,
+        "originType": null,
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousElementIds": [],
+        "semanticIdentity": "semantic:1b66586905deea5c90a0",
+        "semanticType": "IMAGING_MODALITY",
+        "sourceText": "TEP",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "studyRole": "IMAGING_MODALITY",
+        "temporalContext": null
+      },
+      {
+        "activeState": true,
+        "adoptionStatus": null,
+        "availabilityClaim": null,
+        "availabilityScope": null,
+        "confidence": null,
+        "content": "immunothérapie",
+        "decisionId": null,
+        "elementId": "element:946666d06c4e3c1f2a19",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "originStatus": null,
+        "originType": null,
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousElementIds": [],
+        "semanticIdentity": "semantic:a24bb58f87eb23f1ce7f",
+        "semanticType": "TREATMENT",
+        "sourceText": "l'immunothérapie",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "studyRole": "TREATMENT",
+        "temporalContext": null
+      },
+      {
+        "activeState": true,
+        "adoptionStatus": null,
+        "availabilityClaim": null,
+        "availabilityScope": null,
+        "confidence": null,
+        "content": "SUVmax",
+        "decisionId": null,
+        "elementId": "element:d98769d79a3e10af1a81",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "originStatus": null,
+        "originType": null,
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "previousElementIds": [],
+        "semanticIdentity": "semantic:23a71441d47924ff5b9b",
+        "semanticType": "BIOMARKER",
+        "sourceText": "SUVmax",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "studyRole": "BIOMARKER_CANDIDATE",
+        "temporalContext": null
+      },
+      {
+        "activeState": true,
+        "adoptionStatus": null,
+        "availabilityClaim": null,
+        "availabilityScope": null,
+        "confidence": null,
+        "content": "scanner",
+        "decisionId": null,
+        "elementId": "element:e1f413e003eb0a5ef0d1",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "originStatus": null,
+        "originType": null,
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousElementIds": [],
+        "semanticIdentity": "semantic:74d9bfd2d6a37c4b352d",
+        "semanticType": "IMAGING_MODALITY",
+        "sourceText": "Le scanner",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "studyRole": "ROUTINE_IMAGING",
+        "temporalContext": null
+      }
+    ],
+    "openDecisions": [],
+    "ownershipAndEpistemicStates": [
+      {
+        "content": "Je veux utiliser le TEP pour prédire la réponse à l'immunothérapie, mais pas avec le SUVmax seul.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "ownership": "USER",
+        "sourceText": "Je veux utiliser le TEP pour prédire la réponse à l'immunothérapie, mais pas avec le SUVmax seul.",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "statementId": "stmt_0"
+      },
+      {
+        "content": "Le scanner est déjà fait en routine.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "ownership": "USER",
+        "sourceText": "Le scanner est déjà fait en routine.",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "statementId": "stmt_1"
+      }
+    ],
+    "relations": [
+      {
+        "activeState": true,
+        "confidence": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "previousRelationIds": [],
+        "relationId": "relation:e491622723dbd7530a3f",
+        "relationType": "PREDICTION",
+        "sourceElementId": "element:ab5349de6d59309c2ce6",
+        "sourceText": "utiliser le TEP pour prédire la réponse à l'immunothérapie",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "targetElementId": "element:946666d06c4e3c1f2a19",
+        "temporalContext": null
+      },
+      {
+        "activeState": true,
+        "confidence": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "evidenceRefs": [],
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "previousRelationIds": [],
+        "relationId": "relation:23e1f0d01151e0dfd848",
+        "relationType": "EXCLUSION",
+        "sourceElementId": "element:ab5349de6d59309c2ce6",
+        "sourceText": "pas avec le SUVmax seul",
+        "sourceTurnIds": [
+          "T0"
+        ],
+        "targetElementId": "element:d98769d79a3e10af1a81",
+        "temporalContext": null
+      }
+    ],
+    "source": {
+      "originalRequest": "Je veux utiliser le TEP pour prédire la réponse à l'immunothérapie, mais pas avec le SUVmax seul. Le scanner est déjà fait en routine.",
+      "rawOutputRef": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/experiments/engine-lab/results/hybrid-runtime-prototype-01/raw/request-0016-primary-i03-t0.json",
+      "turns": [
+        {
+          "content": "Je veux utiliser le TEP pour prédire la réponse à l'immunothérapie, mais pas avec le SUVmax seul. Le scanner est déjà fait en routine.",
+          "role": "USER",
+          "turnId": "T0"
+        }
+      ]
+    },
+    "technicalStatus": "STRUCTURED_CONTRACT_VALID",
+    "temporalElements": [],
+    "understanding": {
+      "normalizedUnderstanding": "The user wants to use PET to predict response to immunotherapy, explicitly excluding the use of SUVmax alone. The CT scan is already performed as part of routine practice.",
+      "scientificGoalCandidates": [],
+      "studyIntentCandidates": []
+    },
+    "unknowns": []
+  },
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "primaryLatencyMs": 3490,
+  "primaryOutputIdentity": "HCS-4fcc6d811c46f749733761f8",
+  "primaryProviderCalls": 1,
+  "rawOutputRef": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/experiments/engine-lab/results/hybrid-runtime-prototype-01/raw/request-0016-primary-i03-t0.json",
+  "scenario": "I03",
+  "turn": "T0"
+}

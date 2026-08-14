@@ -1,0 +1,39 @@
+{
+  "ablation": "P2_PYDANTIC_PLUS_AUDIT_D_PLUS_AUDIT_L",
+  "candidateMutated": false,
+  "experimentId": "HYBRID-RUNTIME-PROTOTYPE-01",
+  "finalDisposition": "SUCCESS",
+  "findings": [
+    {
+      "auditJudgment": "NEW",
+      "candidatePointer": "element:a012915fc31eb53b894e",
+      "confidence": 0.85,
+      "confirmsFindingIds": [],
+      "findingClass": "SEMANTIC_DISTORTION",
+      "findingId": "finding:audit:001",
+      "origin": "SEM_AUDIT_L",
+      "rationale": "IRM is explicitly used as an imaging modality/method to observe lesions, but the candidate classifies lesions en IRM as OUTCOME with OUTCOME_MEASURE rather than separating the method/modality from the object or checking explicit endpoint status.",
+      "resolutionOwner": "SEMANTIC_INTERPRETER",
+      "severity": "MINOR",
+      "sourceEvidence": [
+        {
+          "sourceText": "lésions en IRM",
+          "turnId": "T0"
+        }
+      ],
+      "status": "OPEN",
+      "structuralOnly": false
+    }
+  ],
+  "latencyMs": 1724,
+  "primaryOutputIdentity": "HCS-86e18e0057bad91909bb4004",
+  "providerCalls": 1,
+  "rawOutputRef": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/experiments/engine-lab/results/hybrid-runtime-prototype-01/raw/request-0002-audit-l-i01-t0.json",
+  "scenario": "I01",
+  "technicalFailure": false,
+  "triggerReasons": [
+    "CRITICAL_MILESTONE"
+  ],
+  "triggered": true,
+  "turn": "T0"
+}
